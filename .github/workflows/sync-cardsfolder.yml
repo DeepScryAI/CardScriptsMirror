@@ -1,0 +1,47 @@
+name: Sync cardsfolder from Card-Forge/forge
+
+# Keeps ./cardsfolder/ up-to-date with forge-gui/res/cardsfolder in the
+# upstream Card-Forge/forge repository.
+#
+# • Runs automatically every 6 hours.
+# • Can also be triggered manually via workflow_dispatch, optionally supplying
+#   a `from_sha` to replay upstream commits from a specific starting point
+#   (useful for testing the catch-up logic or manual recovery).
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'   # every 6 hours
+  workflow_dispatch:
+    inputs:
+      from_sha:
+        description: >
+          Start syncing from this upstream Card-Forge/forge commit SHA.
+          Leave empty to use the SHA stored in .forge-upstream-sha.
+        required: false
+        default: ''
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write   # needed to push mirrored commits back to this repo
+
+    steps:
+      - name: Checkout mirror repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure git identity
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Run sync script
+        env:
+          FROM_SHA: ${{ github.event.inputs.from_sha }}
+        run: bash scripts/sync-cardsfolder.sh
+
+      - name: Push mirrored commits
+        run: git push origin HEAD
