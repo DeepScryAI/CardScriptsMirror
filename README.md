@@ -103,4 +103,25 @@ also reference that SHA.
 
 This mirror is derivative of Card-Forge/forge; the card-script content
 retains its upstream license/ownership. See the upstream repository for
-licensing.
+authorship and history.
+
+## License & Attribution
+
+This repository is an **unofficial mirror** and is **not affiliated with,
+endorsed by, or maintained by** the Forge project.
+
+The contents of [`cardsfolder/`](./cardsfolder/) are mirrored **verbatim**
+from [Card-Forge/forge](https://github.com/Card-Forge/forge), specifically
+`forge-gui/res/cardsfolder/`. Upstream Forge is licensed under the **GNU
+General Public License, version 3.0 (GPL-3.0)**, and the `cardsfolder/`
+directory carries no separate notice, so it is covered by that GPL-3.0
+license. This repository therefore **redistributes the card scripts under the
+same GPL-3.0 license**.
+
+- Full license text: [`LICENSE`](./LICENSE) (a verbatim copy of upstream
+  Forge's `LICENSE`).
+- Attribution details: [`NOTICE`](./NOTICE).
+- Source commit provenance: `cardsfolder/.upstream-sha` (and each sync
+  commit message references the upstream commit it mirrors).
+
+`SPDX-License-Identifier: GPL-3.0-only`
