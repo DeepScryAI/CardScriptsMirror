@@ -1,0 +1,69 @@
+name: Sync cardsfolder from upstream Forge
+
+# "Tails" the upstream Card-Forge/forge repository: keeps ./cardsfolder/ in
+# this mirror byte-identical to upstream forge-gui/res/cardsfolder/.
+#
+# - Runs on a schedule (every 6 hours) and on manual dispatch.
+# - Pushes to THIS repo using the built-in GITHUB_TOKEN (no PAT/secret).
+#   The `contents: write` permission below is what lets that token push.
+
+on:
+  schedule:
+    # Every 6 hours, on the hour (UTC). Adjust cadence here if desired.
+    - cron: "0 */6 * * *"
+  workflow_dispatch:
+    inputs:
+      upstream_ref:
+        description: "Upstream ref to sync to (commit/branch/tag). Defaults to master."
+        required: false
+        default: "master"
+
+permissions:
+  contents: write
+
+concurrency:
+  # Never let two syncs race to push.
+  group: sync-cardsfolder
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout mirror repo
+        uses: actions/checkout@v4
+        with:
+          # Full checkout so we can commit + push back.
+          fetch-depth: 1
+
+      - name: Determine upstream ref
+        id: ref
+        run: |
+          REF="${{ github.event.inputs.upstream_ref }}"
+          if [ -z "$REF" ]; then REF="master"; fi
+          echo "ref=$REF" >> "$GITHUB_OUTPUT"
+
+      - name: Sync cardsfolder from upstream
+        run: |
+          chmod +x scripts/sync-cardsfolder.sh
+          scripts/sync-cardsfolder.sh "${{ steps.ref.outputs.ref }}"
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add -A cardsfolder
+
+          if git diff --cached --quiet; then
+            echo "No changes — mirror already up to date with upstream."
+            exit 0
+          fi
+
+          UP_SHA="$(cat cardsfolder/.upstream-sha)"
+          ADDED=$(git diff --cached --numstat | wc -l)
+          echo "Detected changes in $ADDED file(s); committing."
+
+          git commit -m "Sync cardsfolder to upstream Card-Forge/forge@${UP_SHA}" \
+                     -m "Mirror of forge-gui/res/cardsfolder/ at upstream ${UP_SHA}."
+          git push
