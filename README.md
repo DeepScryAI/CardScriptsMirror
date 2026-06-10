@@ -18,9 +18,10 @@ scripts without cloning the entire (large) Forge repository.
     a/ b/ c/ ... z/        (per-card .txt script files, grouped by first letter)
     rebalanced/
     upcoming/
-    .upstream-sha          (the upstream forge commit this snapshot was taken from)
-./scripts/sync-cardsfolder.sh   <- the sync logic (also used by CI)
+./.forge-upstream-sha     <- last replayed upstream forge commit (sync state)
+./scripts/sync-cardsfolder.sh   <- the history-preserving sync logic (also used by CI)
 ./.github/workflows/sync.yml    <- scheduled + manual "tail upstream" workflow
+./LICENSE  ./NOTICE        <- GPL-3.0 license + attribution (see below)
 ```
 
 Upstream `forge-gui/res/cardsfolder/<letters>` maps to mirror
@@ -34,72 +35,94 @@ A GitHub Actions workflow ([`.github/workflows/sync.yml`](./.github/workflows/sy
 
 - **Schedule:** every 6 hours (`cron: "0 */6 * * *"`).
 - **Manual:** `workflow_dispatch` (Run workflow button), with an optional
-  `upstream_ref` input to sync to a specific upstream commit/branch/tag.
+  `from_sha` input to replay upstream commits from a specific starting SHA
+  (used for catch-up testing or force-push recovery).
 
-On each run it sparse-clones upstream's `cardsfolder/`, rsyncs it into
-`./cardsfolder/` (with `--delete`, so files removed upstream are removed
-here too), and commits + pushes **only if there is a diff**. It pushes to
-this same repo using the built-in `GITHUB_TOKEN` (the workflow grants itself
-`contents: write`) — no personal access token or secret is required.
+On each run it advances `./cardsfolder/` to upstream's latest state **one
+upstream commit at a time** (see below), then pushes **only if new commits
+were produced**. It pushes to this same repo using the built-in
+`GITHUB_TOKEN` (the workflow grants itself `contents: write`) — no personal
+access token or secret is required.
 
-## Why folder-sync, not `git subtree`
+## How history is preserved
 
-The user suggested a `git subtree merge` of the single upstream folder. We
-chose a **sparse-checkout + `rsync --delete` folder-sync** instead. Tradeoffs:
+This mirror **preserves upstream commits**: every Card-Forge/forge commit that
+touches `forge-gui/res/cardsfolder/` is replayed as its own commit in this
+repo, keeping the original **author name, e-mail, and date**. So
+`git log -- cardsfolder` here shows one commit per upstream cardsfolder commit
+— the same per-commit attribution you would get from a `git subtree` merge.
 
-| | folder-sync (chosen) | git subtree |
-|---|---|---|
-| Per-upstream-commit attribution | No — flattened snapshots | Yes — preserves upstream commits |
-| Robust to upstream force-pushes / history rewrites | **Yes** — each run is a fresh snapshot, no shared history to diverge | No — subtree's recorded splits break, merges conflict |
-| Clone size / speed | Small — partial+sparse clone of one folder | Larger — needs enough upstream history to compute the subtree |
-| Handles upstream deletions | **Yes** — `rsync --delete` | Yes |
-| Implementation complexity | Low, stateless | Higher, stateful (remembers last split) |
+### Why we replay instead of running `git subtree split`
 
-Because this is an **experimental mirror and flattening history is
-explicitly acceptable**, robustness and simplicity win. The folder-sync
-treats every run as "make `./cardsfolder/` byte-identical to upstream's
-current `forge-gui/res/cardsfolder/`," which is exactly what a mirror wants
-and which cannot drift even if upstream rewrites its history.
+The goal (the user's request) is a `git subtree`-style merge that keeps
+per-upstream-commit history at `./cardsfolder/`. The textbook recipe is
+`git subtree split --prefix=forge-gui/res/cardsfolder` on a Forge clone, then
+subtree-merge the result. We achieve the **same outcome** with a lighter,
+CI-friendly mechanism, because a literal `git subtree split` does not scale
+here:
 
-### If you later want per-commit attribution (switch to subtree)
+- Forge has **70k+ commits**. `git subtree split` rewrites the *entire*
+  matching history on every run; measured locally it **does not finish within
+  several minutes** even with a warm clone — it is far worse on a cold CI
+  runner that must fault in historical blobs on demand.
+- `subtree split` is stateful and fragile across upstream force-pushes.
 
-If down the line you want each mirror commit to map to an upstream commit,
-switch to subtree roughly like this (one-time, then on a schedule):
+Instead, `scripts/sync-cardsfolder.sh`:
 
-```sh
-# One-time graft of upstream's folder history under ./cardsfolder/
-git remote add forge https://github.com/Card-Forge/forge.git
-git fetch forge master
-git read-tree --prefix=cardsfolder/ -u forge/master:forge-gui/res/cardsfolder
-git commit -m "Graft upstream cardsfolder via subtree"
+1. Keeps a **partial (`blob:none`) + sparse** clone of Forge in `/tmp` (cached
+   between CI runs via `actions/cache`). Partial clone keeps the **full commit
+   graph** — enough to `git log` and replay the path — while deferring blob
+   downloads, so only the trees we actually check out are fetched.
+2. Lists upstream commits in `(<last-synced-sha> .. master]` that touched the
+   path, oldest first.
+3. For each, checks out that upstream commit, `rsync --delete`s the folder into
+   `./cardsfolder/`, and makes a mirror commit **with the upstream author/date
+   preserved**.
+4. Records the last replayed upstream SHA in `./.forge-upstream-sha`, so the
+   next run resumes incrementally (only NEW commits are replayed — never the
+   whole history again).
 
-# On each update:
-git fetch forge master
-git merge -s subtree -Xsubtree=cardsfolder --squash forge/master
-```
+A per-run cap (`MAX_COMMITS`, default 400) drains a large backlog over several
+runs so a single CI job never times out.
 
-Note the subtree path is fragile if Card-Forge ever force-pushes `master`
-or moves the folder; the folder-sync approach is immune to both.
+> The initial/baseline commit is a single flattened snapshot (history before
+> the baseline is not reconstructed — explicitly acceptable per the project
+> brief). Everything **after** the baseline is replayed commit-by-commit.
+
+### Residual risk: upstream force-push / history rewrite
+
+If Card-Forge ever force-pushes or rebases `master` such that our stored
+`.forge-upstream-sha` is no longer present in (or no longer an ancestor of)
+upstream `master`, a clean `(last..HEAD]` range can't be computed. The sync
+script **detects this** (`cat-file -e` + `merge-base --is-ancestor`) and
+**recovers gracefully** by re-baselining: it imports the current upstream HEAD
+as one fresh flattened snapshot commit, then resumes per-commit replay from
+there. The trade-off is that the specific rewritten commits are collapsed into
+that one re-baseline commit — the mirror stays correct and never corrupts, but
+that single span loses per-commit attribution. This is the inherent cost of
+mirroring a history that upstream rewrote, and it is the main downside of the
+history-preserving approach versus the earlier stateless snapshot approach.
 
 ## Running the sync locally
 
 ```sh
-# Sync to upstream master (default):
+# Replay all new upstream commits since the stored .forge-upstream-sha:
 scripts/sync-cardsfolder.sh
 
-# Sync to a specific upstream commit/branch/tag:
-scripts/sync-cardsfolder.sh <upstream-ref>
+# Replay starting after a specific upstream SHA (catch-up / recovery):
+FROM_SHA=<upstream-sha> scripts/sync-cardsfolder.sh
 
-# Then review and commit:
-git add -A cardsfolder
-git commit -m "Sync cardsfolder to upstream <sha>"
+# The script makes the mirror commits itself (author/date preserved); just push:
+git push
 ```
 
 ## Provenance
 
-`cardsfolder/.upstream-sha` records the exact upstream `Card-Forge/forge`
-commit that the current snapshot was taken from. The sync commit messages
-also reference that SHA.
+`./.forge-upstream-sha` records the most recent upstream `Card-Forge/forge`
+commit replayed into this mirror. Every mirrored commit's message also carries
+the exact upstream SHA it came from (`forge@<short>: <subject>` plus a
+`Mirrored from Card-Forge/forge commit <full-sha>.` body line), and the
+upstream author/date are preserved on the commit itself.
 
 This mirror is derivative of Card-Forge/forge; the card-script content
 retains its upstream license/ownership. See the upstream repository for
@@ -121,7 +144,7 @@ same GPL-3.0 license**.
 - Full license text: [`LICENSE`](./LICENSE) (a verbatim copy of upstream
   Forge's `LICENSE`).
 - Attribution details: [`NOTICE`](./NOTICE).
-- Source commit provenance: `cardsfolder/.upstream-sha` (and each sync
-  commit message references the upstream commit it mirrors).
+- Source commit provenance: `./.forge-upstream-sha` (and each sync commit
+  message references the upstream commit it mirrors).
 
 `SPDX-License-Identifier: GPL-3.0-only`

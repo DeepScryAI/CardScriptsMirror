@@ -1,7 +1,9 @@
 name: Sync cardsfolder from upstream Forge
 
-# "Tails" the upstream Card-Forge/forge repository: keeps ./cardsfolder/ in
-# this mirror byte-identical to upstream forge-gui/res/cardsfolder/.
+# "Tails" the upstream Card-Forge/forge repository, PRESERVING HISTORY: each
+# upstream commit that touches forge-gui/res/cardsfolder/ is replayed as a
+# commit in this mirror (original author/date kept), then pushed. See
+# scripts/sync-cardsfolder.sh and the README ("How history is preserved").
 #
 # - Runs on a schedule (every 6 hours) and on manual dispatch.
 # - Pushes to THIS repo using the built-in GITHUB_TOKEN (no PAT/secret).
@@ -13,10 +15,13 @@ on:
     - cron: "0 */6 * * *"
   workflow_dispatch:
     inputs:
-      upstream_ref:
-        description: "Upstream ref to sync to (commit/branch/tag). Defaults to master."
+      from_sha:
+        description: >
+          Replay upstream commits starting AFTER this Card-Forge/forge SHA.
+          Leave empty to continue from the stored .forge-upstream-sha.
+          Useful for catch-up testing or force-push recovery.
         required: false
-        default: "master"
+        default: ""
 
 permissions:
   contents: write
@@ -33,37 +38,44 @@ jobs:
       - name: Checkout mirror repo
         uses: actions/checkout@v4
         with:
-          # Full checkout so we can commit + push back.
-          fetch-depth: 1
+          # FULL history: the replay appends commits onto the mirror's existing
+          # history, so we must not shallow-clone the mirror.
+          fetch-depth: 0
 
-      - name: Determine upstream ref
-        id: ref
-        run: |
-          REF="${{ github.event.inputs.upstream_ref }}"
-          if [ -z "$REF" ]; then REF="master"; fi
-          echo "ref=$REF" >> "$GITHUB_OUTPUT"
+      # Cache the partial+sparse upstream clone between runs so we don't
+      # re-clone the (large) forge repo every time. The cache key rotates daily
+      # so the cache stays warm but is periodically rebuilt; the sync script
+      # always `git fetch`es the latest master into it regardless, so a stale
+      # cache only costs an incremental fetch, never correctness.
+      - name: Restore cached upstream clone
+        id: forge-cache
+        uses: actions/cache@v4
+        with:
+          path: /tmp/forge-upstream
+          key: forge-upstream-${{ github.run_id }}
+          restore-keys: |
+            forge-upstream-
 
-      - name: Sync cardsfolder from upstream
-        run: |
-          chmod +x scripts/sync-cardsfolder.sh
-          scripts/sync-cardsfolder.sh "${{ steps.ref.outputs.ref }}"
-
-      - name: Commit and push if changed
+      - name: Configure git identity
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add -A cardsfolder
+      - name: Sync (history-preserving replay)
+        env:
+          # Empty unless a manual dispatch supplied from_sha.
+          FROM_SHA: ${{ github.event.inputs.from_sha }}
+          FORGE_DIR: /tmp/forge-upstream
+        run: |
+          chmod +x scripts/sync-cardsfolder.sh
+          scripts/sync-cardsfolder.sh
 
-          if git diff --cached --quiet; then
-            echo "No changes — mirror already up to date with upstream."
-            exit 0
+      - name: Push mirrored commits
+        run: |
+          # Push only if the replay actually produced new local commits.
+          if [ -n "$(git log origin/${GITHUB_REF_NAME}..HEAD 2>/dev/null)" ]; then
+            echo "New mirrored commits present; pushing."
+            git push origin HEAD:${GITHUB_REF_NAME}
+          else
+            echo "No new commits — mirror already up to date with upstream."
           fi
-
-          UP_SHA="$(cat cardsfolder/.upstream-sha)"
-          ADDED=$(git diff --cached --numstat | wc -l)
-          echo "Detected changes in $ADDED file(s); committing."
-
-          git commit -m "Sync cardsfolder to upstream Card-Forge/forge@${UP_SHA}" \
-                     -m "Mirror of forge-gui/res/cardsfolder/ at upstream ${UP_SHA}."
-          git push
