@@ -72,7 +72,7 @@ UPSTREAM_BRANCH="${UPSTREAM_BRANCH:-master}"
 # EXPLICIT enumerated list of mirrored folder names. Each NAME is mirrored from
 # upstream "$UPSTREAM_RES/NAME" into "./NAME" — sibling dirs at the repo root.
 # To mirror another sibling resource folder, add its name here (one place).
-MIRROR_PATHS=(cardsfolder tokenscripts puzzle tutorial)
+MIRROR_PATHS=(cardsfolder tokenscripts puzzle tutorial editions)
 
 # Upstream sub-paths (relative to repo root inside the upstream clone) used for
 # both sparse-checkout and the history-filtering `git log -- <paths>`.
