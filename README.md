@@ -3,7 +3,7 @@
 A read-only **mirror of several resource folders** from the upstream
 [Card-Forge/forge](https://github.com/Card-Forge/forge) project.
 
-It tracks four sibling directories under upstream `forge-gui/res/` and
+It tracks five sibling directories under upstream `forge-gui/res/` and
 republishes each as a same-named folder at this repo's root:
 
 | Upstream `forge-gui/res/` | Mirror | What it holds |
@@ -12,8 +12,9 @@ republishes each as a same-named folder at this repo's root:
 | `tokenscripts/` | [`./tokenscripts/`](./tokenscripts/) | ~800 token-creation scripts (required for token creation) |
 | `puzzle/`       | [`./puzzle/`](./puzzle/)             | ~360 `.pzl` puzzle fixtures (Forge puzzle corpus) |
 | `tutorial/`     | [`./tutorial/`](./tutorial/)         | the single tutorial `.pzl` |
+| `editions/`     | [`./editions/`](./editions/)         | ~680 per-set edition files (set code, release date, card list) |
 
-The four folders are **siblings** at the root, so a downstream consumer that
+The five folders are **siblings** at the root, so a downstream consumer that
 resolves `cardsfolder/../tokenscripts` (etc.) finds them next to each other.
 
 This mirror exists so downstream tooling can depend on **only** these resource
@@ -29,6 +30,7 @@ folders without cloning the entire (large) Forge repository.
 ./tokenscripts/           <- mirror of forge-gui/res/tokenscripts/
 ./puzzle/                 <- mirror of forge-gui/res/puzzle/
 ./tutorial/               <- mirror of forge-gui/res/tutorial/
+./editions/               <- mirror of forge-gui/res/editions/
 ./.forge-upstream-sha     <- last replayed upstream forge commit (sync state)
 ./scripts/sync-cardsfolder.sh   <- the history-preserving sync logic (also used by CI)
 ./.github/workflows/sync.yml    <- scheduled + manual "tail upstream" workflow
@@ -37,7 +39,7 @@ folders without cloning the entire (large) Forge repository.
 
 Each upstream `forge-gui/res/<name>/...` maps to mirror `./<name>/...`. The
 mirrored folders are deliberately at the repo root (siblings), so the root is
-NOT a pile of naked `a/ b/ c/` folders, and the four resource sets resolve
+NOT a pile of naked `a/ b/ c/` folders, and the five resource sets resolve
 relative to one another.
 
 The set of mirrored folders is an **explicit list** in
@@ -64,7 +66,7 @@ access token or secret is required.
 ## How history is preserved
 
 This mirror **preserves upstream commits**: every Card-Forge/forge commit that
-touches any mirrored path (`forge-gui/res/{cardsfolder,tokenscripts,puzzle,tutorial}/`)
+touches any mirrored path (`forge-gui/res/{cardsfolder,tokenscripts,puzzle,tutorial,editions}/`)
 is replayed as its own commit in this repo, keeping the original **author name,
 e-mail, and date** — the same per-commit attribution you would get from a
 `git subtree` merge. Each replayed commit re-snapshots ALL mirrored paths, so a
@@ -151,9 +153,10 @@ authorship and history.
 This repository is an **unofficial mirror** and is **not affiliated with,
 endorsed by, or maintained by** the Forge project.
 
-The mirrored folders (`cardsfolder/`, `tokenscripts/`, `puzzle/`, `tutorial/`)
+The mirrored folders (`cardsfolder/`, `tokenscripts/`, `puzzle/`, `tutorial/`,
+`editions/`)
 are mirrored **verbatim** from [Card-Forge/forge](https://github.com/Card-Forge/forge),
-specifically `forge-gui/res/{cardsfolder,tokenscripts,puzzle,tutorial}/`.
+specifically `forge-gui/res/{cardsfolder,tokenscripts,puzzle,tutorial,editions}/`.
 Upstream Forge is licensed under the **GNU General Public License, version 3.0
 (GPL-3.0)**, and these directories carry no separate notice, so they are
 covered by that GPL-3.0 license. This repository therefore **redistributes the
