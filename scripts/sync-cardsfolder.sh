@@ -91,9 +91,46 @@ cd "$REPO_DIR"
 # FULL commit history (so we can `git log` the paths and replay commits) while
 # deferring blob download — only the blobs we actually check out are fetched.
 # That is what makes replay cheap, where a full `git subtree split` is not.
+
+disable_eol_conversion() {
+    # Upstream Forge ships `* text=auto` at its root plus `*.txt text eol=lf`
+    # under forge-gui/res/cardsfolder/, yet some committed blobs (e.g. the
+    # `upcoming/` card scripts added in 2026-07) still contain CRLF. Git then
+    # treats every such file as permanently modified in ANY checkout of this
+    # clone: `git status` re-runs the checkin normalization, gets LF, and
+    # compares that against the CRLF blob. The replay loop's per-commit
+    # `git checkout <sha>` sees a dirty tree and aborts.
+    #
+    # In-tree .gitattributes beat core.autocrlf / core.eol, so no config
+    # setting can undo this — only an attributes override can, and
+    # $GIT_DIR/info/attributes has the HIGHEST precedence of all. `* -text`
+    # turns off text conversion entirely, so this throwaway clone checks out
+    # and reports byte-exact upstream content. It does not change what gets
+    # mirrored: `eol=lf` never rewrote bytes on checkout anyway, so the files
+    # rsynced into the mirror are identical either way.
+    #
+    # Rewritten on every run so a cached clone created before this fix existed
+    # heals itself.
+    local gitdir
+    gitdir="$(git -C "$FORGE_DIR" rev-parse --absolute-git-dir)"
+    mkdir -p "$gitdir/info"
+    printf '%s\n' '* -text' > "$gitdir/info/attributes"
+}
+
+forge_checkout() {
+    # Every checkout in $FORGE_DIR is forced: it is a disposable clone that we
+    # only ever read from, and -f keeps a stale/half-written tree from aborting
+    # the replay mid-run.
+    git -C "$FORGE_DIR" checkout -q -f "$1"
+}
+
 if [ -d "$FORGE_DIR/.git" ]; then
     echo "==> Refreshing cached upstream clone at $FORGE_DIR"
+    disable_eol_conversion
     git -C "$FORGE_DIR" fetch --filter=blob:none --quiet origin "$UPSTREAM_BRANCH"
+    # Drop any dirt left by a run that predates the override, so the branch
+    # switch below cannot abort on "local changes would be overwritten".
+    git -C "$FORGE_DIR" reset --hard --quiet
     git -C "$FORGE_DIR" checkout --quiet -B "$UPSTREAM_BRANCH" FETCH_HEAD
     git -C "$FORGE_DIR" reset --hard --quiet FETCH_HEAD
     # Ensure the sparse set covers every mirrored path (a cache made by an
@@ -102,13 +139,32 @@ if [ -d "$FORGE_DIR/.git" ]; then
 else
     echo "==> Cloning upstream $UPSTREAM_REPO (partial+sparse: ${UPSTREAM_PATHS[*]})"
     git clone --filter=blob:none --no-checkout --quiet "$UPSTREAM_REPO" "$FORGE_DIR"
+    disable_eol_conversion
     git -C "$FORGE_DIR" sparse-checkout init --cone
     git -C "$FORGE_DIR" sparse-checkout set "${UPSTREAM_PATHS[@]}"
-    git -C "$FORGE_DIR" checkout --quiet "$UPSTREAM_BRANCH"
+    forge_checkout "$UPSTREAM_BRANCH"
 fi
 UPSTREAM_HEAD="$(git -C "$FORGE_DIR" rev-parse HEAD)"
 
+# Fail loudly rather than replaying against a tree we do not fully control.
+if ! git -C "$FORGE_DIR" diff --quiet; then
+    echo "ERROR: upstream clone $FORGE_DIR is dirty after refresh; refusing to replay." >&2
+    git -C "$FORGE_DIR" status --porcelain | head -20 >&2
+    exit 1
+fi
+
 # ---- Helpers ----------------------------------------------------------------
+# --checksum is MANDATORY, not an optimisation knob. rsync's default "quick
+# check" skips a file whose size and whole-second mtime both match the
+# destination. The replay loop rewrites the upstream tree many times per
+# second, so a card script that an upstream commit edited WITHOUT changing its
+# length (e.g. "PT:2/3" -> "PT:3/3") lands in the same second as the previous
+# rsync and is silently skipped — the mirror then keeps stale content while
+# reporting success. Measured on a 113-commit replay: 10 card scripts diverged
+# from upstream exactly this way. Content comparison costs a full read of both
+# trees per commit (~40 MB, page-cached) and is worth it.
+RSYNC_OPTS=(-a --checksum --delete)
+
 apply_snapshot() {
     # Make every mirrored ./NAME/ byte-identical to upstream's
     # "$UPSTREAM_RES/NAME" at the current checked-out upstream commit.
@@ -117,8 +173,28 @@ apply_snapshot() {
     local name
     for name in "${MIRROR_PATHS[@]}"; do
         mkdir -p "$name"
-        rsync -a --delete "$FORGE_DIR/$UPSTREAM_RES/$name/" "$name/"
+        rsync "${RSYNC_OPTS[@]}" "$FORGE_DIR/$UPSTREAM_RES/$name/" "$name/"
     done
+}
+
+verify_snapshot() {
+    # Prove the claim the mirror makes: every mirrored dir is byte-identical to
+    # the upstream tree currently checked out in $FORGE_DIR. A dry run reports
+    # what a fresh sync WOULD still change; anything left is a silent-corruption
+    # bug like the mtime skip above, so fail loudly instead of pushing it.
+    # Itemize lines starting with '.' are attribute-only no-ops (e.g. a
+    # directory mtime) and are not content differences.
+    local name pending
+    for name in "${MIRROR_PATHS[@]}"; do
+        pending="$(rsync "${RSYNC_OPTS[@]}" --dry-run --itemize-changes \
+            "$FORGE_DIR/$UPSTREAM_RES/$name/" "$name/" | grep -Ev '^\.' || true)"
+        if [ -n "$pending" ]; then
+            echo "ERROR: ./$name/ does not match upstream after sync:" >&2
+            printf '%s\n' "$pending" | head -20 >&2
+            return 1
+        fi
+    done
+    echo "==> Verified: [${MIRROR_PATHS[*]}] are byte-identical to upstream."
 }
 
 stage_snapshot() {  # stage all mirrored dirs + the SHA file
@@ -172,7 +248,7 @@ fi
 # the commit only records the genuinely-new content (empty diff => no commit).
 if [ -z "$LAST_SHA" ]; then
     echo "==> Flat import of [${MIRROR_PATHS[*]}] at forge@${UPSTREAM_HEAD:0:8}"
-    git -C "$FORGE_DIR" checkout --quiet "$UPSTREAM_HEAD"
+    forge_checkout "$UPSTREAM_HEAD"
     apply_snapshot
     echo "$UPSTREAM_HEAD" > "$SHA_FILE"
     stage_snapshot
@@ -183,6 +259,7 @@ if [ -z "$LAST_SHA" ]; then
             -m "Flattened baseline of ${UPSTREAM_RES}/{$(IFS=,; echo "${MIRROR_PATHS[*]}")}/ at upstream ${UPSTREAM_HEAD}."
         echo "==> Baseline import committed."
     fi
+    verify_snapshot
     exit 0
 fi
 
@@ -198,19 +275,19 @@ TOTAL="${#COMMITS[@]}"
 # SHA so the new sibling dirs get materialized + committed once.
 if [ "$TOTAL" -eq 0 ]; then
     echo "==> No new upstream commits since ${LAST_SHA:0:8}; checking for missing mirrored paths."
-    git -C "$FORGE_DIR" checkout --quiet "$LAST_SHA" 2>/dev/null \
-        || git -C "$FORGE_DIR" checkout --quiet "$UPSTREAM_HEAD"
+    forge_checkout "$LAST_SHA" 2>/dev/null || forge_checkout "$UPSTREAM_HEAD"
     apply_snapshot
     stage_snapshot
     if git diff --staged --quiet; then
         echo "==> Already up to date (last synced ${LAST_SHA:0:8}). Nothing to do."
-        git -C "$FORGE_DIR" checkout -q "$UPSTREAM_BRANCH" 2>/dev/null || true
+        forge_checkout "$UPSTREAM_BRANCH" 2>/dev/null || true
         exit 0
     fi
     echo "==> Materializing newly-added mirrored path(s) at forge@${LAST_SHA:0:8}."
     git commit -q -m "Back-fill mirrored paths [${MIRROR_PATHS[*]}] at forge@${LAST_SHA:0:8}" \
         -m "Added sibling resource folders to the mirror at upstream ${LAST_SHA}."
-    git -C "$FORGE_DIR" checkout -q "$UPSTREAM_BRANCH" 2>/dev/null || true
+    verify_snapshot
+    forge_checkout "$UPSTREAM_BRANCH" 2>/dev/null || true
     exit 0
 fi
 
@@ -230,7 +307,7 @@ for sha in "${COMMITS[@]}"; do
     a_date=$(git -C "$FORGE_DIR" log -1 --format="%aI" "$sha")
     echo "[$N/$TOTAL] forge@${sha:0:8}: $msg"
 
-    git -C "$FORGE_DIR" checkout -q "$sha"
+    forge_checkout "$sha"
     apply_snapshot
     echo "$sha" > "$SHA_FILE"
     stage_snapshot
@@ -247,5 +324,7 @@ for sha in "${COMMITS[@]}"; do
         -m "Mirrored from Card-Forge/forge commit ${sha}."
 done
 
-git -C "$FORGE_DIR" checkout -q "$UPSTREAM_BRANCH" 2>/dev/null || true
+# Still on the last replayed commit here, which is what the mirror tip claims.
+verify_snapshot
+forge_checkout "$UPSTREAM_BRANCH" 2>/dev/null || true
 echo "==> Sync complete. Applied $N upstream commit(s)."
