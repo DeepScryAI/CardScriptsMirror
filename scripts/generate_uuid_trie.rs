@@ -740,6 +740,40 @@ fn rewrite_card_reference_parameters(line: &str, references: &[(String, CardScri
     output.join(" | ")
 }
 
+fn normalize_keyword_vocabulary(line: &str) -> String {
+    let normalized = [
+        ("First Strike", "FirstStrike"),
+        ("Double Strike", "DoubleStrike"),
+        ("Protection from red", "Protection:Red"),
+        ("Protection from blue", "Protection:Blue"),
+        ("Protection from black", "Protection:Black"),
+        ("Protection from white", "Protection:White"),
+        ("Protection from green", "Protection:Green"),
+        ("Protection from everything", "Protection:Everything"),
+        ("Protection from each color", "Protection:EachColor"),
+        (
+            "You draw cards from the bottom of your library instead of the top of your library.",
+            "DrawFromBottom",
+        ),
+    ]
+    .into_iter()
+    .fold(line.to_owned(), |text, (source, replacement)| {
+        text.replace(source, replacement)
+    });
+
+    // Forge appends a human reminder after the literal `no Condition` marker
+    // on this structured keyword. The marker itself is executable; the tail
+    // is not.
+    if normalized.starts_with("K:etbCounter:") {
+        for marker in [":no Condition:", ":no condition:"] {
+            if let Some(offset) = normalized.find(marker) {
+                return normalized[..offset + marker.len() - 1].to_owned();
+            }
+        }
+    }
+    normalized
+}
+
 fn sanitize_script(
     script: &str,
     card_id: CardScriptId,
@@ -755,6 +789,7 @@ fn sanitize_script(
         }
         let numeric = replace_named_qualifiers(line, numeric_name_refs);
         let numeric = rewrite_card_reference_parameters(&numeric, numeric_name_refs);
+        let numeric = normalize_keyword_vocabulary(&numeric);
         let sanitized = strip_display_parameters(&numeric);
         output.push_str(&sanitized);
         output.push('\n');
@@ -795,7 +830,11 @@ fn is_display_parameter(segment: &str) -> bool {
         .split_once('$')
         .map(|(key, _)| {
             let key = key.trim();
-            key.ends_with("Description") || key.ends_with("Prompt") || key.ends_with("Desc") || key == "ChoiceTitle"
+            key.ends_with("Description")
+                || key.ends_with("Prompt")
+                || key.ends_with("Desc")
+                || key.ends_with("Message")
+                || key == "ChoiceTitle"
         })
         .unwrap_or(false)
 }
@@ -961,6 +1000,26 @@ mod tests {
         assert_eq!(
             rewrite_card_reference_parameters("CopyFaceFrom:Fixture Qzx One", &references),
             "CopyFaceFromId:145"
+        );
+    }
+
+    #[test]
+    fn keyword_operands_use_non_prose_vocabulary() {
+        assert_eq!(
+            normalize_keyword_vocabulary(
+                "S:Mode$ Continuous | AddKeyword$ Flying & First Strike & Protection from red"
+            ),
+            "S:Mode$ Continuous | AddKeyword$ Flying & FirstStrike & Protection:Red"
+        );
+        assert_eq!(
+            normalize_keyword_vocabulary(
+                "S:Mode$ Continuous | AddKeyword$ You draw cards from the bottom of your library instead of the top of your library."
+            ),
+            "S:Mode$ Continuous | AddKeyword$ DrawFromBottom"
+        );
+        assert_eq!(
+            normalize_keyword_vocabulary("K:etbCounter:P1P1:X:no Condition:Human reminder sentence."),
+            "K:etbCounter:P1P1:X:no Condition"
         );
     }
 
