@@ -10,12 +10,14 @@
 //! reqwest = { version = "0.12.28", default-features = false, features = ["blocking", "json", "rustls-tls"] }
 //! serde = { version = "1.0.219", features = ["derive"] }
 //! serde_json = "1.0.143"
+//! sha2 = "0.10.9"
 //! uuid = { version = "1.18.0", features = ["serde"] }
 //! ```
 
 use anyhow::{bail, Context, Result};
 use clap::Parser;
 use serde::Serialize;
+use sha2::{Digest, Sha256};
 use std::collections::{BTreeMap, BTreeSet};
 use std::ffi::OsStr;
 use std::fs::{self, File};
@@ -99,6 +101,7 @@ impl CardScriptId {
 #[derive(Default)]
 struct CatalogIndex {
     by_oracle_id: BTreeMap<OracleId, Vec<CardScriptId>>,
+    by_name_hash: BTreeMap<String, Option<CardScriptId>>,
 }
 
 #[derive(Default)]
@@ -272,7 +275,16 @@ fn load_catalog_index(path: &Path) -> Result<CatalogIndex> {
         if name_hash.len() != 64 || !name_hash.bytes().all(|byte| byte.is_ascii_hexdigit()) {
             bail!("invalid name hash on {}:{}", path.display(), line_number + 1);
         }
-        let _ = name_hash;
+        match index.by_name_hash.entry(name_hash) {
+            std::collections::btree_map::Entry::Vacant(entry) => {
+                entry.insert(Some(CardScriptId(id)));
+            }
+            std::collections::btree_map::Entry::Occupied(mut entry) => {
+                if entry.get().is_some_and(|existing| existing.0 != id) {
+                    entry.insert(None);
+                }
+            }
+        }
         index
             .by_oracle_id
             .entry(OracleId(oracle_id))
@@ -366,6 +378,7 @@ fn generate(source: &Path, output: &Path, index: &NameIndex, catalog: &CatalogIn
         conflicting_scripts: Vec::new(),
     };
     let mut generated: BTreeMap<CardScriptId, (PathBuf, String)> = BTreeMap::new();
+    let numeric_name_refs = numeric_name_references(index, catalog);
 
     for source_path in sources {
         let source_text =
@@ -413,7 +426,7 @@ fn generate(source: &Path, output: &Path, index: &NameIndex, catalog: &CatalogIn
             };
             for &card_id in card_ids {
                 let color_identity = index.color_identities.get(&oracle_id).map(String::as_str).unwrap_or("");
-                let sanitized = sanitize_script(&source_text, card_id, color_identity);
+                let sanitized = sanitize_script(&source_text, card_id, color_identity, &numeric_name_refs);
                 if let Some((first_path, first_text)) = generated.get(&card_id) {
                     if first_text == &sanitized {
                         report.duplicate_identical_scripts += 1;
@@ -601,7 +614,58 @@ fn normalize_type_line(value: &str) -> String {
         .join(" ")
 }
 
-fn sanitize_script(script: &str, card_id: CardScriptId, color_identity: &str) -> String {
+fn numeric_name_references(index: &NameIndex, catalog: &CatalogIndex) -> Vec<(String, CardScriptId)> {
+    let mut references = Vec::new();
+    for name in index.whole_cards.keys().chain(index.faces.keys()) {
+        let hash = Sha256::digest(name.as_bytes())
+            .iter()
+            .map(|byte| format!("{byte:02x}"))
+            .collect::<String>();
+        if let Some(Some(card_id)) = catalog.by_name_hash.get(&hash) {
+            references.push((name.clone(), *card_id));
+            if name.contains(',') {
+                references.push((name.replace(',', ";"), *card_id));
+            }
+            if name.contains(' ') {
+                references.push((name.replace(' ', "_"), *card_id));
+            }
+        }
+    }
+    references.sort_unstable_by(|left, right| right.0.len().cmp(&left.0.len()).then_with(|| left.0.cmp(&right.0)));
+    references
+}
+
+fn replace_named_qualifiers(line: &str, references: &[(String, CardScriptId)]) -> String {
+    let mut output = String::with_capacity(line.len());
+    let mut remaining = line;
+    while let Some(offset) = remaining.find("named") {
+        output.push_str(&remaining[..offset]);
+        let after_marker = &remaining[offset + "named".len()..];
+        let replacement = references.iter().find(|(name, _)| {
+            after_marker.strip_prefix(name).is_some_and(|tail| {
+                tail.chars().next().is_none_or(|next| {
+                    next.is_whitespace() || matches!(next, '.' | '+' | ',' | '/' | '$' | '>' | ')' | ';')
+                })
+            })
+        });
+        if let Some((name, card_id)) = replacement {
+            output.push_str(&format!("catalogId{}", card_id.0));
+            remaining = &after_marker[name.len()..];
+        } else {
+            output.push_str("named");
+            remaining = after_marker;
+        }
+    }
+    output.push_str(remaining);
+    output
+}
+
+fn sanitize_script(
+    script: &str,
+    card_id: CardScriptId,
+    color_identity: &str,
+    numeric_name_refs: &[(String, CardScriptId)],
+) -> String {
     let mut output = String::with_capacity(script.len());
     output.push_str(&format!("Id:{}\n", card_id.0));
     output.push_str(&format!("ColorIdentity:{color_identity}\n"));
@@ -609,7 +673,8 @@ fn sanitize_script(script: &str, card_id: CardScriptId, color_identity: &str) ->
         if is_removed_top_level_field(line) {
             continue;
         }
-        let sanitized = strip_display_parameters(line);
+        let numeric = replace_named_qualifiers(line, numeric_name_refs);
+        let sanitized = strip_display_parameters(&numeric);
         output.push_str(&sanitized);
         output.push('\n');
     }
@@ -735,7 +800,7 @@ mod tests {
     fn sanitizes_a_script_without_touching_executable_fields() {
         let input = "Name:Fixture Qzx One\nManaCost:R\nTypes:Instant\nA:SP$ DealDamage | ValidTgts$ Any | NumDmg$ 3 | SpellDescription$ CARDNAME deals damage.\nSVar:Named:DB$ MakeCard | Name$ Fixture Qzx One | SpellDescription$ Make one.\nOracle:Fixture rules sentence used only by this synthetic test.\n";
         assert_eq!(
-            sanitize_script(input, CardScriptId(145), "R"),
+            sanitize_script(input, CardScriptId(145), "R", &[]),
             "Id:145\nColorIdentity:R\nManaCost:R\nTypes:Instant\nA:SP$ DealDamage | ValidTgts$ Any | NumDmg$ 3\nSVar:Named:DB$ MakeCard | Name$ Fixture Qzx One\n"
         );
     }
@@ -744,7 +809,7 @@ mod tests {
     fn removes_all_human_description_parameters() {
         let input = "Text:Display-only sentence.\nT:Mode$ SpellCast | TriggerDescription$ Display sentence | CostDesc$ More display text | Description$ Keep this\n";
         assert_eq!(
-            sanitize_script(input, CardScriptId(1), ""),
+            sanitize_script(input, CardScriptId(1), "", &[]),
             "Id:1\nColorIdentity:\nT:Mode$ SpellCast\n"
         );
     }
@@ -755,6 +820,18 @@ mod tests {
         assert_eq!(
             id.trie_path(Path::new("cards")),
             PathBuf::from("cards/12/34/56/12345678.txt")
+        );
+    }
+
+    #[test]
+    fn named_filter_qualifiers_become_numeric_identity_qualifiers() {
+        let references = vec![("Fixture Qzx One".to_owned(), CardScriptId(145))];
+        assert_eq!(
+            replace_named_qualifiers(
+                "S:Mode$ Continuous | Affected$ Creature.namedFixture Qzx One+YouCtrl",
+                &references
+            ),
+            "S:Mode$ Continuous | Affected$ Creature.catalogId145+YouCtrl"
         );
     }
 
