@@ -2,7 +2,6 @@ Id:5043
 ColorIdentity:WR
 ManaCost:X R W
 Types:Instant
-# Turn targeted creature or player into chosen
 A:SP$ ChoosePlayer | ValidTgts$ Creature,Player,Planeswalker | Choices$ ThisTargetedPlayer | Defined$ You | SubAbility$ DBChooseCreature
 SVar:DBChooseCreature:DB$ ChooseCard | DefinedCards$ ParentTargeted | Mandatory$ True | Defined$ You | SubAbility$ DBSetVarBefore
 SVar:DBSetVarBefore:DB$ StoreSVar | SVar$ Y | Type$ Calculate | Expression$ X | SubAbility$ DBEffect
@@ -13,6 +12,4 @@ SVar:OutOfSight:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | Val
 SVar:ExileEffect:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile
 SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True | ClearChosenPlayer$ True
 SVar:X:Count$xPaid
-# X Will get overwritten by Announce
 SVar:Y:Number$0
-AI:RemoveDeck:All

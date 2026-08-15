@@ -7,23 +7,15 @@ K:Specialize:5::This ability costs {3} less to activate if there are two or more
 S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self+attacking | IsPresent$ Card.Other+attacking | PresentCompare$ EQ0
 SVar:X:Count$Compare Y GE2.3.0
 SVar:Y:Count$ValidGraveyard Instant.YouOwn,Sorcery.YouOwn
-DeckHas:Ability$Discard
-DeckHints:Ability$Graveyard & Type$Instant | Sorcery
 AlternateMode:Specialize
-
 SPECIALIZE:WHITE
-
 ManaCost:1 W U
 Types:Legendary Creature Human Rogue Wizard
 PT:3/2
 S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self
 T:Mode$ DamageDone | ValidSource$ Card.Self | OptionalDecider$ You | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigCounter | TriggerZones$ Battlefield
 SVar:TrigCounter:AB$ PutCounterAll | Cost$ ExileFromGrave<1/Instant;Sorcery/instant or sorcery> | ValidCards$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1
-DeckHas:Ability$Counters
-DeckHints:Ability$Graveyard & Type$Instant | Sorcery
-
 SPECIALIZE:BLUE
-
 ManaCost:1 U U
 Types:Legendary Creature Human Rogue Wizard
 PT:3/2
@@ -32,31 +24,21 @@ T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage
 SVar:TrigImmTrigger:AB$ ImmediateTrigger | Cost$ ExileFromGrave<1/Instant;Sorcery/instant or sorcery> | Execute$ TrigTap | Secondary$ True
 SVar:TrigTap:DB$ Tap | ValidTgts$ Creature.OppCtrl | SubAbility$ DBPump
 SVar:DBPump:DB$ Pump | Defined$ Targeted | Duration$ Permanent | KW$ HIDDEN This card doesn't untap during your next untap step.
-DeckHints:Ability$Graveyard & Type$Instant | Sorcery
-
 SPECIALIZE:BLACK
-
 ManaCost:1 U B
 Types:Legendary Creature Human Rogue Wizard
 PT:3/2
 S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self
 T:Mode$ DamageDone | ValidSource$ Card.Self | OptionalDecider$ You | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigToken | TriggerZones$ Battlefield
 SVar:TrigToken:AB$ Token | Cost$ ExileFromGrave<1/Instant;Sorcery/instant or sorcery> | TokenScript$ b_2_2_zombie
-DeckHas:Ability$Token & Type$Zombie
-DeckHints:Ability$Graveyard & Type$Instant | Sorcery
-
 SPECIALIZE:RED
-
 ManaCost:1 U R
 Types:Legendary Creature Human Rogue Wizard
 PT:3/2
 S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self
 T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDamage | TriggerZones$ Battlefield
 SVar:TrigDamage:AB$ DealDamage | Cost$ ExileFromGrave<1/Instant;Sorcery/instant or sorcery> | Defined$ Opponent | NumDmg$ 2
-DeckHints:Ability$Graveyard & Type$Instant | Sorcery
-
 SPECIALIZE:GREEN
-
 ManaCost:1 G U
 Types:Legendary Creature Human Rogue Wizard
 PT:3/2
@@ -65,4 +47,3 @@ T:Mode$ DamageDone | ValidSource$ Card.Self | OptionalDecider$ You | ValidTarget
 SVar:TrigDraw:AB$ Draw | Cost$ ExileFromGrave<1/Instant;Sorcery/instant or sorcery> | SubAbility$ DBEffect
 SVar:DBEffect:DB$ Effect | Name$ Imoen, Wise Trickster's Effect — Exploration | StaticAbilities$ Exploration
 SVar:Exploration:Mode$ Continuous | Affected$ You | AdjustLandPlays$ 1
-DeckHints:Ability$Graveyard & Type$Instant | Sorcery

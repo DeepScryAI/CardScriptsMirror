@@ -670,7 +670,7 @@ fn sanitize_script(
     output.push_str(&format!("Id:{}\n", card_id.0));
     output.push_str(&format!("ColorIdentity:{color_identity}\n"));
     for line in script.lines() {
-        if is_removed_top_level_field(line) {
+        if line.trim().is_empty() || line.trim_start().starts_with('#') || is_removed_top_level_field(line) {
             continue;
         }
         let numeric = replace_named_qualifiers(line, numeric_name_refs);
@@ -684,7 +684,13 @@ fn sanitize_script(
 fn is_removed_top_level_field(line: &str) -> bool {
     let mut fields = line.split(':').map(str::trim);
     match fields.next() {
-        Some("Name" | "Oracle" | "Text") => true,
+        // These fields only guide Forge's deck builder, draft picker, or AI
+        // deck selection and are not consumed by the gameplay DSL. They also
+        // frequently contain card titles, so the anonymous runtime corpus
+        // must not retain them.
+        Some("Name" | "Oracle" | "Text" | "DeckHints" | "ODeckHints" | "DeckHas" | "DeckNeeds" | "Draft" | "AI") => {
+            true
+        }
         Some("Variant") => {
             let _variant_id = fields.next();
             matches!(fields.next(), Some("Name" | "Oracle"))
@@ -811,6 +817,15 @@ mod tests {
         assert_eq!(
             sanitize_script(input, CardScriptId(1), "", &[]),
             "Id:1\nColorIdentity:\nT:Mode$ SpellCast\n"
+        );
+    }
+
+    #[test]
+    fn removes_non_runtime_deck_hints() {
+        let input = "# Human implementation note\n\nDeckHints:Type$Forest & Name$Fixture Qzx One\nDeckHas:Ability$Token\nDeckNeeds:Name$Fixture Qzx Two\nDraft:AI$ True\nAI:RemoveDeck:Random\nManaCost:G\nTypes:Creature\n";
+        assert_eq!(
+            sanitize_script(input, CardScriptId(1), "G", &[]),
+            "Id:1\nColorIdentity:G\nManaCost:G\nTypes:Creature\n"
         );
     }
 

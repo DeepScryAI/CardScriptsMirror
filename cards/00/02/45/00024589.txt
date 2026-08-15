@@ -7,9 +7,7 @@ K:Specialize:3:Wild Shape:Activate only if you control six or more lands.:IsPres
 T:Mode$ ChangesZone | ValidCard$ Card.wasCastByYou+Self | Destination$ Battlefield | Execute$ TrigSeek
 SVar:TrigSeek:DB$ Seek | Type$ Land.hasABasicLandType
 AlternateMode:Specialize
-
 SPECIALIZE:WHITE
-
 ManaCost:2 G W
 Types:Legendary Creature Bird Druid
 PT:4/4
@@ -18,10 +16,7 @@ K:Lifelink
 T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigUnspecialize
 SVar:TrigUnspecialize:DB$ SetState | Mode$ Unspecialize | RememberChanged$ True | SubAbility$ DBReturn
 SVar:DBReturn:DB$ ChangeZone | ConditionDefined$ Remembered | ConditionPresent$ Card | Origin$ Graveyard | Destination$ Battlefield | Tapped$ True | Defined$ Remembered
-DeckHas:Ability$LifeGain
-
 SPECIALIZE:BLUE
-
 ManaCost:2 G U
 Types:Legendary Creature Crocodile Druid
 PT:4/4
@@ -32,9 +27,7 @@ SVar:DontUntap:Event$ Untap | ValidCard$ Card.IsRemembered | ValidStepTurnToCont
 T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigUnspecialize
 SVar:TrigUnspecialize:DB$ SetState | Defined$ TriggeredCard | Mode$ Unspecialize | RememberChanged$ True | SubAbility$ DBReturn
 SVar:DBReturn:DB$ ChangeZone | ConditionDefined$ Remembered | ConditionPresent$ Card | Origin$ Graveyard | Destination$ Battlefield | Tapped$ True | Defined$ Remembered
-
 SPECIALIZE:BLACK
-
 ManaCost:2 B G
 Types:Legendary Creature Scorpion Druid
 PT:4/4
@@ -43,9 +36,7 @@ K:CARDNAME must be blocked if able.
 T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigUnspecialize
 SVar:TrigUnspecialize:DB$ SetState | Defined$ TriggeredCard | Mode$ Unspecialize | RememberChanged$ True | SubAbility$ DBReturn
 SVar:DBReturn:DB$ ChangeZone | ConditionDefined$ Remembered | ConditionPresent$ Card | Origin$ Graveyard | Destination$ Battlefield | Tapped$ True | Defined$ Remembered
-
 SPECIALIZE:RED
-
 ManaCost:2 R G
 Types:Legendary Creature Wolf Druid
 PT:4/4
@@ -56,10 +47,7 @@ SVar:TrigToken:DB$ Token | TokenScript$ g_2_2_wolf
 T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigUnspecialize
 SVar:TrigUnspecialize:DB$ SetState | Defined$ TriggeredCard | Mode$ Unspecialize | RememberChanged$ True | SubAbility$ DBReturn
 SVar:DBReturn:DB$ ChangeZone | ConditionDefined$ Remembered | ConditionPresent$ Card | Origin$ Graveyard | Destination$ Battlefield | Tapped$ True | Defined$ Remembered
-DeckHas:Ability$Token
-
 SPECIALIZE:GREEN
-
 ManaCost:2 G G
 Types:Legendary Creature Bear Druid
 PT:4/4
