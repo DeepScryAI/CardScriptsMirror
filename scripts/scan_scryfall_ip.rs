@@ -1,0 +1,372 @@
+#!/usr/bin/env rust-script
+//! ```cargo
+//! [package]
+//! edition = "2021"
+//!
+//! [dependencies]
+//! aho-corasick = "1.1.3"
+//! anyhow = "1.0.99"
+//! clap = { version = "4.5.45", features = ["derive"] }
+//! flate2 = "1.1.2"
+//! reqwest = { version = "0.12.28", default-features = false, features = ["blocking", "json", "rustls-tls"] }
+//! serde = { version = "1.0.219", features = ["derive"] }
+//! serde_json = "1.0.143"
+//! uuid = { version = "1.18.0", features = ["serde"] }
+//! ```
+
+use aho_corasick::{AhoCorasickBuilder, AhoCorasickKind};
+use anyhow::{bail, Context, Result};
+use clap::Parser;
+use serde::Serialize;
+use std::collections::{BTreeMap, BTreeSet};
+use std::fs::{self, File};
+use std::path::{Path, PathBuf};
+use std::process::Command;
+
+#[path = "lib/scryfall_bulk.rs"]
+mod scryfall_bulk;
+
+const MAX_REPORTED_HITS: usize = 20_000;
+
+#[derive(Parser, Debug)]
+#[command(about = "Scan tracked repository text for normalized Scryfall titles and Oracle text")]
+struct Args {
+    /// Git repository whose tracked files will be scanned.
+    #[arg(long)]
+    root: PathBuf,
+
+    /// Decompressed Scryfall default_cards cache shared with the generator.
+    #[arg(long, default_value = ".cache/scryfall/default_cards.json")]
+    cache: PathBuf,
+
+    /// Reviewed normalized patterns that are too generic to reject.
+    #[arg(long, default_value = "ip_allowlist.tsv")]
+    allowlist: PathBuf,
+
+    /// Machine-readable result; kept below the untracked cache by default.
+    #[arg(long, default_value = ".cache/reports/ip-scan.json")]
+    report: PathBuf,
+
+    /// Ignore a present cache and download the current Scryfall snapshot.
+    #[arg(long)]
+    refresh: bool,
+}
+
+#[derive(Clone, Debug, Eq, Ord, PartialEq, PartialOrd, Serialize)]
+#[serde(rename_all = "snake_case")]
+enum PatternKind {
+    CardTitle,
+    OracleText,
+}
+
+#[derive(Clone, Debug, Eq, Ord, PartialEq, PartialOrd, Serialize)]
+struct PatternSource {
+    kind: PatternKind,
+    oracle_id: Option<String>,
+}
+
+#[derive(Clone, Debug)]
+struct PatternEntry {
+    normalized: String,
+    sources: BTreeSet<PatternSource>,
+}
+
+#[derive(Debug, Serialize)]
+struct ScanReport {
+    patterns_from_scryfall: usize,
+    allowlisted_patterns: usize,
+    active_patterns: usize,
+    tracked_files_considered: usize,
+    text_files_scanned: usize,
+    binary_files_skipped: usize,
+    non_regular_paths_skipped: usize,
+    hit_pairs: usize,
+    omitted_hit_pairs: usize,
+    pattern_hit_counts: Vec<PatternHitCount>,
+    hits: Vec<Hit>,
+}
+
+#[derive(Debug, Serialize)]
+struct PatternHitCount {
+    normalized_pattern: String,
+    files: usize,
+    sources: Vec<PatternSource>,
+}
+
+#[derive(Debug, Serialize)]
+struct Hit {
+    path: String,
+    normalized_pattern: String,
+    sources: Vec<PatternSource>,
+}
+
+fn main() -> Result<()> {
+    let args = Args::parse();
+    if !args.root.is_dir() {
+        bail!("scan root is not a directory: {}", args.root.display());
+    }
+    scryfall_bulk::ensure_cache(&args.cache, args.refresh)?;
+    let all_patterns = build_patterns(&args.cache)?;
+    let allowlist = load_allowlist(&args.allowlist)?;
+    let active_patterns: Vec<PatternEntry> = all_patterns
+        .values()
+        .filter(|entry| !allowlist.contains_key(&entry.normalized))
+        .cloned()
+        .collect();
+    if active_patterns.is_empty() {
+        bail!("all Scryfall patterns were allowlisted; refusing a vacuous scan");
+    }
+
+    eprintln!(
+        "Compiling {} normalized patterns with an Aho-Corasick contiguous NFA",
+        active_patterns.len()
+    );
+    let wrapped_patterns: Vec<String> = active_patterns
+        .iter()
+        .map(|entry| format!(" {} ", entry.normalized))
+        .collect();
+    let matcher = AhoCorasickBuilder::new()
+        .kind(Some(AhoCorasickKind::ContiguousNFA))
+        .build(&wrapped_patterns)
+        .context("compile normalized Scryfall pattern automaton")?;
+
+    let tracked_files = git_tracked_files(&args.root)?;
+    let mut report = ScanReport {
+        patterns_from_scryfall: all_patterns.len(),
+        allowlisted_patterns: allowlist.len(),
+        active_patterns: active_patterns.len(),
+        tracked_files_considered: tracked_files.len(),
+        text_files_scanned: 0,
+        binary_files_skipped: 0,
+        non_regular_paths_skipped: 0,
+        hit_pairs: 0,
+        omitted_hit_pairs: 0,
+        pattern_hit_counts: Vec::new(),
+        hits: Vec::new(),
+    };
+    let mut pattern_hit_counts = vec![0usize; active_patterns.len()];
+
+    for relative_path in tracked_files {
+        let path = args.root.join(&relative_path);
+        if !path.is_file() {
+            report.non_regular_paths_skipped += 1;
+            continue;
+        }
+        let bytes = fs::read(&path).with_context(|| format!("read tracked file {}", path.display()))?;
+        if bytes.contains(&0) {
+            report.binary_files_skipped += 1;
+            continue;
+        }
+        let text = std::str::from_utf8(&bytes)
+            .with_context(|| format!("tracked text file is not UTF-8: {}", path.display()))?;
+        report.text_files_scanned += 1;
+        let normalized = format!(" {} ", normalize_for_scan(text));
+        let matched_pattern_ids: BTreeSet<usize> = matcher
+            .find_overlapping_iter(&normalized)
+            .map(|matched| matched.pattern().as_usize())
+            .collect();
+        report.hit_pairs += matched_pattern_ids.len();
+        for pattern_id in matched_pattern_ids {
+            pattern_hit_counts[pattern_id] += 1;
+            if report.hits.len() >= MAX_REPORTED_HITS {
+                report.omitted_hit_pairs += 1;
+                continue;
+            }
+            let entry = &active_patterns[pattern_id];
+            report.hits.push(Hit {
+                path: relative_path.clone(),
+                normalized_pattern: entry.normalized.clone(),
+                sources: entry.sources.iter().cloned().collect(),
+            });
+        }
+    }
+    report.pattern_hit_counts = pattern_hit_counts
+        .into_iter()
+        .enumerate()
+        .filter(|(_, files)| *files > 0)
+        .map(|(pattern_id, files)| PatternHitCount {
+            normalized_pattern: active_patterns[pattern_id].normalized.clone(),
+            files,
+            sources: active_patterns[pattern_id].sources.iter().cloned().collect(),
+        })
+        .collect();
+
+    write_report(&args.report, &report)?;
+    eprintln!(
+        "Scanned {} UTF-8 tracked files ({} binary files and {} non-file git entries skipped); found {} file/pattern hit pairs",
+        report.text_files_scanned,
+        report.binary_files_skipped,
+        report.non_regular_paths_skipped,
+        report.hit_pairs
+    );
+    if report.omitted_hit_pairs > 0 {
+        eprintln!(
+            "WARNING: report retained the first {} hits and omitted {} additional hit pairs",
+            report.hits.len(),
+            report.omitted_hit_pairs
+        );
+    }
+    if report.hit_pairs > 0 {
+        bail!(
+            "IP scan failed with {} normalized Scryfall matches; see {}",
+            report.hit_pairs,
+            args.report.display()
+        );
+    }
+    Ok(())
+}
+
+fn build_patterns(cache: &Path) -> Result<BTreeMap<String, PatternEntry>> {
+    let mut patterns = BTreeMap::new();
+    scryfall_bulk::for_each_card(cache, |card| {
+        if card.lang != "en" {
+            return;
+        }
+        let oracle_id = card.oracle_id.map(|id| id.hyphenated().to_string());
+        insert_pattern(&mut patterns, &card.name, PatternKind::CardTitle, oracle_id.clone());
+        if let Some(printed_name) = card.printed_name.as_deref() {
+            insert_pattern(&mut patterns, printed_name, PatternKind::CardTitle, oracle_id.clone());
+        }
+        if let Some(oracle_text) = card.oracle_text.as_deref() {
+            insert_pattern(&mut patterns, oracle_text, PatternKind::OracleText, oracle_id.clone());
+        }
+        for face in card.card_faces {
+            insert_pattern(&mut patterns, &face.name, PatternKind::CardTitle, oracle_id.clone());
+            if let Some(printed_name) = face.printed_name.as_deref() {
+                insert_pattern(&mut patterns, printed_name, PatternKind::CardTitle, oracle_id.clone());
+            }
+            if let Some(oracle_text) = face.oracle_text.as_deref() {
+                insert_pattern(&mut patterns, oracle_text, PatternKind::OracleText, oracle_id.clone());
+            }
+        }
+    })?;
+    Ok(patterns)
+}
+
+fn insert_pattern(
+    patterns: &mut BTreeMap<String, PatternEntry>,
+    original: &str,
+    kind: PatternKind,
+    oracle_id: Option<String>,
+) {
+    let normalized = normalize_for_scan(original);
+    if normalized.is_empty() {
+        return;
+    }
+    patterns
+        .entry(normalized.clone())
+        .or_insert_with(|| PatternEntry {
+            normalized,
+            sources: BTreeSet::new(),
+        })
+        .sources
+        .insert(PatternSource { kind, oracle_id });
+}
+
+fn normalize_for_scan(text: &str) -> String {
+    let mut normalized = String::with_capacity(text.len());
+    let mut needs_space = false;
+    for character in text.chars().flat_map(char::to_lowercase) {
+        if character.is_alphanumeric() {
+            if needs_space && !normalized.is_empty() {
+                normalized.push(' ');
+            }
+            normalized.push(character);
+            needs_space = false;
+        } else {
+            needs_space = true;
+        }
+    }
+    normalized
+}
+
+fn load_allowlist(path: &Path) -> Result<BTreeMap<String, String>> {
+    let text = fs::read_to_string(path).with_context(|| format!("read reviewed allowlist {}", path.display()))?;
+    let mut entries = BTreeMap::new();
+    for (index, line) in text.lines().enumerate() {
+        let line = line.trim();
+        if line.is_empty() || line.starts_with('#') {
+            continue;
+        }
+        let (pattern, reason) = line.split_once('\t').with_context(|| {
+            format!(
+                "allowlist line {} must be '<normalized pattern><TAB><plain-language reason>'",
+                index + 1
+            )
+        })?;
+        let pattern = pattern.trim();
+        let reason = reason.trim();
+        if normalize_for_scan(pattern) != pattern {
+            bail!("allowlist line {} is not normalized: {pattern:?}", index + 1);
+        }
+        if reason.len() < 12 {
+            bail!("allowlist line {} has no meaningful justification", index + 1);
+        }
+        if entries.insert(pattern.to_owned(), reason.to_owned()).is_some() {
+            bail!("duplicate allowlist pattern on line {}: {pattern:?}", index + 1);
+        }
+    }
+    Ok(entries)
+}
+
+fn git_tracked_files(root: &Path) -> Result<Vec<String>> {
+    let output = Command::new("git")
+        .arg("-C")
+        .arg(root)
+        .args(["ls-files", "-z", "--recurse-submodules"])
+        .output()
+        .context("run git ls-files for IP scan")?;
+    if !output.status.success() {
+        bail!(
+            "git ls-files failed for {}: {}",
+            root.display(),
+            String::from_utf8_lossy(&output.stderr).trim()
+        );
+    }
+    output
+        .stdout
+        .split(|byte| *byte == 0)
+        .filter(|path| !path.is_empty())
+        .map(|path| {
+            std::str::from_utf8(path)
+                .map(str::to_owned)
+                .context("git returned a non-UTF-8 tracked path")
+        })
+        .collect()
+}
+
+fn write_report(path: &Path, report: &ScanReport) -> Result<()> {
+    let parent = path.parent().context("scan report path has no parent")?;
+    fs::create_dir_all(parent).with_context(|| format!("create report directory {}", parent.display()))?;
+    let file = File::create(path).with_context(|| format!("create {}", path.display()))?;
+    serde_json::to_writer_pretty(file, report).context("write IP scan report")?;
+    Ok(())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn normalization_lowercases_and_turns_punctuation_into_boundaries() {
+        assert_eq!(normalize_for_scan("First-strike!  CAT_name"), "first strike cat name");
+    }
+
+    #[test]
+    fn wrapped_patterns_do_not_match_inside_larger_words() {
+        let matcher = AhoCorasickBuilder::new()
+            .kind(Some(AhoCorasickKind::ContiguousNFA))
+            .build([" cat "])
+            .unwrap();
+        assert!(matcher.is_match(" a cat naps "));
+        assert!(!matcher.is_match(" concatenate values "));
+    }
+
+    #[test]
+    fn allowlist_requires_a_plain_language_reason() {
+        let temporary = std::env::temp_dir().join(format!("cardsmirror-allowlist-test-{}.tsv", std::process::id()));
+        fs::write(&temporary, "cat\tshort\n").unwrap();
+        assert!(load_allowlist(&temporary).is_err());
+        fs::remove_file(temporary).unwrap();
+    }
+}
