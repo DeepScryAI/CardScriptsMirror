@@ -3,7 +3,7 @@ ColorIdentity:B
 ManaCost:2 B B
 Types:Legendary Planeswalker Davriel
 Loyalty:4
-A:AB$ Effect | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | Name$ Davriel, Soul Broker's Effect — +1 Attack Tax | Triggers$ AttackTrigger | Duration$ UntilYourNextTurn | AILogic$ Main2
+A:AB$ Effect | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | Name$ 18334466384231846224 | Triggers$ AttackTrigger | Duration$ UntilYourNextTurn | AILogic$ Main2
 SVar:AttackTrigger:Mode$ AttackersDeclared | AttackingPlayer$ Player.Opponent | AttackedTarget$ You,Planeswalker.YouCtrl | NoResolvingCheck$ True | TriggerZones$ Command | Execute$ TrigDiscard
 SVar:TrigDiscard:DB$ Discard | Defined$ TriggeredAttackingPlayer | NumCards$ 1 | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBSacrifice
 SVar:DBSacrifice:DB$ Sacrifice | SacValid$ Creature.attacking | Defined$ TriggeredAttackingPlayer | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ0
@@ -14,14 +14,14 @@ SVar:Return2:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ChangeType
 SVar:DBEffect:DB$ Pump | PumpZone$ Hand | Defined$ Remembered | NumAtt$ +1 | NumDef$ +1 | Duration$ Perpetual | SubAbility$ DBCleanup
 SVar:ReturnBig:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ChangeType$ Creature.cmcEQV | ChangeNum$ 1 | Hidden$ True | Mandatory$ True | AtRandom$ True
 SVar:V:Count$ValidGraveyard Creature.YouOwn$GreatestCardManaCost
-SVar:EmblemBuff:DB$ Effect | Name$ Emblem — Davriel, Soul Broker (Offer 5) | StaticAbilities$ YoursP2Pow | Duration$ Permanent
+SVar:EmblemBuff:DB$ Effect | Name$ 12420460504826593329 | StaticAbilities$ YoursP2Pow | Duration$ Permanent
 SVar:YoursP2Pow:Mode$ Continuous | Affected$ Creature.YouCtrl | AffectedZone$ Battlefield | AddPower$ 2 | AffectedZone$ Battlefield
-SVar:EmblemReduceCost:DB$ Effect | Name$ Emblem — Davriel, Soul Broker (Offer 6) | StaticAbilities$ CostBLess | Duration$ Permanent
+SVar:EmblemReduceCost:DB$ Effect | Name$ 18377026384039293668 | StaticAbilities$ CostBLess | Duration$ Permanent
 SVar:CostBLess:Mode$ ReduceCost | ValidCard$ Card | Activator$ You | Type$ Spell | Amount$ 1 | Color$ B
-SVar:EmblemDavrielPW:DB$ Effect | Name$ Emblem — Davriel, Soul Broker (Offer 7) | StaticAbilities$ AddP2Ab | Duration$ Permanent
+SVar:EmblemDavrielPW:DB$ Effect | Name$ 3249317870469046327 | StaticAbilities$ AddP2Ab | Duration$ Permanent
 SVar:AddP2Ab:Mode$ Continuous | Affected$ Planeswalker.Davriel+YouCtrl | AddAbility$ ABDraw
 SVar:ABDraw:AB$ Draw | Cost$ AddCounter<2/LOYALTY> | Planeswalker$ True | NumCards$ 1
-SVar:EmblemDrawGain:DB$ Effect | Name$ Emblem — Davriel, Soul Broker (Offer 8) | Triggers$ DrawGainTrig | Duration$ Permanent
+SVar:EmblemDrawGain:DB$ Effect | Name$ 4047127046782537780 | Triggers$ DrawGainTrig | Duration$ Permanent
 SVar:DrawGainTrig:Mode$ Drawn | ValidCard$ Card.YouOwn | TriggerZones$ Command | Execute$ TrigGainLife
 SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2
 SVar:DBCondition:DB$ GenericChoice | NumRandomChoices$ 3 | Choices$ Lose6,Exile2,Sac2,PerpetualBuffTheirs,EmblemDebuff,EmblemRaiseCost,EmblemDrawExile,EmblemUpkeepLose
@@ -32,14 +32,14 @@ SVar:X:Remembered$Amount
 SVar:Y:Number$2/Minus.X
 SVar:Sac2:DB$ Sacrifice | Amount$ 2 | SacValid$ Permanent | Defined$ You
 SVar:PerpetualBuffTheirs:DB$ PumpAll | ValidCards$ Creature.YouDontCtrl | NumAtt$ +1 | NumDef$ +1 | Duration$ Perpetual
-SVar:EmblemDebuff:DB$ Effect | Name$ Emblem — Davriel, Soul Broker (Condition 5) | StaticAbilities$ YoursM1Pow | Duration$ Permanent
+SVar:EmblemDebuff:DB$ Effect | Name$ 9244366529641084888 | StaticAbilities$ YoursM1Pow | Duration$ Permanent
 SVar:YoursM1Pow:Mode$ Continuous | Affected$ Creature.YouCtrl | AffectedZone$ Battlefield | AddPower$ -1 | AffectedZone$ Battlefield
-SVar:EmblemRaiseCost:DB$ Effect | Name$ Emblem — Davriel, Soul Broker (Condition 6) | StaticAbilities$ CostBMore | Duration$ Permanent
+SVar:EmblemRaiseCost:DB$ Effect | Name$ 1880833555963497747 | StaticAbilities$ CostBMore | Duration$ Permanent
 SVar:CostBMore:Mode$ RaiseCost | ValidCard$ Card | Activator$ You | Type$ Spell | Cost$ B
-SVar:EmblemDrawExile:DB$ Effect | Name$ Emblem — Davriel, Soul Broker (Condition 7) | Triggers$ DrawTrig | Duration$ Permanent
+SVar:EmblemDrawExile:DB$ Effect | Name$ 8273921588974616741 | Triggers$ DrawTrig | Duration$ Permanent
 SVar:DrawTrig:Mode$ Drawn | ValidCard$ Card.YouCtrl | TriggerZones$ Command | Execute$ TrigDig
 SVar:TrigDig:DB$ Dig | Defined$ TriggeredPlayer | DigNum$ 2 | ChangeNum$ All | DestinationZone$ Exile
-SVar:EmblemUpkeepLose:DB$ Effect | Name$ Emblem — Davriel, Soul Broker (Condition 8) | Triggers$ UpkeepLoseTrig | Duration$ Permanent
+SVar:EmblemUpkeepLose:DB$ Effect | Name$ 5026874875100566630 | Triggers$ UpkeepLoseTrig | Duration$ Permanent
 SVar:UpkeepLoseTrig:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigLose | TriggerZones$ Command
 SVar:TrigLose:DB$ LoseLife | Defined$ You | LifeAmount$ Count$Valid Creature.YouCtrl
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

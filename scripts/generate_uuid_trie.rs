@@ -682,6 +682,13 @@ fn numeric_id_for_name(value: &str, references: &[(String, CardScriptId)]) -> Op
         .find_map(|(name, id)| (name == &normalized).then_some(*id))
 }
 
+fn stable_runtime_object_id(value: &str) -> u64 {
+    let digest = Sha256::digest(value.trim().as_bytes());
+    let mut bytes = [0u8; 8];
+    bytes.copy_from_slice(&digest[..8]);
+    u64::from_be_bytes(bytes).max(1)
+}
+
 fn rewrite_top_level_card_reference(line: &str, references: &[(String, CardScriptId)]) -> Option<String> {
     let (key, value) = line.split_once(':')?;
     let numeric_key = match key.trim() {
@@ -727,6 +734,17 @@ fn rewrite_card_reference_parameters(line: &str, references: &[(String, CardScri
                 }
                 None
             }
+            ("MakeCard", "Spellbook") => {
+                let ids: Option<Vec<String>> = value
+                    .split(',')
+                    .map(|name| numeric_id_for_name(name, references).map(|id| id.0.to_string()))
+                    .collect();
+                if let Some(ids) = ids {
+                    output.push(format!("SpellbookCatalogIds$ {}", ids.join(",")));
+                    continue;
+                }
+                None
+            }
             _ => None,
         };
         if let Some(numeric_key) = numeric_key {
@@ -736,6 +754,66 @@ fn rewrite_card_reference_parameters(line: &str, references: &[(String, CardScri
             }
         }
         output.push(trimmed.to_owned());
+    }
+    output.join(" | ")
+}
+
+fn runtime_object_names(script: &str) -> Vec<String> {
+    let mut names = BTreeSet::new();
+    for line in script.lines() {
+        let mut segments = line.split('|');
+        let Some(head) = segments.next() else {
+            continue;
+        };
+        let api = head.rsplit_once('$').map(|(_, value)| value.trim()).unwrap_or("");
+        for segment in segments {
+            let Some((key, value)) = segment.trim().split_once('$') else {
+                continue;
+            };
+            let key = key.trim();
+            let is_object_name = matches!(key, "NewName" | "SetName")
+                || (key == "Name" && matches!(api, "Effect" | "ReplaceEffect" | "ReplaceSplitDamage" | "Animate"));
+            if is_object_name {
+                names.insert(value.trim().to_owned());
+            }
+        }
+    }
+    let mut names: Vec<_> = names.into_iter().collect();
+    names.sort_unstable_by(|left, right| right.len().cmp(&left.len()).then_with(|| left.cmp(right)));
+    names
+}
+
+fn anonymize_runtime_object_names(line: &str, runtime_names: &[String]) -> String {
+    let runtime_ids: Vec<_> = runtime_names
+        .iter()
+        .map(|name| (name.clone(), stable_runtime_object_id(name)))
+        .collect();
+    let mut anonymous_line = line.to_owned();
+    for (name, id) in &runtime_ids {
+        anonymous_line = anonymous_line.replace(&format!("named{name}"), &format!("named{id}"));
+    }
+
+    let mut segments = anonymous_line.split('|');
+    let Some(head) = segments.next() else {
+        return line.to_owned();
+    };
+    let api = head.rsplit_once('$').map(|(_, value)| value.trim()).unwrap_or("");
+    let mut output = vec![head.trim().to_owned()];
+    for segment in segments {
+        let trimmed = segment.trim();
+        let Some((key, value)) = trimmed.split_once('$') else {
+            output.push(trimmed.to_owned());
+            continue;
+        };
+        let key = key.trim();
+        let value = value.trim();
+        let is_object_name = matches!(key, "NewName" | "SetName")
+            || (key == "Name" && matches!(api, "Effect" | "ReplaceEffect" | "ReplaceSplitDamage" | "Animate"));
+        if is_object_name {
+            output.push(format!("{key}$ {}", stable_runtime_object_id(value)));
+        } else {
+            output.push(trimmed.to_owned());
+        }
     }
     output.join(" | ")
 }
@@ -783,12 +861,14 @@ fn sanitize_script(
     let mut output = String::with_capacity(script.len());
     output.push_str(&format!("Id:{}\n", card_id.0));
     output.push_str(&format!("ColorIdentity:{color_identity}\n"));
+    let runtime_names = runtime_object_names(script);
     for line in script.lines() {
         if line.trim().is_empty() || line.trim_start().starts_with('#') || is_removed_top_level_field(line) {
             continue;
         }
         let numeric = replace_named_qualifiers(line, numeric_name_refs);
         let numeric = rewrite_card_reference_parameters(&numeric, numeric_name_refs);
+        let numeric = anonymize_runtime_object_names(&numeric, &runtime_names);
         let numeric = normalize_keyword_vocabulary(&numeric);
         let sanitized = strip_display_parameters(&numeric);
         output.push_str(&sanitized);
@@ -834,7 +914,8 @@ fn is_display_parameter(segment: &str) -> bool {
                 || key.ends_with("Prompt")
                 || key.ends_with("Desc")
                 || key.ends_with("Message")
-                || key == "ChoiceTitle"
+                || key.ends_with("Title")
+                || matches!(key, "Image" | "SpellbookName")
         })
         .unwrap_or(false)
 }
@@ -1000,6 +1081,40 @@ mod tests {
         assert_eq!(
             rewrite_card_reference_parameters("CopyFaceFrom:Fixture Qzx One", &references),
             "CopyFaceFromId:145"
+        );
+    }
+
+    #[test]
+    fn synthetic_runtime_object_names_become_numeric() {
+        assert_eq!(
+            anonymize_runtime_object_names(
+                "SVar:E:DB$ Effect | Name$ Fixture effect | Duration$ Permanent",
+                &["Fixture effect".to_owned()]
+            ),
+            format!(
+                "SVar:E:DB$ Effect | Name$ {} | Duration$ Permanent",
+                stable_runtime_object_id("Fixture effect")
+            )
+        );
+        assert_eq!(
+            anonymize_runtime_object_names(
+                "SVar:C:DB$ Clone | NewName$ Fixture clone",
+                &["Fixture clone".to_owned()]
+            ),
+            format!(
+                "SVar:C:DB$ Clone | NewName$ {}",
+                stable_runtime_object_id("Fixture clone")
+            )
+        );
+        assert_eq!(
+            anonymize_runtime_object_names(
+                "SVar:X:Count$ValidCommand Effect.YouCtrl+namedFixture effect",
+                &["Fixture effect".to_owned()]
+            ),
+            format!(
+                "SVar:X:Count$ValidCommand Effect.YouCtrl+named{}",
+                stable_runtime_object_id("Fixture effect")
+            )
         );
     }
 

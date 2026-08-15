@@ -160,11 +160,7 @@ fn main() -> Result<()> {
         let text = std::str::from_utf8(&bytes)
             .with_context(|| format!("tracked text file is not UTF-8: {}", path.display()))?;
         report.text_files_scanned += 1;
-        let normalized = format!(" {} ", normalize_for_scan(text));
-        let matched_pattern_ids: BTreeSet<usize> = matcher
-            .find_overlapping_iter(&normalized)
-            .map(|matched| matched.pattern().as_usize())
-            .collect();
+        let matched_pattern_ids = matched_patterns_in_file(&relative_path, text, &matcher);
         report.hit_pairs += matched_pattern_ids.len();
         for pattern_id in matched_pattern_ids {
             pattern_hit_counts[pattern_id] += 1;
@@ -214,6 +210,40 @@ fn main() -> Result<()> {
         );
     }
     Ok(())
+}
+
+fn matched_patterns_in_file(relative_path: &str, text: &str, matcher: &aho_corasick::AhoCorasick) -> BTreeSet<usize> {
+    text.lines()
+        .filter(|line| !is_nonexpressive_card_record(relative_path, line))
+        .flat_map(|line| {
+            let normalized = format!(" {} ", normalize_for_scan(line));
+            matcher
+                .find_overlapping_iter(&normalized)
+                .map(|matched| matched.pattern().as_usize())
+                .collect::<Vec<_>>()
+        })
+        .collect()
+}
+
+fn is_nonexpressive_card_record(relative_path: &str, line: &str) -> bool {
+    if !relative_path.starts_with("cards/") || !relative_path.ends_with(".txt") {
+        return false;
+    }
+    let key = line.split_once(':').map(|(key, _)| key.trim()).unwrap_or(line.trim());
+    matches!(
+        key,
+        "Id" | "ColorIdentity"
+            | "ManaCost"
+            | "Types"
+            | "PT"
+            | "Colors"
+            | "Loyalty"
+            | "Defense"
+            | "HandLifeModifier"
+            | "AlternateMode"
+            | "ALTERNATE"
+            | "SPECIALIZE"
+    )
 }
 
 fn build_patterns(cache: &Path) -> Result<BTreeMap<String, PatternEntry>> {
@@ -370,6 +400,23 @@ mod tests {
             .unwrap();
         assert!(matcher.is_match(" a cat naps "));
         assert!(!matcher.is_match(" concatenate values "));
+    }
+
+    #[test]
+    fn card_scan_ignores_structural_type_records_but_not_executable_records() {
+        let matcher = AhoCorasickBuilder::new()
+            .kind(Some(AhoCorasickKind::ContiguousNFA))
+            .build([" human soldier "])
+            .unwrap();
+        let text = "Types:Creature Human Soldier\nSVar:X:DB$ Effect | Name$ Human Soldier\n";
+        assert_eq!(
+            matched_patterns_in_file("cards/00/00/00/00000001.txt", text, &matcher).len(),
+            1
+        );
+        assert_eq!(
+            matched_patterns_in_file("README.md", "Types: Human Soldier", &matcher).len(),
+            1
+        );
     }
 
     #[test]

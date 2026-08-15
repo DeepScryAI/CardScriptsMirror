@@ -8,7 +8,7 @@ K:Trample
 T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigJoinForces
 T:Mode$ Blocks | ValidCard$ Card.Self | Execute$ TrigJoinForces | Secondary$ True
 SVar:TrigJoinForces:DB$ RepeatEach | RepeatPlayers$ Player | StartingWith$ You | RepeatSubAbility$ DBPay | SubAbility$ DBPump
-SVar:DBPay:DB$ ChooseNumber | Defined$ Player.IsRemembered | ChooseAnyNumber$ True | ListTitle$ amount of mana to pay | SubAbility$ DBStore
+SVar:DBPay:DB$ ChooseNumber | Defined$ Player.IsRemembered | ChooseAnyNumber$ True | SubAbility$ DBStore
 SVar:DBStore:DB$ StoreSVar | SVar$ JoinForcesAmount | Type$ CountSVar | Expression$ JoinForcesAmount/Plus.Y | UnlessCost$ Y | UnlessPayer$ Player.IsRemembered | UnlessSwitched$ True
 SVar:DBPump:DB$ Pump | Defined$ Self | NumAtt$ +JoinForcesAmount | SubAbility$ DBReset
 SVar:DBReset:DB$ StoreSVar | SVar$ JoinForcesAmount | Type$ Number | Expression$ 0
