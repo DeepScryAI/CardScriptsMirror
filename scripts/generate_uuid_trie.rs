@@ -619,7 +619,7 @@ fn sanitize_script(script: &str, card_id: CardScriptId, color_identity: &str) ->
 fn is_removed_top_level_field(line: &str) -> bool {
     let mut fields = line.split(':').map(str::trim);
     match fields.next() {
-        Some("Name" | "Oracle") => true,
+        Some("Name" | "Oracle" | "Text") => true,
         Some("Variant") => {
             let _variant_id = fields.next();
             matches!(fields.next(), Some("Name" | "Oracle"))
@@ -643,7 +643,7 @@ fn is_display_parameter(segment: &str) -> bool {
         .split_once('$')
         .map(|(key, _)| {
             let key = key.trim();
-            key.ends_with("Description") || key.ends_with("Prompt") || key == "ChoiceTitle"
+            key.ends_with("Description") || key.ends_with("Prompt") || key.ends_with("Desc") || key == "ChoiceTitle"
         })
         .unwrap_or(false)
 }
@@ -742,7 +742,7 @@ mod tests {
 
     #[test]
     fn removes_all_human_description_parameters() {
-        let input = "T:Mode$ SpellCast | TriggerDescription$ SpellDescription is text | Description$ Keep this\n";
+        let input = "Text:Display-only sentence.\nT:Mode$ SpellCast | TriggerDescription$ Display sentence | CostDesc$ More display text | Description$ Keep this\n";
         assert_eq!(
             sanitize_script(input, CardScriptId(1), ""),
             "Id:1\nColorIdentity:\nT:Mode$ SpellCast\n"
