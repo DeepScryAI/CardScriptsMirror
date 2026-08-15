@@ -6,7 +6,7 @@ It joins Forge scripts to stable DeepScry numeric IDs through Scryfall
 `Oracle:`), removes every human description/prompt parameter, and writes the
 executable scripts beneath a three-level numeric trie.
 
-The generated `cards/` tree is the replacement gameplay corpus on this branch.
+The generated `cards/` and `tokens/` trees are the replacement gameplay corpus on this branch.
 The downloaded Scryfall snapshot remains untracked and is used only as an
 offline build input. DeepScry's numeric loader consumes the generated tree
 without consulting that snapshot or a card-title registry.
@@ -25,7 +25,8 @@ append-only catalog, then run:
 ./scripts/generate_uuid_trie.rs \
   --source ../cardsmirror-source/cardsfolder \
   --catalog catalog_ids.tsv \
-  --output cards
+  --output cards \
+  --token-output tokens
 ```
 
 The first run downloads Scryfall's `default_cards` bulk snapshot into
@@ -57,9 +58,14 @@ cards/12/34/56/12345678.txt
 ```
 
 The first line is `Id:12345678`. No title appears in the path or in top-level
-script fields. Structured fields such as `Name$` remain temporarily because
-they can be executable references to other cards or effects; phase 3 migrates
-those through typed numeric references rather than unsafe text substitution.
+script fields. Executable references to catalog cards, synthetic objects, and
+token definitions are rewritten to their respective numeric namespaces;
+dynamic selectors such as `ChosenName` remain vocabulary rather than content.
+
+Token scripts use the same trie layout under `tokens/`, begin with `TokenId:`,
+and are addressed from card DSL records through `TokenScriptIds$`. Token IDs
+are deterministic SHA-256-derived nonzero integers in a namespace separate
+from catalog card IDs.
 
 ## Current compatibility limit
 

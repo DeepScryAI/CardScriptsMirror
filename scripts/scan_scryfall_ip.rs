@@ -226,13 +226,16 @@ fn matched_patterns_in_file(relative_path: &str, text: &str, matcher: &aho_coras
 }
 
 fn is_nonexpressive_card_record(relative_path: &str, line: &str) -> bool {
-    if !relative_path.starts_with("cards/") || !relative_path.ends_with(".txt") {
+    if !(relative_path.starts_with("cards/") || relative_path.starts_with("tokens/"))
+        || !relative_path.ends_with(".txt")
+    {
         return false;
     }
     let key = line.split_once(':').map(|(key, _)| key.trim()).unwrap_or(line.trim());
     matches!(
         key,
-        "Id" | "ColorIdentity"
+        "Id" | "TokenId"
+            | "ColorIdentity"
             | "ManaCost"
             | "Types"
             | "PT"

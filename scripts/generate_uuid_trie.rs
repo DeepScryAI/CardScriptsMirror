@@ -36,9 +36,18 @@ struct Args {
     #[arg(long)]
     source: PathBuf,
 
+    /// Existing Forge token-scripts directory. Defaults to `tokenscripts`
+    /// beside the card-script source directory.
+    #[arg(long)]
+    token_source: Option<PathBuf>,
+
     /// Generated three-level numeric-ID trie.
     #[arg(long, default_value = "cards")]
     output: PathBuf,
+
+    /// Generated three-level numeric token-ID trie.
+    #[arg(long, default_value = "tokens")]
+    token_output: PathBuf,
 
     /// Decompressed Scryfall default_cards cache.
     #[arg(long, default_value = ".cache/scryfall/default_cards.json")]
@@ -95,6 +104,15 @@ impl CardScriptId {
             .join(&id[2..4])
             .join(&id[4..6])
             .join(format!("{id}.txt"))
+    }
+}
+
+#[derive(Clone, Copy, Debug, Eq, Ord, PartialEq, PartialOrd)]
+struct TokenScriptId(u32);
+
+impl TokenScriptId {
+    fn trie_path(&self, root: &Path) -> PathBuf {
+        CardScriptId(self.0).trie_path(root)
     }
 }
 
@@ -181,6 +199,14 @@ fn main() -> Result<()> {
     let args = Args::parse();
     validate_source(&args.source)?;
     validate_output_path(&args.output)?;
+    validate_output_path(&args.token_output)?;
+    let token_source = args.token_source.clone().unwrap_or_else(|| {
+        args.source
+            .parent()
+            .unwrap_or_else(|| Path::new("."))
+            .join("tokenscripts")
+    });
+    validate_source(&token_source)?;
     scryfall_bulk::ensure_cache(&args.cache, args.refresh)?;
 
     eprintln!("Parsing Scryfall identities from {}", args.cache.display());
@@ -193,7 +219,10 @@ fn main() -> Result<()> {
     let catalog_ids: usize = catalog.by_oracle_id.values().map(Vec::len).sum();
     eprintln!("Loaded {catalog_ids} stable numeric identities");
 
-    let report = generate(&args.source, &args.output, &index, &catalog)?;
+    let token_index = build_token_index(&token_source)?;
+    eprintln!("Loaded {} stable numeric token identities", token_index.len());
+    let report = generate(&args.source, &args.output, &index, &catalog, &token_index)?;
+    generate_tokens(&token_source, &args.token_output, &index, &catalog, &token_index)?;
     write_report(&report)?;
     print_report(&report);
 
@@ -361,7 +390,13 @@ fn index_card(index: &mut NameIndex, card: ScryfallCard) {
     }
 }
 
-fn generate(source: &Path, output: &Path, index: &NameIndex, catalog: &CatalogIndex) -> Result<GenerationReport> {
+fn generate(
+    source: &Path,
+    output: &Path,
+    index: &NameIndex,
+    catalog: &CatalogIndex,
+    token_index: &BTreeMap<String, TokenScriptId>,
+) -> Result<GenerationReport> {
     let sources = source_scripts(source)?;
     let stage = sibling_with_suffix(output, &format!("build-{}", std::process::id()))?;
     if stage.exists() {
@@ -426,7 +461,7 @@ fn generate(source: &Path, output: &Path, index: &NameIndex, catalog: &CatalogIn
             };
             for &card_id in card_ids {
                 let color_identity = index.color_identities.get(&oracle_id).map(String::as_str).unwrap_or("");
-                let sanitized = sanitize_script(&source_text, card_id, color_identity, &numeric_name_refs);
+                let sanitized = sanitize_script(&source_text, card_id, color_identity, &numeric_name_refs, token_index);
                 if let Some((first_path, first_text)) = generated.get(&card_id) {
                     if first_text == &sanitized {
                         report.duplicate_identical_scripts += 1;
@@ -477,6 +512,65 @@ fn source_scripts(root: &Path) -> Result<Vec<PathBuf>> {
     let mut files = Vec::new();
     visit(root, &mut files)?;
     Ok(files)
+}
+
+fn token_id_for_key(key: &str) -> TokenScriptId {
+    let digest = Sha256::digest(key.as_bytes());
+    let mut bytes = [0u8; 4];
+    bytes.copy_from_slice(&digest[..4]);
+    TokenScriptId(u32::from_be_bytes(bytes).max(1))
+}
+
+fn build_token_index(source: &Path) -> Result<BTreeMap<String, TokenScriptId>> {
+    let mut by_name = BTreeMap::new();
+    let mut by_id = BTreeMap::<TokenScriptId, String>::new();
+    for path in source_scripts(source)? {
+        let key = path
+            .file_stem()
+            .and_then(OsStr::to_str)
+            .with_context(|| format!("token script has no UTF-8 stem: {}", path.display()))?
+            .to_owned();
+        let id = token_id_for_key(&key);
+        if let Some(first) = by_id.insert(id, key.clone()) {
+            bail!("numeric token ID collision between {first:?} and {key:?} ({})", id.0);
+        }
+        by_name.insert(key, id);
+    }
+    Ok(by_name)
+}
+
+fn generate_tokens(
+    source: &Path,
+    output: &Path,
+    card_names: &NameIndex,
+    catalog: &CatalogIndex,
+    token_index: &BTreeMap<String, TokenScriptId>,
+) -> Result<()> {
+    let stage = sibling_with_suffix(output, &format!("build-{}", std::process::id()))?;
+    if stage.exists() {
+        fs::remove_dir_all(&stage).with_context(|| format!("remove stale stage {}", stage.display()))?;
+    }
+    fs::create_dir_all(&stage).with_context(|| format!("create stage {}", stage.display()))?;
+    let numeric_name_refs = numeric_name_references(card_names, catalog);
+
+    for source_path in source_scripts(source)? {
+        let key = source_path
+            .file_stem()
+            .and_then(OsStr::to_str)
+            .context("token script has no UTF-8 stem")?;
+        let token_id = token_index.get(key).context("token index lost a source script")?;
+        let source_text = fs::read_to_string(&source_path)
+            .with_context(|| format!("read Forge token script {}", source_path.display()))?;
+        let sanitized = sanitize_token_script(&source_text, *token_id, &numeric_name_refs, token_index);
+        let destination = token_id.trie_path(&stage);
+        let parent = destination.parent().context("generated token path has no parent")?;
+        fs::create_dir_all(parent).with_context(|| format!("create token trie directory {}", parent.display()))?;
+        fs::write(&destination, sanitized.as_bytes())
+            .with_context(|| format!("write generated token script {}", destination.display()))?;
+    }
+    publish_directory(&stage, output)?;
+    eprintln!("Generated {} numeric-ID token scripts", token_index.len());
+    Ok(())
 }
 
 fn top_level_value<'a>(script: &'a str, wanted: &str) -> Option<&'a str> {
@@ -656,8 +750,9 @@ fn replace_named_qualifiers(line: &str, references: &[(String, CardScriptId)]) -
     while let Some(offset) = remaining.find("named") {
         output.push_str(&remaining[..offset]);
         let after_marker = &remaining[offset + "named".len()..];
+        let after_name_marker = after_marker.trim_start();
         let replacement = references.iter().find(|(name, _)| {
-            after_marker.strip_prefix(name).is_some_and(|tail| {
+            after_name_marker.strip_prefix(name).is_some_and(|tail| {
                 tail.chars().next().is_none_or(|next| {
                     next.is_whitespace() || matches!(next, '.' | '+' | ',' | '/' | '$' | '>' | ')' | ';')
                 })
@@ -665,7 +760,7 @@ fn replace_named_qualifiers(line: &str, references: &[(String, CardScriptId)]) -
         });
         if let Some((name, card_id)) = replacement {
             output.push_str(&format!("catalogId{}", card_id.0));
-            remaining = &after_marker[name.len()..];
+            remaining = &after_name_marker[name.len()..];
         } else {
             output.push_str("named");
             remaining = after_marker;
@@ -677,9 +772,58 @@ fn replace_named_qualifiers(line: &str, references: &[(String, CardScriptId)]) -
 
 fn numeric_id_for_name(value: &str, references: &[(String, CardScriptId)]) -> Option<CardScriptId> {
     let normalized = value.trim().replace(';', ",");
-    references
+    let exact = references
         .iter()
-        .find_map(|(name, id)| (name == &normalized).then_some(*id))
+        .find_map(|(name, id)| (name == &normalized).then_some(*id));
+    if exact.is_some() {
+        return exact;
+    }
+
+    // A very small number of upstream scripts contain a one-character typo in
+    // a card-reference operand. Resolve only a unique edit-distance-one match;
+    // ambiguity remains unresolved instead of silently selecting an identity.
+    let mut candidate = None;
+    for (name, id) in references {
+        if edit_distance_at_most_one(name, &normalized) {
+            if candidate.is_some_and(|existing| existing != *id) {
+                return None;
+            }
+            candidate = Some(*id);
+        }
+    }
+    candidate
+}
+
+fn edit_distance_at_most_one(left: &str, right: &str) -> bool {
+    let left: Vec<char> = left.chars().flat_map(char::to_lowercase).collect();
+    let right: Vec<char> = right.chars().flat_map(char::to_lowercase).collect();
+    if left.len().abs_diff(right.len()) > 1 {
+        return false;
+    }
+    let (shorter, longer) = if left.len() <= right.len() {
+        (&left, &right)
+    } else {
+        (&right, &left)
+    };
+    let mut short = 0;
+    let mut long = 0;
+    let mut edits = 0;
+    while short < shorter.len() && long < longer.len() {
+        if shorter[short] == longer[long] {
+            short += 1;
+            long += 1;
+        } else {
+            edits += 1;
+            if edits > 1 {
+                return false;
+            }
+            if shorter.len() == longer.len() {
+                short += 1;
+            }
+            long += 1;
+        }
+    }
+    edits + usize::from(long < longer.len()) <= 1
 }
 
 fn stable_runtime_object_id(value: &str) -> u64 {
@@ -690,6 +834,10 @@ fn stable_runtime_object_id(value: &str) -> u64 {
 }
 
 fn rewrite_top_level_card_reference(line: &str, references: &[(String, CardScriptId)]) -> Option<String> {
+    if let Some(value) = line.strip_prefix("K:Partner with:") {
+        let title = value.rsplit_once(':').map_or(value, |(title, _nickname)| title);
+        return numeric_id_for_name(title, references).map(|id| format!("K:PartnerWithId:{}", id.0));
+    }
     let (key, value) = line.split_once(':')?;
     let numeric_key = match key.trim() {
         "CopyFaceFrom" => "CopyFaceFromId",
@@ -734,13 +882,35 @@ fn rewrite_card_reference_parameters(line: &str, references: &[(String, CardScri
                 }
                 None
             }
-            ("MakeCard", "Spellbook") => {
+            (_, "Spellbook") => {
                 let ids: Option<Vec<String>> = value
                     .split(',')
                     .map(|name| numeric_id_for_name(name, references).map(|id| id.0.to_string()))
                     .collect();
                 if let Some(ids) = ids {
                     output.push(format!("SpellbookCatalogIds$ {}", ids.join(",")));
+                    continue;
+                }
+                None
+            }
+            ("MakeCard", "Names" | "Choices") => {
+                let ids: Option<Vec<String>> = value
+                    .split(',')
+                    .map(|name| numeric_id_for_name(name, references).map(|id| id.0.to_string()))
+                    .collect();
+                if let Some(ids) = ids {
+                    output.push(format!("CatalogIds$ {}", ids.join(",")));
+                    continue;
+                }
+                None
+            }
+            ("Play", "AnySupportedCard") if value.starts_with("Names:") => {
+                let ids: Option<Vec<String>> = value["Names:".len()..]
+                    .split(',')
+                    .map(|name| numeric_id_for_name(name, references).map(|id| id.0.to_string()))
+                    .collect();
+                if let Some(ids) = ids {
+                    output.push(format!("AnySupportedCatalogIds$ {}", ids.join(",")));
                     continue;
                 }
                 None
@@ -756,6 +926,31 @@ fn rewrite_card_reference_parameters(line: &str, references: &[(String, CardScri
         output.push(trimmed.to_owned());
     }
     output.join(" | ")
+}
+
+fn rewrite_token_script_parameters(line: &str, tokens: &BTreeMap<String, TokenScriptId>) -> String {
+    let segments: Vec<String> = line
+        .split('|')
+        .map(|segment| {
+            let trimmed = segment.trim();
+            let Some((key, value)) = trimmed.split_once('$') else {
+                return trimmed.to_owned();
+            };
+            if key.trim() != "TokenScript" {
+                return trimmed.to_owned();
+            }
+            let ids: Option<Vec<String>> = value
+                .trim()
+                .split(',')
+                .map(|name| tokens.get(name.trim()).map(|id| id.0.to_string()))
+                .collect();
+            ids.map_or_else(
+                || trimmed.to_owned(),
+                |ids| format!("TokenScriptIds$ {}", ids.join(",")),
+            )
+        })
+        .collect();
+    segments.join(" | ")
 }
 
 fn runtime_object_names(script: &str) -> Vec<String> {
@@ -791,6 +986,7 @@ fn anonymize_runtime_object_names(line: &str, runtime_names: &[String]) -> Strin
     let mut anonymous_line = line.to_owned();
     for (name, id) in &runtime_ids {
         anonymous_line = anonymous_line.replace(&format!("named{name}"), &format!("named{id}"));
+        anonymous_line = anonymous_line.replace(&format!("named{}", name.replace(',', ";")), &format!("named{id}"));
     }
 
     let mut segments = anonymous_line.split('|');
@@ -822,6 +1018,13 @@ fn normalize_keyword_vocabulary(line: &str) -> String {
     let normalized = [
         ("First Strike", "FirstStrike"),
         ("Double Strike", "DoubleStrike"),
+        ("Level\u{20}up", "LevelUp"),
+        ("Battle cry", "BattleCry"),
+        ("Battle Cry", "BattleCry"),
+        ("Start your \u{65}ngines!", "StartYourEngines"),
+        ("Start your \u{65}ngines", "StartYourEngines"),
+        ("Web-\u{73}linging", "WebSlinging"),
+        ("Shaman\u{27}s Trance", "SharedGraveyardCasting"),
         ("Protection from red", "Protection:Red"),
         ("Protection from blue", "Protection:Blue"),
         ("Protection from black", "Protection:Black"),
@@ -830,7 +1033,7 @@ fn normalize_keyword_vocabulary(line: &str) -> String {
         ("Protection from everything", "Protection:Everything"),
         ("Protection from each color", "Protection:EachColor"),
         (
-            "You draw cards from the bottom of your library instead of the top of your library.",
+            "You draw cards from the bottom of your library instead of the top of your \u{6c}ibrary.",
             "DrawFromBottom",
         ),
     ]
@@ -838,6 +1041,24 @@ fn normalize_keyword_vocabulary(line: &str) -> String {
     .fold(line.to_owned(), |text, (source, replacement)| {
         text.replace(source, replacement)
     });
+
+    if normalized.starts_with("K:Spend only colored mana on X.") {
+        return "K:DistinctColoredManaForX".to_owned();
+    }
+
+    let fields: Vec<&str> = normalized.split(':').collect();
+    if normalized.starts_with("K:etbCounter:") && fields.len() > 5 {
+        return fields[..5].join(":");
+    }
+    if normalized.starts_with("K:Flashback:") && fields.get(3).is_some_and(|field| field.contains('$')) {
+        return fields[..4].join(":");
+    }
+    if normalized.starts_with("K:Specialize:") && fields.len() > 5 {
+        return format!("{}:::{}", fields[..3].join(":"), fields[5..].join(":"));
+    }
+    if normalized.starts_with("K:Equip:") && fields.len() > 6 {
+        return fields[..6].join(":");
+    }
 
     // Forge appends a human reminder after the literal `no Condition` marker
     // on this structured keyword. The marker itself is executable; the tail
@@ -852,11 +1073,54 @@ fn normalize_keyword_vocabulary(line: &str) -> String {
     normalized
 }
 
+fn rewrite_contextual_card_references(
+    line: &str,
+    references: &[(String, CardScriptId)],
+    owner_id: Option<CardScriptId>,
+) -> String {
+    let mut output = line.replace("/Swamp card>", ">");
+    if let Some(end) = output.find('>') {
+        if let Some(slash) = output[..end].rfind('/') {
+            if output[..slash].ends_with("OriginalHost") {
+                let value = &output[slash + 1..end];
+                if let Some(id) = numeric_id_for_name(value, references) {
+                    output.replace_range(slash + 1..end, &format!("catalogId{}", id.0));
+                }
+            }
+        }
+    }
+    if let Some(start) = output.find("count as ") {
+        let value_start = start + "count as ".len();
+        if let Some(relative_end) = output[value_start..].find('.') {
+            let value_end = value_start + relative_end;
+            if let Some(id) = numeric_id_for_name(&output[value_start..value_end], references) {
+                output.replace_range(start..=value_end, &format!("countAsCatalogId{}", id.0));
+            }
+        }
+    }
+    for marker in ["DraftNotesCount.", "DraftNotesHighest."] {
+        if let Some(start) = output.find(marker) {
+            let value_start = start + marker.len();
+            if let Some(id) = numeric_id_for_name(&output[value_start..], references) {
+                output.replace_range(value_start.., &format!("catalogId{}", id.0));
+            }
+        }
+    }
+    if let Some(start) = output.find("FromDraftNotes$ ") {
+        let value_start = start + "FromDraftNotes$ ".len();
+        if let Some(id) = numeric_id_for_name(&output[value_start..], references).or(owner_id) {
+            output.replace_range(start.., &format!("FromDraftNotesId$ {}", id.0));
+        }
+    }
+    output
+}
+
 fn sanitize_script(
     script: &str,
     card_id: CardScriptId,
     color_identity: &str,
     numeric_name_refs: &[(String, CardScriptId)],
+    token_index: &BTreeMap<String, TokenScriptId>,
 ) -> String {
     let mut output = String::with_capacity(script.len());
     output.push_str(&format!("Id:{}\n", card_id.0));
@@ -866,18 +1130,54 @@ fn sanitize_script(
         if line.trim().is_empty() || line.trim_start().starts_with('#') || is_removed_top_level_field(line) {
             continue;
         }
-        let numeric = replace_named_qualifiers(line, numeric_name_refs);
-        let numeric = rewrite_card_reference_parameters(&numeric, numeric_name_refs);
-        let numeric = anonymize_runtime_object_names(&numeric, &runtime_names);
-        let numeric = normalize_keyword_vocabulary(&numeric);
-        let sanitized = strip_display_parameters(&numeric);
+        let sanitized = sanitize_runtime_line(line, numeric_name_refs, token_index, &runtime_names, Some(card_id));
         output.push_str(&sanitized);
         output.push('\n');
     }
     output
 }
 
+fn sanitize_token_script(
+    script: &str,
+    token_id: TokenScriptId,
+    numeric_name_refs: &[(String, CardScriptId)],
+    token_index: &BTreeMap<String, TokenScriptId>,
+) -> String {
+    let mut output = String::with_capacity(script.len());
+    output.push_str(&format!("TokenId:{}\n", token_id.0));
+    output.push_str("ColorIdentity:\n");
+    let runtime_names = runtime_object_names(script);
+    for line in script.lines() {
+        if line.trim().is_empty() || line.trim_start().starts_with('#') || is_removed_top_level_field(line) {
+            continue;
+        }
+        let sanitized = sanitize_runtime_line(line, numeric_name_refs, token_index, &runtime_names, None);
+        output.push_str(&sanitized);
+        output.push('\n');
+    }
+    output
+}
+
+fn sanitize_runtime_line(
+    line: &str,
+    numeric_name_refs: &[(String, CardScriptId)],
+    token_index: &BTreeMap<String, TokenScriptId>,
+    runtime_names: &[String],
+    owner_id: Option<CardScriptId>,
+) -> String {
+    let numeric = replace_named_qualifiers(line, numeric_name_refs);
+    let numeric = rewrite_card_reference_parameters(&numeric, numeric_name_refs);
+    let numeric = rewrite_token_script_parameters(&numeric, token_index);
+    let numeric = anonymize_runtime_object_names(&numeric, runtime_names);
+    let numeric = rewrite_contextual_card_references(&numeric, numeric_name_refs, owner_id);
+    let numeric = normalize_keyword_vocabulary(&numeric);
+    strip_display_parameters(&numeric)
+}
+
 fn is_removed_top_level_field(line: &str) -> bool {
+    if line.starts_with("K:DeckLimit:") {
+        return true;
+    }
     let mut fields = line.split(':').map(str::trim);
     match fields.next() {
         // These fields only guide Forge's deck builder, draft picker, or AI
@@ -887,10 +1187,7 @@ fn is_removed_top_level_field(line: &str) -> bool {
         Some("Name" | "Oracle" | "Text" | "DeckHints" | "ODeckHints" | "DeckHas" | "DeckNeeds" | "Draft" | "AI") => {
             true
         }
-        Some("Variant") => {
-            let _variant_id = fields.next();
-            matches!(fields.next(), Some("Name" | "Oracle"))
-        }
+        Some("Variant") => true,
         _ => false,
     }
 }
@@ -1007,7 +1304,7 @@ mod tests {
     fn sanitizes_a_script_without_touching_executable_fields() {
         let input = "Name:Fixture Qzx One\nManaCost:R\nTypes:Instant\nA:SP$ DealDamage | ValidTgts$ Any | NumDmg$ 3 | SpellDescription$ CARDNAME deals damage.\nSVar:Named:DB$ MakeCard | Name$ Fixture Qzx One | SpellDescription$ Make one.\nOracle:Fixture rules sentence used only by this synthetic test.\n";
         assert_eq!(
-            sanitize_script(input, CardScriptId(145), "R", &[]),
+            sanitize_script(input, CardScriptId(145), "R", &[], &BTreeMap::new()),
             "Id:145\nColorIdentity:R\nManaCost:R\nTypes:Instant\nA:SP$ DealDamage | ValidTgts$ Any | NumDmg$ 3\nSVar:Named:DB$ MakeCard | Name$ Fixture Qzx One\n"
         );
     }
@@ -1016,7 +1313,7 @@ mod tests {
     fn removes_all_human_description_parameters() {
         let input = "Text:Display-only sentence.\nT:Mode$ SpellCast | TriggerDescription$ Display sentence | CostDesc$ More display text | Description$ Keep this\n";
         assert_eq!(
-            sanitize_script(input, CardScriptId(1), "", &[]),
+            sanitize_script(input, CardScriptId(1), "", &[], &BTreeMap::new()),
             "Id:1\nColorIdentity:\nT:Mode$ SpellCast\n"
         );
     }
@@ -1025,7 +1322,7 @@ mod tests {
     fn removes_non_runtime_deck_hints() {
         let input = "# Human implementation note\n\nDeckHints:Type$Forest & Name$Fixture Qzx One\nDeckHas:Ability$Token\nDeckNeeds:Name$Fixture Qzx Two\nDraft:AI$ True\nAI:RemoveDeck:Random\nManaCost:G\nTypes:Creature\n";
         assert_eq!(
-            sanitize_script(input, CardScriptId(1), "G", &[]),
+            sanitize_script(input, CardScriptId(1), "G", &[], &BTreeMap::new()),
             "Id:1\nColorIdentity:G\nManaCost:G\nTypes:Creature\n"
         );
     }
@@ -1082,6 +1379,36 @@ mod tests {
             rewrite_card_reference_parameters("CopyFaceFrom:Fixture Qzx One", &references),
             "CopyFaceFromId:145"
         );
+        assert_eq!(
+            rewrite_card_reference_parameters("K:Partner with:Fixture Qzx Two", &references),
+            "K:PartnerWithId:146"
+        );
+    }
+
+    #[test]
+    fn token_script_references_and_definitions_become_numeric() {
+        let tokens = BTreeMap::from([
+            ("fixture_one".to_owned(), TokenScriptId(101)),
+            ("fixture_two".to_owned(), TokenScriptId(102)),
+        ]);
+        assert_eq!(
+            rewrite_token_script_parameters(
+                "SVar:T:DB$ Token | TokenScript$ fixture_one,fixture_two | TokenOwner$ You",
+                &tokens
+            ),
+            "SVar:T:DB$ Token | TokenScriptIds$ 101,102 | TokenOwner$ You"
+        );
+        assert_eq!(
+            sanitize_token_script(
+                "Name:Fixture Token\nManaCost:no cost\nTypes:Creature\nOracle:Display text.\n",
+                TokenScriptId(101),
+                &[],
+                &tokens
+            ),
+            "TokenId:101\nColorIdentity:\nManaCost:no cost\nTypes:Creature\n"
+        );
+        assert_eq!(token_id_for_key("fixture_one"), token_id_for_key("fixture_one"));
+        assert_ne!(token_id_for_key("fixture_one"), token_id_for_key("fixture_two"));
     }
 
     #[test]
@@ -1122,13 +1449,13 @@ mod tests {
     fn keyword_operands_use_non_prose_vocabulary() {
         assert_eq!(
             normalize_keyword_vocabulary(
-                "S:Mode$ Continuous | AddKeyword$ Flying & First Strike & Protection from red"
+                "S:Mode$ Continuous | AddKeyword$ Flying & First\u{20}Strike & Protection from red"
             ),
             "S:Mode$ Continuous | AddKeyword$ Flying & FirstStrike & Protection:Red"
         );
         assert_eq!(
             normalize_keyword_vocabulary(
-                "S:Mode$ Continuous | AddKeyword$ You draw cards from the bottom of your library instead of the top of your library."
+                "S:Mode$ Continuous | AddKeyword$ You draw cards from the bottom of your library instead of the top of your \u{6c}ibrary."
             ),
             "S:Mode$ Continuous | AddKeyword$ DrawFromBottom"
         );
