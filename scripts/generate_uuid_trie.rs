@@ -615,22 +615,37 @@ fn normalize_type_line(value: &str) -> String {
 }
 
 fn numeric_name_references(index: &NameIndex, catalog: &CatalogIndex) -> Vec<(String, CardScriptId)> {
-    let mut references = Vec::new();
-    for name in index.whole_cards.keys().chain(index.faces.keys()) {
+    let mut unique = BTreeMap::<String, Option<CardScriptId>>::new();
+    for (name, identities) in index.whole_cards.iter().chain(index.faces.iter()) {
         let hash = Sha256::digest(name.as_bytes())
             .iter()
             .map(|byte| format!("{byte:02x}"))
             .collect::<String>();
-        if let Some(Some(card_id)) = catalog.by_name_hash.get(&hash) {
-            references.push((name.clone(), *card_id));
-            if name.contains(',') {
-                references.push((name.replace(',', ";"), *card_id));
-            }
-            if name.contains(' ') {
-                references.push((name.replace(' ', "_"), *card_id));
+        let card_id = catalog.by_name_hash.get(&hash).copied().flatten().or_else(|| {
+            let oracle_id = (identities.len() == 1).then(|| identities.keys().next().expect("one identity"))?;
+            let ids = catalog.by_oracle_id.get(oracle_id)?;
+            (ids.len() == 1).then_some(ids[0])
+        });
+        let Some(card_id) = card_id else {
+            continue;
+        };
+        for alias in [name.clone(), name.replace(',', ";"), name.replace(' ', "_")] {
+            match unique.entry(alias) {
+                std::collections::btree_map::Entry::Vacant(entry) => {
+                    entry.insert(Some(card_id));
+                }
+                std::collections::btree_map::Entry::Occupied(mut entry) => {
+                    if entry.get().is_some_and(|existing| existing != card_id) {
+                        entry.insert(None);
+                    }
+                }
             }
         }
     }
+    let mut references: Vec<_> = unique
+        .into_iter()
+        .filter_map(|(name, id)| id.map(|id| (name, id)))
+        .collect();
     references.sort_unstable_by(|left, right| right.0.len().cmp(&left.0.len()).then_with(|| left.0.cmp(&right.0)));
     references
 }
@@ -660,6 +675,71 @@ fn replace_named_qualifiers(line: &str, references: &[(String, CardScriptId)]) -
     output
 }
 
+fn numeric_id_for_name(value: &str, references: &[(String, CardScriptId)]) -> Option<CardScriptId> {
+    let normalized = value.trim().replace(';', ",");
+    references
+        .iter()
+        .find_map(|(name, id)| (name == &normalized).then_some(*id))
+}
+
+fn rewrite_top_level_card_reference(line: &str, references: &[(String, CardScriptId)]) -> Option<String> {
+    let (key, value) = line.split_once(':')?;
+    let numeric_key = match key.trim() {
+        "CopyFaceFrom" => "CopyFaceFromId",
+        "MeldPair" => "MeldPairId",
+        _ => return None,
+    };
+    numeric_id_for_name(value, references).map(|id| format!("{numeric_key}:{}", id.0))
+}
+
+fn rewrite_card_reference_parameters(line: &str, references: &[(String, CardScriptId)]) -> String {
+    if let Some(rewritten) = rewrite_top_level_card_reference(line, references) {
+        return rewritten;
+    }
+
+    let mut segments = line.split('|');
+    let Some(head) = segments.next() else {
+        return line.to_owned();
+    };
+    let api = head.rsplit_once('$').map(|(_, value)| value.trim()).unwrap_or("");
+    let mut output = vec![head.trim().to_owned()];
+    for segment in segments {
+        let trimmed = segment.trim();
+        let Some((key, value)) = trimmed.split_once('$') else {
+            output.push(trimmed.to_owned());
+            continue;
+        };
+        let key = key.trim();
+        let value = value.trim();
+        let numeric_key = match (api, key) {
+            ("MakeCard", "Name") | ("Meld", "Name") => Some("CatalogId"),
+            ("Meld", "Primary") => Some("PrimaryCatalogId"),
+            ("Meld", "Secondary") => Some("SecondaryCatalogId"),
+            ("CopyPermanent", "DefinedName") => Some("DefinedCatalogId"),
+            ("NameCard", "ChooseFromList") => {
+                let ids: Option<Vec<String>> = value
+                    .split(',')
+                    .map(|name| numeric_id_for_name(name, references).map(|id| id.0.to_string()))
+                    .collect();
+                if let Some(ids) = ids {
+                    output.push(format!("ChooseFromCatalogIds$ {}", ids.join(",")));
+                    continue;
+                }
+                None
+            }
+            _ => None,
+        };
+        if let Some(numeric_key) = numeric_key {
+            if let Some(id) = numeric_id_for_name(value, references) {
+                output.push(format!("{numeric_key}$ {}", id.0));
+                continue;
+            }
+        }
+        output.push(trimmed.to_owned());
+    }
+    output.join(" | ")
+}
+
 fn sanitize_script(
     script: &str,
     card_id: CardScriptId,
@@ -674,6 +754,7 @@ fn sanitize_script(
             continue;
         }
         let numeric = replace_named_qualifiers(line, numeric_name_refs);
+        let numeric = rewrite_card_reference_parameters(&numeric, numeric_name_refs);
         let sanitized = strip_display_parameters(&numeric);
         output.push_str(&sanitized);
         output.push('\n');
@@ -847,6 +928,39 @@ mod tests {
                 &references
             ),
             "S:Mode$ Continuous | Affected$ Creature.catalogId145+YouCtrl"
+        );
+    }
+
+    #[test]
+    fn executable_card_reference_parameters_become_numeric() {
+        let references = vec![
+            ("Fixture Qzx One".to_owned(), CardScriptId(145)),
+            ("Fixture Qzx Two".to_owned(), CardScriptId(146)),
+        ];
+        assert_eq!(
+            rewrite_card_reference_parameters(
+                "SVar:Make:DB$ MakeCard | Name$ Fixture Qzx One | Zone$ Hand",
+                &references
+            ),
+            "SVar:Make:DB$ MakeCard | CatalogId$ 145 | Zone$ Hand"
+        );
+        assert_eq!(
+            rewrite_card_reference_parameters(
+                "SVar:Meld:DB$ Meld | Name$ Fixture Qzx One | Primary$ Fixture Qzx One | Secondary$ Fixture Qzx Two",
+                &references
+            ),
+            "SVar:Meld:DB$ Meld | CatalogId$ 145 | PrimaryCatalogId$ 145 | SecondaryCatalogId$ 146"
+        );
+        assert_eq!(
+            rewrite_card_reference_parameters(
+                "A:AB$ NameCard | ChooseFromList$ Fixture Qzx One,Fixture Qzx Two",
+                &references
+            ),
+            "A:AB$ NameCard | ChooseFromCatalogIds$ 145,146"
+        );
+        assert_eq!(
+            rewrite_card_reference_parameters("CopyFaceFrom:Fixture Qzx One", &references),
+            "CopyFaceFromId:145"
         );
     }
 
