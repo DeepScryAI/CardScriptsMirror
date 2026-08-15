@@ -35,6 +35,10 @@ struct Args {
     #[arg(long)]
     root: PathBuf,
 
+    /// Restrict the scan to tracked paths beneath this repository-relative prefix.
+    #[arg(long)]
+    path_prefix: Option<String>,
+
     /// Decompressed Scryfall default_cards cache shared with the generator.
     #[arg(long, default_value = ".cache/scryfall/default_cards.json")]
     cache: PathBuf,
@@ -82,6 +86,7 @@ struct ScanReport {
     non_regular_paths_skipped: usize,
     hit_pairs: usize,
     omitted_hit_pairs: usize,
+    hit_pairs_by_path_group: BTreeMap<String, usize>,
     pattern_hit_counts: Vec<PatternHitCount>,
     hits: Vec<Hit>,
 }
@@ -130,7 +135,10 @@ fn main() -> Result<()> {
         .build(&wrapped_patterns)
         .context("compile normalized Scryfall pattern automaton")?;
 
-    let tracked_files = git_tracked_files(&args.root)?;
+    let mut tracked_files = git_tracked_files(&args.root)?;
+    if let Some(prefix) = args.path_prefix.as_deref() {
+        tracked_files.retain(|path| path == prefix || path.starts_with(&format!("{prefix}/")));
+    }
     let mut report = ScanReport {
         patterns_from_scryfall: all_patterns.len(),
         allowlisted_patterns: allowlist.len(),
@@ -141,6 +149,7 @@ fn main() -> Result<()> {
         non_regular_paths_skipped: 0,
         hit_pairs: 0,
         omitted_hit_pairs: 0,
+        hit_pairs_by_path_group: BTreeMap::new(),
         pattern_hit_counts: Vec::new(),
         hits: Vec::new(),
     };
@@ -162,6 +171,10 @@ fn main() -> Result<()> {
         report.text_files_scanned += 1;
         let matched_pattern_ids = matched_patterns_in_file(&relative_path, text, &matcher);
         report.hit_pairs += matched_pattern_ids.len();
+        *report
+            .hit_pairs_by_path_group
+            .entry(path_group(&relative_path))
+            .or_default() += matched_pattern_ids.len();
         for pattern_id in matched_pattern_ids {
             pattern_hit_counts[pattern_id] += 1;
             if report.hits.len() >= MAX_REPORTED_HITS {
@@ -212,6 +225,26 @@ fn main() -> Result<()> {
     Ok(())
 }
 
+fn path_group(relative_path: &str) -> String {
+    let mut components = relative_path.split('/');
+    let first = components.next().unwrap_or(".");
+    if first == "src" {
+        let second = components.next().unwrap_or(".");
+        let third = components.next().unwrap_or(".");
+        return format!("{first}/{second}/{third}");
+    }
+    let grouped_two_levels = matches!(
+        first,
+        ".minibeads" | "debug" | "decks" | "experiment_results" | "experiments"
+    );
+    if grouped_two_levels {
+        if let Some(second) = components.next() {
+            return format!("{first}/{second}");
+        }
+    }
+    first.to_owned()
+}
+
 fn matched_patterns_in_file(relative_path: &str, text: &str, matcher: &aho_corasick::AhoCorasick) -> BTreeSet<usize> {
     text.lines()
         .filter(|line| !is_nonexpressive_card_record(relative_path, line))
@@ -226,9 +259,11 @@ fn matched_patterns_in_file(relative_path: &str, text: &str, matcher: &aho_coras
 }
 
 fn is_nonexpressive_card_record(relative_path: &str, line: &str) -> bool {
-    if !(relative_path.starts_with("cards/") || relative_path.starts_with("tokens/"))
-        || !relative_path.ends_with(".txt")
-    {
+    let is_corpus_path = relative_path.starts_with("cards/")
+        || relative_path.starts_with("tokens/")
+        || relative_path.contains("/cards/")
+        || relative_path.contains("/tokens/");
+    if !is_corpus_path || !relative_path.ends_with(".txt") {
         return false;
     }
     let key = line.split_once(':').map(|(key, _)| key.trim()).unwrap_or(line.trim());
