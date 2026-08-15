@@ -1,0 +1,13 @@
+Id:26367
+ColorIdentity:URG
+ManaCost:2 G U R
+Types:Legendary Creature Gremlin Artificer
+PT:4/4
+S:Mode$ Continuous | Affected$ Creature.Artifact+YouCtrl | AddKeyword$ Trample
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScript$ r_0_0_a_gremlin | RememberTokens$ True | SubAbility$ DBCounters
+SVar:DBCounters:DB$ PutCounter | Defined$ Remembered | CounterType$ P1P1 | CounterNum$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$Valid Artifact.YouCtrl+token$DifferentCardNames
+DeckHas:Ability$Token | Counters
+DeckHints:Type$Artifact & Ability$Token

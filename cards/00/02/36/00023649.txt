@@ -1,0 +1,13 @@
+Id:23649
+ColorIdentity:UG
+ManaCost:2 G GUP U
+Types:Legendary Planeswalker Tamiyo
+Loyalty:5
+K:Compleated
+A:AB$ Tap | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Artifact,Creature | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Targeted | KW$ HIDDEN This card doesn't untap during your next untap step. | Duration$ Permanent
+A:AB$ ChangeZone | Cost$ SubCounter<X/LOYALTY> | Planeswalker$ True | ValidTgts$ Permanent.nonLand+cmcEQX+YouCtrl | AILogic$ BestCard | Origin$ Graveyard | Destination$ Exile | SubAbility$ DBCopy
+SVar:DBCopy:DB$ CopyPermanent | Defined$ Targeted
+SVar:X:Count$xPaid
+A:AB$ Token | Cost$ SubCounter<7/LOYALTY> | Planeswalker$ True | Ultimate$ True | TokenScript$ tamiyos_notebook
+DeckHas:Ability$Token & Type$Artifact

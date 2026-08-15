@@ -1,0 +1,12 @@
+Id:27841
+ColorIdentity:UBR
+ManaCost:1 U B R
+Types:Legendary Creature Time Lord Scientist
+PT:3/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigToken | Secondary$ True
+SVar:TrigToken:DB$ Token | TokenScript$ mark_of_the_rani | TokenOwner$ You | AttachedTo$ Targeted | ValidTgts$ Creature.Other
+T:Mode$ DamageDone | ValidSource$ Creature.IsGoaded | ValidTarget$ Opponent | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigInvestigate
+SVar:TrigInvestigate:DB$ Investigate
+SVar:HasAttackEffect:TRUE
+DeckHas:Ability$Investigate | Token | Sacrifice & Type$Enchantment | Aura | Artifact | Clue

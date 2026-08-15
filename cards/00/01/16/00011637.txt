@@ -1,0 +1,9 @@
+Id:11637
+ColorIdentity:
+ManaCost:5
+Types:Artifact Creature Golem
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ 2 | TokenScript$ c_3_3_a_golem | TokenOwner$ You
+T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ Player | IsSingleTarget$ True | TargetsValid$ Golem.inZoneBattlefield | Execute$ TrigCopy | TriggerZones$ Battlefield
+SVar:TrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | Controller$ TriggeredSpellAbilityController | CopyForEachCanTarget$ Golem.inZoneBattlefield

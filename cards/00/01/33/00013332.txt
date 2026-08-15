@@ -1,0 +1,13 @@
+Id:13332
+ColorIdentity:WB
+ManaCost:W B
+Types:Instant
+A:SP$ Charm | Choices$ ReturnAll,DBDestroy,DBZombify
+SVar:ReturnAll:DB$ Pump | ValidTgts$ Creature.YouCtrl | SubAbility$ DBChangeZoneAll | RememberObjects$ Targeted
+SVar:DBChangeZoneAll:DB$ ChangeZoneAll | ChangeType$ Creature.IsRemembered,Aura.AttachedTo Creature.IsRemembered+YouCtrl | Origin$ Battlefield | Destination$ Hand | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:DBDestroy:DB$ Destroy | ValidTgts$ Creature | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ X
+SVar:X:Targeted$CardToughness
+SVar:DBZombify:DB$ ChangeZone | ValidTgts$ Creature.cmcLE1+YouOwn | Origin$ Graveyard | Destination$ Battlefield
+AI:RemoveDeck:All

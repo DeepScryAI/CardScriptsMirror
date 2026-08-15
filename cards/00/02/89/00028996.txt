@@ -1,0 +1,16 @@
+Id:28996
+ColorIdentity:R
+ManaCost:3 R
+Types:Artifact Vehicle
+PT:*/5
+S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X
+SVar:X:Count$ValidGraveyard Instant.YouOwn,Sorcery.YouOwn
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigInstantEffect
+SVar:TrigInstantEffect:DB$ Effect | StaticAbilities$ CascadeInstant | ForgetOnCast$ Instant.YouCtrl | SubAbility$ DBSorceryEffect
+SVar:DBSorceryEffect:DB$ Effect | StaticAbilities$ CascadeSorcery | ForgetOnCast$ Sorcery.YouCtrl
+SVar:CascadeInstant:Mode$ Continuous | Affected$ Card.Instant+YouCtrl | AffectedZone$ Stack | AddKeyword$ Cascade
+SVar:CascadeSorcery:Mode$ Continuous | Affected$ Card.Sorcery+YouCtrl | AffectedZone$ Stack | AddKeyword$ Cascade
+SVar:HasAttackEffect:TRUE
+K:Crew:2
+DeckHas:Keyword$Cascade
+DeckHints:Type$Instant | Sorcery

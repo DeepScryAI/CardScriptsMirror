@@ -1,0 +1,20 @@
+Id:28117
+ColorIdentity:W
+ManaCost:4 W W
+Types:Legendary Creature God
+PT:6/6
+K:Vigilance
+R:Event$ CreateToken | ActiveZones$ Battlefield | ValidToken$ Creature.YouCtrl | ReplaceWith$ TripleToken
+SVar:TripleToken:DB$ ReplaceToken | Type$ Amount | Amount$ Thrice
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigTransform
+SVar:TrigTransform:DB$ ChangeZone | Defined$ TriggeredCard | Origin$ Graveyard | Destination$ Battlefield | Transformed$ True | Tapped$ True
+DeckNeeds:Ability$Token
+AlternateMode:DoubleFaced
+
+ALTERNATE
+
+ManaCost:no cost
+Types:Land
+A:AB$ Mana | Cost$ T | Produced$ W
+A:AB$ SetState | Cost$ 2 W T | CheckSVar$ X | SVarCompare$ GE3 | Defined$ Self | Mode$ Transform | SorcerySpeed$ True
+SVar:X:Count$AttackersDeclared

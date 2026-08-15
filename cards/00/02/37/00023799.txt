@@ -1,0 +1,11 @@
+Id:23799
+ColorIdentity:U
+ManaCost:3 U U
+Types:Sorcery
+K:Casualty:3
+A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Instant.OppOwn,Sorcery.OppOwn | RememberChanged$ True | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | Valid$ Card.IsRemembered+ExiledWithSource | ValidSA$ Spell | ValidZone$ Exile | Amount$ All | WithoutManaCost$ True | Optional$ True | CopyCard$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$ValidGraveyard Instant.OppOwn+cmcGE4,Sorcery.OppOwn+cmcGE4
+SVar:NeedsToPlayVar:X GE1
+AI:RemoveDeck:Random

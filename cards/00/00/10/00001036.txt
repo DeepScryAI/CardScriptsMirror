@@ -1,0 +1,13 @@
+Id:1036
+ColorIdentity:W
+ManaCost:1 W
+Types:Enchantment
+K:ETBReplacement:Other:ChooseColor
+SVar:ChooseColor:DB$ ChooseColor | AILogic$ MostProminentHumanControls | Defined$ You | SubAbility$ ChooseOpp
+SVar:ChooseOpp:DB$ ChoosePlayer | Defined$ You | Choices$ Player.Opponent | AILogic$ Curse
+SVar:X:Count$Valid Permanent.!token+ChosenColor+ChosenCtrl
+SVar:Y:Count$SecondMostProminentColor Permanent.!token+ChosenCtrl
+S:Mode$ Continuous | Affected$ Creature.White | AddPower$ 1 | AddToughness$ 1 | CheckSVar$ X | SVarCompare$ GTY
+T:Mode$ Always | CheckSVar$ X | SVarCompare$ LEY | TriggerZones$ Battlefield | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice | SacValid$ Self
+AI:RemoveDeck:Random

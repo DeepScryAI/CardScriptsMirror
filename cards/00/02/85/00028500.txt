@@ -1,0 +1,15 @@
+Id:28500
+ColorIdentity:URG
+ManaCost:UR
+Types:Instant
+A:SP$ Effect | StaticAbilities$ MustAttack,MustBlock | RememberObjects$ ThisTargetedCard | ValidTgts$ Creature | ExileOnMoved$ Battlefield
+SVar:MustAttack:Mode$ MustAttack | ValidCreature$ Card.IsRemembered
+SVar:MustBlock:Mode$ MustBlock | ValidCreature$ Card.IsRemembered
+AlternateMode:Split
+
+ALTERNATE
+
+ManaCost:4 RG RG
+Types:Sorcery
+A:SP$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +2 | NumDef$ +2 | KW$ Trample | SubAbility$ DBTurnFaceUp
+SVar:DBTurnFaceUp:DB$ SetState | Optional$ True | Choices$ Creature.faceDown+YouCtrl | Mode$ TurnFaceUp

@@ -1,0 +1,17 @@
+Id:12568
+ColorIdentity:WU
+ManaCost:3 W W U
+Types:Legendary Creature Angel
+PT:5/5
+K:Flying
+K:Vigilance
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ Aurify
+T:Mode$ Blocks | ValidCard$ Card.Self | Execute$ Aurify | Secondary$ True
+SVar:Aurify:DB$ RepeatEach | RepeatSubAbility$ BrunaAttach | RepeatCards$ Aura.CanEnchantSource+!Attached | SubAbility$ ZoneAuras
+SVar:BrunaAttach:DB$ Attach | Object$ Remembered | Defined$ Self | Optional$ True
+SVar:ZoneAuras:DB$ ChangeZone | Origin$ Hand,Graveyard | Destination$ Battlefield | ChangeType$ Aura.CanEnchantSource+YouOwn | AttachedTo$ Self | ChangeNum$ CountAuras | Optional$ True | Hidden$ True
+SVar:CountAuras:Count$ValidHand,Graveyard Aura.CanEnchantSource+YouOwn
+SVar:HasAttackEffect:TRUE
+SVar:HasBlockEffect:TRUE
+DeckHas:Ability$Graveyard
+DeckNeeds:Type$Aura

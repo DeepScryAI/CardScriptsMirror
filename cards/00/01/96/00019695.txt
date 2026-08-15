@@ -1,0 +1,11 @@
+Id:19695
+ColorIdentity:WRG
+ManaCost:2 R G W
+Types:Legendary Creature Angel
+PT:5/4
+K:Flying
+S:Mode$ Continuous | Affected$ Creature.MultiColor+Other+YouCtrl | AddPower$ 1
+SVar:PlayMain1:TRUE
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.MultiColor+Other+YouCtrl | TriggerZones$ Battlefield | Execute$ DelayedTrig
+SVar:DelayedTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ TrigReturn | RememberObjects$ TriggeredNewCardLKICopy
+SVar:TrigReturn:DB$ ChangeZone | Defined$ DelayTriggerRememberedLKI | Origin$ Graveyard | Destination$ Hand

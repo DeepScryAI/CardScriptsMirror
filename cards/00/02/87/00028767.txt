@@ -1,0 +1,12 @@
+Id:28767
+ColorIdentity:U
+ManaCost:1 U
+Types:Instant
+A:SP$ ChooseCard | ChoiceZone$ Hand,Graveyard | Choices$ Instant.YouOwn,Sorcery.YouOwn | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Triggers$ SpellCastTrig | Defined$ ChosenCard | Incorporate$ U | Duration$ Perpetual | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ChangeTypeDesc$ a multicolored instant or sorcery card from your graveyard | ChangeNum$ 1 | Hidden$ True | ChangeType$ Instant.YouCtrl+MultiColor,Sorcery.YouCtrl+MultiColor
+SVar:SpellCastTrig:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw
+AI:RemoveDeck:Random
+DeckHas:Ability$Graveyard
+DeckNeeds:Type$Instant | Sorcery

@@ -1,0 +1,11 @@
+Id:4199
+ColorIdentity:R
+ManaCost:2 R
+Types:Creature Insect
+PT:1/1
+K:Flying
+T:Mode$ AttackerBlocked | ValidCard$ Card.Self | Execute$ TrigDiscard
+SVar:TrigDiscard:DB$ Discard | Defined$ TriggeredDefendingPlayer | Mode$ Hand | RememberDiscarded$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ X | Defined$ TriggeredDefendingPlayer | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Amount

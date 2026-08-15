@@ -1,0 +1,12 @@
+Id:1960
+ColorIdentity:W
+ManaCost:3 W
+Types:World Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigRepeat
+SVar:TrigRepeat:DB$ RepeatEach | RepeatCards$ Permanent.nonBasic | RepeatSubAbility$ DBRem | SubAbility$ DBDestroy
+SVar:DBRem:DB$ Pump | ImprintCards$ Valid Permanent.sharesNameWith Remembered+!IsRemembered
+SVar:DBDestroy:DB$ DestroyAll | ValidCards$ Card.IsImprinted | NoRegen$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearImprinted$ True
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Permanent.nonBasic | TriggerZones$ Battlefield | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ DestroyAll | ValidCards$ Permanent.!TriggeredCard+sharesNameWith TriggeredCard | NoRegen$ True
+AI:RemoveDeck:All

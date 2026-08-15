@@ -1,0 +1,12 @@
+Id:26352
+ColorIdentity:R
+ManaCost:7 R
+Types:Sorcery
+A:SP$ Shuffle | SubAbility$ DBChoose
+SVar:DBChoose:DB$ GenericChoice | Choices$ DBRepeat,Play | Defined$ You
+SVar:DBRepeat:DB$ Repeat | RepeatSubAbility$ DBDig | RepeatOptional$ True | SubAbility$ Play
+SVar:DBDig:DB$ Dig | DigNum$ 1 | Reveal$ True | ChangeNum$ All | ChangeValid$ Card | DestinationZone$ Exile | RememberChanged$ True
+SVar:Play:DB$ Play | Defined$ Remembered | ValidSA$ Spell | Amount$ All | WithoutManaCost$ True | Optional$ True | ConditionCheckSVar$ X | ConditionSVarCompare$ LE13 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$CardManaCost
+AI:RemoveDeck:Random

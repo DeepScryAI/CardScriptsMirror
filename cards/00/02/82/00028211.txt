@@ -1,0 +1,19 @@
+Id:28211
+ColorIdentity:G
+ManaCost:G
+Types:Enchantment
+R:Event$ Explore | ActiveZones$ Battlefield | ValidExplorer$ Creature.YouCtrl | ReplaceWith$ DBScry
+SVar:DBScry:DB$ Scry | SubAbility$ DBExplore
+SVar:DBExplore:DB$ Explore | Defined$ ReplacedCard
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExplore
+SVar:TrigExplore:DB$ Explore | ValidTgts$ Creature.YouCtrl
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | CheckSVar$ Count$Valid Land.YouCtrl | SVarCompare$ GE7 | Execute$ TrigTransform
+SVar:TrigTransform:DB$ SetState | Mode$ Transform
+AlternateMode:DoubleFaced
+
+ALTERNATE
+
+ManaCost:no cost
+Types:Land Cave
+A:AB$ Mana | Cost$ T | Produced$ G
+A:AB$ Dig | Cost$ 3 G T | ForceRevealToController$ True | DigNum$ 4 | ChangeNum$ 1 | Optional$ True | ChangeValid$ Creature | RestRandomOrder$ True

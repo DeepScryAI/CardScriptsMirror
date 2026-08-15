@@ -1,0 +1,15 @@
+Id:27901
+ColorIdentity:BR
+ManaCost:5 B R
+Types:Legendary Creature Wraith Noble
+PT:5/5
+K:Flying
+K:Undying
+T:Mode$ AttackersDeclared | ValidAttackers$ Wraith | AttackingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigExile
+SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ X | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | ForgetOnMoved$ Exile | RememberObjects$ RememberedCard | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | Affected$ Card.IsRemembered | MayPlay$ True | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:TriggerObjectsAttackers$CardPower
+DeckHas:Ability$Counters
+DeckHints:Type$Wraith

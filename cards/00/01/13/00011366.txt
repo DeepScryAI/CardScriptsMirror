@@ -1,0 +1,10 @@
+Id:11366
+ColorIdentity:
+ManaCost:no cost
+Types:Ongoing Scheme
+Text:(An ongoing scheme remains face up until it's abandoned.)
+R:Event$ DamageDone | ActiveZones$ Command | ValidSource$ Card.OppCtrl,Emblem.OppCtrl | ValidTarget$ You | ReplaceWith$ DBReplace | PreventionEffect$ True
+SVar:DBReplace:DB$ ReplaceDamage | Amount$ 1
+T:Mode$ Phase | Phase$ End of Turn | CheckSVar$ X | SVarCompare$ GE5 | TriggerZones$ Command | Execute$ Abandon
+SVar:Abandon:DB$ Abandon
+SVar:X:PlayerCountPropertyYou$DamageThisTurn

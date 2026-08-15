@@ -1,0 +1,13 @@
+Id:22896
+ColorIdentity:R
+ManaCost:3 R
+Types:Creature Dragon
+PT:4/4
+K:Flying
+T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ You | Execute$ TrigDraw | TriggerZones$ Battlefield | OptionalDecider$ You
+SVar:TrigDraw:AB$ Draw | Cost$ Discard<0/Hand> | NumCards$ X
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigDealDamage
+SVar:TrigDealDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ Y
+SVar:X:TriggeredCard$CardNumColors
+SVar:Y:Count$Valid Permanent.YouCtrl$Colors
+DeckHas:Ability$Discard

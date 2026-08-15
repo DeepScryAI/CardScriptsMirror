@@ -1,0 +1,10 @@
+Id:9356
+ColorIdentity:B
+ManaCost:3 B
+Types:Instant
+A:SP$ ChangeZone | ValidTgts$ Creature.YouCtrl | Origin$ Graveyard | Destination$ Battlefield | WithCountersType$ MANNEQUIN | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ MannequinStatic | Duration$ Permanent | SubAbility$ DBCleanup | ForgetOnMoved$ Battlefield | ForgetCounter$ MANNEQUIN
+SVar:MannequinStatic:Mode$ Continuous | Affected$ Card.IsRemembered | AddTrigger$ MannequinBecomesTarget
+SVar:MannequinBecomesTarget:Mode$ BecomesTarget | ValidTarget$ Card.Self | TriggerZones$ Battlefield | Execute$ MakeshiftSac
+SVar:MakeshiftSac:DB$ Sacrifice
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

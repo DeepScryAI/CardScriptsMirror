@@ -1,0 +1,13 @@
+Id:29014
+ColorIdentity:
+ManaCost:no cost
+Types:Land Desert
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ C | Amount$ 2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Hidden$ True | Mandatory$ True | ChangeType$ Land.YouCtrl | RememberLKI$ True | AILogic$ NeverBounceItself | SubAbility$ DBSurveil
+SVar:DBSurveil:DB$ Surveil | Amount$ 1 | ConditionDefined$ RememberedLKI | ConditionPresent$ Desert.Other | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+DeckHints:Type$Desert
+SVar:NeedsToPlay:Land.YouCtrl

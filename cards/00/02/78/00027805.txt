@@ -1,0 +1,14 @@
+Id:27805
+ColorIdentity:W
+ManaCost:3 W
+Types:Enchantment Saga
+K:Chapter:4:DBStunCounter,DBChooseCard,DBChooseCard,DBSearch
+SVar:DBStunCounter:DB$ PutCounter | ValidTgts$ Creature.tapped | CounterType$ STUN | CounterNum$ 2 | TargetMin$ 0 | TargetMax$ 2
+SVar:DBChooseCard:DB$ ChooseCard | Choices$ Permanent.nonSaga+HasCounters | MinAmount$ 0 | ChoiceZone$ Battlefield | Amount$ X | SubAbility$ DBAdditionalCounter
+SVar:X:Count$Valid Permanent.nonSaga+HasCounters
+SVar:DBAdditionalCounter:DB$ PutCounter | Defined$ ChosenCard | CounterType$ ExistingCounter | CounterNum$ 1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+SVar:DBSearch:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Doctor | ChangeNum$ 1 | Hidden$ True
+DeckHas:Ability$Counters
+DeckHints:Ability$Counters
+DeckNeeds:Type$Doctor

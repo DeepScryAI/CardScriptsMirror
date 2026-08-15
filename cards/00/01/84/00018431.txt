@@ -1,0 +1,11 @@
+Id:18431
+ColorIdentity:B
+ManaCost:3 B B
+Types:Sorcery
+A:SP$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBLoseLife | AILifeThreshold$ 1
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ A | Defined$ Player.IsRemembered | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | NumCards$ C | Defined$ Player.IsRemembered | Mode$ TgtChoose | SubAbility$ DBCreature
+SVar:DBCreature:DB$ Sacrifice | SacValid$ Creature | Amount$ E | Defined$ Player.IsRemembered
+SVar:A:PlayerCountRemembered$LifeTotal/HalfUp
+SVar:C:PlayerCountRemembered$CardsInHand/HalfUp
+SVar:E:PlayerCountRemembered$Valid Creature.RememberedPlayerCtrl/HalfUp

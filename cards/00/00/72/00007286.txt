@@ -1,0 +1,13 @@
+Id:7286
+ColorIdentity:R
+ManaCost:3 R
+Types:Legendary Creature Demon Spirit
+PT:0/0
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ TrigSac | ReplacementResult$ Updated
+SVar:TrigSac:DB$ Sacrifice | Amount$ SacX | SacValid$ Permanent | Defined$ You | RememberSacrificed$ True | Optional$ True | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | ETB$ True | CounterType$ P1P1 | Defined$ Self | CounterNum$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:SacX:Count$Valid Permanent.YouCtrl
+SVar:X:Remembered$Amount
+AI:RemoveDeck:All
+AI:RemoveDeck:Random

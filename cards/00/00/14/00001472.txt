@@ -1,0 +1,10 @@
+Id:1472
+ColorIdentity:R
+ManaCost:2 R R
+Types:Creature Human
+PT:2/4
+A:AB$ Dig | Cost$ R | DigNum$ 1 | ChangeNum$ All | ChangeValid$ Card | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBLand
+SVar:DBLand:DB$ Pump | Defined$ Self | NumAtt$ -4 | ConditionDefined$ Remembered | ConditionPresent$ Land | ConditionCompare$ GT0 | SubAbility$ DBNonLand
+SVar:DBNonLand:DB$ Pump | Defined$ Self | NumAtt$ +2 | ConditionDefined$ Remembered | ConditionPresent$ Land | ConditionCompare$ EQ0 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+AI:RemoveDeck:All

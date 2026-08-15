@@ -1,0 +1,13 @@
+Id:20832
+ColorIdentity:G
+ManaCost:2 G G
+Types:Legendary Planeswalker Garruk
+Loyalty:4
+A:AB$ Pump | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Creature | NumAtt$ +3 | NumDef$ +3 | KW$ Trample
+A:AB$ Token | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | TokenScript$ g_3_3_beast | TokenOwner$ You | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | ConditionPresent$ Creature.OppCtrl | ConditionCompare$ GTX | Defined$ Self | CounterNum$ 1 | CounterType$ LOYALTY
+SVar:X:Count$Valid Creature.YouCtrl
+DeckHas:Ability$Token
+A:AB$ Effect | Cost$ SubCounter<7/LOYALTY> | Planeswalker$ True | Ultimate$ True | Name$ Emblem — Garruk, Unleashed | Image$ emblem_garruk_unleashed | Triggers$ EffPhase | Duration$ Permanent
+SVar:EffPhase:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | Execute$ EmblemTrigChangeZone | OptionalDecider$ You
+SVar:EmblemTrigChangeZone:DB$ ChangeZone | ChangeType$ Creature | ChangeNum$ 1 | Origin$ Library | Destination$ Battlefield | ShuffleNonMandatory$ True

@@ -1,0 +1,15 @@
+Id:13668
+ColorIdentity:R
+ManaCost:1 R
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+T:Mode$ Attacks | ValidCard$ Card.AttachedBy | Execute$ TrigPutCounter | TriggerZones$ Battlefield
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ TriggeredAttackerLKICopy | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBSac
+SVar:DBSac:DB$ Sacrifice | ConditionDefined$ TriggeredAttackerLKICopy | ConditionPresent$ Card.counters_GE3_P1P1
+T:Mode$ Sacrificed | ValidPlayer$ You | ValidCard$ Card.Self | Execute$ TrigDmg | TriggerZones$ Battlefield
+SVar:TrigDmg:DB$ DealDamage | NumDmg$ 3 | ValidTgts$ Any
+S:Mode$ Continuous | Affected$ Creature.AttachedBy | AddSVar$ AE
+SVar:AE:SVar:HasAttackEffect:TRUE
+SVar:SacMe:4
+DeckHas:Ability$Counters

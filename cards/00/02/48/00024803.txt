@@ -1,0 +1,11 @@
+Id:24803
+ColorIdentity:BG
+ManaCost:4 B G
+Types:Legendary Creature Troll Shaman
+PT:4/4
+T:Mode$ ChangesZone | ValidCard$ Card.wasCastByYou+Self | Destination$ Battlefield | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | ValidTgts$ Creature.YouOwn | Origin$ Graveyard | Destination$ Battlefield | ConditionDefined$ Targeted | ConditionPresent$ Card.cmcLEX | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Defined$ Targeted | Origin$ Graveyard | Destination$ Hand | ConditionDefined$ Targeted | ConditionPresent$ Card.cmcGTX
+SVar:X:Count$Domain
+AI:RemoveDeck:Random
+DeckHas:Ability$Graveyard

@@ -1,0 +1,11 @@
+Id:3920
+ColorIdentity:W
+ManaCost:2 W W
+Types:Instant
+A:SP$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Enchantment | RememberLKI$ True | ForgetOtherTargets$ True | SubAbility$ ExileYard
+SVar:ExileYard:DB$ ChangeZoneAll | Origin$ Graveyard | Destination$ Exile | Defined$ TargetedController | ChangeType$ Remembered.sameName | SubAbility$ ExileHand
+SVar:ExileHand:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | DefinedPlayer$ TargetedController | ChangeType$ Remembered.sameName | ChangeNum$ NumInHand | Chooser$ You | SubAbility$ ExileLib
+SVar:ExileLib:DB$ ChangeZone | Origin$ Library | Destination$ Exile | DefinedPlayer$ TargetedController | ChangeType$ Remembered.sameName | ChangeNum$ NumInLib | Chooser$ You | Shuffle$ True | SubAbility$ DBCleanup
+SVar:NumInHand:TargetedController$CardsInHand
+SVar:NumInLib:TargetedController$CardsInLibrary
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

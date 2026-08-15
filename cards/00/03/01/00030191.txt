@@ -1,0 +1,12 @@
+Id:30191
+ColorIdentity:BR
+ManaCost:1 B R
+Types:Creature Lizard Warlock
+PT:3/3
+K:Menace
+K:Ward:PayLife<3>
+T:Mode$ DamageDoneOnce | ValidSource$ Creature.YouCtrl | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigConjure | TriggerZones$ Battlefield
+SVar:TrigConjure:DB$ MakeCard | Conjure$ True | AtRandom$ True | Spellbook$ Blade Juggler,Body Count,Dead Revels,Drill Bit,Hackrobat,Light Up the Stage,Rafter Demon,Rix Maadi Reveler,Skewer the Critics,Spawn of Mayhem,Spikewheel Acrobat | RememberMade$ True | SubAbility$ DBEffect | Zone$ Exile
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ STPlay | SubAbility$ DBCleanup | ForgetOnMoved$ Exile | Duration$ UntilTheEndOfYourNextTurn
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

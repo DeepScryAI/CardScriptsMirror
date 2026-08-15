@@ -1,0 +1,16 @@
+Id:25616
+ColorIdentity:UBR
+ManaCost:X 6
+Types:Artifact Creature Serpent
+PT:5/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | CheckSVar$ UU | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | NumCards$ UU
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | CheckSVar$ BB | Execute$ TrigDiscard
+SVar:TrigDiscard:DB$ Discard | Defined$ Opponent | NumCards$ BB | Mode$ TgtChoose
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | CheckSVar$ RR | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | KW$ Trample & Haste | NumAtt$ +RR
+SVar:UU:Count$EachSpentToCast.U/HalfDown
+SVar:BB:Count$EachSpentToCast.B/HalfDown
+SVar:RR:Count$EachSpentToCast.R/HalfDown
+SVar:X:Count$xPaid
+DeckHints:Color$Blue | Black | Red

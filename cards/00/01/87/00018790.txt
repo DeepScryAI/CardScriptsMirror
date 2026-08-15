@@ -1,0 +1,12 @@
+Id:18790
+ColorIdentity:G
+ManaCost:G
+Types:Creature Elf Warrior
+PT:1/1
+S:Mode$ Continuous | Affected$ Card.Self+counters_GE3_P1P1 | AddKeyword$ Trample
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.YouCtrl+powerGTX+Other | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl+powerGTX+Other | TriggerZones$ Battlefield | Secondary$ True | Execute$ TrigPutCounter
+SVar:X:Count$CardPower
+SVar:Y:TriggeredCard$CardPower
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | ConditionCheckSVar$ X | ConditionSVarCompare$ LTY
+DeckHas:Ability$Counters

@@ -1,0 +1,15 @@
+Id:22416
+ColorIdentity:B
+ManaCost:2 B
+Types:Legendary Artifact Equipment
+T:Mode$ Attacks | ValidCard$ Card.EquippedBy | TriggerZones$ Battlefield | Execute$ TrigPumpA
+T:Mode$ Blocks | ValidCard$ Card.EquippedBy | TriggerZones$ Battlefield | Execute$ TrigPumpB | Secondary$ True
+SVar:TrigPumpA:DB$ Pump | Defined$ TriggeredAttackerLKICopy | KW$ Deathtouch | SubAbility$ DBPumpZ
+SVar:TrigPumpB:DB$ Pump | Defined$ TriggeredBlockerLKICopy | KW$ Deathtouch | SubAbility$ DBPumpZ
+SVar:DBPumpZ:DB$ PumpAll | ValidCards$ Zombie.YouCtrl | KW$ Deathtouch
+T:Mode$ DamageDone | ValidSource$ Card.EquippedBy | Execute$ TrigToken | CombatDamage$ True | ValidTarget$ Player | TriggerZones$ Battlefield
+SVar:TrigToken:DB$ Token | TokenAmount$ X | TokenScript$ b_2_2_zombie
+SVar:X:TriggerCount$DamageAmount
+K:Equip:3
+DeckHas:Ability$Token & Type$Zombie
+DeckHints:Type$Zombie

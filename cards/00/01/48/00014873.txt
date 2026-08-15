@@ -1,0 +1,14 @@
+Id:14873
+ColorIdentity:G
+ManaCost:3 G
+Types:Enchantment
+K:ETBReplacement:Other:SiegeChoice
+SVar:SiegeChoice:DB$ GenericChoice | Choices$ Khans,Dragons | Defined$ You | SetChosenMode$ True | AILogic$ Khans | ShowChoice$ ExceptSelf
+SVar:Khans:DB$ Pump
+SVar:Dragons:DB$ Pump
+S:Mode$ Continuous | Affected$ Card.Self+ChosenModeKhans | AddTrigger$ KhansTrigger
+S:Mode$ Continuous | Affected$ Card.Self+ChosenModeDragons | AddTrigger$ DragonsTrigger
+SVar:KhansTrigger:Mode$ Phase | Phase$ Main1,Main2 | TriggerZones$ Battlefield | ValidPlayer$ You | Execute$ ManaGain | Secondary$ True
+SVar:ManaGain:DB$ Mana | Produced$ G G
+SVar:DragonsTrigger:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.YouCtrl+withFlying | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ AirFight | Secondary$ True
+SVar:AirFight:DB$ Fight | Defined$ TriggeredCardLKICopy | ValidTgts$ Creature.YouDontCtrl

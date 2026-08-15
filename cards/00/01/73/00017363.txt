@@ -1,0 +1,11 @@
+Id:17363
+ColorIdentity:U
+ManaCost:4 U U
+Types:Creature Human Wizard
+PT:4/5
+A:AB$ Shuffle | Cost$ U T Sac<1/CARDNAME> | SubAbility$ DBExile
+SVar:DBExile:DB$ Dig | Defined$ You | DestinationZone$ Exile | DigNum$ X | ChangeNum$ All | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ Remembered | StaticAbilities$ Play | SubAbility$ DBCleanup | ForgetOnMoved$ Exile
+SVar:Play:Mode$ Continuous | MayPlay$ True | MayPlayWithoutManaCost$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$ThisTurnCast_Card/Plus.1

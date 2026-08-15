@@ -1,0 +1,10 @@
+Id:13395
+ColorIdentity:UG
+ManaCost:2 G U
+Types:Sorcery
+A:SP$ Shuffle | Defined$ You | SubAbility$ RevealCard
+SVar:RevealCard:DB$ PeekAndReveal | NoPeek$ True | RememberRevealed$ True | SubAbility$ CastCard
+SVar:CastCard:DB$ Play | Defined$ Remembered | WithoutManaCost$ True | ValidSA$ Spell | Optional$ True | ConditionDefined$ Remembered | ConditionPresent$ Card.nonLand | ConditionCompare$ EQ1 | SubAbility$ MoveLand
+SVar:MoveLand:DB$ ChangeZone | Defined$ Remembered | Origin$ Library | Destination$ Battlefield | ConditionDefined$ Remembered | Optional$ True | Imprint$ True | ConditionPresent$ Card.Land | ConditionCompare$ EQ1 | SubAbility$ MoveSelf
+SVar:MoveSelf:DB$ ChangeZone | Defined$ Parent | Origin$ Stack | Destination$ Hand | ConditionDefined$ Imprinted | ConditionPresent$ Card.Land | ConditionCompare$ EQ1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True

@@ -1,0 +1,13 @@
+Id:23562
+ColorIdentity:B
+ManaCost:X B
+Types:Instant
+A:SP$ DealDamage | AnnounceTitle$ how many black cards to exile | Announce$ Exiled | ValidTgts$ Creature,Planeswalker | NumDmg$ X | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ X
+S:Mode$ RaiseCost | ValidCard$ Card.Self | Type$ Spell | Cost$ ExileFromHand<Y/Card.Black/black cards> | EffectZone$ All
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ Z | EffectZone$ All | Relative$ True | Secondary$ True
+SVar:X:Count$xPaid
+SVar:Y:SVar$Exiled
+SVar:Z:SVar$Y/Times.2
+SVar:Exiled:Number$0
+DeckHas:Ability$LifeGain

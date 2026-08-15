@@ -1,0 +1,18 @@
+Id:17002
+ColorIdentity:R
+ManaCost:2 R
+Types:Sorcery
+A:SP$ Effect | StaticAbilities$ STCantPrevent | ReplacementEffects$ InsultDamageEvent
+SVar:STCantPrevent:Mode$ CantPreventDamage
+SVar:InsultDamageEvent:Event$ DamageDone | ValidSource$ Card.YouCtrl,Emblem.YouCtrl | ReplaceWith$ DmgTwice
+SVar:DmgTwice:DB$ ReplaceEffect | VarName$ DamageAmount | VarValue$ X
+SVar:X:ReplaceCount$DamageAmount/Twice
+AlternateMode:Split
+
+ALTERNATE
+
+ManaCost:2 R
+Types:Sorcery
+K:Aftermath
+A:SP$ DealDamage | ValidTgts$ Creature | NumDmg$ 2 | SubAbility$ DBDealDamage
+SVar:DBDealDamage:DB$ DealDamage | NumDmg$ 2 | ValidTgts$ Player,Planeswalker

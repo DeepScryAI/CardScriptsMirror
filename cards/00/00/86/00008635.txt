@@ -1,0 +1,12 @@
+Id:8635
+ColorIdentity:B
+ManaCost:9 B
+Types:Sorcery
+K:Suspend:2:2 B B
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Player | Execute$ TrigCursePayUP | TriggerZones$ Exile | IsPresent$ Card.suspended+Self | PresentZone$ Exile
+A:SP$ Sacrifice | ValidTgts$ Player | Amount$ CurseX | SacValid$ Permanent
+SVar:TrigCursePayUP:DB$ Sacrifice | Amount$ 1 | SacValid$ Permanent | Defined$ TriggeredPlayer | Optional$ True | AILogic$ OpponentOnly | RememberSacrificed$ True | SubAbility$ DBCursePutCounter
+SVar:DBCursePutCounter:DB$ PutCounter | CounterType$ TIME | CounterNum$ 2 | ConditionCheckSVar$ CurseY | ConditionSVarCompare$ GT0 | SubAbility$ DBCurseCleanup
+SVar:DBCurseCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:CurseX:TargetedPlayer$Valid Permanent.YouCtrl/HalfDown
+SVar:CurseY:Remembered$Amount

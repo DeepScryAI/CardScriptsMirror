@@ -1,0 +1,12 @@
+Id:24155
+ColorIdentity:G
+ManaCost:5 G G
+Types:Creature Elder Dragon
+PT:7/7
+K:Flying
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigRoll
+SVar:TrigRoll:DB$ RollDice | ResultSVar$ Result | Sides$ 20 | SubAbility$ DBImmediateTrigPutCounter
+SVar:DBImmediateTrigPutCounter:DB$ ImmediateTrigger | Execute$ TrigPutCounter | RememberSVarAmount$ Result
+SVar:TrigPutCounter:DB$ PutCounter | TargetMin$ 0 | TargetMax$ 2 | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ X
+SVar:X:Count$TriggerRememberAmount
+DeckHas:Ability$Counters

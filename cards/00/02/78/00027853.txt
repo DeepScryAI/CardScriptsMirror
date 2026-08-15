@@ -1,0 +1,13 @@
+Id:27853
+ColorIdentity:WR
+ManaCost:2 R W
+Types:Legendary Creature Time Lord Doctor
+PT:3/5
+T:Mode$ PhaseOutAll | ValidCards$ Permanent.phasedOutOther | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+T:Mode$ ChangesZoneAll | ValidCards$ Card.Other+!token+!copiedSpell | Origin$ Any | Destination$ Exile | TriggerZones$ Battlefield | Execute$ TrigPutCounter | Secondary$ True
+SVar:TrigPutCounter:DB$ PutCounter | CounterType$ TIME
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Any | DamageSource$ TriggeredAttackerLKICopy | NumDmg$ Count$CardCounters.TIME | RememberDamaged$ True | ReplaceDyingDefined$ Remembered.Creature | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+DeckHas:Ability$Counters
+DeckHints:Keyword$Phasing

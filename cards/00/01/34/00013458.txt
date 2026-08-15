@@ -1,0 +1,18 @@
+Id:13458
+ColorIdentity:UG
+ManaCost:2 G
+Types:Sorcery
+K:Fuse
+A:SP$ PutCounter | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ 3
+DeckHas:Ability$Counters
+AlternateMode:Split
+
+ALTERNATE
+
+ManaCost:2 U
+Types:Sorcery
+A:SP$ RemoveCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ All | RememberRemoved$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$RememberedSize
+AI:RemoveDeck:All

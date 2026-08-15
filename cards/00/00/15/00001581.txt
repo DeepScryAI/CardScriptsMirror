@@ -1,0 +1,11 @@
+Id:1581
+ColorIdentity:U
+ManaCost:2 U U
+Types:Enchantment
+K:Cumulative upkeep:ExileFromTop<1/Card>:Exile the top card of your library.
+T:Mode$ PayCumulativeUpkeep | ValidCard$ Card.Self | Paid$ False | Execute$ TrigExileAll
+SVar:TrigExileAll:DB$ ChangeZoneAll | Origin$ Library | Destination$ Exile | ChangeType$ Card.ControlledBy TriggeredCardController
+A:AB$ PreventDamage | Cost$ ExileFromTop<1/Card> | Defined$ You | Amount$ 1
+AI:RemoveDeck:All
+AI:RemoveDeck:Random
+SVar:NonStackingEffect:True

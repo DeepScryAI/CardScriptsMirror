@@ -1,0 +1,21 @@
+Id:28514
+ColorIdentity:UG
+ManaCost:2 G U
+Types:Legendary Creature Human Faerie Detective
+PT:3/4
+K:Flying
+K:Vigilance
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Artifact | TargetMin$ 0 | TargetMax$ 1 | RememberLKI$ True | AlwaysRemember$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | ConditionDefined$ RememberedLKI | ConditionPresent$ Card.YouCtrl | NumCards$ 1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+DeckHas:Ability$Investigate | Token & Type$Artifact
+AlternateMode:Adventure
+
+ALTERNATE
+
+ManaCost:G U
+Types:Sorcery Adventure
+A:SP$ Investigate | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ Exploration
+SVar:Exploration:Mode$ Continuous | Affected$ You | AdjustLandPlays$ 1

@@ -1,0 +1,11 @@
+Id:6854
+ColorIdentity:R
+ManaCost:3 R R
+Types:Instant
+Text:Cast this spell only during your turn and only during combat.
+K:Entwine:1 R
+A:SP$ Charm | Choices$ DBPump,DBUntapAll | PlayerTurn$ True | ActivationPhases$ BeginCombat->EndCombat
+SVar:DBPump:DB$ PumpAll | ValidCards$ Creature.YouCtrl | KW$ Double Strike
+SVar:DBUntapAll:DB$ UntapAll | ValidCards$ Creature.YouCtrl | SubAbility$ DBAddCombat
+SVar:DBAddCombat:DB$ AddPhase | ExtraPhase$ Combat | AfterPhase$ EndCombat
+AI:RemoveDeck:All

@@ -1,0 +1,12 @@
+Id:8086
+ColorIdentity:WR
+ManaCost:3
+Types:Artifact Equipment
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 4
+A:AB$ ChangeZone | Cost$ R W Unattach<CARDNAME/CARDNAME> | ChangeType$ Instant.White+cmcLE4,Instant.Red+cmcLE4 | ChangeNum$ 1 | Origin$ Library | Destination$ Library | LibraryPosition$ 0 | RememberChanged$ True | Shuffle$ False | SubAbility$ CastFound
+SVar:CastFound:DB$ Play | Defined$ Remembered | Controller$ You | WithoutManaCost$ True | SubAbility$ YouShuffle
+SVar:YouShuffle:DB$ Shuffle | Defined$ You | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+K:Equip:3
+AI:RemoveDeck:Random
+DeckNeeds:Color$Red | White

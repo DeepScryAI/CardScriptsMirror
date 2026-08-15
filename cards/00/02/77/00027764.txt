@@ -1,0 +1,12 @@
+Id:27764
+ColorIdentity:U
+ManaCost:2 U U
+Types:Legendary Creature Human Alien Shapeshifter
+PT:2/2
+T:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigCopy
+SVar:TrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | NonLegendary$ True
+A:AB$ Mana | Cost$ T | Produced$ C | Amount$ 1 | RestrictValid$ Spell.Artifact,Activated.Artifact+inZoneBattlefield
+T:Mode$ SpellCast | ValidCard$ Card.!wasCastFromYourHand | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigInvestigate
+SVar:TrigInvestigate:DB$ Investigate
+DeckHas:Ability$Token & Type$Clue | Artifact
+DeckHints:Type$Artifact

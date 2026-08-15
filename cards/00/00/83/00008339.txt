@@ -1,0 +1,15 @@
+Id:8339
+ColorIdentity:WBR
+ManaCost:R W
+Types:Instant
+A:SP$ ChangeZone | ValidTgts$ Artifact,Enchantment | Origin$ Battlefield | Destination$ Library | LibraryPosition$ -1
+AlternateMode:Split
+
+ALTERNATE
+
+ManaCost:W B
+Types:Instant
+A:SP$ ChangeZone | ValidTgts$ Opponent | Origin$ Library | DefinedPlayer$ Targeted | Chooser$ You | Destination$ Exile | ChangeType$ Card | ChangeNum$ 1 | RememberChanged$ True | IsCurse$ True | AILogic$ BestCard | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$CardManaCost

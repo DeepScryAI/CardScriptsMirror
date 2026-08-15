@@ -1,0 +1,14 @@
+Id:23313
+ColorIdentity:R
+ManaCost:3 R
+Types:Creature Wolf
+PT:4/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | Choices$ DBTarget,DBDelayTrig
+SVar:DBTarget:DB$ Pump | ValidTgts$ Wolf.Other+YouCtrl,Werewolf.Other+YouCtrl | AILogic$ Fight | SubAbility$ DBFight
+SVar:DBFight:DB$ Fight | Defined$ ParentTarget | ValidTgts$ Creature.YouDontCtrl
+SVar:DBDelayTrig:DB$ DelayedTrigger | Mode$ SpellCast | ValidCard$ Wolf,Werewolf | ValidActivatingPlayer$ You | Execute$ TrigAnimate
+SVar:TrigAnimate:DB$ Animate | Defined$ TriggeredCardLKICopy | Duration$ Permanent | Triggers$ ETBFight
+SVar:ETBFight:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigFight
+SVar:TrigFight:DB$ Fight | Defined$ TriggeredCardLKICopy | ValidTgts$ Creature.YouDontCtrl | TargetMin$ 0 | TargetMax$ 1
+DeckHints:Type$Wolf | Werewolf

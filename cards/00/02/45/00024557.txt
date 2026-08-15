@@ -1,0 +1,68 @@
+Id:24557
+ColorIdentity:G
+ManaCost:1 G
+Types:Legendary Creature Human Elf Druid
+PT:2/3
+K:Specialize:2
+K:Hexproof:Artifact
+K:Hexproof:Enchantment
+AlternateMode:Specialize
+
+SPECIALIZE:WHITE
+
+ManaCost:1 G W
+Types:Legendary Creature Human Elf Druid
+PT:3/4
+K:Hexproof:Artifact
+K:Hexproof:Enchantment
+T:Mode$ Specializes | ValidCard$ Card.Self | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ Destroy | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Artifact,Enchantment | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ 1 | TargetMin$ 0 | TargetMax$ 2 | ValidTgts$ Creature.Other
+DeckHas:Ability$Counters
+
+SPECIALIZE:BLUE
+
+ManaCost:1 G U
+Types:Legendary Creature Human Elf Druid
+PT:3/4
+K:Hexproof:Artifact
+K:Hexproof:Enchantment
+T:Mode$ Specializes | ValidCard$ Card.Self | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ Destroy | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Artifact,Enchantment | SubAbility$ DBScry
+SVar:DBScry:DB$ Scry | ScryNum$ 2
+
+SPECIALIZE:BLACK
+
+ManaCost:1 B G
+Types:Legendary Creature Human Elf Druid
+PT:3/4
+K:Hexproof:Artifact
+K:Hexproof:Enchantment
+T:Mode$ Specializes | ValidCard$ Card.Self | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ Destroy | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Artifact,Enchantment | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ Opponent | LifeAmount$ 3
+
+SPECIALIZE:RED
+
+ManaCost:1 R G
+Types:Legendary Creature Human Elf Druid
+PT:3/4
+K:Hexproof:Artifact
+K:Hexproof:Enchantment
+T:Mode$ Specializes | ValidCard$ Card.Self | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ Destroy | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Artifact,Enchantment | SubAbility$ DBBoon
+SVar:DBBoon:DB$ Effect | Boon$ True | Duration$ Permanent | Triggers$ SpellCast
+SVar:SpellCast:Mode$ SpellCast | ValidCard$ Creature | ValidActivatingPlayer$ You | TriggerZones$ Command | Execute$ TrigEffect
+SVar:TrigEffect:DB$ Pump | PumpZone$ Stack | Defined$ TriggeredCard | NumAtt$ +1 | KW$ Haste | Duration$ Perpetual
+
+SPECIALIZE:GREEN
+
+ManaCost:1 G G
+Types:Legendary Creature Human Elf Druid
+PT:3/4
+K:Hexproof:Artifact
+K:Hexproof:Enchantment
+T:Mode$ Specializes | ValidCard$ Card.Self | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ Destroy | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Artifact,Enchantment | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ 4
+DeckHas:Ability$LifeGain

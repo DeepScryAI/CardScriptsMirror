@@ -1,0 +1,11 @@
+Id:22408
+ColorIdentity:G
+ManaCost:3 G G
+Types:Instant
+A:SP$ Pump | ValidTgts$ Permanent.YouCtrl | TgtZone$ Graveyard | TargetMin$ 0 | TargetMax$ 2 | SubAbility$ DBRollDice
+SVar:DBRollDice:DB$ RollDice | Defined$ You | Sides$ 20 | Modifier$ X | ResultSubAbilities$ 1-14:ToHand,Else:HandAndLife
+SVar:ToHand:DB$ ChangeZone | Defined$ Targeted | Origin$ Graveyard | Destination$ Hand
+SVar:HandAndLife:DB$ ChangeZone | Defined$ Targeted | Origin$ Graveyard | Destination$ Hand | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ X
+SVar:X:Targeted$CardManaCost
+DeckHas:Ability$Graveyard | LifeGain

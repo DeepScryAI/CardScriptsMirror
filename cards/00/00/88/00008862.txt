@@ -1,0 +1,14 @@
+Id:8862
+ColorIdentity:UBG
+ManaCost:2 G
+Types:Creature Human Wizard
+PT:2/2
+K:Kicker:2 U:1 B
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self+kicked 1 | Execute$ TrigKicker
+SVar:TrigKicker:DB$ Discard | ValidTgts$ Player | NumCards$ 3 | Mode$ TgtChoose
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self+kicked 2 | Execute$ TrigKicker2
+SVar:TrigKicker2:DB$ Tap | ValidTgts$ Creature.untapped | SubAbility$ DBDamage
+SVar:DBDamage:DB$ DealDamage | Defined$ TargetedController | DamageSource$ Targeted | NumDmg$ X
+SVar:X:Targeted$CardPower
+SVar:PlayMain1:TRUE
+DeckHints:Color$Blue | Black

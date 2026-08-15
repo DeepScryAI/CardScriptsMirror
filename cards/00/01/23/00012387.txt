@@ -1,0 +1,12 @@
+Id:12387
+ColorIdentity:B
+ManaCost:2 B
+Types:Creature Zombie
+PT:0/0
+K:etbCounter:P1P1:X:no Condition:CARDNAME enters with a +1/+1 counter on it for each other Zombie you control and each Zombie card in your graveyard.
+R:Event$ DamageDone | ActiveZones$ Battlefield | ValidTarget$ Card.Self | ReplaceWith$ DBRemoveCounters | PreventionEffect$ True | AlwaysReplace$ True
+SVar:DBRemoveCounters:DB$ RemoveCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+SVar:X:Count$Valid Zombie.YouCtrl/Plus.Y
+SVar:Y:Count$ValidGraveyard Zombie.YouCtrl
+SVar:NeedsToPlayVar:X GE1
+AI:RemoveDeck:Random

@@ -1,0 +1,14 @@
+Id:21867
+ColorIdentity:WR
+ManaCost:3 R W
+Types:Legendary Creature Dwarf Cleric
+PT:4/5
+S:Mode$ Continuous | Affected$ Spirit.YouCtrl | AddPower$ 1 | AddToughness$ 1 | AddKeyword$ Trample & Haste
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.Other+!token+YouCtrl | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | Defined$ TriggeredNewCardLKICopy | RememberChanged$ True | SubAbility$ DBCopy
+SVar:DBCopy:DB$ CopyPermanent | Defined$ TriggeredCardLKICopy | AddTypes$ Spirit | AddSVars$ HofriTrigReturn | AddTriggers$ TrigLeavesBattlefield | ConditionDefined$ Remembered | ConditionPresent$ Card | TokenRemembered$ Remembered | SubAbility$ DBCleanup
+SVar:TrigLeavesBattlefield:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ HofriTrigReturn
+SVar:HofriTrigReturn:DB$ ChangeZone | Origin$ Exile | Destination$ Graveyard | Defined$ Remembered
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+DeckHas:Ability$Token
+DeckHints:Type$Spirit

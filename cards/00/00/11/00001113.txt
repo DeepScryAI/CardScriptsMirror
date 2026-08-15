@@ -1,0 +1,12 @@
+Id:1113
+ColorIdentity:R
+ManaCost:1 R
+Types:Creature Goblin
+PT:1/1
+A:AB$ Effect | Cost$ R R T | ValidTgts$ Creature.YouCtrl | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable | AILogic$ MakeUnblockable | SubAbility$ DelTrigBoth
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+A:AB$ Effect | Cost$ R R R R T | ValidTgts$ Creature.YouCtrl | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable | AILogic$ MakeUnblockable | SubAbility$ DelTrigFriend
+SVar:DelTrigFriend:DB$ DelayedTrigger | Mode$ Phase | Phase$ EndCombat | ValidPlayer$ Player | RememberObjects$ Targeted | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ Destroy | Defined$ DelayTriggerRememberedLKI
+SVar:DelTrigBoth:DB$ DelayedTrigger | Mode$ Phase | Phase$ EndCombat | ValidPlayer$ Player | RememberObjects$ Self & Targeted | Execute$ TrigDestroy
+AI:RemoveDeck:All

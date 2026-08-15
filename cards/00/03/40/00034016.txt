@@ -1,0 +1,11 @@
+Id:34016
+ColorIdentity:W
+ManaCost:2 W
+Types:Legendary Creature Human Warrior Hero
+PT:3/3
+T:Mode$ DamageDoneOnce | Execute$ TrigDamage | ValidTarget$ Card.Self | TriggerZones$ Battlefield
+SVar:TrigDamage:DB$ DealDamage | NumDmg$ X | ValidTgts$ Creature.Other,Player,Planeswalker.Other,Battle.Other | ValidTgtsDesc$ any other target
+A:AB$ PutCounter | Cost$ 5 W W | Defined$ Self | CounterType$ P1P1 | CounterNum$ 2 | PowerUp$ True | SubAbility$ DBPumpAll
+SVar:DBPumpAll:DB$ PumpAll | ValidCards$ Creature.StrictlyOther+YouCtrl | NumAtt$ +2 | NumDef$ +2
+SVar:X:TriggerCount$DamageAmount
+SVar:HasCombatEffect:TRUE

@@ -1,0 +1,11 @@
+Id:33338
+ColorIdentity:G
+ManaCost:2 G G G
+Types:Creature Treefolk Druid
+PT:4/7
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigAnimateAll
+SVar:TrigAnimateAll:DB$ AnimateAll | Zone$ Hand,Library | ValidCards$ Forest.YouOwn | Power$ 3 | Toughness$ 4 | Types$ Creature,Treefolk | Keywords$ Reach & Haste | Duration$ Perpetual
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigSeek
+SVar:TrigSeek:DB$ Seek | Num$ 2 | Type$ Forest | RememberFound$ True | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | Defined$ Remembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

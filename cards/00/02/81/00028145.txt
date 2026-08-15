@@ -1,0 +1,12 @@
+Id:28145
+ColorIdentity:WG
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ Combo G W
+A:AB$ Animate | Cost$ 2 G W | Defined$ Self | Power$ 3 | Toughness$ 3 | Types$ Creature,Llama | Colors$ Green,White | OverwriteColors$ True
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPumpAll
+SVar:TrigPumpAll:DB$ PumpAll | ValidCards$ Creature.StrictlyOther+YouCtrl | NumAtt$ +1 | NumDef$ +1
+SVar:HasAttackEffect:TRUE
+DeckHas:Type$Llama & Color$Green | White

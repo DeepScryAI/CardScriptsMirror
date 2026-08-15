@@ -1,0 +1,13 @@
+Id:20504
+ColorIdentity:WBR
+ManaCost:R W B
+Types:Legendary Creature Human Assassin
+PT:2/2
+K:Vigilance
+K:Haste
+S:Mode$ Continuous | Affected$ Card.Self | AddPower$ X | AddToughness$ X
+SVar:X:Count$YourCountersExperience
+A:AB$ DealDamage | Cost$ T | ValidTgts$ Creature.YouDontCtrl | NumDmg$ 1 | SubAbility$ DBDelayedTrigger
+SVar:DBDelayedTrigger:DB$ DelayedTrigger | Mode$ ChangesZone | RememberObjects$ Targeted | ValidCard$ Card.IsTriggerRemembered | Origin$ Battlefield | Destination$ Graveyard | ThisTurn$ True | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ You | CounterType$ Experience | CounterNum$ 1
+DeckHas:Ability$Counters

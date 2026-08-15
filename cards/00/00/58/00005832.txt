@@ -1,0 +1,11 @@
+Id:5832
+ColorIdentity:U
+ManaCost:1 U U
+Types:Creature Octopus
+PT:1/2
+K:You may choose not to untap CARDNAME during your untap step.
+K:ETBReplacement:Other:DBChooseOpp
+SVar:DBChooseOpp:DB$ ChoosePlayer | Choices$ Player.Opponent | AILogic$ Curse | SubAbility$ DBChooseType
+SVar:DBChooseType:DB$ ChooseType | Defined$ Player.Chosen | Type$ Creature | AILogic$ MostProminentComputerControls
+A:AB$ GainControl | Cost$ T | ValidTgts$ Creature.IsNotChosenType | LoseControl$ Untap,LeavesPlay
+AI:RemoveDeck:All

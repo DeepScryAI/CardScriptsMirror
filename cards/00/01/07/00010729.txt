@@ -1,0 +1,15 @@
+Id:10729
+ColorIdentity:
+ManaCost:no cost
+Types:Plane Rabiah
+R:Event$ Draw | ActiveZones$ Command | ValidPlayer$ Player | ReplaceWith$ RevealedDraw
+SVar:RevealedDraw:DB$ Draw | Defined$ ReplacedPlayer | NumCards$ 1 | SubAbility$ TrigReveal | RememberDrawn$ True
+SVar:TrigReveal:DB$ Reveal | Defined$ ReplacedPlayer | RevealValid$ Card.IsRemembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+T:Mode$ Drawn | ValidCard$ Card.Land | TriggerZones$ Command | Execute$ TrigGain
+SVar:TrigGain:DB$ GainLife | Defined$ TriggeredCardController | LifeAmount$ 3
+T:Mode$ Drawn | ValidCard$ Card.nonLand | TriggerZones$ Command | Execute$ TrigLose
+SVar:TrigLose:DB$ LoseLife | Defined$ TriggeredCardController | LifeAmount$ 3
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos
+SVar:RolledChaos:DB$ ChangeZone | ValidTgts$ Permanent | Origin$ Battlefield | Destination$ Library | LibraryPosition$ 0
+SVar:AIRollPlanarDieParams:Mode$ Always

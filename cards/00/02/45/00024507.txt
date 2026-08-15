@@ -1,0 +1,12 @@
+Id:24507
+ColorIdentity:W
+ManaCost:1 W
+Types:Creature Orc Knight
+PT:3/1
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigReveal
+SVar:TrigReveal:DB$ Reveal | ValidTgts$ Opponent | RevealAllValid$ Creature.TargetedPlayerOwn,Land.TargetedPlayerOwn | SubAbility$ DBChooseCard | RememberRevealed$ True
+SVar:DBChooseCard:DB$ ChooseCard | ChoiceZone$ Hand | Choices$ Card.IsRemembered | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Duration$ Perpetual | Defined$ ChosenCard | Replacements$ ReplaceETB | SubAbility$ DBCleanup
+SVar:ReplaceETB:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ ETBTapped | ReplacementResult$ Updated
+SVar:ETBTapped:DB$ Tap | ETB$ True | Defined$ ReplacedCard
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearChosenCard$ True

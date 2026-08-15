@@ -1,0 +1,12 @@
+Id:23798
+ColorIdentity:G
+ManaCost:3 G
+Types:Creature Ogre Citizen
+PT:3/3
+K:Vigilance
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Hidden$ True | ChangeType$ Creature.StrictlyOther+YouCtrl | RememberLKI$ True | AILogic$ BounceOwnTrigger | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:RememberedLKI$CardPower
+DeckHas:Ability$Counters

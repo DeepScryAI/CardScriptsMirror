@@ -1,0 +1,13 @@
+Id:27486
+ColorIdentity:G
+ManaCost:3 G
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigFood
+SVar:TrigFood:DB$ Token | TokenScript$ c_a_food_sac | TokenOwner$ You
+S:Mode$ Continuous | Affected$ Food.YouCtrl | AddAbility$ AnyMana
+SVar:AnyMana:AB$ Mana | Cost$ T | Produced$ G | Amount$ 1
+A:AB$ PumpAll | Cost$ 5 G G Sac<1/CARDNAME> | ValidCards$ Creature.YouCtrl | NumAtt$ +X | NumDef$ +X | SorcerySpeed$ True
+SVar:X:Count$Valid Food.YouCtrl
+AI:RemoveDeck:Random
+DeckHas:Ability$LifeGain | Token | Sacrifice & Type$Artifact | Food
+DeckHints:Type$Food

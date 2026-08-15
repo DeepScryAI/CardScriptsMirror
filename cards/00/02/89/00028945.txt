@@ -1,0 +1,16 @@
+Id:28945
+ColorIdentity:R
+ManaCost:1 R
+Types:Creature Human Rogue
+PT:2/2
+K:Menace
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigTreasure | OptionalDecider$ You
+SVar:TrigTreasure:DB$ Token | TokenScript$ c_a_treasure_sac | RememberOriginalTokens$ True | SubAbility$ DBImmediateTrigger
+SVar:DBImmediateTrigger:DB$ ImmediateTrigger | Execute$ TrigToken | TriggerAmount$ Remembered$Amount | SubAbility$ DBCleanup
+SVar:TrigToken:DB$ Token | ValidTgts$ Opponent | TokenOwner$ Targeted | TokenScript$ c_a_treasure_sac | TokenTapped$ True
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | Defined$ TriggeredDefendingPlayer | NumDmg$ X
+SVar:X:Count$Valid Artifact.ControlledBy TriggeredDefendingPlayer
+SVar:HasAttackEffect:TRUE
+DeckHas:Ability$Token | Sacrifice & Type$Treasure

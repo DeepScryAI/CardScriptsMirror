@@ -1,0 +1,13 @@
+Id:21713
+ColorIdentity:WU
+ManaCost:1 W U
+Types:Enchantment Saga
+K:Chapter:3:DBToken,DBEffect,DBWish
+SVar:DBToken:DB$ Token | TokenScript$ u_1_1_bird_flying | TokenOwner$ You | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2
+SVar:DBEffect:DB$ Effect | Triggers$ TrigDamage
+SVar:TrigDamage:Mode$ DamageDoneOnce | ValidSource$ Creature.YouCtrl+withFlying | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigPeek
+SVar:TrigPeek:DB$ RevealHand | Defined$ TriggeredTarget | SubAbility$ DBDraw | Look$ True
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1
+SVar:DBWish:DB$ ChangeZone | Origin$ Sideboard | Destination$ Library | OptionalDecider$ You | ChangeType$ Card.YouOwn | ChangeNum$ 1 | Optional$ True | Hidden$ True
+DeckHas:Ability$Token

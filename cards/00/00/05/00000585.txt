@@ -1,0 +1,18 @@
+Id:585
+ColorIdentity:B
+ManaCost:B
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Curse
+T:Mode$ AbilityCast | ValidCard$ Creature.EnchantedBy | ValidSA$ SpellAbility.!ManaAbility+hasTapCost | TriggerZones$ Battlefield | Execute$ TrigDestroy1
+SVar:TrigDestroy1:DB$ Destroy | Defined$ Self | UnlessCost$ 1 | UnlessPayer$ You | UnlessResolveSubs$ WhenPaid | SubAbility$ DBCounter
+SVar:DBCounter:DB$ Counter | Defined$ TriggeredSpellAbility
+T:Mode$ Attacks | ValidCard$ Card.EnchantedBy | TriggerZones$ Battlefield | Execute$ TrigDestroy2
+T:Mode$ Blocks | ValidCard$ Card.EnchantedBy | TriggerZones$ Battlefield | Execute$ TrigDestroy3 | Secondary$ True
+SVar:TrigDestroy2:DB$ Destroy | Defined$ Self | UnlessCost$ 1 | UnlessPayer$ You | UnlessResolveSubs$ WhenPaid | SubAbility$ DBTapAttacker
+SVar:TrigDestroy3:DB$ Destroy | Defined$ Self | UnlessCost$ 1 | UnlessPayer$ You | UnlessResolveSubs$ WhenPaid | SubAbility$ DBTapBlocker
+SVar:DBTapAttacker:DB$ Tap | Defined$ TriggeredAttackerLKICopy | SubAbility$ DBRemoveAttacker
+SVar:DBTapBlocker:DB$ Tap | Defined$ TriggeredBlockerLKICopy | SubAbility$ DBRemoveBlocker
+SVar:DBRemoveAttacker:DB$ RemoveFromCombat | Defined$ TriggeredAttackerLKICopy
+SVar:DBRemoveBlocker:DB$ RemoveFromCombat | Defined$ TriggeredBlockerLKICopy | UnblockCreaturesBlockedOnlyBy$ TriggeredBlocker
+AI:RemoveDeck:All

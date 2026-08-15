@@ -1,0 +1,10 @@
+Id:17364
+ColorIdentity:UBR
+ManaCost:1 U B R
+Types:Legendary Creature Human Wizard
+PT:4/4
+S:Mode$ Continuous | Affected$ Card.Self | EffectZone$ Battlefield | GainsAbilitiesOf$ Card.YouOwn+counters_GE1_CAGE | GainsAbilitiesOfZones$ Exile | GainsAbilitiesLimitPerTurn$ 1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile | OptionalDecider$ You
+SVar:TrigExile:DB$ ChangeZone | Origin$ Hand,Graveyard | Destination$ Exile | ChangeType$ Artifact.YouCtrl,Creature.YouCtrl | SubAbility$ DBCounter | RememberChanged$ True | ChangeNum$ 1 | AILogic$ Mairsil
+SVar:DBCounter:DB$ PutCounter | CounterType$ CAGE | CounterNum$ 1 | Defined$ Remembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

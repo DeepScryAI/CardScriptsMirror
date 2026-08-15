@@ -1,0 +1,12 @@
+Id:28148
+ColorIdentity:BR
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ Combo B R
+A:AB$ Animate | Cost$ 1 B R | Defined$ Self | Power$ 2 | Toughness$ 3 | Types$ Creature,Insect | Keywords$ Menace | Colors$ Black,Red | OverwriteColors$ True
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigLoot
+SVar:TrigLoot:AB$ Draw | Cost$ Discard<1/Card>
+SVar:HasAttackEffect:TRUE
+DeckHas:Ability$Discard & Type$Insect & Color$Black | Red

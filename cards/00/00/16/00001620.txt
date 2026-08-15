@@ -1,0 +1,11 @@
+Id:1620
+ColorIdentity:
+ManaCost:5
+Types:Artifact Creature Golem
+PT:2/4
+S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self | ValidBlocker$ Artifact.Creature
+T:Mode$ AttackerBlockedByCreature | ValidCard$ Card.Self | ValidBlocker$ Creature | Execute$ TrigEndCombat
+SVar:TrigEndCombat:DB$ DelayedTrigger | Mode$ Phase | Phase$ EndCombat | Execute$ TrigSacBlocker | RememberObjects$ TriggeredBlockerLKICopy
+SVar:TrigSacBlocker:DB$ SacrificeAll | Defined$ DelayTriggerRememberedLKI | SubAbility$ DBToken | RememberSacrificed$ True
+SVar:DBToken:DB$ Token | TokenScript$ c_0_2_a_wall_defender | TokenOwner$ DelayTriggerRememberedController | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

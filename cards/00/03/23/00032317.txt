@@ -1,0 +1,10 @@
+Id:32317
+ColorIdentity:B
+ManaCost:B
+Types:Creature Human Pilot
+PT:2/1
+S:Mode$ CantBlock | ValidCard$ Card.Self
+T:Mode$ SpellCast | ValidCard$ Card | ValidSA$ Spell.Warp | ValidActivatingPlayer$ You | TriggerZones$ Graveyard | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | Defined$ Self | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Pump | ConditionDefined$ Remembered | ConditionPresent$ Card.Self | NumAtt$ +1 | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

@@ -1,0 +1,16 @@
+Id:21385
+ColorIdentity:WUB
+ManaCost:3 W U B
+Types:Legendary Creature Zombie Wizard
+PT:3/6
+K:Hexproof:Artifact
+K:Hexproof:Creature
+K:Hexproof:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ X | TokenScript$ b_2_2_zombie | TokenTapped$ True | TokenOwner$ You
+SVar:X:Count$ThisTurnEntered_Graveyard_from_Battlefield_Creature
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigPayCost
+SVar:TrigPayCost:AB$ ImmediateTrigger | Cost$ 1 | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ DestroyAll | ValidCards$ Artifact,Creature,Enchantment
+SVar:NeedsToPlayVar:X GE1
+DeckHas:Ability$Token

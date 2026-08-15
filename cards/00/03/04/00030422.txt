@@ -1,0 +1,15 @@
+Id:30422
+ColorIdentity:U
+ManaCost:5 U
+Types:Legendary Artifact Book
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self+wasCastByYou | Execute$ TrigDraw1
+SVar:TrigDraw1:DB$ Draw | NumCards$ 5
+S:Mode$ Continuous | Affected$ You | SetMaxHandSize$ Unlimited
+R:Event$ GameLoss | ActiveZones$ Battlefield | ValidPlayer$ You | ValidLoseReason$ LifeReachedZero | Layer$ CantHappen | Secondary$ True
+T:Mode$ LifeGained | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraw2
+SVar:TrigDraw2:DB$ Draw | Defined$ You | NumCards$ X
+T:Mode$ LifeLost | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDiscard
+SVar:TrigDiscard:DB$ Discard | Defined$ You | NumCards$ X | Mode$ TgtChoose | SubAbility$ DBLosesGame
+SVar:DBLosesGame:DB$ LosesGame | Defined$ You | ConditionCheckSVar$ Y | ConditionSVarCompare$ EQ0
+SVar:X:TriggerCount$LifeAmount
+SVar:Y:Count$ValidHand Card.YouOwn

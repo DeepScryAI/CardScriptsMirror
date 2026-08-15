@@ -1,0 +1,25 @@
+Id:25550
+ColorIdentity:WR
+ManaCost:1 R W
+Types:Legendary Artifact Creature Robot
+PT:2/2
+K:More Than Meets the Eye:R W
+K:First Strike
+A:AB$ DealDamage | Cost$ 1 XMin1 SubCounter<X/P1P1/NICKNAME> | ValidTgts$ Creature | NumDmg$ X | SubAbility$ DBConvert
+SVar:DBConvert:DB$ SetState | Mode$ Transform
+SVar:X:Count$xPaid
+DeckNeeds:Ability$Counters
+AlternateMode:DoubleFaced
+
+ALTERNATE
+
+ManaCost:no cost
+Colors:red,white
+Types:Legendary Artifact Vehicle
+PT:2/2
+K:Living metal
+T:Mode$ SpellCast | ValidActivatingPlayer$ You | TargetsValid$ Creature.YouCtrl,Vehicle.YouCtrl | Execute$ TrigPutCounters
+SVar:TrigPutCounters:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ X | SubAbility$ DBConvert
+SVar:DBConvert:DB$ SetState | Mode$ Transform
+SVar:X:TriggerObjectsSpellAbilityTargets$Valid Creature.YouCtrl,Vehicle.YouCtrl
+DeckHas:Ability$Counters

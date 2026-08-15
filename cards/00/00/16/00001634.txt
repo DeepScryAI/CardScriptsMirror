@@ -1,0 +1,11 @@
+Id:1634
+ColorIdentity:R
+ManaCost:X X R
+Types:Sorcery
+A:SP$ Destroy | ValidTgts$ Artifact | TargetMin$ 0 | TargetMax$ MaxTgt | RememberTargets$ True | SubAbility$ DBRepeat
+SVar:MaxTgt:Count$Valid Artifact
+SVar:X:TargetedObjects$Amount
+SVar:DBRepeat:DB$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBDmg | SubAbility$ DBCleanup | DamageMap$ True
+SVar:DBDmg:DB$ DealDamage | Defined$ Player.IsRemembered | NumDmg$ Y
+SVar:Y:Count$ValidGraveyard Artifact.IsRemembered+RememberedPlayerCtrl
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

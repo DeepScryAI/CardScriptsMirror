@@ -1,0 +1,10 @@
+Id:17138
+ColorIdentity:
+ManaCost:no cost
+Types:Ongoing Scheme
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Command | Execute$ TrigHorror
+SVar:TrigHorror:DB$ Token | TokenScript$ b_3_3_horror | TokenOwner$ You
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ Opponent | TriggerZones$ Command | Execute$ SacToAbandon
+# TODO: If shared turns are ever implemented that are needed for proper E01 support, this would need to be updated to ensure that several opponents may choose to sacrifice a total of two creatures, as opposed to two creatures by a single opponent.
+SVar:SacToAbandon:DB$ Abandon | UnlessPayer$ Opponent | UnlessCost$ Sac<2/Creature> | UnlessSwitched$ True
+SVar:AIPreference:SacCost$Creature

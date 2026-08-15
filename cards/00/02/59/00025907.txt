@@ -1,0 +1,13 @@
+Id:25907
+ColorIdentity:W
+ManaCost:2 W
+Types:Enchantment
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | Execute$ TrigCharm | TriggerZones$ Battlefield
+SVar:TrigCharm:DB$ Charm | Choices$ PumpField,PumpHand,Token | ChoiceRestriction$ YourLastCombat
+SVar:PumpField:DB$ Pump | ValidTgts$ Soldier | TargetMin$ 0 | TargetMax$ 1 | KW$ Flying | NumAtt$ +1 | NumDef$ +1 | Duration$ Perpetual
+SVar:PumpHand:DB$ ChooseCard | ChoiceZone$ Hand | Choices$ Soldier.YouOwn | Mandatory$ True | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ ChosenCard | PumpZone$ Hand | KW$ Vigilance | NumAtt$ +1 | NumDef$ +1 | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+SVar:Token:DB$ Token | TokenScript$ c_1_1_a_soldier
+DeckHas:Ability$Token & Type$Artifact | Soldier
+DeckHints:Type$Soldier

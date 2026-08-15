@@ -1,0 +1,14 @@
+Id:26748
+ColorIdentity:
+ManaCost:6
+Types:Artifact Equipment
+K:Equip:4
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 4 | AddToughness$ 4 | AddSVar$ SwordOfFireAndIceCE | AddKeyword$ Protection from white & Protection from blue & Protection from red
+T:Mode$ DamageDone | ValidSource$ Creature.EquippedBy | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDealDamage | TriggerZones$ Battlefield
+SVar:TrigDealDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 2 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1 | SubAbility$ DBWar
+SVar:DBWar:DB$ DealDamage | Defined$ TriggeredTarget | NumDmg$ X | SubAbility$ DBGain
+SVar:X:TriggeredTarget$CardsInHand
+SVar:DBGain:DB$ GainLife | Defined$ You | LifeAmount$ Y
+SVar:Y:Count$CardsInYourHand
+SVar:SwordOfFireAndIceCE:SVar:MustBeBlocked:AttackingPlayerConservative

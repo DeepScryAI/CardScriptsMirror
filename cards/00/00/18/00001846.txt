@@ -1,0 +1,16 @@
+Id:1846
+ColorIdentity:W
+ManaCost:X W W
+Types:Enchantment
+K:etbCounter:ECHO:X
+SVar:X:Count$xPaid
+R:Event$ GameLoss | ActiveZones$ Battlefield | ValidPlayer$ You | ValidLoseReason$ LifeReachedZero | Layer$ CantHappen
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice | ConditionPresent$ Card.Self+counters_EQ0_ECHO | SubAbility$ TrigChoose
+SVar:TrigChoose:DB$ GenericChoice | AILogic$ SoulEcho | ConditionPresent$ Card.Self+counters_GT0_ECHO | ValidTgts$ Opponent | Choices$ RemoveCounters,DealDamage
+SVar:DealDamage:DB$ Pump | Defined$ You
+SVar:RemoveCounters:DB$ Effect | ReplacementEffects$ Damage | ExileOnMoved$ Exile | Duration$ UntilYourNextUpkeep
+SVar:Damage:Event$ DamageDone | ValidTarget$ You | ReplaceWith$ Counters
+SVar:Counters:DB$ RemoveCounter | Defined$ EffectSource | CounterType$ ECHO | CounterNum$ Y
+SVar:Y:ReplaceCount$DamageAmount
+DeckHas:Ability$Counters

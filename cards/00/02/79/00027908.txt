@@ -1,0 +1,25 @@
+Id:27908
+ColorIdentity:B
+ManaCost:2 B
+Types:Artifact
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:AB$ Draw | Cost$ Sac<1/Creature.!token/nontoken creature> | NumCards$ Y | SubAbility$ DBMill
+SVar:DBMill:DB$ Mill | NumCards$ Y
+SVar:Y:Sacrificed$CardPower
+K:Craft:2 B B XMin1 ExileCtrlOrGrave<X/Creature.Other>
+SVar:X:Count$xPaid
+A:AB$ ChangeZone | Cost$ 2 B | Origin$ Graveyard | Destination$ Hand | ActivationZone$ Graveyard
+AI:RemoveDeck:All
+DeckHas:Ability$Graveyard | Sacrifice | Mill
+DeckHints:Ability$Discard | Mill | Sacrifice
+AlternateMode:DoubleFaced
+
+ALTERNATE
+
+ManaCost:no cost
+Colors:black
+Types:Creature Skeleton Horror
+PT:*/*
+S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X | SetToughness$ X
+SVar:X:ExiledWith$CardPower
+S:Mode$ Continuous | EffectZone$ Battlefield | Affected$ Card.Self | SharedKeywordsZone$ Exile | SharedRestrictions$ Card.ExiledWithSource | AddKeyword$ Flying & First Strike & Double Strike & Deathtouch & Haste & Hexproof & Indestructible & Lifelink & Menace & Protection & Reach & Trample & Vigilance

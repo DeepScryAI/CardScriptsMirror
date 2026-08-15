@@ -1,0 +1,13 @@
+Id:26312
+ColorIdentity:R
+ManaCost:R R R R
+Types:Creature Phyrexian Horror
+PT:5/5
+K:Menace
+T:Mode$ DamageDone | ValidTarget$ Card.Self | Execute$ TrigSeek
+SVar:TrigSeek:DB$ Seek | Num$ X | Type$ Card.nonLand | RememberFound$ True | SubAbility$ DBDelay
+SVar:DBDelay:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | Execute$ TrigDiscardExiled | SubAbility$ DBCleanup | RememberObjects$ Remembered
+SVar:TrigDiscardExiled:DB$ Discard | Mode$ Defined | DefinedCards$ DelayTriggerRemembered
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:TriggerCount$DamageAmount
+DeckHas:Ability$Discard

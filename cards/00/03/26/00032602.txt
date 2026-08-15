@@ -1,0 +1,10 @@
+Id:32602
+ColorIdentity:UB
+ManaCost:2 U B B
+Types:Legendary Creature Human Noble Rogue
+PT:4/4
+K:Firebending:2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Opponent | DefinedPlayer$ Targeted | Mandatory$ True | ChangeType$ Creature.!token | ChangeNum$ 1 | Hidden$ True | IsCurse$ True | Chooser$ Targeted | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | DefinedPlayer$ Targeted | Chooser$ Targeted | ChangeType$ Card.nonLand | ChangeNum$ 1 | Hidden$ True | IsCurse$ True | Mandatory$ True
+S:Mode$ Continuous | Affected$ Card.ExiledWithSource | Condition$ PlayerTurn | MayPlay$ True | MayPlayWithFlash$ True | MayPlayIgnoreType$ True | EffectZone$ Battlefield | AffectedZone$ Exile

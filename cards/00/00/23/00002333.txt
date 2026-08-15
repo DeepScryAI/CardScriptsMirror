@@ -1,0 +1,12 @@
+Id:2333
+ColorIdentity:U
+ManaCost:1 U
+Types:Creature Illusion
+PT:2/2
+K:Phasing
+T:Mode$ PhaseOut | ValidCard$ Card.phasedOutSelf | Execute$ TrigMill
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | TriggerZones$ Battlefield | Secondary$ True | Execute$ TrigMill
+SVar:TrigMill:DB$ Mill | NumCards$ 3
+A:AB$ Effect | Cost$ U | RememberObjects$ Self | ForgetOnMoved$ Battlefield | StaticAbilities$ CantPhaseOut | Duration$ UntilYourNextUpkeep
+SVar:CantPhaseOut:Mode$ CantPhaseOut | ValidCard$ Card.IsRemembered
+DeckHas:Ability$Mill

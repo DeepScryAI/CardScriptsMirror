@@ -1,0 +1,32 @@
+Id:29521
+ColorIdentity:UR
+ManaCost:1 R
+Types:Legendary Creature Human Wizard
+PT:1/3
+S:Mode$ ReduceCost | ValidCard$ Instant,Sorcery | Type$ Spell | Activator$ You | Amount$ 1
+T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | PlayerTurn$ True | Execute$ TrigFlip
+SVar:TrigFlip:DB$ FlipCoin | WinSubAbility$ DBTransform | LoseSubAbility$ DBDamage
+SVar:DBDamage:DB$ DealDamage | Defined$ You | NumDmg$ 1
+SVar:DBTransform:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | Optional$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | Transformed$ True | ForgetOtherRemembered$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+DeckNeeds:Type$Instant | Sorcery
+AlternateMode:DoubleFaced
+
+ALTERNATE
+
+ManaCost:no cost
+Colors:blue,red
+Types:Legendary Planeswalker Ral
+Loyalty:2
+K:etbCounter:LOYALTY:X:no Condition:CARDNAME enters with an additional loyalty counter on him for each instant and sorcery spell you've cast this turn.
+A:AB$ Effect | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | StaticAbilities$ RalReduceCost | Duration$ UntilYourNextTurn
+SVar:RalReduceCost:Mode$ ReduceCost | ValidCard$ Instant,Sorcery | Type$ Spell | Activator$ You | Amount$ 1
+A:AB$ DealDamage | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | ValidTgts$ Any | NumDmg$ 2 | TargetMin$ 1 | TargetMax$ 2 | DividedAsYouChoose$ 2 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | ConditionPresent$ Permanent.Blue+YouCtrl+Other
+A:AB$ Dig | Cost$ SubCounter<8/LOYALTY> | Planeswalker$ True | Ultimate$ True | Defined$ You | DigNum$ 8 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ EffPlay | EffectOwner$ You | RememberObjects$ Remembered | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:EffPlay:Mode$ Continuous | MayPlay$ True | MayPlayWithoutManaCost$ True | Affected$ Card.Instant+IsRemembered,Card.Sorcery+IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$ThisTurnCast_Instant.YouCtrl,Sorcery.YouCtrl
+DeckNeeds:Type$Instant | Sorcery

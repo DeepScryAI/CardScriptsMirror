@@ -1,0 +1,12 @@
+Id:425
+ColorIdentity:
+ManaCost:4
+Types:Artifact Creature Shapeshifter
+PT:*/*
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | Layer$ Copy | ReplacementResult$ Updated | ReplaceWith$ MoldChoice
+SVar:MoldChoice:DB$ GenericChoice | Defined$ You | Choices$ GroundMold,AirMold,WallMold
+SVar:GroundMold:DB$ Clone | Defined$ Self | SetPower$ 3 | SetToughness$ 3
+SVar:AirMold:DB$ Clone | Defined$ Self | SetPower$ 2 | SetToughness$ 2 | AddKeywords$ Flying
+SVar:WallMold:DB$ Clone | Defined$ Self | SetPower$ 1 | SetToughness$ 6 | AddTypes$ Wall | AddKeywords$ Defender
+AI:RemoveDeck:Random
+DeckHas:Keyword$Defender | Flying & Type$Wall

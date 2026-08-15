@@ -1,0 +1,10 @@
+Id:354
+ColorIdentity:
+ManaCost:6
+Types:Artifact
+A:AB$ Charm | Cost$ 2 | Choices$ DBDestroy,DBProtect | Defined$ You
+SVar:DBDestroy:DB$ Destroy | ValidTgts$ Aura.AttachedTo Land
+SVar:DBProtect:DB$ Effect | ValidTgts$ Land | ReplacementEffects$ DBRemove | ForgetOnMoved$ Battlefield | RememberObjects$ Targeted
+SVar:DBRemove:Event$ Destroy | ValidCard$ Land.IsRemembered | ReplaceWith$ RemoveDamage
+SVar:RemoveDamage:DB$ HealDamage | Defined$ ReplacedCard | SubAbility$ ExileEffect
+SVar:ExileEffect:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile

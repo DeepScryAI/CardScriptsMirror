@@ -1,0 +1,14 @@
+Id:25916
+ColorIdentity:R
+ManaCost:3 R R
+Types:Enchantment
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 2
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraft
+SVar:TrigDraft:DB$ Draft | Spellbook$ Abrade,Cleansing Wildfire,Terror of the Peaks,Explosive Singularity,Guttersnipe,Seasoned Pyromancer,Unexpected Windfall,Banefire,Lightning Bolt,Dualcaster Mage,Electrodominance,Crackle with Power,Volcanic Fallout,Young Pyromancer,Siege-Gang Commander | RememberDrafted$ True | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | Defined$ Remembered | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ Play | ExileOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+DeckHints:Type$Goblin | Instant | Sorcery
+DeckHas:Type$Goblin | Elemental | Human | Shaman | Wizard & Ability$Graveyard | Discard | Token

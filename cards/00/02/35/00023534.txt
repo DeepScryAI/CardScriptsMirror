@@ -1,0 +1,15 @@
+Id:23534
+ColorIdentity:U
+ManaCost:4 U U
+Types:Legendary Creature Dragon Spirit
+PT:6/6
+K:Flying
+K:Ward:3
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | Choices$ Return,Mill
+SVar:Return:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | TargetMin$ 0 | TargetMax$ X | MaxTotalTargetCMC$ 6 | ValidTgts$ Permanent.nonLand
+SVar:X:Count$Valid Permanent.nonLand
+SVar:Mill:DB$ Mill | NumCards$ 6 | Defined$ You | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ChangeNum$ 2 | ChangeType$ Instant.YouOwn,Sorcery.YouOwn | Hidden$ True
+DeckHas:Ability$Mill | Graveyard
+DeckHints:Type$Instant | Sorcery

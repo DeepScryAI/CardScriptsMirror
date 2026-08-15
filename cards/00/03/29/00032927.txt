@@ -1,0 +1,13 @@
+Id:32927
+ColorIdentity:UB
+ManaCost:3 UB
+Types:Legendary Creature Human Warrior Ally
+PT:3/3
+S:Mode$ OptionalCost | EffectZone$ All | ValidCard$ Card.Self | ValidSA$ Spell | Cost$ Waterbend<2>
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1 | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ X | Mode$ TgtChoose
+S:Mode$ Continuous | Affected$ Card.Self | AddPower$ Y | AddToughness$ Y
+SVar:X:CastSA>Count$OptionalGenericCostPaid.0.1
+SVar:Y:Count$ValidGraveyard Lesson.YouOwn
+DeckHas:Ability$Discard

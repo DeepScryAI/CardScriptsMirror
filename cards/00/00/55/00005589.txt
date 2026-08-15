@@ -1,0 +1,14 @@
+Id:5589
+ColorIdentity:G
+ManaCost:3 G
+Types:Creature Insect Druid
+PT:2/2
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigNantukoDiscardLand
+SVar:TrigNantukoDiscardLand:DB$ Discard | DiscardValid$ Land | NumCards$ NantukoX | Optional$ True | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBNantukoPutCounter
+SVar:DBNantukoPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ NantukoY | SubAbility$ DBNantukoDraw
+SVar:DBNantukoDraw:DB$ Draw | NumCards$ NantukoY | SubAbility$ DBNantukoCleanup
+SVar:DBNantukoCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:NantukoX:Count$ValidHand Land.YouOwn
+SVar:NantukoY:Remembered$Amount
+AI:RemoveDeck:All
+DeckHas:Ability$Counters

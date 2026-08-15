@@ -1,0 +1,12 @@
+Id:16538
+ColorIdentity:B
+ManaCost:2 B B
+Types:Enchantment
+K:etbCounter:HOUR:7
+T:Mode$ Phase | Phase$ Draw | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | SubAbility$ DBRemoveCounter
+SVar:DBRemoveCounter:DB$ RemoveCounter | Defined$ Self | CounterType$ HOUR | CounterNum$ 2
+S:Mode$ Continuous | Affected$ You | SetMaxHandSize$ X
+T:Mode$ Discarded | ValidCard$ Card.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ 1
+SVar:X:Count$CardCounters.HOUR

@@ -1,0 +1,11 @@
+Id:28777
+ColorIdentity:B
+ManaCost:B
+Types:Creature Rat
+PT:2/1
+T:Mode$ DamageDone | CombatDamage$ True | ValidSource$ Card.Self | ValidTarget$ Creature | TriggerZones$ Battlefield | Execute$ TrigSuspect
+SVar:TrigSuspect:DB$ AlterAttribute | Defined$ TriggeredTargetLKICopy | ConditionDefined$ TriggeredTargetLKICopy | ConditionPresent$ Card.inZoneBattlefield | Attributes$ Suspected | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ TriggeredTargetLKICopy | ConditionDefined$ TriggeredTargetLKICopy | ConditionPresent$ Card.inZoneBattlefield | Triggers$ CombatTrig | Duration$ Perpetual
+SVar:CombatTrig:Mode$ DamageDone | CombatDamage$ True | ValidSource$ Card.Self | ValidTarget$ Creature | TriggerZones$ Battlefield | Execute$ TrigSuspect
+T:Mode$ ChangesZone | Origin$ Battlefield | TriggerZones$ Graveyard | Destination$ Graveyard | ValidCard$ Creature.OppCtrl+IsSuspected | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | LifeAmount$ 1 | Defined$ TriggeredCardController

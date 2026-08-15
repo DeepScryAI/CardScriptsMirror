@@ -1,0 +1,11 @@
+Id:33439
+ColorIdentity:WU
+ManaCost:3 WU WU
+Types:Legendary Creature Mutant Ninja Turtle
+PT:4/6
+K:Vigilance
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | ValidTgts$ Artifact.YouCtrl | TargetMin$ 0 | TargetMax$ 1 | ValidTgtsDesc$ artifact you control | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | ValidTgts$ Creature.YouCtrl | TargetMin$ 0 | TargetMax$ 1 | ThisDefinedAndTgts$ ParentTarget | ValidTgtsDesc$ creature you control | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ All | Destination$ Battlefield | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

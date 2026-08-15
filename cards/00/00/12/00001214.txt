@@ -1,0 +1,12 @@
+Id:1214
+ColorIdentity:B
+ManaCost:3 B
+Types:Creature Imp
+PT:1/1
+A:AB$ Untap | Cost$ T | ValidTgts$ Creature.Blue
+A:AB$ Pump | Cost$ T | ValidTgts$ Creature.nonWall+ActivePlayerCtrl+!firstTurnControlled | ActivationPhases$ Upkeep->BeginCombat | ActivationFirstCombat$ True | staticAbilities$ MustAttack | SubAbility$ DestroyPacifist
+SVar:MustAttack:Mode$ MustAttack | ValidCreature$ Card.Self
+SVar:DestroyPacifist:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ TrigDestroy | RememberObjects$ ParentTarget
+SVar:TrigDestroy:DB$ Destroy | Defined$ DelayTriggerRemembered | ConditionDefined$ DelayTriggerRemembered | ConditionPresent$ Creature.!attackedThisTurn | ConditionCompare$ GE1
+AI:RemoveDeck:All
+DeckHints:Color$Blue

@@ -1,0 +1,15 @@
+Id:25879
+ColorIdentity:UR
+ManaCost:4 R
+Types:Legendary Creature Goblin Wizard
+PT:4/5
+K:Flying
+T:Mode$ SpellCast | ValidCard$ Card.!wasCastFromYourHand | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigCopy
+SVar:TrigCopy:AB$ CopySpellAbility | Cost$ 1 UR | Defined$ TriggeredSpellAbility | MayChooseTarget$ True | RememberNewCard$ True | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Remembered | ConditionDefined$ Remembered | ConditionPresent$ Permanent | Keywords$ Haste | Duration$ Permanent | Triggers$ EOTSac | SubAbility$ DBCleanup
+SVar:EOTSac:Mode$ Phase | Phase$ End of Turn | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+AI:RemoveDeck:Random
+DeckHas:Ability$Token | Sacrifice
+DeckHints:Type$Instant | Sorcery & Keyword$Foretell | Flashback

@@ -1,0 +1,10 @@
+Id:25117
+ColorIdentity:
+ManaCost:3
+Types:Artifact Creature Wraith
+PT:2/1
+S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigSearch | TriggerZones$ Battlefield
+SVar:TrigSearch:AB$ ChooseCard | Cost$ 3 Sac<1/CARDNAME> | Choices$ Land.YouCtrl | Mandatory$ True | SubAbility$ DBChange
+SVar:DBChange:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Land.Basic+sharesNameWith ChosenCard | ChangeNum$ 2 | Tapped$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True

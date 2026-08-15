@@ -1,0 +1,12 @@
+Id:30028
+ColorIdentity:G
+ManaCost:4 G
+Types:Creature Elemental Bear
+PT:6/5
+K:Trample
+K:Hideaway:3
+K:Hideaway:3
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CheckSVar$ X | SVarCompare$ GT0 | CombatDamage$ True | Execute$ TrigPlay
+SVar:TrigPlay:DB$ Play | Defined$ ExiledWith | Amount$ 1 | Controller$ You | WithoutManaCost$ True | Optional$ True
+SVar:X:Count$ValidExile Card.ExiledWithSource
+SVar:DBReturn:DB$ ChangeZone | Defined$ ExiledWith | Origin$ Exile | Destination$ Hand

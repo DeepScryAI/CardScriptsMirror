@@ -1,0 +1,11 @@
+Id:30225
+ColorIdentity:U
+ManaCost:5 U
+Types:Enchantment Creature Nightmare
+PT:6/6
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self,Enchantment.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigTap
+T:Mode$ FullyUnlock | ValidCard$ Card.Room | ValidPlayer$ You | Secondary$ True | Execute$ TrigTap | TriggerZones$ Battlefield
+SVar:TrigTap:DB$ Tap | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBStun
+SVar:DBStun:DB$ PutCounter | Defined$ Targeted | CounterType$ Stun | CounterNum$ 1
+R:Event$ RemoveCounter | ActiveZones$ Battlefield | ValidCard$ Permanent.OppCtrl | ValidCounterType$ STUN | Layer$ CantHappen

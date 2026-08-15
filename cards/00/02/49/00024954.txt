@@ -1,0 +1,14 @@
+Id:24954
+ColorIdentity:BRG
+ManaCost:1 B R G
+Types:Legendary Creature Cat Avatar
+PT:5/4
+T:Mode$ ChangesZone | Origin$ Any | OptionalDecider$ You | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
+T:Mode$ Attacks | ValidCard$ Card.Self | OptionalDecider$ You | Execute$ TrigChangeZone | Secondary$ True
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True | Tapped$ True | Hidden$ True | ChangeType$ Land
+A:AB$ GainLife | Cost$ G Discard<1/Land> | LifeAmount$ 3
+A:AB$ Draw | Cost$ 1 R Discard<1/Land>
+A:AB$ Pump | Cost$ 2 B Discard<1/Land> | KW$ Indestructible | SubAbility$ DBTap
+SVar:DBTap:DB$ Tap | Defined$ Self
+SVar:HasAttackEffect:TRUE
+DeckHas:Ability$LifeGain | Discard | Graveyard & Keyword$Indestructible

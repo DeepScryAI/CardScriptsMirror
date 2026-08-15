@@ -1,0 +1,14 @@
+Id:28379
+ColorIdentity:WR
+ManaCost:2 R W
+Types:Legendary Creature Spirit Detective
+PT:2/4
+K:Double Strike
+K:Vigilance
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigBranch
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigBranch | TriggerZones$ Battlefield | Secondary$ True
+SVar:TrigBranch:DB$ Branch | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | BranchConditionSVar$ X | BranchConditionSVarCompare$ EQ1 | TrueSubAbility$ ExileIt | FalseSubAbility$ SuspectIt
+SVar:ExileIt:DB$ ChangeZone | Defined$ Targeted | Origin$ Battlefield | Destination$ Exile
+SVar:SuspectIt:DB$ AlterAttribute | Defined$ Targeted | Attributes$ Suspected
+SVar:X:Targeted$Valid Card.IsSuspected
+SVar:HasAttackEffect:TRUE

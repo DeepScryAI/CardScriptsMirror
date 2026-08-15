@@ -1,0 +1,9 @@
+Id:30465
+ColorIdentity:W
+ManaCost:1 W
+Types:Creature Human Survivor
+PT:2/2
+T:Mode$ Phase | Phase$ Main | PhaseCount$ 2 | ValidPlayer$ You | PresentDefined$ Self | IsPresent$ Card.tapped | TriggerZones$ Battlefield | Execute$ TrigPutCounter1
+SVar:TrigPutCounter1:DB$ PutCounter | CounterType$ Flying,Lifelink,P1P1
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self+HasCounters,Creature.Other+YouCtrl+HasCounters | TriggerZones$ Battlefield | Execute$ TrigPutCounter2
+SVar:TrigPutCounter2:DB$ PutCounter | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Creature | CounterType$ EachFromSource | EachFromSource$ TriggeredCardLKICopy

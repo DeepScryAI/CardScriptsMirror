@@ -1,0 +1,13 @@
+Id:2932
+ColorIdentity:W
+ManaCost:W
+Types:Enchantment
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ DBCardChoice
+SVar:DBCardChoice:DB$ ChooseCard | Defined$ Player | Choices$ Land | ControlledByPlayer$ Chooser | Amount$ 5 | Mandatory$ True | Reveal$ True | SubAbility$ SacRest
+SVar:SacRest:DB$ SacrificeAll | ValidCards$ Land.nonChosenCard | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+S:Mode$ CantPlayLand | IsPresent$ Land | PresentCompare$ GE10
+SVar:NonStackingEffect:True
+AI:RemoveDeck:All
+AI:RemoveDeck:Random
+DeckHas:Ability$Sacrifice

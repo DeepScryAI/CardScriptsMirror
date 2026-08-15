@@ -1,0 +1,12 @@
+Id:27806
+ColorIdentity:
+ManaCost:no cost
+Types:Plane Outside Mutter's Spiral
+T:Mode$ PlaneswalkedTo | ValidCard$ Card.Self | Execute$ TrigPutCounter
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigPutCounter | TriggerZones$ Command | Secondary$ True
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.nonCat+YouCtrl | CounterType$ P1P1 | CounterNum$ 2 | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Targeted | Types$ Cat | Duration$ Permanent
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ TrigPumpAll
+SVar:TrigPumpAll:DB$ PumpAll | ValidCards$ Card.Cat | KW$ Provoke
+DeckHas:Ability$Counters & Type$Cat
+DeckHints:Type$Cat

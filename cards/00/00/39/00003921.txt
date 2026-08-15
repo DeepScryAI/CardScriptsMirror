@@ -1,0 +1,12 @@
+Id:3921
+ColorIdentity:
+ManaCost:2
+Types:Artifact
+A:AB$ ChooseNumber | Cost$ 3 T | Min$ 1 | SubAbility$ DBScryingGlassChooseColor
+SVar:DBScryingGlassChooseColor:DB$ ChooseColor | SubAbility$ DBScryingGlassRevealHand
+SVar:DBScryingGlassRevealHand:DB$ RevealHand | RememberRevealed$ True | ValidTgts$ Opponent | SubAbility$ DBScryingGlassDraw
+SVar:DBScryingGlassDraw:DB$ Draw | ConditionCheckSVar$ ScryingGlassX | ConditionSVarCompare$ EQScryingGlassY | SubAbility$ DBScryingGlassCleanup
+SVar:DBScryingGlassCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:ScryingGlassX:Remembered$Valid Card.ChosenColor
+SVar:ScryingGlassY:Count$ChosenNumber
+AI:RemoveDeck:All

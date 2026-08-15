@@ -1,0 +1,16 @@
+Id:21354
+ColorIdentity:R
+ManaCost:2 R
+Types:Legendary Planeswalker Jeska
+Loyalty:0
+K:etbCounter:LOYALTY:Y:no Condition:CARDNAME enters with a loyalty counter on her for each time you've cast a commander from the command zone this game.
+SVar:Y:Count$TotalCommanderCastFromCommandZone
+A:AB$ Effect | Cost$ AddCounter<0/LOYALTY> | Planeswalker$ True | Duration$ UntilYourNextTurn | ValidTgts$ Creature | AILogic$ Pump | RememberObjects$ Targeted | ReplacementEffects$ TripleCombatDamage
+SVar:TripleCombatDamage:Event$ DamageDone | ValidSource$ Creature.IsRemembered | IsCombat$ True | ValidTarget$ Player.Opponent | ReplaceWith$ DmgTriple
+SVar:DmgTriple:DB$ ReplaceEffect | VarName$ DamageAmount | VarValue$ Z
+SVar:Z:ReplaceCount$DamageAmount/Thrice
+A:AB$ DealDamage | Cost$ SubCounter<X/LOYALTY> | Planeswalker$ True | Ultimate$ True | ValidTgts$ Any | TargetMin$ 0 | TargetMax$ 3 | NumDmg$ X
+SVar:X:Count$xPaid
+AI:RemoveDeck:NonCommander
+Text:CARDNAME can be your commander.
+K:Partner

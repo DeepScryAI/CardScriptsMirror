@@ -1,0 +1,12 @@
+Id:30546
+ColorIdentity:UG
+ManaCost:1 G U
+Types:Legendary Creature Human Wizard
+PT:1/1
+T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | Execute$ TrigToken | CheckSVar$ X
+SVar:TrigToken:DB$ Token | TokenScript$ primo_the_indivisible | RememberTokens$ True | SubAbility$ DBCounters
+SVar:DBCounters:DB$ PutCounter | Defined$ Remembered | CounterNum$ Y | CounterType$ P1P1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$IsPrime Y.Z.0
+SVar:Y:Count$Valid Land.YouCtrl+!IsRemembered
+SVar:Z:Count$ThisTurnEntered_Battlefield_Land.YouCtrl

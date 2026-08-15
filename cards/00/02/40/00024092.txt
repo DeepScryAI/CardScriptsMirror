@@ -1,0 +1,12 @@
+Id:24092
+ColorIdentity:R
+ManaCost:R
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddKeyword$ Menace | AddTrigger$ TriggerDamageDone
+SVar:TriggerDamageDone:Mode$ DamageDone | ValidSource$ Card.Self | CombatDamage$ True | ValidTarget$ Player | Execute$ DBToken
+SVar:DBToken:DB$ Token | TokenScript$ c_a_treasure_sac
+T:Mode$ ChangesZone | ValidCard$ Card.AttachedBy | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw
+DeckHas:Ability$Sacrifice | Token & Type$Treasure | Artifact

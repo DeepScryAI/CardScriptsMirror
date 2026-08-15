@@ -1,0 +1,13 @@
+Id:723
+ColorIdentity:U
+ManaCost:2 U
+Types:Creature Elemental
+PT:0/2
+A:AB$ ChangeZone | Cost$ 2 U U T | ValidTgts$ Permanent.!enchanted | Origin$ Battlefield | Destination$ Hand
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ DelayedTrig
+T:Mode$ Blocks | ValidCard$ Card.Self | Execute$ DelayedTrig | Secondary$ True
+SVar:DelayedTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ EndCombat | ValidPlayer$ Player | Execute$ TrigSacrifice
+SVar:TrigSacrifice:DB$ SacrificeAll | Defined$ Self | Controller$ You | SubAbility$ DBDamage
+SVar:DBDamage:DB$ DealDamage | NumDmg$ 5 | Defined$ You
+AI:RemoveDeck:All
+DeckHas:Ability$Sacrifice

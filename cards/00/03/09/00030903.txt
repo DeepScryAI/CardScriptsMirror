@@ -1,0 +1,12 @@
+Id:30903
+ColorIdentity:R
+ManaCost:4 R
+Types:Legendary Creature Goblin Artificer
+PT:*/5
+S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigReturn
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigReturn | Secondary$ True
+SVar:TrigReturn:AB$ ChangeZone | Cost$ Sac<1/Artifact> | Origin$ Graveyard | Destination$ Battlefield | Defined$ Targeted | ValidTgts$ Artifact.YouCtrl | TgtZone$ Graveyard
+SVar:X:Count$Valid Artifact.YouCtrl$GreatestCardManaCost
+DeckHas:Ability$Graveyard
+DeckHints:Ability$Graveyard & Type$Artifact

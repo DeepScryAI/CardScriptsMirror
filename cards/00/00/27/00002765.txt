@@ -1,0 +1,14 @@
+Id:2765
+ColorIdentity:B
+ManaCost:2 B B
+Types:Legendary Creature Vampire Noble
+PT:0/0
+K:etbCounter:P1P1:4
+A:AB$ Pump | Cost$ B | Defined$ Self | KW$ Flying
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigSacrifice | TriggerZones$ Battlefield
+SVar:TrigSacrifice:DB$ Sacrifice | Optional$ True | SacValid$ Creature | Amount$ 1 | RememberSacrificed$ True | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ 1 | ConditionDefined$ Remembered | ConditionPresent$ Creature | ConditionCompare$ EQ1 | SubAbility$ DBSubCounter
+SVar:DBSubCounter:DB$ RemoveCounter | CounterType$ P1P1 | CounterNum$ 1 | ConditionDefined$ Remembered | ConditionPresent$ Creature | ConditionCompare$ EQ0 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+AI:RemoveDeck:All
+DeckHas:Ability$Sacrifice | Counters

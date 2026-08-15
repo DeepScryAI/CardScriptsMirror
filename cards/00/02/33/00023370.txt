@@ -1,0 +1,14 @@
+Id:23370
+ColorIdentity:UBG
+ManaCost:1 B G U
+Types:Legendary Artifact Creature Robot
+PT:3/3
+K:Flying
+K:Deathtouch
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigExchange
+SVar:TrigExchange:DB$ ExchangeControl | RememberExchanged$ True | ValidTgts$ Artifact.Other | TargetMin$ 2 | TargetMax$ 2 | Optional$ True | AILogic$ TrigTwoTargets | SubAbility$ TrigImmediateTrig
+SVar:TrigImmediateTrig:DB$ ImmediateTrigger | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ GE2 | SubAbility$ DBCleanup | Execute$ TrigToken
+SVar:TrigToken:DB$ CopyPermanent | ValidTgts$ Artifact.YouDontCtrl | SetPower$ 1 | SetToughness$ 1 | AddColors$ Green | AddTypes$ Creature & Squirrel
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+AI:RemoveDeck:Random
+DeckHas:Ability$Token & Type$Squirrel

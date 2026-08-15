@@ -1,0 +1,14 @@
+Id:31160
+ColorIdentity:U
+ManaCost:4 U U
+Types:Creature Sphinx
+PT:4/6
+K:Flying
+T:Mode$ Drawn | ValidCard$ Card.OppOwn | TriggerZones$ Battlefield | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | Choices$ DBFriends,DBCards,DBPrizes,DBSleep | ChoiceRestriction$ ThisGame | CharmNum$ 1
+SVar:DBFriends:DB$ Token | TokenAmount$ 1 | TokenScript$ c_1_1_gamer | TokenOwner$ You
+SVar:DBCards:DB$ Investigate
+SVar:DBPrizes:DB$ Token | TokenAmount$ 1 | TokenScript$ c_a_treasure_sac | TokenOwner$ You
+SVar:DBSleep:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | SubAbility$ DBReturn | RememberChanged$ True
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

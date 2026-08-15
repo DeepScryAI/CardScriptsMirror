@@ -1,0 +1,11 @@
+Id:18115
+ColorIdentity:W
+ManaCost:W
+Types:Instant
+A:SP$ ChooseSource | Choices$ Card,Emblem | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | ValidTgts$ Any | ReplacementEffects$ GraceDamage | ForgetOnMoved$ Battlefield | RememberObjects$ Targeted | SubAbility$ DBGainLife
+SVar:GraceDamage:Event$ DamageDone | ValidTarget$ Card.IsRemembered,Player.IsRemembered | ValidSource$ Card.ChosenCardStrict,Emblem.ChosenCard | ReplaceWith$ GraceDmg | PreventionEffect$ True
+SVar:GraceDmg:DB$ ReplaceDamage | Amount$ ShieldAmount
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ 3
+SVar:ShieldAmount:Number$3
+AI:RemoveDeck:All

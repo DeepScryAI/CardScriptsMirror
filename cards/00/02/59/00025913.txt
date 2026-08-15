@@ -1,0 +1,15 @@
+Id:25913
+ColorIdentity:BR
+ManaCost:1 B R
+Types:Creature Hellion
+PT:5/5
+K:Starting intensity:1
+K:Menace
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigSacrifice | TriggerZones$ Battlefield
+SVar:TrigSacrifice:DB$ Sacrifice | UnlessCost$ Discard<1/Card> | UnlessPayer$ You | OrString$ Sacrifice {c:Self}. | UnlessResolveSubs$ WhenPaid | SubAbility$ DBIntensify
+SVar:DBIntensify:DB$ Intensify
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:AB$ Draw | Cost$ Discard<1/Hand> | NumCards$ X
+SVar:X:Count$Intensity
+DeckHas:Ability$Discard | Sacrifice
+DeckHints:Ability$Graveyard

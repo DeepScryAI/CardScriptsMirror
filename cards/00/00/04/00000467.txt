@@ -1,0 +1,18 @@
+Id:467
+ColorIdentity:B
+ManaCost:2 B B
+Types:Sorcery
+A:SP$ ChangeZone | Origin$ Stack | Destination$ Exile | RememberChanged$ True | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Remembered | CounterType$ SCREAM | CounterNum$ 2 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | IsPresent$ Card.Self+counters_GE1_SCREAM | PresentZone$ Exile | Execute$ TrigRemoveCounter | TriggerZones$ Exile
+SVar:TrigRemoveCounter:DB$ RemoveCounter | Defined$ Self | CounterType$ SCREAM | CounterNum$ 1 | SubAbility$ DBMoveToGraveyard
+SVar:DBMoveToGraveyard:DB$ ChangeZone | Origin$ Exile | Destination$ Graveyard | Defined$ Self | SubAbility$ DBResurrection | ConditionDefined$ Self | ConditionPresent$ Card.counters_EQ0_SCREAM
+SVar:DBResurrection:DB$ ChangeZoneAll | Origin$ Graveyard | Destination$ Battlefield | ChangeType$ Creature | ConditionDefined$ Self | ConditionPresent$ Card.counters_EQ0_SCREAM
+SVar:IsReanimatorCard:TRUE
+SVar:NeedsToPlayVar:CountOpps LECountMe
+SVar:CountMe:Count$ValidGraveyard Creature.YouOwn/Minus.NumOpps
+SVar:CountOpps:Count$ValidGraveyard Creature.OppOwn/DivideEvenlyDown.NumOpps
+SVar:NumOpps:PlayerCountOpponents$Amount
+DeckHas:Ability$Graveyard | Counters
+DeckHints:Ability$Graveyard | Sacrifice

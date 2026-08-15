@@ -1,0 +1,12 @@
+Id:23424
+ColorIdentity:U
+ManaCost:2 U U
+Types:Sorcery
+A:SP$ ChangeZone | Cost$ 2 U U Sac<1/Artifact;Creature/artifact or creature> | Origin$ Library | Destination$ Battlefield | ChangeType$ Equipment,Vehicle | RememberChanged$ True | SubAbility$ DBScry
+SVar:DBScry:DB$ Scry | ConditionDefined$ Remembered | ConditionPresent$ Card | ScryNum$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$Compare Y LTZ.2.0
+SVar:Y:Remembered$CardManaCost
+SVar:Z:Sacrificed$CardManaCost
+AI:RemoveDeck:Random
+DeckNeeds:Type$Artifact | Creature | Equipment | Vehicle

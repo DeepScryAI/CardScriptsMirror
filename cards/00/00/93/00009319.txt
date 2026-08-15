@@ -1,0 +1,11 @@
+Id:9319
+ColorIdentity:R
+ManaCost:3 R R R
+Types:Creature Elemental Incarnation
+PT:6/6
+K:Haste
+R:Event$ DamageDone | ActiveZones$ Battlefield | ValidSource$ Spell.YouCtrl | ValidTarget$ Opponent | PreventionEffect$ True | ReplaceWith$ HostilityTokens
+SVar:HostilityTokens:DB$ Token | TokenAmount$ X | TokenScript$ r_3_1_elemental_shaman_haste | TokenOwner$ You
+SVar:X:ReplaceCount$DamageAmount
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigShuffle
+SVar:TrigShuffle:DB$ ChangeZone | Origin$ Graveyard | Destination$ Library | Shuffle$ True | Defined$ TriggeredCardLKICopy

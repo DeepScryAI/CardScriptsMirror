@@ -1,0 +1,16 @@
+Id:25888
+ColorIdentity:WB
+ManaCost:5 B
+Types:Legendary Creature Vampire Angel
+PT:4/4
+K:Flying
+K:Deathtouch
+K:Lifelink
+T:Mode$ LifeGained | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ Self | KW$ Indestructible
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ X | Execute$ TrigImmediateTrig
+SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ 1 WB | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | ValidTgts$ Creature.cmcLEX+YouOwn | Origin$ Graveyard | Destination$ Battlefield
+SVar:X:Count$LifeYouGainedThisTurn
+DeckHas:Ability$Graveyard | LifeGain & Keyword$Indestructible
+DeckHints:Ability$Graveyard | LifeGain | Mill

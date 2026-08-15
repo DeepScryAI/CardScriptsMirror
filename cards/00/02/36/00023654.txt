@@ -1,0 +1,23 @@
+Id:23654
+ColorIdentity:G
+ManaCost:2 G
+Types:Enchantment Saga
+K:Chapter:3:DBHatching,DBHatching,DBTransform
+SVar:DBHatching:DB$ GainLife | Defined$ You | LifeAmount$ 2 | SubAbility$ DBDig
+SVar:DBDig:DB$ Dig | DigNum$ 3 | ChangeNum$ 1 | DestinationZone$ Exile | ExileWithCounters$ HATCHING | ExileFaceDown$ True | WithMayLook$ True
+SVar:DBTransform:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | Transformed$ True | GainControl$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+DeckHas:Ability$LifeGain
+AlternateMode:DoubleFaced
+
+ALTERNATE
+
+ManaCost:no cost
+Colors:green
+Types:Enchantment Creature Egg
+PT:0/1
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self,Dragon.YouCtrl | Execute$ TrigPlay
+SVar:TrigPlay:DB$ Play | Valid$ Creature.YouOwn+counters_GE1_HATCHING | ValidSA$ Spell.Creature | ValidZone$ Exile | Controller$ You | WithoutManaCost$ True | Optional$ True
+SVar:SacMe:5
+DeckHints:Type$Dragon

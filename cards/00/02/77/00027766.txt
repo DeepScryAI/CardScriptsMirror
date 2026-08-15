@@ -1,0 +1,15 @@
+Id:27766
+ColorIdentity:
+ManaCost:no cost
+Types:Plane Earth
+T:Mode$ PlaneswalkedTo | ValidCard$ Card.Self | Execute$ TrigPutCounter
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigPutCounter | TriggerZones$ Command | Secondary$ True
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ ERUPTION | CounterNum$ 1
+T:Mode$ PlanarDice | Result$ Blank | Execute$ TrigScry | TriggerZones$ Command
+SVar:TrigScry:DB$ Scry | ScryNum$ 2 | SubAbility$ TrigPutCounter
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ TrigDamageAll
+SVar:TrigDamageAll:DB$ DamageAll | ValidCards$ Creature | ValidPlayers$ Player | NumDmg$ X | SubAbility$ DBSacLand
+SVar:DBSacLand:DB$ Sacrifice | SacValid$ Land | Defined$ Player | SubAbility$ DBPlaneswalk
+SVar:DBPlaneswalk:DB$ Planeswalk
+SVar:X:Count$CardCounters.ERUPTION
+DeckHas:Ability$Counters | Sacrifice

@@ -1,0 +1,13 @@
+Id:24176
+ColorIdentity:WUB
+ManaCost:1 W U B
+Types:Legendary Creature God
+PT:5/2
+S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ Indestructible | CheckSVar$ CurrentLife | SVarCompare$ LEX
+SVar:CurrentLife:Count$YourLifeTotal
+SVar:X:Count$YourStartingLife/HalfDown
+T:Mode$ ChangesZone | ValidCard$ Creature.!token+Other+YouCtrl | Origin$ Battlefield | Destination$ Graveyard | Execute$ DBAskOpponentDrawOrPlay | TriggerZones$ Battlefield
+SVar:DBAskOpponentDrawOrPlay:DB$ GenericChoice | ValidTgts$ Opponent | Choices$ DBDrawCard,DBCheatCreature
+SVar:DBDrawCard:DB$ Draw | Defined$ You | NumCards$ 1
+SVar:DBCheatCreature:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | ChangeType$ Creature.toughnessLEY | ChangeNum$ 1
+SVar:Y:TriggeredCard$CardToughness

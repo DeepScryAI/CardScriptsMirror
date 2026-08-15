@@ -1,0 +1,11 @@
+Id:14836
+ColorIdentity:B
+ManaCost:3 B B
+Types:Creature Demon
+PT:5/4
+K:Flying
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ Opponent | TriggerZones$ Battlefield | Execute$ TrigChoose
+SVar:TrigChoose:DB$ ChooseCard | Defined$ TriggeredPlayer | MinAmount$ 0 | Amount$ 2 | TargetControls$ True | Choices$ Creature | Reveal$ True | SubAbility$ DBSacrificeAll
+SVar:DBSacrificeAll:DB$ SacrificeAll | ValidCards$ Creature.nonChosenCard | Controller$ TriggeredPlayer | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+DeckHas:Ability$Sacrifice

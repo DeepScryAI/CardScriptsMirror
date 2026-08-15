@@ -1,0 +1,10 @@
+Id:8280
+ColorIdentity:WU
+ManaCost:2 W U
+Types:Instant
+A:SP$ Dig | DigNum$ 4 | Reveal$ True | ChangeNum$ 1 | Optional$ True | ChangeValid$ Creature | DestinationZone$ Battlefield | RememberChanged$ True | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Remembered | Duration$ Permanent | Triggers$ TrigAethermage | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:TrigAethermage:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | ValidPlayer$ You | Execute$ BounceAethermage
+SVar:BounceAethermage:DB$ ChangeZone | Defined$ Self | Origin$ Battlefield | Destination$ Hand
+AI:RemoveDeck:All

@@ -1,0 +1,12 @@
+Id:556
+ColorIdentity:U
+ManaCost:U
+Types:Instant
+A:SP$ Pump | ValidTgts$ Wall.blockedThisTurn | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | CounterType$ GLYPH | CounterNum$ X | ValidTgts$ Creature.blockedByValidThisTurn ParentTarget | SubAbility$ Delude | IsCurse$ True
+SVar:X:Targeted$CardPower
+SVar:Delude:DB$ Animate | Defined$ ParentTarget | Replacements$ Delusional | Triggers$ TrigGlyphUpkeep | Duration$ Permanent
+SVar:Delusional:Event$ Untap | ValidCard$ Card.Self+counters_GE1_GLYPH | ValidStepTurnToController$ You | Layer$ CantHappen
+SVar:TrigGlyphUpkeep:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ LoseGlyph
+SVar:LoseGlyph:DB$ RemoveCounter | CounterType$ GLYPH | CounterNum$ 1
+DeckHas:Ability$Counters

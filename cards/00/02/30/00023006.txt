@@ -1,0 +1,25 @@
+Id:23006
+ColorIdentity:B
+Variant:UniversesWithin:FlavorName:Havengul Laboratory
+ManaCost:no cost
+Types:Legendary Land
+A:AB$ Mana | Cost$ T | Produced$ C
+A:AB$ Investigate | Cost$ 4 T
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ ClueResearch | SVarCompare$ GE3 | Execute$ TrigTransform
+SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform
+SVar:ClueResearch:PlayerCountPropertyYou$SacrificedThisTurn Clue
+DeckHas:Ability$Investigate | Token | Sacrifice | Graveyard
+DeckHints:Ability$Investigate
+AlternateMode:DoubleFaced
+
+ALTERNATE
+
+Variant:UniversesWithin:FlavorName:Havengul Mystery
+ManaCost:no cost
+Types:Legendary Land
+T:Mode$ Transformed | ValidCard$ Card.Self | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | ValidTgts$ Creature.YouOwn | Origin$ Graveyard | Destination$ Battlefield | RememberTargets$ True
+T:Mode$ ChangesZone | ValidCard$ Card.IsRemembered | Origin$ Battlefield | Destination$ Any | Execute$ TrigTransform2 | TriggerZones$ Battlefield
+SVar:TrigTransform2:DB$ SetState | Defined$ Self | Mode$ Transform | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+A:AB$ Mana | Cost$ T PayLife<1> | Produced$ B

@@ -1,0 +1,10 @@
+Id:878
+ColorIdentity:
+ManaCost:4
+Types:Artifact
+A:AB$ Reveal | Cost$ 3 T | ValidTgts$ Player | Random$ True | IsCurse$ True | PlayerTurn$ True | RememberRevealed$ True | SubAbility$ DBDiscard1
+SVar:DBDiscard1:DB$ Discard | ConditionDefined$ Remembered | ConditionPresent$ Card.Land | ConditionCompare$ EQ1 | Mode$ Defined | Defined$ ParentTarget | DefinedCards$ Remembered | UnlessCost$ PayLife<1> | UnlessPayer$ RememberedController | SubAbility$ DBDiscard2
+SVar:DBDiscard2:DB$ Discard | ConditionDefined$ Remembered | ConditionPresent$ Card.nonLand | ConditionCompare$ EQ1 | Mode$ Defined | Defined$ ParentTarget | DefinedCards$ Remembered | UnlessCost$ PayLife<X> | UnlessPayer$ RememberedController | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$CardManaCost
+DeckHas:Ability$Discard

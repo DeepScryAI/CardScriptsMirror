@@ -1,0 +1,11 @@
+Id:24636
+ColorIdentity:B
+ManaCost:1 B
+Types:Sorcery
+A:SP$ PeekAndReveal | PeekAmount$ 4 | NoReveal$ True | RememberPeeked$ True | SubAbility$ DBChoose
+SVar:DBChoose:DB$ ChooseCard | Defined$ You | Choices$ Card.IsRemembered | ChoiceZone$ Library | Amount$ 1 | SubAbility$ DBChangeZoneAll
+SVar:DBChangeZoneAll:DB$ ChangeZoneAll | ForgetChanged$ True | Origin$ Library | Destination$ Hand | ChangeType$ Card.IsRemembered+sharesNameWith ChosenCard | SubAbility$ DBChangeZoneAllBottomLibrary
+SVar:DBChangeZoneAllBottomLibrary:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered | Origin$ Library | Destination$ Library | LibraryPosition$ -1 | RandomOrder$ True | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ Y
+SVar:X:Remembered$Amount
+SVar:Y:4-X

@@ -1,0 +1,15 @@
+Id:18295
+ColorIdentity:R
+ManaCost:4 R
+Types:Sorcery
+A:SP$ AssignGroup | Defined$ Player | Choices$ FriendRepeat,FoeRepeat | AILogic$ FriendOrFoe
+SVar:FriendRepeat:DB$ RepeatEach | RepeatPlayers$ Remembered | ClearRememberedBeforeLoop$ True | RepeatSubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ Player.IsRemembered | Mode$ Hand | RememberDiscarded$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ X | Defined$ Player.IsRemembered | SubAbility$ DBCleanup
+SVar:FoeRepeat:DB$ RepeatEach | RepeatPlayers$ Remembered | ClearRememberedBeforeLoop$ True | RepeatSubAbility$ DBDmg | DamageMap$ True
+SVar:DBDmg:DB$ DealDamage | Defined$ Player.IsRemembered | NumDmg$ Y
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Amount/Plus.1
+SVar:Y:Count$ValidHand Card.RememberedPlayerCtrl
+SVar:NeedsToPlayVar:Z GE4
+SVar:Z:Count$ValidHand Card.OppOwn

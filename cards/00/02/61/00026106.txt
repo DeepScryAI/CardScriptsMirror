@@ -1,0 +1,15 @@
+Id:26106
+ColorIdentity:U
+ManaCost:1 U
+Types:Creature Phyrexian Rogue
+PT:2/1
+S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self
+T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | Execute$ TrigPutCounter | TriggerZones$ Battlefield
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ OIL | CounterNum$ 1
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigDelayTrig | CombatDamage$ True
+SVar:TrigDelayTrig:AB$ DelayedTrigger | Cost$ SubCounter<2/OIL> | AILogic$ SpellCopy | Execute$ EffTrigCopy | ThisTurn$ True | Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You
+SVar:EffTrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | MayChooseTarget$ True
+SVar:HasAttackEffect:TRUE
+SVar:BuffedBy:Card.nonCreature
+DeckHas:Ability$Counters
+DeckHints:Type$Instant | Sorcery

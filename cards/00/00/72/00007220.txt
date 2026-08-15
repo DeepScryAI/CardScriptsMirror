@@ -1,0 +1,11 @@
+Id:7220
+ColorIdentity:
+ManaCost:5
+Types:Artifact
+T:Mode$ Drawn | ValidCard$ Card.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigExile
+SVar:TrigExile:DB$ Dig | DigNum$ 1 | ChangeNum$ All | Defined$ You | DestinationZone$ Exile | ExileFaceDown$ True
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigChangeHandExile
+SVar:TrigChangeHandExile:DB$ ChangeZoneAll | Origin$ Hand | Destination$ Exile | ExileFaceDown$ True | ChangeType$ Card.YouCtrl | Imprint$ True | SubAbility$ ChangeBack
+SVar:ChangeBack:DB$ ChangeZoneAll | ChangeType$ Card.!IsImprinted+ExiledWithSource+YouOwn | Origin$ Exile | Destination$ Hand | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearImprinted$ True
+AI:RemoveDeck:All

@@ -1,0 +1,14 @@
+Id:23692
+ColorIdentity:WU
+Variant:UniversesWithin:FlavorName:Zethi, Arcane Blademaster
+ManaCost:1 W U
+Types:Legendary Creature Human Soldier
+PT:3/3
+K:Multikicker:WU
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | WithCountersType$ KICK | ValidTgts$ Instant.YouOwn | TargetMin$ 0 | TargetMax$ XKicked
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPlay | TriggerZones$ Battlefield
+SVar:TrigPlay:DB$ Play | Valid$ Card.YouOwn+counters_GE1_KICK | ValidSA$ Spell | ValidZone$ Exile | Amount$ All | CopyCard$ True | Optional$ True
+SVar:XKicked:Count$TimesKicked
+DeckHints:Type$Instant & Ability$Discard
+DeckHas:Ability$Graveyard

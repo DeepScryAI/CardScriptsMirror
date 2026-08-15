@@ -1,0 +1,11 @@
+Id:23733
+ColorIdentity:B
+ManaCost:1 B
+Types:Sorcery
+A:SP$ Discard | ValidTgts$ Opponent | NumCards$ 1 | Mode$ TgtChoose | SubAbility$ DBChooseCard
+SVar:DBChooseCard:DB$ ChooseCard | UnlessCost$ Discard<1/Card> | UnlessPayer$ Targeted | Choices$ Card.TargetedPlayerOwn | ChoiceZone$ Library | AtRandom$ True | SubAbility$ DBConjure | OrString$ {p:You} conjures a duplicate of a random card from their library into your hand.
+SVar:DBConjure:DB$ MakeCard | Conjure$ True | DefinedName$ ChosenCard | Zone$ Hand | RememberMade$ True | SubAbility$ DBClearChosen
+SVar:DBClearChosen:DB$ Cleanup | ClearChosenCard$ True | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Remembered | staticAbilities$ SpendAnyMana | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:SpendAnyMana:Mode$ ManaConvert | EffectZone$ Stack | ValidPlayer$ You | ValidCard$ Card.Self | ValidSA$ Spell | ManaConversion$ AnyType->AnyColor
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

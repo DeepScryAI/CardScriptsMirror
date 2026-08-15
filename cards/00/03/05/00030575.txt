@@ -1,0 +1,10 @@
+Id:30575
+ColorIdentity:G
+ManaCost:2 G
+Types:Creature Human Survivor
+PT:3/3
+T:Mode$ Phase | Phase$ Main | PhaseCount$ 2 | ValidPlayer$ You | PresentDefined$ Self | IsPresent$ Card.tapped | TriggerZones$ Battlefield | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Land.YouCtrl | TargetMin$ 0 | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Self | PumpZone$ Battlefield | NumAtt$ +1 | NumDef$ +1 | Duration$ Perpetual
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True

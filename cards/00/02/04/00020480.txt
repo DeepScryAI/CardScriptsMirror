@@ -1,0 +1,11 @@
+Id:20480
+ColorIdentity:W
+ManaCost:1 W
+Types:Creature Bird
+PT:2/1
+K:Flying
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player.withMoreLandsThanYou | Execute$ ToHand | CombatDamage$ True
+SVar:ToHand:DB$ ChangeZone | Defined$ Self | Origin$ Battlefield | Destination$ Hand | RememberChanged$ True | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Card.Plains | Tapped$ True | ChangeNum$ 1 | ConditionCheckSVar$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Amount

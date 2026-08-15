@@ -1,0 +1,15 @@
+Id:344
+ColorIdentity:R
+ManaCost:1 R R
+Types:Enchantment
+R:Event$ Untap | ActiveZones$ Battlefield | ValidCard$ Creature.Blue | ValidStepTurnToController$ You | Layer$ CantHappen
+T:Mode$ Phase | Phase$ Upkeep | TriggerZones$ Battlefield | Execute$ TrigChoose
+SVar:TrigChoose:DB$ ChooseCard | Defined$ TriggeredPlayer | Amount$ X | Choices$ Creature.tapped+Blue | TargetControls$ True | ChoiceZone$ Battlefield | SubAbility$ DBUntap
+SVar:DBUntap:DB$ RepeatEach | DefinedCards$ ChosenCard | RepeatSubAbility$ UntapEach
+SVar:UntapEach:DB$ Untap | Defined$ Remembered | UnlessCost$ 4 | UnlessPayer$ RememberedController | UnlessSwitched$ True | ShowCurrentCard$ Remembered
+SVar:X:Count$Valid Creature.tapped+Blue+ActivePlayerCtrl
+AI:RemoveDeck:Random
+SVar:NeedsToPlayVar:CountOpps GTCountMe
+SVar:CountOpps:Count$Valid Creature.OppCtrl+Blue/LimitMax.3
+SVar:CountMe:Count$Valid Creature.YouCtrl+Blue
+SVar:NonStackingEffect:True

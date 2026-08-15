@@ -1,0 +1,9 @@
+Id:6890
+ColorIdentity:R
+ManaCost:2 R
+Types:Instant
+A:SP$ Pump | ValidTgts$ Equipment | IsCurse$ True | SubAbility$ DBRem
+SVar:DBRem:DB$ PumpAll | ValidCards$ Creature.EquippedByTargeted | RememberPumped$ True | SubAbility$ DBDestroy
+SVar:DBDestroy:DB$ Destroy | Defined$ Targeted | SubAbility$ DBDmg
+SVar:DBDmg:DB$ DealDamage | Defined$ Remembered | NumDmg$ 2 | ConditionDefined$ Remembered | ConditionPresent$ Creature | ConditionCompare$ EQ1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

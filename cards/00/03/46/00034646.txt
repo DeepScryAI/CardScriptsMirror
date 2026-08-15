@@ -1,0 +1,15 @@
+Id:34646
+ColorIdentity:R
+ManaCost:3 R
+Types:Legendary Creature Dwarf Noble
+PT:3/4
+K:Trample
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | ValidTgts$ Equipment.YouCtrl | TargetMin$ 0 | TargetMax$ MaxTargets | ValidTgtsDesc$ Equipment you control | SubAbility$ DBAttach
+SVar:DBAttach:DB$ Attach | Object$ ParentTarget | ValidTgts$ Creature.YouCtrl | ValidTgtsDesc$ creature you control | RememberAttached$ True | SubAbility$ DBImmediateTrig
+SVar:DBImmediateTrig:DB$ ImmediateTrigger | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ GE1 | Execute$ TrigDamage | RememberObjects$ ParentTarget | SubAbility$ DBCleanup
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | DamageSource$ DelayTriggerRemembered | NumDmg$ X
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:MaxTargets:Count$Valid Equipment.YouCtrl
+SVar:X:TriggerRemembered$CardPower
+DeckHints:Type$Equipment

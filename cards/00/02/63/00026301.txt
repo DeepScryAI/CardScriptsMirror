@@ -1,0 +1,15 @@
+Id:26301
+ColorIdentity:BG
+ManaCost:1 B G
+Types:Legendary Creature Phyrexian Warlock
+PT:2/4
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Creature | CounterType$ OIL
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl+!token+counters_GE1_OIL | TriggerZones$ Battlefield | Execute$ TrigConjure
+SVar:TrigConjure:DB$ MakeCard | Conjure$ True | DefinedName$ TriggeredCardLKICopy | Amount$ X | Zone$ Exile | RememberMade$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Pump | PumpZone$ Exile | Defined$ Remembered | NumAtt$ +X | NumDef$ +X | Duration$ Perpetual | SubAbility$ DBShuffle
+SVar:DBShuffle:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Library | Shuffle$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:TriggeredCard$CardCounters.OIL
+DeckHints:Ability$Sacrifice | Counters
+DeckHas:Ability$Counters

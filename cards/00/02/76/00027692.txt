@@ -1,0 +1,12 @@
+Id:27692
+ColorIdentity:
+ManaCost:no cost
+Types:Plane The Dalek Asylum
+T:Mode$ PlaneswalkedTo | ValidCard$ Card.Self | Execute$ TrigExile
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigExile | TriggerZones$ Command | Secondary$ True
+SVar:TrigExile:AB$ Token | Cost$ Mandatory Exile<1/Creature.nonDalek/non-Dalek creature> | TokenScript$ b_3_3_a_dalek_menace | PumpKeywords$ Haste | PumpDuration$ EOT
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos
+SVar:RolledChaos:DB$ Pump | ValidTgts$ Dalek.YouCtrl | AILogic$ PowerDmg | SubAbility$ DBDamage
+SVar:DBDamage:DB$ DealDamage | ValidTgts$ Creature.YouDontCtrl | AILogic$ PowerDmg | NumDmg$ X | DamageSource$ ParentTarget
+SVar:X:ParentTargeted$CardPower
+DeckHas:Ability$Token & Type$Artifact | Dalek

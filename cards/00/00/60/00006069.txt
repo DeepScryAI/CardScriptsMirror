@@ -1,0 +1,11 @@
+Id:6069
+ColorIdentity:U
+ManaCost:1 U U
+Types:Sorcery
+A:SP$ Draw | ValidTgts$ Opponent | NumCards$ 2 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ 4 | Upto$ True | Defined$ You | AILogic$ OptionalDraw | SubAbility$ DBChooseNumber
+SVar:DBChooseNumber:DB$ ChooseNumber | Defined$ Targeted | ListTitle$ How many times do you want repeat this process? | AILogic$ RepeatDraw | SubAbility$ DBRepeat
+SVar:DBRepeat:DB$ Repeat | MaxRepeat$ X | RepeatSubAbility$ DBRepeatDraw
+SVar:DBRepeatDraw:DB$ Draw | Defined$ Targeted | NumCards$ 2 | SubAbility$ DBSubDraw
+SVar:DBSubDraw:DB$ Draw | Defined$ You | NumCards$ 4 | Upto$ True | AILogic$ OptionalDraw
+SVar:X:Count$ChosenNumber

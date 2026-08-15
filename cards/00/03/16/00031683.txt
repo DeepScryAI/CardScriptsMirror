@@ -1,0 +1,12 @@
+Id:31683
+ColorIdentity:B
+ManaCost:5 B B B
+Types:Legendary Creature Elder Human Noble
+PT:4/4
+S:Mode$ Continuous | Affected$ Demon.YouCtrl | AddKeyword$ Menace & Lifelink & Haste
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | Execute$ TrigExile | TriggerZones$ Battlefield
+SVar:TrigExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Creature | RememberChanged$ True | SubAbility$ DBCopy
+SVar:DBCopy:DB$ CopyPermanent | Defined$ Remembered | SetPower$ 5 | SetToughness$ 5 | SetColor$ Black | SetCreatureTypes$ Demon | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:PlayMain1:TRUE
+SVar:BuffedBy:Demon

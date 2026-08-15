@@ -1,0 +1,9 @@
+Id:33474
+ColorIdentity:WB
+ManaCost:1 W B
+Types:Legendary Creature Human Ninja
+PT:3/3
+K:Sneak:2 W B
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigReturn | TriggerZones$ Battlefield
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Creature.YouCtrl | ConditionDefined$ Self | ConditionPresent$ Card.ThisTurnEntered+sneaked | ConditionCompare$ EQ0 | SubAbility$ DBRevive
+SVar:DBRevive:DB$ ChangeZone | Defined$ Targeted | Origin$ Graveyard | Destination$ Battlefield | ConditionDefined$ Self | ConditionPresent$ Card.ThisTurnEntered+sneaked

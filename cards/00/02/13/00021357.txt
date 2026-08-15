@@ -1,0 +1,10 @@
+Id:21357
+ColorIdentity:G
+ManaCost:3 G
+Types:Instant
+A:SP$ Charm | MinCharmNum$ 1 | CharmNum$ Count$Compare Y GE1.2.1 | Choices$ DBAnimate,DBGangUp
+SVar:DBAnimate:DB$ Animate | ValidTgts$ Land.YouCtrl | TargetMin$ 0 | TargetMax$ MaxTargets | Power$ 1 | Toughness$ 1 | Types$ Elemental,Creature | Keywords$ Vigilance & Indestructible & Haste
+SVar:DBGangUp:DB$ Pump | ValidTgts$ Creature.YouDontCtrl | SubAbility$ DBDmgEach
+SVar:DBDmgEach:DB$ EachDamage | DefinedDamagers$ Valid Creature.YouCtrl | Defined$ ParentTarget | NumDmg$ Count$CardPower
+SVar:Y:Count$Valid Card.IsCommander+YouCtrl
+SVar:MaxTargets:Count$Valid Land.YouCtrl

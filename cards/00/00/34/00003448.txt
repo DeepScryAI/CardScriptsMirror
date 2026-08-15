@@ -1,0 +1,11 @@
+Id:3448
+ColorIdentity:B
+ManaCost:B
+Types:Creature Phyrexian Minion
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGainControl
+SVar:TrigGainControl:DB$ GainControl | Defined$ Self | ValidTgts$ Opponent
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | Defined$ You | NumDmg$ 2
+SVar:NeedsToPlay:Creature.YouCtrl+toughnessGT3,Creature.YouCtrl+powerGE3
+AI:RemoveDeck:Random

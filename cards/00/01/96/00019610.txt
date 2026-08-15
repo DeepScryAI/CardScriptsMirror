@@ -1,0 +1,13 @@
+Id:19610
+ColorIdentity:R
+ManaCost:4 R R
+Types:Legendary Planeswalker Chandra
+Loyalty:6
+R:Event$ Counter | ValidCard$ Card.Self | ValidSA$ Spell | Layer$ CantHappen
+A:AB$ Effect | Cost$ AddCounter<2/LOYALTY> | Planeswalker$ True | EffectOwner$ Player.Opponent | Name$ Emblem — Chandra, Awakened Inferno | Triggers$ BOTTrig | Duration$ Permanent | AILogic$ Always
+SVar:BOTTrig:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Command | Execute$ ChandraDmg
+SVar:ChandraDmg:DB$ DealDamage | Defined$ TriggeredPlayer | NumDmg$ 1
+A:AB$ DamageAll | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | ValidCards$ Creature.nonElemental | NumDmg$ 3
+A:AB$ DealDamage | Cost$ SubCounter<X/LOYALTY> | Planeswalker$ True | Ultimate$ True | ValidTgts$ Creature,Planeswalker | NumDmg$ X | RememberDamaged$ True | ReplaceDyingDefined$ Remembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$xPaid

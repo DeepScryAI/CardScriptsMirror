@@ -1,0 +1,13 @@
+Id:982
+ColorIdentity:B
+ManaCost:1 B B
+Types:Enchantment Aura
+K:Enchant:Land.YouCtrl:land you control
+SVar:AttachAILogic:Pump
+A:AB$ PutCounter | Cost$ Sac<1/Thrull> | Defined$ Self | CounterType$ TIME | CounterNum$ 3
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigSubCounter
+SVar:TrigSubCounter:DB$ RemoveCounter | Defined$ Self | CounterType$ TIME | CounterNum$ 1 | SubAbility$ Sac
+SVar:Sac:DB$ Sacrifice | ConditionPresent$ Card.Self+counters_EQ0_TIME
+A:AB$ PumpAll | Cost$ tapXType<1/Land.EnchantedBy/Enchanted Land> | ValidCards$ Creature.attacking+YouCtrl | NumAtt$ +2 | NumDef$ -1
+AI:RemoveDeck:Random
+SVar:NonStackingAttachEffect:True

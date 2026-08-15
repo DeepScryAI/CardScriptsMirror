@@ -1,0 +1,11 @@
+Id:30523
+ColorIdentity:B
+ManaCost:2 B
+Types:Creature Zombie Assassin
+PT:2/3
+K:Deathtouch
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigLoseLifeOpp
+SVar:TrigLoseLifeOpp:DB$ LoseLife | Defined$ TriggeredTarget | LifeAmount$ X
+T:Mode$ ChangesZone | ValidCard$ Card.Self+!HasCounters | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | Tapped$ True | Defined$ TriggeredCard | WithCountersType$ STUN | WithCountersAmount$ 2
+SVar:X:TriggeredTarget$LifeTotal/HalfUp

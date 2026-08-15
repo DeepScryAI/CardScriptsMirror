@@ -1,0 +1,10 @@
+Id:20199
+ColorIdentity:B
+ManaCost:2 B B
+Types:Creature Specter
+PT:2/2
+K:Flying
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Opponent | Execute$ TrigChoice | TriggerZones$ Battlefield
+SVar:TrigChoice:DB$ GenericChoice | Defined$ TriggeredTarget | Choices$ DBDiscardOne,DBChallenge | AILogic$ Random
+SVar:DBDiscardOne:DB$ Discard | Defined$ TriggeredTarget | NumCards$ 1 | Mode$ TgtChoose
+SVar:DBChallenge:DB$ Discard | Defined$ TriggeredTarget | NumCards$ 2 | Mode$ TgtChoose | UnlessCost$ Reveal<2/Card.Black> | UnlessPayer$ You | UnlessSwitched$ True

@@ -1,0 +1,11 @@
+Id:30828
+ColorIdentity:RG
+ManaCost:4 G
+Types:Legendary Creature Beast
+PT:5/5
+S:Mode$ ReduceCost | ValidCard$ Beast | Type$ Spell | Activator$ You | Amount$ 2
+K:ETBReplacement:Other:AddExtraCounter:Mandatory:Battlefield:Creature.Beast+YouCtrl+Other
+SVar:AddExtraCounter:DB$ PutCounter | ETB$ True | Defined$ ReplacedCard | CounterType$ P1P1 | CounterNum$ 1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self,Creature.powerGE4+Other | TriggerZones$ Battlefield | Execute$ TrigImmediateTrig
+SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ 1 RG | Execute$ TrigFight
+SVar:TrigFight:DB$ Fight | Defined$ Self | ValidTgts$ Creature.YouDontCtrl

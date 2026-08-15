@@ -1,0 +1,11 @@
+Id:22360
+ColorIdentity:B
+ManaCost:B
+Types:Artifact
+T:Mode$ Sacrificed | ValidCard$ Artifact.!token+Other,Creature.!token+Other | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Defined$ TriggeredCard | Origin$ Graveyard | Destination$ Exile
+A:AB$ Draw | Cost$ 2 T Sac<1/Artifact.Other;Creature.Other/another artifact or creature> | NumCards$ 1
+A:AB$ RollDice | Cost$ 3 T Sac<1/CARDNAME> | Sides$ 10 | ResultSVar$ X | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | ChangeType$ Card.ExiledWithSource | ChangeNum$ X | Hidden$ True | Origin$ Exile | Destination$ Hand
+SVar:NonStackingEffect:True
+DeckHas:Ability$Sacrifice

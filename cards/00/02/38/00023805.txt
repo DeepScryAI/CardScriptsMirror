@@ -1,0 +1,19 @@
+Id:23805
+ColorIdentity:R
+ManaCost:2 R
+Types:Sorcery
+A:SP$ Effect | CounterType$ P1P1 | CounterNum$ 3 | Triggers$ TriggerAttacks | AddSVar$ AE
+SVar:TriggerAttacks:Mode$ Attacks | ValidCard$ Creature.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScript$ gw_1_1_citizen | TokenTapped$ True | TokenAttacking$ True
+SVar:AE:SVar:HasAttackEffect:TRUE
+AlternateMode:Split
+
+ALTERNATE
+
+ManaCost:1 R
+Types:Sorcery
+K:Aftermath
+A:SP$ Token | TokenAmount$ X | TokenScript$ c_a_treasure_sac
+SVar:X:Count$NumCombatDamageThisTurn Creature.YouCtrl Player
+SVar:NeedsToPlayVar:X GE3
+DeckHas:Ability$Token | Sacrifice | Graveyard

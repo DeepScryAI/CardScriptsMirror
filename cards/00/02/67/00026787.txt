@@ -1,0 +1,15 @@
+Id:26787
+ColorIdentity:UBG
+ManaCost:B G U
+Types:Legendary Creature Rat Shaman
+PT:3/4
+K:Menace
+K:Ward:1
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ DBExile
+SVar:DBExile:DB$ ChangeZone | DefinedPlayer$ You | TargetMin$ 0 | TargetMax$ 1 | Destination$ Exile | ChangeNum$ 1 | ValidTgts$ Rat.YouCtrl,Card.Legendary+YouCtrl | Origin$ Graveyard | RememberChanged$ True | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | Defined$ Remembered | Controller$ You | CopyCard$ True | ValidSA$ Spell | Optional$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:HasAttackEffect:TRUE
+DeckHas:Ability$Token | Graveyard
+DeckHints:Ability$Graveyard
+DeckNeeds:Type$Legendary | Rat

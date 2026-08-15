@@ -1,0 +1,9 @@
+Id:2423
+ColorIdentity:
+ManaCost:4
+Types:Artifact Book
+A:AB$ PeekAndReveal | Cost$ 5 T | PeekAmount$ 3 | NoPeek$ True | RememberRevealed$ True | SubAbility$ DBChoose
+SVar:DBChoose:DB$ ChooseCard | ValidTgts$ Opponent | Choices$ Card.IsRemembered | ChoiceZone$ Library | Amount$ 1 | SubAbility$ DBDig | Mandatory$ True
+SVar:DBDig:DB$ ChangeZone | Origin$ Library | Destination$ Graveyard | Defined$ ChosenCard | Shuffle$ False | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ 2 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

@@ -1,0 +1,10 @@
+Id:33459
+ColorIdentity:WR
+ManaCost:R W
+Types:Sorcery
+A:SP$ Charm | MinCharmNum$ 1 | CharmNum$ 2 | Choices$ DBExile,DBDamage
+SVar:DBExile:DB$ ChangeZone | ValidTgts$ Creature.YouCtrl | Origin$ Battlefield | Destination$ Exile | ValidTgtsDesc$ creature you control | RememberChanged$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:DBDamage:DB$ DealDamage | ValidTgts$ Creature.OppCtrl | ValidTgtsDesc$ creature an opponent controls | NumDmg$ X
+SVar:X:Count$Valid Creature.YouCtrl$GreatestCardPower

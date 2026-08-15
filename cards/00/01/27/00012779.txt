@@ -1,0 +1,15 @@
+Id:12779
+ColorIdentity:
+ManaCost:no cost
+Types:Plane Kephalai
+T:Mode$ PlaneswalkedTo | ValidCard$ Plane.Self | Execute$ AcquireScrolls
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ AcquireScrolls | TriggerZones$ Command | Secondary$ True
+SVar:AcquireScrolls:DB$ PutCounter | Defined$ Self | CounterType$ SCROLL | CounterNum$ 1 | SubAbility$ ScrollsOfLife
+SVar:ScrollsOfLife:DB$ GainLife | Defined$ You | LifeAmount$ NumScrolls
+SVar:NumScrolls:Count$CardCounters.SCROLL
+T:Mode$ Always | TriggerZones$ Command | CheckSVar$ NumScrolls | SVarCompare$ GE10 | Execute$ RolledWalk
+SVar:RolledWalk:DB$ Planeswalk
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | CounterType$ SCROLL | SubAbility$ ScrollsOfKnowledge
+SVar:ScrollsOfKnowledge:DB$ Draw | NumCards$ NumScrolls
+SVar:AIRollPlanarDieParams:Mode$ Always | LowPriority$ True | MaxRollsPerTurn$ 9

@@ -1,0 +1,10 @@
+Id:387
+ColorIdentity:W
+ManaCost:1 W
+Types:Enchantment
+A:AB$ ChooseSource | Cost$ 2 | Choices$ Artifact | AILogic$ NeedsPrevention | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | ReplacementEffects$ RPreventNextFromSource | SubAbility$ DBCleanup | ConditionDefined$ ChosenCard | ConditionPresent$ Card | ConditionCompare$ GE1
+SVar:RPreventNextFromSource:Event$ DamageDone | ValidSource$ Card.ChosenCardStrict+Artifact | ValidTarget$ You | ReplaceWith$ ExileEffect | PreventionEffect$ True
+SVar:ExileEffect:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+SVar:NonStackingEffect:True

@@ -1,0 +1,18 @@
+Id:27280
+ColorIdentity:URG
+ManaCost:G U R
+Types:Legendary Creature Giant Noble
+PT:4/4
+K:Trample
+S:Mode$ ReduceCost | ValidCard$ Permanent.AdventureCard | Type$ Spell | Activator$ You | Amount$ 1
+DeckHints:Type$Adventure
+DeckHas:Ability$Mill
+AlternateMode:Adventure
+
+ALTERNATE
+
+ManaCost:2 G U R
+Types:Instant Adventure
+A:SP$ Mill | NumCards$ 7 | RememberMilled$ True | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered+AdventureCard | Origin$ Graveyard,Exile | Destination$ Hand | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

@@ -1,0 +1,15 @@
+Id:12796
+ColorIdentity:
+ManaCost:no cost
+Types:Phenomenon
+T:Mode$ PlaneswalkedTo | ValidCard$ Card.Self | Execute$ TrigPut
+SVar:TrigPut:DB$ RepeatEach | StartingWith$ You | RepeatPlayers$ Player | RepeatSubAbility$ DBShuffle | SubAbility$ ChangePermanent
+SVar:DBShuffle:DB$ ChangeZoneAll | ChangeType$ Permanent.RememberedPlayerOwn | Imprint$ True | Origin$ Battlefield | Destination$ Library | Shuffle$ True | SubAbility$ DBReveal
+SVar:DBReveal:DB$ PeekAndReveal | Defined$ Remembered | PeekAmount$ WarpX | NoPeek$ True | RememberRevealed$ True | SubAbility$ DBCleanImprint
+SVar:DBCleanImprint:DB$ Cleanup | ClearImprinted$ True
+SVar:WarpX:Imprinted$Amount
+SVar:ChangePermanent:DB$ ChangeZoneAll | ChangeType$ Artifact.IsRemembered,Creature.IsRemembered,Land.IsRemembered,Planeswalker.IsRemembered | Origin$ Library | Destination$ Battlefield | ForgetChanged$ True | SubAbility$ ChangeEnchantment
+SVar:ChangeEnchantment:DB$ ChangeZoneAll | ChangeType$ Enchantment.IsRemembered | Origin$ Library | Destination$ Battlefield | ForgetChanged$ True | SubAbility$ GotoBottom
+SVar:GotoBottom:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered | Origin$ Library | Destination$ Library | LibraryPosition$ -1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | SubAbility$ PWAway
+SVar:PWAway:DB$ Planeswalk

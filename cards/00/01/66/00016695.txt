@@ -1,0 +1,11 @@
+Id:16695
+ColorIdentity:BR
+ManaCost:1 B R
+Types:Legendary Creature Goblin Berserker
+PT:2/3
+T:Mode$ SpellCast | ValidActivatingPlayer$ You | ActivatorThisTurnCast$ EQ1 | ValidCard$ Card | Execute$ TrigChoose | TriggerZones$ Battlefield
+SVar:TrigChoose:DB$ ChoosePlayer | Defined$ You | Choices$ Player.Opponent | Random$ True | SubAbility$ DBDealDamage
+SVar:DBDealDamage:DB$ DealDamage | Defined$ ChosenPlayer | NumDmg$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenPlayer$ True
+SVar:X:TriggeredSpellAbility$CardManaCostLKI
+K:Partner

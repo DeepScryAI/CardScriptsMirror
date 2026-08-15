@@ -1,0 +1,14 @@
+Id:25158
+ColorIdentity:UB
+ManaCost:2 U B
+Types:Legendary Creature Human Inquisitor
+PT:2/3
+T:Mode$ Drawn | ValidCard$ Card.YouOwn | Number$ 1 | OptionalDecider$ You | Static$ True | ForReveal$ True | Execute$ DBReveal | TriggerZones$ Battlefield
+SVar:DBReveal:DB$ Reveal | Defined$ You | RevealDefined$ TriggeredCard | RememberRevealed$ True | SubAbility$ DBTrigger
+SVar:DBTrigger:DB$ ImmediateTrigger | ConditionDefined$ Remembered | ConditionPresent$ Instant,Sorcery | SubAbility$ DBCleanup | Execute$ DBToken
+SVar:DBToken:DB$ Token | TokenScript$ cherubael
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigInvestigate | CombatDamage$ True
+SVar:TrigInvestigate:DB$ Investigate | Num$ X | Defined$ You
+SVar:X:TriggerCount$DamageAmount
+DeckHas:Type$Clue | Demon | Artifact & Ability$Token | Sacrifice

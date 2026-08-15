@@ -1,0 +1,10 @@
+Id:1989
+ColorIdentity:G
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ C G
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSacUnless
+SVar:TrigSacUnless:DB$ Sacrifice | UnlessCost$ Return<1/Forest.untapped/untapped Forest> | UnlessPayer$ You
+SVar:NeedsToPlay:Forest.YouCtrl+untapped

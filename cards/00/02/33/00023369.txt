@@ -1,0 +1,14 @@
+Id:23369
+ColorIdentity:RG
+ManaCost:4 R G
+Types:Legendary Creature Elemental
+PT:5/5
+K:Trample
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ X | TokenScript$ g_0_1_plant | TokenOwner$ You
+SVar:X:Count$Valid Land.Basic+YouCtrl
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Plant.YouCtrl | CounterType$ P1P1 | CounterNum$ 4 | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Targeted | KW$ Trample
+SVar:BuffedBy:Land,Land.Basic
+DeckHas:Ability$Token | Counters

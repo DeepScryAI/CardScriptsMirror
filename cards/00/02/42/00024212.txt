@@ -1,0 +1,11 @@
+Id:24212
+ColorIdentity:G
+ManaCost:2 G
+Types:Legendary Enchantment Background
+S:Mode$ Continuous | Affected$ Creature.IsCommander+YouOwn | AddTrigger$ EndStep
+SVar:EndStep:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ X | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ 2 | TokenScript$ g_1_1_squirrel | TokenTapped$ True
+SVar:X:Count$ThisTurnEntered_Graveyard_Creature.YouOwn+!token
+AI:RemoveDeck:NonCommander
+DeckHas:Ability$Token & Type$Squirrel
+DeckHints:Ability$Discard | Sacrifice

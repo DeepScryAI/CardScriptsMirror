@@ -1,0 +1,14 @@
+Id:19865
+ColorIdentity:R
+ManaCost:4 R R
+Types:Legendary Artifact Equipment
+K:Flash
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ X | EffectZone$ All
+SVar:X:Count$Valid Creature.attacking+YouCtrl
+SVar:BuffedBy:Creature.attacking
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigAttach
+SVar:TrigAttach:DB$ Attach | ValidTgts$ Creature.YouCtrl
+SVar:NeedsToPlay:Creature.YouCtrl
+AI:RemoveDeck:All
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1 | AddToughness$ 1 | AddKeyword$ Double Strike & Trample
+K:Equip:3

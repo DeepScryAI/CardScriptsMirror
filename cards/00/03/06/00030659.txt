@@ -1,0 +1,12 @@
+Id:30659
+ColorIdentity:
+ManaCost:5
+Types:Artifact
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ ChooseCT | ReplacementResult$ Updated
+SVar:ChooseCT:DB$ ChooseType | Defined$ You | Type$ Creature | AILogic$ MostProminentInComputerDeck | SubAbility$ DBCounters
+SVar:DBCounters:DB$ PutCounter | ETB$ True | Defined$ Self | CounterType$ FELLOWSHIP | CounterNum$ X
+S:Mode$ Continuous | Affected$ Creature.ChosenType+YouCtrl | AddPower$ Y | AddToughness$ Y
+SVar:X:Count$Valid Creature.ChosenType+YouCtrl
+SVar:Y:Count$CardCounters.FELLOWSHIP
+SVar:BuffedBy:Creature
+AI:RemoveDeck:Random

@@ -1,0 +1,14 @@
+Id:31609
+ColorIdentity:U
+ManaCost:4 U
+Types:Legendary Creature Elder Dragon
+PT:5/5
+K:Flying
+K:Vigilance
+K:Ward:2
+T:Mode$ ChangesZone | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPump
+T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump | Secondary$ True
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature | NumAtt$ +1 | SubAbility$ DBUnblockable
+SVar:DBUnblockable:DB$ Effect | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+DeckHas:Ability$Token

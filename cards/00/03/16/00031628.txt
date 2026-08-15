@@ -1,0 +1,9 @@
+Id:31628
+ColorIdentity:B
+ManaCost:5 B
+Types:Sorcery
+A:SP$ Mill | NumCards$ 3 | SubAbility$ DBRepeatEach
+SVar:DBRepeatEach:DB$ RepeatEach | RepeatPlayers$ Player.Opponent | StartingWith$ Opponent | RepeatSubAbility$ OpponentsChoose | SubAbility$ DBChangeZoneAll
+SVar:OpponentsChoose:DB$ ChooseCard | ChoiceZone$ Graveyard | Choices$ Creature.YouOwn+!IsRemembered | Defined$ Player.IsRemembered | RememberChosen$ True
+SVar:DBChangeZoneAll:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered | Origin$ Graveyard | Destination$ Battlefield | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearChosenCard$ True

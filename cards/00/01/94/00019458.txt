@@ -1,0 +1,19 @@
+Id:19458
+ColorIdentity:U
+ManaCost:2 U
+Types:Enchantment
+K:ETBReplacement:Other:SiegeChoice
+SVar:SiegeChoice:DB$ GenericChoice | Choices$ Mirran,Phyrexian | Defined$ You | SetChosenMode$ True | AILogic$ Mirran | ShowChoice$ ExceptSelf | LockInText$ True
+SVar:Mirran:DB$ Pump
+SVar:Phyrexian:DB$ Pump
+S:Mode$ Continuous | Affected$ Card.Self+ChosenModeMirran | AddTrigger$ MirranTrigger
+S:Mode$ Continuous | Affected$ Card.Self+ChosenModePhyrexian | AddTrigger$ TrigEnd | LockInText$ True
+SVar:MirranTrigger:Mode$ SpellCast | ValidCard$ Artifact | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigToken | Secondary$ True
+SVar:TrigToken:DB$ Token | TokenScript$ c_1_1_a_myr | TokenOwner$ You
+SVar:TrigEnd:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | ValidPlayer$ You | Execute$ Filter | Secondary$ True
+SVar:Filter:DB$ Draw | Defined$ You | NumCards$ 1 | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | Mode$ TgtChoose | NumCards$ 1 | SubAbility$ DBLose
+SVar:DBLose:DB$ LosesGame | ValidTgts$ Opponent | ConditionCheckSVar$ CheckGraveyard | ConditionSVarCompare$ GE15
+SVar:CheckGraveyard:Count$ValidGraveyard Card.Artifact+YouOwn
+DeckHas:Ability$Token | Discard & Type$Myr | Artifact
+DeckHints:Type$Artifact

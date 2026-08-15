@@ -1,0 +1,14 @@
+Id:6558
+ColorIdentity:
+ManaCost:3
+Types:Artifact
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ ChangeControl
+SVar:ChangeControl:DB$ GainControl | Defined$ Self | ValidTgts$ Opponent | SubAbility$ PutCounter
+SVar:PutCounter:DB$ PutCounter | CounterType$ CHARGE | CounterNum$ 1
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigDamage | TriggerZones$ Battlefield
+SVar:TrigDamage:DB$ DealDamage | Defined$ You | NumDmg$ X
+SVar:X:Count$CardCounters.CHARGE
+A:AB$ PutCounter | Cost$ 3 | CounterType$ CHARGE | CounterNum$ 1 | AILogic$ Never
+A:AB$ RemoveCounter | Cost$ 3 | CounterType$ CHARGE | CounterNum$ 1 | AILogic$ AtOppEOT
+SVar:SacMe:4
+AI:RemoveDeck:All

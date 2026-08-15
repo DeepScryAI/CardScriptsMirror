@@ -1,0 +1,24 @@
+Id:31952
+ColorIdentity:W
+ManaCost:1 W W
+Types:Legendary Creature Elder Wizard
+PT:3/3
+T:Mode$ SpellCast | ValidCard$ Legendary | ValidActivatingPlayer$ You | Execute$ TrigDraw | TriggerZones$ Battlefield | ActivationLimit$ 1
+SVar:TrigDraw:DB$ Draw
+A:AB$ ChangeZone | PrecostDesc$ Hero's Sundering — | Cost$ 7 T | ValidTgts$ Permanent.nonLand | SorcerySpeed$ True | Origin$ Battlefield | Destination$ Exile | SubAbility$ DBTransform
+SVar:DBTransform:DB$ SetState | Defined$ Self | Mode$ Transform
+AlternateMode:DoubleFaced
+DeckHas:Ability$Counters
+DeckHints:Type$Legendary
+
+ALTERNATE
+
+ManaCost:no cost
+Colors:white
+Types:Legendary Creature God
+PT:4/4
+K:Indestructible
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.Other+YouCtrl | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Targeted | KW$ Indestructible | Duration$ UntilYourNextTurn | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | ConditionDefined$ Targeted | ConditionPresent$ Legendary

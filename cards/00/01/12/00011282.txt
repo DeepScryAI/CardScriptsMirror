@@ -1,0 +1,13 @@
+Id:11282
+ColorIdentity:BR
+ManaCost:3 B R
+Types:Legendary Planeswalker Sarkhan
+Loyalty:7
+A:AB$ Dig | Cost$ AddCounter<0/LOYALTY> | DigNum$ 1 | Reveal$ True | ChangeNum$ All | ChangeValid$ Card | DestinationZone$ Hand | RememberChanged$ True | SubAbility$ DBDamage | Planeswalker$ True | AILogic$ MadSarkhanDigDmg
+SVar:DBDamage:DB$ DealDamage | Defined$ Self | NumDmg$ Y | SubAbility$ DBCleanup | AILogic$ MadSarkhanDigDmg
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:Y:Remembered$CardManaCost
+A:AB$ SacrificeAll | Cost$ SubCounter<2/LOYALTY> | Defined$ Targeted | ValidTgts$ Creature | SubAbility$ DBToken | Planeswalker$ True | AILogic$ MadSarkhanDragon
+SVar:DBToken:DB$ Token | TokenScript$ r_5_5_dragon_flying | TokenOwner$ TargetedController
+A:AB$ EachDamage | Cost$ SubCounter<4/LOYALTY> | Planeswalker$ True | Ultimate$ True | ValidCards$ Dragon.Creature+YouCtrl | NumDmg$ Count$CardPower | DamageDesc$ damage equal to its power | ValidTgts$ Player,Planeswalker | AILogic$ MadSarkhanUltimate
+DeckHas:Ability$Sacrifice | Token & Type$Dragon

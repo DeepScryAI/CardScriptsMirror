@@ -1,0 +1,13 @@
+Id:27370
+ColorIdentity:G
+ManaCost:4 G
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Card.EnchantedBy | AddPower$ 5 | AddToughness$ 5 | AddTrigger$ AttackTrigger
+SVar:AttackTrigger:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigToken | TriggerZones$ Battlefield
+SVar:TrigToken:DB$ Token | TokenScript$ role_monster | AttachedTo$ Targeted | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Creature.attacking | TokenOwner$ You
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | Defined$ TriggeredNewCardLKICopy
+SVar:SacMe:2
+DeckHas:Type$Aura | Role & Ability$Token

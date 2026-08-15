@@ -1,0 +1,13 @@
+Id:31906
+ColorIdentity:B
+ManaCost:4 B B
+Types:Enchantment Creature Saga Knight
+PT:5/3
+K:Chapter:3:DBDestroy,DBPump,DBDraw
+SVar:DBDestroy:DB$ Destroy | ValidTgts$ Creature.OppCtrl
+SVar:DBPump:DB$ Animate | Defined$ Self | Triggers$ CombatTrig | sVars$ OdinMustBeBlocked | Duration$ Permanent
+SVar:CombatTrig:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigTheyLose
+SVar:TrigTheyLose:DB$ LosesGame | Defined$ TriggeredTarget
+SVar:OdinMustBeBlocked:SVar:MustBeBlocked:True
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 2 | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 2 | Defined$ Player

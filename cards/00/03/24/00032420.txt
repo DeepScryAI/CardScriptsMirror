@@ -1,0 +1,15 @@
+Id:32420
+ColorIdentity:U
+Variant:UniversesWithin:FlavorName:The Watcher on the Road
+ManaCost:3 U
+Types:Legendary Creature Human Villain
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ X | TokenScript$ u_3_3_illusion_villain | TokenOwner$ You | RememberTokens$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedLKI | Triggers$ TrigExile | Duration$ Permanent | ForgetOnMoved$ Battlefield | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:TrigExile:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.EffectSource | Execute$ ExileTwin
+SVar:ExileTwin:DB$ ChangeZone | Defined$ Remembered | Origin$ Battlefield | Destination$ Exile
+SVar:X:Count$Valid Villain.!token+YouCtrl
+DeckHas:Ability$Token
+DeckHints:Type$Villain

@@ -1,0 +1,13 @@
+Id:30672
+ColorIdentity:R
+ManaCost:5 R R
+Types:Legendary Planeswalker Chandra
+Loyalty:6
+A:AB$ Mana | Cost$ AddCounter<2/LOYALTY> | Planeswalker$ True | Produced$ R | Amount$ 3 | AILogic$ Always | SubAbility$ DBExile
+SVar:DBExile:DB$ Dig | Defined$ You | DigNum$ 3 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBChoose
+SVar:DBChoose:DB$ ChooseCard | Choices$ Card.IsRemembered | ChoiceZone$ Exile | Mandatory$ True | ForgetOtherRemembered$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ ChosenCard | StaticAbilities$ Play | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.ChosenCard | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+A:AB$ CopyPermanent | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Creature.YouCtrl | AddKeywords$ Haste | AtEOTTrig$ Sacrifice
+A:AB$ DealDamage | Cost$ SubCounter<4/LOYALTY> | Planeswalker$ True | Ultimate$ True | NumDmg$ 8 | TargetMin$ 0 | TargetMax$ 8 | DividedAsYouChoose$ 8 | ValidTgts$ Creature,Planeswalker

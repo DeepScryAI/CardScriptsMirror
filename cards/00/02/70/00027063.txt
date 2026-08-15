@@ -1,0 +1,15 @@
+Id:27063
+ColorIdentity:
+ManaCost:3
+Types:Legendary Artifact
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ INFLUENCE | CounterNum$ 1 | SubAbility$ DBScry
+SVar:DBScry:DB$ Scry | ScryNum$ 2 | SubAbility$ DBChoice
+SVar:DBChoice:DB$ GenericChoice | ValidTgts$ Opponent | Choices$ CombustDraw,CombustDamage | AILogic$ CombustibleGearhulk
+SVar:CombustDraw:DB$ Draw | Defined$ You | NumCards$ 1
+SVar:CombustDamage:DB$ Mill | Defined$ You | NumCards$ X | RememberMilled$ True | SubAbility$ DamageOpponent
+SVar:DamageOpponent:DB$ LoseLife | Defined$ ParentTarget | LifeAmount$ Y | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$CardCounters.INFLUENCE
+SVar:Y:Remembered$CardManaCost
+DeckHas:Ability$Counters | Mill

@@ -1,0 +1,11 @@
+Id:26027
+ColorIdentity:G
+ManaCost:2 G G
+Types:Artifact
+S:Mode$ Continuous | Affected$ Land.YouOwn | MayPlay$ True | AffectedZone$ Graveyard
+A:AB$ Play | Cost$ T | ValidSA$ Spell | SorcerySpeed$ True | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ0 | TgtZone$ Graveyard | ValidTgts$ Permanent.nonLand+YouOwn | RememberPlayed$ True | Optional$ True | SubAbility$ DBEffect | AILogic$ NeedsChosenCard
+SVar:DBEffect:DB$ Effect | ConditionDefined$ Remembered | ConditionPresent$ Card | StaticAbilities$ STCantBeCast | SubAbility$ DBCleanup
+SVar:STCantBeCast:Mode$ CantBeCast | ValidCard$ Card | Caster$ You
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$ThisTurnCast_Card.YouCtrl
+DeckHints:Ability$Graveyard | Mill | Dredge

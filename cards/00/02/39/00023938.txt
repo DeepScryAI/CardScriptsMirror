@@ -1,0 +1,14 @@
+Id:23938
+ColorIdentity:BRG
+ManaCost:3 B R G
+Types:Legendary Creature Demon Dragon
+PT:6/6
+K:Flying
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | Execute$ DBTrigger | TriggerZones$ Battlefield
+SVar:DBTrigger:AB$ ImmediateTrigger | Cost$ Sac<1/Creature.StrictlyOther/another creature> | Execute$ DBDealDmg | AILogic$ SacForDamage | RememberObjects$ Sacrificed
+SVar:DBDealDmg:DB$ DealDamage | ValidTgts$ Any | NumDmg$ XPower | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenAmount$ 3 | TokenScript$ c_a_treasure_sac
+SVar:XPower:TriggerRemembered$CardPower
+SVar:AIPreferenceParams:CreatureEvalThreshold$ 200
+DeckHas:Ability$Sacrifice | Token
+DeckNeeds:Type$Creature

@@ -1,0 +1,13 @@
+Id:18142
+ColorIdentity:B
+ManaCost:3 B B B
+Types:Legendary Enchantment
+K:Hexproof
+R:Event$ GameLoss | ActiveZones$ Battlefield | ValidPlayer$ You | Layer$ CantHappen
+T:Mode$ LifeGained | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ X
+SVar:X:TriggerCount$LifeAmount
+T:Mode$ LifeLost | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield,Hand,Graveyard | Destination$ Exile | ChangeType$ Card.YouCtrl | ChangeNum$ X | Mandatory$ True
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigLose
+SVar:TrigLose:DB$ LosesGame | Defined$ You

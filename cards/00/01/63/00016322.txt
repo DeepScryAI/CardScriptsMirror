@@ -1,0 +1,12 @@
+Id:16322
+ColorIdentity:G
+ManaCost:3 G
+Types:Creature Elf Shaman
+PT:2/4
+K:MayEffectFromOpeningDeck:DBReveal
+SVar:DBReveal:DB$ Reveal | RevealDefined$ Self | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | Origin$ Sideboard | Destination$ Exile | ChangeType$ Creature.YouOwn | ChangeNum$ 1 | Optional$ True | RememberChanged$ True | SubAbility$ DBPump | ConditionGameTypes$ Draft,QuestDraft
+SVar:DBPump:DB$ Pump | NoteCards$ Remembered | NoteCardsFor$ CallerOfTheUntamed | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+A:AB$ CopyPermanent | Cost$ RevealFromExile<1/Creature.YouOwn+NotedForCallerOfTheUntamed> X T | CostDesc$ {X}, {T} | Defined$ Revealed | SubAbility$ DBCleanup
+SVar:X:Revealed$CardManaCost

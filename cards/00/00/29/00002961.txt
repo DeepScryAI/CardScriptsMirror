@@ -1,0 +1,11 @@
+Id:2961
+ColorIdentity:W
+ManaCost:2 W
+Types:Enchantment
+A:AB$ ChooseSource | Cost$ PutCardToLibFromHand<1/0/Card> | Choices$ Card.RedSource,Card.BlackSource | AILogic$ NeedsPrevention | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | ReplacementEffects$ RPreventNextFromSource | SubAbility$ DBCleanup | ConditionDefined$ ChosenCard | ConditionPresent$ Card | ConditionCompare$ GE1
+SVar:RPreventNextFromSource:Event$ DamageDone | ValidSource$ Card.ChosenCardStrict+BlackSource,Card.ChosenCardStrict+RedSource | ReplaceWith$ ExileEffect | PreventionEffect$ True
+SVar:ExileEffect:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+AI:RemoveDeck:Random
+SVar:NonStackingEffect:True

@@ -1,0 +1,15 @@
+Id:34057
+ColorIdentity:R
+ManaCost:2 R
+Types:Legendary Creature Human Hero
+PT:3/3
+T:Mode$ DamageDone | Execute$ TrigDamage | ValidTarget$ You | ValidSource$ Card.YouCtrl,Emblem.YouCtrl | TriggerZones$ Battlefield
+SVar:TrigDamage:DB$ DealDamage | NumDmg$ X | ValidTgts$ Opponent
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigExile
+SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBDamage
+SVar:DBDamage:DB$ DealDamage | NumDmg$ Y | Defined$ You | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | RememberObjects$ Remembered | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:TriggerCount$DamageAmount
+SVar:Y:Remembered$CardManaCost

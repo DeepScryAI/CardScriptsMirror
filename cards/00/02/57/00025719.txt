@@ -1,0 +1,14 @@
+Id:25719
+ColorIdentity:R
+ManaCost:X R
+Types:Sorcery
+A:SP$ Charm | Choices$ DBDiscard,DBDamageCreature,DBDamagePW,DBPump | CharmNum$ 2
+SVar:DBDiscard:DB$ Discard | Optional$ True | ValidTgts$ Player | NumCards$ X | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ Y | Defined$ Targeted | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:DBDamageCreature:DB$ DealDamage | ValidTgts$ Creature | NumDmg$ X
+SVar:DBDamagePW:DB$ DealDamage | ValidTgts$ Planeswalker | NumDmg$ X
+SVar:DBPump:DB$ Pump | KW$ Haste | ValidTgts$ Creature | NumAtt$ +X
+SVar:X:Count$xPaid
+SVar:Y:Count$RememberedSize
+DeckHas:Ability$Discard & Keyword$Haste

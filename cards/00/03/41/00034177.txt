@@ -1,0 +1,14 @@
+Id:34177
+ColorIdentity:U
+ManaCost:1 U
+Types:Legendary Creature Inhuman Dog Hero
+PT:1/1
+K:Vigilance
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ X | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | RememberAmount$ True | SubAbility$ DBImmediateTrig
+SVar:DBImmediateTrig:DB$ ImmediateTrigger | Execute$ TrigEffect | TriggerAmount$ Count$RememberedNumber | SubAbility$ DBCleanup
+SVar:TrigEffect:DB$ Effect | ValidTgts$ Creature.Other+YouCtrl | ValidTgtsDesc$ another creature you control | TargetMin$ 0 | TargetMax$ 1 | RememberObjects$ Self & Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$ThisTurnCast_Card.nonCreature+YouCtrl
+SVar:PlayMain1:TRUE

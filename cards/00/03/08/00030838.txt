@@ -1,0 +1,9 @@
+Id:30838
+ColorIdentity:U
+ManaCost:2 U
+Types:Enchantment
+K:ETBReplacement:Copy:DBCopy:Optional
+SVar:DBCopy:DB$ Clone | Choices$ Enchantment.Other+YouCtrl | AILogic$ AtLeast1 | AddTriggers$ InvocationExileUpkeep | AddSVars$ InvocationDBReturn,InvocationTrigExile,InvocationExileUpkeep
+SVar:InvocationExileUpkeep:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ InvocationTrigExile | OptionalDecider$ You | IsPresent$ Card.Self
+SVar:InvocationTrigExile:DB$ ChangeZone | Defined$ Self | Origin$ Battlefield | Destination$ Exile | SubAbility$ InvocationDBReturn
+SVar:InvocationDBReturn:DB$ ChangeZone | Defined$ CorrectedSelf | Origin$ All | Destination$ Battlefield | GainControl$ True

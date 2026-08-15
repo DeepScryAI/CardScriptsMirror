@@ -1,0 +1,13 @@
+Id:4998
+ColorIdentity:U
+ManaCost:U
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddAbility$ ABChooseColor | AddSVar$ DBAnimate
+SVar:ABChooseColor:AB$ ChooseColor | Cost$ 2 U | Defined$ You | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | ValidTgts$ Creature | Colors$ ChosenColor | OverwriteColors$ True
+AI:RemoveDeck:All
+SVar:NonStackingAttachEffect:True

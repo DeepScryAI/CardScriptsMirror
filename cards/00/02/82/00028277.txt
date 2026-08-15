@@ -1,0 +1,14 @@
+Id:28277
+ColorIdentity:U
+ManaCost:X U
+Types:Sorcery
+A:SP$ Seek | Type$ Artifact.nonLand+cmcLEX | RememberFound$ True | SubAbility$ DBPut
+SVar:DBPut:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | Defined$ Remembered | SubAbility$ DBBranch
+SVar:DBBranch:DB$ Branch | BranchConditionSVar$ Remembered$CardManaCost | BranchConditionSVarCompare$ LTX | TrueSubAbility$ DBAnimate | FalseSubAbility$ DBCleanup
+SVar:DBAnimate:DB$ Animate | staticAbilities$ RaiseCost | Duration$ Perpetual | SubAbility$ DBReturn
+SVar:RaiseCost:Mode$ RaiseCost | ValidCard$ Card.Self | Type$ Spell | Amount$ 1 | EffectZone$ All
+SVar:DBReturn:DB$ ChangeZone | Origin$ Stack | Destination$ Hand | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$xPaid
+AI:RemoveDeck:Random
+DeckNeeds:Type$Artifact

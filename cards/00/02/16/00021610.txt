@@ -1,0 +1,13 @@
+Id:21610
+ColorIdentity:BR
+ManaCost:2 B R
+Types:Legendary Creature Demon Berserker
+PT:4/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigEffect
+SVar:TrigEffect:DB$ Effect | StaticAbilities$ AttackEach,AttackOther | Duration$ UntilYourNextTurn
+SVar:AttackEach:Mode$ MustAttack | ValidCreature$ Creature.OppCtrl
+SVar:AttackOther:Mode$ MustAttack | ValidCreature$ Creature.OppCtrl | MustAttack$ Player.Other | Secondary$ True
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.attacking | Execute$ TrigDrain | TriggerZones$ Battlefield
+SVar:TrigDrain:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 1 | SubAbility$ DBGainOneLife
+SVar:DBGainOneLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
+DeckHas:Ability$LifeGain

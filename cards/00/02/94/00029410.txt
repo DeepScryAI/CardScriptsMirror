@@ -1,0 +1,10 @@
+Id:29410
+ColorIdentity:G
+ManaCost:1 G G
+Types:Legendary Creature Elf Warrior
+PT:3/3
+S:Mode$ Continuous | Affected$ Card.TopLibrary+YouCtrl | AffectedZone$ Library | MayLookAt$ You
+S:Mode$ Continuous | Affected$ Creature.TopLibrary+YouCtrl+nonLand | AffectedZone$ Library | MayPlay$ True
+A:AB$ ChooseCard | Cost$ G T tapXType<2/Creature> | ChoiceZone$ Hand,Library | PlayerTurn$ True | Reveal$ True | Choices$ Card.TopLibrary+YouOwn,Card.YouOwn+inZoneHand | SubAbility$ DBChangeZone | AILogic$ GoodCreature
+SVar:DBChangeZone:DB$ ChangeZone | Defined$ ChosenCard | Origin$ Library,Hand | ConditionDefined$ ChosenCard | ConditionPresent$ Creature | Destination$ Battlefield | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True

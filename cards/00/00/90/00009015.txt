@@ -1,0 +1,15 @@
+Id:9015
+ColorIdentity:R
+ManaCost:2 R R
+Types:Creature Hellion
+PT:6/5
+Text:CARDNAME has echo X, where X is your life total.
+K:Echo:X
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDmg
+SVar:TrigDmg:DB$ ChooseNumber | ListTitle$ amount of damage to be dealt | ChooseAnyNumber$ True | SubAbility$ DBDmg | AILogic$ Min
+SVar:DBDmg:DB$ DealDamage | ValidTgts$ Creature | NumDmg$ Y | NoPrevention$ True | DamageMap$ True | SubAbility$ DmgYou
+SVar:DmgYou:DB$ DealDamage | Defined$ You | NumDmg$ Y | NoPrevention$ True | SubAbility$ DmgResolve
+SVar:DmgResolve:DB$ DamageResolve
+SVar:X:Count$YourLifeTotal
+SVar:Y:Count$ChosenNumber
+AI:RemoveDeck:All

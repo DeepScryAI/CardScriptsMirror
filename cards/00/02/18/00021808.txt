@@ -1,0 +1,14 @@
+Id:21808
+ColorIdentity:W
+ManaCost:3 W
+Types:Creature Human Advisor
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigRepeatEach
+SVar:TrigRepeatEach:DB$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | ConditionCheckSVar$ X | ConditionSVarCompare$ LTY | DefinedPlayer$ Remembered | Chooser$ Remembered | ChangeType$ Land.Basic | ChangeTypeDesc$ basic land | ChangeNum$ Z | Origin$ Library | Destination$ Battlefield | Tapped$ True
+SVar:X:Count$Valid Land.RememberedPlayerCtrl
+SVar:Y:PlayerCountPlayers$HighestValid Land.YouCtrl
+SVar:Z:SVar$Y/Minus.X
+SVar:Check1:Count$Valid Land.YouCtrl
+SVar:Check2:SVar$Y/Minus.Check1
+SVar:NeedsToPlayVar:Check2 GE2

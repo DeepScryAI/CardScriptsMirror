@@ -1,0 +1,14 @@
+Id:27779
+ColorIdentity:WU
+ManaCost:W U
+Types:Legendary Creature Human Soldier
+PT:3/3
+K:Partner with:Amy Pond
+K:First Strike
+K:Lifelink
+T:Mode$ SpellCast | ValidCard$ Card.Self+!wasCastFromExile | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Defined$ TriggeredSpellAbility | Origin$ Stack | Destination$ Exile | WithCountersType$ TIME | WithCountersAmount$ 3 | RememberChanged$ True | SubAbility$ GiveSuspend
+SVar:GiveSuspend:DB$ Pump | Defined$ Remembered | KW$ Suspend | PumpZone$ Exile | Duration$ Permanent | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | SubAbility$ DBInvestigate
+SVar:DBInvestigate:DB$ Investigate
+DeckHas:Ability$LifeGain | Investigate | Token | Sacrifice & Type$Artifact | Clue

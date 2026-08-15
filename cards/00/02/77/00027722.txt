@@ -1,0 +1,11 @@
+Id:27722
+ColorIdentity:WU
+ManaCost:4 W U
+Types:Legendary Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZoneAll | Defined$ You | ChangeType$ Card.Doctor | Origin$ Graveyard | Destination$ Hand
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | ChangeType$ Card.Doctor | SubAbility$ DBWin
+SVar:DBWin:DB$ WinsGame | Defined$ You | ConditionPresent$ Doctor.YouCtrl | ConditionCompare$ GE13
+DeckHas:Ability$Graveyard
+DeckNeeds:Type$Doctor

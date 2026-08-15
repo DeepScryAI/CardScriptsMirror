@@ -1,0 +1,13 @@
+Id:830
+ColorIdentity:R
+ManaCost:R
+Types:Sorcery
+A:SP$ Repeat | ValidTgts$ Opponent | RepeatCheckSVar$ RepeatCheck | RepeatSVarCompare$ GT0 | RepeatSubAbility$ ResetCheck
+SVar:ResetCheck:DB$ StoreSVar | SVar$ RepeatCheck | Type$ Number | Expression$ 0 | SubAbility$ RepeatClash
+SVar:RepeatClash:DB$ RepeatEach | RepeatPlayers$ TargetedAndYou | RepeatSubAbility$ FlipClash | SubAbility$ ClashDamage
+SVar:FlipClash:DB$ FlipCoin | Flipper$ Remembered | NoCall$ True | TailsSubAbility$ ClashTails | RememberResult$ True
+SVar:ClashTails:DB$ StoreSVar | SVar$ RepeatCheck | Type$ CountSVar | Expression$ RepeatCheck/Plus.1
+SVar:ClashDamage:DB$ DamageAll | ValidPlayers$ FlippedTails | NumDmg$ 1 | SubAbility$ ResetFlips
+SVar:ResetFlips:DB$ Cleanup | ClearCoinFlips$ True
+SVar:RepeatCheck:Number$ 0
+AI:RemoveDeck:All

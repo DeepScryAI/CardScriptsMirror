@@ -1,0 +1,17 @@
+Id:589
+ColorIdentity:W
+ManaCost:W W W
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+T:Mode$ AttackerBlockedByCreature | ValidCard$ Creature.EnchantedBy | ValidBlocker$ Creature.toughnessLE3 | Execute$ DelTrigBlocker | TriggerZones$ Battlefield
+T:Mode$ AttackerBlockedByCreature | ValidCard$ Creature.toughnessLE3 | ValidBlocker$ Creature.EnchantedBy | Execute$ DelTrigBlocked | Secondary$ True | TriggerZones$ Battlefield
+SVar:DelTrigBlocked:DB$ DelayedTrigger | Mode$ Phase | Phase$ EndCombat | ValidPlayer$ Player | Execute$ TrigDestroyBlocked
+SVar:DelTrigBlocker:DB$ DelayedTrigger | Mode$ Phase | Phase$ EndCombat | ValidPlayer$ Player | Execute$ TrigDestroyBlocker
+SVar:TrigDestroyBlocked:DB$ Destroy | Defined$ Spawner>TriggeredAttackerLKICopy | RememberDestroyed$ True | SubAbility$ DBDelTrigAttacker
+SVar:TrigDestroyBlocker:DB$ Destroy | Defined$ Spawner>TriggeredBlockerLKICopy | RememberDestroyed$ True | SubAbility$ DBDelTrigBlocker
+SVar:DBDelTrigAttacker:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ DBPutCounter | RememberObjects$ Spawner>TriggeredBlocker | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ GE1 | SubAbility$ DBCleanup
+SVar:DBDelTrigBlocker:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ DBPutCounter | RememberObjects$ Spawner>TriggeredAttacker | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ GE1 | SubAbility$ DBCleanup
+SVar:DBPutCounter:DB$ PutCounter | Defined$ DelayTriggerRemembered | CounterType$ P1P1 | CounterNum$ 1
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+DeckHas:Ability$Counters

@@ -1,0 +1,9 @@
+Id:5182
+ColorIdentity:G
+ManaCost:4 G G G
+Types:Creature Basilisk
+PT:4/5
+S:Mode$ Continuous | Affected$ Card.Self | AddHiddenKeyword$ All creatures able to block CARDNAME do so. | Condition$ Threshold
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Creature | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ DelTrig
+SVar:DelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ EndCombat | ValidPlayer$ Player | Execute$ TrigDestroy | RememberObjects$ TriggeredTargetLKICopy
+SVar:TrigDestroy:DB$ Destroy | Defined$ DelayTriggerRememberedLKI

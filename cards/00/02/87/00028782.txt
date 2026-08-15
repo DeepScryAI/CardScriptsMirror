@@ -1,0 +1,11 @@
+Id:28782
+ColorIdentity:WB
+ManaCost:W B
+Types:Legendary Creature Spirit Cleric
+PT:1/3
+K:Extort
+A:AB$ ChangeZone | Cost$ T Sac<1/Creature.nonSpirit/nonspirit creature> | RememberChanged$ True | ValidTgts$ Creature.YouOwn | Origin$ Graveyard | Destination$ Hand | SorcerySpeed$ True | SubAbility$ DBAnimate | AILogic$ SacAndRetFromGrave
+SVar:DBAnimate:DB$ Animate | Types$ Spirit | Defined$ Remembered | Power$ 1 | staticAbilities$ PerpAltCost | Toughness$ 1 | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:PerpAltCost:Mode$ Continuous | EffectZone$ All | MayPlay$ True | MayPlayAltManaCost$ WB | MayPlayDontGrantZonePermissions$ True | Affected$ Card.Self | AffectedZone$ Hand,Graveyard,Library,Exile,Command
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+DeckHas:Ability$Graveyard | LifeGain | Sacrifice

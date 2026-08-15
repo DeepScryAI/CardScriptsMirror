@@ -1,0 +1,9 @@
+Id:989
+ColorIdentity:B
+ManaCost:2 B B
+Types:Instant
+A:SP$ Pump | ValidTgts$ Creature | SubAbility$ DBUnblockable
+SVar:DBUnblockable:DB$ Effect | ConditionDefined$ Targeted | ConditionPresent$ Creature.attacking | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable | SubAbility$ DBPumpAll
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+SVar:DBPumpAll:DB$ PumpAll | ValidCards$ TargetedCard.Self,Creature.blockedByValidThisTurn Targeted | Duration$ UntilEndOfCombat | KW$ Prevent all combat damage that would be dealt to and dealt by CARDNAME. | ConditionDefined$ Targeted | ConditionPresent$ Creature.blocking
+AI:RemoveDeck:All

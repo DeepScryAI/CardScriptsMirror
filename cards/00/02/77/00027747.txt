@@ -1,0 +1,13 @@
+Id:27747
+ColorIdentity:RG
+ManaCost:3 R G
+Types:Sorcery
+A:SP$ ChooseCard | ValidTgts$ Creature | TargetMin$ 2 | TargetMax$ 2 | Amount$ 2 | Defined$ You | DefinedCards$ Targeted | SubAbility$ DBUntap
+SVar:DBUntap:DB$ Untap | Defined$ Targeted | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Targeted | CounterType$ P1P1 | CounterNum$ 2 | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Targeted | KW$ Vigilance & Indestructible & Haste | SubAbility$ DBAddCombat
+SVar:DBAddCombat:DB$ AddPhase | ExtraPhase$ Combat | ExtraPhaseDelayedTrigger$ DelTrigStatic | ExtraPhaseDelayedTriggerExcute$ TrigEffect | ConditionPhases$ Main1,Main2
+SVar:DelTrigStatic:Mode$ Phase | Static$ True | Phase$ BeginCombat
+SVar:TrigEffect:DB$ Effect | StaticAbilities$ ForbidAttack | Duration$ UntilEndOfCombat
+SVar:ForbidAttack:Mode$ CantAttack | ValidCard$ Creature.nonChosenCard
+DeckHas:Ability$Counters

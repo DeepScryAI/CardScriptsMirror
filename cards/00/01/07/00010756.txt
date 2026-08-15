@@ -1,0 +1,12 @@
+Id:10756
+ColorIdentity:U
+ManaCost:2 U
+Types:Enchantment
+T:Mode$ Phase | Phase$ End of Turn | CheckSVar$ X | SVarCompare$ GE2 | TriggerZones$ Battlefield | Execute$ TrigPutCounter | OptionalDecider$ You
+R:Event$ Draw | ActiveZones$ Battlefield | ValidPlayer$ You | ReplaceWith$ Tutor | IsPresent$ Card.Self+counters_GE6_QUEST | Optional$ True
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ QUEST | CounterNum$ 1
+SVar:Tutor:DB$ ChangeZone | Origin$ Library | Destination$ Hand
+SVar:X:Count$YouDrewThisTurn
+# TODO: improve AI tutoring logic
+AI:RemoveDeck:Random
+SVar:MaxQuestEffect:6

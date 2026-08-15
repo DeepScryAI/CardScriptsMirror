@@ -1,0 +1,14 @@
+Id:29122
+ColorIdentity:WUG
+ManaCost:G W U
+Types:Legendary Creature Human Faerie Rogue
+PT:3/3
+K:Flying
+K:Lifelink
+T:Mode$ SpellCast | ValidCard$ Card.!wasCastFromYourHand | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigCast | OptionalDecider$ You
+SVar:TrigCast:DB$ Play | Valid$ Permanent.YouOwn+cmcLEX | ValidSA$ Spell | ValidZone$ Hand | WithoutManaCost$ True | Amount$ 1 | Optional$ True | RememberPlayed$ True | SubAbility$ PlayLandIfNotCast
+SVar:PlayLandIfNotCast:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | ChangeType$ Land.YouCtrl | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ0 | Optional$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:TriggeredCard$CardManaCost
+DeckHas:Ability$LifeGain
+DeckHints:Keyword$Cascade | Discover | Disturb | Escape | Flashback | Foretell | Jump-start | Madness | Plot | Retrace | Suspend & Type$Adventure

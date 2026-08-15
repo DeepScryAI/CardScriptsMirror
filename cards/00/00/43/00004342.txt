@@ -1,0 +1,12 @@
+Id:4342
+ColorIdentity:R
+ManaCost:R
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAITgts:Card.powerGE1
+SVar:AttachAILogic:Pump
+T:Mode$ AttackerBlocked | ValidCard$ Card.AttachedBy | TriggerZones$ Battlefield | Execute$ LaccolithDmg | OptionalDecider$ You
+SVar:LaccolithDmg:DB$ DealDamage | ValidTgts$ Creature | NumDmg$ RigX | SubAbility$ DBNoCombatDamage | DamageSource$ TriggeredAttacker
+SVar:DBNoCombatDamage:DB$ Effect | RememberObjects$ TriggeredAttackerLKICopy | StaticAbilities$ SNoCombatDamage | ForgetOnMoved$ Battlefield
+SVar:SNoCombatDamage:Mode$ AssignNoCombatDamage | ValidCard$ Card.IsRemembered
+SVar:RigX:TriggeredAttacker$CardPower

@@ -1,0 +1,21 @@
+Id:23661
+ColorIdentity:R
+ManaCost:4 R
+Types:Enchantment Saga
+K:Chapter:3:DBGainControl,DBPumpAll,DBTransform
+SVar:DBGainControl:DB$ GainControl | ValidTgts$ Creature | LoseControl$ EOT | Untap$ True | AddKWs$ Haste
+SVar:DBPumpAll:DB$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +1
+SVar:DBTransform:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | Transformed$ True | GainControl$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:NeedsToPlay:Creature.OppCtrl
+AlternateMode:DoubleFaced
+
+ALTERNATE
+
+ManaCost:no cost
+Colors:red
+Types:Enchantment Creature Human Samurai
+PT:3/3
+K:Trample
+K:Haste

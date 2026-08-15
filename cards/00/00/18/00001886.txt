@@ -1,0 +1,12 @@
+Id:1886
+ColorIdentity:
+ManaCost:3
+Types:Artifact
+A:AB$ PutCounter | Cost$ X 1 T | CounterType$ CHARGE | CounterNum$ X | SorcerySpeed$ True
+T:Mode$ Phase | Phase$ Main1 | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigGetMana | CheckSVar$ Y
+SVar:TrigGetMana:DB$ Mana | Produced$ C | Amount$ Y | SubAbility$ TrigRemove
+SVar:TrigRemove:DB$ RemoveCounter | CounterType$ CHARGE | CounterNum$ Y | SubAbility$ DBTap
+SVar:DBTap:DB$ Tap | Defined$ Self
+SVar:X:Count$xPaid
+SVar:Y:Count$CardCounters.CHARGE
+AI:RemoveDeck:All

@@ -1,0 +1,13 @@
+Id:24388
+ColorIdentity:U
+ManaCost:4 U U
+Types:Sorcery
+K:Replicate:tapXType<1/Horror>
+A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Instant,Sorcery | RememberChanged$ True | SubAbility$ DBCopy
+SVar:DBCopy:DB$ Play | Defined$ Remembered | Amount$ All | CopyCard$ True | WithoutManaCost$ True | Optional$ True | SubAbility$ ExileSelf
+SVar:ExileSelf:DB$ ChangeZone | Origin$ Stack | Destination$ Exile | Defined$ Self | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+AI:RemoveDeck:All
+DeckHas:Ability$Graveyard
+DeckHints:Type$Instant | Sorcery
+DeckNeeds:Type$Horror

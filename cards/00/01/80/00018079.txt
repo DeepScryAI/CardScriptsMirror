@@ -1,0 +1,14 @@
+Id:18079
+ColorIdentity:B
+ManaCost:4 B B
+Types:Legendary Creature Elder Demon
+PT:6/6
+K:Flying
+K:Trample
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigRepeat
+SVar:TrigRepeat:DB$ Repeat | RepeatSubAbility$ DBCleanup | RepeatDefined$ Remembered | RepeatPresent$ Card.cmcGE4 | RepeatCompare$ EQ1 | SubAbility$ DBDealDamage
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | SubAbility$ DBDigUntil
+SVar:DBDigUntil:DB$ DigUntil | Valid$ Card.nonLand | FoundDestination$ Exile | RevealedDestination$ Exile | RememberFound$ True | ImprintFound$ True | SubAbility$ DBToHand
+SVar:DBToHand:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Hand
+SVar:DBDealDamage:DB$ DealDamage | NumDmg$ Imprinted$Amount | Defined$ You | SubAbility$ DBCleanup2
+SVar:DBCleanup2:DB$ Cleanup | ClearImprinted$ True | ClearRemembered$ True

@@ -1,0 +1,21 @@
+Id:27286
+ColorIdentity:BR
+ManaCost:2 R R
+Types:Creature Dragon
+PT:4/4
+K:Flying
+K:Trample
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScript$ c_a_treasure_sac
+DeckHas:Ability$Token | Sacrifice & Type$Treasure | Artifact
+SVar:HasAttackEffect:TRUE
+AlternateMode:Adventure
+
+ALTERNATE
+
+ManaCost:2 B
+Types:Instant Adventure
+A:SP$ Dig | DigNum$ 2 | ChangeNum$ All | ValidTgts$ Opponent | DestinationZone$ Exile | RememberChanged$ True | ExileFaceDown$ True | WithMayLook$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ Remembered | StaticAbilities$ STPlay | Duration$ Permanent | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile

@@ -1,0 +1,17 @@
+Id:17382
+ColorIdentity:R
+ManaCost:2 R R
+Types:Creature Dragon
+PT:6/5
+K:Flying
+K:Haste
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | Execute$ TrigChoose | TriggerZones$ Battlefield
+SVar:TrigChoose:DB$ ChoosePlayer | Defined$ You | Choices$ Player.Opponent+!IsRemembered | Random$ True | ChooseSubAbility$ DBPump | CantChooseSubAbility$ DBTap
+SVar:DBPump:DB$ Effect | Defined$ Self | StaticAbilities$ AttackChosen | Duration$ UntilEndOfCombat
+SVar:AttackChosen:Mode$ MustAttack | ValidCreature$ Card.EffectSource | MustAttack$ ChosenPlayer
+SVar:DBTap:DB$ Tap | Defined$ Self | SubAbility$ DBCleanup
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigClearRem | Static$ True
+SVar:TrigClearRem:DB$ Cleanup | ClearRemembered$ True | SubAbility$ TrigRemember
+SVar:TrigRemember:DB$ Pump | RememberObjects$ TriggeredDefendingPlayer
+T:Mode$ Phase | Phase$ EndCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ DBCleanup | IsPresent$ Card.!attackedThisTurn+Self | Static$ True
+SVar:DBCleanup:DB$ Cleanup | ClearChosenPlayer$ True | ClearRemembered$ True

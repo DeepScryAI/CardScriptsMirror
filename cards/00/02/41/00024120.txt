@@ -1,0 +1,12 @@
+Id:24120
+ColorIdentity:W
+ManaCost:1 W
+Types:Artifact
+A:AB$ Draft | Cost$ W T | Spellbook$ Angel of Destiny,Resplendent Angel,Angel of Vitality,Righteous Valkyrie,Angel of Invention,Angel of Sanctions,Valkyrie Harbinger,Emancipation Angel,Youthful Valkyrie,Resplendent Marshal,Enduring Angel,Sigardian Savior,Serra Angel,Stalwart Valkyrie,Segovian Angel | RememberDrafted$ True | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | ExileFaceDown$ True | Defined$ Remembered
+A:AB$ ChangeZoneAll | Cost$ 1 Sac<1/CARDNAME> | Origin$ Exile | Destination$ Hand | ChangeType$ Card.IsRemembered+ExiledWithSource
+T:Mode$ ChangesZone | Origin$ Exile | Destination$ Any | Static$ True | ValidCard$ Card.IsRemembered+ExiledWithSource | Execute$ DBForget
+SVar:DBForget:DB$ Pump | ForgetObjects$ TriggeredCard
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | Static$ True | ValidCard$ Card.Self | Execute$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+DeckHas:Type$Angel & Ability$LifeGain | Token | Counters

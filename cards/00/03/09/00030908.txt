@@ -1,0 +1,12 @@
+Id:30908
+ColorIdentity:B
+ManaCost:6 B
+Types:Artifact Vehicle
+PT:4/3
+K:Affinity:Artifact
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ OneEach | TargetsForEachPlayer$ True | RememberLKI$ True | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | ConditionDefined$ RememberedLKI | ConditionPresent$ Creature.YouCtrl | ConditionCompare$ GE1 | CounterNum$ 2 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+K:Crew:2
+SVar:OneEach:PlayerCountPlayers$Amount

@@ -1,0 +1,11 @@
+Id:26379
+ColorIdentity:
+ManaCost:no cost
+Types:Plane Kaldheim
+T:Mode$ PlaneswalkedTo | ValidCard$ Card.Self | Execute$ TrigToken | TriggerZones$ Command
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigToken | TriggerZones$ Command | Secondary$ True
+SVar:TrigToken:DB$ Token | TokenScript$ u_2_2_shapeshifter_changeling | TokenOwner$ You
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos
+SVar:RolledChaos:DB$ ChooseType | Defined$ You | Type$ Creature | SubAbility$ DBPutCounterAll | AILogic$ MostProminentComputerControls
+SVar:DBPutCounterAll:DB$ PutCounterAll | ValidCards$ Creature.ChosenType+YouCtrl | CounterType$ P1P1 | CounterNum$ 1
+DeckHas:Ability$Token | Counters & Type$Shapeshifter

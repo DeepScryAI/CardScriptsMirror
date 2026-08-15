@@ -1,0 +1,14 @@
+Id:26687
+ColorIdentity:G
+ManaCost:1 G G
+Types:Legendary Planeswalker Wrenn
+Loyalty:4
+S:Mode$ Continuous | Affected$ Land.YouCtrl | AddAbility$ AnyMana
+SVar:AnyMana:AB$ Mana | Cost$ T | Produced$ Any | Amount$ 1
+A:AB$ Animate | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Land.YouCtrl | TargetMin$ 0 | TargetMax$ 1 | Power$ 3 | Toughness$ 3 | Types$ Creature,Elemental | Keywords$ Vigilance & Hexproof & Haste | Duration$ UntilYourNextTurn
+A:AB$ Mill | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | NumCards$ 3 | RememberMilled$ True | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Graveyard,Exile | Destination$ Hand | Hidden$ True | ChangeNum$ 1 | ChangeType$ Card.Permanent+IsRemembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+A:AB$ Effect | Cost$ SubCounter<7/LOYALTY> | Planeswalker$ True | Ultimate$ True | Name$ Emblem — Wrenn and Realmbreaker | Image$ emblem_wrenn_and_realmbreaker | StaticAbilities$ PermanentRecycle | Stackable$ False | Duration$ Permanent | AILogic$ Always
+SVar:PermanentRecycle:Mode$ Continuous | Affected$ Card.Permanent+YouOwn | MayPlay$ True | AffectedZone$ Graveyard
+DeckHas:Ability$Graveyard

@@ -1,0 +1,11 @@
+Id:22648
+ColorIdentity:B
+ManaCost:B
+Types:Artifact Equipment
+K:Equip:B B
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddKeyword$ Deathtouch
+A:AB$ Animate | Cost$ 5 B B B | Defined$ Self | Triggers$ TrigDamageDone | SubAbility$ DBAddSVar
+SVar:DBAddSVar:DB$ Animate | Defined$ Equipped | sVars$ MustBeBlocked
+SVar:MustBeBlocked:True
+SVar:TrigDamageDone:Mode$ DamageDone | ValidSource$ Creature.EquippedBy | ValidTarget$ Player | CombatDamage$ True | Execute$ DBLose
+SVar:DBLose:DB$ LosesGame | Defined$ TriggeredTarget

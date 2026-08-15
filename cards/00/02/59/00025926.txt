@@ -1,0 +1,14 @@
+Id:25926
+ColorIdentity:WU
+ManaCost:1 W U
+Types:Legendary Creature Human Advisor
+PT:2/4
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigImmediateTrig
+SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ 1 | Execute$ TrigPump
+SVar:TrigPump:DB$ Animate | TgtZone$ Graveyard | ValidTgts$ Artifact.YouOwn | staticAbilities$ ReduceCost | Duration$ Perpetual | SubAbility$ PumpVehicle
+SVar:ReduceCost:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ 1 | EffectZone$ All
+SVar:PumpVehicle:DB$ Pump | Defined$ Targeted | PumpZone$ Graveyard | ConditionDefined$ Targeted | ConditionPresent$ Vehicle,Creature | NumAtt$ +2 | NumDef$ +2 | Duration$ Perpetual | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Library | LibraryPosition$ 1 | Defined$ Targeted
+DeckNeeds:Type$Artifact
+DeckHints:Ability$Discard | Sacrifice & Type$Vehicle
+DeckHas:Ability$Graveyard

@@ -1,0 +1,9 @@
+Id:8455
+ColorIdentity:R
+ManaCost:3 R
+Types:Creature Human Barbarian
+PT:3/2
+A:AB$ RemoveFromCombat | Cost$ T | ActivationPhases$ Declare Blockers | ValidTgts$ Creature.blocking | Defined$ Targeted | UnblockCreaturesBlockedOnlyBy$ Targeted | SubAbility$ ChooseAttacker
+SVar:ChooseAttacker:DB$ ChooseCard | Defined$ You | Choices$ Creature.attacking | Mandatory$ True | SubAbility$ Block
+SVar:Block:DB$ Block | DefinedAttacker$ ChosenCard | DefinedBlocker$ ParentTarget | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True

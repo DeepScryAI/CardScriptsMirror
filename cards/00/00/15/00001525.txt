@@ -1,0 +1,8 @@
+Id:1525
+ColorIdentity:W
+ManaCost:1 W W
+Types:Instant
+A:SP$ Animate | ValidTgts$ Creature.YouCtrl | Abilities$ Martyr | TransferActivator$ True
+SVar:Martyr:AB$ Effect | Cost$ 0 | ValidTgts$ Creature,Planeswalker,Player | Amount$ 1 | ReplacementEffects$ DamageEvent | Duration$ UntilHostLeavesPlayOrEOT | RememberObjects$ Targeted | ImprintCards$ Self | ExileOnMoved$ Battlefield
+SVar:DamageEvent:Event$ DamageDone | IsPresent$ Card.IsImprinted+Creature | ValidTarget$ Player.IsRemembered,Card.IsRemembered | ReplaceWith$ DamageEventDmg | DamageTarget$ Imprinted
+SVar:DamageEventDmg:DB$ ReplaceSplitDamage | DamageTarget$ Imprinted

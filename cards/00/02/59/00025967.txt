@@ -1,0 +1,13 @@
+Id:25967
+ColorIdentity:WR
+ManaCost:2 R W
+Types:Legendary Creature Human Rebel
+PT:3/3
+S:Mode$ Continuous | Affected$ Creature.attacking+YouCtrl+token | AddKeyword$ Double Strike
+T:Mode$ AttackersDeclaredOneTarget | ValidAttackers$ Creature.token+YouCtrl | Execute$ TrigExile | AttackedTarget$ Player | TriggerZones$ Battlefield
+SVar:TrigExile:DB$ Dig | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ STPlay | SubAbility$ DBCleanup | ExileOnMoved$ Exile | Duration$ Permanent
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile | CheckSVar$ Z
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:Z:Count$CreaturesAttackedThisTurn Creature.token
+DeckHints:Ability$Token

@@ -1,0 +1,26 @@
+Id:27946
+ColorIdentity:WUR
+ManaCost:U R W
+Types:Legendary Artifact Creature Gnome
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self,Artifact.Other+DoubleFaced+YouCtrl | Execute$ TrigMill
+SVar:TrigMill:DB$ Mill | NumCards$ 3 | RememberMilled$ True | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Hidden$ True | Origin$ Graveyard,Exile | Destination$ Hand | ChangeType$ Artifact.IsRemembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+K:Craft:4 ExileCtrlOrGrave<6/Artifact.Other>
+DeckHints:Ability$Discard | Mill | Sacrifice
+DeckHas:Ability$Mill | Graveyard | Token
+AlternateMode:DoubleFaced
+
+ALTERNATE
+
+ManaCost:no cost
+Colors:white,blue,red
+Types:Legendary Artifact Creature Gnome
+PT:6/6
+K:Vigilance
+K:Trample
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigTransform
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigTransform | Secondary$ True
+SVar:TrigTransform:DB$ SetState | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Artifact.Other+DoubleFaced+YouCtrl | Mode$ Transform | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenAmount$ 2 | TokenScript$ c_1_1_a_gnome

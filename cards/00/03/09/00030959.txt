@@ -1,0 +1,16 @@
+Id:30959
+ColorIdentity:R
+ManaCost:2 R
+Types:Creature Goblin Mercenary
+PT:2/3
+K:Start your engines
+S:Mode$ Continuous | Affected$ Goblin.YouCtrl+Other | AddKeyword$ Haste
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScript$ r_1_1_goblin | RememberTokens$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ Remembered | StaticAbilities$ MustAttack | Duration$ UntilEndOfCombat | SubAbility$ DBCleanup
+SVar:MustAttack:Mode$ MustAttack | ValidCreature$ Card.IsRemembered
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+S:Mode$ Continuous | Affected$ Card.Self | Condition$ MaxSpeed | AddAbility$ ABMana
+SVar:ABMana:AB$ Mana | PrecostDesc$ Max speed — | Cost$ T | Secondary$ True | Produced$ R | Amount$ Count$Valid Goblin.YouCtrl
+DeckHas:Ability$Token
+DeckHints:Type$Goblin

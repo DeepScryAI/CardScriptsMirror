@@ -1,0 +1,12 @@
+Id:8598
+ColorIdentity:W
+ManaCost:W
+Types:Instant
+K:Split second
+A:SP$ Effect | ReplacementEffects$ DBYouCantLose,DBOppCantWin,SelflessDamage | AILogic$ Fog
+SVar:DBYouCantLose:Event$ GameLoss | ValidPlayer$ You | Layer$ CantHappen
+SVar:DBOppCantWin:Event$ GameWin | ValidPlayer$ Opponent | Layer$ CantHappen | Secondary$ True
+SVar:SelflessDamage:Event$ LifeReduced | ValidPlayer$ You.lifeGE1 | Result$ LT1 | IsDamage$ True | ReplaceWith$ ReduceLoss
+SVar:ReduceLoss:DB$ ReplaceEffect | VarName$ Amount | VarValue$ X
+SVar:X:ReplaceCount$Amount/LimitMax.Difference
+SVar:Difference:Count$YourLifeTotal/Minus.1

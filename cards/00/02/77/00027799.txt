@@ -1,0 +1,16 @@
+Id:27799
+ColorIdentity:BR
+ManaCost:2 B R
+Types:Creature Alien Soldier
+PT:4/2
+K:First Strike
+K:Haste
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigChoice
+SVar:TrigChoice:DB$ VillainousChoice | Defined$ Opponent | Choices$ DBDiscard,DBDamage
+SVar:DBDiscard:DB$ Discard | Defined$ Player.IsRemembered | Mode$ Hand | RememberDiscarded$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ X | Defined$ Player.IsRemembered | SubAbility$ CleanDrawn
+SVar:CleanDrawn:DB$ Cleanup | ClearRemembered$ True
+# This calculation isn't considering the remembered player, only the remembered cards
+SVar:X:Remembered$Amount/Minus.1
+SVar:DBDamage:DB$ DealDamage | Defined$ Player.IsRemembered | NumDmg$ Y
+SVar:Y:Count$ValidHand Card.OwnedBy Player.IsRemembered

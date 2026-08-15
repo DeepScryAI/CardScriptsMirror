@@ -1,0 +1,12 @@
+Id:26307
+ColorIdentity:B
+ManaCost:B
+Types:Sorcery
+A:SP$ Effect | Boon$ True | Duration$ Permanent | Triggers$ SpellCast | SubAbility$ DBDraft
+SVar:SpellCast:Mode$ SpellCast | ValidCard$ Creature.Phyrexian | ValidActivatingPlayer$ You | TriggerZones$ Command | Execute$ ReplEffAddCounter
+SVar:ReplEffAddCounter:DB$ Effect | ReplacementEffects$ ETBAddCounter | RememberObjects$ TriggeredCard
+SVar:ETBAddCounter:Event$ Moved | Origin$ Stack | Destination$ Battlefield | ValidCard$ Card.IsRemembered | ReplaceWith$ ETBAddExtraCounter | ReplacementResult$ Updated
+SVar:ETBAddExtraCounter:DB$ PutCounter | ETB$ True | Defined$ ReplacedCard | CounterTypes$ P1P1,Deathtouch | CounterNum$ 1
+SVar:DBDraft:DB$ Draft | Spellbook$ Entomber Exarch,Phyrexian Fleshgorger,Phyrexian Gargantua,Phyrexian Obliterator,Phyrexian Rager,Phyrexian Revoker,Toxic Abomination,Vault Skirge,Scrapwork Rager,Bilious Skulldweller,Archfiend of the Dross,Myr Convert,Zenith Chronicler,Soulless Jailer,Diminished Returner
+DeckHas:Ability$Counters | LifeGain | Graveyard & Type$Phyrexian | Horror | Imp | Zombie | Insect | Demon | Insect
+DeckNeeds:Type$Phyrexian

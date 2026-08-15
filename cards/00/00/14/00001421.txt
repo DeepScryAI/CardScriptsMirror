@@ -1,0 +1,10 @@
+Id:1421
+ColorIdentity:W
+ManaCost:W
+Types:Sorcery
+A:SP$ PeekAndReveal | ValidTgts$ Opponent | NoPeek$ True | RememberRevealed$ True | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ 1 | ConditionDefined$ Remembered | ConditionPresent$ Card.Land | ConditionCompare$ GE1 | SubAbility$ DBShuffle
+SVar:DBShuffle:DB$ Shuffle | Defined$ ParentTarget | SubAbility$ DelTrigSlowtrip
+SVar:DelTrigSlowtrip:DB$ DelayedTrigger | NextTurn$ True | Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Player | Execute$ DrawSlowtrip
+SVar:DrawSlowtrip:DB$ Draw
+DeckHas:Ability$LifeGain

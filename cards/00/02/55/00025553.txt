@@ -1,0 +1,27 @@
+Id:25553
+ColorIdentity:UB
+ManaCost:2 U B
+Types:Legendary Artifact Creature Robot
+PT:2/5
+K:More Than Meets the Eye:5 U B
+K:Flying
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Opponent | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigConnive
+SVar:TrigConnive:DB$ Connive | SubAbility$ DBConvert
+SVar:DBConvert:DB$ SetState | Mode$ Transform | ConditionPresent$ Card.Self+powerGE5
+SVar:HasAttackEffect:TRUE
+DeckHas:Ability$Graveyard | Discard
+AlternateMode:DoubleFaced
+
+ALTERNATE
+
+ManaCost:no cost
+Colors:black,blue
+Types:Legendary Artifact Vehicle
+PT:5/5
+K:Living metal
+K:Flying
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Opponent | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigConvert
+SVar:TrigConvert:DB$ SetState | Mode$ Transform | SubAbility$ ExtraBeginningPhase | RememberChanged$ True
+SVar:ExtraBeginningPhase:DB$ AddPhase | ExtraPhase$ Beginning | ConditionDefined$ Remembered | ConditionPresent$ Card.Self | ConditionCompare$ GE1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:HasAttackEffect:TRUE

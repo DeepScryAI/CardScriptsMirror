@@ -1,0 +1,13 @@
+Id:29287
+ColorIdentity:R
+ManaCost:2 R R
+Types:Creature Horse Mount
+PT:4/4
+K:Haste
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 1 | RememberDamaged$ True | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Remembered | staticAbilities$ CantBlock,NoDamageRemoval | Duration$ Perpetual | ConditionDefined$ Remembered | ConditionPresent$ Creature | ConditionPresent2$ Card.Self+IsSaddled | SubAbility$ DBCleanup
+SVar:CantBlock:Mode$ CantBlock | ValidCard$ Creature.Self
+SVar:NoDamageRemoval:Mode$ NoCleanupDamage | ValidCard$ Card.Self
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+K:Saddle:1

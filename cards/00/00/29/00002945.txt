@@ -1,0 +1,11 @@
+Id:2945
+ColorIdentity:R
+ManaCost:2 R
+Types:Creature Goblin Assassin
+PT:2/1
+A:AB$ Pump | Cost$ T | ValidTgts$ Creature.OppCtrl | RememberObjects$ ThisTargetedCard | IsCurse$ True | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | ValidTgts$ Creature | TargetingPlayer$ ParentTargetedController | IsCurse$ True | ImprintCards$ ThisTargetedCard | SubAbility$ DBFlip
+SVar:DBFlip:DB$ FlipCoin | WinSubAbility$ DestroyRemembered | LoseSubAbility$ DestroyImprinted | SubAbility$ DBCleanup
+SVar:DestroyRemembered:DB$ Destroy | Defined$ Remembered
+SVar:DestroyImprinted:DB$ Destroy | Defined$ Imprinted
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True

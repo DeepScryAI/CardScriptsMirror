@@ -1,0 +1,15 @@
+Id:27644
+ColorIdentity:U
+ManaCost:2 U U
+Types:Creature Faerie Wizard
+PT:4/2
+K:Flash
+K:Bargain
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | ValidTgts$ Permanent.nonLand,Card.inZoneStack | TgtZone$ Stack,Battlefield | TargetMin$ 0 | TargetMax$ 1 | Origin$ Battlefield,Stack | Destination$ Hand | RememberChanged$ True | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Remembered | ConditionDefined$ Self | ConditionPresent$ Card.bargained | staticAbilities$ RaiseCost | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:RaiseCost:Mode$ RaiseCost | ValidCard$ Card.Self | Type$ Spell | Amount$ 2 | EffectZone$ All
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+DeckHints:Type$Artifact | Enchantment & Ability$Token
+DeckHas:Ability$Sacrifice

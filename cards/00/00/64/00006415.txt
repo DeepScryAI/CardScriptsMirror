@@ -1,0 +1,14 @@
+Id:6415
+ColorIdentity:U
+ManaCost:3 U U
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSearch
+SVar:TrigSearch:DB$ ChangeZone | ChangeNum$ 7 | ChangeType$ Card | Mandatory$ True | Origin$ Library | Destination$ Exile | ShuffleChangedPile$ True | ExileFaceDown$ True | RememberChanged$ True
+T:Mode$ ChangesZone | ValidCard$ Card.IsRemembered | Origin$ Exile | Destination$ Any | Static$ True | Execute$ TrigForget
+SVar:TrigForget:DB$ Pump | ForgetObjects$ TriggeredCard
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigReset | Static$ True
+SVar:TrigReset:DB$ Cleanup | ClearRemembered$ True
+R:Event$ Draw | ActiveZones$ Battlefield | ValidPlayer$ You | ReplaceWith$ RepParallelThoughts | Optional$ True | OptionalDecider$ You
+SVar:RepParallelThoughts:DB$ ChangeZone | Defined$ RememberedFirst | Origin$ Exile | Destination$ Hand
+AI:RemoveDeck:All
+AI:RemoveDeck:Random

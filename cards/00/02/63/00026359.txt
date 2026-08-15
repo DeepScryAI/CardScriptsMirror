@@ -1,0 +1,13 @@
+Id:26359
+ColorIdentity:
+ManaCost:no cost
+Types:Plane Echoir
+T:Mode$ PlaneswalkedTo | ValidCard$ Card.Self | Execute$ TrigRepeatEach
+SVar:TrigRepeatEach:DB$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | ConditionCheckSVar$ X | ConditionSVarCompare$ LTY | DefinedPlayer$ Remembered | Chooser$ Remembered | ChangeType$ Land.Basic | ChangeTypeDesc$ basic land | ChangeNum$ Z | Origin$ Library | Destination$ Hand
+SVar:X:Count$Valid Land.RememberedPlayerCtrl
+SVar:Y:PlayerCountPlayers$HighestValid Land.YouCtrl
+SVar:Z:SVar$Y/Minus.X
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos
+SVar:RolledChaos:DB$ Draw | Defined$ You | NumCards$ 1 | SubAbility$ DBChangeZoneBis
+SVar:DBChangeZoneBis:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | Optional$ You | ChangeType$ Land | ChangeNum$ 1

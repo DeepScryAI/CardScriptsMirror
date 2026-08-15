@@ -1,0 +1,11 @@
+Id:1631
+ColorIdentity:
+ManaCost:4
+Types:Artifact
+A:AB$ ChooseSource | Cost$ 2 T | Choices$ Card,Emblem | AILogic$ NeedsPrevention | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | ReplacementEffects$ RPreventNextFromSource | SubAbility$ DBCleanup | ConditionDefined$ ChosenCard | ConditionPresent$ Card,Emblem
+SVar:RPreventNextFromSource:Event$ DamageDone | ValidSource$ Card.ChosenCardStrict,Emblem.ChosenCard | ValidTarget$ You | ReplaceWith$ ExileFromLibInstead | PreventionEffect$ True
+SVar:ExileFromLibInstead:DB$ Dig | Defined$ You | DestinationZone$ Exile | DigNum$ X | ChangeNum$ All
+SVar:ExileEffect:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile
+SVar:X:ReplaceCount$DamageAmount
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True

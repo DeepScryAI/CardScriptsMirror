@@ -1,0 +1,12 @@
+Id:21566
+ColorIdentity:U
+ManaCost:U
+Types:Artifact Equipment
+K:Equip:2
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddToughness$ 1 | AddStaticAbility$ Hexproof
+SVar:Hexproof:Mode$ Continuous | Affected$ Card.Self+untapped | AddKeyword$ Hexproof
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken | TriggerZones$ Battlefield
+SVar:TrigToken:AB$ Token | Cost$ 3 U | TokenScript$ u_4_4_giant_wizard | RememberTokens$ True | SubAbility$ DBAttach
+SVar:DBAttach:DB$ Attach | Object$ TriggeredCardLKICopy | Defined$ Remembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+DeckHas:Ability$Token

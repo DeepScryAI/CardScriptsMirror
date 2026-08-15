@@ -1,0 +1,9 @@
+Id:29350
+ColorIdentity:R
+ManaCost:1 R R
+Types:Instant
+A:SP$ RepeatEach | ValidTgts$ Instant,Sorcery | TgtZone$ Stack | RepeatSubAbility$ DBCopy | RepeatPlayers$ Player.Opponent | SubAbility$ DBCopySelf | RepeatOptionalForEachPlayer$ True | RepeatOptionalMessage$ Do you want to copy the targeted spell?
+SVar:DBCopy:DB$ CopySpellAbility | Defined$ Targeted | Controller$ Remembered | MayChooseTarget$ True | RememberCopies$ True
+SVar:DBCopySelf:DB$ CopySpellAbility | Defined$ Targeted | Amount$ X | MayChooseTarget$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:PlayerCountRememberedController$Amount/Plus.1

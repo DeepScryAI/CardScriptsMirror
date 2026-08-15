@@ -1,0 +1,12 @@
+Id:30808
+ColorIdentity:R
+ManaCost:1 R
+Types:Legendary Creature Vampire Warrior
+PT:1/1
+K:Trample
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigToken | CombatDamage$ True | Secondary$ True
+SVar:TrigToken:DB$ Token | TokenScript$ c_a_blood_draw
+T:Mode$ Discarded | ValidCard$ Card.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+DeckHas:Ability$Counters
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1

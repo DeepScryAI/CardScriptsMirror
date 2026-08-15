@@ -1,0 +1,13 @@
+Id:25042
+ColorIdentity:UR
+ManaCost:R
+Types:Instant
+K:Kicker:U
+A:SP$ DelayedTrigger | Execute$ TrigConjure | ThisTurn$ True | Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You
+SVar:TrigConjure:DB$ MakeCard | Conjure$ True | DefinedName$ TriggeredCard | Zone$ Hand | SubAbility$ DBDelayTrig | RememberMade$ True
+SVar:DBDelayTrig:DB$ DelayedTrigger | Mode$ Phase | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ0 | Phase$ End of Turn | Execute$ TrigDiscard | RememberObjects$ Remembered | SubAbility$ DBCleanup
+SVar:TrigDiscard:DB$ Discard | Mode$ Defined | DefinedCards$ DelayTriggerRemembered
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$TimesKicked
+DeckNeeds:Type$Instant | Sorcery
+DeckHints:Color$Blue

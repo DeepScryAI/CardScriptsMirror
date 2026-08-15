@@ -1,0 +1,10 @@
+Id:6657
+ColorIdentity:U
+ManaCost:4 U
+Types:Enchantment
+R:Event$ Draw | ReplaceWith$ DBChooseOpp | ActiveZones$ Battlefield
+SVar:DBChooseOpp:DB$ ChoosePlayer | Defined$ ReplacedPlayer | Choices$ Player.OpponentOf ReplacedPlayer | AILogic$ Curse | SubAbility$ DBExile | DontNotify$ True
+SVar:DBExile:DB$ Dig | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | ExileFaceDown$ True | Defined$ Player.Chosen | DefinedExiler$ ReplacedPlayer
+S:Mode$ Continuous | MayPlayPlayer$ Exiler | MayLookAt$ True | MayPlay$ True | Affected$ Card.ExiledWithSource | AffectedZone$ Exile
+AI:RemoveDeck:All
+AI:RemoveDeck:Random

@@ -1,0 +1,12 @@
+Id:1058
+ColorIdentity:B
+ManaCost:3 B B
+Types:Creature Zombie
+PT:3/4
+T:Mode$ Phase | Phase$ EndCombat | Execute$ TrigCounter | TriggerZones$ Battlefield
+SVar:TrigCounter:DB$ PutCounterAll | CounterType$ PARALYZATION | CounterNum$ 1 | ValidCards$ Creature.blockedBySource,Creature.blockingSource | SubAbility$ DBTap
+SVar:DBTap:DB$ TapAll | ValidCards$ Creature.blockedBySource,Creature.blockingSource | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ Valid Creature.blockedBySource,Creature.blockingSource | ReplacementEffects$ DontUntap | Duration$ Permanent | SubAbility$ DBAnimate | ForgetOnMoved$ Battlefield | ForgetCounter$ PARALYZATION
+SVar:DBAnimate:DB$ AnimateAll | ValidCards$ Creature.blockedBySource,Creature.blockingSource | Abilities$ ABRemoveCounter | Duration$ Permanent
+SVar:ABRemoveCounter:AB$ RemoveCounter | Defined$ Self | Cost$ 4 | CounterType$ PARALYZATION | CounterNum$ 1
+SVar:DontUntap:Event$ Untap | ValidCard$ Card.IsRemembered | ValidStepTurnToController$ You | Layer$ CantHappen

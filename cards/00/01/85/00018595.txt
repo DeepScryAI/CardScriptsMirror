@@ -1,0 +1,14 @@
+Id:18595
+ColorIdentity:BRG
+ManaCost:X B R G
+Types:Legendary Creature Hydra
+PT:0/0
+K:etbCounter:P1P1:Y:no Condition:CARDNAME enters with a number of +1/+1 counters on it equal to the amount of mana spent to cast it.
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigExile | TriggerZones$ Battlefield | OptionalDecider$ You
+SVar:TrigExile:DB$ ChangeZone | ValidTgts$ Creature.YouCtrl+powerLTZ | Origin$ Graveyard | Destination$ Exile | RememberChanged$ True | Optional$ True | SubAbility$ DBCopy
+SVar:DBCopy:DB$ CopyPermanent | Defined$ Remembered | TokenTapped$ True | TokenAttacking$ True | AtEOT$ ExileCombat | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$xPaid
+SVar:Y:Count$CastTotalManaSpent
+SVar:Z:Count$CardPower
+SVar:HasAttackEffect:TRUE

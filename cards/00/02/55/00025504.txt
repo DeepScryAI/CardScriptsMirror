@@ -1,0 +1,17 @@
+Id:25504
+ColorIdentity:
+ManaCost:no cost
+Types:Artifact Attraction
+K:Visit:TrigExile
+SVar:TrigExile:DB$ Dig | DigNum$ X | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ EffSModeContinuous | ForgetOnMoved$ Exile | RememberObjects$ Remembered | SubAbility$ DBDelayTrig
+SVar:EffSModeContinuous:Mode$ Continuous | Affected$ Card.IsRemembered | MayPlay$ True | AffectedZone$ Exile
+SVar:DBDelayTrig:DB$ DelayedTrigger | Mode$ Phase | RememberObjects$ Remembered | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionZone$ Exile | Phase$ End Of Turn | Execute$ TrigChangeAll | SubAbility$ DBCleanup
+SVar:TrigChangeAll:DB$ ChangeZone | Defined$ DelayTriggerRememberedLKI | Origin$ Exile | Destination$ Library | LibraryPosition$ -1
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:PlayerCountPropertyYou$AttractionsVisitedThisTurn
+
+# --- VARIANTS ---
+
+Variant:A:Lights:2 5 6
+Variant:B:Lights:3 4 6

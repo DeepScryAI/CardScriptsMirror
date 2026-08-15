@@ -1,0 +1,13 @@
+Id:31651
+ColorIdentity:WBR
+ManaCost:R W B
+Types:Legendary Creature Human Wizard Warrior
+PT:3/3
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigMill
+SVar:TrigMill:DB$ Mill | NumCards$ 2 | Defined$ You | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Self | KW$ Flying
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigPayCost | CombatDamage$ True
+SVar:TrigPayCost:AB$ ImmediateTrigger | Cost$ 2 | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouOwn+powerLE3 | Tapped$ True
+DeckHas:Ability$Mill | Graveyard
+DeckHints:Ability$Mill | Discard | Sacrifice

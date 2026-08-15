@@ -1,0 +1,13 @@
+Id:23332
+ColorIdentity:U
+ManaCost:1 U
+Types:Creature Human Wizard
+PT:1/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChoose
+SVar:TrigChoose:DB$ ChooseCard | ChoiceZone$ Hand | Choices$ Instant.YouOwn+cmcGE3,Sorcery.YouOwn+cmcGE3 | Mandatory$ True | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ ChosenCard | staticAbilities$ ReduceCost | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:ReduceCost:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ 2 | EffectZone$ All
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+SVar:NeedsToPlayVar:X GE1
+SVar:X:Count$ValidHand Instant.YouOwn+cmcGE3,Sorcery.YouOwn+cmcGE3
+DeckNeeds:Type$Instant | Sorcery

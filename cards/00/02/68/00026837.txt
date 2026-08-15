@@ -1,0 +1,12 @@
+Id:26837
+ColorIdentity:R
+ManaCost:2 R
+Types:Legendary Creature Dwarf Warrior
+PT:1/1
+K:Double Strike
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.Legendary+Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigTreasure
+SVar:TrigTreasure:DB$ Token | TokenScript$ c_a_treasure_sac | TokenOwner$ You
+SVar:BuffedBy:Creature.Legendary
+DeckHas:Ability$Counters | Token

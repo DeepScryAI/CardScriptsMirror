@@ -1,0 +1,13 @@
+Id:31275
+ColorIdentity:WUR
+ManaCost:2 U R W
+Types:Instant
+A:SP$ ChooseSource | Choices$ Card,Emblem | AILogic$ NeedsPrevention | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | ReplacementEffects$ RPreventNextFromSource | ConditionDefined$ ChosenCard | ConditionPresent$ Card,Emblem
+SVar:RPreventNextFromSource:Event$ DamageDone | ValidSource$ Card.ChosenCardStrict,Emblem.ChosenCard | ValidTarget$ You | ReplaceWith$ DBImmediateTrigger | PreventionEffect$ True
+SVar:DBImmediateTrigger:DB$ ImmediateTrigger | Execute$ TrigDamage | RememberSVarAmount$ X | SubAbility$ ExileEffect
+SVar:TrigDamage:DB$ DealDamage | Defined$ ChosenCardController | NumDmg$ Y | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ Y
+SVar:ExileEffect:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile
+SVar:X:ReplaceCount$DamageAmount
+SVar:Y:Count$TriggerRememberAmount

@@ -1,0 +1,12 @@
+Id:21660
+ColorIdentity:
+ManaCost:3
+Types:Snow Artifact
+A:AB$ Mana | Cost$ T | Produced$ Any
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ NIGHT | CounterNum$ 1 | SubAbility$ DBBranch
+SVar:DBBranch:DB$ Branch | BranchConditionSVar$ ReplicateTimer | TrueSubAbility$ DBRemoveCtrs
+SVar:DBRemoveCtrs:DB$ RemoveCounter | Defined$ Self | CounterType$ NIGHT | CounterNum$ All | SubAbility$ DBToken
+SVar:ReplicateTimer:Count$Valid Card.Self+counters_GE8_NIGHT
+SVar:DBToken:DB$ Token | TokenAmount$ 8 | TokenScript$ replicated_ring
+DeckHas:Ability$Counters | Token

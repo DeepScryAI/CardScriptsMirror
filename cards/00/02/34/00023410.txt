@@ -1,0 +1,13 @@
+Id:23410
+ColorIdentity:B
+ManaCost:3 B
+Types:Creature Human Wizard
+PT:2/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:AB$ Token | Cost$ Sac<1/Creature.Other/another creature you control> | TokenScript$ c_a_treasure_sac | TokenAmount$ Y
+SVar:Y:Sacrificed$CardPower
+A:AB$ ChangeZone | Cost$ XMin1 2 B Sac<X/Artifact> | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.powerLEX+YouOwn
+SVar:X:Count$xPaid
+SVar:AIPreference:SacCost$Artifact.cmcLE1
+DeckHas:Ability$Sacrifice | Token | Graveyard & Type$Treasure | Artifact
+DeckHints:Type$Artifact

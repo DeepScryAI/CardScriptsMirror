@@ -1,0 +1,21 @@
+Id:23820
+ColorIdentity:W
+ManaCost:3 W
+Types:Creature Rhino Druid
+PT:3/4
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigChoose
+SVar:TrigChoose:DB$ GenericChoice | Defined$ Opponent | TempRemember$ Chooser | Choices$ Money,Friends,Secrets | ShowChoice$ ExceptSelf | SubAbility$ DBMoney
+SVar:Money:DB$ Pump | Defined$ Remembered | NoteCards$ Self | NoteCardsFor$ Money
+SVar:Friends:DB$ Pump | Defined$ Remembered | NoteCards$ Self | NoteCardsFor$ Friends
+SVar:Secrets:DB$ Pump | Defined$ Remembered | NoteCards$ Self | NoteCardsFor$ Secrets
+SVar:DBMoney:DB$ RepeatEach | RepeatPlayers$ Player.NotedForMoney | RepeatSubAbility$ DBMoneyPump | SubAbility$ DBFriends | ClearRememberedBeforeLoop$ True
+SVar:DBMoneyPump:DB$ Pump | RememberObjects$ You | SubAbility$ DBTreasure
+SVar:DBTreasure:DB$ Token | TokenOwner$ Remembered | TokenScript$ c_a_treasure_sac
+SVar:DBFriends:DB$ RepeatEach | RepeatPlayers$ Player.NotedForFriends | RepeatSubAbility$ DBFriendsPump | SubAbility$ DBSecrets | ClearRememberedBeforeLoop$ True
+SVar:DBFriendsPump:DB$ Pump | RememberObjects$ You | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenOwner$ Remembered | TokenScript$ gw_1_1_citizen
+SVar:DBSecrets:DB$ RepeatEach | RepeatPlayers$ Player.NotedForSecrets | RepeatSubAbility$ DBSecretsPump | SubAbility$ DBCleanup | ClearRememberedBeforeLoop$ True
+SVar:DBSecretsPump:DB$ Pump | RememberObjects$ You | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ Remembered
+SVar:DBCleanup:DB$ Pump | Defined$ Player | ClearNotedCardsFor$ Money,Friends,Secrets
+DeckHas:Ability$Token | Sacrifice & Type$Artifact | Citizen | Treasure

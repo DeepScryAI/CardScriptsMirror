@@ -1,0 +1,10 @@
+Id:10711
+ColorIdentity:
+ManaCost:no cost
+Types:Plane Mirrodin
+T:Mode$ SpellCast | ValidSA$ Instant.singleTarget,Sorcery.singleTarget | Execute$ TrigCopy | TriggerZones$ Command
+SVar:TrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | Controller$ TriggeredActivator | CopyForEachCanTarget$ Spell,Permanent,Card,Player
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos
+SVar:RolledChaos:DB$ RepeatEach | RepeatPlayers$ NonTargetedController | RepeatSubAbility$ DBCopy | ValidTgts$ Creature | ChangeZoneTable$ True
+SVar:DBCopy:DB$ CopyPermanent | Defined$ ParentTarget | Controller$ Remembered
+AI:RemoveDeck:All

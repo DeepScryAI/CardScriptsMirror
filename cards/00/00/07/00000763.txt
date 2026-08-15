@@ -1,0 +1,15 @@
+Id:763
+ColorIdentity:G
+ManaCost:3 G
+Types:Creature Elemental
+PT:*/*
+K:ETBReplacement:Other:TrigSac
+SVar:TrigSac:DB$ Sacrifice | Amount$ SacX | SacValid$ Forest.untapped | Defined$ You | RememberSacrificed$ True | Optional$ True
+S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X | SetToughness$ X
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ DBCleanup | Static$ True
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:SacX:Count$Valid Forest.YouCtrl+untapped
+SVar:NeedsToPlayVar:SacX GE5
+SVar:X:Remembered$Amount
+AI:RemoveDeck:Random
+DeckHas:Ability$Sacrifice

@@ -1,0 +1,15 @@
+Id:22771
+ColorIdentity:R
+ManaCost:1 R
+Types:Creature Vampire
+PT:2/2
+K:Haste
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPay
+SVar:TrigPay:AB$ ImmediateTrigger | Cost$ Mana<2 R\NumTimes> | Announce$ NumTimes | ConditionCheckSVar$ NumTimes | RememberSVarAmount$ NumTimes | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ X | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | TargetMin$ 0 | TargetMax$ X | ValidTgts$ Instant.cmcLE3+YouOwn,Sorcery.cmcLE3+YouOwn | RememberChanged$ True | SubAbility$ DBCopyCast
+SVar:DBCopyCast:DB$ Play | Valid$ Card.IsRemembered | ValidZone$ Exile | Controller$ You | CopyCard$ True | WithoutManaCost$ True | ValidSA$ Spell | Optional$ True | Amount$ All | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$TriggerRememberAmount
+AI:RemoveDeck:All
+DeckHas:Ability$Counters

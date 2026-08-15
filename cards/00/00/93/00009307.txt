@@ -1,0 +1,12 @@
+Id:9307
+ColorIdentity:U
+ManaCost:3 U U U
+Types:Creature Elemental Incarnation
+PT:6/6
+S:Mode$ MinMaxBlocker | ValidCard$ Creature.Self | Min$ 3
+R:Event$ Counter | ActiveZones$ Battlefield | ValidSA$ Spell | ValidCause$ SpellAbility.YouCtrl | ReplaceWith$ DBRemove
+SVar:DBRemove:DB$ ChangeZone | Defined$ ReplacedCard | Origin$ Stack | Destination$ Exile | RememberChanged$ True | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | Defined$ Remembered | WithoutManaCost$ True | Optional$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigShuffle
+SVar:TrigShuffle:DB$ ChangeZone | Origin$ Graveyard | Destination$ Library | Shuffle$ True | Defined$ TriggeredCardLKICopy

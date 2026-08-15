@@ -1,0 +1,11 @@
+Id:8345
+ColorIdentity:BR
+ManaCost:R
+Types:Creature Goblin Berserker
+PT:1/1
+S:Mode$ MustAttack | ValidCreature$ Card.Self
+A:AB$ Effect | Cost$ B Sac<1/CARDNAME> | ValidTgts$ Creature | ReplacementEffects$ SelfDamage | RememberObjects$ Targeted | ExileOnMoved$ Battlefield
+SVar:SelfDamage:Event$ DamageDone | ValidTarget$ Creature.IsRemembered | ReplaceWith$ CultistDestroy
+SVar:CultistDestroy:DB$ Destroy | Defined$ ReplacedTarget | SubAbility$ ExileEffect
+SVar:ExileEffect:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile
+AI:RemoveDeck:All

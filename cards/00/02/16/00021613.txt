@@ -1,0 +1,16 @@
+Id:21613
+ColorIdentity:WB
+ManaCost:3 W B
+Types:Legendary Planeswalker Kaya
+Loyalty:5
+A:AB$ PutCounter | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Creature.!token | AITgts$ Creature.!token+YouCtrl | TargetMin$ 0 | TargetMax$ 1 | CounterType$ GHOSTFORM | CounterNum$ 1 | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Targeted | Duration$ Permanent | Triggers$ TrigDieExile
+SVar:TrigDieExile:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard,Exile | ValidCard$ Card.Self | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard,Exile | Destination$ Hand | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScript$ w_1_1_spirit_flying | TokenOwner$ TriggeredCardController
+A:AB$ ChangeZone | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Permanent.nonLand
+A:AB$ Effect | Cost$ SubCounter<7/LOYALTY> | Planeswalker$ True | Ultimate$ True | Name$ Emblem — Kaya the Inexorable | Image$ emblem_kaya_the_inexorable | Duration$ Permanent | Triggers$ Upkeep
+SVar:Upkeep:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Command | OptionalDecider$ You | Execute$ TrigCast
+SVar:TrigCast:DB$ Play | Valid$ Card.Legendary+YouOwn | ValidSA$ Spell | ValidZone$ Hand,Graveyard,Exile | WithoutManaCost$ True
+DeckHas:Ability$Token | Counters
+DeckHints:Type$Legendary

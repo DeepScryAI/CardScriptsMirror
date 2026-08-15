@@ -1,0 +1,9 @@
+Id:33306
+ColorIdentity:W
+ManaCost:4 W
+Types:Legendary Creature Human Survivor
+PT:3/5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.token | TriggerZones$ Battlefield | Execute$ TrigCopy | OptionalDecider$ You | ResolvedLimit$ 1
+SVar:TrigCopy:DB$ CopyPermanent | Defined$ TriggeredCardLKICopy | ValidTgts$ Player.!TriggeredCardController | Controller$ Targeted | RememberTokens$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | ConditionDefined$ Remembered | ConditionPresent$ Card.OwnedBy Opponent | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

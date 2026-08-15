@@ -1,0 +1,13 @@
+Id:27422
+ColorIdentity:W
+ManaCost:2 W
+Types:Creature Human Noble
+PT:2/3
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigTreasure | CheckSVar$ Y | SVarCompare$ GTX
+SVar:TrigTreasure:DB$ Token | TokenScript$ c_a_treasure_sac
+SVar:X:Count$Valid Land.YouCtrl
+SVar:Y:PlayerCountOpponents$HighestValid Land.YouCtrl
+A:AB$ ChoosePlayer | Cost$ 2 W | Choices$ Player.Other | SubAbility$ DBGainControl
+SVar:DBGainControl:DB$ GainControl | NewController$ Player.Chosen | ValidTgts$ Treasure.YouCtrl | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw
+DeckHas:Ability$Token & Type$Treasure

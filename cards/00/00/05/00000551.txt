@@ -1,0 +1,10 @@
+Id:551
+ColorIdentity:
+ManaCost:5
+Types:Artifact
+A:AB$ Pump | Cost$ 5 Sac<1/CARDNAME> | ValidTgts$ Artifact.YouCtrl,Creature.YouCtrl,Land.YouCtrl | SubAbility$ DBExchange
+SVar:DBExchange:DB$ ExchangeControl | Defined$ ParentTarget | ValidTgts$ Permanent.OppCtrl | TargetsWithSharedCardType$ ParentTarget | TargetsWithSharedTypes$ Artifact,Creature,Land | RememberExchanged$ True | SubAbility$ DBDestroyAll
+SVar:DBDestroyAll:DB$ DestroyAll | ValidCards$ Aura.AttachedTo Card.IsRemembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+AI:RemoveDeck:All
+DeckHas:Ability$Sacrifice

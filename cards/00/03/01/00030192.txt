@@ -1,0 +1,10 @@
+Id:30192
+ColorIdentity:BG
+ManaCost:2 B G
+Types:Legendary Creature Squirrel Soldier
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigImmediateTrig
+SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ Forage | Execute$ TrigConjure
+SVar:TrigConjure:DB$ MakeCard | Name$ Chitterspitter | Conjure$ True | Zone$ Battlefield
+T:Mode$ DamageDoneOnce | ValidSource$ Squirrel.YouCtrl | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigPutCounterAll | TriggerZones$ Battlefield
+SVar:TrigPutCounterAll:AB$ PutCounterAll | Cost$ Sac<1/Permanent.token/token> | ValidCards$ Permanent.YouCtrl+namedChitterspitter | CounterType$ ACORN | CounterNum$ 1

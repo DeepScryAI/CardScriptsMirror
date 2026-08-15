@@ -1,0 +1,13 @@
+Id:28418
+ColorIdentity:G
+ManaCost:2 G
+Types:Enchantment Case
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 2 | TargetMin$ 1 | TargetMax$ 2 | DividedAsYouChoose$ 2
+T:Mode$ Phase | Phase$ End of Turn | CheckSVar$ X | SVarCompare$ GE8 | ValidPlayer$ You | TriggerZones$ Battlefield | IsPresent$ Card.Self+!IsSolved | Execute$ TrigSolve
+SVar:TrigSolve:DB$ AlterAttribute | Defined$ Self | Attributes$ Solved
+T:Mode$ AttackersDeclared | IsPresent$ Card.Self+IsSolved | AttackingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigCounterAttacker
+SVar:TrigCounterAttacker:DB$ PutCounter | ValidTgts$ Creature.attacking | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Targeted | KW$ Trample
+SVar:X:Count$Valid Creature.YouCtrl$CardPower
+DeckHas:Ability$Counters

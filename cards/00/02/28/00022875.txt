@@ -1,0 +1,27 @@
+Id:22875
+ColorIdentity:B
+ManaCost:2 B
+Types:Legendary Creature Human Cleric
+PT:2/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigLoseLife
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Human.Other+!token+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigLoseLife | Secondary$ True
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ 1 | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScript$ w_1_1_human
+A:AB$ Pump | Cost$ 2 | ValidTgts$ Human.YouCtrl | KW$ Lifelink
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ X | SVarCompare$ EQ13 | Execute$ TrigTransform
+SVar:TrigTransform:AB$ SetState | Cost$ 4 B B | Defined$ Self | Mode$ Transform
+SVar:X:Count$YourLifeTotal
+DeckHas:Ability$Token | LifeGain | Sacrifice
+DeckHints:Type$Human
+AlternateMode:DoubleFaced
+
+ALTERNATE
+
+ManaCost:no cost
+Colors:black
+Types:Legendary Creature Demon
+PT:6/6
+K:Flying
+K:Trample
+K:Lifelink
+A:AB$ Draw | Cost$ Sac<1/Creature.Other/another creature> | NumCards$ 1

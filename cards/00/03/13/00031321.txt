@@ -1,0 +1,11 @@
+Id:31321
+ColorIdentity:BG
+ManaCost:6 B G
+Types:Creature Dragon
+PT:7/6
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigMill | Secondary$ True | TriggerZones$ Battlefield
+SVar:TrigMill:DB$ Mill | Defined$ You | NumCards$ 3
+T:Mode$ ChangesZoneAll | ValidCards$ Creature.YouOwn | Origin$ Library | Destination$ Graveyard | TriggerZones$ Battlefield | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | ChooseFromDefined$ TriggeredCards | ChangeNum$ 1 | Mandatory$ True | Hidden$ True | Origin$ Graveyard | Destination$ Battlefield

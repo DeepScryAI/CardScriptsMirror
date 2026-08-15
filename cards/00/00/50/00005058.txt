@@ -1,0 +1,16 @@
+Id:5058
+ColorIdentity:WBR
+ManaCost:1 W
+Types:Creature Volver
+PT:1/1
+K:Kicker:1 B:R
+K:ETBReplacement:Other:VolverStrength:Mandatory::Card.Self+kicked 1
+K:ETBReplacement:Other:VolverPumped:Mandatory::Card.Self+kicked 2
+SVar:VolverStrength:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 2 | ETB$ True | SubAbility$ VolverResilience
+SVar:VolverResilience:DB$ Animate | Defined$ Self | Abilities$ ABRegen | Duration$ Permanent
+SVar:ABRegen:AB$ Regenerate | Cost$ PayLife<3>
+SVar:VolverPumped:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | ETB$ True | SubAbility$ VolverSpeed
+SVar:VolverSpeed:DB$ Animate | Defined$ Self | Keywords$ First Strike | Duration$ Permanent
+AI:RemoveDeck:Random
+DeckHas:Ability$Counters
+DeckNeeds:Color$Black | Red

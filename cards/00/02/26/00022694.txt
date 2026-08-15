@@ -1,0 +1,12 @@
+Id:22694
+ColorIdentity:G
+ManaCost:G
+Types:Creature Cat
+PT:1/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigEnergy
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigEnergy | Secondary$ True | TriggerZones$ Battlefield
+SVar:TrigEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ 1
+A:AB$ Pump | Cost$ PayEnergy<2> | NumAtt$ +1 | Duration$ Perpetual | SubAbility$ DBChooseCard
+SVar:DBChooseCard:DB$ ChooseCard | ChoiceZone$ Hand | Choices$ Card.Creature+YouOwn | MinAmount$ 0 | Amount$ 1 | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Pump | ConditionDefined$ ChosenCard | ConditionPresent$ Card | Defined$ ChosenCard | PumpZone$ Hand | NumAtt$ +1 | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True

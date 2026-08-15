@@ -1,0 +1,15 @@
+Id:1942
+ColorIdentity:BR
+ManaCost:1 B R
+Types:Enchantment
+K:Cumulative upkeep:1
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigCorrode
+SVar:TrigCorrode:DB$ PutCounterAll | ValidCards$ Artifact | CounterType$ RUST | CounterNum$ 1 | ValidTgts$ Opponent | SubAbility$ DBDestroyAllRusted
+SVar:DBDestroyAllRusted:DB$ RepeatEach | RepeatCards$ Artifact | RepeatSubAbility$ DBDestroyRusted
+SVar:DBDestroyRusted:DB$ Destroy | Defined$ Remembered | ConditionCheckSVar$ RememberedCMC | ConditionSVarCompare$ GEX | NoRegen$ True
+SVar:RememberedCMC:Remembered$CardCounters.RUST
+SVar:X:Remembered$CardManaCost
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigWipeCounters
+SVar:TrigWipeCounters:DB$ RemoveCounterAll | ValidCards$ Permanent | CounterType$ RUST
+SVar:NeedsToPlayVar:Y GE1
+SVar:Y:Count$Valid Artifact.OppCtrl

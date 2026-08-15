@@ -1,0 +1,11 @@
+Id:896
+ColorIdentity:
+ManaCost:0
+Types:Artifact
+A:AB$ Effect | Cost$ T Sac<1/CARDNAME> | ValidTgts$ Creature.YouCtrl | Triggers$ TrigAttackerUnblocked | RememberObjects$ Targeted | ForgetOnMoved$ Battlefield
+SVar:TrigAttackerUnblocked:Mode$ AttackerUnblocked | ValidCard$ Card.IsRemembered | Execute$ GainLife | OptionalDecider$ You
+SVar:GainLife:DB$ GainLife | Defined$ You | LifeAmount$ DelifX | SubAbility$ DBNoCombatDamage
+SVar:DBNoCombatDamage:DB$ Effect | RememberObjects$ Remembered | StaticAbilities$ SNoCombatDamage | ForgetOnMoved$ Battlefield
+SVar:SNoCombatDamage:Mode$ AssignNoCombatDamage | ValidCard$ Card.IsRemembered
+SVar:DelifX:Remembered$CardPower
+AI:RemoveDeck:All

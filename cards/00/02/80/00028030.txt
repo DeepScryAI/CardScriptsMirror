@@ -1,0 +1,17 @@
+Id:28030
+ColorIdentity:R
+ManaCost:1 R
+Types:Artifact
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self,Artifact.YouCtrl+Other | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.YouCtrl | TargetMin$ 0 | TargetMax$ 1 | NumAtt$ +1 | KW$ Haste | SubAbility$ DBTransform
+SVar:DBTransform:DB$ SetState | Defined$ Self | ConditionPresent$ Artifact.YouCtrl | ConditionCompare$ GE4 | Mode$ Transform
+DeckHints:Type$Artifact
+AlternateMode:DoubleFaced
+
+ALTERNATE
+
+ManaCost:no cost
+Types:Land Cave
+A:AB$ Mana | Cost$ T | Produced$ R | Amount$ 1
+A:AB$ Pump | Cost$ 2 R T | ValidTgts$ Creature | NumAtt$ +X | KW$ Haste | SorcerySpeed$ True
+SVar:X:Count$Valid Artifact.YouCtrl

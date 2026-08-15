@@ -1,0 +1,12 @@
+Id:29790
+ColorIdentity:G
+ManaCost:1 G
+Types:Instant
+A:SP$ Mill | NumCards$ 4 | RememberMilled$ True | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Graveyard,Exile | Destination$ Hand | Hidden$ True | ChangeType$ Permanent.IsRemembered | ChangeNum$ 1 | RememberChanged$ True | ForgetOtherRemembered$ True | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScript$ c_a_food_sac | TokenOwner$ You | ConditionCheckSVar$ X | ConditionSVarCompare$ GT0 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$Valid Squirrel.YouCtrl/Plus.Y
+SVar:Y:Remembered$Valid Squirrel
+DeckHas:Ability$Mill | LifeGain | Token
+DeckHints:Ability$Graveyard & Type$Squirrel

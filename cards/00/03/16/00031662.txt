@@ -1,0 +1,13 @@
+Id:31662
+ColorIdentity:WU
+ManaCost:W U
+Types:Legendary Creature Elf Advisor
+PT:1/3
+T:Mode$ LandPlayed | Origin$ Exile | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigGainLife
+T:Mode$ SpellCast | ValidCard$ Card.wasCastFromExile | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigGainLife | Secondary$ True
+SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 2
+A:AB$ Dig | PrecostDesc$ Draw Arcanum | Cost$ T | DigNum$ 1 | DestinationZone$ Exile | DestinationZone2$ Library | LibraryPosition2$ 0 | Optional$ True | ExileFaceDown$ True | WithMayLook$ True
+A:AB$ Effect | PrecostDesc$ Play Arcanum | Cost$ T | StaticAbilities$ SMayPlay,SReduceCost
+SVar:SMayPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.ExiledWithEffectSource | AffectedZone$ Exile
+SVar:SReduceCost:Mode$ ReduceCost | ValidCard$ Card | ValidSpell$ Spell.MayPlaySource | Activator$ You | Amount$ 2 | Secondary$ True
+DeckHints:Keyword$Cascade

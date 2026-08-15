@@ -1,0 +1,11 @@
+Id:6125
+ColorIdentity:
+ManaCost:no cost
+Types:Vanguard
+HandLifeModifier:-1/+5
+T:Mode$ SpellCast | ValidCard$ Artifact.nonColorless | ValidActivatingPlayer$ You | CheckSVar$ NumColoredCast | SVarCompare$ EQ1 | Execute$ TrigSearch | NoResolvingCheck$ True | TriggerZones$ Command
+SVar:TrigSearch:DB$ ChangeZone | AtRandom$ True | Origin$ Library | Destination$ Library | LibraryPosition$ -1 | ChangeType$ Artifact.nonColorless+cmcLTX | ChangeNum$ 1 | RememberChanged$ True | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | Defined$ Remembered | Controller$ You | WithoutManaCost$ True | Optional$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:NumColoredCast:Count$ThisTurnCast_Artifact.nonColorless+YouCtrl
+SVar:X:Count$TriggeredCardManaCost

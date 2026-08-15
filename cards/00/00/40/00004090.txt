@@ -1,0 +1,11 @@
+Id:4090
+ColorIdentity:
+ManaCost:3
+Types:Artifact
+A:AB$ ChooseSource | Cost$ 3 | Choices$ Card,Emblem | AILogic$ NeedsPrevention | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | ValidTgts$ Creature.YouCtrl | ReplacementEffects$ GeneralDamage | ExileOnMoved$ Battlefield | RememberObjects$ Targeted | SubAbility$ DBCleanup
+SVar:GeneralDamage:Event$ DamageDone | ValidSource$ Card.ChosenCardStrict,Emblem.ChosenCard | ValidTarget$ You | DamageTarget$ Remembered | ReplaceWith$ GeneralDmg
+SVar:GeneralDmg:DB$ ReplaceEffect | VarName$ Affected | VarValue$ Remembered | VarType$ Card | SubAbility$ ExileEffect
+SVar:ExileEffect:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+AI:RemoveDeck:All

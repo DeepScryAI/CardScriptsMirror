@@ -1,0 +1,12 @@
+Id:29119
+ColorIdentity:B
+ManaCost:1 B B
+Types:Legendary Creature Human Warlock
+PT:3/3
+T:Mode$ CommitCrime | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | ValidTgts$ Card.Black+YouOwn | Origin$ Graveyard | Destination$ Exile | Imprint$ True | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBCast
+SVar:DBCast:DB$ Play | Valid$ Card.IsImprinted | ValidZone$ Exile | CopyCard$ True | ValidSA$ Spell | Optional$ True | RememberPlayed$ True | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 2 | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True
+DeckHas:Ability$Graveyard
+DeckHints:Ability$Mill | Graveyard

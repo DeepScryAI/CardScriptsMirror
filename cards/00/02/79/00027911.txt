@@ -1,0 +1,13 @@
+Id:27911
+ColorIdentity:W
+ManaCost:3 W
+Types:Creature Dinosaur
+PT:3/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Permanent.nonLand+OppCtrl | TargetMin$ 0 | TargetMax$ OneEach | TargetsForEachPlayer$ True | Duration$ UntilHostLeavesPlay
+A:AB$ ChangeZone | Cost$ X W | Origin$ Exile | Destination$ Graveyard | SubAbility$ TrigLife | ValidTgts$ Permanent.ExiledWithSource+cmcEQX
+SVar:TrigLife:DB$ GainLife | Defined$ You | LifeAmount$ X
+SVar:X:Count$xPaid
+SVar:OneEach:PlayerCountOpponents$Amount
+SVar:PlayMain1:TRUE
+SVar:OblivionRing:TRUE

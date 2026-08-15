@@ -1,0 +1,13 @@
+Id:28851
+ColorIdentity:BR
+ManaCost:2 B R
+Types:Legendary Creature Human Soldier
+PT:2/2
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigRepeatEach
+SVar:TrigRepeatEach:DB$ RepeatEach | RepeatPlayers$ Opponent | RepeatSubAbility$ DBSacrifice
+SVar:DBSacrifice:DB$ Sacrifice | Amount$ X | SacValid$ Creature | Defined$ Remembered
+SVar:X:Count$Valid Creature.RememberedPlayerCtrl/DivideEvenlyUp.10
+T:Mode$ Sacrificed | ValidCard$ Creature.OppCtrl | Execute$ TrigPutCounter | TriggerZones$ Battlefield
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+DeckHints:Ability$Counters
+DeckHas:Ability$Counters

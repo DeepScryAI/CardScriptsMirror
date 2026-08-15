@@ -1,0 +1,13 @@
+Id:18288
+ColorIdentity:G
+ManaCost:3 G G
+Types:Legendary Creature Wurm
+PT:10/8
+S:Mode$ Continuous | Affected$ Creature.Other | AddTrigger$ GrothamaAttack | AddSVar$ HasAttackEffect
+SVar:GrothamaAttack:Mode$ Attacks | ValidCard$ Card.Self | Execute$ GrothamaFight | OptionalDecider$ You
+SVar:GrothamaFight:DB$ Fight | Defined$ TriggeredAttackerLKICopy & OriginalHost | AILogic$ Grothama
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigRepeat
+SVar:TrigRepeat:DB$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ Remembered | NumCards$ X
+SVar:X:TriggeredCard$TotalDamageThisTurn Card.RememberedPlayerCtrl
+SVar:HasAttackEffect:TRUE

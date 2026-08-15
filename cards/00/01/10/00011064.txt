@@ -1,0 +1,13 @@
+Id:11064
+ColorIdentity:B
+ManaCost:B
+Types:Enchantment
+T:Mode$ Discarded | ValidCard$ Card.OppOwn | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigPutCounter
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Opponent | CheckSVar$ CardsInHand | SVarCompare$ EQ0 | IsPresent$ Card.Self+counters_GE2_QUEST | Execute$ TrigLoseLife | TriggerZones$ Battlefield | OptionalDecider$ You
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ QUEST | CounterNum$ 1
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ TriggeredPlayer | LifeAmount$ 5
+SVar:CardsInHand:Count$ValidHand Card.ActivePlayerCtrl
+SVar:PlayMain1:TRUE
+SVar:MaxQuestEffect:2
+AI:RemoveDeck:Random
+DeckHints:Ability$Discard

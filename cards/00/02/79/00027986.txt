@@ -1,0 +1,12 @@
+Id:27986
+ColorIdentity:B
+ManaCost:6 B B
+Types:Creature Vampire Demon
+PT:6/6
+K:Flying
+T:Mode$ ChangesZone | ValidCard$ Card.Self+wasCastByYou | Destination$ Battlefield | Execute$ TrigSacAll
+SVar:TrigSacAll:DB$ SacrificeAll | ValidCards$ Creature.StrictlyOther | RememberSacrificed$ True | SubAbility$ DBReturnAll
+SVar:DBReturnAll:DB$ ChangeZoneAll | ChangeType$ Creature.!IsRemembered | Origin$ Graveyard | Destination$ Battlefield | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+DeckHas:Ability$Graveyard | Sacrifice
+DeckHints:Ability$Graveyard | Discard | Mill

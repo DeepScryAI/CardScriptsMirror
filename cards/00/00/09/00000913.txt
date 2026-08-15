@@ -1,0 +1,11 @@
+Id:913
+ColorIdentity:W
+ManaCost:2 W
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+T:Mode$ AttackerUnblocked | ValidCard$ Creature.EnchantedBy | Execute$ FarrelDmg | OptionalDecider$ EnchantedController
+SVar:FarrelDmg:DB$ DealDamage | ValidTgts$ Creature.!TriggeredAttacker | NumDmg$ FarrelX | DamageSource$ TriggeredAttackerLKICopy | SubAbility$ DBNoCombatDamage
+SVar:DBNoCombatDamage:DB$ Effect | RememberObjects$ TriggeredAttackerLKICopy | StaticAbilities$ SNoCombatDamage | ForgetOnMoved$ Battlefield
+SVar:SNoCombatDamage:Mode$ AssignNoCombatDamage | ValidCard$ Card.IsRemembered
+SVar:FarrelX:TriggeredAttacker$CardPower/Plus.2

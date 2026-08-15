@@ -1,0 +1,13 @@
+Id:5770
+ColorIdentity:B
+ManaCost:4 B
+Types:Creature Vampire
+PT:4/4
+K:Flying
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigSac
+T:Mode$ Blocks | ValidCard$ Card.Self | Execute$ TrigSac | Secondary$ True
+SVar:TrigSac:DB$ Sacrifice | UnlessCost$ ExileFromGrave<1/Card> | UnlessPayer$ You
+S:Mode$ Continuous | Affected$ Card.Self | AddPower$ 2 | AddToughness$ 2 | AddTrigger$ Dies | Condition$ Threshold
+SVar:Dies:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigLose | Secondary$ True | TriggerController$ TriggeredCardController
+SVar:TrigLose:DB$ LoseLife | Defined$ You | LifeAmount$ 6
+AI:RemoveDeck:All

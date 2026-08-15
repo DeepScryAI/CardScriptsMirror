@@ -1,0 +1,10 @@
+Id:27707
+ColorIdentity:R
+ManaCost:2 R
+Types:Sorcery
+A:SP$ Dig | Defined$ You | DigNum$ 3 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ STPlay | SubAbility$ DBPumpAll | ForgetOnMoved$ Exile
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBPumpAll:DB$ PutCounterAll | ValidCards$ Card.IsRemembered+withSuspend | CounterType$ TIME | CounterNum$ 4 | ValidZone$ Exile | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+K:Suspend:4:R

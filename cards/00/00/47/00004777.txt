@@ -1,0 +1,11 @@
+Id:4777
+ColorIdentity:W
+ManaCost:1 W
+Types:Instant
+A:SP$ ChooseSource | Choices$ Card,Emblem | AILogic$ NeedsPrevention | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | ReplacementEffects$ RepDmg | ConditionDefined$ ChosenCard | ConditionPresent$ Card,Emblem | ConditionCompare$ GE1
+SVar:RepDmg:Event$ DamageDone | ValidTarget$ You | ValidSource$ Card.ChosenCardStrict,Emblem.ChosenCard | ReplaceWith$ DBTrigger | PreventionEffect$ True
+SVar:DBTrigger:DB$ ImmediateTrigger | Execute$ GainLifeYou | ConditionCheckSVar$ Y
+SVar:GainLifeYou:DB$ GainLife | Defined$ You | LifeAmount$ X
+SVar:X:Spawner>ReplaceCount$DamageAmount
+SVar:Y:ReplacedSource$Valid Card.BlackSource,Card.RedSource

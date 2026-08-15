@@ -1,0 +1,13 @@
+Id:30563
+ColorIdentity:U
+ManaCost:3 U U U
+Types:Enchantment Creature Fish Illusion
+PT:7/7
+K:Impending:3:2 U U
+T:Mode$ ChangesZone | Destination$ Battlefield | Origin$ Any | ValidCard$ Card.Self | Execute$ TrigSeek
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigSeek | Secondary$ True
+SVar:TrigSeek:DB$ Seek | Type$ Card.nonLand
+T:Mode$ SeekAll | PlayerTurn$ True | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigConjure
+SVar:TrigConjure:DB$ MakeCard | DefinedName$ TriggeredCards | RememberMade$ True | Zone$ Hand | Conjure$ True | SubAbility$ DBManifest
+SVar:DBManifest:DB$ Manifest | Defined$ Remembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

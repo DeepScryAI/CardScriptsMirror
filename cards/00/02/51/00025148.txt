@@ -1,0 +1,11 @@
+Id:25148
+ColorIdentity:W
+ManaCost:4 W
+Types:Creature Astartes Knight
+PT:4/4
+K:Flash
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigBranch
+SVar:TrigBranch:DB$ Branch | ValidTgts$ Creature.attacking | BranchConditionSVar$ X | BranchConditionSVarCompare$ EQ1 | TrueSubAbility$ ExileDemon | FalseSubAbility$ DestroyAttacker
+SVar:DestroyAttacker:DB$ Destroy | Defined$ Targeted
+SVar:ExileDemon:DB$ ChangeZone | Defined$ Targeted | Origin$ Battlefield | Destination$ Exile
+SVar:X:Targeted$Valid Creature.Demon

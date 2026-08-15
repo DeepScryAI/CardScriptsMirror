@@ -1,0 +1,12 @@
+Id:6009
+ColorIdentity:R
+ManaCost:3 R R R
+Types:Enchantment
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Player | Execute$ TrigGainControl | TriggerZones$ Battlefield
+SVar:TrigGainControl:DB$ GainControl | NewController$ TriggeredPlayer | Defined$ Self
+T:Mode$ ChangesController | ValidCard$ Card.Self | ValidOriginalController$ Player.Other | TriggerZones$ Battlefield | Execute$ TrigChoose
+SVar:TrigChoose:DB$ ChooseCard | Defined$ You | Choices$ Creature.YouCtrl | Mandatory$ True | AILogic$ WorstCard | SubAbility$ DBChoosePlayer
+SVar:DBChoosePlayer:DB$ ChoosePlayer | Defined$ You | Choices$ Player.Opponent | SubAbility$ DBFlip
+SVar:DBFlip:DB$ FlipCoin | LoseSubAbility$ DBControl
+SVar:DBControl:DB$ GainControl | NewController$ Player.Chosen | Defined$ ChosenCard
+AI:RemoveDeck:Random

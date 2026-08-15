@@ -1,0 +1,13 @@
+Id:11062
+ColorIdentity:U
+ManaCost:U
+Types:Enchantment
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigPeek | TriggerZones$ Battlefield | OptionalDecider$ You
+SVar:TrigPeek:DB$ PeekAndReveal | RevealValid$ Creature | RevealOptional$ True | RememberRevealed$ True | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | CounterType$ QUEST | CounterNum$ 1 | Defined$ Self | ConditionDefined$ Remembered | ConditionPresent$ Creature | ConditionCompare$ EQ1 | SubAbility$ DBCleanup
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ Player | Execute$ TrigChangeZone | OptionalDecider$ You | TriggerZones$ Battlefield | IsPresent$ Card.Self+counters_GE3_QUEST | PresentCompare$ EQ1
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | ChangeType$ Creature.Kraken,Creature.Leviathan,Creature.Octopus,Creature.Serpent | ChangeNum$ 1 | Hidden$ True
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:MaxQuestEffect:3
+DeckHas:Ability$Counters
+DeckNeeds:Type$Kraken | Leviathan | Octopus | Serpent

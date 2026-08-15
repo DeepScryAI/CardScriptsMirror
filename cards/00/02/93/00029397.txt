@@ -1,0 +1,13 @@
+Id:29397
+ColorIdentity:U
+ManaCost:3 U U
+Types:Creature Eldrazi
+PT:3/5
+K:Devoid
+K:Kicker:C
+T:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | CharmNum$ Count$Kicked.2.1 | Choices$ DBChangeZone,DBDraw
+SVar:DBChangeZone:DB$ ChangeZone | ValidTgts$ Creature | Origin$ Battlefield | Destination$ Hand
+SVar:DBDraw:DB$ Draw | NumCards$ 2 | ValidTgts$ Player | Defined$ ThisTargetedPlayer | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ ParentTarget | NumCards$ 1 | Mode$ TgtChoose
+SVar:PlayMain1:TRUE

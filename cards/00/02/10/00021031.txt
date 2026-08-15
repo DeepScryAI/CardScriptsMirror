@@ -1,0 +1,14 @@
+Id:21031
+ColorIdentity:U
+ManaCost:1 U U
+Types:Legendary Planeswalker Jace
+Loyalty:4
+K:Kicker:2
+T:Mode$ ChangesZone | ValidCard$ Card.Self+kicked | Origin$ Any | Destination$ Battlefield | Execute$ TrigCopy
+SVar:TrigCopy:DB$ CopyPermanent | Defined$ Self | NonLegendary$ True | SetLoyalty$ 1
+A:AB$ Scry | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | ScryNum$ 2
+A:AB$ Draw | Cost$ AddCounter<0/LOYALTY> | Planeswalker$ True | Ultimate$ True | NumCards$ 1 | Reveal$ True | RememberDrawn$ True | SubAbility$ DBRemoveCounters
+SVar:DBRemoveCounters:DB$ RemoveCounter | Defined$ Self | CounterType$ LOYALTY | CounterNum$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$CardManaCost
+DeckHas:Ability$Token

@@ -1,0 +1,20 @@
+Id:21587
+ColorIdentity:W
+ManaCost:2 W W
+Types:Legendary Creature God
+PT:4/4
+S:Mode$ Continuous | Affected$ Creature.YouCtrl+enchanted,Creature.YouCtrl+equipped | AddKeyword$ Double Strike
+T:Mode$ Phase | Phase$ BeginCombat | TriggerZones$ Battlefield | Execute$ TrigTargetAuraEquip | OptionalDecider$ You
+SVar:TrigTargetAuraEquip:DB$ Pump | ValidTgts$ Equipment.AttachedTo Creature.YouCtrl,Aura.AttachedTo Creature.YouCtrl | SubAbility$ DBAttach
+SVar:DBAttach:DB$ Attach | Object$ ParentTarget | ValidTgts$ Creature.YouCtrl
+DeckHints:Type$Equipment | Aura
+AlternateMode:Modal
+
+ALTERNATE
+
+ManaCost:1 W
+Types:Legendary Artifact Equipment
+K:Equip:1 W
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddKeyword$ Vigilance
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.AttachedBy | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Hand

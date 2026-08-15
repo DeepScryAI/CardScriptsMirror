@@ -1,0 +1,14 @@
+Id:27755
+ColorIdentity:UBR
+ManaCost:3 U B R
+Types:Legendary Creature Time Lord Rogue
+PT:4/5
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.nonArtifact+Other | TriggerZones$ Battlefield | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Defined$ TriggeredCard | GainControl$ True | FaceDown$ True | Origin$ Graveyard | Destination$ Battlefield | Tapped$ True | FaceDownSetType$ Artifact & Creature & Cyberman | FaceDownPower$ 2 | FaceDownToughness$ 2
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ VillainousChoice
+SVar:VillainousChoice:DB$ VillainousChoice | Defined$ Opponent | Choices$ DBDamage,DBDraw
+SVar:DBDamage:DB$ DealDamage | NumDmg$ 1 | DamageSource$ Valid Artifact.Creature+YouCtrl | Defined$ Remembered
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1 | SubAbility$ DBChaos
+SVar:DBChaos:DB$ ChaosEnsues
+DeckHints:Type$Artifact
+DeckHas:Type$Cyberman

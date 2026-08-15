@@ -1,0 +1,14 @@
+Id:30034
+ColorIdentity:B
+ManaCost:3 B
+Types:Creature Squirrel Warlock
+PT:3/4
+K:Menace
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigExile | Secondary$ True
+SVar:TrigExile:DB$ ChangeZone | ValidTgts$ Card | Origin$ Graveyard | TargetMin$ 0 | TargetMax$ 1 | Destination$ Exile | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScript$ c_a_food_sac | TokenOwner$ You
+S:Mode$ Continuous | Affected$ Food.YouCtrl | EffectZone$ Battlefield | GainsAbilitiesOf$ Creature.ExiledWithSource | GainsAbilitiesOfZones$ Exile
+SVar:HasAttackEffect:TRUE
+DeckHas:Ability$Token | Graveyard & Type$Food | Artifact
+DeckHints:Ability$Graveyard | Mill

@@ -1,0 +1,11 @@
+Id:11372
+ColorIdentity:
+ManaCost:no cost
+Types:Scheme
+T:Mode$ SetInMotion | ValidCard$ Card.Self | Execute$ TrigControl | TriggerZones$ Command
+SVar:TrigControl:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True | ValidTgts$ Creature.OppCtrl | TgtZone$ Graveyard | TargetMin$ 0 | TargetMax$ OneEach | TargetsForEachPlayer$ True | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ Remembered | StaticAbilities$ AddAttackStatic | Duration$ Permanent | ForgetOnMoved$ Battlefield | SubAbility$ DBCleanup
+SVar:AddAttackStatic:Mode$ Continuous | Affected$ Card.IsRemembered | AddStaticAbility$ AttackOwner
+SVar:AttackOwner:Mode$ MustAttack | ValidCreature$ Card.Self | MustAttack$ CardOwner
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:OneEach:PlayerCountOpponents$Amount

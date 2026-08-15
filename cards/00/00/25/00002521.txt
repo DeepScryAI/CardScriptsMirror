@@ -1,0 +1,18 @@
+Id:2521
+ColorIdentity:U
+ManaCost:X U
+Types:Instant
+Text:X can't be 0.\r\n
+A:SP$ ChangeZone | Cost$ XMin1 X U | TgtZone$ Stack | TargetType$ Spell | ValidTgts$ Card | Origin$ Stack | Destination$ Exile | Imprint$ True | WithCountersType$ DELAY | WithCountersAmount$ X | WithCountersPlacer$ TargetedController | SubAbility$ DBDelayEffect
+SVar:X:Count$xPaid
+SVar:DBDelayEffect:DB$ Effect | EffectOwner$ TargetedController | RememberSpell$ Targeted | ImprintCards$ Imprinted | ConditionDefined$ Imprinted | ConditionPresent$ Card.inZoneExile | Triggers$ TrigDelay,TrigExile | Duration$ Permanent | SubAbility$ DBForget
+SVar:DBForget:DB$ Cleanup | ClearImprinted$ True
+# Add a fake trigger to display spell ability text ingame
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Command | Execute$ TrigLoseDelay
+SVar:TrigDelay:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Command | Execute$ TrigLoseDelay
+SVar:TrigLoseDelay:DB$ RemoveCounter | Defined$ Imprinted | CounterType$ DELAY | CounterNum$ 1 | SubAbility$ DBPutOntoStack
+SVar:DBPutOntoStack:DB$ CopySpellAbility | Defined$ Remembered | Controller$ You | UseOriginalHost$ True | ConditionDefined$ Imprinted | ConditionPresent$ Card.counters_EQ0_DELAY
+SVar:TrigExile:Mode$ ChangesZone | Origin$ Exile | Destination$ Any | Static$ True | ValidCard$ Card.IsImprinted | TriggerZones$ Command | Execute$ TrigExileSelf
+SVar:TrigExileSelf:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile
+AI:RemoveDeck:All
+AI:RemoveDeck:Random

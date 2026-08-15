@@ -1,0 +1,11 @@
+Id:24244
+ColorIdentity:WUR
+ManaCost:1 U R W
+Types:Legendary Creature Human Wizard
+PT:4/4
+K:Haste
+S:Mode$ ActivateAbilityAsIfHaste | ValidCard$ Creature.Other+YouCtrl+inZoneBattlefield
+A:AB$ Effect | Cost$ T | Triggers$ ActivateTrig
+SVar:ActivateTrig:Mode$ AbilityCast | ValidSA$ SpellAbility.!ManaAbility+ManaSpent GE4 | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigCopy | OneOff$ True
+SVar:TrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | MayChooseTarget$ True
+SVar:BuffedBy:Creature.hasAbility Activated

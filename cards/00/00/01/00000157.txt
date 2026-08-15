@@ -1,0 +1,12 @@
+Id:157
+ColorIdentity:
+ManaCost:1
+Types:Artifact
+R:Event$ Untap | ValidCard$ Card.Self | ValidStepTurnToController$ You | Layer$ CantHappen
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigUntap
+SVar:TrigUntap:AB$ Untap | Cost$ 4 | Defined$ Self
+T:Mode$ Phase | Phase$ Draw | ValidPlayer$ You | PresentDefined$ Self | IsPresent$ Card.tapped | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | Defined$ You | NumDmg$ 1
+A:AB$ Mana | Cost$ T | Produced$ C | Amount$ 3
+SVar:UntapMe:True
+AI:RemoveDeck:Random

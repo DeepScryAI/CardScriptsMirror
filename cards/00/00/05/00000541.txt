@@ -1,0 +1,14 @@
+Id:541
+ColorIdentity:R
+ManaCost:4 R R
+Types:Creature Phoenix
+PT:3/2
+K:Flying
+R:Event$ Moved | ActiveZones$ Battlefield | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | ReplaceWith$ ToHand
+SVar:ToHand:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Defined$ ReplacedCard | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | Triggers$ ComeBack | RememberObjects$ ReplacedCard | Duration$ UntilYourNextTurn | StaticAbilities$ CantBeCast,KWShow
+SVar:CantBeCast:Mode$ CantBeCast | ValidCard$ Card.IsRemembered | Caster$ You
+SVar:KWShow:Mode$ Continuous | AffectedZone$ Hand | Affected$ Card.IsRemembered | MayLookAt$ Player
+SVar:ComeBack:Mode$ ChangesZone | Origin$ Hand | Destination$ Any | ValidCard$ Card.IsRemembered | Execute$ ExileSelf | TriggerZones$ Command | TriggerController$ TriggeredCardController | Static$ True
+SVar:ExileSelf:DB$ ChangeZone | Origin$ Command | Destination$ Exile | Defined$ Self
+SVar:SacMe:1

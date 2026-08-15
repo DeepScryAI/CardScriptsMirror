@@ -1,0 +1,16 @@
+Id:21840
+ColorIdentity:WUBRG
+ManaCost:3
+Types:Legendary Artifact Creature Book Construct
+PT:1/4
+S:Mode$ CantBeCast | ValidCard$ Permanent | Caster$ You
+A:AB$ Mana | Cost$ 4 T | Produced$ W U B R G | SubAbility$ DBTrigger
+SVar:DBTrigger:DB$ DelayedTrigger | Mode$ SpellCast | ValidActivatingPlayer$ You | ThisTurn$ True | Execute$ DBDig
+SVar:DBDig:DB$ DigUntil | Defined$ You | Valid$ Instant.cmcLTX,Sorcery.cmcLTX | FoundDestination$ Exile | RevealedDestination$ Exile | RememberRevealed$ True | ImprintFound$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ MayPlay | RememberObjects$ Imprinted | ForgetOnMoved$ Exile | SubAbility$ DBRestRandomOrder
+SVar:MayPlay:Mode$ Continuous | Affected$ Card.IsRemembered+nonLand | MayPlay$ True | MayPlayWithoutManaCost$ True | AffectedZone$ Exile
+SVar:DBRestRandomOrder:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered | Origin$ Exile | Destination$ Library | LibraryPosition$ -1 | RandomOrder$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True
+SVar:X:TriggeredCard$CardManaCost
+AI:RemoveDeck:Random
+DeckNeeds:Type$Instant | Sorcery

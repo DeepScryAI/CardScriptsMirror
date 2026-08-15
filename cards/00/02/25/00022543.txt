@@ -1,0 +1,11 @@
+Id:22543
+ColorIdentity:BR
+ManaCost:B R
+Types:Legendary Creature Human Elf Bard
+PT:1/2
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ DBToken
+SVar:DBToken:DB$ Token | TokenScript$ c_a_treasure_sac
+R:Event$ Moved | ActiveZones$ Battlefield | ValidCard$ Creature.YouCtrl+Other | Destination$ Battlefield | ReplaceWith$ EnterWithP1P1 | ReplacementResult$ Updated
+SVar:EnterWithP1P1:DB$ PutCounter | ETB$ True | Defined$ ReplacedCard | CounterType$ P1P1 | CounterNum$ Treasure
+SVar:Treasure:ReplacedCardLKI$CastTotalManaSpent Treasure
+DeckHas:Ability$Token | Sacrifice | Counters

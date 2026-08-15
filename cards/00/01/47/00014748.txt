@@ -1,0 +1,14 @@
+Id:14748
+ColorIdentity:W
+ManaCost:3 W
+Types:Instant
+A:SP$ ChoosePlayer | Defined$ You | Choices$ Player.Opponent | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenAmount$ 3 | TokenScript$ w_1_1_spirit_flying | TokenOwner$ .Chosen,You | SubAbility$ DBChoose
+SVar:DBChoose:DB$ ChoosePlayer | Defined$ You | Choices$ Player.Opponent | SubAbility$ DBGainLifeYou
+SVar:DBGainLifeYou:DB$ GainLife | Defined$ You | LifeAmount$ X | SubAbility$ DBGainLifeOpp
+SVar:DBGainLifeOpp:DB$ GainLife | Defined$ ChosenPlayer | LifeAmount$ Y
+SVar:X:Count$Valid Creature.YouCtrl/Twice
+SVar:Y:Count$Valid Creature.ChosenCtrl/Twice
+AI:RemoveDeck:All
+AI:RemoveDeck:Random
+DeckHas:Ability$Token

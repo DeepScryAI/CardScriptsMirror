@@ -1,0 +1,13 @@
+Id:27362
+ColorIdentity:WUG
+ManaCost:1 G W U
+Types:Legendary Creature Human Artificer
+PT:3/3
+S:Mode$ Continuous | Affected$ Creature.Food+YouCtrl,Creature.Golem+YouCtrl | AddPower$ 2 | AddToughness$ 2 | AddKeyword$ Trample
+T:Mode$ ChangesZone | ValidCard$ Creature.!token+Other+YouCtrl | Origin$ Battlefield | Destination$ Graveyard | TriggerZones$ Battlefield | Execute$ TrigExile | OptionalDecider$ You
+SVar:TrigExile:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Exile | RememberChanged$ True | SubAbility$ DBCopy
+SVar:DBCopy:DB$ CopyPermanent | Defined$ TriggeredCardLKICopy | SetPower$ 1 | SetToughness$ 1 | AddAbilities$ FoodSac | AddTypes$ Food & Golem & Artifact & Creature | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:FoodSac:AB$ GainLife | Cost$ 2 T Sac<1/CARDNAME/this artifact> | Defined$ You | LifeAmount$ 3
+DeckHas:Ability$Token
+DeckHints:Type$Food | Golem

@@ -1,0 +1,13 @@
+Id:29291
+ColorIdentity:WB
+ManaCost:2 W B B
+Types:Legendary Creature Vampire Cleric Knight
+PT:4/2
+K:Menace
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Permanent.OppCtrl+nonLand+!token | RememberTargets$ True | SubAbility$ DBConjure
+SVar:DBConjure:DB$ MakeCard | UnlessCost$ Discard<1/Card> | UnlessPayer$ You | UnlessSwitched$ True | Conjure$ True | DefinedName$ Remembered | Zone$ Hand | Amount$ 1 | ImprintMade$ True | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Imprinted | staticAbilities$ SpendAnyMana | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True
+SVar:SpendAnyMana:Mode$ ManaConvert | EffectZone$ Stack | ValidPlayer$ You | ValidCard$ Card.Self | ValidSA$ Spell | ManaConversion$ AnyType->AnyType
+DeckHas:Ability$Discard

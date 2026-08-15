@@ -1,0 +1,13 @@
+Id:25811
+ColorIdentity:G
+ManaCost:4 G G
+Types:Sorcery
+A:SP$ Charm | Choices$ DBExileAll,DBSearch,DBToken,DBCounter | CharmNum$ 2
+SVar:DBExileAll:DB$ ChangeZoneAll | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Player | ChangeType$ Card | RememberChanged$ True | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:DBSearch:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Land | ChangeNum$ 2 | Tapped$ True
+SVar:DBToken:DB$ Token | TokenScript$ g_2_2_bear | TokenAmount$ 2
+SVar:DBCounter:DB$ PutCounterAll | ValidCards$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 2
+SVar:X:Remembered$Amount
+DeckHas:Ability$Token | Counters | LifeGain & Type$Bear

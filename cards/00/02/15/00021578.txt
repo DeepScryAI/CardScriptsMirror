@@ -1,0 +1,14 @@
+Id:21578
+ColorIdentity:R
+ManaCost:3 R R
+Types:Creature Dragon
+PT:4/4
+K:Flying
+K:Haste
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigToken
+T:Mode$ BecomesTarget | ValidTarget$ Card.Self | ValidSource$ Spell | TriggerZones$ Battlefield | Execute$ TrigToken | Secondary$ True
+SVar:TrigToken:DB$ Token | TokenScript$ c_a_treasure_sac
+S:Mode$ Continuous | Affected$ Card.Treasure+YouCtrl | AddAbility$ Mana
+SVar:Mana:AB$ Mana | Cost$ T Sac<1/CARDNAME/this artifact> | Produced$ Any | Amount$ 2
+SVar:HasAttackEffect:TRUE
+DeckHas:Ability$Token | Sacrifice & Type$Treasure | Artifact

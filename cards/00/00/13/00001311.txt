@@ -1,0 +1,9 @@
+Id:1311
+ColorIdentity:G
+ManaCost:3 G
+Types:Instant
+A:SP$ DelayedTrigger | ValidTgts$ Creature | Mode$ Phase | ThisTurn$ True | Phase$ EndCombat | ValidPlayer$ Player | Execute$ VenomousBreathTrigDestroy | RememberObjects$ Targeted
+SVar:VenomousBreathTrigDestroy:DB$ Pump | RememberObjects$ DelayTriggerRemembered | SubAbility$ DBDestroy
+SVar:DBDestroy:DB$ DestroyAll | ValidCards$ Creature.blockedRemembered,Creature.blockedByRemembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+AI:RemoveDeck:All

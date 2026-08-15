@@ -1,0 +1,14 @@
+Id:25039
+ColorIdentity:U
+ManaCost:3 U
+Types:Creature Djinn
+PT:3/4
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMakeCard
+SVar:TrigMakeCard:DB$ MakeCard | Conjure$ True | AtRandom$ True | Spellbook$ Hard Evidence,Stifle,Contentious Plan,Suit Up,Befuddle,Majestic Metamorphosis,Hampering Snare,Ghostform,See the Truth,Keep Safe,Teferi's Time Twist,Startle,Flood of Recollection,Choking Tethers,Bury in Books | Zone$ Hand | SubAbility$ DBRepeat
+SVar:DBRepeat:DB$ Repeat | RepeatCheckSVar$ X | RepeatSVarCompare$ LTY | ConditionCheckSVar$ X | ConditionSVarCompare$ LTY | RepeatSubAbility$ DBMakeCard
+SVar:DBMakeCard:DB$ MakeCard | Conjure$ True | AtRandom$ True | Spellbook$ Hard Evidence,Stifle,Contentious Plan,Suit Up,Befuddle,Majestic Metamorphosis,Hampering Snare,Ghostform,See the Truth,Keep Safe,Teferi's Time Twist,Startle,Flood of Recollection,Choking Tethers,Bury in Books | Zone$ Hand
+SVar:X:Count$CardsInYourHand
+SVar:Y:Count$Domain
+AI:RemoveDeck:Random
+DeckHas:Ability$Token | Cycling & Type$Crab | Zombie

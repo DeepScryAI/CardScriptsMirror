@@ -1,0 +1,16 @@
+Id:1131
+ColorIdentity:
+ManaCost:4
+Types:Artifact
+A:AB$ PutCounter | Cost$ X T | RememberCostMana$ True | CounterType$ CHARGE | CounterNum$ 1 | CheckSVar$ Y | SVarCompare$ EQ0 | SubAbility$ DBExile
+SVar:X:Count$xPaid
+SVar:Y:Count$CardCounters.CHARGE
+SVar:DBExile:DB$ ChangeZone | Optional$ True | RememberChanged$ True | Origin$ Hand | Destination$ Exile | ChangeType$ Card.nonLand | ChangeNum$ 1 | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | RememberObjects$ Remembered | Duration$ Permanent | ForgetOnMoved$ Exile
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+T:Mode$ ChangesZone | ValidCard$ Card.IsRemembered+ExiledWithSource | Origin$ Exile | Destination$ Any | Execute$ ForgetCard | Static$ True
+SVar:ForgetCard:DB$ Cleanup | ForgetDefined$ TriggeredCard
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | Static$ True | ValidCard$ Card.Self | Execute$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+A:AB$ Mana | Cost$ T SubCounter<1/CHARGE> | Produced$ Special LastNotedType | RestrictValid$ Spell.IsRemembered
+AI:RemoveDeck:All

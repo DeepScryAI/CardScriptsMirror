@@ -1,0 +1,13 @@
+Id:32900
+ColorIdentity:R
+ManaCost:3 R R
+Types:Legendary Creature Dragon
+PT:4/4
+K:Flying
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.Other+Legendary+YouCtrl | NumAtt$ +X
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self+nonSpirit | Execute$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Battlefield | StaticEffect$ Animate | GainControl$ True
+SVar:Animate:Mode$ Continuous | Affected$ Card.IsRemembered | AddType$ Spirit
+SVar:X:Count$CardPower
+SVar:HasAttackEffect:TRUE

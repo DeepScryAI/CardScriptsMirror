@@ -1,0 +1,11 @@
+Id:22746
+ColorIdentity:B
+ManaCost:2 B
+Types:Sorcery
+A:SP$ ChooseCard | ValidTgts$ Opponent | Choices$ Creature.TargetedPlayerOwn | ChoiceZone$ Graveyard | AILogic$ WorstCard | Amount$ 1 | SubAbility$ DBChangeZone | Mandatory$ True
+SVar:DBChangeZone:DB$ ChangeZone | Defined$ ChosenCard | Origin$ Graveyard | GainControl$ True | Destination$ Battlefield
+K:Flashback:8 B B:ReduceCost$ X:This spell costs {X} less to cast this way, where X is the greatest mana value of a commander you own on the battlefield or in the command zone.
+SVar:X:Count$ValidBattlefield,Command Card.IsCommander+YouOwn$GreatestCardManaCost
+SVar:NeedsToPlayVar:Z GE1
+SVar:Z:Count$ValidGraveyard Creature.OppOwn
+DeckHas:Ability$Graveyard

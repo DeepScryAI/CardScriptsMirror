@@ -1,0 +1,11 @@
+Id:9315
+ColorIdentity:B
+ManaCost:3 B
+Types:Sorcery
+A:SP$ Repeat | RepeatCheckSVar$ CheckRepeat | RepeatSVarCompare$ GT0 | RepeatSubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ 2 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 2 | SubAbility$ DBClash
+SVar:DBClash:DB$ Clash | WinSubAbility$ DBStoreSVar | OtherwiseSubAbility$ DBReset
+SVar:DBStoreSVar:DB$ StoreSVar | SVar$ CheckRepeat | Type$ Number | Expression$ 1
+SVar:DBReset:DB$ StoreSVar | SVar$ CheckRepeat | Type$ Number | Expression$ 0
+SVar:CheckRepeat:Number$0

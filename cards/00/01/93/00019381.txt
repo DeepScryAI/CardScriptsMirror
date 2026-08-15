@@ -1,0 +1,12 @@
+Id:19381
+ColorIdentity:B
+ManaCost:B
+Types:Creature Horror
+PT:1/1
+K:Menace
+T:Mode$ Phase | Phase$ Main1 | ValidPlayer$ You | Execute$ DBImmediateTrigger | TriggerZones$ Battlefield
+SVar:DBImmediateTrigger:AB$ ImmediateTrigger | Execute$ NameCard | Cost$ Sac<1/Creature>
+SVar:NameCard:DB$ NameCard | Defined$ You | ValidCards$ Card.nonLand | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | ValidTgts$ Player | Mode$ RevealDiscardAll | DiscardValid$ Card.NamedCard | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearNamedCard$ True
+AI:RemoveDeck:All

@@ -1,0 +1,13 @@
+Id:29596
+ColorIdentity:W
+ManaCost:3 W W
+Types:Creature Angel
+PT:4/4
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigEnergy
+SVar:TrigEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ 3
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigImmediateTrig
+SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ PayEnergy<2> | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | Choices$ DBSelf,DBOthers
+SVar:DBSelf:DB$ Pump | Defined$ Self | KW$ Vigilance & Lifelink
+SVar:DBOthers:DB$ Pump | Defined$ Valid Creature.StrictlyOther+YouCtrl | NumAtt$ +1 | NumDef$ +1

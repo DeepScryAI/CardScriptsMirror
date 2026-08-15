@@ -1,0 +1,13 @@
+Id:26970
+ColorIdentity:WB
+ManaCost:W
+Types:Legendary Creature Halfling Citizen
+PT:1/2
+A:AB$ Animate | Cost$ WB WB | ConditionPresent$ Card.Self+Citizen | Types$ Halfling,Scout | RemoveCreatureTypes$ True | Duration$ Permanent | Power$ 2 | Toughness$ 3 | Keywords$ Lifelink
+A:AB$ Animate | Cost$ B B B | ConditionPresent$ Card.Self+Scout | Types$ Halfling,Rogue | RemoveCreatureTypes$ True | Duration$ Permanent | Triggers$ TrigDamageDone
+SVar:TrigDamageDone:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigBranch
+SVar:TrigBranch:DB$ Branch | BranchConditionSVar$ NumRingTempted | BranchConditionSVarCompare$ GE4 | TrueSubAbility$ TrigTheyLose | FalseSubAbility$ TrigTempt
+SVar:TrigTheyLose:DB$ LosesGame | Defined$ TriggeredTarget
+SVar:TrigTempt:DB$ RingTemptsYou
+SVar:NumRingTempted:PlayerCountPropertyYou$RingTemptedYou
+DeckHas:Ability$LifeGain

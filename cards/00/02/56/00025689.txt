@@ -1,0 +1,14 @@
+Id:25689
+ColorIdentity:B
+ManaCost:3 B
+Types:Instant
+A:SP$ Dig | DigNum$ 3 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | ExileFaceDown$ True | SubAbility$ DBDig
+SVar:DBDig:DB$ Dig | DigNum$ 3 | ChangeNum$ All | DestinationZone$ Exile | Imprint$ True | ExileFaceDown$ True | SubAbility$ YouChoose
+SVar:YouChoose:DB$ TwoPiles | Zone$ Exile | DefinedPiles$ Remembered,Imprinted | ChosenPile$ TurnFaceUp | SubAbility$ TheyChoose | KeepRemembered$ True
+SVar:TurnFaceUp:DB$ SetState | Defined$ Remembered | Mode$ TurnFaceUp
+SVar:TheyChoose:DB$ TwoPiles | Zone$ Exile | DefinedPiles$ Remembered,Imprinted | Chooser$ Opponent | ChosenPile$ ToHand | UnchosenPile$ ToGrave | SubAbility$ DBLoseLife
+SVar:ToHand:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Hand
+SVar:ToGrave:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Graveyard
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 3 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearImprinted$ True
+DeckHints:Ability$Graveyard

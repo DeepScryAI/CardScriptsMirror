@@ -1,0 +1,25 @@
+Id:33159
+ColorIdentity:BR
+ManaCost:2 B
+Types:Legendary Creature Goblin Warlock
+PT:2/1
+K:Menace
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
+T:Mode$ Transformed | ValidCard$ Card.Self | Execute$ TrigChangeZone | Secondary$ True
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Goblin.YouOwn | TargetMin$ 0 | TargetMax$ 1
+T:Mode$ Phase | Phase$ Main1 | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigTransform
+SVar:TrigTransform:AB$ SetState | Cost$ R | Defined$ Self | Mode$ Transform
+DeckHints:Type$Goblin
+AlternateMode:DoubleFaced
+
+ALTERNATE
+
+ManaCost:no cost
+Colors:red
+Types:Legendary Creature Goblin Warrior
+PT:2/1
+K:Menace
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigCopy | TriggerZones$ Battlefield
+SVar:TrigCopy:AB$ CopyPermanent | Cost$ Blight<1> | TokenTapped$ True | TokenAttacking$ True | Defined$ CounterPutCards | AtEOTTrig$ Sacrifice
+T:Mode$ Phase | Phase$ Main1 | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigTransform
+SVar:TrigTransform:AB$ SetState | Cost$ B | Defined$ Self | Mode$ Transform

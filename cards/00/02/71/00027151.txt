@@ -1,0 +1,12 @@
+Id:27151
+ColorIdentity:B
+ManaCost:4 B B
+Types:Creature Drake Beast
+PT:4/4
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice | Defined$ Opponent | SacValid$ Creature | RememberSacrificed$ True | SubAbility$ DBFood
+SVar:DBFood:DB$ Token | TokenScript$ c_a_food_sac | TokenOwner$ You | TokenAmount$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Amount
+DeckHas:Ability$Sacrifice | Token | LifeGain & Type$Food

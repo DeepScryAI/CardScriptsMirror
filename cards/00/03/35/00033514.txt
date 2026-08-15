@@ -1,0 +1,12 @@
+Id:33514
+ColorIdentity:B
+ManaCost:2 B
+Types:Enchantment Class
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Creature.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 1
+K:Class:2:1 B:AddStaticAbility$ SBoost
+SVar:SBoost:Mode$ Continuous | EffectZone$ Battlefield | Affected$ Creature.YouCtrl | AddPower$ 1 | AddKeyword$ Menace | Secondary$ True
+K:Class:3:B:AddStaticAbility$ SSneak & SMayPlay
+SVar:SSneak:Mode$ Continuous | EffectZone$ Battlefield | AffectedZone$ Graveyard | Affected$ Creature.YouOwn | AddKeyword$ Sneak:3 B | Secondary$ True
+SVar:SMayPlay:Mode$ Continuous | Affected$ Creature.YouCtrl | MayPlay$ True | EffectZone$ Battlefield | AffectedZone$ Graveyard | ValidSA$ Spell.Sneak | Secondary$ True
+SVar:PlayMain1:TRUE

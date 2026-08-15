@@ -1,0 +1,14 @@
+Id:28414
+ColorIdentity:W
+ManaCost:1 W
+Types:Enchantment Case
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Detective.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+T:Mode$ TurnFaceUp | ValidCard$ Detective.YouCtrl | Execute$ TrigPutCounter | TriggerZones$ Battlefield | Secondary$ True
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ TriggeredCardLKICopy | CounterType$ P1P1 | CounterNum$ 1
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | IsPresent$ Detective.YouCtrl | PresentCompare$ GE3 | IsPresent2$ Card.Self+!IsSolved | Execute$ Solved
+SVar:Solved:DB$ AlterAttribute | Defined$ Self | Attributes$ Solved
+R:Event$ CreateToken | IsPresent$ Card.Self+IsSolved | ActiveZones$ Battlefield | ValidToken$ Card.YouCtrl | ReplaceWith$ DBReplace
+SVar:DBReplace:DB$ ReplaceToken | Type$ AddToken | Amount$ 1 | TokenScript$ c_a_clue_draw
+DeckHas:Ability$Counters | Token | Sacrifice & Type$Artifact | Clue
+DeckHints:Ability$Token
+DeckNeeds:Type$Detective

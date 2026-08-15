@@ -1,0 +1,11 @@
+Id:34509
+ColorIdentity:R
+ManaCost:3 R
+Types:Legendary Artifact Equipment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDealDamage
+SVar:TrigDealDamage:DB$ DealDamage | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | NumDmg$ 4
+R:Event$ DamageDone | ActiveZones$ Battlefield | ValidSource$ Creature.EquippedBy | ReplaceWith$ DmgTwice
+K:Equip:1:Creature.YouCtrl+Worthy:worthy creature you control
+A:AB$ DamageAll | Cost$ 2 R Discard<1/NICKNAME> | ActivationZone$ Hand | ValidCards$ Creature | NumDmg$ 2
+SVar:DmgTwice:DB$ ReplaceEffect | VarName$ DamageAmount | VarValue$ X
+SVar:X:ReplaceCount$DamageAmount/Twice

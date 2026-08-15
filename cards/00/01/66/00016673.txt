@@ -1,0 +1,9 @@
+Id:16673
+ColorIdentity:B
+ManaCost:2 B
+Types:Creature Human Wizard
+PT:3/3
+A:AB$ Effect | Cost$ 2 B T Exile<1/CARDNAME> | ReplacementEffects$ GraveToExile | StaticAbilities$ STPlay | AILogic$ YawgmothsWill
+SVar:STPlay:Mode$ Continuous | Affected$ Card.YouCtrl | AffectedZone$ Graveyard | MayPlay$ True
+SVar:GraveToExile:Event$ Moved | ActiveZones$ Command | Destination$ Graveyard | ValidCard$ Card.!token+YouOwn | ReplaceWith$ Exile
+SVar:Exile:DB$ ChangeZone | Hidden$ True | Origin$ All | Destination$ Exile | Defined$ ReplacedCard

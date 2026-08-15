@@ -1,0 +1,13 @@
+Id:22398
+ColorIdentity:U
+ManaCost:3 U
+Types:Creature Horse Illusion
+PT:4/3
+K:Flash
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Creature.YouCtrl+Other | Duration$ UntilHostLeavesPlay
+SVar:PlayMain1:TRUE
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigCopy | TriggerZones$ Battlefield
+SVar:TrigCopy:DB$ CopyPermanent | Defined$ ValidExile Card.ExiledWithSource | TokenTapped$ True | TokenAttacking$ True | AddTypes$ Illusion | AtEOT$ SacrificeCombat
+SVar:HasAttackEffect:TRUE
+DeckHas:Ability$Sacrifice

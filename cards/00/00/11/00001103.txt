@@ -1,0 +1,11 @@
+Id:1103
+ColorIdentity:B
+ManaCost:1 B
+Types:Sorcery
+A:SP$ Effect | Triggers$ TrigAttackerUnblocked
+SVar:TrigAttackerUnblocked:Mode$ AttackerUnblocked | ValidCard$ Creature.YouCtrl | Execute$ Damage | OptionalDecider$ You
+SVar:Damage:DB$ DealDamage | ValidTgts$ Creature | NumDmg$ X | SubAbility$ DBNoCombatDamage
+SVar:DBNoCombatDamage:DB$ Effect | RememberObjects$ TriggeredAttackerLKICopy | StaticAbilities$ SNoCombatDamage | ForgetOnMoved$ Battlefield
+SVar:SNoCombatDamage:Mode$ AssignNoCombatDamage | ValidCard$ Card.IsRemembered
+SVar:X:TriggeredAttacker$CardPower
+AI:RemoveDeck:All

@@ -1,0 +1,10 @@
+Id:10226
+ColorIdentity:WRG
+ManaCost:3 R G W
+Types:Creature Beast
+PT:4/2
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZoneAll | ChangeType$ Land | Origin$ Battlefield | Destination$ Exile
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Battlefield | Destination$ Any | Execute$ TrigRecall
+SVar:TrigRecall:DB$ ChangeZoneAll | ChangeType$ Card.ExiledWithSource | Origin$ Exile | Destination$ Battlefield | Tapped$ True
+AI:RemoveDeck:All

@@ -1,0 +1,15 @@
+Id:18658
+ColorIdentity:WUBRG
+ManaCost:X
+Types:Artifact Creature Construct
+PT:0/0
+K:etbCounter:P1P1:Y:no Condition:CARDNAME enters with a +1/+1 counter on it for each color of mana spent to cast it.
+SVar:Y:Count$Converge
+A:AB$ DealDamage | Cost$ X T SubCounter<X/P1P1> | ValidTgts$ Any | NumDmg$ X
+SVar:X:Count$xPaid
+A:AB$ ChangeZone | Cost$ W U B R G | Origin$ Graveyard | Destination$ Hand | ActivationZone$ Graveyard
+SVar:DiscardMe:1
+SVar:NeedsToPlayVar:Z GE1
+SVar:Z:Count$UniqueManaColorsProduced.ByUntappedSources
+DeckHas:Ability$Counters
+DeckHints:Ability$Proliferate

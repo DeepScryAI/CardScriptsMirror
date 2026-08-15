@@ -1,0 +1,11 @@
+Id:21807
+ColorIdentity:G
+ManaCost:2 G G
+Types:Legendary Creature Bear Druid
+PT:4/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigChange | TriggerZones$ Battlefield | Secondary$ True
+SVar:TrigChange:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Creature.NoAbilities+YouOwn
+S:Mode$ Continuous | Affected$ Creature.NoAbilities+YouCtrl | AddPower$ 1 | AddToughness$ 1
+S:Mode$ AssignCombatDamageAsUnblocked | ValidCard$ Creature.NoAbilities+YouCtrl | Optional$ True
+SVar:HasAttackEffect:TRUE

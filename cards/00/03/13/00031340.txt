@@ -1,0 +1,12 @@
+Id:31340
+ColorIdentity:WUR
+ManaCost:1 U R W
+Types:Legendary Creature Human Spirit Dragon
+PT:4/4
+K:Flying
+K:Vigilance
+T:Mode$ SpellCast | ValidCard$ Card.YouCtrl | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigCopy | ActivatorThisTurnCast$ EQ2
+SVar:TrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | ConditionDefined$ TriggeredSpellAbility | ConditionPresent$ Spell.IsTargeting Valid Permanent,Spell.IsTargeting Player | RememberCopies$ True | MayChooseTarget$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | ConditionDefined$ Remembered | ConditionPresent$ Spell | ConditionCompare$ EQ0 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:BuffedBy:Card

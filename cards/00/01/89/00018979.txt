@@ -1,0 +1,11 @@
+Id:18979
+ColorIdentity:WU
+ManaCost:4 W U
+Types:Legendary Planeswalker Dovin
+Loyalty:5
+A:AB$ GainLife | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | Defined$ You | LifeAmount$ 2 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1
+A:AB$ Tap | Cost$ SubCounter<1/LOYALTY> | ValidTgts$ Creature | Planeswalker$ True | SubAbility$ DovinPump
+SVar:DovinPump:DB$ Pump | Defined$ Targeted | Duration$ Permanent | KW$ HIDDEN This card doesn't untap during your next untap step.
+A:AB$ TapAll | Cost$ SubCounter<9/LOYALTY> | ValidTgts$ Opponent | ValidCards$ Permanent | Planeswalker$ True | Ultimate$ True | SubAbility$ NoUntap
+SVar:NoUntap:DB$ SkipPhase | Defined$ TargetedPlayer | Step$ Untap | IsCurse$ True

@@ -1,0 +1,10 @@
+Id:29341
+ColorIdentity:
+ManaCost:3 C C
+Types:Sorcery
+A:SP$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBChooseColor | SubAbility$ ExileAll
+SVar:DBChooseColor:DB$ ChooseColor | Defined$ Remembered | AILogic$ MostProminentComputerControls | SubAbility$ FilterForExile
+SVar:FilterForExile:DB$ Pump | RememberObjects$ Valid Permanent.RememberedPlayerCtrl+MonoColor+ChosenColor
+SVar:ExileAll:DB$ ChangeZoneAll | Origin$ Battlefield | Destination$ Exile | ChangeType$ Card.nonColorless+!IsRemembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+AI:RemoveDeck:All

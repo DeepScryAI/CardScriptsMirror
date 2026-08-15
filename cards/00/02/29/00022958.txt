@@ -1,0 +1,27 @@
+Id:22958
+ColorIdentity:R
+ManaCost:1 R
+Types:Creature Dragon Egg
+PT:0/4
+K:Defender
+T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigCharge
+SVar:TrigCharge:DB$ PutCounter | Defined$ Self | CounterType$ EMBER | CounterNum$ X | SubAbility$ DBBranch
+SVar:DBBranch:DB$ Branch | BranchConditionSVar$ Ember | TrueSubAbility$ DBRemoveCtrs
+SVar:DBRemoveCtrs:DB$ RemoveCounter | Defined$ Self | CounterType$ EMBER | CounterNum$ All | SubAbility$ DBTransform
+SVar:DBTransform:DB$ SetState | Defined$ Self | Mode$ Transform
+SVar:X:TriggeredCard$CastTotalManaSpent
+SVar:Ember:Count$Valid Card.Self+counters_GE7_EMBER
+DeckHas:Ability$Counters
+DeckNeeds:Type$Instant | Sorcery
+AlternateMode:DoubleFaced
+
+ALTERNATE
+
+ManaCost:no cost
+Colors:red
+Types:Creature Dragon
+PT:4/4
+K:Flying
+T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 2
+DeckHints:Type$Instant | Sorcery

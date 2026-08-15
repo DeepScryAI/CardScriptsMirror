@@ -1,0 +1,10 @@
+Id:28462
+ColorIdentity:R
+ManaCost:R R
+Types:Enchantment
+T:Mode$ DamageDoneOnce | Execute$ TrigExile | ValidTarget$ Creature | TriggerZones$ Battlefield
+SVar:TrigExile:DB$ Dig | Defined$ TriggeredTargetController | Optional$ True | PromptToSkipOptionalAbility$ True | DigNum$ X | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | EffectOwner$ RememberedController | Duration$ UntilTheEndOfYourNextTurn | ForgetOnMoved$ Exile | RememberObjects$ RememberedCard | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | Affected$ Card.IsRemembered | MayPlay$ True | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:TriggerCount$DamageAmount

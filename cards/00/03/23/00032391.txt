@@ -1,0 +1,12 @@
+Id:32391
+ColorIdentity:U
+Variant:UniversesWithin:FlavorName:Belion, the Parched
+ManaCost:U U
+Types:Legendary Creature Elemental Villain
+PT:2/2
+T:Mode$ SpellCast | ValidCard$ Card.Blue | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | IsPresent$ Card.Self+Creature | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | NumAtt$ +1 | NumDef$ +1 | Defined$ Self
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigUntap
+SVar:TrigUntap:DB$ Untap | Defined$ Self | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Self | Types$ Land | RemoveCardTypes$ True | Abilities$ DBMana | Duration$ UntilYourNextTurn
+SVar:DBMana:AB$ Mana | Cost$ T | Produced$ U | Amount$ 1

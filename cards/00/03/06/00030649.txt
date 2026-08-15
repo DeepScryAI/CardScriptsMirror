@@ -1,0 +1,13 @@
+Id:30649
+ColorIdentity:BR
+ManaCost:1 B R
+Types:Legendary Creature Human Warrior
+PT:2/2
+K:First Strike
+T:Mode$ Attacks | ValidCard$ Creature.Self | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ RaidTest | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouOwn+cmcLEX
+SVar:RaidTest:Count$AttackersDeclared
+SVar:X:Count$CardPower
+SVar:HasAttackEffect:TRUE

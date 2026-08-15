@@ -1,0 +1,12 @@
+Id:23989
+ColorIdentity:B
+ManaCost:5 B B
+Types:Creature Horror
+PT:5/4
+K:AlternateAdditionalCost:Sac<1/Creature>:Discard<1/Card>:PayLife<4>
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice | Defined$ Opponent | SacValid$ Creature | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Mode$ TgtChoose | Defined$ Opponent | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ Opponent | LifeAmount$ 4
+SVar:AIPreference:SacCost$Creature.token,Creature.cmcLE3
+DeckHas:Ability$Sacrifice | Discard

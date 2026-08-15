@@ -1,0 +1,25 @@
+Id:28214
+ColorIdentity:W
+ManaCost:3 W W
+Types:Artifact
+T:Mode$ ChangesZone | ValidCard$ Card.Self+wasCastByYou | Destination$ Battlefield | Execute$ TrigRepeat
+SVar:TrigRepeat:DB$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBChoose | SubAbility$ DBDestroyAll
+SVar:DBChoose:DB$ ChooseCard | Choices$ Creature.RememberedPlayerCtrl+powerLE2 | Mandatory$ True | ImprintChosen$ True
+SVar:DBDestroyAll:DB$ DestroyAll | ValidCards$ Creature.!IsImprinted | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearImprinted$ True
+K:Craft:3 W W ExileCtrlOrGrave<1/Artifact.Other>
+DeckHints:Ability$Discard | Mill | Sacrifice
+DeckHas:Ability$Mill | Graveyard | Token
+AlternateMode:DoubleFaced
+
+ALTERNATE
+
+ManaCost:no cost
+Colors:white
+Types:Artifact Creature Golem
+PT:5/3
+K:Flying
+T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ Player.Opponent+Active | TriggerZones$ Battlefield | Execute$ TrigEffect
+SVar:TrigEffect:DB$ Effect | EffectOwner$ TriggeredActivator | StaticAbilities$ STCantAttack | RememberObjects$ You
+SVar:STCantAttack:Mode$ CantAttack | ValidCard$ Creature.YouCtrl | Target$ Player.IsRemembered,Planeswalker.ControlledBy Remembered
+S:Mode$ CantBeCast | Caster$ Player.Opponent+attackedYouTheirCurrentTurn,Player.Opponent+attackedYouCtrlTheirCurrentTurn_Planeswalker

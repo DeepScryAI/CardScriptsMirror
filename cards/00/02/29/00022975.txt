@@ -1,0 +1,13 @@
+Id:22975
+ColorIdentity:B
+ManaCost:1 B
+Types:Creature Zombie
+PT:2/3
+K:Deathtouch
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPay
+SVar:TrigPay:AB$ ImmediateTrigger | Cost$ Mana<2 B\NumTimes> | Announce$ NumTimes | ConditionCheckSVar$ NumTimes | RememberSVarAmount$ NumTimes | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ X | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScript$ b_2_2_zombie_decayed | TokenAmount$ SVar$X/Twice
+SVar:X:Count$TriggerRememberAmount
+AI:RemoveDeck:All
+DeckHas:Ability$Token | Counters

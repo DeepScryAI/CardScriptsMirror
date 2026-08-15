@@ -1,0 +1,9 @@
+Id:5807
+ColorIdentity:W
+ManaCost:2 W W
+Types:Enchantment
+T:Mode$ DamageDone | ValidSource$ Creature.inZoneBattlefield | ValidTarget$ You | Execute$ TrigPutCounter | TriggerZones$ Battlefield
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ TriggeredSourceLKICopy | CounterType$ GOLD | CounterNum$ 1
+S:Mode$ Continuous | Affected$ Creature.counters_GE1_GOLD | AddType$ Wall | AddKeyword$ Defender
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigRemove
+SVar:TrigRemove:DB$ RemoveCounterAll | ValidCards$ Creature | CounterType$ GOLD | AllCounters$ True

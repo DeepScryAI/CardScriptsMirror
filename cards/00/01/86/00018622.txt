@@ -1,0 +1,12 @@
+Id:18622
+ColorIdentity:R
+ManaCost:2 R
+Types:Legendary Creature Human Knight
+PT:3/3
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenOwner$ TriggeredTarget | TokenAmount$ X | TokenScript$ r_1_1_survivor
+SVar:X:TriggerCount$DamageAmount
+S:Mode$ CantBlock | ValidCard$ Survivor.OppCtrl
+S:Mode$ CantAttack | ValidCard$ Creature.Survivor+OppCtrl | Target$ You,Planeswalker.YouCtrl
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigGainControl
+SVar:TrigGainControl:DB$ GainControl | AllValid$ Survivor | NewController$ You

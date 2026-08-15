@@ -1,0 +1,11 @@
+Id:1573
+ColorIdentity:B
+ManaCost:3 B
+Types:Creature Human Rogue
+PT:2/4
+T:Mode$ AttackerUnblocked | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigExile | OptionalDecider$ You
+SVar:TrigExile:DB$ Effect | StaticAbilities$ STRevealHand | RememberObjects$ DefendingPlayer | Duration$ AsLongAsInPlay | SubAbility$ DBNoCombatDamage
+SVar:DBNoCombatDamage:DB$ Effect | StaticAbilities$ SNoCombatDamage | Duration$ UntilHostLeavesPlayOrEOT
+SVar:SNoCombatDamage:Mode$ AssignNoCombatDamage | ValidCard$ Card.EffectSource
+SVar:STRevealHand:Mode$ Continuous | AffectedZone$ Hand | Affected$ Card.RememberedPlayerOwn | MayLookAt$ Player
+AI:RemoveDeck:All

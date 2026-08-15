@@ -1,0 +1,12 @@
+Id:33962
+ColorIdentity:BG
+ManaCost:1 B G
+Types:Creature Frog Druid
+PT:3/2
+K:Deathtouch
+K:Lifelink
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigAnimateAll
+SVar:TrigAnimateAll:DB$ AnimateAll | Zone$ Graveyard | Duration$ Perpetual | ValidCards$ Permanent.YouCtrl | Triggers$ EnterTrig
+SVar:EnterTrig:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1

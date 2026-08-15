@@ -1,0 +1,10 @@
+Id:24114
+ColorIdentity:WRG
+ManaCost:R G W
+Types:Creature Elf Druid
+PT:3/4
+T:Mode$ ChangesZoneAll | ValidCards$ Creature.Other+YouCtrl | Destination$ Battlefield | TriggerZones$ Battlefield | ActivationLimit$ 1 | Execute$ TrigSeek
+SVar:TrigSeek:DB$ Seek | Type$ Land | RememberFound$ True | SubAbility$ DBPut
+SVar:DBPut:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | Defined$ Remembered | Tapped$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:BuffedBy:Creature

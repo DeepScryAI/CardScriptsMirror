@@ -1,0 +1,12 @@
+Id:30111
+ColorIdentity:B
+ManaCost:1 B
+Types:Creature Human Wizard
+PT:2/2
+R:Event$ Draw | ActiveZones$ Battlefield | ValidPlayer$ Player | ReplaceWith$ DiscardOne | NotFirstCardInDrawStep$ True
+SVar:DiscardOne:DB$ Discard | Defined$ ReplacedPlayer | Mandatory$ True | NumCards$ 1 | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ ReplacedPlayer | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ GE1 | NumCards$ 1 | SubAbility$ MillOne
+SVar:MillOne:DB$ Mill | NumCards$ 1 | Defined$ ReplacedPlayer | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ0 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+AI:RemoveDeck:Random
+DeckHas:Ability$Discard | Mill

@@ -1,0 +1,10 @@
+Id:1188
+ColorIdentity:R
+ManaCost:4 R
+Types:Instant
+A:SP$ Effect | StaticAbilities$ DeclareCombatants | Triggers$ TrigAttack | Duration$ UntilEndOfCombat | PlayerTurn$ True | ActivationPhases$ BeginCombat->Declare Attackers
+SVar:DeclareCombatants:Mode$ Continuous | Affected$ Player | DeclaresBlockers$ You
+SVar:TrigAttack:Mode$ AttackerUnblocked | ValidCard$ Creature | Execute$ TrigUntap | TriggerZones$ Command
+SVar:TrigUntap:DB$ Untap | Defined$ TriggeredAttackerLKICopy | SubAbility$ RemCombat
+SVar:RemCombat:DB$ RemoveFromCombat | Defined$ TriggeredAttackerLKICopy
+AI:RemoveDeck:All

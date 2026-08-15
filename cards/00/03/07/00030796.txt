@@ -1,0 +1,13 @@
+Id:30796
+ColorIdentity:BR
+ManaCost:2 B
+Types:Legendary Creature Vampire Soldier
+PT:2/2
+K:Flying
+A:AB$ PutCounter | Cost$ Sac<1/Creature.Other;Artifact.Other/another creature or artifact> | CounterType$ P1P1 | CounterNum$ 1 | SorcerySpeed$ True | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Self | ConditionCheckSVar$ X | KW$ Lifelink
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | OptionalDecider$ TriggeredCardController | Execute$ TrigImmediateTrig
+SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ 1 BR | Execute$ TrigDealDamage
+SVar:TrigDealDamage:DB$ DealDamage | Defined$ Opponent | NumDmg$ Y
+SVar:X:Sacrificed$Valid Treasure
+SVar:Y:Count$CardPower

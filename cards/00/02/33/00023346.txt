@@ -1,0 +1,12 @@
+Id:23346
+ColorIdentity:
+ManaCost:2
+Types:Creature Human
+PT:1/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraft
+SVar:TrigDraft:DB$ Draft | Spellbook$ Dominating Vampire,Vampire Socialite,Stromkirk Bloodthief,Falkenrath Pit Fighter,Wolfkin Outcast,Howlpack Piper,Tovolar; Dire Overlord,Patrician Geist,Shipwreck Sifters,Steelclad Spirit,Heron-Blessed Geist,Archghoul of Thraben,Champion of the Perished,Headless Rider,Bladestitched Skaab | RememberDrafted$ True | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Remembered | staticAbilities$ SpendAnyMana | Triggers$ CastTrigger | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:SpendAnyMana:Mode$ ManaConvert | EffectZone$ Stack | ValidPlayer$ You | ValidCard$ Card.Self | ValidSA$ Spell | ManaConversion$ AnyType->AnyColor
+SVar:CastTrigger:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | ChangeType$ Card.namedOminous Traveler+YouCtrl | ChangeNum$ 1 | Origin$ Battlefield | Destination$ Hand | Hidden$ True | Mandatory$ True
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

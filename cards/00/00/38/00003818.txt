@@ -1,0 +1,12 @@
+Id:3818
+ColorIdentity:W
+ManaCost:W
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ ARROW | CounterNum$ 1
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddAbility$ ArcheryDamage
+SVar:ArcheryDamage:AB$ DealDamage | Cost$ T | ValidTgts$ Creature.attacking,Creature.blocking | NumDmg$ ArcheryX
+SVar:ArcheryX:OriginalHost$CardCounters.ARROW
+SVar:NonStackingAttachEffect:True

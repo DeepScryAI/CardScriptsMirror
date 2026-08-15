@@ -1,0 +1,12 @@
+Id:21842
+ColorIdentity:R
+ManaCost:1 R
+Types:Creature Human Shaman
+PT:2/2
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:AB$ Draw | Cost$ 1 Discard<1/Card>
+T:Mode$ DiscardedAll | ValidPlayer$ You | ValidCard$ Card.nonLand | TriggerZones$ Battlefield | Execute$ TrigEffect
+SVar:TrigEffect:AB$ Effect | Cost$ ExileFromGrave<1/Card.TriggeredCards> | RememberObjects$ ExiledCards | StaticAbilities$ MayCast | ExileOnMoved$ Stack
+SVar:MayCast:Mode$ Continuous | Affected$ Card.IsRemembered+nonLand | MayPlay$ True | AffectedZone$ Exile
+SVar:HasAttackEffect:TRUE
+DeckHas:Ability$Discard

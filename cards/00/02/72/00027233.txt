@@ -1,0 +1,16 @@
+Id:27233
+ColorIdentity:WBG
+ManaCost:2 W B G
+Types:Legendary Enchantment Creature Demigod
+PT:4/4
+K:Menace
+S:Mode$ Continuous | Affected$ Creature.Other+Enchantment+YouCtrl | AddKeyword$ Menace
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigExile | Secondary$ True
+SVar:TrigExile:DB$ ChangeZone | ValidTgts$ Enchantment.nonAura+YouCtrl | Origin$ Graveyard | TargetMin$ 0 | TargetMax$ 1 | Destination$ Exile | RememberChanged$ True | SubAbility$ DBCopy
+SVar:DBCopy:DB$ CopyPermanent | Defined$ Remembered | SetPower$ 3 | SetToughness$ 3 | AddTypes$ Creature & Zombie | SetColor$ Black | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:HasAttackEffect:TRUE
+DeckHas:Ability$Token | Graveyard
+DeckHints:Ability$Graveyard | Mill
+DeckNeeds:Type$Enchantment

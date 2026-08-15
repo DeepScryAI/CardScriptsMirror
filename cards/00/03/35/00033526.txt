@@ -1,0 +1,13 @@
+Id:33526
+ColorIdentity:G
+ManaCost:G
+Types:Enchantment Class
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScript$ c_a_food_sac | TokenOwner$ Player
+K:Class:2:1 G:AddTrigger$ TriggerChangesZone
+SVar:TriggerChangesZone:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Artifact.OppCtrl | TriggerZones$ Battlefield | Execute$ TrigDraw | Secondary$ True
+SVar:TrigDraw:DB$ Draw
+K:Class:3:4 G:AddTrigger$ TriggerAttack
+SVar:TriggerAttack:Mode$ AttackersDeclared | ValidAttackers$ Creature | AttackedTarget$ Opponent | TriggerZones$ Battlefield | Execute$ TrigPump | Secondary$ True
+SVar:TrigPump:DB$ Pump | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Creature.attacking | KW$ Trample | NumAtt$ +X | NumDef$ +X
+SVar:X:Count$ValidHand Card.YouOwn

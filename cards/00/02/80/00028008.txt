@@ -1,0 +1,13 @@
+Id:28008
+ColorIdentity:
+ManaCost:2
+Types:Artifact
+T:Mode$ DamageDoneOnce | CombatDamage$ True | ValidTarget$ You | ValidSource$ Card | TriggerZones$ Battlefield | Execute$ TrigGainGontrol
+SVar:TrigGainGontrol:DB$ GainControl | NewController$ TriggeredAttackingPlayer | Untap$ True
+A:AB$ Draw | Cost$ 2 T | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | CounterType$ POINT | CounterNum$ 1 | SubAbility$ DBBranch
+SVar:DBBranch:DB$ Branch | BranchConditionSVar$ CountCounters | BranchConditionSVarCompare$ GE5 | TrueSubAbility$ DBSac
+SVar:DBSac:DB$ Sacrifice | SacValid$ Self | ConditionPresent$ Card.Self+counters_GE5_POINT | SubAbility$ DBTreasure
+SVar:DBTreasure:DB$ Token | TokenScript$ c_a_treasure_sac
+SVar:CountCounters:Count$CardCounters.POINT
+DeckHas:Ability$Counters | Token | Sacrifice & Type$Treasure

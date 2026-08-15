@@ -1,0 +1,13 @@
+Id:30253
+ColorIdentity:BG
+ManaCost:3 B G
+Types:Legendary Artifact Creature Scarecrow
+PT:5/5
+K:Menace
+K:Reach
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ DBTokens
+T:Mode$ SpellCast | ValidCard$ Card.numTypesGE2 | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ DBTokens | Secondary$ True
+T:Mode$ LandPlayed | ValidCard$ Land.numTypesGE2+YouCtrl | TriggerZones$ Battlefield | Execute$ DBTokens | Secondary$ True
+SVar:DBTokens:DB$ Token | TokenScript$ b_2_2_bird_flying | TokenTapped$ True | TokenOwner$ Player | RememberTokens$ True | SubAbility$ DBGoad
+SVar:DBGoad:DB$ Goad | Defined$ Remembered | Duration$ Permanent | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

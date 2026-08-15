@@ -1,0 +1,12 @@
+Id:12067
+ColorIdentity:WUR
+ManaCost:1 U R W
+Types:Legendary Creature Minotaur Monk
+PT:2/4
+A:AB$ Pump | Cost$ U R W | ValidTgts$ Opponent | SubAbility$ DBGainControl | AILogic$ DonateTargetPerm
+SVar:DBGainControl:DB$ GainControl | ValidTgts$ Permanent.YouCtrl | NewController$ ParentTarget
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ GainLife
+SVar:GainLife:DB$ GainLife | LifeAmount$ X | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ X
+SVar:X:Count$Valid Permanent.YouOwn+OppCtrl
+AI:RemoveDeck:All

@@ -1,0 +1,15 @@
+Id:26303
+ColorIdentity:UB
+ManaCost:1 U B
+Types:Creature Phyrexian Horror
+PT:3/3
+K:Flying
+K:Defender
+S:Mode$ CanAttackDefender | ValidCard$ Card.Self+powerGE7
+T:Mode$ Proliferate | ValidPlayer$ You | TriggerZones$ Battlefield | IsPresent$ Card.Self | PresentZone$ Battlefield | Execute$ TrigPerpetualBuff
+T:Mode$ Proliferate | ValidPlayer$ You | TriggerZones$ Battlefield | TriggerZones$ Graveyard | IsPresent$ Card.StrictlySelf | PresentZone$ Graveyard | Secondary$ True | Execute$ TrigPerpetualBuff
+SVar:TrigPerpetualBuff:DB$ Pump | PumpZone$ Battlefield,Graveyard | NumAtt$ +1 | NumDef$ +1 | Duration$ Perpetual | SubAbility$ ReanimateSelf
+SVar:ReanimateSelf:DB$ Effect | StaticAbilities$ MayPlay | RememberObjects$ Self
+SVar:MayPlay:Mode$ Continuous | Affected$ Card.IsRemembered | MayPlay$ True | AffectedZone$ Graveyard
+DeckHints:Ability$Proliferate
+DeckHas:Ability$Graveyard

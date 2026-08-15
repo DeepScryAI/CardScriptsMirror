@@ -1,0 +1,13 @@
+Id:26310
+ColorIdentity:W
+ManaCost:1 W
+Types:Creature Phyrexian Insect
+PT:1/1
+K:Toxic:1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigBranch
+SVar:TrigBranch:DB$ Branch | BranchConditionSVar$ X | BranchConditionSVarCompare$ GE3 | TrueSubAbility$ DBGenericChoice | FalseSubAbility$ ConjurePlains
+SVar:DBGenericChoice:DB$ GenericChoice | Choices$ SeekNonLand,ConjurePlains
+SVar:SeekNonLand:DB$ Seek | Type$ Card.nonLand
+SVar:ConjurePlains:DB$ MakeCard | Conjure$ True | Name$ Plains | Zone$ Hand
+SVar:X:PlayerCountOpponents$HighestCounters.Poison
+DeckHints:Keyword$Toxic | Infect

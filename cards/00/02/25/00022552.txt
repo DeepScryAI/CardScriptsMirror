@@ -1,0 +1,12 @@
+Id:22552
+ColorIdentity:G
+ManaCost:X G G G
+Types:Sorcery
+A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Hand | TargetMin$ X | TargetMax$ X | TargetsWithDifferentCMC$ True | ValidTgts$ Card.YouOwn | RememberChanged$ True | SubAbility$ DBSetLife
+SVar:DBSetLife:DB$ SetLife | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ GE8 | Defined$ You | LifeAmount$ Y | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | Origin$ Stack | Destination$ Exile | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$xPaid
+SVar:Y:Count$YourStartingLife
+DeckHas:Ability$Graveyard
+DeckHints:Type$Discard

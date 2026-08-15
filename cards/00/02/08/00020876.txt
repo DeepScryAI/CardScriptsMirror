@@ -1,0 +1,12 @@
+Id:20876
+ColorIdentity:W
+ManaCost:1 W W
+Types:Enchantment
+K:Hexproof
+R:Event$ DamageDone | ActiveZones$ Battlefield | ValidSource$ Card,Emblem | ValidTarget$ You | PreventionEffect$ True | ReplaceWith$ AddCounters | AlwaysReplace$ True | ExecuteMode$ PerSource
+SVar:AddCounters:DB$ PutCounter | Defined$ Self | CounterType$ INCARNATION | CounterNum$ 1
+T:Mode$ Always | TriggerZones$ Battlefield | IsPresent$ Card.Self+counters_GE9_INCARNATION | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | Defined$ Self
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigLose
+SVar:TrigLose:DB$ LosesGame | Defined$ You
+SVar:DonateMe:3

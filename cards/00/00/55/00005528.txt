@@ -1,0 +1,11 @@
+Id:5528
+ColorIdentity:U
+ManaCost:1 U
+Types:Creature Octopus Wizard
+PT:1/1
+T:Mode$ BecomesTarget | ValidTarget$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigMill
+SVar:TrigMill:DB$ Mill | NumCards$ 3 | Defined$ You
+A:AB$ Effect | Cost$ 2 U T | ValidTgts$ Creature.YouCtrl | ReplacementEffects$ RPrevent1,RPrevent2 | RememberObjects$ Targeted | ExileOnMoved$ Battlefield
+SVar:RPrevent1:Event$ DamageDone | Prevent$ True | IsCombat$ True | ValidSource$ Card.IsRemembered
+SVar:RPrevent2:Event$ DamageDone | Prevent$ True | IsCombat$ True | ValidTarget$ Card.IsRemembered | Secondary$ True
+AI:RemoveDeck:All

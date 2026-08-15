@@ -1,0 +1,11 @@
+Id:6145
+ColorIdentity:
+ManaCost:no cost
+Types:Vanguard
+HandLifeModifier:-1/-1
+R:Event$ DamageDone | ValidSource$ Card.YouCtrl,Emblem.YouCtrl | ValidTarget$ Permanent,Player | Hellbent$ True | ReplaceWith$ DmgTwice
+SVar:DmgTwice:DB$ ReplaceEffect | VarName$ DamageAmount | VarValue$ X
+SVar:X:ReplaceCount$DamageAmount/Twice
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Command | Hellbent$ True | Execute$ LyzoldasDiscard
+SVar:LyzoldasDiscard:DB$ Discard | Defined$ Player.Opponent | NumCards$ 1 | Mode$ TgtChoose
+DeckHints:Ability$Discard

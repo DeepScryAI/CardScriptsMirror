@@ -1,0 +1,14 @@
+Id:7288
+ColorIdentity:G
+ManaCost:3 G
+Types:Legendary Creature Snake Warrior
+PT:2/2
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice | Defined$ You | SacValid$ Snake
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigSkipPhase | TriggerZones$ Battlefield
+SVar:TrigSkipPhase:DB$ SkipPhase | Defined$ TriggeredTarget | Step$ Untap
+SVar:NeedsToPlayVar:Z GE2
+SVar:Z:Count$Valid Creature.Snake+YouCtrl+cmcLE2
+AI:RemoveDeck:All
+AI:RemoveDeck:Random
+DeckNeeds:Type$Snake

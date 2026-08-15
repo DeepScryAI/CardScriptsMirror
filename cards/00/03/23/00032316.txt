@@ -1,0 +1,14 @@
+Id:32316
+ColorIdentity:W
+ManaCost:W
+Types:Legendary Artifact Spacecraft
+PT:3/3
+K:Flash
+K:Station:8
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | ValidTgts$ Creature.YouCtrl | RememberChanged$ True | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | PumpZone$ Hand | Defined$ Remembered | NumAtt$ +1 | NumDef$ +1 | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+S:Mode$ Continuous | Affected$ Card.Self+counters_GE8_CHARGE | AddType$ Creature | AddKeyword$ Flying | AddTrigger$ DamageTrig
+SVar:DamageTrig:Mode$ DamageDoneOnce | CombatDamage$ True | OptionalDecider$ You | ValidSource$ Card.Self | ValidTarget$ Player | TriggerZones$ Battlefield | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | ChoiceZone$ Hand | Amount$ 1 | ChangeType$ Creature.cmcLE3+YouCtrl | ChangeNum$ 1 | AILogic$ BestCard

@@ -1,0 +1,11 @@
+Id:10549
+ColorIdentity:WUB
+ManaCost:2 W U B
+Types:Legendary Artifact Creature Human Wizard
+PT:3/3
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ SenEffect | TriggerZones$ Battlefield
+SVar:SenEffect:DB$ Effect | ValidTgts$ Opponent | StaticAbilities$ STCantBeCast,STCantBeActivated,STHandRevealed,STCanPlay | RememberObjects$ Targeted | AILogic$ Always
+SVar:STCantBeCast:Mode$ CantBeCast | ValidCard$ Card | Caster$ Player.IsRemembered
+SVar:STCantBeActivated:Mode$ CantBeActivated | ValidCard$ Card | Activator$ Player.IsRemembered
+SVar:STHandRevealed:Mode$ Continuous | AffectedZone$ Hand | Affected$ Card.RememberedPlayerOwn | MayLookAt$ Player
+SVar:STCanPlay:Mode$ Continuous | Affected$ Card.RememberedPlayerOwn | AffectedZone$ Hand | MayPlay$ True

@@ -1,0 +1,20 @@
+Id:23091
+ColorIdentity:W
+ManaCost:2 W
+Types:Enchantment
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ INVITATION | CounterNum$ 1 | SubAbility$ DBBranch
+SVar:DBBranch:DB$ Branch | BranchConditionSVar$ X | BranchConditionSVarCompare$ GE2 | TrueSubAbility$ DBDraw | FalseSubAbility$ DBToken
+SVar:X:Count$AttackersDeclared
+SVar:DBDraw:DB$ Draw | SubAbility$ DBTransform
+SVar:DBToken:DB$ Token | TokenScript$ w_1_1_human | SubAbility$ DBTransform
+SVar:DBTransform:DB$ SetState | Defined$ Self | ConditionDefined$ Self | ConditionPresent$ Card.counters_GE3_INVITATION | Mode$ Transform
+DeckHas:Ability$Counters | Token
+AlternateMode:DoubleFaced
+
+ALTERNATE
+
+ManaCost:no cost
+Colors:white
+Types:Enchantment
+S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddPower$ 1 | AddToughness$ 1

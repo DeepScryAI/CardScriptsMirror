@@ -1,0 +1,12 @@
+Id:19808
+ColorIdentity:U
+ManaCost:3 U
+Types:Creature Shapeshifter Wall
+PT:0/0
+K:ETBReplacement:Copy:DBCopy:Optional
+SVar:DBCopy:DB$ Clone | Choices$ Creature.Other | AddTypes$ Wall | AddKeywords$ Defender | AiChoiceLogic$ BestOppCtrl | SubAbility$ DBTrigger | RememberCloneOrigin$ True
+SVar:DBTrigger:DB$ ImmediateTrigger | Execute$ DBTap | RememberObjects$ RememberedCard | SubAbility$ DBCleanup
+SVar:DBTap:DB$ Tap | Defined$ DelayTriggerRemembered | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ DelayTriggerRemembered | ForgetOnMoved$ Battlefield | ReplacementEffects$ DontUntap | Duration$ AsLongAsControl
+SVar:DontUntap:Event$ Untap | ValidCard$ Card.IsRemembered | ValidStepTurnToController$ You | Layer$ CantHappen
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

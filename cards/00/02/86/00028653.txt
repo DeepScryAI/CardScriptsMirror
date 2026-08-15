@@ -1,0 +1,10 @@
+Id:28653
+ColorIdentity:WB
+ManaCost:4 W B
+Types:Sorcery
+A:SP$ ChooseCard | Defined$ Player | Choices$ Creature | ControlledByPlayer$ Chooser | MinAmount$ 0 | Amount$ 2 | Reveal$ True | SubAbility$ SacAllOthers
+SVar:SacAllOthers:DB$ SacrificeAll | ValidCards$ Creature.nonChosenCard | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScript$ c_a_treasure_sac | TokenAmount$ X
+SVar:X:Count$Valid Creature.OppCtrl
+AI:RemoveDeck:All
+DeckHas:Ability$Token | Sacrifice & Type$Treasure

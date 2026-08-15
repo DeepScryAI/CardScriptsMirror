@@ -1,0 +1,12 @@
+Id:853
+ColorIdentity:
+ManaCost:6
+Types:Artifact
+A:AB$ Pump | Cost$ 3 T | NumAtt$ +2 | ValidTgts$ Creature.attacking | SubAbility$ RuneDelay
+SVar:RuneDelay:DB$ DelayedTrigger | Mode$ ChangesZone | RememberObjects$ Targeted | Origin$ Battlefield | ValidCard$ Card.IsTriggerRemembered | ThisTurn$ True | SubAbility$ RuneswordEffect | Execute$ RuneswordSac
+SVar:RuneswordSac:DB$ SacrificeAll | Defined$ Self
+SVar:RuneswordEffect:DB$ Effect | ReplacementEffects$ RuneswordRep | StaticAbilities$ NoRegen | RememberObjects$ Targeted | AILogic$ CantRegenerate
+SVar:NoRegen:Mode$ CantRegenerate | ValidCard$ Creature.DamagedBy Remembered
+SVar:RuneswordRep:Event$ Moved | ValidLKI$ Creature.DamagedBy Remembered | Destination$ Graveyard | ReplaceWith$ RuneswordExile
+SVar:RuneswordExile:DB$ ChangeZone | Defined$ ReplacedCard | Origin$ Battlefield | Destination$ Exile
+DeckHas:Ability$Sacrifice

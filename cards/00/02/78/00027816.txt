@@ -1,0 +1,13 @@
+Id:27816
+ColorIdentity:WU
+ManaCost:1 W U
+Types:Legendary Creature Time Lord Doctor
+PT:3/2
+T:Mode$ DamageDone | ValidSource$ Card.Self | Execute$ TrigChangeZone | CombatDamage$ True | ValidTarget$ Player | TriggerZones$ Battlefield
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | ChangeType$ Card | WithCountersType$ TIME | WithCountersAmount$ X | RememberChanged$ True | SubAbility$ GiveSuspend
+SVar:GiveSuspend:DB$ PumpAll | ValidCards$ Card.IsRemembered+withoutSuspend | KW$ Suspend | PumpZone$ Exile | Duration$ Permanent | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$CardManaCost
+A:AB$ Effect | Cost$ 2 | ValidTgts$ Creature.powerLE3 | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable | AILogic$ MakeUnblockable
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+SVar:HasAttackEffect:TRUE

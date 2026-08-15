@@ -1,0 +1,26 @@
+Id:23058
+ColorIdentity:R
+ManaCost:2 R R
+Types:Creature Human Werewolf
+PT:3/3
+T:Mode$ DamageDoneOnce | Execute$ TrigDamage | ValidTarget$ Card.Self | TriggerZones$ Battlefield
+SVar:TrigDamage:DB$ DealDamage | NumDmg$ X | ValidTgts$ Any
+SVar:X:TriggerCount$DamageAmount
+SVar:HasCombatEffect:TRUE
+A:AB$ Pump | Cost$ 1 R | Defined$ Self | NumAtt$ +2
+K:Daybound
+AlternateMode:DoubleFaced
+
+ALTERNATE
+
+ManaCost:no cost
+Colors:red
+Types:Creature Werewolf
+PT:4/4
+T:Mode$ DamageDoneOnce | Execute$ TrigDamage | ValidTarget$ Permanent.YouCtrl | TriggerZones$ Battlefield
+SVar:TrigDamage:DB$ DealDamage | NumDmg$ X | ValidTgts$ Any
+SVar:X:TriggerCount$DamageAmount
+S:Mode$ Continuous | Affected$ Permanent.YouCtrl | AddSVar$ CE
+SVar:CE:SVar:HasCombatEffect:TRUE
+A:AB$ Pump | Cost$ 1 R | Defined$ Self | NumAtt$ +2
+K:Nightbound

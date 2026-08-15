@@ -1,0 +1,11 @@
+Id:23353
+ColorIdentity:B
+ManaCost:1 B B
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScript$ c_a_blood_draw | SubAbility$ DBMakeCard
+SVar:DBMakeCard:DB$ MakeCard | Conjure$ True | Name$ A-Blood Artist | Zone$ Battlefield
+T:Mode$ Sacrificed | ValidCard$ Blood.token+YouCtrl | Execute$ TrigLoseLife | TriggerZones$ Battlefield
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 1 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
+DeckHas:Ability$Token | Sacrifice | LifeGain & Type$Blood

@@ -1,0 +1,13 @@
+Id:3165
+ColorIdentity:U
+ManaCost:3 U
+Types:Enchantment
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigExile
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Battlefield | Destination$ Any | Execute$ TrigReturn | Secondary$ True
+SVar:TrigExile:DB$ ChangeZoneAll | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | ForgetOtherRemembered$ True | ChangeType$ Creature | ExileFaceDown$ True
+SVar:TrigReturn:DB$ ChangeZoneAll | Origin$ Exile | Destination$ Graveyard | ChangeType$ Card.IsRemembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Player | Execute$ TrigGetCreature | TriggerController$ TriggeredPlayer | TriggerZones$ Battlefield
+SVar:TrigGetCreature:DB$ ChooseCard | Amount$ 1 | AtRandom$ True | Choices$ Card.IsRemembered | ChoiceZone$ Exile | SubAbility$ DBFaceUp
+SVar:DBFaceUp:DB$ SetState | Defined$ ChosenCard | SubAbility$ DBChangeZone | Mode$ TurnFaceUp
+SVar:DBChangeZone:DB$ ChangeZone | Defined$ ChosenCard | GainControl$ True | Origin$ Exile | Destination$ Battlefield | ForgetChanged$ True | Hidden$ True

@@ -1,0 +1,14 @@
+Id:25627
+ColorIdentity:WG
+ManaCost:X 4
+Types:Artifact Creature Construct
+PT:2/2
+K:etbCounter:P1P1:GGx3:no Condition:CARDNAME enters with three +1/+1 counters on it for each {G}{G} spent to cast it.
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.Other+YouCtrl | TargetMin$ 0 | TargetMax$ 2 | CounterType$ P1P1 | CounterNum$ WW
+SVar:GG:Count$EachSpentToCast.G/HalfDown
+SVar:GGx3:SVar$GG/Times.3
+SVar:WW:Count$EachSpentToCast.W/HalfDown
+SVar:X:Count$xPaid
+DeckHas:Ability$Counters
+DeckHints:Color$Green | White

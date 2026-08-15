@@ -1,0 +1,13 @@
+Id:28371
+ColorIdentity:B
+ManaCost:2 B
+Types:Creature Zombie Detective
+PT:3/2
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigSurveil
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigSurveil | Secondary$ True
+SVar:TrigSurveil:DB$ Surveil | Amount$ 1
+T:Mode$ ChangesZoneAll | ValidCards$ Creature.YouOwn | Origin$ Library | Destination$ Graveyard | TriggerZones$ Battlefield | Execute$ TrigInvestigate
+SVar:TrigInvestigate:DB$ Investigate
+A:AB$ ChangeZone | Cost$ 2 Sac<1/Clue> | Origin$ Graveyard | Destination$ Hand | ActivationZone$ Graveyard
+DeckHas:Ability$Sacrifice | Graveyard | Token | Surveil & Type$Clue | Artifact
+DeckHints:Ability$Graveyard & Type$Clue

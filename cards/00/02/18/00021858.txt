@@ -1,0 +1,21 @@
+Id:21858
+ColorIdentity:WBR
+ManaCost:1 W B B
+Types:Legendary Creature Human Warlock
+PT:2/4
+K:Double Strike
+T:Mode$ SpellCastOrCopy | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Creature.YouOwn+nonLegendary
+DeckHas:Ability$Graveyard | Sacrifice | Token
+DeckNeeds:Type$Instant | Sorcery
+AlternateMode:Modal
+
+ALTERNATE
+
+ManaCost:6 B R
+Types:Sorcery
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ Y | EffectZone$ All | Relative$ True
+SVar:X:Count$xPaid
+SVar:Y:SVar$X/Times.2
+A:SP$ Sacrifice | Cost$ 6 B R Sac<X/Creature/any number of creatures> | AILogic$ SacToReduceCost | SacValid$ Creature | Defined$ Player.Opponent | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScript$ br_3_6_avatar_haste_bolt

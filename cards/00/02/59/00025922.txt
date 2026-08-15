@@ -1,0 +1,10 @@
+Id:25922
+ColorIdentity:B
+ManaCost:1 B
+Types:Enchantment
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigChoose
+SVar:TrigChoose:DB$ ChooseCard | Choices$ Creature.leastToughnessControlledByOpponent | Mandatory$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Pump | Defined$ ChosenCard | NumAtt$ -1 | NumDef$ -1 | Duration$ Perpetual
+T:Mode$ Always | TriggerZones$ Battlefield | IsPresent$ Creature.OppCtrl | PresentCompare$ EQ0 | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice
+DeckHas:Ability$Sacrifice

@@ -1,0 +1,14 @@
+Id:30526
+ColorIdentity:U
+ManaCost:2 U
+Types:Creature Human Wizard
+PT:3/2
+K:Vigilance
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Enchantment.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+T:Mode$ FullyUnlock | ValidCard$ Card.Room | ValidPlayer$ You | Secondary$ True | Execute$ TrigPutCounter | TriggerZones$ Battlefield
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ POSSESSION | CounterNum$ 1
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScript$ u_x_x_spirit_flying | TokenPower$ X | TokenToughness$ X | TokenOwner$ You
+SVar:X:TriggeredCard$CardCounters.ALL
+DeckHas:Ability$Token & Type$Spirit
+DeckNeeds:Type$Enchantment

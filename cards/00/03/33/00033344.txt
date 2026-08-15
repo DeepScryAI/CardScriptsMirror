@@ -1,0 +1,13 @@
+Id:33344
+ColorIdentity:U
+ManaCost:3 U
+Types:Legendary Creature Insect Mutant Scientist
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPumpAll
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPumpAll | Secondary$ True | TriggerZones$ Battlefield
+SVar:TrigPumpAll:DB$ PumpAll | ValidCards$ Creature.YouCtrl+HasCounters | KW$ Flying
+T:Mode$ Drawn | ValidCard$ Card.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+SVar:HasAttackEffect:TRUE
+SVar:PlayMain1:TRUE
+DeckHints:Ability$Counters

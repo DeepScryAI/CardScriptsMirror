@@ -1,0 +1,13 @@
+Id:21070
+ColorIdentity:B
+ManaCost:1 B
+Types:Creature Shade
+PT:3/1
+K:Kicker:2 B
+S:Mode$ CantBlock | ValidCard$ Card.Self
+K:etbCounter:P1P1:2:CheckSVar$ WasKicked:If CARDNAME was kicked, it enters with two +1/+1 counters on it.
+SVar:WasKicked:Count$Kicked.1.0
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Graveyard | IsPresent$ Card.StrictlySelf | PresentZone$ Graveyard | PlayerTurn$ True | Execute$ TrigEffect
+SVar:TrigEffect:DB$ Effect | StaticAbilities$ MayPlay | RememberObjects$ Self | ForgetOnMoved$ Exile
+SVar:MayPlay:Mode$ Continuous | Affected$ Card.IsRemembered | MayPlay$ True | AffectedZone$ Graveyard
+DeckHas:Ability$Counters

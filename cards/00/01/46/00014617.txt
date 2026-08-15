@@ -1,0 +1,11 @@
+Id:14617
+ColorIdentity:UBG
+ManaCost:3 B G U
+Types:Creature Zombie Wizard
+PT:4/4
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigChangZone
+SVar:TrigChangZone:AB$ ChangeZone | Cost$ 2 B | ChangeType$ Creature.YouCtrl | Origin$ Graveyard | Destination$ Battlefield | Hidden$ True | Mandatory$ True | AtRandom$ True | RememberChanged$ True | SubAbility$ DBUnearthed
+SVar:DBUnearthed:DB$ Animate | Defined$ Remembered | Keywords$ Flying & Trample & Haste | LeaveBattlefield$ Exile | sVars$ KheruMustAttack | Duration$ Permanent | SubAbility$ DBCleanup | AtEOT$ YourExile
+SVar:KheruMustAttack:SVar:MustAttack:True
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+AI:RemoveDeck:Random

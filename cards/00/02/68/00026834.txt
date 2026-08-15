@@ -1,0 +1,13 @@
+Id:26834
+ColorIdentity:UG
+ManaCost:2 G U
+Types:Legendary Creature Elf Noble
+PT:4/5
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | CheckSVar$ ElfEntered | TriggerZones$ Battlefield | Execute$ TrigVote
+SVar:TrigVote:DB$ Vote | Defined$ Player | Choices$ DBTempt,DBDraw | VoteTiedAbility$ DBDraw
+SVar:DBTempt:DB$ RingTemptsYou | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Choices$ Card.IsRingbearer+YouCtrl | Mandatory$ True | CounterType$ P1P1 | CounterNum$ 1
+SVar:DBDraw:DB$ Draw
+SVar:ElfEntered:Count$ThisTurnEntered_Battlefield_Creature.Elf+StrictlyOther+YouCtrl
+DeckHas:Ability$Counters
+DeckNeeds:Type$Elf

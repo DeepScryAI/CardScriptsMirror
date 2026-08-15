@@ -1,0 +1,12 @@
+Id:27732
+ColorIdentity:UR
+ManaCost:1 U R
+Types:Legendary Creature Human Incarnation
+PT:3/3
+K:Vanishing:3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | ChangeType$ Artifact.Other+YouCtrl | ChangeNum$ 1 | Hidden$ True | Mandatory$ True | Origin$ Battlefield | Destination$ Exile | Duration$ UntilHostLeavesPlay
+S:Mode$ Continuous | Affected$ Card.Self | EffectZone$ Battlefield | GainsAbilitiesOf$ Card.ExiledWithSource | GainsTriggerAbsOf$ Card.ExiledWithSource | GainsAbilitiesOfZones$ Exile | AddPower$ X | AddToughness$ X
+SVar:X:Count$ValidExile Card.ExiledWithSource$CardManaCost
+DeckHas:Ability$Counters | Sacrifice
+DeckNeeds:Type$Artifact

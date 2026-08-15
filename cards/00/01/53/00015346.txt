@@ -1,0 +1,14 @@
+Id:15346
+ColorIdentity:U
+ManaCost:2 U
+Types:Enchantment
+T:Mode$ Drawn | ValidCard$ Card.YouOwn | TriggerZones$ Battlefield | Execute$ TrigMill
+SVar:TrigMill:DB$ Repeat | ValidTgts$ Opponent | IsCurse$ True | RepeatSubAbility$ DBCleanAndGrind | MaxRepeat$ MaxRepeats | RepeatCheckSVar$ MilledSharesColor | RepeatSVarCompare$ GE2 | SubAbility$ DBCleanup
+SVar:DBCleanAndGrind:DB$ Cleanup | ClearRemembered$ True | SubAbility$ DBGrind
+SVar:DBGrind:DB$ Mill | NumCards$ 2 | Defined$ Targeted | RememberMilled$ True
+SVar:MaxRepeats:TargetedPlayer$CardsInLibrary
+SVar:MilledSharesColor:Remembered$Valid Card.nonLand+SharesColorWithOther Remembered
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+A:AB$ Draw | Cost$ 5 U | NumCards$ 1 | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ TgtChoose
+DeckHas:Ability$Discard

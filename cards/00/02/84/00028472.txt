@@ -1,0 +1,14 @@
+Id:28472
+ColorIdentity:G
+ManaCost:1 G
+Types:Creature Plant Elemental
+PT:0/0
+K:Disguise:4 G
+S:Mode$ Continuous | Affected$ Card.Self | AddPower$ X | AddToughness$ X
+SVar:X:Count$Valid Forest.YouCtrl
+T:Mode$ TurnFaceUp | ValidCard$ Card.Self | Execute$ TrigSearch | TriggerZones$ Battlefield
+SVar:TrigSearch:DB$ ChangeZone | Origin$ Library | Destination$ Library | ChangeType$ Forest | ChangeNum$ 2 | RememberChanged$ True | Reveal$ True | Shuffle$ False | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Card.IsRemembered | ChangeNum$ 1 | Mandatory$ True | NoLooking$ True | Tapped$ True | Shuffle$ False | SubAbility$ DBChangeZone2
+SVar:DBChangeZone2:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Card.IsRemembered | Mandatory$ True | NoLooking$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:BuffedBy:Forest

@@ -1,0 +1,10 @@
+Id:28672
+ColorIdentity:WU
+ManaCost:2 WU WU
+Types:Creature Human Wizard
+PT:3/2
+K:Flash
+T:Mode$ ChangesZone | Phase$ Declare Attackers | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChoosePlayer
+SVar:TrigChoosePlayer:DB$ Pump | ValidTgts$ Player | SubAbility$ DBChooseAttackers
+SVar:DBChooseAttackers:DB$ ChangeCombatants | ValidTgts$ Creature.attacking | TargetsWithDefinedController$ Player.OpponentOf ParentTarget | TargetMin$ 0 | TargetMax$ MaxTargets | Attacking$ TargetedPlayer
+SVar:MaxTargets:Count$Valid Creature.attacking+ControlledBy Player.OpponentOf ParentTarget

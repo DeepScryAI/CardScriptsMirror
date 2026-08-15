@@ -1,0 +1,14 @@
+Id:26395
+ColorIdentity:R
+ManaCost:4 R
+Types:Sorcery
+A:SP$ Discard | Mode$ Hand | RememberDiscarded$ True | SubAbility$ DBMana
+SVar:DBMana:DB$ Mana | Produced$ R | Amount$ X | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ SVar$X/Plus.1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | SubAbility$ DBSpace
+SVar:X:Remembered$Amount
+SVar:DBSpace:DB$ BlankLine | SubAbility$ DBVote
+SVar:DBVote:DB$ Vote | Defined$ Player | Choices$ DBPlaneswalk,DBChaos | VoteTiedAbility$ DBChaos
+SVar:DBPlaneswalk:DB$ Planeswalk
+SVar:DBChaos:DB$ ChaosEnsues
+DeckHas:Ability$Discard

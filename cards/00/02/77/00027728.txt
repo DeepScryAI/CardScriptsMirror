@@ -1,0 +1,18 @@
+Id:27728
+ColorIdentity:
+ManaCost:no cost
+Types:Plane Spacecraft
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigExile | TriggerZones$ Command
+SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ Y | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | ForgetOnMoved$ Exile | RememberObjects$ Remembered | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | Affected$ Card.IsRemembered | MayPlay$ True | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:Y:Remembered$CardManaCost
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ TrigChooseColor
+SVar:TrigChooseColor:DB$ ChooseColor | AILogic$ MostProminentInComputerDeck | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ X | ValidTgts$ Creature.YouCtrl | SubAbility$ DBSacrifice
+SVar:DBSacrifice:DB$ Sacrifice | SacValid$ Creature.NotDefinedTargeted | SacMessage$ Another target creature | SubAbility$ DBCleanup2
+SVar:DBCleanup2:DB$ Cleanup | ClearChosenColor$ True
+SVar:X:Count$Devotion.Chosen
+DeckHas:Ability$Counters | Sacrifice

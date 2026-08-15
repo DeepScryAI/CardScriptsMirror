@@ -1,0 +1,16 @@
+Id:23362
+ColorIdentity:R
+ManaCost:3 R R
+Types:Legendary Planeswalker Tibalt
+Loyalty:3
+A:AB$ Mana | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | Produced$ R | Amount$ 2 | SubAbility$ DBDraft
+SVar:DBDraft:DB$ Draft | Spellbook$ Chained Brute,Charmbreaker Devils,Festival Crasher,Forge Devil,Frenzied Devils,Havoc Jester,Hellrider,Hobblefiend,Pitchburn Devils,Sin Prodder,Spiteful Prankster,Tibalt's Rager,Torch Fiend,Brimstone Vandal,Devil's Play | RememberDrafted$ True | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | Defined$ Remembered | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ Play | ExileOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+A:AB$ DealDamage | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Creature,Planeswalker | NumDmg$ 4 | UnlessCost$ DamageYou<4> | UnlessPayer$ TargetedController | UnlessResolveSubs$ WhenPaid | SubAbility$ DBDiscardDraw
+SVar:DBDiscardDraw:DB$ Draw | UnlessCost$ Discard<1/Card> | UnlessPayer$ You | UnlessSwitched$ True | OrString$ Draw a card.
+A:AB$ Token | Cost$ SubCounter<X/LOYALTY> | Planeswalker$ True | TokenAmount$ X | TokenScript$ r_1_1_devil_burn
+SVar:X:Count$xPaid
+DeckHas:Ability$Discard | Token & Type$Devil

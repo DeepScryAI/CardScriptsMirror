@@ -1,0 +1,11 @@
+Id:28955
+ColorIdentity:
+ManaCost:6
+Types:Artifact
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | Hidden$ True | RememberChanged$ True | Origin$ Hand | Destination$ Exile | ChangeType$ Creature.YouCtrl,Artifact.YouCtrl | ChangeNum$ 1 | SubAbility$ DBCopy
+SVar:DBCopy:DB$ CopyPermanent | Defined$ Remembered | SetPower$ 3 | SetToughness$ 3 | AddTypes$ Golem & Artifact & Creature | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:PlayMain1:TRUE
+DeckHas:Ability$Token

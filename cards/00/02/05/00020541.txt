@@ -1,0 +1,14 @@
+Id:20541
+ColorIdentity:WG
+ManaCost:2 G W
+Types:Legendary Creature Hyena Beast
+PT:3/3
+K:Partner with:Nikara, Lair Scavenger:Nikara
+K:Vigilance
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Hidden$ True | ChangeType$ Creature.YouCtrl+Other | Mandatory$ True | Origin$ Battlefield | Destination$ Exile | RememberLKI$ True | Duration$ UntilHostLeavesPlay | SubAbility$ DBImmediateTrigger
+SVar:DBImmediateTrigger:DB$ ImmediateTrigger | Execute$ TrigPutCounters | ConditionDefined$ Remembered | ConditionPresent$ Card | RememberObjects$ RememberedLKI | SubAbility$ DBCleanup
+SVar:TrigPutCounters:DB$ PutCounter | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ X | TargetMin$ 0 | TargetMax$ X | DividedAsYouChoose$ X
+SVar:X:TriggerRemembered$CardPower
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+DeckHas:Ability$Counters

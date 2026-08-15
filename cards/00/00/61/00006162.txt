@@ -1,0 +1,11 @@
+Id:6162
+ColorIdentity:
+ManaCost:no cost
+Types:Vanguard
+HandLifeModifier:+0/-5
+A:AB$ Effect | Cost$ PayLife<1> | ActivationZone$ Command | Triggers$ TrigPhageDestroy
+SVar:TrigPhageDestroy:Mode$ DamageDone | ValidSource$ Creature | ValidTarget$ You | TriggerZones$ Command | CombatDamage$ True | Execute$ PhageAvatarDestroy
+SVar:PhageAvatarDestroy:DB$ Destroy | Defined$ TriggeredSourceLKICopy
+A:AB$ Effect | Cost$ PayLife<1> | ActivationZone$ Command | ValidTgts$ Creature.YouCtrl | Triggers$ TrigPhageCreature | RememberObjects$ Targeted
+SVar:TrigPhageCreature:Mode$ DamageDone | ValidSource$ Creature.IsRemembered | ValidTarget$ Creature | TriggerZones$ Command | CombatDamage$ True | Execute$ PhageAvatarDestroy2
+SVar:PhageAvatarDestroy2:DB$ Destroy | Defined$ TriggeredTargetLKICopy

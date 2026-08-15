@@ -1,0 +1,12 @@
+Id:16316
+ColorIdentity:U
+ManaCost:3 U U
+Types:Creature Human Wizard
+PT:3/3
+K:MayEffectFromOpeningDeck:DBReveal
+SVar:DBReveal:DB$ Reveal | RevealDefined$ Self | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | Origin$ Sideboard | Destination$ Exile | ChangeType$ Instant.YouOwn,Sorcery.YouOwn | Optional$ True | RememberChanged$ True | SubAbility$ DBPump | ConditionGameTypes$ Draft,QuestDraft
+SVar:DBPump:DB$ Pump | NoteCards$ Remembered | NoteCardsFor$ ArcaneSavant | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPlay
+SVar:TrigPlay:DB$ Play | Valid$ Card.YouOwn+NotedForArcaneSavant | ValidSA$ Spell | ValidZone$ Exile | Amount$ 1 | WithoutManaCost$ True | Optional$ True | CopyCard$ True | SubAbility$ DBCleanup

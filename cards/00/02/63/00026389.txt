@@ -1,0 +1,14 @@
+Id:26389
+ColorIdentity:
+ManaCost:no cost
+Types:Plane Theros
+S:Mode$ Continuous | EffectZone$ Command | Affected$ Creature.!token | AddType$ Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Enchantment.YouCtrl | TriggerZones$ Command | Execute$ TrigGainLife
+SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos
+SVar:RolledChaos:DB$ ChooseColor | SubAbility$ DBMana | AILogic$ MostProminentComputerControls | AINoRecursiveCheck$ True
+SVar:DBMana:DB$ Mana | Produced$ Chosen | Amount$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenColor$ True
+SVar:X:Count$Devotion.Chosen
+DeckHas:Ability$LifeGain
+DeckHints:Type$Enchantment

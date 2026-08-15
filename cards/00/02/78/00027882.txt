@@ -1,0 +1,11 @@
+Id:27882
+ColorIdentity:W
+ManaCost:2 W
+Types:Instant
+A:SP$ Pump | ValidTgts$ Creature.YouCtrl | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBDraw | KW$ Protection:Player.PlayerUID_ChosenPlayerUID:ChosenPlayerName | DefinedKW$ Opponent
+SVar:DBDraw:DB$ Draw | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STKeepLife | ReplacementEffects$ DBYouCantLose,DBOppCantWin | ConditionCheckSVar$ FatefulHour | ConditionSVarCompare$ LE5 | AILogic$ Fog
+SVar:STKeepLife:Mode$ CantLoseLife | ValidPlayer$ You
+SVar:DBYouCantLose:Event$ GameLoss | ValidPlayer$ You | Layer$ CantHappen
+SVar:DBOppCantWin:Event$ GameWin | ValidPlayer$ Opponent | Layer$ CantHappen | Secondary$ True
+SVar:FatefulHour:Count$YourLifeTotal

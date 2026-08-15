@@ -1,0 +1,10 @@
+Id:26810
+ColorIdentity:U
+ManaCost:2 U
+Types:Creature Human Advisor
+PT:2/3
+T:Mode$ DamageDone | ValidSource$ Card.IsCommander+YouOwn | ValidTarget$ Player | CheckSVar$ Monarch | SVarCompare$ EQ0 | CombatDamage$ True | Execute$ TrigMonarch | TriggerZones$ Battlefield
+SVar:TrigMonarch:DB$ BecomeMonarch
+SVar:Monarch:PlayerCountPlayers$HasPropertyisMonarch
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ Player.isMonarch | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ TriggeredPlayer

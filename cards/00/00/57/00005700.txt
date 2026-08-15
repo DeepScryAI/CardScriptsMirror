@@ -1,0 +1,15 @@
+Id:5700
+ColorIdentity:B
+ManaCost:1 B
+Types:Instant
+# AI will exile all cards from its graveyard currently
+A:SP$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBChooseNum | SubAbility$ DBExile
+SVar:DBChooseNum:DB$ ChooseNumber | Defined$ Player.IsRemembered | Min$ 0 | Max$ X | ListTitle$ number of cards in your graveyard to exile | SubAbility$ DBChooseCard
+SVar:DBChooseCard:DB$ ChooseCard | Defined$ Player.IsRemembered | Amount$ Y | Choices$ Card.RememberedPlayerCtrl | ChoiceZone$ Graveyard | Mandatory$ True | RememberChosen$ True
+SVar:DBExile:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered | Origin$ Graveyard | Destination$ Exile | SubAbility$ DBRepeat
+SVar:DBRepeat:DB$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBLoseLife | SubAbility$ DBDraw
+SVar:DBLoseLife:DB$ LoseLife | Defined$ Player.IsRemembered | LifeAmount$ X
+SVar:DBDraw:DB$ Draw
+SVar:X:Count$ValidGraveyard Card.RememberedPlayerCtrl
+SVar:Y:Count$ChosenNumber
+AI:RemoveDeck:All

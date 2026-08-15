@@ -1,0 +1,13 @@
+Id:682
+ColorIdentity:BR
+ManaCost:2 B B R R
+Types:Legendary Creature Kobold
+PT:5/5
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigTap
+SVar:TrigTap:DB$ TapAll | ValidCards$ Card.Self,Creature.YouCtrl+namedKobolds of Kher Keep | UnlessCost$ R R R | UnlessPayer$ You | UnlessResolveSubs$ WhenNotPaid | SubAbility$ DBChooseP
+SVar:DBChooseP:DB$ ChoosePlayer | Defined$ You | Choices$ Player.Opponent | AILogic$ Curse | SubAbility$ DBGainControl
+SVar:DBGainControl:DB$ GainControl | NewController$ Player.Chosen | AllValid$ Card.Self,Creature.YouCtrl+namedKobolds of Kher Keep | SubAbility$ DBClearChosen
+SVar:DBClearChosen:DB$ Cleanup | ClearChosenPlayer$ True
+S:Mode$ Continuous | Affected$ Creature.YouCtrl+namedKobolds of Kher Keep | AddPower$ 2 | AddToughness$ 2
+SVar:PlayMain1:TRUE
+DeckHints:Name$Kobolds of Kher Keep & Type$Kobold

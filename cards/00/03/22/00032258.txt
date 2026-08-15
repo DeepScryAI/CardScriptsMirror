@@ -1,0 +1,9 @@
+Id:32258
+ColorIdentity:R
+ManaCost:2 R
+Types:Sorcery
+A:SP$ GainControl | ValidTgts$ Artifact,Creature | LoseControl$ EOT | Untap$ True | AddKWs$ Haste | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Targeted.Spacecraft | CounterType$ CHARGE | CounterNum$ 10 | RememberPut$ True | SubAbility$ DBDelTrig
+SVar:DBDelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ TrigRemoveCounter | RememberObjects$ RememberedLKI | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBCleanup
+SVar:TrigRemoveCounter:DB$ RemoveCounter | Defined$ DelayTriggerRememberedLKI | CounterType$ CHARGE | CounterNum$ 10
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

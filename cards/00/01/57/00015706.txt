@@ -1,0 +1,13 @@
+Id:15706
+ColorIdentity:
+ManaCost:6 C
+Types:Creature Eldrazi
+PT:8/8
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ DBReveal
+SVar:DBReveal:DB$ PeekAndReveal | PeekAmount$ 1 | RevealValid$ Card | RememberRevealed$ True | SubAbility$ CloneArmy
+SVar:CloneArmy:DB$ RepeatEach | UseImprinted$ True | RepeatCards$ Creature.YouCtrl+Other | RepeatSubAbility$ DBCopy | SubAbility$ DBCleanup | ConditionDefined$ Remembered | ConditionPresent$ Creature | ConditionCompare$ EQ1 | Optional$ True
+SVar:DBCopy:DB$ Clone | Defined$ Remembered | CloneTarget$ Imprinted | Duration$ UntilEndOfTurn
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | SubAbility$ FakeScry
+SVar:FakeScry:DB$ Dig | DigNum$ 1 | ChangeNum$ Any | DestinationZone$ Library | LibraryPosition2$ 0
+AI:RemoveDeck:All
+DeckNeeds:Ability$Mana.Colorless

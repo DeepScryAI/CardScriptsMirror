@@ -1,0 +1,10 @@
+Id:29573
+ColorIdentity:B
+ManaCost:1 B B
+Types:Enchantment Saga
+K:Chapter:3:DBExile,DBSetState,DBReturn
+SVar:DBExile:DB$ ChangeZone | ChangeNum$ 1 | ChangeType$ Card | Mandatory$ True | Origin$ Library | Destination$ Exile | ExileFaceDown$ True
+SVar:DBSetState:DB$ SetState | Defined$ ExiledWith | Mode$ TurnFaceUp | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | ConditionDefined$ ExiledWith | ConditionPresent$ Creature | LifeAmount$ ExiledWith$CardManaCost
+SVar:DBReturn:DB$ ChangeZone | Optional$ True | Defined$ ExiledWith | Origin$ Exile | Destination$ Battlefield | ConditionDefined$ ExiledWith | ConditionPresent$ Creature | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Defined$ ExiledWith | Origin$ Exile | Destination$ Hand

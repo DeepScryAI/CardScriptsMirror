@@ -1,0 +1,20 @@
+Id:12280
+ColorIdentity:R
+ManaCost:3 R
+Types:Creature Human Werewolf
+PT:2/3
+S:Mode$ Continuous | Affected$ Creature.attacking+YouCtrl | AddPower$ 1
+T:Mode$ Phase | Phase$ Upkeep | WerewolfTransformCondition$ True | TriggerZones$ Battlefield | Execute$ TrigTransform
+SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform
+AlternateMode:DoubleFaced
+
+ALTERNATE
+
+ManaCost:no cost
+Colors:red
+Types:Creature Werewolf
+PT:5/5
+K:Trample
+S:Mode$ Continuous | Affected$ Creature.attacking+YouCtrl | AddPower$ 3
+T:Mode$ Phase | Phase$ Upkeep | WerewolfUntransformCondition$ True | TriggerZones$ Battlefield | Execute$ TrigTransform
+SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform

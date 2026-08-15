@@ -1,0 +1,15 @@
+Id:21903
+ColorIdentity:
+ManaCost:3
+Types:Artifact
+A:AB$ Mana | Cost$ T | Produced$ C | SubAbility$ DBPutCounter | AILogic$ AtOppEOT
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ POINT | CounterNum$ 1
+T:Mode$ DamageDone | ValidSource$ Creature | ValidTarget$ You | CombatDamage$ True | Execute$ TrigRemove | TriggerZones$ Battlefield
+SVar:TrigRemove:DB$ RemoveCounter | Defined$ Self | CounterType$ POINT | CounterNum$ 1
+T:Mode$ DamageDone | ValidSource$ Creature.YouCtrl | ValidTarget$ Opponent | CombatDamage$ True | Execute$ TrigPutCounter | TriggerZones$ Battlefield
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ POINT | CounterNum$ 1 | SubAbility$ DBBranch
+SVar:DBBranch:DB$ Branch | BranchConditionSVar$ X | BranchConditionSVarCompare$ GE10 | TrueSubAbility$ DBRemoveAll
+SVar:DBRemoveAll:DB$ RemoveCounter | Defined$ Self | CounterType$ POINT | CounterNum$ All | SubAbility$ DBLosesGame
+SVar:DBLosesGame:DB$ LosesGame | Defined$ TriggeredTarget
+SVar:X:Count$CardCounters.POINT
+DeckHas:Ability$Counters

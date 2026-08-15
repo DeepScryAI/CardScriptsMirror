@@ -1,0 +1,13 @@
+Id:34123
+ColorIdentity:W
+ManaCost:3 W W
+Types:Legendary Creature Demigod Warrior Hero
+PT:3/3
+T:Mode$ Attacks | ValidCard$ Creature.Self | Execute$ TrigPutCounter1
+SVar:TrigPutCounter1:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | KW$ Indestructible | Defined$ Self
+T:Mode$ DamageDoneOnce | ValidTarget$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPutCounter2 | FirstTime$ True
+SVar:TrigPutCounter2:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ X
+SVar:X:TriggerCount$DamageAmount
+DeckHas:Ability$Counters
+SVar:HasAttackEffect:TRUE

@@ -1,0 +1,11 @@
+Id:21471
+ColorIdentity:WB
+ManaCost:1 W B
+Types:Enchantment Saga
+K:Chapter:3:DBChoose,DBChoose,DBChangeZone
+SVar:DBChoose:DB$ ChooseCard | Choices$ Creature.YouCtrl | Mandatory$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | ReplacementEffects$ DamageEvent | ExileOnMoved$ Battlefield | RememberObjects$ ChosenCard | Duration$ UntilYourNextTurn
+SVar:DamageEvent:Event$ DamageDone | ActiveZones$ Command | ValidTarget$ Creature.YouCtrl | ReplaceWith$ GideonSac | DamageTarget$ Remembered
+SVar:GideonSac:DB$ ReplaceEffect | VarName$ Affected | VarValue$ Remembered | VarType$ Card
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouOwn | WithCountersType$ Flying | StaticEffect$ Animate
+SVar:Animate:Mode$ Continuous | Affected$ Card.IsRemembered | AddType$ Angel & Warrior

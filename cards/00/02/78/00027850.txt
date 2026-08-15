@@ -1,0 +1,12 @@
+Id:27850
+ColorIdentity:B
+ManaCost:2 B
+Types:Enchantment
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigChooseNumber
+SVar:TrigChooseNumber:DB$ ChooseNumber | Secretly$ True | Min$ 1 | Max$ 5 | RemoveChoices$ Remembered | Guesser$ Opponent | GuessWrong$ DBLoseLife | GuessCorrect$ DBSac | RememberChosen$ True
+SVar:DBLoseLife:DB$ LoseLife | Defined$ RememberedPlayer | LifeAmount$ Count$ChosenNumber | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw
+SVar:DBSac:DB$ Sacrifice
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | Static$ True | ValidCard$ Card.Self | Execute$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+DeckHas:Ability$Sacrifice

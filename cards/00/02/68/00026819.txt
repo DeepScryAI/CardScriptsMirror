@@ -1,0 +1,11 @@
+Id:26819
+ColorIdentity:W
+ManaCost:5 W
+Types:Creature Human Soldier
+PT:4/6
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMonarch
+SVar:TrigMonarch:DB$ BecomeMonarch
+T:Mode$ Phase | Phase$ BeginCombat | TriggerZones$ Battlefield | ValidPlayer$ Opponent | CheckDefinedPlayer$ You.isMonarch | Execute$ TrigCantAttack
+SVar:TrigCantAttack:DB$ Effect | StaticAbilities$ STCantAttack | UnlessCost$ X | Duration$ UntilEndOfCombat | UnlessPayer$ TriggeredPlayer | UnlessAI$ WillAttack
+SVar:STCantAttack:Mode$ CantAttack | ValidCard$ Creature | Target$ You
+SVar:X:TriggeredPlayer$CardsInHand

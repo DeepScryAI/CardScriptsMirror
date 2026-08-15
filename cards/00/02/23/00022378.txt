@@ -1,0 +1,11 @@
+Id:22378
+ColorIdentity:R
+ManaCost:1 R
+Types:Artifact Equipment
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddKeyword$ Reach | AddPower$ 2
+T:Mode$ DamageDoneOnce | Execute$ TrigPump | ValidTarget$ Creature.EquippedBy | TriggerZones$ Battlefield
+SVar:TrigPump:DB$ Pump | RememberObjects$ TriggeredTargetLKICopy | SubAbility$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Player,Planeswalker | DamageSource$ TriggeredTargetLKICopy | NumDmg$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:RememberedLKI$CardPower
+K:Equip:2 R

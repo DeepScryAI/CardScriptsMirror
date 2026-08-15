@@ -1,0 +1,12 @@
+Id:10746
+ColorIdentity:
+ManaCost:no cost
+Types:Plane Karsus
+T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ Player | TriggerZones$ Command | Execute$ TrigFlip
+SVar:TrigFlip:DB$ FlipCoin | Flipper$ TriggeredActivator | LoseSubAbility$ DBCounter
+SVar:DBCounter:DB$ Counter | Defined$ TriggeredSpellAbility
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos
+SVar:RolledChaos:DB$ PeekAndReveal | ValidTgts$ Player | NoPeek$ True | RememberRevealed$ True | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | Defined$ Remembered | WithoutManaCost$ True | Optional$ True | ConditionDefined$ Remembered | ConditionPresent$ Card.nonLand | ConditionCompare$ EQ1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:AIRollPlanarDieParams:Mode$ Always

@@ -1,0 +1,15 @@
+Id:28817
+ColorIdentity:WR
+ManaCost:1 R W
+Types:Legendary Creature Human Soldier
+PT:3/3
+K:Reach
+K:Lifelink
+T:Mode$ AttackersDeclared | Execute$ TrigPutCounter | ValidAttackers$ Creature | ValidAttackersAmount$ GE2 | TriggerZones$ Battlefield | AttackingPlayer$ You
+SVar:TrigPutCounter:DB$ PutCounter | CounterType$ QUEST | CounterNum$ 2 | RememberPut$ True | SubAbility$ DBImmediateTrigger
+SVar:DBImmediateTrigger:DB$ ImmediateTrigger | ConditionDefined$ Remembered | ConditionPresent$ Card | Execute$ TrigDealDamage | SubAbility$ DBCleanup
+SVar:TrigDealDamage:DB$ DealDamage | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | NumDmg$ X | UnlessCost$ DamageYou<X> | UnlessPayer$ TargetedController
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$CardCounters.QUEST
+DeckHas:Ability$LifeGain | Counters
+SVar:AICounterOverrideQUEST:Positive

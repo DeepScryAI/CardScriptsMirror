@@ -1,0 +1,13 @@
+Id:9726
+ColorIdentity:UB
+ManaCost:3 UB
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAITgts:Card.Black,Card.Blue
+SVar:AttachAILogic:Curiosity
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy+Blue | AddPower$ 1 | AddToughness$ 1 | AddTrigger$ BleTrigger | AddSVar$ HelmTrigDraw
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy+Black | AddPower$ 1 | AddToughness$ 1 | AddTrigger$ BlckTrigger | AddSVar$ HelmTrigDiscard
+SVar:BleTrigger:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Opponent | TriggerZones$ Battlefield | Execute$ HelmTrigDraw
+SVar:BlckTrigger:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Opponent | TriggerZones$ Battlefield | Execute$ HelmTrigDiscard
+SVar:HelmTrigDraw:DB$ Draw
+SVar:HelmTrigDiscard:DB$ Discard | Defined$ TriggeredTarget | NumCards$ 1 | Mode$ TgtChoose

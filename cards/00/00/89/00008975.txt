@@ -1,0 +1,14 @@
+Id:8975
+ColorIdentity:B
+ManaCost:3 B B
+Types:Creature Horror
+PT:*/*
+S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ Y | SetToughness$ Y
+K:Suspend:X:XMin1 X B B B
+T:Mode$ CounterRemoved | ValidCard$ Card.Self | TriggerZones$ Exile | CounterType$ TIME | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | ValidTgts$ Player | LifeAmount$ 1 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
+SVar:X:Count$xPaid
+SVar:Y:Count$YourLifeTotal/Minus.Z
+SVar:Z:Count$OppGreatestLifeTotal
+AI:RemoveDeck:All

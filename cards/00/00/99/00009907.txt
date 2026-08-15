@@ -1,0 +1,13 @@
+Id:9907
+ColorIdentity:WR
+ManaCost:2 RW RW RW
+Types:Creature Spirit Horror
+PT:2/4
+S:Mode$ Continuous | Affected$ Creature.Red+Other+YouCtrl | AddPower$ 1 | AddToughness$ 1
+S:Mode$ Continuous | Affected$ Creature.White+Other+YouCtrl | AddPower$ 1 | AddToughness$ 1
+T:Mode$ SpellCast | ValidCard$ Card.Red | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDealDamage
+T:Mode$ SpellCast | ValidCard$ Card.White | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigGainLife
+SVar:TrigDealDamage:DB$ DealDamage | ValidTgts$ Player,Planeswalker | NumDmg$ 3
+SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 3
+SVar:PlayMain1:TRUE
+SVar:BuffedBy:Card.Red,Card.White

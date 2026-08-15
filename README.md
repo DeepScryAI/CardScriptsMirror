@@ -6,10 +6,10 @@ It joins Forge scripts to stable DeepScry numeric IDs through Scryfall
 `Oracle:`), removes every human description/prompt parameter, and writes the
 executable scripts beneath a three-level numeric trie.
 
-The generated `cards/` tree and downloaded Scryfall snapshot are intentionally
-untracked during this experiment. The pipeline is functionality-first; it is
-not yet a drop-in replacement for CardScriptsMirror `main` or for DeepScry's
-current name-based card loader.
+The generated `cards/` tree is the replacement gameplay corpus on this branch.
+The downloaded Scryfall snapshot remains untracked and is used only as an
+offline build input. DeepScry's numeric loader consumes the generated tree
+without consulting that snapshot or a card-title registry.
 
 ## Generate
 

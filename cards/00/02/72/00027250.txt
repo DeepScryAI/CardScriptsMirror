@@ -1,0 +1,13 @@
+Id:27250
+ColorIdentity:R
+ManaCost:2 R
+Types:Instant
+A:SP$ ChangeZone | ValidTgts$ Permanent.nonLand+nonEnchantment | RememberLKI$ True | Origin$ Battlefield | Destination$ Library | Shuffle$ True | TargetMin$ OneEach | TargetMax$ OneEach | TargetsForEachPlayer$ True | SubAbility$ DBRepeat
+SVar:DBRepeat:DB$ RepeatEach | RepeatPlayers$ RememberedController | ClearRememberedBeforeLoop$ True | RepeatSubAbility$ DBDigUntil | SubAbility$ DBRepeatCard
+SVar:DBDigUntil:DB$ DigUntil | Defined$ RememberedController | Valid$ Permanent.nonLand | FoundDestination$ Exile | RevealedDestination$ Exile | ImprintFound$ True | RememberRevealed$ True | SubAbility$ DBChange
+SVar:DBChange:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered+!IsImprinted | Origin$ Exile | Destination$ Library | RandomOrder$ True | LibraryPosition$ -1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:DBRepeatCard:DB$ RepeatEach | RepeatCards$ Card.IsImprinted | Zone$ Exile | RepeatSubAbility$ DBPlay | SubAbility$ DBCleanupBis
+SVar:DBPlay:DB$ Play | Defined$ Remembered | Controller$ RememberedController | ValidSA$ Spell | WithoutManaCost$ True | Optional$ True
+SVar:DBCleanupBis:DB$ Cleanup | ClearImprinted$ True
+SVar:OneEach:PlayerCountPlayers$Amount

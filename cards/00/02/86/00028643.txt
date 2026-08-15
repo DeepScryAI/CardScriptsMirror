@@ -1,0 +1,15 @@
+Id:28643
+ColorIdentity:BG
+ManaCost:3 B G
+Types:Legendary Creature Insect Shaman
+PT:3/3
+K:Flying
+K:Menace
+S:Mode$ Continuous | Affected$ Insect.YouCtrl+Other | AddKeyword$ Menace
+T:Mode$ ChangesZoneAll | ValidCards$ Card.YouOwn | Origin$ Graveyard | ResolvedLimit$ 1 | OptionalDecider$ You | Destination$ Any | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScript$ bg_1_1_insect | RememberTokens$ True | TokenOwner$ You | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Remembered | CounterNum$ X | CounterType$ P1P1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:TriggerObjectsCards$GreatestCardManaCost
+DeckHas:Ability$Token & Ability$Graveyard
+DeckHints:Type$Insect & Ability$Graveyard

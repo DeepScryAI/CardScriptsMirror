@@ -1,0 +1,12 @@
+Id:7241
+ColorIdentity:
+ManaCost:3
+Types:Legendary Artifact Equipment
+K:Equip:2
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 3 | AddToughness$ 1
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | Defined$ Equipped
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.EquippedBy | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Destination$ Battlefield | Defined$ TriggeredNewCardLKICopy | GainControl$ True | ConditionDefined$ TriggeredNewCardLKICopy | ConditionPresent$ Card.Samurai | ConditionCompare$ GE1
+AI:RemoveDeck:Random
+DeckNeeds:Type$Samurai

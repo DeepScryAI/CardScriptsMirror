@@ -1,0 +1,10 @@
+Id:2315
+ColorIdentity:G
+ManaCost:X G
+Types:Instant
+Text:Cast CARDNAME only during the declare blockers step.
+A:SP$ BecomesBlocked | ValidTgts$ Creature.attacking | TargetMin$ 0 | TargetMax$ MaxTgt | ActivationPhases$ Declare Blockers | RememberTargets$ True | SubAbility$ DBDamage
+SVar:DBDamage:DB$ DamageAll | ValidCards$ Creature.IsRemembered | NumDmg$ 1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:TargetedObjects$Amount
+SVar:MaxTgt:Count$Valid Creature.attacking

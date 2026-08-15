@@ -1,0 +1,14 @@
+Id:18542
+ColorIdentity:BRG
+ManaCost:3 B R G
+Types:Legendary Creature Elder Dragon
+PT:6/6
+K:Flying
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigTarget
+SVar:TrigTarget:DB$ Pump | ValidTgts$ Permanent | TargetMin$ OneEach | TargetMax$ OneEach | TargetsForEachPlayer$ True | SubAbility$ DBSacrificeAll | AILogic$ SacOneEach
+SVar:DBSacrificeAll:DB$ SacrificeAll | Defined$ Targeted | RememberSacrificed$ True | SubAbility$ DBRepeatEach
+SVar:DBRepeatEach:DB$ RepeatEach | DefinedCards$ RememberedLKI | UseImprinted$ True | RepeatSubAbility$ DBDig | SubAbility$ DBCleanup
+SVar:DBDig:DB$ Dig | Defined$ ImprintedController | DigNum$ 1 | Reveal$ True | DestinationZone$ Battlefield | DestinationZone2$ Library | LibraryPosition2$ 0 | ChangeNum$ All | ChangeValid$ Permanent
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:OneEach:PlayerCountPlayers$Amount
+SVar:HasAttackEffect:TRUE

@@ -1,0 +1,12 @@
+Id:26847
+ColorIdentity:B
+ManaCost:2 B
+Types:Legendary Creature Halfling Citizen
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ Dig | DigNum$ 1 | ChangeNum$ All | Defined$ Opponent | DestinationZone$ Exile | ExileFaceDown$ True | WithMayLook$ True
+A:AB$ Charm | Cost$ T Sac<1/Artifact> | Choices$ DBEffect,DBLoseGain
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | MayPlayWithoutManaCost$ True | Affected$ Card.ExiledWithEffectSource | AffectedZone$ Exile | MayPlayLimit$ 1
+SVar:DBLoseGain:DB$ LoseLife | Defined$ Opponent | LifeAmount$ 2 | SubAbility$ DBGain2
+SVar:DBGain2:DB$ GainLife | Defined$ You | LifeAmount$ 2

@@ -1,0 +1,14 @@
+Id:14394
+ColorIdentity:W
+ManaCost:2 W W W
+Types:Legendary Creature Angel
+PT:5/4
+K:Flying
+K:Vigilance
+A:AB$ ChooseColor | Cost$ 1 W | Defined$ You | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | Name$ Avacyn, Guardian Angel Effect — Protect Creature | ValidTgts$ Creature.Other | ReplacementEffects$ RPreventCreature | RememberObjects$ Targeted | ForgetOnMoved$ Battlefield
+SVar:RPreventCreature:Event$ DamageDone | Prevent$ True | ActiveZones$ Command | ValidTarget$ Card.IsRemembered | ValidSource$ Card.ChosenColor
+A:AB$ ChooseColor | Cost$ 5 W W | Defined$ You | SubAbility$ DBEffect2
+SVar:DBEffect2:DB$ Effect | Name$ Avacyn, Guardian Angel's Effect — Protect Player | ValidTgts$ Player,Planeswalker | ReplacementEffects$ RPreventPlayer | AILogic$ Fog | RememberObjects$ Targeted
+SVar:RPreventPlayer:Event$ DamageDone | Prevent$ True | ActiveZones$ Command | ValidTarget$ Player.IsRemembered,Planeswalker.IsRemembered | ValidSource$ Card.ChosenColor
+AI:RemoveDeck:All

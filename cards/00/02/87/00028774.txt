@@ -1,0 +1,12 @@
+Id:28774
+ColorIdentity:W
+ManaCost:1 W
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChoose
+SVar:TrigChoose:DB$ ChooseCard | ChoiceZone$ Hand | Choices$ Creature.YouOwn | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ ChosenCard | Incorporate$ W | Triggers$ SpellCastTrig | Duration$ Perpetual
+SVar:SpellCastTrig:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScript$ wu_2_2_detective
+S:Mode$ Continuous | Affected$ Creature.MultiColor+Other+YouCtrl | AddPower$ 1 | AddToughness$ 1
+DeckHints:Type$Detective
+DeckHas:Ability$Token & Type$Detective & Color$Blue

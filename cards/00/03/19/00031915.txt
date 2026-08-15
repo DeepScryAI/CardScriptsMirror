@@ -1,0 +1,9 @@
+Id:31915
+ColorIdentity:B
+ManaCost:2 B B
+Types:Legendary Artifact
+S:Mode$ ReduceCost | ValidCard$ Card.Black | Type$ Spell | Activator$ You | Amount$ 1
+R:Event$ Moved | ActiveZones$ Battlefield | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Creature+!token+OppCtrl | ReplaceWith$ Exile
+SVar:Exile:DB$ ChangeZone | Hidden$ True | Origin$ All | Destination$ Exile | Defined$ ReplacedCard | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ 2
+A:AB$ ChangeZone | Cost$ 4 B B T | ValidTgts$ Creature.ExiledWithSource | TgtZone$ Exile | Tapped$ True | WithCountersType$ P1P1 | WithCountersAmount$ 2 | GainControl$ True | Origin$ Exile | Destination$ Battlefield

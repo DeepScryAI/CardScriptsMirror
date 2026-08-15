@@ -1,0 +1,30 @@
+Id:23062
+ColorIdentity:W
+ManaCost:1 W W
+Types:Legendary Creature Spirit Warlock
+PT:*/*
+K:Flying
+K:Lifelink
+K:Protection:Vampire
+K:Disturb:3 W W
+S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X | SetToughness$ X
+SVar:X:Count$Valid Spirit.YouCtrl,Enchantment.YouCtrl
+SVar:NeedsToPlayVar:X GE2
+SVar:BuffedBy:Enchantment,Spirit
+SVar:NoZeroToughnessAI:True
+DeckHints:Type$Spirit | Enchantment
+DeckHas:Ability$LifeGain | Graveyard
+AlternateMode:DoubleFaced
+
+ALTERNATE
+
+ManaCost:no cost
+Colors:white
+Types:Legendary Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ X | AddToughness$ X | AddKeyword$ Flying & Lifelink & Protection:Vampire
+SVar:X:Count$Valid Spirit.YouCtrl,Enchantment.YouCtrl
+SVar:BuffedBy:Enchantment,Spirit
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Graveyard | ReplaceWith$ Exile
+SVar:Exile:DB$ ChangeZone | Hidden$ True | Origin$ All | Destination$ Exile | Defined$ ReplacedCard

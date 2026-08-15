@@ -1,0 +1,12 @@
+Id:28843
+ColorIdentity:B
+ManaCost:2 B
+Types:Creature Insect Mutant
+PT:2/2
+K:Flying
+S:Mode$ CantBlock | ValidCard$ Creature.Self
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigRadiation | CombatDamage$ True
+SVar:TrigRadiation:DB$ Radiation | Defined$ TriggeredTarget | Num$ X
+SVar:X:TriggerCount$DamageAmount
+T:Mode$ Milled | ValidPlayer$ Opponent | OptionalDecider$ You | ValidCard$ Card.nonLand | TriggerZones$ Graveyard | Execute$ TrigReturn | PresentZone$ Graveyard | IsPresent$ Card.StrictlySelf
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand

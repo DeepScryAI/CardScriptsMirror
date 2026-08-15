@@ -1,0 +1,12 @@
+Id:33538
+ColorIdentity:R
+ManaCost:3 R
+Types:Legendary Creature Mutant Ninja Turtle
+PT:4/3
+K:Menace
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.YouCtrl+Other | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigExile
+SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigEffect | TriggerZones$ Battlefield
+SVar:TrigEffect:DB$ Effect | StaticAbilities$ STPlay
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.ExiledWithEffectSource | AffectedZone$ Exile | MayPlayLimit$ 1
+SVar:HasAttackEffect:TRUE

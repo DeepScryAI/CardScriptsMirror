@@ -1,0 +1,12 @@
+Id:25173
+ColorIdentity:URG
+ManaCost:1 G U R
+Types:Legendary Creature Human Tyranid Wizard
+PT:1/1
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ 1
+A:AB$ Mana | PrecostDesc$ Psychic Stimulus — | SubAbility$ DBEffect | Cost$ T | Produced$ C | Amount$ 2
+SVar:DBEffect:DB$ Effect | Triggers$ CopySpellCast
+SVar:CopySpellCast:Mode$ SpellAbilityCast | ValidActivatingPlayer$ You | ValidSA$ Activated,Spell | OneOff$ True | Execute$ TrigCopySpell | HasXManaCost$ True
+SVar:TrigCopySpell:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | MayChooseTarget$ True | AILogic$ Always
+DeckHas:Ability$Counters | Token

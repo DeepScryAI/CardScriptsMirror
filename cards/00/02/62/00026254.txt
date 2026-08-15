@@ -1,0 +1,11 @@
+Id:26254
+ColorIdentity:W
+ManaCost:X W W W
+Types:Sorcery
+A:SP$ GainLife | Defined$ Player | LifeAmount$ X | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ X | Defined$ Player | SubAbility$ DBRepeatCreature
+SVar:DBRepeatCreature:DB$ RepeatEach | RepeatSubAbility$ DBReturnCreature | RepeatPlayers$ Player | SubAbility$ DBRepeatLand
+SVar:DBReturnCreature:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ChangeType$ Creature.RememberedPlayerCtrl | DefinedPlayer$ Player.IsRemembered | Chooser$ Player.IsRemembered | ChangeNum$ X | Hidden$ True | Mandatory$ True
+SVar:DBRepeatLand:DB$ RepeatEach | RepeatSubAbility$ DBReturnLand | RepeatPlayers$ Player
+SVar:DBReturnLand:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ChangeType$ Land.RememberedPlayerCtrl | DefinedPlayer$ Player.IsRemembered | Chooser$ Player.IsRemembered | ChangeNum$ X | Hidden$ True | Mandatory$ True
+SVar:X:Count$xPaid

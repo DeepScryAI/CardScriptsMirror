@@ -1,0 +1,19 @@
+Id:7965
+ColorIdentity:W
+ManaCost:1 W
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAITgts:Creature.!token
+SVar:AttachAILogic:Pump
+A:AB$ Pump | Cost$ 2 W W | Defined$ Enchanted | ImprintCards$ Enchanted | SubAbility$ DBRemAura
+SVar:DBRemAura:DB$ PumpAll | ValidCards$ Card.IsImprinted,Aura.AttachedTo Creature.IsImprinted | RememberPumped$ True | SubAbility$ DBChangeZoneAll
+SVar:DBChangeZoneAll:DB$ ChangeZoneAll | Origin$ Battlefield | Destination$ Exile | ChangeType$ Card.IsRemembered | SubAbility$ DelayedEffect
+SVar:DelayedEffect:DB$ Effect | Triggers$ TrigEOT | RememberObjects$ Remembered | ImprintCards$ Imprinted | Duration$ Permanent | SubAbility$ DBCleanup
+SVar:TrigEOT:Mode$ Phase | Phase$ End of Turn | Execute$ FlickerformReturn | OneOff$ True | TriggerZones$ Command
+SVar:FlickerformReturn:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered+IsImprinted | Origin$ Exile | Destination$ Battlefield | SubAbility$ ClearImprint
+SVar:ClearImprint:DB$ Cleanup | ClearImprinted$ True | SubAbility$ FlickerformAttach
+SVar:FlickerformAttach:DB$ RepeatEach | UseImprinted$ True | RepeatCards$ Aura.IsRemembered | Zone$ Exile | RepeatSubAbility$ DBAllAuraAttach
+SVar:DBAllAuraAttach:DB$ ChangeZone | Defined$ Imprinted | Origin$ Exile | Destination$ Battlefield | AttachedTo$ Valid Creature.IsRemembered
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True
+AI:RemoveDeck:All
+SVar:NonStackingAttachEffect:True

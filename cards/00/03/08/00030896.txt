@@ -1,0 +1,12 @@
+Id:30896
+ColorIdentity:BR
+ManaCost:1 B B R R
+Types:Artifact Creature Construct
+PT:5/4
+K:Menace
+K:Deathtouch
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | ValidTgts$ Creature.cmcLE4 | RememberChanged$ True | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True | WithCountersType$ FINALITY | SubAbility$ DBPump
+SVar:DBPump:DB$ Animate | Keywords$ Menace & Deathtouch & Haste | Defined$ Remembered | Duration$ Permanent | AtEOT$ YourExile | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:PlayMain1:TRUE

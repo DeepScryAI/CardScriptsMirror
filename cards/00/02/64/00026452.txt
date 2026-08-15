@@ -1,0 +1,16 @@
+Id:26452
+ColorIdentity:URG
+ManaCost:2 G U R
+Types:Legendary Creature Cyclops Homunculus
+PT:6/5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ DBDraw | OptionalDecider$ You
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ DBDraw | TriggerZones$ Battlefield | Secondary$ True
+SVar:DBDraw:DB$ Draw | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | DiscardValid$ Land | AnyNumber$ True | Optional$ True | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ TrigImmediateTrig
+SVar:TrigImmediateTrig:DB$ ImmediateTrigger | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ GE1 | RememberSVarAmount$ X | Execute$ TrigDoubleDamage | SubAbility$ DBCleanup
+SVar:TrigDoubleDamage:DB$ DealDamage | NumDmg$ Count$TriggerRememberAmount | ValidTgts$ Creature
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$RememberedSize/Twice
+A:AB$ ChangeZone | Cost$ 1 U | Origin$ Battlefield | Destination$ Library | LibraryPosition$ 2
+SVar:HasAttackEffect:TRUE
+DeckHas:Ability$Discard

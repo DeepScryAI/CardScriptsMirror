@@ -1,0 +1,13 @@
+Id:23229
+ColorIdentity:W
+ManaCost:1 W
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Card.EnchantedBy | AddTrigger$ NurturingChangeZone | AddSVar$ NurturingPump
+SVar:NurturingChangeZone:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.YouCtrl | TriggerZones$ Battlefield | Execute$ NurturingPump
+SVar:NurturingPump:DB$ Pump | Defined$ Self | NumAtt$ +1 | NumDef$ +1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScript$ w_1_1_spirit_flying
+SVar:BuffedBy:Creature
+DeckHas:Ability$Token

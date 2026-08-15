@@ -1,0 +1,14 @@
+Id:22684
+ColorIdentity:W
+ManaCost:1 W
+Types:Creature Human Soldier
+PT:1/2
+K:Lifelink
+T:Mode$ Cycled | ValidCard$ Card.Other | ValidPlayer$ You | TriggerZones$ Graveyard | Execute$ TrigReturn
+SVar:TrigReturn:AB$ ChangeZone | Cost$ 1 W | Origin$ Graveyard | Destination$ Battlefield | Tapped$ True | RememberChanged$ True | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Remembered | NumAtt$ +1 | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+K:Cycling:1 W
+SVar:SacMe:2
+DeckHas:Ability$LifeGain | Graveyard
+DeckNeeds:Keyword$Cycling

@@ -1,0 +1,12 @@
+Id:31848
+ColorIdentity:B
+ManaCost:1 B
+Types:Legendary Creature Human Assassin
+PT:2/1
+K:Menace
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigExile
+SVar:TrigExile:DB$ Dig | Defined$ TriggeredTarget | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | Imprint$ True | SubAbility$ DBSacrifice
+SVar:DBSacrifice:DB$ Sacrifice | SacValid$ Artifact.Other,Creature.Other | SacMessage$ other creature or artifact | Optional$ True | RememberSacrificed$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | ConditionDefined$ Remembered | ConditionPresent$ Card | StaticAbilities$ STPlay | ForgetOnMoved$ Exile | RememberObjects$ Imprinted | ForgetOtherRemembered$ True | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | MayPlayIgnoreType$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True

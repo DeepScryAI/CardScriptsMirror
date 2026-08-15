@@ -1,0 +1,12 @@
+Id:3524
+ColorIdentity:
+ManaCost:3
+Types:Artifact
+S:Mode$ Continuous | Affected$ Creature | AddKeyword$ Vigilance
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ Player | Execute$ TrigTapAll | TriggerZones$ Battlefield
+SVar:TrigTapAll:DB$ TapAll | ValidCards$ Creature.untapped+!attackedThisTurn+ActivePlayerCtrl | RememberTapped$ True | SubAbility$ DBDamage
+SVar:DBDamage:DB$ DealDamage | Defined$ TriggeredPlayer | NumDmg$ AngelDamage | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:AngelDamage:Remembered$Amount
+AI:RemoveDeck:All
+AI:RemoveDeck:Random

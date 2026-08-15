@@ -1,0 +1,12 @@
+Id:8562
+ColorIdentity:R
+ManaCost:2 R R
+Types:Snow Creature Yeti
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | IsPresent$ Card.StrictlySelf | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Creature.OppCtrl | NumDmg$ X | SubAbility$ DBDamage
+SVar:DBDamage:DB$ DealDamage | Defined$ Self | DamageSource$ Targeted | NumDmg$ Y
+A:AB$ ChangeZone | Cost$ 2 S | Origin$ Battlefield | Destination$ Hand | SorcerySpeed$ True
+SVar:X:Count$CardPower
+SVar:Y:Targeted$CardPower
+AI:RemoveDeck:All

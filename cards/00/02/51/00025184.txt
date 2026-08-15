@@ -1,0 +1,11 @@
+Id:25184
+ColorIdentity:WB
+ManaCost:2 W B
+Types:Legendary Creature Human Rogue
+PT:3/3
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigReturn | OptionalDecider$ You
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Permanent.OwnedBy TriggeredTarget | AILogic$ WorstCard | RememberChanged$ True | SubAbility$ DBChooseCard
+SVar:DBChooseCard:DB$ ChooseCard | ConditionDefined$ Remembered | ConditionPresent$ Card | Defined$ TriggeredTarget | Mandatory$ True | Choices$ Permanent.YouOwn | AILogic$ WorstCard | ChoiceZone$ Graveyard | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | Defined$ ChosenCard | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearChosenCard$ True
+DeckHas:Ability$Graveyard

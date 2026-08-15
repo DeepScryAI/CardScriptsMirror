@@ -1,0 +1,12 @@
+Id:18603
+ColorIdentity:W
+ManaCost:3 W
+Types:Creature Unicorn
+PT:3/4
+K:Vigilance
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | IsPresent$ Card.IsCommander+YouOwn+YouCtrl | TriggerZones$ Battlefield | Execute$ PreventEffect
+SVar:PreventEffect:DB$ Effect | ReplacementEffects$ RPrevent | SubAbility$ DBPumpAll
+SVar:RPrevent:Event$ DamageDone | Prevent$ True | IsCombat$ True | ActiveZones$ Command | ValidTarget$ Creature.YouCtrl
+SVar:DBPumpAll:DB$ PumpAll | ValidCards$ Creature.StrictlyOther+YouCtrl | KW$ Vigilance
+SVar:BuffedBy:Card.IsCommander
+AI:RemoveDeck:Random

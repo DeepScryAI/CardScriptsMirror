@@ -1,0 +1,11 @@
+Id:18883
+ColorIdentity:UG
+ManaCost:G U
+Types:Creature Mutant
+PT:2/2
+S:Mode$ ReduceCost | ValidCard$ Creature.YouCtrl | Type$ Ability | Amount$ 2 | MinMana$ 1 | AffectedZone$ Battlefield
+A:AB$ Effect | Cost$ T | ValidTgts$ Creature | RememberObjects$ ThisTargetedCard | StaticAbilities$ StaticAllowAdapt | Triggers$ TriggerClearAdapt
+SVar:StaticAllowAdapt:Mode$ CanAdapt | ValidCard$ Card.IsRemembered
+SVar:TriggerClearAdapt:Mode$ Adapt | ValidCard$ Card.IsRemembered | Execute$ ExileSelf | Static$ True
+SVar:ExileSelf:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile
+DeckHints:Keyword$Adapt

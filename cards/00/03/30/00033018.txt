@@ -1,0 +1,17 @@
+Id:33018
+ColorIdentity:U
+ManaCost:2 U
+Types:Legendary Creature Human Rogue
+PT:2/2
+S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self
+A:AB$ Effect | Cost$ U T | ValidTgts$ Creature.Other+YouCtrl | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable | AILogic$ MakeUnblockable
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+T:Mode$ DamageAll | CombatDamage$ True | ValidSource$ Creature.YouCtrl | ValidTarget$ Player | TriggerZones$ Battlefield | Execute$ TrigBranch
+SVar:TrigBranch:DB$ Branch | BranchConditionSVar$ X | BranchConditionSVarCompare$EQ4 | TrueSubAbility$ DBDraw1 | FalseSubAbility$ DBDraw2
+SVar:DBDraw1:DB$ Draw | NumCards$ 3
+SVar:DBDraw2:DB$ Draw | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | Mode$ TgtChoose | NumCards$ 1
+SVar:X:Count$Party
+SVar:BuffedBy:Cleric,Warrior,Wizard
+DeckHas:Ability$Party
+DeckHints:Type$Cleric | Warrior | Wizard

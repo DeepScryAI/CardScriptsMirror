@@ -1,0 +1,12 @@
+Id:32789
+ColorIdentity:B
+ManaCost:B
+Types:Legendary Enchantment Shrine
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigLoseLife1
+SVar:TrigLoseLife1:DB$ LoseLife | Defined$ Opponent | LifeAmount$ X | SubAbility$ DBGainLife1
+SVar:DBGainLife1:DB$ GainLife | Defined$ You | LifeAmount$ X
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Shrine.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigLoseLife2
+SVar:TrigLoseLife2:DB$ LoseLife | Defined$ Opponent | LifeAmount$ 1 | SubAbility$ DBGainLife2
+SVar:DBGainLife2:DB$ GainLife | Defined$ You | LifeAmount$ 1
+SVar:X:Count$Valid Shrine.YouCtrl
+DeckHints:Type$Shrine

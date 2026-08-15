@@ -1,0 +1,10 @@
+Id:227
+ColorIdentity:U
+ManaCost:U
+Types:Instant
+A:SP$ Effect | StaticAbilities$ MustAttack | ActivationPhases$ Upkeep->BeginCombat | ActivationFirstCombat$ True | OpponentTurn$ True | SubAbility$ DestroyPacifist
+SVar:MustAttack:Mode$ MustAttack | AffectedZone$ Battlefield | ValidCreature$ Creature.ActivePlayerCtrl
+SVar:DestroyPacifist:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ DestroyAll | ValidCards$ Creature.ActivePlayerCtrl+!attackedThisTurn+nonWall+!firstTurnControlled
+AI:RemoveDeck:All
+AI:RemoveDeck:Random

@@ -1,0 +1,16 @@
+Id:24435
+ColorIdentity:R
+ManaCost:2 R
+Types:Creature Dragon Rogue Warrior
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigTreasure
+SVar:TrigTreasure:DB$ Token | TokenScript$ c_a_treasure_sac | TokenOwner$ You
+T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigSac | TriggerZones$ Battlefield
+SVar:TrigSac:DB$ Sacrifice | Defined$ You | Amount$ X | SacValid$ Treasure | Optional$ True | RememberSacrificed$ True | SubAbility$ TrigImmediateTrig
+SVar:TrigImmediateTrig:DB$ ImmediateTrigger | Execute$ DBPump | ConditionDefined$ RememberedLKI | ConditionPresent$ Card | RememberObjects$ RememberedLKI | SubAbility$ DBCleanup
+SVar:DBPump:DB$ Pump | ValidTgts$ Creature | KW$ Double Strike | TargetMin$ 0 | TargetMax$ DBSize
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:DBSize:TriggerRemembered$Amount
+SVar:X:Count$Valid Treasure.YouCtrl
+AI:RemoveDeck:All
+DeckHas:Ability$Token | Sacrifice & Type$Treasure | Artifact

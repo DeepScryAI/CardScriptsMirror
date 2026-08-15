@@ -1,0 +1,14 @@
+Id:22961
+ColorIdentity:U
+ManaCost:1 U
+Types:Creature Spirit
+PT:2/1
+K:Flash
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPay
+SVar:TrigPay:AB$ ImmediateTrigger | Cost$ Mana<1 U\NumTimes> | Announce$ NumTimes | ConditionCheckSVar$ NumTimes | RememberSVarAmount$ NumTimes | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ X | SubAbility$ DBPhases
+SVar:DBPhases:DB$ Phases | ValidTgts$ Creature.Other,Artifact.Other,Enchantment.Other | TargetMin$ 0 | TargetMax$ X
+SVar:X:Count$TriggerRememberAmount
+AI:RemoveDeck:All
+DeckHas:Ability$Counters

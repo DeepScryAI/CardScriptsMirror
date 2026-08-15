@@ -1,0 +1,12 @@
+Id:2147
+ColorIdentity:U
+ManaCost:2 U
+Types:Sorcery
+A:SP$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBFluxDiscard | SubAbility$ DBDraw
+SVar:DBFluxDiscard:DB$ Discard | Defined$ Player.IsRemembered | AnyNumber$ True | Optional$ True | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBFluxDraw
+SVar:DBFluxDraw:DB$ Draw | NumCards$ X | Defined$ Player.IsRemembered | SubAbility$ CleanTheFlux
+SVar:CleanTheFlux:DB$ Cleanup | ClearRemembered$ True
+SVar:DBDraw:DB$ Draw
+SVar:X:Remembered$Amount
+AI:RemoveDeck:All
+AI:RemoveDeck:Random

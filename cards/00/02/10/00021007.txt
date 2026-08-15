@@ -1,0 +1,15 @@
+Id:21007
+ColorIdentity:W
+ManaCost:3 W W
+Types:Creature Angel Cleric
+PT:2/6
+K:Flying
+K:Double Strike
+T:Mode$ DamageDone | ValidSource$ Creature.YouCtrl | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigGain | TriggerZones$ Battlefield
+SVar:TrigGain:DB$ GainLife | Defined$ You & TriggeredTarget | LifeAmount$ X
+SVar:X:TriggerCount$DamageAmount
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ Z | SVarCompare$ GEY | Execute$ TrigLose
+SVar:TrigLose:DB$ LosesGame | Defined$ Player.attackedBySourceThisTurn
+SVar:Z:Count$YourLifeTotal
+SVar:Y:Count$YourStartingLife/Plus.15
+DeckHas:Ability$LifeGain

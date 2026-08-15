@@ -1,0 +1,11 @@
+Id:897
+ColorIdentity:
+ManaCost:1
+Types:Artifact
+A:AB$ Effect | Cost$ 2 T | ValidTgts$ Creature.YouCtrl | Triggers$ TrigAttackerUnblocked | ExileOnMoved$ Battlefield | RememberObjects$ Targeted
+SVar:TrigAttackerUnblocked:Mode$ AttackerUnblocked | ValidCard$ Card.IsRemembered | Execute$ DBNoCombatDamage
+SVar:DBNoCombatDamage:DB$ Effect | RememberObjects$ Remembered | StaticAbilities$ SNoCombatDamage | ForgetOnMoved$ Battlefield | SubAbility$ PutCounter
+SVar:SNoCombatDamage:Mode$ AssignNoCombatDamage | ValidCard$ Card.IsRemembered
+SVar:PutCounter:DB$ PutCounter | Defined$ EffectSource | CounterType$ CUBE | CounterNum$ 1
+A:AB$ Regenerate | Cost$ 2 SubCounter<1/CUBE> | ValidTgts$ Creature
+AI:RemoveDeck:All

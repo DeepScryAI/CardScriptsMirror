@@ -1,0 +1,12 @@
+Id:28503
+ColorIdentity:R
+ManaCost:4 R R
+Types:Creature Dragon
+PT:6/6
+K:Flying
+K:Trample
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigImmediateTrig
+SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ CollectEvidence<X> | RememberSVarAmount$ X | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DamageAll | NumDmg$ Count$TriggerRememberAmount | ValidCards$ Creature.ControlledBy Spawner>TriggeredTarget,Planeswalker.ControlledBy Spawner>TriggeredTarget
+SVar:X:Count$xPaid
+DeckHints:Ability$Graveyard | Mill | Discard | Dredge

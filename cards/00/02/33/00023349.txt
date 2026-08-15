@@ -1,0 +1,11 @@
+Id:23349
+ColorIdentity:B
+ManaCost:3 B
+Types:Creature Zombie Wizard
+PT:3/4
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | IsPresent$ Card.Creature+YouOwn | PresentZone$ Graveyard | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Creature.YouOwn | TargetMin$ 0 | TargetMax$ 1 | RememberChanged$ True | SubAbility$ DBSeek
+SVar:DBSeek:DB$ Seek | ConditionDefined$ Remembered | ConditionPresent$ Creature | Type$ Creature.cmcEQX | ImprintFound$ True | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | PumpZone$ Hand | Defined$ Imprinted | KW$ Menace | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True
+SVar:X:Remembered$CardManaCost/Plus.1

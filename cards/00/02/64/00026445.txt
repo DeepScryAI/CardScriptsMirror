@@ -1,0 +1,12 @@
+Id:26445
+ColorIdentity:G
+ManaCost:2 G
+Types:Enchantment Aura
+K:Enchant:Land
+SVar:AttachAILogic:Pump
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigIncubate
+SVar:TrigIncubate:DB$ Incubate | Amount$ 2
+T:Mode$ TapsForMana | ValidCard$ Card.AttachedBy | Execute$ TrigMana | Static$ True
+SVar:TrigMana:DB$ Mana | Produced$ Any | Amount$ 1 | Defined$ TriggeredCardController
+AI:RemoveDeck:All
+DeckHas:Ability$Counters | Token

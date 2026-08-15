@@ -1,0 +1,11 @@
+Id:26987
+ColorIdentity:G
+ManaCost:2 G
+Types:Legendary Creature Elf Noble
+PT:3/2
+T:Mode$ Scry | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | Choices$ DBMustBeBlocked,DBEffect
+SVar:DBMustBeBlocked:DB$ Pump | Defined$ Self | KW$ HIDDEN CARDNAME must be blocked if able. | SubAbility$ DBPump
+SVar:DBEffect:DB$ Effect | StaticAbilities$ MinMaxBlocked | ExileOnMoved$ Battlefield | SubAbility$ DBPump
+SVar:MinMaxBlocked:Mode$ MinMaxBlocker | ValidCard$ Card.EffectSource | Max$ 1
+SVar:DBPump:DB$ Pump | Defined$ Self | NumAtt$ +1 | NumDef$ +1

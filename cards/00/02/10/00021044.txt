@@ -1,0 +1,11 @@
+Id:21044
+ColorIdentity:R
+ManaCost:4 R R
+Types:Legendary Creature Minotaur Warrior
+PT:6/6
+S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddPower$ AffectedX
+SVar:AffectedX:Count$CardNumAttacksThisTurn
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | AILogic$ SafeToHold | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | PlayerTurn$ True | Phase$ Main1,Main2 | Execute$ TrigAddPhase
+SVar:TrigAddPhase:DB$ AddPhase | ExtraPhase$ Combat | ConditionPhases$ Main1,Main2 | ExtraPhaseDelayedTrigger$ DelTrigUntap | ExtraPhaseDelayedTriggerExcute$ TrigUntapAll
+SVar:DelTrigUntap:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You
+SVar:TrigUntapAll:DB$ UntapAll | ValidCards$ Creature.YouCtrl

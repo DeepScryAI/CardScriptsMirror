@@ -1,0 +1,14 @@
+Id:26577
+ColorIdentity:RG
+ManaCost:2 R R G G
+Types:Legendary Creature Ape Dinosaur Turtle
+PT:7/7
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | Choices$ DBPump,DBFight
+SVar:DBPump:DB$ Pump | Defined$ Self | KW$ Trample & Haste
+SVar:DBFight:DB$ Fight | Defined$ TriggeredCardLKICopy | ValidTgts$ Creature.YouDontCtrl
+A:AB$ Destroy | Cost$ 2 R G Discard<1/CARDNAME> | ValidTgts$ Artifact,Enchantment | TargetMin$ 0 | TargetMax$ 1 | ActivationZone$ Hand | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Library | Shuffle$ True | Defined$ DiscardedCards | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw
+SVar:PlayMain1:TRUE
+DeckHas:Ability$Discard

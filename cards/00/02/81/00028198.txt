@@ -1,0 +1,13 @@
+Id:28198
+ColorIdentity:
+ManaCost:1
+Types:Legendary Artifact
+T:Mode$ UntapAll | TriggerZones$ Battlefield | ValidCards$ Permanent | ValidPlayer$ You | Phase$ Untap | PlayerTurn$ True | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | CounterType$ TIME | CounterNum$ X
+SVar:X:TriggerCount$Amount
+A:AB$ MultiplyCounter | Cost$ 2 T | CounterType$ TIME
+T:Mode$ Always | TriggerZones$ Battlefield | IsPresent$ Card.Self+counters_GE1000_TIME | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ Opponent | LifeAmount$ 1000
+DeckHas:Ability$Counters | Sacrifice
+DeckHints:Ability$Counters

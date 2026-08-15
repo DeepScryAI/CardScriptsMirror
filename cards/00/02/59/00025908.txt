@@ -1,0 +1,12 @@
+Id:25908
+ColorIdentity:BR
+ManaCost:1 B R
+Types:Legendary Creature Human Pirate
+PT:3/1
+T:Mode$ Phase | Phase$ End of Turn | OptionalDecider$ You | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:AB$ Token | Cost$ Discard<1/Card> | TokenScript$ c_a_treasure_sac | SubAbility$ DBChoose
+SVar:DBChoose:DB$ GenericChoice | Choices$ Ambitious,Expedient | Defined$ You | AILogic$ Random
+SVar:Ambitious:DB$ Seek | Type$ Card.cmcGTX
+SVar:Expedient:DB$ Seek | Type$ Card.cmcLTX
+SVar:X:Discarded$CardManaCost
+DeckHas:Ability$Sacrifice | Token | Discard & Type$Treasure | Artifact

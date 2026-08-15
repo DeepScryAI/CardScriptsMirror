@@ -1,0 +1,14 @@
+Id:1393
+ColorIdentity:U
+ManaCost:2 U U
+Types:Creature Oyster
+PT:0/3
+K:You may choose not to untap CARDNAME during your untap step.
+A:AB$ Effect | Cost$ T | ValidTgts$ Creature.tapped | ReplacementEffects$ DontUntap | Triggers$ TrigDraw,TrigUntap,TrigZone | Duration$ UntilUntaps | IsCurse$ True | RememberObjects$ Targeted | ExileOnMoved$ Battlefield
+SVar:DontUntap:Event$ Untap | ValidCard$ Card.IsRemembered | ValidStepTurnToController$ You | Layer$ CantHappen
+SVar:TrigDraw:Mode$ Phase | Phase$ Draw | ValidPlayer$ You | Execute$ TrigCounter
+SVar:TrigCounter:DB$ PutCounter | Defined$ RememberedLKI | CounterType$ M1M1 | CounterNum$ 1 | IsCurse$ True
+SVar:TrigUntap:Mode$ Untaps | ValidCard$ Card.EffectSource | Execute$ RemoveCounters
+SVar:TrigZone:Mode$ ChangesZone | TriggerZones$ Command | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.EffectSource | Execute$ RemoveCounters | Secondary$ True
+SVar:RemoveCounters:DB$ RemoveCounter | Defined$ RememberedLKI | CounterType$ M1M1 | CounterNum$ All
+AI:RemoveDeck:All

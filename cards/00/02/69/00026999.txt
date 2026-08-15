@@ -1,0 +1,13 @@
+Id:26999
+ColorIdentity:R
+ManaCost:2 R
+Types:Legendary Creature Goblin Soldier
+PT:1/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigAmass
+SVar:TrigAmass:DB$ Amass | Type$ Orc | Num$ 2 | RememberAmass$ True | SubAbility$ DBImmediateTrig
+SVar:DBImmediateTrig:DB$ ImmediateTrigger | ConditionDefined$ Remembered | ConditionPresent$ Card | RememberObjects$ Remembered | Execute$ TrigGainControl | SubAbility$ DBCleanup
+SVar:TrigGainControl:DB$ GainControl | ValidTgts$ Creature.nonLegendary+powerLEX+OppCtrl | LoseControl$ EOT | Untap$ True | AddKWs$ Haste
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:TriggerRemembered$CardPower
+DeckHas:Ability$Token | Counters & Type$Orc | Army
+DeckHints:Ability$Token

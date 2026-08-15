@@ -1,0 +1,12 @@
+Id:16451
+ColorIdentity:B
+ManaCost:3 B B B
+Types:Creature Demon
+PT:5/5
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPumpAll
+SVar:TrigPumpAll:DB$ PumpAll | NumAtt$ -2 | NumDef$ -2 | ValidCards$ Creature.StrictlyOther | IsCurse$ True
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.Other | TriggerZones$ Battlefield | Execute$ TrigEnergy
+SVar:TrigEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ 1
+A:AB$ ChangeZone | Cost$ 2 B PayEnergy<4> | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True | ValidTgts$ Creature | ChangeNum$ 1 | Tapped$ True
+SVar:PlayMain1:TRUE

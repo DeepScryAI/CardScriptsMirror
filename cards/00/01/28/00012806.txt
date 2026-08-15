@@ -1,0 +1,12 @@
+Id:12806
+ColorIdentity:
+ManaCost:no cost
+Types:Plane Mirrodin
+T:Mode$ PlaneswalkedTo | ValidCard$ Card.Self | Execute$ QuicksilverScry
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ QuicksilverScry | TriggerZones$ Command | Secondary$ True
+SVar:QuicksilverScry:DB$ Scry | ScryNum$ 4
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos
+SVar:RolledChaos:DB$ PeekAndReveal | RememberRevealed$ True | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | Defined$ Remembered | Controller$ You | WithoutManaCost$ True | Optional$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:AIRollPlanarDieParams:Mode$ Always

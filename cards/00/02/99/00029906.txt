@@ -1,0 +1,15 @@
+Id:29906
+ColorIdentity:B
+ManaCost:1 B
+Types:Creature Squirrel Warlock
+PT:2/2
+K:Deathtouch
+A:AB$ Effect | Cost$ T | StaticAbilities$ MayCast | Triggers$ StaticCast
+SVar:MayCast:Mode$ Continuous | Affected$ Creature.nonLand+YouOwn | MayPlay$ True | AffectedZone$ Graveyard | RaiseCost$ Forage
+SVar:StaticCast:Mode$ SpellCast | ValidCard$ Card.CastSa Spell.MayPlaySource | Execute$ TrigEffect | Static$ True | TriggerZones$ Command
+SVar:TrigEffect:DB$ Effect | ReplacementEffects$ ReMoved | RememberObjects$ TriggeredCard
+SVar:ReMoved:Event$ Moved | Origin$ Stack | ValidCard$ Card.IsRemembered | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBCounter
+SVar:ETBCounter:DB$ PutCounter | ETB$ True | Defined$ ReplacedCard | CounterType$ FINALITY | CounterNum$ 1 | SubAbility$ RemoveSelf
+SVar:RemoveSelf:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile
+DeckHas:Ability$Counters
+DeckHints:Ability$Graveyard & Type$Food

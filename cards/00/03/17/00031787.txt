@@ -1,0 +1,12 @@
+Id:31787
+ColorIdentity:BG
+ManaCost:2 B G
+Types:Legendary Creature Alien
+PT:1/5
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | ValidTgts$ Creature.Other | TargetMin$ 0 | TargetMax$ 1 | CounterType$ P1P1 | CounterNum$ Count$CardPower | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Targeted | Types$ Mutant | Duration$ Permanent
+T:Mode$ ChangesZone | ValidCard$ Mutant.YouCtrl | Origin$ Battlefield | Destination$ Graveyard | TriggerZones$ Battlefield | Execute$ TrigDraw | PlayerTurn$ True
+SVar:TrigDraw:DB$ Draw | NumCards$ X
+SVar:X:TriggeredCard$CardPower
+DeckHas:Ability$Counters

@@ -1,0 +1,15 @@
+Id:25955
+ColorIdentity:G
+ManaCost:4 G
+Types:Creature Phyrexian Druid
+PT:5/5
+K:Trample
+K:Toxic:1
+T:Mode$ DamageAll | CombatDamage$ True | ValidSource$ Creature.YouCtrl | ValidTarget$ Player | TriggerZones$ Battlefield | Execute$ TrigProliferate
+SVar:TrigProliferate:DB$ Proliferate
+T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | ValidPlayer$ You | Execute$ TrigDraw | CheckSVar$ X | SVarCompare$ GE3
+SVar:TrigDraw:DB$ Draw | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | Optional$ You | ChangeType$ Land | ChangeNum$ 1
+SVar:X:PlayerCountOpponents$HighestCounters.Poison
+DeckHas:Ability$Proliferate
+DeckHints:Ability$Proliferate & Keyword$Infect | Toxic

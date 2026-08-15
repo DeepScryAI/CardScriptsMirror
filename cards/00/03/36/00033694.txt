@@ -1,0 +1,12 @@
+Id:33694
+ColorIdentity:BG
+ManaCost:1 B G
+Types:Legendary Creature Pest Frog
+PT:1/1
+K:Lifelink
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl+Other | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+K:ETBReplacement:Other:AddExtraCounter:Mandatory:Battlefield:Creature.!token+YouCtrl
+SVar:AddExtraCounter:DB$ PutCounter | ETB$ True | Defined$ ReplacedCard | CounterType$ P1P1 | CounterNum$ X
+SVar:X:Count$ThisTurnEntered_Graveyard_from_Battlefield_Creature.YouCtrl
+DeckHas:Ability$Counters

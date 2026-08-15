@@ -1,0 +1,13 @@
+Id:17658
+ColorIdentity:
+ManaCost:4
+Types:Artifact Creature Knight
+PT:1/1
+T:Mode$ SpellCast | ValidCard$ Card.BorderColorSilver | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+T:Mode$ SpellCast | ValidCard$ Card.BorderColorBlack | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigUnblock
+SVar:TrigUnblock:DB$ Effect | RememberObjects$ Self | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+T:Mode$ SpellCast | ValidCard$ Card.BorderColorWhite | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDS
+SVar:TrigDS:DB$ Pump | Defined$ Self | KW$ Double Strike
+DeckHas:Ability$Counters

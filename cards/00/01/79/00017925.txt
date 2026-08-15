@@ -1,0 +1,13 @@
+Id:17925
+ColorIdentity:G
+ManaCost:1 G
+Types:Creature Dinosaur
+PT:2/1
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigEffect
+SVar:TrigEffect:DB$ Effect | StaticAbilities$ STFlash | Triggers$ HatchlingCast
+SVar:STFlash:Mode$ CastWithFlash | ValidCard$ Dinosaur | ValidSA$ Spell | Caster$ You
+SVar:HatchlingCast:Mode$ SpellCast | ValidCard$ Dinosaur | ValidActivatingPlayer$ You | Execute$ TrigHatchlingAnimate | TriggerZones$ Command
+SVar:TrigHatchlingAnimate:DB$ Animate | Defined$ TriggeredCardLKICopy | Duration$ Permanent | Triggers$ TrigETBHatchling
+SVar:TrigETBHatchling:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ HatchlingFight | OptionalDecider$ You
+SVar:HatchlingFight:DB$ Fight | Defined$ TriggeredCardLKICopy | ValidTgts$ Creature.Other
+DeckHints:Type$Dinosaur

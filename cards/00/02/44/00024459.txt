@@ -1,0 +1,12 @@
+Id:24459
+ColorIdentity:
+ManaCost:3
+Types:Artifact
+T:Mode$ RolledDieOnce | TriggerZones$ Battlefield | ValidPlayer$ You | Execute$ TrigPutCounter
+SVar:DiceResult:TriggerCount$Result
+SVar:TrigPutCounter:DB$ PutCounter | CounterType$ CHARGE | CounterNum$ DiceResult
+A:AB$ Mana | Cost$ T | Produced$ Any | SubAbility$ DBRollDice
+SVar:DBRollDice:DB$ RollDice | Sides$ 20
+A:AB$ ChangeZone | Cost$ T SubCounter<100/CHARGE> | Origin$ Library | Destination$ Battlefield | ChangeType$ Artifact | ChangeNum$ 1
+AI:RemoveDeck:Random
+DeckHints:Type$Artifact

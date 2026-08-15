@@ -1,0 +1,12 @@
+Id:32643
+ColorIdentity:U
+ManaCost:1 U U
+Types:Sorcery
+S:Mode$ OptionalCost | EffectZone$ All | ValidCard$ Card.Self | ValidSA$ Spell | Cost$ Waterbend<6>
+A:SP$ ChangeZoneAll | ChangeType$ Card.YouOwn | Origin$ Graveyard | Destination$ Library | Shuffle$ True | ConditionCheckSVar$ X | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ Y | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STHandSize | Duration$ Permanent | ConditionCheckSVar$ X | SubAbility$ DBExile
+SVar:STHandSize:Mode$ Continuous | Affected$ You | SetMaxHandSize$ Unlimited
+SVar:DBExile:DB$ ChangeZone | Origin$ Stack | Destination$ Exile
+SVar:X:Count$OptionalGenericCostPaid.1.0
+SVar:Y:Count$OptionalGenericCostPaid.7.2

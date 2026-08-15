@@ -1,0 +1,13 @@
+Id:25108
+ColorIdentity:BR
+ManaCost:8 B B R
+Types:Instant
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ X | EffectZone$ All
+A:SP$ Discard | Mode$ Hand | Defined$ You | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 8 | SubAbility$ DBKhorne
+SVar:DBKhorne:DB$ DealDamage | Defined$ Player.Opponent | NumDmg$ 8 | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Stack | Destination$ Exile
+SVar:X:Count$ThisTurnEntered_Graveyard_from_Battlefield_Creature
+SVar:NeedsToPlayVar:Y LE3
+SVar:Y:Count$ValidHand Card.YouOwn
+DeckHas:Ability$Discard

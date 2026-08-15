@@ -1,0 +1,10 @@
+Id:18647
+ColorIdentity:B
+ManaCost:1 B B
+Types:Creature Vampire Assassin
+PT:3/1
+K:Lifelink
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone | OptionalDecider$ You
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card
+T:Mode$ Surveil | ValidPlayer$ You | Execute$ TrigReturn | TriggerZones$ Graveyard | IsPresent$ Card.StrictlySelf | PresentZone$ Graveyard | PresentPlayer$ You
+SVar:TrigReturn:AB$ ChangeZone | Cost$ PayLife<3> | Defined$ Self | Origin$ Graveyard | Destination$ Hand

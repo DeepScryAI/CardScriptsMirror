@@ -1,0 +1,13 @@
+Id:20962
+ColorIdentity:WG
+ManaCost:2 W W
+Types:Legendary Creature Unicorn
+PT:4/4
+A:AB$ ChangeZone | Cost$ 3 | ValidTgts$ Creature.Other+YouCtrl | Origin$ Battlefield | Destination$ Exile | RememberTargets$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ All | Destination$ Battlefield | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.Other+YouCtrl | Execute$ TrigPutCounter | TriggerZones$ Battlefield
+SVar:TrigPutCounter:AB$ PutCounter | Cost$ GW | Defined$ TriggeredCardLKICopy | CounterType$ P1P1 | CounterNum$ X
+SVar:X:Count$Compare Y GE1.2.1
+SVar:Y:TriggeredCard$Valid Card.Unicorn
+DeckHas:Ability$Counters

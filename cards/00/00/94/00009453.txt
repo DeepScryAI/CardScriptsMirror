@@ -1,0 +1,11 @@
+Id:9453
+ColorIdentity:G
+ManaCost:3 G G G
+Types:Creature Elemental Incarnation
+PT:6/6
+K:Trample
+R:Event$ DamageDone | ActiveZones$ Battlefield | ValidTarget$ Creature.YouCtrl+Other | ReplaceWith$ Counters | PreventionEffect$ True | ExecuteMode$ PerTarget
+SVar:Counters:DB$ PutCounter | Defined$ ReplacedTarget | CounterType$ P1P1 | CounterNum$ X
+SVar:X:ReplaceCount$DamageAmount
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigShuffle
+SVar:TrigShuffle:DB$ ChangeZone | Origin$ Graveyard | Destination$ Library | Shuffle$ True | Defined$ TriggeredCardLKICopy

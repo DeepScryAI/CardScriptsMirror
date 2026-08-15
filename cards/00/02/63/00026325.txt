@@ -1,0 +1,28 @@
+Id:26325
+ColorIdentity:G
+Variant:UniversesWithin:FlavorName:Casal, Lurkwood Pathfinder
+ManaCost:3 G
+Types:Legendary Creature Tiefling Druid
+PT:3/3
+K:Vigilance
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | Tapped$ True | ChangeType$ Forest | ChangeNum$ 1
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigTransform
+SVar:TrigTransform:AB$ SetState | Cost$ 1 G | Defined$ Self | Mode$ Transform
+SVar:HasAttackEffect:TRUE
+AlternateMode:DoubleFaced
+
+ALTERNATE
+
+Variant:UniversesWithin:FlavorName:Casal, Pathbreaker Owlbear
+ManaCost:no cost
+Colors:green
+Types:Legendary Creature Bird Bear
+PT:6/6
+K:Vigilance
+K:Trample
+T:Mode$ Transformed | ValidCard$ Card.Self | Execute$ TrigPumpAll
+SVar:TrigPumpAll:DB$ PumpAll | ValidCards$ Creature.StrictlyOther+Legendary+YouCtrl | NumAtt$ +2 | NumDef$ +2 | KW$ Trample
+T:Mode$ Phase | Phase$ Upkeep | TriggerZones$ Battlefield | ValidPlayer$ You | Execute$ TrigTransformBis
+SVar:TrigTransformBis:DB$ SetState | Defined$ Self | Mode$ Transform
+DeckNeeds:Type$Legendary

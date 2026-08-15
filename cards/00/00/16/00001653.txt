@@ -1,0 +1,14 @@
+Id:1653
+ColorIdentity:R
+ManaCost:1 R
+Types:Enchantment Aura
+K:Enchant:Creature.nonWall:non-Wall creature
+SVar:AttachAILogic:Curse
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 1
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Enchanted | CounterType$ P1P0 | CounterNum$ 1 | SubAbility$ DBDmg
+SVar:DBDmg:DB$ DealDamage | Defined$ EnchantedController | DamageSource$ Enchanted | NumDmg$ X | ConditionCheckSVar$ Y | ConditionSVarCompare$ GE3 | SubAbility$ DBDes
+SVar:DBDes:DB$ Destroy | Defined$ Enchanted | NoRegen$ True | ConditionCheckSVar$ Y | ConditionSVarCompare$ GE3
+SVar:Y:Count$Valid Creature.EnchantedBy$CardCounters.P1P0
+SVar:X:Enchanted$CardPower
+AI:RemoveDeck:All

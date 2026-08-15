@@ -1,0 +1,13 @@
+Id:10682
+ColorIdentity:U
+ManaCost:5 U U
+Types:Creature Sphinx
+PT:5/5
+K:Flying
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigSearch | TriggerZones$ Battlefield
+SVar:TrigSearch:DB$ ChangeZone | ChangeType$ Card | Origin$ Library | Destination$ Library | DefinedPlayer$ TriggeredTarget | Chooser$ You | Shuffle$ False | RememberChanged$ True | SubAbility$ DBName
+SVar:DBName:DB$ NameCard | Defined$ TriggeredTarget | SubAbility$ DBChangeZone | AILogic$ BestCreatureInComputerDeck
+SVar:DBChangeZone:DB$ ChangeZone | Defined$ Remembered | Origin$ Library | Destination$ Battlefield | GainControl$ True | ConditionDefined$ Remembered | Shuffle$ False | ConditionPresent$ Card.NamedCard | ConditionCompare$ EQ0 | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ1 | Optional$ True | SubAbility$ DBShuffle
+SVar:DBShuffle:DB$ Shuffle | Defined$ TriggeredTarget | SubAbility$ DBCleanup
+SVar:X:Count$ValidLibrary Creature.IsRemembered
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearNamedCard$ True

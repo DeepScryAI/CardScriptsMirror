@@ -1,0 +1,15 @@
+Id:25774
+ColorIdentity:BG
+ManaCost:2 B G
+Types:Creature Spider
+PT:3/3
+K:Reach
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSac
+SVar:TrigSac:AB$ ImmediateTrigger | Cost$ Sac<1/Creature.Other/another creature> | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Permanent.nonLand
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigGainLife | OptionalDecider$ TriggeredCardController
+SVar:TrigGainLife:DB$ GainLife | LifeAmount$ X | SubAbility$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | Defined$ TriggeredNewCardLKICopy
+SVar:X:Count$ValidGraveyard Creature.YouOwn
+DeckHints:Ability$Graveyard | Mill | Dredge | Sacrifice
+DeckHas:Ability$Sacrifice | LifeGain | Graveyard

@@ -1,0 +1,19 @@
+Id:7235
+ColorIdentity:B
+ManaCost:1 B
+Types:Creature Rat Rogue
+PT:1/1
+A:AB$ Discard | Cost$ 1 B T | ValidTgts$ Opponent | NumCards$ 1 | Mode$ TgtChoose | SubAbility$ DBFlip
+SVar:DBFlip:DB$ SetState | Defined$ Self | ConditionCheckSVar$ A | ConditionSVarCompare$ EQ0 | Mode$ Flip
+SVar:A:TargetedPlayer$CardsInHand
+AlternateMode:Flip
+
+ALTERNATE
+
+ManaCost:1 B
+Colors:black
+Types:Legendary Creature Rat Shaman
+PT:3/3
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Opponent | TriggerZones$ Battlefield | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ TriggeredPlayer | LifeAmount$ DiffX
+SVar:DiffX:TriggeredPlayer$CardsInHand/NMinus.3

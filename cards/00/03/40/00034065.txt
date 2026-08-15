@@ -1,0 +1,11 @@
+Id:34065
+ColorIdentity:W
+ManaCost:3 W
+Types:Legendary Creature Human Doctor
+PT:2/3
+K:Vigilance
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Creature.YouOwn+cmcLE3 | ValidTgtsDesc$ creature card with mana value 3 or less in your graveyard | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ0 | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Defined$ Targeted | Origin$ Graveyard | Destination$ Battlefield | ConditionCheckSVar$ X | ConditionSVarCompare$ GE1
+SVar:X:Count$LifeYouGainedThisTurn
+DeckHints:Ability$LifeGain

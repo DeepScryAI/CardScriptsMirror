@@ -1,0 +1,11 @@
+Id:15512
+ColorIdentity:B
+ManaCost:3 B B
+Types:Legendary Planeswalker Nixilis
+Loyalty:5
+A:AB$ Draw | Cost$ AddCounter<1/LOYALTY> | NumCards$ 1 | SubAbility$ DBLoseLife1 | Planeswalker$ True
+SVar:DBLoseLife1:DB$ LoseLife | LifeAmount$ 1
+A:AB$ Destroy | Cost$ SubCounter<3/LOYALTY> | ValidTgts$ Creature | Planeswalker$ True
+A:AB$ Effect | Cost$ SubCounter<8/LOYALTY> | ValidTgts$ Opponent | EffectOwner$ Targeted | Planeswalker$ True | Ultimate$ True | Name$ Emblem — Ob Nixilis Reignited | Image$ emblem_ob_nixilis_reignited | Triggers$ TrigDraw | Duration$ Permanent | AILogic$ Always
+SVar:TrigDraw:Mode$ Drawn | ValidCard$ Card | TriggerZones$ Command | Execute$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 2

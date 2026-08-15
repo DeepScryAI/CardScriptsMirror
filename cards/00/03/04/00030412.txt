@@ -1,0 +1,14 @@
+Id:30412
+ColorIdentity:W
+ManaCost:2 W W
+Types:Enchantment
+K:MayEffectFromOpeningHand:FromHand
+SVar:FromHand:DB$ ChangeZone | Defined$ Self | Origin$ Hand | Destination$ Battlefield
+R:Event$ GainLife | ActiveZones$ Battlefield | ValidPlayer$ You | ReplaceWith$ GainLife | AILogic$ DoubleLife
+SVar:GainLife:DB$ ReplaceEffect | VarName$ LifeGained | VarValue$ X
+S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddPower$ 2 | AddToughness$ 2 | CheckSVar$ Y | SVarCompare$ GEZ
+SVar:X:ReplaceCount$LifeGained/Plus.1
+SVar:Y:Count$YourLifeTotal
+SVar:Z:Count$YourStartingLife/Plus.7
+SVar:PlayMain1:True
+DeckHints:Ability$LifeGain

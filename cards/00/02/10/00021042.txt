@@ -1,0 +1,15 @@
+Id:21042
+ColorIdentity:U
+ManaCost:2 U U
+Types:Creature Sphinx Wizard
+PT:1/4
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 2 | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ TgtChoose
+T:Mode$ SpellCast | ValidCard$ Instant,Sorcery,Wizard | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigChoose
+SVar:TrigChoose:DB$ GenericChoice | Defined$ You | Choices$ Animate41,Animate14
+SVar:Animate41:DB$ Animate | Defined$ Self | Power$ 4 | Toughness$ 1
+SVar:Animate14:DB$ Animate | Defined$ Self | Power$ 1 | Toughness$ 4
+SVar:BuffedBy:Instant,Sorcery,Wizard
+DeckNeeds:Type$Instant | Sorcery | Wizard

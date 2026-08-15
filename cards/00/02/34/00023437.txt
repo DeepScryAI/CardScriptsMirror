@@ -1,0 +1,27 @@
+Id:23437
+ColorIdentity:U
+ManaCost:3 U U
+Types:Enchantment Saga
+K:Chapter:3:DBPump,DBDrawBranch,DBTransform
+SVar:DBPump:DB$ PumpAll | ValidCards$ Creature.YouDontCtrl | NumAtt$ -2 | Duration$ UntilYourNextTurn
+SVar:DBDrawBranch:DB$ Branch | BranchConditionSVar$ X | BranchConditionSVarCompare$ LE1 | TrueSubAbility$ Draw4 | FalseSubAbility$ Scry2
+SVar:X:Count$ValidHand Card.YouOwn
+SVar:Draw4:DB$ Draw | NumCards$ 4
+SVar:Scry2:DB$ Scry | ScryNum$ 2 | SubAbility$ Draw2
+SVar:Draw2:DB$ Draw | NumCards$ 2
+SVar:DBTransform:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | Transformed$ True | GainControl$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:PlayMain1:TRUE
+AlternateMode:DoubleFaced
+
+ALTERNATE
+
+ManaCost:no cost
+Colors:blue
+Types:Enchantment Creature Spirit
+PT:0/0
+K:Flying
+K:Trample
+S:Mode$ Continuous | Affected$ Card.Self | AddPower$ X | AddToughness$ X
+SVar:X:Count$ValidHand Card.YouOwn

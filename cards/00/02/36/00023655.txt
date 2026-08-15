@@ -1,0 +1,22 @@
+Id:23655
+ColorIdentity:W
+ManaCost:2 W
+Types:Enchantment Saga
+K:Chapter:3:DBExile,DBRetake,DBTransform
+SVar:DBExile:DB$ ChangeZone | ValidTgts$ Creature.OppCtrl+cmcGE4 | Origin$ Battlefield | Destination$ Exile
+SVar:DBRetake:DB$ GainControlVariant | AllValid$ Permanent | ChangeController$ CardOwner
+SVar:DBTransform:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | Transformed$ True | GainControl$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+AlternateMode:DoubleFaced
+
+ALTERNATE
+
+ManaCost:no cost
+Colors:white
+Types:Enchantment Creature Human Noble
+PT:1/3
+K:Defender
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ TriggeredCardController
+SVar:SacMe:1

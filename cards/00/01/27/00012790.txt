@@ -1,0 +1,10 @@
+Id:12790
+ColorIdentity:
+ManaCost:no cost
+Types:Phenomenon
+T:Mode$ PlaneswalkedTo | ValidCard$ Card.Self | Execute$ TrigDig
+SVar:TrigDig:DB$ DigUntil | Amount$ 5 | Valid$ Plane | DigZone$ PlanarDeck | ImprintFound$ True | RememberRevealed$ True | FoundDestination$ PlanarDeck | RevealedDestination$ PlanarDeck | SubAbility$ DBPutOnTop
+SVar:DBPutOnTop:DB$ ChangeZone | ChangeType$ Card.IsImprinted | Origin$ PlanarDeck | Destination$ PlanarDeck | LibraryPosition$ 0 | ForgetChanged$ True | SubAbility$ DBRestOnBottom
+SVar:DBRestOnBottom:DB$ ChangeZone | Defined$ Remembered | Origin$ PlanarDeck | Destination$ PlanarDeck | LibraryPosition$ -1 | RandomOrder$ True | SubAbility$ Replaneswalk
+SVar:Replaneswalk:DB$ Planeswalk | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True

@@ -1,0 +1,11 @@
+Id:6804
+ColorIdentity:W
+ManaCost:W
+Types:Instant
+A:SP$ Effect | ValidTgts$ Card | TargetType$ Spell | TgtZone$ Stack | ReplacementEffects$ PreventDmg | Triggers$ TargetMoved | RememberObjects$ TargetedSource
+SVar:PreventDmg:Event$ DamageDone | ValidSource$ Card.IsRemembered | ReplaceWith$ GainLifeYou | PreventionEffect$ True
+SVar:GainLifeYou:DB$ GainLife | Defined$ You | LifeAmount$ X
+SVar:X:ReplaceCount$DamageAmount
+SVar:TargetMoved:Mode$ ChangesZone | ValidCard$ Card.IsRemembered | ExcludedDestinations$ Battlefield | Execute$ ExileEffect | Static$ True
+SVar:ExileEffect:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile
+AI:RemoveDeck:All

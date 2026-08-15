@@ -1,0 +1,20 @@
+Id:27408
+ColorIdentity:BR
+ManaCost:1 B
+Types:Creature Human Soldier
+PT:2/2
+K:etbCounter:P1P1:X:no Condition:CARDNAME enters with a +1/+1 counter on it for each creature that died under your control this turn.
+SVar:X:Count$ThisTurnEntered_Graveyard_from_Battlefield_Creature.YouCtrl
+DeckHints:Ability$Graveyard
+DeckHas:Ability$Counters | Sacrifice
+AlternateMode:Adventure
+
+ALTERNATE
+
+ManaCost:R
+Types:Sorcery Adventure
+A:SP$ Pump | ValidTgts$ Creature.YouCtrl | RememberObjects$ ThisTargetedCard | AILogic$ PowerDmg | SubAbility$ DBDamage
+SVar:DBDamage:DB$ DealDamage | AILogic$ PowerDmg | ValidTgts$ Any | DamageSource$ ParentTarget | NumDmg$ X | TargetUnique$ True | SubAbility$ DBSac
+SVar:DBSac:DB$ SacrificeAll | Defined$ Remembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:ParentTargeted$CardPower

@@ -1,0 +1,19 @@
+Id:17882
+ColorIdentity:WR
+ManaCost:R W
+Types:Legendary Enchantment
+T:Mode$ ChangesZone | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DamageAll | ValidCards$ Creature.withoutFirst Strike+withoutDouble Strike+withoutVigilance+withoutHaste | NumDmg$ 1
+T:Mode$ AttackersDeclared | Execute$ TrigTransform | CheckSVar$ X | SVarCompare$ GE2 | NoResolvingCheck$ True | TriggerZones$ Battlefield | AttackingPlayer$ You
+SVar:X:Count$Valid Creature.attacking+YouCtrl+withFirst Strike,Creature.attacking+YouCtrl+withDouble Strike,Creature.attacking+YouCtrl+withVigilance,Creature.attacking+YouCtrl+withHaste
+SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform
+AlternateMode:DoubleFaced
+
+ALTERNATE
+
+ManaCost:no cost
+Types:Legendary Land
+A:AB$ Mana | Cost$ T | Produced$ Any | Amount$ 1
+A:AB$ DamageAll | Cost$ 1 R T | ValidPlayers$ Opponent | NumDmg$ 2
+A:AB$ ChooseCard | Cost$ 2 W T | AtRandom$ True | Choices$ Creature.attackedThisTurn | SubAbility$ DBDestroy
+SVar:DBDestroy:DB$ Destroy | Defined$ ChosenCard

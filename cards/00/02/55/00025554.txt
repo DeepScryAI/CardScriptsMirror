@@ -1,0 +1,27 @@
+Id:25554
+ColorIdentity:BR
+ManaCost:1 B R
+Types:Legendary Artifact Creature Robot
+PT:3/2
+K:More Than Meets the Eye:B R
+A:AB$ PutCounter | Cost$ Sac<1/Artifact.Other/another artifact> | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | SorcerySpeed$ True | SubAbility$ DBConvert | AILogic$ AristocratCounters
+SVar:DBConvert:DB$ SetState | Mode$ Transform
+A:AB$ ChangeZoneAll | Cost$ 1 Discard<1/Hand> | ChangeType$ Card.YouOwn+counters_GE1_INTEL | Origin$ Exile | Destination$ Hand
+DeckHints:Ability$Counters
+DeckHas:Ability$Sacrifice | Discard | Counters
+AlternateMode:DoubleFaced
+
+ALTERNATE
+
+ManaCost:no cost
+Colors:black, red
+Types:Legendary Artifact Vehicle
+PT:2/1
+K:Living metal
+K:Menace
+K:Deathtouch
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigDig
+SVar:TrigDig:DB$ Dig | DigNum$ X | ChangeNum$ All | DestinationZone$ Exile | ExileFaceDown$ True | ExileWithCounters$ INTEL | SubAbility$ DBConvert
+SVar:DBConvert:DB$ SetState | Mode$ Transform
+SVar:X:TriggerCount$DamageAmount
+SVar:HasAttackEffect:TRUE

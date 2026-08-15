@@ -1,0 +1,12 @@
+Id:33398
+ColorIdentity:R
+ManaCost:2 R
+Types:Instant
+A:SP$ Charm | Choices$ DBJumpKick,DBDashAttack,DBFootToss | CharmNum$ 2
+SVar:DBJumpKick:DB$ Destroy | ValidTgts$ Artifact
+SVar:DBDashAttack:DB$ PutCounter | ValidTgts$ Creature.attacking+YouCtrl,Creature.blocking+YouCtrl | CounterType$ P1P1 | CounterNum$ 2
+SVar:DBFootToss:DB$ Pump | ValidTgts$ Creature.YouCtrl | RememberObjects$ ThisTargetedCard | AILogic$ PowerDmg | SubAbility$ DBDamage
+SVar:DBDamage:DB$ DealDamage | AILogic$ PowerDmg | ValidTgts$ Any.NotDefinedParentTarget,Player | DamageSource$ ParentTarget | NumDmg$ X | SubAbility$ DBSac
+SVar:DBSac:DB$ SacrificeAll | Defined$ Remembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:ParentTargeted$CardPower

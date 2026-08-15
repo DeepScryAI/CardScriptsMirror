@@ -1,0 +1,11 @@
+Id:15124
+ColorIdentity:G
+ManaCost:2 G
+Types:Instant
+A:SP$ Fog | SubAbility$ DBRepeatLook
+SVar:DBRepeatLook:DB$ Repeat | RepeatSubAbility$ DBCleanLoop | RepeatDefined$ Remembered | RepeatPresent$ Card | SubAbility$ DBCleanup
+SVar:DBCleanLoop:DB$ Cleanup | ClearRemembered$ True | SubAbility$ DBChoose
+SVar:DBChoose:DB$ ChooseCard | Choices$ Creature.faceDown+attacking,Creature.faceDown+blocking | RememberChosen$ True | SubAbility$ DBLook
+SVar:DBLook:DB$ LookAt | Defined$ Remembered
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+AI:RemoveDeck:Random

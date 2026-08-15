@@ -1,0 +1,12 @@
+Id:34422
+ColorIdentity:B
+ManaCost:2 B
+Types:Enchantment Plan
+T:Mode$ Drawn | ValidCard$ Card.YouCtrl | Number$ 2 | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScript$ b_2_1_villain_menace | SubAbility$ DBCounter
+SVar:DBCounter:DB$ PutCounter | Defined$ Self | CounterType$ PLAN | CounterNum$ 1
+T:Mode$ CounterAdded | ValidCard$ Card.Self | TriggerZones$ Battlefield | CounterType$ PLAN | CounterAmount$ EQ7 | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice | Defined$ Self | RememberSacrificed$ True | SubAbility$ DBImmediateTrigger
+SVar:DBImmediateTrigger:DB$ ImmediateTrigger | ConditionDefined$ Remembered | ConditionPresent$ Card | Execute$ TrigControl | SubAbility$ DBCleanup
+SVar:TrigControl:DB$ ControlPlayer | ValidTgts$ Opponent
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

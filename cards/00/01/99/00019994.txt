@@ -1,0 +1,15 @@
+Id:19994
+ColorIdentity:R
+ManaCost:1 R
+Types:Creature Human Archer Rogue
+PT:2/2
+K:Reach
+K:Haste
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigExile | CheckSVar$ X | SVarCompare$ GTY
+SVar:TrigExile:DB$ Dig | Defined$ TriggeredDefendingPlayer | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ STPlay | SubAbility$ DBCleanup | ExileOnMoved$ Exile | Duration$ Permanent
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | MayPlayIgnoreColor$ True | Affected$ Card.IsRemembered+nonLand | AffectedZone$ Exile | CheckSVar$ Z
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$ValidHand Card.DefenderCtrl
+SVar:Y:Count$ValidHand Card.YouOwn
+SVar:Z:Count$CreaturesAttackedThisTurn Creature.Rogue

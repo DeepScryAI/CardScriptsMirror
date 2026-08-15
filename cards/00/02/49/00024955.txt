@@ -1,0 +1,14 @@
+Id:24955
+ColorIdentity:U
+ManaCost:3 U U
+Types:Creature Sphinx
+PT:5/5
+K:Flying
+K:Ward:2
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ PeekAndReveal | PeekAmount$ X | NoPeek$ True | RememberRevealed$ True | SubAbility$ DBTwoPiles
+SVar:DBTwoPiles:DB$ TwoPiles | Defined$ You | DefinedCards$ Remembered | Separator$ Opponent | ChosenPile$ DBHand | UnchosenPile$ DBGrave
+SVar:DBHand:DB$ ChangeZone | Defined$ Remembered | Origin$ Library | Destination$ Hand
+SVar:DBGrave:DB$ ChangeZone | Defined$ Remembered | Origin$ Library | Destination$ Graveyard
+SVar:X:Count$Domain
+DeckHas:Ability$Graveyard

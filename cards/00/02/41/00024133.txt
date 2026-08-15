@@ -1,0 +1,12 @@
+Id:24133
+ColorIdentity:BR
+ManaCost:B R
+Types:Creature Lizard Warrior
+PT:3/1
+K:Menace
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChoose
+SVar:TrigChoose:DB$ ChooseCard | ChoiceZone$ Hand | Choices$ Creature.withoutBlitz+YouOwn | Mandatory$ True | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | PumpZone$ Hand | Defined$ ChosenCard | KW$ Blitz:CardManaCost:Spell.Creature | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+K:Blitz:B R
+DeckHas:Ability$Sacrifice

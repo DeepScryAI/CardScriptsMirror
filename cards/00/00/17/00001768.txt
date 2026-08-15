@@ -1,0 +1,14 @@
+Id:1768
+ColorIdentity:G
+ManaCost:2 G
+Types:Creature Fungus Wall
+PT:0/1
+K:Defender
+K:Flying
+T:Mode$ AttackerBlocked | ValidCard$ Creature | ValidBlocker$ Card.Self | Execute$ AddSpores
+SVar:AddSpores:DB$ PutCounter | CounterType$ FUNGUS | CounterNum$ 4 | Defined$ TriggeredAttackerLKICopy | SubAbility$ AddFungalEffects
+SVar:AddFungalEffects:DB$ Animate | Defined$ TriggeredAttackerLKICopy | Replacements$ FungalFunk | Triggers$ TrigSporeUpkeep | Duration$ Permanent
+SVar:FungalFunk:Event$ Untap | ValidCard$ Card.Self+counters_GE1_FUNGUS | ValidStepTurnToController$ You | Layer$ CantHappen
+SVar:TrigSporeUpkeep:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ LoseSpores
+SVar:LoseSpores:DB$ RemoveCounter | CounterType$ FUNGUS | CounterNum$ 1
+SVar:HasBlockEffect:TRUE

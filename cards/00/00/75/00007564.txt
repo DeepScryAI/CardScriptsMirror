@@ -1,0 +1,11 @@
+Id:7564
+ColorIdentity:
+ManaCost:3
+Types:Artifact Equipment
+K:Equip:2
+T:Mode$ DamageDone | ValidSource$ Card.EquippedBy | ValidTarget$ Creature | Execute$ TrigNekoTeTap | TriggerZones$ Battlefield
+SVar:TrigNekoTeTap:DB$ Tap | Defined$ TriggeredTargetLKICopy | SubAbility$ DBNekoTe
+SVar:DBNekoTe:DB$ Effect | RememberObjects$ TriggeredTargetLKICopy | ForgetOnMoved$ Battlefield | ReplacementEffects$ DontUntap | Duration$ UntilHostLeavesPlay
+SVar:DontUntap:Event$ Untap | ValidCard$ Card.IsRemembered | ValidStepTurnToController$ You | Layer$ CantHappen
+T:Mode$ DamageDone | ValidSource$ Card.EquippedBy | ValidTarget$ Player | Execute$ TrigNekoTeLoseLife | TriggerZones$ Battlefield
+SVar:TrigNekoTeLoseLife:DB$ LoseLife | LifeAmount$ 1 | Defined$ TriggeredTarget

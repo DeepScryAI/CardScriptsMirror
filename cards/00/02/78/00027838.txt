@@ -1,0 +1,12 @@
+Id:27838
+ColorIdentity:W
+ManaCost:2 W
+Types:Legendary Artifact
+K:You may choose not to untap CARDNAME during your untap step.
+A:AB$ Untap | Cost$ 1 W T | ValidTgts$ Permanent.Other+nonLand | SorcerySpeed$ True | SubAbility$ DBPhase
+SVar:DBPhase:DB$ Phases | Defined$ Targeted | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | Triggers$ TrigUntaps,TrigChangesZone | StaticAbilities$ CantPhaseIn | RememberObjects$ Targeted | Duration$ Permanent | ForgetOnPhasedIn$ True
+SVar:CantPhaseIn:Mode$ CantPhaseIn | ValidCard$ Card.phasedOutIsRemembered | IsPresent$ Card.EffectSource+tapped
+SVar:TrigUntaps:Mode$ Untaps | ValidCard$ Card.EffectSource | Execute$ DBPhaseIn | TriggerZones$ Command | TriggerController$ TriggeredCardController | Secondary$ True
+SVar:TrigChangesZone:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.EffectSource | Execute$ DBPhaseIn | TriggerZones$ Command | TriggerController$ TriggeredCardController | Secondary$ True
+SVar:DBPhaseIn:DB$ Phases | Defined$ Remembered | PhaseInOrOut$ True

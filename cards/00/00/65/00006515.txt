@@ -1,0 +1,14 @@
+Id:6515
+ColorIdentity:
+ManaCost:6
+Types:Artifact Creature Shapeshifter
+PT:2/4
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | OptionalDecider$ You | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Unimprint$ True | Imprint$ True | ImprintLast$ True | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Creature.!token
+S:Mode$ Continuous | Affected$ Card.Self | AddType$ ImprintedCreatureType | CheckSVar$ Z | SVarCompare$ EQ1 | SetPower$ X | SetToughness$ Y
+T:Mode$ ChangesZone | Origin$ Exile | Destination$ Any | Static$ True | ValidCard$ Card.IsImprinted | Execute$ DBCleanup
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | Static$ True | ValidCard$ Card.Self | Execute$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearImprinted$ True
+SVar:X:Imprinted$CardPower
+SVar:Y:Imprinted$CardToughness
+SVar:Z:Count$ValidExile Creature.IsImprinted

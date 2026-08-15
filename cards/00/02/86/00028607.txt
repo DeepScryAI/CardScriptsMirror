@@ -1,0 +1,16 @@
+Id:28607
+ColorIdentity:UG
+ManaCost:10 G
+Types:Legendary Creature Crocodile Elk Turtle
+PT:2/15
+K:Defender
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ X | EffectZone$ All
+SVar:X:Count$Valid Creature.YouCtrl$CardToughness
+A:AB$ Pump | Cost$ 2 U U | ValidTgts$ Creature.YouCtrl | NumAtt$ +1 | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ Targeted | Triggers$ TrigDamage | StaticAbilities$ CanAttack | ForgetOnMoved$ Battlefield | SubAbility$ DBAnimate
+SVar:CanAttack:Mode$ CanAttackDefender | ValidCard$ Card.IsRemembered
+SVar:DBAnimate:DB$ Animate | Defined$ Targeted | Triggers$ TrigDamage
+SVar:TrigDamage:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigDraw | CombatDamage$ True
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ Y
+SVar:Y:Count$CardToughness
+DeckHints:Type$Wall | Treefolk & Keyword$Defender

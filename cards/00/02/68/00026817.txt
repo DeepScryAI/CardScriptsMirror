@@ -1,0 +1,10 @@
+Id:26817
+ColorIdentity:R
+ManaCost:4 R
+Types:Sorcery
+A:SP$ GainControl | ValidTgts$ Opponent | AllValid$ Creature.TargetedPlayerCtrl | AddKWs$ Haste | Untap$ True | NewController$ You | LoseControl$ EOT | RememberControlled$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ TargetedPlayer & RememberedCard | StaticAbilities$ CantSac,CantAttack | SubAbility$ DBCleanup
+SVar:CantSac:Mode$ CantSacrifice | ValidCard$ Card.IsRemembered+YouCtrl
+SVar:CantAttack:Mode$ CantAttack | ValidCard$ Creature.YouCtrl | Target$ Player.IsRemembered
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+AI:RemoveDeck:All

@@ -1,0 +1,12 @@
+Id:6277
+ColorIdentity:B
+ManaCost:3 B B B B
+Types:Legendary Creature Avatar Minion
+PT:4/4
+T:Mode$ ChangesZone | ValidCard$ Card.!wasCastFromYourHandByYou+Self | Destination$ Battlefield | Execute$ TrigYouLose
+SVar:TrigYouLose:DB$ LosesGame | Defined$ You
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Creature | CombatDamage$ True | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ Destroy | Defined$ TriggeredTargetLKICopy | NoRegen$ True
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigTheyLose
+SVar:TrigTheyLose:DB$ LosesGame | Defined$ TriggeredTarget
+SVar:MustBeBlocked:True

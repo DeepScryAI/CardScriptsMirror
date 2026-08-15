@@ -1,0 +1,13 @@
+Id:20043
+ColorIdentity:U
+ManaCost:6 U U U
+Types:Legendary Artifact
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ X | EffectZone$ All
+SVar:X:Count$ValidGraveyard Instant.YouOwn,Sorcery.YouOwn
+DeckHints:Ability$Graveyard
+S:Mode$ Continuous | Affected$ You | SetMaxHandSize$ Unlimited
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ KNOWLEDGE | CounterNum$ 1 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ Y
+SVar:Y:Count$CardCounters.KNOWLEDGE
+DeckHas:Ability$Counters

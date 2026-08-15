@@ -1,0 +1,11 @@
+Id:17312
+ColorIdentity:B
+ManaCost:X B B
+Types:Sorcery
+A:SP$ Repeat | MaxRepeat$ X | RepeatSubAbility$ RepeatTorment | AILogic$ MaxX
+SVar:RepeatTorment:DB$ GenericChoice | Defined$ Opponent | TempRemember$ Chooser | Choices$ SacNonland,Discard | FallbackAbility$ LoseLifeFallback | AILogic$ PayUnlessCost
+SVar:Discard:DB$ LoseLife | Defined$ Remembered | LifeAmount$ 3 | UnlessCost$ Discard<1/Card> | UnlessPayer$ Remembered
+SVar:SacNonland:DB$ LoseLife | Defined$ Remembered | LifeAmount$ 3 | UnlessCost$ Sac<1/Permanent.nonLand/nonland permanent> | UnlessPayer$ Remembered
+SVar:LoseLifeFallback:DB$ LoseLife | Defined$ Remembered | LifeAmount$ 3
+SVar:X:Count$xPaid
+SVar:AIPreference:SacCost$Permanent.nonLand | DiscardCost$Card

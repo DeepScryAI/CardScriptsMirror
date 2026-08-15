@@ -1,0 +1,14 @@
+Id:21299
+ColorIdentity:BR
+ManaCost:2 B R
+Types:Legendary Creature Imp
+PT:4/3
+K:Flying
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigControl
+SVar:TrigControl:DB$ GainControl | ValidTgts$ Permanent.YouCtrl | TargetMin$ 1 | NewController$ TriggeredTarget | SubAbility$ DBRepeatEach
+SVar:DBRepeatEach:DB$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ Player.IsRemembered | LifeAmount$ X | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ Player.IsRemembered | NumCards$ X | Mode$ TgtChoose
+SVar:X:Count$Valid Permanent.RememberedPlayerCtrl/Minus.Y
+SVar:Y:Count$Valid Permanent.RememberedPlayerCtrl+RememberedPlayerOwn
+DeckHints:Ability$Token

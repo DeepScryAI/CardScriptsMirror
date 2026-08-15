@@ -1,0 +1,14 @@
+Id:801
+ColorIdentity:W
+ManaCost:W
+Types:Enchantment
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutHunger
+SVar:TrigPutHunger:DB$ PutCounter | Defined$ Self | CounterType$ HUNGER | CounterNum$ 1 | SubAbility$ DBDestroyHunger
+SVar:DBDestroyHunger:DB$ Destroy | Defined$ Self | ConditionDefined$ Self | ConditionPresent$ Card.counters_GE5_HUNGER
+R:Event$ BeginPhase | ActiveZones$ Battlefield | ValidPlayer$ You | Phase$ Draw | Layer$ Other | Optional$ True | ReplaceWith$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2
+T:Mode$ Drawn | ValidCard$ Card.YouCtrl | TriggerZones$ Battlefield | Execute$ DBDestroySelf
+SVar:DBDestroySelf:DB$ Destroy | Defined$ Self
+AI:RemoveDeck:Random
+AI:RemoveDeck:All
+DeckHas:Ability$Counters | LifeGain

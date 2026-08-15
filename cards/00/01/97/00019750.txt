@@ -1,0 +1,14 @@
+Id:19750
+ColorIdentity:WUR
+ManaCost:1 U R W
+Types:Legendary Enchantment Saga
+Text:CARDNAME can be your commander.
+K:Chapter:3:DBToken,DBToken,DBSearch
+SVar:DBToken:DB$ Token | TokenScript$ r_2_1_human_wizard | TokenOwner$ You | SubAbility$ DBDiscount
+SVar:DBDiscount:DB$ Effect | StaticAbilities$ SReduceCost
+SVar:SReduceCost:Mode$ ReduceCost | ValidCard$ Card | Type$ Spell | Activator$ You | Amount$ X
+SVar:X:Count$Valid Wizard.YouCtrl
+SVar:DBSearch:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Planeswalker | ChangeNum$ 1 | RememberChanged$ True | SubAbility$ DBCounter
+SVar:DBCounter:DB$ PutCounter | Defined$ Remembered | CounterType$ LOYALTY | CounterNum$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+DeckHas:Ability$Token

@@ -1,0 +1,15 @@
+Id:21878
+ColorIdentity:W
+ManaCost:2 W
+Types:Legendary Creature Bird Advisor
+PT:2/3
+K:Flying
+A:AB$ Effect | Cost$ 0 | ValidTgts$ Instant.YouOwn,Sorcery.YouOwn | TgtZone$ Graveyard | ActivationLimit$ 1 | RememberObjects$ Targeted | StaticAbilities$ MayPlay,RaiseCost | ReplacementEffects$ ReplaceGraveyard | SubAbility$ DBCleanup
+SVar:MayPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered+nonLand | AffectedZone$ Graveyard
+SVar:RaiseCost:Mode$ RaiseCost | ValidCard$ Card.IsRemembered+CastSa Spell.MayPlaySource | ValidTarget$ Creature.YouCtrl+inZoneBattlefield | UnlessValidTarget$ True | Activator$ You | Type$ Spell | Amount$ 8
+SVar:ReplaceGraveyard:Event$ Moved | ValidLKI$ Card.IsRemembered+CastSa Spell.MayPlaySource | Destination$ Graveyard | ReplaceWith$ MoveExile
+SVar:MoveExile:DB$ ChangeZone | Defined$ ReplacedCard | Origin$ All | Destination$ Exile | SubAbility$ ExileSelf
+SVar:ExileSelf:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+DeckHas:Ability$Graveyard
+DeckNeeds:Type$Instant | Sorcery

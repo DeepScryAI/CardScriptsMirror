@@ -1,0 +1,11 @@
+Id:18833
+ColorIdentity:UB
+ManaCost:1 U B
+Types:Creature Specter
+PT:2/2
+K:Flying
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDig | TriggerZones$ Battlefield
+SVar:TrigDig:DB$ Dig | DigNum$ 3 | Defined$ TriggeredTarget | DestinationZone$ Exile | ExileFaceDown$ True | WithMayLook$ True | SkipReorder$ True | DestinationZone2$ Graveyard | RememberChanged$ True | ChangeValid$ Card | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ Remembered | StaticAbilities$ STPlay | Duration$ Permanent | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | MayPlayIgnoreType$ True | Affected$ Card.IsRemembered+nonLand | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

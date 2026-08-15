@@ -1,0 +1,13 @@
+Id:30852
+ColorIdentity:BG
+ManaCost:3 B B G
+Types:Legendary Creature Insect Druid
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ X | TokenScript$ g_1_1_insect
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Insect.YouCtrl+Other | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 1
+SVar:X:Count$ValidGraveyard Artifact.YouOwn,Creature.YouOwn
+DeckHas:Ability$Token
+DeckHints:Type$Insect

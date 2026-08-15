@@ -1,0 +1,14 @@
+Id:26725
+ColorIdentity:G
+ManaCost:1 G G
+Types:Sorcery
+A:SP$ Charm | Choices$ DosansOldestChant,KodamasReach,TimeOfNeed | Defined$ You
+SVar:DosansOldestChant:DB$ GainLife | LifeAmount$ 6 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw
+SVar:KodamasReach:DB$ ChangeZone | Origin$ Library | Destination$ Library | ChangeType$ Land.Basic | ChangeTypeDesc$ basic land | ChangeNum$ 2 | RememberChanged$ True | Reveal$ True | Shuffle$ False | SubAbility$ DBChangeZone1
+SVar:DBChangeZone1:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Land.IsRemembered | ChangeNum$ 1 | Mandatory$ True | NoLooking$ True | Tapped$ True | Shuffle$ False | SubAbility$ DBChangeZone2
+SVar:DBChangeZone2:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Land.IsRemembered | Mandatory$ True | NoLooking$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:TimeOfNeed:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Creature.Legendary | ChangeNum$ 1
+DeckHas:Ability$LifeGain
+DeckHints:Type$Legendary

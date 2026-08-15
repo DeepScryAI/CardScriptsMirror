@@ -1,0 +1,12 @@
+Id:1543
+ColorIdentity:RG
+ManaCost:1 R
+Types:Sorcery
+A:SP$ Destroy | AnnounceTitle$ how many times to pay the additional cost | Announce$ AdditionalCostPayTimesR,AdditionalCostPayTimesG | ValidTgts$ Artifact | SubAbility$ DBDestroy2
+SVar:DBDestroy2:DB$ Destroy | ValidTgts$ Artifact | TargetUnique$ True | TargetMin$ AdditionalCostPayTimesR | TargetMax$ AdditionalCostPayTimesR | SubAbility$ DBDestroy3
+SVar:DBDestroy3:DB$ Destroy | ValidTgts$ Artifact | TargetUnique$ True | TargetMin$ AdditionalCostPayTimesG | TargetMax$ AdditionalCostPayTimesG | SubAbility$ DBGainLife
+S:Mode$ RaiseCost | ValidCard$ Card.Self | Type$ Spell | Cost$ 1 R | Amount$ AdditionalCostPayTimesR | EffectZone$ All
+S:Mode$ RaiseCost | ValidCard$ Card.Self | Type$ Spell | Cost$ 1 G | Amount$ AdditionalCostPayTimesG | EffectZone$ All
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ AdditionalCostPayTimesG
+SVar:AdditionalCostPayTimesR:Number$0
+SVar:AdditionalCostPayTimesG:Number$0

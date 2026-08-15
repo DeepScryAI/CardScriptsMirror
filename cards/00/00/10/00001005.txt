@@ -1,0 +1,10 @@
+Id:1005
+ColorIdentity:
+ManaCost:3
+Types:Artifact
+A:AB$ Animate | Cost$ 3 T | ActivationPhases$ Upkeep->BeginCombat | ActivationFirstCombat$ True | ValidTgts$ Creature.nonWall+ActivePlayerCtrl+!firstTurnControlled | IsCurse$ True | staticAbilities$ MustAttack | UnlessCost$ X | UnlessPayer$ TargetedController | UnlessResolveSubs$ WhenNotPaid | SubAbility$ DestroyPacifist
+SVar:MustAttack:Mode$ MustAttack | ValidCreature$ Card.Self
+SVar:DestroyPacifist:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ TrigDestroy | RememberObjects$ ParentTarget
+SVar:TrigDestroy:DB$ Destroy | Defined$ DelayTriggerRemembered | ConditionDefined$ DelayTriggerRemembered | ConditionPresent$ Creature.!attackedThisTurn | ConditionCompare$ GE1
+SVar:X:Targeted$CardManaCost
+AI:RemoveDeck:All

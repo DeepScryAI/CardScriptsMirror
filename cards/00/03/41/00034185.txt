@@ -1,0 +1,10 @@
+Id:34185
+ColorIdentity:G
+ManaCost:1 G G
+Types:Legendary Creature Human Noble Warrior
+PT:4/3
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | Execute$ TrigMonarch | TriggerZones$ Battlefield | CheckSVar$ NoMonarch | SVarCompare$ EQ0
+SVar:TrigMonarch:DB$ BecomeMonarch | ValidTgts$ Opponent
+SVar:NoMonarch:PlayerCountPlayers$HasPropertyisMonarch
+T:Mode$ Attacks | ValidCard$ Creature | Attacked$ Player.Opponent+isMonarch | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ TriggeredAttackerLKICopy | ConditionPlayerDefined$ TriggeredDefendingPlayer | ConditionPlayerContains$ Player.isMonarch | NumAtt$ +1 | NumDef$ +1 | KW$ Trample

@@ -1,0 +1,11 @@
+Id:27281
+ColorIdentity:B
+ManaCost:1 B B B
+Types:Sorcery
+K:Bargain
+A:SP$ ChangeZone | ChangeNum$ 1 | ChangeType$ Card | Mandatory$ True | SubAbility$ DBPlay | Origin$ Library | Destination$ Exile | ExileFaceDown$ True | RememberChanged$ True
+SVar:DBPlay:DB$ Play | Defined$ Remembered | ValidSA$ Spell.cmcLE4 | Condition$ Bargain | ImprintPlayed$ True | Controller$ You | WithoutManaCost$ True | Optional$ True | Amount$ All | SubAbility$ DBReturnHand
+SVar:DBReturnHand:DB$ ChangeZone | Origin$ Exile | Destination$ Hand | Defined$ Remembered | Hidden$ True | ConditionDefined$ Imprinted | ConditionPresent$ Card | ConditionCompare$ EQ0 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True
+DeckHints:Type$Artifact | Enchantment & Ability$Token
+DeckHas:Ability$Sacrifice

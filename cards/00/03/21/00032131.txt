@@ -1,0 +1,12 @@
+Id:32131
+ColorIdentity:WG
+ManaCost:2 G W W
+Types:Legendary Creature Human Soldier
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPutCounter
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPutCounter | Secondary$ True
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1
+T:Mode$ DamageDoneOnce | ValidSource$ Creature.YouCtrl+counters_GE1_P1P1 | TriggerZones$ Battlefield | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw
+SVar:HasAttackEffect:TRUE
+DeckHas:Ability$Counters

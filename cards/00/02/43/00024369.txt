@@ -1,0 +1,12 @@
+Id:24369
+ColorIdentity:W
+ManaCost:1 W
+Types:Legendary Enchantment Background
+S:Mode$ Continuous | Affected$ Creature.IsCommander+YouOwn | AddTrigger$ ETB & Upkeep
+SVar:ETB:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChoose
+SVar:Upkeep:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigChoose | Secondary$ True
+SVar:TrigChoose:DB$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBChoice | SubAbility$ DBPutCounter
+SVar:DBChoice:DB$ ChooseCard | Defined$ RememberedPlayer | Amount$ 1 | MinAmount$ 0 | Choices$ Creature.RememberedPlayerCtrl | RememberChosen$ True | AILogic$ OrzhovAdvokist
+SVar:DBPutCounter:DB$ PutCounterAll | Placer$ Controller | ValidCards$ Creature.IsRemembered | CounterType$ P1P1 | CounterNum$ 2 | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ You | KW$ Protection:Player.PlayerUID_ChosenPlayerUID:ChosenPlayerName | DefinedKW$ RememberedController.Opponent | Duration$ UntilYourNextTurn | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True | ClearRemembered$ True

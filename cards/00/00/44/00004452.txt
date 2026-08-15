@@ -1,0 +1,13 @@
+Id:4452
+ColorIdentity:W
+ManaCost:2 W W
+Types:Enchantment
+K:etbCounter:OMEN:7
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigRemoveCtr
+SVar:TrigRemoveCtr:DB$ RemoveCounter | Defined$ Self | CounterType$ OMEN | CounterNum$ 1 | SubAbility$ WinnerDecided
+SVar:WinnerDecided:DB$ WinsGame | Defined$ Player.lifeEQX | ConditionPresent$ Card.Self+counters_EQ0_OMEN | ConditionCheckSVar$ NumHighestLife | ConditionSVarCompare$ LT2 | SubAbility$ GameIsADraw
+SVar:GameIsADraw:DB$ GameDrawn | ConditionPresent$ Card.Self+counters_EQ0_OMEN | ConditionCheckSVar$ NumHighestLife | ConditionSVarCompare$ GE2
+SVar:X:PlayerCountPlayers$HighestLifeTotal
+SVar:NumHighestLife:PlayerCountPlayers$TiedForHighestLife
+AI:RemoveDeck:Random
+AI:RemoveDeck:All

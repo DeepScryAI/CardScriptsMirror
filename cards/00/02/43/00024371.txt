@@ -1,0 +1,13 @@
+Id:24371
+ColorIdentity:B
+ManaCost:4 B
+Types:Creature Horror
+PT:4/3
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ RollD20
+SVar:RollD20:DB$ RollDice | Sides$ 20 | ResultSubAbilities$ 1-9:DBSDraw,10-19:DBMDraw,20:DBLDraw
+SVar:DBSDraw:DB$ Draw | SubAbility$ DBSLoseLife
+SVar:DBSLoseLife:DB$ LoseLife | LifeAmount$ 1
+SVar:DBMDraw:DB$ Draw | NumCards$ 2 | SubAbility$ DBMLoseLife
+SVar:DBMLoseLife:DB$ LoseLife | LifeAmount$ 2
+SVar:DBLDraw:DB$ Draw | NumCards$ 7 | SubAbility$ DBLLoseLife
+SVar:DBLLoseLife:DB$ LoseLife | LifeAmount$ 7

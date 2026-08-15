@@ -1,0 +1,9 @@
+Id:18389
+ColorIdentity:R
+ManaCost:7 R R R
+Types:Sorcery
+A:SP$ Dig | DestinationZone$ Exile | DigNum$ 7 | ChangeNum$ All | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ EffSModeContinuous | SubAbility$ DBCleanup | ForgetOnMoved$ Exile
+SVar:EffSModeContinuous:Mode$ Continuous | MayPlay$ True | Affected$ Card.nonLand+IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | SubAbility$ DBMana
+SVar:DBMana:DB$ Mana | Produced$ Any | Amount$ 10 | ConditionDefined$ Self | ConditionPresent$ Card.wasCastFromYourHand | ConditionCompare$ EQ1 | AILogic$ ManaRitual | AINoRecursiveCheck$ True

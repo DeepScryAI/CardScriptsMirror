@@ -1,0 +1,13 @@
+Id:12872
+ColorIdentity:G
+ManaCost:4 G G G
+Types:Creature Wurm
+PT:7/7
+K:Trample
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigLife | CheckSVar$ YourLife | SVarCompare$ LT7
+SVar:TrigLife:DB$ SetLife | Defined$ You | LifeAmount$ 7
+R:Event$ LifeReduced | ActiveZones$ Battlefield | ValidPlayer$ You.lifeGE7 | Result$ LT7 | IsDamage$ True | ReplaceWith$ ReduceLoss
+SVar:ReduceLoss:DB$ ReplaceEffect | VarName$ Amount | VarValue$ X
+SVar:X:ReplaceCount$Amount/LimitMax.Difference
+SVar:Difference:Count$YourLifeTotal/Minus.7
+SVar:YourLife:Count$YourLifeTotal

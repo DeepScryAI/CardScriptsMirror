@@ -1,0 +1,12 @@
+Id:33086
+ColorIdentity:R
+ManaCost:3 R
+Types:Creature Elemental Sorcerer
+PT:7/3
+S:Mode$ RaiseCost | ValidCard$ Card.Self | Activator$ You | Type$ Spell | Cost$ BeholdExile<1/Elemental> | EffectZone$ All
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Elemental.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | Defined$ Opponent | NumDmg$ X | DamageSource$ TriggeredCard
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Defined$ ExiledWith | Origin$ Exile | Destination$ Hand
+SVar:X:TriggeredCard$CardPower
+DeckHints:Type$Elemental

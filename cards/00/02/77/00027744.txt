@@ -1,0 +1,12 @@
+Id:27744
+ColorIdentity:
+ManaCost:no cost
+Types:Plane Kandoka
+T:Mode$ DamageDoneOnce | ValidSource$ Creature.YouCtrl | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigToken | TriggerZones$ Command
+SVar:TrigToken:DB$ Token | TokenScript$ c_a_treasure_sac | TokenOwner$ You
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ TrigAnimateAll
+SVar:TrigAnimateAll:DB$ AnimateAll | ValidCards$ Artifact.nonCreature+YouCtrl | Abilities$ ABExplode | Duration$ UntilYourNextTurn
+SVar:ABExplode:AB$ FlipCoin | Cost$ T Sac<1/CARDNAME/this artifact> | WinSubAbility$ DBDamage
+SVar:DBDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 3
+DeckHas:Ability$Token | Sacrifice & Type$Artifact | Treasure
+DeckNeeds:Type$Artifact

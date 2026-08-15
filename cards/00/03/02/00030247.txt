@@ -1,0 +1,9 @@
+Id:30247
+ColorIdentity:
+ManaCost:no cost
+Types:Scheme
+T:Mode$ SetInMotion | ValidCard$ Card.Self | Execute$ TrigRepeatEach | TriggerZones$ Command
+SVar:TrigRepeatEach:DB$ RepeatEach | RepeatTypesFrom$ Valid Permanent.OppCtrl | RepeatSubAbility$ ChooseCard | SubAbility$ DBChangeZoneAll
+SVar:ChooseCard:DB$ ChooseCard | Choices$ Card.YouOwn+ChosenType | ChoiceTitleAppend$ ChosenType | ChoiceZone$ Hand
+SVar:DBChangeZoneAll:DB$ ChangeZone | Defined$ ChosenCard | Origin$ Hand | Destination$ Battlefield | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True

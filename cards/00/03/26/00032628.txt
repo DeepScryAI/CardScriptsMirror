@@ -1,0 +1,10 @@
+Id:32628
+ColorIdentity:W
+ManaCost:W
+Types:Legendary Creature Lemur Bat Ally
+PT:1/1
+K:Flying
+S:Mode$ ReduceCost | ValidCard$ Creature.nonLemur+withFlying+YouCtrl | Type$ Spell | Activator$ You | Amount$ 1 | Condition$ PlayerTurn | CheckSVar$ X | SVarCompare$ EQ0
+T:Mode$ ChangesZone | ValidCard$ Creature.Other+YouCtrl+withFlying | Origin$ Any | Destination$ Battlefield | Execute$ TrigPump | TriggerZones$ Battlefield
+SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +1 | NumDef$ +1
+SVar:X:Count$ThisTurnCast_Creature.nonLemur+withFlying+YouCtrl

@@ -1,0 +1,11 @@
+Id:19809
+ColorIdentity:R
+ManaCost:3 R
+Types:Creature Devil
+PT:4/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChoosePlayer
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigChoosePlayer | TriggerZones$ Battlefield | Secondary$ True
+SVar:TrigChoosePlayer:DB$ ChoosePlayer | Defined$ You | Choices$ Player | Random$ True | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | DefinedPlayer$ ChosenPlayer | Mandatory$ True | ChangeType$ Instant,Sorcery | ChangeNum$ 1 | Hidden$ True | IsCurse$ True | Chooser$ ChosenPlayer | RememberChanged$ True | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | Valid$ Card.IsRemembered+ExiledWithSource | ValidSA$ Spell | ValidZone$ Exile | Amount$ All | WithoutManaCost$ True | Optional$ True | CopyCard$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearChosenPlayer$ True

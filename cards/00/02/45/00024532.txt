@@ -1,0 +1,9 @@
+Id:24532
+ColorIdentity:B
+ManaCost:2 B
+Types:Instant
+A:SP$ Sacrifice | ValidTgts$ Opponent | SacValid$ Creature.!token | SacMessage$ nontoken creature | RememberSacrificed$ True | SubAbility$ TrigConjure
+SVar:TrigConjure:DB$ MakeCard | Conjure$ True | ConditionDefined$ Remembered | ConditionPresent$ Creature.cmcLE2 | DefinedName$ Remembered | Zone$ Hand | RememberMade$ True | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Remembered | staticAbilities$ SpendAnyMana | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:SpendAnyMana:Mode$ ManaConvert | EffectZone$ Stack | ValidPlayer$ You | ValidCard$ Card.Self | ValidSA$ Spell | ManaConversion$ AnyType->AnyColor
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

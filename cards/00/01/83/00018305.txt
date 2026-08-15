@@ -1,0 +1,13 @@
+Id:18305
+ColorIdentity:WUBRG
+ManaCost:2 R
+Types:Legendary Creature Human Warrior
+PT:3/2
+T:Mode$ Attacks | ValidCard$ Warrior | TriggerZones$ Battlefield | Execute$ TrigToken | OptionalDecider$ You
+SVar:TrigToken:DB$ Token | TokenScript$ w_1_1_warrior | TokenOwner$ TriggeredAttackerController | TokenTapped$ True | TokenAttacking$ True | AILogic$ OnlyOnAlliedAttack
+A:AB$ UntapAll | Cost$ W U B R G | ValidCards$ Creature.attacking | ActivationPhases$ BeginCombat->EndCombat | SubAbility$ DBAddCombat
+SVar:DBAddCombat:DB$ AddPhase | ExtraPhase$ Combat | AfterPhase$ EndCombat | SubAbility$ DBPumpAll
+SVar:DBPumpAll:DB$ PumpAll | ValidCards$ Creature.attacking | KW$ Trample & Lifelink & Haste
+SVar:PlayMain1:TRUE
+DeckHints:Type$Warrior
+DeckHas:Ability$Token

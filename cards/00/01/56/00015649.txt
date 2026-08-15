@@ -1,0 +1,9 @@
+Id:15649
+ColorIdentity:U
+ManaCost:4 U U
+Types:Instant
+A:SP$ RepeatEach | RepeatCards$ Creature.attackingYouOrYourPW | UseImprinted$ True | RepeatSubAbility$ DBCloneAndBlock | SubAbility$ DelTrig | ActivationPhases$ Declare Blockers | ChangeZoneTable$ True
+SVar:DBCloneAndBlock:DB$ CopyPermanent | Defined$ Imprinted | TokenBlocking$ Imprinted | RememberTokens$ True
+SVar:DelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ EndCombat | Execute$ TrigExile | RememberObjects$ Remembered | SubAbility$ DBCleanup
+SVar:TrigExile:DB$ ChangeZone | Defined$ DelayTriggerRememberedLKI | Origin$ Battlefield | Destination$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

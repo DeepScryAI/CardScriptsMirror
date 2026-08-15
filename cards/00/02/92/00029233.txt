@@ -1,0 +1,12 @@
+Id:29233
+ColorIdentity:WR
+ManaCost:R W
+Types:Legendary Creature Human Mercenary
+PT:2/3
+T:Mode$ DamageDone | ValidSource$ Card.YouCtrl,Emblem.YouCtrl | ValidTarget$ Creature | DamageAmount$ EQTargetToughness | CombatDamage$ False | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw
+A:AB$ Effect | Cost$ X T | ReplacementEffects$ RepDamage | SetChosenNumber$ X
+SVar:X:Count$xPaid
+SVar:RepDamage:Event$ DamageDone | ActiveZones$ Command | ValidSource$ Card.YouCtrl,Emblem.YouCtrl | ValidTarget$ Permanent,Player | IsCombat$ False | ReplaceWith$ DmgPlusX
+SVar:DmgPlusX:DB$ ReplaceEffect | VarName$ DamageAmount | VarValue$ ReplaceCount$DamageAmount/Plus.Y
+SVar:Y:Count$ChosenNumber

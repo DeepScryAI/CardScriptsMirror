@@ -1,0 +1,12 @@
+Id:10744
+ColorIdentity:
+ManaCost:no cost
+Types:Plane Luvion
+S:Mode$ CantAttack | EffectZone$ Command | ValidCard$ Creature.withoutFlying+!hasKeywordLandwalk:Island
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos
+SVar:RolledChaos:DB$ Effect | ReplacementEffects$ DBYouCantLose,DBOppCantWin | Triggers$ TrigPlaneswalk | Duration$ Permanent
+SVar:DBYouCantLose:Event$ GameLoss | ValidPlayer$ You | Layer$ CantHappen
+SVar:DBOppCantWin:Event$ GameWin | ValidPlayer$ Opponent | Layer$ CantHappen | Secondary$ True
+SVar:TrigPlaneswalk:Mode$ PlaneswalkedTo | Execute$ DBCleanup | Static$ True
+SVar:DBCleanup:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile
+SVar:AIRollPlanarDieParams:Mode$ Always

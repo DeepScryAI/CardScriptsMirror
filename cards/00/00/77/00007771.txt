@@ -1,0 +1,17 @@
+Id:7771
+ColorIdentity:G
+ManaCost:1 G G
+Types:Legendary Creature Snake Monk
+PT:2/3
+A:AB$ SetState | Cost$ Reveal<1/Hand> | Defined$ Self | Mode$ Flip | ConditionCheckSVar$ CheckHandLand | ConditionSVarCompare$ GE7
+SVar:CheckHandLand:Count$ValidHand Land.YouCtrl
+AlternateMode:Flip
+
+ALTERNATE
+
+ManaCost:1 G G
+Colors:green
+Types:Legendary Enchantment
+T:Mode$ TapsForMana | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ DBRepeat | Static$ True
+SVar:DBRepeat:DB$ RepeatEach | RepeatCards$ Land.YouCtrl+!TriggeredCard+sharesNameWith TriggeredCard | RepeatSubAbility$ DBManaReflect
+SVar:DBManaReflect:DB$ ManaReflected | ColorOrType$ Type | ReflectProperty$ Produced | Defined$ You

@@ -1,0 +1,12 @@
+Id:10894
+ColorIdentity:R
+ManaCost:1 R
+Types:Enchantment
+T:Mode$ SpellCast | ValidCard$ Instant.sharesNameWith YourGraveyard,Sorcery.sharesNameWith YourGraveyard | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter | OptionalDecider$ You
+T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | IsPresent$ Card.Self+counters_GE2_QUEST | NoResolvingCheck$ True | Execute$ TrigCopySpell | OptionalDecider$ You
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ QUEST | CounterNum$ 1 | ConditionDefined$ TriggeredCard
+SVar:TrigCopySpell:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | AILogic$ Always | MayChooseTarget$ True
+SVar:MaxQuestEffect:2
+DeckHas:Ability$Counters
+DeckHints:Keyword$Retrace | Flashback
+DeckNeeds:Type$Instant | Sorcery

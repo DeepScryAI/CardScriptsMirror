@@ -1,0 +1,13 @@
+Id:28011
+ColorIdentity:G
+ManaCost:4 G
+Types:Sorcery
+A:SP$ Charm | Choices$ DBChangeZone,DBChooseCard,DBDestroy | CharmNum$ 3 | CanRepeatModes$ True
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | Tapped$ True | ChangeType$ Card.Cave | ChangeNum$ 1
+SVar:DBChooseCard:DB$ ChooseCard | Mandatory$ True | Choices$ Cave.YouCtrl | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | CounterType$ P1P1 | Defined$ ChosenCard | CounterNum$ 3 | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ ChosenCard | Power$ 0 | Toughness$ 0 | Types$ Creature,Elemental | Keywords$ Haste | Duration$ Permanent | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+SVar:DBDestroy:DB$ Destroy | ValidTgts$ Enchantment
+DeckHas:Ability$Counters
+DeckNeeds:Type$Cave

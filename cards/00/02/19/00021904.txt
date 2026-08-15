@@ -1,0 +1,15 @@
+Id:21904
+ColorIdentity:UG
+ManaCost:3 G U
+Types:Legendary Creature Elder Dragon
+PT:4/4
+K:Flying
+K:Trample
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDouble
+SVar:TrigDouble:DB$ MultiplyCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigAnimateAll | OptionalDecider$ You
+SVar:TrigAnimateAll:DB$ AnimateAll | Power$ X | Toughness$ Y | ValidCards$ Creature.YouCtrl+Other
+SVar:X:Count$CardPower
+SVar:Y:Count$CardToughness
+SVar:HasAttackEffect:TRUE
+DeckHas:Ability$Counters

@@ -1,0 +1,14 @@
+Id:29644
+ColorIdentity:B
+ManaCost:3 B
+Types:Legendary Creature Human Rogue
+PT:3/2
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDig | TriggerZones$ Battlefield
+SVar:TrigDig:DB$ Dig | DigNum$ 1 | Defined$ TriggeredTarget | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ Remembered | StaticAbilities$ STPlay | Duration$ Permanent | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | MayPlayIgnoreType$ True | Affected$ Card.IsRemembered+nonLand | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+T:Mode$ SpellCast | ValidCard$ Card.YouDontOwn | ValidActivatingPlayer$ You | Execute$ TrigCopySpell | TriggerZones$ Battlefield
+SVar:TrigCopySpell:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility
+T:Mode$ LandPlayed | ValidCard$ Land.YouCtrl+YouDontOwn | TriggerZones$ Battlefield | Execute$ TrigCopyLand | Secondary$ True
+SVar:TrigCopyLand:DB$ CopyPermanent | Defined$ TriggeredCardLKICopy

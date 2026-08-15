@@ -1,0 +1,12 @@
+Id:32387
+ColorIdentity:R
+Variant:UniversesWithin:FlavorName:Fire-Brained Scheme
+ManaCost:R
+Types:Sorcery
+A:SP$ Charm | Choices$ DBDateNight,DBPatrolNight
+SVar:DBDateNight:DB$ Dig | Defined$ You | DigNum$ 2 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBChoose
+SVar:DBChoose:DB$ ChooseCard | Defined$ You | Amount$ 1 | Mandatory$ True | Choices$ Card.IsRemembered | ChoiceZone$ Exile | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | ExileOnMoved$ Exile | RememberObjects$ ChosenCard | Duration$ UntilTheEndOfYourNextTurn | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearChosenCard$ True
+SVar:DBPatrolNight:DB$ Pump | ValidTgts$ Creature | TargetMin$ 1 | TargetMax$ 2 | NumAtt$ +1 | KW$ First Strike

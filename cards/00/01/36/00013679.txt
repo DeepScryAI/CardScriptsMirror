@@ -1,0 +1,11 @@
+Id:13679
+ColorIdentity:U
+ManaCost:4 U U
+Types:Creature Kraken
+PT:6/6
+A:AB$ PutCounter | Cost$ 6 U U | Monstrosity$ 4
+T:Mode$ BecomeMonstrous | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigTap
+SVar:TrigTap:DB$ Tap | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 4 | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ Targeted | ForgetOnMoved$ Battlefield | ReplacementEffects$ DontUntap | Duration$ AsLongAsControl
+SVar:DontUntap:Event$ Untap | ValidCard$ Card.IsRemembered | ValidStepTurnToController$ You | Layer$ CantHappen
+DeckHas:Ability$Counters

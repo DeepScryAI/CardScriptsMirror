@@ -1,0 +1,12 @@
+Id:4050
+ColorIdentity:
+ManaCost:4
+Types:Artifact
+A:AB$ Pump | Cost$ 4 T | ValidTgts$ Creature.OppCtrl | RememberObjects$ ThisTargetedCard | IsCurse$ True | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | ValidTgts$ Creature.YouCtrl | ImprintCards$ ThisTargetedCard | SubAbility$ DBRepeat
+SVar:DBRepeat:DB$ Repeat | RepeatSubAbility$ DBFlip | RepeatDefined$ Imprinted | RepeatPresent$ Card | RepeatSVarCompare$ EQ0
+SVar:DBFlip:DB$ FlipCoin | WinSubAbility$ DestroyOpp | LoseSubAbility$ DestroyYours
+SVar:DestroyOpp:DB$ Destroy | Defined$ Remembered | SubAbility$ DBCleanup
+SVar:DestroyYours:DB$ Destroy | Defined$ Imprinted | UnlessCost$ 3 | UnlessPayer$ You | SubAbility$ DBCleanup | UnlessResolveSubs$ WhenNotPaid
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True
+AI:RemoveDeck:Random

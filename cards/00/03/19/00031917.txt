@@ -1,0 +1,21 @@
+Id:31917
+ColorIdentity:UR
+ManaCost:U R
+Types:Legendary Creature Human Noble Wizard
+PT:2/2
+A:AB$ Mana | Cost$ T | Produced$ Combo U R | RestrictValid$ Spell.nonCreature
+T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidSA$ Spell.ManaSpent GE4 | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBTransform
+SVar:DBTransform:DB$ SetState | Defined$ Self | Mode$ Transform | ConditionCheckSVar$ X | ConditionSVarCompare$ GE3
+SVar:X:Count$CardCounters.P1P1
+AlternateMode:DoubleFaced
+
+ALTERNATE
+
+ManaCost:no cost
+Colors:blue,red
+Types:Legendary Creature Demon Noble Wizard
+PT:3/3
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDamageAll
+SVar:TrigDamageAll:DB$ DamageAll | ValidPlayers$ Player.Opponent | NumDmg$ X
+SVar:X:Count$ValidGraveyard Card.YouOwn+nonCreature+nonLand

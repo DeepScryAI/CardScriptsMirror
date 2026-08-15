@@ -1,0 +1,13 @@
+Id:24603
+ColorIdentity:UG
+ManaCost:2 G G
+Types:Legendary Creature Giant Bear
+PT:4/5
+S:Mode$ Continuous | Affected$ Card.Self+!dealtDamagetoAny | AddKeyword$ Hexproof
+T:Mode$ DamageDone | ValidSource$ Card.Self | Execute$ TrigToken | CombatDamage$ True | ValidTarget$ Player | TriggerZones$ Battlefield
+SVar:TrigToken:DB$ Token | TokenScript$ c_a_food_sac
+A:AB$ Draft | Cost$ U Sac<1/Food> | Spellbook$ Archipelagore,Junk Winder,Moat Piranhas,Mystic Skyfish,Nadir Kraken,Nezahal; Primal Tide,Pouncing Shoreshark,Pursued Whale,Riptide Turtle,Ruin Crab,Sea-Dasher Octopus,Sigiled Starfish,Spined Megalodon,Stinging Lionfish,Voracious Greatshark | SubAbility$ TrigImmediateTrig
+SVar:TrigImmediateTrig:DB$ ImmediateTrigger | Execute$ DBAddMana
+SVar:DBAddMana:DB$ Mana | Produced$ U | Amount$ 3 | RestrictValid$ Spell.Creature+Blue
+DeckHas:Ability$Token | LifeGain | Food
+DeckHints:Ability$Food

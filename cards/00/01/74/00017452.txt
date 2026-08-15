@@ -1,0 +1,9 @@
+Id:17452
+ColorIdentity:B
+ManaCost:2 B
+Types:Sorcery
+A:SP$ PeekAndReveal | PeekAmount$ 3 | NoPeek$ True | RememberRevealed$ True | SubAbility$ DBRepeat
+SVar:DBRepeat:DB$ RepeatEach | RepeatSubAbility$ DBChangeZone | RepeatCards$ Card.IsRemembered | ChooseOrder$ True | Zone$ Library | UseImprinted$ True | SubAbility$ PutIntoHand
+SVar:DBChangeZone:DB$ ChangeZone | Defined$ Imprinted | Origin$ Library | Destination$ Hand | UnlessCost$ PayLife<3> | UnlessPayer$ Opponent | ForgetChanged$ True
+SVar:PutIntoHand:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered | Origin$ Library | Destination$ Exile | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

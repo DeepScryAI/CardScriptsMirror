@@ -1,0 +1,14 @@
+Id:28242
+ColorIdentity:UBG
+ManaCost:1 UB UB G G
+Types:Legendary Creature Dinosaur Mutant
+PT:6/6
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ Discard | ReplacementResult$ Updated
+SVar:Discard:DB$ Discard | DiscardValid$ Creature | AnyNumber$ True | Optional$ True | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBPutCounters
+SVar:DBPutCounters:DB$ PutCounter | SharedKeywords$ Flying & First Strike & Double Strike & Deathtouch & Hexproof & Haste & Indestructible & Lifelink & Menace & Reach & Trample & Vigilance | SharedKeywordsDefined$ Remembered | CounterNum$ 1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | NumCards$ X
+SVar:X:TriggeredCard$CardCounters.ALL
+DeckHas:Ability$Counters | Discard
+DeckHints:Ability$Graveyard

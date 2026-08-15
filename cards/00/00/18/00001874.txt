@@ -1,0 +1,11 @@
+Id:1874
+ColorIdentity:R
+ManaCost:X R R
+Types:Sorcery
+A:SP$ DamageAll | ValidCards$ Creature.withoutFlying | NumDmg$ X
+SVar:X:Count$xPaid
+S:Mode$ Continuous | Affected$ Creature | AddAbility$ TOPrevent | AddSVar$ DBPrevent & DBReplace | EffectZone$ Stack
+SVar:TOPrevent:AB$ Effect | Cost$ T | RememberObjects$ Self | ImprintCards$ OriginalHost | ReplacementEffects$ DBPrevent | ForgetOnMoved$ Battlefield
+SVar:DBPrevent:Event$ DamageDone | ActiveZones$ Command | ValidSource$ Card.IsImprinted | ValidTarget$ Card.IsRemembered | ReplaceWith$ DBReplace | PreventionEffect$ True
+SVar:DBReplace:DB$ ReplaceDamage | Amount$ 1 | SubAbility$ ExileEffect
+SVar:ExileEffect:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile

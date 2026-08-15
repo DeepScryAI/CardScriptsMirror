@@ -1,0 +1,20 @@
+Id:54
+ColorIdentity:
+ManaCost:4
+Types:Artifact
+A:AB$ PutCounter | Cost$ 2 T | ValidTgts$ Land.nonSwamp | RememberPut$ True | CounterType$ MIRE | CounterNum$ 1 | ActivationPhases$ Upkeep | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ Targeted | StaticAbilities$ TombStatic | ForgetOnMoved$ Battlefield | ForgetCounter$ MIRE | Duration$ Permanent
+SVar:TombStatic:Mode$ Continuous | Affected$ Card.IsRemembered | AddType$ Swamp | RemoveLandTypes$ True
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigEffect
+SVar:TrigEffect:DB$ Effect | RememberObjects$ RememberedCard | Triggers$ UpkeepRemove | ForgetOnMoved$ Battlefield | Duration$ Permanent | SubAbility$ DBClearRemembered
+SVar:UpkeepRemove:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigRemove | TriggerZones$ Command
+SVar:TrigRemove:DB$ ChooseCard | Choices$ Card.IsRemembered | Mandatory$ True | SubAbility$ DBRemoveCounter
+SVar:DBRemoveCounter:DB$ RemoveCounter | CounterType$ MIRE | CounterNum$ All | Defined$ ChosenCard | SubAbility$ DBForget
+SVar:DBForget:DB$ Pump | ForgetObjects$ ChosenCard | SubAbility$ DBClearChosen
+SVar:DBClearChosen:DB$ Cleanup | ClearChosenCard$ True | SubAbility$ DBExileSelf
+SVar:DBExileSelf:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ0
+SVar:DBClearRemembered:DB$ Cleanup | ClearRemembered$ True
+AI:RemoveDeck:All
+AI:RemoveDeck:Random
+DeckHints:Keyword$Landwalk:Swamp
+DeckHas:Ability$Counters & Type$Swamp

@@ -1,0 +1,12 @@
+Id:25599
+ColorIdentity:RG
+ManaCost:1 R G
+Types:Creature Human Artificer
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | Choices$ DBDealDamage,DBPutCounter,DBPowerstone
+SVar:DBDealDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 1
+SVar:DBPutCounter:DB$ PutCounter | ValidTgts$ Creature | CounterType$ P1P1 | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Targeted | KW$ Trample & Haste
+SVar:DBPowerstone:DB$ Token | TokenTapped$ True | TokenScript$ c_a_powerstone
+DeckHas:Ability$Counters | Token & Type$Artifact

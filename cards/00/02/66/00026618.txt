@@ -1,0 +1,13 @@
+Id:26618
+ColorIdentity:RG
+ManaCost:2 R G
+Types:Creature Dinosaur Beast
+PT:3/3
+K:Trample
+K:Haste
+T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigPump | TriggerZones$ Battlefield
+SVar:TrigPump:DB$ Branch | ValidTgts$ Creature.attacking | BranchConditionSVar$ X | TrueSubAbility$ PutCounter | FalseSubAbility$ Pump | AILogic$ TgtAttacker
+SVar:PutCounter:DB$ PutCounter | Defined$ Targeted | CounterType$ P1P1
+SVar:Pump:DB$ Pump | Defined$ Targeted | NumAtt$ +1 | NumDef$ +1
+SVar:X:Targeted$Valid Card.attackingBattle
+DeckHas:Ability$Counters

@@ -1,0 +1,13 @@
+Id:19985
+ColorIdentity:B
+ManaCost:2 B B
+Types:Legendary Creature Faerie Rogue
+PT:3/3
+K:Flying
+K:Haste
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | Choices$ DBDiscard,DBLoseLife,DBSac | MinCharmNum$ 0 | CharmNum$ 3
+SVar:DBDiscard:DB$ Discard | Mode$ TgtChoose | Defined$ Player | AILogic$ AnyPhaseIfFavored
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 1 | Defined$ Player | SubAbility$ DBDraw | AILogic$ AnyPhase
+SVar:DBDraw:DB$ Draw | Defined$ Player | NumCards$ 1
+SVar:DBSac:DB$ Sacrifice | SacValid$ Creature | Defined$ Player

@@ -1,0 +1,11 @@
+Id:1720
+ColorIdentity:
+ManaCost:4
+Types:Artifact
+A:AB$ ChangeZone | Cost$ 2 T Sac<1/CARDNAME> | ValidTgts$ Opponent | Chooser$ You | Origin$ Library | Destination$ Exile | ChangeType$ Card | ChangeNum$ 1 | IsCurse$ True | RememberChanged$ True | SubAbility$ TotemEffect
+SVar:TotemEffect:DB$ Effect | StaticAbilities$ STGrinning | Duration$ UntilYourNextUpkeep | RememberObjects$ Remembered | ExileOnMoved$ Exile | SubAbility$ DBDelayedTrigger
+SVar:STGrinning:Mode$ Continuous | Affected$ Card.IsRemembered | MayPlay$ True | AffectedZone$ Exile
+SVar:DBDelayedTrigger:DB$ DelayedTrigger | Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | RememberObjects$ Remembered | Execute$ DBReturn | IsPresent$ Card.IsTriggerRemembered | PresentZone$ Exile | SubAbility$ DBCleanup
+SVar:DBReturn:DB$ ChangeZone | Defined$ DelayTriggerRememberedLKI | Origin$ Exile | Destination$ Graveyard
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+AI:RemoveDeck:All

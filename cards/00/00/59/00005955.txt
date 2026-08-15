@@ -1,0 +1,13 @@
+Id:5955
+ColorIdentity:R
+ManaCost:4 R
+Types:Sorcery
+A:SP$ RepeatEach | ValidTgts$ Player,Planeswalker | TargetMin$ 0 | TargetMax$ MaxTgt | RepeatTargeted$ Targeted | RepeatSubAbility$ DBDigUntil
+SVar:DBDigUntil:DB$ DigUntil | Defined$ You | Valid$ Card.nonLand | RevealedDestination$ Library | RevealedLibraryPosition$ -1 | ImprintFound$ True | SubAbility$ DBDmg
+SVar:DBDmg:DB$ DealDamage | Defined$ Remembered | NumDmg$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearImprinted$ True
+SVar:X:Imprinted$CardManaCost
+SVar:MaxTgt:SVar$MaxPlayers/Plus.MaxPW
+SVar:MaxPlayers:PlayerCountPlayers$Amount
+SVar:MaxPW:Count$Valid Planeswalker
+AI:RemoveDeck:All

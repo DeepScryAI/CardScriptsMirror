@@ -1,0 +1,11 @@
+Id:2224
+ColorIdentity:W
+ManaCost:1 W
+Types:Sorcery
+A:SP$ Draw | Defined$ Player | Upto$ True | NumCards$ 2 | RememberDrawn$ AllReplaced | SubAbility$ DBRepeat | AILogic$ GainLife
+SVar:DBRepeat:DB$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBGainLife | SubAbility$ DBCleanup
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ X | Defined$ Player.IsRemembered
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:Y:Remembered$Valid Card.RememberedPlayerOwn/NMinus.2
+SVar:X:SVar$Y/Twice
+AI:RemoveDeck:All

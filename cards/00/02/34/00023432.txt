@@ -1,0 +1,22 @@
+Id:23432
+ColorIdentity:G
+ManaCost:1 G
+Types:Enchantment Saga
+K:Chapter:3:DBEffect,DBGainLife,DBTransform
+SVar:DBEffect:DB$ Effect | StaticAbilities$ Exploration
+SVar:Exploration:Mode$ Continuous | Affected$ You | AdjustLandPlays$ 1
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ 3
+SVar:DBTransform:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | Transformed$ True | GainControl$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+DeckHas:Ability$LifeGain
+AlternateMode:DoubleFaced
+
+ALTERNATE
+
+ManaCost:no cost
+Colors:green
+Types:Enchantment Creature Human Monk
+PT:3/3
+T:Mode$ AttackerBlocked | ValidCard$ Card.Self | Execute$ TrigUntap
+SVar:TrigUntap:DB$ Untap | UntapUpTo$ True | UntapType$ Land.YouCtrl | Amount$ 3

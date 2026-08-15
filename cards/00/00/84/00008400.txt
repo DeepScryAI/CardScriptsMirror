@@ -1,0 +1,14 @@
+Id:8400
+ColorIdentity:G
+ManaCost:4 G G
+Types:Creature Basilisk Mutant
+PT:0/0
+K:Graft:3
+A:AB$ Animate | Cost$ 1 G | ValidTgts$ Creature.counters_GE1_P1P1 | Triggers$ DestroyTrigger
+SVar:DestroyTrigger:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Creature | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ DelTrigSimic
+SVar:DelTrigSimic:DB$ DelayedTrigger | Mode$ Phase | Phase$ EndCombat | ValidPlayer$ Player | Execute$ TrigDestroySimic | RememberObjects$ TriggeredTargetLKICopy
+SVar:TrigDestroySimic:DB$ Destroy | Defined$ DelayTriggerRememberedLKI
+SVar:AIGraftPreference:DontMoveCounterIfLethal
+AI:RemoveDeck:All
+DeckHas:Ability$Counters
+DeckNeeds:Ability$Counters

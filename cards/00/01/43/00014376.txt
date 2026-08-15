@@ -1,0 +1,12 @@
+Id:14376
+ColorIdentity:BG
+ManaCost:no cost
+Colors:black,green
+Types:Legendary Planeswalker Garruk
+Loyalty:20
+A:AB$ Token | Cost$ AddCounter<0/LOYALTY> | Planeswalker$ True | TokenScript$ g_2_2_wolf
+A:AB$ Pump | Cost$ AddCounter<4/LOYALTY> | Planeswalker$ True | NumAtt$ +1 | KW$ Deathtouch | ValidTgts$ Creature.Wolf
+A:AB$ Destroy | Cost$ SubCounter<10/LOYALTY> | Planeswalker$ True | ValidTgts$ Creature | SubAbility$ DBAddLoyalty
+SVar:DBAddLoyalty:DB$ PutCounter | Defined$ Self | CounterType$ LOYALTY | CounterNum$ X
+SVar:X:Targeted$CardToughness
+A:AB$ DestroyAll | Cost$ SubCounter<25/LOYALTY> | Planeswalker$ True | Ultimate$ True | ValidCards$ Creature.YouDontCtrl

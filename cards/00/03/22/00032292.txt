@@ -1,0 +1,9 @@
+Id:32292
+ColorIdentity:U
+ManaCost:4 U U
+Types:Enchantment
+T:Mode$ ChangesZone | ValidCard$ Card.wasCastByYou+Self | Destination$ Battlefield | Execute$ TrigChangeAll
+SVar:TrigChangeAll:DB$ ChangeZoneAll | Origin$ Graveyard,Hand | Destination$ Library | ChangeType$ Card.YouOwn | Shuffle$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 7
+S:Mode$ Continuous | Affected$ Card.nonLand+ControlledBy Player.Active | MayPlayPlayer$ Player.Active | MayPlay$ True | MayPlayWithoutManaCost$ True | MayPlayDontGrantZonePermissions$ True | AffectedZone$ All | CheckSVar$ Y | SVarCompare$ EQ0
+SVar:Y:Count$ThisTurnCast_Card.ControlledBy Player.Active

@@ -1,0 +1,12 @@
+Id:4194
+ColorIdentity:U
+ManaCost:4 U
+Types:Creature Human Pirate
+PT:3/2
+K:Flying
+S:Mode$ CantBlockBy | ValidAttacker$ Creature.withoutFlying | ValidBlocker$ Creature.Self
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ RepeatEachOpp
+SVar:RepeatEachOpp:DB$ RepeatEach | RepeatPlayers$ Player.Opponent | RepeatSubAbility$ TrigSac
+SVar:TrigSac:DB$ Sacrifice | Defined$ Remembered | SacValid$ Permanent | UnlessCost$ 3 | UnlessPayer$ Remembered
+SVar:NeedsToPlayVar:Z LE2
+SVar:Z:Count$Valid Card.canProduceMana+OppCtrl+untapped

@@ -1,0 +1,13 @@
+Id:28726
+ColorIdentity:R
+ManaCost:3 R R
+Types:Legendary Creature Human Wizard
+PT:3/2
+K:Flash
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChoose
+SVar:TrigChoose:DB$ Pump | TargetType$ Spell | TgtZone$ Stack | ValidTgts$ Card.OppCtrl | SubAbility$ CrimsonCascade
+SVar:CrimsonCascade:DB$ DigUntil | Defined$ You | Amount$ 1 | Valid$ Card.cmcEQX | NoMoveRevealed$ True | RememberFound$ True | SubAbility$ CascadeCast
+SVar:CascadeCast:DB$ Play | Defined$ Remembered | WithoutManaCost$ True | ValidSA$ Spell | SubAbility$ YouShuffle
+SVar:YouShuffle:DB$ Shuffle | Defined$ You | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Targeted$CardManaCost

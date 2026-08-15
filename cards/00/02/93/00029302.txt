@@ -1,0 +1,11 @@
+Id:29302
+ColorIdentity:U
+ManaCost:6 U
+Types:Creature Eldrazi Serpent
+PT:7/8
+K:Devoid
+T:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigForEach
+SVar:TrigForEach:DB$ RepeatEach | RepeatPlayers$ Opponent | RepeatSubAbility$ DBChoose | SubAbility$ DBCopy
+SVar:DBChoose:DB$ ChooseCard | Choices$ Creature.RememberedPlayerCtrl | Mandatory$ True | Amount$ 1 | ImprintChosen$ True
+SVar:DBCopy:DB$ CopyPermanent | Choices$ Creature.IsImprinted | SetPower$ Imprinted$CardPower | SetToughness$ Imprinted$CardToughness | SetColor$ Colorless | AddTypes$ Creature & Eldrazi | RemoveCardTypes$ True | RemoveSubTypes$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True | ClearImprinted$ True

@@ -1,0 +1,10 @@
+Id:2346
+ColorIdentity:G
+ManaCost:1 G
+Types:Sorcery
+A:SP$ Pump | ValidTgts$ Player | SubAbility$ DBChangeZone | IsCurse$ True
+SVar:DBChangeZone:DB$ ChangeZone | TargetMin$ 0 | TargetMax$ 3 | TargetsWithDefinedController$ ParentTarget | Origin$ Graveyard | Destination$ Library | Shuffle$ True | ValidTgts$ Card | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw
+T:Mode$ ChangesZone | Origin$ Library | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZoneAll | ChangeType$ Card.YouOwn | Origin$ Graveyard | Destination$ Library | Shuffle$ True
+AI:RemoveDeck:All

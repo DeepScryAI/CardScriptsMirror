@@ -1,0 +1,13 @@
+Id:25959
+ColorIdentity:
+ManaCost:3
+Types:Artifact
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigProliferate
+SVar:TrigProliferate:DB$ Proliferate
+A:AB$ Mana | Cost$ T | Produced$ Any
+A:AB$ Mana | Cost$ T | Produced$ Any | CheckSVar$ X | SVarCompare$ GE3 | Amount$ 3 | PrecostDesc$ Corrupted —
+SVar:X:PlayerCountOpponents$HighestCounters.Poison
+DeckHas:Ability$Proliferate
+DeckHints:Ability$Counters & Keyword$Infect | Toxic | Poisonous

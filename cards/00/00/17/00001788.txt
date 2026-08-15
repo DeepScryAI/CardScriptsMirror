@@ -1,0 +1,17 @@
+Id:1788
+ColorIdentity:
+ManaCost:1
+Types:Artifact Creature Phyrexian Dreadnought
+PT:12/12
+K:Trample
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ ChooseCreatures
+SVar:ChooseCreatures:DB$ ChooseCard | Defined$ You | Amount$ X | MinAmount$ 0 | Choices$ Creature.YouCtrl | ChoiceZone$ Battlefield | Reveal$ True | RememberChosen$ True | SubAbility$ SacrificeSelf
+SVar:SacrificeSelf:DB$ Sacrifice | ConditionCheckSVar$ TotalPower | ConditionSVarCompare$ LT12 | SubAbility$ SacrificeCreatures
+SVar:SacrificeCreatures:DB$ SacrificeAll | Defined$ Remembered | ConditionCheckSVar$ TotalPower | ConditionSVarCompare$ GE12 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:TotalPower:Remembered$CardPower
+SVar:X:Count$Valid Creature.YouCtrl
+SVar:NeedsToPlayVar:Y GE12
+SVar:Y:Count$Valid Creature.YouCtrl+!namedPhyrexian Dreadnought$CardPower
+AI:RemoveDeck:Random
+DeckHas:Ability$Sacrifice

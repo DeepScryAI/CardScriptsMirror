@@ -1,0 +1,11 @@
+Id:28412
+ColorIdentity:B
+ManaCost:B
+Types:Enchantment Case
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ Destroy | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Creature.wasDealtDamageThisTurn
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ Count$ThisTurnEntered_Graveyard_Creature.!token | SVarCompare$ GE3 | IsPresent$ Card.Self+!IsSolved | Execute$ Solved
+SVar:Solved:DB$ AlterAttribute | Defined$ Self | Attributes$ Solved
+S:Mode$ Continuous | Affected$ Card.Self+IsSolved | AddType$ Creature & Gorgon | SetPower$ 4 | SetToughness$ 4 | AddKeyword$ Deathtouch & Lifelink
+DeckHints:Ability$Sacrifice | Discard
+DeckHas:Ability$LifeGain

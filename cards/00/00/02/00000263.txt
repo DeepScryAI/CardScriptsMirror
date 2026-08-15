@@ -1,0 +1,10 @@
+Id:263
+ColorIdentity:U
+ManaCost:3 U U
+Types:Creature Shapeshifter
+PT:0/0
+# Make Svars for granting abilities and triggers on clones distinct to avoid SVars getting overwritten when cloning a clone
+K:ETBReplacement:Copy:DBCopy:Optional
+SVar:DBCopy:DB$ Clone | Choices$ Creature.Other | SetColor$ Blue | AddTriggers$ VesDopUpkeepTrig | AddSVars$ VesDopCopy,VesDopUpkeepTrig
+SVar:VesDopUpkeepTrig:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ VesDopCopy
+SVar:VesDopCopy:DB$ Clone | ValidTgts$ Creature | Optional$ True | SetColor$ Blue | GainThisAbility$ True | AddSVars$ VesDopCopy | AILogic$ CloneBestCreature

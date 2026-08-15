@@ -1,0 +1,13 @@
+Id:30375
+ColorIdentity:W
+ManaCost:3 W W
+Types:Creature Spirit
+PT:2/5
+K:Flying
+T:Mode$ ChangesZone | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigChoice
+SVar:TrigChoice:DB$ GenericChoice | Choices$ DBReturn,DBUnlock
+SVar:DBReturn:DB$ ChangeZone | Hidden$ True | Mandatory$ True | ChangeType$ Enchantment.YouOwn | Origin$ Graveyard | Destination$ Hand | IsPresent$ Enchantment.YouOwn | PresentZone$ Graveyard
+SVar:DBUnlock:DB$ UnlockDoor | Mode$ Unlock | Choices$ Room.YouCtrl+!FullyUnlocked | IsPresent$ Room.YouCtrl+!FullyUnlocked
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Enchantment.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigToken
+T:Mode$ FullyUnlock | ValidCard$ Card.Room | ValidPlayer$ You | Secondary$ True | Execute$ TrigToken | TriggerZones$ Battlefield
+SVar:TrigToken:DB$ Token | TokenScript$ w_3_1_spirit_flying

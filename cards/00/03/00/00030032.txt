@@ -1,0 +1,13 @@
+Id:30032
+ColorIdentity:G
+ManaCost:G
+Types:Enchantment Class
+S:Mode$ Continuous | Affected$ Artifact.YouCtrl | Condition$ PlayerTurn | AddType$ Food | AddAbility$ FoodSac
+SVar:FoodSac:AB$ GainLife | Cost$ 2 T Sac<1/CARDNAME/this artifact> | Defined$ You | LifeAmount$ 3
+K:Class:2:2 G:AddTrigger$ TriggerRaccoon
+SVar:TriggerRaccoon:Mode$ LifeGained | ValidPlayer$ You | TriggerZones$ Battlefield | FirstTime$ True | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScript$ g_3_3_raccoon | TokenOwner$ You
+K:Class:3:3 G:AddTrigger$ TriggerCounters
+SVar:TriggerCounters:Mode$ LifeGained | ValidPlayer$ You | TriggerZones$ Battlefield | FirstTime$ True | Execute$ TrigPutCounters
+SVar:TrigPutCounters:DB$ PutCounterAll | ValidCards$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1
+DeckHas:Ability$LifeGain | Counters & Type$Food | Raccoon

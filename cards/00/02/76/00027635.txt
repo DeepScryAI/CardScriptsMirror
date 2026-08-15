@@ -1,0 +1,15 @@
+Id:27635
+ColorIdentity:BR
+ManaCost:2 B R
+Types:Creature Knight
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigConjure
+SVar:TrigConjure:DB$ MakeCard | Conjure$ True | Names$ Steelclaw Lance,Brawler's Plate | Zone$ Battlefield | RememberMade$ True | SubAbility$ DBAttach
+SVar:DBAttach:DB$ Attach | Object$ Remembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+R:Event$ DamageDone | ActiveZones$ Battlefield | ValidTarget$ Card.Self+equipped | ReplaceWith$ DBImmediateTrigger | PreventionEffect$ True
+SVar:DBImmediateTrigger:DB$ ImmediateTrigger | Execute$ TrigSacrifice
+SVar:TrigSacrifice:DB$ Sacrifice | SacValid$ Equipment.AttachedTo Card.Self | SacMessage$ attached Equipment
+SVar:EquipMe:Once
+DeckHas:Type$Equipment & Ability$Sacrifice
+DeckHints:Type$Equipment

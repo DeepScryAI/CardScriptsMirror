@@ -1,0 +1,11 @@
+Id:1831
+ColorIdentity:G
+ManaCost:1 G G
+Types:Sorcery
+A:SP$ DestroyAll | ValidCards$ Artifact | RememberDestroyed$ True | NoRegen$ True | SubAbility$ DBRepeat
+SVar:DBRepeat:DB$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBGainLife | SubAbility$ DBCleanup
+SVar:DBGainLife:DB$ GainLife | Defined$ Player.IsRemembered | LifeAmount$ X
+SVar:X:RememberedLKI$Valid Card.RememberedPlayerCtrl$CardManaCost
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+AI:RemoveDeck:All
+AI:RemoveDeck:Random

@@ -1,0 +1,9 @@
+Id:6363
+ColorIdentity:W
+ManaCost:5 W W
+Types:Sorcery
+A:SP$ ChangeZoneAll | ChangeType$ Permanent | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | Triggers$ TrigUpkeep | RememberObjects$ Remembered | Duration$ Permanent | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:TrigUpkeep:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Player | Execute$ BreachReturn | TriggerZones$ Command
+SVar:BreachReturn:DB$ ChangeZone | Origin$ Exile | Destination$ Battlefield | ChangeType$ Card.IsRemembered | DefinedPlayer$ ActivePlayer | Mandatory$ True | ForgetChanged$ True | Hidden$ True

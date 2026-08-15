@@ -1,0 +1,13 @@
+Id:18996
+ColorIdentity:UG
+ManaCost:3 G U
+Types:Creature Frog Lizard
+PT:3/3
+K:Trample
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | OptionalDecider$ You | Execute$ TrigRemoveCounters
+SVar:TrigRemoveCounters:DB$ RemoveCounter | Choices$ Creature.YouCtrl+counters_GE1_P1P1 | ChoiceOptional$ True | CounterType$ P1P1 | CounterNum$ Any | SubAbility$ DBPutCounters | RememberAmount$ True
+SVar:DBPutCounters:DB$ PutCounter | Defined$ TriggeredCardLKICopy | CounterType$ P1P1 | CounterNum$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$RememberedNumber/Twice
+DeckHints:Ability$Counters
+DeckHas:Ability$Counters

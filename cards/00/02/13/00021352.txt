@@ -1,0 +1,13 @@
+Id:21352
+ColorIdentity:WRG
+ManaCost:R G W
+Types:Legendary Creature Human Warrior
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMonarch
+SVar:TrigMonarch:DB$ BecomeMonarch | ValidTgts$ Opponent | SubAbility$ DBNoMonarch
+SVar:DBNoMonarch:DB$ Effect | StaticAbilities$ STCantMonarch
+SVar:STCantMonarch:Mode$ CantBecomeMonarch | ValidPlayer$ You
+R:Event$ DamageDone | ActiveZones$ Battlefield | ValidTarget$ Card.Self | CheckDefinedPlayer$ You.isMonarch | ReplaceWith$ Counters | PreventionEffect$ True | AlwaysReplace$ True
+SVar:Counters:DB$ PutCounter | Defined$ ReplacedTarget | CounterType$ P1P1 | CounterNum$ Y
+SVar:Y:ReplaceCount$DamageAmount
+DeckHas:Ability$Counters

@@ -1,0 +1,12 @@
+Id:33593
+ColorIdentity:G
+ManaCost:5 G G
+Types:Creature Cat Spirit Avatar
+PT:7/7
+K:Trample
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGainLife
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigGainLife | Secondary$ True | TriggerZones$ Battlefield
+SVar:TrigGainLife:AB$ GainLife | Cost$ Sac<1/Permanent.token;Land/token or a land> | Defined$ You | LifeAmount$ 3
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraw | Revolt$ True
+SVar:TrigDraw:DB$ Draw
+SVar:HasAttackEffect:TRUE

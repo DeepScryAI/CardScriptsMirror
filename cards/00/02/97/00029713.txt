@@ -1,0 +1,11 @@
+Id:29713
+ColorIdentity:B
+ManaCost:2 B
+Types:Legendary Creature Human Assassin
+PT:3/2
+K:Partner with:Evie Frye
+T:Mode$ DamageDoneOnce | CombatDamage$ True | ValidSource$ Assassin.YouCtrl | ValidTarget$ Player | TriggerZones$ Battlefield | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | ValidTgts$ Card.Assassin+YouCtrl,Card.withFreerunning+YouCtrl | TargetMin$ 0 | TargetMax$ 1 | Origin$ Graveyard | Destination$ Exile | RememberChanged$ True | SubAbility$ DBCast
+SVar:DBCast:DB$ Play | Valid$ Card.IsRemembered | ValidZone$ Exile | CopyCard$ True | ValidSA$ Spell | Optional$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+DeckHints:Name$Evie Fryer & Type$Assassin & Ability$Graveyard

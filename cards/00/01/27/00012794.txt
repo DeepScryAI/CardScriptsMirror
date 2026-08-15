@@ -1,0 +1,13 @@
+Id:12794
+ColorIdentity:R
+ManaCost:no cost
+Types:Plane Ravnica
+T:Mode$ PlaneswalkedTo | ValidCard$ Card.Self | Execute$ PutCounter
+T:Mode$ Phase | Phase$ Main1 | ValidPlayer$ You | TriggerZones$ Command | Execute$ PutCounter | Secondary$ True
+SVar:PutCounter:DB$ PutCounter | Defined$ Self | CounterType$ CHARGE | CounterNum$ 1 | SubAbility$ DBMana
+SVar:DBMana:DB$ Mana | Produced$ R | Amount$ Y
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos
+SVar:RolledChaos:AB$ DealDamage | Cost$ X | ValidTgts$ Any | NumDmg$ X
+SVar:X:Count$xPaid
+SVar:Y:Count$CardCounters.CHARGE
+SVar:AIRollPlanarDieParams:Mode$ Always

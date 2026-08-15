@@ -1,0 +1,12 @@
+Id:29874
+ColorIdentity:U
+ManaCost:2 U U
+Types:Enchantment Aura
+K:Gift
+K:Enchant:Creature
+SVar:GiftAbility:DB$ Draw | Defined$ Promised
+SVar:AttachAILogic:GainControl
+S:Mode$ Continuous | Affected$ Card.EnchantedBy | GainControl$ You
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigTap
+SVar:TrigTap:DB$ Tap | Defined$ Enchanted | SubAbility$ DBStun
+SVar:DBStun:DB$ PutCounter | Defined$ Enchanted | CounterType$ Stun | CounterNum$ 3 | ConditionDefined$ Self | ConditionPresent$ Card.PromisedGift | ConditionCompare$ EQ0

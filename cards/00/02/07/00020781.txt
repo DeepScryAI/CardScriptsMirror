@@ -1,0 +1,10 @@
+Id:20781
+ColorIdentity:U
+ManaCost:1 U U
+Types:Legendary Creature Human Wizard
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | ValidTgts$ Creature.Other,Planeswalker | TargetMin$ 0 | TargetMax$ 1 | Origin$ Battlefield | Destination$ Hand
+T:Mode$ Phase | Phase$ End of Turn | CheckSVar$ X | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+SVar:X:Count$ThisTurnEntered_Hand_from_Battlefield_Permanent.YouOwn

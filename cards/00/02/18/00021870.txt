@@ -1,0 +1,24 @@
+Id:21870
+ColorIdentity:UG
+ManaCost:6 U U
+Types:Legendary Creature Human Wizard
+PT:5/5
+A:AB$ ChangeZone | Cost$ Discard<1/Card> | Origin$ Battlefield | Destination$ Hand
+T:Mode$ SpellCastOrCopy | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDig
+SVar:TrigDig:DB$ PeekAndReveal | RememberRevealed$ True | NoPeek$ True | SubAbility$ CastCard
+SVar:CastCard:DB$ Play | Defined$ Remembered | PlayCost$ 1 | ValidSA$ Spell | Optional$ True | ConditionDefined$ Remembered | ConditionPresent$ Card.nonLand | SubAbility$ MoveLand
+SVar:MoveLand:DB$ ChangeZone | Defined$ Remembered | Origin$ Library | Destination$ Battlefield | ConditionDefined$ Remembered | ConditionPresent$ Card.Land | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:PlayMain1:TRUE
+DeckHas:Ability$Discard
+DeckNeeds:Type$Instant | Sorcery
+AlternateMode:Modal
+
+ALTERNATE
+
+ManaCost:2 G G
+Types:Sorcery
+A:SP$ ChangeZone | Origin$ Hand | Destination$ Battlefield | ChangeType$ Land | ChangeNum$ X | SubAbility$ DBBounce
+SVar:DBBounce:DB$ ChangeZone | Defined$ Parent | Origin$ Stack | Destination$ Hand | UnlessCost$ Discard<1/Card> | UnlessSwitched$ True | UnlessPayer$ You | ConditionPresent$ Land.YouCtrl | ConditionCompare$ GE8
+SVar:X:Count$ValidHand Land.YouCtrl
+SVar:NeedsToPlayVar:X GE2

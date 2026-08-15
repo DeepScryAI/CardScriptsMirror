@@ -1,0 +1,13 @@
+Id:8683
+ColorIdentity:
+ManaCost:no cost
+Types:Legendary Land
+K:MayEffectFromOpeningHand:FromOpeningHand:!PlayFirst
+SVar:FromOpeningHand:DB$ ChangeZone | Defined$ Self | Origin$ Hand | Destination$ Battlefield | SubAbility$ LuckCounter
+SVar:LuckCounter:DB$ PutCounter | CounterType$ LUCK | CounterNum$ 1 | Defined$ Self | SubAbility$ ExileFromHand
+SVar:ExileFromHand:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | ChangeType$ Card | ChangeNum$ 1 | Mandatory$ True
+A:AB$ Mana | Cost$ T | Produced$ C | ConditionCheckSVar$ CheckCounter | ConditionSVarCompare$ EQ0 | SubAbility$ DBMana
+SVar:DBMana:DB$ Mana | Produced$ Any | ConditionCheckSVar$ CheckCounter | ConditionSVarCompare$ GE1
+SVar:CheckCounter:Count$CardCounters.LUCK
+# TODO: The AI is not yet fully aware that this card can generate any color of mana at any time if it has a luck counter on it.
+AI:RemoveDeck:All

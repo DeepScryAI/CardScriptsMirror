@@ -1,0 +1,13 @@
+Id:14647
+ColorIdentity:WUR
+ManaCost:3 U R W
+Types:Legendary Creature Human Monk
+PT:3/2
+K:First Strike
+K:Hexproof
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigExile | TriggerZones$ Battlefield
+SVar:TrigExile:DB$ Dig | DigNum$ 4 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | ForgetOnMoved$ Exile | StaticAbilities$ STMayPlay | SubAbility$ DBCleanup
+SVar:STMayPlay:Mode$ Continuous | AffectedZone$ Exile | Affected$ Card.IsRemembered+nonCreature+nonLand | MayPlay$ True | MayPlayWithoutManaCost$ True
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:HasAttackEffect:TRUE

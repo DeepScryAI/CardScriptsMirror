@@ -1,0 +1,10 @@
+Id:28415
+ColorIdentity:U
+ManaCost:2 U
+Types:Enchantment Case
+S:Mode$ ReduceCost | ValidCard$ Instant,Sorcery | Type$ Spell | Activator$ You | Amount$ 1
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ Count$ThisTurnCast_Instant.YouCtrl,Sorcery.YouCtrl | SVarCompare$ GE4 | IsPresent$ Card.Self+!IsSolved | Execute$ Solved
+SVar:Solved:DB$ AlterAttribute | Defined$ Self | Attributes$ Solved
+T:Mode$ SpellCast | IsPresent$ Card.Self+IsSolved | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw
+DeckNeeds:Type$Instant | Sorcery

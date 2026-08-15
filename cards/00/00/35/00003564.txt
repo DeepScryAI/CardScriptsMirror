@@ -1,0 +1,16 @@
+Id:3564
+ColorIdentity:R
+ManaCost:R
+Types:Creature Goblin Artificer
+PT:1/1
+A:AB$ Pump | Cost$ T | ValidTgts$ Artifact | RememberObjects$ ThisTargetedCard | SubAbility$ DBTargetYard
+SVar:DBTargetYard:DB$ Pump | ValidTgts$ Artifact | TargetsWithDefinedController$ ParentTargetedController | TgtZone$ Graveyard | PumpZone$ Graveyard | ImprintCards$ ThisTargetedCard | SubAbility$ DBBranch
+SVar:DBBranch:DB$ Branch | BranchConditionSVar$ TargetCheck | BranchConditionSVarCompare$ GE2 | TrueSubAbility$ DBSacrifice | FalseSubAbility$ DBCleanup
+SVar:DBSacrifice:DB$ SacrificeAll | ValidCards$ Card.IsRemembered | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Imprinted | Origin$ Graveyard | Destination$ Battlefield | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True
+SVar:TargetCheck:SVar$CheckRemem/Plus.CheckImprint
+SVar:CheckRemem:Remembered$Valid Artifact.sharesControllerWith Imprinted
+SVar:CheckImprint:Imprinted$Valid Artifact.sharesControllerWith Remembered
+AI:RemoveDeck:All
+AI:RemoveDeck:Random

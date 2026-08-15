@@ -1,0 +1,11 @@
+Id:29152
+ColorIdentity:W
+ManaCost:W
+Types:Creature Faerie Rogue
+PT:1/1
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | ValidTgts$ Permanent.nonFaerie+nonLand+YouCtrl | TargetMin$ 0 | TargetMax$ 1 | RememberLKI$ True | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ 1 | ConditionDefined$ RememberedLKI | ConditionPresent$ Card.Permanent | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+DeckHas:Ability$Counters

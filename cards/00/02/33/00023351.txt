@@ -1,0 +1,9 @@
+Id:23351
+ColorIdentity:G
+ManaCost:1 G
+Types:Sorcery
+A:SP$ Pump | ValidTgts$ Creature.YouCtrl | AILogic$ PowerDmg | SubAbility$ DBDamage
+SVar:DBDamage:DB$ DealDamage | ValidTgts$ Creature.YouDontCtrl | AILogic$ PowerDmg | NumDmg$ ParentTargeted$CardPower | ExcessSVar$ Excess | DamageSource$ ParentTarget | SubAbility$ DBChooseCard
+SVar:DBChooseCard:DB$ ChooseCard | ChoiceZone$ Hand | Choices$ Creature.YouOwn | Mandatory$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Pump | Defined$ ChosenCard | PumpZone$ Hand | NumAtt$ +Excess | NumDef$ +Excess | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True

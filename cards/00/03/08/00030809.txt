@@ -1,0 +1,14 @@
+Id:30809
+ColorIdentity:B
+ManaCost:3 B
+Types:Legendary Creature Vampire Warlock
+PT:3/3
+K:Menace
+T:Mode$ LifeGained | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ FEEDING | CounterNum$ 1
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:AB$ Draw | Cost$ SubCounter<3/FEEDING> | Defined$ You | NumCards$ 3 | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ 3
+SVar:HasAttackEffect:TRUE
+DeckHas:Ability$Counters
+DeckHints:Ability$LifeGain

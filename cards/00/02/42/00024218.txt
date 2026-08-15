@@ -1,0 +1,13 @@
+Id:24218
+ColorIdentity:U
+ManaCost:3 U
+Types:Sorcery
+A:SP$ RollDice | Sides$ 20 | ResultSubAbilities$ 1-9:DBTapAll,10-19:TapAndLock,20:TapLockETBEffect
+SVar:DBTapAll:DB$ TapAll | ValidCards$ Creature.OppCtrl
+SVar:TapAndLock:DB$ TapAll | ValidCards$ Creature.OppCtrl | SubAbility$ DBNoUntap
+SVar:DBNoUntap:DB$ PumpAll | ValidCards$ Creature.OppCtrl | KW$ HIDDEN This card doesn't untap during your next untap step. | IsCurse$ True | Duration$ Permanent
+SVar:TapLockETBEffect:DB$ TapAll | ValidCards$ Creature.OppCtrl | SubAbility$ NoUntap
+SVar:NoUntap:DB$ PumpAll | ValidCards$ Creature.OppCtrl | KW$ HIDDEN This card doesn't untap during your next untap step. | IsCurse$ True | Duration$ Permanent | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | ReplacementEffects$ TapLockETBTapped | Duration$ UntilYourNextTurn
+SVar:TapLockETBTapped:Event$ Moved | ValidCard$ Creature.OppCtrl | Destination$ Battlefield | ReplaceWith$ ETBTapped | ReplacementResult$ Updated
+SVar:ETBTapped:DB$ Tap | ETB$ True | Defined$ ReplacedCard

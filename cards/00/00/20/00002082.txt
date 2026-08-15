@@ -1,0 +1,56 @@
+Id:2082
+ColorIdentity:G
+ManaCost:2 G G
+Types:Creature Dragon
+PT:1/3
+K:Flying
+A:AB$ GenericChoice | Cost$ 1 G G | AtRandom$ True | ShowChoice$ Description | Choices$ Berserk,Twiddle,BloodLust,Green,White,Red,Damage3,Flying,P3P3,Banding,Black,Blue,NoRegen,LilSneak,M2M0,ToHand,Damage1,Nerf,Exile,Orcish | AILogic$ AtOppEOT
+SVar:Berserk:DB$ ChooseCard | Choices$ Creature | AtRandom$ True | RememberChosen$ True | SubAbility$ DBPump1
+SVar:DBPump1:DB$ Pump | Defined$ Remembered | KW$ Trample | NumAtt$ +X1 | SubAbility$ DBDelayedTrigger1
+SVar:DBDelayedTrigger1:DB$ DelayedTrigger | RememberObjects$ Remembered | Mode$ Phase | Phase$ End of Turn | Execute$ TrigDestroy1 | SubAbility$ DBCleanup
+SVar:TrigDestroy1:DB$ Destroy | Defined$ DelayTriggerRemembered | ConditionDefined$ DelayTriggerRemembered | ConditionPresent$ Card.attackedThisTurn
+SVar:X1:Remembered$CardPower
+SVar:DBCleanup:DB$ Cleanup | Log$ True | ClearRemembered$ True | ClearChosenCard$ True
+SVar:Twiddle:DB$ ChooseCard | Choices$ Artifact,Creature,Land | AtRandom$ True | SubAbility$ DBTapOrUntap2
+SVar:DBTapOrUntap2:DB$ TapOrUntap | Defined$ ChosenCard | SubAbility$ DBCleanup
+SVar:BloodLust:DB$ ChooseCard | Choices$ Creature | AtRandom$ True | RememberChosen$ True | SubAbility$ DBPump3
+SVar:DBPump3:DB$ Pump | Defined$ Remembered | NumAtt$ +4 | NumDef$ -X3 | SubAbility$ DBCleanup
+SVar:X3:Count$Compare T3 GE4.4.T3
+SVar:T3:Remembered$CardToughness/Minus.1
+SVar:Green:DB$ ChooseCard | Choices$ Permanent | IncludeSpellsOnStack$ True | AtRandom$ True | LockInText$ True | SubAbility$ DBAnimateG
+SVar:DBAnimateG:DB$ Animate | Defined$ ChosenCard | Colors$ Green | OverwriteColors$ True | Duration$ Permanent | LockInText$ True | SubAbility$ DBCleanup
+SVar:White:DB$ ChooseCard | Choices$ Permanent | IncludeSpellsOnStack$ True | AtRandom$ True | LockInText$ True | SubAbility$ DBAnimateW
+SVar:DBAnimateW:DB$ Animate | Defined$ ChosenCard | Colors$ White | OverwriteColors$ True | Duration$ Permanent | LockInText$ True | SubAbility$ DBCleanup
+SVar:Red:DB$ ChooseCard | Choices$ Permanent | IncludeSpellsOnStack$ True | AtRandom$ True | LockInText$ True | SubAbility$ DBAnimateR
+SVar:DBAnimateR:DB$ Animate | Defined$ ChosenCard | Colors$ Red | OverwriteColors$ True | Duration$ Permanent | LockInText$ True | SubAbility$ DBCleanup
+SVar:Damage3:DB$ DealDamage | NumDmg$ 3 | Random$ True | CardChoices$ Creature | PlayerChoices$ Player | RememberRandomChoice$ True | SubAbility$ DBCleanup
+SVar:Flying:DB$ ChooseCard | Choices$ Creature | AtRandom$ True | SubAbility$ DBPump8
+SVar:DBPump8:DB$ Pump | Defined$ ChosenCard | KW$ Flying | SubAbility$ DBCleanup
+SVar:P3P3:DB$ ChooseCard | Choices$ Creature | AtRandom$ True | SubAbility$ DBPump9
+SVar:DBPump9:DB$ Pump | Defined$ ChosenCard | NumAtt$ +3 | NumDef$ +3 | SubAbility$ DBCleanup
+SVar:Banding:DB$ ChooseCard | Choices$ Creature | AtRandom$ True | SubAbility$ DBPump10
+SVar:DBPump10:DB$ Pump | Defined$ ChosenCard | KW$ Banding | SubAbility$ DBCleanup
+SVar:Black:DB$ ChooseCard | Choices$ Permanent | IncludeSpellsOnStack$ True | AtRandom$ True | LockInText$ True | SubAbility$ DBAnimateB
+SVar:DBAnimateB:DB$ Animate | Defined$ ChosenCard | Colors$ Black | OverwriteColors$ True | Duration$ Permanent | LockInText$ True | SubAbility$ DBCleanup
+SVar:Blue:DB$ ChooseCard | Choices$ Permanent | IncludeSpellsOnStack$ True | AtRandom$ True | LockInText$ True | SubAbility$ DBAnimateU
+SVar:DBAnimateU:DB$ Animate | Defined$ ChosenCard | Colors$ Blue | OverwriteColors$ True | Duration$ Permanent | LockInText$ True | SubAbility$ DBCleanup
+SVar:NoRegen:DB$ ChooseCard | Choices$ Creature | AtRandom$ True | SubAbility$ DBNoRegen
+SVar:DBNoRegen:DB$ Effect | RememberObjects$ ChosenCard | ForgetOnMoved$ Battlefield | StaticAbilities$ NoRegenST | IsCurse$ True | SubAbility$ DBCleanup | AILogic$ CantRegenerate
+SVar:NoRegenST:Mode$ CantRegenerate | ValidCard$ Card.IsRemembered
+SVar:LilSneak:DB$ ChooseCard | Choices$ Creature | AtRandom$ True | SubAbility$ DBPump14 | RememberChosen$ True
+SVar:DBPump14:DB$ Effect | ConditionDefined$ Remembered | ConditionPresent$ Card.powerLE2 | RememberObjects$ Remembered | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable | SubAbility$ DBCleanup
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+SVar:M2M0:DB$ ChooseCard | Choices$ Creature | AtRandom$ True | SubAbility$ DBPump15
+SVar:DBPump15:DB$ Pump | Defined$ ChosenCard | NumAtt$ -2 | SubAbility$ DBCleanup
+SVar:ToHand:DB$ ChooseCard | Choices$ Creature | AtRandom$ True | SubAbility$ DBChangeZone16
+SVar:DBChangeZone16:DB$ ChangeZone | Defined$ ChosenCard | Origin$ Battlefield | Destination$ Hand | SubAbility$ DBCleanup
+SVar:Damage1:DB$ DealDamage | NumDmg$ 1 | Random$ True | CardChoices$ Creature | PlayerChoices$ Player | RememberRandomChoice$ True | SubAbility$ DBCleanup
+SVar:Nerf:DB$ ChooseCard | Choices$ Creature.Other | AtRandom$ True | SubAbility$ DBAnimate18
+SVar:DBAnimate18:DB$ Animate | Defined$ ChosenCard | Power$ 0 | Toughness$ 2 | SubAbility$ DBCleanup
+SVar:Exile:DB$ ChooseCard | Choices$ Creature | AtRandom$ True | SubAbility$ DBChangeZone19
+SVar:DBChangeZone19:DB$ ChangeZone | Defined$ ChosenCard | Origin$ Battlefield | Destination$ Exile | RememberLKI$ True | SubAbility$ DBGainLife19
+SVar:DBGainLife19:DB$ GainLife | Defined$ RememberedController | LifeAmount$ X19 | SubAbility$ DBCleanup
+SVar:X19:RememberedLKI$CardPower
+SVar:Orcish:DB$ ChooseCard | Choices$ Creature | Amount$ Random | AtRandom$ True | SubAbility$ DBPutCounter20
+SVar:DBPutCounter20:DB$ PutCounter | Defined$ ChosenCard | CounterType$ M0M1 | CounterNum$ X20 | DividedRandomly$ True | SubAbility$ DBCleanup
+SVar:X20:Count$Valid Creature

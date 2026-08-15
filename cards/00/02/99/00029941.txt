@@ -1,0 +1,13 @@
+Id:29941
+ColorIdentity:B
+ManaCost:B
+Types:Enchantment Class
+T:Mode$ ChangesZoneAll | ValidCards$ Creature.YouCtrl | Origin$ Battlefield | Destination$ Graveyard | TriggerZones$ Battlefield | ActivationLimit$ 1 | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScript$ c_a_food_sac
+K:Class:2:1 B:AddTrigger$ TriggerSacrifice
+SVar:TriggerSacrifice:Mode$ Sacrificed | ValidCard$ Permanent | ValidPlayer$ You | Execute$ TrigMill | TriggerZones$ Battlefield
+SVar:TrigMill:DB$ Mill | NumCards$ 2 | ValidTgts$ Player
+K:Class:3:2 B:AddTrigger$ TriggerEnd
+SVar:TriggerEnd:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | ValidPlayer$ You | Execute$ TrigReturn
+SVar:TrigReturn:AB$ ChangeZone | Cost$ Sac<3/Permanent.Other+nonLand/other nonland permanent> | Origin$ Graveyard | Destination$ Battlefield | WithCountersType$ FINALITY | ChangeType$ Creature.YouOwn | ChangeTypeDesc$ creature | ChangeNum$ 1 | Hidden$ True | Mandatory$ True
+DeckHas:Ability$Token | Graveyard

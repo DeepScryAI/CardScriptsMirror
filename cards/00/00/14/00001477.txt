@@ -1,0 +1,10 @@
+Id:1477
+ColorIdentity:B
+ManaCost:2 B
+Types:Creature Rat
+PT:1/1
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigPutCounter | TriggerZones$ Battlefield
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ INFECTION | CounterNum$ 1
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ DBDisease | TriggerZones$ Battlefield
+SVar:DBDisease:DB$ DealDamage | ValidTgts$ Opponent.wasDealtDamageThisGameBy Self | NumDmg$ X
+SVar:X:Count$CardCounters.INFECTION

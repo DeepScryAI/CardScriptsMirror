@@ -1,0 +1,9 @@
+Id:1799
+ColorIdentity:WB
+ManaCost:2 W B
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.!token+YouOwn | Execute$ TrigChangeZone | TriggerZones$ Battlefield
+SVar:TrigChangeZone:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Exile
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigReturn
+SVar:TrigReturn:AB$ ChangeZone | Cost$ 4 PayLife<2> | ChangeType$ Card.ExiledWithSource | Mandatory$ True | Origin$ Exile | Destination$ Battlefield | Hidden$ True
+SVar:NonStackingEffect:True

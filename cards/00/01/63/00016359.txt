@@ -1,0 +1,15 @@
+Id:16359
+ColorIdentity:U
+ManaCost:4 U
+Types:Creature Bird
+PT:2/1
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigVote
+SVar:TrigVote:DB$ Vote | Defined$ Player | Choices$ DBVoteFeather,DBVoteQuill | StoreVoteNum$ True | AILogic$ FeatherOrQuill
+SVar:DBVoteFeather:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ VoteNum
+SVar:DBVoteQuill:DB$ Draw | NumCards$ VoteNum | SubAbility$ DBDiscard | RememberDrawn$ AllReplaced
+SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ X | Mode$ TgtChoose | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Amount
+DeckHas:Ability$Counters | Discard
+DeckHints:Keyword$Madness & Ability$Delirium

@@ -1,0 +1,14 @@
+Id:31909
+ColorIdentity:G
+ManaCost:3 G
+Types:Artifact Book Equipment
+K:Job select
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddType$ Shaman | AddTrigger$ TrigAttack | AddSVar$ AE
+SVar:TrigAttack:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigChoose | TriggerZones$ Battlefield | OptionalDecider$ You
+SVar:TrigChoose:DB$ ChooseCard | Mandatory$ True | ChoiceZone$ Hand | Choices$ Creature.YouOwn | SubAbility$ DBChangeOne
+SVar:DBChangeOne:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | Defined$ ChosenCard | ConditionDefined$ ChosenCard | ConditionPresent$ Card.Enchantment | Tapped$ True | Attacking$ True | SubAbility$ DBChangeTwo
+SVar:DBChangeTwo:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | Defined$ ChosenCard | ConditionDefined$ ChosenCard | ConditionPresent$ Card.nonEnchantment | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+K:Equip:3:Flavor Abraxas
+SVar:AE:SVar:HasAttackEffect:TRUE
+DeckHas:Ability$Token & Type$Shaman

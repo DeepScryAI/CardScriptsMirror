@@ -1,0 +1,14 @@
+Id:20922
+ColorIdentity:R
+ManaCost:2 R
+Types:Legendary Creature Human Shaman
+PT:2/3
+K:Haste
+A:AB$ Effect | Cost$ 1 | ValidTgts$ Creature.Other+powerLE2 | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable | AILogic$ MakeUnblockable
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+A:AB$ Effect | Cost$ 1 R T Discard<1/Hand> | Triggers$ Damage
+SVar:Damage:Mode$ DamageDone | ValidSource$ Creature.YouCtrl+powerLE2 | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+SVar:BuffedBy:Creature.powerLE2
+AI:RemoveDeck:Random
+DeckHas:Ability$Discard

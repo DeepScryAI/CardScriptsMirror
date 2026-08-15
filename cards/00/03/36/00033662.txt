@@ -1,0 +1,12 @@
+Id:33662
+ColorIdentity:
+ManaCost:10
+Types:Legendary Creature Avatar
+PT:7/7
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ X | EffectZone$ All
+K:Reach
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPlay
+SVar:TrigPlay:DB$ Play | TgtZone$ Graveyard | ValidTgts$ Instant.YouOwn,Sorcery.YouOwn | ValidTgtsDesc$ instant or sorcery card in your graveyard | ValidSA$ Spell | WithoutManaCost$ True | Optional$ True | ReplaceGraveyard$ Exile | AILogic$ ReplaySpell
+SVar:X:Count$ValidGraveyard Instant.YouOwn,Sorcery.YouOwn
+SVar:HasAttackEffect:TRUE
+ODeckHints:Ability$Graveyard

@@ -1,0 +1,13 @@
+Id:19194
+ColorIdentity:BG
+ManaCost:1 B B G
+Types:Legendary Creature Zombie Elf Wizard
+PT:5/4
+K:Trample
+T:Mode$ Phase | Phase$ BeginCombat | Static$ True | ValidPlayer$ Player | TriggerZones$ Battlefield | Execute$ CleanupAndRemember
+SVar:CleanupAndRemember:DB$ Cleanup | ClearRemembered$ True | SubAbility$ RememberTargets
+SVar:RememberTargets:DB$ PumpAll | PumpZone$ Graveyard | ValidCards$ Creature.YouOwn,Planeswalker.YouOwn | RememberPumped$ True
+T:Mode$ Phase | Phase$ EndCombat | Static$ True | ValidPlayer$ Player | TriggerZones$ Battlefield | Execute$ JustCleanup
+SVar:JustCleanup:DB$ Cleanup | ClearRemembered$ True
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player,Planeswalker | CombatDamage$ True | Execute$ TrigChange | TriggerZones$ Battlefield
+SVar:TrigChange:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Creature.IsRemembered,Planeswalker.IsRemembered

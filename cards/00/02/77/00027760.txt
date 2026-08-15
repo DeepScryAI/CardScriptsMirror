@@ -1,0 +1,13 @@
+Id:27760
+ColorIdentity:
+ManaCost:no cost
+Types:Plane Earth
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigDrawCard | TriggerZones$ Command
+SVar:TrigDrawCard:DB$ Draw | ValidTgts$ Opponent | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScript$ c_a_treasure_sac | TokenOwner$ ParentTarget
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScript$ w_2_2_alien | TokenOwner$ You | SubAbility$ DBImmediateTrig
+SVar:DBImmediateTrig:DB$ ImmediateTrigger | Execute$ TrigTap
+SVar:TrigTap:DB$ Tap | ValidTgts$ Creature.!token+OppCtrl | SubAbility$ DBCounter
+SVar:DBCounter:DB$ PutCounter | Defined$ Targeted | CounterType$ Stun | CounterNum$ 1
+DeckHas:Ability$Token | Sacrifice

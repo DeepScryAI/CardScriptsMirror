@@ -1,0 +1,14 @@
+Id:28899
+ColorIdentity:W
+ManaCost:3 W
+Types:Legendary Creature Human Citizen
+PT:3/4
+T:Mode$ DamageDoneOnce | ValidSource$ Creature.YouCtrl | TriggerZones$ Battlefield | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ QUEST | CounterNum$ 1 | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScript$ c_a_food_sac
+T:Mode$ Sacrificed | ValidPlayer$ You | ValidCard$ Food | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.YouCtrl | NumAtt$ +X | NumDef$ +X
+SVar:X:Count$CardCounters.QUEST
+DeckHas:Ability$Token | Counters & Type$Food
+DeckHints:Type$Food
+SVar:AICounterOverrideQUEST:Positive

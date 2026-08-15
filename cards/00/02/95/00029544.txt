@@ -1,0 +1,14 @@
+Id:29544
+ColorIdentity:WB
+ManaCost:3 B B
+Types:Legendary Creature Elder Demon
+PT:6/6
+K:Flying
+A:AB$ Token | Cost$ Sac<1/Creature.Other/another creature> | TokenScript$ c_a_blood_draw | TokenAmount$ X
+SVar:X:Count$Compare AngelSac EQ1.SacT.1
+SVar:SacT:Sacrificed$CardToughness
+SVar:AngelSac:Sacrificed$Valid Card.Angel
+A:AB$ ChangeZoneAll | Cost$ WB WB WB Sac<6/Blood.token/Blood token> | WithCountersType$ FINALITY | StaticEffect$ Animate | ChangeType$ Creature.YouOwn | Origin$ Graveyard | Destination$ Battlefield
+SVar:Animate:Mode$ Continuous | Affected$ Card.IsRemembered | AddType$ Vampire
+DeckHas:Ability$Sacrifice | Graveyard | Token & Type$Blood | Vampire
+DeckHints:Ability$Mill & Type$Angel

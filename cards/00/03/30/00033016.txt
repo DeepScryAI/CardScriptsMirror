@@ -1,0 +1,12 @@
+Id:33016
+ColorIdentity:WBR
+ManaCost:R W B
+Types:Legendary Creature Human Mercenary
+PT:3/2
+K:First Strike
+K:ETBReplacement:Other:ChooseNumber
+SVar:ChooseNumber:DB$ ChooseNumber | Defined$ You
+T:Mode$ AttackersDeclaredOneTarget | AttackedTarget$ Opponent | ValidAttackers$ Creature.powerEQChosen,Creature.toughnessEQChosen | TriggerZones$ Battlefield | Execute$ TrigDealDamage
+SVar:TrigDealDamage:DB$ DealDamage | Defined$ TriggeredAttackedTarget | NumDmg$ X | ConditionCheckSVar$ Y | ConditionSVarCompare$ GE1
+SVar:X:Count$CardPower
+SVar:Y:Count$Valid Creature.TriggeredAttackers+powerEQChosen,Creature.TriggeredAttackers+toughnessEQChosen

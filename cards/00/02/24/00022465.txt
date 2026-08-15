@@ -1,0 +1,13 @@
+Id:22465
+ColorIdentity:U
+ManaCost:U U U U
+Types:Creature Skeleton Wizard
+PT:4/3
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Color$ U | Amount$ X | EffectZone$ All
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigExile | TriggerZones$ Battlefield
+SVar:TrigExile:DB$ ChangeZone | TargetMin$ 0 | TargetMax$ 1 | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Instant.YouCtrl,Sorcery.YouCtrl | RememberChanged$ True | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | Defined$ Remembered | ValidSA$ Spell | Optional$ True | CopyCard$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+S:Mode$ Continuous | Affected$ Card.Self | MayPlay$ True | AffectedZone$ Graveyard | EffectZone$ Graveyard | RaiseCost$ ExileFromGrave<4/Instant;Sorcery/instant or sorcery cards>
+SVar:X:Count$ThisTurnCast_Instant.YouCtrl,Sorcery.YouCtrl
+DeckNeeds:Type$Instant | Sorcery

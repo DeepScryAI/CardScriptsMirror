@@ -1,0 +1,24 @@
+Id:385
+ColorIdentity:
+ManaCost:6
+Types:Artifact
+K:Remove CARDNAME from your deck before playing if you're not playing for ante.
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Pump | Cost$ 4 T | ValidTgts$ Permanent.!token+OppOwn | RememberObjects$ TargetedController | SubAbility$ Choice1
+SVar:Choice1:DB$ GenericChoice | Choices$ ExchangeOwnership,Concede | Defined$ TargetedOwner | ConditionCheckSVar$ X | ConditionSVarCompare$ LT10 | SubAbility$ Choice2
+SVar:Choice2:DB$ GenericChoice | Choices$ PayLife,ExchangeOwnership,Concede | Defined$ TargetedOwner | ConditionCheckSVar$ X | ConditionSVarCompare$ GE10
+SVar:X:PlayerCountRemembered$LifeTotal
+SVar:ExchangeOwnership:DB$ GainOwnership | Defined$ Targeted | DefinedPlayer$ You | SubAbility$ TargetToExile1
+SVar:TargetToExile1:DB$ ChangeZone | Defined$ Targeted | Origin$ All | Destination$ Exile | SubAbility$ BronzeExchange
+SVar:BronzeExchange:DB$ GainOwnership | Defined$ CorrectedSelf | DefinedPlayer$ Remembered | SubAbility$ TabletToExile1
+SVar:TabletToExile1:DB$ ChangeZone | Defined$ CorrectedSelf | Origin$ All | Destination$ Exile | SubAbility$ DBCleanup
+SVar:PayLife:DB$ LoseLife | LifeAmount$ 10 | Defined$ TargetedOwner | SubAbility$ TargetToExile2
+SVar:TargetToExile2:DB$ ChangeZone | Defined$ Targeted | Origin$ All | Destination$ Exile | SubAbility$ TabletToExile2
+SVar:TabletToExile2:DB$ ChangeZone | Defined$ Self | Origin$ All | Destination$ Exile | SubAbility$ TabletToGraveyard
+SVar:TabletToGraveyard:DB$ ChangeZone | Defined$ Self | Origin$ Exile | Destination$ Graveyard | SubAbility$ DBCleanup
+SVar:Concede:DB$ LosesGame | Defined$ TargetedOwner | SubAbility$ TargetToExile3
+SVar:TargetToExile3:DB$ ChangeZone | Defined$ Targeted | Origin$ All | Destination$ Exile | SubAbility$ TabletToExile3
+SVar:TabletToExile3:DB$ ChangeZone | Defined$ Self | Origin$ All | Destination$ Exile | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+AI:RemoveDeck:All

@@ -1,0 +1,14 @@
+Id:742
+ColorIdentity:U
+ManaCost:X U U
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Curse
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigTap
+SVar:TrigTap:DB$ Tap | Defined$ Enchanted | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Enchanted | CounterType$ SLEEP | CounterNum$ X
+R:Event$ Untap | ActiveZones$ Battlefield | ValidCard$ Creature.AttachedBy+counters_GE1_SLEEP | ValidStepTurnToController$ You | Layer$ CantHappen
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Player.EnchantedController | TriggerZones$ Battlefield | Execute$ TrigRemoveCounter
+SVar:TrigRemoveCounter:DB$ RemoveCounter | Defined$ Enchanted | CounterType$ SLEEP | CounterNum$ 1
+SVar:X:Count$xPaid
+DeckHas:Ability$Counters

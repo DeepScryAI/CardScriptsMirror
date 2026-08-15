@@ -1,0 +1,9 @@
+Id:31868
+ColorIdentity:R
+ManaCost:3 R
+Types:Legendary Creature Human Knight
+PT:3/4
+T:Mode$ Attacks | ValidCard$ Creature.YouCtrl | Alone$ True | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ TriggeredAttackerLKICopy | KW$ Double Strike
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigCast | OptionalDecider$ You | CombatDamage$ True
+SVar:TrigCast:DB$ Play | ValidTgts$ Instant.YouOwn+cmcLE3,Sorcery.YouOwn+cmcLE3 | TgtZone$ Graveyard | ValidSA$ Spell | WithoutManaCost$ True | Optional$ True | ReplaceGraveyard$ Exile | AILogic$ ReplaySpell

@@ -1,0 +1,10 @@
+Id:21196
+ColorIdentity:R
+ManaCost:4 R
+Types:Creature Hellion
+PT:4/5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Hidden$ True | ChangeType$ Land.YouCtrl | ChangeNum$ 1 | SubAbility$ DBImmediateTrigger | RememberChanged$ True
+SVar:DBImmediateTrigger:DB$ ImmediateTrigger | RememberObjects$ RememberedCard | ConditionDefined$ Remembered | ConditionPresent$ Card | Execute$ TrigDamage | SubAbility$ DBCleanup
+SVar:TrigDamage:DB$ DealDamage | Defined$ Player.Opponent | NumDmg$ 2
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

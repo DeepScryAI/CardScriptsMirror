@@ -1,0 +1,13 @@
+Id:17038
+ColorIdentity:
+ManaCost:4
+Types:Artifact
+A:AB$ Dig | Cost$ 2 T | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect1 | AILogic$ ExileAndPlayUntilEOT
+SVar:DBEffect1:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ Play1 | SubAbility$ DBPutCounter | ExileOnMoved$ Exile
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ BRICK | CounterNum$ 1 | SubAbility$ DBCleanup
+SVar:Play1:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+A:AB$ Dig | Cost$ T | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect2 | CheckSVar$ X | SVarCompare$ GE3 | AILogic$ ExileAndPlayUntilEOT
+SVar:DBEffect2:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ Play2 | SubAbility$ DBCleanup | ExileOnMoved$ Exile
+SVar:Play2:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | MayPlayWithoutManaCost$ True | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$CardCounters.BRICK

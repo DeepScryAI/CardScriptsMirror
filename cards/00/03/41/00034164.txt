@@ -1,0 +1,15 @@
+Id:34164
+ColorIdentity:U
+ManaCost:3 U
+Types:Enchantment Saga
+K:Chapter:3:DBTap,DBTap,DBPump
+SVar:DBTap:DB$ Tap | ValidTgts$ Creature.OppCtrl | TargetMin$ 0 | TargetMax$ OneEach | TargetsForEachPlayer$ True | SubAbility$ DBGoad
+SVar:DBGoad:DB$ Goad | Defined$ Targeted | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | Triggers$ DamageTrigger | RememberObjects$ Targeted | Duration$ UntilYourNextTurn
+SVar:DamageTrigger:Mode$ DamageDone | ValidSource$ Card.IsRemembered | ValidTarget$ Player | Execute$ TrigDraw | CombatDamage$ True
+SVar:TrigDraw:DB$ Draw
+SVar:DBPump:DB$ Pump | ValidTgts$ Creature.YouCtrl | NumAtt$ +X | NumDef$ +X | ValidTgtsDesc$ creature you control | SubAbility$ DBUnblockable
+SVar:DBUnblockable:DB$ Effect | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+SVar:OneEach:PlayerCountOpponents$Amount
+SVar:X:Count$ValidHand Card.YouOwn

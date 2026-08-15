@@ -1,0 +1,12 @@
+Id:29568
+ColorIdentity:U
+ManaCost:1 U
+Types:Enchantment Saga
+K:Chapter:3:DBShrink,DBDiscard,DBShuffle
+SVar:DBShrink:DB$ Effect | Triggers$ TrigAttack | Duration$ UntilYourNextTurn
+SVar:TrigAttack:Mode$ Attacks | ValidCard$ Creature | Attacked$ You,Planeswalker.YouCtrl | TriggerZones$ Command | Execute$ TamiyoPump
+SVar:TamiyoPump:DB$ Pump | Defined$ TriggeredAttackerLKICopy | NumAtt$ -2
+SVar:DBDiscard:DB$ Discard | AnyNumber$ True | Optional$ True | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBInvestigate
+SVar:DBInvestigate:DB$ Investigate | Num$ Remembered$Amount/Times.2 | Defined$ RememberedController | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:DBShuffle:DB$ ChangeZone | Origin$ Graveyard | Destination$ Library | ValidTgts$ Card.YouOwn | TargetMin$ 0 | TargetMax$ 3 | Shuffle$ True

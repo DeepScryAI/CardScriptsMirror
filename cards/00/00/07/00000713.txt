@@ -1,0 +1,11 @@
+Id:713
+ColorIdentity:U
+ManaCost:U U
+Types:Instant
+A:SP$ Tap | ValidTgts$ Creature | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | ReplacementEffects$ RPrevent | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | SubAbility$ DBPump
+SVar:DBPump:DB$ Effect | ReplacementEffects$ RUntap | Triggers$ ExileEff | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | Duration$ Permanent
+SVar:RPrevent:Event$ DamageDone | Prevent$ True | IsCombat$ True | ValidSource$ Card.IsRemembered
+SVar:RUntap:Event$ Untap | ValidCard$ Creature.IsRemembered | ValidStepTurnToController$ You | Layer$ CantHappen
+SVar:ExileEff:Mode$ Phase | Phase$ Untap | ValidPlayer$ Player.controlsCard.IsRemembered | Execute$ Exile | Static$ True
+SVar:Exile:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile | ConditionCheckSVar$ Count$ActivatedThisGame

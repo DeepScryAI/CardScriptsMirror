@@ -1,0 +1,12 @@
+Id:24313
+ColorIdentity:
+ManaCost:4
+Types:Artifact Creature Dog
+PT:4/4
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ DBTrigRollDice
+SVar:DBTrigRollDice:DB$ RollDice | Sides$ 20 | Amount$ NbAttackedPlayers | UseHighestRoll$ True | ResultSubAbilities$ 1-9:DBDamageToController,10-19:DBDamageToDefending,20:DBDamageToOpponents
+SVar:NbAttackedPlayers:PlayerCountOpponents$HasPropertyDefending
+SVar:DBDamageToController:DB$ DealDamage | Defined$ You | NumDmg$ X
+SVar:DBDamageToDefending:DB$ DealDamage | Defined$ Player.attackedBySourceThisCombat | NumDmg$ X
+SVar:DBDamageToOpponents:DB$ DealDamage | Defined$ Player.Opponent | NumDmg$ X
+SVar:X:Count$CardPower

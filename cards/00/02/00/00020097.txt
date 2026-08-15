@@ -1,0 +1,13 @@
+Id:20097
+ColorIdentity:B
+ManaCost:3 B
+Types:Creature Human Warlock
+PT:2/3
+Text:[Developer's note: While intent is clear, the card doesn't work as intended if the rules text is followed exactly as printed. Unofficial errata provided by EDH Silver was used to restore intended functionality.]
+# EDH Silver unofficial errata found at https://edhsilver.com/cards/uc/mbp/celestine-cave-witch/
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ 2 | TokenScript$ b_1_1_insect | TokenOwner$ You
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigCurse
+SVar:TrigCurse:AB$ Token | Cost$ Sac<1/Insect> | TokenScript$ b_aura_curse_life | TokenOwner$ You | AttachedTo$ TriggeredDefendingPlayer | LockTokenScript$ True
+SVar:HasAttackEffect:TRUE
+DeckHas:Ability$Token | Sacrifice & Type$Enchantment | Aura | Curse | Insect

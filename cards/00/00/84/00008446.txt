@@ -1,0 +1,15 @@
+Id:8446
+ColorIdentity:U
+ManaCost:U
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAITgts:Creature.powerLE2
+SVar:AttachAILogic:Pump
+T:Mode$ Attacks | ValidCard$ Card.AttachedBy+powerLE2 | Execute$ TrigUnblockable | TriggerZones$ Battlefield
+SVar:TrigUnblockable:DB$ Effect | RememberObjects$ TriggeredAttackerLKICopy | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable | ConditionCheckSVar$ TriggeredAttacker$Valid Card.powerLE2
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+A:AB$ Effect | Cost$ 1 U Reveal<1/CARDNAME> | ValidTgts$ Creature.powerLE2 | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable | Forecast$ True
+SVar:NonStackingAttachEffect:True
+S:Mode$ Continuous | Affected$ Creature.AttachedBy | AddSVar$ AE
+SVar:AE:SVar:HasAttackEffect:TRUE
+AI:RemoveDeck:Random

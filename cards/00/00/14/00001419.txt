@@ -1,0 +1,14 @@
+Id:1419
+ColorIdentity:R
+ManaCost:1 R R
+Types:Enchantment Aura
+K:Enchant:Land
+K:etbCounter:ORE:3
+SVar:AttachAILogic:Curse
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigRemoveCounter
+T:Mode$ Taps | ValidCard$ Card.AttachedBy | Execute$ TrigRemoveCounter | Secondary$ True
+SVar:TrigRemoveCounter:DB$ RemoveCounter | Defined$ Self | CounterType$ ORE | CounterNum$ 1
+T:Mode$ CounterRemoved | ValidCard$ Card.Self | CounterType$ ORE | NewCounterAmount$ 0 | Execute$ DBDamage
+SVar:DBDamage:DB$ DealDamage | NumDmg$ 2 | Defined$ EnchantedController | SubAbility$ DBDestroy
+SVar:DBDestroy:DB$ Destroy | Defined$ Enchanted
+SVar:NonStackingAttachEffect:True

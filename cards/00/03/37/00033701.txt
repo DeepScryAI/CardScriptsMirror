@@ -1,0 +1,13 @@
+Id:33701
+ColorIdentity:G
+ManaCost:X G G
+Types:Enchantment
+K:etbCounter:STUDY:X
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+T:Mode$ SpellCast | ValidCard$ Card.hasXCost | ValidActivatingPlayer$ You | ActivatorThisTurnCast$ EQ1 | Execute$ TrigToken | TriggerZones$ Battlefield | Secondary$ True
+SVar:TrigToken:DB$ Token | TokenScript$ gu_0_0_fractal | TokenOwner$ You | SubAbility$ DBPutCounter | RememberTokens$ True
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Remembered | CounterType$ P1P1 | CounterNum$ Y | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$xPaid
+SVar:Y:Count$CardCounters.STUDY
+DeckHas:Ability$Counters | Token

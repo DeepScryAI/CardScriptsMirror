@@ -1,0 +1,14 @@
+Id:28936
+ColorIdentity:W
+ManaCost:2 W
+Types:Legendary Artifact Creature Robot
+PT:2/2
+A:AB$ GainControl | Cost$ T | Defined$ Self | ValidTgts$ Opponent | SubAbility$ DBImmediateTrigger | PlayerTurn$ True
+SVar:DBImmediateTrigger:DB$ ImmediateTrigger | ConditionDefined$ Self | ConditionPresent$ Card.ControlledBy ParentTarget | Execute$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ 2 | SubAbility$ DBCounter
+SVar:DBCounter:DB$ PutCounter | Defined$ Self | CounterType$ QUEST | CounterNum$ 1
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ X | TokenScript$ w_1_1_soldier | TokenOwner$ TriggeredCardOwner | TokenTapped$ True
+SVar:X:TriggeredCard$CardCounters.QUEST
+DeckHas:Ability$Counters | Token & Type$Soldier
+SVar:AICounterOverrideQUEST:Positive

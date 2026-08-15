@@ -1,0 +1,10 @@
+Id:26879
+ColorIdentity:B
+ManaCost:no cost
+Types:Legendary Land Gate
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ DBTap | ReplacementResult$ Updated
+SVar:DBTap:DB$ Tap | ETB$ True | Defined$ Self | UnlessCost$ PayLife<3> | UnlessPayer$ You
+A:AB$ Mana | Cost$ T | Produced$ B
+A:AB$ ChoosePlayer | Cost$ 1 B T | Defined$ You | Choices$ Player.withMostLife | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | ValidTgts$ Creature | RememberObjects$ ChosenPlayer & Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ CantBlock
+SVar:CantBlock:Mode$ CantBlockBy | ValidAttacker$ Creature.IsRemembered | ValidBlocker$ Creature.RememberedPlayerCtrl

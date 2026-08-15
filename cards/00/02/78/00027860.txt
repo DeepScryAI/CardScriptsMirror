@@ -1,0 +1,12 @@
+Id:27860
+ColorIdentity:B
+ManaCost:3 B B
+Types:Creature Alien Horror
+PT:4/4
+K:Flying
+K:Haste
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Exile | LibraryPosition$ -1 | Destination$ Library | ValidTgts$ Card.faceUp | ChangeNum$ 1 | RememberChanged$ True | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ 3 | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+DeckHas:Ability$LifeGain

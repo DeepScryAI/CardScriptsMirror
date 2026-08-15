@@ -1,0 +1,12 @@
+Id:26420
+ColorIdentity:G
+ManaCost:1 G G
+Types:Enchantment Aura
+K:Enchant:Planeswalker
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Planeswalker.EnchantedBy | AddAbility$ VivienPlus
+SVar:VivienPlus:AB$ Dig | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | DigNum$ 4 | ChangeNum$ 1 | Optional$ True | ChangeValid$ Creature,Land | ForceRevealToController$ True | RestRandomOrder$ True
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.!token+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Enchanted | CounterType$ LOYALTY | CounterNum$ 1
+SVar:BuffedBy:Creature
+DeckNeeds:Type$Planeswalker

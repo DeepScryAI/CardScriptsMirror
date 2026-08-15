@@ -1,0 +1,13 @@
+Id:18072
+ColorIdentity:BRG
+ManaCost:4 B R G
+Types:Legendary Creature Dragon
+PT:7/7
+K:Flying
+K:Trample
+K:Haste
+R:Event$ Moved | ActiveZones$ Battlefield | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | ReplaceWith$ Exile
+SVar:Exile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | Defined$ ReplacedCard | WithCountersType$ EGG | WithCountersAmount$ 3
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Exile | IsPresent$ Card.Self+counters_GE1_EGG | PresentZone$ Exile | Execute$ DBRemoveCounter
+SVar:DBRemoveCounter:DB$ RemoveCounter | Defined$ Self | CounterType$ EGG | CounterNum$ 1 | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Self | Origin$ Exile | Destination$ Battlefield | ConditionDefined$ Self | ConditionPresent$ Card.counters_EQ0_EGG

@@ -1,0 +1,15 @@
+Id:30570
+ColorIdentity:W
+ManaCost:1 W
+Types:Enchantment Room
+AlternateMode:Split
+S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddPower$ 1
+
+ALTERNATE
+
+ManaCost:1 W
+Types:Enchantment Room
+T:Mode$ UnlockDoor | ValidPlayer$ You | ValidCard$ Card.Self | Execute$ TrigConjure
+SVar:TrigConjure:DB$ MakeCard | Conjure$ True | DefinedName$ TriggeredCard | Zone$ Hand | SubAbility$ DBImmediateTrigger
+SVar:DBImmediateTrigger:DB$ ImmediateTrigger | Execute$ TrigFirstStrike
+SVar:TrigFirstStrike:DB$ Pump | ValidTgts$ Creature.YouCtrl | KW$ First Strike

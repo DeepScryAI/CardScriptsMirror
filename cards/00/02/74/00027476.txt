@@ -1,0 +1,14 @@
+Id:27476
+ColorIdentity:B
+ManaCost:4 B B
+Types:Creature Dragon Warlock
+PT:5/4
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice | Defined$ You | Amount$ SacX | SacValid$ Enchantment,Artifact,Card.token | RememberSacrificed$ True | Optional$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ DrawX | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:SacX:Count$Valid Enchantment.YouCtrl,Artifact.YouCtrl,Card.token+YouCtrl
+SVar:DrawX:Remembered$Amount
+DeckHas:Ability$Sacrifice
+DeckHints:Ability$Token & Type$Enchantment | Artifact

@@ -1,0 +1,17 @@
+Id:1243
+ColorIdentity:WUBRG
+ManaCost:U U U
+Types:Enchantment
+Text:If tapped for mana, Plains produce {R}, Swamps produce {G}, Mountains produce {W}, and Forests produce {B} instead of any other type.
+K:Cumulative upkeep:1 U U
+R:Event$ ProduceMana | ActiveZones$ Battlefield | ValidCard$ Plains | ReplaceWith$ ProduceR | Secondary$ True
+SVar:ProduceR:DB$ ReplaceMana | ReplaceType$ R
+R:Event$ ProduceMana | ActiveZones$ Battlefield | ValidCard$ Swamp | ReplaceWith$ ProduceG | Secondary$ True
+SVar:ProduceG:DB$ ReplaceMana | ReplaceType$ G
+R:Event$ ProduceMana | ActiveZones$ Battlefield | ValidCard$ Mountain | ReplaceWith$ ProduceW | Secondary$ True
+SVar:ProduceW:DB$ ReplaceMana | ReplaceType$ W
+R:Event$ ProduceMana | ActiveZones$ Battlefield | ValidCard$ Forest | ReplaceWith$ ProduceB | Secondary$ True
+SVar:ProduceB:DB$ ReplaceMana | ReplaceType$ B
+AI:RemoveDeck:All
+AI:RemoveDeck:Random
+SVar:NonStackingEffect:True

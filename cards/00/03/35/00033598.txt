@@ -1,0 +1,10 @@
+Id:33598
+ColorIdentity:G
+ManaCost:G
+Types:Creature Turtle Wizard
+PT:1/1
+K:Increment
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self+HasCounters | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScript$ gu_0_0_fractal | TokenOwner$ You | SubAbility$ DBPutCounter | RememberTokens$ True
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Remembered | CounterType$ EachFromSource | EachFromSource$ TriggeredCardLKICopy | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

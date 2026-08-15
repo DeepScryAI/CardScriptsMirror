@@ -1,0 +1,12 @@
+Id:11625
+ColorIdentity:R
+ManaCost:4 R R
+Types:Creature Ogre Warrior
+PT:4/4
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigGainControl
+SVar:TrigGainControl:DB$ GainControl | ValidTgts$ Equipment.OppCtrl | LoseControl$ EOT | SubAbility$ DBAttach
+SVar:DBAttach:DB$ Attach | Object$ ParentTarget | Defined$ Self | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ ParentTarget | Triggers$ TrigChangeController | Duration$ Permanent
+SVar:TrigChangeController:Mode$ ChangesController | ValidCard$ Card.IsRemembered | ValidOriginalController$ You | TriggerZones$ Command | Execute$ TrigUnattach
+SVar:TrigUnattach:DB$ Unattach | Defined$ Remembered | SubAbility$ ExileSelf
+SVar:ExileSelf:DB$ ChangeZone | Origin$ Command | Destination$ Exile

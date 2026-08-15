@@ -1,0 +1,14 @@
+Id:32611
+ColorIdentity:G
+ManaCost:2 G
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigEarthbend
+SVar:TrigEarthbend:DB$ Earthbend | Num$ 2 | SubAbility$ DBSearch
+SVar:DBSearch:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | Tapped$ True | ChangeType$ Land.Basic | ChangeTypeDesc$ basic land
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounterQuest
+SVar:TrigPutCounterQuest:DB$ PutCounter | Defined$ Self | CounterType$ QUEST | CounterNum$ 1 | RememberAmount$ True | SubAbility$ TrigImmediateTrig
+SVar:TrigImmediateTrig:DB$ ImmediateTrigger | Execute$ TrigPutCounterP1P1 | TriggerAmount$ Count$RememberedNumber | IsPresent$ Card.Self+counters_GE4_QUEST | ConditionPresent$ Card.Self+counters_GE4_QUEST | SubAbility$ DBCleanup
+SVar:TrigPutCounterP1P1:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ ParentTarget | KW$ Trample
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:MaxQuestEffect:4

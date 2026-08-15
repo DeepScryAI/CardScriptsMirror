@@ -1,0 +1,15 @@
+Id:27905
+ColorIdentity:R
+ManaCost:6 R
+Types:Creature Human Knight
+PT:7/4
+K:Affinity:Human
+K:Trample
+K:Haste
+T:Mode$ Phase | TriggerZones$ Battlefield | Phase$ End of Turn | ValidPlayer$ You | IsPresent$ Card.Self+attackedThisTurn | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Defined$ Self | Origin$ Battlefield | Destination$ Hand | RememberChanged$ True | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScript$ w_1_1_human_soldier | TokenOwner$ You | TokenAmount$ Y | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:Y:RememberedLKI$CardToughness
+DeckHints:Type$Human
+DeckHas:Ability$Token & Type$Soldier

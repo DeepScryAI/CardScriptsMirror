@@ -1,0 +1,14 @@
+Id:884
+ColorIdentity:B
+ManaCost:2 B B B
+Types:Enchantment
+S:Mode$ CantPlayLand
+R:Event$ Moved | ActiveZones$ Battlefield | Destination$ Battlefield | ValidCard$ Land | Prevent$ True | Layer$ CantHappen
+T:Mode$ Phase | Phase$ Upkeep | TriggerZones$ Battlefield | Execute$ TrigChoose
+SVar:TrigChoose:DB$ GenericChoice | Defined$ Player | TempRemember$ Chooser | Choices$ SacTwoLands,DealDmg | AILogic$ PayUnlessCost
+SVar:DealDmg:DB$ Destroy | Defined$ Self | UnlessCost$ DamageYou<5> | UnlessPayer$ Remembered | UnlessSwitched$ True
+SVar:SacTwoLands:DB$ Destroy | Defined$ Self | UnlessCost$ Sac<2/Permanent.Land/two lands> | UnlessPayer$ Remembered | UnlessSwitched$ True
+SVar:AIPreference:SacCost$Land.Basic,Land
+AI:RemoveDeck:Random
+AI:RemoveDeck:All
+DeckHas:Ability$Sacrifice

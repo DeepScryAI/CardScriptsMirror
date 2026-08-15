@@ -1,0 +1,18 @@
+Id:23334
+ColorIdentity:BG
+ManaCost:2 B G
+Types:Legendary Creature Frog Horror
+PT:6/6
+K:Menace
+T:Mode$ Phase | Phase$ BeginCombat | TriggerZones$ Battlefield | Execute$ TrigSac | IsPresent$ Card.Self+untapped
+SVar:TrigSac:DB$ Sacrifice | Defined$ Opponent | Amount$ 1 | SacValid$ Creature.!token | RememberSacrificed$ True | Optional$ True | AILogic$ DesecrationDemon | SubAbility$ DBBranch
+SVar:DBBranch:DB$ Branch | BranchConditionSVar$ X | TrueSubAbility$ DBTap
+SVar:X:Remembered$Amount
+SVar:DBTap:DB$ Tap | SubAbility$ DBSeek
+SVar:DBSeek:DB$ Seek | Type$ Card.Land | ImprintFound$ True | SubAbility$ DBPut
+SVar:DBPut:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | Defined$ Imprinted | Tapped$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigAnimate
+SVar:TrigAnimate:DB$ Animate | Defined$ TriggeredCard | Abilities$ ABDraw | Duration$ Perpetual
+SVar:ABDraw:AB$ Draw | Cost$ B G Sac<1/CARDNAME/this land> | NumCards$ 1
+DeckHas:Ability$Sacrifice

@@ -1,0 +1,16 @@
+Id:24962
+ColorIdentity:WBG
+ManaCost:1 B
+Types:Enchantment
+K:Kicker:G:W
+PT:4/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGainLife
+SVar:TrigGainLife:DB$ GainLife | LifeAmount$ X
+T:Mode$ DamageDoneOnce | ValidSource$ Creature.YouCtrl | OptionalDecider$ You | TriggerZones$ Battlefield | ValidTarget$ Player | CombatDamage$ True | Execute$ DBReveal
+SVar:DBReveal:DB$ Dig | DigNum$ 1 | Reveal$ True | ChangeNum$ All | ChangeValid$ Card | DestinationZone$ Hand | RememberChanged$ True | SubAbility$ DBLose
+SVar:DBLose:DB$ LoseLife | LifeAmount$ Y | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:Y:Remembered$CardManaCost
+SVar:X:Count$TimesKicked/Thrice
+DeckHas:Ability$LifeGain
+DeckHints:Color$Green | White

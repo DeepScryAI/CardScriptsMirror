@@ -1,0 +1,15 @@
+Id:8506
+ColorIdentity:U
+ManaCost:4 U U U
+Types:Creature Leviathan
+PT:12/12
+K:Trample
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSacUnless
+SVar:TrigSacUnless:DB$ Sacrifice | UnlessCost$ Sac<5/Land> | UnlessPayer$ You
+R:Event$ Untap | ValidCard$ Card.Self | ValidStepTurnToController$ You | Layer$ CantHappen
+T:Mode$ LandPlayed | ValidCard$ Island.YouCtrl | Execute$ TrigUntap | TriggerZones$ Battlefield | OptionalDecider$ You
+SVar:TrigUntap:DB$ Untap | Defined$ Self
+SVar:NeedsToPlayVar:Y GE5
+SVar:Y:Count$Valid Land.YouCtrl

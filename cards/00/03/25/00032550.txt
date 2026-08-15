@@ -1,0 +1,13 @@
+Id:32550
+ColorIdentity:G
+ManaCost:4 G G
+Types:Legendary Creature Spider Human Hero
+PT:5/5
+K:Vigilance
+K:Trample
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPutCounterAll
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPutCounterAll | Secondary$ True
+SVar:TrigPutCounterAll:DB$ PutCounterAll | ValidCards$ Creature.YouCtrl+StrictlyOther | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBPumpAll
+SVar:DBPumpAll:DB$ PumpAll | ValidCards$ Creature.YouCtrl+StrictlyOther | KW$ Trample
+SVar:HasAttackEffect:TRUE
+DeckHas:Ability$Counters

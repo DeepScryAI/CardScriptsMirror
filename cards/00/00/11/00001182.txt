@@ -1,0 +1,10 @@
+Id:1182
+ColorIdentity:B
+ManaCost:1 B B
+Types:Creature Zombie
+PT:2/3
+T:Mode$ AttackerBlockedByCreature | ValidCard$ Creature | ValidBlocker$ Card.Self | Execute$ TrigBlocks
+T:Mode$ AttackerBlockedByCreature | ValidCard$ Card.Self | ValidBlocker$ Creature | Execute$ TrigBlocked | Secondary$ True
+SVar:TrigBlocks:DB$ Effect | RememberObjects$ TriggeredAttackerLKICopy | ForgetOnMoved$ Battlefield | StaticAbilities$ NoRegen | IsCurse$ True | AILogic$ CantRegenerate
+SVar:TrigBlocked:DB$ Effect | RememberObjects$ TriggeredBlockerLKICopy | ForgetOnMoved$ Battlefield | StaticAbilities$ NoRegen | IsCurse$ True | AILogic$ CantRegenerate
+SVar:NoRegen:Mode$ CantRegenerate | ValidCard$ Card.IsRemembered

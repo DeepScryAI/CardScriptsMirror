@@ -1,0 +1,13 @@
+Id:34019
+ColorIdentity:B
+ManaCost:4 B
+Types:Legendary Creature Human Spy Hero
+PT:3/4
+K:Menace
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill
+SVar:TrigMill:DB$ Mill | NumCards$ 3 | Defined$ You
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | LifeAmount$ X | Defined$ Player.Opponent
+SVar:X:Count$ValidGraveyard Creature.YouOwn
+DeckHas:Ability$Mill | Graveyard
+DeckHints:Ability$Mill | Graveyard

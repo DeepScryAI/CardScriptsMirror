@@ -1,0 +1,10 @@
+Id:31629
+ColorIdentity:U
+ManaCost:2 U
+Types:Legendary Creature Human Artificer
+PT:2/3
+T:Mode$ CounterPlayerAddedAll | ValidObject$ Creature.inRealZoneBattlefield | TriggerZones$ Battlefield | ValidSource$ You | Execute$ TrigEffect
+SVar:TrigEffect:DB$ Effect | RememberObjects$ TriggeredObjectLKICopy | StaticAbilities$ BlockRestrict
+SVar:BlockRestrict:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered | ValidBlocker$ Creature.OppCtrl
+A:AB$ Pump | Cost$ 1 T | PrecostDesc$ Steal — | ValidTgts$ Creature.OppCtrl | SubAbility$ DBMove | SorcerySpeed$ True
+SVar:DBMove:DB$ MoveCounter | Source$ ParentTarget | ValidTgts$ Creature.YouCtrl | CounterType$ Any | CounterNum$ 1

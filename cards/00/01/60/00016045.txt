@@ -1,0 +1,14 @@
+Id:16045
+ColorIdentity:B
+ManaCost:2 B
+Types:Sorcery
+A:SP$ ChangeZone | Origin$ Hand | Destination$ Exile | ValidTgts$ Opponent | DefinedPlayer$ Targeted | Chooser$ You | ChangeType$ Card.nonLand | ChangeNum$ 1 | IsCurse$ True | Mandatory$ True | RememberChanged$ True | SubAbility$ ExileYard
+SVar:ExileYard:DB$ ChangeZone | Condition$ Delirium | Origin$ Graveyard | Destination$ Exile | DefinedPlayer$ TargetedPlayer | ChangeType$ Remembered.sameName | ChangeNum$ NumInYard | Chooser$ You | Hidden$ True | SubAbility$ ExileHand
+SVar:ExileHand:DB$ ChangeZone | Condition$ Delirium | Origin$ Hand | Destination$ Exile | DefinedPlayer$ TargetedPlayer | ChangeType$ Remembered.sameName | ChangeNum$ NumInHand | Chooser$ You | SubAbility$ ExileLib
+SVar:ExileLib:DB$ ChangeZone | Condition$ Delirium | Origin$ Library | Destination$ Exile | DefinedPlayer$ TargetedPlayer | ChangeType$ Remembered.sameName | ChangeNum$ NumInLib | Chooser$ You | Shuffle$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:NumInHand:TargetedPlayer$CardsInHand
+SVar:NumInLib:TargetedPlayer$CardsInLibrary
+SVar:NumInYard:TargetedPlayer$CardsInGraveyard
+DeckHints:Ability$Graveyard | Discard
+DeckHas:Ability$Delirium

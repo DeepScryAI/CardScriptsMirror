@@ -1,0 +1,12 @@
+Id:12795
+ColorIdentity:
+ManaCost:no cost
+Types:Plane Azgol
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Command | Execute$ SacToIdol
+SVar:SacToIdol:DB$ Sacrifice | Defined$ You | SacValid$ Creature | SubAbility$ IdolWalk | RememberSacrificed$ True
+SVar:IdolWalk:DB$ Planeswalk | ConditionCheckSVar$ IdolX | ConditionSVarCompare$ EQ0 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:IdolX:Remembered$Amount
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos
+SVar:RolledChaos:DB$ Token | ValidTgts$ Player | TargetMin$ 0 | TargetMax$ MaxTgt | TokenScript$ b_2_2_zombie | TokenOwner$ Targeted
+SVar:MaxTgt:PlayerCountPlayers$Amount

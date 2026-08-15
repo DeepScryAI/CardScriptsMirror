@@ -1,0 +1,14 @@
+Id:26805
+ColorIdentity:BG
+ManaCost:2 B G
+Types:Legendary Creature Elf Warrior
+PT:5/4
+T:Mode$ AttackersDeclared | ValidAttackers$ Elf.YouCtrl | Execute$ TrigPump | TriggerZones$ Battlefield
+SVar:TrigPump:DB$ Pump | Defined$ TriggeredAttackers | KW$ Deathtouch
+S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddTrigger$ ManaTrig
+SVar:ManaTrig:Mode$ AbilityResolves | ValidSource$ Card.Self | ValidSpellAbility$ SpellAbility.ManaAbility | ActivationLimit$ 1 | TriggerZones$ Battlefield | Execute$ TrigPutCounter | AILogic$ ActivateOnce
+SVar:TrigPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ X
+SVar:X:TriggeredSpellAbility$AmountManaProduced
+SVar:BuffedBy:Creature.hasManaAbility
+DeckHas:Ability$Counters
+DeckHints:Type$Elf

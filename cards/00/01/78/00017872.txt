@@ -1,0 +1,12 @@
+Id:17872
+ColorIdentity:WG
+ManaCost:2 G W
+Types:Legendary Planeswalker Huatli
+Loyalty:3
+A:AB$ PutCounter | Cost$ AddCounter<1/LOYALTY> | Defined$ Self | CounterType$ LOYALTY | CounterNum$ X | Planeswalker$ True
+A:AB$ Pump | Cost$ SubCounter<1/LOYALTY> | ValidTgts$ Creature | NumAtt$ +X | NumDef$ +X | Planeswalker$ True
+A:AB$ Effect | Cost$ SubCounter<8/LOYALTY> | Planeswalker$ True | Ultimate$ True | Name$ Emblem — Huatli, Radiant Champion | Image$ emblem_huatli_radiant_champion | Triggers$ HuatliCreatureETB | Duration$ Permanent | AILogic$ Always
+SVar:HuatliCreatureETB:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.YouCtrl | OptionalDecider$ You | TriggerZones$ Command | Execute$ HuatliDraw
+SVar:HuatliDraw:DB$ Draw
+SVar:X:Count$Valid Creature.YouCtrl
+SVar:PlayMain1:TRUE

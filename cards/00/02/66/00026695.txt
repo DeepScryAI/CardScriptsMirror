@@ -1,0 +1,12 @@
+Id:26695
+ColorIdentity:UBG
+ManaCost:B G U
+Types:Legendary Creature Human Dryad
+PT:3/4
+T:Mode$ Drawn | ValidCard$ Card.YouCtrl | Number$ 2 | TriggerZones$ Battlefield | Execute$ LoseGain
+SVar:LoseGain:DB$ LoseLife | ValidTgts$ Opponent | LifeAmount$ 2 | SubAbility$ DBGain
+SVar:DBGain:DB$ GainLife | Defined$ You | LifeAmount$ 2
+A:AB$ Repeat | Cost$ T Sac<1/Creature.Other/another creature> | RepeatSubAbility$ DBDraw | MaxRepeat$ 2 | RepeatPresent$ Land.YouCtrl | RepeatCompare$ GE8
+SVar:DBDraw:DB$ Draw | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | Optional$ You | ChangeType$ Land | ChangeNum$ 1 | Tapped$ True
+DeckHas:Ability$LifeGain | Sacrifice

@@ -1,0 +1,12 @@
+Id:8536
+ColorIdentity:B
+ManaCost:B B B
+Types:Enchantment
+K:Cumulative upkeep:B
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | Execute$ TrigDraw | TriggerZones$ Battlefield
+SVar:TrigDraw:DB$ Draw | NumCards$ X
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigLoseLife | ValidCard$ Card.Self
+SVar:TrigLoseLife:DB$ LoseLife | LifeAmount$ Y
+SVar:X:Count$CardCounters.AGE
+SVar:Y:TriggeredCard$CardCounters.AGE/Times.2
+AI:RemoveDeck:All

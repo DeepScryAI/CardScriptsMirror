@@ -1,0 +1,21 @@
+Id:27934
+ColorIdentity:R
+ManaCost:1 R
+Types:Artifact
+A:AB$ Mana | Cost$ T | Produced$ R | RestrictValid$ Spell.Instant,Spell.Sorcery
+K:Craft:3 R R XMin4 ExileFromGrave<X/Instant.Red+Other;Sorcery.Red+Other/red instant and/or sorcery cards>
+SVar:X:Count$xPaid
+AI:RemoveDeck:All
+DeckHas:Ability$Graveyard
+DeckHints:Ability$Discard | Mill | Sacrifice
+DeckNeeds:Type$Instant | Sorcery
+AlternateMode:DoubleFaced
+
+ALTERNATE
+
+ManaCost:no cost
+Colors:red
+Types:Artifact
+A:AB$ ChooseCard | Cost$ 1 R T | DefinedCards$ ExiledWith | ChoiceZone$ Exile | AtRandom$ True | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | Defined$ ChosenCard | ValidSA$ Spell | WithoutManaCost$ True | Optional$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True

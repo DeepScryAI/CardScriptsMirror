@@ -1,0 +1,86 @@
+Id:24649
+ColorIdentity:U
+ManaCost:2 U
+Types:Legendary Creature Human Wizard
+PT:2/2
+K:Specialize:5
+A:AB$ Draw | Cost$ T | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Mode$ TgtChoose | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | CounterType$ STUDY
+DeckHas:Ability$Discard | Counters
+AlternateMode:Specialize
+
+SPECIALIZE:WHITE
+
+ManaCost:2 W U
+Types:Legendary Creature Human Wizard
+PT:4/4
+T:Mode$ Specializes | ValidCard$ Card.Self | Execute$ TrigRemoveCounters
+SVar:TrigRemoveCounters:DB$ RemoveCounter | CounterType$ STUDY | CounterNum$ All | RememberRemoved$ True | SubAbility$ DBImmediateTrig
+SVar:DBImmediateTrig:DB$ ImmediateTrigger | ConditionCheckSVar$ X | Execute$ TrigPutCounters
+SVar:TrigPutCounters:DB$ PutCounter | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ X | TargetMin$ 1 | TargetMax$ X | DividedAsYouChoose$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$RememberedSize
+A:AB$ Draw | Cost$ T | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Mode$ TgtChoose
+DeckHas:Ability$Discard | Counters
+
+SPECIALIZE:BLUE
+
+ManaCost:2 U U
+Types:Legendary Creature Human Wizard
+PT:4/4
+T:Mode$ Specializes | ValidCard$ Card.Self | Execute$ TrigRemoveCounters
+SVar:TrigRemoveCounters:DB$ RemoveCounter | CounterType$ STUDY | CounterNum$ All | RememberRemoved$ True | SubAbility$ DBDig
+SVar:DBDig:DB$ Dig | DigNum$ X | ChangeNum$ 1 | DestinationZone$ Hand | DestinationZone2$ Library | LibraryPosition$ -1 | RestRandomOrder$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$RememberedSize
+A:AB$ Draw | Cost$ T | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Mode$ TgtChoose
+DeckHas:Ability$Discard
+
+SPECIALIZE:BLACK
+
+ManaCost:2 U B
+Types:Legendary Creature Human Wizard
+PT:4/4
+T:Mode$ Specializes | ValidCard$ Card.Self | Execute$ TrigRemoveCounters
+SVar:TrigRemoveCounters:DB$ RemoveCounter | CounterType$ STUDY | CounterNum$ All | RememberRemoved$ True | SubAbility$ DBImmediateTrig
+SVar:DBImmediateTrig:DB$ ImmediateTrigger | ConditionCheckSVar$ X | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | ValidTgts$ Creature.cmcLEX | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$RememberedSize
+A:AB$ Draw | Cost$ T | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Mode$ TgtChoose
+DeckHas:Ability$Discard | Graveyard
+
+SPECIALIZE:RED
+
+ManaCost:2 U R
+Types:Legendary Creature Human Wizard
+PT:4/4
+T:Mode$ Specializes | ValidCard$ Card.Self | Execute$ TrigRemoveCounters
+SVar:TrigRemoveCounters:DB$ RemoveCounter | CounterType$ STUDY | CounterNum$ All | RememberRemoved$ True | SubAbility$ DBImmediateTrig
+SVar:DBImmediateTrig:DB$ ImmediateTrigger | ConditionCheckSVar$ X | Execute$ TrigDealDamage
+SVar:TrigDealDamage:DB$ DealDamage | ValidTgts$ Creature.OppCtrl,Planeswalker.OppCtrl | NumDmg$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$RememberedSize
+A:AB$ Draw | Cost$ T | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Mode$ TgtChoose
+DeckHas:Ability$Discard
+
+SPECIALIZE:GREEN
+
+ManaCost:2 G U
+Types:Legendary Creature Human Wizard
+PT:4/4
+T:Mode$ Specializes | ValidCard$ Card.Self | Execute$ TrigRemoveCounters
+SVar:TrigRemoveCounters:DB$ RemoveCounter | CounterType$ STUDY | CounterNum$ All | RememberRemoved$ True | SubAbility$ DBSeek
+SVar:DBSeek:DB$ Seek | Type$ Card.Creature+cmcLEX | Num$ 2 | RememberFound$ True | SubAbility$ DBBattlefield
+SVar:DBBattlefield:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | ChangeType$ Card.IsRemembered | ForgetChanged$ True | SubAbility$ DBShuffle
+SVar:DBShuffle:DB$ ChangeZone | Origin$ Hand | Destination$ Library | Shuffle$ True | Defined$ RememberedCard | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$RememberedSize
+A:AB$ Draw | Cost$ T | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Mode$ TgtChoose
+DeckHas:Ability$Discard

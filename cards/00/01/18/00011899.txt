@@ -1,0 +1,11 @@
+Id:11899
+ColorIdentity:W
+ManaCost:4 W W
+Types:Enchantment
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Imprint$ True | ValidTgts$ Permanent.nonLand | Origin$ Battlefield | Destination$ Exile
+S:Mode$ CantBeCast | ValidCard$ Card.sharesNameWith Imprinted
+T:Mode$ ChangesZone | Origin$ Battlefield | ValidCard$ Card.Self | Destination$ Any | Execute$ DBCleanup | Static$ True
+T:Mode$ ChangesZone | ValidCard$ Card.IsImprinted+ExiledWithSourceLKI | Origin$ Exile | Execute$ DBForget | Static$ True
+SVar:DBForget:DB$ Pump | ForgetImprinted$ TriggeredCard
+SVar:DBCleanup:DB$ Cleanup | ClearImprinted$ True

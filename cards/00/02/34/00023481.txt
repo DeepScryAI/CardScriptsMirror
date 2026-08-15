@@ -1,0 +1,23 @@
+Id:23481
+ColorIdentity:R
+ManaCost:2 R
+Types:Enchantment Saga
+K:Chapter:3:DBToken,DBDiscard,DBTransform
+SVar:DBToken:DB$ Token | TokenScript$ r_2_2_goblin_shaman_treasure
+SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 2 | Optional$ True | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ Y | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:Y:Remembered$Amount
+SVar:DBTransform:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | Transformed$ True | GainControl$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+DeckHas:Ability$Token | Sacrifice | Discard & Type$Artifact | Treasure
+AlternateMode:DoubleFaced
+
+ALTERNATE
+
+ManaCost:no cost
+Colors:red
+Types:Enchantment Creature Goblin Shaman
+PT:2/2
+A:AB$ CopyPermanent | Cost$ 1 T | ValidTgts$ Creature.YouCtrl+nonLegendary+Other | AddKeywords$ Haste | AtEOT$ Sacrifice | AILogic$ Different

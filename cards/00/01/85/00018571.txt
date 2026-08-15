@@ -1,0 +1,13 @@
+Id:18571
+ColorIdentity:WUB
+ManaCost:W U B
+Types:Legendary Planeswalker Aminatou
+Loyalty:3
+Text:CARDNAME can be your commander.
+A:AB$ Draw | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | SubAbility$ DBTop
+SVar:DBTop:DB$ ChangeZone | Origin$ Hand | Destination$ Library | ChangeType$ Card | Mandatory$ True
+A:AB$ ChangeZone | Cost$ SubCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Permanent.Other+YouOwn | Origin$ Battlefield | Destination$ Exile | RememberTargets$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | GainControl$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+A:AB$ ChooseDirection | Cost$ SubCounter<6/LOYALTY> | Planeswalker$ True | Ultimate$ True | SubAbility$ DBControl | AILogic$ Aminatou
+SVar:DBControl:DB$ GainControlVariant | AllValid$ Permanent.nonLand+Other | ChangeController$ NextPlayerInChosenDirection

@@ -1,0 +1,12 @@
+Id:2833
+ColorIdentity:W
+ManaCost:W
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddAbility$ ChooseSource | AddSVar$ DBEffectSB & RPreventNextFromSourceSB & ExileEffectSB & DBCleanupSB
+SVar:ChooseSource:AB$ ChooseSource | Cost$ T | Choices$ Card,Emblem | AILogic$ NeedsPrevention | SubAbility$ DBEffectSB
+SVar:DBEffectSB:DB$ Effect | ValidTgts$ Creature | ReplacementEffects$ RPreventNextFromSourceSB | ImprintCards$ Targeted | SubAbility$ DBCleanupSB | ConditionDefined$ ChosenCard | ConditionPresent$ Card,Emblem
+SVar:RPreventNextFromSourceSB:Event$ DamageDone | ValidSource$ Card.ChosenCardStrict,Emblem.ChosenCard | ValidTarget$ Card.IsImprinted | ReplaceWith$ ExileEffectSB | PreventionEffect$ True
+SVar:ExileEffectSB:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile
+SVar:DBCleanupSB:DB$ Cleanup | ClearChosenCard$ True

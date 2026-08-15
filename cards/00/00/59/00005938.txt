@@ -1,0 +1,10 @@
+Id:5938
+ColorIdentity:W
+ManaCost:2 W
+Types:Sorcery
+A:SP$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBChooseType | SubAbility$ DBDestroyAll
+SVar:DBChooseType:DB$ ChooseType | Defined$ Player.IsRemembered | Type$ Creature | AILogic$ MostProminentComputerControls | SubAbility$ DBRemember
+SVar:DBRemember:DB$ PumpAll | ValidCards$ Creature.ChosenType | RememberPumped$ True
+SVar:DBDestroyAll:DB$ DestroyAll | ValidCards$ Creature.!IsRemembered | NoRegen$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+AI:RemoveDeck:All

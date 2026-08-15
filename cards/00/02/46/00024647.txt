@@ -1,0 +1,12 @@
+Id:24647
+ColorIdentity:W
+ManaCost:1 W
+Types:Instant
+A:SP$ Pump | ValidTgts$ Creature.YouCtrl | NumAtt$ +2 | SubAbility$ BoonEffect
+SVar:BoonEffect:DB$ Effect | RememberObjects$ Targeted | Duration$ End of Turn | Triggers$ ChangesZone | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw
+SVar:ChangesZone:Mode$ ChangesZone | ValidCard$ Card.IsRemembered | Origin$ Battlefield | Destination$ Any | Execute$ TrigBoon
+SVar:TrigBoon:DB$ Effect | Boon$ True | Duration$ Permanent | Triggers$ SpellCast
+SVar:SpellCast:Mode$ SpellCast | ValidCard$ Creature | ValidActivatingPlayer$ You | TriggerZones$ Command | Execute$ TrigEffect
+SVar:TrigEffect:DB$ Pump | PumpZone$ Stack | Defined$ TriggeredCard | NumAtt$ +2 | Duration$ Perpetual
+DeckNeeds:Type$Creature

@@ -1,0 +1,15 @@
+Id:30029
+ColorIdentity:UG
+ManaCost:2 G U
+Types:Enchantment Class
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPeek
+SVar:TrigPeek:DB$ PeekAndReveal | PeekAmount$ 1 | RevealValid$ Land | RevealOptional$ True | RememberRevealed$ True | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ GE1 | TokenScript$ u_1_1_fish | TokenOwner$ You | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+K:Class:2:G U:AddReplacementEffect$ SharkCatch
+SVar:SharkCatch:Event$ CreateToken | ActiveZones$ Battlefield | ValidPlayer$ You | ValidToken$ Fish | ReplaceWith$ TokenReplace1
+SVar:TokenReplace1:DB$ ReplaceToken | Type$ ReplaceToken | TokenScript$ u_3_3_shark
+K:Class:3:2 G U:AddReplacementEffect$ OctopusCatch
+SVar:OctopusCatch:Event$ CreateToken | ActiveZones$ Battlefield | ValidPlayer$ You | ValidToken$ Shark | ReplaceWith$ TokenReplace2
+SVar:TokenReplace2:DB$ ReplaceToken | Type$ ReplaceToken | TokenScript$ u_8_8_octopus

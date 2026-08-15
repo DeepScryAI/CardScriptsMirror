@@ -1,0 +1,11 @@
+Id:10118
+ColorIdentity:U
+ManaCost:4 U
+Types:Sorcery
+A:SP$ PeekAndReveal | PeekAmount$ 3 | NoPeek$ True | SubAbility$ DBChoice | RememberRevealed$ True
+SVar:DBChoice:DB$ GenericChoice | ValidTgts$ Opponent | Choices$ CovenantPutIntoHand,CovenantMillDraw | SubAbility$ DBCleanup
+SVar:CovenantPutIntoHand:DB$ ChangeZone | Defined$ Remembered | Origin$ Library | Destination$ Hand
+SVar:CovenantMillDraw:DB$ Mill | Defined$ SourceController | NumCards$ X | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ SourceController | NumCards$ 5
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$RememberedSize

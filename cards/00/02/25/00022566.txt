@@ -1,0 +1,15 @@
+Id:22566
+ColorIdentity:U
+ManaCost:4 U U
+Types:Legendary Planeswalker Mordenkainen
+Loyalty:5
+A:AB$ Draw | Cost$ AddCounter<2/LOYALTY> | Planeswalker$ True | NumCards$ 2 | SubAbility$ DBBottom
+SVar:DBBottom:DB$ ChangeZone | Origin$ Hand | Destination$ Library | LibraryPosition$ -1 | ChangeNum$ 1
+A:AB$ Token | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | TokenOwner$ You | TokenScript$ u_x_x_dog_illusion_cardsinhand
+A:AB$ ChangeZoneAll | Cost$ SubCounter<10/LOYALTY> | Planeswalker$ True | Ultimate$ True | ChangeType$ Card.YouCtrl | Origin$ Hand | Destination$ Library | RememberChanged$ True | SubAbility$ DBChangeZoneAll
+SVar:DBChangeZoneAll:DB$ ChangeZoneAll | ChangeType$ Card.YouCtrl+!IsRemembered | Origin$ Library | Destination$ Hand | SubAbility$ DBShuffle
+SVar:DBShuffle:DB$ Shuffle | Defined$ You | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | SubAbility$ DBEmblem
+SVar:DBEmblem:DB$ Effect | Name$ Emblem — Mordenkainen | Image$ emblem_mordenkainen | StaticAbilities$ UnlimitedHand | Stackable$ False | Duration$ Permanent | AILogic$ Always
+SVar:UnlimitedHand:Mode$ Continuous | Affected$ You | SetMaxHandSize$ Unlimited
+DeckHas:Ability$Token

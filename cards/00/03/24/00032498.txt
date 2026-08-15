@@ -1,0 +1,11 @@
+Id:32498
+ColorIdentity:UB
+Variant:UniversesWithin:FlavorName:Kavaero, Mind-Bitten
+ManaCost:2 U B
+Types:Legendary Creature Spider Human Hero
+PT:4/4
+K:ETBReplacement:Copy:DBCopy:Optional
+SVar:DBCopy:DB$ Clone | Choices$ Creature.Other | ChoiceZone$ Graveyard | NewName$ Superior Spider-Man | AddTypes$ Spider & Human & Hero | SetPower$ 4 | SetToughness$ 4 | RememberCloneOrigin$ True | SubAbility$ DBImmediateTrig
+SVar:DBImmediateTrig:DB$ ImmediateTrigger | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ GE1 | Execute$ TrigExile | RememberObjects$ RememberedCard | SubAbility$ DBCleanup
+SVar:TrigExile:DB$ ChangeZone | Defined$ DelayTriggerRememberedLKI | Origin$ Graveyard | Destination$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

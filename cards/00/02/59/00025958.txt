@@ -1,0 +1,16 @@
+Id:25958
+ColorIdentity:G
+ManaCost:5 G
+Types:Creature Phyrexian Beast
+PT:6/6
+K:Haste
+K:Toxic:3
+S:Mode$ CantBlockBy | ValidAttacker$ Card.Self | ValidBlocker$ Creature.powerLE2
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | Defined$ TriggeredNewCardLKICopy | RememberChanged$ True | SubAbility$ DBImmediateTrigger
+SVar:DBImmediateTrigger:DB$ ImmediateTrigger | ConditionDefined$ Remembered | ConditionPresent$ Card.Self | Execute$ TrigChangeZone | SubAbility$ DBCleanup
+SVar:TrigChangeZone:DB$ ChangeZone | TargetMin$ 0 | TargetMax$ X | ValidTgts$ Card.YouOwn | Origin$ Graveyard | Destination$ Hand
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:PlayerCountOpponents$HasPropertyIsCorrupted
+DeckHas:Ability$Graveyard
+DeckHints:Ability$Mill | Dredge

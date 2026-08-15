@@ -1,0 +1,12 @@
+Id:24466
+ColorIdentity:R
+ManaCost:3 R
+Types:Creature Tiefling Rogue
+PT:4/2
+A:AB$ Dig | Cost$ 2 T Sac<1/Artifact;Creature/artifact or creature> | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ StaticMayPlay | Duration$ UntilTheEndOfYourNextTurn | RememberObjects$ Remembered | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:StaticMayPlay:Mode$ Continuous | Affected$ Card.IsRemembered | AffectedZone$ Exile | MayPlay$ True
+AI:RemoveDeck:Random
+DeckHas:Ability$Sacrifice
+DeckHints:Type$Artifact | Creature

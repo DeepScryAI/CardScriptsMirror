@@ -1,0 +1,11 @@
+Id:29975
+ColorIdentity:R
+ManaCost:2 R R
+Types:Creature Elemental Cat
+PT:5/4
+S:Mode$ CantGainLife | ValidPlayer$ Player
+S:Mode$ CantPreventDamage
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigRepeatEach
+SVar:TrigRepeatEach:DB$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBDamage | DamageMap$ True
+SVar:DBDamage:DB$ DealDamage | Defined$ Remembered | NumDmg$ X
+SVar:X:Count$Valid Land.nonBasic+RememberedPlayerCtrl

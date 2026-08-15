@@ -1,0 +1,13 @@
+Id:5734
+ColorIdentity:WG
+ManaCost:5 G W
+Types:Creature Cat Beast Spirit
+PT:0/0
+K:etbCounter:P1P1:7
+K:Trample
+T:Mode$ DamageDealtOnce | ValidSource$ Card.Self | Execute$ TrigGain | TriggerZones$ Battlefield
+SVar:TrigGain:DB$ GainLife | Defined$ You | LifeAmount$ X
+SVar:X:TriggerCount$DamageAmount
+R:Event$ DamageDone | ActiveZones$ Battlefield | ValidTarget$ Card.Self | ReplaceWith$ DBRemoveCounters | PreventionEffect$ True | AlwaysReplace$ True
+SVar:DBRemoveCounters:DB$ RemoveCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+SVar:HasCombatEffect:TRUE

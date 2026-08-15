@@ -1,0 +1,11 @@
+Id:5601
+ColorIdentity:R
+ManaCost:6 R R
+Types:Creature Nightmare Beast
+PT:5/6
+A:AB$ Pump | Cost$ R | Defined$ Self | NumAtt$ +1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigReturn
+SVar:TrigExile:DB$ ChangeZone | TargetMin$ 2 | TargetMax$ 2 | IsCurse$ True | ValidTgts$ Land | RememberTargets$ True | ForgetOtherTargets$ True | Origin$ Battlefield | Destination$ Exile
+SVar:TrigReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield
+SVar:PlayMain1:TRUE

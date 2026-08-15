@@ -1,0 +1,12 @@
+Id:24762
+ColorIdentity:UBR
+ManaCost:U B R
+Types:Legendary Creature Human Samurai
+PT:3/3
+T:Mode$ Attacks | ValidCard$ Card.Self | IsPresent$ Card.Self+equipped | Execute$ TrigChoose
+SVar:TrigChoose:DB$ Charm | Choices$ DBDealDamage,DBCast
+SVar:DBDealDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ X
+SVar:DBCast:DB$ Play | ValidZone$ Hand | Valid$ Instant.YouCtrl+cmcLEX,Sorcery.YouCtrl+cmcLEX | ValidSA$ Spell | Optional$ True | WithoutManaCost$ True | AILogic$ ReplaySpell
+SVar:X:Count$Valid Equipment.Attached$GreatestCardManaCost
+SVar:EquipMe:Once
+DeckHints:Type$Equipment

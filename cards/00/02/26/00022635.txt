@@ -1,0 +1,15 @@
+Id:22635
+ColorIdentity:
+ManaCost:3
+Types:Artifact
+A:AB$ RollDice | Cost$ 4 Sac<1/CARDNAME> | Sides$ 20 | ResultSubAbilities$ 1:Trapped,2-9:DBToken,10-19:DBGainLife,20:DBChangeZone
+SVar:Trapped:DB$ LoseLife | Defined$ You | LifeAmount$ 3
+SVar:DBToken:DB$ Token | TokenAmount$ 5 | TokenScript$ c_a_treasure_sac
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 3 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ 3
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Library | Destination$ Library | ChangeType$ Card | ChangeNum$ 1 | Shuffle$ False | RememberChanged$ True | SubAbility$ DBChangeZone1
+SVar:DBChangeZone1:DB$ ChangeZone | Defined$ Remembered | Origin$ Library | Destination$ Battlefield | ConditionDefined$ Remembered | ConditionPresent$ Artifact | Optional$ True | ForgetChanged$ True | SubAbility$ DBChangeZone2
+SVar:DBChangeZone2:DB$ ChangeZone | Defined$ Remembered | Origin$ Library | Destination$ Hand | SubAbility$ DBShuffle
+SVar:DBShuffle:DB$ Shuffle | Defined$ You | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+DeckHas:Ability$Token | Sacrifice | LifeGain

@@ -1,0 +1,9 @@
+Id:5312
+ColorIdentity:B
+ManaCost:2 B
+Types:Sorcery
+A:SP$ RevealHand | ValidTgts$ Player | IsCurse$ True | RememberRevealed$ True | RememberTargets$ True | SubAbility$ DBRepeat
+SVar:DBRepeat:DB$ RepeatEach | RepeatCards$ Card.IsRemembered+nonLand | Zone$ Hand | RepeatSubAbility$ DBDiscard | UseImprinted$ True | SubAbility$ DBCleanup
+SVar:DBDiscard:DB$ Discard | Mode$ Defined | Defined$ Remembered | DefinedCards$ ValidHand Card.sharesNameWith Imprinted+RememberedPlayerCtrl+!IsImprinted
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+AI:RemoveDeck:Random

@@ -1,0 +1,18 @@
+Id:25358
+ColorIdentity:WR
+ManaCost:2 R W
+Types:Legendary Planeswalker Comet
+Loyalty:5
+A:AB$ RollDice | Cost$ AddCounter<0/LOYALTY> | Planeswalker$ True | ResultSubAbilities$ 1-2:Token,3:Unearth,4-5:Damage,6:CometGo
+SVar:Token:DB$ PutCounter | CounterType$ LOYALTY | CounterNum$ 2 | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenAmount$ 2 | TokenScript$ g_1_1_squirrel | PumpKeywords$ Haste | PumpDuration$ EOT
+SVar:Unearth:DB$ RemoveCounter | CounterType$ LOYALTY | CounterNum$ 1 | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | Mandatory$ True | ChangeType$ Card.YouOwn+cmcLE2 | ChangeTypeDesc$ Choose a card with mana value 2 or less | Hidden$ True
+SVar:Damage:DB$ DealDamage | NumDmg$ X | CardChoices$ Creature | PlayerChoices$ Player | SubAbility$ DBRemoveCounters
+SVar:X:Count$CardCounters.LOYALTY
+SVar:DBRemoveCounters:DB$ RemoveCounter | CounterType$ LOYALTY | CounterNum$ 2 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:CometGo:DB$ PutCounter | CounterType$ LOYALTY | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ LoyaltyAbs | RememberObjects$ Self | ExileOnMoved$ Battlefield
+SVar:LoyaltyAbs:Mode$ NumLoyaltyAct | ValidCard$ Card.EffectSource | Additional$ 2 | OnlySourceAbs$ True
+DeckHas:Ability$Token | Graveyard & Type$Squirrel

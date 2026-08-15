@@ -1,0 +1,12 @@
+Id:19275
+ColorIdentity:WR
+ManaCost:2 R W
+Types:Instant
+A:SP$ Discard | Defined$ You | RememberDiscarded$ True | Mode$ Hand | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ X | SubAbility$ DBGainLife
+SVar:X:Remembered$Amount/Plus.1
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ Y | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:Y:Count$ValidHand Card.YouOwn
+AI:RemoveDeck:All
+DeckHas:Ability$LifeGain

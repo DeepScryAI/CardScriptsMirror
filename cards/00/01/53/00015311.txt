@@ -1,0 +1,10 @@
+Id:15311
+ColorIdentity:G
+ManaCost:2 G
+Types:Sorcery
+A:SP$ ChangeZone | Origin$ Library | Destination$ Library | ChangeType$ Land.Basic+Forest | ChangeNum$ X | RememberChanged$ True | SubAbility$ DBBattlefield | Shuffle$ False
+SVar:DBBattlefield:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | Tapped$ True | SubAbility$ DBHand | ChangeType$ Card.IsRemembered | ChangeNum$ 1 | ForgetChanged$ True | Mandatory$ True | NoLooking$ True | Shuffle$ False
+SVar:DBHand:DB$ ChangeZone | Origin$ Library | Destination$ Hand | Defined$ Remembered | NoLooking$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$Compare Y GE2.3.2
+SVar:Y:Count$ValidGraveyard Instant.YouOwn,Sorcery.YouOwn

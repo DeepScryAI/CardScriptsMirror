@@ -1,0 +1,17 @@
+Id:22176
+ColorIdentity:UR
+ManaCost:1 U R
+Types:Legendary Creature Efreet
+PT:2/3
+K:Flying
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigChooseNumber
+SVar:TrigChooseNumber:DB$ ChooseNumber | Defined$ You | Min$ 1 | Max$ 5 | AILogic$ Max | SubAbility$ FlipCoin
+SVar:FlipCoin:DB$ FlipCoin | Amount$ X | WinSubAbility$ DBDraw | LoseSubAbility$ DBDamage | RememberNumber$ Wins | SubAbility$ DBEffect
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ Wins
+SVar:DBDamage:DB$ DealDamage | NumDmg$ Damage | Defined$ You
+SVar:DBEffect:DB$ Effect | StaticAbilities$ MayPlay | Stackable$ False | ConditionCheckSVar$ Y | ConditionSVarCompare$ EQ5 | SubAbility$ DBCleanup
+SVar:MayPlay:Mode$ Continuous | Affected$ Card.nonLand+YouOwn | MayPlay$ True | MayPlayWithoutManaCost$ True | AffectedZone$ Hand
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$ChosenNumber
+SVar:Y:Count$RememberedNumber
+SVar:Damage:SVar$Losses/Times.2

@@ -1,0 +1,13 @@
+Id:5218
+ColorIdentity:B
+ManaCost:1 B
+Types:Creature Horror
+PT:1/1
+K:Flying
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigMill
+SVar:TrigMill:DB$ Mill | Defined$ You | NumCards$ 1
+S:Mode$ Continuous | Affected$ Card.Self | AddPower$ 1 | AddToughness$ 1 | AddTrigger$ EndScream | Condition$ Threshold
+SVar:EndScream:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ BloodExile | Secondary$ True
+SVar:BloodExile:DB$ ChangeZone | Hidden$ True | Mandatory$ True | ChangeType$ Card.YouCtrl | ChangeNum$ 2 | DefinedPlayer$ You | Origin$ Graveyard | Destination$ Exile
+AI:RemoveDeck:Random
+DeckHints:Ability$Graveyard

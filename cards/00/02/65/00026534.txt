@@ -1,0 +1,18 @@
+Id:26534
+ColorIdentity:U
+ManaCost:3 U U
+Types:Battle Siege
+Defense:7
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSearch
+SVar:TrigSearch:DB$ ChangeZone | Hidden$ True | Origin$ Library | Destination$ Hand | ShuffleNonMandatory$ True | OriginAlternative$ Graveyard,Sideboard | AlternativeMessage$ Would you like to search your library with this ability? If you do, your library will be shuffled | ChangeType$ Sorcery.YouOwn,Instant.YouOwn
+DeckHas:Ability$Graveyard
+DeckNeeds:Type$Instant | Sorcery
+AlternateMode:DoubleFaced
+
+ALTERNATE
+
+ManaCost:no cost
+Colors:blue
+Types:Enchantment
+T:Mode$ SpellCast | TriggerZones$ Battlefield | ValidCard$ Instant.wasCastFromYourHand,Sorcery.wasCastFromYourHand | ValidActivatingPlayer$ You | Execute$ TrigCopy
+SVar:TrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | Optional$ True | MayChooseTarget$ True

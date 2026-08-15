@@ -1,0 +1,13 @@
+Id:21609
+ColorIdentity:BR
+ManaCost:2 B R
+Types:Enchantment Saga
+K:Chapter:3:DBSacrifice,DBDiscard,DBReturn
+SVar:DBSacrifice:DB$ ImmediateTrigger | Execute$ TrigDealDamage | UnlessCost$ Sac<1/Creature> | UnlessPayer$ You | UnlessSwitched$ True
+SVar:TrigDealDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 3
+SVar:DBDiscard:DB$ Discard | Defined$ Player | NumCards$ 1 | Mode$ TgtChoose
+SVar:DBReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouOwn | RememberChanged$ True | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ 1 | Defined$ Remembered | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Remembered | KW$ Haste | Duration$ UntilYourNextTurn | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+DeckHas:Ability$Counters

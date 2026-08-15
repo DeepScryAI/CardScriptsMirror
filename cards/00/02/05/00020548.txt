@@ -1,0 +1,11 @@
+Id:20548
+ColorIdentity:G
+ManaCost:4 G
+Types:Creature Elk Beast
+PT:6/6
+K:Mutate:5 G
+T:Mode$ Mutates | ValidCard$ Card.Self | Execute$ TrigDigUntil
+SVar:TrigDigUntil:DB$ DigUntil | Amount$ X | Defined$ You | Valid$ Permanent | RevealedDestination$ Exile | FoundDestination$ Exile | RememberFound$ True | SubAbility$ DBToPlay
+SVar:DBToPlay:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$TimesMutated

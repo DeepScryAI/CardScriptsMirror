@@ -1,0 +1,16 @@
+Id:20223
+ColorIdentity:W
+ManaCost:3 W W
+Types:Enchantment Saga
+K:Chapter:3:DBExile,DBEffect,DBReturn
+SVar:DBExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Permanent.OppCtrl+cmcGE3
+SVar:DBEffect:DB$ Effect | Duration$ UntilYourNextTurn | StaticAbilities$ RaiseCost
+SVar:RaiseCost:Mode$ RaiseCost | ValidCard$ Card.nonCreature | Activator$ Opponent | Type$ Spell | Amount$ 2
+SVar:DBReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouOwn,Planeswalker.YouOwn | RememberChanged$ True | SubAbility$ AddCounter
+SVar:AddCounter:DB$ PutCounter | Defined$ Remembered | CounterType$ P1P1,LOYALTY | CounterNum$ 1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:PlayMain1:TRUE
+SVar:NeedsToPlayVar:Y GE1
+SVar:Y:Count$ValidGraveyard Creature.YouOwn/Plus.Y1
+SVar:Y1:Count$ValidGraveyard Planeswalker.YouOwn
+DeckHas:Ability$Counters | Sacrifice | Graveyard

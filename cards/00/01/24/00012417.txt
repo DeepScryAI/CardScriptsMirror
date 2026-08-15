@@ -1,0 +1,22 @@
+Id:12417
+ColorIdentity:R
+ManaCost:3 R
+Types:Creature Human Werewolf
+PT:3/2
+T:Mode$ Phase | Phase$ Upkeep | WerewolfTransformCondition$ True | TriggerZones$ Battlefield | Execute$ TrigTransform
+SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform
+AlternateMode:DoubleFaced
+
+ALTERNATE
+
+ManaCost:no cost
+Colors:red
+Types:Creature Werewolf
+PT:5/4
+T:Mode$ Transformed | ValidCard$ Card.Self | Execute$ TrigDestroy | OptionalDecider$ You
+SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Artifact | RememberTargets$ True | ForgetOtherTargets$ True | SubAbility$ DBDamage
+SVar:DBDamage:DB$ DealDamage | Defined$ TargetedController | NumDmg$ 3 | SubAbility$ DBCleanup | ConditionCheckSVar$ IsDestroyed | ConditionSVarCompare$ GE1
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:IsDestroyed:Count$ThisTurnEntered_Graveyard_from_Battlefield_Artifact.IsRemembered
+T:Mode$ Phase | Phase$ Upkeep | WerewolfUntransformCondition$ True | TriggerZones$ Battlefield | Execute$ TrigTransform
+SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform

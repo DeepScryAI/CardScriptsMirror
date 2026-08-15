@@ -1,0 +1,10 @@
+Id:22706
+ColorIdentity:G
+ManaCost:1 G
+Types:Instant
+A:SP$ Pump | ValidTgts$ Creature.YouCtrl | ImprintCards$ ThisTargetedCard | SubAbility$ DBFight
+SVar:DBFight:DB$ Fight | Defined$ ParentTarget | ValidTgts$ Creature.YouDontCtrl | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | Triggers$ TrigWin | RememberObjects$ ParentTarget | ImprintCards$ Imprinted | Duration$ UntilStateBasedActionChecked | SubAbility$ DBCleanup
+SVar:TrigWin:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Creature.IsRemembered | IsPresent$ Creature.IsImprinted | NoResolvingCheck$ True | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw
+SVar:DBCleanup:DB$ Cleanup | ClearImprinted$ True

@@ -1,0 +1,11 @@
+Id:12018
+ColorIdentity:W
+ManaCost:W
+Types:Sorcery
+A:SP$ RepeatEach | RepeatPlayers$ Player | StartingWith$ You | RepeatSubAbility$ DBPay | SubAbility$ DBToken
+SVar:DBPay:DB$ ChooseNumber | Defined$ Player.IsRemembered | ChooseAnyNumber$ True | ListTitle$ amount of mana to pay | SubAbility$ DBStore
+SVar:DBStore:DB$ StoreSVar | SVar$ JoinForcesAmount | Type$ CountSVar | Expression$ JoinForcesAmount/Plus.Y | UnlessCost$ Y | UnlessPayer$ Player.IsRemembered | UnlessSwitched$ True
+SVar:DBToken:DB$ Token | TokenAmount$ JoinForcesAmount | TokenScript$ w_1_1_soldier | TokenOwner$ Player
+SVar:Y:Count$ChosenNumber
+SVar:JoinForcesAmount:Number$0
+AI:RemoveDeck:All

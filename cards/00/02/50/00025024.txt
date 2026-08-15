@@ -1,0 +1,15 @@
+Id:25024
+ColorIdentity:BR
+ManaCost:1 B
+Types:Creature Dragon
+PT:2/1
+K:Kicker:1 R
+K:Flying
+T:Mode$ Drawn | ValidCard$ Card.YouOwn+Dragon | TriggerZones$ Battlefield | Execute$ DBPump
+SVar:DBPump:DB$ Pump | PumpZone$ Hand | Defined$ TriggeredCard | NumAtt$ +1 | NumDef$ +1 | Duration$ Perpetual
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self+kicked | Execute$ TrigSeek
+SVar:TrigSeek:DB$ Seek | RememberFound$ True | Type$ Card.Dragon | SubAbility$ DBPump2
+SVar:DBPump2:DB$ Pump | PumpZone$ Hand,Battlefield | Defined$ Remembered & Self | NumAtt$ +1 | NumDef$ +1 | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+DeckNeeds:Type$Dragon
+DeckHints:Color$Red

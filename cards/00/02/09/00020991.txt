@@ -1,0 +1,17 @@
+Id:20991
+ColorIdentity:R
+ManaCost:3 R
+Types:Legendary Creature Human Archer
+PT:1/4
+K:Reach
+S:Mode$ Continuous | Affected$ Card.IsCommander+YouCtrl | AddPower$ +X
+SVar:X:Count$Valid Card.IsCommander+YouCtrl
+AlternateMode:Adventure
+
+ALTERNATE
+
+ManaCost:2 R
+Types:Sorcery Adventure
+A:SP$ ChangeZone | Origin$ Hand | Destination$ Command | Optional$ You | ChangeType$ Card.Creature+Legendary+YouOwn | ChangeNum$ 1 | ChangeTypeDesc$ a legendary creature card | RememberChanged$ True | SubAbility$ YouAreCommander
+SVar:YouAreCommander:DB$ AlterAttribute | Defined$ Remembered | Attributes$ Commander | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

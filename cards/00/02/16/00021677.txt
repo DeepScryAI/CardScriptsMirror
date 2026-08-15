@@ -1,0 +1,15 @@
+Id:21677
+ColorIdentity:BG
+ManaCost:1 B G
+Types:Legendary Creature Wolf
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Permanent.OppCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | CheckSVar$ X | Execute$ TrigRemoveAll | TriggerZones$ Battlefield | OptionalDecider$ You
+SVar:TrigRemoveAll:DB$ RemoveCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ All | RememberAmount$ True | SubAbility$ DBChangeZoneAll
+SVar:DBChangeZoneAll:DB$ ChangeZoneAll | Origin$ Battlefield | Destination$ Exile | ChangeType$ Permanent.nonLand+Other+cmcLEY | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$CardCounters.P1P1
+SVar:Y:Count$RememberedNumber
+AI:RemoveDeck:All
+DeckHas:Ability$Counters

@@ -1,0 +1,13 @@
+Id:27323
+ColorIdentity:UR
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ Combo U R
+A:AB$ Animate | Cost$ U R | Defined$ Self | Power$ 2 | Toughness$ 1 | staticAbilities$ STFirstStrike | Types$ Creature,Elemental | Colors$ Blue,Red | OverwriteColors$ True
+SVar:STFirstStrike:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ First Strike | Condition$ PlayerTurn
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigScry
+SVar:TrigScry:DB$ Scry | ScryNum$ 1
+SVar:HasAttackEffect:TRUE
+DeckHas:Ability$LifeGain & Type$Elemental & Color$Blue | Red

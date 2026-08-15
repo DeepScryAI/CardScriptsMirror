@@ -1,0 +1,10 @@
+Id:13606
+ColorIdentity:U
+ManaCost:4 U U
+Types:Creature Fish Illusion
+PT:4/4
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ MindFishing
+SVar:MindFishing:DB$ Mill | NumCards$ 5 | ValidTgts$ Opponent | RememberMilled$ True | SubAbility$ FishyCast
+SVar:FishyCast:DB$ Play | ValidZone$ Graveyard,Exile | Valid$ Instant.IsRemembered,Sorcery.IsRemembered | Controller$ You | WithoutManaCost$ True | ValidSA$ Spell | Optional$ True | Amount$ 1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

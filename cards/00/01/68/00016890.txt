@@ -1,0 +1,14 @@
+Id:16890
+ColorIdentity:W
+ManaCost:6 W
+Types:Sorcery
+T:Mode$ SpellCast | ValidCard$ Card.Self+namedApproach of the Second Sun | Static$ True | Execute$ ApproachingSuns
+SVar:ApproachingSuns:DB$ Effect | Name$ ApproachingSuns | Duration$ Permanent
+A:SP$ Branch | BranchConditionSVar$ X | BranchConditionSVarCompare$ EQ3 | TrueSubAbility$ WinGame | FalseSubAbility$ GainLife
+SVar:WinGame:DB$ WinsGame | Defined$ You
+SVar:GainLife:DB$ GainLife | LifeAmount$ 7 | Defined$ You | SubAbility$ Reapproach
+SVar:Reapproach:DB$ ChangeZone | Origin$ Stack | Destination$ Library | LibraryPosition$ 6 | Defined$ Parent
+SVar:Y:Count$ValidCommand Effect.YouCtrl+namedApproachingSuns/LimitMax.2
+SVar:Z:Count$ValidStack Card.wasCastFromYourHand+Self/LimitMax.1
+SVar:X:SVar$Y/Plus.Z
+DeckNeeds:Name$Approach of the Second Sun

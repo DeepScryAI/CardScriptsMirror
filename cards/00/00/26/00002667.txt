@@ -1,0 +1,11 @@
+Id:2667
+ColorIdentity:
+ManaCost:2
+Types:Artifact
+A:AB$ ChangeZone | Cost$ 1 T | Origin$ Hand | Destination$ Exile | ChangeType$ Card | ChangeNum$ XFetch | RememberChanged$ True | SubAbility$ DBDig
+SVar:DBDig:DB$ Dig | DigNum$ X | ChangeNum$ All | ChangeValid$ Card | DestinationZone$ Hand | SubAbility$ DBReplace
+SVar:DBReplace:DB$ ChangeZoneAll | Origin$ Exile | Destination$ Library | ChangeType$ Card.IsRemembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:XFetch:Count$ValidHand Card.YouOwn
+SVar:X:Remembered$Amount
+AI:RemoveDeck:All

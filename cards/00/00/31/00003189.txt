@@ -1,0 +1,11 @@
+Id:3189
+ColorIdentity:G
+ManaCost:4 G G
+Types:Enchantment
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Destination$ Battlefield | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZoneAll | ChangeType$ Card | Origin$ Library | Destination$ Hand
+S:Mode$ Continuous | Affected$ Player | SetMaxHandSize$ Unlimited
+R:Event$ GameLoss | ActiveZones$ Battlefield | ValidPlayer$ Player | ValidLoseReason$ Milled | Layer$ CantHappen | Secondary$ True
+S:Mode$ CantBeCast | ValidCard$ Card | Caster$ Player | NumLimitEachTurn$ 1
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Battlefield | Execute$ TrigShuffleBack
+SVar:TrigShuffleBack:DB$ ChangeZoneAll | ChangeType$ Card | Origin$ Hand,Graveyard | Destination$ Library | Shuffle$ True | Random$ True

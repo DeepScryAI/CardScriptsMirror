@@ -1,0 +1,9 @@
+Id:27269
+ColorIdentity:
+ManaCost:4
+Types:Enchantment
+T:Mode$ SpellCast | ValidCard$ Creature.Colorless | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigManifest
+SVar:TrigManifest:DB$ Manifest
+T:Mode$ AttackersDeclared | ValidAttackers$ Creature.YouCtrl | Execute$ TrigState | TriggerZones$ Battlefield | CheckSVar$ PackTactics | SVarCompare$ GE6 | NoResolvingCheck$ True
+SVar:TrigState:DB$ SetState | Choices$ Creature.faceDown+YouCtrl | Mode$ TurnFaceUp
+SVar:PackTactics:Count$Valid Creature.attacking$CardPower

@@ -1,0 +1,14 @@
+Id:27870
+ColorIdentity:B
+ManaCost:3 B
+Types:Legendary Creature Rogue
+PT:2/5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChoose | OptionalDecider$ You
+SVar:TrigChoose:DB$ ChoosePlayer | Defined$ You | Choices$ Opponent | AILogic$ Curse | SubAbility$ DBDonate
+SVar:DBDonate:DB$ GainControl | Defined$ Self | NewController$ ChosenPlayer | SubAbility$ DBGoad
+SVar:DBGoad:DB$ Goad | Defined$ Self | Duration$ AsLongAsControl
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1 | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ X
+SVar:X:Count$CardsInYourHand
+K:Doctor's companion

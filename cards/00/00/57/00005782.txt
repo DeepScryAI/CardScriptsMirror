@@ -1,0 +1,12 @@
+Id:5782
+ColorIdentity:U
+ManaCost:2 U
+Types:Creature Nightmare Drake
+PT:3/4
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ ETBExileAbility
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ ETBExileReturn
+SVar:ETBExileAbility:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | Hidden$ True | Optional$ True | SubAbility$ ETBExileSacrifice | ChangeType$ Creature.Other+YouCtrl
+SVar:ETBExileSacrifice:DB$ Sacrifice | Defined$ Card.Self | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ0
+SVar:ETBExileReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | SubAbility$ ETBExileCleanup
+SVar:ETBExileCleanup:DB$ Cleanup | ClearRemembered$ True

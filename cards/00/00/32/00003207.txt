@@ -1,0 +1,14 @@
+Id:3207
+ColorIdentity:B
+ManaCost:2 B
+Types:Creature Zombie
+PT:3/3
+K:ETBReplacement:Other:RollCounters
+SVar:RollCounters:DB$ RollDice | ResultSVar$ Result | SubAbility$ DBCounters
+SVar:DBCounters:DB$ PutCounter | Defined$ Self | CounterType$ FUNK | CounterNum$ Result | ETB$ True
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigRemove
+SVar:TrigRemove:DB$ RemoveCounter | Defined$ Self | CounterType$ FUNK | CounterNum$ 1 | RememberRemoved$ True | SubAbility$ DBSac
+SVar:DBSac:DB$ Sacrifice | SacValid$ Self | ConditionCheckSVar$ FadingCheckSVar | ConditionSVarCompare$ EQ0 | SubAbility$ DBCleanup
+SVar:FadingCheckSVar:Count$RememberedSize
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+DeckHas:Ability$Counters

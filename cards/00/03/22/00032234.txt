@@ -1,0 +1,10 @@
+Id:32234
+ColorIdentity:B
+ManaCost:2 B B
+Types:Legendary Enchantment
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | ChangeType$ Creature | Origin$ Battlefield | Destination$ Exile | Hidden$ True | Mandatory$ True | DefinedPlayer$ Opponent
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | CheckSVar$ X | SVarCompare$ EQ0 | TriggerZones$ Battlefield | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice | SacValid$ Self | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | ChangeType$ Creature.ExiledWithSource | GainControl$ True | Origin$ Exile | Hidden$ True | Mandatory$ True | Destination$ Battlefield | WithCountersType$ P1P1 | WithCountersAmount$ 2
+SVar:X:PlayerCountPlayers$LowestValid Creature.YouCtrl

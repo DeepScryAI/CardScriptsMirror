@@ -1,0 +1,13 @@
+Id:21777
+ColorIdentity:
+ManaCost:2
+Types:Artifact
+T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | Execute$ TrigPutCounter | TriggerZones$ Battlefield
+SVar:TrigPutCounter:DB$ PutCounter | CounterType$ CHARGE | CounterNum$ Y
+SVar:Y:TriggeredSpellAbility$CardManaCostLKI
+A:AB$ Token | Cost$ 6 T SubCounter<All/CHARGE> | CostDesc$ {6}, {T}, Remove all charge counters from CARDNAME: | TokenScript$ gu_0_0_fractal | RememberTokens$ True | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Remembered | CounterType$ P1P1 | CounterNum$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:SVar$CostCountersRemoved
+DeckHas:Ability$Token | Counters
+DeckNeeds:Type$Instant | Sorcery

@@ -1,0 +1,12 @@
+Id:22410
+ColorIdentity:
+ManaCost:2
+Types:Artifact Equipment
+K:Equip:2
+T:Mode$ Attacks | ValidCard$ Card.EquippedBy | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ TriggeredAttackerLKICopy | CounterType$ P1P1 | CounterNum$ 1
+T:Mode$ DamageDealtOnce | CombatDamage$ True | ValidSource$ Creature.EquippedBy | Execute$ TrigRollDice | TriggerZones$ Battlefield
+SVar:TrigRollDice:DB$ RollDice | Sides$ 12 | ResultSVar$ X | SubAbility$ DBDouble
+SVar:DBDouble:DB$ MultiplyCounter | Defined$ TriggeredSourceLKICopy | CounterType$ P1P1 | ConditionCheckSVar$ X | ConditionSVarCompare$ GTY
+SVar:Y:TriggerCount$DamageAmount/LimitMax.11
+DeckHas:Ability$Counters

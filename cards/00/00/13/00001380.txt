@@ -1,0 +1,12 @@
+Id:1380
+ColorIdentity:R
+ManaCost:2 R
+Types:Creature Dwarf
+PT:1/1
+A:AB$ Pump | Cost$ T | IsCurse$ True | ValidTgts$ Creature.ControllerControlsIsland+attacking,Creature.ControllerControlsIsland+blocking | ActivationPhases$ BeginCombat->Combat Damage | ActivationFirstCombat$ True | ConditionDefined$ Targeted | ConditionPresent$ Creature.ControllerControlsIsland | ConditionCompare$ GE1 | SubAbility$ DBDelayTrig
+SVar:DBDelayTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ EndCombat | Execute$ TrigDmg | RememberObjects$ ParentTarget | SubAbility$ DBCleanup
+SVar:TrigDmg:DB$ DealDamage | NumDmg$ 2 | Defined$ DelayTriggerRemembered
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:NeedsToPlay:Island.OppCtrl
+AI:RemoveDeck:All
+AI:RemoveDeck:Random

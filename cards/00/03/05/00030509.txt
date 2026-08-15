@@ -1,0 +1,8 @@
+Id:30509
+ColorIdentity:R
+ManaCost:R
+Types:Sorcery
+A:SP$ Pump | ValidTgts$ Creature.OppCtrl | TargetMin$ 2 | TargetMax$ 2 | TargetsWithSameController$ True | IsCurse$ True | SubAbility$ DBChoose
+SVar:DBChoose:DB$ ChooseCard | Defined$ TargetedController | Mandatory$ True | Choices$ Creature.targetedBy | SubAbility$ DBDealDamage
+SVar:DBDealDamage:DB$ DealDamage | NumDmg$ 5 | Defined$ ChosenCard | SubAbility$ DBCantBlock
+SVar:DBCantBlock:DB$ Pump | Defined$ Targeted.!ChosenCard | KW$ HIDDEN CARDNAME can't block.

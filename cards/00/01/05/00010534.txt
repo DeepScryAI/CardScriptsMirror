@@ -1,0 +1,11 @@
+Id:10534
+ColorIdentity:WB
+ManaCost:3 W B B
+Types:Enchantment
+T:Mode$ ChangesZone | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZoneAll | ValidTgts$ Player | Origin$ Graveyard | Destination$ Exile | ChangeType$ Creature | RememberChanged$ True | ForgetOtherRemembered$ True | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScript$ b_2_2_zombie | TokenOwner$ You | TokenAmount$ X | SubAbility$ DBClearRemember
+S:Mode$ Continuous | Affected$ Zombie.YouCtrl | AddKeyword$ Lifelink
+SVar:DBClearRemember:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Amount
+SVar:PlayMain1:TRUE

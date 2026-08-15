@@ -1,0 +1,23 @@
+Id:32651
+ColorIdentity:W
+ManaCost:3 W W
+Types:Enchantment Saga
+K:Chapter:3:DBRepeatEach,DBDraw,DBTransform
+SVar:DBRepeatEach:DB$ RepeatEach | RepeatPlayers$ Player | StartingWith$ You | RepeatSubAbility$ DBChoosePermanent | SubAbility$ DBChangeZone
+SVar:DBChoosePermanent:DB$ ChooseCard | MinAmount$ 0 | Amount$ 1 | Defined$ Remembered | Choices$ Permanent.cmcGE3+OppCtrl | RememberChosen$ True
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | Defined$ Remembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True | ClearRemembered$ True
+SVar:DBDraw:DB$ Draw | Defined$ You | ValidTgts$ Opponent | NumCards$ 3 | UnlessCost$ Draw<3/Player.targetedBy> | UnlessPayer$ You | UnlessSwitched$ True
+SVar:DBTransform:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | Transformed$ True | GainControl$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+AlternateMode:DoubleFaced
+
+ALTERNATE
+
+ManaCost:no cost
+Types:Legendary Creature Avatar
+PT:4/5
+K:Flying
+T:Mode$ SpellCast | ValidCard$ Card.YouCtrl | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigAirbend | ActivatorThisTurnCast$ EQ2
+SVar:TrigAirbend:DB$ Airbend | ValidTgts$ Permanent.nonLand+Other | TargetMin$ 0 | TargetMax$ 1

@@ -1,0 +1,12 @@
+Id:26169
+ColorIdentity:W
+ManaCost:W
+Types:Legendary Artifact Creature Phyrexian Mite
+PT:1/1
+K:Toxic:1
+S:Mode$ CantBlock | ValidCard$ Creature.Self
+A:AB$ ChooseColor | Cost$ WP T | Defined$ You | AILogic$ MostProminentInHumanDeck | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Targeted | ValidTgts$ Creature.YouCtrl+Other | KW$ Hexproof:ChosenColor & Toxic:1 | DefinedKW$ ChosenColor | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ Targeted | StaticAbilities$ CantBlockBy | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenColor$ True
+SVar:CantBlockBy:Mode$ CantBlockBy | ValidAttacker$ Creature.IsRemembered | ValidBlocker$ Creature.ChosenColor

@@ -1,0 +1,14 @@
+Id:32501
+ColorIdentity:UB
+Variant:UniversesWithin:FlavorName:Skv'x the Augmenter
+ManaCost:2 UB
+Types:Legendary Creature Symbiote Spider Hero
+PT:2/4
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigDig | CombatDamage$ True
+SVar:TrigDig:DB$ Dig | DigNum$ X | ChangeNum$ 1 | ChangeValid$ Card | DestinationZone$ Hand | DestinationZone2$ Graveyard
+SVar:X:TriggerCount$DamageAmount
+A:AB$ PutCounter | PrecostDesc$ Find New Host — | Cost$ 2 UB ExileFromGrave<1/CARDNAME/this card> | ActivationZone$ Graveyard | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1 | SorcerySpeed$ True | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Targeted | Triggers$ SymbioteTrig | Duration$ Permanent
+SVar:SymbioteTrig:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigDig | CombatDamage$ True
+DeckHas:Ability$Counters
+DeckHints:Ability$Discard | Mill | Sacrifice

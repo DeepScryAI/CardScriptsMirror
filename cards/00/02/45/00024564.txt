@@ -1,0 +1,22 @@
+Id:24564
+ColorIdentity:R
+ManaCost:2 R R
+Types:Legendary Creature Demon
+PT:4/3
+K:Haste
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigCounter | TriggerZones$ Battlefield
+SVar:TrigCounter:DB$ PutCounter | CounterType$ FLAME | CounterNum$ 1 | ValidCards$ Self | SubAbility$ DBSeek
+SVar:DBSeek:DB$ Seek | Type$ Card.cmcEQX+YouOwn | ImprintFound$ True | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | Defined$ Imprinted | ExileFaceDown$ True | Mandatory$ True | SubAbility$ DBClearImprinted
+SVar:DBClearImprinted:DB$ Cleanup | ClearImprinted$ True
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered+ExiledWithSource | Origin$ Exile | Destination$ Hand | SubAbility$ DBDelay
+SVar:DBDelay:DB$ DelayedTrigger | DelayedTriggerDefinedPlayer$ You | Mode$ Phase | Phase$ End of Turn | Execute$ TrigDiscardExiled | RememberObjects$ Remembered
+SVar:TrigDiscardExiled:DB$ Discard | Mode$ Defined | DefinedCards$ DelayTriggerRemembered
+T:Mode$ ChangesZone | Origin$ Battlefield | ExcludedDestinations$ Graveyard | Static$ True | Destination$ Any | ValidCard$ Card.Self | Execute$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+T:Mode$ ChangesZone | Origin$ Exile | Destination$ Any | Static$ True | ValidCard$ Card.IsRemembered+ExiledWithSource | Execute$ DBForget
+SVar:DBForget:DB$ Pump | ForgetObjects$ TriggeredCard
+SVar:X:Count$CardCounters.FLAME
+SVar:HasAttackEffect:TRUE
+DeckHas:Ability$Discard

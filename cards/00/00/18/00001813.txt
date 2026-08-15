@@ -1,0 +1,12 @@
+Id:1813
+ColorIdentity:B
+ManaCost:3 B B
+Types:Sorcery
+A:SP$ GenericChoice | Choices$ DestroyWhite,DestroyGreen | Defined$ You
+SVar:DestroyWhite:DB$ DestroyAll | ValidCards$ Creature.White | NoRegen$ True | RememberDestroyed$ True | SubAbility$ DBLoseLife
+SVar:DestroyGreen:DB$ DestroyAll | ValidCards$ Creature.Green | NoRegen$ True | RememberDestroyed$ True | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ X | Defined$ You | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$RememberedSize/Twice
+AI:RemoveDeck:All
+AI:RemoveDeck:Random

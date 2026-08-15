@@ -1,0 +1,22 @@
+Id:34483
+ColorIdentity:WG
+ManaCost:1 W
+Types:Legendary Creature Human Advisor Hero
+PT:2/3
+S:Mode$ CantBeCast | ValidCard$ Card | Condition$ PlayerTurn | Caster$ Opponent
+A:AB$ SetState | Cost$ 3 G W W | Defined$ Self | Mode$ Transform | SorcerySpeed$ True | AILogic$ Always
+AlternateMode:Modal
+SVar:PlayMain1:TRUE
+
+ALTERNATE
+
+ManaCost:3 G W W
+Types:Legendary Creature Gamma Hero
+PT:6/6
+K:Reach
+K:Trample
+S:Mode$ CantBeCast | ValidCard$ Card | Condition$ PlayerTurn | Caster$ Opponent
+T:Mode$ DamageDoneOnce | ValidTarget$ Creature.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigDamage | OptionalDecider$ You | ResolvedLimit$ 1
+SVar:TrigDamage:DB$ DealDamage | NumDmg$ X | ValidTgts$ Any
+SVar:X:TriggerCount$DamageAmount
+SVar:PlayMain1:TRUE

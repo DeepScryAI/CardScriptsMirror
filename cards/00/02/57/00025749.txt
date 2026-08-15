@@ -1,0 +1,15 @@
+Id:25749
+ColorIdentity:WR
+ManaCost:1 R W
+Types:Legendary Creature Human Noble
+PT:2/3
+A:AB$ Discard | Cost$ 4 T | Defined$ You | RememberDiscarded$ True | Mode$ Hand | SubAbility$ DBDraw | SorcerySpeed$ True
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ X | SubAbility$ DBChooseCardOne
+SVar:DBChooseCardOne:DB$ ChooseCard | Defined$ You | Choices$ Artifact.IsRemembered+cmcEQ1,Creature.IsRemembered+cmcEQ1 | ImprintChosen$ True | ChoiceZone$ Graveyard,Exile | SubAbility$ DBChooseCardTwo
+SVar:DBChooseCardTwo:DB$ ChooseCard | Defined$ You | Choices$ Artifact.IsRemembered+cmcEQ2,Creature.IsRemembered+cmcEQ2 | ImprintChosen$ True | ChoiceZone$ Graveyard,Exile | SubAbility$ DBChooseCardThree
+SVar:DBChooseCardThree:DB$ ChooseCard | Defined$ You | Choices$ Artifact.IsRemembered+cmcEQ3,Creature.IsRemembered+cmcEQ3 | ImprintChosen$ True | ChoiceZone$ Graveyard,Exile | SubAbility$ DBChangeZoneAll
+SVar:DBChangeZoneAll:DB$ ChangeZone | Defined$ Imprinted | Origin$ Graveyard,Exile | Destination$ Battlefield | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True
+SVar:X:Remembered$Amount
+DeckHints:Type$Artifact
+DeckHas:Ability$Graveyard | Discard

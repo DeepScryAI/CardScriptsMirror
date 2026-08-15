@@ -1,0 +1,15 @@
+Id:23758
+ColorIdentity:U
+ManaCost:4 U U
+Types:Creature Avatar
+PT:5/4
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+T:Mode$ Attacks | ValidCard$ Card.Self | Secondary$ True | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 2 | SubAbility$ TrigDiscard
+SVar:TrigDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ TgtChoose
+T:Mode$ Discarded | ValidCard$ Card.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.OppCtrl | IsCurse$ True | NumAtt$ -X | Duration$ UntilYourNextTurn
+SVar:X:Count$ValidGraveyard Card.YouOwn$DifferentCardManaCost
+SVar:HasAttackEffect:TRUE
+DeckHas:Ability$Discard

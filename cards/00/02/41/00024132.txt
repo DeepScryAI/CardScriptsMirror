@@ -1,0 +1,14 @@
+Id:24132
+ColorIdentity:RG
+ManaCost:R G
+Types:Creature Cat Warrior
+PT:3/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChoose
+SVar:TrigChoose:DB$ ChooseCard | ChoiceZone$ Hand | Choices$ Creature.YouOwn,Planeswalker.YouOwn | MinAmount$ 0 | Amount$ 2 | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ ChosenCard | Triggers$ SpellCastTrig | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:SpellCastTrig:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigTreasure
+SVar:TrigTreasure:DB$ Token | TokenScript$ c_a_treasure_sac | SubAbility$ DBLosePerpAbility
+SVar:DBLosePerpAbility:DB$ LosePerpetual
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+DeckHints:Type$Planeswalker
+DeckHas:Ability$Token | Sacrifice & Type$Treasure | Artifact

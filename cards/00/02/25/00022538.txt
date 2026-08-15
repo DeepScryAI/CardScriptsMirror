@@ -1,0 +1,11 @@
+Id:22538
+ColorIdentity:G
+ManaCost:G
+Types:Legendary Artifact
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ HARMONY | CounterNum$ 1
+A:AB$ ChangeZone | Cost$ 3 G T | Origin$ Library | Destination$ Hand | ChangeType$ Creature.cmcEQX | ChangeNum$ 1 | RememberChanged$ True | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScript$ c_a_treasure_sac | TokenOwner$ You | ConditionDefined$ Remembered | ConditionPresent$ Card.Legendary | ConditionCompare$ GE1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$CardCounters.HARMONY
+DeckHas:Ability$Token | Counters

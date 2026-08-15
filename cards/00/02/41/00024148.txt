@@ -1,0 +1,15 @@
+Id:24148
+ColorIdentity:UG
+ManaCost:2 G U
+Types:Legendary Creature Human Shaman
+PT:3/5
+A:AB$ Draw | Cost$ T | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | WithCountersType$ TIME | WithCountersAmount$ X | SubAbility$ DBAddTrigger | RememberChanged$ True | Mandatory$ True
+SVar:X:Remembered$CardManaCost
+SVar:DBAddTrigger:DB$ Animate | Defined$ Remembered | Triggers$ TWhenLastTimeCounterRemoved | Duration$ Permanent | SubAbility$ DBRemoveTimeCounterOtherCardsInExile
+SVar:TWhenLastTimeCounterRemoved:Mode$ CounterRemoved | ValidCard$ Card.Self+counters_EQ0_TIME | TriggerZones$ Exile | CounterType$ TIME | Execute$ DBCastWithoutPayingManaCost
+SVar:DBCastWithoutPayingManaCost:DB$ Play | Valid$ Card.Self | ValidSA$ Spell | ValidZone$ Exile | Destination$ Battlefield | WithoutManaCost$ True | Optional$ True | SubAbility$ DBGiveHaste
+SVar:DBGiveHaste:DB$ Pump | Defined$ Self | KW$ Haste | ConditionDefined$ Self | ConditionPresent$ Card.Creature | PumpZone$ Stack
+SVar:DBRemoveTimeCounterOtherCardsInExile:DB$ RemoveCounterAll | ValidCards$ Card.YouOwn+!IsRemembered | ValidZone$ Exile | CounterType$ TIME | CounterNum$ 1 | SubAbility$ DBCleanUp
+SVar:DBCleanUp:DB$ Cleanup | ClearRemembered$ True
+DeckHints:Keyword$Suspend

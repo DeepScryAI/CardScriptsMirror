@@ -1,0 +1,9 @@
+Id:2829
+ColorIdentity:U
+ManaCost:2 U U
+Types:Instant
+A:SP$ UntapAll | ValidTgts$ Opponent | Defined$ TargetedAndYou | ValidCards$ Creature | SubAbility$ DBGainCtrl
+SVar:DBGainCtrl:DB$ GainControl | AllValid$ Creature.TargetedPlayerCtrl | AddKWs$ Haste | NewController$ You | LoseControl$ EOT | RememberControlled$ True | SubAbility$ DBGainCtrlOpp
+SVar:DBGainCtrlOpp:DB$ GainControl | AllValid$ Creature.!IsRemembered+YouCtrl | AddKWs$ Haste | NewController$ Targeted | LoseControl$ EOT | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+AI:RemoveDeck:All

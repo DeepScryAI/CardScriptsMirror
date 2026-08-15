@@ -1,0 +1,11 @@
+Id:28647
+ColorIdentity:WR
+ManaCost:1 RW RW
+Types:Creature Minotaur Soldier
+PT:3/3
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigExile | IsPresent$ Creature.attacking+Other | NoResolvingCheck$ True | PresentCompare$ GE2
+SVar:TrigExile:DB$ Dig | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ MayPlay | RememberObjects$ Remembered | ForgetOnMoved$ Exile | Duration$ Permanent | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:MayPlay:Mode$ Continuous | Affected$ Card.IsRemembered | CheckSVar$ X | SVarCompare$ GE3 | AffectedZone$ Exile | MayPlay$ True
+SVar:X:Count$AttackersDeclared

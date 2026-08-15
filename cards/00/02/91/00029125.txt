@@ -1,0 +1,13 @@
+Id:29125
+ColorIdentity:BR
+ManaCost:1 B R
+Types:Legendary Creature Lizard Rogue
+PT:4/3
+S:Mode$ Continuous | Affected$ Creature.YouCtrl+YouDontOwn | AddType$ Mercenary
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDig
+SVar:TrigDig:DB$ Dig | ValidTgts$ Opponent | DigNum$ X | ChangeNum$ All | RememberChanged$ True | DestinationZone$ Exile | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ EffPlay | EffectOwner$ You | RememberObjects$ Remembered | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:EffPlay:Mode$ Continuous | MayPlay$ True | MayPlayIgnoreType$ True | Affected$ Card.IsRemembered+nonLand | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$Valid Permanent.Outlaw+YouCtrl
+DeckHints:Type$Assassin | Mercenary | Pirate | Rogue | Warlock

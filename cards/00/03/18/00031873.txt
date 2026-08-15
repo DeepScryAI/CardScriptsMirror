@@ -1,0 +1,19 @@
+Id:31873
+ColorIdentity:WG
+ManaCost:1 G W
+Types:Legendary Creature Human Citizen
+PT:2/2
+S:Mode$ ReduceCost | EffectZone$ Battlefield | ValidCard$ Creature.Legendary | Activator$ You | Type$ Spell | OnlyFirstSpell$ True | Amount$ 2
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | IsPresent$ Creature.Other+Legendary+YouCtrl | PresentCompare$ GE2 | TriggerZones$ Battlefield | Execute$ TrigTransform | OptionalDecider$ You
+SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform
+AlternateMode:DoubleFaced
+SVar:PlayMain1:TRUE
+DeckHints:Type$Legendary
+
+ALTERNATE
+
+ManaCost:no cost
+Colors:green,white
+Types:Legendary Artifact
+S:Mode$ ReduceCost | EffectZone$ Battlefield | ValidCard$ Creature.Legendary | Activator$ You | Type$ Spell | OnlyFirstSpell$ True | Amount$ 2
+S:Mode$ Continuous | Affected$ Creature.Legendary+YouCtrl | AddPower$ 2 | AddToughness$ 2

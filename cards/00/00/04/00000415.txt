@@ -1,0 +1,12 @@
+Id:415
+ColorIdentity:
+ManaCost:7
+Types:Artifact Creature Juggernaut
+PT:5/5
+K:Banding
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDealDamage
+SVar:TrigDealDamage:DB$ DealDamage | Defined$ You | NumDmg$ 3 | UnlessPayer$ You | UnlessCost$ Discard<1/Card> | RememberDamaged$ True | SubAbility$ DBTap
+SVar:DBTap:DB$ Tap | ConditionPlayerDefined$ Remembered | ConditionPlayerContains$ You | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+AI:RemoveDeck:Random
+DeckHas:Ability$Discard

@@ -1,0 +1,9 @@
+Id:4403
+ColorIdentity:W
+ManaCost:2 W
+Types:Instant
+S:Mode$ AlternativeCost | ValidSA$ Spell.Self | EffectZone$ All | Cost$ tapXType<1/Creature/creature> | IsPresent$ Plains.YouCtrl
+A:SP$ Effect | ValidTgts$ Creature | ReplacementEffects$ SelflessDamage | ForgetOnMoved$ Battlefield | RememberObjects$ Targeted
+SVar:SelflessDamage:Event$ DamageDone | ValidTarget$ Card.IsRemembered | ReplaceWith$ SelflessDmg | DamageTarget$ You
+SVar:SelflessDmg:DB$ ReplaceEffect | VarName$ Affected | VarValue$ You | VarType$ Player
+AI:RemoveDeck:All

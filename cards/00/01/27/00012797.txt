@@ -1,0 +1,13 @@
+Id:12797
+ColorIdentity:
+ManaCost:no cost
+Types:Plane Regatha
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Command | Execute$ BuildPressure
+SVar:BuildPressure:DB$ PutCounter | Defined$ Self | CounterType$ PRESSURE | CounterNum$ 1
+T:Mode$ PlaneswalkedFrom | ValidCard$ Plane.Self | Execute$ Eruption
+SVar:Eruption:DB$ DamageAll | ValidCards$ Creature,Planeswalker | NumDmg$ KeraliaX
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos
+SVar:RolledChaos:DB$ Effect | ReplacementEffects$ RPrevent | EffectOwner$ You | Duration$ Permanent
+SVar:RPrevent:Event$ DamageDone | Prevent$ True | ActiveZones$ Command | ValidTarget$ Permanent.YouCtrl | ValidSource$ Plane.namedMount Keralia
+SVar:KeraliaX:TriggeredCard$CardCounters.PRESSURE
+SVar:AIRollPlanarDieParams:Mode$ Always | LowPriority$ True

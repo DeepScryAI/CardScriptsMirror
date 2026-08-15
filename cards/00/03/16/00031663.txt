@@ -1,0 +1,12 @@
+Id:31663
+ColorIdentity:R
+ManaCost:2 R
+Types:Legendary Creature Assassin
+PT:3/3
+K:Menace
+T:Mode$ DamageDoneOnce | CombatDamage$ True | ValidSource$ Creature.YouCtrl | TriggerZones$ Battlefield | ValidTarget$ Player | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Opponent | CombatDamage$ True | Execute$ TrigDmg
+SVar:TrigDmg:DB$ DamageAll | ValidPlayers$ OppNonTriggeredTarget | NumDmg$ X | ConditionCheckSVar$ Y | ConditionSVarCompare$ GE7
+SVar:X:TriggerCount$DamageAmount
+SVar:Y:Count$CardPower

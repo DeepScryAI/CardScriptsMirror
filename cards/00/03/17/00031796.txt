@@ -1,0 +1,20 @@
+Id:31796
+ColorIdentity:BR
+ManaCost:2 B R
+Types:Legendary Creature Human Mutant Wizard
+PT:3/4
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenTapped$ True | TokenScript$ b_0_1_wizard_snipe | TokenOwner$ You | SubAbility$ DBTransform
+SVar:DBTransform:DB$ SetState | Defined$ Self | ConditionPresent$ Card.Wizard+YouCtrl | ConditionCompare$ GE4 | Mode$ Transform
+DeckHints:Type$Wizard
+AlternateMode:DoubleFaced
+
+ALTERNATE
+
+ManaCost:no cost
+Colors:black,red
+Types:Legendary Creature Avatar Wizard
+PT:4/6
+R:Event$ DamageDone | ActiveZones$ Battlefield | ValidSource$ Wizard.YouCtrl | ValidTarget$ Permanent,Player | ReplaceWith$ DmgTwice
+SVar:DmgTwice:DB$ ReplaceEffect | VarName$ DamageAmount | VarValue$ X
+SVar:X:ReplaceCount$DamageAmount/Twice

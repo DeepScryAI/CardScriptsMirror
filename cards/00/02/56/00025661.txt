@@ -1,0 +1,13 @@
+Id:25661
+ColorIdentity:WU
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ DBReveal | ReplacementResult$ Updated
+SVar:DBReveal:DB$ Reveal | RevealValid$ Soldier | Optional$ True | RememberRevealed$ True | SubAbility$ DBTap
+SVar:DBTap:DB$ Tap | ETB$ True | Defined$ Self | ConditionCheckSVar$ SoldierPresence | ConditionSVarCompare$ EQ0 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:SoldierPresence:Count$RememberedSize/Plus.SoldierControlled
+SVar:SoldierControlled:Count$Valid Soldier.inZoneBattlefield+YouCtrl
+A:AB$ Mana | Cost$ T | Produced$ Combo W U
+A:AB$ PumpAll | Cost$ 5 T | ValidCards$ Soldier.YouCtrl | NumAtt$ +1 | NumDef$ +1
+DeckNeeds:Type$Soldier

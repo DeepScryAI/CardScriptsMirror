@@ -1,0 +1,9 @@
+Id:11342
+ColorIdentity:
+ManaCost:no cost
+Types:Scheme
+T:Mode$ SetInMotion | ValidCard$ Card.Self | Execute$ ChooseChampion | TriggerZones$ Command
+SVar:ChooseChampion:DB$ ChoosePlayer | ValidTgts$ Opponent | Choices$ Player | AILogic$ BestAllyBoardPosition | SubAbility$ PrepChamps
+SVar:PrepChamps:DB$ Effect | RememberObjects$ ChosenPlayer & You | Duration$ UntilYourNextTurn | StaticAbilities$ RestrictAttackers,RestrictCasting
+SVar:RestrictAttackers:Mode$ CantAttack | ValidCard$ Creature.!RememberedPlayerCtrl
+SVar:RestrictCasting:Mode$ CantBeCast | ValidCard$ Card | Caster$ Player.!IsRemembered

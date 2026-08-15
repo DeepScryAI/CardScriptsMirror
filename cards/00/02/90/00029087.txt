@@ -1,0 +1,12 @@
+Id:29087
+ColorIdentity:U
+ManaCost:2 U
+Types:Legendary Creature Human Warlock
+PT:2/3
+T:Mode$ SpellCast | ValidCard$ Card.YouCtrl | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | PlayerTurn$ True | ActivatorThisTurnCast$ GT1 | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScript$ ub_2_2_zombie_rogue | TokenOwner$ You
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | TriggerZones$ Battlefield | ValidCard$ Zombie.YouCtrl | Execute$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ TriggeredCard | CounterNum$ X | CounterType$ P1P1
+SVar:X:Count$ThisTurnEntered_Battlefield_Zombie.YouCtrl+!TriggeredCard
+DeckHas:Ability$Token | Counters & Type$Zombie | Rogue & Color$Black
+DeckHints:Type$Zombie

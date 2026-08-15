@@ -1,0 +1,10 @@
+Id:1606
+ColorIdentity:R
+ManaCost:1 R
+Types:Instant
+Text:Cast CARDNAME only during combat after blockers are declared.
+A:SP$ FlipCoin | ValidTgts$ Creature | WinSubAbility$ AleatoryPump | LoseSubAbility$ DelTrigSlowtrip | ActivationPhases$ Declare Blockers->EndCombat | ActivationAfterBlockers$ True
+SVar:AleatoryPump:DB$ Pump | Defined$ Targeted | NumAtt$ +1 | NumDef$ +1 | SubAbility$ DelTrigSlowtrip
+SVar:DelTrigSlowtrip:DB$ DelayedTrigger | NextTurn$ True | Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Player | Execute$ DrawSlowtrip
+SVar:DrawSlowtrip:DB$ Draw | Defined$ You
+AI:RemoveDeck:All

@@ -1,0 +1,12 @@
+Id:20452
+ColorIdentity:
+ManaCost:2
+Types:Artifact Equipment
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddKeyword$ Flying
+A:AB$ Effect | Cost$ Sac<1/CARDNAME> | RememberObjects$ Equipped | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable | Triggers$ Sacrifice
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+SVar:Sacrifice:Mode$ Phase | Phase$ End of Turn | Execute$ TrigSac
+SVar:TrigSac:DB$ SacrificeAll | ValidCards$ Card.IsRemembered
+K:Equip:1
+AI:RemoveDeck:All
+DeckHas:Ability$Sacrifice

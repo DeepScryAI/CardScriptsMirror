@@ -1,0 +1,11 @@
+Id:33651
+ColorIdentity:B
+ManaCost:1 B B
+Types:Legendary Planeswalker Ral
+Loyalty:3
+A:AB$ Surveil | Cost$ AddCounter<1/LOYALTY> | Amount$ 2 | Planeswalker$ True
+A:AB$ Discard | Cost$ SubCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Player | NumCards$ 1 | Mode$ TgtChoose | TargetMin$ 0 | TargetMax$ MaxTgt
+A:AB$ ChangeZone | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Card.Creature+cmcLE3+YouOwn | ValidTgtsDesc$ creature card with mana value 3 or less in your graveyard
+A:AB$ FlipCoin | Cost$ SubCounter<7/LOYALTY> | ValidTgts$ Opponent | Amount$ 5 | NoCall$ True | HeadsSubAbility$ DBSkipTurn | Planeswalker$ True | Ultimate$ True
+SVar:DBSkipTurn:DB$ SkipTurn | NumTurns$ X | Defined$ Targeted
+SVar:MaxTgt:PlayerCountPlayers$Amount

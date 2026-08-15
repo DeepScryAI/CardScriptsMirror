@@ -1,0 +1,10 @@
+Id:32336
+ColorIdentity:R
+ManaCost:2 R R
+Types:Legendary Creature Kavu Pirate
+PT:4/4
+K:Menace
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Land.nonBasic | Execute$ TrigConjure
+SVar:TrigConjure:DB$ MakeCard | Conjure$ True | Defined$ TriggeredCardController | Name$ Wastes | Zone$ Battlefield | Tapped$ True
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | IsPresent$ Creature.YouCtrl+tapped | PresentCompare$ GE2 | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Land.nonBasic | TargetMin$ 0 | TargetMax$ 1

@@ -1,0 +1,13 @@
+Id:25099
+ColorIdentity:R
+ManaCost:3 R
+Types:Creature Astartes Warrior
+PT:3/3
+K:Menace
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDig
+SVar:TrigDig:AB$ DigUntil | Cost$ Mandatory Sac<1/CARDNAME> | Valid$ Creature.YouOwn | FoundDestination$ Battlefield | RevealedDestination$ Library | Shuffle$ True | SubAbility$ DBDamage | RememberFound$ True
+SVar:DBDamage:DB$ DamageAll | NumDmg$ X | ValidPlayers$ Opponent | DamageSource$ Remembered | ConditionDefined$ Remembered | ConditionPresent$ Creature.Demon | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$CardPower
+DeckHints:Type$Demon
+DeckHas:Ability$Sacrifice

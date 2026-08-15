@@ -1,0 +1,12 @@
+Id:30042
+ColorIdentity:W
+ManaCost:4 W W
+Types:Instant
+K:Gift
+SVar:GiftAbility:DB$ AddTurn | Defined$ Promised | NumTurns$ 1
+A:SP$ Token | TokenAmount$ 4 | TokenScript$ u_2_2_bird_flying | TokenOwner$ You | SubAbility$ DBPhases
+SVar:DBPhases:DB$ Phases | Defined$ Valid Permanent.YouCtrl | ConditionZone$ Stack | ConditionPresent$ Card.Self+PromisedGift | ConditionCompare$ EQ1 | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | ConditionZone$ Stack | ConditionPresent$ Card.Self+PromisedGift | ConditionCompare$ EQ1 | Duration$ UntilYourNextTurn | StaticAbilities$ STCantChange | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ You | Duration$ UntilYourNextTurn | KW$ Protection from everything | ConditionZone$ Stack | ConditionPresent$ Card.Self+PromisedGift | ConditionCompare$ EQ1 | SubAbility$ DBChange
+SVar:STCantChange:Mode$ CantChangeLife | ValidPlayer$ You
+SVar:DBChange:DB$ ChangeZone | Origin$ Stack | Destination$ Exile

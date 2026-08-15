@@ -1,0 +1,14 @@
+Id:25027
+ColorIdentity:R
+ManaCost:1 R
+Types:Creature Human Wizard
+PT:2/2
+K:Prowess
+T:Mode$ Phase | Phase$ Main1 | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigSeek
+SVar:TrigSeek:AB$ Seek | Cost$ Discard<1/Card> | Type$ Card.cmcGTX | RememberFound$ True | SubAbility$ DBExile
+SVar:X:Discarded$CardManaCost
+SVar:DBExile:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | Defined$ Remembered | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ Remembered | StaticAbilities$ MayPlay | Duration$ UntilTheEndOfYourNextTurn | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:MayPlay:Mode$ Continuous | Affected$ Card.IsRemembered | MayPlay$ True | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+DeckHas:Ability$Discard

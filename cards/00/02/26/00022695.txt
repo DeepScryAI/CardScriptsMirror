@@ -1,0 +1,10 @@
+Id:22695
+ColorIdentity:W
+ManaCost:1 W
+Types:Creature Illusion
+PT:1/4
+T:Mode$ ChangesZone | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigReveal
+SVar:TrigReveal:DB$ Reveal | Random$ True | RevealValid$ Card.nonLand | RememberRevealed$ True | ValidTgts$ Opponent | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Remembered | staticAbilities$ PerpetualRaiseCost | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:PerpetualRaiseCost:Mode$ RaiseCost | ValidCard$ Card.Self | Type$ Spell | Amount$ 1 | EffectZone$ All
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

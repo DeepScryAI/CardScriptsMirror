@@ -1,0 +1,20 @@
+Id:20189
+ColorIdentity:B
+ManaCost:4 B B
+Types:Creature Beholder
+PT:6/6
+K:etbCounter:EYESTALK:10
+R:Event$ DamageDone | ActiveZones$ Battlefield | ValidTarget$ Card.Self | ReplaceWith$ Counters
+SVar:Counters:DB$ RemoveCounter | Defined$ ReplacedTarget | CounterType$ EYESTALK | CounterNum$ X | RememberRemoved$ True | SubAbility$ DBSac
+SVar:DBSac:DB$ Sacrifice | SacValid$ Self | ConditionCheckSVar$ Y | ConditionSVarCompare$ LTX | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:ReplaceCount$DamageAmount
+SVar:Y:Count$RememberedSize
+SVar:Z:Count$CardCounters.EYESTALK
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigDig
+SVar:TrigDig:DB$ DigUntil | Defined$ You | Amount$ 1 | Valid$ Card.Instant+cmcLEZ,Card.Sorcery+cmcLEZ,Card.Enchantment+cmcLEZ | NoMoveRevealed$ True | RememberFound$ True | SubAbility$ CascadeCast
+SVar:CascadeCast:DB$ Play | ValidSA$ Spell | Defined$ Remembered | WithoutManaCost$ True | Optional$ True | SubAbility$ Shuffle
+SVar:Shuffle:DB$ Shuffle | SubAbility$ DBCleanup
+SVar:HasAttackEffect:TRUE
+DeckHas:Ability$Counters
+DeckHints:Type$Instant | Sorcery | Enchantment

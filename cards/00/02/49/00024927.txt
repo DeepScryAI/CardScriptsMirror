@@ -1,0 +1,14 @@
+Id:24927
+ColorIdentity:BR
+ManaCost:1 B R
+Types:Legendary Creature Lizard Warlock
+PT:3/3
+K:Menace
+A:AB$ Mana | Cost$ T | Produced$ Combo Any | Amount$ 2 | RestrictValid$ Spell.Creature+Dragon
+S:Mode$ Continuous | Affected$ Creature.Dragon+YouOwn | Condition$ PlayerTurn | MayPlay$ True | MayPlayLimit$ 1 | EffectZone$ Battlefield | AffectedZone$ Graveyard
+T:Mode$ SpellCast | ValidCard$ Dragon.wasCastFromYourGraveyard | ValidActivatingPlayer$ You | Execute$ DBAnimate | TriggerZones$ Battlefield
+SVar:DBAnimate:DB$ Animate | Defined$ TriggeredCardLKICopy | Duration$ Permanent | Triggers$ TrigDieExile
+SVar:TrigDieExile:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Exile
+DeckHas:Ability$Graveyard
+DeckNeeds:Type$Dragon & Modifier$NoToken

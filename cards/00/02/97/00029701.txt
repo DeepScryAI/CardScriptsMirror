@@ -1,0 +1,11 @@
+Id:29701
+ColorIdentity:W
+ManaCost:2 W
+Types:Enchantment Saga
+K:Chapter:3:DBDraw,DBExile,DBCalamity
+SVar:DBDraw:DB$ Draw | ValidTgts$ Opponent | Defined$ TargetedAndYou | NumCards$ 2
+SVar:DBExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Artifact.OppCtrl
+SVar:DBCalamity:DB$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ ChooseThreePermanents | SubAbility$ DestroyAll
+SVar:ChooseThreePermanents:DB$ ChooseCard | Defined$ Remembered | Choices$ Permanent.nonLand+RememberedPlayerCtrl | Amount$ 3 | Mandatory$ True | RememberChosen$ True
+SVar:DestroyAll:DB$ DestroyAll | ValidCards$ Permanent.nonLand+!IsRemembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

@@ -1,0 +1,15 @@
+Id:18341
+ColorIdentity:U
+ManaCost:4 U U
+Types:Legendary Planeswalker Will
+Loyalty:4
+Text:CARDNAME can be your commander.
+K:Partner with:Rowan Kenrith:Rowan
+A:AB$ Animate | Cost$ AddCounter<2/LOYALTY> | Planeswalker$ True | Duration$ UntilYourNextTurn | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 2 | Power$ 0 | Toughness$ 3 | IsCurse$ True | RemoveAllAbilities$ True
+A:AB$ Draw | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | ValidTgts$ Player | NumCards$ 2 | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ WillReduceCost | RememberObjects$ Targeted | Duration$ UntilYourNextTurn
+SVar:WillReduceCost:Mode$ ReduceCost | ValidCard$ Instant,Sorcery,Planeswalker | Type$ Spell | Activator$ Player.IsRemembered | Amount$ 2
+A:AB$ Effect | Cost$ SubCounter<8/LOYALTY> | Planeswalker$ True | Ultimate$ True | ValidTgts$ Player | EffectOwner$ Targeted | Name$ Emblem — Will Kenrith | Image$ emblem_will_kenrith | Triggers$ CopySpell | Duration$ Permanent | AILogic$ Always
+SVar:CopySpell:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | Execute$ TrigCopy | TriggerZones$ Command
+SVar:TrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | MayChooseTarget$ True
+DeckHints:Name$Rowan Kenrith

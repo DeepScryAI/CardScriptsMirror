@@ -1,0 +1,12 @@
+Id:24406
+ColorIdentity:
+ManaCost:4
+Types:Artifact Book
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigInitiative
+SVar:TrigInitiative:DB$ TakeInitiative
+A:AB$ Mana | Cost$ T | Produced$ C | Amount$ X
+SVar:X:Count$Initiative.2.1
+A:AB$ DigUntil | Cost$ 3 T | Valid$ Card.nonLand | FoundDestination$ Exile | RevealedDestination$ Exile | RememberFound$ True | SubAbility$ DBPlay | CheckSVar$ Y | NoPutDesc$ True
+SVar:DBPlay:DB$ Play | Defined$ Remembered | DefinedDesc$ that card | ValidSA$ Spell | WithoutManaCost$ True | Optional$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:Y:DungeonsCompleted$Amount

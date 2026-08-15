@@ -1,0 +1,79 @@
+Id:24660
+ColorIdentity:B
+ManaCost:1 B
+Types:Legendary Creature Elf Cleric
+PT:2/3
+K:Specialize:2
+A:AB$ ChangeZone | Cost$ 1 | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card
+AlternateMode:Specialize
+
+SPECIALIZE:WHITE
+
+ManaCost:1 W B
+Types:Legendary Creature Elf Cleric
+PT:3/4
+T:Mode$ Specializes | ValidCard$ Card.Self | Execute$ TrigConjure
+SVar:TrigConjure:DB$ MakeCard | ValidTgts$ Creature.ExiledWithSource | TgtZone$ Exile | Conjure$ True | DefinedName$ Targeted | Zone$ Hand | RememberMade$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | Name$ Viconia, Disciple of Rebirth's Perpetual Effect | RememberObjects$ Remembered | StaticAbilities$ PerpetualAbility | Duration$ Permanent | SubAbility$ DBChangeZone
+SVar:PerpetualAbility:Mode$ Continuous | AddStaticAbility$ SpendAnyMana | Affected$ Card.IsRemembered | AffectedZone$ All
+SVar:SpendAnyMana:Mode$ ManaConvert | EffectZone$ Stack | ValidPlayer$ You | ValidCard$ Card.Self | ValidSA$ Spell | ManaConversion$ AnyType->AnyColor
+SVar:DBChangeZone:DB$ ChangeZone | Optional$ True | Origin$ Hand | Destination$ Battlefield | Defined$ Remembered | ConditionDefined$ Remembered | ConditionPresent$ Card.cmcLE3 | ConditionCompare$ GE1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+A:AB$ ChangeZone | Cost$ 1 | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card
+
+SPECIALIZE:BLUE
+
+ManaCost:1 U B
+Types:Legendary Creature Elf Cleric
+PT:3/4
+T:Mode$ Specializes | ValidCard$ Card.Self | Execute$ TrigTargetC
+SVar:TrigTargetC:DB$ Pump | ValidTgts$ Creature.ExiledWithSource | TgtZone$ Exile | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBConjure
+SVar:DBConjure:DB$ MakeCard | ValidTgts$ Instant.ExiledWithSource,Sorcery.ExiledWithSource | TgtZone$ Exile | TargetMin$ 0 | TargetMax$ 1 | Conjure$ True | DefinedName$ Targeted | Zone$ Hand | RememberMade$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | Name$ Viconia, Disciple of Arcana's Perpetual Effect | RememberObjects$ Remembered | StaticAbilities$ PerpetualAbility | Duration$ Permanent | SubAbility$ DBCleanup
+SVar:PerpetualAbility:Mode$ Continuous | AddStaticAbility$ SpendAnyMana | Affected$ Card.IsRemembered | AffectedZone$ All
+SVar:SpendAnyMana:Mode$ ManaConvert | EffectZone$ Stack | ValidPlayer$ You | ValidCard$ Card.Self | ValidSA$ Spell | ManaConversion$ AnyType->AnyColor
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+A:AB$ ChangeZone | Cost$ 1 | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card
+
+SPECIALIZE:BLACK
+
+ManaCost:1 B B
+Types:Legendary Creature Elf Cleric
+PT:3/4
+T:Mode$ Specializes | ValidCard$ Card.Self | Execute$ TrigConjure
+SVar:TrigConjure:DB$ MakeCard | ValidTgts$ Creature.ExiledWithSource | TgtZone$ Exile | Conjure$ True | DefinedName$ Targeted | Zone$ Hand | RememberMade$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | Name$ Viconia, Disciple of Blood's Perpetual Effect | RememberObjects$ Remembered | StaticAbilities$ PerpetualAbility | Duration$ Permanent | SubAbility$ DBCleanup
+SVar:PerpetualAbility:Mode$ Continuous | AddStaticAbility$ SpendAnyMana | AddTrigger$ ETB | Affected$ Card.IsRemembered | AffectedZone$ All
+SVar:SpendAnyMana:Mode$ ManaConvert | EffectZone$ Stack | ValidPlayer$ You | ValidCard$ Card.Self | ValidSA$ Spell | ManaConversion$ AnyType->AnyColor
+SVar:ETB:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ Opponent | LifeAmount$ 2 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ 2
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+A:AB$ ChangeZone | Cost$ 1 | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card
+DeckHas:Ability$LifeGain
+
+SPECIALIZE:RED
+
+ManaCost:1 B R
+Types:Legendary Creature Elf Cleric
+PT:3/4
+T:Mode$ Specializes | ValidCard$ Card.Self | Execute$ TrigConjure
+SVar:TrigConjure:DB$ MakeCard | ValidTgts$ Creature.ExiledWithSource | TgtZone$ Exile | Conjure$ True | DefinedName$ Targeted | Zone$ Hand | RememberMade$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | Name$ Viconia, Disciple of Violence's Perpetual Effect | RememberObjects$ Remembered | StaticAbilities$ PerpetualAbility | Duration$ Permanent | SubAbility$ DBCleanup
+SVar:PerpetualAbility:Mode$ Continuous | AddPower$ 1 | AddKeyword$ Haste | AddStaticAbility$ SpendAnyMana | Affected$ Card.IsRemembered | AffectedZone$ All
+SVar:SpendAnyMana:Mode$ ManaConvert | EffectZone$ Stack | ValidPlayer$ You | ValidCard$ Card.Self | ValidSA$ Spell | ManaConversion$ AnyType->AnyColor
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+A:AB$ ChangeZone | Cost$ 1 | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card
+
+SPECIALIZE:GREEN
+
+ManaCost:1 B G
+Types:Legendary Creature Elf Cleric
+PT:3/4
+T:Mode$ Specializes | ValidCard$ Card.Self | Execute$ TrigConjure
+SVar:TrigConjure:DB$ MakeCard | ValidTgts$ Creature.ExiledWithSource | TgtZone$ Exile | Conjure$ True | DefinedName$ Targeted | Zone$ Hand | RememberMade$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | Name$ Viconia, Disciple of Strength's Perpetual Effect | RememberObjects$ Remembered | StaticAbilities$ PerpetualAbility | Duration$ Permanent | SubAbility$ DBCleanup
+SVar:PerpetualAbility:Mode$ Continuous | AddPower$ 2 | AddToughness$ 2 | AddStaticAbility$ SpendAnyMana | Affected$ Card.IsRemembered | AffectedZone$ All
+SVar:SpendAnyMana:Mode$ ManaConvert | EffectZone$ Stack | ValidPlayer$ You | ValidCard$ Card.Self | ValidSA$ Spell | ManaConversion$ AnyType->AnyColor
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+A:AB$ ChangeZone | Cost$ 1 | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card

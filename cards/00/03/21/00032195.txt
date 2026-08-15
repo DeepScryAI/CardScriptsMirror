@@ -1,0 +1,13 @@
+Id:32195
+ColorIdentity:B
+ManaCost:4 B
+Types:Creature Horror
+PT:4/5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.Other+YouCtrl | NumAtt$ +2 | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Triggers$ PerigeeBeckonerChangeZone | Defined$ ParentTarget
+SVar:PerigeeBeckonerChangeZone:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ PerigeeBeckonerTrigChangeZone | TriggerController$ TriggeredCardController
+SVar:PerigeeBeckonerTrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | Tapped$ True | Defined$ TriggeredNewCardLKICopy
+K:Warp:1 B
+SVar:PlayMain1:TRUE
+DeckHas:Ability$Counters

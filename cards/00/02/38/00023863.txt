@@ -1,0 +1,12 @@
+Id:23863
+ColorIdentity:UB
+ManaCost:U B
+Types:Creature Bird Assassin
+PT:1/1
+K:Flying
+S:Mode$ Continuous | Affected$ Card.Self | AddPower$ 2 | AddToughness$ 2 | AddKeyword$ Deathtouch | CheckSVar$ X | SVarCompare$ GE5
+SVar:X:Count$ValidGraveyard Card.YouOwn$DifferentCardManaCost
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigMill
+SVar:TrigMill:DB$ Mill | NumCards$ 2 | Defined$ You | SubAbility$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You
+DeckHas:Ability$Graveyard | Mill

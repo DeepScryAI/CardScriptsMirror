@@ -1,0 +1,27 @@
+Id:31795
+ColorIdentity:UBR
+ManaCost:2 U B R
+Types:Legendary Creature Human Wizard
+PT:4/5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDiscard
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDiscard | TriggerZones$ Battlefield | Secondary$ True
+SVar:TrigDiscard:DB$ Discard | Defined$ Player | NumCards$ 1 | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+A:AB$ Sacrifice | Cost$ 8 | SacValid$ Permanent | Defined$ Player.Opponent | SorcerySpeed$ True | SubAbility$ DBTransform
+SVar:DBTransform:DB$ SetState | Defined$ Self | Mode$ Transform
+SVar:X:Remembered$CardTypes
+AlternateMode:DoubleFaced
+SVar:HasAttackEffect:TRUE
+DeckHas:Ability$Discard | Sacrifice
+
+ALTERNATE
+
+ManaCost:no cost
+Colors:blue,black,red
+Types:Legendary Creature Avatar Wizard
+PT:5/7
+K:Flying
+T:Mode$ LifeLost | ValidPlayer$ Opponent | PlayerTurn$ True | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | NumCards$ Y
+SVar:Y:TriggerCount$LifeAmount

@@ -1,0 +1,13 @@
+Id:32504
+ColorIdentity:U
+Variant:UniversesWithin:FlavorName:Lost in Littjara
+ManaCost:3 U
+Types:Enchantment Saga
+K:Chapter:3:DBSurveil,DBCopyEffect,DBDrawEffect
+SVar:DBSurveil:DB$ Surveil | Amount$ 3
+SVar:DBCopyEffect:DB$ DelayedTrigger | Mode$ SpellCast | ValidCard$ Creature | ValidActivatingPlayer$ You | ThisTurn$ True | Execute$ EffTrigCopy
+SVar:EffTrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | NonLegendary$ True
+SVar:DBDrawEffect:DB$ NameCard | Defined$ You | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | Triggers$ TrigDamage
+SVar:TrigDamage:Mode$ DamageDone | ValidSource$ Creature.NamedCard | ValidTarget$ Player | Execute$ TrigDraw | CombatDamage$ True
+SVar:TrigDraw:DB$ Draw

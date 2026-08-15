@@ -1,0 +1,11 @@
+Id:6134
+ColorIdentity:
+ManaCost:no cost
+Types:Vanguard
+HandLifeModifier:+0/-3
+A:AB$ Effect | ActivationZone$ Command | Cost$ PayLife<1> | TgtZone$ Graveyard | ValidTgts$ Creature.YouOwn | PumpZone$ Graveyard | RememberObjects$ Targeted | StaticAbilities$ Play | ExileOnMoved$ Graveyard
+SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Graveyard
+T:Mode$ SpellCast | ValidCard$ Creature.wasCastFromYourGraveyard | ValidActivatingPlayer$ You | TriggerZones$ Command | Execute$ TrigAnimate
+SVar:TrigAnimate:DB$ Animate | Defined$ TriggeredCard | Types$ Zombie,Knight | Colors$ Black | OverwriteColors$ True | Duration$ Permanent | RemoveCreatureTypes$ True
+R:Event$ Moved | ValidCard$ Card.Zombie+Knight | Destination$ Graveyard | ReplaceWith$ DBExile
+SVar:DBExile:DB$ ChangeZone | Defined$ ReplacedCard | Origin$ Battlefield | Destination$ Exile

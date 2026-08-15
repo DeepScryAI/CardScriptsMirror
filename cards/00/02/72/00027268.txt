@@ -1,0 +1,13 @@
+Id:27268
+ColorIdentity:U
+ManaCost:4 U U
+Types:Creature Illusion
+PT:6/6
+K:ETBReplacement:Other:ChooseCT
+SVar:ChooseCT:DB$ ChooseType | Type$ Creature | AILogic$ MostProminentInComputerDeck
+S:Mode$ Continuous | Affected$ Card.Self | AddType$ ChosenType
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDraw | Secondary$ True
+SVar:TrigDraw:AB$ Discard | Cost$ Draw<X/You> | Defined$ You | NumCards$ 1 | Mode$ TgtChoose
+SVar:X:Count$Valid Creature.YouCtrl+Other+sharesCreatureTypeWith
+SVar:HasAttackEffect:TRUE

@@ -1,0 +1,12 @@
+Id:31957
+ColorIdentity:W
+ManaCost:3 W
+Types:Creature Human Artificer
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | IsPresent$ Equipment.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigImmediateTrigger
+SVar:TrigImmediateTrigger:AB$ ImmediateTrigger | Cost$ 1 | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | ValidTgts$ Equipment.YouCtrl | SubAbility$ DBAttach
+SVar:DBAttach:DB$ Attach | Object$ ParentTarget | ValidTgts$ Creature.YouCtrl
+DeckHints:Type$Equipment

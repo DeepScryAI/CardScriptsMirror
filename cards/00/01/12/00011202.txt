@@ -1,0 +1,12 @@
+Id:11202
+ColorIdentity:B
+ManaCost:3 B B B
+Types:Creature Demon
+PT:6/6
+K:Flying
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigSacrifice | TriggerZones$ Battlefield
+SVar:TrigSacrifice:DB$ SacrificeAll | ValidCards$ Permanent.YouCtrl+StrictlyOther | SubAbility$ DBDiscardHand
+SVar:DBDiscardHand:DB$ Discard | Mode$ Hand | Defined$ You | SubAbility$ DBExileSix
+SVar:DBExileSix:DB$ Dig | DestinationZone$ Exile | RememberChanged$ True | DigNum$ 6 | ChangeNum$ All | SubAbility$ DBPlayThem
+SVar:DBPlayThem:DB$ Play | Valid$ Card.IsRemembered+nonLand | ValidZone$ Exile | ValidSA$ Spell | Controller$ You | WithoutManaCost$ True | Amount$ All | Optional$ True | SubAbility$ DBHellCleanup
+SVar:DBHellCleanup:DB$ Cleanup | ClearRemembered$ True

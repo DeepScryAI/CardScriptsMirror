@@ -1,0 +1,12 @@
+Id:13014
+ColorIdentity:B
+ManaCost:2 B B
+Types:Creature Demon
+PT:6/6
+K:Flying
+T:Mode$ Phase | Phase$ BeginCombat | TriggerZones$ Battlefield | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice | Defined$ Opponent | Amount$ 1 | SacValid$ Creature | RememberSacrificed$ True | Optional$ True | AILogic$ DesecrationDemon | SubAbility$ DBSacSelf
+SVar:DBSacSelf:DB$ Tap | Defined$ Self | ConditionCheckSVar$ X | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | ConditionCheckSVar$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Amount

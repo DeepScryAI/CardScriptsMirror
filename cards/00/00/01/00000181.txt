@@ -1,0 +1,12 @@
+Id:181
+ColorIdentity:W
+ManaCost:3 W W W
+Types:Creature Avatar Incarnation
+PT:6/6
+A:AB$ Effect | Cost$ 0 | Activator$ Player.Owner | Name$ Personal Incarnation Redirection | ReplacementEffects$ RedirectDamage | Duration$ UntilHostLeavesPlayOrEOT | EffectOwner$ CardOwner
+SVar:RedirectDamage:Event$ DamageDone | ValidTarget$ Creature.EffectSource | ReplaceWith$ RedirectDmg | DamageTarget$ You
+SVar:RedirectDmg:DB$ ReplaceSplitDamage | DamageTarget$ You
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ TriggeredCardOwner | LifeAmount$ HavocX
+SVar:HavocX:PlayerCountDefinedTriggeredCardOwner$LifeTotal/HalfUp
+AI:RemoveDeck:All

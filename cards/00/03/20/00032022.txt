@@ -1,0 +1,13 @@
+Id:32022
+ColorIdentity:G
+ManaCost:3 G
+Types:Creature Beast
+PT:10/10
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ ETBTapped | ReplacementResult$ Updated
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True | SubAbility$ DBAddCounter
+SVar:DBAddCounter:DB$ PutCounter | Defined$ Self | ETB$ True | CounterType$ STUN | CounterNum$ 6
+T:Mode$ Sacrificed | ValidCard$ Land | Execute$ TrigToken | TriggerZones$ Battlefield | ValidPlayer$ You
+SVar:TrigToken:DB$ Token | TokenScript$ g_4_4_beast | TokenTapped$ True | SubAbility$ DBUntap | TokenOwner$ You
+SVar:DBUntap:DB$ Untap
+A:AB$ GainLife | Cost$ 4 Sac<1/Land> | Defined$ You | LifeAmount$ 2
+DeckHas:Ability$Counters | Token | LifeGain

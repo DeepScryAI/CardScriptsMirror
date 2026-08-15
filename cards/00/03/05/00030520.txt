@@ -1,0 +1,12 @@
+Id:30520
+ColorIdentity:W
+ManaCost:1 W W
+Types:Artifact Vehicle
+PT:2/2
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Creature.toughnessLE5 | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigDread
+SVar:TrigDread:DB$ ManifestDread | DefinedPlayer$ RememberedOwner | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+K:Crew:1

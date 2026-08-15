@@ -1,0 +1,15 @@
+Id:11449
+ColorIdentity:B
+ManaCost:2 B B
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Curse
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddTrigger$ NecroticPlagueTrig | AddSVar$ NecroticPlagueSac
+SVar:NecroticPlagueTrig:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ NecroticPlagueSac
+SVar:NecroticPlagueSac:DB$ Sacrifice | SacValid$ Self
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.EnchantedBy | Execute$ TrigChoose
+SVar:TrigChoose:DB$ Pump | ValidTgts$ Creature | TargetsWithDefinedController$ TriggeredCardOpponent | IsCurse$ True | TargetingPlayer$ TriggeredCardController | SubAbility$ DBChange
+SVar:DBChange:DB$ ChangeZone | Defined$ Self | Origin$ Graveyard | Destination$ Battlefield | AttachedTo$ ParentTarget
+SVar:NeedsToPlayVar:Z GE3
+SVar:Z:Count$Valid Creature.OppCtrl
+AI:RemoveDeck:Random

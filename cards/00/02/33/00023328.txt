@@ -1,0 +1,15 @@
+Id:23328
+ColorIdentity:
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+K:ETBReplacement:Other:ChooseColor
+SVar:ChooseColor:DB$ ChooseColor | Defined$ You
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigBranch
+SVar:TrigBranch:DB$ Branch | BranchConditionSVar$ X | BranchConditionSVarCompare$ EQ0 | TrueSubAbility$ DBGenericChoice | FalseSubAbility$ DBScry
+SVar:DBGenericChoice:DB$ GenericChoice | Choices$ DBScry,DBUntap
+SVar:DBScry:DB$ Scry | ScryNum$ 1
+SVar:DBUntap:DB$ Untap | Defined$ Self
+SVar:X:Count$StartingPlayer.1.0
+A:AB$ Mana | Cost$ T | Produced$ Chosen

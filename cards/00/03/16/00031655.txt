@@ -1,0 +1,12 @@
+Id:31655
+ColorIdentity:WUG
+ManaCost:G W U
+Types:Legendary Creature Human Warrior
+PT:3/3
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigMoveCounter
+SVar:TrigMoveCounter:DB$ MoveCounter | ValidTgts$ Creature.YouCtrl | TargetMin$ 2 | TargetMax$ 2 | CounterType$ Any
+T:Mode$ DamageDoneOnce | CombatDamage$ True | ValidSource$ Creature.YouCtrl+HasCounters | TriggerZones$ Battlefield | ValidTarget$ Player | ResolvedLimit$ 1 | OptionalDecider$ You | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | SubAbility$ DBProliferate
+SVar:DBProliferate:DB$ Proliferate
+DeckHas:Ability$Proliferate
+DeckHints:Ability$Counters

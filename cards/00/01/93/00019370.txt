@@ -1,0 +1,11 @@
+Id:19370
+ColorIdentity:R
+ManaCost:2 R
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGainLife
+T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigGainLife:DB$ GainLife | Defined$ Player.Opponent | LifeAmount$ 10
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ VERSE | CounterNum$ 1 | SubAbility$ DBDealDamage
+SVar:DBDealDamage:DB$ DealDamage | ValidTgts$ Player,Planeswalker | NumDmg$ X
+SVar:X:Count$CardCounters.VERSE
+SVar:BuffedBy:Instant,Sorcery

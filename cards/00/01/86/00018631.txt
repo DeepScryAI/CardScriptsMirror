@@ -1,0 +1,11 @@
+Id:18631
+ColorIdentity:BG
+ManaCost:2 B G
+Types:Legendary Planeswalker Vraska
+Loyalty:4
+A:AB$ GainLife | Cost$ AddCounter<2/LOYALTY> | Planeswalker$ True | LifeAmount$ 1 | UnlessCost$ Sac<1/Permanent.Other> | UnlessSwitched$ True | UnlessPayer$ You | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | ConditionDefined$ Sacrificed | ConditionPresent$ Card | ConditionCompare$ GE1
+A:AB$ Destroy | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | ValidTgts$ Permanent.nonLand+cmcLE3
+A:AB$ Effect | Cost$ SubCounter<9/LOYALTY> | Planeswalker$ True | Ultimate$ True | Stackable$ False | Name$ Emblem — Vraska, Golgari Queen | Image$ emblem_vraska_golgari_queen | Triggers$ TrigDamage | Duration$ Permanent | AILogic$ Always
+SVar:TrigDamage:Mode$ DamageDone | ValidSource$ Creature.YouCtrl | ValidTarget$ Player | CombatDamage$ True | Execute$ LoseGame | TriggerZones$ Command
+SVar:LoseGame:DB$ LosesGame | Defined$ TriggeredTarget

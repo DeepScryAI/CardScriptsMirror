@@ -1,0 +1,12 @@
+Id:22390
+ColorIdentity:B
+ManaCost:5 B B
+Types:Legendary Creature Devil
+PT:6/6
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Graveyard | ValidCard$ Creature.!token+OppOwn | TriggerZones$ Battlefield | Execute$ TrigReanimate
+SVar:TrigReanimate:AB$ ChangeZone | Cost$ PayLife<X> | Defined$ TriggeredCard | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True | ChangeNum$ 1 | StaticEffect$ Animate
+SVar:Animate:Mode$ Continuous | Affected$ Card.IsRemembered | AddType$ Warlock
+SVar:X:TriggeredCard$CardManaCost
+R:Event$ Moved | ActiveZones$ Battlefield | Origin$ Battlefield | Destination$ Graveyard | ValidLKI$ Warlock.YouCtrl | ReplaceWith$ Exile
+SVar:Exile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | Defined$ ReplacedCard

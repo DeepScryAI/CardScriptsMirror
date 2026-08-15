@@ -1,0 +1,14 @@
+Id:25494
+ColorIdentity:WU
+ManaCost:2 W U
+Types:Legendary Planeswalker Jace
+Loyalty:3
+K:Space sculptor
+A:AB$ Effect | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | StaticAbilities$ SectorBlock
+SVar:SectorBlock:Mode$ CantBlockBy | ValidAttacker$ Creature | ValidBlockerRelative$ Creature.DifferentSector
+A:AB$ ChooseSector | Cost$ SubCounter<1/LOYALTY> | Planeswalker$ True | SubAbility$ DBPutCounterAll | AILogic$ Pump
+SVar:DBPutCounterAll:DB$ PutCounterAll | ValidCards$ Creature.ChosenSector | CounterType$ P1P1
+A:AB$ ChooseSector | Cost$ SubCounter<5/LOYALTY> | Planeswalker$ True | Ultimate$ True | SubAbility$ DBDestroyAll | AILogic$ Destroy
+SVar:DBDestroyAll:DB$ DestroyAll | ValidCards$ Creature.ChosenSector
+AI:RemoveDeck:All
+DeckHas:Ability$Counters

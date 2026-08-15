@@ -1,0 +1,11 @@
+Id:34336
+ColorIdentity:B
+ManaCost:1 B
+Types:Enchantment Plan
+A:AB$ Mill | Cost$ tapXType<1/Villain> | NumCards$ 1 | SorcerySpeed$ True | SubAbility$ DBCounter
+SVar:DBCounter:DB$ PutCounter | Defined$ Self | CounterType$ PLAN | CounterNum$ 1
+T:Mode$ CounterAdded | ValidCard$ Card.Self | TriggerZones$ Battlefield | CounterType$ PLAN | CounterAmount$ EQ4 | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice | Defined$ Self | RememberSacrificed$ True | SubAbility$ DBImmediateTrigger
+SVar:DBImmediateTrigger:DB$ ImmediateTrigger | ConditionDefined$ Remembered | ConditionPresent$ Card | Execute$ TrigReturn | SubAbility$ DBCleanup
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouOwn
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

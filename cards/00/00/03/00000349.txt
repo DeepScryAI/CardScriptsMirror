@@ -1,0 +1,10 @@
+Id:349
+ColorIdentity:G
+ManaCost:G
+Types:Creature Snake
+PT:1/1
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ NafsEffect | TriggerZones$ Battlefield
+SVar:NafsEffect:DB$ Effect | RememberObjects$ TriggeredTarget | Duration$ Permanent | Triggers$ DrawTrig | Abilities$ PayUp
+SVar:DrawTrig:Mode$ Phase | Phase$ Draw | ValidPlayer$ Player.IsRemembered | TriggerZones$ Command | OneOff$ True | Execute$ Bleed
+SVar:Bleed:DB$ LoseLife | Defined$ Player.IsRemembered | LifeAmount$ 1
+SVar:PayUp:ST$ ChangeZone | Cost$ 1 | Defined$ Self | Origin$ Command | Destination$ Exile | ActivationZone$ Command | Activator$ Player.IsRemembered | AILogic$ Always

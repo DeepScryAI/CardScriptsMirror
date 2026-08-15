@@ -1,0 +1,10 @@
+Id:10880
+ColorIdentity:R
+ManaCost:1 R R R
+Types:Creature Elemental
+PT:4/4
+A:AB$ PutCounter | Cost$ 1 R R | IsCurse$ True | ValidTgts$ Land.counters_EQ0_BLAZE | CounterType$ BLAZE | CounterNum$ 1 | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ Targeted | StaticAbilities$ ObsidianStatic | ForgetOnMoved$ Battlefield | ForgetCounter$ BLAZE | Duration$ Permanent
+SVar:ObsidianStatic:Mode$ Continuous | Affected$ Card.IsRemembered | AddTrigger$ ObsidianBlazeTrig
+SVar:ObsidianBlazeTrig:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ ObsidianBlazeDmg
+SVar:ObsidianBlazeDmg:DB$ DealDamage | Defined$ You | NumDmg$ 1

@@ -1,0 +1,12 @@
+Id:14036
+ColorIdentity:UG
+ManaCost:2 G U
+Types:Legendary Planeswalker Kiora
+Loyalty:2
+A:AB$ Pump | Cost$ AddCounter<1/LOYALTY> | ValidTgts$ Permanent.OppCtrl | Planeswalker$ True | KW$ Prevent all damage that would be dealt to and dealt by CARDNAME. | IsCurse$ True | Duration$ UntilYourNextTurn
+A:AB$ Draw | Cost$ SubCounter<1/LOYALTY> | Planeswalker$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | Name$ Kiora, the Crashing Wave's Effect — Exploration | StaticAbilities$ Exploration
+SVar:Exploration:Mode$ Continuous | Affected$ You | AdjustLandPlays$ 1
+A:AB$ Effect | Cost$ SubCounter<5/LOYALTY> | Planeswalker$ True | Ultimate$ True | Name$ Emblem — Kiora, the Crashing Wave | Triggers$ EOTTrig | Duration$ Permanent | AILogic$ Always
+SVar:EOTTrig:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Command | Execute$ KioraToken
+SVar:KioraToken:DB$ Token | TokenScript$ u_9_9_kraken | TokenOwner$ You

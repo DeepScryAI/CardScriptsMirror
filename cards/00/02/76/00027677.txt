@@ -1,0 +1,17 @@
+Id:27677
+ColorIdentity:
+ManaCost:no cost
+Types:Plane Skaro
+T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigLoseLife | TriggerZones$ Command
+SVar:TrigLoseLife:DB$ LoseLife | LifeAmount$ X | ValidTgts$ Opponent
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ TrigRepeat
+SVar:TrigRepeat:DB$ RepeatEach | RepeatPlayers$ Player.Opponent | RepeatSubAbility$ DBToken | ChangeZoneTable$ True | SubAbility$ DBSac
+SVar:DBToken:DB$ Token | TokenScript$ b_3_3_a_dalek_menace | RememberTokens$ True | ImprintTokens$ True | PumpKeywords$ Haste | SubAbility$ DBEff
+SVar:DBEff:DB$ Effect | RememberObjects$ Remembered | ExileOnMoved$ Battlefield | StaticAbilities$ MustAttack | SubAbility$ DBCleanup
+SVar:MustAttack:Mode$ MustAttack | ValidCreature$ Card.IsRemembered | MustAttack$ RememberedPlayer
+SVar:DBSac:DB$ Pump | Defined$ Imprinted | AtEOT$ Sacrifice | SubAbility$ DBCleanup2
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:DBCleanup2:DB$ Cleanup | ClearImprinted$ True
+SVar:X:Count$Valid Artifact.YouCtrl
+DeckHas:Ability$Token | Sacrifice & Type$Artifact | Dalek
+DeckNeeds:Type$Artifact

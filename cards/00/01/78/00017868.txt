@@ -1,0 +1,10 @@
+Id:17868
+ColorIdentity:R
+ManaCost:4 R R
+Types:Enchantment
+T:Mode$ ChangesZone | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigLife
+SVar:TrigLife:DB$ SetLife | Defined$ You | LifeAmount$ 15
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Creature.OppCtrl | NumDmg$ 15 | SubAbility$ DBDealDamage
+SVar:DBDealDamage:DB$ DealDamage | Defined$ You | DamageSource$ Targeted | NumDmg$ X
+SVar:X:Targeted$CardPower

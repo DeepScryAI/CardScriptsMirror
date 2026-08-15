@@ -1,0 +1,11 @@
+Id:19160
+ColorIdentity:
+ManaCost:4
+Types:Legendary Planeswalker Karn
+Loyalty:5
+S:Mode$ CantBeActivated | AffectedZone$ Battlefield | ValidCard$ Artifact.OppCtrl | ValidSA$ Activated
+SVar:NonStackingEffect:True
+A:AB$ Animate | Cost$ AddCounter<1/LOYALTY> | TargetMin$ 0 | TargetMax$ 1 | Planeswalker$ True | ValidTgts$ Artifact.nonCreature | Power$ X | Toughness$ X | Types$ Artifact,Creature | Duration$ UntilYourNextTurn | AILogic$ PTByCMC
+SVar:X:Targeted$CardManaCost
+A:AB$ ChangeZone | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | Origin$ Sideboard,Exile | Destination$ Hand | ChangeType$ Artifact.YouOwn | ChangeTypeDesc$ artifact they own | ChangeNum$ 1 | Hidden$ True | Reveal$ True | AILogic$ AnyMainPhase
+AI:RemoveDeck:Random

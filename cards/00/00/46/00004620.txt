@@ -1,0 +1,9 @@
+Id:4620
+ColorIdentity:BR
+ManaCost:4 B R
+Types:Instant
+A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouCtrl | ActivationPhases$ BeginCombat->EndCombat | RememberChanged$ True | AILogic$ SurpriseBlock | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Keywords$ Haste | Duration$ Permanent | Defined$ Remembered | SubAbility$ DBChangeZone | AtEOT$ Hand
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | Optional$ You | ChangeType$ Creature | ChangeNum$ 1 | RememberChanged$ True | ForgetOtherRemembered$ True | SubAbility$ DBAnimate2
+SVar:DBAnimate2:DB$ Animate | Keywords$ Haste | Duration$ Permanent | Defined$ Remembered | SubAbility$ DBCleanup | AtEOT$ SacrificeCtrl
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

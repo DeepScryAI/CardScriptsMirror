@@ -1,0 +1,19 @@
+Id:8297
+ColorIdentity:UBG
+ManaCost:3 B G
+Types:Instant
+A:SP$ Sacrifice | SacValid$ Creature | RememberSacrificed$ True | SubAbility$ DBReturnChoose
+SVar:DBReturnChoose:DB$ ChooseCard | Defined$ You | Choices$ Card.YouOwn | ChoiceZone$ Graveyard | Amount$ X | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | Defined$ ChosenCard | SubAbility$ ExileSelf
+SVar:ExileSelf:DB$ ChangeZone | Origin$ Stack | Destination$ Exile | Defined$ Self | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:RememberedLKI$CardNumColors
+AlternateMode:Split
+
+ALTERNATE
+
+ManaCost:G U
+Types:Instant
+A:SP$ Effect | ReplacementEffects$ CantBeCountered | SubAbility$ DBDraw
+SVar:CantBeCountered:Event$ Counter | ValidSA$ Spell.YouCtrl | Layer$ CantHappen
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1

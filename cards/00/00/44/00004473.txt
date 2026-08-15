@@ -1,0 +1,10 @@
+Id:4473
+ColorIdentity:R
+ManaCost:3 R
+Types:Creature Efreet
+PT:5/2
+T:Mode$ Blocks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ DelayTrig
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ DelayTrig | Secondary$ True
+SVar:DelayTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ EndCombat | Execute$ TrigFlip
+SVar:TrigFlip:DB$ FlipCoin | LoseSubAbility$ DBGiveControl
+SVar:DBGiveControl:DB$ GainControl | Defined$ CorrectedSelf | NewController$ Opponent

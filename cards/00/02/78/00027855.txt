@@ -1,0 +1,13 @@
+Id:27855
+ColorIdentity:W
+ManaCost:2 W
+Types:Sorcery
+A:SP$ Draw | NumCards$ 2 | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | ChangeType$ Card.nonLand | WithCountersType$ TIME | WithCountersAmount$ X | RememberChanged$ True | SubAbility$ OppDraw
+SVar:OppDraw:DB$ Draw | NumCards$ 2 | ValidTgts$ Opponent | SubAbility$ OppExile
+SVar:OppExile:DB$ ChangeZone | DefinedPlayer$ Targeted | Origin$ Hand | Destination$ Exile | Chooser$ Targeted | Hidden$ True | WithCountersType$ TIME | WithCountersAmount$ Y | ChangeType$ Card.nonLand | Imprint$ True | SubAbility$ GiveSuspend
+SVar:GiveSuspend:DB$ PumpAll | ValidCards$ Card.IsRemembered+withoutSuspend,Card.IsImprinted+withoutSuspend | KW$ Suspend | PumpZone$ Exile | Duration$ Permanent | SubAbility$ DBTimeTravel
+SVar:DBTimeTravel:DB$ TimeTravel | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True
+SVar:X:Remembered$CardManaCost
+SVar:Y:Imprinted$CardManaCost

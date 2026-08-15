@@ -1,0 +1,10 @@
+Id:17451
+ColorIdentity:R
+ManaCost:5 R
+Types:Enchantment
+T:Mode$ SpellCast | ValidCard$ Card.wasCastFromYourHand | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDig
+SVar:TrigDig:DB$ PeekAndReveal | Defined$ You | PeekAmount$ X | RememberRevealed$ True | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | ValidZone$ Library | Valid$ Card.nonLand+IsRemembered | ValidSA$ Spell.cmcLEX | WithoutManaCost$ True | Optional$ True | Amount$ 1 | ShowCards$ Card.IsRemembered | ForgetPlayed$ True | SubAbility$ DBRestRandomOrder
+SVar:DBRestRandomOrder:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered | Origin$ Library | Destination$ Library | LibraryPosition$ -1 | RandomOrder$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:TriggeredSpellAbility$CardManaCostLKI

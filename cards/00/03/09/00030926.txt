@@ -1,0 +1,11 @@
+Id:30926
+ColorIdentity:BR
+ManaCost:2 B R
+Types:Legendary Creature Human Mercenary
+PT:4/5
+K:Start your engines
+T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigDamage | TriggerZones$ Battlefield
+SVar:TrigDamage:DB$ DealDamage | NumDmg$ 1 | Defined$ Opponent
+S:Mode$ Continuous | Affected$ Card.Self | Condition$ MaxSpeed | AddReplacementEffect$ DamageRep
+SVar:DamageRep:Event$ DamageDone | MaxSpeed$ True | ActiveZones$ Battlefield | ValidSource$ Card.YouCtrl,Emblem.YouCtrl | ValidTarget$ Player.Opponent,Permanent.OppCtrl | ReplaceWith$ DmgPlus | Secondary$ True
+SVar:DmgPlus:DB$ ReplaceEffect | VarName$ DamageAmount | VarValue$ ReplaceCount$DamageAmount/Plus.1

@@ -1,0 +1,13 @@
+Id:22991
+ColorIdentity:BR
+ManaCost:B R
+Types:Creature Vampire Noble
+PT:2/2
+K:Menace
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | CheckSVar$ X | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounterAll | ValidCards$ Vampire.YouCtrl+StrictlyOther | CounterType$ P1P1 | CounterNum$ 1
+K:ETBReplacement:Other:AddExtraCounter:Mandatory:Battlefield:Vampire.YouCtrl+Other
+SVar:AddExtraCounter:DB$ PutCounter | ETB$ True | Defined$ ReplacedCard | CounterType$ P1P1 | CounterNum$ 1 | ConditionCheckSVar$ X
+SVar:X:Count$LifeOppsLostThisTurn
+DeckHas:Ability$Counters
+DeckNeeds:Type$Vampire

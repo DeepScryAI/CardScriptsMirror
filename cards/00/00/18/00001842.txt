@@ -1,0 +1,9 @@
+Id:1842
+ColorIdentity:R
+ManaCost:1 R
+Types:Instant
+A:SP$ RevealHand | RememberRevealed$ True | ValidTgts$ Player | SubAbility$ DBRepeatDiscard
+SVar:DBRepeatDiscard:DB$ RepeatEach | UseImprinted$ True | RepeatCards$ Card.IsRemembered+Instant+Blue | Zone$ Hand | RepeatSubAbility$ DBDiscard | SubAbility$ DBCleanup
+SVar:DBDiscard:DB$ Discard | DefinedCards$ Imprinted | Mode$ Defined | UnlessCost$ PayLife<4> | UnlessPayer$ Targeted
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+AI:RemoveDeck:Random

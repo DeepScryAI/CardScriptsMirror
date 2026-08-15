@@ -1,0 +1,13 @@
+Id:31682
+ColorIdentity:G
+ManaCost:5 G G G
+Types:Creature Turtle
+PT:8/20
+K:Vigilance
+K:Ward:3
+S:Mode$ NoCleanupDamage | ValidCard$ Card.Self
+R:Event$ DamageDone | ActiveZones$ Battlefield | ValidTarget$ You,Permanent.Other+YouCtrl | DamageTarget$ Self | ReplaceWith$ DmgMe
+SVar:DmgMe:DB$ ReplaceEffect | VarName$ Affected | VarValue$ Self | VarType$ Card
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Exile | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScript$ c_a_treasure_sac | TokenAmount$ 10 | TokenTapped$ True

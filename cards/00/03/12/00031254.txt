@@ -1,0 +1,14 @@
+Id:31254
+ColorIdentity:UR
+ManaCost:1 U R
+Types:Enchantment
+K:ETBReplacement:Other:SiegeChoice
+SVar:SiegeChoice:DB$ GenericChoice | Choices$ Jeskai,Temur | Defined$ You | SetChosenMode$ True | ShowChoice$ ExceptSelf
+SVar:Jeskai:DB$ Pump
+SVar:Temur:DB$ Pump
+S:Mode$ Continuous | Affected$ Card.Self+ChosenModeJeskai | AddTrigger$ JeskaiTrigger
+SVar:JeskaiTrigger:Mode$ DamageDoneOnce | CombatDamage$ True | ValidSource$ Creature.YouCtrl | TriggerZones$ Battlefield | ValidTarget$ Player | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw
+S:Mode$ Continuous | Affected$ Card.Self+ChosenModeTemur | AddStaticAbility$ TemurStatic
+SVar:TemurStatic:Mode$ Continuous | Affected$ Creature.YouCtrl | AddPower$ 1 | AddKeyword$ Trample & Haste
+SVar:PlayMain1:TRUE

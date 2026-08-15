@@ -1,0 +1,12 @@
+Id:28861
+ColorIdentity:
+ManaCost:2
+Types:Artifact Creature Robot Soldier
+PT:1/1
+T:Mode$ SpellCast | ValidCard$ Aura,Equipment | ValidActivatingPlayer$ You | Execute$ TrigPutCounter | TriggerZones$ Battlefield
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterNum$ 1 | CounterType$ P1P1
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ X | TokenScript$ c_a_junk_sac_exileplay | TokenOwner$ TriggeredCardController
+SVar:X:TriggeredCard$CardCounters.P1P1
+DeckHas:Ability$Counters | Token & Type$Junk | Artifact
+DeckNeeds:Type$Aura | Equipment

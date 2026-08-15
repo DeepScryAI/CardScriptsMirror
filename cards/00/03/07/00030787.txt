@@ -1,0 +1,11 @@
+Id:30787
+ColorIdentity:R
+ManaCost:2 R
+Types:Legendary Creature Jackal Warrior
+PT:4/2
+K:Trample
+S:Mode$ OptionalAttackCost | ValidCard$ Card.Self | Trigger$ TrigExile | Cost$ Exert<1/CARDNAME>
+SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ 2 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ STPlay | SubAbility$ DBCleanup | ForgetOnMoved$ Exile | Duration$ UntilTheEndOfYourNextTurn
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

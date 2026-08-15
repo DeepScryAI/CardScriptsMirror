@@ -1,0 +1,14 @@
+Id:1685
+ColorIdentity:U
+ManaCost:3 U U
+Types:Enchantment
+K:ETBReplacement:Other:ChooseP
+SVar:ChooseP:DB$ ChoosePlayer | Defined$ You | Choices$ Player.Opponent | AILogic$ Curse
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigRemove
+SVar:TrigRemove:DB$ RemoveCounter | CounterType$ VORTEX | CounterNum$ All
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Player.Chosen | TriggerZones$ Battlefield | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | Defined$ ChosenPlayer | NumDmg$ 3 | UnlessCost$ Y | UnlessPayer$ ChosenPlayer
+A:AB$ PutCounter | Cost$ X | CounterType$ VORTEX | CounterNum$ X | PlayerTurn$ True | ActivationPhases$ Upkeep
+SVar:X:Count$xPaid
+SVar:Y:Count$CardCounters.VORTEX
+AI:RemoveDeck:All

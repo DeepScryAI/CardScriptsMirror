@@ -1,0 +1,12 @@
+Id:3823
+ColorIdentity:B
+ManaCost:2 B B
+Types:Creature Phyrexian Minion
+PT:2/2
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ DBExileMe
+SVar:DBExileMe:DB$ ChangeZone | Defined$ Self | Origin$ Battlefield | Destination$ Exile | UnlessCost$ Discard<1/Creature> | UnlessPayer$ You
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigBodySnatcherExileMe
+SVar:TrigBodySnatcherExileMe:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Exile | SubAbility$ DBBodySnatcherReturnCreature
+SVar:DBBodySnatcherReturnCreature:DB$ ChangeZone | ValidTgts$ Creature | TargetsWithDefinedController$ TriggeredCardController | Origin$ Graveyard | Destination$ Battlefield
+SVar:NeedsToPlayVar:Y GE2
+SVar:Y:Count$ValidHand Creature.YouOwn

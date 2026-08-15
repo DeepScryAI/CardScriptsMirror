@@ -1,0 +1,13 @@
+Id:23120
+ColorIdentity:B
+ManaCost:6 B
+Types:Creature Demon
+PT:8/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigRepeat
+SVar:TrigRepeat:DB$ RepeatEach | RepeatPlayers$ Player.Opponent | RepeatSubAbility$ DBChooseCard | SubAbility$ DBSac
+SVar:DBChooseCard:DB$ ChooseCard | Defined$ Player.IsRemembered | Choices$ Creature.greatestPowerControlledByRemembered | Mandatory$ True | Reveal$ True | ImprintChosen$ True | AILogic$ WorstCard
+SVar:DBSac:DB$ SacrificeAll | ValidCards$ Card.IsImprinted | RememberSacrificed$ True | SubAbility$ DBLifeGain
+SVar:DBLifeGain:DB$ GainLife | Defined$ You | LifeAmount$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True | ClearChosenCard$ True
+SVar:X:RememberedLKI$GreatestCardPower
+K:Madness:2 B PayLife<8>

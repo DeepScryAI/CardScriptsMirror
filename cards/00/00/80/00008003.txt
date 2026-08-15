@@ -1,0 +1,11 @@
+Id:8003
+ColorIdentity:R
+ManaCost:1 R
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Curse
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddTrigger$ EOTTrigger | AddSVar$ InstillTrigSac & MustAttack
+SVar:EOTTrigger:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ InstillTrigSac
+SVar:InstillTrigSac:DB$ Sacrifice | ConditionPresent$ Card.Self+!attackedThisTurn | ConditionCompare$ GE1
+SVar:MustAttack:True
+SVar:NonStackingAttachEffect:True

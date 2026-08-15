@@ -1,0 +1,12 @@
+Id:30045
+ColorIdentity:R
+ManaCost:3 R R
+Types:Creature Elemental Bird
+PT:4/4
+K:Flying
+K:Haste
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +X
+T:Mode$ ManaExpend | Amount$ 6 | Player$ You | TriggerZones$ Battlefield | Execute$ TrigGainControl
+SVar:TrigGainControl:DB$ GainControl | ValidTgts$ Artifact | TargetMin$ 0 | TargetMax$ 1 | LoseControl$ LeavesPlay,LoseControl
+SVar:X:Count$Valid Artifact.YouCtrl$GreatestCardManaCost

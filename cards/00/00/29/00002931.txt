@@ -1,0 +1,12 @@
+Id:2931
+ColorIdentity:W
+ManaCost:2 W
+Types:Instant
+A:SP$ Pump | ValidTgts$ Creature.YouCtrl | SubAbility$ DBChooseSource
+SVar:DBChooseSource:DB$ ChooseSource | Choices$ Card,Emblem | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | ValidTgts$ Creature | TargetUnique$ True | ReplacementEffects$ SelflessDamage | Triggers$ OutOfSight | ImprintCards$ ParentTarget | RememberObjects$ ThisTargetedCard | ConditionDefined$ ParentTarget | ConditionPresent$ Card,Emblem | ConditionCompare$ GE1
+SVar:SelflessDamage:Event$ DamageDone | ValidTarget$ Creature.IsImprinted | ValidSource$ Card.ChosenCardStrict,Emblem.ChosenCard | ReplaceWith$ SelflessDmg | DamageTarget$ Remembered
+SVar:SelflessDmg:DB$ ReplaceEffect | VarName$ Affected | VarValue$ Remembered | VarType$ Card
+SVar:OutOfSight:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.IsImprinted,Card.IsRemembered | Execute$ ExileEffect | Static$ True
+SVar:ExileEffect:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile
+AI:RemoveDeck:All

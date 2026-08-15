@@ -1,0 +1,14 @@
+Id:26016
+ColorIdentity:R
+ManaCost:3 R R R
+Types:Creature Phyrexian Dragon
+PT:4/4
+K:Flying
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ 3 | EffectZone$ All | IsPresent$ Card.YouOwn | PresentZone$ Graveyard | PresentCompare$ GE9
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Destination$ Battlefield | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | AtRandom$ True | Hidden$ True | ChangeType$ Card.YouOwn | ChangeNum$ 3 | RememberChanged$ True | SubAbility$ DBChoose
+SVar:DBChoose:DB$ ChooseCard | ChoiceZone$ Exile | Amount$ 1 | Choices$ Card.IsRemembered+nonLand+nonCreature | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | Defined$ ChosenCard | ValidSA$ Spell | Controller$ You | CopyCard$ True | WithoutManaCost$ True | Optional$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+DeckHas:Ability$Graveyard
+DeckHints:Ability$Mill

@@ -1,0 +1,15 @@
+Id:25871
+ColorIdentity:WUG
+ManaCost:3 U U
+Types:Legendary Snow Creature Yeti
+PT:5/5
+S:Mode$ Continuous | Affected$ Card.TopLibrary+YouCtrl | AffectedZone$ Library | MayLookAt$ You
+S:Mode$ Continuous | Affected$ Card.TopLibrary+YouCtrl+Snow | AffectedZone$ Library | MayPlay$ True
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Permanent.Snow+Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigChoice | OptionalDecider$ You
+SVar:TrigChoice:DB$ GenericChoice | Choices$ PayG,PayW,PayU
+SVar:PayG:DB$ PutCounter | UnlessCost$ G | UnlessPayer$ You | UnlessSwitched$ True | CounterType$ P1P1
+SVar:PayW:DB$ PutCounter | UnlessCost$ W | UnlessPayer$ You | UnlessSwitched$ True | CounterType$ P1P1
+SVar:PayU:DB$ PutCounter | UnlessCost$ U | UnlessPayer$ You | UnlessSwitched$ True | CounterType$ P1P1
+DeckHas:Ability$Counters
+DeckHints:Color$Blue | Green
+DeckNeeds:Type$Snow

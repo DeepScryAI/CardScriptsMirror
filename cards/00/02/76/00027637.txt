@@ -1,0 +1,12 @@
+Id:27637
+ColorIdentity:U
+ManaCost:1 U
+Types:Instant
+A:SP$ Charm | Choices$ DBDecrease,DBIncrease | MinCharmNum$ 1 | CharmNum$ 2
+SVar:DBDecrease:DB$ ChangeZone | ValidTgts$ Creature.YouCtrl | Origin$ Battlefield | Destination$ Hand | RememberChanged$ True | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Remembered | staticAbilities$ ReduceCost | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:ReduceCost:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ 1 | EffectZone$ All
+SVar:DBIncrease:DB$ ChangeZone | ValidTgts$ Creature.YouDontCtrl | Origin$ Battlefield | Destination$ Hand | RememberChanged$ True | SubAbility$ DBAnimate2
+SVar:DBAnimate2:DB$ Animate | Defined$ Remembered | staticAbilities$ RaiseCost | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:RaiseCost:Mode$ RaiseCost | ValidCard$ Card.Self | Type$ Spell | Amount$ 1 | EffectZone$ All
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

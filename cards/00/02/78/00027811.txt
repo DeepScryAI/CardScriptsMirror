@@ -1,0 +1,14 @@
+Id:27811
+ColorIdentity:
+ManaCost:no cost
+Types:Plane Spacecraft
+T:Mode$ PlaneswalkedTo | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScript$ c_a_food_sac | TokenOwner$ Player
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigChoose | TriggerZones$ Command
+SVar:TrigChoose:DB$ Sacrifice | SacValid$ Creature.leastToughnessControlledByTriggeredPlayer | SacMessage$ a creature with the least toughness among creatures you control | Defined$ TriggeredPlayer | SubAbility$ DBInvestigate
+SVar:DBInvestigate:DB$ Investigate
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ TrigEffect
+SVar:TrigEffect:DB$ Effect | StaticAbilities$ STaticReduce
+SVar:STaticReduce:Mode$ ReduceCost | ValidCard$ Artifact.token+YouCtrl | Type$ Ability | Amount$ 2 | AffectedZone$ Battlefield
+DeckHas:Ability$Token | Sacrifice & Type$Food | Clue
+DeckHints:Type$Artifact

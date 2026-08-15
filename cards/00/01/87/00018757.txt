@@ -1,0 +1,12 @@
+Id:18757
+ColorIdentity:WG
+ManaCost:1 G W
+Types:Creature Elf Knight
+PT:2/2
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigTap | TriggerZones$ Battlefield
+SVar:TrigTap:DB$ Tap | CardChoices$ Creature.YouCtrl+untapped | AnyNumber$ True | ChoiceAmount$ Count$Valid Creature.YouCtrl+untapped | RememberTapped$ True | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | NumAtt$ +Y | NumDef$ +Y | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:Y:Remembered$Amount
+A:AB$ Token | Cost$ 3 G W | TokenScript$ w_1_1_soldier_lifelink
+DeckHas:Ability$Token | LifeGain

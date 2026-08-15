@@ -1,0 +1,15 @@
+Id:7760
+ColorIdentity:R
+ManaCost:5 R
+Types:Sorcery
+A:SP$ Repeat | RepeatSubAbility$ DBExileThree | RepeatCheckSVar$ X | RepeatSVarCompare$ EQ0 | SubAbility$ DBToken
+SVar:DBExileThree:DB$ Cleanup | ClearImprinted$ True | SubAbility$ DBExile1
+SVar:DBExile1:DB$ Dig | RememberChanged$ True | DestinationZone$ Exile | DigNum$ 1 | ChangeNum$ All | SubAbility$ DBExile2
+SVar:DBExile2:DB$ Dig | RememberChanged$ True | DestinationZone$ Exile | DigNum$ 1 | ChangeNum$ All | SubAbility$ DBExile3
+SVar:DBExile3:DB$ Dig | RememberChanged$ True | DestinationZone$ Exile | DigNum$ 1 | ChangeNum$ All | Imprint$ True
+SVar:X:Count$ValidExile Land.IsImprinted
+SVar:DBToken:DB$ Token | TokenAmount$ Y | TokenScript$ r_1_1_warrior | TokenOwner$ You | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True
+SVar:Y:Count$ValidExile Card.IsRemembered+nonLand
+AI:RemoveDeck:Random
+DeckHas:Ability$Token

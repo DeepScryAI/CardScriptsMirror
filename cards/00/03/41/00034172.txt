@@ -1,0 +1,15 @@
+Id:34172
+ColorIdentity:R
+ManaCost:5 R
+Types:Legendary Creature God Sorcerer Villain
+PT:5/5
+T:Mode$ SpellCast | ValidCard$ Instant,Sorcery,Villain | ValidActivatingPlayer$ You | ActivatorThisTurnCast$ EQ1 | Execute$ TrigExile | TriggerZones$ Battlefield
+SVar:TrigExile:DB$ ChangeZone | Defined$ TriggeredCardLKICopy | Origin$ Stack | Destination$ Exile | SubAbility$ DBDig
+SVar:DBDig:DB$ DigUntil | Valid$ Card.nonLand | FoundDestination$ Exile | RevealedDestination$ Exile | RememberFound$ True | SubAbility$ DBDamageAll
+SVar:DBDamageAll:DB$ DamageAll | ValidPlayers$ Opponent | NumDmg$ X | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | Defined$ Remembered | WithoutManaCost$ True | ValidSA$ Spell | Optional$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:SVar$Y/Abs
+SVar:Y:TriggeredCard$CardManaCost/Minus.Z
+SVar:Z:Remembered$CardManaCost
+DeckHints:Type$Instant | Sorcery | Villain

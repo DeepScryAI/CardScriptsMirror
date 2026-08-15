@@ -1,0 +1,26 @@
+Id:27935
+ColorIdentity:
+ManaCost:2
+Types:Artifact Equipment
+T:Mode$ Attacks | ValidCard$ Creature.EquippedBy | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Mode$ TgtChoose
+K:Equip:1
+K:Craft:5 XMin1 ExileCtrlOrGrave<X/Creature.Other>
+SVar:X:Count$xPaid
+AI:RemoveDeck:All
+DeckHints:Ability$Discard | Mill | Sacrifice
+DeckHas:Ability$Graveyard | Discard
+AlternateMode:DoubleFaced
+
+ALTERNATE
+
+ManaCost:no cost
+Types:Artifact Equipment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigAttach
+SVar:TrigAttach:DB$ Attach | ValidTgts$ Creature.YouCtrl
+R:Event$ Attached | ValidCard$ Card.Self | ValidTarget$ Creature | ReplaceWith$ ChooseCard | ActiveZones$ Battlefield
+SVar:ChooseCard:DB$ ChooseCard | Mandatory$ True | DefinedCards$ ExiledWith | ChoiceZone$ Exile
+T:Mode$ Attached | ValidSource$ Card.Self | Static$ True | Execute$ DBClone
+SVar:DBClone:DB$ Clone | Defined$ ChosenCard | CloneTarget$ Equipped | Duration$ UntilUnattached
+K:Equip:2

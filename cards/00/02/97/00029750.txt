@@ -1,0 +1,10 @@
+Id:29750
+ColorIdentity:G
+ManaCost:2 G
+Types:Enchantment Saga
+K:Chapter:3:DBExile,DBPutCounter,DBReturn
+SVar:DBExile:DB$ ChangeZone | ChangeNum$ 1 | ChangeType$ Permanent.YouOwn | Mandatory$ True | Origin$ Graveyard | Destination$ Exile | Hidden$ True | RememberChanged$ True | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ Remembered$CardManaCost | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:DBPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ ExiledWith$CardManaCost
+SVar:DBReturn:DB$ ChangeZone | Defined$ Self & ExiledWith | Origin$ Battlefield,Exile | Destination$ Hand

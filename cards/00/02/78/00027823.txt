@@ -1,0 +1,11 @@
+Id:27823
+ColorIdentity:R
+ManaCost:2 R R
+Types:Enchantment Saga
+K:Chapter:6:DBDamage,DBExile,DBExile,DBExile,DBExile,DBMana
+SVar:DBDamage:DB$ DealDamage | ValidTgts$ Creature.OppCtrl | NumDmg$ 4
+SVar:DBExile:DB$ Dig | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ Play | SubAbility$ DBCleanup | ExileOnMoved$ Exile
+SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:DBMana:DB$ Mana | Produced$ R | Amount$ 6

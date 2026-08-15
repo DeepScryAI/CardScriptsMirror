@@ -1,0 +1,13 @@
+Id:20833
+ColorIdentity:U
+ManaCost:1 U
+Types:Creature Spirit Rogue
+PT:2/1
+T:Mode$ Untaps | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigDraw1
+SVar:TrigDraw1:AB$ Draw | Cost$ 2
+T:Mode$ SpellCast | ValidCard$ Card.!wasCastFromTheirHand | ValidActivatingPlayer$ Opponent | TriggerZones$ Battlefield | Execute$ TrigDraw2
+SVar:TrigDraw2:DB$ Draw
+SVar:AIPreference:DiscardCost$Card.cmcLE2
+A:AB$ Effect | Cost$ Discard<1/Card> | RememberObjects$ Self | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+DeckHas:Ability$Discard

@@ -1,0 +1,10 @@
+Id:9157
+ColorIdentity:R
+ManaCost:2 R R
+Types:Creature Lizard Shaman
+PT:3/2
+K:Suspend:4:R
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChoose
+SVar:TrigChoose:DB$ Charm | Choices$ LoseTime,GainTime
+SVar:LoseTime:DB$ RemoveCounter | ValidTgts$ Permanent.inZoneBattlefield,Card.suspended | AITgts$ Card.counters_GE1_TIME+inZoneBattlefield+YouDontCtrl,Card.suspended+YouCtrl | CounterType$ TIME | CounterNum$ 2 | TgtZone$ Battlefield,Exile
+SVar:GainTime:DB$ PutCounter | ValidTgts$ Permanent.counters_GE1_TIME+inZoneBattlefield,Card.suspended | AITgts$ Card.inZoneBattlefield+YouCtrl,Card.suspended+YouDontCtrl | CounterType$ TIME | CounterNum$ 2 | TgtZone$ Battlefield,Exile

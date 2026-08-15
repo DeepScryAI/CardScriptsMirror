@@ -1,0 +1,17 @@
+Id:27283
+ColorIdentity:G
+ManaCost:1 G
+Types:Creature Elemental Raccoon
+PT:2/2
+A:AB$ Mana | Cost$ T | Produced$ G
+A:AB$ ChangeZone | Cost$ 1 G T Discard<1/Card> | Origin$ Battlefield | Destination$ Hand
+DeckHas:Ability$Mill | Discard
+AlternateMode:Adventure
+
+ALTERNATE
+
+ManaCost:5 G G
+Types:Sorcery Adventure
+A:SP$ Mill | NumCards$ 7 | RememberMilled$ True | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Hidden$ True | Mandatory$ True | Origin$ Graveyard,Exile | Destination$ Battlefield | ChangeType$ Creature.IsRemembered,Enchantment.IsRemembered,Land.IsRemembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

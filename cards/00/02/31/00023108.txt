@@ -1,0 +1,14 @@
+Id:23108
+ColorIdentity:R
+ManaCost:4 R
+Types:Sorcery
+A:SP$ GenericChoice | TempRemember$ Chooser | ShowChoice$ ExceptSelf | Defined$ Player | Choices$ Discard,No | SubAbility$ DBGrandWheel
+SVar:Discard:DB$ Pump | Defined$ Remembered | NoteCards$ Self | NoteCardsFor$ Discard
+SVar:No:DB$ Pump
+SVar:DBGrandWheel:DB$ RepeatEach | RepeatPlayers$ Player.NotedForDiscard | RepeatSubAbility$ DBWheelDiscard | SubAbility$ DBClearNotes
+SVar:DBWheelDiscard:DB$ Discard | Mode$ Hand | Defined$ Player.IsRemembered | SubAbility$ DBWheelDraw
+SVar:DBWheelDraw:DB$ Draw | NumCards$ X | Defined$ Player.IsRemembered
+SVar:DBClearNotes:DB$ Pump | Defined$ Player | ClearNotedCardsFor$ Discard
+SVar:X:Count$ValidBattlefield,Command Card.IsCommander+RememberedPlayerOwn$GreatestCardManaCost
+AI:RemoveDeck:NonCommander
+DeckHas:Ability$Discard

@@ -1,0 +1,12 @@
+Id:18574
+ColorIdentity:UR
+ManaCost:2 U R
+Types:Legendary Planeswalker Saheeli
+Loyalty:4
+A:AB$ Token | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | TokenScript$ c_1_1_a_servo | TokenOwner$ You
+A:AB$ Effect | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | StaticAbilities$ GrantAffinity | Triggers$ TrigCastSpell
+SVar:GrantAffinity:Mode$ Continuous | Affected$ Card.YouCtrl | AffectedZone$ Stack | AddKeyword$ Affinity:Artifact
+SVar:TrigCastSpell:Mode$ SpellCast | ValidActivatingPlayer$ You | TriggerZones$ Command | Execute$ RemoveEffect | Static$ True
+SVar:RemoveEffect:DB$ ChangeZone | Origin$ Command | Destination$ Exile
+A:AB$ CopyPermanent | Cost$ SubCounter<7/LOYALTY> | Planeswalker$ True | Ultimate$ True | Defined$ Valid Artifact.YouCtrl | PumpKeywords$ Haste | AtEOT$ Exile | AILogic$ DuplicatePerms
+K:CARDNAME can be your commander.

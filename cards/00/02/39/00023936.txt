@@ -1,0 +1,14 @@
+Id:23936
+ColorIdentity:BRG
+ManaCost:1 B R G
+Types:Creature Lizard Warrior
+PT:5/4
+K:Trample
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigPeek | TriggerZones$ Battlefield
+SVar:TrigPeek:DB$ PeekAndReveal | PeekAmount$ 1 | NoReveal$ True | RememberPeeked$ True | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | Optional$ True | Defined$ Remembered | ValidSA$ SpellAbility.Land,Spell.cmcLEX | WithoutManaCost$ True | ForgetPlayed$ True | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Defined$ Remembered | Origin$ Library | Destination$ Hand | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:TriggerCount$DamageAmount
+K:Blitz:2 B R G
+DeckHas:Ability$Sacrifice

@@ -1,0 +1,13 @@
+Id:31211
+ColorIdentity:B
+ManaCost:3 B B
+Types:Creature Insect Assassin
+PT:3/4
+K:Flying
+K:Lifelink
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | ValidTgts$ Opponent | SubAbility$ DBChooseCard
+SVar:DBChooseCard:DB$ ChooseCard | Defined$ You | Choices$ Creature.ControlledBy TargetedPlayer,Planeswalker.ControlledBy TargetedPlayer | Secretly$ True | Amount$ 1 | Mandatory$ True | SubAbility$ DBSac1
+SVar:DBSac1:DB$ Sacrifice | Defined$ Targeted | SacValid$ Creature,Planeswalker | SubAbility$ DBSac2
+SVar:DBSac2:DB$ Sacrifice | Defined$ Targeted | SacValid$ Permanent.ChosenCard | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True

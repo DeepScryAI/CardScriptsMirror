@@ -1,0 +1,12 @@
+Id:27896
+ColorIdentity:WR
+ManaCost:2 R W
+Types:Instant
+A:SP$ RepeatEach | RepeatPlayers$ Player.Opponent | RepeatSubAbility$ DBChooseCard | SubAbility$ DBExile
+SVar:DBChooseCard:DB$ ChooseCard | Defined$ Player.IsRemembered | Choices$ Creature.greatestPowerControlledByRemembered | Mandatory$ True | RememberChosen$ True
+SVar:DBExile:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered | Origin$ Battlefield | Destination$ Exile | SubAbility$ RepeatBis
+SVar:RepeatBis:DB$ RepeatEach | RepeatPlayers$ Player.Opponent | DamageMap$ True | RepeatSubAbility$ DBDamage | ConditionZone$ Graveyard | ConditionPresent$ Instant.YouOwn,Sorcery.YouOwn | ConditionCompare$ GE2 | SubAbility$ DBCleanup
+SVar:DBDamage:DB$ DealDamage | Defined$ Player.IsRemembered | NumDmg$ X
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:RememberedLKI$Valid Card.RememberedPlayerCtrl$CardPower
+DeckHints:Ability$Graveyard | Mill

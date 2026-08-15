@@ -1,0 +1,14 @@
+Id:24247
+ColorIdentity:B
+ManaCost:5 B B
+Types:Creature Horror
+PT:6/6
+K:Menace
+T:Mode$ Attacks | ValidCard$ Card.Self | Attacked$ Player | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZoneAll | Defined$ TriggeredDefendingPlayer | ChangeType$ Card | Origin$ Hand | Destination$ Exile | RememberChanged$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ TriggeredDefendingPlayer | NumCards$ RemTossed | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ MayPlay | SubAbility$ DBCleanup | Duration$ Permanent | ForgetOnMoved$ Exile
+SVar:MayPlay:Mode$ Continuous | MayPlay$ True | MayPlayIgnoreColor$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:RemTossed:Remembered$Amount
+SVar:HasAttackEffect:TRUE

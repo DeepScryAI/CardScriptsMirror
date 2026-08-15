@@ -1,0 +1,11 @@
+Id:20530
+ColorIdentity:R
+ManaCost:3 R R
+Types:Creature Phoenix
+PT:4/2
+K:Flying
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Instant.YouOwn+withCycling,Instant.YouOwn+withTypeCycling,Sorcery.YouOwn+withCycling,Sorcery.YouOwn+withTypeCycling
+T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Graveyard | CheckSVar$ YouCycled | SVarCompare$ GE2 | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Defined$ Self | Origin$ Graveyard | Destination$ Hand
+SVar:YouCycled:Count$ThisTurnActivated_Activated.Cycling+YouCtrl

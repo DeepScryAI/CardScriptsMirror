@@ -1,0 +1,15 @@
+Id:32574
+ColorIdentity:R
+ManaCost:3 R R
+Types:Legendary Creature Shark
+PT:5/5
+K:Trample
+K:Haste
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ X | TokenScript$ c_a_blood_draw | TokenOwner$ You
+SVar:X:TriggerCount$DamageAmount
+T:Mode$ Sacrificed | ValidCard$ Artifact.nonCreature | Execute$ TrigDamage | TriggerZones$ Battlefield
+T:Mode$ Destroyed | ValidCard$ Artifact.nonCreature | Execute$ TrigDamage | TriggerZones$ Battlefield | Secondary$ True
+SVar:TrigDamage:DB$ DealDamage | NumDmg$ 1 | Defined$ Opponent
+DeckHints:Ability$Sacrifice | Token & Type$Blood | Treasure | Map | Clue
+DeckHas:Ability$Token | Sacrifice & Type$Artifact | Blood

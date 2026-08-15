@@ -1,0 +1,10 @@
+Id:20064
+ColorIdentity:B
+ManaCost:3 B
+Types:Creature Human Noble
+PT:4/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChoose
+SVar:TrigChoose:DB$ ChooseCard | Choices$ Creature.YouCtrl+Other | ChoiceZone$ Battlefield | SubAbility$ DBDamageChosen
+SVar:DBDamageChosen:DB$ DealDamage | Defined$ ChosenCard | NumDmg$ 2 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | ConditionDefined$ ChosenCard | ConditionPresent$ Card | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True

@@ -1,0 +1,11 @@
+Id:31600
+ColorIdentity:WUB
+ManaCost:W U B
+Types:Legendary Creature Cat Wizard
+PT:2/3
+K:Lifelink
+T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigToken | ResolvedLimit$ 1
+SVar:TrigToken:AB$ Token | Cost$ PayLife<X> | TokenScript$ c_1_1_hero | TokenOwner$ You | RememberTokens$ True | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Remembered | CounterType$ P1P1 | CounterNum$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:TriggeredCard$CardManaCost

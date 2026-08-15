@@ -1,0 +1,11 @@
+Id:22505
+ColorIdentity:B
+ManaCost:2 B B
+Types:Creature Ooze
+PT:4/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Creature.nonOoze+OppCtrl | Duration$ UntilHostLeavesPlay | RememberChanged$ True
+A:AB$ ChangeZone | Cost$ X B | Origin$ Exile | Destination$ Graveyard | ValidTgts$ Creature.IsRemembered+ExiledWithSource+cmcEQX
+SVar:X:Count$xPaid
+SVar:PlayMain1:TRUE
+SVar:NeedsToPlay:Creature.nonOoze+OppCtrl

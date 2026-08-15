@@ -1,0 +1,9 @@
+Id:23853
+ColorIdentity:R
+ManaCost:4 R
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | CounterType$ CONTESTED | ValidTgts$ Land | TargetMin$ OneEach | TargetMax$ OneEach | TargetsForEachPlayer$ True
+SVar:OneEach:PlayerCountPlayers$Amount
+T:Mode$ DamageDone | ValidSource$ Creature | ValidTarget$ Player.controlsLand.counters\_GE1\_CONTESTED | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigGainControl
+SVar:TrigGainControl:DB$ GainControl | Choices$ Land.ControlledBy TriggeredTarget+counters_GE1_CONTESTED | Chooser$ TriggeredSourceController | Untap$ True | NewController$ TriggeredSourceController

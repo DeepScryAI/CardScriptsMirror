@@ -1,0 +1,16 @@
+Id:21046
+ColorIdentity:R
+ManaCost:X R R
+Types:Sorcery
+A:SP$ Sacrifice | SacValid$ Land | Amount$ X | RememberSacrificed$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ Y | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | SetChosenNumber$ X | StaticAbilities$ PlayMoreLand | ReplacementEffects$ LandETB | SubAbility$ DBCleanup
+SVar:PlayMoreLand:Mode$ Continuous | Affected$ You | AdjustLandPlays$ Z
+SVar:LandETB:Event$ Moved | ValidCard$ Land.YouCtrl | Destination$ Battlefield | ReplaceWith$ ETBTapped | ReplacementResult$ Updated
+SVar:ETBTapped:DB$ Tap | ETB$ True | Defined$ ReplacedCard
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$xPaid
+SVar:Y:Count$RememberedSize
+SVar:Z:Count$ChosenNumber
+AI:RemoveDeck:All
+DeckHas:Ability$Sacrifice

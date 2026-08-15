@@ -1,0 +1,10 @@
+Id:33312
+ColorIdentity:B
+ManaCost:2 B
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPumpAll
+SVar:TrigPumpAll:DB$ PumpAll | ValidCards$ Creature.YouOwn | PumpZone$ Graveyard | Duration$ Perpetual | NumAtt$ +1 | NumDef$ +1
+A:AB$ ChangeZone | Cost$ Blight<X> Return<1/CARDNAME> | Announce$ X | XMax$ GrTo | ValidTgts$ Creature.YouOwn+cmcLEX | Origin$ Graveyard | Destination$ Battlefield | SorcerySpeed$ True
+SVar:GrTo:Count$Valid Creature.YouCtrl$GreatestCardToughness
+SVar:X:Count$xPaid
+# X Will get overwritten by Blight

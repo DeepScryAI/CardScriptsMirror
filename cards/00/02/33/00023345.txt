@@ -1,0 +1,13 @@
+Id:23345
+ColorIdentity:U
+ManaCost:1 U
+Types:Legendary Creature Homunculus
+PT:1/1
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ DBDig | TriggerZones$ Battlefield
+SVar:DBDig:DB$ Dig | ValidTgts$ You | DigNum$ 2 | ChangeNum$ 1 | DestinationZone$ Graveyard | LibraryPosition2$ 0
+T:Mode$ ChangesZone | ValidCard$ Creature.YouOwn | Origin$ Library,Hand | Destination$ Graveyard | TriggerZones$ Battlefield | Execute$ TrigAnimate
+SVar:TrigAnimate:DB$ Animate | Defined$ TriggeredCard | Triggers$ LeavesGrave | Duration$ Perpetual
+SVar:LeavesGrave:Mode$ ChangesZone | Origin$ Graveyard | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScript$ b_2_2_zombie | TokenTapped$ True
+DeckHas:Ability$Graveyard | Token & Type$Zombie & Color$Black
+DeckHints:Ability$Graveyard | Mill & Keyword$Disturb | Escape | Unearth

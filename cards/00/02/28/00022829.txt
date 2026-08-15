@@ -1,0 +1,29 @@
+Id:22829
+ColorIdentity:W
+ManaCost:2 W W W
+Types:Creature Angel
+PT:3/3
+K:Flying
+K:Double Strike
+S:Mode$ Continuous | Affected$ You | AddKeyword$ Hexproof
+R:Event$ LifeReduced | ActiveZones$ Battlefield | ValidPlayer$ You | Result$ LE0 | ReplaceWith$ Transform
+SVar:Transform:DB$ SetState | Defined$ Self | Mode$ Transform | RememberChanged$ True | SubAbility$ DBSetLife
+SVar:DBSetLife:DB$ SetLife | Defined$ You | LifeAmount$ 3 | SubAbility$ DBLoseGame
+SVar:DBLoseGame:DB$ LosesGame | Defined$ You | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ NE1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+AlternateMode:DoubleFaced
+
+ALTERNATE
+
+ManaCost:no cost
+Colors:white
+Types:Creature Angel
+PT:*/*
+K:Flying
+S:Mode$ Continuous | Affected$ You | AddKeyword$ Hexproof
+S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X | SetToughness$ X
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDoubleLife
+SVar:TrigDoubleLife:DB$ SetLife | LifeAmount$ Y
+SVar:X:Count$YourLifeTotal
+SVar:Y:Count$YourLifeTotal/Twice
+SVar:HasAttackEffect:TRUE

@@ -1,0 +1,13 @@
+Id:22628
+ColorIdentity:W
+ManaCost:W W W
+Types:Legendary Artifact Book
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ LifeGained | SVarCompare$ GE3 | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScript$ w_3_3_angel_flying | TokenOwner$ You
+A:AB$ PutCounter | Cost$ W W W T Exile<1/CARDNAME> | ValidTgts$ Angel | CounterType$ ENLIGHTENED | CounterNum$ 1 | SorcerySpeed$ True | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Targeted | Duration$ Permanent | Replacements$ DBYouCantLose,DBOppCantWin
+SVar:DBYouCantLose:Event$ GameLoss | ValidPlayer$ You | Layer$ CantHappen
+SVar:DBOppCantWin:Event$ GameWin | ValidPlayer$ Opponent | Layer$ CantHappen | Secondary$ True
+SVar:LifeGained:Count$LifeYouGainedThisTurn
+DeckHints:Ability$LifeGain
+DeckHas:Ability$Token

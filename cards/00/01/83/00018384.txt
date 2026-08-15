@@ -1,0 +1,11 @@
+Id:18384
+ColorIdentity:W
+ManaCost:2 W W
+Types:Legendary Planeswalker Ajani
+Loyalty:4
+A:AB$ PutCounter | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | CounterType$ P1P1 | CounterNum$ 1 | TargetMin$ 0 | TargetMax$ 2 | ValidTgts$ Creature
+A:AB$ ChangeZone | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Card.Creature+cmcLE2+YouCtrl
+A:AB$ Effect | Cost$ SubCounter<7/LOYALTY> | Planeswalker$ True | Ultimate$ True | Name$ Emblem — Ajani, Adversary of Tyrants | Image$ emblem_ajani_adversary_of_tyrants | Triggers$ EffPhase | Duration$ Permanent
+SVar:EffPhase:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | Execute$ EmblemTrigToken
+SVar:EmblemTrigToken:DB$ Token | TokenOwner$ You | TokenAmount$ 3 | TokenScript$ w_1_1_cat_lifelink
+DeckHas:Ability$Counters | Token

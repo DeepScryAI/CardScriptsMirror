@@ -1,0 +1,13 @@
+Id:849
+ColorIdentity:U
+ManaCost:3 U U
+Types:Enchantment
+K:ETBReplacement:Other:ChooseColor
+SVar:ChooseColor:DB$ ChooseColor | Defined$ You | AILogic$ MostProminentInHumanDeck
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Opponent | TriggerZones$ Battlefield | Execute$ TrigDamageOpp
+SVar:TrigDamageOpp:DB$ DealDamage | Defined$ TriggeredPlayer | NumDmg$ X
+SVar:X:Count$Valid Permanent.ActivePlayerCtrl+ChosenColor+!token
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ Destroy | Defined$ Self | UnlessPayer$ You | UnlessCost$ Sac<2/Island>
+AI:RemoveDeck:Random
+DeckHas:Ability$Sacrifice

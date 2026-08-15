@@ -1,0 +1,10 @@
+Id:28463
+ColorIdentity:R
+ManaCost:1 R
+Types:Instant
+A:SP$ Charm | Choices$ DBTurnFaceUp,DBChangeZoneAll | MinCharmNum$ 1 | CharmNum$ 2
+SVar:DBTurnFaceUp:DB$ SetState | ValidTgts$ Creature.faceDown | Mode$ TurnFaceUp
+SVar:DBChangeZoneAll:DB$ ChangeZone | ChangeType$ Creature.faceUp+YouCtrl+withDisguise | Hidden$ True | ChangeNum$ X | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | ExileFaceDown$ True | SubAbility$ DBCloak
+SVar:DBCloak:DB$ Cloak | Defined$ Remembered | Shuffle$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$Valid Creature.YouCtrl+faceUp+withDisguise

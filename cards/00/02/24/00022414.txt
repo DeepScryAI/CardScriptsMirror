@@ -1,0 +1,11 @@
+Id:22414
+ColorIdentity:R
+ManaCost:2 R R
+Types:Creature Spirit Dragon
+PT:3/4
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGoad
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigGoad | Secondary$ True
+SVar:TrigGoad:DB$ Goad | ValidTgts$ Creature
+T:Mode$ Attacks | ValidCard$ Creature.IsGoaded | Execute$ TrigDamage | TriggerZones$ Battlefield
+SVar:TrigDamage:DB$ DealDamage | Defined$ TriggeredAttackerController | DamageSource$ TriggeredAttackerLKICopy | NumDmg$ 1

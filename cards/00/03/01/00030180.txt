@@ -1,0 +1,10 @@
+Id:30180
+ColorIdentity:WU
+ManaCost:1 W U
+Types:Creature Bird Scout
+PT:3/3
+K:Flying
+T:Mode$ SpellCast | ValidCard$ Creature.withoutFlying | ActivationLimit$ 1 | ValidActivatingPlayer$ You | Execute$ TrigConjure | TriggerZones$ Battlefield
+SVar:TrigConjure:DB$ MakeCard | Conjure$ True | DefinedName$ TriggeredCard | Zone$ Hand | RememberMade$ True | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Remembered | PumpZone$ Hand | KW$ Flying | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True

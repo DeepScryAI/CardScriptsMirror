@@ -1,0 +1,14 @@
+Id:27255
+ColorIdentity:WBG
+ManaCost:1 W B G
+Types:Legendary Creature Human Bard
+PT:3/3
+K:Lifelink
+T:Mode$ Sacrificed | ValidCard$ Enchantment.YouCtrl | Execute$ TrigDraw | TriggerZones$ Battlefield
+SVar:TrigDraw:DB$ Draw
+T:Mode$ AbilityResolves | ValidSource$ Saga.YouCtrl | ValidSpellAbility$ Triggered.LastChapter | TriggerZones$ Battlefield | Execute$ TrigDrain
+SVar:TrigDrain:DB$ LoseLife | Defined$ Opponent | LifeAmount$ X | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ X
+SVar:X:TriggeredSpellAbility$CardManaCost
+DeckHas:Ability$LifeGain
+DeckHints:Type$Enchantment | Saga & Ability$Sacrifice

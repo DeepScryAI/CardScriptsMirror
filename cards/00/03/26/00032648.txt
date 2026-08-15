@@ -1,0 +1,21 @@
+Id:32648
+ColorIdentity:U
+ManaCost:2 U U
+Types:Enchantment Saga
+K:Chapter:3:DBScry,DBScry,DBTransform
+SVar:DBScry:DB$ Scry | ScryNum$ 2 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw
+SVar:DBTransform:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | Transformed$ True | GainControl$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+DeckHas:Ability$Draw | Token
+AlternateMode:DoubleFaced
+
+ALTERNATE
+
+ManaCost:no cost
+Types:Legendary Creature Avatar
+PT:4/3
+T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScript$ c_1_1_spirit_spiritshadow | TokenOwner$ You
+A:AB$ AddTurn | Cost$ Waterbend<20> | NumTurns$ 1 | Exhaust$ True

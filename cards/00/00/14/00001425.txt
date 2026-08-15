@@ -1,0 +1,9 @@
+Id:1425
+ColorIdentity:R
+ManaCost:2 R R
+Types:Sorcery
+A:SP$ Pump | ValidTgts$ Creature.OppCtrl | TargetMin$ 2 | TargetMax$ 2 | TargetsWithSameController$ True | IsCurse$ True | RememberTargets$ True | SubAbility$ DBChoose
+SVar:DBChoose:DB$ ChooseCard | Defined$ TargetedController | Mandatory$ True | Choices$ Creature.IsRemembered | ForgetChosen$ True | AILogic$ WorstCard | SubAbility$ DBSac
+SVar:DBSac:DB$ SacrificeAll | Defined$ ChosenCard | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Remembered | CounterType$ M1M1 | CounterNum$ 1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

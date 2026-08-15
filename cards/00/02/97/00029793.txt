@@ -1,0 +1,12 @@
+Id:29793
+ColorIdentity:W
+ManaCost:2 W
+Types:Enchantment Class
+T:Mode$ ChangesZoneAll | ValidCards$ Permanent.token+YouCtrl | Destination$ Battlefield | TriggerZones$ Battlefield | ActivationLimit$ 1 | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw
+K:Class:2:W:AddTrigger$ TriggerClassLevel
+SVar:TriggerClassLevel:Mode$ ClassLevelGained | ClassLevel$ 2 | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigCopy
+SVar:TrigCopy:DB$ CopyPermanent | ValidTgts$ Permanent.token+YouCtrl
+K:Class:3:3 W:AddStaticAbility$ SBuff
+SVar:SBuff:Mode$ Continuous | Affected$ Creature.token+YouCtrl | AddPower$ 2 | AddToughness$ 2
+DeckNeeds:Ability$Token

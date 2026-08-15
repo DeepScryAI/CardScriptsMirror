@@ -1,0 +1,11 @@
+Id:31123
+ColorIdentity:URG
+ManaCost:1 G U R
+Types:Legendary Creature Human Artificer
+PT:4/4
+T:Mode$ SpellCast | ValidCard$ Artificer,Artifact | ValidActivatingPlayer$ You | Execute$ TrigEnergy | TriggerZones$ Battlefield
+SVar:TrigEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ 1
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigImmediateTrig
+SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ PayEnergy<3> | Execute$ TrigCopy
+SVar:TrigCopy:DB$ CopyPermanent | ValidTgts$ Permanent.YouCtrl | SetPower$ 5 | SetToughness$ 5 | AddTypes$ Artifact & Creature | AddKeywords$ Haste | AtEOT$ Sacrifice
+DeckNeeds:Type$Artifact

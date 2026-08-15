@@ -1,0 +1,26 @@
+Id:32654
+ColorIdentity:B
+ManaCost:4 B B
+Types:Enchantment Saga
+K:Chapter:3:DBDestroyAll,DBNameCard,DBTransform
+SVar:DBDestroyAll:DB$ DestroyAll | ValidCards$ Creature
+SVar:DBNameCard:DB$ NameCard | Defined$ You | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | ValidTgts$ Opponent | ChangeType$ Card.NamedCard | Origin$ Graveyard,Hand,Library | DefinedPlayer$ Targeted | Chooser$ You | Destination$ Exile | ChangeNum$ 4 | Hidden$ True
+SVar:DBTransform:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | Transformed$ True | GainControl$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+AlternateMode:DoubleFaced
+
+ALTERNATE
+
+ManaCost:no cost
+Colors:black
+Types:Legendary Creature Human Noble
+PT:5/5
+K:Menace
+K:Firebending:3
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigImmediateTrig | TriggerZones$ Battlefield
+SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ X | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | TargetMin$ 0 | TargetMax$ Y | ValidTgts$ Creature.OwnedBy Spawner>TriggeredTarget | MaxTotalTargetCMC$ X | GainControl$ True
+SVar:X:Count$xPaid
+SVar:Y:Count$ValidGraveyard Creature.OwnedBy Spawner>TriggeredTarget

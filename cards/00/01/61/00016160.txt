@@ -1,0 +1,9 @@
+Id:16160
+ColorIdentity:U
+ManaCost:2 U
+Types:Instant
+A:SP$ ChangeZone | ValidTgts$ Creature.YouCtrl | TargetMin$ 0 | TargetMax$ 2 | Origin$ Battlefield | Destination$ Exile | RememberTargets$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ All | Destination$ Battlefield | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+# TODO: The AI successfully uses this to save one of its creatures, but not two. Also, it's not used on creatures that are held with something like Arrest. May need improvement before RemoveDeck is removed.
+AI:RemoveDeck:All

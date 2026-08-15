@@ -1,0 +1,62 @@
+Id:24518
+ColorIdentity:U
+ManaCost:3 U
+Types:Legendary Creature Human Wizard
+PT:2/3
+K:Specialize:2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self+wasCastByYou | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Instant.YouCtrl,Sorcery.YouCtrl
+DeckHints:Ability$Graveyard & Type$Sorcery | Instant
+AlternateMode:Specialize
+
+SPECIALIZE:WHITE
+
+ManaCost:3 W U
+Types:Legendary Creature Human Wizard
+PT:4/5
+T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScript$ w_1_1_pegasus_flying
+DeckHas:Ability$Token & Type$Pegasus
+DeckHints:Type$Instant | Sorcery
+
+SPECIALIZE:BLUE
+
+ManaCost:3 U U
+Types:Legendary Creature Human Wizard
+PT:4/5
+T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigLoot
+SVar:TrigLoot:DB$ Draw | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ TgtChoose
+DeckHas:Ability$Discard
+DeckHints:Type$Instant | Sorcery
+
+SPECIALIZE:BLACK
+
+ManaCost:3 U B
+Types:Legendary Creature Human Wizard
+PT:4/5
+T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 2
+DeckHints:Type$Instant | Sorcery
+
+SPECIALIZE:RED
+
+ManaCost:3 U R
+Types:Legendary Creature Human Wizard
+PT:4/5
+T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ PerpetualPump | Name$ Gale, Storm Conduit's Perpetual Effect | Duration$ Permanent
+SVar:PerpetualPump:Mode$ Continuous | Affected$ Card.EffectSource | AddStaticAbility$ P1Pump | AffectedZone$ All
+SVar:P1Pump:Mode$ Continuous | Affected$ Creature.YouCtrl | AddPower$ 1
+SVar:BuffedBy:Creature
+DeckHints:Type$Instant | Sorcery
+
+SPECIALIZE:GREEN
+
+ManaCost:3 G U
+Types:Legendary Creature Human Wizard
+PT:4/5
+T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigCounter
+SVar:TrigCounter:DB$ PutCounter | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ 2
+DeckHas:Ability$Counters
+DeckHints:Type$Instant | Sorcery

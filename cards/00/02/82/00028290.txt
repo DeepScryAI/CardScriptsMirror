@@ -1,0 +1,12 @@
+Id:28290
+ColorIdentity:UR
+ManaCost:2 U R
+Types:Legendary Creature Time Lord Doctor
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigMill | TriggerZones$ Battlefield | Secondary$ True
+SVar:TrigMill:DB$ Mill | NumCards$ 3 | RememberMilled$ True | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Hidden$ True | Optional$ True | Origin$ Graveyard,Exile | Destination$ Hand | ChangeType$ Artifact.IsRemembered+cmcEQ2,Artifact.IsRemembered+cmcEQ3 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+S:Mode$ Continuous | Affected$ Card.nonArtifact+YouCtrl | EffectZone$ Battlefield | AffectedZone$ Stack | CheckSVar$ X | SVarCompare$ EQ0 | AddKeyword$ Improvise
+SVar:X:Count$ThisTurnCast_Card.nonArtifact+YouCtrl

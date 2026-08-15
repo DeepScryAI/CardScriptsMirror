@@ -1,0 +1,12 @@
+Id:24326
+ColorIdentity:W
+ManaCost:3 W
+Types:Instant
+A:SP$ ChangeZoneAll | ChangeType$ Creature.!token+YouCtrl | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBRollDice
+SVar:DBRollDice:DB$ RollDice | Sides$ 20 | ResultSubAbilities$ 1-9:DBDesc,10-20:DBReturn
+SVar:DBDesc:DB$ Pump | SubAbility$ DBDelayTrig
+SVar:DBDelayTrig:DB$ DelayedTrigger | RememberObjects$ Remembered | Mode$ Phase | Phase$ End of Turn | Execute$ TrigReturn | SubAbility$ DBCleanup
+SVar:TrigReturn:DB$ ChangeZone | Defined$ DelayTriggerRememberedLKI | Origin$ Exile | Destination$ Battlefield
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | RememberChanged$ True | ForgetOtherRemembered$ True | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | Defined$ Remembered | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | ForgetOtherRemembered$ True | SubAbility$ DBDelayTrig
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

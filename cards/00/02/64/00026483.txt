@@ -1,0 +1,28 @@
+Id:26483
+ColorIdentity:W
+ManaCost:2 W W
+Types:Legendary Creature Phyrexian Praetor
+PT:3/5
+K:Vigilance
+T:Mode$ DamageDone | ValidSource$ Card.OppCtrl,Emblem.OppCtrl | ValidTarget$ You,Permanent.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigDealDamage
+SVar:TrigDealDamage:DB$ LoseLife | Defined$ TriggeredSourceController | LifeAmount$ 2 | UnlessCost$ 1 | UnlessPayer$ TriggeredSourceController
+A:AB$ ChangeZone | Cost$ 2 W Sac<3/Creature.Other/other creature> | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn | SorcerySpeed$ True
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | Transformed$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+DeckHas:Ability$Sacrifice
+AlternateMode:DoubleFaced
+
+ALTERNATE
+
+ManaCost:no cost
+Colors:white
+Types:Enchantment Saga
+K:Chapter:3:Incubate,PumpAll,DestroyAll
+SVar:Incubate:DB$ Incubate | Amount$ 2 | Times$ 5 | SubAbility$ DBTransform
+SVar:DBTransform:DB$ SetState | Defined$ Valid Incubator.token+YouCtrl | Mode$ Transform
+SVar:PumpAll:DB$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +1 | NumDef$ +1 | KW$ Double Strike
+SVar:DestroyAll:DB$ DestroyAll | ValidCards$ Permanent.nonArtifact+nonLand+nonPhyrexian+StrictlyOther | SubAbility$ DBExile | Ultimate$ True
+SVar:DBExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+DeckHas:Ability$Token | Counters & Type$Artifact | Phyrexian

@@ -1,0 +1,13 @@
+Id:29311
+ColorIdentity:BRG
+ManaCost:1 B R G
+Types:Legendary Creature Human Warrior
+PT:0/5
+S:Mode$ Continuous | Affected$ Card.Self | AddPower$ X
+SVar:X:Count$ValidGraveyard Creature$GreatestCardPower
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigMill | TriggerZones$ Battlefield
+SVar:TrigMill:DB$ Mill | Defined$ Player | NumCards$ 1
+S:Mode$ Continuous | Affected$ Land.ThisTurnEnteredFrom_Library | Condition$ PlayerTurn | MayPlay$ True | MayPlayLimit$ 1 | MayPlayText$ Land | EffectZone$ Battlefield | AffectedZone$ Graveyard
+S:Mode$ Continuous | Affected$ Card.nonLand+ThisTurnEnteredFrom_Library | Condition$ PlayerTurn | MayPlay$ True | MayPlayLimit$ 1 | EffectZone$ Battlefield | AffectedZone$ Graveyard | Secondary$ True
+DeckHas:Ability$Mill | Graveyard
+DeckHints:Ability$Graveyard

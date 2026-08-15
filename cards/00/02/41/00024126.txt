@@ -1,0 +1,14 @@
+Id:24126
+ColorIdentity:W
+ManaCost:3 W W
+Types:Creature Angel
+PT:4/5
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDestroyAll
+SVar:TrigDestroyAll:DB$ DestroyAll | ValidCards$ Permanent.YouDontCtrl+sharesNameWith Remembered
+T:Mode$ DamageDone | ValidSource$ Permanent | ValidTarget$ You | Static$ True | Execute$ TrigRemember
+SVar:TrigRemember:DB$ Pump | ImprintCards$ TriggeredSource
+T:Mode$ Phase | Phase$ Cleanup | Static$ True | Execute$ TrigForget
+SVar:TrigForget:DB$ Cleanup | ClearRemembered$ True | SubAbility$ DBImprint
+SVar:DBImprint:DB$ Pump | RememberObjects$ Imprinted | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearImprinted$ True

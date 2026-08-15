@@ -1,0 +1,13 @@
+Id:16967
+ColorIdentity:W
+ManaCost:1 W W
+Types:Legendary Planeswalker Gideon
+Loyalty:3
+A:AB$ Effect | Cost$ AddCounter<1/LOYALTY> | ValidTgts$ Permanent | Planeswalker$ True | Duration$ UntilYourNextTurn | RememberObjects$ Targeted | ReplacementEffects$ RPrevent
+SVar:RPrevent:Event$ DamageDone | Prevent$ True | ValidSource$ Card.IsRemembered
+A:AB$ Animate | Cost$ AddCounter<0/LOYALTY> | Defined$ Self | Power$ 4 | Toughness$ 4 | Keywords$ Indestructible | Types$ Creature,Human,Soldier | SubAbility$ GideonPrevent | Planeswalker$ True
+SVar:GideonPrevent:DB$ Effect | ReplacementEffects$ RGideon | Duration$ UntilHostLeavesPlayOrEOT
+SVar:RGideon:Event$ DamageDone | Prevent$ True | ValidTarget$ Card.EffectSource
+A:AB$ Effect | Cost$ AddCounter<0/LOYALTY> | Name$ Emblem — Gideon of the Trials | ReplacementEffects$ DBYouCantLose,DBOppCantWin | Planeswalker$ True | Ultimate$ True | Duration$ Permanent | AILogic$ Always | Stackable$ False
+SVar:DBYouCantLose:Event$ GameLoss | ValidPlayer$ You | Layer$ CantHappen | IsPresent$ Planeswalker.Gideon+YouCtrl
+SVar:DBOppCantWin:Event$ GameWin | ValidPlayer$ Opponent | Layer$ CantHappen | IsPresent$ Planeswalker.Gideon+YouCtrl | Secondary$ True

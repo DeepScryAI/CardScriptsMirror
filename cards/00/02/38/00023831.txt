@@ -1,0 +1,10 @@
+Id:23831
+ColorIdentity:B
+ManaCost:2 B
+Types:Enchantment
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigRepeat
+SVar:TrigRepeat:DB$ RepeatEach | RepeatPlayers$ Opponent | StartingWith$ Opponent | RepeatSubAbility$ DBReveal
+SVar:DBReveal:DB$ PeekAndReveal | PeekAmount$ 1 | NoPeek$ True | RememberRevealed$ True | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | UnlessCost$ PayLife<X> | UnlessPayer$ Remembered | UnlessSwitched$ True | Defined$ Remembered | Origin$ Library | Destination$ Exile | ForgetChanged$ True | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Defined$ Remembered | Origin$ Library | Destination$ Hand | ForgetChanged$ True
+SVar:X:Remembered$CardManaCost

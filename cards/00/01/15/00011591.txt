@@ -1,0 +1,14 @@
+Id:11591
+ColorIdentity:R
+ManaCost:2 R R
+Types:Legendary Planeswalker Koth
+Loyalty:3
+A:AB$ Untap | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Mountain | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Targeted | Power$ 4 | Toughness$ 4 | Types$ Creature,Elemental | Colors$ Red | OverwriteColors$ True
+A:AB$ Mana | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | Produced$ R | Amount$ X
+A:AB$ Effect | Cost$ SubCounter<5/LOYALTY> | Planeswalker$ True | Ultimate$ True | Name$ Emblem — Koth of the Hammer | Image$ emblem_koth_of_the_hammer | StaticAbilities$ STDamage | Stackable$ False | Duration$ Permanent
+SVar:STDamage:Mode$ Continuous | Affected$ Mountain.YouCtrl | AddAbility$ ABDealDamage | AffectedZone$ Battlefield
+SVar:ABDealDamage:AB$ DealDamage | Cost$ T | ValidTgts$ Any | NumDmg$ 1
+SVar:X:Count$Valid Mountain.YouCtrl
+SVar:PlayMain1:ALWAYS
+DeckNeeds:Type$Mountain

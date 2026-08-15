@@ -1,0 +1,14 @@
+Id:34461
+ColorIdentity:R
+ManaCost:1 R
+Types:Legendary Creature Human Archer Hero
+PT:2/2
+K:First Strike
+K:Reach
+T:Mode$ Taps | ValidCard$ Card.Self | OptionalDecider$ You | Execute$ TrigImmediateTrigger
+SVar:TrigImmediateTrigger:AB$ ImmediateTrigger | Cost$ Mana<1\NumTimes> | Announce$ NumTimes | AnnounceMax$ 3 | ConditionCheckSVar$ NumTimes | RememberSVarAmount$ NumTimes | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | MinCharmNum$ 0 | CharmNum$ Count$TriggerRememberAmount | Choices$ DBNet,DBExplosive,DBBoomerang
+SVar:DBNet:DB$ Pump | ValidTgts$ Creature | IsCurse$ True | KW$ HIDDEN CARDNAME can't block.
+SVar:DBExplosive:DB$ DealDamage | ValidTgts$ Player | NumDmg$ 2
+SVar:DBBoomerang:DB$ Discard | Mode$ TgtChoose | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw

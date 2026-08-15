@@ -1,0 +1,12 @@
+Id:27298
+ColorIdentity:G
+ManaCost:3 G G G
+Types:Creature Satyr Warrior
+PT:3/3
+K:Trample
+T:Mode$ ChangesZone | Destination$ Battlefield | ValidCard$ Card.Self+!token | Execute$ TrigToken | TriggerZones$ Battlefield
+SVar:TrigToken:DB$ CopyPermanent | Defined$ TriggeredCardLKICopy | NumCopies$ 2
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigCounters
+SVar:TrigCounters:DB$ PutCounterAll | ValidCards$ Creature.YouCtrl+namedGruff_Triplets | CounterType$ P1P1 | CounterNum$ X
+SVar:X:TriggeredCard$CardPower
+DeckHas:Ability$Token | Counters

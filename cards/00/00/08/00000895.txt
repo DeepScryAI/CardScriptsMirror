@@ -1,0 +1,12 @@
+Id:895
+ColorIdentity:U
+ManaCost:5 U U U
+Types:Creature Homarid
+PT:6/6
+K:Trample
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigUpkeep
+SVar:TrigUpkeep:DB$ Sacrifice | UnlessPayer$ You | UnlessCost$ Mill<2>
+A:AB$ Pump | Cost$ U | Defined$ Self | KW$ Shroud | SubAbility$ DBStayTapped
+SVar:DBStayTapped:DB$ Effect | ReplacementEffects$ DontUntap | RememberObjects$ Self | ExileOnMoved$ Battlefield | Duration$ UntilTheEndOfYourNextUntap | SubAbility$ DBTap
+SVar:DontUntap:Event$ Untap | ValidCard$ Card.IsRemembered | ValidStepTurnToController$ Player.Activator | Layer$ CantHappen
+SVar:DBTap:DB$ Tap | Defined$ Self

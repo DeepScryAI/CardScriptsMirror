@@ -1,0 +1,15 @@
+Id:17256
+ColorIdentity:UBR
+ManaCost:5 U B R
+Types:Legendary Planeswalker Bolas
+Loyalty:5
+A:AB$ GenericChoice | Cost$ AddCounter<3/LOYALTY> | Planeswalker$ True | Defined$ Opponent | Choices$ SacNonland,Discard | TempRemember$ Chooser | FallbackAbility$ LoseLifeFallback | AILogic$ PayUnlessCost
+SVar:Discard:DB$ LoseLife | Defined$ Remembered | LifeAmount$ 3 | UnlessCost$ Discard<1/Card> | UnlessPayer$ Remembered
+SVar:SacNonland:DB$ LoseLife | Defined$ Remembered | LifeAmount$ 3 | UnlessCost$ Sac<1/Permanent.nonLand> | UnlessPayer$ Remembered
+SVar:LoseLifeFallback:DB$ LoseLife | Defined$ Remembered | LifeAmount$ 3
+A:AB$ Destroy | Cost$ SubCounter<3/LOYALTY> | ValidTgts$ Creature | Planeswalker$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw
+A:AB$ DealDamage | Cost$ SubCounter<11/LOYALTY> | Defined$ Opponent | NumDmg$ 7 | Planeswalker$ True | Ultimate$ True | SubAbility$ DBDrawSeven
+SVar:DBDrawSeven:DB$ Draw | NumCards$ 7
+SVar:AIPreference:SacCost$Permanent.nonLand | DiscardCost$Card
+DeckHints:Name$Visage of Bolas

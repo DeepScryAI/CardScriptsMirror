@@ -1,0 +1,13 @@
+Id:27368
+ColorIdentity:WG
+ManaCost:2 G W
+Types:Legendary Creature Human Knight
+PT:4/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigToken | Secondary$ True
+SVar:TrigToken:DB$ Token | TokenScript$ role_virtuous | AttachedTo$ Targeted | ValidTgts$ Creature.YouCtrl+Other | TokenOwner$ You
+T:Mode$ DamageDone | ValidSource$ Creature.YouCtrl+enchanted | ValidTarget$ Player | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw
+SVar:HasAttackEffect:TRUE
+DeckHas:Type$Aura | Role & Ability$Token
+DeckHints:Type$Aura

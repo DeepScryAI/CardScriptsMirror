@@ -1,0 +1,14 @@
+Id:6860
+ColorIdentity:B
+ManaCost:2 B B
+Types:Instant
+K:Entwine:2 B
+A:SP$ Charm | Choices$ DBEffect,DBEffect2
+SVar:DBEffect:DB$ Effect | Name$ Shriveling Rot's Effect — Deadly Toxin | Triggers$ Trig1
+SVar:DBEffect2:DB$ Effect | Name$ Shriveling Rot's Effect — Stench of Death | Triggers$ Trig2
+SVar:Trig1:Mode$ DamageDoneOnce | ValidTarget$ Creature | Execute$ SVar1
+SVar:SVar1:DB$ Destroy | Defined$ TriggeredTargetLKICopy
+SVar:Trig2:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature | Execute$ SVar2
+SVar:SVar2:DB$ LoseLife | Defined$ TriggeredCardController | LifeAmount$ X
+SVar:X:TriggeredCard$CardToughness
+AI:RemoveDeck:All

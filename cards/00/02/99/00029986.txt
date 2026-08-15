@@ -1,0 +1,11 @@
+Id:29986
+ColorIdentity:B
+ManaCost:2 B
+Types:Creature Lizard Warlock
+PT:2/2
+K:Menace
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigBranch
+SVar:TrigBranch:DB$ Branch | ValidTgts$ Opponent | BranchConditionSVar$ X | BranchConditionSVarCompare$ GT0 | TrueSubAbility$ DBDuress | FalseSubAbility$ DBDiscard
+SVar:DBDuress:DB$ Discard | Defined$ TargetedPlayer | Mode$ RevealYouChoose | DiscardValid$ Card.nonLand | NumCards$ 1
+SVar:DBDiscard:DB$ Discard | Defined$ TargetedPlayer | Mode$ TgtChoose | NumCards$ 1
+SVar:X:TargetedPlayer$LifeLostThisTurn

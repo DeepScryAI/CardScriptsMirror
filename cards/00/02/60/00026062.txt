@@ -1,0 +1,13 @@
+Id:26062
+ColorIdentity:BG
+ManaCost:1 B G
+Types:Legendary Creature Phyrexian Zombie Elf
+PT:3/3
+K:First Strike
+K:Deathtouch
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigCharm | TriggerZones$ Battlefield
+SVar:TrigCharm:DB$ Charm | Choices$ DBDraw,DBDestroy,DBRemove
+SVar:DBDraw:DB$ Draw | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 1
+SVar:DBDestroy:DB$ Destroy | ValidTgts$ Enchantment
+SVar:DBRemove:DB$ RemoveCounter | ValidTgts$ Permanent | CounterType$ Any | CounterNum$ 3 | UpTo$ True

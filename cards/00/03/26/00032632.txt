@@ -1,0 +1,12 @@
+Id:32632
+ColorIdentity:
+ManaCost:6
+Types:Legendary Artifact
+A:AB$ Scry | Cost$ 1 T | ScryNum$ 2
+T:Mode$ Scry | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPeek | PresentDefined$ Remembered | IsPresent$ Card | PresentCompare$ EQ0
+T:Mode$ Surveil | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPeek | Secondary$ True | PresentDefined$ Remembered | IsPresent$ Card | PresentCompare$ EQ0
+SVar:TrigPeek:DB$ PeekAndReveal | NoReveal$ True | SubAbility$ TrigPlay
+SVar:TrigPlay:DB$ Play | Defined$ TopOfLibrary | WithoutManaCost$ True | ValidSA$ Spell | Optional$ True | RememberPlayed$ True | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ0
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ DBCleanup | Static$ True
+T:Mode$ TurnBegin | ValidPlayer$ Player | Execute$ DBCleanup | Static$ True
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

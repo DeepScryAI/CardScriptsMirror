@@ -1,0 +1,11 @@
+Id:22032
+ColorIdentity:UR
+ManaCost:U R
+Types:Creature Human Shaman
+PT:2/2
+T:Mode$ SpellCastOrCopy | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigUnblockable
+SVar:TrigUnblockable:DB$ Effect | RememberObjects$ Self | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable | SubAbility$ DBPutCounter
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+SVar:DBPutCounter:DB$ PutCounter | CounterType$ P1P1 | ConditionCheckSVar$ TriggeredSpellAbility$CardManaCostLKI | ConditionSVarCompare$ GE5
+DeckHas:Ability$Counters
+DeckNeeds:Type$Instant | Sorcery

@@ -1,0 +1,12 @@
+Id:27642
+ColorIdentity:G
+ManaCost:2 G
+Types:Sorcery
+A:SP$ Branch | BranchConditionSVar$ X | BranchConditionSVarCompare$ GE3 | TrueSubAbility$ DBConjureAll | FalseSubAbility$ DBConjureTwo
+SVar:DBConjureAll:DB$ MakeCard | Conjure$ True | Names$ First Little Pig,Second Little Pig,Third Little Pig | Zone$ Battlefield
+SVar:DBConjureTwo:DB$ MakeCard | Conjure$ True | SpellbookName$ the Three Pigs | Spellbook$ First Little Pig,Second Little Pig,Third Little Pig | SpellbookAmount$ 2 | RememberMade$ True | Zone$ Hand | SubAbility$ DBPutBattlefield
+SVar:DBPutBattlefield:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | ChangeType$ Card.IsRemembered | ChangeNum$ 1 | Mandatory$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$Valid Boar.YouCtrl$DifferentCardNames
+DeckHints:Type$Boar
+DeckHas:Type$Boar

@@ -1,0 +1,12 @@
+Id:437
+ColorIdentity:
+ManaCost:4
+Types:Artifact
+K:You may choose not to untap CARDNAME during your untap step.
+A:AB$ Effect | Cost$ 3 T | ValidTgts$ Creature | Triggers$ LeavesPlay,Untap | ImprintCards$ Targeted | RememberObjects$ Valid Aura.AttachedTo Targeted | NoteCounterDefined$ Targeted | Duration$ Permanent | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZoneAll | Origin$ Battlefield | Destination$ Exile | ChangeType$ Targeted.Self,Aura.AttachedTo Card.Self
+SVar:LeavesPlay:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.EffectSource | Execute$ TrigReturn | TriggerController$ TriggeredCardController | OneOff$ True
+SVar:Untap:Mode$ Untaps | ValidCard$ Card.EffectSource | Execute$ TrigReturn | TriggerController$ TriggeredCardController | OneOff$ True | Secondary$ True
+SVar:TrigReturn:DB$ ChangeZone | Defined$ Imprinted | Origin$ Exile | Destination$ Battlefield | Tapped$ True | WithNotedCounters$ True | SubAbility$ TrigAuraReturn
+SVar:TrigAuraReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | AttachedTo$ Imprinted
+AI:RemoveDeck:All

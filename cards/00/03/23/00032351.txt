@@ -1,0 +1,13 @@
+Id:32351
+ColorIdentity:W
+Variant:UniversesWithin:FlavorName:Yera and Oski, Weaver and Guide
+ManaCost:2 W
+Types:Legendary Creature Spider Human Hero
+PT:3/3
+K:Web-slinging:W
+K:ETBReplacement:Other:ChoosePlayer
+SVar:ChoosePlayer:DB$ ChoosePlayer | Defined$ You | Choices$ Player.Opponent | SubAbility$ DBLook
+SVar:DBLook:DB$ RevealHand | Defined$ ChosenPlayer | Look$ True | SubAbility$ DBChooseCardType
+SVar:DBChooseCardType:DB$ ChooseType | Defined$ You | Type$ Card | InvalidTypes$ Creature | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenPlayer$ True
+S:Mode$ RaiseCost | EffectZone$ Battlefield | ValidCard$ Card.ChosenType | Type$ Spell | Amount$ 1 | Activator$ Player

@@ -1,0 +1,12 @@
+Id:31579
+ColorIdentity:U
+ManaCost:X U
+Types:Artifact
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPut
+SVar:TrigPut:DB$ PutCounter | Support$ X
+A:AB$ Animate | Cost$ 3 T | Triggers$ DamageTrigger | ValidTgts$ Creature | SubAbility$ DBEffect
+SVar:DamageTrigger:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ Count$DifferentCounterKinds_Card.Self
+SVar:DBEffect:DB$ Effect | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+SVar:X:Count$xPaid

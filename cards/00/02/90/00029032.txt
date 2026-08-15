@@ -1,0 +1,13 @@
+Id:29032
+ColorIdentity:UR
+ManaCost:1 U R
+Types:Legendary Creature Goblin Pirate
+PT:3/3
+K:Menace
+T:Mode$ SpellCast | ValidCard$ Card.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigFlip | ValidActivatingPlayer$ You | ActivatorThisTurnCast$ EQ2
+SVar:TrigFlip:AB$ FlipCoin | Cost$ Sac<1/Artifact> | WinSubAbility$ DBImmediateTrigDamageCopy | LoseSubAbility$ DBImmediateTrigDamage
+SVar:DBImmediateTrigDamageCopy:DB$ ImmediateTrigger | Execute$ TrigCopy
+SVar:TrigCopy:DB$ CopySpellAbility | Defined$ Spawner>TriggeredSpellAbility | MayChooseTarget$ True
+SVar:DBImmediateTrigDamage:DB$ ImmediateTrigger | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ X
+SVar:X:Spawner>TriggeredSpellAbility$CardManaCost

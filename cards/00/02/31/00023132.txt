@@ -1,0 +1,20 @@
+Id:23132
+ColorIdentity:R
+ManaCost:2 R
+Types:Creature Vampire
+PT:2/3
+T:Mode$ AttackersDeclared | Execute$ TrigTransform | ValidAttackers$ Creature | ValidAttackersAmount$ EQ2 | TriggerZones$ Battlefield | AttackingPlayer$ You
+SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform
+AlternateMode:DoubleFaced
+
+ALTERNATE
+
+ManaCost:no cost
+Colors:red
+Types:Creature Vampire
+PT:3/3
+K:Trample
+T:Mode$ Transformed | ValidCard$ Card.Self | Execute$ TrigMana
+SVar:TrigMana:DB$ Mana | Produced$ R | Amount$ 2 | PersistentMana$ True
+A:AB$ Pump | Cost$ R R | Defined$ Self | NumAtt$ +1 | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | ValidTgts$ Creature.Other | NumAtt$ +1

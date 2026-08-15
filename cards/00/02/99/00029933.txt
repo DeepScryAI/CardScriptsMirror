@@ -1,0 +1,19 @@
+Id:29933
+ColorIdentity:B
+ManaCost:5 B
+Types:Creature Elemental Snake
+PT:6/6
+A:SP$ PermanentCreature | Cost$ 5 B Sac<X/Permanent.nonLand/nonland permanent> | AILogic$ SacToReduceCost | AdditionalDesc$ This spell costs {1} less to cast for each permanent sacrificed this way.
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ X | EffectZone$ All | Relative$ True
+SVar:X:Count$xPaid
+SVar:AIPreference:SacCost$Artifact.token+nonLegendary,Creature.token+powerLE2+toughnessLE2,Creature.cmcLE2+powerLE2+toughnessLE2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPutCounter
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPutCounter | Secondary$ True
+SVar:TrigPutCounter:DB$ PutCounter | CounterType$ BLIGHT | CounterNum$ 1 | SubAbility$ DBRepeat
+SVar:DBRepeat:DB$ Repeat | MaxRepeat$ Y | RepeatSubAbility$ RepeatTorment | AILogic$ MaxY
+SVar:RepeatTorment:DB$ GenericChoice | Defined$ Opponent | TempRemember$ Chooser | Choices$ SacNonland,Discard | FallbackAbility$ LoseLifeFallback | AILogic$ PayUnlessCost
+SVar:Discard:DB$ LoseLife | Defined$ Remembered | LifeAmount$ 4 | UnlessCost$ Discard<1/Card> | UnlessPayer$ Remembered
+SVar:SacNonland:DB$ LoseLife | Defined$ Remembered | LifeAmount$ 4 | UnlessCost$ Sac<1/Permanent.nonLand/nonland permanent> | UnlessPayer$ Remembered
+SVar:LoseLifeFallback:DB$ LoseLife | Defined$ Remembered | LifeAmount$ 4
+SVar:Y:Count$CardCounters.BLIGHT
+DeckHas:Ability$Sacrifice | Counters

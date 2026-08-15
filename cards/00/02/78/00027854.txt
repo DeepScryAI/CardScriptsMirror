@@ -1,0 +1,12 @@
+Id:27854
+ColorIdentity:W
+ManaCost:2 W W
+Types:Enchantment Saga
+K:Chapter:4:DBTokens,DBPutCounterAll,DBPutCounterAll,DBMayExile
+SVar:DBTokens:DB$ Token | TokenAmount$ 3 | TokenTapped$ True | TokenScript$ w_1_1_warrior | TokenOwner$ Player | RememberTokens$ True | SubAbility$ DBGoad
+SVar:DBGoad:DB$ Goad | Defined$ Remembered | Duration$ AsLongAsInPlay | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:DBPutCounterAll:DB$ PutCounterAll | ValidCards$ Creature.Warrior | CounterType$ P1P1 | CounterNum$ 1
+SVar:DBMayExile:DB$ ImmediateTrigger | Execute$ TrigExileAll | UnlessCost$ Exile<1/Creature.!token> | UnlessPayer$ You | UnlessSwitched$ True
+SVar:TrigExileAll:DB$ ChangeZoneAll | ChangeType$ Warrior | Origin$ Battlefield | Destination$ Exile
+DeckHas:Ability$Token & Type$Warrior

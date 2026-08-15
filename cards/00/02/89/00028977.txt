@@ -1,0 +1,14 @@
+Id:28977
+ColorIdentity:G
+ManaCost:2 G
+Types:Creature Plant Druid
+PT:2/3
+K:Reach
+S:Mode$ Continuous | Affected$ Land.YouCtrl | AffectedZone$ All | AddType$ Desert
+S:Mode$ Continuous | Affected$ Land.YouCtrl | AddAbility$ AnyMana
+SVar:AnyMana:AB$ Mana | Cost$ T | Produced$ Any | Amount$ 1
+A:AB$ Mill | Cost$ T | NumCards$ 2 | Defined$ You | RememberMilled$ True | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Valid Card.Land
+DeckHas:Ability$Graveyard | LifeGain & Type$Desert

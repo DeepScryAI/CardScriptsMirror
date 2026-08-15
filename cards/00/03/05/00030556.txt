@@ -1,0 +1,10 @@
+Id:30556
+ColorIdentity:B
+ManaCost:1 B B
+Types:Enchantment Creature Nightmare
+PT:2/3
+S:Mode$ Continuous | Affected$ Creature.Enchantment+YouCtrl | AddKeyword$ Menace
+T:Mode$ DamageDoneOnce | CombatDamage$ True | ValidSource$ Creature.Enchantment+YouCtrl | ValidTarget$ Player | TriggerZones$ Battlefield | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | DefinedPlayer$ TriggeredTarget | RememberChanged$ True | Destination$ Exile | Origin$ Library | AtRandom$ True | ChangeNum$ 1 | ChangeType$ Card.Creature | Mandatory$ True | SubAbility$ DBCopy
+SVar:DBCopy:DB$ CopyPermanent | Defined$ Remembered | SetPower$ 1 | SetToughness$ 1 | AddTypes$ Enchantment & Creature | RemoveCardTypes$ True | RemoveSubTypes$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

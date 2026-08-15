@@ -1,0 +1,12 @@
+Id:11596
+ColorIdentity:G
+ManaCost:6 G G
+Types:Creature Elemental
+PT:8/8
+K:Trample
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | OptionalDecider$ You | Execute$ TrigPutCounter | TriggerZones$ Battlefield
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Land.YouCtrl | TargetMin$ 0 | TargetMax$ X | CounterType$ AWAKENING | CounterNum$ 1 | SubAbility$ DBEffect
+SVar:X:Count$Valid Land.YouCtrl
+SVar:DBEffect:DB$ Effect | RememberObjects$ Targeted | StaticAbilities$ TangleStatic | ForgetOnMoved$ Battlefield | ForgetCounter$ AWAKENING | Duration$ Permanent
+SVar:TangleStatic:Mode$ Continuous | Affected$ Card.IsRemembered | SetPower$ 8 | SetToughness$ 8 | AddType$ Creature & Elemental | RemoveCreatureTypes$ True | SetColor$ Green
+SVar:MustBeBlocked:True

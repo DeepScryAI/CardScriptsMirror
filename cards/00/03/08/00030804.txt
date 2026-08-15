@@ -1,0 +1,12 @@
+Id:30804
+ColorIdentity:R
+ManaCost:2 R
+Types:Legendary Creature Minotaur Warrior
+PT:2/3
+K:Haste
+S:Mode$ CantBlockBy | ValidAttacker$ Creature.Warrior | ValidBlocker$ Creature.Coward
+T:Mode$ AttackersDeclaredOneTarget | AttackedTarget$ Player | ValidAttackers$ Creature.Warrior+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigAnimate
+SVar:TrigAnimate:DB$ Animate | ValidTgts$ Creature | TargetsWithDefinedController$ TriggeredAttackedTarget | Types$ Coward | RemoveCreatureTypes$ True | Duration$ Permanent
+S:Mode$ Continuous | Affected$ Creature.Warrior+attacking+YouCtrl | AddPower$ X
+SVar:X:Count$Valid Coward.OppCtrl
+SVar:PlayMain1:TRUE

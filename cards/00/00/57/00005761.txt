@@ -1,0 +1,16 @@
+Id:5761
+ColorIdentity:B
+ManaCost:4 B B B
+Types:Creature Zombie
+PT:*/*
+K:Trample
+K:ETBReplacement:Other:ETBPrep
+SVar:ETBPrep:DB$ Cleanup | ClearRemembered$ True | SubAbility$ DBChoose
+SVar:DBChoose:DB$ ChooseCard | Defined$ You | MinAmount$ 0 | Amount$ X | Choices$ Creature.YouOwn+Other+NotDefinedReplacedSimultaneousETB | ChoiceZone$ Graveyard | RememberChosen$ True | SubAbility$ ExileCreatures
+SVar:ExileCreatures:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered | Origin$ Graveyard | Destination$ Exile | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+S:Mode$ Continuous | EffectZone$ Battlefield | Affected$ Card.Self | SetPower$ TotalPower | SetToughness$ TotalToughness
+SVar:TotalPower:Remembered$CardPower
+SVar:TotalToughness:Remembered$CardToughness
+SVar:X:Count$ValidGraveyard Creature.YouOwn
+AI:RemoveDeck:Random

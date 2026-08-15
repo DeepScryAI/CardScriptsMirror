@@ -1,0 +1,11 @@
+Id:18726
+ColorIdentity:U
+ManaCost:2 U
+Types:Enchantment
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ GuestList
+SVar:GuestList:DB$ Tap | CardChoices$ Gate.YouCtrl+untapped | AnyNumber$ True | ChoiceAmount$ Count$Valid Gate.YouCtrl+untapped | RememberTapped$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ Y | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:Y:Remembered$Amount
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Gate.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1

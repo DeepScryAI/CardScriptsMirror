@@ -1,0 +1,13 @@
+Id:13669
+ColorIdentity:G
+ManaCost:2 G G
+Types:Legendary Creature Hydra
+PT:5/5
+A:AB$ PutCounter | Cost$ X X G | Monstrosity$ X | AILogic$ Polukranos
+T:Mode$ BecomeMonstrous | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigDmg
+SVar:TrigDmg:DB$ DealDamage | ValidTgts$ Creature.OppCtrl | AILogic$ Polukranos | NumDmg$ MonstrosityX | TargetMin$ 0 | TargetMax$ MaxTgts | DividedAsYouChoose$ MonstrosityX | SubAbility$ DBDmg
+SVar:DBDmg:DB$ EachDamage | DefinedDamagers$ ParentTarget | NumDmg$ Count$CardPower | Defined$ Self
+SVar:X:Count$xPaid
+SVar:MonstrosityX:TriggerCount$Amount
+SVar:MaxTgts:Count$Valid Creature.OppCtrl
+DeckHas:Ability$Counters

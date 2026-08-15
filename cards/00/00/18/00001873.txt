@@ -1,0 +1,14 @@
+Id:1873
+ColorIdentity:B
+ManaCost:2 B B
+Types:World Enchantment
+K:Cumulative upkeep:1 B
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Player | TriggerZones$ Battlefield | IsPresent$ Card.Self | Execute$ TrigRepeat
+SVar:TrigRepeat:DB$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBToken | ChangeZoneTable$ True
+SVar:DBToken:DB$ Token | TokenAmount$ X | TokenScript$ tombspawn | TokenOwner$ Player.IsRemembered | RememberTokens$ True
+SVar:X:Count$ValidGraveyard Creature.RememberedPlayerCtrl
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ Player | TriggerZones$ Battlefield | Execute$ DestroyRemembered
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Battlefield | Destination$ Any | Execute$ DestroyRemembered | Secondary$ True
+SVar:DestroyRemembered:DB$ DestroyAll | ValidCards$ Card.IsRemembered | NoRegen$ True | SubAbility$ DBCleanUp
+SVar:DBCleanUp:DB$ Cleanup | ClearRemembered$ True
+AI:RemoveDeck:Random

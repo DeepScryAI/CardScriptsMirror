@@ -1,0 +1,15 @@
+Id:861
+ColorIdentity:B
+ManaCost:B B B
+Types:Enchantment
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigUpkeep
+SVar:TrigUpkeep:DB$ Sacrifice | UnlessPayer$ You | UnlessCost$ PayLife<2>
+T:Mode$ Phase | Phase$ Declare Attackers | Execute$ TrigMarkCouldAttack | Static$ True
+SVar:TrigMarkCouldAttack:DB$ PumpAll | ValidCards$ Creature.couldAttackButNotAttacking | RememberPumped$ True
+T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | Execute$ TrigDestroyAll
+SVar:TrigDestroyAll:DB$ DestroyAll | ValidCards$ Creature.untapped+IsRemembered
+T:Mode$ Phase | Phase$ Cleanup | Execute$ DBCleanup | Static$ True
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:NonStackingEffect:True
+AI:RemoveDeck:Random
+DeckHas:Ability$Sacrifice

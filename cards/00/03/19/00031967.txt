@@ -1,0 +1,16 @@
+Id:31967
+ColorIdentity:G
+ManaCost:no cost
+Types:Land Town
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ G
+AlternateMode:Adventure
+
+ALTERNATE
+
+ManaCost:4 G G
+Types:Sorcery Adventure
+A:SP$ Token | TokenScript$ c_1_1_hero | TokenOwner$ You | RememberTokens$ True | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Remembered | CounterType$ P1P1 | CounterNum$ Count$Valid Land.YouCtrl | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

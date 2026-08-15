@@ -1,0 +1,19 @@
+Id:17459
+ColorIdentity:R
+ManaCost:3 R
+Types:Legendary Enchantment
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigExile
+SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | ConditionDefined$ RememberedCard | ConditionPresent$ Card.nonLand | ConditionCompare$ EQ1 | StaticAbilities$ Play | SubAbility$ DBCleanup | ExileOnMoved$ Exile
+SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+T:Mode$ SpellCast | ValidCard$ Card.YouCtrl | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigTransform | ActivatorThisTurnCast$ EQ3 | OptionalDecider$ You
+SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform | AILogic$ Always
+AlternateMode:DoubleFaced
+
+ALTERNATE
+
+ManaCost:no cost
+Types:Legendary Land
+A:AB$ Mana | Cost$ T | Produced$ R | Amount$ 1
+A:AB$ DealDamage | Cost$ 2 R T | ValidTgts$ Any | NumDmg$ 3

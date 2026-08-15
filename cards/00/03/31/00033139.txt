@@ -1,0 +1,12 @@
+Id:33139
+ColorIdentity:
+ManaCost:2
+Types:Artifact Creature Scarecrow
+PT:1/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSurveil
+SVar:TrigSurveil:DB$ Surveil | Amount$ 1
+A:AB$ ChooseColor | Cost$ 1 | Defined$ You | SubAbility$ DBMana | ActivationLimit$ 1
+SVar:DBMana:DB$ Mana | Cost$ 1 | Produced$ Chosen | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Self | Colors$ ChosenColor | OverwriteColors$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenColor$ True
+DeckHas:Ability$Surveil | Graveyard

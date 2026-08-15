@@ -1,0 +1,11 @@
+Id:26836
+ColorIdentity:W
+ManaCost:2 W
+Types:Legendary Creature Human Noble
+PT:2/3
+A:AB$ ChangeZone | Cost$ 2 T | ValidTgts$ Creature.Other+YouCtrl | RememberChanged$ True | Origin$ Battlefield | Destination$ Exile | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ All | Optional$ True | ForgetChanged$ True | Destination$ Battlefield | SubAbility$ DBDelayedTrigger
+SVar:DBDelayedTrigger:DB$ DelayedTrigger | RememberObjects$ Remembered | ConditionDefined$ Remembered | ConditionPresent$ Card | Mode$ Phase | Phase$ End Of Turn | Execute$ TrigReturn | SubAbility$ DBCleanup
+SVar:TrigReturn:DB$ ChangeZone | Defined$ DelayTriggerRemembered | Origin$ Exile | Destination$ Battlefield | WithCountersType$ Vigilance,Lifelink
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+DeckHas:Ability$Counters | LifeGain

@@ -1,0 +1,11 @@
+Id:22363
+ColorIdentity:R
+ManaCost:2 R
+Types:Instant
+A:SP$ RollDice | ActivationPhases$ Upkeep->Declare Attackers | Amount$ 2 | Sides$ 20 | IgnoreLower$ 1 | ResultSubAbilities$ 1-14:MustBlock,15-20:ChooseBlock
+SVar:MustBlock:DB$ ChooseCard | Choices$ Creature | Amount$ X | MinAmount$ 0 | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ StaticBlock
+SVar:StaticBlock:Mode$ MustBlock | ValidCreature$ Card.ChosenCardStrict
+SVar:X:Count$Valid Creature
+SVar:ChooseBlock:DB$ Effect | StaticAbilities$ DeclareCombatants
+SVar:DeclareCombatants:Mode$ Continuous | Affected$ Player | DeclaresBlockers$ You

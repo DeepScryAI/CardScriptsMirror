@@ -1,0 +1,12 @@
+Id:23865
+ColorIdentity:B
+ManaCost:2 B B
+Types:Creature Ogre Rogue
+PT:3/3
+K:Deathtouch
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl+!token+Other | TriggerZones$ Battlefield | Execute$ TrigConnive
+SVar:TrigConnive:DB$ Connive
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | ValidTgts$ Creature.powerLEX+YouOwn+nonRogue+Other | Origin$ Graveyard | Destination$ Battlefield
+SVar:X:TriggeredCard$CardPower
+DeckHas:Ability$Discard | Counters | Graveyard

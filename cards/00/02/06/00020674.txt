@@ -1,0 +1,11 @@
+Id:20674
+ColorIdentity:WBR
+ManaCost:2 W W
+Types:Sorcery
+A:SP$ RepeatEach | ConditionManaSpent$ B R | RepeatPlayers$ Player | RepeatSubAbility$ YouChoose | SubAbility$ AllChoose
+SVar:YouChoose:DB$ ChooseCard | Defined$ You | Choices$ Permanent.nonLand | ChooseEach$ Artifact & Creature & Enchantment & Planeswalker | ControlledByPlayer$ Remembered | Reveal$ True | RememberChosen$ True | Mandatory$ True
+SVar:AllChoose:DB$ ChooseCard | ConditionManaNotSpent$ B R | Defined$ Player | Choices$ Permanent.nonLand | ChooseEach$ Artifact & Creature & Enchantment & Planeswalker | ControlledByPlayer$ Chooser | Reveal$ True | Mandatory$ True | RememberChosen$ True | SubAbility$ SacAllOthers
+SVar:SacAllOthers:DB$ SacrificeAll | ValidCards$ Permanent.nonLand+!IsRemembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+AI:RemoveDeck:All
+DeckHas:Ability$Sacrifice

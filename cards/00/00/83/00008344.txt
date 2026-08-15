@@ -1,0 +1,13 @@
+Id:8344
+ColorIdentity:BR
+ManaCost:1 B R
+Types:Creature Ogre Warrior
+PT:3/4
+T:Mode$ DamageDoneOnce | ValidTarget$ Card.Self | Execute$ TrigYouDiscard
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Hellbent$ True | Execute$ TrigOppDiscard
+SVar:TrigYouDiscard:DB$ Discard | Defined$ You | NumCards$ X | Mode$ TgtChoose
+SVar:TrigOppDiscard:DB$ Discard | Defined$ TriggeredTarget | NumCards$ X | Mode$ TgtChoose
+SVar:X:TriggerCount$DamageAmount
+SVar:NeedsToPlayVar:Y LE2
+SVar:Y:Count$CardsInYourHand
+SVar:BuffedBy:Card

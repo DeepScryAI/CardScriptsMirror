@@ -1,0 +1,11 @@
+Id:31601
+ColorIdentity:W
+ManaCost:2 W
+Types:Legendary Creature Human Soldier
+PT:1/1
+K:Flash
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigEffect
+SVar:TrigEffect:DB$ Effect | ValidTgts$ Creature.YouCtrl | ReplacementEffects$ DamageEvent | ExileOnMoved$ Battlefield | RememberObjects$ Targeted
+SVar:DamageEvent:Event$ DamageDone | Prevent$ True | ActiveZones$ Command | ValidTarget$ Card.IsRemembered | ReplaceWith$ Counters
+SVar:Counters:DB$ PutCounter | Defined$ ReplacedTarget | CounterType$ P1P1 | CounterNum$ X
+SVar:X:ReplaceCount$DamageAmount

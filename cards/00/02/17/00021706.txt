@@ -1,0 +1,15 @@
+Id:21706
+ColorIdentity:R
+ManaCost:3 R R
+Types:Creature Giant Berserker
+PT:4/6
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigImmediate
+SVar:TrigImmediate:AB$ ImmediateTrigger | Cost$ Sac<1/Creature.Other/another creature> | RememberObjects$ Sacrificed | Execute$ TrigDamage | AILogic$ SacForDamage.GiantX2
+SVar:TrigDamage:DB$ DealDamage | ConditionDefined$ DelayTriggerRememberedLKI | ConditionPresent$ Giant | ConditionCompare$ EQ0 | ValidTgts$ Any | NumDmg$ X | SubAbility$ DBGiantDamage
+SVar:DBGiantDamage:DB$ DealDamage | ConditionDefined$ DelayTriggerRememberedLKI | ConditionPresent$ Giant | ConditionCompare$ GE1 | Defined$ Targeted | NumDmg$ Y
+SVar:X:TriggerRemembered$CardPower
+SVar:Y:TriggerRemembered$CardPower/Times.2
+SVar:AIPreferenceParams:CreatureEvalThreshold$ 200
+SVar:HasAttackEffect:TRUE
+DeckHas:Ability$Sacrifice
+DeckHints:Type$Giant

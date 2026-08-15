@@ -1,0 +1,14 @@
+Id:28836
+ColorIdentity:R
+ManaCost:4 R
+Types:Enchantment Aura
+K:Enchant:Creature
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ 3 | EffectZone$ All | CheckSVar$ X
+SVar:AttachAILogic:Pump
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigUntap
+SVar:TrigUntap:DB$ UntapAll | ValidCards$ Creature.YouCtrl | SubAbility$ DBAddCombat
+SVar:DBAddCombat:DB$ AddPhase | ExtraPhase$ Combat | ConditionPhases$ Main1,Main2 | ConditionPlayerTurn$ True
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 2 | AddToughness$ 2 | AddKeyword$ Haste
+SVar:X:Count$ThisTurnEntered_Graveyard_from_Battlefield_Creature
+SVar:PlayMain1:TRUE
+DeckHints:Ability$Sacrifice

@@ -1,0 +1,13 @@
+Id:33355
+ColorIdentity:B
+ManaCost:3 B
+Types:Artifact Creature Food Alien Mutant
+PT:2/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPut
+SVar:TrigPut:DB$ PutCounter | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ 2 | RememberAmount$ True | SubAbility$ TrigImmediateTrig
+SVar:TrigImmediateTrig:DB$ ImmediateTrigger | Execute$ TrigDestroy | TriggerAmount$ Count$RememberedNumber/DivideEvenlyDown.2 | SubAbility$ DBCleanup
+SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Creature.cmcLEX | TargetMin$ 0 | TargetMax$ 1
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$Valid Permanent.YouCtrl$CardCounters.ALL
+A:AB$ GainLife | Cost$ 2 T Sac<1/CARDNAME/this creature> | LifeAmount$ 3 | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 3

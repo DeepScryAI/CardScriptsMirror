@@ -1,0 +1,13 @@
+Id:12812
+ColorIdentity:
+ManaCost:no cost
+Types:Plane Dominaria
+A:AB$ ChangeZone | Cost$ 0 | Origin$ Hand | Destination$ Exile | ChangeType$ Card.nonLand+YouCtrl | DefinedPlayer$ You | RememberChanged$ True | SorcerySpeed$ True | ActivationZone$ Command | SubAbility$ TimeInGates
+# Removed reminder text because it's too long for SA choice window. Add back when we wrap SA choices text. (At the beginning of its owner's upkeep, they remove a time counter. When the last is removed, the player casts it without paying its mana cost. If it's a creature, it has haste.)
+SVar:TimeInGates:DB$ PutCounter | Defined$ Remembered | CounterType$ TIME | CounterNum$ GateX | SubAbility$ GiveSuspend | TgtZone$ Exile
+SVar:GiveSuspend:DB$ PumpAll | ValidCards$ Card.IsRemembered+withoutSuspend | KW$ Suspend | PumpZone$ Exile | Duration$ Permanent | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:GateX:Remembered$CardManaCost
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos
+SVar:RolledChaos:DB$ RemoveCounterAll | ValidCards$ Card.suspended+YouOwn | CounterType$ TIME | CounterNum$ 2 | ValidZone$ Exile
+SVar:AIRollPlanarDieParams:Mode$ Always | RollInMain1$ True | MaxRollsPerTurn$ 9

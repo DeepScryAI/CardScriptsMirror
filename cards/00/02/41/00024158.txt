@@ -1,0 +1,11 @@
+Id:24158
+ColorIdentity:U
+ManaCost:6 U U
+Types:Creature Elder Dragon
+PT:8/8
+K:Flying
+T:Mode$ DamageDone | ValidSource$ Card.Self | Execute$ TrigRoll | CombatDamage$ True | ValidTarget$ Player | TriggerZones$ Battlefield
+SVar:TrigRoll:DB$ RollDice | ResultSVar$ Result | Sides$ 20 | SubAbility$ TrigDraw
+SVar:TrigDraw:DB$ Draw | NumCards$ Result | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STHandSize | Duration$ Permanent
+SVar:STHandSize:Mode$ Continuous | Affected$ You | SetMaxHandSize$ Unlimited

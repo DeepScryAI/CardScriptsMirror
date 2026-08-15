@@ -1,0 +1,14 @@
+Id:24487
+ColorIdentity:G
+ManaCost:X G
+Types:Creature Ooze
+PT:0/0
+K:Trample
+K:Ward:2
+K:etbCounter:P1P1:X
+SVar:X:Count$xPaid
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self+counters_GE2_P1P1 | TriggerZones$ Battlefield | Execute$ TrigDelayTrigger
+SVar:TrigDelayTrigger:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | ValidPlayer$ Player | RememberObjects$ TriggeredCardLKICopy | Execute$ TrigCopy
+SVar:TrigCopy:DB$ CopyPermanent | Defined$ DelayTriggerRememberedLKI | WithCountersType$ P1P1 | WithCountersAmount$ Y
+SVar:Y:TriggerRemembered$CardCounters.P1P1/HalfDown
+DeckHas:Ability$Counters | Token

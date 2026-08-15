@@ -1,0 +1,11 @@
+Id:2898
+ColorIdentity:U
+ManaCost:1 U
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 3 | AddToughness$ 3
+T:Mode$ Attacks | ValidCard$ Card.AttachedBy | TriggerZones$ Battlefield | Execute$ DelayedTrig
+T:Mode$ Blocks | ValidCard$ Card.AttachedBy | TriggerZones$ Battlefield | Execute$ DelayedTrig | Secondary$ True
+SVar:DelayedTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ Cleanup | ValidPlayer$ Player | Execute$ TrigSacrifice
+SVar:TrigSacrifice:DB$ SacrificeAll | Defined$ Self | Controller$ You

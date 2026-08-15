@@ -1,0 +1,13 @@
+Id:9327
+ColorIdentity:R
+ManaCost:3 R R
+Types:Sorcery
+A:SP$ Charm | Choices$ DBDamageP,DBDamageC,DBDestroy,DBDiscard | CharmNum$ 2
+SVar:DBDamageP:DB$ DealDamage | ValidTgts$ Player,Planeswalker | NumDmg$ 4
+SVar:DBDamageC:DB$ DamageAll | ValidCards$ Creature | NumDmg$ 2
+SVar:DBDestroy:DB$ Destroy | ValidTgts$ Land.nonBasic
+SVar:DBDiscard:DB$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBIncendiaryDiscard | SubAbility$ DBIncendiaryDraw
+SVar:DBIncendiaryDiscard:DB$ Discard | Defined$ Player.IsRemembered | Mode$ Hand | RememberDiscarded$ True | SubAbility$ DBIncendiaryDraw
+SVar:DBIncendiaryDraw:DB$ Draw | NumCards$ X | Defined$ Player.IsRemembered | SubAbility$ CleanIncendiary
+SVar:CleanIncendiary:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Amount

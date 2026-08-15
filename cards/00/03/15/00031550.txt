@@ -1,0 +1,14 @@
+Id:31550
+ColorIdentity:WBG
+ManaCost:2 W B G
+Types:Legendary Creature Elephant Warrior
+PT:5/6
+T:Mode$ TurnFaceUp | ValidCard$ Creature.YouCtrl | Execute$ TrigEndure | TriggerZones$ Battlefield
+SVar:TrigEndure:DB$ Endure | Defined$ TriggeredCardLKICopy | Num$ X
+SVar:X:TriggeredCard$CardToughness
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigSeek
+SVar:TrigSeek:DB$ Seek | Type$ Card.Creature | RememberFound$ True | SubAbility$ DBManifest
+SVar:DBManifest:DB$ Manifest | Defined$ Remembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:BuffedBy:Land
+DeckHas:Ability$Counters | Token

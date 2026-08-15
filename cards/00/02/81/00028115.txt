@@ -1,0 +1,19 @@
+Id:28115
+ColorIdentity:G
+ManaCost:3 G G
+Types:Legendary Creature God
+PT:6/5
+K:Trample
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigDig | CombatDamage$ True
+SVar:TrigDig:DB$ DigMultiple | SourceZone$ Library | DigNum$ X | Reveal$ True | ChangeValid$ Creature,Land | Optional$ True | DestinationZone$ Battlefield | RestRandomOrder$ True
+SVar:X:TriggerCount$DamageAmount
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigTransform
+SVar:TrigTransform:DB$ ChangeZone | Defined$ TriggeredCard | Origin$ Graveyard | Destination$ Battlefield | Transformed$ True | Tapped$ True
+AlternateMode:DoubleFaced
+
+ALTERNATE
+
+ManaCost:no cost
+Types:Land
+A:AB$ Mana | Cost$ T | Produced$ G
+A:AB$ SetState | Cost$ 2 G T | IsPresent$ Permanent.YouCtrl | PresentCompare$ GE10 | Defined$ Self | Mode$ Transform | SorcerySpeed$ True

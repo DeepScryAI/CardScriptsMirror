@@ -1,0 +1,14 @@
+Id:23085
+ColorIdentity:UB
+ManaCost:5 B B
+Types:Legendary Creature Slug Horror
+PT:7/7
+T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | Execute$ TrigCounters
+SVar:TrigCounters:DB$ PutCounterAll | ValidCards$ Creature.YouDontCtrl | CounterType$ SLIME | CounterNum$ 1
+S:Mode$ Continuous | Affected$ Creature.YouDontCtrl | AffectedZone$ Battlefield | AddPower$ -AffectedX | AddToughness$ -AffectedX
+SVar:AffectedX:Count$CardCounters.SLIME
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouDontCtrl+counters_GE1_SLIME | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScript$ b_1_1_slug
+A:AB$ Draw | Cost$ U B Sac<1/Slug> | NumCards$ 1
+SVar:AIPreference:SacCost$Slug.token
+DeckHas:Ability$Counters | Token | Sacrifice

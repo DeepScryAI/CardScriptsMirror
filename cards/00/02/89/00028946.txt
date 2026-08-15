@@ -1,0 +1,18 @@
+Id:28946
+ColorIdentity:B
+ManaCost:3 B
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | NumCards$ 3 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 6 | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenAmount$ 3 | TokenScript$ b_2_1_bat_flying | TokenOwner$ You
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDiscard
+SVar:TrigDiscard:DB$ Discard | Mode$ TgtChoose | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ 2 | SubAbility$ DBSacrifice
+SVar:DBSacrifice:DB$ Sacrifice | SacValid$ Creature
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigDiscardThree
+SVar:TrigDiscardThree:DB$ Discard | NumCards$ 3 | Mode$ TgtChoose | SubAbility$ DBLoseLifeThree
+SVar:DBLoseLifeThree:DB$ LoseLife | Defined$ You | LifeAmount$ 6 | SubAbility$ DBSacrificeThree
+SVar:DBSacrificeThree:DB$ Sacrifice | SacValid$ Creature | SacMessage$ three creatures | Amount$ 3
+DeckHas:Ability$LifeGain | Token | Sacrifice & Type$Bat
+DeckHints:Ability$Discard

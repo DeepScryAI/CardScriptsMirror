@@ -1,0 +1,14 @@
+Id:13887
+ColorIdentity:RG
+ManaCost:2 R G
+Types:Legendary Planeswalker Xenagos
+Loyalty:3
+A:AB$ Mana | Cost$ AddCounter<1/LOYALTY> | Amount$ X | Produced$ Combo R G | Planeswalker$ True
+SVar:X:Count$Valid Creature.YouCtrl
+A:AB$ Token | Cost$ AddCounter<0/LOYALTY> | TokenScript$ rg_2_2_satyr_haste | TokenOwner$ You | Planeswalker$ True
+A:AB$ Dig | Cost$ SubCounter<6/LOYALTY> | DigNum$ 7 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | Planeswalker$ True | Ultimate$ True | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Exile | Destination$ Battlefield | ChangeType$ Creature.IsRemembered,Land.IsRemembered | Hidden$ True | ChangeNum$ Y | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:Y:Count$ValidExile Creature.IsRemembered,Land.IsRemembered
+AI:RemoveDeck:All
+DeckHas:Ability$Token

@@ -1,0 +1,10 @@
+Id:25023
+ColorIdentity:
+ManaCost:3
+Types:Artifact Creature Construct
+PT:2/2
+K:ETBReplacement:Other:ChooseCT
+SVar:ChooseCT:DB$ ChooseType | Type$ Creature | AILogic$ MostProminentInComputerDeck
+S:Mode$ Continuous | Affected$ Card.Self | CharacteristicDefining$ True | AddType$ ChosenType
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ PumpAll | ValidCards$ Creature.YouCtrl+Other+ChosenType | PumpZone$ Battlefield,Hand | NumAtt$ +1 | NumDef$ +1 | Duration$ Perpetual

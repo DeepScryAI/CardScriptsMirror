@@ -1,0 +1,11 @@
+Id:29363
+ColorIdentity:R
+ManaCost:1 R
+Types:Creature Dinosaur
+PT:2/1
+K:First Strike
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigEnergy
+SVar:TrigEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ 2 | SubAbility$ DBDigUntil
+SVar:DBDigUntil:DB$ DigUntil | ConditionDefined$ TriggeredCard | ConditionPresent$ Card.wasCastFromYourHandByYou | Valid$ Card.nonLand | FoundDestination$ Exile | RevealedDestination$ Exile | RememberFound$ True | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | Defined$ Remembered | ValidSA$ Spell | PlayCost$ PayEnergy<ConvertedManaCost> | Optional$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

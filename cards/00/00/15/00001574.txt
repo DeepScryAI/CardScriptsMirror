@@ -1,0 +1,15 @@
+Id:1574
+ColorIdentity:U
+ManaCost:1 U
+Types:Instant
+Text:Cast this spell only if you were dealt damage this turn by a red instant or sorcery spell.
+T:Mode$ DamageDone | ValidSource$ Sorcery.Red,Instant.Red | ValidTarget$ You | Execute$ TrigClearRem | Static$ True
+SVar:TrigClearRem:DB$ Cleanup | ClearRemembered$ True | SubAbility$ TrigRemember
+SVar:TrigRemember:DB$ Pump | RememberObjects$ TriggeredSourceController
+T:Mode$ Phase | Phase$ Cleanup | Execute$ TrigReset | Static$ True
+SVar:TrigReset:DB$ Cleanup | ClearRemembered$ True
+A:SP$ DealDamage | Defined$ Remembered | NumDmg$ 4 | CheckSVar$ X | SVarCompare$ EQ1 | SubAbility$ DelTrigSlowtrip
+SVar:DelTrigSlowtrip:DB$ DelayedTrigger | NextTurn$ True | Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Player | Execute$ DrawSlowtrip
+SVar:DrawSlowtrip:DB$ Draw | Defined$ You
+SVar:X:Count$RememberedSize
+AI:RemoveDeck:Random

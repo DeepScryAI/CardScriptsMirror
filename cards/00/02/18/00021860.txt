@@ -1,0 +1,18 @@
+Id:21860
+ColorIdentity:WR
+ManaCost:1 R
+Types:Creature Human Shaman
+PT:2/1
+T:Mode$ AbilityCast | ValidActivatingPlayer$ Opponent | ValidSA$ SpellAbility.!ManaAbility | TriggerZones$ Battlefield | Execute$ TrigDmg
+SVar:TrigDmg:DB$ DealDamage | NumDmg$ 1 | Defined$ TriggeredActivator
+A:AB$ Pump | Cost$ 1 R | Defined$ Self | NumAtt$ +2
+AlternateMode:Modal
+
+ALTERNATE
+
+ManaCost:W W
+Types:Instant
+A:SP$ Effect | StaticAbilities$ STCantBeCast,STCantBeActivated | AILogic$ BeginningOfOppTurn | SubAbility$ DBChange
+SVar:DBChange:DB$ ChangeZone | Origin$ Stack | Destination$ Exile
+SVar:STCantBeCast:Mode$ CantBeCast | ValidCard$ Card | Caster$ Opponent
+SVar:STCantBeActivated:Mode$ CantBeActivated | Activator$ Opponent | ValidCard$ Planeswalker | ValidSA$ Activated.Loyalty

@@ -1,0 +1,12 @@
+Id:33039
+ColorIdentity:B
+ManaCost:1 B
+Types:Creature Goat
+PT:0/5
+A:AB$ Draw | Cost$ 1 | Activator$ Player.Opponent | NumCards$ 1 | SorcerySpeed$ True | SubAbility$ TrigSteal
+SVar:TrigSteal:DB$ GainControl | Defined$ Self | SubAbility$ TrigCounter
+SVar:TrigCounter:DB$ PutCounter | CounterType$ M1M1 | CounterNum$ 1
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self+counters_GE1_M1M1 | TriggerZone$ Battlefield | Execute$ TrigDeath
+SVar:TrigDeath:DB$ Draw | Defined$ TriggeredCardOwner | NumCards$ X | SubAbility$ TrigDrain
+SVar:TrigDrain:DB$ LoseLife | Defined$ NonTriggeredCardOwner | LifeAmount$ X
+SVar:X:TriggeredCard$CardCounters.M1M1

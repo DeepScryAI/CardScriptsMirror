@@ -1,0 +1,14 @@
+Id:31941
+ColorIdentity:
+ManaCost:5
+Types:Legendary Creature God
+PT:4/4
+K:Flying
+T:Mode$ Attacks | ValidCard$ Creature.Self | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Land | CounterType$ BLIGHT | CounterNum$ 1 | AITgts$ Land.Basic+YouCtrl+!canProduceManaColor Colorless | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ Targeted | StaticAbilities$ BlightStatic | ForgetOnMoved$ Battlefield | ForgetCounter$ BLIGHT | Duration$ Permanent
+SVar:BlightStatic:Mode$ Continuous | Affected$ Card.IsRemembered | RemoveLandTypes$ True | RemoveAllAbilities$ True | AddAbility$ ColorlessMana
+SVar:ColorlessMana:AB$ Mana | Cost$ T | Produced$ C
+T:Mode$ TapsForMana | ValidCard$ Land | Activator$ You | Produced$ C | Execute$ TrigMana | TriggerZones$ Battlefield | Static$ True
+SVar:TrigMana:DB$ Mana | Produced$ C
+SVar:HasAttackEffect:TRUE

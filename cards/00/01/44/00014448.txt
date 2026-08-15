@@ -1,0 +1,11 @@
+Id:14448
+ColorIdentity:U
+ManaCost:3 U U
+Types:Creature Sphinx
+PT:4/4
+K:Flying
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigGuess | TriggerZones$ Battlefield
+SVar:TrigGuess:DB$ ChooseCard | ChoiceZone$ Hand | Defined$ You | Choices$ Card.YouOwn | AILogic$ RandomNonLand | SubAbility$ DBGuess
+SVar:DBGuess:DB$ GenericChoice | Defined$ TriggeredTarget | Choices$ GuessGreaterThanFour,GuessNotGreaterThanFour | AILogic$ Random | ShowChoice$ True | Guess$ True
+SVar:GuessGreaterThanFour:DB$ Play | Controller$ You | Defined$ ChosenCard | Optional$ True | WithoutManaCost$ True | ConditionDefined$ ChosenCard | ConditionPresent$ Card.cmcLE4+nonLand | ConditionCompare$ GE1
+SVar:GuessNotGreaterThanFour:DB$ Play | Controller$ You | Defined$ ChosenCard | Optional$ True | WithoutManaCost$ True | ValidSA$ Spell | ConditionDefined$ ChosenCard | ConditionPresent$ Card.cmcGT4+nonLand | ConditionCompare$ GE1

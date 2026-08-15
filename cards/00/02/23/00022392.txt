@@ -1,0 +1,13 @@
+Id:22392
+ColorIdentity:W
+ManaCost:3 W W
+Types:Enchantment Aura
+K:Enchant:Creature.YouCtrl:creature you control
+SVar:AttachAILogic:Pump
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMove
+SVar:TrigMove:DB$ ChangeZone | ValidTgts$ Aura.CanEnchantEquippedBy+YouOwn,Equipment.CanEnchantEquippedBy+YouOwn | TargetMin$ 0 | TargetMax$ X | TgtZone$ Graveyard | TargetUnique$ True | Origin$ Graveyard | Destination$ Battlefield | AttachedTo$ Valid Creature.EnchantedBy
+SVar:X:Count$ValidGraveyard Aura.CanEnchantEquippedBy,Equipment.CanEnchantEquippedBy
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ Y | AddToughness$ Y | AddSVar$ EqMe & EnMe
+SVar:Y:Count$Valid Aura.AttachedTo Creature.EnchantedBy,Equipment.AttachedTo Creature.EnchantedBy
+SVar:EqMe:SVar:EquipMe:Multiple
+SVar:EnMe:SVar:EnchantMe:Multiple

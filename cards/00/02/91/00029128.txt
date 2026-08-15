@@ -1,0 +1,14 @@
+Id:29128
+ColorIdentity:UR
+ManaCost:1 U R
+Types:Legendary Creature Human Rogue
+PT:3/3
+K:Prowess
+T:Mode$ SpellCast | ValidCard$ Instant.MultiColor+wasCastFromYourHandByYou,Sorcery.MultiColor+wasCastFromYourHandByYou | Execute$ TrigEffect | TriggerZones$ Battlefield
+SVar:TrigEffect:DB$ Effect | ReplacementEffects$ MoveToExileReplace | RememberObjects$ TriggeredCard | ConditionDefined$ TriggeredCard | ConditionPresent$ Card | ConditionZone$ Stack | ExileOnMoved$ Stack
+SVar:MoveToExileReplace:Event$ Moved | ValidCard$ Card.IsRemembered+YouOwn | Origin$ Stack | Destination$ Graveyard | Fizzle$ False | ReplaceWith$ ReplaceExile
+SVar:ReplaceExile:DB$ ChangeZone | Defined$ ReplacedCard | Origin$ Stack | Destination$ Exile | RememberChanged$ True | SubAbility$ DBPlot
+SVar:DBPlot:DB$ AlterAttribute | Defined$ Remembered | Attributes$ Plotted | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:BuffedBy:Instant.MultiColor,Sorcery.MultiColor
+DeckNeeds:Type$Instant | Sorcery

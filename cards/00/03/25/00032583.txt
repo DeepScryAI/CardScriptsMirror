@@ -1,0 +1,14 @@
+Id:32583
+ColorIdentity:WR
+ManaCost:2 R W
+Types:Legendary Creature God Warrior
+PT:4/4
+K:Partner:Father & Son
+T:Mode$ AttackersDeclared | ValidAttackers$ God.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigExperience
+T:Mode$ ChangesZone | ValidCard$ God | TriggerZones$ Battlefield | Secondary$ True | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigExperience
+SVar:TrigExperience:DB$ PutCounter | Defined$ You | CounterType$ Experience | CounterNum$ 1
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ X
+SVar:X:Count$YourCountersExperience
+DeckHas:Ability$Counters
+DeckHints:Type$God

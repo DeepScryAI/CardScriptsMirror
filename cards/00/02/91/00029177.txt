@@ -1,0 +1,11 @@
+Id:29177
+ColorIdentity:BR
+ManaCost:3 B R
+Types:Legendary Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouOwn | WithCountersType$ P1P1 | WithCountersAmount$ 2
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.Legendary+YouCtrl | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Opponent | NumDmg$ Damage
+SVar:Damage:TriggeredCard$CardPower
+DeckHas:Ability$Graveyard | Counters
+DeckHints:Ability$Graveyard | Mill | Discard | Sacrifice & Type$Legendary

@@ -1,0 +1,11 @@
+Id:28344
+ColorIdentity:R
+ManaCost:1 R
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSuspect
+SVar:TrigSuspect:DB$ AlterAttribute | ValidTgts$ Creature.OppCtrl | Attributes$ Suspected | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ IsGoaded | RememberObjects$ Targeted | ForgetOnMoved$ Battlefield | Duration$ UntilHostLeavesPlay
+SVar:IsGoaded:Mode$ Continuous | Affected$ Creature.IsRemembered | Goad$ True
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | CheckSVar$ PlayerCountHasLost$Amount | SVarCompare$ GE2 | TriggerZones$ Battlefield | Execute$ TrigGainControl
+SVar:TrigGainControl:DB$ GainControl | AllValid$ Creature.IsGoaded,Creature.IsSuspected | LoseControl$ EOT | Untap$ True | AddKWs$ Haste
+AI:RemoveDeck:Random

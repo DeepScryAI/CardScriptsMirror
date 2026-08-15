@@ -1,0 +1,21 @@
+Id:31943
+ColorIdentity:UB
+ManaCost:3 U B
+Types:Legendary Creature Human Warlock
+PT:4/5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSurveil
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigSurveil | TriggerZones$ Battlefield | Secondary$ True
+SVar:TrigSurveil:DB$ Surveil | Amount$ 2
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | Execute$ TrigTransform | TriggerZones$ Battlefield
+SVar:TrigTransform:AB$ SetState | Cost$ 4 U U B B ExileFromGrave<8/Card> | Defined$ Self | Mode$ Transform
+AlternateMode:DoubleFaced
+
+ALTERNATE
+
+ManaCost:no cost
+Colors:blue,black
+Types:Legendary Creature Nightmare Warlock
+PT:7/7
+K:Menace
+T:Mode$ Transformed | ValidCard$ Card.Self | Execute$ TrigAddTurn
+SVar:TrigAddTurn:DB$ AddTurn | NumTurns$ 1

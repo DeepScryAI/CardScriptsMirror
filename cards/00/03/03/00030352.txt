@@ -1,0 +1,10 @@
+Id:30352
+ColorIdentity:R
+ManaCost:4 R R
+Types:Enchantment Creature Nightmare
+PT:4/4
+T:Mode$ ChangesZone | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDamageAll
+SVar:TrigDamageAll:DB$ DamageAll | ValidPlayers$ Player.Opponent | NumDmg$ 4
+T:Mode$ DamageDone | ValidSource$ Card.YouCtrl,Emblem.YouCtrl | ValidTarget$ Opponent | CombatDamage$ False | TriggerZones$ Battlefield | Delirium$ True | Execute$ TrigDmg
+SVar:TrigDmg:DB$ DealDamage | ValidTgts$ Creature | TargetsWithDefinedController$ TriggeredTarget | NumDmg$ X
+SVar:X:TriggerCount$DamageAmount

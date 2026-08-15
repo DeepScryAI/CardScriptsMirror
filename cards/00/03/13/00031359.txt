@@ -1,0 +1,12 @@
+Id:31359
+ColorIdentity:WBR
+ManaCost:R W B
+Types:Legendary Creature Orc Warrior
+PT:3/3
+K:Mobilize:1
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Creature.token+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigBranch
+SVar:TrigBranch:DB$ Branch | BranchConditionSVar$ X | BranchConditionSVarCompare$ GE1 | TrueSubAbility$ DBDraw | FalseSubAbility$ DBLoseLife
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1
+SVar:DBLoseLife:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 1
+SVar:X:TriggeredCard$Valid Creature.attacking
+SVar:HasAttackEffect:TRUE

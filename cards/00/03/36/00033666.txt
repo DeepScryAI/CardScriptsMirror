@@ -1,0 +1,17 @@
+Id:33666
+ColorIdentity:G
+ManaCost:1 G G
+Types:Creature Bear Druid
+PT:4/4
+K:Deathtouch
+K:ETBReplacement:Other:DBPrepare
+SVar:DBPrepare:DB$ AlterAttribute | Attributes$ Prepared
+AlternateMode:Prepare
+
+ALTERNATE
+
+ManaCost:4 G
+Types:Instant
+A:SP$ Mill | NumCards$ 7 | Defined$ You | RememberMilled$ True | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Hidden$ True | Origin$ Graveyard,Exile | Destination$ Battlefield | ChangeType$ Creature.IsRemembered | Mandatory$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

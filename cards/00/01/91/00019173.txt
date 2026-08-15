@@ -1,0 +1,12 @@
+Id:19173
+ColorIdentity:R
+ManaCost:2 R R
+Types:Legendary Creature Zombie Minotaur Warrior
+PT:5/4
+K:Trample
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player,Planeswalker | Execute$ TrigDiscard | CombatDamage$ True | OptionalDecider$ You
+SVar:TrigDiscard:DB$ Discard | AnyNumber$ True | Optional$ True | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ X | SubAbility$ DBMana
+SVar:DBMana:DB$ Mana | Produced$ R | Amount$ X | PersistentMana$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Amount

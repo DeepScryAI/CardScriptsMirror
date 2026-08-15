@@ -1,0 +1,10 @@
+Id:27767
+ColorIdentity:
+ManaCost:no cost
+Types:Plane Earth
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Command | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.YouCtrl | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBClone
+SVar:DBClone:DB$ Clone | CloneTarget$ ParentTarget | ValidTgts$ Creature.OppCtrl | TargetUnique$ True
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ TrigVote
+SVar:TrigVote:DB$ Vote | Defined$ Player | VoteSubAbility$ DBExile | VoteCard$ Creature.YouDontCtrl | VoteMessage$ for a creature you don't control | AILogic$ Judgment
+SVar:DBExile:DB$ ChangeZone | Defined$ Remembered | Origin$ Battlefield | Destination$ Exile

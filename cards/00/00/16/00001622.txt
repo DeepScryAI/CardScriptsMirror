@@ -1,0 +1,13 @@
+Id:1622
+ColorIdentity:U
+ManaCost:3 U U
+Types:World Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ ExileAll
+SVar:ExileAll:DB$ ChangeZoneAll | Origin$ Graveyard | Destination$ Exile | ChangeType$ Card
+T:Mode$ SpellCast | ValidCard$ Card | Execute$ TrigCounterSameGrave | TriggerZones$ Battlefield
+SVar:TrigCounterSameGrave:DB$ Counter | Defined$ TriggeredSpellAbility | SubAbility$ DBCounterSamePermanent | ConditionCheckSVar$ SharesNameGrave | ConditionSVarCompare$ GE1
+SVar:DBCounterSamePermanent:DB$ Counter | Defined$ TriggeredSpellAbility | ConditionCheckSVar$ SharesNameBattlefield | ConditionSVarCompare$ GE1
+SVar:SharesNameGrave:TriggeredCard$Valid Card.sharesNameWith Graveyard
+SVar:SharesNameBattlefield:TriggeredCard$Valid Card.sharesNameWith NonToken
+SVar:AICurseEffect:BazaarOfWonders
+AI:RemoveDeck:Random

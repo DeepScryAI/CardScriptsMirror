@@ -1,0 +1,11 @@
+Id:13281
+ColorIdentity:R
+ManaCost:4 R R
+Types:Creature Dragon
+PT:6/5
+K:Flying
+K:Trample
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigGainControl
+SVar:TrigGainControl:DB$ GainControl | AllValid$ Artifact.ControlledBy TriggeredTarget | NewController$ You
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | PresentCompare$ GE20 | IsPresent$ Artifact.YouCtrl | Execute$ WinGame
+SVar:WinGame:DB$ WinsGame | Defined$ You

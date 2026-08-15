@@ -1,0 +1,14 @@
+Id:21037
+ColorIdentity:WU
+ManaCost:1 W U
+Types:Legendary Creature Angel Wizard
+PT:3/3
+K:Flying
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ X | SVarCompare$ EQ4 | Execute$ TrigPump
+SVar:TrigPump:DB$ Effect | ValidTgts$ Permanent.nonLand+OppCtrl | RememberObjects$ Targeted | StaticAbilities$ DBCantStatic | ForgetOnMoved$ Battlefield | IsCurse$ True | Duration$ UntilYourNextTurn
+SVar:DBCantStatic:Mode$ CantAttack,CantBlock,CantBeActivated | ValidCard$ Card.IsRemembered
+A:AB$ Pump | Cost$ Sac<1/NICKNAME> | Defined$ Valid Creature.YouCtrl | KWChoice$ Hexproof,Indestructible
+SVar:X:Count$Party
+SVar:BuffedBy:Rogue,Warrior,Wizard
+DeckHas:Ability$Party | Sacrifice
+DeckHints:Type$Rogue | Warrior | Wizard

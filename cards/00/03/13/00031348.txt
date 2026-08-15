@@ -1,0 +1,9 @@
+Id:31348
+ColorIdentity:R
+ManaCost:2 R
+Types:Instant
+K:Demonstrate
+A:SP$ Destroy | ValidTgts$ Artifact.YouDontCtrl,Creature.YouDontCtrl | SubAbility$ DBDig | RememberDestroyed$ True
+SVar:DBDig:DB$ DigUntil | Defined$ TargetedController | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ GE1 | Valid$ Card.nonLand | FoundDestination$ Exile | RevealedDestination$ Exile | RememberFound$ True | ForgetOtherRemembered$ True | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | Controller$ TargetedController | Defined$ Remembered | ValidZone$ Exile | WithoutManaCost$ True | ValidSA$ Spell | Optional$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

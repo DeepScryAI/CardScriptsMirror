@@ -1,0 +1,13 @@
+Id:14855
+ColorIdentity:B
+ManaCost:2 B
+Types:Sorcery
+A:SP$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ Player.IsRemembered | Mode$ Hand | RememberDiscarded$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ X | Defined$ Player.IsRemembered | SubAbility$ CleanDrawn
+SVar:CleanDrawn:DB$ Cleanup | ClearRemembered$ True
+# This calculation isn't considering the remembered player, only the remembered cards
+SVar:X:Remembered$Amount/Minus.1
+AI:RemoveDeck:All
+AI:RemoveDeck:Random
+DeckHas:Ability$Graveyard

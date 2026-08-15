@@ -1,0 +1,12 @@
+Id:28080
+ColorIdentity:RG
+ManaCost:R G
+Types:Legendary Creature Dinosaur
+PT:2/3
+K:Haste
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | TriggerZones$ Battlefield | Execute$ TrigImmediate
+SVar:TrigImmediate:AB$ ImmediateTrigger | Cost$ 2 | Execute$ TrigPowerDamage
+SVar:TrigPowerDamage:DB$ Pump | ValidTgts$ Dinosaur.YouCtrl | AILogic$ PowerDmg | SubAbility$ SoulsDamage
+SVar:SoulsDamage:DB$ DealDamage | ValidTgts$ Creature | AILogic$ PowerDmg | TargetUnique$ True | NumDmg$ X | DamageSource$ ParentTarget
+SVar:X:ParentTargeted$CardPower
+DeckHints:Type$Dinosaur

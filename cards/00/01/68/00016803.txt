@@ -1,0 +1,12 @@
+Id:16803
+ColorIdentity:R
+ManaCost:3 R R
+Types:Creature Human Warrior
+PT:2/2
+K:Double Strike
+K:Haste
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigEnergy
+SVar:TrigEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ 2 | SubAbility$ DBUntapAll
+SVar:DBUntapAll:DB$ UntapAll | ValidCards$ Creature.YouCtrl | UnlessCost$ PayEnergy<8> | UnlessPayer$ You | UnlessSwitched$ True | UnlessResolveSubs$ WhenPaid | SubAbility$ DBAddCombat
+SVar:DBAddCombat:DB$ AddPhase | ExtraPhase$ Combat | AfterPhase$ EndCombat
+SVar:PlayMain1:TRUE

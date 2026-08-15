@@ -1,0 +1,23 @@
+Id:31786
+ColorIdentity:B
+ManaCost:3 B
+Types:Legendary Creature Human Warrior
+PT:4/3
+K:Menace
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | TriggerZones$ Battlefield | Execute$ TrigExile | OptionalDecider$ You | CombatDamage$ True
+SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | Transformed$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+AlternateMode:DoubleFaced
+DeckHas:Ability$Sacrifice
+
+ALTERNATE
+
+Colors:black
+Types:Legendary Enchantment Creature Saga Nightmare
+PT:7/7
+K:Chapter:3:DBJechtBeam,DBJechtBeam,DBUltimateJechtShot
+SVar:DBJechtBeam:DB$ Discard | Defined$ Opponent | Mode$ TgtChoose | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw
+SVar:DBUltimateJechtShot:DB$ Sacrifice | SacValid$ Creature | Amount$ 2 | Defined$ Player.Opponent
+K:Menace

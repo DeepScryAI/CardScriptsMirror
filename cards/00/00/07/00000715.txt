@@ -1,0 +1,17 @@
+Id:715
+ColorIdentity:R
+ManaCost:1 R R R
+Types:Creature Efreet
+PT:3/3
+K:Remove CARDNAME from your deck before playing if you're not playing for ante.
+A:AB$ Pump | Cost$ T Sac<1/CARDNAME> | ValidTgts$ Opponent | SubAbility$ Choice | RememberObjects$ Targeted
+SVar:Choice:DB$ GenericChoice | Choices$ RevealCard | Defined$ Targeted | ConditionCheckSVar$ X | ConditionSVarCompare$ LT10 | SubAbility$ Choice2
+SVar:Choice2:DB$ GenericChoice | Choices$ PayLife,RevealCard | Defined$ Targeted | ConditionCheckSVar$ X | ConditionSVarCompare$ GE10
+SVar:X:PlayerCountRemembered$LifeTotal
+SVar:PayLife:DB$ LoseLife | LifeAmount$ 10 | Defined$ Targeted | SubAbility$ DBCleanup
+SVar:RevealCard:DB$ Reveal | Random$ True | RememberRevealed$ True | Defined$ Targeted | SubAbility$ ExchangeOwn1
+SVar:ExchangeOwn1:DB$ GainOwnership | Defined$ Remembered | DefinedPlayer$ You | SubAbility$ ToHand
+SVar:ToHand:DB$ ChangeZone | Defined$ Remembered | Origin$ All | Destination$ Hand | SubAbility$ ExchangeOwn2
+SVar:ExchangeOwn2:DB$ GainOwnership | Defined$ CorrectedSelf | DefinedPlayer$ Targeted | SubAbility$ ToGrave
+SVar:ToGrave:DB$ ChangeZone | Defined$ CorrectedSelf | Origin$ All | Destination$ Graveyard | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

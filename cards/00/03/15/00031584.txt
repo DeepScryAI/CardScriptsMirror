@@ -1,0 +1,13 @@
+Id:31584
+ColorIdentity:W
+ManaCost:X W W
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ X | TokenScript$ c_1_1_hero | TokenOwner$ You
+T:Mode$ AttackersDeclared | Execute$ TrigScry | ValidAttackers$ Creature | ValidAttackersAmount$ GE4 | TriggerZones$ Battlefield | AttackingPlayer$ You
+SVar:TrigScry:DB$ Scry | ScryNum$ 2 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw
+T:Mode$ AttackersDeclared | Execute$ TrigPump | ValidAttackers$ Creature | ValidAttackersAmount$ GE8 | TriggerZones$ Battlefield | AttackingPlayer$ You
+SVar:TrigPump:DB$ Pump | Defined$ TriggeredAttackers | NumAtt$ +4 | NumDef$ +4
+SVar:X:Count$xPaid
+DeckHas:Ability$Token & Type$Hero

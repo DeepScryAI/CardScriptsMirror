@@ -1,0 +1,15 @@
+Id:1501
+ColorIdentity:
+ManaCost:0
+Types:Artifact
+A:AB$ ChangeZone | Cost$ T | ChangeType$ Card | ChangeNum$ 1 | Origin$ Hand | Destination$ Exile | ExileFaceDown$ True | RememberChanged$ True | Mandatory$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ Remembered | StaticAbilities$ STLook | Duration$ Permanent | ForgetOnMoved$ Exile
+SVar:STLook:Mode$ Continuous | MayLookAt$ You | Affected$ Card.IsRemembered | AffectedZone$ Exile
+A:AB$ ChangeZone | Cost$ T | Hidden$ True | ChangeType$ Card.IsRemembered+YouOwn+ExiledWithSource | Mandatory$ True | Origin$ Exile | Destination$ Hand | ForgetChanged$ True
+T:Mode$ ChangesZone | Origin$ Exile | Destination$ Any | Static$ True | ValidCard$ Card.IsRemembered+ExiledWithSource | Execute$ DBForget
+SVar:DBForget:DB$ Pump | ForgetObjects$ TriggeredCard
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ DBChangeZoneAll
+T:Mode$ ChangesController | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ DBChangeZoneAll | Secondary$ True
+SVar:DBChangeZoneAll:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered | Origin$ Exile | Destination$ Graveyard | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+AI:RemoveDeck:All

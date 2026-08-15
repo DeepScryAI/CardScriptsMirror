@@ -1,0 +1,13 @@
+Id:32044
+ColorIdentity:U
+ManaCost:2 U
+Types:Artifact Spacecraft
+PT:0/8
+K:Station:12
+S:Mode$ Continuous | Affected$ Card.Self+counters_GE3_CHARGE | AddTrigger$ CastTrig
+SVar:CastTrig:Mode$ SpellCast | ValidCard$ Artifact | ValidActivatingPlayer$ You | Execute$ TrigDraw | TriggerZones$ Battlefield
+SVar:TrigDraw:DB$ Draw | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ CHARGE | CounterNum$ 1
+S:Mode$ Continuous | Affected$ Card.Self+counters_GE12_CHARGE | AddType$ Creature | AddKeyword$ Flying | AddStaticAbility$ CraftStatic
+SVar:CraftStatic:Mode$ Continuous | Affected$ Card.Self | AddPower$ X
+SVar:X:Count$Valid Artifact.YouCtrl

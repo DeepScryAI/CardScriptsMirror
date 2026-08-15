@@ -1,0 +1,10 @@
+Id:18794
+ColorIdentity:B
+ManaCost:2 B
+Types:Creature Human Shaman
+PT:3/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice | Defined$ Player | SacValid$ Creature,Planeswalker | RememberSacrificed$ True | SubAbility$ Discard
+SVar:Discard:DB$ Discard | Mode$ TgtChoose | NumCards$ 1 | Defined$ NonRememberedController | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:NeedsToPlay:Creature.OppCtrl,Planeswalker.OppCtrl

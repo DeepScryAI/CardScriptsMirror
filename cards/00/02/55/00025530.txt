@@ -1,0 +1,12 @@
+Id:25530
+ColorIdentity:U
+ManaCost:3 U
+Types:Creature Vedalken Guest
+PT:*/*
+K:ETBReplacement:Other:TrigRoll
+SVar:TrigRoll:DB$ RollDice | ResultSVar$ diePwr | SubAbility$ RollTough
+SVar:RollTough:DB$ RollDice | ResultSVar$ dieTgn | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Self | Power$ diePwr | Toughness$ dieTgn | Duration$ Permanent
+R:Event$ RollDice | ActiveZones$ Battlefield | ValidPlayer$ You | ValidSides$ 6 | ReplaceWith$ SwapRoll
+SVar:SwapRoll:DB$ ReplaceEffect | VarName$ DicePTExchanges | VarType$ CardSet | VarValue$ Self
+AI:RemoveDeck:All

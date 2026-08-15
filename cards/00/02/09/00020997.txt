@@ -1,0 +1,13 @@
+Id:20997
+ColorIdentity:B
+ManaCost:3 B
+Types:Enchantment Saga
+K:Chapter:3:TrigChangeZone,TrigSac,TrigExile
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Hand,Graveyard | Destination$ Battlefield | ChangeType$ Creature.Zombie+setWAR,Planeswalker.setWAR | DefinedPlayer$ Player | ChangeNum$ 1
+SVar:TrigSac:DB$ Sacrifice | Defined$ You | Amount$ SacX | SacValid$ Creature,Planeswalker | RememberSacrificed$ True | Optional$ True | SubAbility$ DBEdict
+SVar:DBEdict:DB$ Sacrifice | Defined$ Player.Opponent | SacValid$ Creature,Planeswalker | Amount$ EdictX
+SVar:TrigExile:DB$ ChangeZone | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Bolas | Origin$ Battlefield | Destination$ Exile | SubAbility$ DBProliferate
+SVar:DBProliferate:DB$ Proliferate | Amount$ 3
+SVar:SacX:Count$Valid Creature.YouCtrl/Plus.SacPlanes
+SVar:SacPlanes:Count$Valid Planeswalker.YouCtrl
+SVar:EdictX:Remembered$Amount

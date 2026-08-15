@@ -1,0 +1,20 @@
+Id:15734
+ColorIdentity:U
+ManaCost:2 U
+Types:Enchantment
+K:Hexproof
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigRevealToWin | OptionalDecider$ You
+SVar:TrigRevealToWin:DB$ RevealHand | Defined$ You | SubAbility$ WinGame
+SVar:WinGame:DB$ WinsGame | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ4
+# Combine Hedron Alignments in 4 different zones, cap the count of each zone to 1.
+SVar:A:Count$Valid Card.YouOwn+!token+namedHedron Alignment/LimitMax.1
+SVar:B:Count$ValidHand Card.YouOwn+namedHedron Alignment/LimitMax.1
+SVar:C:Count$ValidGraveyard Card.YouOwn+namedHedron Alignment/LimitMax.1
+SVar:D:Count$ValidExile Card.YouOwn+namedHedron Alignment/LimitMax.1
+# Double addition to try to get up to 4
+SVar:X:SVar$Y/Plus.Z
+SVar:Y:SVar$A/Plus.B
+SVar:Z:SVar$C/Plus.D
+A:AB$ Scry | Cost$ 1 U | ScryNum$ 1
+AI:RemoveDeck:Random
+DeckNeeds:Name$Hedron Alignment

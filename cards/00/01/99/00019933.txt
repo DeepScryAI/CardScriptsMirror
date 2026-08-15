@@ -1,0 +1,16 @@
+Id:19933
+ColorIdentity:BRG
+ManaCost:2 B R G
+Types:Legendary Creature Dragon Noble
+PT:4/4
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSac
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigSac | Secondary$ True
+SVar:TrigSac:DB$ Sacrifice | Defined$ You | SacValid$ Permanent.Other
+SVar:NeedsToPlay:Permanent.YouCtrl+cmcLE2
+T:Mode$ Sacrificed | ValidCard$ Permanent | ValidPlayer$ You | Execute$ TrigPutCounter | TriggerZones$ Battlefield
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1
+SVar:BuffedBy:Permanent.YouCtrl
+AI:RemoveDeck:Random
+DeckHas:Ability$Counters

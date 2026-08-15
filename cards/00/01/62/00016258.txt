@@ -1,0 +1,21 @@
+Id:16258
+ColorIdentity:G
+ManaCost:2 G
+Types:Creature Werewolf Horror
+PT:3/1
+S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self | ValidBlocker$ Creature.powerLTX
+SVar:X:Count$CardPower
+A:AB$ SetState | Cost$ 5 G | Defined$ Self | Mode$ Transform
+DeckHas:Ability$Token
+DeckHints:Type$Eldrazi | Horror
+AlternateMode:DoubleFaced
+
+ALTERNATE
+
+ManaCost:no cost
+Types:Creature Eldrazi Werewolf
+PT:3/5
+S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self | ValidBlocker$ Creature.powerLTX
+SVar:X:Count$CardPower
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScript$ c_3_2_eldrazi_horror | TokenOwner$ You

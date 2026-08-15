@@ -1,0 +1,11 @@
+Id:5914
+ColorIdentity:W
+ManaCost:4 W W
+Types:Creature Bird Cleric
+PT:3/3
+K:Flying
+A:AB$ Effect | Cost$ 5 W | ValidTgts$ Any | ReplacementEffects$ SelflessDamage | RememberObjects$ Targeted | ExileOnMoved$ Battlefield
+SVar:SelflessDamage:Event$ DamageDone | ValidTarget$ Creature.EffectSource,You | ReplaceWith$ SelflessDmg | DamageTarget$ Remembered
+SVar:SelflessDmg:DB$ ReplaceEffect | VarName$ Affected | VarValue$ Remembered | VarType$ GameEntity | SubAbility$ ExileEffect
+SVar:ExileEffect:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile
+AI:RemoveDeck:All

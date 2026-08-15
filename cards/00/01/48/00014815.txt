@@ -1,0 +1,10 @@
+Id:14815
+ColorIdentity:U
+ManaCost:2 U
+Types:Creature Human Monk
+PT:2/3
+S:Mode$ CantBlockBy | ValidAttacker$ Card.Self | IsPresent$ Creature.YouCtrl+Other | PresentCompare$ EQ0
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBExileTopCard
+SVar:DBExileTopCard:DB$ Dig | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | ExileFaceDown$ True | SubAbility$ DBManifest
+SVar:DBManifest:DB$ Manifest | Amount$ 2 | Defined$ Remembered | Shuffle$ True

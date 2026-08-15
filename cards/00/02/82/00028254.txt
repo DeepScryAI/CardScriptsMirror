@@ -1,0 +1,13 @@
+Id:28254
+ColorIdentity:WR
+ManaCost:3 R W
+Types:Creature Dinosaur
+PT:3/3
+K:Flying
+K:Haste
+T:Mode$ ChangesZone | ValidCard$ Card.Self,Dinosaur.withFlying+Other+YouCtrl | Origin$ Any | Destination$ Battlefield | Execute$ TrigGainControl
+SVar:TrigGainControl:DB$ GainControl | ValidTgts$ Creature.OppCtrl | LoseControl$ EOT | Untap$ True | AddKWs$ Haste & Flying | SubAbility$ DBDelayTrig
+SVar:DBDelayTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ TrigChooseLand | RememberObjects$ Targeted
+SVar:TrigChooseLand:DB$ Pump | ValidTgts$ Land | SubAbility$ DBDamage
+SVar:DBDamage:DB$ DealDamage | Defined$ DelayTriggerRemembered | DamageSource$ Targeted | NumDmg$ 3
+DeckHints:Type$Dinosaur

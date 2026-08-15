@@ -1,0 +1,9 @@
+Id:1552
+ColorIdentity:W
+ManaCost:4 W
+Types:Instant
+S:Mode$ AlternativeCost | ValidSA$ Spell.Self | EffectZone$ All | Cost$ ExileFromHand<1/Card.White+Other>
+A:SP$ PreventDamage | ValidTgts$ Any | Amount$ 7 | PreventionSubAbility$ ScarEffect | ShieldEffectTarget$ Targeted
+SVar:ScarEffect:DB$ Effect | RememberObjects$ ShieldEffectTarget | Triggers$ DelTrig
+SVar:DelTrig:Mode$ Phase | Phase$ End of Turn | Execute$ DelayedScars | OneOff$ True | IsPresent$ Creature.IsRemembered
+SVar:DelayedScars:DB$ PutCounter | Defined$ Remembered | CounterType$ P0P1 | CounterNum$ PreventedDamage

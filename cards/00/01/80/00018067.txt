@@ -1,0 +1,12 @@
+Id:18067
+ColorIdentity:G
+ManaCost:1 G
+Types:Creature Ooze
+PT:2/2
+T:Mode$ AttackerBlockedByCreature | ValidCard$ Creature.equipped | ValidBlocker$ Card.Self | Execute$ DelTrigAttacker
+T:Mode$ AttackerBlockedByCreature | ValidCard$ Card.Self | ValidBlocker$ Creature.equipped | Execute$ DelTrigBlocker | Secondary$ True
+SVar:DelTrigAttacker:DB$ DelayedTrigger | Mode$ Phase | Phase$ EndCombat | ValidPlayer$ Player | Execute$ TrigRem | RememberObjects$ TriggeredAttackerLKICopy
+SVar:DelTrigBlocker:DB$ DelayedTrigger | Mode$ Phase | Phase$ EndCombat | ValidPlayer$ Player | Execute$ TrigRem | RememberObjects$ TriggeredBlockerLKICopy
+SVar:TrigRem:DB$ Pump | RememberObjects$ DelayTriggerRememberedLKI | SubAbility$ TrigDestroy
+SVar:TrigDestroy:DB$ DestroyAll | ValidCards$ Remembered.Equipment+Attached | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

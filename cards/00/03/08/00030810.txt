@@ -1,0 +1,12 @@
+Id:30810
+ColorIdentity:U
+ManaCost:2 U
+Types:Legendary Creature Merfolk Rogue
+PT:2/2
+T:Mode$ Taps | ValidCard$ Card.Self | Execute$ TrigMill
+SVar:TrigMill:DB$ Mill | NumCards$ X | ValidTgts$ Player
+T:Mode$ SpellCast | ValidCard$ Card.wasCastFromYourGraveyard | ValidActivatingPlayer$ You | Execute$ TrigDraw | TriggerZones$ Battlefield
+T:Mode$ AbilityCast | ValidCard$ Card.inZoneGraveyard | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraw | Secondary$ True
+SVar:TrigDraw:DB$ Draw | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ 1 | Defined$ Self
+SVar:X:Count$CardPower

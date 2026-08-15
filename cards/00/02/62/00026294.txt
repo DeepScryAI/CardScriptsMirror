@@ -1,0 +1,12 @@
+Id:26294
+ColorIdentity:WB
+ManaCost:W B
+Types:Legendary Creature Human Cleric
+PT:2/2
+K:Starting intensity:0
+T:Mode$ ChangesZone | ValidCard$ Creature.YouCtrl+Other | Origin$ Any | Destination$ Battlefield | TriggerZones$ Battlefield | Execute$ TrigIntensify
+SVar:TrigIntensify:DB$ Intensify | AllDefined$ Card.Self,Card.inZoneGraveyard+namedArek; False Goldwarden+YouOwn,Card.inZoneHand+namedArek; False Goldwarden+YouOwn,Card.inZoneLibrary+namedArek; False Goldwarden+YouOwn
+A:AB$ LoseLife | Cost$ 3 W B T Sac<1/NICKNAME> | ValidTgts$ Opponent | LifeAmount$ X | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ X
+SVar:X:Count$Intensity
+DeckHas:Ability$LifeGain | Sacrifice

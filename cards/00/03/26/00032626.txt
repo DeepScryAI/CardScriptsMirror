@@ -1,0 +1,11 @@
+Id:32626
+ColorIdentity:B
+ManaCost:4 B B
+Types:Legendary Creature Shapeshifter Spirit
+PT:6/6
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile1
+SVar:TrigExile1:DB$ ChangeZone | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Creature.Other | Origin$ Battlefield | Destination$ Exile
+T:Mode$ ChangesZone | ValidCard$ Creature.!token+Other | Origin$ Battlefield | Destination$ Graveyard | OptionalDecider$ You | Execute$ TrigExile2 | TriggerZones$ Battlefield
+SVar:TrigExile2:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Exile
+A:AB$ ChooseCard | Cost$ PayLife<1> | Defined$ You | Amount$ 1 | Mandatory$ True | Choices$ Creature.ExiledWithSource | ChoiceZone$ Exile
+S:Mode$ Continuous | Affected$ Card.Self | EffectZone$ Battlefield | GainsAbilitiesOf$ Card.ChosenCard | GainsTriggerAbsOf$ Card.ChosenCard | GainsAbilitiesOfZones$ Exile

@@ -1,0 +1,9 @@
+Id:34555
+ColorIdentity:U
+ManaCost:1 U U
+Types:Enchantment Aura
+K:Enchant:Creature.YouCtrl:creature you control
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Creature.!EnchantedBy | TargetMin$ 0 | TargetMax$ 1 | Duration$ UntilHostLeavesPlay | SubAbility$ DBClone
+SVar:DBClone:DB$ Clone | Defined$ ParentTarget | CloneTarget$ Enchanted | Duration$ UntilHostLeavesPlay
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddKeyword$ Ward:2

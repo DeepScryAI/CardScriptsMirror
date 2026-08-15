@@ -1,0 +1,12 @@
+Id:22391
+ColorIdentity:R
+ManaCost:1 R R
+Types:Enchantment Aura Curse
+K:Enchant:Player
+SVar:AttachAILogic:Curse
+T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ Player.EnchantedBy | TriggerZones$ Battlefield | Execute$ TrigRollDice
+SVar:TrigRollDice:DB$ RollDice | ResultSVar$ X | SubAbility$ DBDamage
+SVar:DBDamage:DB$ DealDamage | Defined$ Player.EnchantedBy | NumDmg$ X | SubAbility$ DBChoose
+SVar:DBChoose:DB$ ChoosePlayer | Defined$ You | Choices$ Player.Opponent+!EnchantedBy | Random$ True | SubAbility$ DBAttach
+SVar:DBAttach:DB$ Attach | Defined$ ChosenPlayer | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenPlayer$ True

@@ -1,0 +1,10 @@
+Id:11365
+ColorIdentity:
+ManaCost:no cost
+Types:Ongoing Scheme
+T:Mode$ AttackerUnblocked | ValidCard$ Creature | ValidDefender$ You,Planeswalker.YouCtrl | TriggerZones$ Command | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenOwner$ You | TokenScript$ g_0_1_plant | TokenBlocking$ TriggeredAttacker
+T:Mode$ AttackersDeclared | Execute$ DelTrigEOC | CheckSVar$ NatureShields | SVarCompare$ GE4 | NoResolvingCheck$ True | TriggerZones$ Command | AttackedTarget$ You
+SVar:DelTrigEOC:DB$ DelayedTrigger | Mode$ Phase | Phase$ EndCombat | ValidPlayer$ Player | Execute$ Abandon
+SVar:Abandon:DB$ Abandon
+SVar:NatureShields:Count$Valid Creature.attackingYou

@@ -1,0 +1,14 @@
+Id:21470
+ColorIdentity:U
+ManaCost:U
+Types:Snow Creature Spirit
+PT:1/1
+A:AB$ Animate | Cost$ S S | Types$ Spirit,Warrior | RemoveCreatureTypes$ True | Duration$ Permanent | Power$ 2 | Toughness$ 3
+A:AB$ PutCounter | Cost$ S S S | ConditionPresent$ Card.Self+Warrior | CounterType$ Flying | CounterNum$ 1 | SubAbility$ TrigAnimate
+SVar:TrigAnimate:DB$ Animate | ConditionPresent$ Card.Self+Warrior | Types$ Angel,Spirit,Warrior | RemoveCreatureTypes$ True | Duration$ Permanent | Power$ 4 | Toughness$ 4
+A:AB$ PutCounter | Cost$ S S S S | ConditionPresent$ Card.Self+Angel | CounterType$ P1P1 | CounterNum$ 2 | SubAbility$ AddTrigger
+SVar:AddTrigger:DB$ Animate | Defined$ Self | ConditionPresent$ Card.Self+Angel | Triggers$ DamageDraw | Duration$ Permanent
+SVar:DamageDraw:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+DeckHas:Ability$Counters
+DeckNeeds:Type$Snow

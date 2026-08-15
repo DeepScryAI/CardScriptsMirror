@@ -1,0 +1,13 @@
+Id:23812
+ColorIdentity:WUG
+ManaCost:1 G W U
+Types:Legendary Creature Cat Advisor
+PT:2/4
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.OppCtrl | CounterType$ SHIELD | AILogic$ Curse
+T:Mode$ CounterPlayerAddedAll | ValidObject$ Creature.YouDontCtrl+inRealZoneBattlefield | ValidSource$ You | TriggerZones$ Battlefield | Execute$ TrigTap
+SVar:TrigTap:DB$ Tap | Defined$ TriggeredObjectLKICopy | SubAbility$ DBGoad
+SVar:DBGoad:DB$ Goad | Defined$ TriggeredObjectLKICopy | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ TriggeredObjectLKICopy | KW$ Trample | Duration$ UntilYourNextTurn
+# Card doesn't make sense to run unless you have 2 or more opponents
+AI:RemoveDeck:Random

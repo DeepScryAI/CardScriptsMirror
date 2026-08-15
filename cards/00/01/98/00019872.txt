@@ -1,0 +1,12 @@
+Id:19872
+ColorIdentity:RG
+ManaCost:3 R G
+Types:Sorcery
+A:SP$ Dig | DestinationZone$ Exile | DigNum$ 5 | ChangeNum$ All | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | Name$ Escape to the Wilds's Effect — May Play | RememberObjects$ RememberedCard | ForgetOnMoved$ Exile | StaticAbilities$ Play | Duration$ UntilTheEndOfYourNextTurn | SubAbility$ DBEffect2
+SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBEffect2:DB$ Effect | Name$ Escape to the Wilds's Effect — Exploration | StaticAbilities$ Exploration | AILogic$ Always | SubAbility$ DBCleanup
+SVar:Exploration:Mode$ Continuous | Affected$ You | AdjustLandPlays$ 1
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:NeedsToPlayVar:ZZ GE1
+SVar:ZZ:Count$ValidHand Land.YouOwn

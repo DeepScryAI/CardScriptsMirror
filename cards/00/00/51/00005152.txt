@@ -1,0 +1,9 @@
+Id:5152
+ColorIdentity:B
+ManaCost:2 B
+Types:Sorcery
+A:SP$ ChangeZoneAll | ValidTgts$ Player | ChangeType$ Card | Origin$ Hand | Destination$ Exile | Hidden$ True | ExileFaceDown$ True | RememberChanged$ True | Reveal$ False | SubAbility$ DelTrig
+SVar:DelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | DelayedTriggerDefinedPlayer$ Targeted | ThisTurn$ True | RememberObjects$ Remembered | Execute$ TrigReturn | Secondary$ True | SubAbility$ DBCleanup
+SVar:TrigReturn:DB$ ChangeZone | Defined$ DelayTriggerRememberedLKI | Origin$ Exile | Destination$ Hand
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+AI:RemoveDeck:All

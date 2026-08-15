@@ -1,0 +1,10 @@
+Id:2308
+ColorIdentity:B
+ManaCost:1 B B
+Types:Creature Zombie
+PT:2/2
+T:Mode$ AttackerUnblocked | ValidCard$ Card.Self | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZoneAll | Origin$ Graveyard | Destination$ Battlefield | ChangeType$ Creature.TopGraveyardCreature+DefenderCtrl | GainControl$ True | ChangeNum$ 1 | SubAbility$ DBNoCombatDamage
+SVar:DBNoCombatDamage:DB$ Effect | StaticAbilities$ SNoCombatDamage | Duration$ UntilHostLeavesPlayOrEOT
+SVar:SNoCombatDamage:Mode$ AssignNoCombatDamage | ValidCard$ Card.EffectSource
+SVar:NeedsOrderedGraveyard:OPPONENT

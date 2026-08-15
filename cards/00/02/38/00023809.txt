@@ -1,0 +1,14 @@
+Id:23809
+ColorIdentity:WUB
+ManaCost:1 W U B
+Types:Legendary Creature Octopus Rogue
+PT:2/4
+T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigPump | TriggerZones$ Battlefield
+SVar:TrigPump:DB$ Effect | RememberObjects$ Targeted | ValidTgts$ Creature.attacking | StaticAbilities$ Unblockable | SubAbility$ DBConnive
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+SVar:DBConnive:DB$ Connive | Defined$ Targeted | SubAbility$ DBChooseCard
+SVar:DBChooseCard:DB$ ChooseCard | Defined$ You | Choices$ Creature.attacking+NotDefinedTargeted+powerLTX | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | KW$ Double Strike | Defined$ ChosenCard | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+SVar:X:Targeted$CardPower
+DeckHas:Ability$Discard | Counters

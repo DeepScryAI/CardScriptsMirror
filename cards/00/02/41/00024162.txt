@@ -1,0 +1,13 @@
+Id:24162
+ColorIdentity:U
+ManaCost:1 U
+Types:Enchantment Class
+S:Mode$ ReduceCost | EffectZone$ Battlefield | ValidCard$ Card.Artifact | Activator$ You | Type$ Spell | OnlyFirstSpell$ True | Amount$ 1
+K:Class:2:1 U:AddTrigger$ TriggerClassLevel
+SVar:TriggerClassLevel:Mode$ ClassLevelGained | ClassLevel$ 2 | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigDigUntil | Secondary$ True
+SVar:TrigDigUntil:DB$ DigUntil | Valid$ Artifact | FoundDestination$ Hand | RevealedDestination$ Library | RevealedLibraryPosition$ -1 | RevealRandomOrder$ True
+K:Class:3:5 U:AddTrigger$ TriggerEndTurn
+SVar:TriggerEndTurn:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ CopyArtifact | Secondary$ True
+SVar:CopyArtifact:DB$ CopyPermanent | ValidTgts$ Artifact.YouCtrl
+DeckHas:Ability$Token
+DeckNeeds:Type$Artifact

@@ -1,0 +1,12 @@
+Id:27328
+ColorIdentity:G
+ManaCost:1 G G
+Types:Creature Elf Knight
+PT:3/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | MinCharmNum$ 1 | CharmNum$ 3 | Choices$ DBChangeZone,DBChangeZoneBis,DBExileGrave
+SVar:DBChangeZone:DB$ ChangeZone | ValidTgts$ Card.AdventureCard+YouOwn | Origin$ Exile | Destination$ Hand
+SVar:DBChangeZoneBis:DB$ ChangeZone | ValidTgts$ Card.AdventureCard+YouDontOwn | Origin$ Exile | Destination$ Library | LibraryPosition$ -1
+SVar:DBExileGrave:DB$ ChangeZoneAll | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Player | ChangeType$ Card
+DeckHas:Ability$Graveyard
+DeckHints:Type$Adventure

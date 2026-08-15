@@ -1,0 +1,16 @@
+Id:20159
+ColorIdentity:
+ManaCost:8
+Types:Artifact Creature Angel
+PT:4/4
+K:Flying
+K:Indestructible
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Destination$ Battlefield | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZoneAll | ChangeType$ Artifact.nonColorless | Origin$ Battlefield | Destination$ Exile
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigEmblem | TriggerZones$ Battlefield
+SVar:TrigEmblem:DB$ Effect | Name$ Emblem — Puresteel Angel | ReplacementEffects$ LoseReplace | Duration$ Permanent
+SVar:LoseReplace:Event$ GameLoss | ActiveZones$ Command | ValidPlayer$ You | ReplaceWith$ DBSetLife
+SVar:DBSetLife:DB$ SetLife | Defined$ You | LifeAmount$ 20 | SubAbility$ DBShuffle
+SVar:DBShuffle:DB$ ChangeZoneAll | Defined$ You | ChangeType$ Card | Origin$ Graveyard | Destination$ Library | Shuffle$ True | SubAbility$ DBPoison
+SVar:DBPoison:DB$ RemoveCounter | Defined$ You | CounterType$ POISON | CounterNum$ All | SubAbility$ ExileEffect
+SVar:ExileEffect:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile

@@ -1,0 +1,13 @@
+Id:32030
+ColorIdentity:BRG
+ManaCost:1 B R G
+Types:Legendary Artifact Spacecraft
+PT:6/7
+K:Station:8
+S:Mode$ Continuous | Affected$ Card.Self+counters_GE2_CHARGE | AddAbility$ HearthhullDraw
+SVar:HearthhullDraw:AB$ Draw | Cost$ 1 T Sac<1/Land> | NumCards$ 2 | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ Exploration
+SVar:Exploration:Mode$ Continuous | Affected$ You | AdjustLandPlays$ 1
+S:Mode$ Continuous | Affected$ Card.Self+counters_GE8_CHARGE | AddType$ Creature | AddKeyword$ Flying & Vigilance & Haste | AddTrigger$ SacrificeTrig
+SVar:SacrificeTrig:Mode$ Sacrificed | ValidCard$ Land | ValidPlayer$ You | Execute$ TrigLoseLife | TriggerZones$ Battlefield
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 2

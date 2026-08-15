@@ -1,0 +1,12 @@
+Id:30272
+ColorIdentity:
+ManaCost:no cost
+Types:Ongoing Scheme
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Command | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | NumAtt$ +2 | NumDef$ +2 | KW$ Vigilance | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | ExileOnMoved$ Battlefield | RememberObjects$ ParentTarget | StaticAbilities$ Unblockable
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+T:Mode$ Phase | Phase$ End Of Turn | ValidPlayer$ Opponent | Execute$ Abandon | TriggerZones$ Command | CheckSVar$ X | SVarCompare$ LTY
+SVar:Abandon:DB$ Abandon
+SVar:X:PlayerCountDefinedActivePlayer$LifeTotal
+SVar:Y:PlayerCountDefinedActivePlayer$StartingLife/HalfDown

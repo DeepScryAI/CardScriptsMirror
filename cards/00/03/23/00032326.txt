@@ -1,0 +1,11 @@
+Id:32326
+ColorIdentity:R
+ManaCost:1 R
+Types:Creature Kavu Soldier
+PT:3/1
+K:Trample
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigConjure
+SVar:TrigConjure:DB$ MakeCard | Conjure$ True | Name$ Flametongue Kavu | Zone$ Library | LibraryPosition$ Count$Random.0.8 | RememberMade$ True | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Remembered | staticAbilities$ FreeCast | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:FreeCast:Mode$ Continuous | MayPlay$ True | MayPlayAltManaCost$ 0 | MayPlayDontGrantZonePermissions$ True | Affected$ Card.Self | AffectedZone$ Hand,Graveyard,Exile,Library,Command | EffectZone$ All
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

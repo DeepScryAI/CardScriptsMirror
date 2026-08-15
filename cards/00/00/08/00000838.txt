@@ -1,0 +1,15 @@
+Id:838
+ColorIdentity:U
+ManaCost:U
+Types:Sorcery
+A:SP$ RepeatEach | RepeatSubAbility$ DBChoose | RepeatPlayers$ Player | DamageMap$ True
+SVar:DBChoose:DB$ ChooseNumber | Defined$ Player.IsRemembered | Min$ 0 | Max$ 3 | AILogic$ LoseLife | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ Player.IsRemembered | NumCards$ X | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBDamage
+SVar:DBDamage:DB$ DealDamage | Defined$ Player.IsRemembered | NumDmg$ Z | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$ChosenNumber
+SVar:Y:Count$RememberedSize/Minus.1
+SVar:Z:SVar$Y/NMinus.3
+AI:RemoveDeck:All
+AI:RemoveDeck:Random
+DeckHas:Ability$Discard

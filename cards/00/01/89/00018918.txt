@@ -1,0 +1,12 @@
+Id:18918
+ColorIdentity:UG
+ManaCost:G U
+Types:Enchantment
+A:AB$ PutCounter | Cost$ 1 G U | CounterType$ P1P1 | CounterNum$ 1 | ValidTgts$ Creature.YouCtrl
+T:Mode$ CounterAddedOnce | ValidCard$ Creature.YouCtrl+inZoneBattlefield | TriggerZones$ Battlefield | CounterType$ P1P1 | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | CounterType$ GROWTH | CounterNum$ X
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | IsPresent$ Card.Self+counters_GE20_GROWTH | Execute$ TrigWinGame
+SVar:TrigWinGame:DB$ WinsGame | Defined$ You
+SVar:X:TriggerCount$Amount
+DeckHints:Ability$Counters
+DeckHas:Ability$Counters

@@ -1,0 +1,10 @@
+Id:9462
+ColorIdentity:B
+ManaCost:4 B
+Types:Creature Goblin Rogue
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMove
+SVar:TrigMove:DB$ ChangeZone | Mandatory$ True | ValidTgts$ Card.Creature+YouCtrl | Origin$ Graveyard | Destination$ Hand | RememberChanged$ True | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Self | KW$ Haste | SubAbility$ DBCleanUp | ConditionPresent$ Card.Goblin+IsRemembered | ConditionDefined$ Remembered | ConditionCompare$ EQ1
+SVar:DBCleanUp:DB$ Cleanup | ClearRemembered$ True
+SVar:PlayMain1:ALWAYS

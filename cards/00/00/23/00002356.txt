@@ -1,0 +1,11 @@
+Id:2356
+ColorIdentity:R
+ManaCost:2 R R
+Types:Enchantment
+K:Cumulative upkeep:2
+T:Mode$ PayCumulativeUpkeep | ValidCard$ Card.Self | Paid$ False | Execute$ TrigDmg
+SVar:TrigDmg:DB$ DealDamage | ValidTgts$ Player,Planeswalker | NumDmg$ Y | SubAbility$ DmgAll | DamageMap$ True
+SVar:DmgAll:DB$ DamageAll | NumDmg$ Y | ValidCards$ Creature.ControlledBy TargetedOrController | SubAbility$ DBDamageResolve
+SVar:DBDamageResolve:DB$ DamageResolve
+SVar:X:TriggeredCard$CardCounters.AGE/Twice
+SVar:Y:SVar$X/Minus.2

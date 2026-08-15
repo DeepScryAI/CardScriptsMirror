@@ -1,0 +1,10 @@
+Id:2350
+ColorIdentity:R
+ManaCost:1 R
+Types:Enchantment
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigFlip
+SVar:TrigFlip:DB$ FlipCoin | WinSubAbility$ DBAddCounter | LoseSubAbility$ DBRemoveCounter
+SVar:DBAddCounter:DB$ PutCounter | Defined$ Self | CounterType$ FUSE | CounterNum$ 1
+SVar:DBRemoveCounter:DB$ RemoveCounter | Defined$ Self | CounterType$ FUSE | CounterNum$ 1
+A:AB$ DealDamage | Cost$ SubCounter<5/FUSE> Sac<1/CARDNAME> | ValidTgts$ Player,Planeswalker | NumDmg$ 20
+DeckHas:Ability$Counters | Sacrifice

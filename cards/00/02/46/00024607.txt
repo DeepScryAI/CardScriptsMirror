@@ -1,0 +1,62 @@
+Id:24607
+ColorIdentity:W
+ManaCost:2 W
+Types:Legendary Creature Human Monk
+PT:2/2
+K:Specialize:5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Creature.OppCtrl | Duration$ UntilHostLeavesPlay | RememberChanged$ True
+T:Mode$ ChangesZone | Origin$ Exile | Destination$ Any | Static$ True | ValidCard$ Card.IsRemembered+ExiledWithSource | Execute$ DBForget
+SVar:DBForget:DB$ Pump | ForgetObjects$ TriggeredCard
+T:Mode$ ChangesZone | Origin$ Battlefield | ValidCard$ Card.Self | Destination$ Any | Execute$ DBCleanup | Static$ True
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+AlternateMode:Specialize
+
+SPECIALIZE:WHITE
+
+ManaCost:2 W W
+Types:Legendary Creature Human Monk
+PT:4/4
+T:Mode$ Specializes | ValidCard$ Card.Self | Execute$ TrigEffect
+SVar:TrigEffect:DB$ Effect | Name$ Rasaad, Radiant Monk's Perpetual Effect | ValidTgts$ Creature.IsRemembered+ExiledWithSource | TgtZone$ Exile | IsCurse$ True | RememberObjects$ Targeted | StaticAbilities$ PerpetualLoss | Duration$ Permanent
+SVar:PerpetualLoss:Mode$ Continuous | SetPower$ 1 | SetToughness$ 1 | Affected$ Card.IsRemembered | RemoveAllAbilities$ True | AffectedZone$ All
+T:Mode$ ChangesZone | Origin$ Exile | Destination$ Any | Static$ True | ValidCard$ Card.IsRemembered+ExiledWithSource | Execute$ DBForget
+SVar:DBForget:DB$ Pump | ForgetObjects$ TriggeredCard
+T:Mode$ ChangesZone | Origin$ Battlefield | ValidCard$ Card.Self | Destination$ Any | Execute$ DBCleanup | Static$ True
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+
+SPECIALIZE:BLUE
+
+ManaCost:2 W U
+Types:Legendary Creature Human Monk
+PT:4/4
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ 2 | TokenScript$ u_1_1_faerie_dragon_flying
+DeckHas:Ability$Token & Type$Faerie | Dragon
+
+SPECIALIZE:BLACK
+
+ManaCost:2 W B
+Types:Legendary Creature Human Monk
+PT:4/4
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScript$ b_4_1_skeleton_menace
+DeckHas:Ability$Token & Type$Skeleton
+
+SPECIALIZE:RED
+
+ManaCost:2 R W
+Types:Legendary Creature Human Monk
+PT:4/4
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ 3 | TokenScript$ w_1_1_soldier
+DeckHas:Ability$Token & Type$Soldier
+
+SPECIALIZE:GREEN
+
+ManaCost:2 G W
+Types:Legendary Creature Human Monk
+PT:4/4
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ 2 | TokenScript$ g_2_2_boar
+DeckHas:Ability$Token & Type$Boar

@@ -1,0 +1,13 @@
+Id:32575
+ColorIdentity:RG
+ManaCost:1 R G
+Types:Legendary Creature Human Survivor
+PT:4/4
+K:Partner:Survivors
+T:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ X | TokenScript$ cordyceps_infected | TokenOwner$ You
+SVar:X:Count$CastTotalManaSpent
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ DBChooseOpp | Layer$ Control
+SVar:DBChooseOpp:DB$ ChoosePlayer | Defined$ You | Choices$ Player.Opponent | AILogic$ Curse | SubAbility$ MoveToPlay
+SVar:MoveToPlay:DB$ ChangeZone | Hidden$ True | Origin$ All | Destination$ Battlefield | Defined$ ReplacedCard | GainControl$ ChosenPlayer
+DeckHas:Ability$Token

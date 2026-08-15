@@ -1,0 +1,11 @@
+Id:23920
+ColorIdentity:WUG
+ManaCost:4 G W U
+Types:Creature Avatar
+PT:5/7
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ Destroy | TargetMin$ 0 | TargetMax$ 3 | ValidTgts$ Permanent.nonLand | RememberTargets$ True | SubAbility$ MakeTokens
+SVar:MakeTokens:DB$ RepeatEach | RepeatSubAbility$ DBToken | DefinedCards$ Remembered | UseImprinted$ True | ChangeZoneTable$ True | SubAbility$ DBCleanup
+SVar:DBToken:DB$ Token | TokenScript$ w_3_3_angel_flying | TokenOwner$ ImprintedController
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+DeckHas:Ability$Token & Type$Angel

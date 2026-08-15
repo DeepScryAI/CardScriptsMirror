@@ -1,0 +1,9 @@
+Id:22448
+ColorIdentity:B
+ManaCost:1 B
+Types:Sorcery
+A:SP$ RevealHand | ValidTgts$ Opponent | Defined$ Targeted | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | DefinedPlayer$ Targeted | Chooser$ You | ChangeType$ Card.nonLand | ChangeNum$ 1 | Mandatory$ True | RememberChanged$ True | SubAbility$ TheyLose
+SVar:TheyLose:DB$ LoseLife | Defined$ Targeted | LifeAmount$ 1 | ConditionDefined$ Remembered | ConditionPresent$ Instant,Card.withFlash | SubAbility$ YouLose
+SVar:YouLose:DB$ LoseLife | LifeAmount$ 1 | ConditionDefined$ Remembered | ConditionPresent$ Instant,Card.withFlash | ConditionCompare$ EQ0 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

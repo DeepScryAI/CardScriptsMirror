@@ -1,0 +1,10 @@
+Id:31668
+ColorIdentity:G
+ManaCost:3 G
+Types:Sorcery
+A:SP$ Charm | Choices$ DBSacrifice,DBReturn
+SVar:DBSacrifice:DB$ Sacrifice | SacValid$ Creature | RememberSacrificed$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1 | ConditionDefined$ Remembered | ConditionPresent$ Card.Creature | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | ChangeType$ EACH Creature & Land | ChangeTypeDesc$ creature and/or land card | ConditionDefined$ Remembered | ConditionPresent$ Card.Creature | Optional$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:DBReturn:DB$ ChangeZone | TargetMin$ 1 | TargetMax$ 2 | ValidTgts$ Permanent.YouOwn | Origin$ Graveyard | Destination$ Hand

@@ -1,0 +1,16 @@
+Id:442
+ColorIdentity:G
+ManaCost:3 G
+Types:Enchantment
+S:Mode$ Continuous | Affected$ Artifact.nonCreature | SetPower$ AffectedX | SetToughness$ AffectedX | AddType$ Artifact & Creature | RemoveCardTypes$ True | RemoveAllAbilities$ True
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigEffect | Static$ True
+SVar:TrigEffect:DB$ Effect | StaticAbilities$ KWAnimateAll
+SVar:KWAnimateAll:Mode$ Continuous | AffectedZone$ Battlefield | Affected$ Artifact.nonCreature | SetPower$ AffectedX | SetToughness$ AffectedX | AddType$ Creature | RemoveAllAbilities$ True
+SVar:AffectedX:Count$CardManaCost
+SVar:NonStackingEffect:True
+SVar:PlayMain1:ALWAYS
+SVar:NeedsToPlayVar:CountOpps GTCountMe
+SVar:CountOpps:Count$Valid Artifact.OppCtrl/LimitMax.5
+SVar:CountMe:Count$Valid Artifact.YouCtrl
+AI:RemoveDeck:Random
+DeckHints:Type$Enchantment | Creature | Planeswalker

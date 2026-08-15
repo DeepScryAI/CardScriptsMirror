@@ -1,0 +1,13 @@
+Id:25873
+ColorIdentity:RG
+ManaCost:2 G
+Types:Legendary Creature Monkey Noble
+PT:2/2
+A:AB$ Token | Cost$ T | TokenOwner$ Player | TokenScript$ banana
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Artifact.OppCtrl | TriggerZones$ Battlefield | Execute$ TrigCounter
+SVar:TrigCounter:DB$ PutCounterAll | ValidCards$ Creature.Monkey+YouCtrl,Creature.Ape+YouCtrl | CounterType$ P1P1 | CounterNum$ 1
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice | Defined$ TriggeredDefendingPlayer | SacValid$ Artifact
+SVar:HasAttackEffect:TRUE
+DeckHas:Ability$Sacrifice | Token | LifeGain | Counters & Type$Artifact
+DeckNeeds:Type$Ape | Monkey

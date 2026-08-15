@@ -1,0 +1,13 @@
+Id:31198
+ColorIdentity:BR
+ManaCost:2 B R
+Types:Creature Scorpion Dragon
+PT:4/4
+K:Flying
+K:Start your engines
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPump
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump | TriggerZones$ Battlefield | Secondary$ True
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.YouCtrl+withoutUnearth | TgtZone$ Graveyard | PumpZone$ Graveyard | KW$ Unearth:CardManaCost | Duration$ Perpetual
+S:Mode$ Continuous | Affected$ Card.Self | Condition$ MaxSpeed | AddStaticAbility$ FreebieReaving | AddSVar$ ReavingX
+SVar:FreebieReaving:Mode$ AlternativeCost | ValidSA$ Activated.Unearth | ValidPlayer$ You | Cost$ 0 | CheckSVar$ ReavingX | SVarCompare$ LT1 | AffectedZone$ Graveyard | EffectZone$ Graveyard | Secondary$ True
+SVar:ReavingX:Count$ThisTurnActivated_Activated.Unearth+YouCtrl

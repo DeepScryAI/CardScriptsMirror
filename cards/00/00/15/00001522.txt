@@ -1,0 +1,15 @@
+Id:1522
+ColorIdentity:UB
+ManaCost:U B
+Types:Instant
+A:SP$ PeekAndReveal | PeekAmount$ 5 | NoReveal$ True | SubAbility$ DBRepeat | RememberPeeked$ True
+SVar:DBRepeat:DB$ Repeat | RepeatSubAbility$ CheckLifePaid | RepeatCheckSVar$ LifePaid | RepeatSVarCompare$ EQ0 | SubAbility$ DBShuffle
+SVar:CheckLifePaid:DB$ StoreSVar | SVar$ LifePaid | Type$ Number | Expression$ 1 | UnlessPayer$ You | UnlessCost$ PayLife<1> | UnlessResolveSubs$ WhenPaid | UnlessAI$ Never | SubAbility$ DBResetRem
+SVar:DBResetRem:DB$ Cleanup | ClearRemembered$ True | SubAbility$ GoToBottom
+SVar:GoToBottom:DB$ Dig | DigNum$ 5 | ChangeNum$ All | DestinationZone$ Library | LibraryPosition$ -1 | NoLooking$ True | SubAbility$ DBLookAgain
+SVar:DBLookAgain:DB$ PeekAndReveal | PeekAmount$ 5 | NoReveal$ True | RememberPeeked$ True
+SVar:DBShuffle:DB$ ChangeZone | Origin$ Library | Destination$ Library | LibraryPosition$ 0 | ChangeType$ Card.IsRemembered | ChangeNum$ 5 | SubAbility$ DBReset | Hidden$ True | Mandatory$ True | NoReveal$ True | NoLooking$ True | Reorder$ True
+SVar:DBReset:DB$ StoreSVar | SVar$ LifePaid | Type$ Number | Expression$ 0 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:LifePaid:Number$0
+AI:RemoveDeck:All

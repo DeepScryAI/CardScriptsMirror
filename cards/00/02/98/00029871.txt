@@ -1,0 +1,11 @@
+Id:29871
+ColorIdentity:WU
+ManaCost:3 W U
+Types:Legendary Creature Bird Scout
+PT:4/5
+K:Flying
+T:Mode$ DamageDoneOnce | CombatDamage$ True | ValidSource$ Creature.Bird+YouCtrl | ValidTarget$ Player | TriggerZones$ Battlefield | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | Choices$ DBChangeZone,DBPutCounterAll,DBDraw
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Hand,Graveyard | Destination$ Battlefield | ChangeType$ Creature.Bird+YouOwn | WithCountersType$ FINALITY | Optional$ You
+SVar:DBPutCounterAll:DB$ PutCounterAll | ValidCards$ Bird.YouCtrl | CounterType$ P1P1 | CounterNum$ 1
+SVar:DBDraw:DB$ Draw

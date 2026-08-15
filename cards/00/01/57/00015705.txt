@@ -1,0 +1,13 @@
+Id:15705
+ColorIdentity:W
+ManaCost:1 W
+Types:Instant
+A:SP$ Pump | ValidTgts$ Creature | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | SubAbility$ DBEffect | LifeAmount$ X
+SVar:X:Targeted$CardPower
+SVar:DBEffect:DB$ Effect | ReplacementEffects$ Dazzle | ImprintCards$ Targeted | Triggers$ OutOfSight
+SVar:Dazzle:Event$ DamageDone | ValidSource$ Card.IsImprinted | ReplaceWith$ ExileEffect | PreventionEffect$ True
+SVar:OutOfSight:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Creature.IsImprinted | Execute$ ExileEffect | Static$ True
+SVar:ExileEffect:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile
+AI:RemoveDeck:All
+DeckHas:Ability$LifeGain

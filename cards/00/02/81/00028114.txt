@@ -1,0 +1,20 @@
+Id:28114
+ColorIdentity:R
+ManaCost:2 R R
+Types:Legendary Creature God
+PT:4/4
+K:Trample
+R:Event$ DamageDone | ActiveZones$ Battlefield | DamageAmount$ LTX | ValidSource$ Card.RedSource+YouCtrl | IsCombat$ False | ValidTarget$ Opponent | ReplaceWith$ DmgPlus
+SVar:DmgPlus:DB$ ReplaceEffect | VarName$ DamageAmount | VarValue$ X
+SVar:X:Count$CardPower
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigTransform
+SVar:TrigTransform:DB$ ChangeZone | Defined$ TriggeredCard | Origin$ Graveyard | Destination$ Battlefield | Transformed$ True | Tapped$ True
+AlternateMode:DoubleFaced
+
+ALTERNATE
+
+ManaCost:no cost
+Types:Land
+A:AB$ Mana | Cost$ T | Produced$ R
+A:AB$ SetState | Cost$ 2 R T | CheckSVar$ X | SVarCompare$ GE4 | Defined$ Self | Mode$ Transform | SorcerySpeed$ True
+SVar:X:Count$NonCombatDamageThisTurn Card.Red+YouCtrl Any

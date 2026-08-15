@@ -1,0 +1,12 @@
+Id:28362
+ColorIdentity:W
+ManaCost:1 W
+Types:Creature Human Detective
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigInvestigate
+SVar:TrigInvestigate:DB$ Investigate
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | Execute$ TrigInvestigateEach | TriggerZones$ Battlefield
+SVar:TrigInvestigateEach:DB$ Investigate | Num$ Count$Valid Creature.IsGoaded+YouCtrl | SubAbility$ DBNoGoad
+SVar:DBNoGoad:DB$ Goad | NoLonger$ True | Defined$ Valid Creature.YouCtrl
+DeckHints:Ability$Investigate
+DeckHas:Ability$Investigate | Token | Sacrifice & Type$Artifact | Clue

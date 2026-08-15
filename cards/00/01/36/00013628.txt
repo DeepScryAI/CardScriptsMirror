@@ -1,0 +1,13 @@
+Id:13628
+ColorIdentity:G
+ManaCost:G
+Types:Instant
+R:Event$ Counter | ValidCard$ Card.Self | ValidSA$ Spell | Layer$ CantHappen
+A:SP$ Effect | StaticAbilities$ STFlash | Triggers$ SpellCastTrig
+SVar:STFlash:Mode$ CastWithFlash | ValidCard$ Card.Creature | ValidSA$ Spell | Caster$ You
+SVar:SpellCastTrig:Mode$ SpellCast | ValidCard$ Creature | ValidActivatingPlayer$ You | Execute$ SavageSummon | OneOff$ True | Static$ True
+SVar:SavageSummon:DB$ Effect | ReplacementEffects$ AntiMagic,ETBCounters | RememberObjects$ TriggeredCard | ForgetOnMoved$ Stack
+SVar:AntiMagic:Event$ Counter | ValidCard$ Card.IsRemembered | ValidSA$ Spell | Layer$ CantHappen
+SVar:ETBCounters:Event$ Moved | Origin$ Stack | Destination$ Battlefield | ValidCard$ Card.IsRemembered | ReplaceWith$ ETBAddExtraCounter | ReplacementResult$ Updated
+SVar:ETBAddExtraCounter:DB$ PutCounter | ETB$ True | Defined$ ReplacedCard | CounterType$ P1P1 | CounterNum$ 1
+AI:RemoveDeck:All

@@ -1,0 +1,14 @@
+Id:14909
+ColorIdentity:U
+ManaCost:2 U
+Types:Enchantment
+K:ETBReplacement:Other:SiegeChoice
+SVar:SiegeChoice:DB$ GenericChoice | Choices$ Khans,Dragons | Defined$ You | SetChosenMode$ True | AILogic$ Khans | ShowChoice$ ExceptSelf
+SVar:Khans:DB$ Pump
+SVar:Dragons:DB$ Pump
+S:Mode$ Continuous | Affected$ Card.Self+ChosenModeKhans | AddTrigger$ KhansTrigger
+S:Mode$ Continuous | Affected$ Card.Self+ChosenModeDragons | AddStaticAbility$ DragonsST
+SVar:KhansTrigger:Mode$ Phase | Phase$ Draw | TriggerZones$ Battlefield | ValidPlayer$ You | Execute$ Filter | Secondary$ True
+SVar:Filter:DB$ Draw | Defined$ You | NumCards$ 1 | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | Mode$ TgtChoose | NumCards$ 1
+SVar:DragonsST:Mode$ RaiseCost | ValidTarget$ You,Card.YouCtrl+inZoneBattlefield | Activator$ Opponent | Type$ Spell | Amount$ 2 | Secondary$ True

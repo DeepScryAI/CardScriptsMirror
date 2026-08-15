@@ -1,0 +1,14 @@
+Id:25037
+ColorIdentity:WU
+ManaCost:1 W W
+Types:Enchantment
+K:Kicker:1 U
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Permanent.nonLand+OppCtrl | Duration$ UntilHostLeavesPlay
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self+kicked | Execute$ TrigChoose
+SVar:TrigChoose:DB$ ChooseCard | ChoiceZone$ Hand | Choices$ Permanent.nonLand+YouOwn | Mandatory$ True | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ ChosenCard | Triggers$ ETBExile | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:ETBExile:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+SVar:OblivionRing:TRUE
+DeckHints:Color$Blue

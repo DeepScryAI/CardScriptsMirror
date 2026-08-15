@@ -1,0 +1,10 @@
+Id:1457
+ColorIdentity:U
+ManaCost:1 U
+Types:Instant
+A:SP$ Counter | TargetType$ Spell | RememberTargets$ True | ValidTgts$ Card | SubAbility$ DelTrigSlowtrip
+SVar:DelTrigSlowtrip:DB$ DelayedTrigger | NextTurn$ True | Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Player | Execute$ DrawSlowtrip | SubAbility$ DelTrigDrawTwo
+SVar:DrawSlowtrip:DB$ Draw | Defined$ You
+SVar:DelTrigDrawTwo:DB$ DelayedTrigger | NextTurn$ True | Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Player | RememberObjects$ RememberedController | Execute$ DrawTwo | SubAbility$ DBCleanup
+SVar:DrawTwo:DB$ Draw | NumCards$ 2 | Defined$ DelayTriggerRemembered | Upto$ True | AILogic$ OptionalDraw
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

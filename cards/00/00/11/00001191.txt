@@ -1,0 +1,11 @@
+Id:1191
+ColorIdentity:WUB
+ManaCost:W U B
+Types:Legendary Creature Human
+PT:1/1
+R:Event$ Untap | ValidCard$ Card.Self | ValidStepTurnToController$ You | Layer$ CantHappen
+A:AB$ GainControl | Cost$ T | ValidTgts$ Creature | LoseControl$ LeavesPlay,LoseControl | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ ParentTarget | ExileOnMoved$ Battlefield | Triggers$ LeavesPlay,Untap | Duration$ Permanent | ConditionPresent$ Card.StrictlySelf
+SVar:LeavesPlay:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.EffectSource | OneOff$ True | Execute$ DBDestroy
+SVar:Untap:Mode$ Untaps | ValidCard$ Card.EffectSource | Execute$ DBDestroy | Secondary$ True | OneOff$ True
+SVar:DBDestroy:DB$ Destroy | Defined$ RememberedLKI | NoRegen$ True

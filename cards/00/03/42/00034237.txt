@@ -1,0 +1,10 @@
+Id:34237
+ColorIdentity:R
+ManaCost:2 R
+Types:Legendary Creature Human Artificer Villain
+PT:2/4
+T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigGoad | TriggerZones$ Battlefield
+SVar:TrigGoad:DB$ Goad | ValidTgts$ Creature.OppCtrl | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Targeted | KW$ HIDDEN CARDNAME can't block. | IsCurse$ True
+T:Mode$ DamageDoneOnce | CombatDamage$ True | ValidSource$ Creature.IsGoaded | ValidTarget$ Opponent | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ 1 | TokenScript$ c_a_treasure_sac | TokenOwner$ You

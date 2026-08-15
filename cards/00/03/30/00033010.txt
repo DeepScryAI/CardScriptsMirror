@@ -1,0 +1,11 @@
+Id:33010
+ColorIdentity:W
+ManaCost:2 W
+Types:Instant
+A:SP$ Effect | ReplacementEffects$ PreventDamage | AILogic$ Fog
+SVar:PreventDamage:Event$ DamageDone | ActiveZones$ Command | ValidTarget$ You | ValidSource$ Card.OppCtrl,Emblem.OppCtrl | ReplaceWith$ DBTrigger | PreventionEffect$ True | ExecuteMode$ PerSource
+SVar:DBTrigger:DB$ ImmediateTrigger | Execute$ TrigDamageCreature | RememberObjects$ ReplacedSource | ConditionCheckSVar$ Y
+SVar:TrigDamageCreature:DB$ DealDamage | Defined$ DelayTriggerRemembered | DamageSource$ Valid Card.IsCommander+YouCtrl | NumDmg$ X
+SVar:X:Count$Valid Card.IsCommander+YouCtrl$CardPower
+SVar:Y:ReplacedSource$Valid Card.Creature
+AI:RemoveDeck:NonCommander

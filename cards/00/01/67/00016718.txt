@@ -1,0 +1,11 @@
+Id:16718
+ColorIdentity:WG
+ManaCost:2 G W
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSearch | OptionalDecider$ You
+SVar:TrigSearch:DB$ ChangeZone | Origin$ Library | OriginAlternative$ Graveyard | Destination$ Hand | ChangeType$ Card.YouOwn+namedAjani; Valiant Protector | Optional$ True
+A:AB$ ChooseCard | Cost$ Sac<1/CARDNAME> | Choices$ Creature | Mandatory$ True | AILogic$ NeedsPrevention | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | ReplacementEffects$ RPreventNextFromSource | RememberObjects$ ChosenCard | ExileOnMoved$ Battlefield
+SVar:RPreventNextFromSource:Event$ DamageDone | IsCombat$ True | ValidSource$ Card.IsRemembered | Prevent$ True
+DeckHas:Ability$Sacrifice
+DeckHints:Name$Ajani, Valiant Protector

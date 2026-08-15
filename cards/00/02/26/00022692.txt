@@ -1,0 +1,13 @@
+Id:22692
+ColorIdentity:U
+ManaCost:3 U
+Types:Legendary Planeswalker Kiora
+Loyalty:4
+A:AB$ MakeCard | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | Conjure$ True | Name$ Kraken Hatchling | Zone$ Hand
+A:AB$ Untap | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Creature,Land | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Targeted | KW$ Prevent all damage that would be dealt to and dealt by CARDNAME. | Duration$ UntilYourNextTurn
+A:AB$ Sacrifice | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | Optional$ True | SacValid$ Kraken | Amount$ 1 | RememberSacrificed$ True | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScript$ u_8_8_kraken | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+DeckHas:Ability$Token | Sacrifice
+DeckHints:Type$Kraken

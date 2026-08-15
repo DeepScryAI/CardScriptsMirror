@@ -1,0 +1,11 @@
+Id:4195
+ColorIdentity:U
+ManaCost:2 U
+Types:Creature Human Pirate
+PT:1/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ RepeatEachOpp
+SVar:RepeatEachOpp:DB$ RepeatEach | RepeatPlayers$ Player.Opponent | RepeatSubAbility$ TrigSac
+SVar:TrigSac:DB$ Sacrifice | Defined$ Remembered | SacValid$ Permanent | UnlessCost$ 1 | UnlessPayer$ Remembered
+SVar:NeedsToPlayVar:Z EQ0
+SVar:Z:Count$Valid Card.canProduceMana+OppCtrl+untapped
+AI:RemoveDeck:Random

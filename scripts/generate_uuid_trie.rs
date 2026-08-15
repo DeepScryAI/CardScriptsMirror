@@ -282,6 +282,7 @@ fn load_catalog_index(path: &Path) -> Result<CatalogIndex> {
     Ok(index)
 }
 
+#[cfg(test)]
 fn index_cards(cards: Vec<ScryfallCard>) -> NameIndex {
     let mut index = NameIndex::default();
     for card in cards {
@@ -731,11 +732,11 @@ mod tests {
     use super::*;
 
     #[test]
-    fn sanitizes_lightning_bolt_without_touching_executable_fields() {
-        let input = "Name:Lightning Bolt\nManaCost:R\nTypes:Instant\nA:SP$ DealDamage | ValidTgts$ Any | NumDmg$ 3 | SpellDescription$ CARDNAME deals 3 damage to any target.\nSVar:Named:DB$ MakeCard | Name$ Lightning Bolt | SpellDescription$ Make one.\nOracle:Lightning Bolt deals 3 damage to any target.\n";
+    fn sanitizes_a_script_without_touching_executable_fields() {
+        let input = "Name:Fixture Qzx One\nManaCost:R\nTypes:Instant\nA:SP$ DealDamage | ValidTgts$ Any | NumDmg$ 3 | SpellDescription$ CARDNAME deals damage.\nSVar:Named:DB$ MakeCard | Name$ Fixture Qzx One | SpellDescription$ Make one.\nOracle:Fixture rules sentence used only by this synthetic test.\n";
         assert_eq!(
             sanitize_script(input, CardScriptId(145), "R"),
-            "Id:145\nColorIdentity:R\nManaCost:R\nTypes:Instant\nA:SP$ DealDamage | ValidTgts$ Any | NumDmg$ 3\nSVar:Named:DB$ MakeCard | Name$ Lightning Bolt\n"
+            "Id:145\nColorIdentity:R\nManaCost:R\nTypes:Instant\nA:SP$ DealDamage | ValidTgts$ Any | NumDmg$ 3\nSVar:Named:DB$ MakeCard | Name$ Fixture Qzx One\n"
         );
     }
 
@@ -762,7 +763,7 @@ mod tests {
         let id = Uuid::parse_str("12345678-1234-1234-1234-123456789abc").unwrap();
         let index = index_cards(vec![ScryfallCard {
             oracle_id: Some(id),
-            name: "Fire // Ice".to_owned(),
+            name: "Fixture Qzx Front // Fixture Qzx Back".to_owned(),
             printed_name: None,
             oracle_text: None,
             mana_cost: "{1}{R} // {1}{U}".to_owned(),
@@ -787,7 +788,7 @@ mod tests {
                 },
             ],
         }]);
-        assert_eq!(index.lookup("Fire // Ice").unwrap().len(), 1);
+        assert_eq!(index.lookup("Fixture Qzx Front // Fixture Qzx Back").unwrap().len(), 1);
         assert_eq!(index.lookup("Fire").unwrap().len(), 1);
         assert_eq!(index.lookup("Ice").unwrap().len(), 1);
     }
@@ -800,7 +801,11 @@ mod tests {
 
     #[test]
     fn derives_split_identity_from_copy_face_records() {
-        let script = "CopyFaceFrom:Bind\nAlternateMode:Split\n\nALTERNATE\n\nCopyFaceFrom:Liberate\n";
-        assert_eq!(source_identity_name(script).as_deref(), Some("Bind // Liberate"));
+        let script =
+            "CopyFaceFrom:Fixture Qzx Front\nAlternateMode:Split\n\nALTERNATE\n\nCopyFaceFrom:Fixture Qzx Back\n";
+        assert_eq!(
+            source_identity_name(script).as_deref(),
+            Some("Fixture Qzx Front // Fixture Qzx Back")
+        );
     }
 }

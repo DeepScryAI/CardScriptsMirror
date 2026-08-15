@@ -1,0 +1,12 @@
+Id:29045
+ColorIdentity:B
+ManaCost:1 B
+Types:Creature Snake Horse Mount
+PT:2/2
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigDig
+SVar:TrigDig:DB$ Dig | DigNum$ 1 | Reveal$ True | ChangeNum$ All | ChangeValid$ Card | DestinationZone$ Hand | RememberChanged$ True | SubAbility$ DBLose
+SVar:DBLose:DB$ LoseLife | LifeAmount$ X | ConditionDefined$ Self | ConditionPresent$ Card.IsSaddled | ConditionCompare$ EQ0 | SubAbility$ DBLoseLifeOpponents
+SVar:DBLoseLifeOpponents:DB$ LoseLife | Defined$ Opponent | ConditionDefined$ Self | ConditionPresent$ Card.IsSaddled | LifeAmount$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$CardManaCost
+K:Saddle:3

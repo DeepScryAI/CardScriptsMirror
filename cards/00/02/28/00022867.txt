@@ -1,0 +1,25 @@
+Id:22867
+ColorIdentity:B
+ManaCost:no cost
+Types:Land
+A:AB$ Mana | Cost$ T | Produced$ C
+A:AB$ PutCounter | Cost$ 1 T Sac<1/Creature/creature> | CounterType$ SOUL | CounterNum$ 1 | SubAbility$ DBBranch | SorcerySpeed$ True
+SVar:DBBranch:DB$ Branch | BranchConditionSVar$ Soul | TrueSubAbility$ DBRemoveCtrs
+SVar:DBRemoveCtrs:DB$ RemoveCounter | Defined$ Self | CounterType$ SOUL | CounterNum$ All | SubAbility$ DBTransform
+SVar:DBTransform:DB$ SetState | Defined$ Self | Mode$ Transform | SubAbility$ DBUntap
+SVar:DBUntap:DB$ Untap
+SVar:Soul:Count$Valid Card.Self+counters_GE3_SOUL
+DeckHas:Ability$Mana.Colorless | Sacrifice | Counters | LifeGain | Graveyard
+AlternateMode:DoubleFaced
+
+ALTERNATE
+
+ManaCost:no cost
+Colors:black
+Types:Artifact Creature Horror Construct
+PT:3/7
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDrain | TriggerZones$ Battlefield | OptionalDecider$ You
+SVar:TrigDrain:AB$ LoseLife | Cost$ ExileFromGrave<1/Creature/creature card> | Defined$ Opponent | LifeAmount$ X | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ X
+SVar:X:Count$ValidExile Creature.ExiledWithSource
+A:AB$ Phases | Cost$ 4 | Defined$ Self

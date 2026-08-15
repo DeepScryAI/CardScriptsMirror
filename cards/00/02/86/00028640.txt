@@ -1,0 +1,13 @@
+Id:28640
+ColorIdentity:RG
+ManaCost:2 R G
+Types:Legendary Creature Centaur Druid
+PT:4/4
+S:Mode$ Continuous | Affected$ Creature.YouCtrl+Other | AddKeyword$ Haste
+T:Mode$ DamageDoneOnce | CombatDamage$ True | ValidSource$ Creature.faceDown+YouCtrl | ValidTarget$ Player | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.faceDown+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | FaceDown$ True | RememberChanged$ True | Defined$ TriggeredNewCardLKICopy | SubAbility$ DBTurnFaceUp | ConditionDefined$ TriggeredCard | ConditionPresent$ Card.Permanent
+SVar:DBTurnFaceUp:DB$ SetState | Defined$ Remembered | Mode$ TurnFaceUp | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+DeckHints:Keyword$Morph | Disguise

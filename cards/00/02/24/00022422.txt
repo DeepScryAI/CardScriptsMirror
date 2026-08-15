@@ -1,0 +1,10 @@
+Id:22422
+ColorIdentity:U
+ManaCost:4 U
+Types:Creature Human Elf Shaman Sorcerer
+PT:3/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | ValidTgts$ Instant.YouOwn,Sorcery.YouOwn | TgtZone$ Graveyard | SubAbility$ DBRollDice
+SVar:DBRollDice:DB$ RollDice | Sides$ 20 | ResultSubAbilities$ 1-9:DBLibrary,10-20:DBHand
+SVar:DBLibrary:DB$ ChangeZone | Defined$ Targeted | Origin$ Graveyard | Destination$ Library | LibraryPosition$ 0 | Optional$ True
+SVar:DBHand:DB$ ChangeZone | Defined$ Targeted | Origin$ Graveyard | Destination$ Hand

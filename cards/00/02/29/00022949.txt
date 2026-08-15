@@ -1,0 +1,13 @@
+Id:22949
+ColorIdentity:W
+ManaCost:2 W W
+Types:Enchantment
+K:ETBReplacement:Other:NoteNum
+SVar:NoteNum:DB$ StoreSVar | SVar$ NotedLife | Type$ CountSVar | Expression$ X
+SVar:NotedLife:Number$0
+SVar:X:Count$YourLifeTotal
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | ConditionCheckSVar$ X | ConditionSVarCompare$ GENotedLife | NumCards$ 1 | SubAbility$ NoteNum
+T:Mode$ SpellCast | ValidCard$ Card.White | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigGainLife
+SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
+DeckHas:Ability$LifeGain

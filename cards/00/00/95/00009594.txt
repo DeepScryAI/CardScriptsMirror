@@ -1,0 +1,11 @@
+Id:9594
+ColorIdentity:U
+ManaCost:2 U U
+Types:Creature Elemental
+PT:3/3
+K:Evoke:3 U
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Battlefield | Destination$ Any | Execute$ TrigChooseOpp
+SVar:TrigChooseOpp:DB$ ChoosePlayer | Defined$ You | Choices$ Player.Opponent | AILogic$ MostCardsInHand | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ X | ConditionPresent$ Card.ChosenCtrl | ConditionCompare$ GTY | ConditionZone$ Hand
+SVar:Y:Count$ValidHand Card.YouOwn
+SVar:X:Count$ValidHand Card.ChosenCtrl/Minus.Y

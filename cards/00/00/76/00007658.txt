@@ -1,0 +1,13 @@
+Id:7658
+ColorIdentity:B
+ManaCost:5 B
+Types:Sorcery Arcane
+A:SP$ ChooseNumber | ValidTgts$ Opponent | AILogic$ Damnation | Notify$ True | SubAbility$ DBChoice
+SVar:DBChoice:DB$ GenericChoice | Choices$ DBLoseLife,DBSac
+SVar:DBLoseLife:DB$ LoseLife | Defined$ ParentTarget | LifeAmount$ X
+SVar:DBSac:DB$ Sacrifice | Defined$ ParentTarget | SacValid$ Permanent | Amount$ Y
+SVar:X:Count$ChosenNumber
+SVar:Y:SVar$W/LimitMin.0
+SVar:W:SVar$Z/Minus.X
+SVar:Z:Count$Valid Permanent.TargetedPlayerCtrl
+AI:RemoveDeck:All

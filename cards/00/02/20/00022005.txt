@@ -1,0 +1,13 @@
+Id:22005
+ColorIdentity:WR
+ManaCost:R W
+Types:Enchantment
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigMill
+SVar:TrigMill:DB$ Mill | NumCards$ 1 | RememberMilled$ True | SubAbility$ DBBranch
+SVar:DBBranch:DB$ Branch | BranchConditionSVar$ X | BranchConditionSVarCompare$ GE1 | TrueSubAbility$ GainLife | FalseSubAbility$ DealDamage | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Valid Land
+SVar:GainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
+SVar:DealDamage:DB$ DamageAll | ValidPlayers$ Player.Opponent | NumDmg$ 1
+A:AB$ Token | Cost$ 5 ExileFromGrave<1/Creature/creature card> | TokenTapped$ True | TokenScript$ rw_3_2_spirit | TokenOwner$ You
+DeckHas:Ability$Mill | Token | LifeGain

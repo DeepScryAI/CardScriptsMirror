@@ -1,0 +1,12 @@
+Id:17290
+ColorIdentity:W
+ManaCost:1 W
+Types:Enchantment Aura
+K:Flash
+K:Enchant:Creature.YouCtrl:creature you control
+SVar:AttachAILogic:Pump
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ DBEffect
+SVar:DBEffect:DB$ Effect | ReplacementEffects$ SavingGraceDamage | Duration$ EndOfTurn | RememberObjects$ Enchanted | ExileOnMoved$ Battlefield
+SVar:SavingGraceDamage:Event$ DamageDone | ValidTarget$ You,Permanent.YouCtrl | ReplaceWith$ SavingGraceDmg | DamageTarget$ Remembered
+SVar:SavingGraceDmg:DB$ ReplaceEffect | VarName$ Affected | VarValue$ Remembered | VarType$ Card
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddToughness$ 3

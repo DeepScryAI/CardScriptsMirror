@@ -1,0 +1,13 @@
+Id:25801
+ColorIdentity:
+ManaCost:2
+Types:Legendary Artifact
+A:AB$ NameCard | Cost$ 2 T Exile<1/CARDNAME> | Defined$ You | SubAbility$ ExileYard | SorcerySpeed$ True
+SVar:ExileYard:DB$ ChangeZone | ValidTgts$ Opponent | ChangeType$ Card.NamedCard | Origin$ Graveyard | DefinedPlayer$ Targeted | Chooser$ You | Destination$ Exile | ChangeNum$ Y | Hidden$ True | RememberChanged$ True | SubAbility$ ExileHand
+SVar:ExileHand:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | DefinedPlayer$ Targeted | ChangeType$ Card.NamedCard | ChangeNum$ Y | Chooser$ You | SubAbility$ ExileLib | RememberChanged$ True | Imprint$ True
+SVar:ExileLib:DB$ ChangeZone | Origin$ Library | Destination$ Exile | DefinedPlayer$ Targeted | ChangeType$ Card.NamedCard | ChangeNum$ Y | Chooser$ You | Shuffle$ True | RememberChanged$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ Z | Defined$ Targeted | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True | ClearNamedCard$ True
+SVar:X:Remembered$Amount
+SVar:Y:SVar$X/NMinus.4
+SVar:Z:Imprinted$Amount

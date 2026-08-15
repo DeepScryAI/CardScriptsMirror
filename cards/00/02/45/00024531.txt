@@ -1,0 +1,13 @@
+Id:24531
+ColorIdentity:R
+ManaCost:R
+Types:Creature Goblin
+PT:1/1
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ DBSeek
+SVar:DBSeek:DB$ Seek | Type$ Creature.cmcLE3+YouOwn | RememberFound$ True | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Remembered | staticAbilities$ ReduceCost | Triggers$ SacTrig | Keywords$ Haste | Duration$ Perpetual
+SVar:ReduceCost:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ 1 | EffectZone$ All
+SVar:SacTrig:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | Execute$ TrigSacrifice | TriggerZones$ Battlefield
+SVar:TrigSacrifice:DB$ Sacrifice
+DeckHas:Ability$Sacrifice
+DeckHints:Ability$Sacrifice

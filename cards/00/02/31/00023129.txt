@@ -1,0 +1,12 @@
+Id:23129
+ColorIdentity:W
+ManaCost:2 W W
+Types:Artifact
+T:Mode$ ChangesZone | ValidCard$ Card.Self+wasCast | Origin$ Any | Destination$ Battlefield | Execute$ TrigCopy
+SVar:TrigCopy:DB$ CopyPermanent | ValidTgts$ Opponent | Defined$ Self | Controller$ TargetedPlayer
+T:Mode$ Drawn | ValidCard$ Card.OppOwn | ValidPlayer$ Player.Opponent+Active+controlsArtifact.namedWedding Ring | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+T:Mode$ LifeGained | ValidPlayer$ Player.Opponent+Active+controlsArtifact.namedWedding Ring | TriggerZones$ Battlefield | Execute$ TrigGainLife
+SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ X
+SVar:X:TriggerCount$LifeAmount
+DeckHas:Ability$LifeGain

@@ -1,0 +1,10 @@
+Id:2822
+ColorIdentity:
+ManaCost:4
+Types:Artifact
+T:Mode$ ChangesZone | ValidCard$ Creature | Origin$ Any | Destination$ Battlefield | Execute$ TrigExile | IsPresent$ Creature | PresentCompare$ GE3 | TriggerZones$ Battlefield
+SVar:TrigExile:DB$ ChangeZone | Defined$ TriggeredCardLKICopy | RememberChanged$ True | Origin$ Battlefield | Destination$ Exile | SubAbility$ DBDelayTrig
+SVar:DBDelayTrig:DB$ DelayedTrigger | Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Battlefield | Destination$ Any | Execute$ TrigReturn | RememberObjects$ RememberedLKI | SubAbility$ DBCleanup
+SVar:TrigReturn:DB$ ChangeZoneAll | ChangeType$ Card.IsTriggerRemembered | Origin$ Exile | Destination$ Battlefield
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+AI:RemoveDeck:Random

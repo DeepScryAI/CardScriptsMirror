@@ -1,0 +1,11 @@
+Id:30205
+ColorIdentity:U
+ManaCost:2 U
+Types:Creature Otter Wizard
+PT:2/4
+A:AB$ Mana | Cost$ T | Produced$ Combo Any | Amount$ 2 | RestrictValid$ Spell.Instant,Spell.Sorcery
+T:Mode$ SpellCast | ValidCard$ Card.YouCtrl | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigExile | ActivatorThisTurnCast$ EQ3
+SVar:TrigExile:DB$ ChangeZone | DefinedPlayer$ You | ChangeType$ Card | ChangeNum$ 1 | Origin$ Library | Destination$ Exile | AtRandom$ True | Hidden$ True | NoLooking$ True | NoShuffle$ True | Mandatory$ True | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ STPlay | SubAbility$ DBCleanup | ForgetOnMoved$ Exile
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | MayPlayWithoutManaCost$ True | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

@@ -1,0 +1,13 @@
+Id:22366
+ColorIdentity:R
+ManaCost:1 R R
+Types:Creature Dragon
+PT:4/4
+K:Flying
+K:Haste
+S:Mode$ MustAttack | ValidCreature$ Card.Self
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigRollDice
+SVar:TrigRollDice:DB$ RollDice | Defined$ Player | Sides$ 20 | RememberHighestPlayer$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STCantAttack | RememberObjects$ Player.Opponent+IsRemembered | Duration$ UntilEndOfCombat | SubAbility$ DBCleanup
+SVar:STCantAttack:Mode$ CantAttack | ValidCard$ Card.EffectSource | Target$ Player.IsRemembered,Planeswalker.RememberedPlayerCtrl
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

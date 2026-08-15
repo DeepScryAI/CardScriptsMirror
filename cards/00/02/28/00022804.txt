@@ -1,0 +1,23 @@
+Id:22804
+ColorIdentity:B
+ManaCost:2 B
+Types:Enchantment Aura Curse
+K:Enchant:Player
+SVar:AttachAILogic:Curse
+R:Event$ Transform | ValidCard$ Card.Self | ReplaceWith$ Attach
+SVar:Attach:DB$ Attach | Object$ Self | PlayerChoices$ Player | AILogic$ Curse
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Player.EnchantedBy | TriggerZones$ Battlefield | Execute$ TrigDrain
+SVar:TrigDrain:DB$ LoseLife | Defined$ TriggeredPlayer | LifeAmount$ 1 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
+K:Daybound
+DeckHas:Ability$LifeGain
+AlternateMode:DoubleFaced
+
+ALTERNATE
+
+ManaCost:no cost
+Colors:black
+Types:Creature Leech Horror
+PT:4/4
+K:Lifelink
+K:Nightbound

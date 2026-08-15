@@ -1,0 +1,14 @@
+Id:25033
+ColorIdentity:WU
+ManaCost:W U
+Types:Legendary Creature Human Cleric
+PT:2/2
+K:Flash
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.wasCastByYou+Self | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouOwn+nonLegendary+ThisTurnEnteredFrom_Battlefield | RememberChanged$ True | ChangeNum$ 1 | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Remembered | Triggers$ BecomesTarget | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:BecomesTarget:Mode$ BecomesTarget | ValidTarget$ Card.Self | ActivationLimit$ 1 | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+AI:RemoveDeck:Random
+DeckHas:Ability$Graveyard

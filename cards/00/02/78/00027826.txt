@@ -1,0 +1,13 @@
+Id:27826
+ColorIdentity:RG
+ManaCost:3 R G
+Types:Legendary Creature Time Lord Doctor
+PT:4/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigInvestigate
+SVar:TrigInvestigate:DB$ Investigate
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigImmediateTrig | OptionalDecider$ You
+SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ Sac<1/Clue> | Execute$ TrigFlashback
+SVar:TrigFlashback:DB$ Pump | ValidTgts$ Instant.YouCtrl,Sorcery.YouCtrl | TgtZone$ Graveyard | KW$ Flashback:2 R G | PumpZone$ Graveyard | AILogic$ ReplaySpell
+SVar:HasAttackEffect:TRUE
+DeckHints:Ability$Investigate & Type$Instant | Sorcery
+DeckHas:Ability$Investigate | Token | Sacrifice & Type$Artifact | Clue

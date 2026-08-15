@@ -1,0 +1,9 @@
+Id:11508
+ColorIdentity:W
+ManaCost:3
+Types:Artifact Creature Cleric
+PT:2/2
+A:AB$ ChooseSource | Cost$ W Sac<1/CARDNAME> | Choices$ Card,Emblem | AILogic$ NeedsPrevention | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | ReplacementEffects$ RPreventNextFromSource | SubAbility$ DBCleanup | ConditionDefined$ ChosenCard | ConditionPresent$ Card,Emblem
+SVar:RPreventNextFromSource:Event$ DamageDone | ValidSource$ Card.ChosenCardStrict,Emblem.ChosenCard | ValidTarget$ You | Prevent$ True
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True

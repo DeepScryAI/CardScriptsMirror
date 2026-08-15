@@ -1,0 +1,12 @@
+Id:23554
+ColorIdentity:W
+ManaCost:1 W
+Types:Artifact Creature Equipment Cat
+PT:1/1
+A:AB$ ChangeZone | Cost$ W | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card | RememberChanged$ True | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ 1 | ConditionDefined$ Remembered | ConditionPresent$ Permanent | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+S:Mode$ Continuous | Affected$ Card.EquippedBy | AddPower$ X | AddToughness$ X
+SVar:X:Count$CardCounters.P1P1
+K:Reconfigure:2
+DeckHas:Ability$Counters

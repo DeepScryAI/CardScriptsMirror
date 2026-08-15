@@ -1,0 +1,11 @@
+Id:29299
+ColorIdentity:U
+ManaCost:1 U
+Types:Creature Shapeshifter
+PT:1/3
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigEnergy
+SVar:TrigEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ TriggerCount$DamageAmount
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigImmediateTrig
+SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ PayEnergy<2> | Execute$ TrigCopy
+SVar:TrigCopy:DB$ Clone | AddTriggers$ TrigDamage | ValidTgts$ Creature.Other+YouCtrl | AddSVars$ TrigDamage,TrigEnergy | GainThisAbility$ True
+SVar:TrigDamage:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigEnergy | TriggerZones$ Battlefield

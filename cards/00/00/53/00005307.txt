@@ -1,0 +1,9 @@
+Id:5307
+ColorIdentity:B
+ManaCost:B B B
+Types:Enchantment
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigChangeZone | TriggerZones$ Battlefield
+SVar:TrigChangeZone:DB$ ChangeZone | ValidTgts$ Opponent | Origin$ Graveyard | Destination$ Exile | ChangeType$ Card.TargetedPlayerCtrl | ChangeNum$ 1 | Hidden$ True | Chooser$ Targeted | RememberChanged$ True | Optional$ Targeted | IsCurse$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | OptionalDecider$ You | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ0 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Amount

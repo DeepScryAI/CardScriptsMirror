@@ -1,0 +1,12 @@
+Id:744
+ColorIdentity:
+ManaCost:6
+Types:Artifact
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigPutCounter | TriggerZones$ Battlefield
+T:Mode$ Phase | Phase$ End of Turn | PresentDefined$ Self | IsPresent$ Card.untapped | ValidPlayer$ You | Execute$ TrigDestroy | TriggerZones$ Battlefield
+A:AB$ DealDamage | Cost$ X X T | ValidTgts$ Any | NumDmg$ X
+SVar:TrigPutCounter:DB$ PutCounter | CounterType$ PIN | CounterNum$ 1 | Defined$ Self
+SVar:TrigDestroy:DB$ Destroy | Defined$ Self | SubAbility$ DBDealDamageYou
+SVar:DBDealDamageYou:DB$ DealDamage | Defined$ You | NumDmg$ X
+SVar:X:Count$CardCounters.PIN
+AI:RemoveDeck:All

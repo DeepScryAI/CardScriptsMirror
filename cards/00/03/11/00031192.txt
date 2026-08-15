@@ -1,0 +1,13 @@
+Id:31192
+ColorIdentity:R
+ManaCost:4 R R
+Types:Creature Dinosaur
+PT:6/6
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Destination$ Battlefield | Execute$ TrigDiscard
+T:Mode$ Attacks | ValidCard$ Card.Self | Secondary$ True | Execute$ TrigDiscard
+SVar:TrigDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBSeek
+SVar:DBSeek:DB$ Seek | Type$ Card.nonLand | SubAbility$ TrigImmediateTrig
+SVar:TrigImmediateTrig:DB$ ImmediateTrigger | ConditionDefined$ RememberedLKI | ConditionPresent$ Card | Execute$ TrigDamage | RememberObjects$ RememberedLKI | SubAbility$ DBCleanup
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ X
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:TriggerRemembered$CardManaCost

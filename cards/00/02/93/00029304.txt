@@ -1,0 +1,12 @@
+Id:29304
+ColorIdentity:R
+ManaCost:6 R R
+Types:Artifact Creature Pirate
+PT:8/8
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ Count$CountersRemovedThisTurn ENERGY You | EffectZone$ All
+K:Haste
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigEnergy
+SVar:TrigEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ 2 | SubAbility$ DBTrigger
+SVar:DBTrigger:DB$ ImmediateTrigger | UnlessCost$ PayEnergy<8> | UnlessPayer$ You | UnlessSwitched$ True | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 8 | TargetMin$ 0 | TargetMax$ 8 | DividedAsYouChoose$ 8
+SVar:HasAttackEffect:TRUE

@@ -1,0 +1,17 @@
+Id:1272
+ColorIdentity:G
+ManaCost:3 G
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Curse
+S:Mode$ Continuous | Affected$ Card.AttachedBy | CheckSVar$ CheckAttacking | AddPower$ -AttackingX | AddToughness$ -AttackingY
+S:Mode$ Continuous | Affected$ Card.AttachedBy | CheckSVar$ CheckAttacking | SVarCompare$ EQ0 | AddPower$ -NotAttackingX | AddToughness$ -NotAttackingY
+SVar:CheckAttacking:Count$Valid Card.AttachedBy+attacking
+SVar:AttackingX:Count$Valid Land.DefenderCtrl+Snow
+SVar:NotAttackingX:Count$Valid Land.Snow+EnchantedControllerCtrl
+SVar:EnchantedY:Enchanted$CardToughness/Minus.1
+SVar:EnchantedDef:SVar$EnchantedY
+SVar:AttackingY:SVar$EnchantedDef/LimitMax.AttackingX
+SVar:NotAttackingY:SVar$EnchantedDef/LimitMax.NotAttackingX
+AI:RemoveDeck:Random
+DeckNeeds:Type$Snow

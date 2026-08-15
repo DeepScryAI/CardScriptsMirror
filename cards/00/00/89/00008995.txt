@@ -1,0 +1,13 @@
+Id:8995
+ColorIdentity:W
+ManaCost:4 W
+Types:Creature Human Soldier
+PT:4/3
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Hand | ValidCard$ Card.Self,Creature.YouOwn+Other | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScript$ w_1_1_soldier | TokenOwner$ You
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Hidden$ True | ChangeType$ Creature.YouCtrl | ChangeNum$ 2 | Mandatory$ True
+SVar:NeedsToPlayVar:Z GE2
+SVar:Z:Count$Valid Creature.YouCtrl+cmcLE4
+AI:RemoveDeck:Random

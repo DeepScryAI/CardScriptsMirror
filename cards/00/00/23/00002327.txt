@@ -1,0 +1,12 @@
+Id:2327
+ColorIdentity:B
+ManaCost:B B B
+Types:Sorcery
+A:SP$ ChangeZone | Origin$ Graveyard,Library | Destination$ Library | ChangeType$ Card | ChangeNum$ 5 | Shuffle$ False | SubAbility$ DBChangeZone | RememberChanged$ True | Mandatory$ True
+SVar:DBChangeZone:DB$ ChangeZoneAll | Defined$ You | Origin$ Graveyard,Library | Destination$ Exile | ChangeType$ Card.!IsRemembered | SubAbility$ DBDig
+SVar:DBDig:DB$ RearrangeTopOfLibrary | Defined$ You | NumCards$ X | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ Y | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$ValidLibrary Card.YouOwn
+SVar:Y:Count$YourLifeTotal/HalfUp
+AI:RemoveDeck:All

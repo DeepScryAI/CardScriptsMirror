@@ -1,0 +1,12 @@
+Id:23972
+ColorIdentity:W
+ManaCost:1 W
+Types:Artifact Equipment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScript$ gw_1_1_citizen | RememberTokens$ True | SubAbility$ DBAttach
+SVar:DBAttach:DB$ Attach | Defined$ Remembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1 | AddToughness$ 1 | AddAbility$ ABDestroy
+SVar:ABDestroy:AB$ Destroy | Cost$ W T Sac<1/OriginalHost/Citizen's Crowbar> | ValidTgts$ Artifact,Enchantment
+K:Equip:2
+DeckHas:Ability$Token | Sacrifice & Type$Citizen

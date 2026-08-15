@@ -1,0 +1,14 @@
+Id:27335
+ColorIdentity:U
+ManaCost:2 U
+Types:Creature Faerie Noble
+PT:1/3
+K:Flying
+T:Mode$ AttackersDeclared | ValidAttackers$ Faerie.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ TrigImmediateTrig
+SVar:TrigImmediateTrig:DB$ ImmediateTrigger | ConditionDefined$ Remembered | ConditionPresent$ Card | Execute$ TrigPutCounter | SubAbility$ DBCleanup
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Faerie.YouCtrl | CounterType$ P1P1 | CounterNum$ 1
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+DeckHints:Type$Faerie
+DeckHas:Ability$Discard | Counters

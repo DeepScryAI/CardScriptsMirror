@@ -1,0 +1,14 @@
+Id:18335
+ColorIdentity:W
+ManaCost:W W
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPut
+SVar:TrigPut:DB$ PutCounter | Support$ 2
+A:AB$ ChooseCard | Cost$ 1 | ValidTgts$ Creature.HasCounters | SubAbility$ DBDelayedTrigger
+SVar:DBDelayedTrigger:DB$ DelayedTrigger | Mode$ ChangesZone | RememberObjects$ Targeted | ValidCard$ Card.IsTriggerRemembered | Origin$ Battlefield | Destination$ Graveyard | ThisTurn$ True | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | Defined$ TriggeredCard
+SVar:NonStackingEffect:True
+SVar:PlayMain1:ALWAYS
+SVar:NeedsToPlay:Creature.YouCtrl
+DeckHas:Ability$Counters
+DeckNeeds:Ability$Counters

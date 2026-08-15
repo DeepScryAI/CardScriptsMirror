@@ -1,0 +1,15 @@
+Id:68
+ColorIdentity:B
+ManaCost:X 1 B
+Types:Sorcery
+A:SP$ StoreSVar | XColor$ Black | ValidTgts$ Any | SVar$ Limit | Type$ Targeted | Expression$ CardToughness | SubAbility$ StoreTgtPW | ConditionDefined$ Targeted | ConditionPresent$ Card.Creature | ConditionCompare$ GE1
+SVar:StoreTgtPW:DB$ StoreSVar | SVar$ Limit | Type$ Targeted | Expression$ CardCounters.LOYALTY | SubAbility$ StoreTgtP | ConditionDefined$ Targeted | ConditionPresent$ Card.Planeswalker | ConditionCheckSVar$ Loyalty | ConditionSVarCompare$ LTLimit
+SVar:StoreTgtP:DB$ StoreSVar | SVar$ Limit | Type$ Calculate | Expression$ TargetedPlayer$LifeTotal | SubAbility$ DBDamage | ConditionDefined$ Targeted | ConditionPresent$ Card.Creature,Card.Planeswalker | ConditionCompare$ EQ0
+SVar:DBDamage:DB$ DealDamage | Defined$ Targeted | NumDmg$ X | SubAbility$ DBGainLife | AILogic$ XLifeDrain
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ DrainedLifeCard
+SVar:X:Count$xPaid
+SVar:Y:Count$TotalDamageDoneByThisTurn
+SVar:DrainedLifeCard:SVar$Y/LimitMax.Limit
+SVar:Limit:Count$xPaid
+SVar:Loyalty:Targeted$CardCounters.LOYALTY
+DeckHas:Ability$LifeGain

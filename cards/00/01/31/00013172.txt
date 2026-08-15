@@ -1,0 +1,10 @@
+Id:13172
+ColorIdentity:BG
+ManaCost:3 B G
+Types:Legendary Planeswalker Vraska
+Loyalty:5
+A:AB$ Animate | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | Defined$ Self | Triggers$ TrigVraska | Duration$ UntilYourNextTurn | AILogic$ EOT
+SVar:TrigVraska:Mode$ DamageDone | ValidSource$ Creature | ValidTarget$ Card.Self | TriggerZones$ Battlefield | CombatDamage$ True | Execute$ VraskaGaze
+SVar:VraskaGaze:DB$ Destroy | Defined$ TriggeredSourceLKICopy
+A:AB$ Destroy | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | ValidTgts$ Permanent.nonLand
+A:AB$ Token | Cost$ SubCounter<7/LOYALTY> | Planeswalker$ True | Ultimate$ True | TokenAmount$ 3 | TokenScript$ b_1_1_assassin_lose_con | TokenOwner$ You

@@ -1,0 +1,14 @@
+Id:21415
+ColorIdentity:R
+ManaCost:6 R R R
+Types:Sorcery
+A:SP$ RepeatEach | ValidTgts$ Any | TargetMin$ 0 | TargetMax$ MaxTgt | RepeatSubAbility$ DBDig | RepeatTargeted$ True | SubAbility$ DBEffect
+SVar:DBDig:DB$ Dig | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | ImprintRevealed$ True | Reveal$ True | SubAbility$ DBDealDamage
+SVar:DBDealDamage:DB$ DealDamage | Defined$ Remembered | NumDmg$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearImprinted$ True
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STMayPlay | Duration$ UntilTheEndOfYourNextTurn | RememberObjects$ ValidExile Card.ExiledWithSource | ForgetOnMoved$ Exile
+SVar:STMayPlay:Mode$ Continuous | Affected$ Card.IsRemembered | AffectedZone$ Exile | MayPlay$ True
+SVar:MaxTgt:SVar$MaxPlayers/Plus.MaxCreaturesAndPW
+SVar:MaxPlayers:PlayerCountPlayers$Amount
+SVar:MaxCreaturesAndPW:Count$Valid Creature,Planeswalker
+SVar:X:Imprinted$CardManaCost

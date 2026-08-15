@@ -1,0 +1,11 @@
+Id:881
+ColorIdentity:G
+ManaCost:G
+Types:Creature Bird
+PT:1/1
+A:AB$ Pump | Cost$ G G T | ValidTgts$ Creature | AILogic$ Curse | KW$ HIDDEN Damage that would be dealt to CARDNAME can't be redirected. | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | EffectOwner$ TargetedOwner | RememberObjects$ Targeted | ForgetOnMoved$ Battlefield | StaticAbilities$ NoRegen,NoPrevent | SubAbility$ DBDelayedTrigger | AILogic$ CantRegenerate
+SVar:NoRegen:Mode$ CantRegenerate | ValidCard$ Card.IsRemembered
+SVar:NoPrevent:Mode$ CantPreventDamage | Affected$ Creature.IsRemembered
+SVar:DBDelayedTrigger:DB$ DelayedTrigger | Mode$ ChangesZone | RememberObjects$ Targeted | ValidCard$ Card.IsTriggerRemembered | Origin$ Battlefield | Destination$ Graveyard | ThisTurn$ True | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Defined$ TriggeredCard | Origin$ Graveyard | Destination$ Exile

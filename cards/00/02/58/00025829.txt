@@ -1,0 +1,11 @@
+Id:25829
+ColorIdentity:W
+ManaCost:3
+Types:Legendary Artifact
+A:AB$ ChooseCard | Cost$ 2 W W T Exile<1/CARDNAME> | Defined$ Player | Choices$ Land | ControlledByPlayer$ Chooser | Amount$ 6 | Mandatory$ True | SorcerySpeed$ True | SubAbility$ DestroyAll
+SVar:DestroyAll:DB$ DestroyAll | ValidCards$ Permanent.!ChosenCard | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Exile | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigSearch
+SVar:TrigSearch:AB$ ChangeZone | Cost$ 2 | ChangeType$ Planeswalker.YouOwn | Origin$ Library | Destination$ Hand
+DeckHas:Ability$Sacrifice
+DeckHints:Type$Planeswalker

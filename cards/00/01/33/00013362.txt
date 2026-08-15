@@ -1,0 +1,11 @@
+Id:13362
+ColorIdentity:RG
+ManaCost:R G
+Types:Instant
+A:SP$ ChangeZone | Origin$ Library | Destination$ Library | ChangeType$ Creature | ChangeNum$ 3 | RememberChanged$ True | Reveal$ True | Shuffle$ False | SubAbility$ DBChoose
+SVar:DBChoose:DB$ ChooseCard | Defined$ You | Amount$ 1 | AtRandom$ True | Choices$ Card.IsRemembered | ChoiceZone$ Library | SubAbility$ DBChange | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ3
+SVar:DBChange:DB$ ChangeZone | Origin$ Library | Destination$ Hand | Defined$ ChosenCard | SubAbility$ DBShuffle | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ3
+SVar:DBShuffle:DB$ Shuffle | Defined$ You | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$DifferentCardNames
+AI:RemoveDeck:All

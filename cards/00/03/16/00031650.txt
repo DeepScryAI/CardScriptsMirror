@@ -1,0 +1,10 @@
+Id:31650
+ColorIdentity:W
+ManaCost:1 W
+Types:Legendary Creature Dwarf Advisor
+PT:0/3
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Destination$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | ValidTgts$ Opponent | OptionalDecider$ Opponent
+T:Mode$ Drawn | ValidCard$ Card.OwnedBy Opponent.NonActive | TriggerZones$ Battlefield | Execute$ TrigToken | ActivationLimit$ 1
+SVar:TrigToken:DB$ Token | TokenScript$ c_a_treasure_sac | TokenTapped$ True

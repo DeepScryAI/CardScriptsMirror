@@ -1,0 +1,12 @@
+Id:16162
+ColorIdentity:B
+ManaCost:8
+Types:Creature Eldrazi Insect
+PT:5/5
+K:Emerge:5 B B
+T:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigReveal
+SVar:TrigReveal:DB$ RevealHand | ValidTgts$ Opponent | RememberRevealed$ True | SubAbility$ DBChoose
+SVar:DBChoose:DB$ ChooseCard | Defined$ You | Choices$ Card.IsRemembered+cmcLE3+nonLand | ChoiceZone$ Hand | Amount$ 1 | Mandatory$ True | ForgetChosen$ True | SubAbility$ DBChoose2
+SVar:DBChoose2:DB$ ChooseCard | Defined$ You | Choices$ Card.IsRemembered+cmcGE4 | ChoiceZone$ Hand | Amount$ 1 | Mandatory$ True | ForgetChosen$ True | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Mode$ Defined | DefinedCards$ ValidHand Card.!IsRemembered+OwnedBy Targeted | Defined$ Targeted | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

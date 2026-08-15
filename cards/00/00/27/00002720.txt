@@ -1,0 +1,14 @@
+Id:2720
+ColorIdentity:
+ManaCost:3
+Types:Artifact
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDealDamage
+A:AB$ DealDamage | Cost$ 1 T SubCounter<All/PAIN> | ValidTgts$ Creature | NumDmg$ Y
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ PAIN | CounterNum$ 1
+SVar:TrigDealDamage:DB$ DealDamage | Defined$ You | NumDmg$ X
+SVar:X:Count$CardCounters.PAIN
+SVar:Y:SVar$CostCountersRemoved
+AI:RemoveDeck:All
+DeckHas:Ability$Counters
+DeckHints:Ability$Proliferate

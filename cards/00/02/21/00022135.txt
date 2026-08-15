@@ -1,0 +1,15 @@
+Id:22135
+ColorIdentity:UG
+ManaCost:G U
+Types:Legendary Creature Snake Elf Scout
+PT:1/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.YouCtrl+!token+Other | TriggerZones$ Battlefield | Execute$ TrigInvestigate
+SVar:TrigInvestigate:DB$ Investigate
+A:AB$ PeekAndReveal | Cost$ T Sac<X/Clue> | ValidTgts$ Opponent | PeekAmount$ X | NoPeek$ True | RememberRevealed$ True | SubAbility$ PickOne
+SVar:PickOne:DB$ ChooseCard | Defined$ You | Amount$ 1 | Choices$ Permanent.nonLand+cmcLEX+IsRemembered | ChoiceZone$ Library | SubAbility$ MoveChosen
+SVar:MoveChosen:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | GainControl$ True | Defined$ ChosenCard | SubAbility$ DBBottom
+SVar:DBBottom:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered | Origin$ Library | Destination$ Library | LibraryPosition$ -1 | RandomOrder$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearChosenCard$ True
+SVar:X:Count$xPaid
+DeckHints:Ability$Investigate
+DeckHas:Ability$Investigate | Token

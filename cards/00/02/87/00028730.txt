@@ -1,0 +1,13 @@
+Id:28730
+ColorIdentity:BRG
+ManaCost:2 B R G
+Types:Legendary Creature Lhurgoyf Wizard
+PT:*/1+*
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChoose
+SVar:TrigChoose:DB$ NameCard | Defined$ You | ChooseFromList$ Thoughtseize,Lightning Bolt,Abrupt Decay | SubAbility$ DBCast
+SVar:DBCast:DB$ Play | CopyFromChosenName$ True | WithoutManaCost$ True
+S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X | SetToughness$ Y
+SVar:X:Count$ValidGraveyard Card$CardTypes
+SVar:Y:SVar$X/Plus.1
+SVar:PlayMain1:TRUE
+DeckHints:Ability$Graveyard

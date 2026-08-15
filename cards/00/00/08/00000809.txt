@@ -1,0 +1,19 @@
+Id:809
+ColorIdentity:B
+ManaCost:X B B
+Types:Creature Zombie
+PT:0/1
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ ExileCreature
+SVar:ExileCreature:DB$ ChooseCard | ETB$ True | Choices$ Creature.YouOwn+NotDefinedReplacedSimultaneousETB | ChoiceZone$ Graveyard | Amount$ X | Mandatory$ True | ConditionCheckSVar$ CheckYard | ConditionSVarCompare$ GEX | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | Defined$ ChosenCard | Origin$ Graveyard | Destination$ Exile | RememberChanged$ True | SubAbility$ MoveToYard
+SVar:MoveToYard:DB$ ChangeZone | Hidden$ True | Origin$ All | Destination$ Graveyard | Defined$ Self | ConditionCheckSVar$ CheckExiled | ConditionSVarCompare$ LTX | Imprint$ True | ETB$ True | SubAbility$ DBChooseCounter
+SVar:DBChooseCounter:DB$ PutCounter | CounterTypes$ P2P0,P1P1,P0P2 | CounterNum$ X | SplitAmount$ True | ETB$ True | ConditionDefined$ Imprinted | ConditionPresent$ Card | ConditionCompare$ EQ0 | SubAbility$ DBUpdate
+SVar:DBUpdate:DB$ ReplaceEffect | ConditionDefined$ Imprinted | ConditionPresent$ Card | ConditionCompare$ EQ0 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True
+SVar:X:Count$xPaid
+SVar:CheckExiled:Count$ValidExile Card.IsRemembered
+SVar:CheckYard:Count$ValidGraveyard Creature.YouOwn+NotDefinedReplacedSimultaneousETB
+SVar:NeedsToPlayVar:CheckYard GE1
+AI:RemoveDeck:Random
+DeckHas:Ability$Graveyard | Counters
+DeckHints:Ability$Mill | Graveyard

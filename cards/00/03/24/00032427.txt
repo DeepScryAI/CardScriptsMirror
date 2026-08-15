@@ -1,0 +1,13 @@
+Id:32427
+ColorIdentity:B
+Variant:UniversesWithin:FlavorName:Duskmourn's Claim
+ManaCost:2 B
+Types:Enchantment
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | Execute$ TrigReveal | TriggerZones$ Battlefield
+SVar:TrigReveal:DB$ PeekAndReveal | NoPeek$ True | ValidTgts$ Player | TargetMin$ 2 | TargetMax$ 2 | RememberRevealed$ True | SubAbility$ DBRepeatEach
+SVar:DBRepeatEach:DB$ RepeatEach | RepeatPlayers$ Targeted | RepeatSubAbility$ DBLoseLife | SubAbility$ DBChangeZoneAll
+SVar:DBLoseLife:DB$ LoseLife | Defined$ Player.IsRemembered | LifeAmount$ X
+SVar:DBChangeZoneAll:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered | Origin$ Library | Destination$ Hand | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$ValidLibrary Card.IsRemembered+!RememberedPlayerOwn$CardManaCost
+AI:RemoveDeck:All

@@ -1,0 +1,11 @@
+Id:790
+ColorIdentity:
+ManaCost:0
+Types:Artifact
+A:AB$ ChooseSource | Cost$ T Sac<1/CARDNAME> | Choices$ Card,Emblem | AILogic$ NeedsPrevention | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | ReplacementEffects$ DBPrevent
+SVar:DBPrevent:Event$ DamageDone | ActiveZones$ Command | ValidSource$ Card.ChosenCardStrict,Emblem.ChosenCard | ValidTarget$ You | ReplaceWith$ DBReplace | PreventionEffect$ True
+SVar:DBReplace:DB$ ReplaceDamage | Amount$ ShieldAmount | SubAbility$ ExileEffect
+SVar:ExileEffect:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile
+SVar:ShieldAmount:ReplaceCount$DamageAmount/HalfDown
+DeckHas:Ability$Sacrifice

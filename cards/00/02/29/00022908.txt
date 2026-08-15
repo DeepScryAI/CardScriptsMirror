@@ -1,0 +1,13 @@
+Id:22908
+ColorIdentity:R
+ManaCost:1 R
+Types:Creature Human Wizard
+PT:2/2
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | DayTime$ Neither | ReplaceWith$ DoDay | ReplacementResult$ Updated
+SVar:DoDay:DB$ DayTime | Value$ Day
+T:Mode$ DayTimeChanges | Execute$ TrigDiscard | TriggerZones$ Battlefield
+SVar:TrigDiscard:DB$ Discard | Defined$ You | NumCards$ 2 | Optional$ True | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ Y | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:Y:Remembered$Amount
+DeckHas:Ability$Discard

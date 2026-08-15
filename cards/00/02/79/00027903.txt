@@ -1,0 +1,14 @@
+Id:27903
+ColorIdentity:U
+ManaCost:3 U
+Types:Creature Human Soldier
+PT:*/5
+S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigTap | TriggerZones$ Battlefield
+SVar:TrigTap:DB$ Tap | CardChoices$ Human.YouCtrl+untapped | AnyNumber$ True | ChoiceAmount$ Count$Valid Human.YouCtrl+untapped | RememberTapped$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ Y | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$ValidHand Card.YouOwn
+SVar:Y:Remembered$Amount
+SVar:HasAttackEffect:TRUE
+DeckHints:Type$Human

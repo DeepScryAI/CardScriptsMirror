@@ -1,0 +1,15 @@
+Id:11881
+ColorIdentity:R
+ManaCost:4 R R R
+Types:Creature Phyrexian Giant
+PT:5/5
+T:Mode$ ChangesZone | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ EffMassToken
+SVar:EffMassToken:DB$ Token | TokenAmount$ X | TokenOwner$ You | TokenScript$ r_1_1_phyrexian_goblin_haste
+SVar:X:Count$Valid Creature.YouCtrl
+K:MayEffectFromOpeningHand:RevealCard
+SVar:RevealCard:DB$ Reveal | RevealDefined$ Self | SubAbility$ TokenOnUpkeep
+SVar:TokenOnUpkeep:DB$ Effect | Triggers$ TrigToken
+SVar:TrigToken:Mode$ Phase | Phase$ Upkeep | Execute$ EffToken | OneOff$ True
+SVar:EffToken:DB$ Token | TokenOwner$ You | TokenScript$ r_1_1_phyrexian_goblin_haste
+SVar:PlayMain1:TRUE
+DeckHas:Type$Goblin

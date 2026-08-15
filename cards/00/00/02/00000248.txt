@@ -1,0 +1,13 @@
+Id:248
+ColorIdentity:
+ManaCost:2
+Types:Artifact
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+R:Event$ Untap | ValidCard$ Card.Self | ValidStepTurnToController$ You | Layer$ CantHappen
+R:Event$ BeginTurn | ActiveZones$ Battlefield | ValidPlayer$ You | IsPresent$ Card.Self+tapped | Optional$ True | ReplaceWith$ DBUntap
+SVar:DBUntap:DB$ Untap | Defined$ Self | AILogic$ Never
+A:AB$ AddTurn | Cost$ T | NumTurns$ 1
+SVar:PlayMain1:ALWAYS
+SVar:UntapMe:True
+AI:RemoveDeck:Random

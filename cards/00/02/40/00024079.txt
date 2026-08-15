@@ -1,0 +1,11 @@
+Id:24079
+ColorIdentity:U
+ManaCost:1 U
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ CantBlockBy | ValidAttacker$ Creature.EnchantedBy+attacking | IsPresent$ Creature.attacking+!EnchantedBy | PresentCompare$ EQ0
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddTrigger$ DamageDone | AddSVar$ TrigConnive
+SVar:DamageDone:Mode$ DamageDone | CombatDamage$ True | ValidSource$ Card.Self | ValidTarget$ Player | TriggerZones$ Battlefield | Execute$ TrigConnive
+SVar:TrigConnive:DB$ Connive
+DeckHas:Ability$Discard | Counters

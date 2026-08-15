@@ -1,0 +1,9 @@
+Id:5187
+ColorIdentity:W
+ManaCost:W
+Types:Enchantment
+A:AB$ Effect | Cost$ 1 | ReplacementEffects$ SelflessDamage | AILogic$ RedirectSpellDamageFromPlayer | Stackable$ False
+SVar:SelflessDamage:Event$ DamageDone | ValidTarget$ You | ValidSource$ Instant,Sorcery | ReplaceWith$ SelflessDmg | DamageTarget$ ReplacedSourceController
+SVar:SelflessDmg:DB$ ReplaceEffect | VarName$ Affected | VarValue$ ReplacedSourceController | VarType$ Player | SubAbility$ ExileEffect
+SVar:ExileEffect:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile
+SVar:NonStackingEffect:True

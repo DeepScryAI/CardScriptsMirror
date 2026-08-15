@@ -1,0 +1,15 @@
+Id:26224
+ColorIdentity:B
+ManaCost:4 B BP
+Types:Legendary Planeswalker Vraska
+Loyalty:6
+K:Compleated
+A:AB$ Draw | Cost$ AddCounter<0/LOYALTY> | Planeswalker$ True | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 1 | SubAbility$ DBProliferate
+SVar:DBProliferate:DB$ Proliferate
+A:AB$ Animate | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | ValidTgts$ Creature | RemoveAllAbilities$ True | Types$ Artifact,Treasure | Abilities$ TreasureSac | RemoveCardTypes$ True | Duration$ Permanent
+SVar:TreasureSac:AB$ Mana | Cost$ T Sac<1/CARDNAME/this artifact> | Produced$ Any
+A:AB$ Poison | Cost$ SubCounter<9/LOYALTY> | Planeswalker$ True | Ultimate$ True | ValidTgts$ Player | ConditionCheckSVar$ X | ConditionSVarCompare$ LT9 | Num$ Difference
+SVar:X:TargetedPlayer$Counters.Poison
+SVar:Difference:Number$9/Minus.X
+DeckHints:Ability$Counters & Keyword$Infect | Toxic | Poisonous

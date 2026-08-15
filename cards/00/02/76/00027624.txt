@@ -1,0 +1,12 @@
+Id:27624
+ColorIdentity:W
+ManaCost:1 W
+Types:Creature Dwarf Artificer
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | TargetMin$ 0 | TargetMax$ 1 | RememberChanged$ True | ValidTgts$ Permanent.Other+nonLand+!token | Origin$ Battlefield | Destination$ Exile | SubAbility$ DBCopy
+SVar:DBCopy:DB$ CopyPermanent | Defined$ Remembered | NonLegendary$ True | AddTypes$ Artifact | Controller$ RememberedController | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+A:AB$ PumpAll | Cost$ 1 W | ValidCards$ Card.token+YouCtrl | KW$ Indestructible | GameActivationLimit$ 1
+DeckHas:Ability$Token & Type$Artifact
+DeckHints:Ability$Token

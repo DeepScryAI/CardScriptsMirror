@@ -1,0 +1,13 @@
+Id:4465
+ColorIdentity:G
+ManaCost:4 G G
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.!token | TriggerZones$ Battlefield | Execute$ TrigDualCopy
+SVar:TrigDualCopy:DB$ CopyPermanent | Defined$ TriggeredCardLKICopy | Controller$ TriggeredCardController | RememberTokens$ True
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Creature.!token | TriggerZones$ Battlefield | Execute$ TrigDualExile
+SVar:TrigDualExile:DB$ ChangeZoneAll | ChangeType$ Triggered.sameName+token | Origin$ Battlefield | Destination$ Exile
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigDualExileAll
+SVar:TrigDualExileAll:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered | Origin$ Battlefield | Destination$ Exile | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.IsRemembered | TriggerZones$ Battlefield | Execute$ TrigForget | Static$ True
+SVar:TrigForget:DB$ Pump | ForgetObjects$ TriggeredCard

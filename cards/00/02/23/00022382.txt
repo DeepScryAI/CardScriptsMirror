@@ -1,0 +1,10 @@
+Id:22382
+ColorIdentity:B
+ManaCost:2 B
+Types:Instant
+A:SP$ Effect | StaticAbilities$ OppPerms | RememberObjects$ Caster & Valid Permanent.OppCtrl
+SVar:OppPerms:Mode$ Continuous | Affected$ Permanent.IsRemembered | AddTrigger$ DamageTrig
+SVar:DamageTrig:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player.OriginalHostRemembered | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ TriggeredSourceController | LifeAmount$ 2
+AI:RemoveDeck:All

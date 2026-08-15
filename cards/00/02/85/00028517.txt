@@ -1,0 +1,13 @@
+Id:28517
+ColorIdentity:R
+ManaCost:2 R R
+Types:Artifact Creature Insect Thopter
+PT:4/4
+K:Flying
+K:Trample
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ DBForEach
+SVar:DBForEach:DB$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBChoose | SubAbility$ DBDestroy
+SVar:DBChoose:DB$ ChooseCard | ChoiceZone$ Battlefield | Amount$ 1 | Choices$ Land.nonBasic+RememberedPlayerCtrl | Optional$ True | ImprintChosen$ True
+SVar:DBDestroy:DB$ Destroy | Defined$ Imprinted | RememberDestroyed$ True | SubAbility$ DBSearch
+SVar:DBSearch:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | Tapped$ True | ChangeType$ Land.Basic | ChangeTypeDesc$ basic land | DefinedPlayer$ RememberedController | Optional$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True

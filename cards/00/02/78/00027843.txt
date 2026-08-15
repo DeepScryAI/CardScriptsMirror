@@ -1,0 +1,11 @@
+Id:27843
+ColorIdentity:WU
+ManaCost:2 W U
+Types:Legendary Creature Time Lord Doctor
+PT:2/4
+S:Mode$ Continuous | Affected$ Player | SetMaxHandSize$ Unlimited
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | OptionalDecider$ True | Defined$ Player | RememberDrawn$ True | NumCards$ 1 | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | EffectOwner$ RememberedOwner.Opponent | RememberObjects$ You | StaticAbilities$ STCantAttack | Duration$ UntilTheEndOfYourNextTurn | SubAbility$ DBCleanup
+SVar:STCantAttack:Mode$ CantAttack | ValidCard$ Creature.YouCtrl | Target$ Player.IsRemembered,Permanent.RememberedPlayerCtrl
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

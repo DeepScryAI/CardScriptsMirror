@@ -1,0 +1,13 @@
+Id:21088
+ColorIdentity:UB
+ManaCost:2 U B
+Types:Legendary Creature Vampire Rogue
+PT:2/4
+S:Mode$ Continuous | Affected$ Rogue.Other+YouCtrl | AddPower$ 1 | AddToughness$ 1
+T:Mode$ DamageDoneOnce | CombatDamage$ True | ValidSource$ Rogue.YouCtrl | ValidTarget$ Player | TriggerZones$ Battlefield | Execute$ TrigMill
+SVar:TrigMill:DB$ Mill | Defined$ TriggeredTarget | NumCards$ X | RememberMilled$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | ConditionDefined$ Remembered | ConditionPresent$ Creature | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:TriggerCount$DamageAmount
+DeckHas:Ability$Mill
+DeckNeeds:Type$Rogue

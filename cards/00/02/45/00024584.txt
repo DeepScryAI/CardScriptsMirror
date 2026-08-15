@@ -1,0 +1,11 @@
+Id:24584
+ColorIdentity:WR
+ManaCost:R W
+Types:Legendary Creature Human Soldier
+PT:2/2
+T:Mode$ Phase | Phase$ BeginCombat | TriggerZones$ Battlefield | Execute$ TrigRepeatEach
+SVar:TrigRepeatEach:DB$ RepeatEach | RepeatCards$ Creature.YouCtrl | RepeatSubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Remembered | NumAtt$ +1 | NumDef$ +1 | ConditionCheckSVar$ X
+SVar:X:Count$Valid Creature.!IsRemembered+YouCtrl+sharesNameWith Remembered/Plus.Y
+SVar:Y:Count$ValidGraveyard Creature.YouOwn+sharesNameWith Remembered
+A:AB$ Pump | Cost$ 1 R W | ValidTgts$ Creature.Other+!token+YouCtrl | KW$ First Strike & Double team | SorcerySpeed$ True | GameActivationLimit$ 1

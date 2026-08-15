@@ -1,0 +1,15 @@
+Id:1548
+ColorIdentity:R
+ManaCost:2 R
+Types:Creature Human Rogue Mercenary
+PT:3/4
+K:Flying
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ WAGE | CounterNum$ 1 | SubAbility$ DBRemoveCounter
+SVar:DBRemoveCounter:DB$ RemoveCounter | CounterNum$ All | CounterType$ WAGE | Defined$ Self | UnlessCost$ Y | UnlessPayer$ You | UnlessResolveSubs$ WhenNotPaid | SubAbility$ DBChooseOpp
+SVar:DBChooseOpp:DB$ ChoosePlayer | Defined$ You | Choices$ Player.Opponent | AILogic$ Curse | SubAbility$ DBDonate
+SVar:DBDonate:DB$ GainControl | Defined$ Self | NewController$ Player.Chosen | SubAbility$ DBReset
+SVar:DBReset:DB$ Cleanup | ClearChosenPlayer$ True
+SVar:Y:Count$CardCounters.WAGE/Twice
+AI:RemoveDeck:All
+AI:RemoveDeck:Random

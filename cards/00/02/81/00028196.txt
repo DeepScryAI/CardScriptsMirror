@@ -1,0 +1,22 @@
+Id:28196
+ColorIdentity:U
+ManaCost:U
+Types:Legendary Artifact
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ C | Amount$ 2 | RestrictValid$ Activated
+K:Craft:8 U XMin4 ExileCtrlOrGrave<X/Permanent.Other+nonLand+hasAbility Activated/nonlands with activated abilities>
+SVar:X:Count$xPaid
+AI:RemoveDeck:All
+DeckHints:Ability$Discard | Mill | Sacrifice
+DeckHas:Ability$Graveyard
+AlternateMode:DoubleFaced
+
+ALTERNATE
+
+ManaCost:no cost
+Colors:blue
+Types:Legendary Artifact
+S:Mode$ Continuous | Affected$ Card.Self | EffectZone$ Battlefield | GainsAbilitiesOfDefined$ ExiledWith | GainsAbilitiesLimitPerTurn$ 1
+T:Mode$ AbilityCast | ValidActivatingPlayer$ You | ValidSA$ SpellAbility.!ManaAbility | TriggerZones$ Battlefield | Execute$ TrigCopy
+SVar:TrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | MayChooseTarget$ True

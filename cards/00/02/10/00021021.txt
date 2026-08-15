@@ -1,0 +1,12 @@
+Id:21021
+ColorIdentity:B
+ManaCost:3 B B
+Types:Legendary Creature Vampire Cleric
+PT:4/4
+K:Flying
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigChoose
+SVar:TrigChoose:DB$ ChooseCard | Defined$ TriggeredDefendingPlayer | Choices$ Creature.YouOwn+nonLegendary | Mandatory$ True | ChoiceZone$ Graveyard | AILogic$ WorstCard | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Defined$ ChosenCard | Origin$ Graveyard | Destination$ Battlefield | WithCountersType$ P1P1 | StaticEffect$ Animate
+SVar:Animate:Mode$ Continuous | Affected$ Card.IsRemembered | AddType$ Vampire
+DeckHas:Ability$Graveyard | Counters
+DeckHints:Type$Vampire

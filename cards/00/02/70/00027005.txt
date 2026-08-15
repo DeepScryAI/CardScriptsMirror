@@ -1,0 +1,16 @@
+Id:27005
+ColorIdentity:R
+ManaCost:3 R R
+Types:Sorcery
+A:SP$ Sacrifice | Defined$ You | Amount$ SacX | SacValid$ Land | RememberSacrificed$ True | SubAbility$ DBReveal | Optional$ True
+SVar:SacX:Count$Valid Land.YouCtrl
+SVar:DBReveal:DB$ PeekAndReveal | PeekAmount$ ShiftX | RememberRevealed$ True | SubAbility$ DBChoose
+SVar:ShiftX:Remembered$Amount
+SVar:DBChoose:DB$ ChooseCard | Choices$ Land.IsRemembered,Artifact.IsRemembered | MinAmount$ 0 | ChoiceZone$ Library | Amount$ ShiftX | Mandatory$ True | SubAbility$ DBPutArtifact
+SVar:DBPutArtifact:DB$ ChangeZoneAll | ChangeType$ Artifact.ChosenCard | Origin$ Library | Destination$ Battlefield | SubAbility$ DBPutLands
+SVar:DBPutLands:DB$ ChangeZoneAll | ChangeType$ Land.ChosenCard | Origin$ Library | Destination$ Battlefield | Tapped$ True | SubAbility$ ShuffleRest
+SVar:ShuffleRest:DB$ ChangeZoneAll | Origin$ Library | Destination$ Library | LibraryPosition$ -1 | RandomOrder$ True | ChangeType$ Card.IsRemembered+!ChosenCard | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+AI:RemoveDeck:All
+DeckHas:Ability$Sacrifice
+DeckHints:Type$Artifact

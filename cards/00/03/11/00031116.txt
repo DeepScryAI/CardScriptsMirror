@@ -1,0 +1,12 @@
+Id:31116
+ColorIdentity:G
+ManaCost:2 G
+Types:Creature Elephant Warrior
+PT:3/3
+K:Trample
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigEnergy
+SVar:TrigEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ TriggerCount$DamageAmount
+A:AB$ PutCounter | Cost$ PayEnergy<6> | Defined$ Self | CounterType$ P1P1 | CounterNum$ 2 | Exhaust$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ X
+SVar:X:Count$Valid Creature.YouCtrl$GreatestCardPower
+DeckHas:Ability$Counters

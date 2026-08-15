@@ -1,0 +1,13 @@
+Id:1755
+ColorIdentity:UG
+ManaCost:3 G U
+Types:Enchantment
+K:Cumulative upkeep:1
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigPutCounter | TriggerZones$ Battlefield
+T:Mode$ Phase | Phase$ Draw | ValidPlayer$ Opponent | Execute$ TrigDraw | TriggerZones$ Battlefield
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ GROWTH | CounterNum$ 1
+SVar:TrigDraw:DB$ Draw | Defined$ TriggeredPlayer | NumCards$ X | RememberDrawn$ AllReplaced | SubAbility$ DBDamage
+SVar:DBDamage:DB$ DealDamage | Defined$ TriggeredPlayer | NumDmg$ Remembered$Amount | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$CardCounters.GROWTH
+AI:RemoveDeck:Random

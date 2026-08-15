@@ -1,0 +1,11 @@
+Id:22498
+ColorIdentity:WR
+ManaCost:R W
+Types:Enchantment Class
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Card.Equipment | ChangeNum$ 1
+K:Class:2:1 R W:AddStaticAbility$ SReduceCost
+SVar:SReduceCost:Mode$ ReduceCost | ValidCard$ Card | ValidSpell$ Activated.Equip | Activator$ You | Amount$ 2 | Secondary$ True
+K:Class:3:3 R W:AddTrigger$ TriggerAttacks
+SVar:TriggerAttacks:Mode$ Attacks | ValidCard$ Creature.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigMustBlock | Secondary$ True
+SVar:TrigMustBlock:DB$ MustBlock | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | DefinedAttacker$ TriggeredAttackerLKICopy | BlockAllDefined$ True | Duration$ UntilEndOfCombat

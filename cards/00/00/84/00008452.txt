@@ -1,0 +1,13 @@
+Id:8452
+ColorIdentity:G
+ManaCost:5 G
+Types:Creature Aurochs
+PT:4/4
+K:Trample
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange | OptionalDecider$ You
+SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Card.Aurochs | ShuffleNonMandatory$ True
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +X
+SVar:X:Count$Valid Aurochs.attacking+Other
+SVar:HasAttackEffect:TRUE
+DeckHints:Type$Aurochs

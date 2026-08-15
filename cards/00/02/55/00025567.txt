@@ -1,0 +1,11 @@
+Id:25567
+ColorIdentity:W
+ManaCost:4 W
+Types:Creature Human Wizard
+PT:3/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigRepeatEach
+SVar:TrigRepeatEach:DB$ RepeatEach | RepeatPlayers$ Player | StartingWith$ You | RepeatSubAbility$ DBChoosePermanent | SubAbility$ DBPhaseOut
+SVar:DBChoosePermanent:DB$ ChooseCard | MinAmount$ 0 | Amount$ 5 | Defined$ Remembered | Choices$ Permanent.RememberedPlayerCtrl | RememberChosen$ True | AILogic$ NotSelf
+SVar:DBPhaseOut:DB$ Phases | AllValid$ Permanent.Other+!IsRemembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True | ClearRemembered$ True
+S:Mode$ CantPhaseIn | ValidCard$ Card.phasedOutPermanent

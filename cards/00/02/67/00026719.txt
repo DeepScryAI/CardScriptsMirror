@@ -1,0 +1,11 @@
+Id:26719
+ColorIdentity:B
+ManaCost:1 B
+Types:Sorcery
+A:SP$ Charm | Choices$ CemeteryRecruitment,Duress,HumanFrailty | Defined$ You
+SVar:CemeteryRecruitment:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Creature.YouCtrl | SubAbility$ DBDraw | RememberChanged$ True
+SVar:DBDraw:DB$ Draw | ConditionDefined$ Remembered | ConditionPresent$ Card.Zombie | ConditionCompare$ GE1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:Duress:DB$ Discard | ValidTgts$ Opponent | Mode$ RevealYouChoose | DiscardValid$ Card.nonCreature+nonLand | NumCards$ 1
+SVar:HumanFrailty:DB$ Destroy | ValidTgts$ Creature.Human
+DeckHints:Type$Zombie

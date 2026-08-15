@@ -1,0 +1,14 @@
+Id:26415
+ColorIdentity:
+ManaCost:no cost
+Types:Plane Eldraine
+T:Mode$ PlaneswalkedTo | ValidCard$ Card.Self | Execute$ TrigToken
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigToken | TriggerZones$ Command | Secondary$ True
+SVar:TrigToken:DB$ Token | TokenScript$ c_a_food_sac | TokenOwner$ You
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos
+SVar:RolledChaos:DB$ Sacrifice | ValidTgts$ Player | SacValid$ Creature | RememberSacrificed$ True | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScript$ c_a_food_sac | TokenAmount$ Z | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:Z:Remembered$Valid Creature.toughnessGE4/Plus.1
+DeckHas:Ability$Token | Sacrifice & Type$Food
+DeckHints:Type$Food

@@ -1,0 +1,13 @@
+Id:1952
+ColorIdentity:U
+ManaCost:2 U U
+Types:Enchantment
+R:Event$ Untap | ActiveZones$ Battlefield | ValidCard$ Creature | ValidStepTurnToController$ You | Layer$ CantHappen
+T:Mode$ Phase | Phase$ Upkeep | TriggerZones$ Battlefield | Execute$ TrigChoose
+SVar:TrigChoose:DB$ ChooseCard | Defined$ TriggeredPlayer | Amount$ X | Choices$ Creature.tapped+nonGreen | TargetControls$ True | ChoiceZone$ Battlefield | SubAbility$ DBUntap
+SVar:DBUntap:DB$ RepeatEach | DefinedCards$ ChosenCard | RepeatSubAbility$ UntapEach
+SVar:UntapEach:DB$ Untap | Defined$ Remembered | UnlessCost$ 2 | UnlessPayer$ RememberedController | UnlessSwitched$ True | ShowCurrentCard$ Remembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+SVar:X:Count$Valid Creature.tapped+nonGreen+ActivePlayerCtrl
+AI:RemoveDeck:Random
+SVar:NonStackingEffect:True

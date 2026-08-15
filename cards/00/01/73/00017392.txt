@@ -1,0 +1,15 @@
+Id:17392
+ColorIdentity:WUBRG
+ManaCost:W U B R G
+Types:Legendary Creature Dragon
+PT:6/6
+K:Flash
+K:Flying
+K:Trample
+K:Haste
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigNoLose
+SVar:TrigNoLose:DB$ Effect | ReplacementEffects$ LoseReplace
+SVar:LoseReplace:Event$ GameLoss | ActiveZones$ Command | ValidPlayer$ You | ReplaceWith$ DrawSeven
+SVar:DrawSeven:DB$ Draw | NumCards$ 3 | SubAbility$ DBSetLife
+SVar:DBSetLife:DB$ SetLife | Defined$ You | LifeAmount$ 5 | SubAbility$ ExileEffect
+SVar:ExileEffect:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile

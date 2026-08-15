@@ -1,0 +1,14 @@
+Id:23053
+ColorIdentity:G
+ManaCost:3 G
+Types:Creature Human Shaman
+PT:3/5
+T:Mode$ Attacks | ValidCard$ Card.Self | OptionalDecider$ You | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Land.Basic+!sharesLandTypeWith Valid Land.YouCtrl | ChangeNum$ 1 | ShuffleNonMandatory$ True
+A:AB$ Token | Cost$ 5 G | TokenScript$ g_1_1_insect | RememberTokens$ True | SorcerySpeed$ True | SubAbility$ DBCounters
+SVar:DBCounters:DB$ PutCounter | Defined$ Remembered | CounterType$ P1P1 | CounterNum$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$Domain
+SVar:HasAttackEffect:TRUE
+DeckHints:Color$White | Blue | Red | Black
+DeckHas:Ability$Token | Counters

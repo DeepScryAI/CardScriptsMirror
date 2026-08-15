@@ -1,0 +1,19 @@
+Id:23023
+ColorIdentity:R
+ManaCost:1 R R
+Types:Legendary Planeswalker Chandra
+Loyalty:3
+A:AB$ Mana | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | Produced$ R | SubAbility$ DBDealDamage
+SVar:DBDealDamage:DB$ DealDamage | ValidTgts$ Player,Planeswalker | TargetMin$ 0 | TargetMax$ 1 | NumDmg$ 1
+A:AB$ Dig | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | Name$ Chandra, Dressed to Kill's Effect — +1 May Play | ConditionDefined$ Remembered | ConditionPresent$ Card.Red | ConditionCompare$ GE1 | RememberObjects$ RememberedCard | StaticAbilities$ STPlay | SubAbility$ DBCleanup | ForgetOnMoved$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered+nonLand | AffectedZone$ Exile
+A:AB$ Dig | Cost$ SubCounter<7/LOYALTY> | Planeswalker$ True | Ultimate$ True | Defined$ You | DigNum$ 5 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect2
+SVar:DBEffect2:DB$ Effect | Name$ Chandra, Dressed to Kill's Effect — Ultimate May Play | RememberObjects$ RememberedCard | StaticAbilities$ STPlay2 | SubAbility$ DBEffect3 | ForgetOnMoved$ Exile
+SVar:DBEffect3:DB$ Effect | Name$ Emblem — Chandra, Dressed to Kill | Triggers$ TRSpellCast | Duration$ Permanent | SubAbility$ DBCleanup
+SVar:STPlay2:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered+Red+nonLand | AffectedZone$ Exile
+SVar:TRSpellCast:Mode$ SpellCast | ValidCard$ Card.Red | ValidActivatingPlayer$ You | TriggerZones$ Command | Execute$ TrigDealDamage
+SVar:TrigDealDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ X
+SVar:X:TriggeredCard$CastTotalManaSpent
+SVar:BuffedBy:Card.Red

@@ -1,0 +1,12 @@
+Id:22749
+ColorIdentity:R
+ManaCost:3 R
+Types:Sorcery
+A:SP$ Sacrifice | Defined$ Player.Opponent | SacValid$ Artifact | SubAbility$ DBToken | RememberSacrificed$ True
+SVar:DBToken:DB$ Token | TokenAmount$ Y | TokenScript$ c_a_treasure_sac | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:Y:Count$RememberedSize
+K:Flashback:8 R R:ReduceCost$ X:This spell costs {X} less to cast this way, where X is the greatest mana value of a commander you own on the battlefield or in the command zone.
+SVar:X:Count$ValidBattlefield,Command Card.IsCommander+YouOwn$GreatestCardManaCost
+AI:RemoveDeck:Random
+DeckHas:Ability$Token | Sacrifice

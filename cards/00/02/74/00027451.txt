@@ -1,0 +1,10 @@
+Id:27451
+ColorIdentity:G
+ManaCost:1 G
+Types:Sorcery
+A:SP$ Pump | ValidTgts$ Creature.YouCtrl+enchanted | TargetMin$ 0 | TargetMax$ X | AILogic$ PowerDmg | RememberObjects$ ThisTargetedCard | SubAbility$ DBPumpBis
+SVar:DBPumpBis:DB$ Pump | ValidTgts$ Creature.YouCtrl | TargetUnique$ True | TargetMin$ 0 | TargetMax$ 1 | RememberObjects$ ThisTargetedCard | SubAbility$ DBEachDamage
+SVar:X:Count$Valid Creature.YouCtrl+enchanted
+SVar:DBEachDamage:DB$ EachDamage | ValidTgts$ Creature.YouDontCtrl | DefinedDamagers$ Remembered | NumDmg$ Count$CardPower | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+DeckHints:Type$Aura

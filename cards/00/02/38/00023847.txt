@@ -1,0 +1,9 @@
+Id:23847
+ColorIdentity:U
+ManaCost:2 U
+Types:Enchantment
+T:Mode$ SpellCast | ValidActivatingPlayer$ Opponent | ValidCard$ Card.wasCastFromTheirHand | Execute$ TrigReveal | TriggerZones$ Battlefield | OptionalDecider$ You
+SVar:TrigReveal:DB$ PeekAndReveal | NoPeek$ True | RememberRevealed$ True | SubAbility$ DBCounter
+SVar:DBCounter:DB$ Counter | Defined$ TriggeredSpellAbility | ConditionDefined$ Remembered | ConditionPresent$ Card.sharesCardTypeWith TriggeredCard | SubAbility$ DBCast
+SVar:DBCast:DB$ Play | WithoutManaCost$ True | Controller$ TriggeredActivator | Optional$ True | Defined$ Remembered | ConditionDefined$ Remembered | ConditionPresent$ Card.sharesCardTypeWith TriggeredCard | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

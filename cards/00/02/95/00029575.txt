@@ -1,0 +1,13 @@
+Id:29575
+ColorIdentity:WBG
+ManaCost:1 W B G
+Types:Legendary Creature Plant
+PT:2/7
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | Execute$ TrigBranch | TriggerZones$ Battlefield
+SVar:TrigBranch:DB$ Branch | BranchConditionSVar$ X | BranchConditionSVarCompare$ GE7 | TrueSubAbility$ DBZombie | FalseSubAbility$ DBPlant
+SVar:DBPlant:DB$ Token | TokenScript$ g_0_1_plant | TokenOwner$ You
+SVar:DBZombie:DB$ Token | TokenScript$ b_2_2_zombie | TokenOwner$ You
+SVar:X:Count$Valid Land.YouCtrl$DifferentCardNames
+S:Mode$ Continuous | AffectedZone$ Graveyard | Affected$ Land.YouOwn | AddKeyword$ Dredge:2
+DeckHas:Ability$Token & Type$Zombie
+DeckHints:Ability$Mill

@@ -1,0 +1,18 @@
+Id:29567
+ColorIdentity:WU
+ManaCost:3 WU WU
+Types:Sorcery
+A:SP$ TapAll | ValidCards$ Creature | ValidTgts$ Player | RememberTapped$ True | SubAbility$ DBChooseNumber
+SVar:DBChooseNumber:DB$ ChooseNumber | Max$ Max | ListTitle$ amount of energy to pay | SubAbility$ DBStun
+SVar:DBStun:DB$ PutCounter | UnlessCost$ PayEnergy<X> | UnlessPayer$ You | UnlessSwitched$ True | Choices$ Creature.IsRemembered | ChoiceAmount$ X | MinChoiceAmount$ 0 | CounterType$ Stun
+SVar:Max:Count$YourCountersEnergy
+SVar:X:Count$ChosenNumber
+AlternateMode:Modal
+
+ALTERNATE
+
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ Combo W U

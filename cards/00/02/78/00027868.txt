@@ -1,0 +1,10 @@
+Id:27868
+ColorIdentity:
+ManaCost:no cost
+Types:Phenomenon
+T:Mode$ PlaneswalkedTo | ValidCard$ Card.Self | Execute$ TrigEffect
+SVar:TrigEffect:DB$ Repeat | RepeatCheckSVar$ PlayerCountRemembered$HasPropertyYou | RepeatSVarCompare$ GT0 | RepeatSubAbility$ DBSacrifice
+SVar:DBSacrifice:DB$ Sacrifice | Defined$ Player | SacValid$ Permanent.nonLand | SubAbility$ DBCoin
+SVar:DBCoin:DB$ FlipCoin | RememberLoser$ True | WinSubAbility$ PWAway
+SVar:PWAway:DB$ Planeswalk | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

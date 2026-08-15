@@ -1,0 +1,17 @@
+Id:21063
+ColorIdentity:U
+ManaCost:4 U U U
+Types:Sorcery
+A:SP$ Draw | NumCards$ X | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STHandSize | Duration$ Permanent
+SVar:STHandSize:Mode$ Continuous | Affected$ You | SetMaxHandSize$ Unlimited
+SVar:X:Count$ValidHand Card.YouOwn/Plus.1
+AlternateMode:Modal
+
+ALTERNATE
+
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ DBTap | ReplacementResult$ Updated
+SVar:DBTap:DB$ Tap | ETB$ True | Defined$ Self | UnlessCost$ PayLife<3> | UnlessPayer$ You
+A:AB$ Mana | Cost$ T | Produced$ U

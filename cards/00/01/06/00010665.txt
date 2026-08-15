@@ -1,0 +1,13 @@
+Id:10665
+ColorIdentity:G
+ManaCost:X G
+Types:Creature Hydra
+PT:0/0
+K:etbCounter:P1P1:X
+SVar:X:Count$xPaid
+R:Event$ DamageDone | ActiveZones$ Battlefield | ValidTarget$ Card.Self | ReplaceWith$ Counters | PreventionEffect$ True | AlwaysReplace$ True
+SVar:Counters:DB$ RemoveCounter | Defined$ ReplacedTarget | CounterType$ P1P1 | CounterNum$ Y
+SVar:Y:ReplaceCount$DamageAmount
+T:Mode$ CounterRemoved | ValidCard$ Card.Self | TriggerZones$ Battlefield | CounterType$ P1P1 | Execute$ ProteanPutCounter
+SVar:ProteanPutCounter:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ DBPutCounters | RememberObjects$ TriggeredCardLKICopy
+SVar:DBPutCounters:DB$ PutCounter | Defined$ DelayTriggerRememberedLKI | CounterType$ P1P1 | CounterNum$ 2

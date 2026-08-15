@@ -1,0 +1,13 @@
+Id:28866
+ColorIdentity:U
+ManaCost:2 U
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ FreeCard
+SVar:FreeCard:DB$ Draw | Defined$ You | NumCards$ 2
+S:Mode$ Continuous | Affected$ Card.EnchantedBy | AddStaticAbility$ NoMaxHandSize | AddTrigger$ AttackTrig
+SVar:NoMaxHandSize:Mode$ Continuous | Affected$ You | SetMaxHandSize$ Unlimited
+SVar:AttackTrig:Mode$ Attacks | ValidCard$ Card.Self | CheckSVar$ X | SVarCompare$ GE10 | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +10 | NumDef$ +10
+SVar:X:Count$CardsInYourHand

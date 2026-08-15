@@ -1,0 +1,15 @@
+Id:526
+ColorIdentity:U
+ManaCost:4 U U U
+Types:Creature Spawn
+PT:6/6
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigElderSpawnSacrifice | TriggerZones$ Battlefield
+SVar:TrigElderSpawnSacrifice:DB$ Sacrifice | SacValid$ Island | Optional$ True | RememberSacrificed$ True | SubAbility$ DBElderSpawnSacrificeMe
+SVar:DBElderSpawnSacrificeMe:DB$ Sacrifice | ConditionDefined$ Remembered | ConditionPresent$ Island | ConditionCompare$ EQ0 | SubAbility$ DBElderSpawnDamage
+SVar:DBElderSpawnDamage:DB$ DealDamage | Defined$ You | NumDmg$ 6 | ConditionDefined$ Remembered | ConditionPresent$ Island | ConditionCompare$ EQ0 | SubAbility$ DBElderSpawnCleanup
+SVar:DBElderSpawnCleanup:DB$ Cleanup | ClearRemembered$ True
+S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self | ValidBlocker$ Creature.Red
+SVar:NeedsToPlayVar:Z GE3
+SVar:Z:Count$Valid Island.YouCtrl
+AI:RemoveDeck:Random
+DeckHas:Ability$Sacrifice

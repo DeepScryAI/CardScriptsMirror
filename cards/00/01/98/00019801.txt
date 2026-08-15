@@ -1,0 +1,11 @@
+Id:19801
+ColorIdentity:RG
+ManaCost:2 R G
+Types:Legendary Creature Minotaur Warrior
+PT:5/5
+S:Mode$ MinMaxBlocker | ValidCard$ Card.Self | Max$ 1
+T:Mode$ AttackersDeclared | AttackingPlayer$ Player.Opponent | Execute$ TrigGainControl | TriggerZones$ Battlefield | OptionalDecider$ You | PresentDefined$ Self | IsPresent$ Card.tapped
+SVar:TrigGainControl:DB$ GainControl | Defined$ Self | NewController$ TriggeredAttackingPlayer | LoseControl$ EndOfCombat | RememberControlled$ True | SubAbility$ DBAttack
+SVar:DBAttack:DB$ ChangeCombatants | Defined$ Remembered | Attacking$ .Defending & Valid Planeswalker.Defending | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+AI:RemoveDeck:All

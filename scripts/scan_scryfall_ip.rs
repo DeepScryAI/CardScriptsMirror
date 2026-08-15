@@ -250,7 +250,17 @@ fn insert_pattern(
     oracle_id: Option<String>,
 ) {
     let normalized = normalize_for_scan(original);
-    if normalized.is_empty() {
+    let words = normalized.split_whitespace().count();
+    // A repository-wide scan cannot meaningfully treat ordinary identifiers
+    // such as `copy`, `index`, or `return` as evidence merely because an
+    // unrelated card has that one-word title. Require multi-word titles and a
+    // substantive Oracle sentence; exact forbidden script fields are audited
+    // separately by the corpus generator.
+    let is_actionable = match kind {
+        PatternKind::CardTitle => words >= 2,
+        PatternKind::OracleText => words >= 4 && normalized.len() >= 20,
+    };
+    if !is_actionable {
         return;
     }
     patterns

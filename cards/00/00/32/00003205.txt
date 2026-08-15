@@ -1,0 +1,15 @@
+Id:3205
+ColorIdentity:R
+ManaCost:1 R
+Types:Sorcery
+A:SP$ StoreSVar | SVar$ Left | Type$ Number | Expression$ 1 | SubAbility$ DBRepeat
+SVar:DBRepeat:DB$ Repeat | RepeatCheckSVar$ Left | RepeatSVarCompare$ GT0 | RepeatSubAbility$ Roll
+SVar:Roll:DB$ RollDice | ResultSubAbilities$ 1:DBNothing,2:DBArtif,3:DBLand,4:DBDamage,5:DBWheel,6:DBTwoMore | SubAbility$ DBDecr
+SVar:DBNothing:DB$ Pump
+SVar:DBArtif:DB$ DestroyAll | ValidCards$ Artifact
+SVar:DBLand:DB$ DestroyAll | ValidCards$ Land
+SVar:DBDamage:DB$ DamageAll | ValidCards$ Creature | ValidPlayers$ Player | NumDmg$ 3
+SVar:DBWheel:DB$ Discard | Mode$ Hand | Defined$ Player | SubAbility$ DBEachDraw
+SVar:DBEachDraw:DB$ Draw | Defined$ Player | NumCards$ 7
+SVar:DBTwoMore:DB$ StoreSVar | SVar$ Left | Type$ CountSVar | Expression$ Left/Plus.2
+SVar:DBDecr:DB$ StoreSVar | SVar$ Left | Type$ CountSVar | Expression$ Left/Minus.1

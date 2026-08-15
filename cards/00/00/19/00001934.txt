@@ -1,0 +1,9 @@
+Id:1934
+ColorIdentity:UB
+ManaCost:2 U B
+Types:Enchantment
+R:Event$ Draw | ActiveZones$ Battlefield | ValidPlayer$ Player | ReplaceWith$ RevealedDraw
+SVar:RevealedDraw:DB$ Draw | Defined$ ReplacedPlayer | NumCards$ 1 | SubAbility$ TrigReveal | RememberDrawn$ True
+SVar:TrigReveal:DB$ Reveal | Defined$ ReplacedPlayer | RevealDefined$ Remembered | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ ReplacedPlayer | Mode$ Defined | DefinedCards$ Remembered | ConditionDefined$ Remembered | ConditionPresent$ Creature | ConditionCompare$ GE1 | UnlessPayer$ ReplacedPlayer | UnlessCost$ PayLife<3> | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

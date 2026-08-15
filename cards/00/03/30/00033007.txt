@@ -1,0 +1,11 @@
+Id:33007
+ColorIdentity:
+ManaCost:3
+Types:Artifact Equipment
+K:Equip:2
+T:Mode$ DamageDone | ValidSource$ Creature.EquippedBy | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigExile | TriggerZones$ Battlefield
+SVar:TrigExile:DB$ Dig | Defined$ TriggeredTarget | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBChange
+SVar:DBChange:DB$ ChangeZone | ConditionDefined$ Remembered | ConditionPresent$ Permanent | GainControl$ True | Defined$ Remembered | Origin$ Exile | Optional$ True | Imprint$ True | Destination$ Battlefield | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScript$ u_1_1_fish | TokenOwner$ You | ConditionDefined$ Imprinted | ConditionPresent$ Card | ConditionCompare$ EQ0 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearImprinted$ True | ClearRemembered$ True
+DeckHas:Ability$Token & Type$Fish

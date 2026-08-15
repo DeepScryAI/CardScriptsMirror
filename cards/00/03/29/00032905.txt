@@ -1,0 +1,12 @@
+Id:32905
+ColorIdentity:B
+ManaCost:3 B B
+Types:Creature Human Soldier
+PT:3/3
+K:Menace
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl,Vehicle.YouCtrl | CounterType$ P1P1
+T:Mode$ DamageDoneOnce | CombatDamage$ True | ValidSource$ Creature.YouCtrl+HasCounters | ValidTarget$ Player | TriggerZones$ Battlefield | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True | ValidTgts$ Creature,Vehicle | TargetsWithDefinedController$ TriggeredTarget
+SVar:PlayMain1:TRUE
+DeckHas:Ability$Counters

@@ -1,0 +1,15 @@
+Id:29822
+ColorIdentity:U
+ManaCost:1 U U U
+Types:Legendary Creature Elemental Fish
+PT:*/*
+S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X | SetToughness$ X
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPutCounter
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPutCounter | TriggerZones$ Battlefield | Secondary$ True
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Land | CounterType$ FLOOD | CounterNum$ 1 | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ Targeted | StaticAbilities$ FountainStatic | ForgetOnMoved$ Battlefield | ForgetCounter$ FLOOD | Duration$ Permanent
+SVar:FountainStatic:Mode$ Continuous | Affected$ Card.IsRemembered | AddType$ Island
+S:Mode$ ReduceCost | EffectZone$ Battlefield | ValidCard$ Instant,Sorcery | Activator$ You | Type$ Spell | OnlyFirstSpell$ True | Color$ U | Amount$ Y
+SVar:X:Count$Valid Island.YouCtrl
+SVar:Y:Count$Valid Land.YouCtrl+counters_GE1_FLOOD
+SVar:BuffedBy:Island

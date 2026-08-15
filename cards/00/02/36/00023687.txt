@@ -1,0 +1,15 @@
+Id:23687
+ColorIdentity:WUR
+Variant:UniversesWithin:FlavorName:Immard, the Stormcleaver
+ManaCost:1 U R W
+Types:Legendary Creature Human Soldier
+PT:4/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharge
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigCharge | Secondary$ True
+SVar:TrigCharge:DB$ AddOrRemoveCounter | Defined$ Self | CounterType$ CHARGE | CounterNum$ 1 | RememberRemovedCards$ True | SubAbility$ DBImmediateTrigger
+SVar:DBImmediateTrigger:DB$ ImmediateTrigger | ConditionDefined$ Remembered | ConditionPresent$ Card.Self | ConditionCompare$ GE1 | Execute$ TrigCharm | SubAbility$ DBCleanup
+SVar:TrigCharm:DB$ Charm | Choices$ DBDamage,DBPump
+SVar:DBDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 4
+SVar:DBPump:DB$ Pump | KW$ Lifelink & Indestructible
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+DeckHas:Ability$Counters | LifeGain

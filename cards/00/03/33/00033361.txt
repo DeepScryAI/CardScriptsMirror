@@ -1,0 +1,12 @@
+Id:33361
+ColorIdentity:R
+ManaCost:2 R R
+Types:Creature Plant Wall
+PT:0/4
+K:Defender
+K:Haste
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigEffect
+SVar:TrigEffect:DB$ Effect | Triggers$ DieTrigger | RememberObjects$ Self
+SVar:DieTrigger:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.!IsRemembered | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DamageAll | ValidCards$ Creature.nonWall | NumDmg$ 1 | DamageSource$ EffectSource
+A:AB$ DealDamage | Cost$ T | ValidTgts$ Any | NumDmg$ 1

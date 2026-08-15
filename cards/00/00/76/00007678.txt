@@ -1,0 +1,17 @@
+Id:7678
+ColorIdentity:U
+ManaCost:1 U
+Types:Legendary Creature Moonfolk Monk
+PT:1/1
+K:Flying
+T:Mode$ SpellCast | CheckSVar$ NumCast | SVarCompare$ EQ4 | NoResolvingCheck$ True | Execute$ TrigFlip | TriggerZones$ Battlefield
+SVar:TrigFlip:DB$ SetState | Defined$ Self | Mode$ Flip
+SVar:NumCast:Count$ThisTurnCast_Card
+AlternateMode:Flip
+
+ALTERNATE
+
+ManaCost:1 U
+Types:Legendary Enchantment
+T:Mode$ SpellCast | ValidActivatingPlayer$ Player.Opponent | ActivatorThisTurnCast$ EQ1 | Execute$ TrigCounter | TriggerZones$ Battlefield
+SVar:TrigCounter:DB$ Counter | Defined$ TriggeredSpellAbility | Destination$ Graveyard

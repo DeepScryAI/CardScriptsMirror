@@ -1,0 +1,13 @@
+Id:29532
+ColorIdentity:RG
+ManaCost:2 R G
+Types:Legendary Creature Giant Shaman
+PT:4/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill
+SVar:TrigMill:DB$ Mill | Defined$ You | NumCards$ 6 | RememberMilled$ True | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Hidden$ True | Origin$ Graveyard,Exile | Destination$ Hand | ChangeType$ Card.IsRemembered+hasXCost | SubAbility$ DBCleanup
+A:AB$ Reveal | Cost$ T | RevealValid$ Card.hasXCost+YouCtrl | AnyNumber$ True | RememberRevealed$ True | SubAbility$ DBMana
+SVar:DBMana:DB$ Mana | Produced$ C | Amount$ MetalWorkerX | RestrictValid$ CostContainsX | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:MetalWorkerX:Remembered$Amount/Twice
+DeckHas:Ability$Mill

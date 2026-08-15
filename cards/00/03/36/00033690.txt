@@ -1,0 +1,12 @@
+Id:33690
+ColorIdentity:R
+ManaCost:2 R
+Types:Sorcery
+A:SP$ Vote | Defined$ Player | Choices$ DBVotePast,DBVotePresent | StoreVoteNum$ True
+SVar:DBVotePast:DB$ Mill | NumCards$ VoteNum | Defined$ You | RememberMilled$ True | SubAbility$ DBDamage
+SVar:DBDamage:DB$ DamageAll | ValidPlayers$ Player.Opponent | NumDmg$ X | SubAbility$ DBCleanup
+SVar:DBVotePresent:DB$ Dig | Defined$ You | DigNum$ VoteNum | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ STPlay | SubAbility$ DBCleanup | ForgetOnMoved$ Exile | Duration$ UntilTheEndOfYourNextTurn
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$CardManaCost

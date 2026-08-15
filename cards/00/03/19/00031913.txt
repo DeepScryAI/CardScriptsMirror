@@ -1,0 +1,29 @@
+Id:31913
+ColorIdentity:WUBRG
+ManaCost:1 R G
+Types:Legendary Creature Human Wizard Warrior
+PT:4/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill
+SVar:TrigMill:DB$ Mill | NumCards$ 5 | Defined$ You | RememberMilled$ True | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Graveyard,Exile | Destination$ Hand | ChangeType$ Enchantment.YouOwn+IsRemembered | Hidden$ True | Optional$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+A:AB$ ChangeZone | PrecostDesc$ Trance | Cost$ 4 R G T | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn | SorcerySpeed$ True
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | Transformed$ True | SubAbility$ DBCleanup
+AlternateMode:DoubleFaced
+DeckHas:Ability$Mill
+DeckHints:Ability$Graveyard | Token | Counters & Type$Enchantment
+
+ALTERNATE
+
+ManaCost:no cost
+Colors:red,green
+Types:Legendary Enchantment Creature Saga Wizard
+PT:6/6
+K:Chapter:4:DBCopy,DBCopy,DBCopy,DBMana
+SVar:DBCopy:DB$ CopyPermanent | ValidTgts$ Enchantment.nonLegendary+YouCtrl | PumpKeywords$ Haste | AtEOT$ YourSacrifice | RememberTokens$ True | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Remembered.Saga | CounterType$ LORE | CounterNum$ 3 | UpTo$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:DBMana:DB$ Mana | Produced$ W W U U B B R R G G | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | SubAbility$ DBCleanup
+K:Flying

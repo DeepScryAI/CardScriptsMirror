@@ -1,0 +1,11 @@
+Id:22575
+ColorIdentity:W
+ManaCost:W
+Types:Enchantment Class
+S:Mode$ RaiseCost | ValidCard$ Card | Activator$ Opponent | ValidSpell$ Spell | Amount$ 1 | Condition$ PlayerTurn
+K:Class:2:2 W:AddStaticAbility$ SPump
+SVar:SPump:Mode$ Continuous | Affected$ Creature.YouCtrl | AddPower$ 1 | AddToughness$ 1 | Secondary$ True
+K:Class:3:4 W:AddTrigger$ TriggerAttackersDeclared
+SVar:TriggerAttackersDeclared:Mode$ AttackersDeclared | AttackingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump | Secondary$ True
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.attacking | NumAtt$ +X | NumDef$ +X | KW$ Double Strike
+SVar:X:Count$Valid Creature.attacking/Minus.1

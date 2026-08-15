@@ -1,0 +1,10 @@
+Id:28765
+ColorIdentity:BR
+ManaCost:1 B R
+Types:Sorcery
+A:SP$ Discard | Defined$ Player | Mode$ Hand | SubAbility$ DBChooseCard
+SVar:DBChooseCard:DB$ ChooseCard | Defined$ Player | Amount$ 7 | AtRandom$ True | ChoiceZone$ Library | ControlledByPlayer$ Right | ChosenMap$ True | SubAbility$ DBConjure
+SVar:DBConjure:DB$ MakeCard | Defined$ Player | DefinedName$ ChosenMap | Zone$ Hand | RememberMade$ True | SubAbility$ DBPerpetual
+SVar:DBPerpetual:DB$ Animate | Defined$ Remembered | staticAbilities$ AnyType | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:AnyType:Mode$ ManaConvert | EffectZone$ Stack | ValidPlayer$ You | ValidCard$ Card.Self | ValidSA$ Spell | ManaConversion$ AnyType->AnyType
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

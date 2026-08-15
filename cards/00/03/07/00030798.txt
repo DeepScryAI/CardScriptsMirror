@@ -1,0 +1,10 @@
+Id:30798
+ColorIdentity:R
+ManaCost:2 R
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken1
+SVar:TrigToken1:DB$ Token | TokenScript$ r_1_1_soldier_haste | TokenOwner$ You
+T:Mode$ SpellCast | ValidCard$ Card | Execute$ TrigToken2 | ValidActivatingPlayer$ You | IsSingleTarget$ True | TriggerZones$ Battlefield | TargetsValid$ Creature.YouCtrl+inZoneBattlefield
+SVar:TrigToken2:DB$ Token | TokenScript$ r_1_1_soldier_haste | TokenOwner$ You | RememberTokens$ True | SubAbility$ DBCopy
+SVar:DBCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | Controller$ You | CopyForEachCanTarget$ Permanent.IsRemembered | ChooseOnlyOne$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

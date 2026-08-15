@@ -1,0 +1,11 @@
+Id:6537
+ColorIdentity:
+ManaCost:4
+Types:Artifact
+A:AB$ DigUntil | Cost$ 3 T | Valid$ Land | RememberRevealed$ True | RevealedDestination$ Library | RevealedLibraryPosition$ -1 | SubAbility$ DBBelch
+SVar:DBBelch:DB$ DealDamage | ValidTgts$ Any | NumDmg$ X | ConditionCheckSVar$ FoundMountain | ConditionSVarCompare$ EQ0 | SubAbility$ DBDoubleBelch
+SVar:DBDoubleBelch:DB$ DealDamage | Defined$ Targeted | NumDmg$ DoubleX | SubAbility$ DBCleanup | ConditionCheckSVar$ FoundMountain | ConditionSVarCompare$ EQ1
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Valid Card.nonLand
+SVar:DoubleX:Remembered$Valid Card.nonLand/Times.2
+SVar:FoundMountain:Remembered$Valid Card.Mountain

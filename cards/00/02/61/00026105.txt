@@ -1,0 +1,13 @@
+Id:26105
+ColorIdentity:WG
+ManaCost:G W
+Types:Legendary Creature Human Scout
+PT:3/3
+R:Event$ AddCounter | ActiveZones$ Battlefield | ValidPlayer$ You | ValidCounterType$ POISON | ReplaceWith$ OnlyOnePoison
+SVar:OnlyOnePoison:DB$ ReplaceCounter | ValidCounterType$ POISON | Amount$ 1 | SubAbility$ DBImmediateTrigger
+SVar:DBImmediateTrigger:DB$ ImmediateTrigger | Static$ True | Execute$ TrigEffect | AfterReplacement$ True
+SVar:TrigEffect:DB$ Effect | StaticAbilities$ NoMorePoison
+SVar:NoMorePoison:Mode$ CantPutCounter | ValidPlayer$ You | CounterType$ POISON
+A:AB$ DelayedTrigger | Cost$ Exile<1/NICKNAME> | ValidTgts$ Creature.Other,Artifact.Other | Mode$ ChangesZone | RememberObjects$ Targeted | ValidCard$ Card.IsTriggerRemembered | Origin$ Battlefield | Destination$ Graveyard | ThisTurn$ True | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | Defined$ TriggeredCard
+DeckHints:Ability$Graveyard | Sacrifice

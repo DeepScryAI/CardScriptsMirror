@@ -1,0 +1,10 @@
+Id:17142
+ColorIdentity:
+ManaCost:no cost
+Types:Scheme
+T:Mode$ SetInMotion | ValidCard$ Card.Self | Execute$ DBDraw | TriggerZones$ Command
+SVar:DBDraw:DB$ Draw | NumCards$ 3 | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STHandSize | Duration$ UntilYourNextTurn | SubAbility$ DBPlay
+SVar:STHandSize:Mode$ Continuous | Affected$ You | SetMaxHandSize$ Unlimited
+SVar:DBPlay:DB$ Play | Valid$ Card.YouCtrl+nonLand | ValidZone$ Hand | Controller$ You | WithoutManaCost$ True | Amount$ 3 | Optional$ True | ConditionCheckSVar$ X | ConditionSVarCompare$ GE6
+SVar:X:Count$Valid Land.YouCtrl

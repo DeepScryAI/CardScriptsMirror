@@ -1,0 +1,12 @@
+Id:26516
+ColorIdentity:UB
+ManaCost:1 U B
+Types:Creature Faerie Rogue
+PT:3/1
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigImmediateTrig | OptionalDecider$ You
+SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ X | Execute$ TrigCast
+SVar:TrigCast:DB$ Play | TgtZone$ Graveyard | WithoutManaCost$ True | ValidSA$ Spell | ValidTgts$ Instant.cmcEQX,Sorcery.cmcEQX | Optional$ True | ReplaceGraveyard$ Exile
+SVar:X:Count$xPaid
+AI:RemoveDeck:Random
+DeckHints:Type$Instant | Sorcery

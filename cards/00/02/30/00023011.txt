@@ -1,0 +1,16 @@
+Id:23011
+ColorIdentity:BR
+ManaCost:2 B R
+Types:Legendary Creature Vampire Noble
+PT:3/2
+K:Flying
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ X | TokenScript$ c_a_blood_draw
+SVar:X:PlayerCountPlayers$HasPropertyLostLifeThisTurn
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigChangeZone | OptionalDecider$ You
+SVar:TrigChangeZone:AB$ ChangeZone | Cost$ Sac<2/Blood.token/Blood token> | Origin$ Hand | Destination$ Battlefield | ChangeType$ Vampire | Tapped$ True | Attacking$ True | RememberChanged$ True | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Remembered | KW$ Indestructible | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:HasAttackEffect:TRUE
+DeckHas:Ability$Token | Sacrifice
+DeckHints:Type$Vampire

@@ -1,0 +1,13 @@
+Id:33333
+ColorIdentity:WBR
+ManaCost:1 R W B
+Types:Legendary Creature Giant Treefolk
+PT:6/7
+K:etbCounter:M1M1:2
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigRemoveCounter
+SVar:TrigRemoveCounter:DB$ RemoveCounter | ValidTgts$ Creature.YouCtrl | ValidTgtsDesc$ creature you control | CounterType$ All | CounterNum$ All | RememberAmount$ True | SubAbility$ DBDrain
+SVar:DBDrain:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ X | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ X | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ ValidLibrary Creature.TopLibrary_Creature+YouCtrl | PumpZone$ Library | NumAtt$ +X | NumDef$ +X | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$RememberedNumber

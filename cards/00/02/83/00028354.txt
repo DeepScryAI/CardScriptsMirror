@@ -1,0 +1,11 @@
+Id:28354
+ColorIdentity:WR
+ManaCost:2 R W
+Types:Legendary Creature Human Detective
+PT:2/4
+K:Vigilance
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigSuspect
+SVar:TrigSuspect:DB$ AlterAttribute | ValidTgts$ Creature | Attributes$ Suspected | SubAbility$ DBGoad
+SVar:DBGoad:DB$ Goad | Defined$ Valid Creature.IsSuspected
+T:Mode$ DamageAll | CombatDamage$ True | ValidSource$ Creature.OppCtrl | ValidTarget$ Opponent | Execute$ TrigDraw | TriggerZones$ Battlefield
+SVar:TrigDraw:DB$ Draw | Defined$ TriggeredSourcesController & You

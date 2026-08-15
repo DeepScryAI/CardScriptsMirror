@@ -1,0 +1,13 @@
+Id:61
+ColorIdentity:B
+ManaCost:3 B B B
+Types:Creature Demon
+PT:5/5
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ DBTap
+A:AB$ Destroy | ValidTgts$ Land | Cost$ T
+SVar:DBTap:DB$ Tap | Defined$ Self | UnlessCost$ B B B | UnlessPayer$ You | UnlessResolveSubs$ WhenNotPaid | SubAbility$ DBChooseOpponent
+SVar:DBChooseOpponent:DB$ ChoosePlayer | Defined$ You | Choices$ Player.Opponent | SubAbility$ DBChooseLand
+SVar:DBChooseLand:DB$ ChooseCard | Defined$ ChosenPlayer | Choices$ Land.YouCtrl | Mandatory$ True | Reveal$ True | SubAbility$ DBSacLand
+SVar:DBSacLand:DB$ SacrificeAll | Defined$ ChosenCard
+SVar:PlayMain1:FALSE
+DeckHas:Ability$Sacrifice

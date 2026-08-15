@@ -1,0 +1,9 @@
+Id:30648
+ColorIdentity:B
+ManaCost:1 B B
+Types:Creature Demon Warlock
+PT:3/2
+A:AB$ ChangeZone | Cost$ T | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Creature.ThisTurnEntered | RememberChanged$ True | SubAbility$ DBCopy
+SVar:DBCopy:DB$ CopyPermanent | Defined$ Remembered | Controller$ You | AddTypes$ Nightmare | RememberTokens$ True | SubAbility$ DBChangeZoneAll
+SVar:DBChangeZoneAll:DB$ ChangeZoneAll | ChangeType$ Nightmare.token+!IsRemembered+YouCtrl | Origin$ Battlefield | Destination$ Exile | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

@@ -1,0 +1,22 @@
+Id:33078
+ColorIdentity:WG
+ManaCost:2 W
+Types:Legendary Creature Kithkin Warrior
+PT:3/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+T:Mode$ Transformed | ValidCard$ Card.Self | Execute$ TrigToken | Secondary$ True
+SVar:TrigToken:DB$ Token | TokenScript$ gw_1_1_kithkin
+T:Mode$ Phase | Phase$ Main1 | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigTransform
+SVar:TrigTransform:AB$ SetState | Cost$ G | Defined$ Self | Mode$ Transform
+AlternateMode:DoubleFaced
+
+ALTERNATE
+
+ManaCost:no cost
+Colors:green
+Types:Legendary Creature Kithkin Soldier
+PT:3/2
+A:AB$ Mana | Cost$ T | Produced$ Combo G W | Each$ X
+T:Mode$ Phase | Phase$ Main1 | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigTransform
+SVar:TrigTransform:AB$ SetState | Cost$ W | Defined$ Self | Mode$ Transform
+SVar:X:Count$Valid Creature.Other+YouCtrl

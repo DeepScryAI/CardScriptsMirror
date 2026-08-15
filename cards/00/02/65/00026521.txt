@@ -1,0 +1,21 @@
+Id:26521
+ColorIdentity:WU
+ManaCost:2 W W
+Types:Legendary Enchantment Creature God
+PT:4/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Enchantment.YouCtrl+nonGod
+A:AB$ SetState | Cost$ 3 UP | Defined$ Self | Mode$ Transform | SorcerySpeed$ True | AILogic$ Always
+DeckHas:Type$Enchantment
+AlternateMode:DoubleFaced
+
+ALTERNATE
+
+ManaCost:no cost
+Colors:white,blue
+Types:Legendary Enchantment Creature Phyrexian God
+PT:4/6
+S:Mode$ CastWithFlash | ValidCard$ Card | ValidSA$ Spell | Caster$ You
+S:Mode$ ReduceCost | Type$ Spell | Activator$ You | Amount$ X
+SVar:X:PlayerCountOpponents$CardsDrawn
+SVar:NonStackingEffect:True

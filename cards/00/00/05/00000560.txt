@@ -1,0 +1,12 @@
+Id:560
+ColorIdentity:G
+ManaCost:G
+Types:Instant
+A:SP$ Pump | ValidTgts$ Wall | AILogic$ Pump | ActivationPhases$ Main2->Cleanup | SubAbility$ DBDestroyAll
+SVar:DBDestroyAll:DB$ DestroyAll | ValidCards$ Creature.blockedByValidThisTurn ParentTarget | NoRegen$ True | RememberDestroyed$ True | SubAbility$ DBChoose
+SVar:DBChoose:DB$ ChooseCard | Defined$ You | Choices$ Creature.OwnedBy Player.Active | ChoiceZone$ Graveyard | Amount$ X | Mandatory$ True | AILogic$ WorstCard | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Defined$ ChosenCard | Origin$ Graveyard | Destination$ Battlefield | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$ValidGraveyard Creature.IsRemembered
+DeckHints:Type$Wall & Keyword$Defender
+DeckHas:Ability$Graveyard

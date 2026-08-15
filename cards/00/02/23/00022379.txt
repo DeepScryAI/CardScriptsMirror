@@ -1,0 +1,13 @@
+Id:22379
+ColorIdentity:WUG
+ManaCost:1 G W U
+Types:Legendary Creature Elf Knight
+PT:4/4
+K:Vigilance
+S:Mode$ Continuous | Affected$ Card.TopLibrary+YouCtrl | AffectedZone$ Library | MayLookAt$ You
+S:Mode$ Continuous | Affected$ Aura.TopLibrary+YouCtrl+nonLand,Equipment.TopLibrary+YouCtrl+nonLand | AffectedZone$ Library | MayPlay$ True
+T:Mode$ SpellCast | ValidCard$ Equipment | ValidSA$ Spell.MayPlaySource | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigAnimate | Secondary$ True
+SVar:TrigAnimate:DB$ Animate | Defined$ TriggeredCardLKICopy | Triggers$ ETBAttach | Duration$ Permanent
+SVar:ETBAttach:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigAttach
+SVar:TrigAttach:DB$ Attach | ValidTgts$ Creature.YouCtrl
+DeckHints:Type$Aura | Equipment

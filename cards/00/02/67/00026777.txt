@@ -1,0 +1,12 @@
+Id:26777
+ColorIdentity:UG
+ManaCost:2 G U
+Types:Legendary Creature Human Druid
+PT:3/3
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigAnimate
+SVar:TrigAnimate:DB$ Animate | ValidTgts$ Land.YouCtrl | TargetMin$ 0 | TargetMax$ 1 | Power$ X | Toughness$ X | Types$ Bird,Creature | Keywords$ Flying & Haste | Colors$ Green,Blue | OverwriteColors$ True
+T:Mode$ DamageDone | ValidSource$ Creature.YouCtrl+Land | ValidTarget$ Player | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw
+SVar:X:Count$ValidHand Card.YouOwn
+SVar:BuffedBy:Land
+DeckHas:Type$Bird

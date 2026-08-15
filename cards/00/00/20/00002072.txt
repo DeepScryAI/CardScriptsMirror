@@ -1,0 +1,12 @@
+Id:2072
+ColorIdentity:U
+ManaCost:U
+Types:Instant
+A:SP$ Charm | Choices$ MillOpp,ChangeType,PhaseArtifact
+SVar:MillOpp:DB$ Mill | NumCards$ 4 | ValidTgts$ Player
+SVar:ChangeType:DB$ ChooseType | Defined$ You | Type$ Land | SubAbility$ ChooseType2
+SVar:ChooseType2:DB$ ChooseType | Defined$ You | Type$ Basic Land | ChooseType2$ True | AILogic$ MostNeededType | SubAbility$ EffChangeType
+SVar:EffChangeType:DB$ Effect | StaticAbilities$ ChangeLandType
+SVar:ChangeLandType:Mode$ Continuous | Affected$ Land.ChosenType | AddType$ ChosenType2 | RemoveLandTypes$ True
+SVar:PhaseArtifact:DB$ Phases | ValidTgts$ Artifact
+AI:RemoveDeck:All

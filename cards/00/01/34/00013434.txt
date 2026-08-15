@@ -1,0 +1,11 @@
+Id:13434
+ColorIdentity:WR
+ManaCost:5 R W
+Types:Creature Minotaur Soldier
+PT:5/5
+T:Mode$ Phase | Phase$ BeginCombat | TriggerZones$ Battlefield | Execute$ TrigMustAttackBlock
+SVar:TrigMustAttackBlock:DB$ Effect | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | RememberObjects$ ThisTargetedCard | ExileOnMoved$ Battlefield | StaticAbilities$ MustAttack,MustBlock | IsCurse$ True | Duration$ UntilEndOfCombat | SubAbility$ DBCantAttackBlock
+SVar:MustAttack:Mode$ MustAttack | ValidCreature$ Card.IsRemembered
+SVar:MustBlock:Mode$ MustBlock | ValidCreature$ Card.IsRemembered
+SVar:DBCantAttackBlock:DB$ Pump | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | KW$ HIDDEN CARDNAME can't attack or block. | IsCurse$ True | Duration$ UntilEndOfCombat
+AI:RemoveDeck:All

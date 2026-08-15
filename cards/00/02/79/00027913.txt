@@ -1,0 +1,13 @@
+Id:27913
+ColorIdentity:WB
+ManaCost:3 W B
+Types:Legendary Creature Vampire Soldier
+PT:2/2
+K:Flying
+T:Mode$ Sacrificed | ValidCard$ Permanent | Execute$ TrigCounter | TriggerZones$ Battlefield
+SVar:TrigCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ TrigLife
+SVar:TrigLife:DB$ GainLife | LifeAmount$ 1
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigReanimate | TriggerZones$ Battlefield
+SVar:X:Count$CardPower
+SVar:TrigReanimate:DB$ ChangeZone | ValidTgts$ Permanent.YouOwn+cmcLEX | Origin$ Graveyard | Destination$ Battlefield | TargetMin$ 0 | TargetMax$ 1
+SVar:HasAttackEffect:TRUE

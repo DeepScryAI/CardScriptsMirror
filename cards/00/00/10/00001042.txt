@@ -1,0 +1,13 @@
+Id:1042
+ColorIdentity:WU
+ManaCost:1 W U
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+K:ETBReplacement:Other:ChooseColor
+SVar:ChooseColor:DB$ ChooseColor | Defined$ You | AILogic$ MostProminentInHumanDeck
+K:etbCounter:SLEIGHT:1
+R:Event$ DamageDone | ActiveZones$ Battlefield | Prevent$ True | ValidTarget$ Creature.EnchantedBy | ValidSource$ Card.ChosenColor
+A:AB$ PutCounter | Cost$ X | Defined$ Self | CounterType$ SLEIGHT | CounterNum$ 1 | SubAbility$ ChooseColor
+SVar:X:Count$CardCounters.SLEIGHT
+AI:RemoveDeck:All

@@ -1,0 +1,12 @@
+Id:24917
+ColorIdentity:G
+ManaCost:1 G
+Types:Creature Dryad Warrior
+PT:2/2
+T:Mode$ SpellCast | ValidCard$ Card.Creature | ValidActivatingPlayer$ You | Execute$ TrigPutCounter | TriggerZones$ Battlefield
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigCounterDist
+SVar:TrigCounterDist:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ X | DividedAsYouChoose$ X | TargetMin$ 0 | TargetMax$ X
+SVar:X:TriggeredCard$CardCounters.P1P1
+SVar:BuffedBy:Creature
+DeckHas:Ability$Counters

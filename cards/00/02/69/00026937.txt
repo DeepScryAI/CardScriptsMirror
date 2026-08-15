@@ -1,0 +1,15 @@
+Id:26937
+ColorIdentity:W
+ManaCost:2 W
+Types:Creature Halfling Peasant
+PT:2/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigFood
+SVar:TrigFood:DB$ Token | TokenScript$ c_a_food_sac | TokenOwner$ You | RememberOriginalTokens$ True | SubAbility$ DBImmediateTrig
+SVar:DBImmediateTrig:DB$ ImmediateTrigger | TriggerAmount$ Remembered$Amount | Execute$ TrigPump | SubAbility$ DBCleanup
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.YouCtrl | NumAtt$ +X | NumDef$ +X
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$Valid Food.YouCtrl
+SVar:PlayMain1:TRUE
+SVar:BuffedBy:Food
+DeckHas:Ability$Token | LifeGain | Sacrifice & Type$Food
+DeckHints:Type$Food

@@ -1,0 +1,12 @@
+Id:26308
+ColorIdentity:BG
+ManaCost:1 B G
+Types:Creature Phyrexian Ooze
+PT:3/3
+K:Trample
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigConjure
+SVar:TrigConjure:DB$ MakeCard | Conjure$ True | Name$ Mephidross Slime | Amount$ 1 | Zone$ Graveyard | RememberMade$ True | SubAbility$ DBRemember
+SVar:DBRemember:DB$ Pump | RememberObjects$ TriggeredCardLKICopy | SubAbility$ DBDouble
+SVar:DBDouble:DB$ Pump | PumpZone$ Graveyard | Defined$ Remembered | NumAtt$ Double | NumDef$ Double | Duration$ Perpetual | SubAbility$ DBShuffle
+SVar:DBShuffle:DB$ ChangeZone | Origin$ Graveyard | Shuffle$ True | Destination$ Library | Defined$ Remembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

@@ -1,0 +1,16 @@
+Id:26786
+ColorIdentity:WUR
+ManaCost:1 U R W
+Types:Legendary Creature Human Monk
+PT:3/4
+S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddKeyword$ Prowess
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card.nonCreature+nonLand+cmcLTX | RememberChanged$ True | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | Defined$ Remembered | CopyCard$ True | Controller$ You | WithoutManaCost$ True | Optional$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$CardPower
+SVar:HasAttackEffect:TRUE
+SVar:EquipMe:Multiple
+SVar:EnchantMe:Multiple
+DeckHas:Ability$Graveyard
+DeckHints:Type$Instant | Sorcery | Artifact | Enchantment | Battle | Planeswalker

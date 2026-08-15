@@ -1,0 +1,11 @@
+Id:21775
+ColorIdentity:R
+ManaCost:4 R
+Types:Sorcery
+A:SP$ Discard | Mode$ TgtChoose | SubAbility$ DBDraw | RememberDiscarded$ True
+SVar:DBDraw:DB$ Draw | SubAbility$ DBImmediateTrigger
+SVar:DBImmediateTrigger:DB$ ImmediateTrigger | ConditionDefined$ Remembered | ConditionPresent$ Card.nonLand | Execute$ TrigDealDamage | RememberObjects$ RememberedCard | SubAbility$ DBCleanup
+SVar:TrigDealDamage:DB$ DealDamage | ValidTgts$ Creature,Planeswalker | NumDmg$ X
+SVar:X:TriggerRemembered$CardManaCost
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+K:Storm

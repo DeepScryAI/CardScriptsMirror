@@ -1,0 +1,14 @@
+Id:1230
+ColorIdentity:U
+ManaCost:1 U
+Types:Creature Illusion Horse
+PT:1/1
+K:Flying
+A:AB$ Pump | Cost$ T | ValidTgts$ Creature.YouCtrl+toughnessLE2 | NumAtt$ +1 | NumDef$ +1 | KW$ Flying | SubAbility$ PhantasmalMountEffect
+SVar:PhantasmalMountEffect:DB$ Effect | Triggers$ LostTheMount,LostTheTarget | RememberObjects$ Targeted
+SVar:LostTheMount:Mode$ ChangesZone | ValidCard$ Card.IsRemembered | Origin$ Battlefield | Destination$ Any | OneOff$ True | Execute$ SacMount
+SVar:SacMount:DB$ SacrificeAll | Defined$ EffectSource
+SVar:LostTheTarget:Mode$ ChangesZone | ValidCard$ Card.EffectSource | Origin$ Battlefield | Destination$ Any | OneOff$ True | Execute$ SacTarget
+SVar:SacTarget:DB$ SacrificeAll | Defined$ RememberedLKI
+AI:RemoveDeck:All
+AI:RemoveDeck:Random

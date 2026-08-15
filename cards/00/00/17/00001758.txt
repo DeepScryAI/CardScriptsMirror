@@ -1,0 +1,12 @@
+Id:1758
+ColorIdentity:W
+ManaCost:1 W W
+Types:Enchantment
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigUpkeep
+SVar:TrigUpkeep:DB$ Sacrifice | UnlessPayer$ You | UnlessCost$ 1 W
+K:ETBReplacement:Other:ChooseBlackOrRed
+SVar:ChooseBlackOrRed:DB$ ChooseColor | Defined$ You | Choices$ black,red | AILogic$ MostProminentHumanCreatures
+T:Mode$ DamageDone | ValidSource$ Creature.ChosenColor+inZoneBattlefield | ValidTarget$ Creature.White+YouCtrl,You | TriggerZones$ Battlefield | Execute$ MangarasRetribution
+SVar:MangarasRetribution:DB$ DealDamage | Defined$ TriggeredSourceLKICopy | NumDmg$ MangaraX
+SVar:MangaraX:TriggerCount$DamageAmount
+AI:RemoveDeck:Random

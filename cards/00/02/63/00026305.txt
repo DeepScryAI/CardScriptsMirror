@@ -1,0 +1,12 @@
+Id:26305
+ColorIdentity:W
+ManaCost:W
+Types:Creature Cat Artificer
+PT:2/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | Choices$ ReduceHand,ReduceBattlefield
+SVar:ReduceHand:DB$ ChooseCard | Mandatory$ True | ChoiceZone$ Hand | Choices$ Equipment.YouOwn | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | PumpZone$ Hand | Defined$ ChosenCard | KW$ Equip:1 | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+SVar:ReduceBattlefield:DB$ Pump | ValidTgts$ Equipment.YouCtrl | Duration$ Perpetual | KW$ Equip:1
+DeckNeeds:Type$Equipment

@@ -1,0 +1,12 @@
+Id:1968
+ColorIdentity:U
+ManaCost:1 U
+Types:Instant
+A:SP$ NameCard | SubAbility$ DBMill
+SVar:DBMill:DB$ Mill | ValidTgts$ Opponent | NumCards$ 1 | RememberMilled$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | ConditionDefined$ Remembered | ConditionPresent$ Card.NamedCard | SubAbility$ DelTrigSlowtrip
+SVar:DelTrigSlowtrip:DB$ DelayedTrigger | NextTurn$ True | Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Player | Execute$ DrawSlowtrip | SubAbility$ DBCleanup
+SVar:DrawSlowtrip:DB$ Draw
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearNamedCard$ True
+AI:RemoveDeck:All
+DeckHas:Ability$Mill

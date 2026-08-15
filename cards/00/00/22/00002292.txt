@@ -1,0 +1,12 @@
+Id:2292
+ColorIdentity:U
+ManaCost:U
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Curse
+R:Event$ Untap | ActiveZones$ Battlefield | ValidCard$ Creature.EnchantedBy | ValidStepTurnToController$ You | Layer$ CantHappen
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Player.EnchantedController | TriggerZones$ Battlefield | OptionalDecider$ EnchantedController | Execute$ ApathyDiscard
+SVar:ApathyDiscard:DB$ Discard | Defined$ TriggeredPlayer | Mode$ Random | RememberDiscarded$ True | SubAbility$ ApathyUntap
+SVar:ApathyUntap:DB$ Untap | Defined$ Enchanted | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Amount

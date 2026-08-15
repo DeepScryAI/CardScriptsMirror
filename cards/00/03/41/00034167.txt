@@ -1,0 +1,14 @@
+Id:34167
+ColorIdentity:R
+ManaCost:2 R
+Types:Legendary Creature Human Villain
+PT:3/3
+K:Trample
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +X
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigSac | TriggerZones$ Battlefield
+SVar:TrigSac:DB$ Sacrifice | Defined$ TriggeredTarget | SacValid$ Artifact | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScript$ c_a_treasure_sac | TokenOwner$ You
+SVar:X:Count$Valid Artifact.DefenderCtrl
+SVar:HasAttackEffect:TRUE
+DeckHas:Ability$Token

@@ -1,0 +1,13 @@
+Id:27791
+ColorIdentity:R
+ManaCost:4 R
+Types:Creature Alien Soldier
+PT:5/5
+K:Trample
+K:Haste
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | IsPresent$ Creature.attacking+Other | NoResolvingCheck$ True | PresentCompare$ GE2 | Execute$ TrigGoad
+SVar:TrigGoad:DB$ Goad | ValidTgts$ Creature.OppCtrl | TargetMin$ 0 | TargetMax$ OneEach | TargetsForEachPlayer$ True | SubAbility$ DBNoBlock
+SVar:DBNoBlock:DB$ Effect | RememberObjects$ Targeted | ForgetOnMoved$ Battlefield | StaticAbilities$ CantBlock
+SVar:CantBlock:Mode$ CantBlock | ValidCard$ Creature.IsRemembered
+SVar:OneEach:PlayerCountOpponents$Amount
+SVar:HasAttackEffect:TRUE

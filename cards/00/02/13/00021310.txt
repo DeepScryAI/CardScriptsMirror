@@ -1,0 +1,11 @@
+Id:21310
+ColorIdentity:B
+ManaCost:2 B B
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMonarch
+SVar:TrigMonarch:DB$ BecomeMonarch
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigRepeat
+SVar:TrigRepeat:DB$ RepeatEach | RepeatPlayers$ Opponent | RepeatSubAbility$ DBDrain
+SVar:DBDrain:DB$ LoseLife | Defined$ Player.IsRemembered | LifeAmount$ X | UnlessCost$ Discard<Y/Card> | UnlessPayer$ Player.IsRemembered
+SVar:X:Count$Monarch.6.3
+SVar:Y:Count$Monarch.2.1

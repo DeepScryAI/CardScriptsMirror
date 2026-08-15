@@ -1,0 +1,13 @@
+Id:18876
+ColorIdentity:WB
+ManaCost:1 W B
+Types:Legendary Planeswalker Kaya
+Loyalty:3
+A:AB$ ChangeZone | Cost$ AddCounter<1/LOYALTY> | Origin$ Graveyard | Destination$ Exile | TargetMin$ 0 | TargetMax$ 2 | TargetsWithSameController$ True | ValidTgts$ Card | Planeswalker$ True | SubAbility$ DBGainLife | RememberChanged$ True
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2 | ConditionDefined$ Remembered | ConditionPresent$ Creature | ConditionCompare$ GE1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+A:AB$ ChangeZone | Cost$ SubCounter<1/LOYALTY> | Planeswalker$ True | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Permanent.nonLand+cmcLE1
+A:AB$ DealDamage | Cost$ SubCounter<5/LOYALTY> | Planeswalker$ True | Ultimate$ True | ValidTgts$ Player | RememberTargets$ True | NumDmg$ X | SubAbility$ DBYouGainLife
+SVar:DBYouGainLife:DB$ GainLife | Defined$ You | LifeAmount$ X
+SVar:X:Count$ValidExile Card.RememberedPlayerOwn
+DeckHas:Ability$LifeGain

@@ -1,0 +1,14 @@
+Id:26961
+ColorIdentity:R
+ManaCost:2 R
+Types:Legendary Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Creature.OppCtrl | NumDmg$ 2 | SubAbility$ ChompEquip
+SVar:ChompEquip:DB$ DestroyAll | ValidCards$ Targeted.Equipment+Attached
+A:AB$ Dig | Cost$ 2 R | DigNum$ 1 | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | Triggers$ TriggerCastDoM,TriggerLandPlayed | RememberObjects$ Remembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:TriggerCastDoM:Mode$ SpellCast | ValidCard$ Card.IsRemembered | ValidSA$ Spell.MayPlaySource | OneOff$ True | ValidActivatingPlayer$ You | Execute$ TrigDealDamage
+SVar:TriggerLandPlayed:Mode$ LandPlayed | ValidCard$ Land.IsRemembered | OneOff$ True | Execute$ TrigDealDamage | Secondary$ True
+SVar:TrigDealDamage:DB$ DealDamage | Defined$ Player | NumDmg$ 2

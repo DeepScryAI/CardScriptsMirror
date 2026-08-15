@@ -1,0 +1,13 @@
+Id:23478
+ColorIdentity:R
+ManaCost:R
+Types:Artifact
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Destination$ Battlefield | Execute$ TrigDig
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Battlefield | Execute$ TrigDig | Secondary$ True
+SVar:TrigDig:DB$ Dig | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ Play | SubAbility$ DBCleanup | ExileOnMoved$ Exile
+SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+A:AB$ Token | Cost$ 2 R Sac<1/CARDNAME> | TokenScript$ w_2_2_samurai_vigilance | SorcerySpeed$ True
+SVar:SacMe:4
+DeckHas:Ability$Token & Type$Samurai & Keyword$Vigilance

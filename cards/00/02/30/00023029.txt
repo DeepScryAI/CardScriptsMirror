@@ -1,0 +1,12 @@
+Id:23029
+ColorIdentity:R
+ManaCost:2 R
+Types:Enchantment Aura Curse
+K:Enchant:Player
+SVar:AttachAILogic:Curse
+S:Mode$ Continuous | Affected$ Creature.attacking EnchantedPlayer | AddKeyword$ Trample
+T:Mode$ DamageDone | ValidSource$ Creature | ValidTarget$ Player.EnchantedBy | TriggerZones$ Battlefield | CombatDamage$ True | Execute$ TrigExile
+SVar:TrigExile:DB$ Dig | Defined$ TriggeredTarget | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | EffectOwner$ TriggeredSourceController | Duration$ EndOfTurn | RememberObjects$ Remembered | StaticAbilities$ STPlay | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | MayPlayIgnoreColor$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

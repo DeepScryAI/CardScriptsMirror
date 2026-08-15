@@ -1,0 +1,18 @@
+Id:18687
+ColorIdentity:UB
+ManaCost:1 UB
+Types:Sorcery
+A:SP$ Surveil | Amount$ 2 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1
+DeckHas:Ability$Surveil | Graveyard
+AlternateMode:Split
+
+ALTERNATE
+
+ManaCost:3 U B
+Types:Instant
+A:SP$ RepeatEach | RepeatPlayers$ Player.Opponent | RepeatSubAbility$ TrigChooseReturn | SubAbility$ DBReturn
+SVar:TrigChooseReturn:DB$ ChooseCard | Defined$ Remembered | Choices$ Permanent.greatestCMC_NonLandPermanentControlledByRemembered | Mandatory$ True | RememberChosen$ True
+SVar:DBReturn:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Defined$ Remembered | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ Player.Opponent | NumCards$ 1 | Mode$ TgtChoose | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

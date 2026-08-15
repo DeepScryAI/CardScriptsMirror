@@ -1,0 +1,10 @@
+Id:16323
+ColorIdentity:U
+ManaCost:5 U
+Types:Creature Human Rogue
+PT:3/5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMonarch
+SVar:TrigMonarch:DB$ BecomeMonarch
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigEffect | AttackDifferentPlayers$ True
+SVar:TrigEffect:DB$ Effect | RememberObjects$ Self | StaticAbilities$ STUnblockable | Duration$ UntilEndOfCombat | ExileOnMoved$ Battlefield
+SVar:STUnblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered

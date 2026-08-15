@@ -1,0 +1,16 @@
+Id:34304
+ColorIdentity:WURG
+ManaCost:5 G
+Types:Legendary Creature Human Hero
+PT:5/5
+K:Trample
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ X | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 4
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigImmediateTrig
+SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ R G W U | Execute$ TrigMultiplyCounter
+SVar:TrigMultiplyCounter:DB$ MultiplyCounter | ValidTgts$ Permanent.YouCtrl | TargetMin$ 0 | TargetMax$ MaxTargets
+SVar:X:Count$ThisTurnCast_Card.nonCreature+YouCtrl
+SVar:MaxTargets:Count$Valid Permanent.YouCtrl
+SVar:HasAttackEffect:TRUE
+SVar:PlayMain1:TRUE
+DeckHints:Ability$Counters

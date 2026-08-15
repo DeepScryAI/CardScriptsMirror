@@ -1,0 +1,11 @@
+Id:28207
+ColorIdentity:U
+ManaCost:2 U
+Types:Creature Merfolk Wizard
+PT:3/2
+K:Flash
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigCounterAbility
+SVar:TrigCounterAbility:DB$ Counter | TargetType$ Activated,Triggered | RememberCountered$ True | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Card,Emblem | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STLoseAB | RememberObjects$ Remembered | ForgetOnMoved$ Battlefield | ConditionDefined$ Remembered | ConditionPresent$ Artifact.inZoneBattlefield,Creature.inZoneBattlefield,Planeswalker.inZoneBattlefield | Duration$ AsLongAsInPlay | SubAbility$ DBCleanup
+SVar:STLoseAB:Mode$ Continuous | Affected$ Card.IsRemembered | RemoveAllAbilities$ True | AffectedZone$ Battlefield
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

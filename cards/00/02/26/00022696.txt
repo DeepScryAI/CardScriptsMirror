@@ -1,0 +1,16 @@
+Id:22696
+ColorIdentity:R
+ManaCost:R R
+Types:Creature Phoenix
+PT:2/2
+K:Flying
+S:Mode$ CantBlock | ValidCard$ Card.Self
+T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ You | NoResolvingCheck$ True | TriggerZones$ Graveyard | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ FLAME | CounterNum$ X | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | ConditionDefined$ Self | ConditionPresent$ Card.counters_GE5_FLAME | Defined$ Self | Origin$ Graveyard | Destination$ Battlefield | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Pump | ConditionDefined$ Remembered | ConditionPresent$ Card.Self | NumAtt$ +1 | NumDef$ +1 | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$TriggeredManaCostDevotion.Red
+SVar:SacMe:3
+DeckHas:Ability$Counters | Graveyard
+DeckHints:Ability$Discard

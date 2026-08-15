@@ -1,0 +1,16 @@
+Id:28888
+ColorIdentity:
+ManaCost:4
+Types:Artifact Vehicle
+PT:4/4
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScript$ u_0_0_alien | SubAbility$ DBPutCounter | RememberTokens$ True
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Remembered | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigProliferate
+SVar:TrigProliferate:DB$ Proliferate
+K:Crew:2
+SVar:HasAttackEffect:TRUE
+DeckHas:Ability$Counters & Type$Alien
+DeckHints:Ability$Counters & Type$Planeswalker

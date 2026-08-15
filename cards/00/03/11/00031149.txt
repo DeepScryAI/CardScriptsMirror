@@ -1,0 +1,11 @@
+Id:31149
+ColorIdentity:R
+ManaCost:2 R
+Types:Artifact Creature Dog Food
+PT:1/1
+K:Protection from red
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ DBFourDamage
+SVar:DBFourDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 4 | DamageMap$ True | SubAbility$ DBTwoDamage
+SVar:DBTwoDamage:DB$ DealDamage | Defined$ You | NumDmg$ 2 | SubAbility$ DBDamageResolve
+SVar:DBDamageResolve:DB$ DamageResolve
+A:AB$ GainLife | Cost$ G T Sac<1/CARDNAME/this creature> | Defined$ You | LifeAmount$ 3

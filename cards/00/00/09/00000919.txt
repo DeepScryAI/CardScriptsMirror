@@ -1,0 +1,12 @@
+Id:919
+ColorIdentity:R
+ManaCost:2 R
+Types:Creature Goblin
+PT:2/2
+K:Landwalk:Island
+T:Mode$ Phase | Phase$ BeginCombat | TriggerZones$ Battlefield | Execute$ AnimateDB
+SVar:AnimateDB:DB$ Effect | Triggers$ AttackerBlocked,Blocks | UnlessCost$ R | UnlessPayer$ You | Duration$ UntilEndOfCombat
+SVar:AttackerBlocked:Mode$ AttackerBlockedByCreature | ValidCard$ Creature | ValidBlocker$ Card.EffectSource | Execute$ PumpAttacker
+SVar:Blocks:Mode$ AttackerBlockedByCreature | ValidCard$ Card.EffectSource | ValidBlocker$ Creature | Execute$ PumpBlocker
+SVar:PumpAttacker:DB$ Pump | Defined$ TriggeredAttackerLKICopy | KW$ First Strike
+SVar:PumpBlocker:DB$ Pump | Defined$ TriggeredBlockerLKICopy | KW$ First Strike
