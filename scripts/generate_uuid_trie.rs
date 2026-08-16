@@ -120,6 +120,7 @@ impl TokenScriptId {
 struct CatalogIndex {
     by_oracle_id: BTreeMap<OracleId, Vec<CardScriptId>>,
     by_name_hash: BTreeMap<String, Option<CardScriptId>>,
+    set_group_by_id: BTreeMap<CardScriptId, String>,
 }
 
 #[derive(Default)]
@@ -301,6 +302,10 @@ fn load_catalog_index(path: &Path) -> Result<CatalogIndex> {
             .next()
             .context("numeric catalog row has no anonymous name hash")?
             .to_owned();
+        let set_group = fields
+            .next()
+            .context("numeric catalog row has no anonymous set group")?
+            .to_owned();
         if name_hash.len() != 64 || !name_hash.bytes().all(|byte| byte.is_ascii_hexdigit()) {
             bail!("invalid name hash on {}:{}", path.display(), line_number + 1);
         }
@@ -319,6 +324,7 @@ fn load_catalog_index(path: &Path) -> Result<CatalogIndex> {
             .entry(OracleId(oracle_id))
             .or_default()
             .push(CardScriptId(id));
+        index.set_group_by_id.insert(CardScriptId(id), set_group);
     }
     Ok(index)
 }
@@ -461,7 +467,18 @@ fn generate(
             };
             for &card_id in card_ids {
                 let color_identity = index.color_identities.get(&oracle_id).map(String::as_str).unwrap_or("");
-                let sanitized = sanitize_script(&source_text, card_id, color_identity, &numeric_name_refs, token_index);
+                let set_group = catalog
+                    .set_group_by_id
+                    .get(&card_id)
+                    .expect("catalog index lost anonymous set group");
+                let sanitized = sanitize_script(
+                    &source_text,
+                    card_id,
+                    color_identity,
+                    set_group,
+                    &numeric_name_refs,
+                    token_index,
+                );
                 if let Some((first_path, first_text)) = generated.get(&card_id) {
                     if first_text == &sanitized {
                         report.duplicate_identical_scripts += 1;
@@ -1119,12 +1136,14 @@ fn sanitize_script(
     script: &str,
     card_id: CardScriptId,
     color_identity: &str,
+    set_group: &str,
     numeric_name_refs: &[(String, CardScriptId)],
     token_index: &BTreeMap<String, TokenScriptId>,
 ) -> String {
     let mut output = String::with_capacity(script.len());
     output.push_str(&format!("Id:{}\n", card_id.0));
     output.push_str(&format!("ColorIdentity:{color_identity}\n"));
+    output.push_str(&format!("OriginSet:{set_group}\n"));
     let runtime_names = runtime_object_names(script);
     for line in script.lines() {
         if line.trim().is_empty() || line.trim_start().starts_with('#') || is_removed_top_level_field(line) {
@@ -1171,7 +1190,42 @@ fn sanitize_runtime_line(
     let numeric = anonymize_runtime_object_names(&numeric, runtime_names);
     let numeric = rewrite_contextual_card_references(&numeric, numeric_name_refs, owner_id);
     let numeric = normalize_keyword_vocabulary(&numeric);
+    let numeric = anonymize_set_qualifiers(&numeric);
     strip_display_parameters(&numeric)
+}
+
+fn anonymize_set_qualifiers(line: &str) -> String {
+    let bytes = line.as_bytes();
+    let mut output = String::with_capacity(line.len());
+    let mut cursor = 0;
+    while let Some(relative) = line[cursor..].find("set") {
+        let start = cursor + relative;
+        output.push_str(&line[cursor..start]);
+        let code_start = start + 3;
+        if start == 0 || !matches!(bytes[start - 1], b'.' | b'+') {
+            output.push_str("set");
+            cursor = code_start;
+            continue;
+        }
+        let mut end = code_start;
+        while end < bytes.len() && bytes[end].is_ascii_alphanumeric() {
+            end += 1;
+        }
+        if end > code_start {
+            let code = line[code_start..end].to_ascii_uppercase();
+            let digest = Sha256::digest(code.as_bytes());
+            output.push_str("setG");
+            for byte in &digest[..8] {
+                output.push_str(&format!("{byte:02x}"));
+            }
+            cursor = end;
+        } else {
+            output.push_str("set");
+            cursor = code_start;
+        }
+    }
+    output.push_str(&line[cursor..]);
+    output
 }
 
 fn is_removed_top_level_field(line: &str) -> bool {
@@ -1304,8 +1358,8 @@ mod tests {
     fn sanitizes_a_script_without_touching_executable_fields() {
         let input = "Name:Fixture Qzx One\nManaCost:R\nTypes:Instant\nA:SP$ DealDamage | ValidTgts$ Any | NumDmg$ 3 | SpellDescription$ CARDNAME deals damage.\nSVar:Named:DB$ MakeCard | Name$ Fixture Qzx One | SpellDescription$ Make one.\nOracle:Fixture rules sentence used only by this synthetic test.\n";
         assert_eq!(
-            sanitize_script(input, CardScriptId(145), "R", &[], &BTreeMap::new()),
-            "Id:145\nColorIdentity:R\nManaCost:R\nTypes:Instant\nA:SP$ DealDamage | ValidTgts$ Any | NumDmg$ 3\nSVar:Named:DB$ MakeCard | Name$ Fixture Qzx One\n"
+            sanitize_script(input, CardScriptId(145), "R", "Gfixture", &[], &BTreeMap::new()),
+            "Id:145\nColorIdentity:R\nOriginSet:Gfixture\nManaCost:R\nTypes:Instant\nA:SP$ DealDamage | ValidTgts$ Any | NumDmg$ 3\nSVar:Named:DB$ MakeCard | Name$ Fixture Qzx One\n"
         );
     }
 
@@ -1313,8 +1367,8 @@ mod tests {
     fn removes_all_human_description_parameters() {
         let input = "Text:Display-only sentence.\nT:Mode$ SpellCast | TriggerDescription$ Display sentence | CostDesc$ More display text | Description$ Keep this\n";
         assert_eq!(
-            sanitize_script(input, CardScriptId(1), "", &[], &BTreeMap::new()),
-            "Id:1\nColorIdentity:\nT:Mode$ SpellCast\n"
+            sanitize_script(input, CardScriptId(1), "", "Gfixture", &[], &BTreeMap::new()),
+            "Id:1\nColorIdentity:\nOriginSet:Gfixture\nT:Mode$ SpellCast\n"
         );
     }
 
@@ -1322,8 +1376,8 @@ mod tests {
     fn removes_non_runtime_deck_hints() {
         let input = "# Human implementation note\n\nDeckHints:Type$Forest & Name$Fixture Qzx One\nDeckHas:Ability$Token\nDeckNeeds:Name$Fixture Qzx Two\nDraft:AI$ True\nAI:RemoveDeck:Random\nManaCost:G\nTypes:Creature\n";
         assert_eq!(
-            sanitize_script(input, CardScriptId(1), "G", &[], &BTreeMap::new()),
-            "Id:1\nColorIdentity:G\nManaCost:G\nTypes:Creature\n"
+            sanitize_script(input, CardScriptId(1), "G", "Gfixture", &[], &BTreeMap::new()),
+            "Id:1\nColorIdentity:G\nOriginSet:Gfixture\nManaCost:G\nTypes:Creature\n"
         );
     }
 
@@ -1409,6 +1463,18 @@ mod tests {
         );
         assert_eq!(token_id_for_key("fixture_one"), token_id_for_key("fixture_one"));
         assert_ne!(token_id_for_key("fixture_one"), token_id_for_key("fixture_two"));
+    }
+
+    #[test]
+    fn set_predicates_use_anonymous_functional_groups() {
+        assert_eq!(
+            anonymize_set_qualifiers("ValidCard$ Card.setSET+Other | ValidCards$ Permanent.!token+setSET"),
+            "ValidCard$ Card.setG2992d15897b5bbe7+Other | ValidCards$ Permanent.!token+setG2992d15897b5bbe7"
+        );
+        assert_eq!(
+            anonymize_set_qualifiers("RepeatSubAbility$ ResetCheck"),
+            "RepeatSubAbility$ ResetCheck"
+        );
     }
 
     #[test]

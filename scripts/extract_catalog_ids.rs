@@ -49,9 +49,10 @@ fn extract_catalog(source: &str) -> Result<String> {
     let columns: Vec<&str> = header.split('\t').collect();
     let id_column = column_index(&columns, "#id")?;
     let name_column = column_index(&columns, "name")?;
+    let first_set_column = column_index(&columns, "first_set")?;
     let oracle_id_column = column_index(&columns, "oracle_id")?;
 
-    let mut output = String::from("#id\toracle_id\tname_sha256\n");
+    let mut output = String::from("#id\toracle_id\tname_sha256\tset_group\n");
     let mut ids = BTreeSet::new();
     let mut identities = HashSet::new();
     for (offset, line) in lines.enumerate() {
@@ -74,10 +75,12 @@ fn extract_catalog(source: &str) -> Result<String> {
             .parse::<Uuid>()
             .with_context(|| format!("invalid oracle UUID on line {line_number}"))?;
         let name_hash = hex_sha256(name.as_bytes());
+        let first_set = field(&fields, first_set_column, line_number, "first_set")?;
+        let set_group = anonymous_set_group(first_set);
         if !identities.insert((oracle_id, name_hash.clone())) {
             bail!("line {line_number} duplicates an Oracle UUID/name identity");
         }
-        output.push_str(&format!("{id}\t{}\t{name_hash}\n", oracle_id.hyphenated()));
+        output.push_str(&format!("{id}\t{}\t{name_hash}\t{set_group}\n", oracle_id.hyphenated()));
     }
     if ids.is_empty() {
         bail!("DeepScry catalog contains no card rows");
@@ -103,6 +106,13 @@ fn hex_sha256(bytes: &[u8]) -> String {
     Sha256::digest(bytes).iter().map(|byte| format!("{byte:02x}")).collect()
 }
 
+fn anonymous_set_group(set_code: &str) -> String {
+    format!(
+        "G{}",
+        &hex_sha256(set_code.trim().to_ascii_uppercase().as_bytes())[..16]
+    )
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -111,8 +121,9 @@ mod tests {
     fn extracts_only_identity_and_one_way_name_digest() {
         let source = "#id\tname\tfirst_set\toracle_id\tgeneration\tflags\n1\tExample Card\tset\t12345678-1234-1234-1234-123456789abc\t1\t\n";
         let output = extract_catalog(source).unwrap();
-        assert!(output.starts_with("#id\toracle_id\tname_sha256\n1\t12345678-1234-1234-1234-123456789abc\t"));
+        assert!(output.starts_with("#id\toracle_id\tname_sha256\tset_group\n1\t12345678-1234-1234-1234-123456789abc\t"));
         assert!(!output.contains("Example Card"));
+        assert!(output.ends_with("\tG2992d15897b5bbe7\n"));
     }
 
     #[test]
