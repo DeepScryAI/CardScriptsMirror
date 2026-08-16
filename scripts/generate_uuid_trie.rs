@@ -354,10 +354,7 @@ fn index_card(index: &mut NameIndex, card: ScryfallCard) {
     let Some(oracle_id) = card.oracle_id.map(OracleId) else {
         return;
     };
-    let color_identity = ["W", "U", "B", "R", "G"]
-        .into_iter()
-        .filter(|color| card.color_identity.iter().any(|present| present == color))
-        .collect::<String>();
+    let color_identity = commander_color_identity(&card);
     index
         .color_identities
         .entry(oracle_id.clone())
@@ -394,6 +391,108 @@ fn index_card(index: &mut NameIndex, card: ScryfallCard) {
             );
         }
     }
+}
+
+/// Return CR 903.4 color identity without folding in CR 903.5d's separate
+/// basic-land-type restriction.
+///
+/// Scryfall's convenient `color_identity` field combines both concepts. We
+/// retain its complete answer, but remove a basic-type color when that color
+/// has no explicit source in a mana cost, non-reminder rules text, printed
+/// color, or color indicator. The generated runtime scripts therefore remain
+/// self-contained without shipping or parsing Oracle text.
+fn commander_color_identity(card: &ScryfallCard) -> String {
+    const COLORS: [&str; 5] = ["W", "U", "B", "R", "G"];
+    let mut explicit = BTreeSet::new();
+    collect_explicit_identity_sources(
+        &card.mana_cost,
+        card.oracle_text.as_deref(),
+        &card.colors,
+        card.color_indicator.as_deref(),
+        &mut explicit,
+    );
+    for face in &card.card_faces {
+        collect_explicit_identity_sources(
+            &face.mana_cost,
+            face.oracle_text.as_deref(),
+            &face.colors,
+            face.color_indicator.as_deref(),
+            &mut explicit,
+        );
+    }
+
+    COLORS
+        .into_iter()
+        .filter(|color| card.color_identity.iter().any(|present| present == color))
+        .filter(|color| explicit.contains(&color.as_bytes()[0]) || !has_basic_land_type(card, color))
+        .collect()
+}
+
+fn collect_explicit_identity_sources(
+    mana_cost: &str,
+    oracle_text: Option<&str>,
+    colors: &[String],
+    color_indicator: Option<&[String]>,
+    explicit: &mut BTreeSet<u8>,
+) {
+    collect_mana_symbol_colors(mana_cost, explicit);
+    if let Some(text) = oracle_text {
+        let without_reminder = strip_parenthetical_text(text);
+        collect_mana_symbol_colors(&without_reminder, explicit);
+    }
+    explicit.extend(colors.iter().filter_map(|color| color.as_bytes().first().copied()));
+    explicit.extend(
+        color_indicator
+            .into_iter()
+            .flatten()
+            .filter_map(|color| color.as_bytes().first().copied()),
+    );
+}
+
+fn collect_mana_symbol_colors(text: &str, colors: &mut BTreeSet<u8>) {
+    for symbol in text
+        .split('{')
+        .skip(1)
+        .filter_map(|tail| tail.split_once('}').map(|pair| pair.0))
+    {
+        for color in ["W", "U", "B", "R", "G"] {
+            if symbol.split('/').any(|part| part == color) {
+                colors.insert(color.as_bytes()[0]);
+            }
+        }
+    }
+}
+
+fn strip_parenthetical_text(text: &str) -> String {
+    let mut depth = 0_u32;
+    text.chars()
+        .filter(|ch| match ch {
+            '(' => {
+                depth += 1;
+                false
+            }
+            ')' if depth > 0 => {
+                depth -= 1;
+                false
+            }
+            _ => depth == 0,
+        })
+        .collect()
+}
+
+fn has_basic_land_type(card: &ScryfallCard, color: &str) -> bool {
+    let basic_type = match color {
+        "W" => "Plains",
+        "U" => "Island",
+        "B" => "Swamp",
+        "R" => "Mountain",
+        "G" => "Forest",
+        _ => return false,
+    };
+    std::iter::once(card.type_line.as_str())
+        .chain(card.card_faces.iter().map(|face| face.type_line.as_str()))
+        .flat_map(str::split_whitespace)
+        .any(|word| word.trim_matches(|ch: char| !ch.is_alphabetic()) == basic_type)
 }
 
 fn generate(
@@ -1532,6 +1631,44 @@ mod tests {
     }
 
     #[test]
+    fn basic_land_types_are_not_folded_into_color_identity() {
+        let card = ScryfallCard {
+            oracle_id: None,
+            name: "Fixture Qzx Dual".to_owned(),
+            printed_name: None,
+            oracle_text: Some("({T}: Add {R} or {W}.)\nAs this land enters, you may pay 2 life.".to_owned()),
+            mana_cost: String::new(),
+            type_line: "Land — Mountain Plains".to_owned(),
+            lang: "en".to_owned(),
+            layout: "normal".to_owned(),
+            color_identity: vec!["R".to_owned(), "W".to_owned()],
+            colors: Vec::new(),
+            color_indicator: None,
+            card_faces: Vec::new(),
+        };
+        assert_eq!(commander_color_identity(&card), "");
+    }
+
+    #[test]
+    fn non_reminder_symbols_still_define_a_basic_land_cards_identity() {
+        let card = ScryfallCard {
+            oracle_id: None,
+            name: "Fixture Qzx Producing Land".to_owned(),
+            printed_name: None,
+            oracle_text: Some("{T}: Add {W} or {R}.".to_owned()),
+            mana_cost: String::new(),
+            type_line: "Land — Mountain Plains".to_owned(),
+            lang: "en".to_owned(),
+            layout: "normal".to_owned(),
+            color_identity: vec!["R".to_owned(), "W".to_owned()],
+            colors: Vec::new(),
+            color_indicator: None,
+            card_faces: Vec::new(),
+        };
+        assert_eq!(commander_color_identity(&card), "WR");
+    }
+
+    #[test]
     fn indexes_whole_cards_and_faces_by_oracle_identity() {
         let id = Uuid::parse_str("12345678-1234-1234-1234-123456789abc").unwrap();
         let index = index_cards(vec![ScryfallCard {
@@ -1544,6 +1681,8 @@ mod tests {
             lang: "en".to_owned(),
             layout: "split".to_owned(),
             color_identity: vec!["R".to_owned(), "U".to_owned()],
+            colors: vec!["R".to_owned(), "U".to_owned()],
+            color_indicator: None,
             card_faces: vec![
                 ScryfallFace {
                     name: "Fire".to_owned(),
@@ -1551,6 +1690,8 @@ mod tests {
                     oracle_text: None,
                     mana_cost: "{1}{R}".to_owned(),
                     type_line: "Instant".to_owned(),
+                    colors: vec!["R".to_owned()],
+                    color_indicator: None,
                 },
                 ScryfallFace {
                     name: "Ice".to_owned(),
@@ -1558,6 +1699,8 @@ mod tests {
                     oracle_text: None,
                     mana_cost: "{1}{U}".to_owned(),
                     type_line: "Instant".to_owned(),
+                    colors: vec!["U".to_owned()],
+                    color_indicator: None,
                 },
             ],
         }]);

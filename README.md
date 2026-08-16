@@ -11,6 +11,12 @@ The downloaded Scryfall snapshot remains untracked and is used only as an
 offline build input. DeepScry's numeric loader consumes the generated tree
 without consulting that snapshot or a card-title registry.
 
+Each script's structured `ColorIdentity:` is generated once from Scryfall's
+metadata and explicit non-reminder mana symbols. Basic-land-type colors are
+kept out of that CR 903.4 field because Commander applies them as the separate
+CR 903.5d deck restriction. Runtime code therefore needs neither Oracle text
+nor Scryfall's broader combined identity field.
+
 ## Generate
 
 Install `rust-script` 0.36 or newer, check out the archived source branch in a

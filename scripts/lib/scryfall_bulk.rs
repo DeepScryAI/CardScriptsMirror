@@ -47,6 +47,10 @@ pub struct ScryfallCard {
     #[serde(default)]
     pub color_identity: Vec<String>,
     #[serde(default)]
+    pub colors: Vec<String>,
+    #[serde(default)]
+    pub color_indicator: Option<Vec<String>>,
+    #[serde(default)]
     pub card_faces: Vec<ScryfallFace>,
 }
 
@@ -60,6 +64,10 @@ pub struct ScryfallFace {
     pub mana_cost: String,
     #[serde(default)]
     pub type_line: String,
+    #[serde(default)]
+    pub colors: Vec<String>,
+    #[serde(default)]
+    pub color_indicator: Option<Vec<String>>,
 }
 
 pub fn ensure_cache(cache: &Path, refresh: bool) -> Result<()> {
