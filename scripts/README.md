@@ -14,3 +14,6 @@ sanitization, and numeric-trie generation.
 `scan_scryfall_ip.rs` compiles all normalized Scryfall titles and Oracle texts
 into an overlapping Aho-Corasick automaton and scans tracked repository text.
 It shares the downloader/parser in `lib/scryfall_bulk.rs` with the generator.
+By default it traverses submodules. Use `--exclude-submodules` only when the
+audit intentionally treats independently versioned submodule repositories as
+opaque gitlinks; the selected scope is recorded in the JSON report.

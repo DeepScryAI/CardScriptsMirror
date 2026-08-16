@@ -54,6 +54,11 @@ struct Args {
     /// Ignore a present cache and download the current Scryfall snapshot.
     #[arg(long)]
     refresh: bool,
+
+    /// Treat submodule entries as opaque gitlinks instead of traversing their
+    /// independently versioned repositories.
+    #[arg(long)]
+    exclude_submodules: bool,
 }
 
 #[derive(Clone, Debug, Eq, Ord, PartialEq, PartialOrd, Serialize)]
@@ -77,6 +82,7 @@ struct PatternEntry {
 
 #[derive(Debug, Serialize)]
 struct ScanReport {
+    submodules_included: bool,
     patterns_from_scryfall: usize,
     allowlisted_patterns: usize,
     active_patterns: usize,
@@ -135,11 +141,12 @@ fn main() -> Result<()> {
         .build(&wrapped_patterns)
         .context("compile normalized Scryfall pattern automaton")?;
 
-    let mut tracked_files = git_tracked_files(&args.root)?;
+    let mut tracked_files = git_tracked_files(&args.root, !args.exclude_submodules)?;
     if let Some(prefix) = args.path_prefix.as_deref() {
         tracked_files.retain(|path| path == prefix || path.starts_with(&format!("{prefix}/")));
     }
     let mut report = ScanReport {
+        submodules_included: !args.exclude_submodules,
         patterns_from_scryfall: all_patterns.len(),
         allowlisted_patterns: allowlist.len(),
         active_patterns: active_patterns.len(),
@@ -387,13 +394,13 @@ fn load_allowlist(path: &Path) -> Result<BTreeMap<String, String>> {
     Ok(entries)
 }
 
-fn git_tracked_files(root: &Path) -> Result<Vec<String>> {
-    let output = Command::new("git")
-        .arg("-C")
-        .arg(root)
-        .args(["ls-files", "-z", "--recurse-submodules"])
-        .output()
-        .context("run git ls-files for IP scan")?;
+fn git_tracked_files(root: &Path, recurse_submodules: bool) -> Result<Vec<String>> {
+    let mut command = Command::new("git");
+    command.arg("-C").arg(root).args(["ls-files", "-z"]);
+    if recurse_submodules {
+        command.arg("--recurse-submodules");
+    }
+    let output = command.output().context("run git ls-files for IP scan")?;
     if !output.status.success() {
         bail!(
             "git ls-files failed for {}: {}",
