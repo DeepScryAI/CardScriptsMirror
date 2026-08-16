@@ -48,6 +48,17 @@ digest used to distinguish multiple Scryfall names for the same Oracle
 identity. It carries no plaintext titles or card text. Scryfall data is used
 only while generating the corpus and is never shipped as gameplay data.
 
+These identity fields are redistribution protections, not secrecy mechanisms.
+The retained `oracle_id` is Scryfall's stable public identifier and an
+intentional public join key. `name_sha256` avoids redistributing a title while
+letting the generator distinguish otherwise ambiguous public records; anyone
+who already has the public title dataset can recompute it. Likewise, the
+truncated SHA-256 `set_group`/`OriginSet` value avoids shipping a set code, but
+the input space is only a few hundred public values and is trivially
+rainbow-tableable. None of these values is intended to conceal which public
+record produced a script; the protection is that the repository redistributes
+no title, Oracle text, or other protected expression.
+
 ## Identity and layout
 
 One Forge rules script represents one stable numeric catalog identity shared
