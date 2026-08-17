@@ -39,6 +39,8 @@ pub struct ScryfallCard {
     pub printed_name: Option<String>,
     pub oracle_text: Option<String>,
     #[serde(default)]
+    pub collector_number: String,
+    #[serde(default)]
     pub mana_cost: String,
     #[serde(default)]
     pub type_line: String,

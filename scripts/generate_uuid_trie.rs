@@ -63,7 +63,6 @@ struct Args {
     /// Ignore a present cache and download the current snapshot.
     #[arg(long)]
     refresh: bool,
-
 }
 
 #[derive(Debug, Serialize)]
@@ -134,7 +133,9 @@ struct NameIndex {
 #[derive(Clone, Debug, Default)]
 struct IdentityEvidence {
     oracle_texts: BTreeSet<String>,
+    raw_oracle_texts: BTreeSet<String>,
     signatures: BTreeSet<CardSignature>,
+    collector_numbers: BTreeSet<String>,
 }
 
 #[derive(Clone, Debug, Eq, Ord, PartialEq, PartialOrd)]
@@ -153,25 +154,49 @@ impl NameIndex {
         oracle_id: OracleId,
         oracle_text: Option<&str>,
         signature: CardSignature,
+        collector_number: Option<&str>,
     ) {
-        insert_identity(&mut self.whole_cards, name, oracle_id.clone(), oracle_text, signature.clone());
+        insert_identity(
+            &mut self.whole_cards,
+            name,
+            oracle_id.clone(),
+            oracle_text,
+            signature.clone(),
+            collector_number,
+        );
         insert_identity(
             &mut self.normalized_whole_cards,
             &normalize_card_name(name),
             oracle_id,
             oracle_text,
             signature,
+            collector_number,
         );
     }
 
-    fn insert_face(&mut self, name: &str, oracle_id: OracleId, oracle_text: Option<&str>, signature: CardSignature) {
-        insert_identity(&mut self.faces, name, oracle_id.clone(), oracle_text, signature.clone());
+    fn insert_face(
+        &mut self,
+        name: &str,
+        oracle_id: OracleId,
+        oracle_text: Option<&str>,
+        signature: CardSignature,
+        collector_number: Option<&str>,
+    ) {
+        insert_identity(
+            &mut self.faces,
+            name,
+            oracle_id.clone(),
+            oracle_text,
+            signature.clone(),
+            collector_number,
+        );
         insert_identity(
             &mut self.normalized_faces,
             &normalize_card_name(name),
             oracle_id,
             oracle_text,
             signature,
+            collector_number,
         );
     }
 
@@ -238,6 +263,7 @@ fn insert_identity(
     oracle_id: OracleId,
     oracle_text: Option<&str>,
     signature: CardSignature,
+    collector_number: Option<&str>,
 ) {
     let evidence = index
         .entry(name.trim().to_owned())
@@ -246,8 +272,12 @@ fn insert_identity(
         .or_default();
     if let Some(oracle_text) = oracle_text {
         evidence.oracle_texts.insert(normalize_oracle_text(oracle_text));
+        evidence.raw_oracle_texts.insert(oracle_text.to_owned());
     }
     evidence.signatures.insert(signature);
+    if let Some(collector_number) = collector_number {
+        evidence.collector_numbers.insert(collector_number.to_owned());
+    }
 }
 
 fn main() -> Result<()> {
@@ -398,10 +428,9 @@ fn index_card(index: &mut NameIndex, card: ScryfallCard) {
     // ambiguous. Other layouts, including schemes and planes, are game
     // objects with scripts and remain eligible.
     if matches!(
-            card.layout.as_str(),
-            "art_series" | "double_faced_token" | "emblem" | "front_card" | "token"
-        )
-    {
+        card.layout.as_str(),
+        "art_series" | "double_faced_token" | "emblem" | "front_card" | "token"
+    ) {
         return;
     }
     let Some(oracle_id) = card.oracle_id.map(OracleId) else {
@@ -418,6 +447,7 @@ fn index_card(index: &mut NameIndex, card: ScryfallCard) {
         oracle_id.clone(),
         card.oracle_text.as_deref(),
         whole_signature.clone(),
+        Some(&card.collector_number),
     );
     if let Some(printed_name) = card.printed_name {
         index.insert_whole_card(
@@ -425,6 +455,7 @@ fn index_card(index: &mut NameIndex, card: ScryfallCard) {
             oracle_id.clone(),
             card.oracle_text.as_deref(),
             whole_signature,
+            Some(&card.collector_number),
         );
     }
     for face in card.card_faces {
@@ -434,6 +465,7 @@ fn index_card(index: &mut NameIndex, card: ScryfallCard) {
             oracle_id.clone(),
             face.oracle_text.as_deref(),
             face_signature.clone(),
+            Some(&card.collector_number),
         );
         if let Some(printed_name) = face.printed_name {
             index.insert_face(
@@ -441,6 +473,7 @@ fn index_card(index: &mut NameIndex, card: ScryfallCard) {
                 oracle_id.clone(),
                 face.oracle_text.as_deref(),
                 face_signature,
+                Some(&card.collector_number),
             );
         }
     }
@@ -587,9 +620,18 @@ fn generate(
                 continue;
             }
         };
-        let oracle_ids = match index.lookup(&name) {
-            Some(candidates) => match resolve_oracle_ids(&source_text, candidates) {
-                Some(ids) => ids,
+        let unsupported_variant = top_level_value(&source_text, "Oracle") == Some("<Unsupported Variant>");
+        let resolved_scripts = match index.lookup(&name) {
+            Some(candidates) => match if unsupported_variant {
+                resolve_unsupported_variant_records(&source_text, &name, candidates)
+            } else {
+                resolve_oracle_ids(&source_text, candidates).map(|ids| {
+                    ids.into_iter()
+                        .map(|oracle_id| (oracle_id, source_text.clone()))
+                        .collect()
+                })
+            } {
+                Some(records) => records,
                 None => {
                     report.ambiguous_mappings.push(MappingProblem {
                         source: relative_display(source, &source_path),
@@ -612,17 +654,17 @@ fn generate(
         // silver-border variants).  The anonymous catalog is the authority
         // for which identities are representable: accept only when exactly
         // one candidate has a catalog row.  Never pick an arbitrary candidate.
-        let catalog_oracle_ids: Vec<_> = oracle_ids
+        let catalog_oracle_ids: Vec<_> = resolved_scripts
             .iter()
-            .filter(|oracle_id| catalog.by_oracle_id.contains_key(oracle_id))
-            .cloned()
+            .filter(|(oracle_id, _)| catalog.by_oracle_id.contains_key(oracle_id))
+            .map(|(oracle_id, script)| (oracle_id.clone(), script.clone()))
             .collect();
-        let oracle_ids = if catalog_oracle_ids.len() == 1 {
+        let resolved_scripts = if !unsupported_variant && catalog_oracle_ids.len() == 1 {
             catalog_oracle_ids
         } else {
-            oracle_ids
+            resolved_scripts
         };
-        for oracle_id in oracle_ids {
+        for (oracle_id, selected_script) in resolved_scripts {
             let Some(card_ids) = catalog.by_oracle_id.get(&oracle_id) else {
                 report.missing_mappings.push(MappingProblem {
                     source: relative_display(source, &source_path),
@@ -638,7 +680,7 @@ fn generate(
                     .get(&card_id)
                     .expect("catalog index lost anonymous set group");
                 let sanitized = sanitize_script(
-                    &source_text,
+                    &selected_script,
                     card_id,
                     color_identity,
                     set_group,
@@ -792,12 +834,170 @@ fn source_identity_name(script: &str) -> Option<String> {
     (!copied_faces.is_empty()).then(|| copied_faces.join(" // "))
 }
 
+#[derive(Clone, Debug, Eq, PartialEq)]
+struct VariantRecord {
+    label: String,
+    oracle_text: String,
+}
+
+fn unsupported_variant_records(script: &str) -> Vec<VariantRecord> {
+    script
+        .lines()
+        .filter_map(|line| {
+            let rest = line.strip_prefix("Variant:")?;
+            let (label, rest) = rest.split_once(':')?;
+            let (field, value) = rest.split_once(':')?;
+            (field == "Oracle").then(|| VariantRecord {
+                label: label.to_owned(),
+                oracle_text: value.to_owned(),
+            })
+        })
+        .collect()
+}
+
+fn materialize_variant(script: &str, label: &str) -> String {
+    let prefix = format!("Variant:{label}:");
+    script
+        .lines()
+        .filter_map(|line| {
+            if let Some(materialized) = line.strip_prefix(&prefix) {
+                Some(materialized.to_owned())
+            } else if line.starts_with("Variant:") {
+                None
+            } else {
+                Some(line.to_owned())
+            }
+        })
+        .collect::<Vec<_>>()
+        .join("\n")
+}
+
+fn oracle_comparison_tokens(text: &str, own_name: &str) -> Vec<String> {
+    let decoded = replace_literal(text, "\\n", "\n");
+    let mut tokens = Vec::new();
+    let mut word = String::new();
+    for character in decoded.chars() {
+        if character.is_alphanumeric() {
+            word.extend(character.to_lowercase());
+        } else {
+            if !word.is_empty() {
+                tokens.push(std::mem::take(&mut word));
+            }
+            if !character.is_whitespace() {
+                tokens.push(character.to_string());
+            }
+        }
+    }
+    if !word.is_empty() {
+        tokens.push(word);
+    }
+
+    let own_tokens = tokenize_words(own_name);
+    replace_token_sequence(&mut tokens, &own_tokens, "__self__");
+    replace_token_sequence(&mut tokens, &tokenize_words("CARDNAME"), "__self__");
+    for phrase in [
+        "this creature",
+        "this artifact",
+        "this enchantment",
+        "this land",
+        "this permanent",
+        "this planeswalker",
+        "this spell",
+        "this card",
+    ] {
+        replace_token_sequence(&mut tokens, &tokenize_words(phrase), "__self__");
+    }
+    tokens
+}
+
+fn tokenize_words(value: &str) -> Vec<String> {
+    value
+        .split_whitespace()
+        .map(|part| {
+            part.chars()
+                .filter(|character| character.is_alphanumeric())
+                .flat_map(char::to_lowercase)
+                .collect()
+        })
+        .collect()
+}
+
+fn replace_token_sequence(tokens: &mut Vec<String>, pattern: &[String], replacement: &str) {
+    if pattern.is_empty() {
+        return;
+    }
+    let mut cursor = 0;
+    while cursor + pattern.len() <= tokens.len() {
+        if tokens[cursor..cursor + pattern.len()] == *pattern {
+            tokens.splice(cursor..cursor + pattern.len(), [replacement.to_owned()]);
+            cursor += 1;
+        } else {
+            cursor += 1;
+        }
+    }
+}
+
+fn expected_unstable_collector_suffix(name: &str, label: &str) -> Option<&'static str> {
+    match (name, label) {
+        ("Everythingamajig", "C") => Some("147c"),
+        ("Garbage Elemental", "B") => Some("82b"),
+        ("Garbage Elemental", "C") => Some("82c"),
+        ("Garbage Elemental", "D") => Some("82d"),
+        ("Sly Spy", "F") => Some("67f"),
+        _ => None,
+    }
+}
+
+fn resolve_unsupported_variant_records(
+    script: &str,
+    name: &str,
+    candidates: &BTreeMap<OracleId, IdentityEvidence>,
+) -> Option<Vec<(OracleId, String)>> {
+    let variants = unsupported_variant_records(script);
+    if variants.is_empty() {
+        return None;
+    }
+    let mut resolved = Vec::with_capacity(variants.len());
+    for variant in variants {
+        let source_tokens = oracle_comparison_tokens(&variant.oracle_text, name);
+        let matching: Vec<_> = candidates
+            .iter()
+            .filter(|(_, evidence)| {
+                evidence
+                    .raw_oracle_texts
+                    .iter()
+                    .any(|text| oracle_comparison_tokens(text, name) == source_tokens)
+            })
+            .map(|(oracle_id, _)| oracle_id.clone())
+            .collect();
+        if matching.len() != 1 {
+            return None;
+        }
+        let oracle_id = matching.into_iter().next().expect("one variant match");
+        if let Some(expected_suffix) = expected_unstable_collector_suffix(name, &variant.label) {
+            let suffix_agrees = candidates
+                .get(&oracle_id)
+                .is_some_and(|evidence| evidence.collector_numbers.contains(expected_suffix));
+            if !suffix_agrees {
+                return None;
+            }
+        }
+        if resolved.iter().any(|(existing, _)| existing == &oracle_id) {
+            return None;
+        }
+        resolved.push((oracle_id, materialize_variant(script, &variant.label)));
+    }
+    Some(resolved)
+}
+
 fn resolve_oracle_ids(script: &str, candidates: &BTreeMap<OracleId, IdentityEvidence>) -> Option<Vec<OracleId>> {
     if candidates.len() == 1 {
         return Some(candidates.keys().cloned().collect());
     }
     if top_level_value(script, "Oracle") == Some("<Unsupported Variant>") {
-        return Some(candidates.keys().cloned().collect());
+        let name = source_identity_name(script)?;
+        return resolve_unsupported_variant_records(script, &name, candidates)
+            .map(|records| records.into_iter().map(|(oracle_id, _)| oracle_id).collect());
     }
     let source_oracle = top_level_value(script, "Oracle")?;
     let normalized = normalize_oracle_text(source_oracle);
@@ -906,7 +1106,11 @@ fn numeric_name_references(index: &NameIndex, catalog: &CatalogIndex) -> Vec<(St
         let Some(card_id) = card_id else {
             continue;
         };
-        for alias in [name.clone(), replace_chars(name, ',', ';'), replace_chars(name, ' ', '_')] {
+        for alias in [
+            name.clone(),
+            replace_chars(name, ',', ';'),
+            replace_chars(name, ' ', '_'),
+        ] {
             match unique.entry(alias) {
                 std::collections::btree_map::Entry::Vacant(entry) => {
                     entry.insert(Some(card_id));
@@ -934,8 +1138,16 @@ fn replace_named_qualifiers(line: &str, references: &[(String, CardScriptId)]) -
         let rewritten = trimmed
             .split_once('$')
             .map(|(key, value_raw)| {
-                let prefix = value_raw.chars().next().filter(|character| character.is_whitespace()).map_or("", |_| " ");
-                format!("{}${prefix}{}", key.trim(), rewrite_named_value(value_raw.trim(), references))
+                let prefix = value_raw
+                    .chars()
+                    .next()
+                    .filter(|character| character.is_whitespace())
+                    .map_or("", |_| " ");
+                format!(
+                    "{}${prefix}{}",
+                    key.trim(),
+                    rewrite_named_value(value_raw.trim(), references)
+                )
             })
             .unwrap_or_else(|| trimmed.to_owned());
         output.push(rewritten);
@@ -950,40 +1162,40 @@ fn rewrite_named_value(value: &str, references: &[(String, CardScriptId)]) -> St
             chunk
                 .split('/')
                 .map(|body| {
-            let rewritten = [
-                "Card.named",
-                "Creature.named",
-                "Land.named",
-                "Effect.named",
-                "!named",
-                "creatures named ",
-                "creature named ",
-                "attacking creatures named ",
-                "lands named ",
-                "land named ",
-                "named",
-            ]
-            .into_iter()
-            .find_map(|prefix| {
-                let title = body.strip_prefix(prefix)?.trim_start();
-                let (name, id) = references.iter().find(|(name, _)| {
-                    title.strip_prefix(name).is_some_and(|tail| {
-                        tail.chars().next().is_none_or(|next| {
-                            next.is_whitespace() || matches!(next, '.' | ',' | '$' | ')' | ';' | '_' | '>')
-                        })
-                    })
-                })?;
-                let replacement = if prefix == "Card.named" {
-                    "Card.catalogId".to_owned()
-                } else if prefix.ends_with(".named") {
-                    format!("{}catalogId", prefix.strip_suffix("named").unwrap_or(prefix))
-                } else if prefix == "!named" {
-                    "!catalogId".to_owned()
-                } else {
-                    format!("{}catalogId", prefix.strip_suffix("named ").unwrap_or(prefix))
-                };
-                Some(format!("{replacement}{}{}", id.0, &title[name.len()..]))
-            });
+                    let rewritten = [
+                        "Card.named",
+                        "Creature.named",
+                        "Land.named",
+                        "Effect.named",
+                        "!named",
+                        "creatures named ",
+                        "creature named ",
+                        "attacking creatures named ",
+                        "lands named ",
+                        "land named ",
+                        "named",
+                    ]
+                    .into_iter()
+                    .find_map(|prefix| {
+                        let title = body.strip_prefix(prefix)?.trim_start();
+                        let (name, id) = references.iter().find(|(name, _)| {
+                            title.strip_prefix(name).is_some_and(|tail| {
+                                tail.chars().next().is_none_or(|next| {
+                                    next.is_whitespace() || matches!(next, '.' | ',' | '$' | ')' | ';' | '_' | '>')
+                                })
+                            })
+                        })?;
+                        let replacement = if prefix == "Card.named" {
+                            "Card.catalogId".to_owned()
+                        } else if prefix.ends_with(".named") {
+                            format!("{}catalogId", prefix.strip_suffix("named").unwrap_or(prefix))
+                        } else if prefix == "!named" {
+                            "!catalogId".to_owned()
+                        } else {
+                            format!("{}catalogId", prefix.strip_suffix("named ").unwrap_or(prefix))
+                        };
+                        Some(format!("{replacement}{}{}", id.0, &title[name.len()..]))
+                    });
                     rewritten.unwrap_or_else(|| body.to_owned())
                 })
                 .collect::<Vec<_>>()
@@ -1239,26 +1451,28 @@ fn anonymize_runtime_object_names(line: &str, runtime_names: &[String]) -> Strin
                 .map(|body| {
                     body.split('_')
                         .map(|part| {
-                            runtime_ids.iter().find_map(|(name, id)| {
-                                [
-                                    format!("named{name}"),
-                                    format!("named{}", replace_chars(name, ',', ';')),
-                                    format!("Effect.named{name}"),
-                                    format!("Effect.named{}", replace_chars(name, ',', ';')),
-                                ]
-                                .into_iter()
-                                .find_map(|prefix| {
-                                    part.strip_prefix(&prefix).map(|tail| {
-                                        let marker = if prefix.starts_with("Effect.") {
-                                            "Effect.named"
-                                        } else {
-                                            "named"
-                                        };
-                                        format!("{marker}{id}{tail}")
+                            runtime_ids
+                                .iter()
+                                .find_map(|(name, id)| {
+                                    [
+                                        format!("named{name}"),
+                                        format!("named{}", replace_chars(name, ',', ';')),
+                                        format!("Effect.named{name}"),
+                                        format!("Effect.named{}", replace_chars(name, ',', ';')),
+                                    ]
+                                    .into_iter()
+                                    .find_map(|prefix| {
+                                        part.strip_prefix(&prefix).map(|tail| {
+                                            let marker = if prefix.starts_with("Effect.") {
+                                                "Effect.named"
+                                            } else {
+                                                "named"
+                                            };
+                                            format!("{marker}{id}{tail}")
+                                        })
                                     })
                                 })
-                            })
-                            .unwrap_or_else(|| part.to_owned())
+                                .unwrap_or_else(|| part.to_owned())
                         })
                         .collect::<Vec<_>>()
                         .join("_")
@@ -1797,6 +2011,7 @@ mod tests {
             name: "Fixture Qzx Dual".to_owned(),
             printed_name: None,
             oracle_text: Some("({T}: Add {R} or {W}.)\nAs this land enters, you may pay 2 life.".to_owned()),
+            collector_number: String::new(),
             mana_cost: String::new(),
             type_line: "Land — Mountain Plains".to_owned(),
             lang: "en".to_owned(),
@@ -1816,6 +2031,7 @@ mod tests {
             name: "Fixture Qzx Producing Land".to_owned(),
             printed_name: None,
             oracle_text: Some("{T}: Add {W} or {R}.".to_owned()),
+            collector_number: String::new(),
             mana_cost: String::new(),
             type_line: "Land — Mountain Plains".to_owned(),
             lang: "en".to_owned(),
@@ -1836,6 +2052,7 @@ mod tests {
             name: "Fixture Qzx Front // Fixture Qzx Back".to_owned(),
             printed_name: None,
             oracle_text: None,
+            collector_number: String::new(),
             mana_cost: "{1}{R} // {1}{U}".to_owned(),
             type_line: "Instant // Instant".to_owned(),
             lang: "en".to_owned(),
@@ -1883,5 +2100,62 @@ mod tests {
             source_identity_name(script).as_deref(),
             Some("Fixture Qzx Front // Fixture Qzx Back")
         );
+    }
+
+    fn variant_candidate(oracle_text: &str, collector_number: &str) -> IdentityEvidence {
+        IdentityEvidence {
+            raw_oracle_texts: BTreeSet::from([oracle_text.to_owned()]),
+            collector_numbers: BTreeSet::from([collector_number.to_owned()]),
+            ..IdentityEvidence::default()
+        }
+    }
+
+    #[test]
+    fn unsupported_variant_refuses_zero_and_multiple_mechanics_matches() {
+        let script = "Name:Fixture Variant\nOracle:<Unsupported Variant>\nVariant:C:Oracle:Fixture Variant does something.\nVariant:C:A:AB$ Test\n";
+        let empty = BTreeMap::new();
+        assert!(resolve_unsupported_variant_records(script, "Fixture Variant", &empty).is_none());
+
+        let first = Uuid::parse_str("00000000-0000-0000-0000-000000000001").unwrap();
+        let second = Uuid::parse_str("00000000-0000-0000-0000-000000000002").unwrap();
+        let candidates = BTreeMap::from([
+            (
+                OracleId(first),
+                variant_candidate("Fixture Variant does something.", "1"),
+            ),
+            (
+                OracleId(second),
+                variant_candidate("Fixture Variant does something.", "2"),
+            ),
+        ]);
+        assert!(resolve_unsupported_variant_records(script, "Fixture Variant", &candidates).is_none());
+    }
+
+    #[test]
+    fn unsupported_variant_materializes_mechanics_before_sanitizing() {
+        let oracle_id = Uuid::parse_str("00000000-0000-0000-0000-000000000003").unwrap();
+        let candidates = BTreeMap::from([(
+            OracleId(oracle_id),
+            variant_candidate("This artifact becomes an X/X creature.", "147c"),
+        )]);
+        let script = "Name:Everythingamajig\nManaCost:5\nTypes:Artifact\nOracle:<Unsupported Variant>\nVariant:C:A:AB$ Animate | Power$ X | Toughness$ X\nVariant:C:Oracle:Everythingamajig becomes an X/X creature.\n";
+        let records = resolve_unsupported_variant_records(script, "Everythingamajig", &candidates).unwrap();
+        assert_eq!(records.len(), 1);
+        assert!(records[0].1.contains("A:AB$ Animate"));
+        assert!(!records[0].1.contains("Variant:C:"));
+        let sanitized = sanitize_script(&records[0].1, CardScriptId(1), "", "Gfixture", &[], &BTreeMap::new());
+        assert!(!sanitized.contains("Oracle:<Unsupported Variant>"));
+        assert!(sanitized.contains("A:AB$ Animate"));
+    }
+
+    #[test]
+    fn unsupported_variant_refuses_collector_suffix_disagreement() {
+        let oracle_id = Uuid::parse_str("00000000-0000-0000-0000-000000000004").unwrap();
+        let candidates = BTreeMap::from([(
+            OracleId(oracle_id),
+            variant_candidate("This artifact becomes an X/X creature.", "147d"),
+        )]);
+        let script = "Name:Everythingamajig\nOracle:<Unsupported Variant>\nVariant:C:Oracle:Everythingamajig becomes an X/X creature.\n";
+        assert!(resolve_unsupported_variant_records(script, "Everythingamajig", &candidates).is_none());
     }
 }
