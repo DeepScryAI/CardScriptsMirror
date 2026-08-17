@@ -120,7 +120,7 @@ impl TokenScriptId {
 struct CatalogIndex {
     by_oracle_id: BTreeMap<OracleId, Vec<CardScriptId>>,
     by_name_hash: BTreeMap<String, Option<CardScriptId>>,
-    set_group_by_id: BTreeMap<CardScriptId, String>,
+    origin_set_by_id: BTreeMap<CardScriptId, String>,
 }
 
 #[derive(Default)]
@@ -302,9 +302,9 @@ fn load_catalog_index(path: &Path) -> Result<CatalogIndex> {
             .next()
             .context("numeric catalog row has no anonymous name hash")?
             .to_owned();
-        let set_group = fields
+        let origin_set = fields
             .next()
-            .context("numeric catalog row has no anonymous set group")?
+            .context("numeric catalog row has no anonymous origin-set ID")?
             .to_owned();
         if name_hash.len() != 64 || !name_hash.bytes().all(|byte| byte.is_ascii_hexdigit()) {
             bail!("invalid name hash on {}:{}", path.display(), line_number + 1);
@@ -324,7 +324,7 @@ fn load_catalog_index(path: &Path) -> Result<CatalogIndex> {
             .entry(OracleId(oracle_id))
             .or_default()
             .push(CardScriptId(id));
-        index.set_group_by_id.insert(CardScriptId(id), set_group);
+        index.origin_set_by_id.insert(CardScriptId(id), origin_set);
     }
     Ok(index)
 }
@@ -566,15 +566,15 @@ fn generate(
             };
             for &card_id in card_ids {
                 let color_identity = index.color_identities.get(&oracle_id).map(String::as_str).unwrap_or("");
-                let set_group = catalog
-                    .set_group_by_id
+                let origin_set = catalog
+                    .origin_set_by_id
                     .get(&card_id)
                     .expect("catalog index lost anonymous set group");
                 let sanitized = sanitize_script(
                     &source_text,
                     card_id,
                     color_identity,
-                    set_group,
+                    origin_set,
                     &numeric_name_refs,
                     token_index,
                 );
@@ -1235,14 +1235,14 @@ fn sanitize_script(
     script: &str,
     card_id: CardScriptId,
     color_identity: &str,
-    set_group: &str,
+    origin_set: &str,
     numeric_name_refs: &[(String, CardScriptId)],
     token_index: &BTreeMap<String, TokenScriptId>,
 ) -> String {
     let mut output = String::with_capacity(script.len());
     output.push_str(&format!("Id:{}\n", card_id.0));
     output.push_str(&format!("ColorIdentity:{color_identity}\n"));
-    output.push_str(&format!("OriginSet:{set_group}\n"));
+    output.push_str(&format!("OriginSet:{origin_set}\n"));
     let runtime_names = runtime_object_names(script);
     for line in script.lines() {
         if line.trim().is_empty() || line.trim_start().starts_with('#') || is_removed_top_level_field(line) {
@@ -1457,8 +1457,8 @@ mod tests {
     fn sanitizes_a_script_without_touching_executable_fields() {
         let input = "Name:Fixture Qzx One\nManaCost:R\nTypes:Instant\nA:SP$ DealDamage | ValidTgts$ Any | NumDmg$ 3 | SpellDescription$ CARDNAME deals damage.\nSVar:Named:DB$ MakeCard | Name$ Fixture Qzx One | SpellDescription$ Make one.\nOracle:Fixture rules sentence used only by this synthetic test.\n";
         assert_eq!(
-            sanitize_script(input, CardScriptId(145), "R", "Gfixture", &[], &BTreeMap::new()),
-            "Id:145\nColorIdentity:R\nOriginSet:Gfixture\nManaCost:R\nTypes:Instant\nA:SP$ DealDamage | ValidTgts$ Any | NumDmg$ 3\nSVar:Named:DB$ MakeCard | Name$ Fixture Qzx One\n"
+            sanitize_script(input, CardScriptId(145), "R", "2025A", &[], &BTreeMap::new()),
+            "Id:145\nColorIdentity:R\nOriginSet:2025A\nManaCost:R\nTypes:Instant\nA:SP$ DealDamage | ValidTgts$ Any | NumDmg$ 3\nSVar:Named:DB$ MakeCard | Name$ Fixture Qzx One\n"
         );
     }
 
@@ -1466,8 +1466,8 @@ mod tests {
     fn removes_all_human_description_parameters() {
         let input = "Text:Display-only sentence.\nT:Mode$ SpellCast | TriggerDescription$ Display sentence | CostDesc$ More display text | Description$ Keep this\n";
         assert_eq!(
-            sanitize_script(input, CardScriptId(1), "", "Gfixture", &[], &BTreeMap::new()),
-            "Id:1\nColorIdentity:\nOriginSet:Gfixture\nT:Mode$ SpellCast\n"
+            sanitize_script(input, CardScriptId(1), "", "2025A", &[], &BTreeMap::new()),
+            "Id:1\nColorIdentity:\nOriginSet:2025A\nT:Mode$ SpellCast\n"
         );
     }
 
@@ -1475,8 +1475,8 @@ mod tests {
     fn removes_non_runtime_deck_hints() {
         let input = "# Human implementation note\n\nDeckHints:Type$Forest & Name$Fixture Qzx One\nDeckHas:Ability$Token\nDeckNeeds:Name$Fixture Qzx Two\nDraft:AI$ True\nAI:RemoveDeck:Random\nManaCost:G\nTypes:Creature\n";
         assert_eq!(
-            sanitize_script(input, CardScriptId(1), "G", "Gfixture", &[], &BTreeMap::new()),
-            "Id:1\nColorIdentity:G\nOriginSet:Gfixture\nManaCost:G\nTypes:Creature\n"
+            sanitize_script(input, CardScriptId(1), "G", "2025A", &[], &BTreeMap::new()),
+            "Id:1\nColorIdentity:G\nOriginSet:2025A\nManaCost:G\nTypes:Creature\n"
         );
     }
 
@@ -1634,6 +1634,9 @@ mod tests {
     fn basic_land_types_are_not_folded_into_color_identity() {
         let card = ScryfallCard {
             oracle_id: None,
+            set_id: Uuid::nil(),
+            set: String::new(),
+            released_at: String::new(),
             name: "Fixture Qzx Dual".to_owned(),
             printed_name: None,
             oracle_text: Some("({T}: Add {R} or {W}.)\nAs this land enters, you may pay 2 life.".to_owned()),
@@ -1653,6 +1656,9 @@ mod tests {
     fn non_reminder_symbols_still_define_a_basic_land_cards_identity() {
         let card = ScryfallCard {
             oracle_id: None,
+            set_id: Uuid::nil(),
+            set: String::new(),
+            released_at: String::new(),
             name: "Fixture Qzx Producing Land".to_owned(),
             printed_name: None,
             oracle_text: Some("{T}: Add {W} or {R}.".to_owned()),
@@ -1673,6 +1679,9 @@ mod tests {
         let id = Uuid::parse_str("12345678-1234-1234-1234-123456789abc").unwrap();
         let index = index_cards(vec![ScryfallCard {
             oracle_id: Some(id),
+            set_id: Uuid::nil(),
+            set: String::new(),
+            released_at: String::new(),
             name: "Fixture Qzx Front // Fixture Qzx Back".to_owned(),
             printed_name: None,
             oracle_text: None,

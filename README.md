@@ -28,6 +28,10 @@ append-only catalog, then run:
   --source /path/to/DeepScry/src/engine/assets/card_catalog.tsv \
   --output catalog_ids.tsv
 
+./scripts/rewrite_origin_sets.rs \
+  --catalog catalog_ids.tsv \
+  --cards cards
+
 ./scripts/generate_uuid_trie.rs \
   --source ../cardsmirror-source/cardsfolder \
   --catalog catalog_ids.tsv \
@@ -49,21 +53,25 @@ rust-script --test scripts/extract_catalog_ids.rs
 rust-script --test scripts/scan_scryfall_ip.rs
 ```
 
-`catalog_ids.tsv` contains a numeric ID, an `oracle_id`, and a one-way SHA-256
+`catalog_ids.tsv` contains a numeric ID, an `oracle_id`, a one-way SHA-256
 digest used to distinguish multiple Scryfall names for the same Oracle
-identity. It carries no plaintext titles or card text. Scryfall data is used
-only while generating the corpus and is never shipped as gameplay data.
+identity, and a frozen anonymous origin-set ID such as `1993A` or `2025B`.
+It carries no plaintext titles or card text. `set_ids.tsv` maps those anonymous
+set IDs to full public Scryfall set UUIDs. Initial suffixes are assigned within
+each year by release date and publisher set code; existing assignments never
+move, so a set discovered later appends the next suffix even when its release
+date is older. Suffixes continue `Z`, `AA`, `AB`, and so on. Scryfall data is
+used only while generating the corpus and is never shipped as gameplay data.
 
 These identity fields are redistribution protections, not secrecy mechanisms.
 The retained `oracle_id` is Scryfall's stable public identifier and an
 intentional public join key. `name_sha256` avoids redistributing a title while
 letting the generator distinguish otherwise ambiguous public records; anyone
-who already has the public title dataset can recompute it. Likewise, the
-truncated SHA-256 `set_group`/`OriginSet` value avoids shipping a set code, but
-the input space is only a few hundred public values and is trivially
-rainbow-tableable. None of these values is intended to conceal which public
+who already has the public title dataset can recompute it. The YEAR+LETTER
+origin-set ID is a stable presentation label, while its full Scryfall UUID is
+an intentional public join key. Neither is intended to conceal which public
 record produced a script; the protection is that the repository redistributes
-no title, Oracle text, or other protected expression.
+no title, Oracle text, publisher set code, or other protected expression.
 
 ## Identity and layout
 

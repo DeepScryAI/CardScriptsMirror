@@ -35,6 +35,12 @@ struct CacheMetadata<'a> {
 #[derive(Clone, Debug, Deserialize)]
 pub struct ScryfallCard {
     pub oracle_id: Option<Uuid>,
+    #[serde(default)]
+    pub set_id: Uuid,
+    #[serde(default)]
+    pub set: String,
+    #[serde(default)]
+    pub released_at: String,
     pub name: String,
     pub printed_name: Option<String>,
     pub oracle_text: Option<String>,

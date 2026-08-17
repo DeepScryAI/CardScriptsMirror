@@ -240,7 +240,7 @@ mod tests {
     #[test]
     fn catalog_allows_multiple_numeric_ids_for_one_oracle_identity() {
         let catalog = load_catalog_text(
-            "#id\toracle_id\tname_sha256\tset_group\n7\t12345678-1234-1234-1234-123456789abc\tx\ty\n9\t12345678-1234-1234-1234-123456789abc\tx\ty\n",
+            "#id\toracle_id\tname_sha256\tanonymous_set_id\n7\t12345678-1234-1234-1234-123456789abc\tx\t2025A\n9\t12345678-1234-1234-1234-123456789abc\tx\t2025A\n",
         )
         .unwrap();
         assert_eq!(catalog.values().next().unwrap(), &[7, 9]);

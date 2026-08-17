@@ -6,7 +6,12 @@ diagnostic data below the gitignored `.cache/` directory.
 
 `extract_catalog_ids.rs` removes plaintext presentation names from DeepScry's
 append-only numeric catalog while retaining the numeric ID, Scryfall Oracle
-UUID, and a one-way name digest needed to validate aliases.
+UUID, a one-way name digest needed to validate aliases, and a frozen
+YEAR+LETTER origin-set ID backed by `set_ids.tsv`.
+
+`rewrite_origin_sets.rs` applies that frozen table to the existing numeric
+trie. It validates the numeric path identity and rewrites exactly one
+`OriginSet:` field, leaving executable DSL records byte-for-byte unchanged.
 
 `generate_uuid_trie.rs` owns Oracle-identity mapping, structured Forge-script
 sanitization, and numeric-trie generation.
