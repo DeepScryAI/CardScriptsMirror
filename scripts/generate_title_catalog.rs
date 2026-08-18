@@ -31,7 +31,7 @@
 use anyhow::{bail, Context, Result};
 use clap::Parser;
 use sha2::{Digest, Sha256};
-use std::collections::BTreeMap;
+use std::collections::{BTreeMap, BTreeSet};
 use std::fs;
 use std::path::{Path, PathBuf};
 use uuid::Uuid;
@@ -77,6 +77,12 @@ struct Args {
     /// or otherwise unacceptable to a strict consumer.
     #[arg(long)]
     verify: Option<PathBuf>,
+
+    /// Owner-approved titles for Oracle identities that Scryfall describes
+    /// with more than one name. Without a row here such an identity is fatal;
+    /// this generator never picks a side on its own.
+    #[arg(long, default_value = "EXPLICIT_TITLE_RESOLUTIONS.tsv")]
+    resolutions: PathBuf,
 }
 
 /// Everything the emitted stamp needs from the originating catalog file.
@@ -102,7 +108,8 @@ fn main() -> Result<()> {
     }
 
     scryfall_bulk::ensure_cache(&args.cache, args.refresh)?;
-    let titles = load_titles(&args.cache, &catalog)?;
+    let resolutions = load_resolutions(&args.resolutions)?;
+    let titles = load_titles(&args.cache, &catalog, &resolutions)?;
     let document = render_title_catalog(&catalog, &titles)?;
 
     // Re-verify what we are about to publish. A generator that cannot pass its
@@ -196,45 +203,151 @@ fn parse_catalog(bytes: &[u8], identity: String) -> Result<CatalogSource> {
     })
 }
 
+/// Read the owner-approved title for Oracle identities Scryfall names more
+/// than once.
+///
+/// Same shape as `EXPLICIT_UNRESOLVED_EXCLUSIONS.tsv`: comment lines, then
+/// `oracle_id`, `title`, `status`, `reason`. A missing file is fine — it just
+/// means no identity has been resolved yet, and any conflict stays fatal.
+fn load_resolutions(path: &Path) -> Result<BTreeMap<Uuid, String>> {
+    let text = match fs::read_to_string(path) {
+        Ok(text) => text,
+        Err(error) if error.kind() == std::io::ErrorKind::NotFound => return Ok(BTreeMap::new()),
+        Err(error) => return Err(error).with_context(|| format!("read {}", path.display())),
+    };
+    let mut resolutions = BTreeMap::new();
+    for (offset, line) in text.lines().enumerate() {
+        let line_number = offset + 1;
+        if line.trim().is_empty() || line.starts_with('#') {
+            continue;
+        }
+        let fields: Vec<&str> = line.split('\t').collect();
+        if fields.len() < 4 {
+            bail!(
+                "{}:{line_number} must have oracle_id, title, status and reason",
+                path.display()
+            );
+        }
+        let oracle_id: Uuid = fields[0]
+            .parse()
+            .with_context(|| format!("{}:{line_number} has an invalid oracle_id", path.display()))?;
+        let title = fields[1];
+        check_title_text(title).with_context(|| format!("{}:{line_number}", path.display()))?;
+        if fields[2] != "OWNER_APPROVED_TITLE" {
+            bail!(
+                "{}:{line_number} has status {:?}; only OWNER_APPROVED_TITLE is honoured",
+                path.display(),
+                fields[2]
+            );
+        }
+        if fields[3].trim().is_empty() {
+            bail!("{}:{line_number} must state a reason", path.display());
+        }
+        if resolutions.insert(oracle_id, title.to_owned()).is_some() {
+            bail!("{}:{line_number} repeats oracle_id {oracle_id}", path.display());
+        }
+    }
+    Ok(resolutions)
+}
+
 /// Resolve every catalog Oracle identity to its Scryfall title.
 ///
 /// Scryfall's `name` is the Oracle-level English title on every printing,
 /// including non-English ones, where the localized string lives in
-/// `printed_name`. Printings of one Oracle identity must therefore agree; a
-/// disagreement means the join assumption broke and is fatal rather than
-/// silently resolved by picking a side.
-fn load_titles(cache: &Path, catalog: &CatalogSource) -> Result<BTreeMap<Uuid, String>> {
+/// `printed_name`.
+///
+/// The Oracle identity comes from [`ScryfallCard::effective_oracle_id`], NOT
+/// from the top-level field alone: every `reversible_card` printing has a null
+/// top-level `oracle_id` and carries its identity on the faces. Reading only
+/// the top level silently drops all of them, and that is not a harmless
+/// omission — a dropped reversible printing can leave some other record as the
+/// apparent sole owner of an Oracle id, so a card is renamed rather than
+/// merely missing.
+///
+/// Printings that resolve to one Oracle identity must agree on the name. A
+/// disagreement is a genuine ambiguity in the source data, not a formatting
+/// difference, so it is fatal unless an owner-approved row resolves it. This
+/// generator never picks a side by itself.
+fn load_titles(
+    cache: &Path,
+    catalog: &CatalogSource,
+    resolutions: &BTreeMap<Uuid, String>,
+) -> Result<BTreeMap<Uuid, String>> {
     let wanted: std::collections::HashSet<Uuid> = catalog.rows.iter().map(|(_, oracle_id)| *oracle_id).collect();
-    let mut titles: BTreeMap<Uuid, String> = BTreeMap::new();
-    let mut conflicts: BTreeMap<Uuid, (String, String)> = BTreeMap::new();
+    // Names seen per Oracle identity, bucketed by printing precedence.
+    let mut by_precedence: BTreeMap<Uuid, BTreeMap<u8, BTreeSet<String>>> = BTreeMap::new();
     scryfall_bulk::for_each_card(cache, |card| {
-        let Some(oracle_id) = card.oracle_id else {
+        let Some(oracle_id) = card.effective_oracle_id() else {
             return;
         };
         if !wanted.contains(&oracle_id) {
             return;
         }
-        match titles.get(&oracle_id) {
-            None => {
-                titles.insert(oracle_id, card.name);
-            }
-            Some(existing) if *existing != card.name => {
-                conflicts.insert(oracle_id, (existing.clone(), card.name));
-            }
-            Some(_) => {}
-        }
+        by_precedence
+            .entry(oracle_id)
+            .or_default()
+            .entry(name_precedence(&card.layout))
+            .or_default()
+            .insert(card.name);
     })?;
 
-    if !conflicts.is_empty() {
-        let sample: Vec<String> = conflicts
-            .iter()
-            .take(10)
-            .map(|(oracle_id, (a, b))| format!("{oracle_id}: {a:?} vs {b:?}"))
-            .collect();
+    let mut titles: BTreeMap<Uuid, String> = BTreeMap::new();
+    let mut conflicts: BTreeMap<Uuid, BTreeSet<String>> = BTreeMap::new();
+    for (oracle_id, tiers) in &by_precedence {
+        let Some((_, names)) = tiers.iter().next() else {
+            continue;
+        };
+        let mut names = names.iter();
+        let first = names.next().expect("a populated tier has at least one name");
+        if names.next().is_some() {
+            // Still ambiguous inside the winning tier: precedence cannot help.
+            conflicts.insert(*oracle_id, tiers.values().flatten().cloned().collect());
+            continue;
+        }
+        titles.insert(*oracle_id, first.clone());
+    }
+
+    // An ambiguity precedence could not settle is fatal unless an
+    // owner-approved row settles it. Report it AS a conflict: these identities
+    // would otherwise fall out as "no Scryfall title" further down, which
+    // names the wrong cause and sends the reader looking for missing data
+    // rather than for two records disagreeing.
+    let unresolved: Vec<String> = conflicts
+        .iter()
+        .filter(|(oracle_id, _)| !resolutions.contains_key(oracle_id))
+        .map(|(oracle_id, names)| format!("{oracle_id}: {names:?}"))
+        .collect();
+    if !unresolved.is_empty() {
         bail!(
-            "{} Oracle identities have conflicting Scryfall titles: {}",
-            conflicts.len(),
-            sample.join("; ")
+            "{} Oracle identities have conflicting Scryfall titles that printing precedence cannot settle, \
+             and no owner-approved resolution: {}. Add a row to the resolutions file rather than letting \
+             this generator guess.",
+            unresolved.len(),
+            unresolved.iter().take(10).cloned().collect::<Vec<_>>().join("; ")
+        );
+    }
+
+    for (oracle_id, approved) in resolutions {
+        let Some(current) = titles.get_mut(oracle_id) else {
+            continue;
+        };
+        if !conflicts.contains_key(oracle_id) && current == approved {
+            continue;
+        }
+        *current = approved.clone();
+    }
+    // A resolution that settles nothing is stale bookkeeping; say so rather
+    // than carrying it silently forever.
+    let inert: Vec<String> = resolutions
+        .keys()
+        .filter(|oracle_id| !conflicts.contains_key(oracle_id))
+        .map(|oracle_id| oracle_id.to_string())
+        .collect();
+    if !inert.is_empty() {
+        bail!(
+            "{} title resolution(s) no longer settle any conflict and must be removed: {}",
+            inert.len(),
+            inert.join(", ")
         );
     }
 
@@ -362,12 +475,38 @@ fn check_dense(ids: &[u32]) -> Result<()> {
     Ok(())
 }
 
+/// Printing precedence for choosing an Oracle identity's title. Lower wins.
+///
+/// A `reversible_card` is a special double-sided PRINTING of a card that
+/// already exists, and Scryfall names it with the doubled `X // X` form; the
+/// ordinary printing carries the card's real title. A `token` record is not a
+/// catalog card's canonical presentation at all.
+///
+/// This ordering is derived from the 71 Oracle identities in the current
+/// corpus that Scryfall names more than once — 67 `normal`+`reversible_card`,
+/// 3 `adventure`+`reversible_card`, and 1 `reversible_card`+`token` — where it
+/// reproduces the catalog's own recorded name in all 71 cases with no
+/// counterexample. Where an identity has ONLY a reversible printing and a
+/// token, the reversible name wins, which is why the token tier sorts last
+/// rather than being dropped.
+fn name_precedence(layout: &str) -> u8 {
+    match layout {
+        "reversible_card" => 1,
+        "token" => 2,
+        _ => 0,
+    }
+}
+
 fn check_title(id: u32, title: &str) -> Result<()> {
+    check_title_text(title).with_context(|| format!("catalog ID {id}"))
+}
+
+fn check_title_text(title: &str) -> Result<()> {
     if title.is_empty() {
-        bail!("catalog ID {id} has a blank title");
+        bail!("title is blank");
     }
     if title.contains('\t') || title.contains('\n') || title.contains('\r') {
-        bail!("catalog ID {id} has a title containing a tab or line break");
+        bail!("title contains a tab or line break");
     }
     Ok(())
 }
@@ -585,6 +724,47 @@ mod tests {
         assert!(check_title(1, "").is_err());
         assert!(check_title(1, "Air\tElemental").is_err());
         assert!(check_title(1, "Air Elemental").is_ok());
+    }
+
+    /// The ordering is load-bearing, and getting it wrong renames real cards
+    /// rather than failing: a `reversible_card` printing would rename 70 cards
+    /// to their doubled `X // X` form, and demoting the reversible tier below
+    /// `token` would rename the one reversible-only identity to a token name.
+    #[test]
+    fn printing_precedence_prefers_an_ordinary_printing_then_reversible_then_token() {
+        assert_eq!(name_precedence("normal"), 0);
+        assert_eq!(name_precedence("adventure"), 0);
+        assert_eq!(name_precedence("transform"), 0);
+        assert_eq!(name_precedence("split"), 0);
+        assert!(name_precedence("normal") < name_precedence("reversible_card"));
+        assert!(name_precedence("reversible_card") < name_precedence("token"));
+    }
+
+    /// A resolution file is parsed strictly: only the approved status counts,
+    /// and a row must say why.
+    #[test]
+    fn resolution_rows_require_the_approved_status_and_a_reason() {
+        let directory = std::env::temp_dir().join(format!("title-resolutions-{}", std::process::id()));
+        std::fs::create_dir_all(&directory).unwrap();
+        let path = directory.join("resolutions.tsv");
+
+        std::fs::write(&path, "# comment\n").unwrap();
+        assert!(load_resolutions(&path).unwrap().is_empty(), "comments only means no resolutions");
+
+        std::fs::write(&path, format!("{ORACLE_A}\tTitle\tGUESSED\tbecause\n")).unwrap();
+        assert!(load_resolutions(&path).is_err(), "an unapproved status must be refused");
+
+        std::fs::write(&path, format!("{ORACLE_A}\tTitle\tOWNER_APPROVED_TITLE\t\n")).unwrap();
+        assert!(load_resolutions(&path).is_err(), "a row with no reason must be refused");
+
+        std::fs::write(&path, format!("{ORACLE_A}\tTitle\tOWNER_APPROVED_TITLE\tan actual reason\n")).unwrap();
+        assert_eq!(load_resolutions(&path).unwrap().get(&ORACLE_A.parse().unwrap()).unwrap(), "Title");
+
+        // A missing file is not an error: it means nothing has been resolved,
+        // and any conflict therefore stays fatal.
+        std::fs::remove_file(&path).unwrap();
+        assert!(load_resolutions(&path).unwrap().is_empty());
+        std::fs::remove_dir_all(&directory).ok();
     }
 
     #[test]
