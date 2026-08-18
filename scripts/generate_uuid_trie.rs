@@ -1333,6 +1333,99 @@ fn stable_runtime_object_id(value: &str) -> u64 {
     u64::from_be_bytes(bytes).max(1)
 }
 
+fn compact_identifier(value: &str) -> String {
+    value
+        .chars()
+        .filter(char::is_ascii_alphanumeric)
+        .flat_map(char::to_lowercase)
+        .collect()
+}
+
+fn title_derived_svar_names(script: &str, references: &[(String, CardScriptId)]) -> Vec<(String, String)> {
+    let mut title_keys: Vec<_> = references
+        .iter()
+        .map(|(title, _)| compact_identifier(title))
+        .filter(|title| title.len() >= 5)
+        .collect();
+    title_keys.extend(
+        script
+            .lines()
+            .filter_map(|line| line.strip_prefix("Name:"))
+            .map(compact_identifier)
+            .filter(|title| title.len() >= 5),
+    );
+    let mut names = BTreeSet::new();
+    for line in script.lines() {
+        if let Some(rest) = line.strip_prefix("SVar:") {
+            if let Some((name, _)) = rest.split_once(':') {
+                let compact_name = compact_identifier(name);
+                if title_keys.iter().any(|title| compact_name.contains(title)) {
+                    names.insert(name.to_owned());
+                }
+            }
+        }
+        for segment in line.split('|') {
+            let Some((key, raw_value)) = segment.trim().split_once('$') else {
+                continue;
+            };
+            let value = raw_value.trim();
+            let candidate = match key.trim() {
+                "NoteCardsFor" | "ClearNotedCardsFor" => Some(value),
+                "RepeatCards" => value.strip_prefix("Card.NotedFor"),
+                "AILogic" => value.split('.').next(),
+                _ => None,
+            };
+            if let Some(candidate) = candidate {
+                let compact_candidate = compact_identifier(candidate);
+                if title_keys.iter().any(|title| compact_candidate.contains(title)) {
+                    names.insert(candidate.to_owned());
+                }
+            }
+        }
+    }
+    names
+        .into_iter()
+        .map(|name| {
+            let replacement = format!("svar{}", stable_runtime_object_id(&name));
+            (name, replacement)
+        })
+        .collect()
+}
+
+fn anonymize_title_derived_svars(line: &str, svars: &[(String, String)]) -> String {
+    if svars.is_empty() {
+        return line.to_owned();
+    }
+    let mut output = String::with_capacity(line.len());
+    let mut cursor = 0;
+    while cursor < line.len() {
+        let next = svars
+            .iter()
+            .filter_map(|(source, replacement)| line[cursor..].find(source).map(|offset| (offset, source, replacement)))
+            .min_by_key(|(offset, source, _)| (*offset, std::cmp::Reverse(source.len())));
+        let Some((relative, source, replacement)) = next else {
+            output.push_str(&line[cursor..]);
+            break;
+        };
+        let start = cursor + relative;
+        let end = start + source.len();
+        let before = line[..start].chars().next_back();
+        let after = line[end..].chars().next();
+        let is_identifier_boundary = |character: Option<char>| {
+            character.is_none_or(|character| !character.is_ascii_alphanumeric() && character != '_')
+        };
+        output.push_str(&line[cursor..start]);
+        let has_known_runtime_prefix = line[..start].ends_with("Card.NotedFor");
+        if (is_identifier_boundary(before) || has_known_runtime_prefix) && is_identifier_boundary(after) {
+            output.push_str(replacement);
+        } else {
+            output.push_str(source);
+        }
+        cursor = end;
+    }
+    output
+}
+
 fn rewrite_top_level_card_reference(line: &str, references: &[(String, CardScriptId)]) -> Option<String> {
     if let Some(value) = line.strip_prefix("K:Partner with:") {
         let title = value.rsplit_once(':').map_or(value, |(title, _nickname)| title);
@@ -1664,11 +1757,19 @@ fn sanitize_script(
     output.push_str(&format!("ColorIdentity:{color_identity}\n"));
     output.push_str(&format!("OriginSet:{set_group}\n"));
     let runtime_names = runtime_object_names(script);
+    let title_derived_svars = title_derived_svar_names(script, numeric_name_refs);
     for line in script.lines() {
         if line.trim().is_empty() || line.trim_start().starts_with('#') || is_removed_top_level_field(line) {
             continue;
         }
-        let sanitized = sanitize_runtime_line(line, numeric_name_refs, token_index, &runtime_names, Some(card_id));
+        let sanitized = sanitize_runtime_line(
+            line,
+            numeric_name_refs,
+            token_index,
+            &runtime_names,
+            &title_derived_svars,
+            Some(card_id),
+        );
         output.push_str(&sanitized);
         output.push('\n');
     }
@@ -1685,11 +1786,19 @@ fn sanitize_token_script(
     output.push_str(&format!("TokenId:{}\n", token_id.0));
     output.push_str("ColorIdentity:\n");
     let runtime_names = runtime_object_names(script);
+    let title_derived_svars = title_derived_svar_names(script, numeric_name_refs);
     for line in script.lines() {
         if line.trim().is_empty() || line.trim_start().starts_with('#') || is_removed_top_level_field(line) {
             continue;
         }
-        let sanitized = sanitize_runtime_line(line, numeric_name_refs, token_index, &runtime_names, None);
+        let sanitized = sanitize_runtime_line(
+            line,
+            numeric_name_refs,
+            token_index,
+            &runtime_names,
+            &title_derived_svars,
+            None,
+        );
         output.push_str(&sanitized);
         output.push('\n');
     }
@@ -1701,6 +1810,7 @@ fn sanitize_runtime_line(
     numeric_name_refs: &[(String, CardScriptId)],
     token_index: &BTreeMap<String, TokenScriptId>,
     runtime_names: &[String],
+    title_derived_svars: &[(String, String)],
     owner_id: Option<CardScriptId>,
 ) -> String {
     let numeric = replace_named_qualifiers(line, numeric_name_refs);
@@ -1710,6 +1820,7 @@ fn sanitize_runtime_line(
     let numeric = rewrite_contextual_card_references(&numeric, numeric_name_refs, owner_id);
     let numeric = normalize_keyword_vocabulary(&numeric);
     let numeric = anonymize_set_qualifiers(&numeric);
+    let numeric = anonymize_title_derived_svars(&numeric, title_derived_svars);
     strip_display_parameters(&numeric)
 }
 
@@ -2062,6 +2173,23 @@ mod tests {
                 stable_runtime_object_id("Fixture effect")
             )
         );
+    }
+
+    #[test]
+    fn title_derived_svar_names_and_references_are_anonymized_together() {
+        let references = [("Rekindling Phoenix".to_owned(), CardScriptId(17918))];
+        let input = "Name:Fixture\nTypes:Creature\nA:AB$ Trigger | Execute$ RekindlingPhoenixTrigSac\nSVar:RekindlingPhoenixTrigSac:DB$ ChangeZone | SubAbility$ RekindlingPhoenixDBAnimate\nSVar:RekindlingPhoenixDBAnimate:DB$ Animate | NoteCardsFor$ RekindlingPhoenixAvatar | RepeatCards$ Card.NotedForRekindlingPhoenixAvatar | AILogic$ RekindlingPhoenixChoice.2\n";
+        let output = sanitize_script(input, CardScriptId(1), "R", "Gfixture", &references, &BTreeMap::new());
+
+        assert!(!output.contains("RekindlingPhoenix"));
+        assert!(output.contains("SVar:svar"));
+        assert_eq!(output.lines().filter(|line| line.starts_with("SVar:svar")).count(), 2);
+        assert!(output.lines().any(|line| line.contains("Execute$ svar")));
+        assert!(output.lines().any(|line| line.contains("SubAbility$ svar")));
+        assert!(output
+            .lines()
+            .any(|line| line.contains("RepeatCards$ Card.NotedForsvar")));
+        assert!(!output.contains("RekindlingPhoenix"));
     }
 
     #[test]
