@@ -1209,60 +1209,65 @@ fn replace_named_qualifiers(line: &str, references: &[(String, CardScriptId)]) -
                     rewrite_named_value(value_raw.trim(), references)
                 )
             })
-            .unwrap_or_else(|| trimmed.to_owned());
+            .unwrap_or_else(|| rewrite_named_value(trimmed, references));
         output.push(rewritten);
     }
     output.join(" | ")
 }
 
 fn rewrite_named_value(value: &str, references: &[(String, CardScriptId)]) -> String {
-    value
-        .split('+')
-        .map(|chunk| {
-            chunk
-                .split('/')
-                .map(|body| {
-                    let rewritten = [
-                        "Card.named",
-                        "Creature.named",
-                        "Land.named",
-                        "Effect.named",
-                        "!named",
-                        "creatures named ",
-                        "creature named ",
-                        "attacking creatures named ",
-                        "lands named ",
-                        "land named ",
-                        "named",
-                    ]
-                    .into_iter()
-                    .find_map(|prefix| {
-                        let title = body.strip_prefix(prefix)?.trim_start();
-                        let (name, id) = references.iter().find(|(name, _)| {
-                            title.strip_prefix(name).is_some_and(|tail| {
-                                tail.chars().next().is_none_or(|next| {
-                                    next.is_whitespace() || matches!(next, '.' | ',' | '$' | ')' | ';' | '_' | '>')
-                                })
-                            })
-                        })?;
-                        let replacement = if prefix == "Card.named" {
-                            "Card.catalogId".to_owned()
-                        } else if prefix.ends_with(".named") {
-                            format!("{}catalogId", prefix.strip_suffix("named").unwrap_or(prefix))
-                        } else if prefix == "!named" {
-                            "!catalogId".to_owned()
-                        } else {
-                            format!("{}catalogId", prefix.strip_suffix("named ").unwrap_or(prefix))
-                        };
-                        Some(format!("{replacement}{}{}", id.0, &title[name.len()..]))
-                    });
-                    rewritten.unwrap_or_else(|| body.to_owned())
+    let mut output = String::with_capacity(value.len());
+    let mut cursor = 0;
+    while cursor < value.len() {
+        let remainder = &value[cursor..];
+        let candidate = [
+            ("attacking creatures named ", "attacking creatures catalogId"),
+            ("creatures named ", "creatures catalogId"),
+            ("creature named ", "creature catalogId"),
+            ("lands named ", "lands catalogId"),
+            ("land named ", "land catalogId"),
+            ("!named", "!catalogId"),
+            (".named", ".catalogId"),
+        ]
+        .into_iter()
+        .find(|(prefix, _)| remainder.starts_with(prefix));
+
+        let direct_named = remainder.starts_with("named")
+            && (cursor == 0
+                || value[..cursor]
+                    .chars()
+                    .next_back()
+                    .is_none_or(|previous| !previous.is_alphanumeric() && previous != '_'));
+        let Some((prefix, replacement)) = candidate.or_else(|| direct_named.then_some(("named", "namedcatalogId")))
+        else {
+            if let Some(character) = remainder.chars().next() {
+                output.push(character);
+                cursor += character.len_utf8();
+            }
+            continue;
+        };
+
+        let title_start = cursor + prefix.len();
+        let title_remainder = &value[title_start..];
+        let Some((name, id)) = references.iter().find(|(name, _)| {
+            title_remainder.strip_prefix(name).is_some_and(|tail| {
+                tail.chars().next().is_none_or(|next| {
+                    next.is_whitespace() || matches!(next, '.' | ',' | '$' | ')' | ';' | '_' | '>' | '/' | '+' | ':')
                 })
-                .collect::<Vec<_>>()
-                .join("/")
-        })
-        .collect::<Vec<_>>()
-        .join("+")
+            })
+        }) else {
+            if let Some(character) = remainder.chars().next() {
+                output.push(character);
+                cursor += character.len_utf8();
+            }
+            continue;
+        };
+
+        output.push_str(replacement);
+        output.push_str(&id.0.to_string());
+        cursor = title_start + name.len();
+    }
+    output
 }
 
 fn numeric_id_for_name(value: &str, references: &[(String, CardScriptId)]) -> Option<CardScriptId> {
@@ -1936,6 +1941,17 @@ mod tests {
                 &refs,
             ),
             "A:AB$ ChangeZone | Cost$ tapXType<5/Creature.attacking+namedcatalogId24491/attacking creatures catalogId24491>"
+        );
+        assert_eq!(
+            replace_named_qualifiers("SVar:X:Count$Valid Creature.namedFixture Dragon+YouCtrl", &refs,),
+            "SVar:X:Count$Valid Creature.catalogId24491+YouCtrl"
+        );
+        assert_eq!(
+            replace_named_qualifiers(
+                "K:Bands with other:Creature.namedFixture Dragon:creatures named Fixture Dragon",
+                &refs,
+            ),
+            "K:Bands with other:Creature.catalogId24491:creatures catalogId24491"
         );
     }
 
