@@ -45,6 +45,26 @@ ambiguous mappings are always printed and recorded, and the generator always
 fails closed when any remain. There is no optional non-strict mode: a partial
 numeric corpus must never be mistaken for a complete one.
 
+Emit the presentation title catalog consumed by DeepScry's title-skin
+generator:
+
+```sh
+./scripts/generate_title_catalog.rs \
+  --catalog /path/to/DeepScry/src/engine/assets/card_catalog.tsv \
+  --output .cache/presentation/title_catalog.tsv
+```
+
+The `--catalog` file supplies only `#id` and `oracle_id`; every title comes
+from the Scryfall snapshot. `catalog_ids.tsv` works equally well as the
+`--catalog` input, and so will a DeepScry catalog whose `name` column has been
+removed. The emitted header stamps `catalog_identity`, the SHA-256 of the whole
+catalog file, so a stale table cannot silently name the wrong cards after the
+catalog is regenerated. Re-check an existing table with `--verify`.
+
+The emitted table contains third-party titles. It is generated output below the
+gitignored `.cache/` directory and must not be committed here or to a consuming
+repository; ship it as a content-hashed skin per `AGENTS.md`.
+
 Run the unit tests with:
 
 ```sh

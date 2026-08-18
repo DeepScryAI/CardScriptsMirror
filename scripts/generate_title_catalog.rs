@@ -1,0 +1,598 @@
+#!/usr/bin/env rust-script
+//! ```cargo
+//! [package]
+//! edition = "2021"
+//!
+//! [dependencies]
+//! anyhow = "1.0.99"
+//! clap = { version = "4.5.45", features = ["derive"] }
+//! flate2 = "1.1.2"
+//! reqwest = { version = "0.12.28", default-features = false, features = ["blocking", "json", "rustls-tls"] }
+//! serde = { version = "1.0.219", features = ["derive"] }
+//! serde_json = "1.0.143"
+//! sha2 = "0.10.9"
+//! uuid = { version = "1.18.0", features = ["serde"] }
+//! ```
+//!
+//! Emit the dense presentation title catalog from the numeric identity bridge
+//! and this repository's own Scryfall snapshot.
+//!
+//! Titles come from Scryfall and from nowhere else. The numeric catalog
+//! supplies only `#id` and `oracle_id`; every other catalog column, including
+//! any residual `name`, is ignored by construction. That is the property that
+//! makes this generator survive DeepScry's title purge instead of quietly
+//! depending on the corpus the purge removes.
+//!
+//! The emitted table carries the `catalog_identity` stamp that DeepScry's
+//! strict title-skin loader requires: the SHA-256 of the exact catalog file
+//! that assigned these numeric IDs. Without it a stale-but-checksum-valid
+//! table would silently name the wrong cards after a catalog regeneration.
+
+use anyhow::{bail, Context, Result};
+use clap::Parser;
+use sha2::{Digest, Sha256};
+use std::collections::BTreeMap;
+use std::fs;
+use std::path::{Path, PathBuf};
+use uuid::Uuid;
+
+#[path = "lib/scryfall_bulk.rs"]
+mod scryfall_bulk;
+
+/// The header schema DeepScry's `scripts/extract_catalog_title_skin.py` and
+/// `bin/namecards` accept. Changing any token here breaks strict consumers.
+const SKIN_KIND: &str = "title-only-skin";
+const SKIN_VERSION: &str = "1";
+
+#[derive(Parser, Debug)]
+#[command(about = "Emit the dense, catalog-stamped presentation title catalog")]
+struct Args {
+    /// Numeric identity bridge with `#id` and `oracle_id` columns and a
+    /// `metadata:` header field. DeepScry's `card_catalog.tsv` and the
+    /// title-free `catalog_ids.tsv` both satisfy this contract.
+    #[arg(long, default_value = "catalog_ids.tsv")]
+    catalog: PathBuf,
+
+    /// Decompressed Scryfall default_cards cache.
+    #[arg(long, default_value = ".cache/scryfall/default_cards.json")]
+    cache: PathBuf,
+
+    /// Generated title catalog. This is generated presentation output, not a
+    /// hand-maintained source artifact.
+    #[arg(long, default_value = ".cache/presentation/title_catalog.tsv")]
+    output: PathBuf,
+
+    /// Ignore a present cache and download the current snapshot.
+    #[arg(long)]
+    refresh: bool,
+
+    /// Override the catalog identity stamp. Use only when the bridge in
+    /// `--catalog` is a derived file and the identity of the originating
+    /// catalog generation must be carried across that derivation.
+    #[arg(long)]
+    catalog_identity: Option<String>,
+
+    /// Verify an existing title catalog against `--catalog` instead of writing
+    /// one. Exits non-zero when the table is unstamped, mis-stamped, sparse,
+    /// or otherwise unacceptable to a strict consumer.
+    #[arg(long)]
+    verify: Option<PathBuf>,
+}
+
+/// Everything the emitted stamp needs from the originating catalog file.
+#[derive(Clone, Debug, PartialEq, Eq)]
+struct CatalogSource {
+    /// SHA-256 of the complete catalog file. This is the `catalog_identity`.
+    identity: String,
+    /// The catalog's own upstream provenance string.
+    snapshot: String,
+    /// Dense `#id` to Oracle UUID rows, ordered by id.
+    rows: Vec<(u32, Uuid)>,
+}
+
+fn main() -> Result<()> {
+    let args = Args::parse();
+    let catalog = load_catalog(&args.catalog, args.catalog_identity.as_deref())?;
+
+    if let Some(path) = args.verify.as_deref() {
+        let bytes = fs::read(path).with_context(|| format!("read title catalog {}", path.display()))?;
+        let rows = verify_title_catalog(&bytes, &catalog)?;
+        eprintln!("{} verified: {} dense stamped rows", path.display(), rows);
+        return Ok(());
+    }
+
+    scryfall_bulk::ensure_cache(&args.cache, args.refresh)?;
+    let titles = load_titles(&args.cache, &catalog)?;
+    let document = render_title_catalog(&catalog, &titles)?;
+
+    // Re-verify what we are about to publish. A generator that cannot pass its
+    // own consumer contract must fail before the file reaches disk.
+    verify_title_catalog(&document, &catalog)?;
+    write_atomically(&args.output, &document)?;
+    eprintln!(
+        "Wrote {} ({} titles, catalog_identity={})",
+        args.output.display(),
+        catalog.rows.len(),
+        catalog.identity
+    );
+    Ok(())
+}
+
+/// Read the numeric bridge, verify its self-declared body checksum and row
+/// count, and reduce it to dense `(id, oracle_id)` pairs.
+fn load_catalog(path: &Path, identity_override: Option<&str>) -> Result<CatalogSource> {
+    let bytes = fs::read(path).with_context(|| format!("read numeric catalog {}", path.display()))?;
+    let identity = match identity_override {
+        Some(value) => {
+            check_sha256(value).context("--catalog-identity must be a lowercase hex SHA-256")?;
+            value.to_owned()
+        }
+        None => hex_sha256(&bytes),
+    };
+    parse_catalog(&bytes, identity).with_context(|| format!("numeric catalog {}", path.display()))
+}
+
+fn parse_catalog(bytes: &[u8], identity: String) -> Result<CatalogSource> {
+    let text = std::str::from_utf8(bytes).context("catalog is not valid UTF-8")?;
+    let (header, body) = text.split_once('\n').context("catalog has no header row")?;
+    let columns: Vec<&str> = header.trim_end_matches('\r').split('\t').collect();
+    let id_column = column_index(&columns, "#id")?;
+    let oracle_column = column_index(&columns, "oracle_id")?;
+
+    let metadata = columns
+        .iter()
+        .find(|column| column.starts_with("metadata:"))
+        .context("catalog header has no metadata: field")?;
+    let declared_rows: usize = metadata_value(metadata, "cards")
+        .context("catalog metadata must declare cards=<count>")?
+        .parse()
+        .context("catalog metadata has a non-numeric cards= value")?;
+    let declared_body = metadata_value(metadata, "body_sha256").context("catalog metadata must declare body_sha256=")?;
+    check_sha256(&declared_body).context("catalog metadata body_sha256 is not a SHA-256")?;
+    // `snapshot=` is DeepScry's spelling; `catalog_snapshot=` is the spelling a
+    // derived bridge inherits from an emitted table. Accept either.
+    let snapshot = metadata_value(metadata, "snapshot")
+        .or_else(|| metadata_value(metadata, "catalog_snapshot"))
+        .context("catalog metadata must declare snapshot=<provenance>")?;
+
+    let actual_body = hex_sha256(body.as_bytes());
+    if actual_body != declared_body {
+        bail!("catalog body_sha256 mismatch: header declares {declared_body}, body hashes to {actual_body}");
+    }
+
+    let mut rows = Vec::with_capacity(declared_rows);
+    for (offset, line) in body.lines().enumerate() {
+        if line.trim().is_empty() {
+            continue;
+        }
+        let line_number = offset + 2;
+        let fields: Vec<&str> = line.split('\t').collect();
+        // Only these two columns are ever read. A `name` column, if the source
+        // still has one, is deliberately unreachable from here.
+        let id: u32 = fields
+            .get(id_column)
+            .with_context(|| format!("catalog line {line_number} has no #id field"))?
+            .parse()
+            .with_context(|| format!("catalog line {line_number} has a non-numeric #id"))?;
+        let oracle_id: Uuid = fields
+            .get(oracle_column)
+            .with_context(|| format!("catalog line {line_number} has no oracle_id field"))?
+            .parse()
+            .with_context(|| format!("catalog line {line_number} has an invalid oracle_id"))?;
+        rows.push((id, oracle_id));
+    }
+
+    if rows.len() != declared_rows {
+        bail!(
+            "catalog has {} rows; its header declares {declared_rows}. Refusing to emit a partial title catalog.",
+            rows.len()
+        );
+    }
+    check_dense(&rows.iter().map(|(id, _)| *id).collect::<Vec<_>>())?;
+    Ok(CatalogSource {
+        identity,
+        snapshot,
+        rows,
+    })
+}
+
+/// Resolve every catalog Oracle identity to its Scryfall title.
+///
+/// Scryfall's `name` is the Oracle-level English title on every printing,
+/// including non-English ones, where the localized string lives in
+/// `printed_name`. Printings of one Oracle identity must therefore agree; a
+/// disagreement means the join assumption broke and is fatal rather than
+/// silently resolved by picking a side.
+fn load_titles(cache: &Path, catalog: &CatalogSource) -> Result<BTreeMap<Uuid, String>> {
+    let wanted: std::collections::HashSet<Uuid> = catalog.rows.iter().map(|(_, oracle_id)| *oracle_id).collect();
+    let mut titles: BTreeMap<Uuid, String> = BTreeMap::new();
+    let mut conflicts: BTreeMap<Uuid, (String, String)> = BTreeMap::new();
+    scryfall_bulk::for_each_card(cache, |card| {
+        let Some(oracle_id) = card.oracle_id else {
+            return;
+        };
+        if !wanted.contains(&oracle_id) {
+            return;
+        }
+        match titles.get(&oracle_id) {
+            None => {
+                titles.insert(oracle_id, card.name);
+            }
+            Some(existing) if *existing != card.name => {
+                conflicts.insert(oracle_id, (existing.clone(), card.name));
+            }
+            Some(_) => {}
+        }
+    })?;
+
+    if !conflicts.is_empty() {
+        let sample: Vec<String> = conflicts
+            .iter()
+            .take(10)
+            .map(|(oracle_id, (a, b))| format!("{oracle_id}: {a:?} vs {b:?}"))
+            .collect();
+        bail!(
+            "{} Oracle identities have conflicting Scryfall titles: {}",
+            conflicts.len(),
+            sample.join("; ")
+        );
+    }
+
+    let missing: Vec<String> = catalog
+        .rows
+        .iter()
+        .filter(|(_, oracle_id)| !titles.contains_key(oracle_id))
+        .map(|(id, oracle_id)| format!("{id} ({oracle_id})"))
+        .collect();
+    if !missing.is_empty() {
+        bail!(
+            "{} catalog IDs have no Scryfall title: {}. Refusing to emit a sparse title catalog.",
+            missing.len(),
+            missing.iter().take(10).cloned().collect::<Vec<_>>().join(", ")
+        );
+    }
+    Ok(titles)
+}
+
+fn render_title_catalog(catalog: &CatalogSource, titles: &BTreeMap<Uuid, String>) -> Result<Vec<u8>> {
+    let mut body = String::new();
+    for (id, oracle_id) in &catalog.rows {
+        let title = titles
+            .get(oracle_id)
+            .with_context(|| format!("catalog ID {id} has no resolved title"))?;
+        check_title(*id, title)?;
+        body.push_str(&format!("{id}\t{title}\n"));
+    }
+    let header = format!(
+        "#id\ttitle\tmetadata: v={SKIN_VERSION} kind={SKIN_KIND} catalog_snapshot={} catalog_identity={} cards={} body_sha256={}\n",
+        catalog.snapshot,
+        catalog.identity,
+        catalog.rows.len(),
+        hex_sha256(body.as_bytes()),
+    );
+    let mut document = header.into_bytes();
+    document.extend_from_slice(body.as_bytes());
+    Ok(document)
+}
+
+/// The strict consumer contract, applied to emitted bytes.
+///
+/// This mirrors what DeepScry's loader enforces, plus the binding to the
+/// catalog that this repository is uniquely able to check: an unstamped,
+/// mis-stamped, sparse, or truncated table must be rejected here rather than
+/// discovered by a consumer.
+fn verify_title_catalog(bytes: &[u8], catalog: &CatalogSource) -> Result<usize> {
+    let text = std::str::from_utf8(bytes).context("title catalog is not valid UTF-8")?;
+    let (header, body) = text.split_once('\n').context("title catalog has no header row")?;
+    let columns: Vec<&str> = header.trim_end_matches('\r').split('\t').collect();
+    let id_column = column_index(&columns, "#id")?;
+    let title_column = column_index(&columns, "title")?;
+
+    let metadata = columns
+        .iter()
+        .find(|column| column.starts_with("metadata:"))
+        .context("title catalog header has no metadata: field")?;
+    let declared_kind = metadata_value(metadata, "kind").context("title catalog metadata must declare kind=")?;
+    if declared_kind != SKIN_KIND {
+        bail!("title catalog declares kind={declared_kind}, expected {SKIN_KIND}");
+    }
+    let identity =
+        metadata_value(metadata, "catalog_identity").context("title catalog metadata must declare catalog_identity=")?;
+    check_sha256(&identity).context("title catalog catalog_identity is not a SHA-256")?;
+    if identity != catalog.identity {
+        bail!(
+            "title catalog is stamped for catalog {identity}, but this catalog is {}. \
+             It would name the wrong cards.",
+            catalog.identity
+        );
+    }
+    metadata_value(metadata, "catalog_snapshot").context("title catalog metadata must declare catalog_snapshot=")?;
+    let declared_rows: usize = metadata_value(metadata, "cards")
+        .context("title catalog metadata must declare cards=")?
+        .parse()
+        .context("title catalog metadata has a non-numeric cards= value")?;
+    let declared_body =
+        metadata_value(metadata, "body_sha256").context("title catalog metadata must declare body_sha256=")?;
+    let actual_body = hex_sha256(body.as_bytes());
+    if actual_body != declared_body {
+        bail!("title catalog body_sha256 mismatch: header declares {declared_body}, body hashes to {actual_body}");
+    }
+
+    let data_columns = columns.len() - 1;
+    let mut ids = Vec::with_capacity(declared_rows);
+    for (offset, line) in body.lines().enumerate() {
+        if line.trim().is_empty() {
+            continue;
+        }
+        let line_number = offset + 2;
+        let fields: Vec<&str> = line.split('\t').collect();
+        if fields.len() != data_columns {
+            bail!("title catalog line {line_number} has {} fields, expected {data_columns}", fields.len());
+        }
+        let id: u32 = fields[id_column]
+            .parse()
+            .with_context(|| format!("title catalog line {line_number} has a non-numeric #id"))?;
+        check_title(id, fields[title_column])?;
+        ids.push(id);
+    }
+
+    if ids.len() != declared_rows {
+        bail!("title catalog has {} rows; its header declares {declared_rows}", ids.len());
+    }
+    if ids.len() != catalog.rows.len() {
+        bail!(
+            "title catalog has {} rows but the catalog has {}. A sparse table would leave IDs unnamed.",
+            ids.len(),
+            catalog.rows.len()
+        );
+    }
+    check_dense(&ids)?;
+    Ok(ids.len())
+}
+
+/// Every ID from 1 to the row count must be present exactly once, in order.
+/// This is the density guarantee: a consumer indexes by catalog ID directly.
+fn check_dense(ids: &[u32]) -> Result<()> {
+    for (offset, id) in ids.iter().enumerate() {
+        let expected = u32::try_from(offset + 1).context("catalog is larger than u32")?;
+        if *id != expected {
+            bail!("table is not dense: expected ID {expected} at row {}, found {id}", offset + 1);
+        }
+    }
+    Ok(())
+}
+
+fn check_title(id: u32, title: &str) -> Result<()> {
+    if title.is_empty() {
+        bail!("catalog ID {id} has a blank title");
+    }
+    if title.contains('\t') || title.contains('\n') || title.contains('\r') {
+        bail!("catalog ID {id} has a title containing a tab or line break");
+    }
+    Ok(())
+}
+
+fn column_index(columns: &[&str], wanted: &str) -> Result<usize> {
+    columns
+        .iter()
+        .position(|column| *column == wanted)
+        .with_context(|| format!("header has no {wanted:?} column"))
+}
+
+/// Read `key=value` out of a whitespace-separated `metadata:` header field.
+fn metadata_value(metadata: &str, key: &str) -> Option<String> {
+    metadata
+        .split_whitespace()
+        .find_map(|token| token.strip_prefix(key)?.strip_prefix('=').map(str::to_owned))
+}
+
+fn check_sha256(value: &str) -> Result<()> {
+    if value.len() != 64 || !value.bytes().all(|byte| byte.is_ascii_hexdigit() && !byte.is_ascii_uppercase()) {
+        bail!("{value:?} is not a lowercase hex SHA-256");
+    }
+    Ok(())
+}
+
+fn hex_sha256(bytes: &[u8]) -> String {
+    Sha256::digest(bytes).iter().map(|byte| format!("{byte:02x}")).collect()
+}
+
+fn write_atomically(output: &Path, bytes: &[u8]) -> Result<()> {
+    if let Some(parent) = output.parent() {
+        fs::create_dir_all(parent).with_context(|| format!("create {}", parent.display()))?;
+    }
+    let temporary = output.with_extension("write-part");
+    fs::write(&temporary, bytes).with_context(|| format!("write {}", temporary.display()))?;
+    fs::rename(&temporary, output).with_context(|| format!("publish {}", output.display()))?;
+    Ok(())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    const ORACLE_A: &str = "12345678-1234-1234-1234-123456789abc";
+    const ORACLE_B: &str = "22345678-1234-1234-1234-123456789abc";
+
+    /// Build a catalog whose header honestly describes its body.
+    fn catalog_bytes(header_columns: &str, body: &str, extra_metadata: &str) -> Vec<u8> {
+        let metadata = format!(
+            "metadata: v=2 snapshot=default_cards@test cards={} body_sha256={}{extra_metadata}",
+            body.lines().filter(|line| !line.trim().is_empty()).count(),
+            hex_sha256(body.as_bytes()),
+        );
+        format!("{header_columns}\t{metadata}\n{body}").into_bytes()
+    }
+
+    fn sample_catalog() -> CatalogSource {
+        let body = format!("1\tAlpha\t{ORACLE_A}\n2\tBeta\t{ORACLE_B}\n");
+        let bytes = catalog_bytes("#id\tname\toracle_id", &body, "");
+        let identity = hex_sha256(&bytes);
+        parse_catalog(&bytes, identity).unwrap()
+    }
+
+    fn sample_titles() -> BTreeMap<Uuid, String> {
+        BTreeMap::from([
+            (ORACLE_A.parse().unwrap(), "Air Elemental".to_owned()),
+            (ORACLE_B.parse().unwrap(), "Ancestral Recall".to_owned()),
+        ])
+    }
+
+    #[test]
+    fn catalog_identity_is_the_hash_of_the_whole_catalog_file() {
+        let body = format!("1\tAlpha\t{ORACLE_A}\n");
+        let bytes = catalog_bytes("#id\tname\toracle_id", &body, "");
+        let parsed = parse_catalog(&bytes, hex_sha256(&bytes)).unwrap();
+        assert_eq!(parsed.identity, hex_sha256(&bytes));
+        assert_eq!(parsed.snapshot, "default_cards@test");
+    }
+
+    /// The load-bearing IP property: titles never come from the catalog. A
+    /// catalog whose `name` column is poisoned still yields Scryfall titles,
+    /// so this generator keeps working once that column is scrubbed away.
+    #[test]
+    fn titles_never_come_from_the_catalog_name_column() {
+        let body = format!("1\tPOISONED\t{ORACLE_A}\n2\tPOISONED\t{ORACLE_B}\n");
+        let bytes = catalog_bytes("#id\tname\toracle_id", &body, "");
+        let catalog = parse_catalog(&bytes, hex_sha256(&bytes)).unwrap();
+        let document = render_title_catalog(&catalog, &sample_titles()).unwrap();
+        let text = String::from_utf8(document).unwrap();
+        assert!(!text.contains("POISONED"), "catalog title column leaked into the output");
+        assert!(text.contains("1\tAir Elemental\n"));
+    }
+
+    /// A catalog with no `name` column at all — the post-scrub shape — must
+    /// still emit a complete table.
+    #[test]
+    fn emits_from_a_title_free_catalog() {
+        let body = format!("1\t{ORACLE_A}\tdigest\n2\t{ORACLE_B}\tdigest\n");
+        let bytes = catalog_bytes("#id\toracle_id\tname_sha256", &body, "");
+        let catalog = parse_catalog(&bytes, hex_sha256(&bytes)).unwrap();
+        let document = render_title_catalog(&catalog, &sample_titles()).unwrap();
+        assert_eq!(verify_title_catalog(&document, &catalog).unwrap(), 2);
+    }
+
+    #[test]
+    fn emitted_header_matches_the_strict_consumer_schema() {
+        let catalog = sample_catalog();
+        let document = render_title_catalog(&catalog, &sample_titles()).unwrap();
+        let text = String::from_utf8(document).unwrap();
+        let header = text.lines().next().unwrap();
+        assert!(header.starts_with("#id\ttitle\tmetadata: v=1 kind=title-only-skin catalog_snapshot=default_cards@test catalog_identity="));
+        assert!(header.contains(&format!("catalog_identity={} cards=2 body_sha256=", catalog.identity)));
+    }
+
+    #[test]
+    fn generation_is_deterministic() {
+        let catalog = sample_catalog();
+        let first = render_title_catalog(&catalog, &sample_titles()).unwrap();
+        let second = render_title_catalog(&catalog, &sample_titles()).unwrap();
+        assert_eq!(first, second);
+    }
+
+    #[test]
+    fn accepts_its_own_output() {
+        let catalog = sample_catalog();
+        let document = render_title_catalog(&catalog, &sample_titles()).unwrap();
+        assert_eq!(verify_title_catalog(&document, &catalog).unwrap(), 2);
+    }
+
+    #[test]
+    fn rejects_an_unstamped_table() {
+        let catalog = sample_catalog();
+        let document = render_title_catalog(&catalog, &sample_titles()).unwrap();
+        let stripped = String::from_utf8(document)
+            .unwrap()
+            .replace(&format!(" catalog_identity={}", catalog.identity), "");
+        let error = verify_title_catalog(stripped.as_bytes(), &catalog).unwrap_err().to_string();
+        assert!(error.contains("catalog_identity"), "unexpected error: {error}");
+    }
+
+    #[test]
+    fn rejects_a_table_stamped_for_a_different_catalog() {
+        let catalog = sample_catalog();
+        let document = render_title_catalog(&catalog, &sample_titles()).unwrap();
+        let wrong = String::from_utf8(document)
+            .unwrap()
+            .replace(&catalog.identity, &"0".repeat(64));
+        let error = verify_title_catalog(wrong.as_bytes(), &catalog).unwrap_err().to_string();
+        assert!(error.contains("name the wrong cards"), "unexpected error: {error}");
+    }
+
+    #[test]
+    fn rejects_a_sparse_table() {
+        let catalog = sample_catalog();
+        let document = render_title_catalog(&catalog, &sample_titles()).unwrap();
+        let text = String::from_utf8(document).unwrap();
+        // Drop the first data row and honestly restate the count and checksum,
+        // so only the density and catalog-coverage checks can reject it.
+        let body = "2\tAncestral Recall\n";
+        let header = text
+            .lines()
+            .next()
+            .unwrap()
+            .replace("cards=2", "cards=1")
+            .replace(
+                &format!("body_sha256={}", hex_sha256("1\tAir Elemental\n2\tAncestral Recall\n".as_bytes())),
+                &format!("body_sha256={}", hex_sha256(body.as_bytes())),
+            );
+        let sparse = format!("{header}\n{body}");
+        let error = verify_title_catalog(sparse.as_bytes(), &catalog).unwrap_err().to_string();
+        assert!(error.contains("sparse") || error.contains("not dense"), "unexpected error: {error}");
+    }
+
+    #[test]
+    fn rejects_a_gap_in_the_id_sequence() {
+        assert!(check_dense(&[1, 2, 4]).is_err());
+        assert!(check_dense(&[2, 3]).is_err());
+        assert!(check_dense(&[1, 2, 3]).is_ok());
+    }
+
+    #[test]
+    fn rejects_a_tampered_body() {
+        let catalog = sample_catalog();
+        let document = render_title_catalog(&catalog, &sample_titles()).unwrap();
+        let tampered = String::from_utf8(document).unwrap().replace("Air Elemental", "Air Elementaz");
+        let error = verify_title_catalog(tampered.as_bytes(), &catalog).unwrap_err().to_string();
+        assert!(error.contains("body_sha256 mismatch"), "unexpected error: {error}");
+    }
+
+    #[test]
+    fn rejects_a_catalog_whose_body_checksum_is_wrong() {
+        let body = format!("1\tAlpha\t{ORACLE_A}\n");
+        let mut bytes = catalog_bytes("#id\tname\toracle_id", &body, "");
+        bytes.extend_from_slice(format!("2\tBeta\t{ORACLE_B}\n").as_bytes());
+        assert!(parse_catalog(&bytes, "0".repeat(64)).is_err());
+    }
+
+    #[test]
+    fn rejects_a_catalog_with_no_metadata_header() {
+        let body = format!("1\tAlpha\t{ORACLE_A}\n");
+        let bytes = format!("#id\tname\toracle_id\n{body}").into_bytes();
+        let error = parse_catalog(&bytes, "0".repeat(64)).unwrap_err().to_string();
+        assert!(error.contains("metadata:"), "unexpected error: {error}");
+    }
+
+    #[test]
+    fn rejects_a_non_dense_catalog() {
+        let body = format!("1\tAlpha\t{ORACLE_A}\n3\tBeta\t{ORACLE_B}\n");
+        let bytes = catalog_bytes("#id\tname\toracle_id", &body, "");
+        assert!(parse_catalog(&bytes, hex_sha256(&bytes)).is_err());
+    }
+
+    #[test]
+    fn rejects_a_blank_or_tabbed_title() {
+        assert!(check_title(1, "").is_err());
+        assert!(check_title(1, "Air\tElemental").is_err());
+        assert!(check_title(1, "Air Elemental").is_ok());
+    }
+
+    #[test]
+    fn metadata_values_are_read_by_exact_key() {
+        let metadata = "metadata: v=1 catalog_snapshot=snap catalog_identity=abc cards=7";
+        assert_eq!(metadata_value(metadata, "cards").as_deref(), Some("7"));
+        assert_eq!(metadata_value(metadata, "catalog_identity").as_deref(), Some("abc"));
+        // `snapshot` must not be satisfied by `catalog_snapshot`.
+        assert_eq!(metadata_value(metadata, "snapshot"), None);
+    }
+}
