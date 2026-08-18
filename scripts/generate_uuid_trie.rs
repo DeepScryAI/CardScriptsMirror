@@ -63,6 +63,11 @@ struct Args {
     /// Ignore a present cache and download the current snapshot.
     #[arg(long)]
     refresh: bool,
+
+    /// Explicit, owner-approved source names to exclude from the generated
+    /// corpus. Any unmapped source not listed here remains fatal.
+    #[arg(long)]
+    exclude_file: Option<PathBuf>,
 }
 
 #[derive(Debug, Serialize)]
@@ -70,6 +75,7 @@ struct GenerationReport {
     source_scripts: usize,
     generated_scripts: usize,
     duplicate_identical_scripts: usize,
+    excluded_scripts: Vec<MappingProblem>,
     missing_mappings: Vec<MappingProblem>,
     ambiguous_mappings: Vec<MappingProblem>,
     conflicting_scripts: Vec<ScriptConflict>,
@@ -294,6 +300,8 @@ fn main() -> Result<()> {
     validate_source(&token_source)?;
     scryfall_bulk::ensure_cache(&args.cache, args.refresh)?;
 
+    let exclusions = load_exclusions(args.exclude_file.as_deref())?;
+
     eprintln!("Parsing Scryfall identities from {}", args.cache.display());
     let index = load_name_index(&args.cache)?;
     eprintln!(
@@ -306,7 +314,7 @@ fn main() -> Result<()> {
 
     let token_index = build_token_index(&token_source)?;
     eprintln!("Loaded {} stable numeric token identities", token_index.len());
-    let report = generate(&args.source, &args.output, &index, &catalog, &token_index)?;
+    let report = generate(&args.source, &args.output, &index, &catalog, &token_index, &exclusions)?;
     generate_tokens(&token_source, &args.token_output, &index, &catalog, &token_index)?;
     write_report(&report)?;
     print_report(&report);
@@ -331,6 +339,48 @@ fn validate_source(source: &Path) -> Result<()> {
         bail!("source is not a directory: {}", source.display());
     }
     Ok(())
+}
+
+fn load_exclusions(path: Option<&Path>) -> Result<BTreeSet<String>> {
+    let Some(path) = path else {
+        return Ok(BTreeSet::new());
+    };
+    let content = fs::read_to_string(path).with_context(|| format!("read exclusion file {}", path.display()))?;
+    let mut names = BTreeSet::new();
+    for (line_number, line) in content.lines().enumerate() {
+        if line.trim().is_empty() || line.starts_with('#') {
+            continue;
+        }
+        let fields: Vec<_> = line.split('\t').collect();
+        if fields.len() < 4 {
+            bail!(
+                "exclusion file {} line {} has fewer than four tab-separated fields",
+                path.display(),
+                line_number + 1
+            );
+        }
+        let name = fields[0].trim();
+        let status = fields[2].trim();
+        if name.is_empty() {
+            bail!(
+                "exclusion file {} line {} has an empty name",
+                path.display(),
+                line_number + 1
+            );
+        }
+        if status != "OWNER_APPROVED_SKIP" {
+            eprintln!(
+                "NOTE: exclusion {} line {} is not active (status={status:?}); it cannot suppress a generation failure",
+                path.display(),
+                line_number + 1
+            );
+            continue;
+        }
+        if !names.insert(name.to_owned()) {
+            bail!("exclusion file {} repeats {name:?}", path.display());
+        }
+    }
+    Ok(names)
 }
 
 fn validate_output_path(output: &Path) -> Result<()> {
@@ -587,6 +637,7 @@ fn generate(
     index: &NameIndex,
     catalog: &CatalogIndex,
     token_index: &BTreeMap<String, TokenScriptId>,
+    exclusions: &BTreeSet<String>,
 ) -> Result<GenerationReport> {
     let sources = source_scripts(source)?;
     let stage = sibling_with_suffix(output, &format!("build-{}", std::process::id()))?;
@@ -599,6 +650,7 @@ fn generate(
         source_scripts: sources.len(),
         generated_scripts: 0,
         duplicate_identical_scripts: 0,
+        excluded_scripts: Vec::new(),
         missing_mappings: Vec::new(),
         ambiguous_mappings: Vec::new(),
         conflicting_scripts: Vec::new(),
@@ -620,6 +672,14 @@ fn generate(
                 continue;
             }
         };
+        if exclusions.contains(&name) {
+            report.excluded_scripts.push(MappingProblem {
+                source: relative_display(source, &source_path),
+                name,
+                oracle_ids: Vec::new(),
+            });
+            continue;
+        }
         let unsupported_variant = top_level_value(&source_text, "Oracle") == Some("<Unsupported Variant>");
         let resolved_scripts = match index.lookup(&name) {
             Some(candidates) => match if unsupported_variant {
@@ -1777,6 +1837,10 @@ fn print_report(report: &GenerationReport) {
         report.missing_mappings.len(),
         report.ambiguous_mappings.len(),
         report.conflicting_scripts.len()
+    );
+    eprintln!(
+        "Explicitly excluded by owner-approved list: {}",
+        report.excluded_scripts.len()
     );
     for problem in report.missing_mappings.iter().take(10) {
         eprintln!(
