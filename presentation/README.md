@@ -58,14 +58,18 @@ rather than from the catalog. Only the header's identity changes.
 If the scrub lands without it, skin loading breaks at that commit and the
 failure will look unrelated to the scrub.
 
-## Known difference from the previously pinned table
+## Byte-identical to the previously pinned table
 
-Catalog ID 31026 is `Mechtitan` here. The older table at mirror commit
-`8610a5039` said `Mechtitan // Mechtitan`. Scryfall's title for that token's
-Oracle identity is `Mechtitan`; the doubled form was an artifact of the earlier
-pipeline. All other 35,306 rows are byte-identical.
+This table matches the previously pinned mirror table at `8610a5039` exactly —
+all 35,307 rows and the header. There is no delta to reason about when
+comparing against pre-scrub output.
 
-This matters for step 1 above: if a test renders catalog ID 31026, its output
-will differ from the pre-scrub build by that one title. Decide deliberately
-whether to accept the corrected title or to pin the legacy string — do not
-discover it as a mystery diff.
+An earlier revision of this branch differed at catalog ID 31026, emitting
+`Mechtitan` where the pinned table said `Mechtitan // Mechtitan`, and this file
+wrongly described the doubled form as an artifact of the older pipeline. It is
+not: it is Scryfall's genuine `reversible_card` name. The generator had been
+joining on Scryfall's top-level `oracle_id` only, and all 81 `reversible_card`
+printings carry a null top-level id with their identity on the faces, so it
+never saw them. Catalog ID 31026 denotes the Secret Lair reversible printing;
+the generator had resolved its Oracle id to an unrelated Neon Dynasty token
+that shares it.
