@@ -75,6 +75,18 @@ struct GenerationReport {
     missing_mappings: Vec<MappingProblem>,
     ambiguous_mappings: Vec<MappingProblem>,
     conflicting_scripts: Vec<ScriptConflict>,
+    /// Reconciliation guard (see `reconcile_identities`): every top-level
+    /// `Name:` identity a source script defines (the front face, plus a
+    /// meld back face when `meld_back_identity` finds one) MUST be passed
+    /// to `index.lookup` at least once — landing it in `generated`,
+    /// `missing_mappings`, or `ambiguous_mappings`. An identity that is
+    /// locally present in the Forge source but was NEVER attempted at all
+    /// lands here instead. Unlike the other three buckets (which reflect
+    /// real Scryfall-coverage gaps and are expected to be non-empty), this
+    /// one reflects the generator itself failing to look at content it
+    /// has — it should always be empty, and `main` aborts unconditionally
+    /// on any non-empty result (see `main`'s explicit reasoning).
+    unaccounted_identities: Vec<MappingProblem>,
 }
 
 #[derive(Debug, Serialize)]
@@ -226,6 +238,25 @@ fn main() -> Result<()> {
     generate_tokens(&token_source, &args.token_output, &index, &catalog, &token_index)?;
     write_report(&report)?;
     print_report(&report);
+
+    // Unconditional, NOT gated by --strict: unlike missing/ambiguous
+    // mappings (which reflect real, expected Scryfall-coverage gaps that
+    // legitimately scale with the size of the card pool and are only worth
+    // failing on when the CALLER explicitly opts in), an unaccounted
+    // identity means the generator itself never even tried to look up a
+    // name it had in hand — a code-coverage bug in the pipeline, not a
+    // data-coverage gap. Its size carries no signal about severity: a
+    // single missed identity today is the same class of defect as a
+    // hundred tomorrow, so this always aborts rather than warning, on ANY
+    // non-empty result. See `GenerationReport::unaccounted_identities`'s
+    // doc comment and `reconcile_identities` for what this catches and why
+    // it is a real check, not a tautology.
+    if !report.unaccounted_identities.is_empty() {
+        bail!(
+            "generation left {} identities completely unaccounted for (present in a Forge source script but never passed to a Scryfall lookup) - see .cache/reports/generate-report.json's unaccounted_identities",
+            report.unaccounted_identities.len()
+        );
+    }
 
     let mapping_problem_count = report.missing_mappings.len() + report.ambiguous_mappings.len();
     if !report.conflicting_scripts.is_empty() {
@@ -516,50 +547,60 @@ fn generate(
         missing_mappings: Vec::new(),
         ambiguous_mappings: Vec::new(),
         conflicting_scripts: Vec::new(),
+        unaccounted_identities: Vec::new(),
     };
     let mut generated: BTreeMap<CardScriptId, (PathBuf, String)> = BTreeMap::new();
     let numeric_name_refs = numeric_name_references(index, catalog);
 
-    for source_path in sources {
-        let source_text =
-            fs::read_to_string(&source_path).with_context(|| format!("read Forge script {}", source_path.display()))?;
-        let name = match source_identity_name(&source_text) {
-            Some(name) => name,
-            None => {
-                report.missing_mappings.push(MappingProblem {
-                    source: relative_display(source, &source_path),
-                    name: "<missing Name field>".to_owned(),
-                    oracle_ids: Vec::new(),
-                });
-                continue;
-            }
-        };
-        let oracle_ids = match index.lookup(&name) {
-            Some(candidates) => match resolve_oracle_ids(&source_text, candidates) {
+    // Every (source file, identity name) pair actually passed to
+    // `index.lookup` below — populated by `resolve_and_generate`. Compared
+    // against `expected_identities` after the main loop by
+    // `reconcile_identities` (see there for why this check exists and what
+    // it would NOT have caught before the meld fix).
+    let mut attempted: BTreeSet<(PathBuf, String)> = BTreeSet::new();
+    // Cached so the reconciliation pass below can recompute, from the SAME
+    // raw text, which identities each file SHOULD have contributed —
+    // independently of whatever the main loop below actually did.
+    let mut source_texts: Vec<(PathBuf, String)> = Vec::with_capacity(sources.len());
+
+    // Resolves ONE (source, name, text) identity through the Scryfall name
+    // index -> Oracle id -> numeric catalog id -> sanitized write pipeline.
+    // Called once per source file for its front identity, and once more
+    // for a meld back identity when `meld_back_identity` finds one (see
+    // `meld_back_identity`'s doc comment for why melds, uniquely among the
+    // multi-`Name:` modes, need a second independent call here).
+    let mut resolve_and_generate = |report: &mut GenerationReport,
+                                     generated: &mut BTreeMap<CardScriptId, (PathBuf, String)>,
+                                     source_path: &Path,
+                                     name: &str,
+                                     text: &str| {
+        attempted.insert((source_path.to_path_buf(), name.to_owned()));
+        let oracle_ids = match index.lookup(name) {
+            Some(candidates) => match resolve_oracle_ids(text, candidates) {
                 Some(ids) => ids,
                 None => {
                     report.ambiguous_mappings.push(MappingProblem {
-                        source: relative_display(source, &source_path),
-                        name: name.clone(),
+                        source: relative_display(source, source_path),
+                        name: name.to_owned(),
                         oracle_ids: candidates.keys().map(|id| id.0.hyphenated().to_string()).collect(),
                     });
-                    continue;
+                    return Ok::<(), anyhow::Error>(());
                 }
             },
             None => {
                 report.missing_mappings.push(MappingProblem {
-                    source: relative_display(source, &source_path),
-                    name: name.clone(),
+                    source: relative_display(source, source_path),
+                    name: name.to_owned(),
                     oracle_ids: Vec::new(),
                 });
-                continue;
+                return Ok(());
             }
         };
         for oracle_id in oracle_ids {
             let Some(card_ids) = catalog.by_oracle_id.get(&oracle_id) else {
                 report.missing_mappings.push(MappingProblem {
-                    source: relative_display(source, &source_path),
-                    name: name.clone(),
+                    source: relative_display(source, source_path),
+                    name: name.to_owned(),
                     oracle_ids: vec![oracle_id.0.hyphenated().to_string()],
                 });
                 continue;
@@ -570,14 +611,8 @@ fn generate(
                     .set_group_by_id
                     .get(&card_id)
                     .expect("catalog index lost anonymous set group");
-                let sanitized = sanitize_script(
-                    &source_text,
-                    card_id,
-                    color_identity,
-                    set_group,
-                    &numeric_name_refs,
-                    token_index,
-                );
+                let sanitized =
+                    sanitize_script(text, card_id, color_identity, set_group, &numeric_name_refs, token_index);
                 if let Some((first_path, first_text)) = generated.get(&card_id) {
                     if first_text == &sanitized {
                         report.duplicate_identical_scripts += 1;
@@ -585,7 +620,7 @@ fn generate(
                         report.conflicting_scripts.push(ScriptConflict {
                             card_id: card_id.0,
                             first_source: relative_display(source, first_path),
-                            second_source: relative_display(source, &source_path),
+                            second_source: relative_display(source, source_path),
                         });
                     }
                     continue;
@@ -596,14 +631,124 @@ fn generate(
                 fs::create_dir_all(parent).with_context(|| format!("create trie directory {}", parent.display()))?;
                 fs::write(&destination, sanitized.as_bytes())
                     .with_context(|| format!("write generated script {}", destination.display()))?;
-                generated.insert(card_id, (source_path.clone(), sanitized));
+                generated.insert(card_id, (source_path.to_path_buf(), sanitized));
                 report.generated_scripts += 1;
             }
         }
+        Ok(())
+    };
+
+    for source_path in sources {
+        let source_text =
+            fs::read_to_string(&source_path).with_context(|| format!("read Forge script {}", source_path.display()))?;
+        let meld_back = meld_back_identity(&source_text);
+        if let Some(name) = source_identity_name(&source_text) {
+            resolve_and_generate(&mut report, &mut generated, &source_path, &name, &source_text)?;
+        } else {
+            report.missing_mappings.push(MappingProblem {
+                source: relative_display(source, &source_path),
+                name: "<missing Name field>".to_owned(),
+                oracle_ids: Vec::new(),
+            });
+        }
+        if let Some((back_name, back_text)) = &meld_back {
+            resolve_and_generate(&mut report, &mut generated, &source_path, back_name, back_text)?;
+        }
+        source_texts.push((source_path, source_text));
     }
+
+    reconcile_identities(source, &source_texts, &attempted, &mut report.unaccounted_identities);
 
     publish_directory(&stage, output)?;
     Ok(report)
+}
+
+/// The reconciliation guard for the meld-back-face hole (see
+/// `GenerationReport::unaccounted_identities`'s doc comment).
+///
+/// Independently re-derives, from the SAME cached raw source text the main
+/// loop in `generate` already read, which (source, name) identity pairs
+/// that loop SHOULD have passed to `index.lookup` — one per source file's
+/// front identity, plus one more wherever `meld_back_identity` finds a
+/// meld back face. This is a genuinely separate check, not a tautology:
+/// the main loop's decision to make a second `resolve_and_generate` call
+/// for a meld back is one piece of code; this function's decision to
+/// EXPECT that second call is a different piece of code that happens to
+/// call the same pure helper. If a future change ever lets those two
+/// pieces of code drift apart — the loop stops making the second call
+/// while this still expects it, or vice versa — this reports the
+/// divergence with exact (source, name) pairs, not just a bare count.
+///
+/// Before the meld fix landed, running this against the unfixed loop (only
+/// ever making ONE `resolve_and_generate` call per source file) reported
+/// exactly the 7 meld back identities documented in
+/// `ai_docs/transient/NUMERIC_CORPUS_SWAP_20260819.md` section 8 as
+/// unaccounted for.
+fn reconcile_identities(
+    source_root: &Path,
+    source_texts: &[(PathBuf, String)],
+    attempted: &BTreeSet<(PathBuf, String)>,
+    unaccounted: &mut Vec<MappingProblem>,
+) {
+    for (source_path, text) in source_texts {
+        let mut expected_names: Vec<String> = Vec::with_capacity(2);
+        if let Some(name) = source_identity_name(text) {
+            expected_names.push(name);
+        }
+        if let Some((back_name, _)) = meld_back_identity(text) {
+            expected_names.push(back_name);
+        }
+        for name in expected_names {
+            if !attempted.contains(&(source_path.clone(), name.clone())) {
+                unaccounted.push(MappingProblem {
+                    source: relative_display(source_root, source_path),
+                    name,
+                    oracle_ids: Vec::new(),
+                });
+            }
+        }
+    }
+}
+
+/// For an `AlternateMode:Meld` script whose `ALTERNATE` block defines its
+/// own back-face card (a distinct `Name:` line after the literal
+/// `ALTERNATE` marker line), returns `(back_name, back_script_text)` so the
+/// back can be independently resolved and generated under its OWN numeric
+/// id.
+///
+/// Meld's front and back are DIFFERENT Oracle identities in Scryfall's own
+/// data (confirmed: Gisela, the Broken Blade and Brisela, Voice of
+/// Nightmares carry distinct `oracle_id`s) — unlike `Split` (one combined
+/// name IS one shared Oracle identity, correctly handled by
+/// `source_identity_name`'s existing join) or a transforming/modal
+/// double-faced card (both faces share ONE Oracle identity, and Scryfall's
+/// own face index means looking up the FRONT name alone already resolves
+/// the shared identity correctly). A meld back is not reachable through
+/// either of those paths: nothing in Scryfall's data links Brisela to
+/// Gisela by name or face, so if nothing independently looks Brisela up by
+/// her OWN name, she is never attempted at all — not missing, not
+/// ambiguous, just never tried. Returns `None` for every other file,
+/// including a meld pair's OTHER front half, whose own `AlternateMode:Meld`
+/// marker is present but which only REFERENCES the back by name (via
+/// `SVar:Meld:...Name$ <back>`), never redefines it.
+fn meld_back_identity(script: &str) -> Option<(String, String)> {
+    let is_meld = script.lines().any(|line| {
+        line.split_once(':')
+            .map(|(key, value)| key.trim() == "AlternateMode" && value.trim() == "Meld")
+            .unwrap_or(false)
+    });
+    if !is_meld {
+        return None;
+    }
+    let mut lines = script.lines();
+    for line in lines.by_ref() {
+        if line.trim() == "ALTERNATE" {
+            break;
+        }
+    }
+    let back_text: String = lines.collect::<Vec<_>>().join("\n");
+    let back_name = top_level_value(&back_text, "Name")?.trim().to_owned();
+    Some((back_name, back_text))
 }
 
 fn source_scripts(root: &Path) -> Result<Vec<PathBuf>> {
@@ -1418,11 +1563,24 @@ fn print_report(report: &GenerationReport) {
         report.generated_scripts, report.source_scripts, report.duplicate_identical_scripts
     );
     eprintln!(
-        "Unmapped: {}; ambiguous: {}; conflicting numeric scripts: {}",
+        "Unmapped: {}; ambiguous: {}; conflicting numeric scripts: {}; UNACCOUNTED: {}",
         report.missing_mappings.len(),
         report.ambiguous_mappings.len(),
-        report.conflicting_scripts.len()
+        report.conflicting_scripts.len(),
+        report.unaccounted_identities.len()
     );
+    for problem in report.unaccounted_identities.iter().take(10) {
+        eprintln!(
+            "FAIL: {} ({}) was never looked up at all - present in the Forge source, no Scryfall lookup attempted",
+            problem.source, problem.name
+        );
+    }
+    if report.unaccounted_identities.len() > 10 {
+        eprintln!(
+            "FAIL: {} additional unaccounted identities are recorded in .cache/reports/generate-report.json",
+            report.unaccounted_identities.len() - 10
+        );
+    }
     for problem in report.missing_mappings.iter().take(10) {
         eprintln!(
             "WARNING: no Scryfall oracle_id for {} ({})",
@@ -1723,5 +1881,81 @@ mod tests {
             source_identity_name(script).as_deref(),
             Some("Fixture Qzx Front // Fixture Qzx Back")
         );
+    }
+
+    /// Regression test for the meld-back-face hole (NUMERIC_CORPUS_SWAP_
+    /// 20260819.md section 8): a meld's front and back are DIFFERENT Oracle
+    /// identities (unlike Split or a transforming double-faced card), so
+    /// the back face defined in an `ALTERNATE` block must be independently
+    /// extractable for its own Scryfall lookup.
+    #[test]
+    fn meld_back_identity_extracts_the_back_face_from_an_alternate_block() {
+        let script = "Name:Fixture Front\nManaCost:2 W\nTypes:Creature\nAlternateMode:Meld\nOracle:Front rules text.\n\nALTERNATE\n\nName:Fixture Back\nManaCost:no cost\nTypes:Creature\nOracle:Back rules text.\n";
+        let (back_name, back_text) = meld_back_identity(script).expect("meld back identity");
+        assert_eq!(back_name, "Fixture Back");
+        assert!(back_text.contains("Types:Creature"));
+        assert!(back_text.contains("Oracle:Back rules text."));
+        // The front half must not leak into the extracted back text.
+        assert!(!back_text.contains("Fixture Front"));
+    }
+
+    /// The OTHER creature in a meld pair also carries `AlternateMode:Meld`,
+    /// but only REFERENCES the back face by name (via `SVar:Meld:...
+    /// Name$ <back>`); it does not redefine it, so there is nothing to
+    /// extract from this half.
+    #[test]
+    fn meld_back_identity_is_none_for_a_melds_other_front_half() {
+        let script = "Name:Fixture Other Front\nManaCost:1 W\nTypes:Creature\nSVar:Meld:DB$ Meld | Name$ Fixture Back | Primary$ Fixture Front | Secondary$ Fixture Other Front\nAlternateMode:Meld\nOracle:Other front rules text.\n";
+        assert_eq!(meld_back_identity(script), None);
+    }
+
+    /// A transforming double-faced card also has an `ALTERNATE` block with
+    /// its own `Name:` line, but shares ONE Oracle identity with its front
+    /// face (unlike Meld) and is already correctly resolved through
+    /// Scryfall's own face index when the front name alone is looked up —
+    /// it must NOT be treated as a second independent identity.
+    #[test]
+    fn meld_back_identity_is_none_for_non_meld_alternate_modes() {
+        let script = "Name:Fixture DFC Front\nManaCost:2 U\nTypes:Creature\nAlternateMode:DoubleFaced\nOracle:Front rules text.\n\nALTERNATE\n\nName:Fixture DFC Back\nManaCost:no cost\nTypes:Creature\nOracle:Back rules text.\n";
+        assert_eq!(meld_back_identity(script), None);
+    }
+
+    /// Proves the reconciliation check actually works, per the same
+    /// "mutate what it guards" standard `puzzle-testing`/CI conventions use
+    /// elsewhere in this project: simulates the EXACT pre-fix bug (a meld
+    /// source file defines two identities, but only the front was ever
+    /// passed to `index.lookup`, recorded in `attempted`) and confirms
+    /// `reconcile_identities` reports the back as unaccounted. Then
+    /// confirms the same input reports nothing once both identities are
+    /// present in `attempted`, matching what `generate`'s fixed main loop
+    /// now produces. Before the meld fix landed, this exact "front only"
+    /// `attempted` shape is what `generate`'s loop produced for every one
+    /// of the 7 meld-back identities documented in
+    /// `ai_docs/transient/NUMERIC_CORPUS_SWAP_20260819.md` section 8.
+    #[test]
+    fn reconcile_identities_flags_an_identity_that_was_never_attempted() {
+        let source_root = Path::new("cardsfolder");
+        let source_path = source_root.join("g/gisela_fixture.txt");
+        let text = "Name:Fixture Front\nManaCost:2 W\nTypes:Creature\nAlternateMode:Meld\nOracle:Front rules text.\n\nALTERNATE\n\nName:Fixture Back\nManaCost:no cost\nTypes:Creature\nOracle:Back rules text.\n".to_owned();
+        let source_texts = vec![(source_path.clone(), text)];
+
+        // The BROKEN state: only the front identity was ever attempted.
+        let attempted_broken: BTreeSet<(PathBuf, String)> =
+            [(source_path.clone(), "Fixture Front".to_owned())].into_iter().collect();
+        let mut unaccounted = Vec::new();
+        reconcile_identities(source_root, &source_texts, &attempted_broken, &mut unaccounted);
+        assert_eq!(unaccounted.len(), 1, "the meld back identity must be reported as unaccounted");
+        assert_eq!(unaccounted[0].name, "Fixture Back");
+
+        // The FIXED state: both identities were attempted.
+        let attempted_fixed: BTreeSet<(PathBuf, String)> = [
+            (source_path.clone(), "Fixture Front".to_owned()),
+            (source_path.clone(), "Fixture Back".to_owned()),
+        ]
+        .into_iter()
+        .collect();
+        let mut unaccounted_fixed = Vec::new();
+        reconcile_identities(source_root, &source_texts, &attempted_fixed, &mut unaccounted_fixed);
+        assert!(unaccounted_fixed.is_empty(), "both identities attempted -> nothing unaccounted");
     }
 }
