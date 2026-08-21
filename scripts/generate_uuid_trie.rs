@@ -1005,29 +1005,124 @@ fn numeric_name_references(index: &NameIndex, catalog: &CatalogIndex) -> Vec<(St
     references
 }
 
-fn replace_named_qualifiers(line: &str, references: &[(String, CardScriptId)]) -> String {
-    let mut output = String::with_capacity(line.len());
-    let mut remaining = line;
-    while let Some(offset) = remaining.find("named") {
-        output.push_str(&remaining[..offset]);
-        let after_marker = &remaining[offset + "named".len()..];
-        let after_name_marker = after_marker.trim_start();
-        let replacement = references.iter().find(|(name, _)| {
-            after_name_marker.strip_prefix(name).is_some_and(|tail| {
-                tail.chars().next().is_none_or(|next| {
-                    next.is_whitespace() || matches!(next, '.' | '+' | ',' | '/' | '$' | '>' | ')' | ';')
-                })
-            })
-        });
-        if let Some((name, card_id)) = replacement {
-            output.push_str(&format!("catalogId{}", card_id.0));
-            remaining = &after_name_marker[name.len()..];
-        } else {
-            output.push_str("named");
-            remaining = after_marker;
+
+fn match_token_title<'a>(text: &'a str, token_key: &str) -> Option<&'a str> {
+    let mut text_cursor = 0;
+    let mut key_cursor = 0;
+    let text_bytes = text.as_bytes();
+    let key_bytes = token_key.as_bytes();
+    
+    while key_cursor < key_bytes.len() && text_cursor < text_bytes.len() {
+        let mut t_c = text_bytes[text_cursor].to_ascii_lowercase();
+        if t_c == b'\'' {
+            text_cursor += 1;
+            continue;
+        }
+        if t_c == b' ' || t_c == b'-' || t_c == b',' {
+            t_c = b'_';
+        }
+        if t_c != key_bytes[key_cursor] {
+            return None;
+        }
+        text_cursor += 1;
+        key_cursor += 1;
+    }
+    if key_cursor == key_bytes.len() {
+        let tail = &text[text_cursor..];
+        if tail.chars().next().is_none_or(|next| {
+            next.is_whitespace() || matches!(next, '.' | '+' | ',' | '/' | '$' | '>' | ')' | ';' | '|' | ']' | '-' | ':')
+        }) {
+            return Some(&text[..text_cursor]);
         }
     }
-    output.push_str(remaining);
+    None
+}
+
+fn replace_named_qualifiers(line: &str, references: &[(String, CardScriptId)], token_index: &std::collections::BTreeMap<String, TokenScriptId>) -> String {
+    let mut output = String::with_capacity(line.len());
+    let mut cursor = 0;
+    let bytes = line.as_bytes();
+
+    while let Some(relative) = line[cursor..].find("named") {
+        let named_start = cursor + relative;
+        let named_end = named_start + 5; // "named".len()
+
+        let mut is_structured = false;
+        let mut is_negated = false;
+        let mut is_creatures_named = false;
+        
+        let mut replace_start = named_start;
+
+        if named_start >= 1 && (bytes[named_start - 1] == b'.' || bytes[named_start - 1] == b'+') {
+            is_structured = true;
+        } else if named_start >= 2 && bytes[named_start - 1] == b'!' && (bytes[named_start - 2] == b'.' || bytes[named_start - 2] == b'+') {
+            is_structured = true;
+            is_negated = true;
+            replace_start = named_start - 1; // start replacement at '!'
+        } else if named_start >= 10 && &bytes[named_start - 10..named_start] == b"creatures " {
+            is_structured = true;
+            is_creatures_named = true;
+            replace_start = named_start - 10; // start replacement at 'c'
+        }
+
+        if !is_structured {
+            output.push_str(&line[cursor..named_end]);
+            cursor = named_end;
+            continue;
+        }
+
+        let after_marker = &line[named_end..];
+        let after_name_marker = after_marker.trim_start();
+
+        let mut matched_title = None;
+        
+
+        // Try to match Card titles first
+        for (name, id) in references.iter() {
+            if let Some(tail) = after_name_marker.strip_prefix(name) {
+                if tail.chars().next().is_none_or(|next| {
+                    next.is_whitespace() || matches!(next, '.' | '+' | ',' | '/' | '$' | '>' | ')' | ';' | '|' | ']' | ':')
+                }) {
+                    matched_title = Some((name.len(), format!("catalogId{}", id.0)));
+                    break;
+                }
+            }
+        }
+
+        // Try to match Token titles if no Card title matched
+        if matched_title.is_none() {
+            let mut longest_token_match = None;
+            for (name, id) in token_index.iter() {
+                if let Some(matched_str) = match_token_title(after_name_marker, name) {
+                    if longest_token_match.as_ref().map_or(true, |(len, _)| matched_str.len() > *len) {
+                        longest_token_match = Some((matched_str.len(), format!("tokenId{}", id.0)));
+                    }
+                }
+            }
+            if let Some(longest) = longest_token_match {
+                matched_title = Some(longest);
+            }
+        }
+
+        if let Some((name_len, id_str)) = matched_title {
+            output.push_str(&line[cursor..replace_start]);
+            if is_creatures_named {
+                output.push_str("creatures ");
+                output.push_str(&id_str);
+            } else if is_negated {
+                output.push_str("!");
+                output.push_str(&id_str);
+            } else {
+                output.push_str(&id_str);
+            }
+            let spaces_len = after_marker.len() - after_name_marker.len();
+            cursor = named_end + spaces_len + name_len;
+        } else {
+            output.push_str(&line[cursor..named_end]);
+            cursor = named_end;
+        }
+    }
+    output.push_str(&line[cursor..]);
     output
 }
 
@@ -1428,7 +1523,7 @@ fn sanitize_runtime_line(
     runtime_names: &[String],
     owner_id: Option<CardScriptId>,
 ) -> String {
-    let numeric = replace_named_qualifiers(line, numeric_name_refs);
+    let numeric = replace_named_qualifiers(line, numeric_name_refs, token_index);
     let numeric = rewrite_card_reference_parameters(&numeric, numeric_name_refs);
     let numeric = rewrite_token_script_parameters(&numeric, token_index);
     let numeric = anonymize_runtime_object_names(&numeric, runtime_names);
@@ -1653,9 +1748,38 @@ mod tests {
         assert_eq!(
             replace_named_qualifiers(
                 "S:Mode$ Continuous | Affected$ Creature.namedFixture Qzx One+YouCtrl",
-                &references
+                &references,
+                &std::collections::BTreeMap::new(),
             ),
             "S:Mode$ Continuous | Affected$ Creature.catalogId145+YouCtrl"
+        );
+    }
+
+
+    #[test]
+    fn parses_structured_negated_and_prose_named_qualifiers() {
+        let references = vec![
+            ("Fixture Qzx One".to_owned(), CardScriptId(145)),
+            ("Worldgorger Dragon".to_owned(), CardScriptId(5780)),
+        ];
+        let mut tokens = std::collections::BTreeMap::new();
+        tokens.insert("wolves_of_the_hunt".to_owned(), TokenScriptId(999));
+        
+        assert_eq!(
+            replace_named_qualifiers(
+                "Creature.YouCtrl+nonArtifact+!namedFixture Qzx One",
+                &references,
+                &tokens
+            ),
+            "Creature.YouCtrl+nonArtifact+!catalogId145"
+        );
+        assert_eq!(
+            replace_named_qualifiers(
+                "ValidCard$ creatures named Wolves of the Hunt",
+                &references,
+                &tokens
+            ),
+            "ValidCard$ creatures tokenId999"
         );
     }
 
