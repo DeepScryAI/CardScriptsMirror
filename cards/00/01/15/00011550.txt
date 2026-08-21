@@ -1,8 +1,16 @@
 Id:11550
-ColorIdentity:
+ColorIdentity:G
 OriginSet:Gc046eafa1d269dd1
-ManaCost:3
-Types:Artifact Creature Soldier
-PT:2/2
-S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ Protection:EachColor | Condition$ Metalcraft
-SVar:BuffedBy:Artifact
+ManaCost:5 G G
+Types:Creature Wurm
+PT:7/7
+T:Mode$ AttackerBlockedByCreature | ValidCard$ Creature | ValidBlocker$ Card.Self | Execute$ TrigDestroyBlocked
+T:Mode$ AttackerBlockedByCreature | ValidCard$ Card.Self | ValidBlocker$ Creature | Execute$ TrigDestroyBlocker | Secondary$ True
+SVar:TrigDestroyBlocked:DB$ Destroy | Defined$ TriggeredAttackerLKICopy | SubAbility$ DBGainLifeBlocked
+SVar:TrigDestroyBlocker:DB$ Destroy | Defined$ TriggeredBlockerLKICopy | SubAbility$ DBGainLifeBlocker
+SVar:DBGainLifeBlocked:DB$ GainLife | Defined$ You | LifeAmount$ X
+SVar:DBGainLifeBlocker:DB$ GainLife | Defined$ You | LifeAmount$ Y
+SVar:X:TriggeredAttacker$CardToughness
+SVar:Y:TriggeredBlocker$CardToughness
+SVar:HasCombatEffect:TRUE
+SVar:HasBlockEffect:TRUE

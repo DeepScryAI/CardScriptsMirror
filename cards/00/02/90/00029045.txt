@@ -1,13 +1,13 @@
 Id:29045
-ColorIdentity:B
-OriginSet:G27146c70b74a1e72
-ManaCost:1 B
-Types:Creature Snake Horse Mount
-PT:2/2
-T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigDig
-SVar:TrigDig:DB$ Dig | DigNum$ 1 | Reveal$ True | ChangeNum$ All | ChangeValid$ Card | DestinationZone$ Hand | RememberChanged$ True | SubAbility$ DBLose
-SVar:DBLose:DB$ LoseLife | LifeAmount$ X | ConditionDefined$ Self | ConditionPresent$ Card.IsSaddled | ConditionCompare$ EQ0 | SubAbility$ DBLoseLifeOpponents
-SVar:DBLoseLifeOpponents:DB$ LoseLife | Defined$ Opponent | ConditionDefined$ Self | ConditionPresent$ Card.IsSaddled | LifeAmount$ X | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Remembered$CardManaCost
-K:Saddle:3
+ColorIdentity:W
+OriginSet:Gaf7c94f364052cdd
+ManaCost:3 W
+Types:Legendary Creature Human Citizen
+PT:3/4
+T:Mode$ DamageDoneOnce | ValidSource$ Creature.YouCtrl | TriggerZones$ Battlefield | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ QUEST | CounterNum$ 1 | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 134855612
+T:Mode$ Sacrificed | ValidPlayer$ You | ValidCard$ Food | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.YouCtrl | NumAtt$ +X | NumDef$ +X
+SVar:X:Count$CardCounters.QUEST
+SVar:AICounterOverrideQUEST:Positive

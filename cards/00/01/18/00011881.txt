@@ -1,15 +1,15 @@
 Id:11881
-ColorIdentity:R
+ColorIdentity:B
 OriginSet:G43171707a7efd07b
-ManaCost:4 R R R
-Types:Creature Phyrexian Giant
-PT:5/5
-T:Mode$ ChangesZone | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ EffMassToken
-SVar:EffMassToken:DB$ Token | TokenAmount$ X | TokenOwner$ You | TokenScriptIds$ 762342624
-SVar:X:Count$Valid Creature.YouCtrl
+ManaCost:4 B B B
+Types:Creature Phyrexian Vampire
+PT:6/6
 K:MayEffectFromOpeningHand:RevealCard
-SVar:RevealCard:DB$ Reveal | RevealDefined$ Self | SubAbility$ TokenOnUpkeep
-SVar:TokenOnUpkeep:DB$ Effect | Triggers$ TrigToken
-SVar:TrigToken:Mode$ Phase | Phase$ Upkeep | Execute$ EffToken | OneOff$ True
-SVar:EffToken:DB$ Token | TokenOwner$ You | TokenScriptIds$ 762342624
-SVar:PlayMain1:TRUE
+K:Flying
+K:Lifelink
+SVar:RevealCard:DB$ Reveal | RevealDefined$ Self | SubAbility$ DrainOnUpkeep
+SVar:DrainOnUpkeep:DB$ Effect | Triggers$ TrigDrain
+SVar:TrigDrain:Mode$ Phase | Phase$ Upkeep | Execute$ DrainLife | OneOff$ True
+SVar:DrainLife:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 3 | SubAbility$ GainLife
+SVar:GainLife:DB$ GainLife | Defined$ You | LifeAmount$ AFLifeLost
+SVar:AFLifeLost:Number$0

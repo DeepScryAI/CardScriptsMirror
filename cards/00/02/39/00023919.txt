@@ -1,11 +1,9 @@
 Id:23919
-ColorIdentity:B
-OriginSet:Gfdfe2ebef04be34e
-ManaCost:2 B
-Types:Creature Ogre Warrior
-PT:6/4
-K:Menace
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Untap | Defined$ Self | UnlessCost$ Draw<1/Player.Activator> | UnlessPayer$ DefendingPlayer | UnlessSwitched$ True | UnlessResolveSubs$ WhenPaid | SubAbility$ RemCombat
-SVar:RemCombat:DB$ RemoveFromCombat | Defined$ Self
-SVar:HasAttackEffect:TRUE
+ColorIdentity:U
+OriginSet:G5f5d8cfb206e2fac
+ManaCost:3 U
+Types:Instant
+T:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigCopy
+SVar:TrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | Amount$ X | MayChooseTarget$ True
+SVar:X:Count$DifferentCounterKinds_Permanent.YouCtrl
+A:SP$ ChangeZone | Origin$ Battlefield | Destination$ Hand | ValidTgts$ Permanent.nonLand

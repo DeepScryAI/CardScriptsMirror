@@ -1,10 +1,19 @@
 Id:15923
-ColorIdentity:G
+ColorIdentity:U
 OriginSet:G92026fbb3573fda5
-ManaCost:2 G
-Types:Creature Human Scout
-PT:3/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigInvestigate
-SVar:TrigInvestigate:DB$ Investigate
-T:Mode$ Sacrificed | ValidCard$ Clue.YouCtrl | Execute$ TrigPutCounter | TriggerZones$ Battlefield
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+ManaCost:1 U
+Types:Creature Horror
+PT:0/4
+K:Defender
+K:etbCounter:ICE:4
+T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigRemoveCounter
+SVar:TrigRemoveCounter:DB$ RemoveCounter | Defined$ Self | CounterType$ ICE | CounterNum$ 1 | SubAbility$ DBTransform
+SVar:DBTransform:DB$ SetState | Defined$ Self | ConditionPresent$ Card.Self+counters_EQ0_ICE | Mode$ Transform
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:blue
+Types:Creature Kraken Horror
+PT:7/8
+T:Mode$ Transformed | ValidCard$ Card.Self | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZoneAll | ChangeType$ Creature.nonHorror | Origin$ Battlefield | Destination$ Hand

@@ -1,12 +1,10 @@
 Id:8084
-ColorIdentity:B
+ColorIdentity:R
 OriginSet:Gc563c209d627c4c5
-ManaCost:3 B
-Types:Enchantment Aura
-PT:2/2
-K:Enchant:Creature
-SVar:AttachAILogic:Pump
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDiscard
-A:AB$ Regenerate | Cost$ B | Defined$ Enchanted
-SVar:TrigDiscard:DB$ Discard | ValidTgts$ Player | NumCards$ 2 | Mode$ TgtChoose
-SVar:NonStackingAttachEffect:True
+ManaCost:2 R
+Types:Creature Human Shaman
+PT:1/1
+T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice | SacValid$ Land.untapped | Defined$ TriggeredPlayer
+S:Mode$ Continuous | Affected$ Land | AddSVar$ AITap
+SVar:AITap:SVar:AITapDown:True

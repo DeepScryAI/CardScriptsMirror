@@ -1,15 +1,10 @@
 Id:28359
 ColorIdentity:R
-OriginSet:G94329e6b3f93276f
-ManaCost:3 R R
-Types:Sorcery
-A:SP$ GenericChoice | Defined$ Opponent | TempRemember$ Chooser | Secretly$ True | Choices$ Silence,Snitch | SubAbility$ DBSilenceBranch
-SVar:Silence:DB$ Pump | Defined$ Remembered | NoteCards$ Self | NoteCardsFor$ Silence
-SVar:Snitch:DB$ Pump | Defined$ Remembered | NoteCards$ Self | NoteCardsFor$ Snitch
-SVar:DBSilenceBranch:DB$ Branch | BranchConditionSVar$ PlayerCountOpponents$HasPropertyNotedForSilence | BranchConditionSVarCompare$ EQPlayerCountOpponents$Amount | TrueSubAbility$ Damage4 | FalseSubAbility$ DBSnitchBranch
-SVar:DBSnitchBranch:DB$ Branch | BranchConditionSVar$ PlayerCountOpponents$HasPropertyNotedForSnitch | BranchConditionSVarCompare$ EQPlayerCountOpponents$Amount | TrueSubAbility$ Damage8 | FalseSubAbility$ Damage12
-SVar:Damage4:DB$ DealDamage | Defined$ Opponent | NumDmg$ 4 | SubAbility$ DBCleanup
-SVar:Damage8:DB$ DealDamage | Defined$ Opponent | NumDmg$ 8 | SubAbility$ DBCleanup
-SVar:Damage12:DB$ DealDamage | Defined$ Opponent.NotedForSilence | NumDmg$ 12 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Pump | Defined$ Player | ClearNotedCardsFor$ Silence,Snitch
-K:Flashback:5 R R
+OriginSet:Gfd50577710a6ab09
+ManaCost:4 R R
+Types:Creature Dinosaur
+PT:7/6
+K:Trample
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDiscover
+SVar:TrigDiscover:DB$ Discover | Num$ 5
+A:AB$ DealDamage | Cost$ 2 R Discard<1/CARDNAME> | ActivationZone$ Hand | NumDmg$ 3 | ValidTgts$ Creature,Planeswalker

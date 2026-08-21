@@ -1,11 +1,11 @@
 Id:32586
-ColorIdentity:UR
-OriginSet:G7ab4f62d323b0ca7
-ManaCost:1 U R
-Types:Legendary Creature Wizard
-PT:0/3
-A:AB$ Mana | Cost$ T | Produced$ Combo U R | Amount$ X
-SVar:X:Count$CardPower
-T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBDamage
-SVar:DBDamage:DB$ DealDamage | Defined$ Opponent | NumDmg$ 1
+ColorIdentity:UBR
+OriginSet:G66b3a7eeabd9000e
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+T:Mode$ ChangesZone | Origin$ Graveyard | Destination$ Battlefield | TriggerZones$ Battlefield | ValidCard$ Card.Self | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ 2
+A:AB$ Mana | Cost$ T | Produced$ Combo U B R
+K:Mayhem

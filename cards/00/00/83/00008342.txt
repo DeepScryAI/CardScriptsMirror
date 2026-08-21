@@ -1,10 +1,10 @@
 Id:8342
-ColorIdentity:B
+ColorIdentity:R
 OriginSet:Gde6d8130c178f566
-ManaCost:1 B
-Types:Sorcery
-A:SP$ Reveal | RememberRevealed$ True | Defined$ You | SubAbility$ DBChangeZone | ConditionCheckSVar$ X
-SVar:DBChangeZone:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Remembered.sameName | ChangeNum$ 1 | ConditionCheckSVar$ X | SubAbility$ DBChangeZone2
-SVar:DBChangeZone2:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Card | ChangeNum$ 1 | Mandatory$ True | ConditionCheckSVar$ X | ConditionSVarCompare$ LT1 | SubAbility$ DBCleanup
+ManaCost:1 R
+Types:Instant
+A:SP$ ChangeZoneAll | ChangeType$ Card.YouCtrl | Origin$ Hand | Destination$ Exile | ExileFaceDown$ True | RememberChanged$ True | SubAbility$ DelayedReturn
+SVar:DelayedReturn:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ ReturnAll | RememberObjects$ RememberedLKI | SubAbility$ DBCleanup
+SVar:ReturnAll:DB$ ChangeZone | Origin$ Exile | Destination$ Hand | Defined$ DelayTriggerRememberedLKI | SubAbility$ YouDraw
+SVar:YouDraw:DB$ Draw | Defined$ You | NumCards$ 1
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$ValidHand Card.YouOwn

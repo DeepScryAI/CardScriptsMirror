@@ -1,9 +1,10 @@
 Id:5024
 ColorIdentity:WUG
 OriginSet:G9e6cd9ac1f7f4832
-ManaCost:no cost
-Types:Land Lair
-A:AB$ Mana | Cost$ T | Produced$ Combo G W U
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSacUnless
-SVar:TrigSacUnless:DB$ Sacrifice | UnlessCost$ Return<1/Land.nonLair/non-Lair land> | UnlessPayer$ You
-SVar:NeedsToPlay:Land.nonLair+YouCtrl
+ManaCost:G W U
+Types:Instant
+A:SP$ Charm | Choices$ DBDestroy,DBChangeZone,DBDraw
+SVar:DBDestroy:DB$ Destroy | ValidTgts$ Enchantment
+SVar:DBChangeZone:DB$ ChangeZone | ValidTgts$ Creature.attacking | Origin$ Battlefield | Destination$ Exile
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1 | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ TgtChoose

@@ -1,10 +1,11 @@
 Id:28465
-ColorIdentity:WU
-OriginSet:G7ee0e82a2424d636
-ManaCost:1 W W U U
-Types:Legendary Creature Archon Detective
-PT:5/5
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigInvestigate
-SVar:TrigInvestigate:DB$ Investigate | Num$ 2
-A:AB$ Pump | Cost$ 1 Sac<1/Artifact> | Defined$ Self | KWChoice$ Vigilance,Lifelink,Hexproof
+ColorIdentity:U
+OriginSet:G94329e6b3f93276f
+ManaCost:1 U U
+Types:Enchantment Case
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigSurveil
+SVar:TrigSurveil:DB$ Surveil
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | IsPresent$ Card.YouOwn | PresentCompare$ GE15 | PresentZone$ Graveyard | IsPresent2$ Card.Self+!IsSolved | Execute$ Solved
+SVar:Solved:DB$ AlterAttribute | Defined$ Self | Attributes$ Solved
+T:Mode$ SpellCast | ValidCard$ Creature.nonLegendary | IsPresent$ Card.Self+IsSolved | ValidActivatingPlayer$ You | Execute$ TrigCopySpell | TriggerZones$ Battlefield
+SVar:TrigCopySpell:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility

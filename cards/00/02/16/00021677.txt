@@ -1,14 +1,10 @@
 Id:21677
-ColorIdentity:BG
+ColorIdentity:BR
 OriginSet:G18bf722b221724f8
-ManaCost:1 B G
-Types:Legendary Creature Wolf
-PT:3/3
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Permanent.OppCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | CheckSVar$ X | Execute$ TrigRemoveAll | TriggerZones$ Battlefield | OptionalDecider$ You
-SVar:TrigRemoveAll:DB$ RemoveCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ All | RememberAmount$ True | SubAbility$ DBChangeZoneAll
-SVar:DBChangeZoneAll:DB$ ChangeZoneAll | Origin$ Battlefield | Destination$ Exile | ChangeType$ Permanent.nonLand+Other+cmcLEY | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$CardCounters.P1P1
-SVar:Y:Count$RememberedNumber
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ B
+A:AB$ DealDamage | Cost$ 1 B R R T Sac<1/CARDNAME> | ValidTgts$ Player | NumDmg$ 3 | SubAbility$ DBDiscard | SorcerySpeed$ True
+SVar:DBDiscard:DB$ Discard | Defined$ TargetedPlayer | NumCards$ 1 | Mode$ TgtChoose

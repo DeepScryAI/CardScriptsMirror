@@ -1,8 +1,11 @@
 Id:9424
-ColorIdentity:G
+ColorIdentity:R
 OriginSet:G1ddd2c86a9ea60e3
-ManaCost:1 G
-Types:Instant
-A:SP$ Destroy | ValidTgts$ Enchantment | SubAbility$ DBClash
-SVar:DBClash:DB$ Clash | WinSubAbility$ DBDestroyAll
-SVar:DBDestroyAll:DB$ DestroyAll | ValidCards$ Enchantment.OppCtrl
+ManaCost:no cost
+Types:Land
+K:Hideaway:4
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ R
+A:AB$ Play | Cost$ R T | Defined$ ExiledWith | Amount$ All | Controller$ You | WithoutManaCost$ True | Optional$ True | ConditionCheckSVar$ X | ConditionSVarCompare$ GE7
+SVar:X:Count$MaxOppDamageThisTurn

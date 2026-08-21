@@ -1,13 +1,11 @@
 Id:23309
 ColorIdentity:G
-OriginSet:Gbe3783f336562357
+OriginSet:G6e75ff4f143a3dc3
 ManaCost:1 G
-Types:Creature Human Rogue
-PT:2/2
-S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self | ValidBlocker$ Creature.powerLE2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigAnimateAll
-SVar:TrigAnimateAll:DB$ AnimateAll | Duration$ Perpetual | ValidCards$ Creature.YouCtrl | Triggers$ DiesTrigger
-SVar:DiesTrigger:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigShuffle | OptionalDecider$ You
-SVar:TrigShuffle:DB$ ChangeZone | Origin$ Graveyard | Destination$ Library | Shuffle$ True | Defined$ TriggeredNewCardLKICopy | RememberChanged$ True | SubAbility$ DBInvestigate
-SVar:DBInvestigate:DB$ Investigate | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+Types:Creature Wolf
+PT:1/1
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | IsPresent$ Wolf.Other+YouCtrl,Werewolf.Other+YouCtrl | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigGainLife
+SVar:TrigGainLife:DB$ GainLife | Defined$ TriggeredCardController | LifeAmount$ X
+SVar:X:TriggeredCard$CardPower

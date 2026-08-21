@@ -1,10 +1,10 @@
 Id:8020
-ColorIdentity:R
+ColorIdentity:UB
 OriginSet:Gc563c209d627c4c5
-ManaCost:4 R
-Types:Enchantment
-T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ You | Execute$ TrigChangeZone | TriggerZones$ Battlefield
-SVar:TrigChangeZone:DB$ ChangeZoneAll | Origin$ Hand | Destination$ Library | ChangeType$ Card.YouOwn | RememberChanged$ True | LibraryPosition$ -1 | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | NumCards$ RemTossed | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:RemTossed:Remembered$Amount
+ManaCost:5 U B B
+Types:Creature Horror
+PT:6/6
+K:Trample
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigReveal | TriggerZones$ Battlefield | OptionalDecider$ You
+SVar:TrigReveal:DB$ RevealHand | Defined$ TriggeredTarget | SubAbility$ TrigPlay | Look$ True
+SVar:TrigPlay:DB$ Play | Valid$ Card.ControlledBy TriggeredTarget | ValidZone$ Hand | ValidSA$ Spell | WithoutManaCost$ True | Optional$ True

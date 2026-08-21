@@ -1,10 +1,12 @@
 Id:16677
-ColorIdentity:B
+ColorIdentity:W
 OriginSet:Ge1d53e4f418bb713
-ManaCost:2 B
-Types:Sorcery
-A:SP$ Destroy | ValidTgts$ Creature | RememberDestroyed$ True | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | NumCards$ X | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ X | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:RememberedLKI$CardCounters.ALL
+ManaCost:2 W
+Types:Creature Human Advisor
+PT:1/4
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigChoose
+SVar:TrigChoose:DB$ ChooseCard | Defined$ Player | Amount$ 1 | MinAmount$ 0 | Choices$ Creature | ControlledByPlayer$ Chooser | AILogic$ OrzhovAdvokist | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounterAll | Placer$ Controller | ValidCards$ Creature.ChosenCard | CounterType$ P1P1 | CounterNum$ 2 | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ ChosenCardController | StaticAbilities$ STCantAttack | Duration$ UntilYourNextTurn | SubAbility$ DBClearChosen
+SVar:DBClearChosen:DB$ Cleanup | ClearChosenCard$ True
+SVar:STCantAttack:Mode$ CantAttack | ValidCard$ Creature.RememberedPlayerCtrl | Target$ You,Planeswalker.YouCtrl

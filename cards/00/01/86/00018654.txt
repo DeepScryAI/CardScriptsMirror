@@ -1,10 +1,12 @@
 Id:18654
-ColorIdentity:WG
-OriginSet:G1ecb361a0a117393
-ManaCost:4 G W
-Types:Sorcery
-A:SP$ GainLife | Defined$ You | LifeAmount$ X | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | NumCards$ X | SubAbility$ DBPumpAll
-SVar:DBPumpAll:DB$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +1 | NumDef$ +1
-SVar:X:Count$Valid Creature.YouCtrl
-SVar:PlayMain1:TRUE
+ColorIdentity:WUB
+OriginSet:Gd7cbb6e7dea72fb5
+ManaCost:1 W U B
+Types:Legendary Creature Zombie Wizard
+PT:4/4
+T:Mode$ AttackersDeclared | ValidAttackers$ Zombie.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigLoot
+SVar:TrigLoot:DB$ Draw | NumCards$ X | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | Mode$ TgtChoose | NumCards$ X | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ X
+SVar:X:TriggerObjectsAttackers$Amount
+A:AB$ Token | Cost$ 2 ExileFromGrave<2/Card> | TokenScriptIds$ 353162950 | TokenOwner$ You | TokenTapped$ True

@@ -1,7 +1,10 @@
 Id:3411
-ColorIdentity:U
+ColorIdentity:B
 OriginSet:G24ae8187eacbba52
-ManaCost:1 U U
-Types:Instant
-K:Cycling:2
-A:SP$ ChangeZone | ValidTgts$ Permanent | Origin$ Battlefield | Destination$ Hand
+ManaCost:2 B B
+Types:Sorcery
+A:SP$ Sacrifice | Defined$ You | Amount$ SacX | SacValid$ Artifact,Creature,Land | RememberSacrificed$ True | Optional$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ DrawX | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:SacX:Count$Valid Artifact.YouCtrl,Creature.YouCtrl,Land.YouCtrl
+SVar:DrawX:Remembered$Amount

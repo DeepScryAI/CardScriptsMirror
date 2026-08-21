@@ -1,13 +1,11 @@
 Id:23394
-ColorIdentity:R
-OriginSet:Ga4d5d94d587eb185
-ManaCost:4 R
-Types:Creature Spirit
+ColorIdentity:B
+OriginSet:Gbe3783f336562357
+ManaCost:3 B
+Types:Creature Vampire
 PT:3/3
-T:Mode$ Attacks | ValidCard$ Creature.modified+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigExile
-SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | RememberObjects$ Remembered | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
-SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-T:Mode$ SpellCast | ValidCard$ Card.wasCastFromExile | ValidActivatingPlayer$ You | Execute$ TrigPutCounter | TriggerZones$ Battlefield
-SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1
+K:Deathtouch
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDiscard
+SVar:TrigDiscard:DB$ Discard | ValidTgts$ Opponent | NumCards$ 1 | DiscardValid$ Card.nonLand+cmcEQX | Mode$ TgtChoose | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 2179622914
+SVar:X:Count$ValidHand Card.TargetedPlayerOwn$GreatestCardManaCost

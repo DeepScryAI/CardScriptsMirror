@@ -1,15 +1,13 @@
 Id:26599
-ColorIdentity:WU
+ColorIdentity:W
 OriginSet:G06757f68e16377c2
-ManaCost:1 U
-Types:Creature Human Knight
-PT:2/1
-A:AB$ SetState | Cost$ 3 WP | Defined$ Self | Mode$ Transform | SorcerySpeed$ True | AILogic$ Always
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:white,blue
-Types:Creature Phyrexian Knight
-PT:3/3
-T:Mode$ AttackerBlockedByCreature | ValidCard$ Card.Self | ValidBlocker$ Creature | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | Defined$ TriggeredBlockerLKICopy | NumAtt$ -1 | NumDef$ -1
+ManaCost:3 W
+Types:Creature Cat Soldier
+PT:2/2
+K:Backup:1:BackupAbility
+SVar:BackupAbility:DB$ Animate | Triggers$ AttackTrig | sVars$ AE
+SVar:AttackTrig:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigTap
+SVar:TrigTap:DB$ Tap | ValidTgts$ Artifact.OppCtrl,Creature.OppCtrl
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigTap
+SVar:HasAttackEffect:TRUE
+SVar:AE:SVar:HasAttackEffect:TRUE

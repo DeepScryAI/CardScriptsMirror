@@ -1,15 +1,13 @@
 Id:33576
-ColorIdentity:WR
-OriginSet:G23d1f017cc66962f
-ManaCost:2 R W
-Types:Legendary Creature Elf Rebel
-PT:2/4
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +1
-T:Mode$ Attacks | ValidCard$ Creature.Self | Execute$ TrigExile | TriggerZones$ Battlefield
-SVar:TrigExile:DB$ ChangeZone | ValidTgts$ Creature.YouOwn | TargetMin$ 0 | TargetMax$ 1 | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn
-SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ All | Destination$ Battlefield | Tapped$ True | Attacking$ True | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:BuffedBy:Creature
-SVar:HasAttackEffect:TRUE
+ColorIdentity:R
+OriginSet:Gff0a4227ae9f1a4b
+ManaCost:2 R R
+Types:Creature Plant Wall
+PT:0/4
+K:Defender
+K:Haste
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigEffect
+SVar:TrigEffect:DB$ Effect | Triggers$ DieTrigger | RememberObjects$ Self
+SVar:DieTrigger:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.!IsRemembered | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DamageAll | ValidCards$ Creature.nonWall | NumDmg$ 1 | DamageSource$ EffectSource
+A:AB$ DealDamage | Cost$ T | ValidTgts$ Any | NumDmg$ 1

@@ -1,7 +1,11 @@
 Id:31006
 ColorIdentity:R
-OriginSet:G4524bbf7a3db9dc0
-ManaCost:X R
-Types:Instant
-A:SP$ Pump | ValidTgts$ Creature | NumAtt$ +X | KW$ FirstStrike
-SVar:X:Count$xPaid
+OriginSet:G2c8286a6f234d4b9
+ManaCost:3 R
+Types:Creature Human Wizard
+PT:3/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Instant.YouOwn,Sorcery.YouOwn | TargetMin$ 0 | TargetMax$ 1 | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ Play | ForgetOnMoved$ Exile | Duration$ UntilTheEndOfYourNextTurn | SubAbility$ DBCleanup
+SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered+nonLand | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

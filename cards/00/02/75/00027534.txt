@@ -1,7 +1,12 @@
 Id:27534
-ColorIdentity:U
-OriginSet:G7579344e30f8be85
-ManaCost:2 U
-Types:Instant
-A:SP$ Tap | ValidTgts$ Creature.OppCtrl | SubAbility$ DBCounter | TargetMin$ 1 | TargetMax$ 2
-SVar:DBCounter:DB$ PutCounter | Defined$ Targeted | CounterType$ Stun | CounterNum$ 1
+ColorIdentity:W
+OriginSet:Ge16da27db30ac32e
+ManaCost:5 W
+Types:Creature Cat Bird Ox
+PT:4/6
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | RememberTokens$ True | TokenScriptIds$ 4258977986,2353112250,3200154652 | TokenOwner$ You | SubAbility$ DBRepeat
+SVar:DBRepeat:DB$ RepeatEach | UseImprinted$ True | DefinedCards$ DirectRemembered | RepeatSubAbility$ DBChangeZone | SubAbility$ DBCleanup
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Hand,Graveyard | Destination$ Battlefield | ChangeType$ Aura.YouCtrl+!IsRemembered | DefinedPlayer$ You | AttachedTo$ Imprinted | Optional$ True
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:SacMe:4

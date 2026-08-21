@@ -1,10 +1,9 @@
 Id:16732
 ColorIdentity:W
 OriginSet:Gd31f94cf3a5f78e4
-ManaCost:2 W
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:Curse
-S:Mode$ CantAttack,CantBlock | ValidCard$ Creature.EnchantedBy
-T:Mode$ Attacks | ValidCard$ Vehicle.YouCtrl | Execute$ TrigExile | TriggerZones$ Battlefield
-SVar:TrigExile:DB$ ChangeZone | Defined$ Enchanted | Origin$ Battlefield | Destination$ Exile
+ManaCost:3 W W
+Types:Enchantment
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | Revolt$ True | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | CounterType$ UNITY | CounterNum$ 1
+S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddPower$ X | AddToughness$ X
+SVar:X:Count$CardCounters.UNITY

@@ -1,13 +1,12 @@
 Id:23938
-ColorIdentity:BRG
+ColorIdentity:B
 OriginSet:Gfdfe2ebef04be34e
-ManaCost:3 B R G
-Types:Legendary Creature Demon Dragon
-PT:6/6
-K:Flying
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | Execute$ DBTrigger | TriggerZones$ Battlefield
-SVar:DBTrigger:AB$ ImmediateTrigger | Cost$ Sac<1/Creature.StrictlyOther/another creature> | Execute$ DBDealDmg | AILogic$ SacForDamage | RememberObjects$ Sacrificed
-SVar:DBDealDmg:DB$ DealDamage | ValidTgts$ Any | NumDmg$ XPower | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenAmount$ 3 | TokenScriptIds$ 3851718391
-SVar:XPower:TriggerRemembered$CardPower
-SVar:AIPreferenceParams:CreatureEvalThreshold$ 200
+ManaCost:2 B B
+Types:Creature Ogre Rogue
+PT:3/3
+K:Deathtouch
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl+!token+Other | TriggerZones$ Battlefield | Execute$ TrigConnive
+SVar:TrigConnive:DB$ Connive
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | ValidTgts$ Creature.powerLEX+YouOwn+nonRogue+Other | Origin$ Graveyard | Destination$ Battlefield
+SVar:X:TriggeredCard$CardPower

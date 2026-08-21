@@ -1,7 +1,9 @@
 Id:11330
 ColorIdentity:R
 OriginSet:G9fb0a9a59b6a9580
-ManaCost:3 R
+ManaCost:3 R R
 Types:Sorcery
-A:SP$ DealDamage | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 3 | NumDmg$ 1 | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | Defined$ Targeted | KW$ HIDDEN CARDNAME can't block.
+A:SP$ AddPhase | ExtraPhase$ Combat | AfterPhase$ Main2 | FollowedBy$ Main2 | BeforeFirstPostCombatMainEnd$ True | ExtraPhaseDelayedTrigger$ DelTrigUntap | ExtraPhaseDelayedTriggerExcute$ TrigUntapAll
+SVar:DelTrigUntap:Mode$ Phase | Phase$ BeginCombat
+SVar:TrigUntapAll:DB$ UntapAll | ValidCards$ Creature.attackedThisTurn
+K:Rebound

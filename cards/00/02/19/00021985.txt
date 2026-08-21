@@ -1,8 +1,22 @@
 Id:21985
-ColorIdentity:R
-OriginSet:Gd784248bfdf9e1d7
-ManaCost:R
-Types:Creature Lizard Shaman
-PT:1/1
-K:Haste
-A:AB$ Pump | Cost$ 1 R T | ValidTgts$ Creature | KW$ HIDDEN CARDNAME can't block. | IsCurse$ True
+ColorIdentity:UR
+OriginSet:G6fa60d857e930f32
+ManaCost:2 U U
+Types:Creature Merfolk Wizard
+PT:2/2
+K:Ward:2
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Destination$ Battlefield | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ChangeType$ Instant.YouOwn,Sorcery.YouOwn | ChangeNum$ 1 | RememberChanged$ True | Hidden$ True | Mandatory$ True | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$CardManaCost/HalfUp
+AlternateMode:Modal
+ALTERNATE
+ManaCost:1 R
+Types:Sorcery
+A:SP$ Discard | Mode$ TgtChoose | SubAbility$ DBDraw | RememberDiscarded$ True
+SVar:DBDraw:DB$ Draw | SubAbility$ DBImmediateTrigger
+SVar:DBImmediateTrigger:DB$ ImmediateTrigger | ConditionDefined$ Remembered | ConditionPresent$ Instant,Sorcery | Execute$ TrigDealDamage | RememberObjects$ RememberedCard | SubAbility$ DBCleanup
+SVar:TrigDealDamage:DB$ DealDamage | ValidTgts$ Creature.YouDontCtrl,Planeswalker.YouDontCtrl | NumDmg$ X
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:TriggerRemembered$CardManaCost

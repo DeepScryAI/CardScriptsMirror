@@ -1,7 +1,11 @@
 Id:32979
-ColorIdentity:U
-OriginSet:G731e0066916b7465
-ManaCost:5 U U
-Types:Legendary Creature Serpent
-PT:8/8
-K:Hexproof
+ColorIdentity:WR
+OriginSet:G22ed5d6f3707b461
+ManaCost:2 RW RW RW
+Types:Legendary Creature Human Rebel Ally
+PT:3/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDealDamage
+SVar:TrigDealDamage:DB$ DealDamage | ValidTgts$ Creature.OppCtrl | NumDmg$ X
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | TargetMin$ 0 | TargetMax$ 2 | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ 1
+SVar:X:Count$Valid Creature.YouCtrl

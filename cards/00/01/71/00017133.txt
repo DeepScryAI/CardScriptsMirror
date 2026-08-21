@@ -3,7 +3,8 @@ ColorIdentity:
 OriginSet:G5fc5076129f6ad6a
 ManaCost:no cost
 Types:Scheme
-T:Mode$ SetInMotion | ValidCard$ Card.Self | Execute$ DBToken | TriggerZones$ Command
-SVar:DBToken:DB$ Token | TokenScriptIds$ 4037281011 | TokenOwner$ You | SubAbility$ DBPrevent
-SVar:DBPrevent:DB$ Effect | ReplacementEffects$ RPrevent
-SVar:RPrevent:Event$ DamageDone | Prevent$ True | ActiveZones$ Command | ValidTarget$ Creature.YouCtrl
+T:Mode$ SetInMotion | ValidCard$ Card.Self | Execute$ TwoPiles | TriggerZones$ Command
+SVar:TwoPiles:DB$ PeekAndReveal | Defined$ You | PeekAmount$ 4 | NoReveal$ True | RememberPeeked$ True | SubAbility$ Separate
+SVar:Separate:DB$ TwoPiles | Defined$ You | Separator$ You | Chooser$ Opponent | DefinedCards$ Remembered | ChosenPile$ DBHand | UnchosenPile$ DBLibraryBottom | Zone$ Library | FaceDown$ One
+SVar:DBHand:DB$ ChangeZone | Defined$ Remembered | Origin$ Library | Destination$ Hand
+SVar:DBLibraryBottom:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered | Origin$ Library | Destination$ Library | LibraryPosition$ -1

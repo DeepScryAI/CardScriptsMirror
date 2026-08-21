@@ -1,16 +1,7 @@
 Id:28521
-ColorIdentity:UR
+ColorIdentity:W
 OriginSet:G7ee0e82a2424d636
-ManaCost:5 U R
-Types:Legendary Creature Lizard Artificer
-PT:4/4
-K:Menace
-K:Ward:2
-K:Haste
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigSac | TriggerZones$ Battlefield
-SVar:TrigSac:DB$ Sacrifice | Defined$ You | Amount$ SacX | SacValid$ Creature.Other | RememberSacrificed$ True | Optional$ True | SubAbility$ DBDig
-SVar:DBDig:DB$ Dig | Defined$ You | DigNum$ X | ChangeNum$ All | DestinationZone$ Exile | Imprint$ True | SubAbility$ DBPlay
-SVar:DBPlay:DB$ Play | Valid$ Card.IsImprinted+YouOwn | ValidZone$ Exile | ValidSA$ Instant,Sorcery | Controller$ You | WithoutManaCost$ True | Optional$ True | Amount$ All | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True
-SVar:X:RememberedLKI$CardPower
-SVar:SacX:Count$Valid Creature.Other
+ManaCost:1 W
+Types:Enchantment
+S:Mode$ Continuous | Affected$ Card.TopLibrary+YouCtrl | AffectedZone$ Library | MayLookAt$ You
+S:Mode$ Continuous | MayPlay$ True | MayPlayLimit$ 1 | Affected$ Card.Creature+nonLand+powerLE2+TopLibrary+YouCtrl | AffectedZone$ Library

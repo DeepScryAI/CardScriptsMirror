@@ -1,0 +1,11 @@
+Id:33936
+ColorIdentity:R
+OriginSet:G14da29c4716bedc3
+ManaCost:2 R
+Types:Creature Spirit
+PT:2/2
+T:Mode$ ChangesZoneAll | ValidCards$ Card.YouOwn | Origin$ Graveyard | Destination$ Any | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBChooseCard
+SVar:DBChooseCard:DB$ ChooseCard | DefinedCards$ TriggeredCards.Artifact,Creature | SubAbility$ DBClone | Optional$ True
+SVar:DBClone:DB$ Clone | Defined$ ChosenCard | Duration$ UntilEndOfTurn | SubAbility$ DBCleanup
+DBCleanup:DB$ Cleanup | ClearChosenCard$ True

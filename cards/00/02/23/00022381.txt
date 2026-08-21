@@ -1,10 +1,12 @@
 Id:22381
-ColorIdentity:B
-OriginSet:G92f7f9489fec5865
-ManaCost:3 B
-Types:Creature Tiefling Rogue
-PT:3/2
-T:Mode$ DamageDoneOnce | CombatDamage$ True | ValidSource$ Creature.YouCtrl | TriggerZones$ Battlefield | ValidTarget$ Player | Execute$ DBToken
-SVar:DBToken:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 3851718391 | TokenOwner$ You
-A:AB$ Pump | Cost$ B Sac<X/Treasure> | SorcerySpeed$ True | ValidTgts$ Creature | IsCurse$ True | NumAtt$ -X | NumDef$ -X
-SVar:X:Count$xPaid
+ColorIdentity:U
+OriginSet:Geb2cf181996ee3b2
+ManaCost:2 U
+Types:Sorcery
+A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Instant.YouCtrl,Sorcery.YouCtrl
+AlternateMode:Split
+ALTERNATE
+ManaCost:3 U
+Types:Instant
+A:SP$ Tap | TargetMin$ 0 | TargetMax$ 2 | ValidTgts$ Creature | SubAbility$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ Targeted | KW$ HIDDEN This card doesn't untap during your next untap step. | Duration$ Permanent

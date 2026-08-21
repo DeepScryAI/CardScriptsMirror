@@ -1,13 +1,18 @@
 Id:24253
-ColorIdentity:G
+ColorIdentity:W
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:4 G G
-Types:Creature Dragon
+ManaCost:2 W W
+Types:Creature Angel Knight
 PT:4/4
 K:Flying
-K:Trample
-AlternateMode:Adventure
-ALTERNATE
-ManaCost:2 G
-Types:Instant Adventure
-A:SP$ Counter | TargetType$ Activated,Triggered | ValidTgts$ Card.nonCreature,Emblem
+K:Myriad
+T:Mode$ DamageDone | ValidSource$ Card.Self | Execute$ TrigDraw | CombatDamage$ True | ValidTarget$ Player | TriggerZones$ Battlefield
+SVar:TrigDraw:DB$ Draw | ConditionCheckSVar$ NumInHand | ConditionSVarCompare$ GTMostInHand | SubAbility$ DBTreasure
+SVar:DBTreasure:DB$ Token | ConditionCheckSVar$ NumLands | ConditionSVarCompare$ GTMostLands | TokenScriptIds$ 3851718391 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | ConditionCheckSVar$ NumLife | ConditionSVarCompare$ GTMostLife | LifeAmount$ 3
+SVar:NumInHand:TriggeredTarget$CardsInHand
+SVar:MostInHand:PlayerCountDefinedNonTriggeredTarget$HighestCardsInHand
+SVar:NumLands:TriggeredTarget$Valid Land.YouCtrl
+SVar:MostLands:PlayerCountDefinedNonTriggeredTarget$HighestValid Land.YouCtrl
+SVar:NumLife:TriggeredTarget$LifeTotal
+SVar:MostLife:PlayerCountDefinedNonTriggeredTarget$HighestLifeTotal

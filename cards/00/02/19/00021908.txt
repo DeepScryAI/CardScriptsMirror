@@ -1,22 +1,13 @@
 Id:21908
-ColorIdentity:UR
+ColorIdentity:UG
 OriginSet:G6fa60d857e930f32
-ManaCost:2 U U
-Types:Creature Merfolk Wizard
-PT:2/2
-K:Ward:2
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Destination$ Battlefield | Execute$ TrigChangeZone
-SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ChangeType$ Instant.YouOwn,Sorcery.YouOwn | ChangeNum$ 1 | RememberChanged$ True | Hidden$ True | Mandatory$ True | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ X | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Remembered$CardManaCost/HalfUp
+ManaCost:1 G G
+Types:Creature Troll Druid
+PT:3/3
+K:Trample
+S:Mode$ Continuous | IsPresent$ Land.YouCtrl | PresentCompare$ GE8 | Affected$ Card.Self | AddPower$ 5 | AddToughness$ 5
 AlternateMode:Modal
 ALTERNATE
-ManaCost:1 R
+ManaCost:3 U U
 Types:Sorcery
-A:SP$ Discard | Mode$ TgtChoose | SubAbility$ DBDraw | RememberDiscarded$ True
-SVar:DBDraw:DB$ Draw | SubAbility$ DBImmediateTrigger
-SVar:DBImmediateTrigger:DB$ ImmediateTrigger | ConditionDefined$ Remembered | ConditionPresent$ Instant,Sorcery | Execute$ TrigDealDamage | RememberObjects$ RememberedCard | SubAbility$ DBCleanup
-SVar:TrigDealDamage:DB$ DealDamage | ValidTgts$ Creature.YouDontCtrl,Planeswalker.YouDontCtrl | NumDmg$ X
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:TriggerRemembered$CardManaCost
+A:SP$ Clone | Defined$ Targeted | CloneTarget$ Valid Creature.YouCtrl+NotDefinedTargeted | NonLegendary$ True | Duration$ UntilEndOfTurn | ValidTgts$ Creature.YouCtrl

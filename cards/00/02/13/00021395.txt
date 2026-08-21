@@ -1,6 +1,11 @@
 Id:21395
 ColorIdentity:B
 OriginSet:G51d431785c8b33e5
-ManaCost:3 B
+ManaCost:2 B
 Types:Enchantment
-S:Mode$ Continuous | Affected$ Elf.YouCtrl | AddPower$ 2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 3
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | LifeAmount$ X
+SVar:X:Count$ValidHand Card.YouOwn/Times.2
+SVar:DonateMe:5

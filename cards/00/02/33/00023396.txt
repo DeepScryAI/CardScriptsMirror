@@ -1,11 +1,10 @@
 Id:23396
-ColorIdentity:U
-OriginSet:Ga4d5d94d587eb185
-ManaCost:2 U U
-Types:Legendary Creature Moonfolk Artificer
-PT:3/3
-K:Flying
-A:AB$ Animate | Cost$ 2 U | ValidTgts$ Artifact.nonCreature+YouCtrl | Types$ Artifact,Creature | Keywords$ Flying | SubAbility$ NonVehicle
-SVar:NonVehicle:DB$ Animate | Defined$ Targeted.nonVehicle | Power$ 1 | Toughness$ 1
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounters
-SVar:TrigPutCounters:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ 1 | TargetMin$ 0 | TargetMax$ 3 | ValidTgts$ Artifact.nonCreature
+ColorIdentity:R
+OriginSet:Gbe3783f336562357
+ManaCost:R R R
+Types:Sorcery
+A:SP$ DamageAll | NumDmg$ 3 | ValidCards$ Creature | SubAbility$ DBChoose
+SVar:DBChoose:DB$ ChooseCard | ChoiceZone$ Hand | Choices$ Instant.YouOwn,Sorcery.YouOwn | Mandatory$ True | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ ChosenCard | Replacements$ PerpDamageRep | Duration$ Perpetual
+SVar:PerpDamageRep:Event$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Permanent,Player | ReplaceWith$ DmgPlus2
+SVar:DmgPlus2:DB$ ReplaceEffect | VarName$ DamageAmount | VarValue$ ReplaceCount$DamageAmount/Plus.2

@@ -1,9 +1,11 @@
 Id:8316
-ColorIdentity:WU
+ColorIdentity:R
 OriginSet:Gde6d8130c178f566
-ManaCost:3 WU WU WU
-Types:Enchantment
-T:Mode$ SpellCast | ValidCard$ Card.nonCreature | TriggerZones$ Battlefield | Execute$ TrigCounter
-SVar:TrigCounter:DB$ Counter | Defined$ TriggeredSpellAbility | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenAmount$ X | TokenScriptIds$ 3079833567 | TokenOwner$ TriggeredActivator
-SVar:X:TriggeredSpellAbility$CardManaCostLKI
+ManaCost:X R
+Types:Sorcery
+A:SP$ DealDamage | ValidTgts$ Any | NumDmg$ X | RememberDamaged$ True | ReplaceDyingDefined$ Remembered.Creature | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+S:Mode$ CantPreventDamage | ValidSource$ Spell.Self | EffectZone$ Stack | CheckSVar$ Y | SVarCompare$ EQ0
+R:Event$ Counter | ValidCard$ Card.Self | ValidSA$ Spell | Layer$ CantHappen | CheckSVar$ Y | SVarCompare$ EQ0 | Secondary$ True
+SVar:X:Count$xPaid
+SVar:Y:Count$ValidHand Card.YouOwn

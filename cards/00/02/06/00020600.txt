@@ -1,8 +1,13 @@
 Id:20600
-ColorIdentity:R
+ColorIdentity:BG
 OriginSet:Gf8d4de878d0536c5
-ManaCost:3 R
-Types:Creature Cat Ape
-PT:4/3
-K:ETBReplacement:Other:CounterChoice
-SVar:CounterChoice:DB$ PutCounter | ETB$ True | CounterType$ Trample,Menace
+ManaCost:B G
+Types:Legendary Creature Human Rogue
+PT:1/3
+K:Deathtouch
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | IsPresent$ Permanent.OppCtrl+counters_GE1_BOUNTY | PresentCompare$ EQ0 | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.OppCtrl,Planeswalker.OppCtrl | CounterType$ BOUNTY | CounterNum$ 1 | IsCurse$ True
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Permanent.OppCtrl+counters_GE1_BOUNTY | TriggerZones$ Battlefield | Execute$ TrigGainLife
+SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 3 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1
+SVar:PlayMain1:TRUE

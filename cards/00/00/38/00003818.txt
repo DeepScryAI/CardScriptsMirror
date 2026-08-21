@@ -1,13 +1,9 @@
 Id:3818
-ColorIdentity:W
+ColorIdentity:B
 OriginSet:G3da30095b68d8df0
-ManaCost:W
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:Pump
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ ARROW | CounterNum$ 1
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddAbility$ ArcheryDamage
-SVar:ArcheryDamage:AB$ DealDamage | Cost$ T | ValidTgts$ Creature.attacking,Creature.blocking | NumDmg$ ArcheryX
-SVar:ArcheryX:OriginalHost$CardCounters.ARROW
-SVar:NonStackingAttachEffect:True
+ManaCost:1 B
+Types:Creature Zombie Wizard
+PT:1/1
+A:AB$ ChangeZone | Cost$ B T Sac<1/CARDNAME> | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouOwn | AITgts$ Card.cmcGE5 | SubAbility$ DBPump | AILogic$ BeforeCombat | RememberChanged$ True
+SVar:DBPump:DB$ Animate | Keywords$ Haste | Defined$ Remembered | Duration$ Permanent | AtEOT$ Sacrifice | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

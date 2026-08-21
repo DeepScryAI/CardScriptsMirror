@@ -1,10 +1,12 @@
 Id:23027
-ColorIdentity:R
-OriginSet:G7a76c1974b0a33a6
-ManaCost:3 R
-Types:Creature Human Rogue
-PT:4/3
-K:Haste
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigAnimate | OptionalDecider$ You | IsPresent$ Creature.attacking+Other | PresentCompare$ EQ1
-SVar:TrigAnimate:DB$ AnimateAll | ValidCards$ Creature.attacking+Other | Power$ 4 | Toughness$ 3
-SVar:HasAttackEffect:TRUE
+ColorIdentity:WG
+OriginSet:Gf78628ad511eefec
+ManaCost:1 G W W
+Types:Legendary Creature Angel
+PT:4/4
+K:Flying
+K:Trample
+S:Mode$ Continuous | Affected$ Creature.Human+YouCtrl | AddPower$ 1 | AddToughness$ 1
+T:Mode$ Attacks | ValidCard$ Card.Self | CheckSVar$ X | SVarCompare$ GE3 | Execute$ TrigDig
+SVar:TrigDig:DB$ Dig | DigNum$ 5 | ChangeNum$ 1 | Optional$ True | ChangeValid$ Creature.Human
+SVar:X:Count$Valid Creature.YouCtrl$DifferentCardPower

@@ -1,12 +1,11 @@
 Id:29185
-ColorIdentity:G
+ColorIdentity:
 OriginSet:G27146c70b74a1e72
-ManaCost:3 G
-Types:Enchantment Aura
-K:Flash
-K:Enchant:Creature
-SVar:AttachAILogic:Pump
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 3 | AddToughness$ 2 | AddKeyword$ Reach
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw
-SVar:SacMe:2
+ManaCost:no cost
+Types:Land Desert
+A:AB$ Mana | Cost$ T | Produced$ C
+A:AB$ Mana | Cost$ T | Produced$ Any | Amount$ 1 | RestrictValid$ Spell.Mount
+A:AB$ PeekAndReveal | Cost$ 3 T | PeekAmount$ 1 | RevealValid$ Card.Mount | RevealOptional$ True | RememberRevealed$ True | SubAbility$ DBChangeZone | AILogic$ AtOppEOT
+SVar:DBChangeZone:DB$ ChangeZone | Defined$ Remembered | Origin$ Library | Destination$ Hand | SubAbility$ DBChangeZone2
+SVar:DBChangeZone2:DB$ ChangeZone | Optional$ True | Defined$ TopOfLibrary | Origin$ Library | Destination$ Library | LibraryPosition$ -1 | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ0 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

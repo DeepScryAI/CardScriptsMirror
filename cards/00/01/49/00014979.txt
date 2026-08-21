@@ -1,9 +1,12 @@
 Id:14979
-ColorIdentity:WG
+ColorIdentity:W
 OriginSet:Gdb18f239871b8cef
-ManaCost:5 G W
-Types:Creature Dragon
-PT:6/6
-K:Flying
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | OptionalDecider$ TriggeredCardController | Execute$ TrigChange
-SVar:TrigChange:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Library | DestinationAlternative$ Library | LibraryPositionAlternative$ -1
+ManaCost:1 W W
+Types:Creature Human Warrior
+PT:2/2
+K:DoubleStrike
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPump
+T:Mode$ Attacks | ValidCard$ Creature.Self | Execute$ TrigPump | Secondary$ True
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.Warrior+YouCtrl+Other | KW$ DoubleStrike
+SVar:HasAttackEffect:TRUE
+SVar:PlayMain1:TRUE

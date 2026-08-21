@@ -1,9 +1,14 @@
 Id:34438
-ColorIdentity:U
-OriginSet:G11c0621ce29fa608
-ManaCost:2 U
-Types:Legendary Creature Human Hero
-PT:1/4
-K:Vigilance
-A:AB$ CopySpellAbility | Cost$ 1 T | TargetType$ Activated.YouCtrl,Triggered.YouCtrl | ValidTgts$ Card.Creature | MayChooseTarget$ True
-SVar:BuffedBy:Legendary
+ColorIdentity:R
+OriginSet:Gcb93bbfc68a40806
+ManaCost:2 R
+Types:Legendary Creature Human Villain
+PT:3/3
+K:Trample
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +X
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigSac | TriggerZones$ Battlefield
+SVar:TrigSac:DB$ Sacrifice | Defined$ TriggeredTarget | SacValid$ Artifact | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 3851718391 | TokenOwner$ You
+SVar:X:Count$Valid Artifact.DefenderCtrl
+SVar:HasAttackEffect:TRUE

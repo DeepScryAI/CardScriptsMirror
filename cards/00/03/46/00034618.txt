@@ -1,8 +1,10 @@
 Id:34618
-ColorIdentity:R
-OriginSet:G11c0621ce29fa608
-ManaCost:1 R
-Types:Instant
-A:SP$ GenericChoice | Choices$ DBSacToDraw,DBDiscardToDraw
-SVar:DBSacToDraw:DB$ Draw | NumCards$ 2 | UnlessCost$ Sac<1/Artifact> | UnlessPayer$ You | UnlessSwitched$ True
-SVar:DBDiscardToDraw:DB$ Draw | NumCards$ 2 | UnlessCost$ Discard<1/Card> | UnlessPayer$ You | UnlessSwitched$ True
+ColorIdentity:G
+OriginSet:Gcb93bbfc68a40806
+ManaCost:4 G G
+Types:Sorcery
+A:SP$ PeekAndReveal | PeekAmount$ 6 | NoPeek$ True | RememberRevealed$ True | SubAbility$ DBChangeField
+SVar:DBChangeField:DB$ ChangeZone | ChangeType$ Permanent.IsRemembered | ChangeNum$ 1 | Origin$ Library | Destination$ Battlefield | WithCountersType$ Indestructible | WithCountersAmount$ 1 | ForgetChanged$ True | Shuffle$ False | SubAbility$ DBChangeHand
+SVar:DBChangeHand:DB$ ChangeZone | ChangeType$ Permanent.IsRemembered | ChangeNum$ 1 | Origin$ Library | Destination$ Hand | ForgetChanged$ True | Shuffle$ False | SubAbility$ DBRestGrave
+SVar:DBRestGrave:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered | Origin$ Library | Destination$ Graveyard | Shuffle$ False | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

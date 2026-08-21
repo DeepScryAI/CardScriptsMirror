@@ -1,9 +1,10 @@
 Id:33363
-ColorIdentity:
-OriginSet:Gff0a4227ae9f1a4b
-ManaCost:3
-Types:Artifact
-A:AB$ Mana | Cost$ T | Produced$ Any | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ PRESSURE | CounterNum$ 1
-A:AB$ DealDamage | Cost$ 8 T Sac<1/CARDNAME> | ValidTgts$ Creature | NumDmg$ 20 | ReduceCost$ X | SorcerySpeed$ True
-SVar:X:Count$CardCounters.PRESSURE
+ColorIdentity:U
+OriginSet:G7ab1fe96128a1641
+ManaCost:2 U U
+Types:Instant
+R:Event$ Counter | ValidCard$ Card.Self | ValidSA$ Spell | Layer$ CantHappen
+A:SP$ Counter | Defined$ ValidStack Spell.OppCtrl,Activated.OppCtrl,Triggered.OppCtrl | RememberCounteredSA$ True | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenAmount$ X | TokenScriptIds$ 724370662 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$RememberedSize

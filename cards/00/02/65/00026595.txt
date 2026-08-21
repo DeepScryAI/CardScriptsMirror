@@ -1,7 +1,11 @@
 Id:26595
-ColorIdentity:U
+ColorIdentity:G
 OriginSet:G06757f68e16377c2
-ManaCost:U
-Types:Creature Octopus Advisor
-PT:1/1
-A:AB$ Mana | Cost$ T | Produced$ C U | RestrictValid$ Activated
+ManaCost:2 G
+Types:Enchantment Aura
+K:Enchant:Land
+SVar:AttachAILogic:Pump
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigIncubate
+SVar:TrigIncubate:DB$ Incubate | Amount$ 2
+T:Mode$ TapsForMana | ValidCard$ Card.AttachedBy | Execute$ TrigMana | Static$ True
+SVar:TrigMana:DB$ Mana | Produced$ Any | Amount$ 1 | Defined$ TriggeredCardController

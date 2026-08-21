@@ -1,9 +1,14 @@
 Id:28998
-ColorIdentity:B
-OriginSet:Gc7beb665b378d90a
-ManaCost:1 B
-Types:Creature Varmint
-PT:2/1
-K:Deathtouch
-K:Lifelink
-A:AB$ Mana | Cost$ T PayLife<1> | Produced$ Any | Amount$ 2 | RestrictValid$ Spell.YouDontOwn
+ColorIdentity:WUR
+OriginSet:Gaf7c94f364052cdd
+ManaCost:2 U R W
+Types:Legendary Artifact Creature Robot
+PT:8/8
+K:Vigilance
+K:Trample
+K:Haste
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigSac
+T:Mode$ Blocks | ValidCard$ Card.Self | Execute$ TrigSac | Secondary$ True
+SVar:TrigSac:DB$ Sacrifice | UnlessCost$ PayEnergy<2> | UnlessPayer$ You
+A:AB$ PutCounter | Defined$ You | Cost$ 2 T Sac<1/Artifact> | CounterType$ ENERGY | CounterNum$ 2 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw

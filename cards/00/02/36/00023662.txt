@@ -1,13 +1,9 @@
 Id:23662
-ColorIdentity:W
+ColorIdentity:B
 OriginSet:G1a259dba25660062
-ManaCost:2 W W
-Types:Legendary Planeswalker
-Loyalty:3
-K:Flash
-S:Mode$ CastWithFlash | ValidCard$ Card.Self+ThisTurnEntered | ValidSA$ Activated.Loyalty | Caster$ You
-A:AB$ PutCounter | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | CounterType$ P1P1 | CounterNum$ 1 | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | Defined$ Targeted | KW$ FirstStrike
-A:AB$ Token | Cost$ SubCounter<1/LOYALTY> | Planeswalker$ True | TokenScriptIds$ 1894967173 | TokenOwner$ You
-A:AB$ ChangeZone | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | ValidTgts$ Creature.tapped | Origin$ Battlefield | Destination$ Exile | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2
+ManaCost:1 B
+Types:Artifact Creature Rat Ninja
+PT:3/1
+K:Ninjutsu:1 B
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.YouCtrl | KW$ Deathtouch & Lifelink

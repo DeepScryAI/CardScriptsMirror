@@ -1,8 +1,10 @@
 Id:11982
 ColorIdentity:
 OriginSet:G43171707a7efd07b
-ManaCost:3
-Types:Artifact Equipment
-K:Living Weapon
-K:Equip:4
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddToughness$ 2
+ManaCost:2
+Types:Artifact
+T:Mode$ SpellCast | ValidCard$ Card.Blue | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigAddCounter
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigAddCounter | Secondary$ True
+SVar:TrigAddCounter:DB$ PutCounter | CounterType$ CHARGE | CounterNum$ 1
+A:AB$ Dig | Cost$ T Sac<1/CARDNAME> | DigNum$ X
+SVar:X:Count$CardCounters.CHARGE

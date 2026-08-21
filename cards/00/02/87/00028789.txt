@@ -1,13 +1,9 @@
 Id:28789
-ColorIdentity:G
-OriginSet:Gaf7c94f364052cdd
-ManaCost:1 G
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:Pump
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddTrigger$ AttackTrig
-SVar:AttackTrig:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 798446951 | RememberTokens$ True | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | Defined$ Remembered | CounterType$ P1P1 | CounterNum$ X | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$Valid Equipment.Attached,Aura.Attached+NotDefinedOriginalHost
+ColorIdentity:WB
+OriginSet:Ge329d8d60ca65422
+ManaCost:4 W B
+Types:Sorcery
+A:SP$ ChooseCard | Defined$ Player | Choices$ Creature | ControlledByPlayer$ Chooser | MinAmount$ 0 | Amount$ 2 | Reveal$ True | SubAbility$ SacAllOthers
+SVar:SacAllOthers:DB$ SacrificeAll | ValidCards$ Creature.nonChosenCard | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 3851718391 | TokenAmount$ X
+SVar:X:Count$Valid Creature.OppCtrl

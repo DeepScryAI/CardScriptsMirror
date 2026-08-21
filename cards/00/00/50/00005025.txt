@@ -1,8 +1,9 @@
 Id:5025
-ColorIdentity:UB
+ColorIdentity:WUG
 OriginSet:G9e6cd9ac1f7f4832
-ManaCost:2 U B
-Types:Sorcery
-A:SP$ Draw | Defined$ Player | NumCards$ 2 | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | NumCards$ 3 | Mode$ TgtChoose | Defined$ Player | SubAbility$ DBLose
-SVar:DBLose:DB$ LoseLife | LifeAmount$ 4 | Defined$ Player
+ManaCost:no cost
+Types:Land Lair
+A:AB$ Mana | Cost$ T | Produced$ Combo G W U
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSacUnless
+SVar:TrigSacUnless:DB$ Sacrifice | UnlessCost$ Return<1/Land.nonLair/non-Lair land> | UnlessPayer$ You
+SVar:NeedsToPlay:Land.nonLair+YouCtrl

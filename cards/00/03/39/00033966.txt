@@ -1,8 +1,9 @@
 Id:33966
-ColorIdentity:WB
-OriginSet:Gaf3c6d0810185c00
-ManaCost:WB
-Types:Enchantment
-K:Exalted
-T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | Execute$ TrigConjure | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | TargetsValid$ Creature.inZoneBattlefield
-SVar:TrigConjure:DB$ MakeCard | Conjure$ True | CatalogId$ 33966 | Zone$ Hand
+ColorIdentity:G
+OriginSet:Gf8df2bea26dc6b68
+ManaCost:1 G
+Types:Instant
+A:SP$ Pump | ValidTgts$ Creature.YouCtrl | AILogic$ PowerDmg | NumAtt$ +1 | SubAbility$ DBDamage | ConditionCheckSVar$ X
+SVar:DBDamage:DB$ DealDamage | ValidTgts$ Creature.OppCtrl | AILogic$ PowerDmg | NumDmg$ Y | DamageSource$ ParentTarget
+SVar:X:Count$ThisTurnCast_Card.!CastSaSource+Instant+YouCtrl,Card.!CastSaSource+Sorcery+YouCtrl
+SVar:Y:ParentTargeted$CardPower

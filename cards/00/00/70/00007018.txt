@@ -1,11 +1,11 @@
 Id:7018
-ColorIdentity:B
+ColorIdentity:
 OriginSet:Gbbed67f0d6a15b16
-ManaCost:1 B B
-Types:Creature Rat
-PT:2/2
-K:A deck can have any number of cards named CARDNAME.
-S:Mode$ Continuous | Affected$ Card.Self | AddPower$ X | AddToughness$ X
-SVar:X:Count$Valid Creature.catalogId7018+Other
-SVar:BuffedBy:Creature.catalogId7018
-SVar:PlayMain1:TRUE
+ManaCost:5
+Types:Artifact Creature Masticore
+PT:5/5
+K:FirstStrike
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigUpkeep
+SVar:TrigUpkeep:DB$ Sacrifice | UnlessPayer$ You | UnlessCost$ Discard<1/Card>
+T:Mode$ Phase | Phase$ Draw | ValidPlayer$ You | OptionalDecider$ You | Execute$ TrigDealDamage | TriggerZones$ Battlefield
+SVar:TrigDealDamage:DB$ DealDamage | ValidTgts$ Creature | NumDmg$ 3

@@ -1,12 +1,9 @@
 Id:28401
-ColorIdentity:RG
-OriginSet:G7ee0e82a2424d636
-ManaCost:R G
+ColorIdentity:UR
+OriginSet:G4155bbd49d5da56f
+ManaCost:2 U R
 Types:Sorcery
-A:SP$ PeekAndReveal | Defined$ You | PeekAmount$ 6 | NoReveal$ True | RememberPeeked$ True | SubAbility$ PickOne
-SVar:PickOne:DB$ ChooseCard | Defined$ You | Amount$ 1 | Choices$ Card.Creature+IsRemembered | ChoiceZone$ Library | Reveal$ True | SubAbility$ DBChangeZoneBattlefield
-SVar:DBChangeZoneBattlefield:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | Defined$ ChosenCard | ConditionDefined$ Remembered | ConditionPresent$ Card.Creature+cmcLE2+ChosenCard | ConditionCompare$ EQ1 | Optional$ True | Imprint$ True | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | KW$ Haste | Defined$ Imprinted | ConditionDefined$ Remembered | ConditionPresent$ Creature.IsImprinted+inZoneBattlefield | ConditionCompare$ EQ1 | SubAbility$ DBChangeZoneHand
-SVar:DBChangeZoneHand:DB$ ChangeZone | Defined$ ChosenCard | Origin$ Library | Destination$ Hand | ConditionDefined$ Remembered | ConditionPresent$ Card.Creature+ChosenCard+inZoneBattlefield | ConditionCompare$ EQ0 | SubAbility$ DBRestRandomOrder
-SVar:DBRestRandomOrder:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered | Origin$ Library | Destination$ Library | LibraryPosition$ -1 | RandomOrder$ True | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearImprinted$ True | ClearChosenCard$ True | ClearRemembered$ True
+A:SP$ DealDamage | ValidTgts$ Creature,Planeswalker | NumDmg$ 4 | ExcessSVar$ X | SubAbility$ DBBranch
+SVar:DBBranch:DB$ Branch | BranchConditionSVar$ X | TrueSubAbility$ Captain | FalseSubAbility$ Crew | BranchConditionSVarCompare$ GE4
+SVar:Crew:DB$ MakeCard | Filter$ Card.cmcEQX | SpellbookCatalogIds$ 28324,28329,21038 | Zone$ Battlefield | Conjure$ True
+SVar:Captain:DB$ MakeCard | CatalogId$ 17394 | Zone$ Battlefield | Conjure$ True

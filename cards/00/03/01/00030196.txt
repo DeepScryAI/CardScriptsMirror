@@ -1,11 +1,10 @@
 Id:30196
-ColorIdentity:BR
-OriginSet:G9ff9681e1fe8713a
-ManaCost:B R
-Types:Creature Lizard Warlock
-PT:2/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self,Lizard.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigBattleCry
-SVar:TrigBattleCry:DB$ Pump | Defined$ Self | KW$ BattleCry | Duration$ Perpetual
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self,Lizard.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigLoseLife
-SVar:TrigLoseLife:DB$ LoseLife | ValidTgts$ Opponent | LifeAmount$ 1 | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
+ColorIdentity:
+OriginSet:G30e4cc621dfc3a2e
+ManaCost:2
+Types:Artifact Equipment
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ X | AddToughness$ X
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Hamster.YouCtrl,Mouse.YouCtrl,Rat.YouCtrl,Squirrel.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigAttach | OptionalDecider$ You
+SVar:TrigAttach:DB$ Attach | Defined$ TriggeredCardLKICopy
+K:Equip:2
+SVar:X:Count$Valid Creature.basePowerEQ1+YouCtrl,Creature.baseToughnessEQ1+YouCtrl

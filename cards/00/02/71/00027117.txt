@@ -1,8 +1,14 @@
 Id:27117
-ColorIdentity:B
+ColorIdentity:WU
 OriginSet:G6ce0035cfb774934
-ManaCost:3 B
-Types:Creature Wolf
-PT:3/4
-K:Menace
-S:Mode$ Continuous | Affected$ Card.Self | AddPower$ 1 | IsPresent$ Orc.YouCtrl,Goblin.YouCtrl
+ManaCost:2 W U
+Types:Legendary Creature Human Noble
+PT:3/3
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigChooseOpp
+SVar:TrigChooseOpp:DB$ ChoosePlayer | Defined$ You | Choices$ Opponent | SubAbility$ DBDelayTrig
+SVar:DBDelayTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | ValidPlayer$ Player.IsTriggerRemembered | RememberObjects$ ChosenPlayer | SubAbility$ DBCleanup | Execute$ TrigBranch
+SVar:TrigBranch:DB$ Branch | BranchConditionSVar$ X | BranchConditionSVarCompare$ GE1 | TrueSubAbility$ DBToken | FalseSubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw
+SVar:DBToken:DB$ Token | TokenScriptIds$ 1647422943 | TokenAmount$ 3
+SVar:DBCleanup:DB$ Cleanup | ClearChosenPlayer$ True
+SVar:X:PlayerCountDefinedTriggeredPlayer$HasPropertyattackedYouTheirCurrentTurn

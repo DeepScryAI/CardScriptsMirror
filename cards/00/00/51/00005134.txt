@@ -1,8 +1,11 @@
 Id:5134
-ColorIdentity:WUR
+ColorIdentity:UR
 OriginSet:Ga43915481c3b48d8
-ManaCost:R
-Types:Creature Minotaur Wizard
-PT:1/1
-A:AB$ PreventDamage | Cost$ W T | ValidTgts$ Any | Amount$ 1
-A:AB$ Pump | Cost$ U T | ValidTgts$ Creature | KW$ Flying
+ManaCost:1 U R
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddAbility$ Damage | AddSVar$ QuicksilverDraw
+SVar:Damage:AB$ DealDamage | Cost$ T | ValidTgts$ Player,Planeswalker | NumDmg$ 1 | SubAbility$ QuicksilverDraw
+SVar:QuicksilverDraw:DB$ Draw | Defined$ You
+SVar:NonStackingAttachEffect:True

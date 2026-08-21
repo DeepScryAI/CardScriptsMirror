@@ -1,15 +1,8 @@
 Id:10569
-ColorIdentity:BR
+ColorIdentity:WUB
 OriginSet:G9445ff04667ca5ba
-ManaCost:2 B R
-Types:Sorcery
-A:SP$ NameCard | ValidCards$ Card.nonLand | SubAbility$ DBReveal
-SVar:DBReveal:DB$ RevealHand | RememberRevealed$ True | ValidTgts$ Player | SubAbility$ DBDamage
-SVar:DBDamage:DB$ DealDamage | Defined$ Targeted | NumDmg$ X | SubAbility$ ExileYard
-SVar:ExileYard:DB$ ChangeZoneAll | Origin$ Graveyard | Destination$ Exile | Defined$ Targeted | ChangeType$ Card.NamedCard | SubAbility$ ExileHand
-SVar:ExileHand:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | DefinedPlayer$ Targeted | ChangeType$ Card.NamedCard | ChangeNum$ NumInHand | Chooser$ You | SubAbility$ ExileLib | AlreadyRevealed$ True
-SVar:ExileLib:DB$ ChangeZone | Origin$ Library | Destination$ Exile | DefinedPlayer$ Targeted | ChangeType$ Card.NamedCard | ChangeNum$ NumInLib | Chooser$ You | Shuffle$ True | SubAbility$ DBCleanup
-SVar:NumInLib:TargetedPlayer$CardsInLibrary
-SVar:NumInHand:TargetedPlayer$CardsInHand
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearNamedCard$ True
-SVar:X:Remembered$Valid Card.NamedCard/Times.3
+ManaCost:WB U
+Types:Artifact
+A:AB$ Token | Cost$ 1 Sac<1/Artifact.!token/nontoken artifact> | TokenScriptIds$ 3547925757 | TokenOwner$ You | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
+SVar:AIPreference:SacCost$Permanent.catalogId9178

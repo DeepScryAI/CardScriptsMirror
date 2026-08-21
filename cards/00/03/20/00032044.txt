@@ -1,14 +1,20 @@
 Id:32044
-ColorIdentity:U
-OriginSet:G7856e27bce45729f
-ManaCost:2 U
-Types:Artifact Spacecraft
-PT:0/8
-K:Station:12
-S:Mode$ Continuous | Affected$ Card.Self+counters_GE3_CHARGE | AddTrigger$ CastTrig
-SVar:CastTrig:Mode$ SpellCast | ValidCard$ Artifact | ValidActivatingPlayer$ You | Execute$ TrigDraw | TriggerZones$ Battlefield
-SVar:TrigDraw:DB$ Draw | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ CHARGE | CounterNum$ 1
-S:Mode$ Continuous | Affected$ Card.Self+counters_GE12_CHARGE | AddType$ Creature | AddKeyword$ Flying | AddStaticAbility$ CraftStatic
-SVar:CraftStatic:Mode$ Continuous | Affected$ Card.Self | AddPower$ X
-SVar:X:Count$Valid Artifact.YouCtrl
+ColorIdentity:G
+OriginSet:G7ab4f62d323b0ca7
+ManaCost:1 G
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 490609126 | TokenOwner$ You
+T:Mode$ Phase | Phase$ Main1 | ValidPlayer$ You | TriggerZones$ Battlefield | IsPresent$ Bird.YouCtrl | PresentCompare$ GE4 | Execute$ TrigTransform
+SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform
+AlternateMode:DoubleFaced
+SVar:BuffedBy:Land
+ALTERNATE
+ManaCost:no cost
+Colors:green
+Types:Creature Bird
+PT:2/2
+T:Mode$ Transformed | ValidCard$ Card.Self | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Land | ChangeNum$ 1 | Tapped$ True
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPumpAll
+SVar:TrigPumpAll:DB$ PumpAll | ValidCards$ Bird.YouCtrl | NumAtt$ +1

@@ -1,12 +1,10 @@
 Id:8343
-ColorIdentity:WU
+ColorIdentity:B
 OriginSet:Gde6d8130c178f566
-ManaCost:1 W W U U
-Types:Legendary Creature Sphinx
-PT:3/6
-K:Flying
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigNameCard | TriggerZones$ Battlefield
-SVar:TrigNameCard:DB$ NameCard | Defined$ You | AILogic$ MostProminentInHumanDeck | SubAbility$ DBRevealHand
-SVar:DBRevealHand:DB$ RevealHand | Defined$ TriggeredTarget | RememberRevealed$ True | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Creature.withFlying+YouCtrl | ChangeNum$ 1 | Shuffle$ True | ConditionDefined$ Remembered | ConditionPresent$ Card.NamedCard | ConditionCompare$ GE1 | SubAbility$ DBCleanup
+ManaCost:1 B
+Types:Sorcery
+A:SP$ Reveal | RememberRevealed$ True | Defined$ You | SubAbility$ DBChangeZone | ConditionCheckSVar$ X
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Remembered.sameName | ChangeNum$ 1 | ConditionCheckSVar$ X | SubAbility$ DBChangeZone2
+SVar:DBChangeZone2:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Card | ChangeNum$ 1 | Mandatory$ True | ConditionCheckSVar$ X | ConditionSVarCompare$ LT1 | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$ValidHand Card.YouOwn

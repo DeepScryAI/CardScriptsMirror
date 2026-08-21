@@ -1,12 +1,13 @@
 Id:29793
-ColorIdentity:W
-OriginSet:Gf09b85bbcc27770c
-ManaCost:2 W
-Types:Enchantment Class
-T:Mode$ ChangesZoneAll | ValidCards$ Permanent.token+YouCtrl | Destination$ Battlefield | TriggerZones$ Battlefield | ActivationLimit$ 1 | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw
-K:Class:2:W:AddTrigger$ TriggerClassLevel
-SVar:TriggerClassLevel:Mode$ ClassLevelGained | ClassLevel$ 2 | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigCopy
-SVar:TrigCopy:DB$ CopyPermanent | ValidTgts$ Permanent.token+YouCtrl
-K:Class:3:3 W:AddStaticAbility$ SBuff
-SVar:SBuff:Mode$ Continuous | Affected$ Creature.token+YouCtrl | AddPower$ 2 | AddToughness$ 2
+ColorIdentity:WRG
+OriginSet:G997e3b19a1e94e85
+ManaCost:R G W
+Types:Legendary Creature Human Chef
+PT:3/3
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 134855612
+T:Mode$ Sacrificed | ValidCard$ Food.YouCtrl | Execute$ TrigChoose | TriggerZones$ Battlefield
+SVar:TrigChoose:DB$ Charm | Choices$ Gelato,Pasta,Pizza
+SVar:Gelato:DB$ Pump | ValidTgts$ Creature | KW$ Haste & Trample
+SVar:Pasta:DB$ Scry | ScryNum$ 1
+SVar:Pizza:DB$ Tap | ValidTgts$ Creature

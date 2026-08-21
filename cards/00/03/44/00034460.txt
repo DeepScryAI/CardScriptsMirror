@@ -1,9 +1,12 @@
 Id:34460
-ColorIdentity:R
-OriginSet:G11c0621ce29fa608
-ManaCost:R
-Types:Artifact Equipment
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1 | AddKeyword$ Reach
-T:Mode$ Taps | ValidCard$ Creature.EquippedBy | TriggerZones$ Battlefield | Execute$ TrigDamage
-SVar:TrigDamage:DB$ DealDamage | Defined$ Opponent | NumDmg$ 1 | DamageSource$ TriggeredCardLKICopy
-K:Equip:1
+ColorIdentity:B
+OriginSet:Gcb93bbfc68a40806
+ManaCost:3 B
+Types:Legendary Creature Human Horror Villain
+PT:2/2
+K:Menace
+S:Mode$ Continuous | Affected$ Card.Self | AddPower$ X | AddToughness$ X
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigMill | Secondary$ True | TriggerZones$ Battlefield
+SVar:TrigMill:DB$ Mill | Defined$ You | NumCards$ 2
+SVar:X:Count$ValidGraveyard Creature.YouOwn

@@ -1,11 +1,12 @@
 Id:23454
-ColorIdentity:W
-OriginSet:G1a259dba25660062
-ManaCost:2 W
-Types:Artifact Creature Equipment Kirin
-PT:3/2
-K:Flying
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddKeyword$ Flying | AddReplacementEffect$ YouCantLose & OppCantWin
-SVar:YouCantLose:Event$ GameLoss | ValidPlayer$ You | Layer$ CantHappen
-SVar:OppCantWin:Event$ GameWin | ValidPlayer$ Opponent | Layer$ CantHappen
-K:Reconfigure:5
+ColorIdentity:B
+OriginSet:G9f95a41d532c0550
+ManaCost:1 B
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Curse
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Destination$ Battlefield | Execute$ TrigVenture
+SVar:TrigVenture:DB$ Venture
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ -X | AddToughness$ -X
+SVar:X:Count$Compare Y GE1.5.2
+SVar:Y:DungeonsCompleted$Amount

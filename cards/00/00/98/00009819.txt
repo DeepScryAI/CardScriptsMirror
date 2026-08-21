@@ -1,7 +1,10 @@
 Id:9819
-ColorIdentity:UB
+ColorIdentity:U
 OriginSet:G0388e25893b1e049
-ManaCost:3 UB
-Types:Sorcery
-A:SP$ ChangeZone | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Creature | Origin$ Battlefield | Destination$ Hand | ConditionManaSpent$ U | SubAbility$ BPaid
-SVar:BPaid:DB$ Discard | ValidTgts$ Player | NumCards$ 1 | Mode$ RevealYouChoose | DiscardValid$ Card.nonLand | ConditionManaSpent$ B
+ManaCost:3 U U
+Types:Creature Beast
+PT:3/3
+K:Persist
+T:Mode$ ChangesZone | ValidCard$ Permanent | Origin$ Graveyard | Destination$ Battlefield | Execute$ DBDraw | TriggerZones$ Battlefield
+T:Mode$ SpellCast | ValidCard$ Card.wasCastFromGraveyard | Execute$ DBDraw | TriggerZones$ Battlefield
+SVar:DBDraw:DB$ Draw

@@ -1,9 +1,13 @@
 Id:34439
-ColorIdentity:B
-OriginSet:G11c0621ce29fa608
-ManaCost:2 B B
-Types:Legendary Creature Human Ninja Villain
-PT:3/3
-K:Sneak:1 B B
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDestroy
-SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Creature.OppCtrl+powerLE3
+ColorIdentity:
+OriginSet:Gcb93bbfc68a40806
+ManaCost:4
+Types:Artifact
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | Execute$ TrigCharm | TriggerZones$ Battlefield
+SVar:TrigCharm:DB$ Charm | Choices$ DBDraw,DBToken,DBLife | ChoiceRestriction$ ThisGame
+SVar:DBDraw:DB$ Draw
+SVar:DBToken:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 1214250791 | TokenOwner$ You
+SVar:DBLife:DB$ GainLife | Defined$ You | LifeAmount$ 3 | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | SubAbility$ DBReturn | RememberChanged$ True
+SVar:DBReturn:DB$ ChangeZone | Hidden$ True | Origin$ All | Destination$ Battlefield | Defined$ Remembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

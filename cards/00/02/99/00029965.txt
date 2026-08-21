@@ -1,11 +1,13 @@
 Id:29965
-ColorIdentity:B
+ColorIdentity:U
 OriginSet:Gf09b85bbcc27770c
-ManaCost:1 B
-Types:Creature Bat Cleric
-PT:2/1
-K:Offspring:2 B
-K:Flying
-S:Mode$ CantBlock | ValidCard$ Card.Self
-T:Mode$ LifeGained | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDrain
-SVar:TrigDrain:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 1
+ManaCost:5 U U
+Types:Creature Elemental Crab
+PT:5/5
+K:Flash
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ X | EffectZone$ All
+K:ETBReplacement:Other:LandTapped
+SVar:LandTapped:DB$ Tap | Defined$ Self | ETB$ True | ConditionPlayerTurn$ False
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigTap
+SVar:TrigTap:DB$ Tap | TargetMin$ 0 | TargetMax$ 2 | ValidTgts$ Creature
+SVar:X:Count$ValidGraveyard Instant.YouOwn,Sorcery.YouOwn

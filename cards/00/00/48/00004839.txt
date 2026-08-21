@@ -1,7 +1,12 @@
 Id:4839
-ColorIdentity:WG
+ColorIdentity:U
 OriginSet:Gfb91362c2efb868e
-ManaCost:4 G
-Types:Creature Treefolk Cleric
-PT:2/3
-A:AB$ PreventDamage | Cost$ 2 W T | ValidTgts$ Any | Amount$ 2
+ManaCost:2 U
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+K:ETBReplacement:Other:ChooseLT
+SVar:ChooseLT:DB$ ChooseType | Defined$ You | Type$ Land | AILogic$ ChosenLandwalk
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddKeyword$ Landwalk:ChosenType

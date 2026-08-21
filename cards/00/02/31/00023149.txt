@@ -1,21 +1,15 @@
 Id:23149
-ColorIdentity:B
-OriginSet:G6e75ff4f143a3dc3
-ManaCost:3 B
-Types:Creature Vampire Soldier
-PT:3/3
-A:AB$ Pump | Cost$ 1 B Discard<1/Card> | Defined$ Self | KW$ Indestructible | SubAbility$ DBTap
-SVar:DBTap:DB$ Tap | Defined$ Self | SubAbility$ DBTransform
-SVar:DBTransform:DB$ SetState | Defined$ Self | Mode$ Transform | ConditionPresent$ Creature.YouOwn | ConditionCompare$ GE4 | ConditionZone$ Graveyard
-SVar:AIPreference:DiscardCost$Creature
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:black
-Types:Creature Vampire Knight
-PT:*/*
-S:Mode$ Continuous | Affected$ Card.Self | CharacteristicDefining$ True | SetPower$ X | SetToughness$ X
-SVar:X:Count$ValidGraveyard Creature.YouOwn
-A:AB$ Pump | Cost$ 1 B Discard<1/Card> | Defined$ Self | KW$ Indestructible | SubAbility$ DBTap
-SVar:DBTap:DB$ Tap | Defined$ Self
-SVar:AIPreference:DiscardCost$Creature
+ColorIdentity:BR
+OriginSet:G7a76c1974b0a33a6
+ManaCost:4 B R
+Types:Legendary Creature Vampire Noble
+PT:3/4
+K:Flying
+K:Haste
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigChange | TriggerZones$ Battlefield
+SVar:TrigChange:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouOwn | Tapped$ True | Attacking$ True | RememberChanged$ True | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Remembered | Duration$ Permanent | Triggers$ TrigOlivia | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:TrigOlivia:Mode$ Always | TriggerZones$ Battlefield | IsPresent$ Vampire.YouCtrl+Legendary | PresentCompare$ EQ0 | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Defined$ Self | Origin$ Battlefield | Destination$ Exile
+SVar:HasAttackEffect:TRUE

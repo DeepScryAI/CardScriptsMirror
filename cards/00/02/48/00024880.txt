@@ -1,13 +1,15 @@
 Id:24880
 ColorIdentity:R
 OriginSet:G3a8b4b9d4649b357
-ManaCost:2 R
-Types:Creature Human Shaman
-PT:2/3
-K:Enlist
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDig
-SVar:TrigDig:DB$ Dig | DigNum$ X | ChangeNum$ 1 | Optional$ True | ChangeValid$ Instant.cmcLEX,Sorcery.cmcLEX | DestinationZone$ Exile | DestinationZone2$ Library | LibraryPosition$ -1 | RestRandomOrder$ True | RememberChanged$ True | SubAbility$ DBCast
-SVar:DBCast:DB$ Play | Valid$ Card.IsRemembered | ValidZone$ Exile | ValidSA$ Spell | WithoutManaCost$ True | Optional$ True | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:HasAttackEffect:TRUE
-SVar:X:Count$CardPower
+ManaCost:5 R
+Types:Sorcery
+A:SP$ Pump | ValidTgts$ Artifact | Imprint$ True | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ Creature | IsCurse$ True
+SVar:Creature:DB$ Pump | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | IsCurse$ True | SubAbility$ Enchantment
+SVar:Enchantment:DB$ Pump | ValidTgts$ Enchantment | TargetMin$ 0 | TargetMax$ 1 | IsCurse$ True | SubAbility$ Planeswalker
+SVar:Planeswalker:DB$ Pump | ValidTgts$ Planeswalker | TargetMin$ 0 | TargetMax$ 1 | IsCurse$ True | SubAbility$ Land
+SVar:Land:DB$ Pump | ValidTgts$ Land | TargetMin$ 0 | TargetMax$ 1 | IsCurse$ True | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | Defined$ Targeted | SubAbility$ DBRepeatPlayer | Imprint$ True
+SVar:DBRepeatPlayer:DB$ RepeatEach | RepeatPlayers$ ImprintedController | RepeatSubAbility$ DBRepeatCard | SubAbility$ DBCleanup
+SVar:DBRepeatCard:DB$ RepeatEach | DefinedCards$ ImprintedLKI.RememberedPlayerCtrl | ChooseOrder$ RememberedPlayer | RepeatSubAbility$ DBDigUntil
+SVar:DBDigUntil:DB$ DigUntil | Valid$ Card.sharesCardTypeWith RememberedLKI | FoundDestination$ Battlefield | Defined$ RememberedController | Shuffle$ True | RevealedDestination$ Library | RevealedLibraryPosition$ -1
+SVar:DBCleanup:DB$ Cleanup | ClearImprinted$ True

@@ -1,13 +1,10 @@
 Id:28290
-ColorIdentity:UR
-OriginSet:G8a59924df6623252
-ManaCost:2 U R
-Types:Legendary Creature Time Lord Doctor
-PT:3/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigMill | TriggerZones$ Battlefield | Secondary$ True
-SVar:TrigMill:DB$ Mill | NumCards$ 3 | RememberMilled$ True | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | Hidden$ True | Optional$ True | Origin$ Graveyard,Exile | Destination$ Hand | ChangeType$ Artifact.IsRemembered+cmcEQ2,Artifact.IsRemembered+cmcEQ3 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-S:Mode$ Continuous | Affected$ Card.nonArtifact+YouCtrl | EffectZone$ Battlefield | AffectedZone$ Stack | CheckSVar$ X | SVarCompare$ EQ0 | AddKeyword$ Improvise
-SVar:X:Count$ThisTurnCast_Card.nonArtifact+YouCtrl
+ColorIdentity:B
+OriginSet:Gfd50577710a6ab09
+ManaCost:4 B B
+Types:Creature Dinosaur
+PT:5/6
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.YouCtrl | NumAtt$ +2 | KW$ Indestructible
+K:TypeCycling:Swamp:2
+SVar:PlayMain1:TRUE

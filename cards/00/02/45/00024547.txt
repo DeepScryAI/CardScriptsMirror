@@ -1,8 +1,11 @@
 Id:24547
-ColorIdentity:B
-OriginSet:G58bfeff4fb121c8e
-ManaCost:2 B
-Types:Creature Hag Warlock
-PT:2/2
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigScry
-SVar:TrigScry:DB$ Scry | ScryNum$ 2
+ColorIdentity:R
+OriginSet:G51fcb7ec0cb81c29
+ManaCost:2 R
+Types:Instant
+A:SP$ Pump | TargetType$ SpellAbility.numTargets GE1 | TgtZone$ Stack | ValidTgts$ Card,Emblem | SubAbility$ RollD20
+SVar:RollD20:DB$ RollDice | Sides$ 20 | Modifier$ Y | ResultSubAbilities$ 1-14:ChooseNew,Else:ChooseAndCopy
+SVar:ChooseNew:DB$ ChangeTargets | Defined$ Targeted | Optional$ True
+SVar:ChooseAndCopy:DB$ ChangeTargets | Defined$ Targeted | Optional$ True | SubAbility$ DBCopy
+SVar:DBCopy:DB$ CopySpellAbility | Defined$ Targeted | Controller$ You | MayChooseTarget$ True
+SVar:Y:Count$Valid Creature.YouCtrl$GreatestCardPower

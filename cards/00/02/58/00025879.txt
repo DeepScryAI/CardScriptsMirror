@@ -1,13 +1,11 @@
 Id:25879
-ColorIdentity:UR
-OriginSet:Gb879a1706584aeee
-ManaCost:4 R
-Types:Legendary Creature Goblin Wizard
-PT:4/5
-K:Flying
-T:Mode$ SpellCast | ValidCard$ Card.!wasCastFromYourHand | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigCopy
-SVar:TrigCopy:AB$ CopySpellAbility | Cost$ 1 UR | Defined$ TriggeredSpellAbility | MayChooseTarget$ True | RememberNewCard$ True | SubAbility$ DBAnimate
-SVar:DBAnimate:DB$ Animate | Defined$ Remembered | ConditionDefined$ Remembered | ConditionPresent$ Permanent | Keywords$ Haste | Duration$ Permanent | Triggers$ EOTSac | SubAbility$ DBCleanup
-SVar:EOTSac:Mode$ Phase | Phase$ End of Turn | Execute$ TrigSac
-SVar:TrigSac:DB$ Sacrifice
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:W
+OriginSet:G06ccef4324c14725
+ManaCost:3 W
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Permanent.nonLand+OppCtrl | Duration$ UntilHostLeavesPlay
+SVar:PlayMain1:TRUE
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGainLife
+SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2 | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenTapped$ True | TokenScriptIds$ 2975106104

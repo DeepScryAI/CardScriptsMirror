@@ -1,9 +1,11 @@
 Id:12618
-ColorIdentity:G
+ColorIdentity:B
 OriginSet:Gfd7b72e0eb9d2cf5
-ManaCost:2 G
-Types:Enchantment
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ DBReveal
-SVar:DBReveal:DB$ PeekAndReveal | PeekAmount$ 1 | RevealValid$ Card | RememberRevealed$ True | SubAbility$ DBMayCast
-SVar:DBMayCast:DB$ Play | Defined$ Remembered | ValidSA$ Spell | ForgetRemembered$ True | WithoutManaCost$ True | Optional$ True | ConditionDefined$ Remembered | ConditionPresent$ Creature.sharesCreatureTypeWith Valid Creature.YouCtrl | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | Defined$ Remembered | Origin$ Library | Destination$ Library | LibraryPosition$ -1 | Shuffle$ False | ForgetChanged$ True
+ManaCost:2 B B
+Types:Creature Demon
+PT:5/4
+K:Flying
+K:Undying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExileUnless
+SVar:TrigExileUnless:DB$ ChangeZone | Defined$ Self | Origin$ Battlefield | Destination$ Exile | UnlessCost$ Sac<1/Creature.Other/other creature> | UnlessPayer$ You
+SVar:NeedsToPlay:Creature.cmcLE2+YouCtrl

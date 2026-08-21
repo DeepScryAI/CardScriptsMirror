@@ -1,13 +1,11 @@
 Id:24996
-ColorIdentity:W
+ColorIdentity:WB
 OriginSet:G3a8b4b9d4649b357
-ManaCost:3 W W
-Types:Enchantment Saga
-K:Read ahead
-K:Chapter:3:DBScry,DBChangeZone,DBLoyalty
-SVar:DBScry:DB$ Scry | ScryNum$ 4 | SubAbility$ DBDig
-SVar:DBDig:DB$ Dig | DigNum$ 1 | RevealOptional$ True | RememberRevealed$ True | ChangeNum$ All | ChangeValid$ Planeswalker.IsRemembered | LibraryPosition2$ 0 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:DBChangeZone:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | ChangeType$ Planeswalker.cmcLE6 | ChangeNum$ 1
-SVar:DBLoyalty:DB$ Effect | StaticAbilities$ PWTwice
-SVar:PWTwice:Mode$ NumLoyaltyAct | ValidCard$ Planeswalker.YouCtrl | Twice$ True
+ManaCost:2 W B
+Types:Legendary Creature Zombie Wizard
+PT:3/3
+K:Vigilance
+K:Ward:2
+S:Mode$ Continuous | Affected$ Zombie.YouCtrl+Other | AddKeyword$ Vigilance
+T:Mode$ ChangesZone | ValidCard$ Creature.Legendary+Other+YouCtrl | Origin$ Battlefield | Destination$ Graveyard | TriggerZones$ Battlefield | Execute$ DBCopy
+SVar:DBCopy:DB$ CopyPermanent | Defined$ TriggeredCardLKICopy | NonLegendary$ True | SetPower$ 2 | SetToughness$ 2 | AddTypes$ Zombie | AddColors$ Black

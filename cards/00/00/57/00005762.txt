@@ -1,6 +1,16 @@
 Id:5762
-ColorIdentity:R
+ColorIdentity:B
 OriginSet:G7327b0fa163b48eb
-ManaCost:3 R
-Types:Sorcery
-A:SP$ DealDamage | TargetMin$ 2 | TargetMax$ 2 | ValidTgts$ Creature | NumDmg$ 2
+ManaCost:4 B B B
+Types:Creature Zombie
+PT:*/*
+K:Trample
+K:ETBReplacement:Other:ETBPrep
+SVar:ETBPrep:DB$ Cleanup | ClearRemembered$ True | SubAbility$ DBChoose
+SVar:DBChoose:DB$ ChooseCard | Defined$ You | MinAmount$ 0 | Amount$ X | Choices$ Creature.YouOwn+Other+NotDefinedReplacedSimultaneousETB | ChoiceZone$ Graveyard | RememberChosen$ True | SubAbility$ ExileCreatures
+SVar:ExileCreatures:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered | Origin$ Graveyard | Destination$ Exile | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+S:Mode$ Continuous | EffectZone$ Battlefield | Affected$ Card.Self | SetPower$ TotalPower | SetToughness$ TotalToughness
+SVar:TotalPower:Remembered$CardPower
+SVar:TotalToughness:Remembered$CardToughness
+SVar:X:Count$ValidGraveyard Creature.YouOwn

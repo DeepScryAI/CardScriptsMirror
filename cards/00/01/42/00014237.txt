@@ -1,8 +1,12 @@
 Id:14237
-ColorIdentity:G
+ColorIdentity:BG
 OriginSet:Gc18355312510df89
-ManaCost:4 G
-Types:Creature Centaur Warrior
-PT:3/4
-T:Mode$ SpellCast | ValidActivatingPlayer$ You | TargetsValid$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 2
+ManaCost:1 B G
+Types:Legendary Enchantment Creature God
+PT:5/5
+K:Indestructible
+S:Mode$ Continuous | Affected$ Card.Self | RemoveType$ Creature | CheckSVar$ X | SVarCompare$ LT7
+SVar:X:Count$DevotionDual.Black.Green
+A:AB$ ChangeZone | Cost$ B G | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Creature | AITgts$ Card.YouOwn | AILogic$ AtOppEOT | AITgtOwnCards$ True | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 3941293414 | TokenOwner$ TargetedController
+SVar:BuffedBy:Permanent.Green,Permanent.Black

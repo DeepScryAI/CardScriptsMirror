@@ -1,12 +1,9 @@
 Id:3309
-ColorIdentity:R
+ColorIdentity:G
 OriginSet:G24ae8187eacbba52
-ManaCost:1 R
+ManaCost:1 G
 Types:Enchantment Aura
-K:Enchant:Creature
+K:Enchant:Land
 SVar:AttachAILogic:Pump
-A:AB$ Pump | Cost$ R | Defined$ Enchanted | NumAtt$ +1
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigChangeZone
-SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | Defined$ TriggeredNewCardLKICopy
-SVar:SacMe:2
-SVar:NonStackingAttachEffect:True
+T:Mode$ TapsForMana | ValidCard$ Card.AttachedBy | Execute$ TrigMana | Static$ True
+SVar:TrigMana:DB$ Mana | Produced$ Any | Amount$ 1 | Defined$ TriggeredCardController

@@ -1,9 +1,11 @@
 Id:23445
-ColorIdentity:G
-OriginSet:G1a259dba25660062
-ManaCost:no cost
-Types:Legendary Land
-A:AB$ Mana | Cost$ T | Produced$ G
-A:AB$ Destroy | Cost$ 1 G Discard<1/CARDNAME> | ValidTgts$ Artifact.OppCtrl,Enchantment.OppCtrl,Land.nonBasic+OppCtrl | SubAbility$ DBChangeZone | ReduceCost$ X | ActivationZone$ Hand
-SVar:DBChangeZone:DB$ ChangeZone | Optional$ True | Origin$ Library | Destination$ Battlefield | ChangeType$ Land.hasABasicLandType | ChangeNum$ 1 | DefinedPlayer$ TargetedController | ShuffleNonMandatory$ True
-SVar:X:Count$Valid Creature.Legendary+YouCtrl
+ColorIdentity:
+OriginSet:Gbe3783f336562357
+ManaCost:3
+Types:Artifact Creature Scarecrow
+PT:1/4
+K:Defender
+S:Mode$ Continuous | Affected$ Card.TopLibrary+YouCtrl | AffectedZone$ Library | MayLookAt$ You
+S:Mode$ Continuous | Affected$ Creature.TopLibrary+YouCtrl | AffectedZone$ Library | MayPlay$ True
+T:Mode$ SpellCast | ValidCard$ Creature.wasCastFromYourLibrary | ValidActivatingPlayer$ You | Execute$ TrigAnimate | TriggerZones$ Battlefield
+SVar:TrigAnimate:DB$ Animate | Defined$ TriggeredCardLKICopy | Colors$ Black | Types$ Bird | Keywords$ Flying | Power$ 1 | Toughness$ 1 | Duration$ Permanent

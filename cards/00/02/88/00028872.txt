@@ -1,13 +1,14 @@
 Id:28872
-ColorIdentity:W
-OriginSet:Gaf7c94f364052cdd
-ManaCost:1 W
-Types:Enchantment Aura
-K:Enchant:Opponent
-SVar:AttachAILogic:Curse
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 2822783804,134855612,4185589785 | TokenOwner$ EnchantedPlayer
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ Opponent.EnchantedBy | TriggerZones$ Battlefield | Execute$ TrigEffect
-SVar:TrigEffect:DB$ Effect | UnlessCost$ Y | UnlessPayer$ EnchantedPlayer | Duration$ UntilEndOfCombat | StaticAbilities$ StaticCantAttack
-SVar:StaticCantAttack:Mode$ CantAttack | ValidCard$ Creature
-SVar:Y:Count$Valid Artifact.EnchantedPlayerCtrl
+ColorIdentity:R
+OriginSet:G997e3b19a1e94e85
+ManaCost:3 R R
+Types:Legendary Creature Human Wizard
+PT:3/2
+K:Flash
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChoose
+SVar:TrigChoose:DB$ Pump | TargetType$ Spell | TgtZone$ Stack | ValidTgts$ Card.OppCtrl | SubAbility$ CrimsonCascade
+SVar:CrimsonCascade:DB$ DigUntil | Defined$ You | Amount$ 1 | Valid$ Card.cmcEQX | NoMoveRevealed$ True | RememberFound$ True | SubAbility$ CascadeCast
+SVar:CascadeCast:DB$ Play | Defined$ Remembered | WithoutManaCost$ True | ValidSA$ Spell | SubAbility$ YouShuffle
+SVar:YouShuffle:DB$ Shuffle | Defined$ You | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Targeted$CardManaCost

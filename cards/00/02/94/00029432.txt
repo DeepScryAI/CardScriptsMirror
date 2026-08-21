@@ -1,9 +1,11 @@
 Id:29432
-ColorIdentity:B
-OriginSet:Gac6359c222afbd4f
-ManaCost:4 B
-Types:Creature Horror
-PT:4/4
-A:AB$ PutCounter | Cost$ 2 B | Adapt$ 2
-T:Mode$ CounterAddedOnce | ValidCard$ Card.Self | TriggerZones$ Battlefield | CounterType$ P1P1 | Execute$ TrigLoseLife
-SVar:TrigLoseLife:AB$ LoseLife | Cost$ Draw<2/You> | LifeAmount$ 2
+ColorIdentity:W
+OriginSet:G0c9f9aa4a8bf0371
+ManaCost:1 W W
+Types:Creature Human Soldier
+PT:2/2
+K:FirstStrike
+K:Lifelink
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigEffect
+SVar:TrigEffect:DB$ Effect | StaticAbilities$ RaiseCost | ValidTgts$ Opponent | EffectOwner$ Targeted | ForgetOnCast$ Card.nonCreature+YouCtrl | Duration$ Permanent
+SVar:RaiseCost:Mode$ RaiseCost | Type$ Spell | ValidCard$ Card.nonCreature | Activator$ You | Amount$ 2

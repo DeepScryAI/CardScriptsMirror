@@ -1,0 +1,11 @@
+Id:25310
+ColorIdentity:URG
+OriginSet:Gf591a76e7a37cf73
+ManaCost:2 G U R
+Types:Enchantment Saga
+K:Chapter:3:DBChooseCard,DBDouble,DBDouble
+SVar:DBChooseCard:DB$ ChooseCard | ChoiceZone$ Hand | Choices$ Creature.YouOwn | Optional$ True | SubAbility$ DBPutX
+SVar:DBPutX:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | Defined$ ChosenCard | WithCountersType$ P1P1 | WithCountersAmount$ Count$Valid Land.YouCtrl | ConditionDefined$ ChosenCard | ConditionPresent$ Card.hasXCost | SubAbility$ DBPut
+SVar:DBPut:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | Defined$ ChosenCard | ConditionDefined$ ChosenCard | ConditionPresent$ Card.hasXCost | ConditionCompare$ EQ0 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+SVar:DBDouble:DB$ MultiplyCounter | ValidTgts$ Creature.YouCtrl | Multiplier$ 2

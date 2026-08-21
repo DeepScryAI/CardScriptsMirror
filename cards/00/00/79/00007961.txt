@@ -1,10 +1,12 @@
 Id:7961
-ColorIdentity:G
+ColorIdentity:WR
 OriginSet:Gc563c209d627c4c5
-ManaCost:1 G
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:Pump
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddKeyword$ Trample
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 3815350479 | TokenOwner$ You
+ManaCost:3 R W W
+Types:Creature Angel
+PT:4/3
+K:Flying
+K:FirstStrike
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | IsPresent$ Card.Self | PresentZone$ Battlefield | OptionalDecider$ You | Execute$ TrigGainLife
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Graveyard | IsPresent$ Card.StrictlySelf | PresentZone$ Graveyard | OptionalDecider$ You | Secondary$ True | Execute$ TrigGainLife
+A:AB$ ChangeZone | Cost$ 6 R R W W | Origin$ Graveyard | Destination$ Battlefield | ActivationZone$ Graveyard | PlayerTurn$ True | ActivationPhases$ Upkeep
+SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1

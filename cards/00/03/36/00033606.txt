@@ -1,13 +1,12 @@
 Id:33606
 ColorIdentity:R
-OriginSet:Gf04404de3fa1525e
-ManaCost:R R
-Types:Instant
-S:Mode$ CantBeCopied | ValidCard$ Card.Self | EffectZone$ Stack
-A:SP$ Charm | Choices$ DBCopySpell,DBCopyCreature | MinCharmNum$ 1 | CharmNum$ 2 | Defined$ You
-SVar:DBCopySpell:DB$ CopySpellAbility | ValidTgts$ Instant.YouCtrl,Sorcery.YouCtrl | TargetType$ Spell | MayChooseTarget$ True
-SVar:DBCopyCreature:DB$ CopySpellAbility | ValidTgts$ Creature.YouCtrl | TargetType$ Spell | RememberNewCard$ True | SubAbility$ DBAnimate
-SVar:DBAnimate:DB$ Animate | Defined$ Remembered | Keywords$ Haste | Triggers$ EOTSac | Duration$ Permanent | SubAbility$ DBCleanup
-SVar:EOTSac:Mode$ Phase | Phase$ End of Turn | Execute$ TrigSac
-SVar:TrigSac:DB$ Sacrifice
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+OriginSet:Gff0a4227ae9f1a4b
+ManaCost:4 R
+Types:Legendary Creature Mutant Ninja Turtle
+PT:4/4
+R:Event$ DamageDone | ActiveZones$ Battlefield | ValidSource$ Creature.YouCtrl+HasCounters | ValidTarget$ Permanent,Player | ReplaceWith$ DmgTwice
+SVar:DmgTwice:DB$ ReplaceEffect | VarName$ DamageAmount | VarValue$ X
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 2178077173 | TokenOwner$ You
+K:Partner:Character select
+SVar:X:ReplaceCount$DamageAmount/Twice

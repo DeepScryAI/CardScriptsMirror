@@ -1,8 +1,9 @@
 Id:21515
 ColorIdentity:R
-OriginSet:G18bf722b221724f8
+OriginSet:G51d431785c8b33e5
 ManaCost:2 R
 Types:Sorcery
-A:SP$ DamageAll | ValidCards$ Creature | NumDmg$ 2 | RememberDamaged$ True | ReplaceDyingDefined$ Remembered | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-K:Foretell:R
+A:SP$ ChooseNumber | Defined$ Player | Secretly$ True | Highest$ DBLoseLife | NotLowest$ DBDiscard | AILogic$ HighestLoseLife
+SVar:DBLoseLife:DB$ DealDamage | Defined$ Remembered | NumDmg$ Count$ChosenNumber
+SVar:DBDiscard:DB$ Discard | Defined$ Remembered | Mode$ Hand | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ Remembered | NumCards$ 7

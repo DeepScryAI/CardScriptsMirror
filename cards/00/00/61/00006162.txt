@@ -3,10 +3,7 @@ ColorIdentity:
 OriginSet:Gda59deaeee465b93
 ManaCost:no cost
 Types:Vanguard
-HandLifeModifier:+0/-5
-A:AB$ Effect | Cost$ PayLife<1> | ActivationZone$ Command | Triggers$ TrigPhageDestroy
-SVar:TrigPhageDestroy:Mode$ DamageDone | ValidSource$ Creature | ValidTarget$ You | TriggerZones$ Command | CombatDamage$ True | Execute$ PhageAvatarDestroy
-SVar:PhageAvatarDestroy:DB$ Destroy | Defined$ TriggeredSourceLKICopy
-A:AB$ Effect | Cost$ PayLife<1> | ActivationZone$ Command | ValidTgts$ Creature.YouCtrl | Triggers$ TrigPhageCreature | RememberObjects$ Targeted
-SVar:TrigPhageCreature:Mode$ DamageDone | ValidSource$ Creature.IsRemembered | ValidTarget$ Creature | TriggerZones$ Command | CombatDamage$ True | Execute$ PhageAvatarDestroy2
-SVar:PhageAvatarDestroy2:DB$ Destroy | Defined$ TriggeredTargetLKICopy
+HandLifeModifier:+0/+9
+A:AB$ RepeatEach | Cost$ 3 | ActivationZone$ Command | RepeatPlayers$ Player.Opponent | RepeatSubAbility$ ArrestEach
+SVar:ArrestEach:DB$ ChooseCard | Amount$ 1 | Choices$ Creature.RememberedPlayerCtrl | AtRandom$ True | SubAbility$ DBAttach
+SVar:DBAttach:DB$ CopyPermanent | DefinedCatalogId$ 3990 | AttachAfter$ True | AttachedTo$ ChosenCard | ConditionDefined$ ChosenCard | ConditionPresent$ Creature | ConditionCompare$ GE1

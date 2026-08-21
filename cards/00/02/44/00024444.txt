@@ -1,10 +1,14 @@
 Id:24444
-ColorIdentity:R
+ColorIdentity:B
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:2 R R
-Types:Sorcery
-A:SP$ RollDice | Sides$ 20 | ResultSubAbilities$ 1-9:DBSDamage,10-19:DBChooseCard,20:DBLDamage
-SVar:DBSDamage:DB$ DamageAll | ValidCards$ Creature | NumDmg$ 3
-SVar:DBChooseCard:DB$ ChooseCard | Choices$ Creature | ChoiceOptional$ True | SubAbility$ DBMDamage
-SVar:DBMDamage:DB$ DamageAll | NumDmg$ 3 | ValidCards$ Creature.nonChosenCard
-SVar:DBLDamage:DB$ DamageAll | ValidCards$ Creature.OppCtrl | NumDmg$ 6
+ManaCost:4 B
+Types:Creature Horror
+PT:4/3
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ RollD20
+SVar:RollD20:DB$ RollDice | Sides$ 20 | ResultSubAbilities$ 1-9:DBSDraw,10-19:DBMDraw,20:DBLDraw
+SVar:DBSDraw:DB$ Draw | SubAbility$ DBSLoseLife
+SVar:DBSLoseLife:DB$ LoseLife | LifeAmount$ 1
+SVar:DBMDraw:DB$ Draw | NumCards$ 2 | SubAbility$ DBMLoseLife
+SVar:DBMLoseLife:DB$ LoseLife | LifeAmount$ 2
+SVar:DBLDraw:DB$ Draw | NumCards$ 7 | SubAbility$ DBLLoseLife
+SVar:DBLLoseLife:DB$ LoseLife | LifeAmount$ 7

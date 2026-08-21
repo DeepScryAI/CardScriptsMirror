@@ -1,7 +1,10 @@
 Id:3688
-ColorIdentity:W
+ColorIdentity:R
 OriginSet:G7f42f76dcdf8690a
-ManaCost:2 W
-Types:Instant
-A:SP$ Destroy | ValidTgts$ Creature.attacking | CheckSVar$ X | ActivationPhases$ Declare Attackers
-SVar:X:PlayerCountPropertyYou$HasPropertyBeenAttackedThisCombat
+ManaCost:4 R
+Types:Legendary Creature Human Soldier
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDmgOpp
+SVar:TrigDmgOpp:DB$ Pump | ValidTgts$ Creature.OppCtrl | SubAbility$ DBDmgOpp | IsCurse$ True
+SVar:DBDmgOpp:DB$ DealDamage | DamageSource$ Targeted | Defined$ TargetedController | NumDmg$ X
+SVar:X:Targeted$CardPower

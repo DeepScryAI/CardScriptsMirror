@@ -1,11 +1,17 @@
 Id:25929
-ColorIdentity:W
-OriginSet:G880fc7f6ed36df4d
-ManaCost:W
-Types:Instant
-A:SP$ ChangeZone | ValidTgts$ Creature | RememberTargets$ True | Origin$ Battlefield | Destination$ Exile | SubAbility$ DBAnimate
-SVar:DBAnimate:DB$ Animate | Defined$ Remembered | Duration$ Permanent | Triggers$ UpkeepTrig | SubAbility$ DBCleanup
-SVar:UpkeepTrig:Mode$ Phase | Phase$ Upkeep | TriggerZones$ Exile | Execute$ TrigPerpetual | ValidPlayer$ You
-SVar:TrigPerpetual:DB$ Pump | PumpZone$ Exile | Defined$ Self | NumAtt$ +1 | NumDef$ +1 | Duration$ Perpetual | SubAbility$ DBReturn
-SVar:DBReturn:DB$ ChangeZone | Defined$ Self | Origin$ Exile | Destination$ Battlefield | Optional$ True
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:WU
+OriginSet:G06ccef4324c14725
+ManaCost:no cost
+Colors:white,blue
+Types:Legendary Planeswalker Urza
+Loyalty:7
+S:Mode$ NumLoyaltyAct | ValidCard$ Card.Self | Twice$ True
+A:AB$ Effect | Cost$ AddCounter<2/LOYALTY> | Planeswalker$ True | StaticAbilities$ ReduceCost | SubAbility$ DBGainLife
+SVar:ReduceCost:Mode$ ReduceCost | ValidCard$ Artifact,Instant,Sorcery | Type$ Spell | Activator$ You | Amount$ 2
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2
+A:AB$ Draw | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | NumCards$ 2 | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ TgtChoose
+A:AB$ Token | Cost$ AddCounter<0/LOYALTY> | Planeswalker$ True | TokenScriptIds$ 1912559273 | TokenAmount$ 2
+A:AB$ ChangeZone | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | ValidTgts$ Permanent.nonLand | Origin$ Battlefield | Destination$ Exile
+A:AB$ PumpAll | Cost$ SubCounter<10/LOYALTY> | Planeswalker$ True | Ultimate$ True | ValidCards$ Artifact.YouCtrl,Planeswalker.YouCtrl | KW$ Indestructible | SubAbility$ DBDestroyAll
+SVar:DBDestroyAll:DB$ DestroyAll | ValidCards$ Permanent.nonLand

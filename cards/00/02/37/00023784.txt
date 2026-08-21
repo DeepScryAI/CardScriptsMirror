@@ -1,10 +1,9 @@
 Id:23784
 ColorIdentity:U
-OriginSet:G5f5d8cfb206e2fac
-ManaCost:2 U
-Types:Creature Octopus Rogue
-PT:1/4
-S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigClone
-SVar:TrigClone:DB$ Clone | ValidTgts$ Creature.Other | SetPower$ 1 | SetToughness$ 4 | AddStaticAbilities$ Unblockable | AILogic$ CloneBestCreature | Duration$ UntilEndOfTurn
-SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Creature.Self
+OriginSet:Gd970889168b5769f
+ManaCost:X U
+Types:Sorcery
+A:SP$ ChangeZone | Origin$ Library | Destination$ Battlefield | ValidTgts$ Opponent | ChangeType$ Creature.cmcLEX+TargetedPlayerOwn | ChangeNum$ 1 | Hidden$ True | AtRandom$ True | NoShuffle$ True | Mandatory$ True | NoLooking$ True | GainControl$ True | RememberChanged$ True | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Remembered | Power$ X | Toughness$ X | Keywords$ Ward:1 | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$xPaid

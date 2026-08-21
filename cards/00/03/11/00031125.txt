@@ -1,14 +1,14 @@
 Id:31125
-ColorIdentity:WUB
-OriginSet:Gef9d0d0c16b2fcf7
-ManaCost:2 W U B
-Types:Legendary Creature Zombie Wizard
-PT:4/4
+ColorIdentity:WU
+OriginSet:G4524bbf7a3db9dc0
+ManaCost:4 W U
+Types:Artifact Vehicle
+PT:6/5
 K:Vigilance
-K:Menace
-T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigDraw | TriggerZones$ Battlefield
-SVar:TrigDraw:DB$ Draw | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ TgtChoose
-T:Mode$ Drawn | ValidCard$ Card.YouOwn | TriggerZones$ Battlefield | Execute$ TrigPumpAll
-SVar:TrigPumpAll:DB$ PumpAll | ValidCards$ Zombie.YouCtrl | NumAtt$ +1 | NumDef$ +1
-SVar:PlayMain1:TRUE
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSearch
+SVar:TrigSearch:DB$ ChangeZone | Origin$ Library | Destination$ Library | ChangeType$ Artifact | ChangeNum$ 1 | Reveal$ True | Shuffle$ False | RememberChanged$ True | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Defined$ Remembered | Origin$ Library | Destination$ Battlefield | ConditionDefined$ Remembered | ConditionPresent$ Card.cmcLE2 | ForgetChanged$ True | SubAbility$ DBChangeZone2
+SVar:DBChangeZone2:DB$ ChangeZone | Defined$ Remembered | Origin$ Library | Destination$ Hand | SubAbility$ DBShuffle
+SVar:DBShuffle:DB$ Shuffle | Defined$ You | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+K:Crew:2

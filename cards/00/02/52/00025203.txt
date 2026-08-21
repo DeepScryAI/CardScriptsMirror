@@ -1,9 +1,10 @@
 Id:25203
-ColorIdentity:B
+ColorIdentity:UR
 OriginSet:Gf591a76e7a37cf73
-ManaCost:3 B B
-Types:Artifact Creature Necron
-PT:3/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 321060237 | TokenTapped$ True
-K:Unearth:3 B
+ManaCost:3 U R
+Types:Instant
+A:SP$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ MaxTgt | TargetsWithDifferentControllers$ True | SubAbility$ DBRepeatEach | RememberLKI$ True
+SVar:DBRepeatEach:DB$ RepeatEach | DefinedCards$ DirectRemembered | Zone$ Exile | UseImprinted$ True | RepeatSubAbility$ DBDig | SubAbility$ DBCleanup
+SVar:DBDig:DB$ DigUntil | Defined$ ImprintedController | Amount$ 1 | Valid$ Creature | FoundDestination$ Battlefield | RevealedDestination$ Library | RevealedLibraryPosition$ -1 | RevealRandomOrder$ True
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:MaxTgt:PlayerCountPlayers$Amount

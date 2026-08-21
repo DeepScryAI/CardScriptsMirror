@@ -1,9 +1,10 @@
 Id:26505
 ColorIdentity:U
-OriginSet:G06757f68e16377c2
-ManaCost:2 U
-Types:Creature Human Wizard
-PT:1/4
-K:Vigilance
-A:AB$ Draw | Cost$ 2 T | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | Mode$ TgtChoose
+OriginSet:Gd5f5e54fa26ae40d
+ManaCost:4 U
+Types:Artifact Vehicle
+PT:4/3
+K:Crew:2
+S:Mode$ CantBlockBy | ValidAttacker$ Card.Self | ValidBlocker$ Card.nonVehicle
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigCast | OptionalDecider$ You | CombatDamage$ True
+SVar:TrigCast:DB$ Play | ValidTgts$ Instant.OwnedBy TriggeredTarget,Sorcery.OwnedBy TriggeredTarget | TgtZone$ Graveyard | ValidSA$ Spell | WithoutManaCost$ True | Optional$ True | ReplaceGraveyard$ Exile | AILogic$ ReplaySpell

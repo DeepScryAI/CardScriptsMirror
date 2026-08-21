@@ -1,11 +1,12 @@
 Id:24231
 ColorIdentity:U
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:3 U
-Types:Creature Cat Beast
-PT:2/2
-T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | Execute$ DBBlink | TriggerZones$ Battlefield
-SVar:DBBlink:DB$ ChangeZone | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Permanent.nonLand+YouCtrl | Origin$ Battlefield | Destination$ Exile | SubAbility$ DBReturn | RememberChanged$ True
-SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:BuffedBy:Card.nonCreature
+ManaCost:6 U U
+Types:Creature Elder Dragon
+PT:8/8
+K:Flying
+T:Mode$ DamageDone | ValidSource$ Card.Self | Execute$ TrigRoll | CombatDamage$ True | ValidTarget$ Player | TriggerZones$ Battlefield
+SVar:TrigRoll:DB$ RollDice | ResultSVar$ Result | Sides$ 20 | SubAbility$ TrigDraw
+SVar:TrigDraw:DB$ Draw | NumCards$ Result | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STHandSize | Duration$ Permanent
+SVar:STHandSize:Mode$ Continuous | Affected$ You | SetMaxHandSize$ Unlimited

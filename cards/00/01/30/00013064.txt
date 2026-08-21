@@ -1,9 +1,16 @@
 Id:13064
-ColorIdentity:BG
+ColorIdentity:U
 OriginSet:G5449dea2d54987a1
-ManaCost:2 B G
-Types:Sorcery
-A:SP$ ChangeZone | Origin$ Library | Destination$ Library | ChangeType$ Creature | ChangeNum$ 2 | RememberChanged$ True | Reveal$ True | Shuffle$ False | SubAbility$ DBChangeZone1
-SVar:DBChangeZone1:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Creature.IsRemembered | ChangeNum$ 1 | Mandatory$ True | NoLooking$ True | Shuffle$ False | SubAbility$ DBChangeZone2
-SVar:DBChangeZone2:DB$ ChangeZone | Origin$ Library | Destination$ Graveyard | ChangeType$ Creature.IsRemembered | Mandatory$ True | NoLooking$ True | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:2 U U
+Types:Legendary Planeswalker Jace
+Loyalty:4
+A:AB$ Effect | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | Triggers$ TrigAttack | Duration$ UntilYourNextTurn | AILogic$ Main2
+SVar:TrigAttack:Mode$ Attacks | ValidCard$ Creature.OppCtrl | TriggerZones$ Command | Execute$ JacePump
+SVar:JacePump:DB$ Pump | Defined$ TriggeredAttackerLKICopy | NumAtt$ -1
+A:AB$ PeekAndReveal | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | PeekAmount$ 3 | RememberRevealed$ True | NoPeek$ True | SubAbility$ DBTwoPiles
+SVar:DBTwoPiles:DB$ TwoPiles | Defined$ You | DefinedCards$ Remembered | Separator$ Opponent | ChosenPile$ DBHand | UnchosenPile$ DBLibraryBottom
+SVar:DBHand:DB$ ChangeZone | Defined$ Remembered | Origin$ Library | Destination$ Hand
+SVar:DBLibraryBottom:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered | Origin$ Library | Destination$ Library | LibraryPosition$ -1
+A:AB$ ChangeZone | Cost$ SubCounter<8/LOYALTY> | Planeswalker$ True | Ultimate$ True | Origin$ Library | Destination$ Exile | DefinedPlayer$ Player | Chooser$ You | ChangeType$ Card.nonLand | ChangeNum$ 1 | Imprint$ True | Shuffle$ True | SubAbility$ DBPlayIt
+SVar:DBPlayIt:DB$ Play | Defined$ Imprinted | Amount$ All | Controller$ You | WithoutManaCost$ True | ValidSA$ Spell | Optional$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearImprinted$ True

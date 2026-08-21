@@ -1,9 +1,12 @@
 Id:33515
-ColorIdentity:UR
-OriginSet:G23d1f017cc66962f
-ManaCost:1 UR UR
-Types:Artifact Creature Human Hero
-PT:3/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZone | ValidTgts$ Artifact.Other+YouCtrl | TargetMin$ 0 | TargetMax$ 1 | Origin$ Battlefield | Destination$ Hand | SubAbility$ DBScry
-SVar:DBScry:DB$ Scry | ScryNum$ 1
+ColorIdentity:UG
+OriginSet:G7ab1fe96128a1641
+ManaCost:3 GU GU
+Types:Creature Elemental Incarnation
+PT:6/5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | CheckSVar$ CastSA>Count$Adamant_2.Green.2.0 | ValidCard$ Card.Self | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | ValidTgts$ Artifact.OppCtrl,Enchantment.OppCtrl | Origin$ Battlefield | Destination$ Exile
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | CheckSVar$ CastSA>Count$Adamant_2.Blue.2.0 | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 2 | SubAbility$ TrigDiscard
+SVar:TrigDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ TgtChoose
+K:Evoke:GU GU

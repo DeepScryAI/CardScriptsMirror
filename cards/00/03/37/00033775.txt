@@ -1,14 +1,11 @@
 Id:33775
-ColorIdentity:W
-OriginSet:Gf8df2bea26dc6b68
-ManaCost:1 W
-Types:Legendary Creature Human Cleric
-PT:1/1
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZone | ValidTgts$ Creature.Other+YouCtrl | TargetMin$ 0 | TargetMax$ 1 | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DelTrig
-SVar:DelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ TrigBounce | RememberObjects$ RememberedLKI | SubAbility$ DBCleanup
-SVar:TrigBounce:DB$ ChangeZone | Origin$ Exile | Destination$ Battlefield | Defined$ DelayTriggerRememberedLKI
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ X | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
-SVar:X:Count$ThisTurnEntered_Exile_Card.!token
+ColorIdentity:R
+OriginSet:G23d1f017cc66962f
+ManaCost:3 R R
+Types:Legendary Creature Mutant Berserker Turtle
+PT:7/5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.YouCtrl+Other | TriggerZones$ Battlefield | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | Defined$ Player.Opponent | NumDmg$ 2
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 3094347554 | TokenOwner$ You
+SVar:HasAttackEffect:TRUE

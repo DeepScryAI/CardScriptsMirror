@@ -1,8 +1,20 @@
 Id:15996
-ColorIdentity:UR
+ColorIdentity:G
 OriginSet:Gc276c26a85a70470
+ManaCost:2 G
+Types:Creature Human Werewolf
+PT:2/3
+T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ Opponent | TriggerZones$ Battlefield | PlayerTurn$ True | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+T:Mode$ Phase | Phase$ Upkeep | WerewolfTransformCondition$ True | TriggerZones$ Battlefield | Execute$ TrigTransform
+SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform
+AlternateMode:DoubleFaced
+ALTERNATE
 ManaCost:no cost
-Types:Land
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
-A:AB$ Mana | Cost$ T | Produced$ Combo U R
+Colors:green
+Types:Creature Werewolf
+PT:3/5
+T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ Opponent | TriggerZones$ Battlefield | PlayerTurn$ True | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 2
+T:Mode$ Phase | Phase$ Upkeep | WerewolfUntransformCondition$ True | TriggerZones$ Battlefield | Execute$ TrigTransform
+SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform

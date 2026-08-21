@@ -1,9 +1,17 @@
 Id:29545
-ColorIdentity:R
+ColorIdentity:G
 OriginSet:Gac6359c222afbd4f
-ManaCost:1 R
-Types:Instant
-K:Split second
-A:SP$ Charm | Choices$ DBDestroy,DBPump
-SVar:DBDestroy:DB$ Destroy | ValidTgts$ Artifact
-SVar:DBPump:DB$ Pump | ValidTgts$ Creature | NumAtt$ +3 | NumDef$ +2 | KW$ Trample
+ManaCost:3 G G G
+Types:Creature Elf Druid
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGainLife
+SVar:TrigGainLife:AB$ GainLife | Cost$ Sac<1/Creature.Other/another creature> | LifeAmount$ X | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ X
+SVar:X:Sacrificed$CardPower
+AlternateMode:Modal
+ALTERNATE
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ DBTap | ReplacementResult$ Updated
+SVar:DBTap:DB$ Tap | ETB$ True | Defined$ Self | UnlessCost$ PayLife<3> | UnlessPayer$ You
+A:AB$ Mana | Cost$ T | Produced$ G

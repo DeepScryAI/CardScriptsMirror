@@ -1,10 +1,10 @@
 Id:7081
 ColorIdentity:B
 OriginSet:G332b6b8a53f3d107
-ManaCost:2 B
-Types:Creature Ogre Warrior Shaman
-PT:3/1
-A:AB$ PutCounter | Cost$ T | CounterType$ DEVOTION | CounterNum$ 1
-A:AB$ Pump | Cost$ T | ValidTgts$ Creature | NumAtt$ -X | NumDef$ -X | IsPresent$ Demon.YouCtrl
-SVar:X:Count$CardCounters.DEVOTION
-SVar:BuffedBy:Demon
+ManaCost:3 B
+Types:Creature Ogre Shaman
+PT:3/2
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigSearch | TriggerZones$ Battlefield
+SVar:TrigSearch:AB$ ChangeZone | Cost$ Sac<1/CARDNAME> | Origin$ Library | Destination$ Hand | ChangeType$ Demon | ChangeNum$ 1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Demon.YouCtrl | TriggerZones$ Graveyard | OptionalDecider$ You | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Defined$ Self | Origin$ Graveyard | Destination$ Hand

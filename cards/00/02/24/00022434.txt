@@ -1,11 +1,13 @@
 Id:22434
-ColorIdentity:WB
-OriginSet:G9f95a41d532c0550
-ManaCost:2 W B
-Types:Legendary Creature Dwarf Cleric
-PT:3/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ DBVenture
-T:Mode$ Attacks | ValidCard$ Card.Self | CheckSVar$ X | Execute$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | Hidden$ True | ChangeType$ Creature.YouOwn+cmcLE3
-SVar:DBVenture:DB$ Venture | Defined$ You
-SVar:X:DungeonsCompleted$Amount
+ColorIdentity:B
+OriginSet:Geb2cf181996ee3b2
+ManaCost:4 B
+Types:Creature Human Warlock
+PT:2/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigImmediateTrig
+SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ ExileFromGrave<2/card> | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouOwn
+SVar:NeedsToPlayVar:Z EQ3
+SVar:X:Count$ValidGraveyard Card.YouOwn/LimitMax.3
+SVar:Y:Count$ValidGraveyard Creature.YouOwn/LimitMax.1
+SVar:Z:SVar$X/Times.Y

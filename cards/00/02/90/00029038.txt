@@ -1,14 +1,13 @@
 Id:29038
-ColorIdentity:WR
-OriginSet:G27146c70b74a1e72
-ManaCost:2 R W
-Types:Legendary Creature Human Warrior
-PT:4/3
-S:Mode$ Continuous | Affected$ Ox.YouCtrl | AddKeyword$ DoubleStrike
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigExile | Secondary$ True
-SVar:TrigExile:DB$ Dig | DigNum$ 1 | DestinationZone$ Exile | RememberChanged$ True | ChangeNum$ All | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenScriptIds$ 3960924806 | TokenOwner$ You | ConditionDefined$ Remembered | ConditionPresent$ Land | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ Play | ForgetOnMoved$ Exile | Duration$ UntilTheEndOfYourNextTurn | ConditionDefined$ Remembered | ConditionPresent$ Card.nonLand | SubAbility$ DBCleanup
-SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered+nonLand | AffectedZone$ Exile
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:R
+OriginSet:Gaf7c94f364052cdd
+ManaCost:2 R R
+Types:Legendary Artifact Creature Robot
+PT:3/2
+K:FirstStrike
+T:Mode$ Phase | Phase$ EndCombat | ValidPlayer$ You | CheckSVar$ RaidTest | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ X | TokenScriptIds$ 4185589785 | TokenOwner$ You
+SVar:RaidTest:Count$AttackersDeclared
+SVar:X:PlayerCountPropertyYou$OpponentsAttackedThisTurn
+T:Mode$ Sacrificed | ValidCard$ Junk.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigMana
+SVar:TrigMana:DB$ Mana | Produced$ R | Amount$ 1

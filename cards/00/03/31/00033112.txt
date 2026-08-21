@@ -1,9 +1,12 @@
 Id:33112
-ColorIdentity:UB
-OriginSet:G7ab1fe96128a1641
-ManaCost:5 UB UB
-Types:Sorcery
-A:SP$ DigUntil | Defined$ Opponent | Valid$ Card | FoundDestination$ Exile | RevealedDestination$ Exile | MinTotalCMC$ 5 | RememberRevealed$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | ForgetOnMoved$ Exile | RememberObjects$ Remembered | SubAbility$ DBCleanup
-SVar:STPlay:Mode$ Continuous | MayPlay$ True | MayPlayWithoutManaCost$ True | Affected$ Card.IsRemembered+nonLand | AffectedZone$ Exile
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:G
+OriginSet:G731e0066916b7465
+ManaCost:2 G
+Types:Creature Elephant Monkey
+PT:3/2
+K:Reach
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 134855612 | TokenOwner$ Player
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +X | NumDef$ +X
+SVar:X:Count$Valid Artifact.OppCtrl

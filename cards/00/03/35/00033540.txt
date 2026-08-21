@@ -1,8 +1,13 @@
 Id:33540
-ColorIdentity:R
-OriginSet:G23d1f017cc66962f
-ManaCost:1 R
-Types:Legendary Creature Mutant Ninja Turtle
-PT:1/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.YouCtrl+Other | TriggerZones$ Battlefield | Execute$ TrigDamage
-SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Opponent | NumDmg$ 1
+ColorIdentity:UR
+OriginSet:G40dbb28fb92f9206
+ManaCost:2 U R
+Types:Legendary Creature Elemental
+PT:3/3
+K:Prowess
+K:Trample
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigCharm
+T:Mode$ SpellCast | ValidCard$ Elemental | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Secondary$ True | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | Choices$ DBConjureRite,DBConjureTake
+SVar:DBConjureRite:DB$ MakeCard | Conjure$ True | CatalogId$ 8549 | Zone$ Hand
+SVar:DBConjureTake:DB$ MakeCard | Conjure$ True | CatalogId$ 16285 | Zone$ Hand

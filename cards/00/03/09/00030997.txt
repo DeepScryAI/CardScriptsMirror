@@ -1,11 +1,11 @@
 Id:30997
-ColorIdentity:W
-OriginSet:G4524bbf7a3db9dc0
-ManaCost:W
-Types:Artifact Creature Robot
-PT:1/1
-K:StartYourEngines
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 825621291
-S:Mode$ Continuous | Affected$ Card.Self | Condition$ MaxSpeed | AddStaticAbility$ MaxSpeedStatic
-SVar:MaxSpeedStatic:Mode$ Continuous | Secondary$ True | Affected$ Card.Self | AddPower$ 1
+ColorIdentity:WU
+OriginSet:G2c8286a6f234d4b9
+ManaCost:2 U
+Types:Legendary Creature Starfish Wizard
+PT:0/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | NumCards$ X
+A:AB$ Effect | Cost$ WU | ValidTgts$ Creature.YouCtrl | RememberObjects$ Targeted | StaticAbilities$ CombatDamageToughness | ForgetOnMoved$ Battlefield
+SVar:CombatDamageToughness:Mode$ CombatDamageToughness | ValidCard$ Card.IsRemembered
+SVar:X:Count$Valid Creature.YouCtrl+powerLTtoughness

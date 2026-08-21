@@ -1,11 +1,11 @@
 Id:31436
-ColorIdentity:WUR
-OriginSet:Gf2b808f4f642ac62
-ManaCost:2 U R W
-Types:Creature Dragon
-PT:3/3
-K:Flying
-K:Haste
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigGainLife
-SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 1 | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw
+ColorIdentity:U
+OriginSet:Ge1676a27173c0866
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ LandTapped | ReplacementResult$ Updated
+SVar:LandTapped:DB$ Tap | Defined$ Self | ETB$ True | ConditionPresent$ Mountain.YouCtrl,Forest.YouCtrl | ConditionCompare$ EQ0
+A:AB$ Mana | Cost$ T | Produced$ U
+A:AB$ DelayedTrigger | Cost$ U T | Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ You | Execute$ DBEffect | ThisTurn$ True | Static$ True
+SVar:DBEffect:DB$ Effect | ReplacementEffects$ AntiMagic | RememberObjects$ TriggeredCard | ForgetOnMoved$ Stack
+SVar:AntiMagic:Event$ Counter | ValidCard$ Card.IsRemembered | ValidSA$ Spell | Layer$ CantHappen

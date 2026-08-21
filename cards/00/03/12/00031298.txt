@@ -1,12 +1,11 @@
 Id:31298
-ColorIdentity:UBG
-OriginSet:Ge1676a27173c0866
-ManaCost:2 B G U
-Types:Legendary Creature Spirit Dragon
-PT:6/6
-K:Flying
-K:Lifelink
-S:Mode$ Continuous | Affected$ Card.YouCtrl+wasCast | AffectedZone$ Stack | AddKeyword$ Delve
-T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigLoseLife
-SVar:TrigLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ X
-SVar:X:TriggeredSpellAbility$CardManaCostLKI
+ColorIdentity:URG
+OriginSet:Gef9d0d0c16b2fcf7
+ManaCost:1 G U R
+Types:Legendary Creature Human Artificer
+PT:4/4
+T:Mode$ SpellCast | ValidCard$ Artificer,Artifact | ValidActivatingPlayer$ You | Execute$ TrigEnergy | TriggerZones$ Battlefield
+SVar:TrigEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ 1
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigImmediateTrig
+SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ PayEnergy<3> | Execute$ TrigCopy
+SVar:TrigCopy:DB$ CopyPermanent | ValidTgts$ Permanent.YouCtrl | SetPower$ 5 | SetToughness$ 5 | AddTypes$ Artifact & Creature | AddKeywords$ Haste | AtEOT$ Sacrifice

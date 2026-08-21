@@ -1,10 +1,8 @@
 Id:12651
 ColorIdentity:U
 OriginSet:Gfd7b72e0eb9d2cf5
-ManaCost:1 U
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:Pump
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddTrigger$ AttackTrigger | AddSVar$ TrigTapUnTap
-SVar:AttackTrigger:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigTapUnTap | TriggerZones$ Battlefield
-SVar:TrigTapUnTap:DB$ TapOrUntap | ValidTgts$ Permanent
+ManaCost:2 U
+Types:Instant
+A:SP$ ChangeZone | ValidTgts$ Artifact.YouCtrl,Creature.YouCtrl,Land.YouCtrl | TargetMin$ 2 | TargetMax$ 2 | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | GainControl$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

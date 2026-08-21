@@ -1,12 +1,12 @@
 Id:11306
-ColorIdentity:U
+ColorIdentity:B
 OriginSet:G9fb0a9a59b6a9580
-ManaCost:1 U U
-Types:Creature Surrakar
-PT:2/1
-T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigPutCounter
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDraw
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ CHARGE | CounterNum$ 1
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ X | OptionalDecider$ You
-SVar:X:Count$CardCounters.CHARGE
-SVar:BuffedBy:Instant,Sorcery
+ManaCost:X B
+Types:Instant
+A:SP$ Pump | ValidTgts$ Player | SubAbility$ DBExileTargets
+SVar:DBExileTargets:DB$ ChangeZone | TargetMin$ X | TargetMax$ X | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card | TargetsWithDefinedController$ ParentTarget | RememberChanged$ True | SubAbility$ DBSyphonLife
+SVar:DBSyphonLife:DB$ LoseLife | Defined$ Targeted | LifeAmount$ Y | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ Y | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$xPaid
+SVar:Y:Remembered$Amount

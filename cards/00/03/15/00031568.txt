@@ -1,16 +1,8 @@
 Id:31568
-ColorIdentity:WUR
-OriginSet:Gfac9eb8c75f25726
-ManaCost:U R W
-Types:Legendary Creature Bird Monk
-PT:2/4
-K:Flying
-K:Vigilance
-K:Haste
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigEffect
-SVar:TrigEffect:DB$ Effect | StaticAbilities$ ReduceCost | ForgetOnCast$ Card.nonCreature+YouCtrl | Duration$ Permanent
-SVar:ReduceCost:Mode$ ReduceCost | Type$ Spell | ValidCard$ Card.nonCreature | Activator$ You | Amount$ 1
-T:Mode$ SpellCast | ValidCard$ Card.YouCtrl | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigExile | ActivatorThisTurnCast$ EQ2
-SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | ValidTgts$ Creature.YouCtrl | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBReturn
-SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ All | Destination$ Battlefield | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:
+OriginSet:Gf2b808f4f642ac62
+ManaCost:3
+Types:Artifact
+K:ETBReplacement:Other:AddExtraCounter:Mandatory:Battlefield:Creature.Dragon+YouCtrl
+SVar:AddExtraCounter:DB$ PutCounter | ETB$ True | Defined$ ReplacedCard | CounterType$ P1P1 | CounterNum$ 1
+A:AB$ Mana | Cost$ T | Produced$ Any

@@ -1,14 +1,12 @@
 Id:33748
-ColorIdentity:WR
-OriginSet:Gf8df2bea26dc6b68
-ManaCost:2 R W
-Types:Sorcery
-A:SP$ Charm | Choices$ DBDiscard1,DBDiscard2
-SVar:DBDiscard1:DB$ Discard | Mode$ Hand | Defined$ You | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | ValidTgts$ Opponent | SubAbility$ DBDraw1
-SVar:DBDraw1:DB$ Draw | NumCards$ X
-SVar:DBDiscard2:DB$ Discard | Mode$ Hand | Defined$ You | SubAbility$ DBDraw2 | RememberDiscarded$ True
-SVar:DBDraw2:DB$ Draw | NumCards$ Y | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:TargetedPlayer$CardsInHand
-SVar:Y:Remembered$Amount
+ColorIdentity:W
+OriginSet:G23d1f017cc66962f
+ManaCost:W
+Types:Artifact Equipment
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1 | AddToughness$ 1 | AddTrigger$ DamageTrigger
+SVar:DamageTrigger:Mode$ DamageDealtOnce | CombatDamage$ True | ValidSource$ Card.Self | Execute$ TrigUntap
+SVar:TrigUntap:DB$ Untap | Defined$ Self | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Ninja.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigAttach | OptionalDecider$ You
+SVar:TrigAttach:DB$ Attach | Defined$ TriggeredCardLKICopy
+K:Equip:2

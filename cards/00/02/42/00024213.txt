@@ -1,8 +1,10 @@
 Id:24213
-ColorIdentity:G
-OriginSet:G51fcb7ec0cb81c29
-ManaCost:G
-Types:Creature Elf Ranger
-PT:1/1
-T:Mode$ ChangesZoneAll | ValidCards$ Card.token+YouCtrl | Destination$ Battlefield | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | CounterType$ P1P1 | Defined$ Self | CounterNum$ 1
+ColorIdentity:R
+OriginSet:Gcf5d9b1e2ed6c496
+ManaCost:2 R
+Types:Sorcery
+A:SP$ GainControl | ValidTgts$ Creature | LoseControl$ EOT | Untap$ True | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Targeted | Keywords$ Haste | staticAbilities$ CantBlock | Triggers$ PingUpkeep | Duration$ Perpetual
+SVar:CantBlock:Mode$ CantBlock | ValidCard$ Creature.Self
+SVar:PingUpkeep:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | Defined$ CardController | NumDmg$ 1

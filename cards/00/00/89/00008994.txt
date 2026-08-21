@@ -1,13 +1,11 @@
 Id:8994
-ColorIdentity:W
+ColorIdentity:R
 OriginSet:Gce1d73449bd71b54
-ManaCost:2 W
-Types:Creature Gargoyle
-PT:3/2
-K:Flash
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange
-SVar:TrigChange:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Hidden$ True | Mandatory$ True | ChangeType$ Creature.YouCtrl | ChangeNum$ 1 | AILogic$ NeverBounceItself
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange2
-SVar:TrigChange2:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card
-SVar:NeedsToPlay:Creature.YouCtrl+!token
+ManaCost:1 R
+Types:Creature Goblin Warrior
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | ValidTgts$ Creature.OppCtrl | Origin$ Battlefield | Destination$ Hand
+K:Echo:3 R
+SVar:NeedsToPlayVar:Y GE4
+SVar:Y:Count$Valid Land.YouCtrl

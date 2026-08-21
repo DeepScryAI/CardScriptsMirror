@@ -1,9 +1,10 @@
 Id:29979
-ColorIdentity:UR
+ColorIdentity:G
 OriginSet:Gf09b85bbcc27770c
-ManaCost:1 UR UR
-Types:Creature Otter Wizard
-PT:2/2
-T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | Execute$ TrigPutCounter | TriggerZones$ Battlefield
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
-SVar:BuffedBy:Card.nonCreature
+ManaCost:X X G
+Types:Sorcery
+A:SP$ CopyPermanent | ValidTgts$ Permanent.token+YouCtrl | NumCopies$ X | SubAbility$ DBPumpAll
+SVar:DBPumpAll:DB$ PumpAll | ValidCards$ Permanent.token+YouCtrl | KW$ Indestructible | Duration$ UntilYourNextTurn | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ Y
+SVar:X:Count$xPaid
+SVar:Y:Count$Valid Permanent.token+YouCtrl

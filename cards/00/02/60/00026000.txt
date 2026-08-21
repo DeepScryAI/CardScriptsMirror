@@ -1,8 +1,12 @@
 Id:26000
-ColorIdentity:W
-OriginSet:G2192e8955d5e1ad1
-ManaCost:1
-Types:Artifact
-A:AB$ Draw | Cost$ 1 Sac<1/CARDNAME>
-A:AB$ Pump | Cost$ 2 W Sac<1/CARDNAME> | ValidTgts$ Creature.YouCtrl | NumAtt$ +2 | NumDef$ +2 | SubAbility$ DBDraw | KW$ Flying | SorcerySpeed$ True
-SVar:DBDraw:DB$ Draw
+ColorIdentity:U
+OriginSet:Gb879a1706584aeee
+ManaCost:4 U
+Types:Creature Kraken
+PT:4/5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigScry
+SVar:TrigScry:DB$ Scry | ScryNum$ 3
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigUnblockable
+SVar:TrigUnblockable:AB$ Effect | Cost$ Return<1/Creature.Other> | RememberObjects$ TriggeredAttacker | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+SVar:HasAttackEffect:TRUE

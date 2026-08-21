@@ -1,7 +1,9 @@
 Id:23589
-ColorIdentity:B
+ColorIdentity:G
 OriginSet:G1a259dba25660062
-ManaCost:4 B
-Types:Sorcery
-A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouOwn,Vehicle.YouOwn | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | ConditionPresent$ Artifact.YouCtrl | ConditionPresent2$ Enchantment.YouCtrl | Defined$ Targeted | CounterType$ P1P1 | CounterNum$ 2
+ManaCost:2 G
+Types:Enchantment Aura
+K:Enchant:Artifact,Creature:artifact or creature
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | IsPresent$ Permanent.EnchantedBy+greatestPower | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 2 | AddToughness$ 1

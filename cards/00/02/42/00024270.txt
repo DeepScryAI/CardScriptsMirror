@@ -1,11 +1,7 @@
 Id:24270
-ColorIdentity:
+ColorIdentity:B
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:4
-Types:Artifact
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ ROPE
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Player | TriggerZones$ Battlefield | Execute$ TrigRope
-SVar:TrigRope:DB$ PutCounter | UnlessCost$ 2 | UnlessPayer$ TriggeredPlayer | UnlessSwitched$ True | Chooser$ TriggeredPlayer | Choices$ Creature.ControlledBy TriggeredPlayer | CounterType$ ROPE | UnlessResolveSubs$ WhenNotPaid | SubAbility$ CostNotPaid
-SVar:CostNotPaid:DB$ ChangeZoneAll | ChangeType$ Card.Self,Creature.counters_EQ0_ROPE | Origin$ Battlefield | Destination$ Exile | SubAbility$ DBRemoveRope
-SVar:DBRemoveRope:DB$ RemoveCounterAll | ValidCards$ Creature | CounterType$ ROPE | AllCounters$ True
+ManaCost:4 B
+Types:Sorcery
+A:SP$ ChooseCard | Defined$ Player | Choices$ Creature | Secretly$ True | Amount$ 1 | ControlAndNot$ True | Reveal$ True | SubAbility$ DBDestroyChosen | Mandatory$ True
+SVar:DBDestroyChosen:DB$ DestroyAll | ValidCards$ Creature.ChosenCard

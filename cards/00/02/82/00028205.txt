@@ -1,20 +1,16 @@
 Id:28205
 ColorIdentity:B
 OriginSet:Gfd50577710a6ab09
-ManaCost:2
-Types:Legendary Artifact
-A:AB$ Mill | Cost$ T | NumCards$ 2
-K:Craft:4 ExileCtrlOrGrave<1/Dinosaur.Other> ExileCtrlOrGrave<1/Merfolk.Other> ExileCtrlOrGrave<1/Pirate.Other> ExileCtrlOrGrave<1/Vampire.Other>:a Dinosaur, a Merfolk, a Pirate, and a Vampire:the four
+ManaCost:3 B
+Types:Enchantment
+T:Mode$ Attacks | ValidCard$ Creature.YouCtrl | Alone$ True | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ TriggeredAttackerLKICopy | KW$ Lifelink & Deathtouch | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ DREAD | CounterNum$ 1 | SubAbility$ DBTransform
+SVar:DBTransform:DB$ SetState | ConditionPresent$ Card.Self+counters_GE3_DREAD | Defined$ Self | Mode$ Transform
 AlternateMode:DoubleFaced
 ALTERNATE
 ManaCost:no cost
-Colors:black
-Types:Legendary Creature Skeleton Spirit Pirate
-PT:7/7
-K:Menace
-K:Trample
-K:Lifelink
-K:Hexproof
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ DBSacrifice | TriggerZones$ Battlefield
-SVar:DBSacrifice:DB$ Sacrifice | Amount$ 1 | SacValid$ Permanent.nonLand | Defined$ Opponent | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | Origin$ Exile | Destination$ Battlefield | ChooseFromDefined$ ExiledWith.Creature | ChangeNum$ 1 | Hidden$ True | Tapped$ True | Attacking$ True | GainControl$ True
+Types:Land Cave
+A:AB$ Mana | Cost$ T | Produced$ B
+A:AB$ Draw | Cost$ B T SubCounter<1/Dread> | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 1

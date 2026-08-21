@@ -1,21 +1,18 @@
 Id:23287
-ColorIdentity:R
+ColorIdentity:W
 OriginSet:G6e75ff4f143a3dc3
-ManaCost:1 R
-Types:Creature Human Wizard
-PT:3/1
-A:AB$ DealDamage | Cost$ T | NumDmg$ 2 | Defined$ You | SorcerySpeed$ True | SubAbility$ DBExile
-SVar:DBExile:DB$ Dig | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ STPlay | SubAbility$ DBCleanup | ForgetOnMoved$ Exile
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
-T:Mode$ SpellCast | ValidCard$ Card.ExiledWithSourceLKI | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigTransform
-T:Mode$ LandPlayed | ValidCard$ Land.ExiledWithSourceLKI | Execute$ TrigTransform | TriggerZones$ Battlefield | Secondary$ True
-SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform
+ManaCost:2 W
+Types:Creature Spirit
+PT:2/3
+K:Lifelink
+K:Disturb:1 W
 AlternateMode:DoubleFaced
 ALTERNATE
 ManaCost:no cost
-Colors:red
-Types:Creature Human Berserker
-PT:4/3
-S:Mode$ CantBlock | ValidCard$ Card.Self
+Colors:white
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddKeyword$ Lifelink
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Graveyard | ReplaceWith$ Exile
+SVar:Exile:DB$ ChangeZone | Hidden$ True | Origin$ All | Destination$ Exile | Defined$ ReplacedCard

@@ -1,12 +1,19 @@
 Id:32633
-ColorIdentity:R
-OriginSet:G36e97d2da170e675
-ManaCost:3 R R
-Types:Legendary Creature Dragon
-PT:4/4
-K:Flying
-K:Firebending:2
-T:Mode$ ChangesZone | ValidCard$ Card.Self+wasCastByYou | CheckSVar$ X | SVarCompare$ GE3 | Destination$ Battlefield | Execute$ TrigCopy
-SVar:TrigCopy:DB$ CopyPermanent | Defined$ Self | NonLegendary$ True
-A:AB$ PumpAll | Cost$ 3 R | ValidCards$ Dragon.YouCtrl | NumAtt$ +2
-SVar:X:Count$ValidGraveyard Dragon.YouOwn,Lesson.YouOwn
+ColorIdentity:UR
+OriginSet:G66b3a7eeabd9000e
+ManaCost:U R
+Types:Legendary Creature Spider Human Hero
+PT:2/3
+K:DoubleStrike
+K:Vigilance
+S:Mode$ CantBeCast | ValidCard$ Card.Self | EffectZone$ All | Caster$ Player.Active | CheckSVar$ Z | SVarCompare$ LE3
+SVar:Z:Count$YourTurns
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | CheckSVar$ Y | TriggerZones$ Battlefield | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ X | AILogic$ PowerDmg
+SVar:X:Count$CardPower
+T:Mode$ LandPlayed | Origin$ Exile,Library,Graveyard | ValidCard$ Land.YouCtrl | Execute$ StoreVar | Static$ True
+SVar:StoreVar:DB$ StoreSVar | SVar$ LandsPlayedFromNotHand | Type$ Number | Expression$ 1
+T:Mode$ Phase | Phase$ Cleanup | Execute$ TrigReset | Static$ True
+SVar:TrigReset:DB$ StoreSVar | SVar$ LandsPlayedFromNotHand | Type$ Number | Expression$ 0
+SVar:Y:Count$ThisTurnCast_Card.YouCtrl+!wasCastFromYourHand/Plus.LandsPlayedFromNotHand
+SVar:LandsPlayedFromNotHand:Number$0

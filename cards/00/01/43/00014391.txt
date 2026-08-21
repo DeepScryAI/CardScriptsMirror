@@ -1,8 +1,14 @@
 Id:14391
-ColorIdentity:R
+ColorIdentity:U
 OriginSet:Gd3737676789056fe
-ManaCost:3 R
-Types:Enchantment
-S:Mode$ CantPlayLand | Player$ You
-A:AB$ Draw | Cost$ Sac<1/Land> | NumCards$ 2 | ActivationLimit$ 1
-SVar:DonateMe:5
+ManaCost:3 U U
+Types:Instant
+A:SP$ Pump | ImprintCards$ Valid Creature.attacking | SubAbility$ DBRepeatPlayer
+SVar:DBRepeatPlayer:DB$ RepeatEach | RepeatPlayers$ ImprintedOwner | RepeatSubAbility$ DBRepeatCard | SubAbility$ DBCleanup
+SVar:DBRepeatCard:DB$ RepeatEach | RepeatCards$ Card.IsImprinted+RememberedPlayerOwn | ChooseOrder$ RememberedPlayer | RepeatSubAbility$ DBChoose
+SVar:DBChoose:DB$ GenericChoice | Defined$ RememberedOwner | ShowCurrentCard$ Remembered | Choices$ DBTop,DBBottom
+SVar:DBTop:DB$ ChangeZone | Defined$ RememberedCard | Origin$ Battlefield | Destination$ Library | LibraryPosition$ 0
+SVar:DBBottom:DB$ ChangeZone | Defined$ RememberedCard | Origin$ Battlefield | Destination$ Library | LibraryPosition$ -1
+SVar:DBCleanup:DB$ Cleanup | ClearImprinted$ True
+SVar:NeedsToPlayVar:Z GE2
+SVar:Z:Count$Valid Creature.attacking+OppCtrl

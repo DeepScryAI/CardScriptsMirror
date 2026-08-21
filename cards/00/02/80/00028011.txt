@@ -1,12 +1,9 @@
 Id:28011
-ColorIdentity:G
-OriginSet:Gfd50577710a6ab09
-ManaCost:4 G
-Types:Sorcery
-A:SP$ Charm | Choices$ DBChangeZone,DBChooseCard,DBDestroy | CharmNum$ 3 | CanRepeatModes$ True
-SVar:DBChangeZone:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | Tapped$ True | ChangeType$ Card.Cave | ChangeNum$ 1
-SVar:DBChooseCard:DB$ ChooseCard | Mandatory$ True | Choices$ Cave.YouCtrl | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | CounterType$ P1P1 | Defined$ ChosenCard | CounterNum$ 3 | SubAbility$ DBAnimate
-SVar:DBAnimate:DB$ Animate | Defined$ ChosenCard | Power$ 0 | Toughness$ 0 | Types$ Creature,Elemental | Keywords$ Haste | Duration$ Permanent | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
-SVar:DBDestroy:DB$ Destroy | ValidTgts$ Enchantment
+ColorIdentity:U
+OriginSet:G30e8a5e111cffb44
+ManaCost:no cost
+Types:Legendary Land
+A:AB$ Mana | Cost$ T | Produced$ U | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ TIME
+A:AB$ ChangeZoneAll | Cost$ 1 U T SubCounter<12/TIME> Exile<1/CARDNAME> | IsPresent$ Time Lord.YouCtrl | Origin$ Graveyard,Hand | Destination$ Library | ChangeType$ Card.YouOwn | Shuffle$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 7

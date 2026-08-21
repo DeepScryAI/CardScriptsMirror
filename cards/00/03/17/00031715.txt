@@ -1,26 +1,10 @@
 Id:31715
-ColorIdentity:R
-OriginSet:G7ab4f62d323b0ca7
-ManaCost:4 R R
-Types:Legendary Creature Human Noble Warrior
-PT:5/5
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDiscard | OptionalDecider$ You
-SVar:TrigDiscard:DB$ Discard | Mode$ Hand | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | NumCards$ X | Defined$ You
-SVar:X:Count$Devotion.Red
-A:AB$ ChangeZone | Cost$ 4 R R T | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn | SorcerySpeed$ True
-SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | Transformed$ True | ForgetOtherRemembered$ True | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:red
-Types:Legendary Enchantment Creature Saga Demon
-PT:9/9
-K:Chapter:3:DBFight,DBMana,DBMana
-SVar:DBFight:DB$ Fight | Defined$ Self | ValidTgts$ Creature.Other | TargetMin$ 0 | TargetMax$ 1
-SVar:DBMana:DB$ Mana | Produced$ R | Amount$ 4 | SubAbility$ DBExileSelf
-SVar:DBExileSelf:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ConditionCheckSVar$ Y | ConditionSVarCompare$ GE3 | SubAbility$ DBReturnSelf | RememberChanged$ True
-SVar:DBReturnSelf:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:Y:Count$CardCounters.LORE
+ColorIdentity:WBR
+OriginSet:Gfac9eb8c75f25726
+ManaCost:R W B
+Types:Creature Dragon
+PT:2/4
+K:Flying
+K:Mobilize:1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ Valid Creature.YouCtrl | Duration$ Perpetual | KWChoice$ Menace,Lifelink,Haste

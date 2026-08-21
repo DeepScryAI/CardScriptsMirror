@@ -1,9 +1,13 @@
 Id:25582
-ColorIdentity:WUB
-OriginSet:Gce0c33e5115830a3
-ManaCost:1 U
-Types:Legendary Creature Human Artificer
-PT:1/3
-A:AB$ CopyPermanent | Cost$ 2 T | ValidTgts$ Artifact.YouCtrl+token | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBMill
-SVar:DBMill:DB$ Mill | NumCards$ 2
-A:AB$ CopyPermanent | Cost$ 1 W U B T Sac<2/Artifact.token/artifact tokens> ExileFromGrave<1/Artifact;Creature/artifact or creature card> | Defined$ Exiled | AddTypes$ Artifact | SorcerySpeed$ True
+ColorIdentity:WU
+OriginSet:G2e872aaf9b98489e
+ManaCost:2 W U
+Types:Legendary Planeswalker Jace
+Loyalty:3
+K:Space sculptor
+A:AB$ Effect | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | StaticAbilities$ SectorBlock
+SVar:SectorBlock:Mode$ CantBlockBy | ValidAttacker$ Creature | ValidBlockerRelative$ Creature.DifferentSector
+A:AB$ ChooseSector | Cost$ SubCounter<1/LOYALTY> | Planeswalker$ True | SubAbility$ DBPutCounterAll | AILogic$ Pump
+SVar:DBPutCounterAll:DB$ PutCounterAll | ValidCards$ Creature.ChosenSector | CounterType$ P1P1
+A:AB$ ChooseSector | Cost$ SubCounter<5/LOYALTY> | Planeswalker$ True | Ultimate$ True | SubAbility$ DBDestroyAll | AILogic$ Destroy
+SVar:DBDestroyAll:DB$ DestroyAll | ValidCards$ Creature.ChosenSector

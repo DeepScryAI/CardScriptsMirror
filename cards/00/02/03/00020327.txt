@@ -1,7 +1,12 @@
 Id:20327
-ColorIdentity:U
+ColorIdentity:W
 OriginSet:Gfa87e7bbc5a709eb
-ManaCost:1 U
-Types:Instant
-A:SP$ Draw
-K:Escape:2 U ExileFromGrave<5/Card.Other/other>
+ManaCost:W W
+Types:Legendary Enchantment Creature Demigod
+PT:2/*
+S:Mode$ Continuous | CharacteristicDefining$ True | SetToughness$ X
+SVar:X:Count$Devotion.White
+SVar:BuffedBy:Permanent.White
+T:Mode$ ChangesZone | TriggerZones$ Battlefield | ValidCard$ Creature.YouCtrl+Other | Origin$ Any | Destination$ Battlefield | Execute$ TrigGainLife
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl+Other | TriggerZones$ Battlefield | Execute$ TrigGainLife | Secondary$ True
+SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1

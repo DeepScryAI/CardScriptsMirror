@@ -1,6 +1,9 @@
 Id:27274
 ColorIdentity:W
-OriginSet:G4e034c55e7afd8b4
+OriginSet:G6ce0035cfb774934
 ManaCost:1 W
-Types:Enchantment
-S:Mode$ Continuous | Affected$ Creature.enchanted+YouCtrl | AddPower$ 2 | AddToughness$ 2
+Types:Instant
+A:SP$ ChangeZone | ValidTgts$ Creature.YouOwn | Origin$ Battlefield | Destination$ Exile | RememberTargets$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ All | Destination$ Battlefield | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | SubAbility$ TrigTempt
+SVar:TrigTempt:DB$ RingTemptsYou

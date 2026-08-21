@@ -1,9 +1,12 @@
 Id:32275
 ColorIdentity:B
 OriginSet:G9946f072b5556073
-ManaCost:B B
-Types:Creature Drix Warlock
-PT:2/2
-K:Haste
-S:Mode$ Continuous | Affected$ Card.Self | MayPlay$ True | ValidSA$ Spell.Warp | AffectedZone$ Graveyard | EffectZone$ Graveyard
-K:Warp:B PayLife<2>
+ManaCost:2 B
+Types:Artifact Spacecraft
+PT:3/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill
+SVar:TrigMill:DB$ Mill | NumCards$ 3 | Defined$ You | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ChangeType$ Creature.YouOwn,Spacecraft.YouOwn | Hidden$ True | Mandatory$ True
+K:Station:8
+S:Mode$ Continuous | Affected$ Card.Self+counters_GE8_CHARGE | AddType$ Creature | AddKeyword$ Flying & Lifelink
+SVar:X:Count$Valid Artifact.YouCtrl

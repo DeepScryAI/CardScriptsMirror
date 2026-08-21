@@ -1,10 +1,12 @@
 Id:28931
-ColorIdentity:B
+ColorIdentity:BG
 OriginSet:Gaf7c94f364052cdd
-ManaCost:2 B B
-Types:Creature Human Mercenary
-PT:4/3
-K:Squad:2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSac
-SVar:TrigSac:DB$ Sacrifice | Defined$ Player | SacValid$ Creature
-SVar:NeedsToPlay:Creature.YouDontCtrl
+ManaCost:5 B G
+Types:Legendary Creature Mutant Warrior
+PT:8/6
+K:Trample
+S:Mode$ Continuous | Affected$ Card.Self+attackedThisTurn | AddKeyword$ Indestructible
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigProliferate
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigProliferate | TriggerZones$ Battlefield | Secondary$ True
+SVar:TrigProliferate:DB$ Proliferate | Amount$ 2
+SVar:HasAttackEffect:TRUE

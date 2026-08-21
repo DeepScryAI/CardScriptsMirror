@@ -1,8 +1,19 @@
 Id:12290
-ColorIdentity:U
+ColorIdentity:R
 OriginSet:G14de52802b0b467c
-ManaCost:2 U
-Types:Creature Human Wizard
+ManaCost:1 R R
+Types:Creature Human Rogue Werewolf
 PT:2/2
-R:Event$ Draw | ActiveZones$ Battlefield | ValidPlayer$ You | IsPresent$ Card.YouOwn | PresentZone$ Library | PresentCompare$ EQ0 | ReplaceWith$ Win
-SVar:Win:DB$ WinsGame | Defined$ You
+K:FirstStrike
+T:Mode$ Phase | Phase$ Upkeep | WerewolfTransformCondition$ True | TriggerZones$ Battlefield | Execute$ TrigTransform
+SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:red
+Types:Creature Werewolf
+PT:3/3
+K:DoubleStrike
+S:Mode$ Continuous | Affected$ Werewolf.YouCtrl | AddKeyword$ Menace
+T:Mode$ Phase | Phase$ Upkeep | WerewolfUntransformCondition$ True | TriggerZones$ Battlefield | Execute$ TrigTransform
+SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform

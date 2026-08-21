@@ -1,9 +1,16 @@
 Id:30646
-ColorIdentity:R
+ColorIdentity:U
 OriginSet:G8b2ed00ac2a0ff47
-ManaCost:2 R R
-Types:Enchantment
-K:MayEffectFromOpeningHand:FromHand
-SVar:FromHand:DB$ ChangeZone | Defined$ Self | Origin$ Hand | Destination$ Battlefield
-T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | Execute$ TrigCopy | ValidActivatingPlayer$ You | IsSingleTarget$ True | TriggerZones$ Battlefield | TargetsValid$ Creature.YouCtrl+inZoneBattlefield
-SVar:TrigCopy:AB$ CopySpellAbility | Cost$ 1 | Defined$ TriggeredSpellAbility | MayChooseTarget$ True | Controller$ You
+ManaCost:2 U
+Types:Legendary Enchantment Saga
+K:Chapter:4:DBRepeat,DBRepeat,DBRepeat,DBChangeZone
+SVar:DBRepeat:DB$ Repeat | RepeatSubAbility$ DBCleanAndGrind | MaxRepeat$ MaxRepeats | RepeatCheckSVar$ MilledSharesType | RepeatSVarCompare$ GE2 | SubAbility$ DBCleanup
+SVar:DBCleanAndGrind:DB$ Cleanup | ClearRemembered$ True | SubAbility$ DBGrind
+SVar:DBGrind:DB$ Mill | NumCards$ 2 | RememberMilled$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | ConditionCheckSVar$ MilledSharesType | ConditionSVarCompare$ GE2
+SVar:MaxRepeats:Count$ValidLibrary Card.YouOwn
+SVar:MilledSharesType:Remembered$Valid Card.sharesCardTypeWithOther Remembered
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | TargetMin$ 0 | TargetMax$ Yard | ValidTgts$ Instant.YouOwn,Sorcery.YouOwn,Planeswalker.Tamiyo+YouOwn | RememberChanged$ True | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | Valid$ Card.IsRemembered | ValidZone$ Exile | Controller$ You | CopyCard$ True | ValidSA$ Spell | Optional$ True | Amount$ All | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:Yard:Count$ValidGraveyard Instant.YouOwn,Sorcery.YouOwn,Planeswalker.Tamiyo+YouOwn

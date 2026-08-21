@@ -1,10 +1,10 @@
 Id:4372
-ColorIdentity:U
+ColorIdentity:B
 OriginSet:G94d5a0658e4301e7
-ManaCost:2 U U
+ManaCost:2 B
 Types:Enchantment
 K:Fading:5
-A:AB$ ChangeZone | Cost$ SubCounter<1/FADE> | ValidTgts$ Land | Origin$ Battlefield | Destination$ Exile
+A:AB$ ChangeZone | Cost$ SubCounter<1/FADE> | ValidTgts$ Opponent | SorcerySpeed$ True | Origin$ Hand | Destination$ Exile | ChangeType$ Card | ChangeNum$ 1 | Imprint$ True | Chooser$ Targeted | IsCurse$ True | Mandatory$ True | Hidden$ True
 T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZone | Defined$ ExiledWith | Origin$ Exile | Destination$ Battlefield
-SVar:PlayMain1:TRUE
+SVar:TrigReturn:DB$ ChangeZone | Defined$ Imprinted | Origin$ Exile | Destination$ Hand | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearImprinted$ True

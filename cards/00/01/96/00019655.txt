@@ -1,10 +1,10 @@
 Id:19655
 ColorIdentity:
 OriginSet:G7c61dc677f00d087
-ManaCost:3
+ManaCost:4
 Types:Artifact
-K:ETBReplacement:Other:ChooseCT
-SVar:ChooseCT:DB$ ChooseType | Defined$ You | Type$ Creature | AILogic$ MostProminentInComputerDeck
-S:Mode$ Continuous | Affected$ Creature.ChosenType+YouCtrl | AddPower$ 1 | AddToughness$ 1
-SVar:PlayMain1:TRUE
-A:AB$ Dig | Cost$ 3 T | DigNum$ 3 | ChangeNum$ 1 | Optional$ True | ChangeValid$ Creature.ChosenType | ForceRevealToController$ True | DestinationZone$ Hand | RestRandomOrder$ True
+A:AB$ NameCard | Cost$ 1 T | Defined$ You | SubAbility$ DBReveal | SorcerySpeed$ True
+SVar:DBReveal:DB$ PeekAndReveal | RememberRevealed$ True | SubAbility$ DBSac
+SVar:DBSac:DB$ Sacrifice | SacValid$ Self | ConditionDefined$ Remembered | ConditionPresent$ Card.NamedCard | ConditionCompare$ GE1 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ 3 | ConditionDefined$ Remembered | ConditionPresent$ Card.NamedCard | ConditionCompare$ GE1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearNamedCard$ True

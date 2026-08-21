@@ -1,9 +1,8 @@
 Id:5778
 ColorIdentity:U
 OriginSet:G7327b0fa163b48eb
-ManaCost:3 U
-Types:Creature Incarnation
-PT:2/2
-K:Flying
-S:Mode$ Continuous | Affected$ Creature.YouCtrl | EffectZone$ Graveyard | AddKeyword$ Flying | IsPresent$ Island.YouCtrl
-SVar:DiscardMe:2
+ManaCost:2 U
+Types:Enchantment
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ Player.Opponent | Execute$ TrigCantAttack | TriggerZones$ Battlefield
+SVar:TrigCantAttack:DB$ Effect | StaticAbilities$ STCantAttack | UnlessCost$ ExileFromGrave<1/Card> | UnlessPayer$ TriggeredPlayer | UnlessAI$ WillAttack
+SVar:STCantAttack:Mode$ CantAttack | ValidCard$ Creature | Target$ You

@@ -1,7 +1,12 @@
 Id:9040
-ColorIdentity:G
+ColorIdentity:B
 OriginSet:Gdf2f562751f0d037
-ManaCost:3 G
-Types:Snow Creature Centaur Shaman
-PT:3/3
-S:Mode$ ReduceCost | ValidCard$ Creature | Type$ Spell | Activator$ You | Amount$ 2 | IsPresent$ Card.Self+tapped
+ManaCost:B B B
+Types:Enchantment
+A:SP$ PermanentNoncreature | Cost$ B B B | AILogic$ Never
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.!token+YouOwn | Execute$ TrigToken | IsPresent$ Card.StrictlySelf | PresentZone$ Graveyard | TriggerZones$ Graveyard
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 353162950 | TokenOwner$ You
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.OppOwn | Execute$ TrigChange | IsPresent$ Card.StrictlySelf | PresentZone$ Graveyard | TriggerZones$ Graveyard
+SVar:TrigChange:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile
+SVar:DiscardMe:5
+SVar:SacMe:5

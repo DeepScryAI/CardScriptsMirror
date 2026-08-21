@@ -1,11 +1,13 @@
 Id:33832
-ColorIdentity:W
-OriginSet:Gf8df2bea26dc6b68
-ManaCost:2 W
-Types:Creature Bird Cleric
-PT:2/3
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSurveil
-SVar:TrigSurveil:DB$ Surveil | Amount$ 1
-T:Mode$ ChangesZoneAll | Origin$ Graveyard | Destination$ Any | ValidCards$ Card.YouOwn | Execute$ TrigPump | TriggerZones$ Battlefield
-SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +1 | NumDef$ +1
+ColorIdentity:B
+OriginSet:Gf04404de3fa1525e
+ManaCost:3 B
+Types:Creature Vampire Warlock
+PT:5/4
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ TrigPrepare
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | CheckSVar$ X | SVarCompare$ GE2 | Execute$ TrigPrepare | TriggerZones$ Battlefield
+SVar:TrigPrepare:DB$ AlterAttribute | Attributes$ Prepared
+SVar:X:Count$ThisTurnEntered_Graveyard_from_Battlefield_Creature
+AlternateMode:Prepare
+ALTERNATE
+CopyFaceFromId:62

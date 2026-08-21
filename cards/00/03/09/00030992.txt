@@ -1,11 +1,12 @@
 Id:30992
-ColorIdentity:B
-OriginSet:G4524bbf7a3db9dc0
-ManaCost:1 B
-Types:Enchantment
-K:StartYourEngines
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ DBSacrifice
-SVar:DBSacrifice:DB$ Sacrifice | Defined$ Opponent | SacValid$ Creature,Vehicle | RememberSacrificed$ True | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | Mode$ TgtChoose | Defined$ OppNonRememberedController | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-A:AB$ GainLife | Cost$ 2 Sac<1/CARDNAME/this enchantment> | LifeAmount$ Count$YourSpeed
+ColorIdentity:R
+OriginSet:G2c8286a6f234d4b9
+ManaCost:1 R
+Types:Legendary Creature Vampire Warrior
+PT:1/1
+K:Trample
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigToken | CombatDamage$ True | Secondary$ True
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 2179622914
+T:Mode$ Discarded | ValidCard$ Card.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1

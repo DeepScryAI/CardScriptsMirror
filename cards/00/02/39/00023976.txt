@@ -1,10 +1,13 @@
 Id:23976
-ColorIdentity:UBR
-OriginSet:G9afc9838c5e994df
-ManaCost:1 U B R
-Types:Legendary Creature Vampire Rogue
-PT:2/4
-K:Haste
-A:AB$ Mana | Cost$ 1 T | Produced$ U B R | RestrictValid$ Spell.Instant,Spell.Sorcery
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigChangeZone
-SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Instant.YouOwn,Sorcery.YouOwn | TargetMin$ 0 | TargetMax$ 1
+ColorIdentity:BR
+OriginSet:Gfdfe2ebef04be34e
+ManaCost:1 B R
+Types:Legendary Planeswalker Nixilis
+Loyalty:3
+K:Casualty:X:NonLegendary$ True | SetLoyalty$ Casualty:The copy isn't legendary and has starting loyalty X.
+A:AB$ RepeatEach | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | RepeatPlayers$ Opponent | RepeatSubAbility$ DBDrain | SubAbility$ DBGainLife
+SVar:DBDrain:DB$ LoseLife | Defined$ Player.IsRemembered | LifeAmount$ 2 | UnlessCost$ Discard<1/Card> | UnlessPayer$ Player.IsRemembered
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ 2 | ConditionPresent$ Demon.YouCtrl,Devil.YouCtrl
+A:AB$ Token | Cost$ SubCounter<2/LOYALTY> | TokenScriptIds$ 1965070986 | Planeswalker$ True
+A:AB$ Draw | Cost$ SubCounter<7/LOYALTY> | Planeswalker$ True | Ultimate$ True | ValidTgts$ Player | NumCards$ 7 | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 7 | Defined$ Targeted

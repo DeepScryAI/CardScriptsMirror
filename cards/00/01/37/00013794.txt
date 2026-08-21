@@ -1,9 +1,11 @@
 Id:13794
-ColorIdentity:G
+ColorIdentity:
 OriginSet:G97e9a20e5a5d5822
-ManaCost:2 G G
-Types:Creature Centaur Archer
-PT:3/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGainLife
-SVar:TrigGainLife:DB$ GainLife | LifeAmount$ X
-SVar:X:Count$Devotion.Green
+ManaCost:no cost
+Types:Legendary Land
+A:AB$ Mana | Cost$ T | Produced$ C
+A:AB$ ChooseColor | Cost$ 2 T | SubAbility$ DBMana | AILogic$ MostProminentComputerControls | AINoRecursiveCheck$ True
+SVar:DBMana:DB$ Mana | Produced$ Chosen | Amount$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenColor$ True
+SVar:X:Count$Devotion.Chosen
+SVar:AILandRemovalMinScore:170

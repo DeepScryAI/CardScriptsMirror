@@ -1,10 +1,9 @@
 Id:14057
-ColorIdentity:R
+ColorIdentity:WB
 OriginSet:Gdaee41baa388b0e7
-ManaCost:2 R R
-Types:Creature Minotaur Shaman
-PT:3/1
-K:Haste
-K:Tribute:2
-SVar:TrigNotTribute:DB$ Play | ValidZone$ Hand | Valid$ Card.YouOwn | ValidSA$ Instant,Sorcery | Controller$ You | WithoutManaCost$ True | Optional$ True | Amount$ 1
-SVar:TributeAILogic:OppHasCardsInHand
+ManaCost:2 B
+Types:Creature Zombie
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Enchantment.Creature+YouCtrl
+A:AB$ ChangeZone | Cost$ W Sac<1/CARDNAME> | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Enchantment.Creature+YouCtrl

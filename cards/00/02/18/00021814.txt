@@ -1,10 +1,14 @@
 Id:21814
-ColorIdentity:
-OriginSet:Gabb23d0d25cdc46d
-ManaCost:no cost
-Types:Land
-A:AB$ Mana | Cost$ T | Produced$ C
-A:AB$ Mana | Cost$ 1 T | Produced$ Any | Amount$ 1 | TriggersWhenSpent$ TrigSpent
-SVar:TrigSpent:Mode$ SpellCast | ValidCard$ Card.IsCommander+YouOwn | ValidActivatingPlayer$ You | Execute$ TrigScry
-SVar:TrigScry:DB$ Scry | ScryNum$ X
-SVar:X:TriggeredCard$CommanderCastFromCommandZone
+ColorIdentity:G
+OriginSet:G18bf722b221724f8
+ManaCost:4 G G
+Types:Legendary Creature Phyrexian Praetor
+PT:6/6
+K:Trample
+K:Haste
+R:Event$ AddCounter | ActiveZones$ Battlefield | ValidSource$ You | ValidObject$ Permanent.inZoneBattlefield,Player | ReplaceWith$ DoubleCounters
+SVar:DoubleCounters:DB$ ReplaceCounter | ValidSource$ You | Amount$ X
+SVar:X:ReplaceCount$CounterNum/Twice
+R:Event$ AddCounter | ActiveZones$ Battlefield | ValidSource$ Opponent | ValidObject$ Permanent.inZoneBattlefield,Player | ReplaceWith$ HalfCounters
+SVar:HalfCounters:DB$ ReplaceCounter | ValidSource$ Opponent | Amount$ Y
+SVar:Y:ReplaceCount$CounterNum/HalfDown

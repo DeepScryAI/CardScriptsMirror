@@ -1,8 +1,15 @@
 Id:33789
-ColorIdentity:U
-OriginSet:Gf8df2bea26dc6b68
-ManaCost:X U
-Types:Instant
-A:SP$ Animate | ValidTgts$ Creature | Colors$ Green,Blue | OverwriteColors$ True | Types$ Fractal | RemoveCreatureTypes$ True | Power$ Y | Toughness$ Y
-SVar:X:Count$xPaid
-SVar:Y:SVar$X/Plus.1
+ColorIdentity:BG
+OriginSet:G23d1f017cc66962f
+ManaCost:4 B G
+Types:Enchantment Saga
+K:Chapter:3:DBDestroyAll,DBMill,DBEffect
+SVar:DBDestroyAll:DB$ DestroyAll | ValidCards$ Creature
+SVar:DBMill:DB$ Mill | Defined$ You | NumCards$ 4 | RememberMilled$ True | SubAbility$ DBImmediateTrig
+SVar:DBImmediateTrig:DB$ ImmediateTrigger | Execute$ TrigChangeZone | TriggerAmount$ Remembered$Amount/DivideEvenlyDown.4 | SubAbility$ DBCleanup
+SVar:TrigChangeZone:DB$ ChangeZone | ValidTgts$ Creature.YouOwn | Origin$ Graveyard | Destination$ Hand
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:DBEffect:DB$ Effect | Triggers$ TriggerAttack
+SVar:TriggerAttack:Mode$ Attacks | ValidCard$ Creature.YouCtrl | Alone$ True | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ TriggeredAttackerLKICopy | CounterType$ P1P1 | CounterNum$ 3 | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ TriggeredAttackerLKICopy | KW$ Trample & Lifelink & Indestructible

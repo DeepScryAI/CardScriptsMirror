@@ -1,9 +1,11 @@
 Id:20071
-ColorIdentity:
+ColorIdentity:B
 OriginSet:G23be9f486a22d38a
-ManaCost:no cost
-Types:Land Swamp
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ LandTapped | ReplacementResult$ Updated
-SVar:LandTapped:DB$ Tap | Defined$ Self | ETB$ True | ConditionPresent$ Swamp.YouCtrl+Other | ConditionCompare$ LT3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self+untapped | Execute$ TrigChange | OptionalDecider$ You
-SVar:TrigChange:DB$ ChangeZone | ValidTgts$ Creature.YouOwn | Origin$ Graveyard | Destination$ Library
+ManaCost:10 B B
+Types:Legendary Artifact
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ X | EffectZone$ All
+SVar:X:Count$ValidGraveyard Creature.YouOwn/Twice
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Library | LibraryPosition$ -1
+SVar:BuffedBy:Creature
+A:AB$ ChangeZone | Cost$ 2 B T PayLife<2> | ValidTgts$ Creature.YouCtrl | Origin$ Graveyard | Destination$ Battlefield | SorcerySpeed$ True

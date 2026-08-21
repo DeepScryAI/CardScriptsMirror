@@ -1,14 +1,17 @@
 Id:28323
-ColorIdentity:WRG
-OriginSet:G8a59924df6623252
-ManaCost:1 R G W
-Types:Legendary Creature Dog Cat
-PT:4/4
-T:Mode$ SpellCast | ValidCard$ Dog | ValidActivatingPlayer$ You | Execute$ TrigCatToken | TriggerZones$ Battlefield
-SVar:TrigCatToken:DB$ Token | TokenScriptIds$ 1967678952 | TokenOwner$ You
-T:Mode$ SpellCast | ValidCard$ Cat | ValidActivatingPlayer$ You | Execute$ TrigDogToken | TriggerZones$ Battlefield
-SVar:TrigDogToken:DB$ Token | TokenScriptIds$ 858060049 | TokenOwner$ You
-A:AB$ DealDamage | Cost$ R G W T | ValidTgts$ Any | NumDmg$ X | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | LifeAmount$ Y | Defined$ You
-SVar:X:Count$Valid Dog.YouCtrl
-SVar:Y:Count$Valid Cat.YouCtrl
+ColorIdentity:W
+OriginSet:Gfd50577710a6ab09
+ManaCost:1 W
+Types:Artifact
+K:Flash
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Creature.tapped+OppCtrl | NumDmg$ 5
+K:Craft:3 W ExileCtrlOrGrave<1/Artifact.Other>
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:white
+Types:Artifact Vehicle
+PT:5/5
+A:AB$ Animate | Cost$ tapXType<2/Artifact.Other> | Types$ Artifact,Creature
+K:Crew:1

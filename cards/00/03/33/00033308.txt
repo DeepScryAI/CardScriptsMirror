@@ -1,10 +1,11 @@
 Id:33308
-ColorIdentity:B
-OriginSet:G8a59924df6623252
-ManaCost:1 B B
-Types:Legendary Creature Zombie Mutant Rogue
-PT:2/3
-K:FirstStrike
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self,Zombie.!token+Other+YouCtrl,Mutant.!token+Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigRadiation
-SVar:TrigRadiation:DB$ Radiation | ValidTgts$ Player | Num$ 2 | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenScriptIds$ 3851718391 | ConditionDefined$ Targeted | ConditionPresent$ You
+ColorIdentity:
+OriginSet:G7ab1fe96128a1641
+ManaCost:6
+Types:Legendary Artifact
+K:ETBReplacement:Other:ChooseCT
+SVar:ChooseCT:DB$ ChooseType | Type$ Creature | AILogic$ MostProminentInComputerDeck
+S:Mode$ Continuous | Affected$ Creature.ChosenType+YouCtrl | AddPower$ 2 | AddToughness$ 2 | AddKeyword$ FirstStrike & Trample
+T:Mode$ SpellCast | ValidCard$ Card.ChosenType | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw
+SVar:PlayMain1:TRUE

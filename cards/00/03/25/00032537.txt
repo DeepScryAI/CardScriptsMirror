@@ -1,10 +1,14 @@
 Id:32537
-ColorIdentity:U
-OriginSet:G1f5998b5f01949b9
-ManaCost:2 U U
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:Pump
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | NumCards$ 2
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 2 | AddKeyword$ Flying
+ColorIdentity:R
+OriginSet:G66b3a7eeabd9000e
+ManaCost:1 R R
+Types:Legendary Creature Human Villain
+PT:2/3
+K:Flying
+S:Mode$ UnspentMana | ValidPlayer$ You | ManaType$ Red
+T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigMana
+SVar:TrigMana:DB$ Mana | Produced$ R | Amount$ 1
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigImmediateTrig
+SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ X | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Player | NumDmg$ X
+SVar:X:Count$xPaid

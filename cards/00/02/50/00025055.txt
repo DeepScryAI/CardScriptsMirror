@@ -1,11 +1,11 @@
 Id:25055
-ColorIdentity:WU
-OriginSet:G9afc9838c5e994df
-ManaCost:1 W U
-Types:Creature Angel Advisor
-PT:1/4
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigTap
-SVar:TrigTap:DB$ Tap | ValidTgts$ Creature.YouDontCtrl | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | ConditionPresent$ Creature.YouCtrl+HasCounters | Defined$ Targeted | KW$ HIDDEN This card doesn't untap during your next untap step. | Duration$ Permanent
-SVar:PlayMain1:TRUE
+ColorIdentity:G
+OriginSet:G3a8b4b9d4649b357
+ManaCost:2 G
+Types:Sorcery
+A:SP$ ChangeZone | Origin$ Library | Destination$ Library | ChangeType$ Creature | ChangeNum$ 4 | DifferentPower$ True | RememberChanged$ True | Reveal$ True | Shuffle$ False | SubAbility$ DBChoosePlayer
+SVar:DBChoosePlayer:DB$ ChoosePlayer | Defined$ You | Choices$ Player.Opponent | SubAbility$ OppPickTwo
+SVar:OppPickTwo:DB$ ChooseCard | Defined$ ChosenPlayer | Amount$ 2 | Mandatory$ True | Choices$ Card.IsRemembered | ChoiceZone$ Library | ForgetChosen$ True | SubAbility$ MoveNotChosen
+SVar:MoveNotChosen:DB$ ChangeZoneAll | Origin$ Library | Destination$ Hand | ChangeType$ Card.IsRemembered | SubAbility$ DBShuffle
+SVar:DBShuffle:DB$ Shuffle | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

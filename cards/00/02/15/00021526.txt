@@ -1,10 +1,13 @@
 Id:21526
-ColorIdentity:R
-OriginSet:G18bf722b221724f8
-ManaCost:4 R R
-Types:Creature Giant Berserker
-PT:4/4
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigPumpAll
-SVar:TrigPumpAll:DB$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +1 | KW$ Haste
-SVar:PlayMain1:TRUE
-K:Foretell:4 R
+ColorIdentity:W
+OriginSet:Gc3edc7c448c17480
+ManaCost:2 W
+Types:Creature Human Warrior
+PT:1/1
+T:Mode$ ChangesZoneAll | Origin$ Hand | Destination$ Exile | ValidCards$ Card.YouOwn | Execute$ TrigPutCounter | TriggerZones$ Battlefield
+T:Mode$ ChangesZoneAll | ValidCause$ SpellAbility.YouCtrl | Origin$ Battlefield | Destination$ Exile | Execute$ TrigPutCounter | TriggerZones$ Battlefield | Secondary$ True
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ X
+S:Mode$ Continuous | Affected$ Card.Self | CheckSVar$ Y | SVarCompare$ GT4 | AddKeyword$ Flying | AddType$ Angel
+S:Mode$ Continuous | Affected$ Card.Self | CheckSVar$ Y | SVarCompare$ GT9 | AddKeyword$ Indestructible | AddType$ God
+SVar:X:TriggerCount$Amount
+SVar:Y:Count$CardCounters.ALL

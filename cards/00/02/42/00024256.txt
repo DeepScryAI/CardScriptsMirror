@@ -1,12 +1,12 @@
 Id:24256
-ColorIdentity:G
+ColorIdentity:BRG
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:4 G
-Types:Creature Spider Beast
-PT:2/5
-K:Reach
-AlternateMode:Adventure
-ALTERNATE
-ManaCost:2 G
-Types:Instant Adventure
-A:SP$ Destroy | ValidTgts$ Creature.withFlying
+ManaCost:2 B R G
+Types:Legendary Creature God
+PT:4/4
+S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ Indestructible | CheckSVar$ X | SVarCompare$ LEY
+SVar:X:Count$YourLifeTotal/Times.2
+SVar:Y:Count$YourStartingLife
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.!token+Other+YouCtrl | TriggerZones$ Battlefield | Execute$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBGoad
+SVar:DBGoad:DB$ Goad | Defined$ Targeted

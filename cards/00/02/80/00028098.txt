@@ -1,14 +1,10 @@
 Id:28098
-ColorIdentity:U
-OriginSet:Gfd50577710a6ab09
-ManaCost:1 U
-Types:Legendary Creature Siren Pirate
-PT:2/1
-K:Flash
-K:Flying
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigPutCounter | TriggerZones$ Battlefield
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ CHORUS | CounterNum$ 1 | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBCast
-SVar:DBCast:DB$ Play | Optional$ True | Defined$ Remembered | ConditionPresent$ Card.Self+counters_GE4_CHORUS | ValidZone$ Graveyard | Valid$ Card.IsRemembered | ValidSA$ Spell | WithoutManaCost$ True | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:G
+OriginSet:G06c78c29bfb28e3d
+ManaCost:2 G
+Types:Creature Merfolk Scout
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 2277053863
+R:Event$ Explore | ActiveZones$ Battlefield | ValidExplorer$ Creature.YouCtrl | ReplaceWith$ Explore1
+SVar:Explore1:DB$ Explore | Defined$ ReplacedCard | Num$ 2

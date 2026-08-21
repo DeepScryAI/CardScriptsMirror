@@ -1,7 +1,12 @@
 Id:6575
 ColorIdentity:
 OriginSet:G983da6aa108b8f13
-ManaCost:2
-Types:Artifact Equipment
-K:Equip:0
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddKeyword$ Haste & Shroud
+ManaCost:3
+Types:Artifact
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.!token+YouCtrl | Execute$ TrigPutCounter | TriggerZones$ Battlefield
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ CHARGE | CounterNum$ 1
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | IsPresent$ Card.Self+counters_GE5_CHARGE | Execute$ DBRemoveCounter | TriggerZones$ Battlefield
+SVar:DBRemoveCounter:DB$ RemoveCounter | Defined$ Self | CounterType$ CHARGE | CounterNum$ All | RememberRemoved$ True | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenAmount$ X | TokenScriptIds$ 777167908 | AtEOT$ Exile | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$RememberedSize

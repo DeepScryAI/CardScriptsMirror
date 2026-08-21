@@ -1,9 +1,10 @@
 Id:7801
-ColorIdentity:
+ColorIdentity:R
 OriginSet:G3fddc6426f419054
-ManaCost:3
-Types:Artifact
-A:AB$ Pump | Cost$ 4 | ValidTgts$ Creature | NumAtt$ +X | SubAbility$ DBDelay | AILogic$ Berserk
-SVar:DBDelay:DB$ DelayedTrigger | Mode$ Phase | Phase$ End Of Turn | Execute$ TrigSac
-SVar:TrigSac:DB$ SacrificeAll | Defined$ Self | Controller$ You
-SVar:X:Targeted$CardPower
+ManaCost:4 R R
+Types:Sorcery
+K:Epic
+A:SP$ DigUntil | Valid$ Card.nonLand | FoundDestination$ Exile | RevealedDestination$ Exile | RememberFound$ True | SubAbility$ UndyingDamage
+SVar:UndyingDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ FlameX | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:FlameX:Remembered$CardManaCost

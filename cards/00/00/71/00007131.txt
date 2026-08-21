@@ -1,11 +1,9 @@
 Id:7131
-ColorIdentity:R
+ColorIdentity:G
 OriginSet:G332b6b8a53f3d107
-ManaCost:5 R
-Types:Legendary Creature Human Barbarian
-PT:3/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | OptionalDecider$ You | Execute$ TrigTutorEquip
-SVar:TrigTutorEquip:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Equipment | ChangeNum$ 1 | ShuffleNonMandatory$ True
-T:Mode$ Attacks | ValidCard$ Creature.Self | TriggerZones$ Battlefield | Execute$ TrigUntap | FirstAttack$ True
-SVar:TrigUntap:DB$ UntapAll | ValidCards$ Card.Self,Samurai.YouCtrl | SubAbility$ DBAddCombat
-SVar:DBAddCombat:DB$ AddPhase | ExtraPhase$ Combat | AfterPhase$ EndCombat
+ManaCost:G
+Types:Sorcery
+A:SP$ Effect | Triggers$ CreatureSpell
+SVar:CreatureSpell:Mode$ SpellCast | ValidCard$ Creature | ValidActivatingPlayer$ You | Execute$ TrigDraw | TriggerZones$ Command
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+SVar:PlayMain1:TRUE

@@ -1,12 +1,10 @@
 Id:31205
-ColorIdentity:WG
-OriginSet:G9de1432c543d1aef
-ManaCost:G W
-Types:Artifact Equipment
-K:Starting intensity:0
-S:Mode$ Continuous | Affected$ Card.EquippedBy | AddPower$ X | AddToughness$ X
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigIntensify
-SVar:TrigIntensify:DB$ Intensify | Amount$ Y
-SVar:Y:TriggeredCard$CardPower
-SVar:X:Count$Intensity
-K:Equip:2
+ColorIdentity:G
+OriginSet:G4524bbf7a3db9dc0
+ManaCost:2 G
+Types:Sorcery
+A:SP$ Pump | TgtZone$ Graveyard | ValidTgts$ Creature.YouOwn | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBMount
+SVar:DBMount:DB$ Pump | TgtZone$ Graveyard | ValidTgts$ Mount.YouOwn | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBVehicle
+SVar:DBVehicle:DB$ Pump | TgtZone$ Graveyard | ValidTgts$ Vehicle.YouOwn | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBVanilla
+SVar:DBVanilla:DB$ Pump | TgtZone$ Graveyard | ValidTgts$ Creature.YouOwn+NoAbilities | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | Defined$ Targeted

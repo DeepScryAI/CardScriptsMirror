@@ -1,9 +1,12 @@
 Id:30858
-ColorIdentity:W
-OriginSet:G4524bbf7a3db9dc0
-ManaCost:2 W
-Types:Artifact Vehicle
-PT:3/3
+ColorIdentity:B
+OriginSet:Gc5a2f0ff902c0621
+ManaCost:3 B B
+Types:Creature Vampire Noble
+PT:5/3
 K:Flying
-K:Vigilance
-K:Crew:1
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:AB$ PutCounter | Cost$ Sac<1/Creature.Other/another creature> | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+T:Mode$ ChangesZone | ValidCard$ Creature.!token+Other | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigDraw | TriggerZones$ Battlefield
+SVar:TrigDraw:DB$ Draw
+SVar:HasAttackEffect:TRUE

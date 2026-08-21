@@ -1,12 +1,15 @@
 Id:29443
-ColorIdentity:WU
-OriginSet:Gac6359c222afbd4f
-ManaCost:2 W U
-Types:Legendary Creature Moonfolk Wizard
-PT:2/5
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Permanent.YouCtrl+Other+!token | TriggerZones$ Battlefield | Execute$ TrigCharm
-SVar:TrigCharm:DB$ Charm | ChoiceRestriction$ ThisTurn | Choices$ DBToken1,DBToken2,DBToken3
-SVar:DBToken1:DB$ Token | TokenScriptIds$ 3815221359 | TokenOwner$ You
-SVar:DBToken2:DB$ Token | TokenScriptIds$ 3951474283 | TokenOwner$ You
-SVar:DBToken3:DB$ Token | TokenScriptIds$ 3148831679 | TokenOwner$ You
-A:AB$ PutCounterAll | Cost$ 3 W U | ValidCards$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1
+ColorIdentity:W
+OriginSet:G2ce881cc55bb9f18
+ManaCost:5 W
+Types:Creature Eldrazi Angel
+PT:4/4
+K:Devoid
+K:Flying
+K:Vigilance
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice | Defined$ You | Amount$ SacX | SacValid$ Creature.basePowerLE1,Creature.baseToughnessLE1 | RememberSacrificed$ True | Optional$ True | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenAmount$ TokenX | TokenScriptIds$ 2882963184 | TokenOwner$ You | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:SacX:Count$Valid Creature.basePowerLE1+YouCtrl,Creature.baseToughnessLE1+YouCtrl
+SVar:TokenX:Remembered$Amount

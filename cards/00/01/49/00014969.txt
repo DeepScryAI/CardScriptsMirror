@@ -1,10 +1,9 @@
 Id:14969
-ColorIdentity:URG
+ColorIdentity:G
 OriginSet:G25ee1eefb1a14f05
-ManaCost:2 G
-Types:Legendary Creature Human Warrior
-PT:4/2
-K:Trample
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigChange
-SVar:TrigChange:AB$ GainControl | Cost$ 1 UR UR | ValidTgts$ Creature.OppCtrl+powerLTX | LoseControl$ EOT | Untap$ True | AddKWs$ Haste
-SVar:X:Count$CardPower
+ManaCost:1 G
+Types:Instant
+A:SP$ Effect | ReplacementEffects$ RPrevent1 | AILogic$ Fog | ConditionPresent$ Creature.YouCtrl+powerGE4 | ConditionCompare$ EQ0 | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | ReplacementEffects$ RPrevent2 | AILogic$ Fog | ConditionPresent$ Creature.YouCtrl+powerGE4 | ConditionCompare$ GE1
+SVar:RPrevent1:Event$ DamageDone | Prevent$ True | IsCombat$ True | ActiveZones$ Command
+SVar:RPrevent2:Event$ DamageDone | Prevent$ True | ValidSource$ Creature.OppCtrl | IsCombat$ True | ActiveZones$ Command

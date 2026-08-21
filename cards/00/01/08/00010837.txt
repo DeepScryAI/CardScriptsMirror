@@ -1,10 +1,11 @@
 Id:10837
-ColorIdentity:RG
+ColorIdentity:W
 OriginSet:G4398040c23c94f0e
-ManaCost:no cost
-Types:Land
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGainLife
-SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 1
-A:AB$ Mana | Cost$ T | Produced$ Combo R G
+ManaCost:W W
+Types:Creature Human Soldier Ally
+PT:1/1
+K:FirstStrike
+K:Vigilance
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self,Ally.Other+YouCtrl | OptionalDecider$ You | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+SVar:BuffedBy:Ally

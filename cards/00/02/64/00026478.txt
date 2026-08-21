@@ -1,15 +1,11 @@
 Id:26478
-ColorIdentity:WR
-OriginSet:G06757f68e16377c2
-ManaCost:2 R R W
-Types:Legendary Creature Human God
-PT:5/4
-S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ Vigilance & Haste | CheckSVar$ X | SVarCompare$ LE1
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDig
-SVar:TrigDig:DB$ Dig | DigNum$ 6 | ChangeNum$ 1 | Optional$ True | ChangeValid$ Creature.Legendary | DestinationZone$ Exile | DestinationZone2$ Library | LibraryPosition$ -1 | RestRandomOrder$ True | RememberChanged$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | StaticAbilities$ MayPlay | RememberObjects$ Remembered | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
-SVar:MayPlay:Mode$ Continuous | MayPlay$ True | MayPlayWithoutManaCost$ True | Affected$ Card.IsRemembered+nonLand | AffectedZone$ Exile
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$ValidHand Card.YouOwn
-SVar:PlayMain1:TRUE
-SVar:HasAttackEffect:TRUE
+ColorIdentity:B
+OriginSet:G1a259dba25660062
+ManaCost:1 B
+Types:Creature Human Ninja
+PT:2/1
+K:Ninjutsu:1 B
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigImmediateTrig | CombatDamage$ True | OptionalDecider$ You
+SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ Discard<1/Card> | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Creature.ControlledBy Spawner>TriggeredTarget,Planeswalker.ControlledBy Spawner>TriggeredTarget
+SVar:AIPreference:DiscardCost$Card.cmcLE3

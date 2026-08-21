@@ -1,8 +1,9 @@
 Id:10552
-ColorIdentity:WG
+ColorIdentity:WU
 OriginSet:G9445ff04667ca5ba
-ManaCost:1 G W W
-Types:Creature Rhino Soldier
-PT:3/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.powerEQ1+toughnessEQ1+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ TriggeredCardLKICopy | CounterType$ P1P1 | CounterNum$ 2 | ConditionDefined$ TriggeredCard | ConditionPresent$ Card.powerEQ1+toughnessEQ1
+ManaCost:W U
+Types:Artifact Equipment
+K:Equip:2
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddToughness$ 2 | AddKeyword$ Vigilance
+T:Mode$ AttackerBlocked | ValidBlocker$ Card.EquippedBy | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ TriggeredAttackerLKICopy | KW$ HIDDEN This card doesn't untap during your next untap step. | Duration$ Permanent

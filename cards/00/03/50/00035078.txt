@@ -1,0 +1,11 @@
+Id:35078
+ColorIdentity:U
+OriginSet:Gf8f2990d7136c11d
+ManaCost:4 U U
+Types:Instant
+A:SP$ Counter | TargetType$ Spell | ValidTgts$ Card | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ0 | SubAbility$ DBCounter
+SVar:DBCounter:DB$ Counter | Defined$ Targeted | Destination$ Exile | ConditionCheckSVar$ X | ConditionSVarCompare$ GE1 | RememberCountered$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ Remembered | StaticAbilities$ STPlay | Duration$ Permanent | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | MayPlayWithoutManaCost$ True | Affected$ Card.IsRemembered+nonLand | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Targeted$Valid Permanent

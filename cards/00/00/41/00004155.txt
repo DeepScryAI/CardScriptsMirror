@@ -1,9 +1,9 @@
 Id:4155
-ColorIdentity:B
+ColorIdentity:U
 OriginSet:Gdd40b2fbd2aa3c03
-ManaCost:B
-Types:Creature Harpy Mercenary
-PT:2/1
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigUpkeep
-SVar:TrigUpkeep:DB$ Sacrifice | UnlessPayer$ You | UnlessCost$ 2
-K:Flying
+ManaCost:1 U
+Types:Sorcery
+A:SP$ Effect | ValidTgts$ Player | StaticAbilities$ DontUntap | Triggers$ RemoveEffect | Duration$ Permanent | RememberObjects$ Targeted
+SVar:DontUntap:Mode$ Continuous | AffectedZone$ Battlefield | Affected$ Creature.RememberedPlayerCtrl | AddHiddenKeyword$ This card doesn't untap during your next untap step.
+SVar:RemoveEffect:Mode$ Phase | Phase$ Untap | ValidPlayer$ Player.IsRemembered | TriggerZones$ Command | Static$ True | Execute$ ExileEffect
+SVar:ExileEffect:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile

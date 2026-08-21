@@ -1,12 +1,14 @@
 Id:32205
-ColorIdentity:WR
-OriginSet:G9946f072b5556073
-ManaCost:R W
-Types:Legendary Creature Lobster Citizen
-PT:2/2
-S:Mode$ Continuous | Affected$ Artifact.YouCtrl | AffectedZone$ Battlefield | AddType$ Food | AddAbility$ FoodSac
-SVar:FoodSac:AB$ GainLife | Cost$ 2 T Sac<1/CARDNAME/this artifact> | Defined$ You | LifeAmount$ 3
-A:AB$ DealDamage | Cost$ 1 T Sac<1/Food> | NumDmg$ 3 | Defined$ Player.Opponent
-T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | CheckSVar$ X | Execute$ TrigUntap
-SVar:TrigUntap:DB$ Untap | Defined$ Self
-SVar:X:Count$LifeYouGainedThisTurn
+ColorIdentity:U
+OriginSet:G7856e27bce45729f
+ManaCost:2 U
+Types:Artifact Spacecraft
+PT:0/8
+K:Station:12
+S:Mode$ Continuous | Affected$ Card.Self+counters_GE3_CHARGE | AddTrigger$ CastTrig
+SVar:CastTrig:Mode$ SpellCast | ValidCard$ Artifact | ValidActivatingPlayer$ You | Execute$ TrigDraw | TriggerZones$ Battlefield
+SVar:TrigDraw:DB$ Draw | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ CHARGE | CounterNum$ 1
+S:Mode$ Continuous | Affected$ Card.Self+counters_GE12_CHARGE | AddType$ Creature | AddKeyword$ Flying | AddStaticAbility$ CraftStatic
+SVar:CraftStatic:Mode$ Continuous | Affected$ Card.Self | AddPower$ X
+SVar:X:Count$Valid Artifact.YouCtrl

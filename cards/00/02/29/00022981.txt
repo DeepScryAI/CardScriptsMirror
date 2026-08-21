@@ -1,6 +1,13 @@
 Id:22981
-ColorIdentity:W
+ColorIdentity:B
 OriginSet:Gf78628ad511eefec
-ManaCost:1 W
-Types:Instant
-A:SP$ ChangeZone | ValidTgts$ Creature.Spirit,Creature.withDisturb,Enchantment | Origin$ Battlefield | Destination$ Exile
+ManaCost:1 B
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddTrigger$ DiesTrig
+SVar:DiesTrig:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.Other | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.EnchantedBy | Execute$ TrigDig
+SVar:TrigDig:DB$ Dig | DigNum$ X | RestRandomOrder$ True
+SVar:X:TriggeredCard$CardPower

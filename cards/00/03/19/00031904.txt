@@ -1,12 +1,9 @@
 Id:31904
 ColorIdentity:U
 OriginSet:G7ab4f62d323b0ca7
-ManaCost:4 U U
-Types:Enchantment Creature Saga Leviathan
-PT:6/6
-K:Chapter:3:DBBounce,DBDraw,DBDraw
-K:Ward:2
-SVar:DBBounce:DB$ ChangeZoneAll | ChangeType$ Creature.nonKraken+nonLeviathan+nonMerfolk+nonOctopus+nonSerpent | Origin$ Battlefield | Destination$ Hand
-SVar:DBDraw:DB$ Effect | Triggers$ AttackTrig
-SVar:AttackTrig:Mode$ Attacks | ValidCard$ Card.Kraken,Card.Leviathan,Card.Merfolk,Card.Octopus,Card.Serpent | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+ManaCost:3 U
+Types:Artifact
+A:AB$ Mana | Cost$ T Exile<1/CARDNAME> | Produced$ U | SubAbility$ DBTrigger
+SVar:DBTrigger:DB$ DelayedTrigger | Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | ThisTurn$ True | Execute$ EffTrigCopy
+SVar:EffTrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | MayChooseTarget$ True
+SVar:BuffedBy:Instant,Sorcery

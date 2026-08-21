@@ -1,13 +1,11 @@
 Id:32022
-ColorIdentity:G
-OriginSet:G7856e27bce45729f
-ManaCost:3 G
-Types:Creature Beast
-PT:10/10
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ ETBTapped | ReplacementResult$ Updated
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True | SubAbility$ DBAddCounter
-SVar:DBAddCounter:DB$ PutCounter | Defined$ Self | ETB$ True | CounterType$ STUN | CounterNum$ 6
-T:Mode$ Sacrificed | ValidCard$ Land | Execute$ TrigToken | TriggerZones$ Battlefield | ValidPlayer$ You
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 4151113983 | TokenTapped$ True | SubAbility$ DBUntap | TokenOwner$ You
-SVar:DBUntap:DB$ Untap
-A:AB$ GainLife | Cost$ 4 Sac<1/Land> | Defined$ You | LifeAmount$ 2
+ColorIdentity:U
+OriginSet:G7ab4f62d323b0ca7
+ManaCost:1 U
+Types:Artifact Equipment
+K:Job select
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1 | AddType$ Cleric | AddTrigger$ TrigAttack | AddSVar$ AE
+SVar:TrigAttack:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigUntap
+SVar:TrigUntap:DB$ Untap | ValidTgts$ Creature.attacking
+K:Equip:3:Flavor Hagneia
+SVar:AE:SVar:HasAttackEffect:TRUE

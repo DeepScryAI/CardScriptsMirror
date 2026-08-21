@@ -1,9 +1,13 @@
 Id:27508
-ColorIdentity:B
-OriginSet:G7579344e30f8be85
-ManaCost:2 B
-Types:Instant
-K:Bargain
-A:SP$ Dig | Condition$ Bargain | DigNum$ 4 | ChangeNum$ 2 | Optional$ True | DestinationZone$ Library | LibraryPosition$ 0 | DestinationZone2$ Graveyard | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | NumCards$ 2 | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 2
+ColorIdentity:W
+OriginSet:G4e034c55e7afd8b4
+ManaCost:3 W W
+Types:Enchantment
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigCounters
+SVar:TrigCounters:DB$ PutCounterAll | ValidCards$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBUntap
+SVar:DBUntap:DB$ UntapAll | ValidCards$ Creature.YouCtrl
+AlternateMode:Adventure
+ALTERNATE
+ManaCost:1 W
+Types:Instant Adventure
+A:SP$ Token | TokenScriptIds$ 1066714595 | TokenOwner$ You

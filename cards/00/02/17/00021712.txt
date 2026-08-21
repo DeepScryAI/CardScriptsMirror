@@ -1,13 +1,16 @@
 Id:21712
-ColorIdentity:BR
+ColorIdentity:WU
 OriginSet:G18bf722b221724f8
-ManaCost:1 B R
-Types:Enchantment Saga
-K:Chapter:3:DBToken,DBEffect,DBMana
-SVar:DBToken:DB$ Token | TokenScriptIds$ 751097022
-SVar:DBEffect:DB$ Effect | Triggers$ TAttack
-SVar:TAttack:Mode$ Attacks | ValidCard$ Berserker | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 1
-SVar:DBMana:DB$ Mana | Produced$ R | Amount$ X | PersistentMana$ True
-SVar:X:Count$Valid Berserker.YouCtrl
+ManaCost:X W U U
+Types:Legendary Planeswalker Niko
+Loyalty:3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ X | TokenScriptIds$ 2040330482 | TokenOwner$ You
+SVar:X:Count$xPaid
+A:AB$ Effect | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | StaticAbilities$ Unblockable | Triggers$ Trig | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Creature.YouCtrl | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | AILogic$ MakeUnblockable
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+SVar:Trig:Mode$ DamageDealtOnce | ValidSource$ Creature.IsRemembered | Execute$ Eff
+SVar:Eff:DB$ ChangeZone | Defined$ Remembered | Origin$ Battlefield | Destination$ Hand
+A:AB$ DealDamage | Cost$ SubCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Creature.tapped | NumDmg$ Y
+SVar:Y:Count$YouDrewThisTurn/Twice
+A:AB$ Token | Cost$ SubCounter<1/LOYALTY> | Planeswalker$ True | TokenScriptIds$ 2040330482 | TokenOwner$ You

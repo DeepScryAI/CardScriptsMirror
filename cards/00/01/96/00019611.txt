@@ -1,10 +1,13 @@
 Id:19611
-ColorIdentity:R
+ColorIdentity:W
 OriginSet:G7c61dc677f00d087
-ManaCost:4 R R
-Types:Legendary Planeswalker Chandra
-Loyalty:4
-A:AB$ DealDamage | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Any | NumDmg$ 2
-A:AB$ DealDamage | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | ValidTgts$ Creature | NumDmg$ 4 | SubAbility$ DBDealDamage
-SVar:DBDealDamage:DB$ DealDamage | Defined$ TargetedController | NumDmg$ 2
-A:AB$ DamageAll | Cost$ SubCounter<8/LOYALTY> | Planeswalker$ True | Ultimate$ True | ValidTgts$ Player | ValidPlayers$ Targeted | ValidCards$ Creature.TargetedPlayerCtrl | NumDmg$ 10
+ManaCost:2 W
+Types:Creature Angel
+PT:2/2
+K:Flying
+R:Event$ GainLife | ActiveZones$ Battlefield | ValidPlayer$ You | ReplaceWith$ GainLife | AILogic$ DoubleLife
+SVar:GainLife:DB$ ReplaceEffect | VarName$ LifeGained | VarValue$ X
+SVar:X:ReplaceCount$LifeGained/Plus.1
+SVar:PlayMain1:True
+S:Mode$ Continuous | Affected$ Card.Self | AddPower$ 2 | AddToughness$ 2 | CheckSVar$ Y | SVarCompare$ GE25
+SVar:Y:Count$YourLifeTotal

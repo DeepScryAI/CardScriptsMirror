@@ -1,17 +1,9 @@
 Id:25995
-ColorIdentity:WUBG
-OriginSet:G2192e8955d5e1ad1
-ManaCost:3 G W U B
-Types:Legendary Creature Phyrexian Angel
-PT:7/7
-K:Flying
-K:Vigilance
-K:Deathtouch
-K:Lifelink
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigReveal
-SVar:TrigReveal:DB$ PeekAndReveal | PeekAmount$ 10 | Reveal$ True | ImprintRevealed$ True | SubAbility$ TrigRepeatTypes
-SVar:TrigRepeatTypes:DB$ RepeatEach | RepeatTypesFrom$ ValidLibrary Card.IsImprinted | RepeatSubAbility$ ChooseCard | SubAbility$ DBChangeZone
-SVar:ChooseCard:DB$ ChooseCard | Choices$ Card.ChosenType+YouOwn+IsImprinted | ChoiceZone$ Library | RememberChosen$ True
-SVar:DBChangeZone:DB$ ChangeZone | Origin$ Library | Destination$ Hand | Defined$ Remembered | SubAbility$ ShuffleRest
-SVar:ShuffleRest:DB$ ChangeZoneAll | Origin$ Library | Destination$ Library | LibraryPosition$ -1 | RandomOrder$ True | ChangeType$ Card.IsImprinted+!IsRemembered | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True
+ColorIdentity:W
+OriginSet:Gb879a1706584aeee
+ManaCost:1 W
+Types:Creature Cat Angel
+PT:1/1
+T:Mode$ BecomesTarget | ValidTarget$ Card.Self | TriggerZones$ Battlefield | FirstTime$ True | Execute$ TrigCounter
+SVar:TrigCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+S:Mode$ Continuous | Affected$ Card.Self+counters_GE3_P1P1 | AddKeyword$ Flying

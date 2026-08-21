@@ -1,9 +1,12 @@
 Id:23426
-ColorIdentity:U
-OriginSet:G1a259dba25660062
-ManaCost:1 U
-Types:Artifact Creature Equipment Beast
-PT:2/1
-K:Ward:2
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddToughness$ 1 | AddKeyword$ Ward:2
-K:Reconfigure:4
+ColorIdentity:B
+OriginSet:Gbe3783f336562357
+ManaCost:3 B
+Types:Creature Zombie Wizard
+PT:3/4
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | IsPresent$ Card.Creature+YouOwn | PresentZone$ Graveyard | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Creature.YouOwn | TargetMin$ 0 | TargetMax$ 1 | RememberChanged$ True | SubAbility$ DBSeek
+SVar:DBSeek:DB$ Seek | ConditionDefined$ Remembered | ConditionPresent$ Creature | Type$ Creature.cmcEQX | ImprintFound$ True | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | PumpZone$ Hand | Defined$ Imprinted | KW$ Menace | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True
+SVar:X:Remembered$CardManaCost/Plus.1

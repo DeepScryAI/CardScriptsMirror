@@ -1,11 +1,10 @@
 Id:31938
-ColorIdentity:R
+ColorIdentity:U
 OriginSet:G7ab4f62d323b0ca7
-ManaCost:3 R R R
-Types:Enchantment
-T:Mode$ Phase | Phase$ Upkeep | TriggerZones$ Battlefield | ValidPlayer$ You | Execute$ TrigExile
-SVar:TrigExile:DB$ Dig | Defined$ Player | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ Play | SetChosenNumber$ Count$ValidExile Card.YouOwn+IsRemembered$CardManaCost | SubAbility$ DBCleanup | ForgetOnMoved$ Exile
-SVar:Play:Mode$ Continuous | MayPlay$ True | EffectZone$ Command | Affected$ Card.IsRemembered+YouOwn,Card.IsRemembered+cmcLTX | AffectedZone$ Exile | MayPlayWithoutManaCost$ True
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$ChosenNumber
+ManaCost:4 U U
+Types:Creature Elemental Ooze
+PT:5/4
+K:TypeCycling:Island:2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigTap
+SVar:TrigTap:DB$ Tap | ValidTgts$ Artifact.OppCtrl,Creature.OppCtrl | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Targeted | CounterType$ STUN | CounterNum$ 1

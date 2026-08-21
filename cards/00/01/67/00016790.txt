@@ -1,6 +1,14 @@
 Id:16790
-ColorIdentity:W
+ColorIdentity:R
 OriginSet:Gd31f94cf3a5f78e4
-ManaCost:3 W
+ManaCost:X R R R
 Types:Sorcery
-A:SP$ PutCounterAll | ValidCards$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1
+A:SP$ Destroy | ValidTgts$ Artifact,Creature | TargetMin$ X | TargetMax$ X | Origin$ Battlefield | Destination$ Graveyard | RememberDestroyed$ True | SubAbility$ DBTransform
+SVar:DBTransform:DB$ RepeatEach | UseImprinted$ True | DefinedCards$ DirectRemembered | ChooseOrder$ True | RepeatSubAbility$ DBReveal | SubAbility$ DBPutOnBattlefield
+SVar:DBReveal:DB$ DigUntil | Defined$ ImprintedController | Amount$ 1 | Valid$ Artifact,Creature | RevealedDestination$ Library | RevealedLibraryPosition$ 0 | RevealRandomOrder$ True | FoundDestination$ Exile | RememberFound$ True | SubAbility$ DBForget
+SVar:DBForget:DB$ Pump | ForgetObjects$ Imprinted | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearImprinted$ True
+SVar:DBPutOnBattlefield:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered | Origin$ Exile | Destination$ Battlefield | SubAbility$ DBShuffle
+SVar:DBShuffle:DB$ Shuffle | Defined$ ParentTargetedController | SubAbility$ DBCleanRemembered
+SVar:DBCleanRemembered:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$xPaid

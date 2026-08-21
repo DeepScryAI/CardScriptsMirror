@@ -1,7 +1,12 @@
 Id:32483
-ColorIdentity:
-OriginSet:G66b3a7eeabd9000e
-ManaCost:1
-Types:Artifact Equipment
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddToughness$ 2 | AddType$ Spider & Hero
-K:Equip:3
+ColorIdentity:B
+OriginSet:G324b911e0e372b1b
+ManaCost:3 B
+Types:Creature Human Soldier
+PT:2/4
+K:Lifelink
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSeek
+SVar:TrigSeek:DB$ Seek | Type$ Card.Permanent+nonLand+cmcLE3 | RememberFound$ True | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | PumpZone$ Hand | Defined$ Remembered | KW$ Warp:0 | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 2 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

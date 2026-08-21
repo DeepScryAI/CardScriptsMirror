@@ -1,9 +1,12 @@
 Id:32073
-ColorIdentity:U
-OriginSet:G9946f072b5556073
-ManaCost:2 U
-Types:Creature Dog
-PT:2/1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDig
-SVar:TrigDig:DB$ Dig | DigNum$ 2 | ChangeNum$ 1 | DestinationZone2$ Graveyard | NoReveal$ True
-K:Warp:2 U
+ColorIdentity:UR
+OriginSet:G7ab4f62d323b0ca7
+ManaCost:3 U R
+Types:Legendary Creature Human Wizard
+PT:3/3
+T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 3709958967 | TokenOwner$ You | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ 2 | ConditionCheckSVar$ X | ConditionSVarCompare$ GE4 | SubAbility$ DBSac
+SVar:DBSac:DB$ Sacrifice | ConditionCheckSVar$ X | ConditionSVarCompare$ GE8 | SubAbility$ DBDealDamage
+SVar:DBDealDamage:DB$ DealDamage | NumDmg$ X | ConditionCheckSVar$ X | ConditionSVarCompare$ GE8 | Defined$ Opponent
+SVar:X:TriggeredCard$CastTotalManaSpent

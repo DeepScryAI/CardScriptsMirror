@@ -1,9 +1,13 @@
 Id:32512
-ColorIdentity:WU
+ColorIdentity:W
 OriginSet:G66b3a7eeabd9000e
-ManaCost:no cost
-Types:Land
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
-A:AB$ Mana | Cost$ T | Produced$ Combo W U
-A:AB$ Surveil | Cost$ 4 T | Amount$ 1
+ManaCost:2 W
+Types:Legendary Creature Spider Human Hero
+PT:3/3
+K:WebSlinging:W
+K:ETBReplacement:Other:ChoosePlayer
+SVar:ChoosePlayer:DB$ ChoosePlayer | Defined$ You | Choices$ Player.Opponent | SubAbility$ DBLook
+SVar:DBLook:DB$ RevealHand | Defined$ ChosenPlayer | Look$ True | SubAbility$ DBChooseCardType
+SVar:DBChooseCardType:DB$ ChooseType | Defined$ You | Type$ Card | InvalidTypes$ Creature | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenPlayer$ True
+S:Mode$ RaiseCost | EffectZone$ Battlefield | ValidCard$ Card.ChosenType | Type$ Spell | Amount$ 1 | Activator$ Player

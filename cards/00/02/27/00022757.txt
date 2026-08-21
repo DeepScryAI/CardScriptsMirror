@@ -1,8 +1,13 @@
 Id:22757
-ColorIdentity:R
-OriginSet:Gf78628ad511eefec
-ManaCost:3 R
-Types:Creature Human Shaman
-PT:2/1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
-SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Instant.YouOwn,Sorcery.YouOwn
+ColorIdentity:UG
+OriginSet:Gc21c9827c2eb8a2b
+ManaCost:4 G G
+Types:Legendary Creature Treefolk Wizard
+PT:6/6
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ X | TokenScriptIds$ 1827778350
+SVar:X:Count$Valid Land.YouCtrl$DifferentCardNames
+A:AB$ Draw | Cost$ 4 G U | NumCards$ Y | SubAbility$ PumpAll
+SVar:Y:Count$Valid Wizard.YouCtrl
+SVar:PumpAll:DB$ PumpAll | ValidCards$ Wizard.YouCtrl | NumAtt$ +Z | NumDef$ +Z
+SVar:Z:Count$CardsInYourHand

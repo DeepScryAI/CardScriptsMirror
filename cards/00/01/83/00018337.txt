@@ -1,10 +1,13 @@
 Id:18337
-ColorIdentity:UB
+ColorIdentity:U
 OriginSet:G7d4bd61c81d44275
-ManaCost:6 U B
-Types:Creature Vampire Wizard
-PT:3/4
-K:Assist
+ManaCost:5 U
+Types:Creature Avatar Warrior
+PT:4/4
 K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
-SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Instant,Sorcery,Creature
+T:Mode$ Attacks | ValidCard$ Card.Self | OptionalDecider$ You | TriggerZones$ Battlefield | Execute$ TrigBounce
+SVar:TrigBounce:DB$ ChangeZone | ValidTgts$ Creature | Origin$ Battlefield | Destination$ Hand | IsCurse$ True | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ1
+SVar:Y:Count$Valid Warrior.YourTeamCtrl
+SVar:X:Targeted$Valid Creature.powerLEY
+SVar:HasAttackEffect:TRUE
+SVar:BuffedBy:Warrior

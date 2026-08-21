@@ -1,13 +1,8 @@
 Id:19143
-ColorIdentity:WR
-OriginSet:Gf56613712ce2ae1f
-ManaCost:R W W
-Types:Legendary Creature Angel
-PT:3/4
-K:Flying
-T:Mode$ SpellCast | ValidCard$ Instant.YouCtrl,Sorcery.YouCtrl | ValidActivatingPlayer$ You | TargetsValid$ Creature.YouCtrl+inZoneBattlefield | Execute$ DelayedBuyback | TriggerZones$ Battlefield
-SVar:DelayedBuyback:DB$ Effect | ReplacementEffects$ MoveToExileReplace | RememberObjects$ TriggeredCard | ConditionDefined$ TriggeredCard | ConditionPresent$ Card.inZoneStack | ExileOnMoved$ Stack
-SVar:MoveToExileReplace:Event$ Moved | ValidCard$ Card.IsRemembered+YouOwn | Origin$ Stack | Destination$ Graveyard | Fizzle$ False | ReplaceWith$ ReplaceExile
-SVar:ReplaceExile:DB$ ChangeZone | Defined$ ReplacedCard | Origin$ Stack | Destination$ Exile | RememberChanged$ True | SubAbility$ DelTrig
-SVar:DelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ TrigReturn | RememberObjects$ Remembered
-SVar:TrigReturn:DB$ ChangeZone | Defined$ DelayTriggerRememberedLKI | Origin$ Exile | Destination$ Hand
+ColorIdentity:W
+OriginSet:G0b51a0aecbe39efe
+ManaCost:5 W
+Types:Creature Giant Soldier
+PT:3/6
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 638238902 | TokenOwner$ You

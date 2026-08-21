@@ -1,10 +1,10 @@
 Id:7868
-ColorIdentity:G
+ColorIdentity:
 OriginSet:G9231f4a3f94f4472
-ManaCost:2 G
-Types:Creature Fungus
-PT:2/2
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ SPORE | CounterNum$ 1
-A:AB$ Token | Cost$ SubCounter<3/SPORE> | TokenScriptIds$ 3815350479 | TokenOwner$ You
-A:AB$ Pump | Cost$ Sac<1/Saproling> | ValidTgts$ Creature | NumAtt$ +1 | NumDef$ +1
+ManaCost:1
+Types:Artifact
+A:AB$ Mana | Cost$ 2 T Sac<1/CARDNAME> | Produced$ Combo Any | Amount$ 2
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ TriggeredCardController | NumCards$ 1
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True

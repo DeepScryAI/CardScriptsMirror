@@ -1,16 +1,10 @@
 Id:29862
-ColorIdentity:G
-OriginSet:Gf09b85bbcc27770c
-ManaCost:1 G
-Types:Enchantment Class
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigHit
-SVar:TrigHit:DB$ Pump | ValidTgts$ Creature.YouCtrl | AILogic$ PowerDmg | SubAbility$ SoulsDamage
-SVar:SoulsDamage:DB$ DealDamage | ValidTgts$ Creature.YouDontCtrl | AILogic$ PowerDmg | NumDmg$ X | DamageSource$ ParentTarget
-K:Class:2:1 G:AddTrigger$ TriggerAttackersDeclared
-SVar:TriggerAttackersDeclared:Mode$ AttackersDeclared | AttackingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump | Secondary$ True
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.attacking | NumAtt$ +1 | KW$ Trample
-K:Class:3:3 G:AddTrigger$ TriggerEndStep
-SVar:TriggerEndStep:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | IsPresent$ Creature.powerGE4+YouCtrl | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw
-SVar:X:ParentTargeted$CardPower
-SVar:PlayMain1:ALWAYS
+ColorIdentity:W
+OriginSet:G01a610e823cce3ca
+ManaCost:3 W
+Types:Legendary Creature Human Assassin
+PT:3/4
+K:FirstStrike
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
+T:Mode$ DamageDoneOnce | ValidSource$ Assassin.YouCtrl | TriggerZones$ Battlefield | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigChangeZone | Secondary$ True
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Card.Historic+YouCtrl

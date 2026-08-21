@@ -1,8 +1,9 @@
 Id:28066
-ColorIdentity:R
-OriginSet:Gfd50577710a6ab09
-ManaCost:4 R R R
+ColorIdentity:G
+OriginSet:G06c78c29bfb28e3d
+ManaCost:1 G
 Types:Sorcery
-A:SP$ Discover | Num$ 10 | SubAbility$ DBTreasure | RememberDiscovered$ True
-SVar:DBTreasure:DB$ Token | ConditionDefined$ Remembered | ConditionPresent$ Card.cmcLT10 | TokenScriptIds$ 3851718391 | TokenAmount$ Remembered$CardManaCost/NMinus.10 | TokenTapped$ True | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+A:SP$ Pump | ValidTgts$ Creature.YouCtrl | SubAbility$ DBDamage | AILogic$ PowerDmg
+SVar:DBDamage:DB$ DealDamage | ValidTgts$ Creature | TargetUnique$ True | AILogic$ PowerDmg | NumDmg$ X | DamageSource$ ParentTarget | ExcessSVar$ Excess | SubAbility$ DBDiscover
+SVar:DBDiscover:DB$ Discover | Num$ Excess | ConditionCheckSVar$ Excess
+SVar:X:ParentTargeted$CardPower

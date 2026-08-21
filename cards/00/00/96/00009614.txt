@@ -1,8 +1,12 @@
 Id:9614
-ColorIdentity:R
+ColorIdentity:U
 OriginSet:G49bcc8b9b86b628d
-ManaCost:3 R
-Types:Creature Elemental Warrior
-PT:5/2
-A:AB$ Pump | Cost$ R | NumAtt$ +1
-S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ Haste | IsPresent$ Warrior.YouOwn | PresentZone$ Graveyard
+ManaCost:1 U U
+Types:Legendary Creature Faerie Wizard
+PT:3/1
+K:Flying
+K:Flash
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigPickCard
+SVar:TrigPickCard:DB$ ChangeZone | ValidTgts$ Player | Origin$ Hand | Destination$ Library | LibraryPosition$ -1 | ChangeType$ Card.nonLand | ChangeNum$ 1 | Hidden$ True | RememberChanged$ True | Chooser$ You | Optional$ True | IsCurse$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ Targeted | NumCards$ 1 | SubAbility$ DBCleanup | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ1
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

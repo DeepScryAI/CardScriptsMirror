@@ -1,11 +1,10 @@
 Id:5999
-ColorIdentity:R
+ColorIdentity:U
 OriginSet:G0eb5e52d26fe1c23
-ManaCost:3 R
-Types:Creature Goblin Avatar
-PT:*/*
-K:Haste
-S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X | SetToughness$ X
-SVar:X:Count$Valid Goblin
-SVar:BuffedBy:Goblin
-SVar:NoZeroToughnessAI:True
+ManaCost:X U
+Types:Instant
+A:SP$ Draw | NumCards$ X | SubAbility$ DBRepeat | RememberDrawn$ AllReplaced
+SVar:DBRepeat:DB$ RepeatEach | UseImprinted$ True | RepeatCards$ Card.IsRemembered | Zone$ Hand | RepeatSubAbility$ DBDiscard | SubAbility$ DBCleanup
+SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ TgtChoose | UnlessCost$ Sac<1/Permanent> | UnlessPayer$ You
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$xPaid

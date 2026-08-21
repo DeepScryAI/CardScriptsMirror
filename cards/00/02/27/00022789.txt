@@ -1,11 +1,10 @@
 Id:22789
-ColorIdentity:R
-OriginSet:Gf78628ad511eefec
-ManaCost:1 R
-Types:Instant
-A:SP$ Charm | Choices$ DBDmg,DBDisc
-SVar:DBDmg:DB$ DealDamage | ValidTgts$ Creature,Planeswalker | NumDmg$ 3
-SVar:DBDisc:DB$ Discard | Mode$ TgtChoose | NumCards$ 2 | Optional$ True | RememberDiscarded$ True | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | NumCards$ X | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Remembered$Amount
+ColorIdentity:G
+OriginSet:G268a0d6ee06912c2
+ManaCost:2 G
+Types:Creature Centaur Soldier
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChoose
+SVar:TrigChoose:DB$ ChooseCard | ChoiceZone$ Hand | Choices$ Card.Creature+YouOwn | Mandatory$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Pump | PumpZone$ Hand | Defined$ ChosenCard | NumAtt$ +2 | NumDef$ +2 | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True

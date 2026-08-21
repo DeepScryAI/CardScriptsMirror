@@ -1,10 +1,13 @@
 Id:16663
-ColorIdentity:R
+ColorIdentity:U
 OriginSet:Ge1d53e4f418bb713
-ManaCost:3 R
-Types:Enchantment Aura
-K:Enchant:Permanent
-SVar:AttachAILogic:Curse
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Execute$ TrigGainControl | Origin$ Any | Destination$ Battlefield
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigGainControl | Secondary$ True
-SVar:TrigGainControl:DB$ GainControl | Defined$ Enchanted | Untap$ True | AddKWs$ Haste | LoseControl$ EOT
+ManaCost:3 U
+Types:Creature Faerie Artificer
+PT:2/2
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.!token+OppCtrl | TriggerZones$ Battlefield | Execute$ TrigImprint
+SVar:TrigImprint:DB$ Pump | ImprintCards$ Remembered | SubAbility$ DBCopy
+SVar:DBCopy:DB$ CopyPermanent | Defined$ TriggeredCardLKICopy | Controller$ You | AddTypes$ Artifact | RememberTokens$ True | SubAbility$ DBChangeZoneAll
+SVar:DBChangeZoneAll:DB$ ChangeZoneAll | Origin$ Battlefield | Destination$ Exile | ChangeType$ Card.IsImprinted
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ DBCleanup | Static$ True
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True

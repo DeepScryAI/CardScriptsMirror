@@ -1,15 +1,15 @@
 Id:26369
-ColorIdentity:W
-OriginSet:Gd5f5e54fa26ae40d
-ManaCost:4 W
-Types:Creature Dragon
-PT:3/4
-K:Backup:1:BackupAbilities
-SVar:BackupAbilities:DB$ Animate | Keywords$ Flying | Triggers$ AttackTrig | sVars$ AE
-SVar:AttackTrig:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZone | ValidTgts$ Permanent.nonLand+cmcLEX+YouOwn | Origin$ Graveyard | Destination$ Battlefield
-SVar:X:TriggeredAttacker$CardPower
-K:Flying
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigReturn
-SVar:HasAttackEffect:TRUE
-SVar:AE:SVar:HasAttackEffect:TRUE
+ColorIdentity:B
+OriginSet:G2192e8955d5e1ad1
+ManaCost:4 B BP
+Types:Legendary Planeswalker Vraska
+Loyalty:6
+K:Compleated
+A:AB$ Draw | Cost$ AddCounter<0/LOYALTY> | Planeswalker$ True | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 1 | SubAbility$ DBProliferate
+SVar:DBProliferate:DB$ Proliferate
+A:AB$ Animate | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | ValidTgts$ Creature | RemoveAllAbilities$ True | Types$ Artifact,Treasure | Abilities$ TreasureSac | RemoveCardTypes$ True | Duration$ Permanent
+SVar:TreasureSac:AB$ Mana | Cost$ T Sac<1/CARDNAME/this artifact> | Produced$ Any
+A:AB$ Poison | Cost$ SubCounter<9/LOYALTY> | Planeswalker$ True | Ultimate$ True | ValidTgts$ Player | ConditionCheckSVar$ X | ConditionSVarCompare$ LT9 | Num$ Difference
+SVar:X:TargetedPlayer$Counters.Poison
+SVar:Difference:Number$9/Minus.X

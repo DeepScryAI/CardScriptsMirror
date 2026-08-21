@@ -1,6 +1,11 @@
 Id:11428
-ColorIdentity:G
+ColorIdentity:R
 OriginSet:Gf6792163b580976b
-ManaCost:G
-Types:Instant
-A:SP$ DealDamage | ValidTgts$ Any | NumDmg$ 1
+ManaCost:3 R R
+Types:Creature Dragon
+PT:4/4
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange | OptionalDecider$ You
+SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Exile | ChangeType$ Artifact | ChangeNum$ 1 | RememberChanged$ True | ShuffleNonMandatory$ True
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigReturn | OptionalDecider$ TriggeredCardController
+SVar:TrigReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Hand

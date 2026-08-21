@@ -1,8 +1,9 @@
 Id:12620
-ColorIdentity:UR
+ColorIdentity:B
 OriginSet:Gfd7b72e0eb9d2cf5
-ManaCost:no cost
-Types:Land
-A:AB$ Mana | Cost$ T | Produced$ C
-A:AB$ Draw | Cost$ 1 U R T | NumCards$ 1 | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ TgtChoose
+ManaCost:3 B B
+Types:Enchantment
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ DESPAIR | CounterNum$ 1 | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | DefinedPlayer$ Player | ChangeNum$ X | Hidden$ True | Origin$ Battlefield,Hand | Destination$ Exile | Mandatory$ True
+SVar:X:Count$CardCounters.DESPAIR

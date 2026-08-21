@@ -1,14 +1,12 @@
 Id:26019
-ColorIdentity:BR
-OriginSet:G2192e8955d5e1ad1
-ManaCost:1 B R
-Types:Creature Phyrexian Beast
-PT:2/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 3382511931
-T:Mode$ ChangesZone | Origin$ Battlefield | ValidCard$ Creature.Other+YouCtrl,Artifact.Other+YouCtrl | Destination$ Graveyard | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ OIL | CounterNum$ 1 | ConditionPresent$ Card.StrictlySelf
-A:AB$ Dig | Cost$ SubCounter<3/OIL/CARDNAME> | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ Play | SubAbility$ DBCleanup | ForgetOnMoved$ Exile
-SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:RG
+OriginSet:Gb879a1706584aeee
+ManaCost:2 G
+Types:Legendary Creature Monkey Noble
+PT:2/2
+A:AB$ Token | Cost$ T | TokenOwner$ Player | TokenScriptIds$ 3029587075
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Artifact.OppCtrl | TriggerZones$ Battlefield | Execute$ TrigCounter
+SVar:TrigCounter:DB$ PutCounterAll | ValidCards$ Creature.Monkey+YouCtrl,Creature.Ape+YouCtrl | CounterType$ P1P1 | CounterNum$ 1
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice | Defined$ TriggeredDefendingPlayer | SacValid$ Artifact
+SVar:HasAttackEffect:TRUE

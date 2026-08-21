@@ -1,10 +1,8 @@
 Id:23600
-ColorIdentity:WR
+ColorIdentity:W
 OriginSet:G1a259dba25660062
-ManaCost:2 R W
-Types:Legendary Creature Human Samurai
-PT:3/3
-K:FirstStrike
-T:Mode$ Attacks | ValidCard$ Samurai.YouCtrl,Warrior.YouCtrl | Alone$ True | TriggerZones$ Battlefield | Execute$ TrigUntap
-SVar:TrigUntap:DB$ Untap | Defined$ TriggeredAttackerLKICopy | SubAbility$ DBAddPhase
-SVar:DBAddPhase:DB$ AddPhase | ExtraPhase$ Combat | ConditionFirstCombat$ True | AfterPhase$ EndCombat
+ManaCost:1 W W W W
+Types:Sorcery
+A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Permanent.YouCtrl | SubAbility$ DBPlayerTarget
+SVar:DBPlayerTarget:DB$ Pump | ValidTgts$ Player | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Choices$ Creature.TargetedPlayerCtrl,Vehicle.TargetedPlayerCtrl | ChoiceAmount$ 4 | MinChoiceAmount$ 1 | CounterType$ P1P1 | CounterNum$ 4 | DividedAsYouChoose$ 4

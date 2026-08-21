@@ -1,8 +1,12 @@
 Id:19227
-ColorIdentity:W
-OriginSet:Gb6b8d78626a44788
-ManaCost:5 W
-Types:Creature Giant Soldier
-PT:3/6
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGainLife
-SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 5
+ColorIdentity:WU
+OriginSet:Gf56613712ce2ae1f
+ManaCost:1 W U
+Types:Legendary Planeswalker Teferi
+Loyalty:4
+S:Mode$ CantBeCast | ValidCard$ Card | Caster$ Opponent | OnlySorcerySpeed$ True
+A:AB$ Effect | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | StaticAbilities$ STPlay | Duration$ UntilYourNextTurn | AILogic$ Main2
+SVar:STPlay:Mode$ CastWithFlash | ValidCard$ Sorcery | ValidSA$ Spell | Caster$ You
+SVar:PlayMain1:TRUE
+A:AB$ ChangeZone | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | Origin$ Battlefield | Destination$ Hand | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Artifact,Creature,Enchantment | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw

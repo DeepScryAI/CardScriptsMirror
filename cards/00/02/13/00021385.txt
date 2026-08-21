@@ -1,16 +1,11 @@
 Id:21385
-ColorIdentity:WUB
+ColorIdentity:WBG
 OriginSet:G51d431785c8b33e5
-ManaCost:3 W U B
-Types:Legendary Creature Zombie Wizard
-PT:3/6
-K:Hexproof:Artifact
-K:Hexproof:Creature
-K:Hexproof:Enchantment
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenAmount$ X | TokenScriptIds$ 353162950 | TokenTapped$ True | TokenOwner$ You
-SVar:X:Count$ThisTurnEntered_Graveyard_from_Battlefield_Creature
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigPayCost
-SVar:TrigPayCost:AB$ ImmediateTrigger | Cost$ 1 | Execute$ TrigDestroy
-SVar:TrigDestroy:DB$ DestroyAll | ValidCards$ Artifact,Creature,Enchantment
-SVar:NeedsToPlayVar:X GE1
+ManaCost:3 W B G
+Types:Legendary Creature Treefolk Shaman
+PT:3/7
+K:Vigilance
+K:Reach
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self,Creature.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZone | TargetMin$ 0 | TargetMax$ 1 | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Creature.Other+!TriggeredNewCard+toughnessLTX+YouOwn
+SVar:X:TriggeredCard$CardToughness

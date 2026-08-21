@@ -1,9 +1,11 @@
 Id:28988
-ColorIdentity:U
-OriginSet:Gc7beb665b378d90a
-ManaCost:2 U
-Types:Sorcery
-K:Plot:3 U
-A:SP$ Draw | Defined$ You | NumCards$ 1 | SubAbility$ DBDrawX
-SVar:DBDrawX:DB$ Draw | Defined$ You | NumCards$ X
-SVar:X:Count$ThisTurnCast_Instant.YouCtrl,Sorcery.YouCtrl+!CastSaSource
+ColorIdentity:W
+OriginSet:Gaf7c94f364052cdd
+ManaCost:1 W
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Card.EnchantedBy | AddTrigger$ AttackTrig
+SVar:AttackTrig:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump | Alone$ True
+SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +X | NumDef$ +X
+SVar:X:Count$Valid Permanent.nonLand+YouCtrl

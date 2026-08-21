@@ -1,9 +1,10 @@
 Id:21186
-ColorIdentity:G
+ColorIdentity:B
 OriginSet:G72c9c624ceb92bff
-ManaCost:2 G
-Types:Creature Plant Elemental
-PT:3/3
-K:Kicker:1 G
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self+kicked | Execute$ TrigChangeZone
-SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Card.withKicker+YouOwn,Card.withMultikicker+YouOwn
+ManaCost:B
+Types:Sorcery
+K:Kicker:2 B
+A:SP$ Destroy | ValidTgts$ Creature.cmcLE2,Planeswalker.cmcLE2 | TargetMin$ X | TargetMax$ X | SubAbility$ DBDestroy | AILogic$ AssumeAtLeastOneTarget
+SVar:DBDestroy:DB$ Destroy | TargetMin$ Y | TargetMax$ Y | ValidTgts$ Creature,Planeswalker
+SVar:X:Count$Kicked.0.1
+SVar:Y:Count$Kicked.1.0

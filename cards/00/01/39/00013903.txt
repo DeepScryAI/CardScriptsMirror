@@ -1,9 +1,13 @@
 Id:13903
-ColorIdentity:R
+ColorIdentity:G
 OriginSet:G6645ca87da6316d5
-ManaCost:2 R
-Types:Enchantment Aura Curse
-K:Enchant:Player
-SVar:AttachAILogic:Curse
-T:Mode$ AttackersDeclared | Execute$ TrigDiscard | TriggerZones$ Battlefield | AttackedTarget$ Player.EnchantedBy | OptionalDecider$ TriggeredAttackingPlayer
-SVar:TrigDiscard:DB$ Draw | Defined$ TriggeredAttackingPlayer | NumCards$ 1 | UnlessCost$ Discard<1/Card> | UnlessSwitched$ True | UnlessPayer$ TriggeredAttackingPlayer
+ManaCost:4 G G
+Types:Creature Elemental
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ DestroyAll | ValidCards$ Artifact,Enchantment | RememberDestroyed$ True | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Amount
+SVar:Y:Count$Valid Artifact.OppCtrl,Enchantment.OppCtrl
+SVar:NeedsToPlayVar:Y GE2

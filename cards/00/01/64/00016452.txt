@@ -1,11 +1,13 @@
 Id:16452
-ColorIdentity:WR
+ColorIdentity:B
 OriginSet:G4bddbf7cb4f2475e
-ManaCost:1 R W
-Types:Legendary Creature Dwarf Pilot
-PT:3/3
-S:Mode$ Continuous | Affected$ Permanent.Dwarf+Other+YouCtrl | AddPower$ 1 | AddToughness$ 1
-S:Mode$ Continuous | Affected$ Creature.Vehicle+YouCtrl | AddPower$ 1 | AddToughness$ 1
-T:Mode$ Taps | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigDig
-SVar:TrigDig:AB$ Dig | Cost$ X | DigNum$ X | Reveal$ True | ChangeNum$ All | DestinationZone$ Hand | DestinationZone2$ Library | LibraryPosition$ -1 | RestRandomOrder$ True | ChangeValid$ Dwarf,Vehicle | AILogic$ PayXButSaveMana.3
-SVar:X:Count$xPaid
+ManaCost:3 B B B
+Types:Creature Demon
+PT:5/5
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPumpAll
+SVar:TrigPumpAll:DB$ PumpAll | NumAtt$ -2 | NumDef$ -2 | ValidCards$ Creature.StrictlyOther | IsCurse$ True
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.Other | TriggerZones$ Battlefield | Execute$ TrigEnergy
+SVar:TrigEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ 1
+A:AB$ ChangeZone | Cost$ 2 B PayEnergy<4> | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True | ValidTgts$ Creature | ChangeNum$ 1 | Tapped$ True
+SVar:PlayMain1:TRUE

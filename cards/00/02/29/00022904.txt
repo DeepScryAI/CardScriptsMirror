@@ -1,13 +1,14 @@
 Id:22904
 ColorIdentity:B
 OriginSet:Gf78628ad511eefec
-ManaCost:1 B
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:Pump
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddTrigger$ DiesTrig
-SVar:DiesTrig:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.Other | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.EnchantedBy | Execute$ TrigDig
-SVar:TrigDig:DB$ Dig | DigNum$ X | RestRandomOrder$ True
-SVar:X:TriggeredCard$CardPower
+ManaCost:B
+Types:Creature Human Wizard
+PT:1/1
+A:AB$ Draw | Cost$ 2 B Sac<1/Creature.Other/another creature> | NumCards$ 1 | SubAbility$ DBTransform | ActivationLimit$ 1
+SVar:DBTransform:DB$ SetState | Defined$ Self | Mode$ Transform
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:black
+Types:Creature Demon
+PT:4/4

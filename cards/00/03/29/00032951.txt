@@ -1,7 +1,10 @@
 Id:32951
-ColorIdentity:W
-OriginSet:G731e0066916b7465
-ManaCost:2 W
-Types:Legendary Creature Human Rebel Ally
+ColorIdentity:G
+OriginSet:G22ed5d6f3707b461
+ManaCost:4 G G
+Types:Legendary Creature Ape Goat
 PT:4/4
-S:Mode$ Continuous | Affected$ Card.Self+counters_EQ0_P1P1 | AddHiddenKeyword$ CARDNAME can't attack alone.
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPutCounterAll
+SVar:TrigPutCounterAll:DB$ PutCounterAll | ValidCards$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1
+S:Mode$ MinMaxBlocker | ValidCard$ Creature.YouCtrl+powerGE4 | Max$ 1
+SVar:PlayMain1:TRUE

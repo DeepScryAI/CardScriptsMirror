@@ -1,11 +1,8 @@
 Id:9689
-ColorIdentity:BR
+ColorIdentity:R
 OriginSet:G0388e25893b1e049
-ManaCost:1 BR
-Types:Creature Elemental Warrior Shaman
-PT:1/1
-T:Mode$ SpellCast | ValidCard$ Card.Black | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPumpP1P1
-T:Mode$ SpellCast | ValidCard$ Card.Red | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigFirstStrike
-SVar:TrigPumpP1P1:DB$ Pump | NumAtt$ +1 | NumDef$ +1 | Defined$ Self
-SVar:TrigFirstStrike:DB$ Pump | KW$ FirstStrike | Defined$ Self
-SVar:BuffedBy:Card.Black,Card.Red
+ManaCost:3 R
+Types:Sorcery
+A:SP$ Effect | ValidTgts$ Player | AILogic$ Evasion | StaticAbilities$ OppCantBlock | RememberObjects$ Targeted | SubAbility$ DBDamage
+SVar:DBDamage:DB$ DamageAll | NumDmg$ 1 | ValidCards$ Creature.White+TargetedPlayerCtrl,Creature.Blue+TargetedPlayerCtrl
+SVar:OppCantBlock:Mode$ CantBlock | ValidCard$ Creature.RememberedPlayerCtrl

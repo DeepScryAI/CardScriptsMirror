@@ -1,7 +1,10 @@
 Id:7719
 ColorIdentity:B
 OriginSet:G3fddc6426f419054
-ManaCost:B B
-Types:Sorcery
-A:SP$ DealDamage | ValidTgts$ Creature | NumDmg$ X | DamageSource$ Targeted
-SVar:X:Targeted$CardPower
+ManaCost:4 B
+Types:Creature Spirit
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDiscard
+T:Mode$ SpellCast | ValidCard$ Spirit,Arcane | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigReturn
+SVar:TrigDiscard:DB$ Discard | ValidTgts$ Player | NumCards$ 1 | Mode$ TgtChoose
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Defined$ Self

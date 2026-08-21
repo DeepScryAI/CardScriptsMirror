@@ -1,8 +1,11 @@
 Id:27620
-ColorIdentity:G
-OriginSet:Gd488b4ad788f0529
-ManaCost:2 G
-Types:Enchantment Saga
-K:Chapter:3:DBConjureGoos,DBConjureEgg,DBConjureEgg
-SVar:DBConjureGoos:DB$ MakeCard | Conjure$ True | CatalogId$ 19905 | Zone$ Battlefield
-SVar:DBConjureEgg:AB$ MakeCard | Cost$ tapXType<1/Bird> Sac<1/Artifact> | Conjure$ True | CatalogId$ 19910 | Zone$ Battlefield
+ColorIdentity:B
+OriginSet:G7579344e30f8be85
+ManaCost:B
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Mode$ TgtChoose | Defined$ Player.Opponent | NumCards$ 1 | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 2 | Defined$ Opponent
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigScry
+SVar:TrigScry:DB$ Scry | ScryNum$ 2
+A:AB$ Sacrifice | Cost$ 2 B

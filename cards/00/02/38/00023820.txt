@@ -1,21 +1,8 @@
 Id:23820
-ColorIdentity:W
-OriginSet:G5f5d8cfb206e2fac
-ManaCost:3 W
-Types:Creature Rhino Druid
-PT:3/4
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigChoose
-SVar:TrigChoose:DB$ GenericChoice | Defined$ Opponent | TempRemember$ Chooser | Choices$ Money,Friends,Secrets | ShowChoice$ ExceptSelf | SubAbility$ DBMoney
-SVar:Money:DB$ Pump | Defined$ Remembered | NoteCards$ Self | NoteCardsFor$ Money
-SVar:Friends:DB$ Pump | Defined$ Remembered | NoteCards$ Self | NoteCardsFor$ Friends
-SVar:Secrets:DB$ Pump | Defined$ Remembered | NoteCards$ Self | NoteCardsFor$ Secrets
-SVar:DBMoney:DB$ RepeatEach | RepeatPlayers$ Player.NotedForMoney | RepeatSubAbility$ DBMoneyPump | SubAbility$ DBFriends | ClearRememberedBeforeLoop$ True
-SVar:DBMoneyPump:DB$ Pump | RememberObjects$ You | SubAbility$ DBTreasure
-SVar:DBTreasure:DB$ Token | TokenOwner$ Remembered | TokenScriptIds$ 3851718391
-SVar:DBFriends:DB$ RepeatEach | RepeatPlayers$ Player.NotedForFriends | RepeatSubAbility$ DBFriendsPump | SubAbility$ DBSecrets | ClearRememberedBeforeLoop$ True
-SVar:DBFriendsPump:DB$ Pump | RememberObjects$ You | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenOwner$ Remembered | TokenScriptIds$ 1092778731
-SVar:DBSecrets:DB$ RepeatEach | RepeatPlayers$ Player.NotedForSecrets | RepeatSubAbility$ DBSecretsPump | SubAbility$ DBCleanup | ClearRememberedBeforeLoop$ True
-SVar:DBSecretsPump:DB$ Pump | RememberObjects$ You | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | Defined$ Remembered
-SVar:DBCleanup:DB$ Pump | Defined$ Player | ClearNotedCardsFor$ Money,Friends,Secrets
+ColorIdentity:G
+OriginSet:G18bf722b221724f8
+ManaCost:2 G
+Types:Creature Elf Warrior
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 1441965772 | TokenOwner$ You

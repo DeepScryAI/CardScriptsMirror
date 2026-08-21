@@ -1,10 +1,12 @@
 Id:27645
-ColorIdentity:U
-OriginSet:Gd488b4ad788f0529
-ManaCost:2 U U
-Types:Enchantment Saga
-K:Chapter:3:SeekSmall,SeekBig,Cast
-SVar:SeekSmall:DB$ Seek | Type$ Card.cmcLTX
-SVar:SeekBig:DB$ Seek | Type$ Card.cmcGTX
-SVar:Cast:DB$ Play | Valid$ Card.YouCtrl+cmcEQX | ValidSA$ Spell | Optional$ True | WithoutManaCost$ True
-SVar:X:Count$ValidHand Card.YouOwn
+ColorIdentity:WB
+OriginSet:G7579344e30f8be85
+ManaCost:2 W B
+Types:Legendary Creature Human Noble
+PT:2/2
+K:Menace
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Creature.YouCtrl,Enchantment.YouCtrl
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Enchantment.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBScry
+SVar:DBScry:DB$ Scry | ScryNum$ 1

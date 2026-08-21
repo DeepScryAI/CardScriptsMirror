@@ -1,10 +1,11 @@
 Id:32367
 ColorIdentity:W
-OriginSet:G66b3a7eeabd9000e
-ManaCost:3 W
-Types:Creature Human Citizen
-PT:2/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm
-SVar:TrigCharm:DB$ Charm | Choices$ DBPutCounter,DBReturn
-SVar:DBPutCounter:DB$ PutCounter | TargetMin$ 0 | TargetMax$ 2 | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ 1
-SVar:DBReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Creature.YouOwn+cmcLE2
+OriginSet:G9946f072b5556073
+ManaCost:2 W
+Types:Creature Human Soldier
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPut
+SVar:TrigPut:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.!token+YouCtrl+counters_GE1_P1P1 | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 1647422943
+K:Warp:1 W

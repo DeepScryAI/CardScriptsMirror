@@ -1,16 +1,17 @@
 Id:17392
-ColorIdentity:WUBRG
+ColorIdentity:WU
 OriginSet:G024fc2244a6b356b
-ManaCost:W U B R G
-Types:Legendary Creature Dragon
-PT:6/6
-K:Flash
-K:Flying
-K:Trample
-K:Haste
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigNoLose
-SVar:TrigNoLose:DB$ Effect | ReplacementEffects$ LoseReplace
-SVar:LoseReplace:Event$ GameLoss | ActiveZones$ Command | ValidPlayer$ You | ReplaceWith$ DrawSeven
-SVar:DrawSeven:DB$ Draw | NumCards$ 3 | SubAbility$ DBSetLife
-SVar:DBSetLife:DB$ SetLife | Defined$ You | LifeAmount$ 5 | SubAbility$ ExileEffect
-SVar:ExileEffect:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile
+ManaCost:2 W U
+Types:Legendary Planeswalker Dungeon Master
+Loyalty:1
+K:ETBReplacement:Other:RollLoyal
+SVar:RollLoyal:DB$ RollDice | Sides$ 4 | ResultSVar$ Result | SubAbility$ DBLoyalty
+SVar:DBLoyalty:DB$ PutCounter | Defined$ Self | CounterType$ LOYALTY | CounterNum$ Result | ETB$ True
+A:AB$ Token | Cost$ AddCounter<1/LOYALTY> | ValidTgts$ Opponent | TokenOwner$ Targeted | TokenScriptIds$ 4251065415 | Planeswalker$ True
+A:AB$ RollDice | Cost$ AddCounter<1/LOYALTY> | Sides$ 20 | ResultSubAbilities$ 1:DBSkipTurn,12-20:DBDraw | Planeswalker$ True
+SVar:DBSkipTurn:DB$ SkipTurn | Defined$ You | NumTurns$ 1
+SVar:DBDraw:DB$ Draw
+A:AB$ Token | Cost$ SubCounter<6/LOYALTY> | Planeswalker$ True | Ultimate$ True | TokenScriptIds$ 2033999275 | SubAbility$ DBCleric
+SVar:DBCleric:DB$ Token | TokenScriptIds$ 2286607047 | SubAbility$ DBRogue
+SVar:DBRogue:DB$ Token | TokenScriptIds$ 3280685680 | SubAbility$ DBWizard
+SVar:DBWizard:DB$ Token | TokenScriptIds$ 1187603188

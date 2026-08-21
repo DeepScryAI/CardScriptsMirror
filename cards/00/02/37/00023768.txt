@@ -1,14 +1,12 @@
 Id:23768
-ColorIdentity:W
-OriginSet:G5f5d8cfb206e2fac
-ManaCost:3 W W
-Types:Creature Bird Soldier
-PT:4/3
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigExile | TriggerZones$ Battlefield | Secondary$ True
-SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Permanent.nonLand | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | RememberObjects$ Targeted | StaticAbilities$ Play | ForgetOnMoved$ Exile | EffectOwner$ TargetedOwner | Duration$ Permanent
-SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
-T:Mode$ SpellCast | ValidCard$ Card.!wasCastFromTheirHand | ValidActivatingPlayer$ Player.Other | TriggerZones$ Battlefield | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw
+ColorIdentity:RG
+OriginSet:G8a59924df6623252
+ManaCost:3 R G
+Types:Legendary Creature Human Beast Warrior
+PT:5/5
+K:Haste
+S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ Trample | CheckSVar$ X | SVarCompare$ GE3
+T:Mode$ BecomesTarget | ValidTarget$ Card.Self | ValidSource$ Spell | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +2 | NumDef$ +2 | SubAbility$ DBDmg
+SVar:DBDmg:DB$ DealDamage | Defined$ Opponent | NumDmg$ 2
+SVar:X:Count$ThisTurnCast_Card.YouCtrl

@@ -1,9 +1,11 @@
 Id:19188
-ColorIdentity:U
+ColorIdentity:R
 OriginSet:Gf56613712ce2ae1f
-ManaCost:U U
-Types:Artifact Vehicle
-PT:2/3
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player,Planeswalker | CombatDamage$ True | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
-K:Crew:2
+ManaCost:4 R
+Types:Legendary Planeswalker Jaya
+Loyalty:5
+R:Event$ DamageDone | ActiveZones$ Battlefield | ValidSource$ Card.RedSource+Other+YouCtrl | ValidTarget$ Permanent,Player | ReplaceWith$ DmgPlus1
+SVar:DmgPlus1:DB$ ReplaceEffect | VarName$ DamageAmount | VarValue$ X
+SVar:X:ReplaceCount$DamageAmount/Plus.1
+SVar:PlayMain1:TRUE
+A:AB$ DealDamage | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ true | ValidTgts$ Any | NumDmg$ 2

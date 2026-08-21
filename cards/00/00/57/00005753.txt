@@ -1,14 +1,9 @@
 Id:5753
-ColorIdentity:R
+ColorIdentity:W
 OriginSet:G7327b0fa163b48eb
-ManaCost:3 R R
-Types:Creature Nightmare Orgg
-PT:6/6
-K:Trample
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigLoseLife
-SVar:TrigLoseLife:DB$ StoreSVar | SVar$ LifePaidOnETB | Type$ Calculate | Expression$ LifeAllButOne | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ LifePaidOnETB
-SVar:LifePaidOnETB:Number$0
-SVar:LifeAllButOne:Count$YourLifeTotal/Minus.1
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigGainLife
-SVar:TrigGainLife:DB$ GainLife | LifeAmount$ LifePaidOnETB
+ManaCost:1 W
+Types:Enchantment
+S:Mode$ Continuous | Affected$ Creature.Bird | AddPower$ X | AddToughness$ X
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Bird.YouOwn | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ FEATHER | CounterNum$ 1
+SVar:X:Count$CardCounters.FEATHER

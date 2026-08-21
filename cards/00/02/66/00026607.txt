@@ -1,8 +1,15 @@
 Id:26607
-ColorIdentity:B
+ColorIdentity:R
 OriginSet:G06757f68e16377c2
-ManaCost:3 B
-Types:Instant
-K:Convoke
-A:SP$ Destroy | ValidTgts$ Creature,Planeswalker | SubAbility$ DBSurveil
-SVar:DBSurveil:DB$ Surveil | Amount$ 2
+ManaCost:4 R R
+Types:Legendary Planeswalker Chandra
+Loyalty:5
+T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | Execute$ TrigCopySpell | TriggerZones$ Battlefield | ActivationLimit$ 1
+SVar:TrigCopySpell:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | AILogic$ Always | MayChooseTarget$ True
+A:AB$ Mana | Cost$ AddCounter<2/LOYALTY> | Planeswalker$ True | Produced$ Combo Any | Amount$ 2
+A:AB$ Dig | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | DestinationZone$ Exile | DigNum$ 5 | ChangeNum$ All | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | RememberObjects$ Remembered | ForgetOnMoved$ Exile | Duration$ UntilTheEndOfYourNextTurn | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | AffectedZone$ Exile,Stack | Affected$ Instant.IsRemembered,Sorcery.IsRemembered | MayPlay$ True | MayPlayLimit$ 1
+A:AB$ DealDamage | Cost$ SubCounter<X/LOYALTY> | Planeswalker$ True | Ultimate$ True | ValidTgts$ Any | TargetMin$ 0 | TargetMax$ 2 | NumDmg$ X
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$xPaid

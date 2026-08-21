@@ -1,16 +1,13 @@
 Id:24953
-ColorIdentity:UBR
+ColorIdentity:R
 OriginSet:G3a8b4b9d4649b357
-ManaCost:2 U B R
-Types:Legendary Creature Elemental Demon
-PT:5/5
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | Execute$ TrigCharm | TriggerZones$ Battlefield
-SVar:TrigCharm:DB$ Charm | Choices$ DrawPact,DrainPact,DamagePact,BetrayPact | ChoiceRestriction$ ThisGame
-SVar:DrawPact:DB$ Draw
-SVar:DrainPact:DB$ LoseLife | Defined$ Opponent | LifeAmount$ 2 | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2
-SVar:DamagePact:DB$ DealDamage | NumDmg$ 3 | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Creature.Other,Planeswalker.Other
-SVar:BetrayPact:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | SubAbility$ DBChooseOpp | RememberChanged$ True
-SVar:DBChooseOpp:DB$ ChoosePlayer | Defined$ You | Choices$ Opponent | SubAbility$ MoveToPlay
-SVar:MoveToPlay:DB$ ChangeZone | Hidden$ True | Origin$ All | Destination$ Battlefield | Defined$ Remembered | GainControl$ ChosenPlayer | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearChosenPlayer$ True
+ManaCost:2 R
+Types:Creature Human Shaman
+PT:2/3
+K:Enlist
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDig
+SVar:TrigDig:DB$ Dig | DigNum$ X | ChangeNum$ 1 | Optional$ True | ChangeValid$ Instant.cmcLEX,Sorcery.cmcLEX | DestinationZone$ Exile | DestinationZone2$ Library | LibraryPosition$ -1 | RestRandomOrder$ True | RememberChanged$ True | SubAbility$ DBCast
+SVar:DBCast:DB$ Play | Valid$ Card.IsRemembered | ValidZone$ Exile | ValidSA$ Spell | WithoutManaCost$ True | Optional$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:HasAttackEffect:TRUE
+SVar:X:Count$CardPower

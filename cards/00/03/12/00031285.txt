@@ -1,13 +1,10 @@
 Id:31285
-ColorIdentity:WBG
-OriginSet:Ge1676a27173c0866
-ManaCost:W B G
-Types:Creature Djinn Cleric
-PT:3/3
-K:Deathtouch
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | ValidTgts$ Opponent | DefinedPlayer$ Targeted | Chooser$ You | ChangeType$ Card.nonLand | ChangeNum$ 1 | Optional$ True | RememberChanged$ True | IsCurse$ True
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 714053204 | TokenOwner$ RememberedOwner | ConditionDefined$ Remembered | ConditionPresent$ Card.ExiledWithSource | TokenPower$ X | TokenToughness$ X | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Remembered$CardManaCost
+ColorIdentity:
+OriginSet:Gef9d0d0c16b2fcf7
+ManaCost:6
+Types:Artifact
+T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ You | Execute$ TrigEnergy | TriggerZones$ Battlefield
+SVar:TrigEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ X
+A:AB$ Draw | Cost$ T PayEnergy<50> | NumCards$ 7 | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | Valid$ Card.nonLand+YouOwn | ValidSA$ Spell | ValidZone$ Hand | WithoutManaCost$ True | Amount$ All | Controller$ You | Optional$ True
+SVar:X:TriggeredCard$CastTotalManaSpent

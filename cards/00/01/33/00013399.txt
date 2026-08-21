@@ -1,8 +1,11 @@
 Id:13399
-ColorIdentity:R
+ColorIdentity:G
 OriginSet:Gfdc478e04211a499
-ManaCost:3 R
-Types:Creature Lizard Warrior
-PT:3/1
-K:FirstStrike
-A:AB$ Pump | Cost$ 2 R Discard<1/CARDNAME> | ActivationZone$ Hand | ValidTgts$ Creature.attacking | NumAtt$ +3 | NumDef$ +1 | KW$ FirstStrike
+ManaCost:2 G
+Types:Enchantment Aura
+K:Enchant:Land
+SVar:AttachAILogic:Pump
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGainLife
+SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 2
+T:Mode$ TapsForMana | ValidCard$ Card.AttachedBy | Execute$ TrigMana | Static$ True
+SVar:TrigMana:DB$ Mana | Produced$ Any | Amount$ 1 | Defined$ TriggeredCardController

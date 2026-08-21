@@ -1,25 +1,8 @@
 Id:23155
-ColorIdentity:WU
-OriginSet:G6e75ff4f143a3dc3
-ManaCost:1 W U
-Types:Creature Spirit
-PT:1/1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
-T:Mode$ BecomesTarget | ValidTarget$ Card.Self | ValidSource$ Spell.Aura | TriggerZones$ Battlefield | Execute$ TrigToken | Secondary$ True
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 273812182
-K:Disturb:W U
-SVar:EnchantMe:Multiple
-AlternateMode:DoubleFaced
-ALTERNATE
+ColorIdentity:WB
+OriginSet:G7a76c1974b0a33a6
 ManaCost:no cost
-Colors:white,blue
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:Pump
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
-T:Mode$ BecomesTarget | ValidTarget$ Creature.EnchantedBy | ValidSource$ Spell.Aura | TriggerZones$ Battlefield | Execute$ TrigToken | Secondary$ True
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 273812182
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Graveyard | ReplaceWith$ Exile
-SVar:Exile:DB$ ChangeZone | Hidden$ True | Origin$ All | Destination$ Exile | Defined$ ReplacedCard
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddSVar$ EnMe | Secondary$ True
-SVar:EnMe:SVar:EnchantMe:Multiple
+Types:Land
+A:AB$ Mana | Cost$ T | Produced$ Combo W B
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ LandTapped | ReplacementResult$ Updated
+SVar:LandTapped:DB$ Tap | Defined$ Self | ETB$ True | ConditionPresent$ Land.YouCtrl | ConditionCompare$ LT2

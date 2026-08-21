@@ -1,17 +1,12 @@
 Id:32662
-ColorIdentity:U
-OriginSet:G36e97d2da170e675
-ManaCost:X U U
-Types:Legendary Creature Bird Spirit
-PT:1/1
-K:Flash
-K:Flying
-K:Vigilance
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPutCounter1
-SVar:TrigPutCounter1:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ X | SubAbility$ DBDraw1
-SVar:DBDraw1:DB$ Draw | NumCards$ Y
-T:Mode$ SearchedLibrary | ValidPlayer$ Player.Opponent | SearchOwnLibrary$ True | Execute$ TrigPutCounter2 | TriggerZones$ Battlefield
-SVar:TrigPutCounter2:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBDraw2
-SVar:DBDraw2:DB$ Draw
-SVar:X:Count$xPaid
-SVar:Y:SVar$X/HalfDown
+ColorIdentity:UB
+OriginSet:G66b3a7eeabd9000e
+ManaCost:2 UB
+Types:Legendary Creature Symbiote Spider Hero
+PT:2/4
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigDig | CombatDamage$ True
+SVar:TrigDig:DB$ Dig | DigNum$ X | ChangeNum$ 1 | ChangeValid$ Card | DestinationZone$ Hand | DestinationZone2$ Graveyard
+SVar:X:TriggerCount$DamageAmount
+A:AB$ PutCounter | Cost$ 2 UB ExileFromGrave<1/CARDNAME/this card> | ActivationZone$ Graveyard | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1 | SorcerySpeed$ True | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Targeted | Triggers$ SymbioteTrig | Duration$ Permanent
+SVar:SymbioteTrig:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigDig | CombatDamage$ True

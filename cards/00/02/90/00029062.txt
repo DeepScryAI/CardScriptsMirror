@@ -1,8 +1,12 @@
 Id:29062
-ColorIdentity:UG
-OriginSet:G27146c70b74a1e72
-ManaCost:G U
-Types:Legendary Creature Bear Druid
-PT:2/3
-S:Mode$ ReduceCost | ValidCard$ Card.wasCastFromYourGraveyard,Card.wasCastFromExile | Type$ Spell | Activator$ You | Amount$ 2
-S:Mode$ ReduceCost | ValidSpell$ Static.Plotting | AffectedZone$ Hand | Activator$ You | Amount$ 2
+ColorIdentity:UBG
+OriginSet:Gaf7c94f364052cdd
+ManaCost:1 B G U
+Types:Legendary Creature Insect Mutant
+PT:3/3
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigRadiation
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigRadiation | TriggerZones$ Battlefield | Secondary$ True
+SVar:TrigRadiation:DB$ Radiation | Defined$ Player | Num$ 1
+T:Mode$ MilledAll | ValidPlayer$ Player | ValidCard$ Card.nonLand | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | CounterNum$ 1 | CounterType$ P1P1 | TargetMin$ 0 | TargetMax$ TriggerCount$Amount | ValidTgts$ Creature

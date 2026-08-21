@@ -1,12 +1,13 @@
 Id:30787
-ColorIdentity:R
-OriginSet:G2c8286a6f234d4b9
-ManaCost:2 R
-Types:Legendary Creature Jackal Warrior
-PT:4/2
-K:Trample
-S:Mode$ OptionalAttackCost | ValidCard$ Card.Self | Trigger$ TrigExile | Cost$ Exert<1/CARDNAME>
-SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ 2 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ STPlay | SubAbility$ DBCleanup | ForgetOnMoved$ Exile | Duration$ UntilTheEndOfYourNextTurn
-SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:RG
+OriginSet:G8a59924df6623252
+ManaCost:1 R G
+Types:Legendary Creature Mutant Berserker Hero
+PT:2/2
+R:Event$ DamageDone | ActiveZones$ Battlefield | ValidSource$ Card.Self | ValidTarget$ Permanent,Player | ReplaceWith$ DmgTwice
+SVar:DmgTwice:DB$ ReplaceEffect | VarName$ DamageAmount | VarValue$ X
+SVar:X:ReplaceCount$DamageAmount/Twice
+T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | CheckSVar$ Y | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+SVar:Y:Count$NumDamageThisTurn Card.Self Creature.Other
+A:AB$ Regenerate | Cost$ 1 G

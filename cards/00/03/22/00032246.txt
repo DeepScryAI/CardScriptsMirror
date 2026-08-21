@@ -1,10 +1,9 @@
 Id:32246
-ColorIdentity:B
+ColorIdentity:W
 OriginSet:G9946f072b5556073
-ManaCost:1 B
-Types:Creature Human Rogue
-PT:4/1
-K:Menace
-K:Ward:Discard<1/Card>
-T:Mode$ Attacks | ValidCard$ Creature.Self | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.OppCtrl | CounterType$ P1P1 | CounterNum$ 1
+ManaCost:5 W
+Types:Creature Human Knight
+PT:4/5
+K:Lifelink
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | IsPresent$ Creature.YouCtrl+tapped | PresentCompare$ GE2 | TriggerZones$ Battlefield | Execute$ TrigPutCounterAll
+SVar:TrigPutCounterAll:DB$ PutCounterAll | ValidCards$ Creature.YouCtrl+StrictlyOther | CounterType$ P1P1 | CounterNum$ 1

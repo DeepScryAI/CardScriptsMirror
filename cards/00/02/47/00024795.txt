@@ -1,6 +1,10 @@
 Id:24795
 ColorIdentity:B
-OriginSet:G3a8b4b9d4649b357
+OriginSet:G58bfeff4fb121c8e
 ManaCost:1 B
-Types:Instant
-A:SP$ Pump | ValidTgts$ Creature | KW$ Indestructible & Deathtouch
+Types:Enchantment
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigMill
+SVar:TrigMill:DB$ Mill | SubAbility$ DBImmediateTrigger
+SVar:DBImmediateTrigger:DB$ ImmediateTrigger | ConditionPresent$ Creature.YouOwn | ConditionZone$ Graveyard | ConditionCompare$ GE4 | PresentZone$ Graveyard | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Targeted | KW$ Deathtouch

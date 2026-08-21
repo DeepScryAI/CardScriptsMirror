@@ -1,10 +1,26 @@
 Id:25928
-ColorIdentity:G
-OriginSet:G880fc7f6ed36df4d
-ManaCost:1 G
-Types:Instant
-A:SP$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1 | ConditionCheckSVar$ X | RememberTargets$ True | ConditionSVarCompare$ EQ0 | SubAbility$ DBDealDamage
-SVar:DBDealDamage:DB$ DealDamage | NumDmg$ Y | ValidTgts$ Creature.OppCtrl | DamageSource$ Remembered | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$StartingPlayer.1.0
-SVar:Y:Remembered$CardPower
+ColorIdentity:WU
+OriginSet:G06ccef4324c14725
+ManaCost:1 W U
+Types:Legendary Creature Human Artificer
+PT:2/4
+S:Mode$ ReduceCost | ValidCard$ Artifact,Instant,Sorcery | Type$ Spell | Activator$ You | Amount$ 1
+A:AB$ Meld | Cost$ 7 | ConditionPresent$ Card.Self+YouCtrl+YouOwn | ConditionCheckSVar$ X | CatalogId$ 25929 | PrimaryCatalogId$ 25928 | SecondaryCatalogId$ 25897 | SecondaryType$ Artifact | SorcerySpeed$ True
+SVar:X:Count$Valid Artifact.YouCtrl+YouOwn+catalogId25897
+MeldPairId:25897
+AlternateMode:Meld
+ALTERNATE
+ManaCost:no cost
+Colors:white,blue
+Types:Legendary Planeswalker Urza
+Loyalty:7
+S:Mode$ NumLoyaltyAct | ValidCard$ Card.Self | Twice$ True
+A:AB$ Effect | Cost$ AddCounter<2/LOYALTY> | Planeswalker$ True | StaticAbilities$ ReduceCost | SubAbility$ DBGainLife
+SVar:ReduceCost:Mode$ ReduceCost | ValidCard$ Artifact,Instant,Sorcery | Type$ Spell | Activator$ You | Amount$ 2
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2
+A:AB$ Draw | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | NumCards$ 2 | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ TgtChoose
+A:AB$ Token | Cost$ AddCounter<0/LOYALTY> | Planeswalker$ True | TokenScriptIds$ 1912559273 | TokenAmount$ 2
+A:AB$ ChangeZone | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | ValidTgts$ Permanent.nonLand | Origin$ Battlefield | Destination$ Exile
+A:AB$ PumpAll | Cost$ SubCounter<10/LOYALTY> | Planeswalker$ True | Ultimate$ True | ValidCards$ Artifact.YouCtrl,Planeswalker.YouCtrl | KW$ Indestructible | SubAbility$ DBDestroyAll
+SVar:DBDestroyAll:DB$ DestroyAll | ValidCards$ Permanent.nonLand

@@ -1,9 +1,11 @@
 Id:21953
-ColorIdentity:W
-OriginSet:Gd784248bfdf9e1d7
-ManaCost:W
-Types:Enchantment Aura
-K:Enchant:Permanent.nonLand:nonland permanent
-SVar:AttachAILogic:Curse
-S:Mode$ CantAttack,CantBlock,CantBeActivated | ValidCard$ Card.EnchantedBy
-A:AB$ Destroy | Cost$ 3 | Defined$ Self | Activator$ Player.Opponent | SorcerySpeed$ True
+ColorIdentity:UG
+OriginSet:G6fa60d857e930f32
+ManaCost:GU GU GU GU
+Types:Creature Human Wizard
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 1802199211 | SubAbility$ DBPutCounter | RememberTokens$ True
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Remembered | CounterType$ P1P1 | CounterNum$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$ValidHand Card.YouOwn

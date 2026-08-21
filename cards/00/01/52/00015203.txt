@@ -1,25 +1,25 @@
 Id:15203
-ColorIdentity:B
+ColorIdentity:W
 OriginSet:Ge4fd41522a714e94
-ManaCost:1 B B
-Types:Legendary Creature Human Cleric
-PT:2/3
-K:Lifelink
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.!token+Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigTransform
-SVar:TrigTransform:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn
-SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | Transformed$ True | ForgetOtherRemembered$ True | RememberChanged$ True | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenScriptIds$ 353162950 | TokenOwner$ You | SubAbility$ DBCleanup | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ GE1
+ManaCost:W
+Types:Legendary Creature Human Soldier
+PT:2/1
+T:Mode$ Phase | Phase$ EndCombat | IsPresent$ Card.Self+attackedThisCombat GE3 | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | Transformed$ True | ForgetOtherRemembered$ True | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+A:AB$ Pump | Cost$ 2 W | Defined$ Self | KW$ Indestructible
 AlternateMode:DoubleFaced
 ALTERNATE
 ManaCost:no cost
-Colors:black
-Types:Legendary Planeswalker Liliana
+Colors:white
+Types:Legendary Planeswalker Gideon
 Loyalty:3
-A:AB$ Discard | Cost$ AddCounter<2/LOYALTY> | Planeswalker$ True | Defined$ Player | NumCards$ 1 | Mode$ TgtChoose
-A:AB$ ChangeZone | Cost$ SubCounter<X/LOYALTY> | Planeswalker$ True | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouOwn+nonLegendary+cmcEQX
-A:AB$ Effect | Cost$ SubCounter<8/LOYALTY> | Planeswalker$ True | Ultimate$ True | Name$ 7566403977084285025 | Stackable$ False | Triggers$ TrigChangesZone | Duration$ Permanent | AILogic$ Always
-SVar:TrigChangesZone:Mode$ ChangesZone | ValidCard$ Creature | Origin$ Battlefield | Destination$ Graveyard | Execute$ DelTrigReturn | TriggerZones$ Command
-SVar:DelTrigReturn:DB$ DelayedTrigger | Mode$ Phase | Phase$ End Of Turn | Execute$ DBReturn | RememberObjects$ TriggeredNewCardLKICopy
-SVar:DBReturn:DB$ ChangeZone | Defined$ DelayTriggerRememberedLKI | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True
-SVar:X:Count$xPaid
+A:AB$ DelayedTrigger | Cost$ AddCounter<2/LOYALTY> | Planeswalker$ True | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Creature.OppCtrl | Mode$ Phase | Phase$ Upkeep-> | ValidPlayer$ Player.controlsCard.IsTriggerRemembered | UpcomingTurn$ True | RememberObjects$ Targeted | Execute$ TrigEffect | Static$ True
+SVar:TrigEffect:DB$ Effect | RememberObjects$ DelayTriggerRemembered | StaticAbilities$ MustAttack
+SVar:MustAttack:Mode$ MustAttack | ValidCreature$ Creature.IsRemembered | MustAttack$ EffectSource
+A:AB$ Pump | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Creature | KW$ Indestructible | Duration$ UntilYourNextTurn | SubAbility$ DBUntap
+SVar:DBUntap:DB$ Untap | Defined$ Targeted
+A:AB$ Animate | Cost$ AddCounter<0/LOYALTY> | Defined$ Self | Power$ 4 | Toughness$ 4 | Types$ Creature,Human,Soldier | Keywords$ Indestructible | SubAbility$ DBPrevent | Planeswalker$ True | Ultimate$ True
+SVar:DBPrevent:DB$ Effect | ReplacementEffects$ RPrevent | Duration$ UntilHostLeavesPlayOrEOT
+SVar:RPrevent:Event$ DamageDone | Prevent$ True | ValidTarget$ Card.EffectSource

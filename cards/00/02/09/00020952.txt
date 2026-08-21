@@ -1,10 +1,12 @@
 Id:20952
-ColorIdentity:G
+ColorIdentity:WU
 OriginSet:Gfd5e6da37c69dc53
-ManaCost:X G
-Types:Creature Hydra
-PT:0/0
-K:etbCounter:P1P1:X
-SVar:X:Count$xPaid
-T:Mode$ CounterAddedOnce | ValidCard$ Creature.nonHydra+Other+YouCtrl | TriggerZones$ Battlefield | CounterType$ P1P1 | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+ManaCost:W U
+Types:Legendary Creature Human Cleric
+PT:2/1
+K:Flash
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone | OptionalDecider$ You
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | ValidTgts$ Creature.Other+YouCtrl | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ X
+SVar:X:Targeted$CardManaCost
+A:AB$ Draw | Cost$ 1 W U T Discard<1/Card.Legendary/legendary> | NumCards$ 2

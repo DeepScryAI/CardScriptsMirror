@@ -1,7 +1,11 @@
 Id:14758
-ColorIdentity:W
+ColorIdentity:B
 OriginSet:Gfafc221218d3b700
-ManaCost:5 W W
-Types:Sorcery
-A:SP$ Token | TokenAmount$ X | TokenScriptIds$ 1214250791 | TokenOwner$ You
-SVar:X:Count$Valid Creature
+ManaCost:3 B B
+Types:Creature Demon
+PT:4/4
+K:Flying
+S:Mode$ Continuous | Affected$ Card.Self | AddPower$ 2 | AddToughness$ 2 | AddTrigger$ TrigDealsCB | IsPresent$ Card.IsCommander+YouOwn+YouCtrl
+SVar:TrigDealsCB:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigSac | TriggerZones$ Battlefield
+SVar:TrigSac:DB$ Sacrifice | Defined$ TriggeredTarget | SacValid$ Creature
+SVar:BuffedBy:Card.IsCommander

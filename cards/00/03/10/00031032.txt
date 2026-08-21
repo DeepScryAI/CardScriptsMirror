@@ -1,7 +1,11 @@
 Id:31032
-ColorIdentity:B
+ColorIdentity:G
 OriginSet:G4524bbf7a3db9dc0
-ManaCost:2 B
-Types:Sorcery
-A:SP$ Draw | NumCards$ 2 | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 2 | Defined$ Player
+ManaCost:3 G G
+Types:Creature Dinosaur
+PT:8/8
+K:Trample
+K:Cycling:2 G
+T:Mode$ Cycled | ValidCard$ Card.Self | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature,Vehicle | TargetMin$ 0 | TargetMax$ 1 | CounterType$ P1P1 | CounterNum$ 2 | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Targeted | KW$ Trample & Indestructible

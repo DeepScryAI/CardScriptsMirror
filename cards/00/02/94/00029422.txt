@@ -1,10 +1,12 @@
 Id:29422
-ColorIdentity:B
-OriginSet:Gac6359c222afbd4f
-ManaCost:B
-Types:Artifact Creature Salamander Drake
-PT:1/1
-K:Flying
-S:Mode$ CantBlockBy | ValidAttacker$ Creature.withoutFlying | ValidBlocker$ Creature.Self
-A:AB$ PutCounter | Cost$ 6 B | Adapt$ 4 | ReduceCost$ X
-SVar:X:Count$Valid Artifact.YouCtrl+Other
+ColorIdentity:WB
+OriginSet:G0c9f9aa4a8bf0371
+ManaCost:2 B
+Types:Creature Human Warlock
+PT:3/3
+K:Deathtouch
+K:Lifelink
+T:Mode$ Phase | Phase$ Main2 | CheckSVar$ YouLifeGained | SVarCompare$ GE4 | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigConjure | GameActivationLimit$ 1
+SVar:TrigConjure:DB$ MakeCard | Conjure$ True | CatalogId$ 167 | Zone$ Hand
+A:AB$ Pump | Cost$ 2 W | KW$ Lifelink | ValidTgts$ Creature.Other | Duration$ Perpetual
+SVar:YouLifeGained:Count$LifeYouGainedThisTurn

@@ -2,10 +2,18 @@ Id:10706
 ColorIdentity:
 OriginSet:Gc860c737f2a60f83
 ManaCost:no cost
-Types:Plane Alara
-S:Mode$ Continuous | EffectZone$ Command | Affected$ Creature | AddKeyword$ Exalted
+Types:Plane Ravnica
+T:Mode$ ChangesZone | ValidCard$ Creature.White | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigDelay | TriggerZones$ Command
+SVar:TrigDelay:DB$ Effect | Name$ 4056863651572718138 | Triggers$ TrigEOT | RememberObjects$ TriggeredCard | Duration$ Permanent
+SVar:TrigEOT:Mode$ Phase | Phase$ End of Turn | Execute$ AgyremReturn
+SVar:AgyremReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Graveyard | Destination$ Battlefield | SubAbility$ AgyremCleanup
+SVar:AgyremCleanup:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile
+T:Mode$ ChangesZone | ValidCard$ Creature.nonWhite | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigDelay2 | TriggerZones$ Command
+SVar:TrigDelay2:DB$ Effect | Name$ 4378761061717426738 | Triggers$ TrigEOT2 | RememberObjects$ TriggeredCard | Duration$ Permanent
+SVar:TrigEOT2:Mode$ Phase | Phase$ End of Turn | Execute$ AgyremReturn2
+SVar:AgyremReturn2:DB$ ChangeZone | Defined$ Remembered | Origin$ Graveyard | Destination$ Hand | SubAbility$ AgyremCleanup
 T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos
-SVar:RolledChaos:DB$ PutCounter | ValidTgts$ Creature.Green,Creature.White,Creature.Blue | CounterType$ DIVINITY | CounterNum$ 1 | SubAbility$ DivineCharacter
-SVar:DivineCharacter:DB$ Animate | Defined$ Targeted | staticAbilities$ IndestructibleAspect | Duration$ Permanent
-SVar:IndestructibleAspect:Mode$ Continuous | EffectZone$ Battlefield | Affected$ Card.Self+counters_GE1_DIVINITY | AddKeyword$ Indestructible
-SVar:AIRollPlanarDieParams:Mode$ Always | HasColorCreatureInPlay$ GWU
+SVar:RolledChaos:DB$ Effect | Name$ 7433688379702418607 | StaticAbilities$ STCantAttack | Triggers$ TrigPlaneswalk | Duration$ Permanent
+SVar:STCantAttack:Mode$ CantAttack | ValidCard$ Creature | Target$ You
+SVar:TrigPlaneswalk:Mode$ PlaneswalkedTo | Execute$ AgyremCleanup | Static$ True
+SVar:AIRollPlanarDieParams:Mode$ Always

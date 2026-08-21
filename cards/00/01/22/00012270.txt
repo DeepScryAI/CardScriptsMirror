@@ -1,9 +1,8 @@
 Id:12270
 ColorIdentity:G
 OriginSet:G14de52802b0b467c
-ManaCost:1 G
-Types:Creature Human Warrior
-PT:2/2
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPumpAll
-T:Mode$ Blocks | ValidCard$ Card.Self | Execute$ TrigPumpAll | Secondary$ True
-SVar:TrigPumpAll:DB$ PumpAll | ValidCards$ Creature.StrictlyOther+Human+YouCtrl | NumAtt$ +1 | NumDef$ +1
+ManaCost:4 G
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl+!token | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ SLIME | CounterNum$ 1 | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 1724692828 | TokenOwner$ You | RememberSource$ True

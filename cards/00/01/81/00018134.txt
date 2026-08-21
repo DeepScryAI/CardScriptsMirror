@@ -1,11 +1,11 @@
 Id:18134
 ColorIdentity:R
 OriginSet:G5033d54b23b37629
-ManaCost:2 R
-Types:Creature Human Warrior
-PT:3/1
+ManaCost:1 R
+Types:Creature Human Wizard
+PT:1/3
 K:Kicker:3 R
-K:Haste
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self+kicked | Execute$ TrigKicker
-SVar:TrigKicker:DB$ GainControl | ValidTgts$ Creature | LoseControl$ EOT | Untap$ True | AddKWs$ Haste
-SVar:NeedsToPlayKicked:Creature.OppCtrl
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self+kicked | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Instant.YouCtrl,Sorcery.YouCtrl
+SVar:NeedsToPlayKickedVar:Z GE1
+SVar:Z:Count$ValidGraveyard Instant.YouOwn,Sorcery.YouOwn

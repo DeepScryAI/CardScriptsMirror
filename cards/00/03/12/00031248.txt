@@ -1,9 +1,15 @@
 Id:31248
-ColorIdentity:U
-OriginSet:Ge1676a27173c0866
-ManaCost:2 U
-Types:Creature Human Wizard
-PT:1/3
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigDig
-SVar:TrigDig:DB$ Dig | DigNum$ 6 | ChangeNum$ 1 | Optional$ True | ForceRevealToController$ True | ChangeValid$ Instant,Sorcery,Dragon | RestRandomOrder$ True
-S:Mode$ Continuous | Affected$ Dragon.untapped+YouCtrl | AddKeyword$ Hexproof
+ColorIdentity:
+OriginSet:G4524bbf7a3db9dc0
+ManaCost:4
+Types:Legendary Artifact Planeswalker Equipment
+Loyalty:4
+S:Mode$ CantAttack | ValidCard$ Creature | Target$ Card.Self+AttachedTo Creature
+S:Mode$ Continuous | Affected$ Card.Self+AttachedTo Creature | Secondary$ True | AddTrigger$ TrigDamageDoneOnce
+SVar:TrigDamageDoneOnce:Mode$ DamageDealtOnce | CombatDamage$ True | ValidSource$ Creature.EquippedBy | Execute$ TrigPutCounter | TriggerZones$ Battlefield | PlayerTurn$ True
+SVar:TrigPutCounter:DB$ PutCounter | CounterType$ LOYALTY | CounterNum$ X
+A:AB$ Attach | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Creature.YouCtrl | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Targeted | CounterType$ P1P1 | CounterNum$ 1
+A:AB$ Draw | Cost$ SubCounter<5/LOYALTY> | Planeswalker$ True | NumCards$ 2
+A:AB$ Mana | Cost$ SubCounter<10/LOYALTY> | Planeswalker$ True | Ultimate$ True | Produced$ Any | Amount$ 10
+SVar:X:TriggerCount$DamageAmount

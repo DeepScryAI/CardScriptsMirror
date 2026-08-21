@@ -1,9 +1,11 @@
 Id:6877
-ColorIdentity:U
+ColorIdentity:
 OriginSet:G8b552b617d13301f
-ManaCost:2 U
-Types:Creature Vedalken Artificer
-PT:1/2
-A:AB$ Tap | Cost$ X T | TargetMin$ X | TargetMax$ X | ValidTgts$ Artifact.nonCreature
-A:AB$ Untap | Cost$ X T | TargetMin$ X | TargetMax$ X | ValidTgts$ Artifact.nonCreature
-SVar:X:Count$xPaid
+ManaCost:3
+Types:Artifact Equipment
+K:Equip:2
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddToughness$ 2 | AddSVar$ SwordOfLightAndShadowCE | AddKeyword$ Protection:White & Protection:Black
+T:Mode$ DamageDone | ValidSource$ Creature.EquippedBy | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigGainLife | TriggerZones$ Battlefield
+SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 3 | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Optional$ You | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Creature.YouCtrl | TargetMin$ 0 | TargetMax$ 1
+SVar:SwordOfLightAndShadowCE:SVar:MustBeBlocked:AttackingPlayerConservative

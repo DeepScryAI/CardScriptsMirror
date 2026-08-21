@@ -1,7 +1,12 @@
 Id:29423
-ColorIdentity:B
-OriginSet:Gac6359c222afbd4f
-ManaCost:1 B
-Types:Instant
-A:SP$ Draw | Cost$ 1 B Sac<1/Artifact;Creature/artifact or creature> | NumCards$ 2
-K:Flashback:4 B
+ColorIdentity:W
+OriginSet:G0c9f9aa4a8bf0371
+ManaCost:1 W
+Types:Creature Human Scout
+PT:0/1
+K:Flying
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.YouCtrl | NumAtt$ +1 | Duration$ Perpetual | SubAbility$ DBChooseCard
+SVar:DBChooseCard:DB$ ChooseCard | ChoiceZone$ Hand | Choices$ Card.Creature+YouOwn | Mandatory$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Pump | PumpZone$ Hand | Defined$ ChosenCard | NumAtt$ +1 | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True

@@ -1,7 +1,11 @@
 Id:21930
 ColorIdentity:G
-OriginSet:Gd784248bfdf9e1d7
-ManaCost:1 G
-Types:Instant
-A:SP$ Pump | ValidTgts$ Creature | NumAtt$ +2 | NumDef$ +2 | KW$ Reach | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | Defined$ Targeted | CounterType$ P1P1 | CounterNum$ 1
+OriginSet:G6fa60d857e930f32
+ManaCost:X 2 G
+Types:Sorcery
+A:SP$ ChangeZone | Origin$ Library,Graveyard | Destination$ Library | ChangeType$ Creature.cmcLEX | ChangeNum$ 4 | DifferentNames$ True | Shuffle$ False | RememberChanged$ True | Reveal$ True | SubAbility$ DBChangeZone1
+SVar:DBChangeZone1:DB$ ChangeZone | Origin$ Library | Destination$ Library | ChangeType$ Card.IsRemembered | Chooser$ Opponent | ChangeNum$ 2 | Mandatory$ True | NoLooking$ True | ForgetChanged$ True | Shuffle$ False | SubAbility$ DBChangeZone2
+SVar:DBChangeZone2:DB$ ChangeZoneAll | Origin$ Library | Destination$ Battlefield | ChangeType$ Card.IsRemembered | Shuffle$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | SubAbility$ DBExileSelf
+SVar:DBExileSelf:DB$ ChangeZone | Origin$ Stack | Destination$ Exile
+SVar:X:Count$xPaid

@@ -1,10 +1,12 @@
 Id:28039
 ColorIdentity:R
-OriginSet:Gfd50577710a6ab09
-ManaCost:2 R
-Types:Enchantment Aura
-K:Enchant:Creature.YouCtrl:creature you control
-SVar:AttachAILogic:Pump
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDiscover
-SVar:TrigDiscover:DB$ Discover | Num$ 3
-S:Mode$ Continuous | Affected$ Card.EnchantedBy | AddPower$ 1 | AddToughness$ 1 | AddKeyword$ Trample
+OriginSet:G3601f5e223de6c7f
+ManaCost:2 R R R
+Types:Sorcery
+A:SP$ Effect | ReplacementEffects$ DamageEvent | StaticAbilities$ STCantPrevent
+SVar:STCantPrevent:Mode$ CantPreventDamage
+SVar:DamageEvent:Event$ DamageDone | ValidSource$ Card.YouCtrl,Emblem.YouCtrl | ValidTarget$ Permanent.OppCtrl,Opponent | ReplaceWith$ DmgTrice
+SVar:DmgTrice:DB$ ReplaceEffect | VarName$ DamageAmount | VarValue$ X
+SVar:X:ReplaceCount$DamageAmount/Thrice
+SVar:PlayMain1:TRUE
+K:Flashback:4 R R R

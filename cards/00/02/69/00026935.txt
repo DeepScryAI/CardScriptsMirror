@@ -1,9 +1,13 @@
 Id:26935
-ColorIdentity:W
-OriginSet:G6ce0035cfb774934
-ManaCost:1 W
-Types:Creature Human Knight
-PT:2/2
-K:Vigilance
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Goblin,Orc | TriggerZones$ Battlefield | Execute$ TrigDestroy
-SVar:TrigDestroy:DB$ Destroy | Defined$ TriggeredTargetLKICopy
+ColorIdentity:WR
+OriginSet:G321081e278de53f0
+ManaCost:4 R W
+Types:Legendary Creature Kor Artificer
+PT:5/4
+K:Affinity:Equipment
+T:Mode$ Attacks | ValidCard$ Creature.equipped+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigExile
+SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay,STPlay2 | RememberObjects$ Remembered | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:STPlay2:Mode$ Continuous | MayPlay$ True | MayPlayWithoutManaCost$ True | Affected$ Equipment.IsRemembered | ValidAfterStack$ Spell.Equipment | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

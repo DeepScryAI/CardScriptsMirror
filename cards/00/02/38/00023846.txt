@@ -1,9 +1,10 @@
 Id:23846
 ColorIdentity:U
 OriginSet:G5f5d8cfb206e2fac
-ManaCost:3 U
-Types:Instant
-T:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigCopy
-SVar:TrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | Amount$ X | MayChooseTarget$ True
-SVar:X:Count$DifferentCounterKinds_Permanent.YouCtrl
-A:SP$ ChangeZone | Origin$ Battlefield | Destination$ Hand | ValidTgts$ Permanent.nonLand
+ManaCost:1 U
+Types:Creature Bird Advisor
+PT:1/1
+K:Flying
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Permanent.YouCtrl | CounterType$ ExistingCounter | Choices$ Permanent.YouCtrl+HasCounters | PutOnDefined$ Targeted | OnlyNewKind$ True
+SVar:HasAttackEffect:TRUE

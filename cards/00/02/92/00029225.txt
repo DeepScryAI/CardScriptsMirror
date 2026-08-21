@@ -1,13 +1,10 @@
 Id:29225
-ColorIdentity:U
+ColorIdentity:WB
 OriginSet:G27146c70b74a1e72
-ManaCost:3 U U
-Types:Sorcery
-K:Plot:4 U U
-A:SP$ GenericChoice | Defined$ Player | TempRemember$ Chooser | Choices$ Stargate,Homebody | ShowChoice$ ExceptSelf | SubAbility$ DBTimetwister | AILogic$ Timetwister
-SVar:Stargate:DB$ Pump | Defined$ Remembered | NoteCards$ Self | NoteCardsFor$ Stargate
-SVar:Homebody:DB$ Pump | Defined$ Remembered
-SVar:DBTimetwister:DB$ ChangeZoneAll | ChangeType$ Card.OwnedBy Player.NotedForStargate | Origin$ Hand,Graveyard | Destination$ Library | Shuffle$ True | UseAllOriginZones$ True | SubAbility$ DBRepeatDraw
-SVar:DBRepeatDraw:DB$ Draw | Defined$ Player.NotedForStargate | NumCards$ 7 | SubAbility$ DBClearNoted
-SVar:DBClearNoted:DB$ Pump | Defined$ Player | ClearNotedCardsFor$ Stargate | SubAbility$ DBChange
-SVar:DBChange:DB$ ChangeZone | Origin$ Stack | Destination$ Exile
+ManaCost:no cost
+Types:Land Desert
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDealDamage
+SVar:TrigDealDamage:DB$ DealDamage | ValidTgts$ Opponent | NumDmg$ 1
+A:AB$ Mana | Cost$ T | Produced$ Combo W B

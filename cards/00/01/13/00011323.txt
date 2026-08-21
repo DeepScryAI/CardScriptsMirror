@@ -1,10 +1,8 @@
 Id:11323
-ColorIdentity:G
+ColorIdentity:U
 OriginSet:G9fb0a9a59b6a9580
-ManaCost:2 G G
-Types:Creature Elemental
-PT:4/3
-K:Haste
-T:Mode$ SpellCast | ValidCard$ Creature | ValidActivatingPlayer$ You | CheckSVar$ X | SVarCompare$ EQ2 | NoResolvingCheck$ True | TriggerZones$ Graveyard | Execute$ TrigReturn | OptionalDecider$ You
-SVar:TrigReturn:DB$ ChangeZone | Defined$ Self | Origin$ Graveyard | Destination$ Battlefield
-SVar:X:Count$ThisTurnCast_Creature.YouCtrl
+ManaCost:2 U
+Types:Creature Human Wizard
+PT:2/2
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigPut
+SVar:TrigPut:DB$ PutCounterAll | ValidCards$ Creature.YouCtrl+withLevelUp | CounterType$ LEVEL | CounterNum$ 2

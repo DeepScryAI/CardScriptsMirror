@@ -1,8 +1,10 @@
 Id:8234
-ColorIdentity:RG
+ColorIdentity:WB
 OriginSet:G2c4e6f6c46954cd6
-ManaCost:1 R G G
-Types:Creature Elemental
-PT:5/5
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDealDamage
-SVar:TrigDealDamage:DB$ DealDamage | Defined$ Player | NumDmg$ 1
+ManaCost:4 B
+Types:Creature Spirit
+PT:4/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ RevenantSkipCombat
+SVar:RevenantSkipCombat:DB$ SkipPhase | ValidTgts$ Player | ConditionManaSpent$ W | Phase$ BeginCombat | IsCurse$ True
+S:Mode$ CantBlock | ValidCard$ Card.Self
+SVar:ManaNeededToAvoidNegativeEffect:white

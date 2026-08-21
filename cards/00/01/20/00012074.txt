@@ -1,10 +1,11 @@
 Id:12074
-ColorIdentity:W
+ColorIdentity:
 OriginSet:Gcf233112e9f1fe8c
-ManaCost:4 W W
-Types:Creature Angel
-PT:5/5
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | ValidTgts$ Permanent.Other | KW$ Indestructible | Duration$ AsLongAsControl
+ManaCost:3
+Types:Artifact Creature Construct
+PT:2/2
+K:ETBReplacement:Other:ChooseCT
+SVar:ChooseCT:DB$ ChooseType | Type$ Creature | AILogic$ MostProminentInComputerDeck
+S:Mode$ Continuous | Affected$ Card.Self | AddType$ ChosenType
+S:Mode$ Continuous | Affected$ Creature.ChosenType+Other+YouCtrl | AddPower$ 1 | AddToughness$ 1
 SVar:PlayMain1:TRUE

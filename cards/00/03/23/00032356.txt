@@ -1,6 +1,13 @@
 Id:32356
 ColorIdentity:B
-OriginSet:G66b3a7eeabd9000e
-ManaCost:6 B
-Types:Sorcery
-A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouOwn | TargetsWithDifferentNames$ True | TargetMin$ 0 | TargetMax$ 6
+OriginSet:G9946f072b5556073
+ManaCost:4 B
+Types:Creature Horror
+PT:4/5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.Other+YouCtrl | NumAtt$ +2 | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Triggers$ PerigeeBeckonerChangeZone | Defined$ ParentTarget
+SVar:PerigeeBeckonerChangeZone:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ PerigeeBeckonerTrigChangeZone | TriggerController$ TriggeredCardController
+SVar:PerigeeBeckonerTrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | Tapped$ True | Defined$ TriggeredNewCardLKICopy
+K:Warp:1 B
+SVar:PlayMain1:TRUE

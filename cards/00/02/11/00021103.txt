@@ -1,13 +1,13 @@
 Id:21103
-ColorIdentity:G
-OriginSet:G72c9c624ceb92bff
-ManaCost:2 G
-Types:Sorcery
-A:SP$ ChangeZone | ValidTgts$ Card.YouOwn | Origin$ Graveyard | Destination$ Hand
-AlternateMode:Modal
-ALTERNATE
-ManaCost:no cost
-Types:Land
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
-A:AB$ Mana | Cost$ T | Produced$ G
+ColorIdentity:BG
+OriginSet:G7b2607750b451c25
+ManaCost:1 B G
+Types:Legendary Creature Hydra Horror
+PT:0/0
+K:etbCounter:P1P1:3
+SVar:WasKicked:Count$CardCounters.P1P1
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl+Other+counters_GE1_P1P1 | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 2200143500 | TokenOwner$ TriggeredCardController | TokenPower$ X | TokenToughness$ X
+SVar:X:TriggeredCard$CardCounters.P1P1

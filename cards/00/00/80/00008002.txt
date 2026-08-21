@@ -1,8 +1,10 @@
 Id:8002
-ColorIdentity:B
+ColorIdentity:UB
 OriginSet:Gc563c209d627c4c5
-ManaCost:2 B
-Types:Creature Zombie
-PT:1/1
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigLoseLife
-SVar:TrigLoseLife:DB$ LoseLife | ValidTgts$ Player | LifeAmount$ 2
+ManaCost:2 U U
+Types:Instant
+A:SP$ Counter | TargetType$ Spell | ValidTgts$ Card | RememberCounteredCMC$ True | SubAbility$ DBMill
+SVar:DBMill:DB$ Mill | NumCards$ X | Defined$ TargetedController | ConditionManaSpent$ B | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$RememberedNumber
+SVar:ManaNeededToAvoidNegativeEffect:black

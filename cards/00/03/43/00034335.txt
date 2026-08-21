@@ -1,8 +1,11 @@
 Id:34335
-ColorIdentity:U
+ColorIdentity:B
 OriginSet:Gcb93bbfc68a40806
-ManaCost:4 U
-Types:Legendary Creature Human Artificer Villain
-PT:3/4
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPlay
-SVar:TrigPlay:DB$ Play | TgtZone$ Graveyard | ValidTgts$ Artifact.YouCtrl+cmcLE4,Instant.YouCtrl+cmcLE4,Sorcery.YouCtrl+cmcLE4 | ValidSA$ Spell | WithoutManaCost$ True | Optional$ True | ReplaceGraveyard$ Exile | AILogic$ ReplaySpell
+ManaCost:2 B B
+Types:Legendary Creature Human Sorcerer Villain
+PT:4/4
+K:Lifelink
+A:AB$ Draw | Cost$ T | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ 1 | SubAbility$ DBWinGame
+SVar:DBWinGame:DB$ WinsGame | Defined$ You | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ0
+SVar:X:Count$ValidLibrary Card.YouOwn

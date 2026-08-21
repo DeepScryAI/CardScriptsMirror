@@ -1,12 +1,14 @@
 Id:27751
-ColorIdentity:U
-OriginSet:G30e8a5e111cffb44
-ManaCost:2 U
-Types:Legendary Creature Human Cleric
-PT:3/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigInvestigate
-SVar:TrigInvestigate:DB$ Investigate
-T:Mode$ Sacrificed | ValidPlayer$ You | ValidCard$ Clue | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Effect | RememberObjects$ Self & Targeted | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | StaticAbilities$ Unblockable
-SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Creature.IsRemembered
-K:Doctor's companion
+ColorIdentity:B
+OriginSet:G997e3b19a1e94e85
+ManaCost:2 B B
+Types:Enchantment
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigCharm | TriggerZones$ Battlefield
+SVar:TrigCharm:DB$ Charm | Choices$ Buffet,SeeAShow,PlayGames,GoToSleep | ChoiceRestriction$ ThisGame
+SVar:Buffet:DB$ Token | TokenScriptIds$ 134855612 | TokenAmount$ 3
+SVar:SeeAShow:DB$ Token | TokenScriptIds$ 516843363 | TokenAmount$ 2
+SVar:PlayGames:DB$ ChangeZone | Origin$ Library | NoShuffle$ True | Destination$ Hand | ChangeType$ Card | ChangeNum$ 1 | SubAbility$ DBDiscard | Mandatory$ True
+SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ Random | SubAbility$ DBShuffle
+SVar:DBShuffle:DB$ Shuffle | Defined$ You
+SVar:GoToSleep:DB$ LoseLife | LifeAmount$ 15 | SubAbility$ DBSacSelf
+SVar:DBSacSelf:DB$ Sacrifice

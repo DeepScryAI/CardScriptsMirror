@@ -1,8 +1,12 @@
 Id:22484
-ColorIdentity:W
-OriginSet:G9f95a41d532c0550
-ManaCost:1 W
-Types:Creature Dwarf Warrior
-PT:3/1
-S:Mode$ Continuous | Affected$ Card.Self+equipped | AddToughness$ 2
-SVar:EquipMe:Once
+ColorIdentity:R
+OriginSet:G92f7f9489fec5865
+ManaCost:1 R
+Types:Enchantment
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigExile
+T:Mode$ LosesGame | ValidPlayer$ Player.Opponent | TriggerZones$ Battlefield | Execute$ TrigExile | Secondary$ True
+SVar:TrigExile:DB$ Dig | DigNum$ 1 | ChangeNum$ All | Defined$ Player | DestinationZone$ Exile
+S:Mode$ Continuous | Affected$ Card.ExiledWithSource | MayPlay$ True | MayPlayLimit$ 1 | MayPlayIgnoreColor$ True | MayPlayPlayer$ ActivePlayer | EffectZone$ Battlefield | AffectedZone$ Exile
+T:Mode$ SpellCast | ValidCard$ Card | ValidSA$ Spell.MayPlaySource | TriggerZones$ Battlefield | Execute$ TrigExileTop | Secondary$ True
+T:Mode$ LandPlayed | ValidCard$ Land | ValidSA$ SpellAbility.MayPlaySource | TriggerZones$ Battlefield | Execute$ TrigExileTop | Secondary$ True
+SVar:TrigExileTop:DB$ Dig | DigNum$ 1 | ChangeNum$ All | Defined$ TriggeredCardController | DestinationZone$ Exile

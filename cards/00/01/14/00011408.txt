@@ -1,11 +1,9 @@
 Id:11408
-ColorIdentity:R
+ColorIdentity:G
 OriginSet:Gf6792163b580976b
-ManaCost:1 R R R
-Types:Creature Cyclops Warrior
-PT:4/4
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigExchangeDamage | OptionalDecider$ You
-SVar:TrigExchangeDamage:DB$ DealDamage | ValidTgts$ Creature.ControlledBy TriggeredDefendingPlayer | NumDmg$ MyX | SubAbility$ ReturnDmg
-SVar:ReturnDmg:DB$ DealDamage | DamageSource$ Targeted | NumDmg$ TheirX
-SVar:MyX:Count$CardPower
-SVar:TheirX:Targeted$CardPower
+ManaCost:2 G
+Types:Sorcery
+A:SP$ ChangeZone | Origin$ Library | Destination$ Library | ChangeType$ Land.Basic | ChangeNum$ 2 | RememberChanged$ True | Reveal$ True | Shuffle$ False | SubAbility$ DBChangeZone1
+SVar:DBChangeZone1:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Land.IsRemembered | ChangeNum$ 1 | Mandatory$ True | NoLooking$ True | Tapped$ True | Shuffle$ False | SubAbility$ DBChangeZone2
+SVar:DBChangeZone2:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Land.IsRemembered | Mandatory$ True | NoLooking$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

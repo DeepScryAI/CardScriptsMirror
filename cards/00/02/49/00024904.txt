@@ -1,13 +1,15 @@
 Id:24904
-ColorIdentity:BG
+ColorIdentity:U
 OriginSet:G3a8b4b9d4649b357
-ManaCost:2 B G
-Types:Legendary Creature Treefolk
-PT:3/4
-K:Reach
-R:Event$ Moved | ActiveZones$ Battlefield | Origin$ Battlefield | Destination$ Graveyard | ValidLKI$ Card.Creature+OppCtrl | ReplaceWith$ Exile
-SVar:Exile:DB$ ChangeZone | Hidden$ True | Origin$ All | Destination$ Exile | Defined$ ReplacedCard | SubAbility$ DBImmediateTrigger
-SVar:DBImmediateTrigger:DB$ ImmediateTrigger | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 3815350479 | TokenOwner$ You
-A:AB$ Pump | Cost$ G Sac<1/Saproling> | NumAtt$ +2 | NumDef$ +2 | AILogic$ Aristocrat
-A:AB$ Draw | Cost$ 1 B Sac<2/Saproling> | Defined$ You | NumCards$ 1
+ManaCost:4 U U
+Types:Creature Djinn
+PT:4/4
+K:Flying
+T:Mode$ SpellCast | TriggerZones$ Battlefield | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | Choices$ DBPump,DBExile,DBScry
+SVar:DBPump:DB$ Pump | Defined$ Self | NumAtt$ +1 | NumDef$ +1
+SVar:DBExile:DB$ ChangeZone | Defined$ Self | Origin$ Battlefield | Destination$ Exile | SubAbility$ DelTrig | RememberChanged$ True
+SVar:DelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ TrigReturn | RememberObjects$ Remembered | ConditionDefined$ Remembered | ConditionPresent$ Card
+SVar:TrigReturn:DB$ ChangeZone | Defined$ DelayTriggerRememberedLKI | Origin$ Exile | Destination$ Battlefield
+SVar:DBScry:DB$ Scry | ScryNum$ 1
+SVar:BuffedBy:Spell.Instant,Spell.Sorcery

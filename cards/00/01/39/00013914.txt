@@ -1,12 +1,9 @@
 Id:13914
-ColorIdentity:R
+ColorIdentity:B
 OriginSet:G6645ca87da6316d5
-ManaCost:3 R
-Types:Sorcery
-A:SP$ DestroyAll | ValidCards$ Land.nonBasic | RememberDestroyed$ True | SubAbility$ DBRepeat
-SVar:DBRepeat:DB$ RepeatEach | UseImprinted$ True | DefinedCards$ DirectRemembered | RepeatSubAbility$ DBSearch | SubAbility$ DBShuffle
-SVar:DBSearch:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Land.Basic | RememberChanged$ True | DefinedPlayer$ ImprintedController | Chooser$ ImprintedController | NoShuffle$ True | Optional$ True
-SVar:DBShuffle:DB$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ ShuffleSearched | SubAbility$ DBCleanup
-SVar:ShuffleSearched:DB$ Shuffle | Defined$ Player.IsRemembered | ConditionCheckSVar$ X | ConditionSVarCompare$ GE1
-SVar:X:Count$Valid Card.IsRemembered+RememberedPlayerCtrl
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:5 B B
+Types:Creature Avatar
+PT:8/6
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigReturn | TriggerZones$ Battlefield | OptionalDecider$ You
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | Defined$ ValidGraveyard Creature.YouOwn+ThisTurnEnteredFrom_Battlefield
+A:AB$ Pump | Cost$ B Sac<1/Creature.Other/another creature> | ValidTgts$ Creature | NumAtt$ -2 | NumDef$ -2

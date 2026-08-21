@@ -1,8 +1,12 @@
 Id:13932
-ColorIdentity:W
+ColorIdentity:WUG
 OriginSet:G6645ca87da6316d5
-ManaCost:1 W
-Types:Creature Human Monk
-PT:0/2
-T:Mode$ Blocks | ValidCard$ Card.Self | Execute$ TrigExchangePower
-SVar:TrigExchangePower:DB$ ExchangePower | ValidTgts$ Creature.blockedBySource | Defined$ Self | Duration$ UntilEndOfCombat
+ManaCost:2 G W U
+Types:Legendary Creature Rhino Soldier
+PT:4/4
+K:Vigilance
+K:Trample
+A:AB$ ChangeZone | Cost$ 2 T | ValidTgts$ Creature.Other | Mandatory$ True | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DelTrig
+SVar:DelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ TrigBounce | RememberObjects$ RememberedLKI | SubAbility$ DBCleanup
+SVar:TrigBounce:DB$ ChangeZone | Origin$ Exile | Destination$ Battlefield | Defined$ DelayTriggerRememberedLKI
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

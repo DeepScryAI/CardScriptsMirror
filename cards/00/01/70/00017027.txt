@@ -1,8 +1,13 @@
 Id:17027
-ColorIdentity:B
+ColorIdentity:BR
 OriginSet:Gbcdce58dfbbf1bad
-ManaCost:2 B
-Types:Enchantment
-T:Mode$ CounterAddedOnce | ValidCard$ Creature | ValidSource$ You | CounterType$ M1M1 | TriggerZones$ Battlefield | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenAmount$ X | TokenScriptIds$ 3450471238 | TokenOwner$ You
-SVar:X:TriggerCount$Amount
+ManaCost:1 B R
+Types:Legendary Creature Minotaur Warrior
+PT:2/2
+K:FirstStrike
+S:Mode$ Continuous | Affected$ Minotaur.Other+YouCtrl | AddKeyword$ FirstStrike
+S:Mode$ Continuous | Affected$ Minotaur.YouCtrl | AddPower$ 2 | CheckSVar$ X | SVarCompare$ LE1
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDiscard
+SVar:TrigDiscard:DB$ Discard | Defined$ Player | NumCards$ 1 | Mode$ TgtChoose
+SVar:X:Count$ValidHand Card.YouOwn
+SVar:PlayMain1:TRUE

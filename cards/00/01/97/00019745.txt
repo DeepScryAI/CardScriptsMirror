@@ -1,9 +1,12 @@
 Id:19745
-ColorIdentity:U
+ColorIdentity:B
 OriginSet:G7c61dc677f00d087
-ManaCost:3 U
-Types:Creature Elemental
-PT:4/4
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange
-SVar:TrigChange:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Hidden$ True | Mandatory$ True | ChangeType$ Creature.Other+YouCtrl
-SVar:NeedsToPlay:Creature.YouCtrl+!token
+ManaCost:4 B B
+Types:Legendary Planeswalker Sorin
+Loyalty:4
+A:AB$ Pump | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Creature | NumAtt$ +2
+A:AB$ DealDamage | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | ValidTgts$ Any | NumDmg$ 4 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ 4
+A:AB$ AnimateAll | Cost$ SubCounter<8/LOYALTY> | Planeswalker$ True | Ultimate$ True | ValidCards$ Vampire.YouCtrl | Abilities$ ABControl
+SVar:ABControl:AB$ GainControl | Cost$ T | ValidTgts$ Creature
+SVar:PlayMain1:TRUE

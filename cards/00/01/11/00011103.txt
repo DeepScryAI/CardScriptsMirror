@@ -1,10 +1,9 @@
 Id:11103
-ColorIdentity:U
+ColorIdentity:B
 OriginSet:Gd09f2fd86b2e8dd0
-ManaCost:4 U
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:GainControl
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigUpkeep
-SVar:TrigUpkeep:DB$ Sacrifice | UnlessPayer$ You | UnlessCost$ Return<1/Land>
-S:Mode$ Continuous | Affected$ Card.EnchantedBy | GainControl$ You
+ManaCost:B B
+Types:Instant
+A:SP$ Pump | ValidTgts$ Creature | NumAtt$ -3 | NumDef$ -3 | IsCurse$ True | SubAbility$ VampiricUrge
+SVar:VampiricUrge:DB$ Tap | CardChoices$ Vampire.YouCtrl+untapped | AnyNumber$ True | ChoiceAmount$ Count$Valid Vampire.YouCtrl+untapped | RememberTapped$ True | SubAbility$ VampiricFeed
+SVar:VampiricFeed:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ 1 | Defined$ Remembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

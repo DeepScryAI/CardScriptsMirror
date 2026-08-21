@@ -1,11 +1,11 @@
 Id:22485
-ColorIdentity:R
-OriginSet:G9f95a41d532c0550
-ManaCost:4 R R
-Types:Creature Elemental
-PT:6/6
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Destination$ Battlefield | Execute$ TrigRollDice
-SVar:TrigRollDice:DB$ RollDice | Sides$ 20 | ResultSubAbilities$ 1-9:Sac1,10-19:SacOpp,20:SacOpp2
-SVar:Sac1:DB$ Sacrifice | SacValid$ Permanent | Defined$ Player
-SVar:SacOpp:DB$ Sacrifice | SacValid$ Permanent | Defined$ Player.Opponent
-SVar:SacOpp2:DB$ Sacrifice | SacValid$ Permanent | Amount$ 2 | Defined$ Player.Opponent
+ColorIdentity:G
+OriginSet:G92f7f9489fec5865
+ManaCost:3 G G
+Types:Instant
+A:SP$ Pump | ValidTgts$ Permanent.YouCtrl | TgtZone$ Graveyard | TargetMin$ 0 | TargetMax$ 2 | SubAbility$ DBRollDice
+SVar:DBRollDice:DB$ RollDice | Defined$ You | Sides$ 20 | Modifier$ X | ResultSubAbilities$ 1-14:ToHand,Else:HandAndLife
+SVar:ToHand:DB$ ChangeZone | Defined$ Targeted | Origin$ Graveyard | Destination$ Hand
+SVar:HandAndLife:DB$ ChangeZone | Defined$ Targeted | Origin$ Graveyard | Destination$ Hand | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ X
+SVar:X:Targeted$CardManaCost

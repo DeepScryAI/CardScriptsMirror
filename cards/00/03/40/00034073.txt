@@ -1,12 +1,9 @@
 Id:34073
-ColorIdentity:W
-OriginSet:Gcb93bbfc68a40806
-ManaCost:1 W
-Types:Creature Human Warrior
-PT:2/2
-K:FirstStrike
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | CheckSVar$ X | SVarCompare$ GTY | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenTapped$ True | TokenScriptIds$ 2892474436 | TokenOwner$ You
-A:AB$ PumpAll | Cost$ Sac<1/CARDNAME/this creature> | ValidCards$ Permanent.Legendary+YouCtrl | KW$ Indestructible
-SVar:X:PlayerCountOpponents$HighestValid Land.YouCtrl
-SVar:Y:Count$Valid Land.YouCtrl
+ColorIdentity:BG
+OriginSet:Gf8df2bea26dc6b68
+ManaCost:3 B G
+Types:Sorcery
+A:SP$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +2 | NumDef$ +2 | KW$ Menace | SubAbility$ DBAnimateAll
+SVar:DBAnimateAll:DB$ AnimateAll | ValidCards$ Creature.YouCtrl | Triggers$ AttackTrig
+SVar:AttackTrig:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigGainLife
+SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1

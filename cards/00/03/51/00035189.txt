@@ -1,0 +1,13 @@
+Id:35189
+ColorIdentity:UBR
+OriginSet:G21d8f666c5c6b81d
+ManaCost:2 U B R
+Types:Legendary Creature Zombie Noble
+PT:10/4
+K:Trample
+K:Indestructible
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | ValidTarget$ Opponent | SubAbility$ DBSac
+SVar:DBSac:DB$ Sacrifice | SacValid$ Self | UnlessCost$ Sac<3/Creature> PayLife<3> Draw<3/Player.targetedBy> | UnlessPayer$ You | UnlessSwitched$ True
+T:Mode$ Sacrificed | ValidPlayer$ You | ValidCard$ Creature | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw

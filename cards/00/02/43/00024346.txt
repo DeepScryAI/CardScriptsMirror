@@ -1,11 +1,11 @@
 Id:24346
-ColorIdentity:WB
+ColorIdentity:U
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:2 W B
-Types:Legendary Creature Elf Cleric
-PT:2/2
-S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ Ward:X
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Revolt$ True | Execute$ TrigExperience
-SVar:TrigExperience:DB$ PutCounter | Defined$ You | CounterType$ Experience | CounterNum$ 1
-S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddPower$ X
-SVar:X:Count$YourCountersExperience
+ManaCost:2 U
+Types:Legendary Creature Human Wizard
+PT:1/3
+T:Mode$ SpellCast | ValidCard$ Instant.wasCastFromYourHandByYou | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigCastSorcery
+SVar:TrigCastSorcery:DB$ Play | TgtZone$ Graveyard | ValidTgts$ Sorcery.YouOwn | ValidSA$ Spell | TargetMin$ 0 | TargetMax$ 1 | Optional$ True | ReplaceGraveyard$ Exile | AILogic$ ReplaySpell
+T:Mode$ SpellCast | ValidCard$ Sorcery.wasCastFromYourHandByYou | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigCastInstant | Secondary$ True
+SVar:TrigCastInstant:DB$ Play | TgtZone$ Graveyard | ValidTgts$ Instant.YouOwn | ValidSA$ Spell | TargetMin$ 0 | TargetMax$ 1 | Optional$ True | ReplaceGraveyard$ Exile | AILogic$ ReplaySpell
+K:Choose a Background

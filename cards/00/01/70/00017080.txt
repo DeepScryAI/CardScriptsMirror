@@ -1,11 +1,10 @@
 Id:17080
-ColorIdentity:B
+ColorIdentity:R
 OriginSet:Gbcdce58dfbbf1bad
-ManaCost:3 B
-Types:Creature Scorpion Demon
-PT:4/5
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPutCounter1
-SVar:TrigPutCounter1:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ M1M1 | IsCurse$ True | CounterNum$ 2
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigPutCounter2 | OptionalDecider$ You
-SVar:TrigPutCounter2:DB$ PutCounter | ValidTgts$ Creature | CounterType$ M1M1 | IsCurse$ True | CounterNum$ X
-SVar:X:TriggeredCard$CardCounters.M1M1
+ManaCost:R
+Types:Creature Human Wizard
+PT:1/2
+K:Prowess
+R:Event$ DamageDone | ActiveZones$ Battlefield | ValidSource$ Card.YouCtrl,Emblem.YouCtrl | ValidTarget$ Creature.OppCtrl | ReplaceWith$ Counters | IsCombat$ False | ExecuteMode$ PerTarget
+SVar:Counters:DB$ PutCounter | Defined$ ReplacedTarget | CounterType$ M1M1 | CounterNum$ X
+SVar:X:ReplaceCount$DamageAmount

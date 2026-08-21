@@ -1,13 +1,9 @@
 Id:4029
 ColorIdentity:W
 OriginSet:Gdd40b2fbd2aa3c03
-ManaCost:W
-Types:Creature Human Spellshaper
-PT:1/1
-A:AB$ ChooseSource | Cost$ 1 W W T Discard<1/Card> | Choices$ Card,Emblem | AILogic$ NeedsPrevention | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | ReplacementEffects$ RPreventNextFromSource | SubAbility$ DBCleanup | ConditionDefined$ ChosenCard | ConditionPresent$ Card,Emblem
-SVar:RPreventNextFromSource:Event$ DamageDone | ValidSource$ Card.ChosenCardStrict,Emblem.ChosenCard | ValidTarget$ You | ReplaceWith$ GainLifeInstead | PreventionEffect$ True
-SVar:GainLifeInstead:DB$ GainLife | Defined$ You | LifeAmount$ X | SubAbility$ ExileEffect
-SVar:ExileEffect:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile
-SVar:X:ReplaceCount$DamageAmount
-SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+ManaCost:3 W
+Types:Creature Griffin
+PT:3/3
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | ChangeType$ Artifact,Enchantment | DefinedPlayer$ Player.Other | ChangeNum$ 1

@@ -1,7 +1,16 @@
 Id:19234
-ColorIdentity:B
-OriginSet:Gb6b8d78626a44788
-ManaCost:3 B
-Types:Creature Human Knight
-PT:1/5
-K:Lifelink
+ColorIdentity:
+OriginSet:Gf56613712ce2ae1f
+ManaCost:6
+Types:Legendary Planeswalker Ugin
+Loyalty:4
+S:Mode$ ReduceCost | ValidCard$ Card.Colorless | Type$ Spell | Activator$ You | Amount$ 2
+A:AB$ Dig | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | DigNum$ 1 | ChangeNum$ 1 | DestinationZone$ Exile | RememberChanged$ True | ExileFaceDown$ True | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 2709696799 | ImprintTokens$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | Triggers$ TrigLeavesBattlefield | StaticAbilities$ MayLook | RememberObjects$ RememberedLKI | ForgetOnMoved$ Exile | ImprintCards$ Imprinted | Duration$ Permanent | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True
+SVar:TrigLeavesBattlefield:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.IsImprinted | Execute$ DBReturn | TriggerZones$ Command
+SVar:DBReturn:DB$ ChangeZone | Defined$ RememberedLKI | Origin$ Exile | Destination$ Hand | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile
+SVar:MayLook:Mode$ Continuous | MayLookAt$ You | Affected$ Card.IsRemembered | AffectedZone$ Exile
+A:AB$ Destroy | Cost$ SubCounter<3/LOYALTY> | ValidTgts$ Permanent.nonColorless | Planeswalker$ True

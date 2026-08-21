@@ -1,12 +1,17 @@
 Id:12387
-ColorIdentity:B
+ColorIdentity:G
 OriginSet:G14de52802b0b467c
-ManaCost:2 B
-Types:Creature Zombie
-PT:0/0
-K:etbCounter:P1P1:X:no Condition
-R:Event$ DamageDone | ActiveZones$ Battlefield | ValidTarget$ Card.Self | ReplaceWith$ DBRemoveCounters | PreventionEffect$ True | AlwaysReplace$ True
-SVar:DBRemoveCounters:DB$ RemoveCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
-SVar:X:Count$Valid Zombie.YouCtrl/Plus.Y
-SVar:Y:Count$ValidGraveyard Zombie.YouCtrl
-SVar:NeedsToPlayVar:X GE1
+ManaCost:2 G G
+Types:Creature Human Shaman Werewolf
+PT:3/3
+T:Mode$ Phase | Phase$ Upkeep | WerewolfTransformCondition$ True | TriggerZones$ Battlefield | Execute$ TrigTransform
+SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:green
+Types:Creature Werewolf
+PT:5/5
+A:AB$ Regenerate | Cost$ G
+T:Mode$ Phase | Phase$ Upkeep | WerewolfUntransformCondition$ True | TriggerZones$ Battlefield | Execute$ TrigTransform
+SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform

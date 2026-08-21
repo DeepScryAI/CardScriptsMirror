@@ -1,14 +1,13 @@
 Id:6416
 ColorIdentity:U
 OriginSet:Gd11012ee98ee8d76
-ManaCost:1 U U
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:Pump
-A:AB$ Untap | Cost$ U | Defined$ Enchanted
-A:AB$ Pump | Cost$ U | Defined$ Enchanted | KW$ Flying
-A:AB$ Pump | Cost$ U | Defined$ Enchanted | KW$ Shroud
-A:AB$ GenericChoice | Cost$ 1 | Choices$ PumpAtt,PumpDef
-SVar:PumpAtt:DB$ Pump | Defined$ Enchanted | NumAtt$ +1 | NumDef$ -1
-SVar:PumpDef:DB$ Pump | Defined$ Enchanted | NumAtt$ -1 | NumDef$ +1
-SVar:NonStackingAttachEffect:True
+ManaCost:3 U U
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSearch
+SVar:TrigSearch:DB$ ChangeZone | ChangeNum$ 7 | ChangeType$ Card | Mandatory$ True | Origin$ Library | Destination$ Exile | ShuffleChangedPile$ True | ExileFaceDown$ True | RememberChanged$ True
+T:Mode$ ChangesZone | ValidCard$ Card.IsRemembered | Origin$ Exile | Destination$ Any | Static$ True | Execute$ TrigForget
+SVar:TrigForget:DB$ Pump | ForgetObjects$ TriggeredCard
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigReset | Static$ True
+SVar:TrigReset:DB$ Cleanup | ClearRemembered$ True
+R:Event$ Draw | ActiveZones$ Battlefield | ValidPlayer$ You | ReplaceWith$ RepParallelThoughts | Optional$ True | OptionalDecider$ You
+SVar:RepParallelThoughts:DB$ ChangeZone | Defined$ RememberedFirst | Origin$ Exile | Destination$ Hand

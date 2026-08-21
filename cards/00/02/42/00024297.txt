@@ -2,10 +2,8 @@ Id:24297
 ColorIdentity:W
 OriginSet:G51fcb7ec0cb81c29
 ManaCost:2 W
-Types:Creature Dwarf Cleric
-PT:3/3
-K:Myriad
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TapOneEach
-SVar:TapOneEach:DB$ Tap | ValidTgts$ Creature.OppCtrl | TargetMin$ 0 | TargetMax$ OneEach | TargetsForEachPlayer$ True
-SVar:OneEach:PlayerCountOpponents$Amount
-SVar:HasAttackEffect:TRUE
+Types:Sorcery
+A:SP$ Draw | Defined$ Opponent | RememberDrawn$ AllReplaced | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:PlayerCountOpponents$HasPropertyIsRememberedOrController

@@ -1,11 +1,8 @@
 Id:15493
-ColorIdentity:R
+ColorIdentity:W
 OriginSet:Gec9609c94c5b1cdf
-ManaCost:no cost
-Types:Land
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature | NumAtt$ +1 | NumDef$ +1 | KW$ FirstStrike
-SVar:PlayMain1:TRUE
-A:AB$ Mana | Cost$ T | Produced$ R
+ManaCost:W
+Types:Instant
+A:SP$ Pump | ValidTgts$ Creature | NumAtt$ +2 | NumDef$ +2 | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | Defined$ Targeted | ReplacementEffects$ PreventColorless | RememberObjects$ Targeted | ForgetOnMoved$ Battlefield
+SVar:PreventColorless:Event$ DamageDone | Prevent$ True | ActiveZones$ Command | ValidSource$ Card.ColorlessSource,Emblem.ColorlessSource | ValidTarget$ Card.IsRemembered

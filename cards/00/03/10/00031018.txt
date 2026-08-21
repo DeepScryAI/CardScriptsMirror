@@ -1,11 +1,14 @@
 Id:31018
-ColorIdentity:
-OriginSet:G4524bbf7a3db9dc0
-ManaCost:4
-Types:Artifact
-K:StartYourEngines
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | NumCards$ 2 | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ TgtChoose
-S:Mode$ Continuous | Affected$ Card.Self | Condition$ MaxSpeed | AddStaticAbility$ MaxSpeedStatic
-SVar:MaxSpeedStatic:Mode$ ReduceCost | Secondary$ True | ValidCard$ Card | Type$ Spell | Activator$ You | Amount$ 1
+ColorIdentity:W
+OriginSet:G2c8286a6f234d4b9
+ManaCost:1 W
+Types:Legendary Creature Human Warrior
+PT:1/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPut
+SVar:TrigPut:DB$ PutCounter | ValidTgts$ Creature | CounterType$ P1P1
+T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigPump | TriggerZones$ Battlefield
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.attacking+counters_GE1_P1P1 | SubAbility$ DBBranch
+SVar:DBBranch:DB$ Branch | BranchConditionSVar$ X | BranchConditionSVarCompare$ GE2 | TrueSubAbility$ DBPump1 | FalseSubAbility$ DBPump2
+SVar:DBPump1:DB$ Pump | Defined$ Targeted | KW$ DoubleStrike
+SVar:DBPump2:DB$ Pump | Defined$ Targeted | KW$ FirstStrike
+SVar:X:Targeted$CardCounters.P1P1

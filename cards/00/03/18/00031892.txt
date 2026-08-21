@@ -1,11 +1,10 @@
 Id:31892
-ColorIdentity:U
+ColorIdentity:G
 OriginSet:G7ab4f62d323b0ca7
-ManaCost:U
-Types:Instant
-A:SP$ Pump | ValidTgts$ Creature.YouCtrl | RememberObjects$ ThisTargetedCard | SubAbility$ DBGainControl
-SVar:DBGainControl:DB$ GainControl | ValidTgts$ Equipment | LoseControl$ EOT | SubAbility$ DBAttach
-SVar:DBAttach:DB$ Attach | Object$ ParentTarget | Defined$ Remembered | SubAbility$ DBDelayTrig
-SVar:DBDelayTrig:DB$ DelayedTrigger | Mode$ ChangesController | ValidCard$ Card.IsTriggerRemembered | IsPresent$ Card.IsTriggerRemembered+AttachedTo Creature.YouCtrl | ValidOriginalController$ You | RememberObjects$ ParentTarget | ThisTurn$ True | Execute$ TrigUnattach | SubAbility$ DBCleanup
-SVar:TrigUnattach:DB$ Unattach | Defined$ DelayTriggerRememberedLKI
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:7 G G
+Types:Legendary Artifact Creature Elemental
+PT:8/8
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ X | EffectZone$ All
+K:Reach
+R:Event$ DamageDone | Prevent$ True | IsCombat$ True | ValidTarget$ Card.Self
+SVar:X:Count$ValidGraveyard Permanent.YouOwn

@@ -1,9 +1,10 @@
 Id:5308
-ColorIdentity:G
+ColorIdentity:B
 OriginSet:Gfdac7ecc1e8a7d21
-ManaCost:1 G
+ManaCost:B B B
 Types:Enchantment
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
-S:Mode$ CantTarget | AffectedZone$ Graveyard
-SVar:NonStackingEffect:True
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigChangeZone | TriggerZones$ Battlefield
+SVar:TrigChangeZone:DB$ ChangeZone | ValidTgts$ Opponent | Origin$ Graveyard | Destination$ Exile | ChangeType$ Card.TargetedPlayerCtrl | ChangeNum$ 1 | Hidden$ True | Chooser$ Targeted | RememberChanged$ True | Optional$ Targeted | IsCurse$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | OptionalDecider$ You | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ0 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Amount

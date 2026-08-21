@@ -2,8 +2,9 @@ Id:14157
 ColorIdentity:B
 OriginSet:Gc18355312510df89
 ManaCost:1 B
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:Curse
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ -2
-S:Mode$ CantBlock | ValidCard$ Creature.EnchantedBy | Secondary$ True
+Types:Creature Human Soldier
+PT:2/1
+T:Mode$ SpellCast | ValidActivatingPlayer$ You | TargetsValid$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+T:Mode$ CounterAdded | ValidCard$ Card.Self | TriggerZones$ Battlefield | CounterType$ P1P1 | Execute$ FathomDraw
+SVar:FathomDraw:DB$ RemoveCounter | ValidTgts$ Creature.OppCtrl | CounterType$ P1P1 | CounterNum$ 1

@@ -1,9 +1,10 @@
 Id:18909
-ColorIdentity:
+ColorIdentity:B
 OriginSet:G586a4ae96288ce18
-ManaCost:no cost
-Types:Land
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | IsPresent$ Gate.YouCtrl | PresentCompare$ GE2 | Execute$ TrigGainLife
-SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 3
-A:AB$ Mana | Cost$ T | Produced$ C
-A:AB$ ManaReflected | Cost$ T | ColorOrType$ Type | Valid$ Gate.YouCtrl | ReflectProperty$ Produce
+ManaCost:3 B B
+Types:Sorcery
+A:SP$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ Player.IsRemembered | Mode$ Hand | RememberDiscarded$ True | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenAmount$ X | TokenScriptIds$ 353162950 | TokenOwner$ Player.IsRemembered | SubAbility$ DBCleanup
+SVar:X:Remembered$Amount
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

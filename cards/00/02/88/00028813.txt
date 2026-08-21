@@ -1,10 +1,13 @@
 Id:28813
-ColorIdentity:W
-OriginSet:Gaf7c94f364052cdd
-ManaCost:2 W
-Types:Legendary Artifact Creature Robot
-PT:2/3
-S:Mode$ Continuous | Affected$ Card.IsCommander+YouCtrl | AddKeyword$ Ward:2
-A:AB$ Mana | Cost$ T | Produced$ W | RestrictValid$ Spell.Aura,Spell.Equipment | Amount$ 2
-A:AB$ Pump | Cost$ T | ValidTgts$ Aura.YouCtrl,Equipment.YouCtrl | SubAbility$ DBAttach | SorcerySpeed$ True
-SVar:DBAttach:DB$ Attach | Object$ ParentTarget | ValidTgts$ Creature.YouCtrl
+ColorIdentity:BG
+OriginSet:Ge329d8d60ca65422
+ManaCost:4 BG BG
+Types:Creature Zombie Giant
+PT:6/6
+K:Trample
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigMill | TriggerZones$ Battlefield | Secondary$ True
+SVar:TrigMill:DB$ Mill | NumCards$ 5 | Defined$ You | RememberMilled$ True | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Hidden$ True | Origin$ Graveyard,Exile | Destination$ Hand | ChangeType$ EACH Creature.YouOwn+IsRemembered & Land.YouOwn+IsRemembered | Optional$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:HasAttackEffect:TRUE

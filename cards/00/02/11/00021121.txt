@@ -1,10 +1,12 @@
 Id:21121
-ColorIdentity:
-OriginSet:G72c9c624ceb92bff
-ManaCost:1
-Types:Artifact Equipment
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigAttach
-SVar:TrigAttach:DB$ Attach | ValidTgts$ Creature.YouCtrl
-SVar:NeedsToPlay:Creature.YouCtrl
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddKeyword$ Flying
-K:Equip:2
+ColorIdentity:R
+OriginSet:G7b2607750b451c25
+ManaCost:4 R R
+Types:Legendary Creature Minotaur Warrior
+PT:6/6
+S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddPower$ AffectedX
+SVar:AffectedX:Count$CardNumAttacksThisTurn
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | AILogic$ SafeToHold | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | PlayerTurn$ True | Phase$ Main1,Main2 | Execute$ TrigAddPhase
+SVar:TrigAddPhase:DB$ AddPhase | ExtraPhase$ Combat | ConditionPhases$ Main1,Main2 | ExtraPhaseDelayedTrigger$ DelTrigUntap | ExtraPhaseDelayedTriggerExcute$ TrigUntapAll
+SVar:DelTrigUntap:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You
+SVar:TrigUntapAll:DB$ UntapAll | ValidCards$ Creature.YouCtrl

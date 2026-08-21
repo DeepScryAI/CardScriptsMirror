@@ -1,9 +1,11 @@
 Id:22492
-ColorIdentity:R
-OriginSet:G9f95a41d532c0550
-ManaCost:3 R R
-Types:Instant
-A:SP$ DealDamage | ValidTgts$ Creature,Planeswalker | NumDmg$ 5 | SubAbility$ DBRollDice
-SVar:DBRollDice:DB$ RollDice | Sides$ 20 | ResultSubAbilities$ 1-9:DamageAll,10-20:DamageOpp
-SVar:DamageAll:DB$ DealDamage | Defined$ Player | NumDmg$ 2
-SVar:DamageOpp:DB$ DealDamage | Defined$ Player.Opponent | NumDmg$ 2
+ColorIdentity:RG
+OriginSet:G92f7f9489fec5865
+ManaCost:3 R G
+Types:Legendary Creature Dragon Barbarian
+PT:5/4
+T:Mode$ DamageDoneOnce | Execute$ TrigToken | ValidTarget$ Card.Self | TriggerZones$ Battlefield | OptionalDecider$ You
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 3901235244
+T:Mode$ RolledDieOnce | TriggerZones$ Battlefield | ValidPlayer$ You | OptionalDecider$ You | Execute$ TrigDamageSelf
+SVar:TrigDamageSelf:DB$ DealDamage | Defined$ Self | NumDmg$ 1
+SVar:HasCombatEffect:TRUE

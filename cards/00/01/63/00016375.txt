@@ -1,8 +1,12 @@
 Id:16375
-ColorIdentity:B
+ColorIdentity:G
 OriginSet:Gd94e3db4ef71ffd2
-ManaCost:1 B
-Types:Creature Rat Horror
-PT:2/2
-A:AB$ PutCounter | Cost$ 3 B B | Monstrosity$ 3
-S:Mode$ Continuous | Affected$ Card.Self+IsMonstrous | AddKeyword$ Menace
+ManaCost:1 G G
+Types:Legendary Creature Elf Scout
+PT:2/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.Other | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | OptionalDecider$ TriggeredCardController | Defined$ TriggeredCardController | NumCards$ 1 | ConditionCheckSVar$ Z | ConditionSVarCompare$ EQY
+SVar:Z:TriggeredCard$Valid Card.greatestPower
+SVar:Y:Count$Valid Card.greatestPower
+A:AB$ Mana | Cost$ G T | Produced$ Combo Any | Amount$ X
+SVar:X:Count$Valid Creature.YouCtrl$GreatestCardPower

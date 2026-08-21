@@ -1,10 +1,18 @@
 Id:12559
-ColorIdentity:
+ColorIdentity:G
 OriginSet:G12585413ffc93ad8
-ManaCost:1
-Types:Artifact Equipment
-K:Equip:5
-S:Mode$ Continuous | Affected$ Card.EquippedBy | AddAbility$ Damage & DamageWerewolf
-SVar:Damage:AB$ DealDamage | Cost$ T | ValidTgts$ Any | NumDmg$ 1
-SVar:DamageWerewolf:AB$ DealDamage | Cost$ T | ValidTgts$ Creature.Werewolf | NumDmg$ 3
-SVar:NonStackingAttachEffect:True
+ManaCost:G
+Types:Creature Human Werewolf
+PT:1/1
+A:AB$ Pump | Cost$ 1 G | NumAtt$ +2 | NumDef$ +2 | ActivationLimit$ 1
+T:Mode$ Phase | Phase$ Upkeep | WerewolfTransformCondition$ True | TriggerZones$ Battlefield | Execute$ TrigTransform
+SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:green
+Types:Creature Werewolf
+PT:2/2
+A:AB$ Pump | Cost$ 3 G | NumAtt$ +4 | NumDef$ +4 | ActivationLimit$ 1
+T:Mode$ Phase | Phase$ Upkeep | WerewolfUntransformCondition$ True | TriggerZones$ Battlefield | Execute$ TrigTransform
+SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform

@@ -1,15 +1,9 @@
 Id:29282
-ColorIdentity:W
-OriginSet:G0c9f9aa4a8bf0371
-ManaCost:4 W W W
-Types:Legendary Creature Vampire Cleric
-PT:4/7
-K:Lifelink
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMakeCard
-SVar:TrigMakeCard:DB$ MakeCard | Conjure$ True | SpellbookCatalogIds$ 7956,17582,18121,17534 | Zone$ Hand | SubAbility$ DBEffect | RememberMade$ True
-SVar:DBEffect:DB$ Effect | RememberObjects$ Remembered | StaticAbilities$ Play | SubAbility$ DBCleanup | ExileOnMoved$ Exile
-SVar:Play:Mode$ Continuous | MayPlay$ True | MayPlayWithoutManaCost$ True | Affected$ Card.IsRemembered | AffectedZone$ Hand
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ X | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 404516535 | TokenOwner$ You | TokenPower$ X | TokenToughness$ X
-SVar:X:Count$LifeYouGainedThisTurn
+ColorIdentity:R
+OriginSet:G27146c70b74a1e72
+ManaCost:1 R
+Types:Creature Lizard
+PT:1/4
+T:Mode$ SpellCast | TriggerZones$ Battlefield | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ Player | Execute$ TrigDmg
+SVar:TrigDmg:DB$ DealDamage | Defined$ TriggeredActivator | NumDmg$ X
+SVar:X:Count$ThisTurnCast_Card.nonCreature+ControlledBy TriggeredActivator

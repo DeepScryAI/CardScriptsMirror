@@ -1,11 +1,9 @@
 Id:18611
-ColorIdentity:G
+ColorIdentity:U
 OriginSet:Gd7cbb6e7dea72fb5
-ManaCost:2 G
-Types:Creature Ooze
-PT:1/1
-S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self | ValidBlocker$ Creature.powerLE2
-R:Event$ Moved | ActiveZones$ Battlefield | Origin$ Battlefield | Destination$ Graveyard | ValidLKI$ Creature.OppCtrl | ReplaceWith$ Exile
-SVar:Exile:DB$ ChangeZone | Defined$ ReplacedCard | Origin$ Battlefield | Destination$ Exile | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ X | Defined$ Self
-SVar:X:ReplacedCardLKI$CardPower
+ManaCost:3 U U
+Types:Sorcery
+T:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigCopy
+SVar:TrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | Amount$ X | MayChooseTarget$ True
+SVar:X:Count$TotalCommanderCastFromCommandZone
+A:SP$ CopyPermanent | ValidTgts$ Artifact

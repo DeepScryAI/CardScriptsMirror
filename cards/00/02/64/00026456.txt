@@ -1,19 +1,9 @@
 Id:26456
-ColorIdentity:UR
-OriginSet:G06757f68e16377c2
-ManaCost:U
-Types:Creature Weird
-PT:1/3
-K:Defender
-A:AB$ SetState | Cost$ 3 RP | Defined$ Self | Mode$ Transform | SorcerySpeed$ True | AILogic$ Always
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:blue,red
-Types:Creature Phyrexian Weird
-PT:3/3
-T:Mode$ Transformed | ValidCard$ Card.Self | Execute$ TrigExile
-SVar:TrigExile:DB$ Dig | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | Duration$ UntilTheEndOfYourNextTurn | StaticAbilities$ Play | SubAbility$ DBCleanup | ForgetOnMoved$ Exile
-SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:G
+OriginSet:G74a73d701e7801b3
+ManaCost:G
+Types:Creature Phyrexian Insect
+PT:1/1
+K:Toxic:1
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigPump | TriggerZones$ Battlefield
+SVar:TrigPump:DB$ PumpAll | ValidCards$ Insect.YouCtrl | PumpZone$ Battlefield,Graveyard,Hand,Library | Duration$ Perpetual | KW$ Toxic:1

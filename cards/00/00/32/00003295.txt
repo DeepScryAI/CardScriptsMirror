@@ -1,7 +1,10 @@
 Id:3295
-ColorIdentity:W
+ColorIdentity:R
 OriginSet:G24ae8187eacbba52
-ManaCost:5 W
-Types:Creature Human Soldier Archer
+ManaCost:3 R R
+Types:Creature Trilobite Beast
 PT:3/3
-A:AB$ DealDamage | Cost$ T | ValidTgts$ Creature.attacking,Creature.blocking | NumDmg$ 3
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player.TriggeredDefendingPlayer | CombatDamage$ True | Execute$ TrigDmgBlockers
+SVar:TrigDmgBlockers:DB$ DamageAll | ValidCards$ Creature.blocking | NumDmg$ X
+SVar:X:Count$CardPower
+SVar:MustBeBlocked:True

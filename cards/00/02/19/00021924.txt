@@ -1,11 +1,11 @@
 Id:21924
-ColorIdentity:
-OriginSet:Gd784248bfdf9e1d7
-ManaCost:no cost
-Types:Land
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSac
-SVar:TrigSac:DB$ Sacrifice | UnlessCost$ 1 | UnlessPayer$ You
-A:AB$ Mana | Cost$ T | Produced$ Any
-SVar:NeedsToPlay:Land.untapped+YouCtrl
+ColorIdentity:W
+OriginSet:G6fa60d857e930f32
+ManaCost:2 W W W W
+Types:Sorcery
+S:Mode$ AlternativeCost | ValidSA$ Spell.Self | EffectZone$ All | Cost$ 2 W W
+A:SP$ Branch | BranchConditionSVar$ AltCostPaid | BranchConditionSVarCompare$ GE1 | TrueSubAbility$ OppChooses | FalseSubAbility$ DBDestroyAll
+SVar:OppChooses:DB$ ChoosePlayer | Defined$ You | Choices$ Player.Opponent | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | ChangeType$ Permanent.nonLand+ChosenCtrl | Chooser$ ChosenPlayer | DefinedPlayer$ ChosenPlayer | AILogic$ Always | ChangeNum$ 2 | Hidden$ True | Origin$ Battlefield | Destination$ Hand | SubAbility$ DBDestroyAll
+SVar:DBDestroyAll:DB$ DestroyAll | ValidCards$ Permanent.nonLand
+SVar:AltCostPaid:Count$AltCost.1.0

@@ -1,13 +1,12 @@
 Id:27772
-ColorIdentity:WU
-OriginSet:G30e8a5e111cffb44
-ManaCost:W U
-Types:Enchantment
-K:Vanishing:12
-T:Mode$ CounterRemovedOnce | ValidCard$ Card.Self | CounterType$ TIME | TriggerZones$ Battlefield | Execute$ TrigScry
-SVar:TrigScry:DB$ Scry | ScryNum$ 1 | SubAbility$ TrigGainLife
-SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 1 | SubAbility$ TrigExile
-SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | ConditionDefined$ Self | ConditionPresent$ Card.counters_EQ0_TIME | SubAbility$ DBImmediateTrigger
-SVar:DBImmediateTrigger:DB$ ImmediateTrigger | ConditionDefined$ Remembered | ConditionPresent$ Card.Self | Execute$ TrigExtraTurn | SubAbility$ DBCleanup
-SVar:TrigExtraTurn:DB$ AddTurn | Defined$ You | NumTurns$ 1
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:W
+OriginSet:Gd488b4ad788f0529
+ManaCost:3 W W
+Types:Legendary Creature Human Cleric Knight
+PT:5/5
+K:FirstStrike
+K:Lifelink
+T:Mode$ Phase | Phase$ Main2 | ValidPlayer$ You | CheckSVar$ X | TriggerZones$ Battlefield | Execute$ TrigSeek
+SVar:TrigSeek:DB$ Seek | Type$ Card.cmcEQY
+SVar:X:Count$LifeYouGainedThisTurn
+SVar:Y:Count$ValidLibrary Card.YouOwn+cmcLEX$GreatestCardManaCost

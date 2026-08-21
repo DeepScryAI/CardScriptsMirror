@@ -1,8 +1,10 @@
 Id:3249
-ColorIdentity:B
+ColorIdentity:R
 OriginSet:G24ae8187eacbba52
-ManaCost:2 B B
-Types:Creature Zombie
-PT:2/1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDiscard
-SVar:TrigDiscard:DB$ Discard | Defined$ Opponent | Mode$ TgtChoose
+ManaCost:3 R R
+Types:Enchantment
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ PsychicSlap | TriggerZones$ Battlefield
+SVar:PsychicSlap:DB$ DealDamage | ValidTgts$ Opponent | NumDmg$ X
+SVar:A:Count$ValidHand Card.YouOwn
+SVar:B:Count$ValidHand Card.TargetedPlayerOwn
+SVar:X:SVar$A/Minus.B

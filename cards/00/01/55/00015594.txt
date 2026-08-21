@@ -1,13 +1,9 @@
 Id:15594
-ColorIdentity:
+ColorIdentity:U
 OriginSet:Gec9609c94c5b1cdf
-ManaCost:10
-Types:Legendary Creature Eldrazi
-PT:10/10
-T:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigChange
-SVar:TrigChange:DB$ ChangeZone | ValidTgts$ Permanent | TargetMin$ 2 | TargetMax$ 2 | Origin$ Battlefield | Destination$ Exile
-K:Indestructible
-T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigExile
-SVar:TrigExile:DB$ Dig | Defined$ TriggeredDefendingPlayer | DestinationZone$ Exile | DigNum$ 20 | ChangeNum$ All
-SVar:PlayMain1:TRUE
-SVar:HasAttackEffect:TRUE
+ManaCost:4 U
+Types:Creature Eldrazi Processor
+PT:2/5
+K:Devoid
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone | OptionalDecider$ You
+SVar:TrigChangeZone:AB$ ChangeZone | Cost$ ExiledMoveToGrave<1/Card.OppOwn/card an opponent owns> | ValidTgts$ Instant.YouOwn,Sorcery.YouOwn | Origin$ Graveyard | Destination$ Hand

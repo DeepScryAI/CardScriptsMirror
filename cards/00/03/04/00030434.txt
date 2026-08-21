@@ -1,9 +1,9 @@
 Id:30434
-ColorIdentity:WB
+ColorIdentity:B
 OriginSet:G8b2ed00ac2a0ff47
-ManaCost:no cost
-Types:Land
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ LandTapped | ReplacementResult$ Updated
-SVar:LandTapped:DB$ Tap | Defined$ Self | ETB$ True | ConditionCheckSVar$ X | ConditionSVarCompare$ GT13
-SVar:X:PlayerCountPlayers$LowestLifeTotal
-A:AB$ Mana | Cost$ T | Produced$ Combo W B
+ManaCost:1 B
+Types:Creature Leech
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Enchantment.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigLoseLife
+T:Mode$ FullyUnlock | ValidCard$ Card.Room | ValidPlayer$ You | Secondary$ True | Execute$ TrigLoseLife | TriggerZones$ Battlefield
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 1

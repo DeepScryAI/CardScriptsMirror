@@ -1,9 +1,10 @@
 Id:6954
-ColorIdentity:
+ColorIdentity:B
 OriginSet:Gbbed67f0d6a15b16
-ManaCost:2
-Types:Artifact
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigCharm | TriggerZones$ Battlefield
-SVar:TrigCharm:DB$ Charm | Choices$ CounterP1P1,CounterCharge
-SVar:CounterP1P1:DB$ PutCounter | ValidTgts$ Creature.Artifact | CounterType$ P1P1 | CounterNum$ 1
-SVar:CounterCharge:DB$ PutCounter | ValidTgts$ Artifact.nonCreature | CounterType$ CHARGE | CounterNum$ 1
+ManaCost:2 B B
+Types:Enchantment
+S:Mode$ Continuous | Affected$ Creature | AddTrigger$ TrigEndlessDies | AddSVar$ EndlessReturn
+SVar:TrigEndlessDies:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | TriggerController$ TriggeredCardController | Execute$ TrigTgtOpp
+SVar:TrigTgtOpp:DB$ Pump | ValidTgts$ Opponent | IsCurse$ True | SubAbility$ DBDelayTrig
+SVar:DBDelayTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ EndlessReturn | RememberObjects$ TargetedPlayer & Self
+SVar:EndlessReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | Defined$ DelayTriggerRemembered | GainControl$ DelayTriggerRemembered

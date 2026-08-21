@@ -1,11 +1,8 @@
 Id:20342
-ColorIdentity:R
+ColorIdentity:W
 OriginSet:Gfa87e7bbc5a709eb
-ManaCost:2 R
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:Pump
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 3 | AddToughness$ 3
-S:Mode$ MustAttack | ValidCreature$ Creature.EnchantedBy | Secondary$ True
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.AttachedBy | Execute$ TrigDamage
-SVar:TrigDamage:DB$ DealDamage | Defined$ TriggeredCardController | NumDmg$ 3
+ManaCost:2 W W
+Types:Creature Human Soldier
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSearch | OptionalDecider$ You
+SVar:TrigSearch:DB$ ChangeZone | Origin$ Library | OriginAlternative$ Graveyard | Destination$ Hand | ChangeType$ Card.YouOwn+catalogId20344 | ChangeNum$ 1 | Optional$ True

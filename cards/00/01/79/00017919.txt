@@ -1,6 +1,9 @@
 Id:17919
-ColorIdentity:R
-OriginSet:G21ed5bd3b1924169
-ManaCost:2 R
+ColorIdentity:U
+OriginSet:G84be946b27d900a1
+ManaCost:2 U
 Types:Instant
-A:SP$ DealDamage | ValidTgts$ Creature | NumDmg$ 4
+A:SP$ ChangeZone | ValidTgts$ Permanent.nonLand | Origin$ Battlefield | SubAbility$ DBEffect | Destination$ Exile
+SVar:DBEffect:DB$ Effect | RememberObjects$ ParentTarget | EffectOwner$ TargetedOwner | StaticAbilities$ STPlay | Duration$ Permanent | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | MayPlayWithoutManaCost$ True | Affected$ Card.IsRemembered+nonLand | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

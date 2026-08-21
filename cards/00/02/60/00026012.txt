@@ -1,7 +1,12 @@
 Id:26012
-ColorIdentity:G
-OriginSet:G2192e8955d5e1ad1
-ManaCost:1 G
-Types:Creature Phyrexian Elf Scout
-PT:3/1
-K:Toxic:2
+ColorIdentity:R
+OriginSet:Gb879a1706584aeee
+ManaCost:3 R
+Types:Creature Goblin Wizard
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ Dig | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ STPlay | SubAbility$ DBCleanup | ExileOnMoved$ Exile | Duration$ UntilHostLeavesPlay
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile | CheckSVar$ X
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$CreaturesAttackedThisTurn Creature.EffectSource

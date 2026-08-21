@@ -1,7 +1,10 @@
 Id:32862
-ColorIdentity:
-OriginSet:G22ed5d6f3707b461
-ManaCost:5
-Types:Instant Lesson
-A:SP$ ChangeZone | ValidTgts$ Artifact,Creature,Enchantment | Origin$ Battlefield | Destination$ Exile | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenScriptIds$ 2822783804 | TokenOwner$ TargetedController
+ColorIdentity:R
+OriginSet:G36e97d2da170e675
+ManaCost:1 R
+Types:Instant
+A:SP$ Pump | ValidTgts$ Creature.YouCtrl | AILogic$ Fight | SubAbility$ DBFight
+SVar:DBFight:DB$ Fight | Defined$ ParentTarget | ValidTgts$ Creature.OppCtrl | ExcessSVar$ Excess | ExcessSVarCondition$ Creature.targetedBy+OppCtrl | SubAbility$ DBMana
+SVar:DBMana:DB$ Mana | Produced$ R | Amount$ Excess | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ Unspent
+SVar:Unspent:Mode$ UnspentMana | ValidPlayer$ You | ManaType$ Red

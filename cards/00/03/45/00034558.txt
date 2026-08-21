@@ -1,10 +1,11 @@
 Id:34558
-ColorIdentity:G
-OriginSet:G11c0621ce29fa608
-ManaCost:3 G
-Types:Legendary Creature Gamma Hero
-PT:4/4
-K:Reach
-K:Trample
-A:AB$ Destroy | Cost$ 4 G G | ValidTgts$ Artifact,Enchantment | TargetMin$ 0 | TargetMax$ 1 | PowerUp$ True | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+ColorIdentity:
+OriginSet:Gcb93bbfc68a40806
+ManaCost:4
+Types:Artifact Equipment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | NumCards$ X
+S:Mode$ Continuous | Affected$ Card.EquippedBy | AddPower$ Y | AddToughness$ Y
+K:Equip:3
+SVar:X:Count$Valid Equipment.YouCtrl
+SVar:Y:Count$Valid Equipment.YouCtrl/Twice

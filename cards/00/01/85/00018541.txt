@@ -1,8 +1,10 @@
 Id:18541
-ColorIdentity:G
+ColorIdentity:W
 OriginSet:G3b823183c96b2df3
-ManaCost:1 G
-Types:Creature Human Berserker
-PT:2/2
-A:AB$ Pump | Cost$ 5 G | Defined$ Self | NumAtt$ +3 | NumDef$ +3 | SubAbility$ DBAnimate | ActivationLimit$ 1
-SVar:DBAnimate:DB$ Animate | Defined$ Self | Types$ Bear,Beserker | RemoveCreatureTypes$ True
+ManaCost:1 W W
+Types:Creature Horse
+PT:2/3
+S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self | ValidBlocker$ Creature.Red
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ DBGainLife
+T:Mode$ BecomesTarget | ValidTarget$ Card.Self | ValidSource$ SpellAbility.OppCtrl | TriggerZones$ Battlefield | Execute$ DBGainLife | Secondary$ True
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 3

@@ -1,10 +1,9 @@
 Id:24261
-ColorIdentity:W
+ColorIdentity:R
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:2 W
-Types:Legendary Enchantment Background
-S:Mode$ Continuous | Affected$ Creature.IsCommander+YouOwn | AddTrigger$ EndStep
-SVar:EndStep:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigBounce
-SVar:TrigBounce:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | ValidTgts$ Creature.YouCtrl+tapped | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBReturn
-SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ All | Destination$ Battlefield | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:3 R
+Types:Creature Human Shaman Sorcerer
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigInitiative
+SVar:TrigInitiative:DB$ TakeInitiative
+A:AB$ Goad | Cost$ 1 R Sac<1/Artifact;Creature/artifact or creature> | ValidTgts$ Creature

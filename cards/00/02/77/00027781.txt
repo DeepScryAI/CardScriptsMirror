@@ -1,11 +1,13 @@
 Id:27781
-ColorIdentity:
-OriginSet:G30e8a5e111cffb44
-ManaCost:3
-Types:Artifact
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ ETBTapped | ReplacementResult$ Updated
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True | SubAbility$ DBAddCounter
-SVar:DBAddCounter:DB$ PutCounter | Defined$ Self | ETB$ True | CounterType$ TIME | CounterNum$ 1
-A:AB$ Mana | Cost$ T | Produced$ C | Amount$ X
-A:AB$ TimeTravel | Cost$ 4 T | SorcerySpeed$ True
-SVar:X:Count$CardCounters.Time
+ColorIdentity:UB
+OriginSet:Gd488b4ad788f0529
+ManaCost:2 U B
+Types:Creature Faerie Rogue
+PT:1/4
+K:Flying
+K:Deathtouch
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | MinCharmNum$ 0 | Choices$ Exchange,Switch
+SVar:Exchange:DB$ ExchangePower | ValidTgts$ Creature | TargetMin$ 2 | TargetMax$ 2 | TargetUnique$ True | BasePower$ True | Duration$ Perpetual
+SVar:Switch:DB$ Animate | Duration$ Perpetual | Power$ 4 | Toughness$ 1
+SVar:NeedsToPlay:Creature.OppCtrl+powerGE4

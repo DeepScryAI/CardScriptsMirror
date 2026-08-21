@@ -1,8 +1,13 @@
 Id:13266
-ColorIdentity:WB
+ColorIdentity:W
 OriginSet:Gfdc478e04211a499
-ManaCost:1 WB WB
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:Pump
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 1 | AddToughness$ 1 | AddKeyword$ Lifelink & Flying
+ManaCost:2 W W
+Types:Legendary Planeswalker Gideon
+Loyalty:4
+A:AB$ PutCounter | Cost$ AddCounter<1/LOYALTY> | Defined$ Self | CounterType$ LOYALTY | CounterNum$ X | ValidTgts$ Opponent | Planeswalker$ True
+A:AB$ Animate | Cost$ AddCounter<0/LOYALTY> | Defined$ Self | Power$ GideonPT | Toughness$ GideonPT | Keywords$ Indestructible | Types$ Creature,Human,Soldier | SubAbility$ GideonPrevent | Planeswalker$ True
+SVar:GideonPrevent:DB$ Effect | ReplacementEffects$ RPrevent | Duration$ UntilHostLeavesPlayOrEOT
+SVar:RPrevent:Event$ DamageDone | Prevent$ True | ValidTarget$ Card.EffectSource
+A:AB$ ChangeZoneAll | Cost$ SubCounter<15/LOYALTY> | ChangeType$ Permanent.Other | Origin$ Battlefield | Destination$ Exile | Planeswalker$ True | Ultimate$ True
+SVar:X:TargetedPlayer$CreaturesInPlay
+SVar:GideonPT:Count$CardCounters.LOYALTY

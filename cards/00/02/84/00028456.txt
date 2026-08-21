@@ -1,8 +1,14 @@
 Id:28456
-ColorIdentity:U
-OriginSet:G7ee0e82a2424d636
-ManaCost:1 U
-Types:Instant
-A:SP$ Investigate | SubAbility$ DBDebuff
-SVar:DBDebuff:DB$ PumpAll | ValidCards$ Creature.OppCtrl | NumAtt$ -2 | SubAbility$ DBAlterAttribute
-SVar:DBAlterAttribute:DB$ AlterAttribute | Defined$ Valid Creature.OppCtrl+IsSuspected | Attributes$ Suspected | Activate$ False
+ColorIdentity:BRG
+OriginSet:G3a8b4b9d4649b357
+ManaCost:1 B R G
+Types:Legendary Creature Cat Avatar
+PT:5/4
+T:Mode$ ChangesZone | Origin$ Any | OptionalDecider$ You | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
+T:Mode$ Attacks | ValidCard$ Card.Self | OptionalDecider$ You | Execute$ TrigChangeZone | Secondary$ True
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True | Tapped$ True | Hidden$ True | ChangeType$ Land
+A:AB$ GainLife | Cost$ G Discard<1/Land> | LifeAmount$ 3
+A:AB$ Draw | Cost$ R Discard<1/Land>
+A:AB$ Pump | Cost$ B Discard<1/Land> | KW$ Indestructible | SubAbility$ DBTap
+SVar:DBTap:DB$ Tap | Defined$ Self
+SVar:HasAttackEffect:TRUE

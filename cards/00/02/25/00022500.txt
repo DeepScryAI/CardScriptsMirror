@@ -1,15 +1,14 @@
 Id:22500
-ColorIdentity:R
+ColorIdentity:B
 OriginSet:G9f95a41d532c0550
-ManaCost:1 R R
-Types:Creature Skeleton
-PT:3/1
-K:Flying
-S:Mode$ CantBlock | ValidCard$ Card.Self
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Exile | RememberChanged$ True | SubAbility$ DBExile
-SVar:DBExile:DB$ Dig | DigNum$ 1 | ConditionDefined$ Remembered | ConditionPresent$ Card.Self | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ MayPlay | Duration$ UntilTheEndOfYourNextTurn | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
-SVar:MayPlay:Mode$ Continuous | Affected$ Card.IsRemembered | MayPlay$ True | MayPlayLimit$ 1 | AffectedZone$ Exile
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:SacMe:3
+ManaCost:2 B
+Types:Legendary Creature Zombie Wizard
+PT:5/5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | CheckSVar$ X | SVarCompare$ LT1 | Execute$ TrigBounce
+SVar:TrigBounce:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | SubAbility$ DBVenture
+SVar:DBVenture:DB$ Venture
+SVar:X:DungeonsCompleted$Valid Card.catalogId22756
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigRepeat
+SVar:TrigRepeat:DB$ RepeatEach | RepeatPlayers$ Opponent | RepeatSubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 353162950 | UnlessCost$ Sac<1/Creature> | UnlessPayer$ Player.IsRemembered
+SVar:HasAttackEffect:TRUE

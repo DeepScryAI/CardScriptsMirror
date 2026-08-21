@@ -1,21 +1,10 @@
 Id:31742
 ColorIdentity:G
-OriginSet:G7ab4f62d323b0ca7
+OriginSet:G530ea9d733a13e9d
 ManaCost:1 G
-Types:Sorcery
-A:SP$ Surveil | Amount$ 2 | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | LifeAmount$ 2 | SubAbility$ DBExile
-SVar:DBExile:DB$ ChangeZone | Origin$ Stack | Destination$ Exile | RememberChanged$ True | ConditionDefined$ Self | ConditionPresent$ Card.wasCastFromGraveyard | SubAbility$ DBReturn
-SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | Transformed$ True | WithCountersType$ FINALITY | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-K:Flashback:3 G
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:green
-Types:Enchantment Creature Saga Elemental
-PT:4/4
-K:Chapter:3:DBDig,DBMana,DBPumpAll
-SVar:DBDig:DB$ Dig | DigNum$ 1 | Reveal$ True | ChangeNum$ All | ChangeValid$ Permanent | DestinationZone$ Hand | LibraryPosition2$ 0
-SVar:DBMana:DB$ Mana | Produced$ G G
-SVar:DBPumpAll:DB$ PumpAll | ValidCards$ Creature.Other+YouCtrl | NumAtt$ +2 | NumDef$ +2 | KW$ Trample
+Types:Legendary Creature Human Shaman
+PT:1/3
+K:Reach
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | IsPresent$ Creature.YouCtrl+powerGE7 | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw
+A:AB$ Mana | Cost$ T | Produced$ Any

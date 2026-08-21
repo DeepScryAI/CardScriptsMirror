@@ -1,10 +1,11 @@
 Id:7786
-ColorIdentity:R
+ColorIdentity:B
 OriginSet:G3fddc6426f419054
-ManaCost:2 R R
-Types:Legendary Creature Kirin Spirit
+ManaCost:1 B B
+Types:Creature Ogre Warrior
 PT:3/3
-K:Flying
-T:Mode$ SpellCast | ValidCard$ Spirit,Arcane | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigChange
-SVar:TrigChange:DB$ GainControl | ValidTgts$ Creature.cmcEQX | LoseControl$ EOT | NewController$ You
-SVar:X:TriggeredSpellAbility$CardManaCostLKI
+A:AB$ Regenerate | Cost$ 1 B
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigBounce | TriggerZones$ Battlefield
+SVar:TrigBounce:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Mandatory$ True | Hidden$ True | ChangeType$ Creature.Black+YouCtrl
+SVar:NeedsToPlayVar:Z GE2
+SVar:Z:Count$Valid Creature.Black+YouCtrl

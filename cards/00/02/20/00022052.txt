@@ -1,8 +1,10 @@
 Id:22052
-ColorIdentity:WR
+ColorIdentity:R
 OriginSet:Gd784248bfdf9e1d7
-ManaCost:R W
-Types:Sorcery
-A:SP$ Charm | Choices$ DBDmg,DBDestroy
-SVar:DBDmg:DB$ DealDamage | ValidTgts$ Creature,Planeswalker | NumDmg$ 3
-SVar:DBDestroy:DB$ Destroy | ValidTgts$ Artifact,Enchantment
+ManaCost:1 R
+Types:Instant
+A:SP$ Effect | Triggers$ CreatureETB | SubAbility$ DBLearn
+SVar:CreatureETB:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.YouCtrl | TriggerZones$ Command | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ TriggeredCardLKICopy | CounterType$ P1P1 | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ TriggeredCard | KW$ Haste
+SVar:DBLearn:DB$ Learn

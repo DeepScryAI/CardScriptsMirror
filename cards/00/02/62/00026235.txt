@@ -1,14 +1,9 @@
 Id:26235
-ColorIdentity:WUBRG
-OriginSet:G997e3b19a1e94e85
-ManaCost:X G G
-Types:Creature Phyrexian Bringer
-PT:2/2
-S:Mode$ AlternativeCost | ValidSA$ Spell.Self | EffectZone$ All | Cost$ W U B R G
-K:etbCounter:P1P1:Y:no condition
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigChange
-SVar:TrigChange:DB$ ChangeZone | Destination$ Library | Shuffle$ True | Defined$ TriggeredNewCardLKICopy
-SVar:X:Count$xPaid
-SVar:AltCostPaid:Count$AltCost.5.X
-SVar:Y:Count$Compare AltCostPaid LT5.AltCostPaid.Z
-SVar:Z:SVar$AltCostPaid/Twice
+ColorIdentity:BR
+OriginSet:G2192e8955d5e1ad1
+ManaCost:2 R B
+Types:Legendary Creature Phyrexian Beast
+PT:4/4
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | Execute$ TrigSac | TriggerZones$ Battlefield
+SVar:TrigSac:AB$ DigUntil | Cost$ Sac<1/Creature.StrictlyOther/another creature> | Defined$ You | Valid$ Card.Creature+nonLegendary+cmcLTX | FoundDestination$ Battlefield | RevealedDestination$ Library | RevealRandomOrder$ True
+SVar:X:Sacrificed$CardManaCost

@@ -1,9 +1,11 @@
 Id:32245
-ColorIdentity:U
+ColorIdentity:
 OriginSet:G9946f072b5556073
-ManaCost:1 U
-Types:Artifact Creature Robot Soldier
-PT:1/1
-K:Flying
-A:AB$ Mana | Cost$ T | Produced$ U | RestrictValid$ Spell.Artifact
-A:AB$ Mana | Cost$ T | Produced$ U U | RestrictValid$ Activated.Artifact
+ManaCost:5
+Types:Legendary Artifact Spacecraft
+PT:20/20
+K:Station:20
+S:Mode$ Continuous | Affected$ Card.Self+counters_GE10_CHARGE | AddTrigger$ AttackTrig
+S:Mode$ Continuous | Affected$ Card.Self+counters_GE20_CHARGE | AddType$ Creature | AddKeyword$ Flying
+SVar:AttackTrig:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigDamage | TriggerZones$ Battlefield
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Creature,Planeswalker | TargetMin$ 0 | TargetMax$ 1 | NumDmg$ 100

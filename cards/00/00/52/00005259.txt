@@ -1,10 +1,10 @@
 Id:5259
-ColorIdentity:RG
+ColorIdentity:B
 OriginSet:Gfdac7ecc1e8a7d21
-ManaCost:2 R G
-Types:Sorcery
-A:SP$ Pump | ValidTgts$ Artifact | SubAbility$ DestroyCreature | AILogic$ Destroy | IsCurse$ True
-SVar:DestroyCreature:DB$ Pump | ValidTgts$ Creature | AILogic$ Destroy | IsCurse$ True | SubAbility$ DestroyEnch
-SVar:DestroyEnch:DB$ Pump | ValidTgts$ Enchantment | AILogic$ Destroy | IsCurse$ True | SubAbility$ DestroyLand
-SVar:DestroyLand:DB$ Pump | ValidTgts$ Land | AILogic$ Destroy | IsCurse$ True | SubAbility$ DBDestroy
-SVar:DBDestroy:DB$ Destroy | Defined$ Targeted
+ManaCost:1 B B
+Types:Enchantment
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Hidden$ True | Mandatory$ True | ChangeType$ Card | ChangeNum$ 1 | DefinedPlayer$ You | Origin$ Graveyard | Destination$ Exile
+S:Mode$ Continuous | Affected$ Card.Self | AddTrigger$ TrigDies | AddAbility$ TrigReturn | Condition$ Threshold
+SVar:TrigDies:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.!token+YouOwn | Execute$ TrigReturn | TriggerZones$ Battlefield
+SVar:TrigReturn:AB$ ChangeZone | Cost$ 1 | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Hand

@@ -1,13 +1,18 @@
 Id:25932
-ColorIdentity:U
-OriginSet:G880fc7f6ed36df4d
-ManaCost:6
-Types:Artifact Creature Construct
-PT:6/6
-K:Prototype:3 U:3:3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZone | ValidTgts$ Creature.OppCtrl+powerLTTriggeredCard$CardPower | Origin$ Battlefield | Destination$ Hand | SubAbility$ DBConjure
-SVar:DBConjure:DB$ MakeCard | Conjure$ True | ConditionDefined$ Targeted | ConditionPresent$ Card.!token | DefinedName$ Targeted | Zone$ Hand | RememberMade$ True | SubAbility$ DBAnimate
-SVar:DBAnimate:DB$ Animate | Defined$ Remembered | staticAbilities$ SpendAnyMana | Duration$ Perpetual | SubAbility$ DBCleanup
-SVar:SpendAnyMana:Mode$ ManaConvert | EffectZone$ Stack | ValidPlayer$ You | ValidCard$ Card.Self | ValidSA$ Spell | ManaConversion$ AnyType->AnyColor
+ColorIdentity:R
+OriginSet:G06ccef4324c14725
+ManaCost:2 R R
+Types:Enchantment
+T:Mode$ Phase | Phase$ Upkeep | TriggerZones$ Battlefield | ValidPlayer$ You | Execute$ TrigExile
+SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffectYou
+SVar:DBEffectYou:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ Play | SubAbility$ DBCleanup | ExileOnMoved$ Exile
+SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | CheckSVar$ X | SVarCompare$ EQ0 | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenTapped$ True | TokenScriptIds$ 2975106104
+T:Mode$ LandPlayed | Origin$ Exile | ValidCard$ Land.YouCtrl | Execute$ StoreVar | Static$ True
+SVar:StoreVar:DB$ StoreSVar | SVar$ LandsPlayedFromExile | Type$ Number | Expression$ 1
+T:Mode$ Phase | Phase$ Cleanup | Execute$ TrigReset | Static$ True
+SVar:TrigReset:DB$ StoreSVar | SVar$ LandsPlayedFromExile | Type$ Number | Expression$ 0
+SVar:X:Count$ThisTurnCast_Card.YouCtrl+wasCastFromExile/Plus.LandsPlayedFromExile
+SVar:LandsPlayedFromExile:Number$0

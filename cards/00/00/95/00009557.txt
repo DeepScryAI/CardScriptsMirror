@@ -1,11 +1,11 @@
 Id:9557
-ColorIdentity:B
+ColorIdentity:U
 OriginSet:G49bcc8b9b86b628d
-ManaCost:4 B
-Types:Creature Faerie Wizard
-PT:3/2
+ManaCost:3 U
+Types:Creature Elemental
+PT:2/3
 K:Flying
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigKinship | TriggerZones$ Battlefield | OptionalDecider$ You
-SVar:TrigKinship:DB$ PeekAndReveal | PeekAmount$ 1 | RevealValid$ Card.sharesCreatureTypeWith | RevealOptional$ True | RememberRevealed$ True | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | Defined$ Opponent | LifeAmount$ 2 | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ1 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+K:Evoke:3 U
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigBounce
+SVar:TrigBounce:DB$ ChangeZone | ValidTgts$ Permanent.nonLand | Origin$ Battlefield | Destination$ Library | LibraryPosition$ 0
+SVar:NeedsToPlayEvoked:Card.nonLand+OppCtrl

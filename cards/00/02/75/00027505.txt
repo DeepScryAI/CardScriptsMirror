@@ -1,9 +1,17 @@
 Id:27505
-ColorIdentity:G
-OriginSet:G7579344e30f8be85
-ManaCost:2 G
-Types:Sorcery
-A:SP$ Charm | Choices$ DBSearch,DBHuman,DBFood | CharmNum$ 2
-SVar:DBSearch:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Land.Basic | Tapped$ True | ChangeNum$ 1
-SVar:DBHuman:DB$ Token | TokenScriptIds$ 638238902 | TokenOwner$ You
-SVar:DBFood:DB$ Token | TokenScriptIds$ 134855612 | TokenOwner$ You
+ColorIdentity:WU
+OriginSet:G4e034c55e7afd8b4
+ManaCost:2 U U
+Types:Creature Faerie Wizard
+PT:4/4
+K:Flying
+K:Vigilance
+K:Ward:1
+AlternateMode:Adventure
+ALTERNATE
+ManaCost:1 W
+Types:Instant Adventure
+A:SP$ ChangeZone | ValidTgts$ Creature.!token | Origin$ Battlefield | Destination$ Exile | SubAbility$ DelTrig | RememberChanged$ True
+SVar:DelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ TrigReturn | RememberObjects$ Remembered | SubAbility$ DBCleanup
+SVar:TrigReturn:DB$ ChangeZone | Defined$ DelayTriggerRememberedLKI | Origin$ Exile | Destination$ Battlefield
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

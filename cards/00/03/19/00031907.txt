@@ -1,12 +1,20 @@
 Id:31907
-ColorIdentity:U
+ColorIdentity:BG
 OriginSet:G7ab4f62d323b0ca7
-ManaCost:3 U U
-Types:Enchantment Creature Saga Elemental
-PT:4/5
-K:Chapter:3:DBTap,DBTap,DBDraw
-SVar:DBTap:DB$ Tap | ValidTgts$ Creature.OppCtrl | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | Defined$ Targeted | CounterType$ Stun | CounterNum$ 1
-SVar:DBDraw:DB$ Draw | NumCards$ X
-SVar:X:Count$Valid Creature.tapped+OppCtrl
-SVar:PlayMain1:TRUE
+ManaCost:1 B G
+Types:Legendary Creature Spirit Warlock
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGainLife
+SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 3
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | CheckSVar$ X | SVarCompare$ GE6 | TriggerZones$ Battlefield | Execute$ TrigTransform
+SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform
+SVar:X:Count$ValidGraveyard Permanent.YouOwn
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:black,green
+Types:Legendary Creature Spirit Avatar
+PT:*/3
+K:Trample
+S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X
+SVar:X:Count$ValidGraveyard Permanent.YouOwn

@@ -1,11 +1,10 @@
 Id:29411
-ColorIdentity:R
-OriginSet:Gac6359c222afbd4f
-ManaCost:1 C R
-Types:Creature Eldrazi
-PT:3/3
-K:Devoid
+ColorIdentity:G
+OriginSet:G0c9f9aa4a8bf0371
+ManaCost:3 G G
+Types:Creature Plant Druid
+PT:5/5
 K:Trample
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.YouCtrl | NumAtt$ +X | KW$ Haste
-SVar:X:Count$Valid Eldrazi.YouCtrl
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigAnimate
+SVar:TrigAnimate:DB$ AnimateAll | ValidCards$ Card.nonLand+YouOwn | Zone$ Hand | staticAbilities$ ReduceCost | Duration$ Perpetual
+SVar:ReduceCost:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ 1 | EffectZone$ All

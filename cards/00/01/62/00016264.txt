@@ -1,9 +1,17 @@
 Id:16264
-ColorIdentity:G
+ColorIdentity:R
 OriginSet:G70d19654882197c9
-ManaCost:3 G G
-Types:Creature Elk
-PT:4/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigFight | OptionalDecider$ You
-SVar:TrigFight:DB$ Fight | Defined$ TriggeredCardLKICopy | ValidTgts$ Creature.YouDontCtrl
+ManaCost:2 R R
+Types:Creature Werewolf Horror
+PT:3/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDealDamage
+SVar:TrigDealDamage:DB$ DealDamage | TargetMin$ 0 | TargetMax$ 2 | ValidTgts$ Creature | NumDmg$ 1
+A:AB$ SetState | Cost$ 4 R R | Defined$ Self | Mode$ Transform
 SVar:PlayMain1:TRUE
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Types:Creature Eldrazi Werewolf
+PT:6/4
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDealDamage
+SVar:TrigDealDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 2

@@ -1,13 +1,7 @@
 Id:22859
-ColorIdentity:WU
+ColorIdentity:R
 OriginSet:Gf78628ad511eefec
-ManaCost:W U
-Types:Sorcery
-A:SP$ ChangeZone | ValidTgts$ Creature.nonLegendary | Origin$ Battlefield | Destination$ Exile | RememberTargets$ True | SubAbility$ DBReturn
-SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ All | Destination$ Battlefield | SubAbility$ DBBranch
-SVar:DBBranch:DB$ Branch | BranchConditionSVar$ X | TrueSubAbility$ PutCounter | FalseSubAbility$ Tap
-SVar:PutCounter:DB$ PutCounter | Defined$ Remembered | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBCleanup
-SVar:Tap:DB$ Tap | Defined$ Remembered | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Remembered$Valid Creature.YouCtrl
-K:Flashback:1 W U
+ManaCost:4 R
+Types:Instant
+A:SP$ DealDamage | ValidTgts$ Creature | NumDmg$ 5 | ReplaceDyingDefined$ Targeted | SubAbility$ DBDealDamage
+SVar:DBDealDamage:DB$ DealDamage | NumDmg$ 2 | Defined$ TargetedController

@@ -1,13 +1,9 @@
 Id:18921
 ColorIdentity:B
 OriginSet:G586a4ae96288ce18
-ManaCost:2 B B
-Types:Creature Demon
-PT:4/4
-K:Spectacle:1 B B
-K:Flying
-K:Trample
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDmg
-SVar:TrigDmg:DB$ DealDamage | Defined$ Player | NumDmg$ 1 | SubAbility$ DBCounter
-SVar:DBCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | ConditionCheckSVar$ X | ConditionSVarCompare$ LE10
-SVar:X:Count$YourLifeTotal
+ManaCost:B
+Types:Enchantment
+T:Mode$ PayLife | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ BLOOD | CounterNum$ X
+SVar:X:TriggerCount$LifeAmount
+A:AB$ Destroy | Cost$ 1 B SubCounter<4/BLOOD> | ValidTgts$ Creature

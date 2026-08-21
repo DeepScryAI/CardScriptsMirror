@@ -1,8 +1,10 @@
 Id:11509
 ColorIdentity:W
 OriginSet:Gc046eafa1d269dd1
-ManaCost:1 W
-Types:Creature Human Soldier
-PT:1/1
-S:Mode$ Continuous | Affected$ Card.Self | AddPower$ 2 | AddToughness$ 2 | AddKeyword$ Flying | Condition$ Metalcraft
-SVar:BuffedBy:Artifact
+ManaCost:3
+Types:Artifact Creature Cleric
+PT:2/2
+A:AB$ ChooseSource | Cost$ W Sac<1/CARDNAME> | Choices$ Card,Emblem | AILogic$ NeedsPrevention | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | ReplacementEffects$ RPreventNextFromSource | SubAbility$ DBCleanup | ConditionDefined$ ChosenCard | ConditionPresent$ Card,Emblem
+SVar:RPreventNextFromSource:Event$ DamageDone | ValidSource$ Card.ChosenCardStrict,Emblem.ChosenCard | ValidTarget$ You | Prevent$ True
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True

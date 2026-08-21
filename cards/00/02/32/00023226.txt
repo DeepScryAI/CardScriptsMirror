@@ -1,11 +1,21 @@
 Id:23226
-ColorIdentity:G
+ColorIdentity:B
 OriginSet:G6e75ff4f143a3dc3
-ManaCost:4 G
-Types:Creature Insect Horror
-PT:2/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill
-SVar:TrigMill:DB$ Mill | Defined$ You | NumCards$ 3 | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ X
-SVar:X:Count$ValidGraveyard Creature.YouCtrl
-SVar:NeedsToPlayVar:X GE3
+ManaCost:3 B
+Types:Creature Vampire Soldier
+PT:3/3
+A:AB$ Pump | Cost$ 1 B Discard<1/Card> | Defined$ Self | KW$ Indestructible | SubAbility$ DBTap
+SVar:DBTap:DB$ Tap | Defined$ Self | SubAbility$ DBTransform
+SVar:DBTransform:DB$ SetState | Defined$ Self | Mode$ Transform | ConditionPresent$ Creature.YouOwn | ConditionCompare$ GE4 | ConditionZone$ Graveyard
+SVar:AIPreference:DiscardCost$Creature
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:black
+Types:Creature Vampire Knight
+PT:*/*
+S:Mode$ Continuous | Affected$ Card.Self | CharacteristicDefining$ True | SetPower$ X | SetToughness$ X
+SVar:X:Count$ValidGraveyard Creature.YouOwn
+A:AB$ Pump | Cost$ 1 B Discard<1/Card> | Defined$ Self | KW$ Indestructible | SubAbility$ DBTap
+SVar:DBTap:DB$ Tap | Defined$ Self
+SVar:AIPreference:DiscardCost$Creature

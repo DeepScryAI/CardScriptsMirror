@@ -1,7 +1,14 @@
 Id:7778
 ColorIdentity:U
 OriginSet:G3fddc6426f419054
-ManaCost:3 U
-Types:Instant Arcane
-K:Splice:Arcane:3 U
-A:SP$ ExchangeControl | ValidTgts$ Land | TargetMin$ 2 | TargetMax$ 2
+ManaCost:U U
+Types:Creature Shapeshifter Spirit
+PT:1/1
+T:Mode$ AttackerBlockedByCreature | ValidCard$ Creature | ValidBlocker$ Card.Self | Execute$ TrigAnimateBlocker | TriggerZones$ Battlefield
+T:Mode$ AttackerBlockedByCreature | ValidCard$ Card.Self | ValidBlocker$ Creature | Execute$ TrigAnimateAttacker | TriggerZones$ Battlefield | Secondary$ True
+SVar:TrigAnimateBlocker:DB$ Animate | Power$ W | Toughness$ X
+SVar:TrigAnimateAttacker:DB$ Animate | Power$ Y | Toughness$ Z
+SVar:W:TriggeredAttacker$CardPower
+SVar:X:TriggeredAttacker$CardToughness
+SVar:Y:TriggeredBlocker$CardPower
+SVar:Z:TriggeredBlocker$CardToughness

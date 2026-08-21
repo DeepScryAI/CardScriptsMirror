@@ -1,11 +1,13 @@
 Id:26025
-ColorIdentity:RG
-OriginSet:G2192e8955d5e1ad1
-ManaCost:4 R G
-Types:Creature Phyrexian Warrior
-PT:5/5
-K:Vigilance
-S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ X | EffectZone$ All
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDamage
-SVar:TrigDamage:DB$ DamageAll | ValidCards$ Creature.OppCtrl | NumDmg$ 1
-SVar:X:Count$Valid Permanent.YouCtrl+counters_GE1_OIL
+ColorIdentity:UR
+OriginSet:Gb879a1706584aeee
+ManaCost:4 R
+Types:Legendary Creature Goblin Wizard
+PT:4/5
+K:Flying
+T:Mode$ SpellCast | ValidCard$ Card.!wasCastFromYourHand | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigCopy
+SVar:TrigCopy:AB$ CopySpellAbility | Cost$ 1 UR | Defined$ TriggeredSpellAbility | MayChooseTarget$ True | RememberNewCard$ True | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Remembered | ConditionDefined$ Remembered | ConditionPresent$ Permanent | Keywords$ Haste | Duration$ Permanent | Triggers$ EOTSac | SubAbility$ DBCleanup
+SVar:EOTSac:Mode$ Phase | Phase$ End of Turn | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

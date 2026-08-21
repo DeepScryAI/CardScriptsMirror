@@ -2,8 +2,8 @@ Id:11363
 ColorIdentity:
 OriginSet:G84adc137b751e29e
 ManaCost:no cost
-Types:Scheme
-T:Mode$ SetInMotion | ValidCard$ Card.Self | Execute$ MyWish | TriggerZones$ Command
-SVar:MyWish:DB$ RevealHand | Defined$ Player.Opponent | RememberRevealed$ True | SubAbility$ MyPleasure
-SVar:MyPleasure:DB$ Play | Valid$ Card.nonCreature+nonLand+IsRemembered | WithoutManaCost$ True | Optional$ True | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+Types:Ongoing Scheme
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Command | Execute$ TrigNecromancy | OptionalDecider$ You
+SVar:TrigNecromancy:DB$ ChangeZone | ValidTgts$ Creature.OppCtrl | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True | RememberChanged$ True
+T:Mode$ ChangesZone | ValidCard$ Creature.IsRemembered | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigAbandon | TriggerZones$ Command
+SVar:TrigAbandon:DB$ Abandon

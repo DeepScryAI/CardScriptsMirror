@@ -1,8 +1,12 @@
 Id:21994
-ColorIdentity:
-OriginSet:Gd784248bfdf9e1d7
-ManaCost:5
-Types:Sorcery Lesson
-A:SP$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Permanent.nonLand | RememberLKI$ True | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | Defined$ RememberedController | NumCards$ 1 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:BG
+OriginSet:G6fa60d857e930f32
+ManaCost:B G
+Types:Sorcery
+A:SP$ Charm | CharmNum$ 2 | Choices$ DBMill,DBDestroy,DBPump,DBLoseLife
+SVar:DBMill:DB$ Mill | NumCards$ 3 | ValidTgts$ Player | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | Hidden$ True | Mandatory$ True | ChangeType$ Land.YouOwn
+SVar:DBDestroy:DB$ Destroy | ValidTgts$ Permanent.nonCreature+nonLand+cmcLE2
+SVar:DBPump:DB$ Pump | ValidTgts$ Creature | NumAtt$ -3 | NumDef$ -1
+SVar:DBLoseLife:DB$ LoseLife | ValidTgts$ Player.Opponent | LifeAmount$ 2 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ 2

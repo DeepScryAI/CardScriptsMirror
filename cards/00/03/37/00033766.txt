@@ -1,8 +1,12 @@
 Id:33766
-ColorIdentity:R
-OriginSet:Gf8df2bea26dc6b68
-ManaCost:R
-Types:Sorcery
-A:SP$ DealDamage | ValidTgts$ Creature | NumDmg$ 1 | SubAbility$ DBPumpCurse
-SVar:DBPumpCurse:DB$ Pump | Defined$ Targeted | IsCurse$ True | KW$ HIDDEN CARDNAME can't block.
-K:Flashback:1 R
+ColorIdentity:B
+OriginSet:G23d1f017cc66962f
+ManaCost:3 B B
+Types:Legendary Creature Demon Wizard
+PT:4/4
+K:Trample
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ X | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ X
+SVar:X:Count$CardCounters.ALL

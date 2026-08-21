@@ -1,11 +1,15 @@
 Id:29260
-ColorIdentity:BG
+ColorIdentity:U
 OriginSet:G27146c70b74a1e72
-ManaCost:1 B G
-Types:Legendary Creature Gorgon Assassin
-PT:3/3
-K:Deathtouch
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.OppCtrl+!token | TriggerZones$ Battlefield | Execute$ TrigChangeZone | OptionalDecider$ You
-SVar:TrigChangeZone:AB$ ChangeZone | Cost$ 1 | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True | Tapped$ True | StaticEffect$ Animate
-SVar:Animate:Mode$ Continuous | Affected$ Card.IsRemembered | AddType$ Artifact & Treasure | RemoveCardTypes$ True | AddAbility$ TreasureSac
-SVar:TreasureSac:AB$ Mana | Cost$ T Sac<1/CARDNAME/this artifact> | Produced$ Any
+ManaCost:U U
+Types:Legendary Planeswalker Jace
+Loyalty:3
+S:Mode$ CantBeCast | ValidCard$ Card.Self | EffectZone$ All | Caster$ Player.Active | CheckSVar$ Count$YourTurns | SVarCompare$ LE3
+A:AB$ Draw | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Mode$ TgtChoose
+A:AB$ ChangeZone | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | Origin$ Hand | Destination$ Exile | ChangeType$ Card.nonLand+cmcLE3 | RememberChanged$ True | SubAbility$ DBPlot
+SVar:DBPlot:DB$ AlterAttribute | Defined$ Remembered | Attributes$ Plotted | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+A:AB$ Effect | Cost$ SubCounter<6/LOYALTY> | Planeswalker$ True | Ultimate$ True | Triggers$ CastTrig
+SVar:CastTrig:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ You | Execute$ TrigCopySpell | TriggerZones$ Command
+SVar:TrigCopySpell:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | MayChooseTarget$ True

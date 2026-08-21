@@ -1,9 +1,7 @@
 Id:9739
-ColorIdentity:R
+ColorIdentity:W
 OriginSet:G0388e25893b1e049
-ManaCost:R
-Types:Creature Goblin Shaman
-PT:1/1
-T:Mode$ SpellCast | ValidCard$ Card.Red | TriggerZones$ Battlefield | Execute$ TrigPumpCurse | OptionalDecider$ You
-SVar:TrigPumpCurse:AB$ Pump | Cost$ 1 | ValidTgts$ Creature | IsCurse$ True | KW$ HIDDEN CARDNAME can't block.
-SVar:PlayMain1:TRUE
+ManaCost:1 W
+Types:Instant
+A:SP$ Pump | ValidTgts$ Creature.attacking,Creature.blocking | IsCurse$ True | KW$ Prevent all damage that would be dealt by CARDNAME. | SubAbility$ DBDestroy
+SVar:DBDestroy:DB$ Destroy | Defined$ Targeted | ConditionDefined$ Targeted | ConditionPresent$ Card.Black,Card.Red | ConditionCompare$ GE1

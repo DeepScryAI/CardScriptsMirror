@@ -1,7 +1,10 @@
 Id:4959
-ColorIdentity:R
+ColorIdentity:WRG
 OriginSet:G9e6cd9ac1f7f4832
-ManaCost:1 R
-Types:Creature Goblin
-PT:2/2
-S:Mode$ CantAttack | ValidCard$ Card.Self | UnlessDefender$ !controlsCreature.untapped+powerLE2
+ManaCost:3 G
+Types:Creature Treefolk
+PT:2/4
+A:AB$ Effect | Cost$ 2 R W | ValidTgts$ Any | ReplacementEffects$ SelflessDamage | RememberObjects$ Targeted | ExileOnMoved$ Battlefield
+SVar:SelflessDamage:Event$ DamageDone | ValidTarget$ Creature.EffectSource | ReplaceWith$ SelflessDmg | DamageTarget$ Remembered
+SVar:SelflessDmg:DB$ ReplaceEffect | VarName$ Affected | VarValue$ Remembered | VarType$ GameEntity | SubAbility$ ExileEffect
+SVar:ExileEffect:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile

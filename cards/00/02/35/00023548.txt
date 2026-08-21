@@ -1,12 +1,10 @@
 Id:23548
-ColorIdentity:WUBRG
+ColorIdentity:
 OriginSet:G1a259dba25660062
-ManaCost:3 W
-Types:Legendary Creature Dragon Spirit
-PT:3/3
-K:Flash
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | ValidTgts$ Permanent.Other | KW$ Indestructible | Duration$ AsLongAsControl
-A:AB$ Pump | Cost$ W U B R G | NumAtt$ +5 | NumDef$ +5
-SVar:PlayMain1:TRUE
+ManaCost:1
+Types:Legendary Artifact Equipment
+K:Equip:1
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.EquippedBy | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Defined$ TriggeredCard | Origin$ Graveyard | Destination$ Exile
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddKeyword$ Flying & FirstStrike & DoubleStrike & Deathtouch & Haste & Hexproof & Indestructible & Lifelink & Menace & Protection & Reach & Trample & Vigilance | SharedKeywordsZone$ Exile | SharedRestrictions$ Card.ExiledWithSource

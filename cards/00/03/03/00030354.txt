@@ -1,9 +1,11 @@
 Id:30354
-ColorIdentity:U
-OriginSet:G8b2ed00ac2a0ff47
-ManaCost:4 U
-Types:Enchantment Creature Nightmare
-PT:2/7
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigDraw | CombatDamage$ True
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ X
-SVar:X:TriggerCount$DamageAmount
+ColorIdentity:
+OriginSet:G7b2137df486dc752
+ManaCost:no cost
+Types:Scheme
+T:Mode$ SetInMotion | ValidCard$ Card.Self | Execute$ DBDig | TriggerZones$ Command
+SVar:DBDig:DB$ Dig | DigNum$ 2 | Reveal$ True | ChangeNum$ All | ChangeValid$ Card | DestinationZone$ Hand | RememberChanged$ True | SubAbility$ DBImmediateTrigger
+SVar:DBImmediateTrigger:DB$ ImmediateTrigger | ConditionDefined$ Remembered | ConditionPresent$ Card.nonLand | Execute$ TrigDamage | SubAbility$ DBCleanup
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ X
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$ValidHand Card.IsRemembered+nonLand$CardManaCost

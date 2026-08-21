@@ -1,10 +1,10 @@
 Id:12047
-ColorIdentity:WUR
+ColorIdentity:URG
 OriginSet:G28b959a4da853005
-ManaCost:1 U R W
-Types:Legendary Creature Giant Warrior
-PT:7/7
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | Execute$ TrigChoose | TriggerZones$ Battlefield
-SVar:TrigChoose:DB$ ChoosePlayer | Defined$ You | Choices$ Player.Opponent | Random$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | RememberObjects$ Self | ExileOnMoved$ Battlefield | StaticAbilities$ AttackChosen | Duration$ UntilEndOfCombat
-SVar:AttackChosen:Mode$ MustAttack | ValidCreature$ Card.IsRemembered | MustAttack$ ChosenPlayer
+ManaCost:2 G U R
+Types:Legendary Creature Human Wizard
+PT:2/2
+T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigCopySpell
+T:Mode$ ChangesZone | ValidCard$ Creature.!token+Other+YouCtrl | Origin$ Any | Destination$ Battlefield | TriggerZones$ Battlefield | Execute$ TrigCopy | OptionalDecider$ You
+SVar:TrigCopySpell:AB$ CopySpellAbility | Cost$ U R | Defined$ TriggeredSpellAbility | MayChooseTarget$ True
+SVar:TrigCopy:AB$ CopyPermanent | Cost$ G U | Defined$ TriggeredCardLKICopy

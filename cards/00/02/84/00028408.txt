@@ -1,16 +1,15 @@
 Id:28408
-ColorIdentity:R
-OriginSet:G7ee0e82a2424d636
-ManaCost:1 R R
-Types:Enchantment Case
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDamage
-SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Creature.OppCtrl | NumDmg$ 3
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | CheckSVar$ X | SVarCompare$ GE3 | IsPresent$ Card.Self+!IsSolved | TriggerZones$ Battlefield | Execute$ TrigSolve
-SVar:TrigSolve:DB$ AlterAttribute | Defined$ Self | Attributes$ Solved
-SVar:X:Count$NumDamageThisTurn Card.YouCtrl,Emblem.YouCtrl Player,Permanent
-A:AB$ Dig | Cost$ Sac<1/CARDNAME/this card> | IsPresent$ Card.Self+IsSolved | DigNum$ 3 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBChoose
-SVar:DBChoose:DB$ ChooseCard | Amount$ 1 | Mandatory$ True | Choices$ Card.IsRemembered | ChoiceZone$ Exile | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | SubAbility$ DBPlayEffect
-SVar:DBPlayEffect:DB$ Effect | StaticAbilities$ STPlay | ExileOnMoved$ Exile | SubAbility$ DBClearChosen
-SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.ChosenCard | AffectedZone$ Exile
-SVar:DBClearChosen:DB$ Cleanup | ClearChosenCard$ True
+ColorIdentity:WB
+OriginSet:G4155bbd49d5da56f
+ManaCost:1 W B
+Types:Legendary Creature Vampire Knight
+PT:3/1
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigBranch
+SVar:TrigBranch:DB$ Branch | BranchConditionSVar$ Sum | BranchConditionSVarCompare$ EQ2 | TrueSubAbility$ DBToken | FalseSubAbility$ DBConjure
+SVar:DBConjure:DB$ MakeCard | Conjure$ True | CatalogId$ 17397 | Zone$ Battlefield | RememberMade$ True | SubAbility$ DBTransform
+SVar:DBTransform:DB$ SetState | Defined$ Remembered | Mode$ Transform | Optional$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:DBToken:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 3875630332 | TokenOwner$ You
+SVar:Sum:SVar$Enchantment/Plus.Land
+SVar:Enchantment:Count$Valid Enchantment.YouCtrl+catalogId17397/LimitMax.1
+SVar:Land:Count$Valid Land.YouCtrl+catalogId17397/LimitMax.1

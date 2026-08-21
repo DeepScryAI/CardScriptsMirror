@@ -1,12 +1,10 @@
 Id:34301
-ColorIdentity:W
+ColorIdentity:R
 OriginSet:Gcb93bbfc68a40806
-ManaCost:4 W
-Types:Legendary Artifact Equipment
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | TriggerZones$ Battlefield | CheckSVar$ NoMonarch | SVarCompare$ EQ0 | Execute$ TrigMonarch
-SVar:TrigMonarch:DB$ BecomeMonarch
-SVar:NoMonarch:PlayerCountPlayers$HasPropertyisMonarch
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddToughness$ 2 | AddKeyword$ Vigilance
-T:Mode$ Attacks | ValidCard$ Card.EquippedBy | Attacked$ Player.isMonarch | TriggerZones$ Battlefield | Execute$ TrigDestroy
-SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Permanent.nonLand+tapped+ControlledBy TriggeredDefendingPlayer
-K:Equip:2
+ManaCost:1 R
+Types:Artifact Vehicle
+PT:3/1
+K:Flash
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature,Vehicle | NumAtt$ +2
+K:Crew:1

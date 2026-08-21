@@ -1,12 +1,10 @@
 Id:25840
-ColorIdentity:G
+ColorIdentity:W
 OriginSet:G06ccef4324c14725
-ManaCost:10
+ManaCost:5
 Types:Artifact Creature Construct
-PT:8/8
-K:Prototype:2 G G:3:3
-T:Mode$ ChangesZone | ValidCard$ Card.Self+wasCastByYou | Destination$ Battlefield | Execute$ TrigUntap
-SVar:TrigUntap:DB$ Untap | ValidTgts$ Land.YouCtrl | SubAbility$ DBAnimate
-SVar:DBAnimate:DB$ Animate | Power$ X | Toughness$ Y | Defined$ Targeted | Types$ Creature,Treefolk | Keywords$ Haste | Duration$ Permanent
-SVar:X:Count$CardPower
-SVar:Y:Count$CardToughness
+PT:4/6
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | IsPresent$ Creature.YouCtrl+Other | PresentCompare$ GE2 | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw
+A:AB$ Token | Cost$ 3 W | TokenScriptIds$ 1912559273
+K:Unearth:2 W W

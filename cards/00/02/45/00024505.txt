@@ -1,64 +1,8 @@
 Id:24505
 ColorIdentity:R
-OriginSet:G58bfeff4fb121c8e
-ManaCost:2 R
-Types:Legendary Creature Dwarf Cleric
-PT:3/2
-K:Haste
-K:Specialize:3
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDiscard | TriggerZones$ Battlefield | OptionalDecider$ You
-SVar:TrigDiscard:DB$ Discard | Mode$ Hand | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | NumCards$ 2
-SVar:HasAttackEffect:TRUE
-AlternateMode:Specialize
-SPECIALIZE:WHITE
-ManaCost:2 R W
-Types:Legendary Creature Dwarf Cleric
-PT:4/3
-K:Haste
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump | TriggerZones$ Battlefield
-SVar:TrigPump:AB$ PumpAll | Cost$ Discard<1/Hand> Draw<2/You> | ValidCards$ Creature.Other+YouCtrl | NumAtt$ +X | NumDef$ +X
-SVar:X:PlayerCountPropertyYou$CardsDiscardedThisTurn
-SVar:HasAttackEffect:TRUE
-SPECIALIZE:BLUE
-ManaCost:2 U R
-Types:Legendary Creature Dwarf Cleric
-PT:4/3
-K:Haste
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDiscard | TriggerZones$ Battlefield | OptionalDecider$ You
-SVar:TrigDiscard:DB$ Discard | Mode$ Hand | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | NumCards$ 3
-SVar:HasAttackEffect:TRUE
-SPECIALIZE:BLACK
-ManaCost:2 B R
-Types:Legendary Creature Dwarf Cleric
-PT:4/3
-K:Haste
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDiscard | TriggerZones$ Battlefield | OptionalDecider$ You
-SVar:TrigDiscard:DB$ Discard | Mode$ Hand | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | NumCards$ 2 | SubAbility$ DBImmediateTrigger
-SVar:DBImmediateTrigger:DB$ ImmediateTrigger | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.OppCtrl | NumAtt$ -X | NumDef$ -X | IsCurse$ True
-SVar:X:PlayerCountPropertyYou$CardsDiscardedThisTurn
-SVar:HasAttackEffect:TRUE
-SPECIALIZE:RED
-ManaCost:2 R R
-Types:Legendary Creature Dwarf Cleric
-PT:4/3
-K:Haste
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDamage | TriggerZones$ Battlefield
-SVar:TrigDamage:AB$ DamageAll | Cost$ Discard<1/Hand> Draw<2/You> | NumDmg$ X | ValidPlayers$ Opponent
-SVar:X:PlayerCountPropertyYou$CardsDiscardedThisTurn
-SVar:HasAttackEffect:TRUE
-SPECIALIZE:GREEN
-ManaCost:2 G R
-Types:Legendary Creature Dwarf Cleric
-PT:4/3
-K:Haste
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDiscard | TriggerZones$ Battlefield | OptionalDecider$ You
-SVar:TrigDiscard:DB$ Discard | Mode$ Hand | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | NumCards$ 2 | SubAbility$ DBImmediateTrigger
-SVar:DBImmediateTrigger:DB$ ImmediateTrigger | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl+Other | CounterType$ P1P1 | CounterNum$ X
-SVar:X:PlayerCountPropertyYou$CardsDiscardedThisTurn
-SVar:HasAttackEffect:TRUE
+OriginSet:G51fcb7ec0cb81c29
+ManaCost:1 R
+Types:Legendary Enchantment Background
+S:Mode$ Continuous | Affected$ Creature.IsCommander+YouOwn | AddAbility$ DealDamage
+SVar:DealDamage:AB$ DealDamage | Cost$ 1 Sac<1/Creature.Other;Artifact/another creature or an artifact> | ValidTgts$ Any | NumDmg$ 1
+SVar:AIPreference:SacCost$Creature.token,Artifact.token,Creature.cmcLE1,Artifact.cmcEQ1

@@ -1,11 +1,17 @@
 Id:28999
-ColorIdentity:U
-OriginSet:Gc7beb665b378d90a
-ManaCost:1 U
-Types:Creature Drake
-PT:2/1
-K:Flying
-S:Mode$ ReduceCost | ValidCard$ Instant,Sorcery | Type$ Spell | Activator$ You | Amount$ 1
-A:AB$ DelayedTrigger | Cost$ 2 U Sac<1/CARDNAME> | AILogic$ SpellCopy | Execute$ EffTrigCopy | ThisTurn$ True | Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You
-SVar:EffTrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | Amount$ X | MayChooseTarget$ True
-SVar:X:Count$TotalCommanderCastFromCommandZone
+ColorIdentity:G
+OriginSet:Gaf7c94f364052cdd
+ManaCost:3 G
+Types:Legendary Creature Mutant Warrior
+PT:0/0
+K:Vigilance
+K:etbCounter:P1P1:2
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigBranch
+SVar:TrigBranch:DB$ Branch | BranchConditionSVar$ Power | BranchConditionSVarCompare$ GT16 | TrueSubAbility$ DBRemoveCounters | FalseSubAbility$ DBPump
+SVar:DBPump:DB$ MultiplyCounter | CounterType$ P1P1 | Defined$ Self
+SVar:DBRemoveCounters:DB$ RemoveCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ Y | RememberRemoved$ True | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:Y:Count$CardCounters.P1P1/Minus.1
+SVar:X:Count$RememberedSize
+SVar:Power:Count$CardPower

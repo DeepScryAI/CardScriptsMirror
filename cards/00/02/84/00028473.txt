@@ -1,9 +1,13 @@
 Id:28473
-ColorIdentity:U
-OriginSet:G7ee0e82a2424d636
-ManaCost:2 U
-Types:Creature Vedalken Artificer Detective
-PT:2/3
-T:Mode$ SpellCast | ValidCard$ Artifact | ValidActivatingPlayer$ You | Execute$ TrigInvestigate | TriggerZones$ Battlefield
-SVar:TrigInvestigate:DB$ Investigate
-S:Mode$ ReduceCost | ValidCard$ Artifact.YouCtrl | Type$ Ability | Amount$ 1 | MinMana$ 1 | AffectedZone$ Battlefield
+ColorIdentity:WR
+OriginSet:G94329e6b3f93276f
+ManaCost:R W W
+Types:Legendary Creature Angel
+PT:4/3
+K:Flying
+K:Lifelink
+T:Mode$ SpellAbilityCast | ValidSA$ Spell.nonCreature | ValidActivatingPlayer$ You | IsSingleTarget$ True | TargetsValid$ Card.Self | Execute$ TrigChoose | TriggerZones$ Battlefield
+SVar:TrigChoose:DB$ ChooseCard | Choices$ Creature.Other+CanBeTargetedByTriggeredSpellAbility | MinAmount$ 0 | Amount$ Count$Valid Creature.Other+CanBeTargetedByTriggeredSpellAbility | SubAbility$ CopySpell
+SVar:CopySpell:DB$ CopySpellAbility | DefinedTarget$ ChosenCard | UnlessCost$ CopyCost | UnlessPayer$ You | UnlessSwitched$ True | Defined$ TriggeredSpellAbility | Controller$ You | SubAbility$ DBCleanup
+SVar:CopyCost:Count$ChosenSize/Times.2
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True

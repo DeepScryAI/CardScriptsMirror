@@ -1,6 +1,25 @@
 Id:25660
-ColorIdentity:U
-OriginSet:G06ccef4324c14725
-ManaCost:2 U
-Types:Sorcery
-A:SP$ Dig | DigNum$ 5 | Reveal$ True | ChangeValid$ Artifact | ChangeNum$ Any | DestinationZone$ Hand | DestinationZone2$ Library | RestRandomOrder$ True
+ColorIdentity:WUB
+OriginSet:Gfb000cedf5e9c32e
+ManaCost:1 W U B
+Types:Legendary Artifact Creature Robot
+PT:5/4
+K:More Than Meets the Eye:2 W U B
+T:Mode$ DamageDoneOnce | CombatDamage$ True | ValidSource$ Creature.token+YouCtrl | TriggerZones$ Battlefield | ValidTarget$ Player | Execute$ TrigCast
+SVar:TrigCast:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Instant.cmcEQX+OwnedBy TriggeredTarget,Sorcery.cmcEQX+OwnedBy TriggeredTarget | RememberChanged$ True | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | Valid$ Card.IsRemembered | ValidZone$ Exile | Controller$ You | CopyCard$ True | WithoutManaCost$ True | ValidSA$ Spell | Optional$ True | ImprintPlayed$ True | SubAbility$ DBConvert
+SVar:DBConvert:DB$ SetState | Mode$ Transform | ConditionDefined$ Imprinted | ConditionPresent$ Card | ConditionCompare$ EQ1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearImprinted$ True | ClearRemembered$ True
+SVar:X:TriggerCount$DamageAmount
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:white,blue,black
+Types:Legendary Artifact
+T:Mode$ SpellCast | ValidCard$ Card.cmcOdd | ValidActivatingPlayer$ You | Execute$ TrigConvertRavage | TriggerZones$ Battlefield
+SVar:TrigConvertRavage:DB$ SetState | Mode$ Transform | RememberChanged$ True | SubAbility$ DBTokenRavage
+SVar:DBTokenRavage:DB$ Token | TokenScriptIds$ 1026524043 | ConditionDefined$ Remembered | ConditionPresent$ Card.Self | ConditionCompare$ GE1 | SubAbility$ DBCleanup
+T:Mode$ SpellCast | ValidCard$ Card.cmcEven | ValidActivatingPlayer$ You | Execute$ TrigConvertLaserbeak | TriggerZones$ Battlefield
+SVar:TrigConvertLaserbeak:DB$ SetState | Mode$ Transform | RememberChanged$ True | SubAbility$ DBTokenLaserbeak
+SVar:DBTokenLaserbeak:DB$ Token | TokenScriptIds$ 3033295212 | ConditionDefined$ Remembered | ConditionPresent$ Card.Self | ConditionCompare$ GE1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

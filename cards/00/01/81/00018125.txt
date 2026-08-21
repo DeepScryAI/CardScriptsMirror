@@ -1,8 +1,9 @@
 Id:18125
-ColorIdentity:UR
+ColorIdentity:B
 OriginSet:G5033d54b23b37629
-ManaCost:2 U R
-Types:Legendary Creature Human Artificer
-PT:3/3
-T:Mode$ SpellCast | ValidCard$ Card.Historic | ValidActivatingPlayer$ You | Execute$ TrigDraw | TriggerZones$ Battlefield
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+ManaCost:3 B B
+Types:Sorcery
+A:SP$ ChangeZone | Origin$ Library | Destination$ Library | ChangeType$ Card | ChangeNum$ 2 | Mandatory$ True | RememberChanged$ True | Shuffle$ False | SubAbility$ DBChangeZone1
+SVar:DBChangeZone1:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Card.IsRemembered | ChangeNum$ 1 | Mandatory$ True | NoLooking$ True | Shuffle$ False | NoReveal$ True | SubAbility$ DBChangeZone2
+SVar:DBChangeZone2:DB$ ChangeZone | Origin$ Library | Destination$ Graveyard | ChangeType$ Card.IsRemembered | Mandatory$ True | NoLooking$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

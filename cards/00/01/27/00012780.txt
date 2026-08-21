@@ -2,9 +2,15 @@ Id:12780
 ColorIdentity:
 OriginSet:G4801bb28ce9773ed
 ManaCost:no cost
-Types:Plane Kolbahan
-S:Mode$ AttackRestrict | EffectZone$ Command | MaxAttackers$ 1
-S:Mode$ BlockRestrict | EffectZone$ Command | MaxBlockers$ 1
-T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos
-SVar:RolledChaos:DB$ DamageAll | NumDmg$ 2 | ValidCards$ Creature
-SVar:AIRollPlanarDieParams:Mode$ Random | MinTurn$ 5
+Types:Plane Kephalai
+T:Mode$ PlaneswalkedTo | ValidCard$ Plane.Self | Execute$ AcquireScrolls
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ AcquireScrolls | TriggerZones$ Command | Secondary$ True
+SVar:AcquireScrolls:DB$ PutCounter | Defined$ Self | CounterType$ SCROLL | CounterNum$ 1 | SubAbility$ ScrollsOfLife
+SVar:ScrollsOfLife:DB$ GainLife | Defined$ You | LifeAmount$ NumScrolls
+SVar:NumScrolls:Count$CardCounters.SCROLL
+T:Mode$ Always | TriggerZones$ Command | CheckSVar$ NumScrolls | SVarCompare$ GE10 | Execute$ RolledWalk
+SVar:RolledWalk:DB$ Planeswalk
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | CounterType$ SCROLL | SubAbility$ ScrollsOfKnowledge
+SVar:ScrollsOfKnowledge:DB$ Draw | NumCards$ NumScrolls
+SVar:AIRollPlanarDieParams:Mode$ Always | LowPriority$ True | MaxRollsPerTurn$ 9

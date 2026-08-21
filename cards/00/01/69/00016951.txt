@@ -1,6 +1,10 @@
 Id:16951
-ColorIdentity:R
+ColorIdentity:
 OriginSet:Gbcdce58dfbbf1bad
-ManaCost:3 R
-Types:Instant
-A:SP$ DealDamage | ValidTgts$ Creature | NumDmg$ 4
+ManaCost:3
+Types:Artifact
+A:AB$ Pump | Cost$ 1 T | ValidTgts$ Creature | KW$ HIDDEN CARDNAME can't attack. | SubAbility$ DBPutCounter | IsCurse$ True
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ BRICK | CounterNum$ 1
+A:AB$ Effect | Cost$ 1 T | ValidTgts$ Creature | RememberObjects$ Targeted | StaticAbilities$ DBCantStatic | ForgetOnMoved$ Battlefield | IsCurse$ True | Duration$ UntilYourNextTurn | CheckSVar$ X | SVarCompare$ GE3
+SVar:DBCantStatic:Mode$ CantAttack,CantBlock,CantBeActivated | ValidCard$ Card.IsRemembered
+SVar:X:Count$CardCounters.BRICK

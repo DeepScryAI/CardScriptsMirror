@@ -1,10 +1,12 @@
 Id:33468
-ColorIdentity:BG
-OriginSet:G23d1f017cc66962f
-ManaCost:no cost
-Types:Land
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGainLife
-SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 1
-A:AB$ Mana | Cost$ T | Produced$ Combo B G
+ColorIdentity:R
+OriginSet:G7ab1fe96128a1641
+ManaCost:3 R R
+Types:Creature Dragon
+PT:6/6
+K:Flying
+K:Wither
+T:Mode$ SpellCast | ValidSA$ Instant.singleTarget,Sorcery.singleTarget | ValidActivatingPlayer$ You | OptionalDecider$ You | Execute$ TrigCopy | TriggerZones$ Battlefield
+SVar:TrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | MayChooseTarget$ True | RememberNewCard$ True | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ TriggeredCard & Remembered | KW$ Wither | PumpZone$ Stack | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

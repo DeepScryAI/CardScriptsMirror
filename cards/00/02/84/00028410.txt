@@ -1,11 +1,16 @@
 Id:28410
-ColorIdentity:U
-OriginSet:G7ee0e82a2424d636
-ManaCost:U
-Types:Enchantment Case
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigInvestigate
-SVar:TrigInvestigate:DB$ Investigate
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | IsPresent$ Artifact.YouCtrl | PresentCompare$ GE3 | IsPresent2$ Card.Self+!IsSolved | Execute$ SolveFalcon
-SVar:SolveFalcon:DB$ AlterAttribute | Defined$ Self | Attributes$ Solved
-A:AB$ PutCounter | Cost$ 2 U Sac<1/CARDNAME/this Case> | ValidTgts$ Artifact.nonCreature | Activation$ Solved | CounterType$ P1P1 | CounterNum$ 4 | SubAbility$ DBAnimate
-SVar:DBAnimate:DB$ Animate | Defined$ ParentTarget | Power$ 0 | Toughness$ 0 | Types$ Creature,Bird | Keywords$ Flying | Duration$ Permanent
+ColorIdentity:R
+OriginSet:G4155bbd49d5da56f
+ManaCost:2 R
+Types:Legendary Creature Dinosaur Pirate
+PT:2/2
+K:Menace
+A:AB$ Pump | Cost$ R | NumAtt$ +1
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigTreasure | CombatDamage$ True
+SVar:TrigTreasure:DB$ Token | TokenScriptIds$ 3851718391 | SubAbility$ DBChoose
+SVar:DBChoose:DB$ ChooseCard | Choices$ Card.cmcEQX+ControlledBy TriggeredTarget | ChoiceZone$ Library | Amount$ 1 | AtRandom$ True | SubAbility$ DBChangeZoneAll
+SVar:DBChangeZoneAll:DB$ ChangeZoneAll | Origin$ Library | Destination$ Exile | ChangeType$ Card.ChosenCard | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ MayPlay | RememberObjects$ Remembered | SubAbility$ DBCleanup
+SVar:MayPlay:Mode$ Continuous | Affected$ Card.IsRemembered+nonLand | AffectedZone$ Exile | MayPlay$ True
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True | ClearRemembered$ True
+SVar:X:TriggerCount$DamageAmount

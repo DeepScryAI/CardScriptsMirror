@@ -1,11 +1,9 @@
 Id:23256
-ColorIdentity:U
+ColorIdentity:B
 OriginSet:G6e75ff4f143a3dc3
-ManaCost:5 U
-Types:Creature Bird Horror
-PT:4/4
-K:Flying
-T:Mode$ AttackersDeclared | ValidAttackers$ Creature.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigMill
-SVar:TrigMill:DB$ Mill | NumCards$ X | ValidTgts$ Player
-SVar:X:TriggerObjectsAttackers$Amount
-A:AB$ ChangeZone | Cost$ 2 U | Origin$ Graveyard | Destination$ Library | LibraryPosition$ 1 | ActivationZone$ Graveyard
+ManaCost:3 B B
+Types:Sorcery
+A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouOwn
+T:Mode$ Discarded | ValidCard$ Card.Self | Execute$ TrigImmediateTrig | TriggerController$ TriggeredCardController
+SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ B | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | ValidTgts$ Creature.YouOwn | Origin$ Graveyard | Destination$ Hand

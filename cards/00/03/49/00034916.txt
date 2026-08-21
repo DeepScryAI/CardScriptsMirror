@@ -1,0 +1,13 @@
+Id:34916
+ColorIdentity:R
+OriginSet:Gf8f2990d7136c11d
+ManaCost:3 R R
+Types:Legendary Creature Dwarf Bard
+PT:4/4
+K:Storied
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self,Dwarf.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigDiscard | OptionalDecider$ You
+SVar:TrigDiscard:DB$ Discard | Mode$ Hand | Defined$ You | SubAbility$ DBDraw | RememberDiscarded$ True
+SVar:DBDraw:DB$ Draw | NumCards$ X | SubAbility$ DBDamage
+SVar:DBDamage:DB$ DealDamage | NumDmg$ X | Defined$ Player.Opponent | Condition$ EnduringStory | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Amount

@@ -1,6 +1,10 @@
 Id:17979
 ColorIdentity:G
 OriginSet:G21ed5bd3b1924169
-ManaCost:2 G
-Types:Creature Dinosaur
-PT:4/2
+ManaCost:3 G
+Types:Creature Merfolk Scout
+PT:3/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange | OptionalDecider$ You
+SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Library | LibraryPosition$ 0 | ChangeType$ Card.Merfolk | ChangeNum$ 1 | ShuffleNonMandatory$ True
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Permanent.Merfolk+YouCtrl+Other | TriggerZones$ Battlefield | Execute$ TrigCounters
+SVar:TrigCounters:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1

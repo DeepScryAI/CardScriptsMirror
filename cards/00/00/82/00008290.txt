@@ -1,9 +1,12 @@
 Id:8290
 ColorIdentity:WU
 OriginSet:Gde6d8130c178f566
-ManaCost:1 W W U
-Types:Instant
-A:SP$ Effect | ValidTgts$ Creature | ReplacementEffects$ RPrevent1 | RememberObjects$ ThisTargetedCard | ExileOnMoved$ Battlefield | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | ValidTgts$ Creature | ReplacementEffects$ RPrevent2 | RememberObjects$ ThisTargetedCard | ExileOnMoved$ Battlefield
-SVar:RPrevent1:Event$ DamageDone | Prevent$ True | IsCombat$ True | ValidSource$ Card.IsRemembered
-SVar:RPrevent2:Event$ DamageDone | Prevent$ True | IsCombat$ True | ValidTarget$ Card.IsRemembered
+ManaCost:2 W
+Types:Creature Spirit
+PT:2/1
+S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self
+T:Mode$ ChangesZone | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGainLife
+T:Mode$ ChangesZone | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSac
+SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 4
+SVar:TrigSac:DB$ Sacrifice | ConditionManaNotSpent$ U
+SVar:ManaNeededToAvoidNegativeEffect:blue

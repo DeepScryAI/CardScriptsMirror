@@ -1,12 +1,9 @@
 Id:26835
-ColorIdentity:UG
-OriginSet:G3601f5e223de6c7f
-ManaCost:3 G U
-Types:Legendary Creature Avatar Wizard
-PT:5/5
-T:Mode$ SpellCast | ValidCard$ Card.cmcGE5 | ValidActivatingPlayer$ You | Execute$ TrigReveal | TriggerZones$ Battlefield
-SVar:TrigReveal:DB$ PeekAndReveal | Defined$ Opponent | NoPeek$ True | ImprintRevealed$ True | SubAbility$ DBCopyCast
-SVar:DBCopyCast:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | ConditionDefined$ Imprinted | ConditionPresent$ Card.sharesCardTypeWith TriggeredCardLKICopy | MayChooseTarget$ True | RememberNewCard$ True | SubAbility$ DBDrawAll
-SVar:DBDrawAll:DB$ Draw | Defined$ Opponent | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ1 | SubAbility$ DBDrawYou
-SVar:DBDrawYou:DB$ Draw | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ0 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearImprinted$ True | ClearRemembered$ True
+ColorIdentity:U
+OriginSet:G06757f68e16377c2
+ManaCost:3 U
+Types:Instant
+K:Convoke
+A:SP$ Tap | ValidTgts$ Creature | SubAbility$ DBCounter | TargetMin$ 0 | TargetMax$ 2
+SVar:DBCounter:DB$ PutCounter | Choices$ Card.targetedBy | CounterType$ STUN | CounterNum$ 1 | SubAbility$ DBCounterBis
+SVar:DBCounterBis:DB$ PutCounter | Choices$ Card.targetedBy | CounterType$ STUN | CounterNum$ 1

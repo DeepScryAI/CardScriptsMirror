@@ -3,6 +3,7 @@ ColorIdentity:R
 OriginSet:G9fb0a9a59b6a9580
 ManaCost:3 R R
 Types:Sorcery
-A:SP$ Charm | MinCharmNum$ 1 | CharmNum$ 2 | Choices$ DestroyArtifact,DestroyLand
-SVar:DestroyArtifact:DB$ Destroy | ValidTgts$ Artifact
-SVar:DestroyLand:DB$ Destroy | ValidTgts$ Land.nonBasic
+A:SP$ DigUntil | Valid$ Card.nonLand | FoundDestination$ Hand | RevealedDestination$ Library | RevealedLibraryPosition$ -1 | RememberFound$ True | SubAbility$ Damage
+SVar:Damage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$CardManaCost

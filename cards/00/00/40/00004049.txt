@@ -1,8 +1,10 @@
 Id:4049
 ColorIdentity:
 OriginSet:Gdd40b2fbd2aa3c03
-ManaCost:4
-Types:Artifact Creature Wall
-PT:0/4
-K:Defender
-A:AB$ Pump | Cost$ T | ValidTgts$ Creature | NumDef$ +4
+ManaCost:2
+Types:Artifact
+A:AB$ ChangeZone | Cost$ 2 T Sac<1/CARDNAME> | Origin$ Hand | Destination$ Library | Shuffle$ True | ChangeType$ Card | ChangeNum$ X | RememberChanged$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ Y | SubAbility$ DBCleanup
+SVar:X:Count$ValidHand Card.YouOwn
+SVar:Y:Remembered$Amount
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

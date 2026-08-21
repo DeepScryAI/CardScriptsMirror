@@ -1,13 +1,10 @@
 Id:32488
-ColorIdentity:R
-OriginSet:G66b3a7eeabd9000e
-ManaCost:R
-Types:Legendary Creature Spider Human Hero
-PT:1/2
-T:Mode$ AttackersDeclared | Execute$ TrigPutCounter | ValidAttackers$ Spider | ValidAttackersAmount$ GE2 | TriggerZones$ Battlefield | AttackingPlayer$ You
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
-T:Mode$ DamageDoneOnce | ValidSource$ Card.Self | DamageAmount$ GE4 | Execute$ TrigExile | TriggerZones$ Battlefield
-SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | Duration$ UntilTheEndOfYourNextTurn | StaticAbilities$ Play | SubAbility$ DBCleanup | ForgetOnMoved$ Exile
-SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:B
+OriginSet:G324b911e0e372b1b
+ManaCost:1 B
+Types:Artifact Spacecraft
+PT:2/3
+K:Station:6
+T:Mode$ Stationed | ValidCard$ Card.Self | ValidCrew$ Creature | Execute$ TrigPump | TriggerZones$ Battlefield
+SVar:TrigPump:DB$ Pump | Defined$ Valid Creature.TriggeredCrew | KW$ Deathtouch & Lifelink | Duration$ Perpetual
+S:Mode$ Continuous | Affected$ Card.Self+counters_GE6_CHARGE | AddType$ Creature | AddKeyword$ Flying & Deathtouch & Lifelink

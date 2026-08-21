@@ -1,10 +1,12 @@
 Id:31465
-ColorIdentity:G
-OriginSet:Gf2b808f4f642ac62
-ManaCost:3 G
-Types:Creature Elephant Druid
-PT:2/4
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill
-SVar:TrigMill:DB$ Mill | NumCards$ 3 | Defined$ You | Optional$ True
-A:AB$ Mana | Cost$ T | Produced$ G | Amount$ X
-SVar:X:Count$CardPower
+ColorIdentity:UBG
+OriginSet:Ge1676a27173c0866
+ManaCost:2 B G U
+Types:Legendary Creature Spirit Dragon
+PT:6/6
+K:Flying
+K:Lifelink
+S:Mode$ Continuous | Affected$ Card.YouCtrl+wasCast | AffectedZone$ Stack | AddKeyword$ Delve
+T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ X
+SVar:X:TriggeredSpellAbility$CardManaCostLKI

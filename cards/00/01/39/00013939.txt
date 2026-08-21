@@ -1,12 +1,9 @@
 Id:13939
-ColorIdentity:W
+ColorIdentity:G
 OriginSet:G6645ca87da6316d5
-ManaCost:5 W
+ManaCost:3 G
 Types:Sorcery
-A:SP$ PutCounterAll | ValidCards$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBRepeat
-SVar:DBRepeat:DB$ RepeatEach | RepeatSubAbility$ DBPutCounter | RepeatPlayers$ Player.Opponent | SubAbility$ PutCounterAgain | RepeatOptionalForEachPlayer$ True
-SVar:DBPutCounter:DB$ PutCounterAll | ValidCards$ Creature.RememberedPlayerCtrl | Placer$ Controller | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBCount
-SVar:DBCount:DB$ StoreSVar | SVar$ X | Type$ CountSVar | Expression$ X/Plus.1
-SVar:PutCounterAgain:DB$ PutCounterAll | ValidCards$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ X | SubAbility$ DBReset
-SVar:DBReset:DB$ StoreSVar | SVar$ X | Type$ Number | Expression$ 0
-SVar:X:Number$0
+A:SP$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Land.YouCtrl | ChangeNum$ 1 | Hidden$ True | NoShuffle$ True | SubAbility$ DBOppSearch
+SVar:DBOppSearch:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Land | DefinedPlayer$ Opponent | RememberSearched$ True | Optional$ True | ChangeNum$ 1 | Hidden$ True | SubAbility$ DBSearchAgain
+SVar:DBSearchAgain:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Land.YouCtrl | ChangeNum$ Count$RememberedSize | Hidden$ True | Shuffle$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

@@ -1,7 +1,10 @@
 Id:6681
-ColorIdentity:W
+ColorIdentity:
 OriginSet:G983da6aa108b8f13
-ManaCost:1
+ManaCost:2
 Types:Artifact
-A:AB$ Draw | Cost$ 1 Sac<1/CARDNAME> | NumCards$ 1
-A:AB$ GainLife | Cost$ W Sac<1/CARDNAME> | LifeAmount$ 5
+T:Mode$ DamageDoneOnce | ValidTarget$ You | Execute$ TrigPutCounter | TriggerZones$ Battlefield
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Player | IsPresent$ Card.Self+counters_GE1_CHARGE | Execute$ TrigGainLife | TriggerZones$ Battlefield | OptionalDecider$ You
+SVar:TrigPutCounter:DB$ PutCounter | CounterType$ CHARGE | CounterNum$ X | Defined$ Self
+SVar:TrigGainLife:AB$ GainLife | Cost$ SubCounter<1/CHARGE> | LifeAmount$ 1 | Defined$ You
+SVar:X:TriggerCount$DamageAmount

@@ -1,13 +1,13 @@
 Id:32867
-ColorIdentity:W
-OriginSet:G731e0066916b7465
-ManaCost:4 W
-Types:Legendary Creature Human Avatar Ally
-PT:4/4
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigAirbend
-SVar:TrigAirbend:DB$ Airbend | ValidTgts$ Creature.Other
-T:Mode$ ChangesZoneAll | ValidCards$ Creature.YouCtrl | Origin$ Battlefield | Destination$ Ante,Command,Exile,Hand,Library | TriggerZones$ Battlefield | Execute$ TrigExperience
-SVar:TrigExperience:DB$ PutCounter | Defined$ You | CounterType$ Experience | CounterNum$ 1
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenAmount$ X | TokenScriptIds$ 2356312553 | TokenOwner$ You
-SVar:X:Count$YourCountersExperience
+ColorIdentity:UG
+OriginSet:G36e97d2da170e675
+ManaCost:1 G U
+Types:Legendary Creature Elder Cat Turtle
+PT:3/6
+K:Vigilance
+K:Reach
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGainLife
+SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 3
+S:Mode$ CantAttack,CantBlock | ValidCard$ Card.Self | CheckSVar$ X | SVarCompare$ LT3
+A:AB$ Mana | Cost$ T | Produced$ Any | Amount$ 1
+SVar:X:Count$ValidGraveyard Lesson.YouOwn

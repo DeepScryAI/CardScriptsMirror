@@ -1,15 +1,10 @@
 Id:20261
-ColorIdentity:U
+ColorIdentity:WR
 OriginSet:G42eb6bda83007836
-ManaCost:3 U
-Types:Legendary Enchantment Creature God
-PT:6/5
-K:Indestructible
-S:Mode$ Continuous | Affected$ Card.Self | RemoveType$ Creature | CheckSVar$ X | SVarCompare$ LT5
-SVar:X:Count$Devotion.Blue
-SVar:BuffedBy:Permanent.Blue
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | ValidTgts$ Creature.Other+YouCtrl | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBReturn
-SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ All | Destination$ Battlefield | GainControl$ True | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-A:AB$ Tap | Cost$ 3 U | ValidTgts$ Creature.Other | IsCurse$ True
+ManaCost:R R W W
+Types:Legendary Creature Human Warrior
+PT:6/1
+S:Mode$ MustAttack | ValidCreature$ Card.Self
+K:ETBReplacement:Other:ChooseNum
+SVar:ChooseNum:DB$ ChooseNumber | Min$ 2 | Max$ 4 | Defined$ You | Random$ True
+S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ Protection:Card.cmcNEChosenNumber,Emblem:each mana value other than ChosenNumber

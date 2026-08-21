@@ -1,14 +1,11 @@
 Id:24465
-ColorIdentity:R
+ColorIdentity:W
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:3 R
-Types:Artifact
-A:AB$ RollDice | Cost$ 4 T | Sides$ 20 | ResultSubAbilities$ 1-9:DBX1,10-19:DBX2,20:DBX3
-SVar:DBX1:DB$ StoreSVar | SVar$ X | Type$ Number | Expression$ 1 | SubAbility$ DBExile
-SVar:DBX2:DB$ StoreSVar | SVar$ X | Type$ Number | Expression$ 2 | SubAbility$ DBExile
-SVar:DBX3:DB$ StoreSVar | SVar$ X | Type$ Number | Expression$ 3 | SubAbility$ DBExile
-SVar:DBExile:DB$ DigUntil | Defined$ Player.Opponent | Valid$ Instant,Sorcery | FoundDestination$ Exile | RevealedDestination$ Exile | ImprintFound$ True | RememberRevealed$ True | SubAbility$ DBShuffle
-SVar:DBShuffle:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered+!IsImprinted | Origin$ Exile | Destination$ Library | Shuffle$ True | ForgetChanged$ True | SubAbility$ DBPlay
-SVar:DBPlay:DB$ Play | Defined$ Imprinted | WithoutManaCost$ True | ValidSA$ Instant,Sorcery | Optional$ True | Amount$ X | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True
-SVar:X:Number$0
+ManaCost:2 W
+Types:Legendary Creature Human Monk
+PT:0/3
+S:Mode$ CombatDamageToughness | ValidCard$ Creature.YouCtrl
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigDoubleToughness | CheckDefinedPlayer$ You.hasInitiative
+SVar:TrigDoubleToughness:DB$ Pump | Defined$ Valid Creature.YouCtrl | NumDef$ Double
+K:Choose a Background
+SVar:HasAttackEffect:TRUE

@@ -1,14 +1,12 @@
 Id:31762
-ColorIdentity:R
-OriginSet:G7ab4f62d323b0ca7
-ManaCost:4 R R
-Types:Legendary Creature Human Samurai
-PT:6/6
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDig
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDig | TriggerZones$ Battlefield | Secondary$ True
-SVar:TrigDig:DB$ Dig | DigNum$ 6 | ChangeValid$ Equipment | ForceRevealToController$ True | ChangeNum$ Any | RestRandomOrder$ True | DestinationZone$ Battlefield | RememberChanged$ True | SubAbility$ DBImmediateTrigger
-SVar:DBImmediateTrigger:DB$ ImmediateTrigger | Execute$ TrigChoose | ConditionDefined$ Remembered | ConditionPresent$ Equipment | ConditionCompare$ GE1
-SVar:TrigChoose:DB$ ChooseCard | Choices$ Creature.Samurai+YouCtrl | Amount$ 1 | ConditionDefined$ Remembered | ConditionPresent$ Equipment | ConditionCompare$ GE1 | SubAbility$ DBAttach
-SVar:DBAttach:DB$ Attach | Choices$ Equipment.YouCtrl+IsRemembered | Defined$ ChosenCard | Optional$ True | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearChosenCard$ True
-SVar:HasAttackEffect:TRUE
+ColorIdentity:W
+OriginSet:G530ea9d733a13e9d
+ManaCost:2 W
+Types:Legendary Creature Human Soldier
+PT:1/1
+K:Flash
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigEffect
+SVar:TrigEffect:DB$ Effect | ValidTgts$ Creature.YouCtrl | ReplacementEffects$ DamageEvent | ExileOnMoved$ Battlefield | RememberObjects$ Targeted
+SVar:DamageEvent:Event$ DamageDone | Prevent$ True | ActiveZones$ Command | ValidTarget$ Card.IsRemembered | ReplaceWith$ Counters
+SVar:Counters:DB$ PutCounter | Defined$ ReplacedTarget | CounterType$ P1P1 | CounterNum$ X
+SVar:X:ReplaceCount$DamageAmount

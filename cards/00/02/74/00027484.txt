@@ -1,7 +1,12 @@
 Id:27484
-ColorIdentity:R
-OriginSet:G7579344e30f8be85
-ManaCost:R
-Types:Instant
-A:SP$ Pump | ValidTgts$ Creature | NumAtt$ +2 | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenScriptIds$ 2827871381 | TokenOwner$ You | AttachedTo$ Targeted
+ColorIdentity:UG
+OriginSet:G4e034c55e7afd8b4
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ Combo G U
+A:AB$ Animate | Cost$ 3 G U | Defined$ Self | Power$ 5 | Toughness$ 5 | Types$ Creature,Plant | Keywords$ Trample | Colors$ Green,Blue | OverwriteColors$ True
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigAnimate
+SVar:TrigAnimate:DB$ Animate | ValidTgts$ Creature.Other | Power$ 3 | Toughness$ 3 | TargetMin$ 0 | TargetMax$ 1
+SVar:HasAttackEffect:TRUE

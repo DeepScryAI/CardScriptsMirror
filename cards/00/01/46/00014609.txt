@@ -1,11 +1,11 @@
 Id:14609
-ColorIdentity:WUR
+ColorIdentity:R
 OriginSet:G0a578e83854cf093
-ManaCost:U R W
-Types:Enchantment
-T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPumpAll
-T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigLoot
-SVar:TrigPumpAll:DB$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +1 | NumDef$ +1 | SubAbility$ TrigUntapAll
-SVar:TrigUntapAll:DB$ UntapAll | ValidCards$ Creature.YouCtrl
-SVar:TrigLoot:AB$ Discard | Defined$ You | Mode$ TgtChoose | NumCards$ 1 | Cost$ Draw<1/You>
-SVar:BuffedBy:Card.nonCreature+nonLand
+ManaCost:1 R
+Types:Creature Goblin Rogue
+PT:2/1
+K:Morph:2 R
+T:Mode$ TurnFaceUp | ValidCard$ Card.Self | Execute$ TrigPump | TriggerZones$ Battlefield | PlayerTurn$ True
+SVar:TrigPump:DB$ GainControl | ValidTgts$ Creature.Other | Untap$ True | LoseControl$ EOT | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Targeted | KW$ Haste
+SVar:PlayMain1:TRUE

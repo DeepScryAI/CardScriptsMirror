@@ -1,9 +1,10 @@
 Id:15164
-ColorIdentity:U
+ColorIdentity:UB
 OriginSet:Gdb18f239871b8cef
-ManaCost:U U
+ManaCost:3 U B
 Types:Instant
-S:Mode$ OptionalCost | EffectZone$ All | ValidCard$ Card.Self | ValidSA$ Spell | Cost$ Reveal<1/Dragon>
-A:SP$ Counter | TargetType$ Spell | ValidTgts$ Card | UnlessCost$ 1 | ConditionCheckSVar$ TotalPresence | ConditionSVarCompare$ EQ0 | SubAbility$ DBCounter
-SVar:DBCounter:DB$ Counter | Defined$ Targeted | ConditionCheckSVar$ TotalPresence
-SVar:TotalPresence:Count$Presence_Dragon.1.0
+A:SP$ Charm | Choices$ DBCounter,DBReturn,DBPump,DBDestroy | CharmNum$ 2
+SVar:DBCounter:DB$ Counter | TargetType$ Spell | ValidTgts$ Card.nonCreature
+SVar:DBReturn:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | ValidTgts$ Permanent
+SVar:DBPump:DB$ Pump | ValidTgts$ Creature | NumAtt$ -3 | NumDef$ -3 | IsCurse$ True
+SVar:DBDestroy:DB$ Destroy | ValidTgts$ Planeswalker

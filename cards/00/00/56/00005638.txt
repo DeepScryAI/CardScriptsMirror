@@ -1,12 +1,10 @@
 Id:5638
 ColorIdentity:W
 OriginSet:Ge4af4f9459d5dadd
-ManaCost:3 W W W
-Types:Enchantment
-R:Event$ GameLoss | ActiveZones$ Battlefield | ValidPlayer$ You | ValidLoseReason$ LifeReachedZero | Layer$ CantHappen
-T:Mode$ Always | LifeTotal$ You | LifeAmount$ GE20 | TriggerZones$ Battlefield | Execute$ TrigLoseGame
-T:Mode$ LifeLost | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigLifeGain
-SVar:TrigLoseGame:DB$ LosesGame | Defined$ You
-SVar:TrigLifeGain:DB$ GainLife | LifeAmount$ X
-SVar:X:TriggerCount$LifeAmount/Times.2
-SVar:AICastPreference:NeverCastIfLifeAbove$ 5
+ManaCost:3 W
+Types:Creature Human Nomad
+PT:2/3
+K:Flash
+S:Mode$ Continuous | Affected$ Card.Self | AddTrigger$ TrigETB | Condition$ Threshold
+SVar:TrigETB:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPump
+SVar:TrigPump:DB$ PumpAll | ValidCards$ Creature.YouCtrl | KW$ Protection:Black

@@ -1,9 +1,12 @@
 Id:10535
-ColorIdentity:UB
+ColorIdentity:WB
 OriginSet:G9445ff04667ca5ba
-ManaCost:3 U B
-Types:Creature Leviathan Horror
-PT:3/7
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigMill
-SVar:TrigMill:DB$ Mill | Defined$ TriggeredDefendingPlayer | NumCards$ 10
-SVar:HasAttackEffect:TRUE
+ManaCost:3 W B B
+Types:Enchantment
+T:Mode$ ChangesZone | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZoneAll | ValidTgts$ Player | Origin$ Graveyard | Destination$ Exile | ChangeType$ Creature | RememberChanged$ True | ForgetOtherRemembered$ True | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 353162950 | TokenOwner$ You | TokenAmount$ X | SubAbility$ DBClearRemember
+S:Mode$ Continuous | Affected$ Zombie.YouCtrl | AddKeyword$ Lifelink
+SVar:DBClearRemember:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Amount
+SVar:PlayMain1:TRUE

@@ -1,8 +1,14 @@
 Id:22182
-ColorIdentity:W
-OriginSet:Geb2cf181996ee3b2
-ManaCost:W
-Types:Artifact Creature Cat
-PT:0/0
-K:Lifelink
-K:Modular:1
+ColorIdentity:B
+OriginSet:Ga575fa2f4f5cded4
+ManaCost:6 B B
+Types:Creature Archon
+PT:6/6
+K:Flying
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Destination$ Battlefield | Execute$ TrigSac
+T:Mode$ Attacks | ValidCard$ Card.Self | Secondary$ True | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice | ValidTgts$ Opponent | SacValid$ Creature,Planeswalker | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ Targeted | Mode$ TgtChoose | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ Targeted | LifeAmount$ 3 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ 3

@@ -1,10 +1,17 @@
 Id:16950
-ColorIdentity:
+ColorIdentity:W
 OriginSet:Gbcdce58dfbbf1bad
-ManaCost:3
-Types:Artifact
-A:AB$ Pump | Cost$ 1 T | ValidTgts$ Creature | KW$ HIDDEN CARDNAME can't attack. | SubAbility$ DBPutCounter | IsCurse$ True
-SVar:DBPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ BRICK | CounterNum$ 1
-A:AB$ Effect | Cost$ 1 T | ValidTgts$ Creature | RememberObjects$ Targeted | StaticAbilities$ DBCantStatic | ForgetOnMoved$ Battlefield | IsCurse$ True | Duration$ UntilYourNextTurn | CheckSVar$ X | SVarCompare$ GE3
-SVar:DBCantStatic:Mode$ CantAttack,CantBlock,CantBeActivated | ValidCard$ Card.IsRemembered
-SVar:X:Count$CardCounters.BRICK
+ManaCost:2 W W
+Types:Sorcery
+A:SP$ DestroyAll | ValidCards$ Creature.powerGE3
+SVar:NeedsToPlayVar:Y GTZ
+SVar:Y:Count$Valid Creature.OppCtrl+powerGE3
+SVar:Z:Count$Valid Creature.YouCtrl+powerGE3
+AlternateMode:Split
+ALTERNATE
+ManaCost:3 W W
+Types:Sorcery
+K:Aftermath
+A:SP$ ChangeZoneAll | ChangeType$ Creature.powerLE2+YouCtrl | Origin$ Graveyard | Destination$ Hand
+SVar:NeedsToPlayVar:Z GE1
+SVar:Z:Count$ValidGraveyard Creature.YouCtrl+powerLE2

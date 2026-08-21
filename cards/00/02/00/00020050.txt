@@ -1,10 +1,14 @@
 Id:20050
-ColorIdentity:R
+ColorIdentity:B
 OriginSet:G23be9f486a22d38a
-ManaCost:1 R R R
-Types:Legendary Creature Dwarf Noble
-PT:2/4
-R:Event$ DamageDone | ActiveZones$ Battlefield | ValidSource$ Card.RedSource+YouCtrl | ValidTarget$ Player.Opponent,Permanent.OppCtrl | ReplaceWith$ DmgPlus2
-SVar:DmgPlus2:DB$ ReplaceEffect | VarName$ DamageAmount | VarValue$ X
-SVar:X:ReplaceCount$DamageAmount/Plus.2
-SVar:PlayMain1:TRUE
+ManaCost:1 B
+Types:Creature Human Knight
+PT:2/1
+K:Lifelink
+AlternateMode:Adventure
+ALTERNATE
+ManaCost:B
+Types:Sorcery Adventure
+A:SP$ GainLife | Defined$ You | LifeAmount$ X | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ X
+SVar:X:Count$Valid Knight.YouCtrl

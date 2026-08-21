@@ -1,17 +1,9 @@
 Id:33110
-ColorIdentity:WBG
-OriginSet:G7ab1fe96128a1641
-ManaCost:1 W B G
-Types:Legendary Creature Treefolk Druid
-PT:0/5
-S:Mode$ ReduceCost | ValidCard$ Creature.powerLTtoughness | Type$ Spell | Activator$ You | Amount$ 1
-T:Mode$ Attacks | ValidCard$ Creature.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPump1
-SVar:TrigPump1:DB$ Pump | Defined$ TriggeredAttackerLKICopy | NumAtt$ +X1 | NumDef$ +X1
-T:Mode$ Blocks | ValidCard$ Creature.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPump2 | Secondary$ True
-SVar:TrigPump2:DB$ Pump | Defined$ TriggeredBlockerLKICopy | NumAtt$ +X2 | NumDef$ +X2
-SVar:X1:SVar$Y1/Abs
-SVar:Y1:TriggeredAttacker$CardPower/Minus.Z1
-SVar:Z1:TriggeredAttacker$CardToughness
-SVar:X2:SVar$Y2/Abs
-SVar:Y2:TriggeredBlocker$CardPower/Minus.Z2
-SVar:Z2:TriggeredBlocker$CardToughness
+ColorIdentity:W
+OriginSet:G731e0066916b7465
+ManaCost:2 W
+Types:Instant
+A:SP$ Earthbend | Num$ 3 | SubAbility$ DBPumpAll
+SVar:DBPumpAll:DB$ PumpAll | ValidCards$ Creature.YouCtrl+powerLEX | KW$ Hexproof & Indestructible | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ You | KW$ Hexproof
+SVar:X:Targeted$CardPower

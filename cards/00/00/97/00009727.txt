@@ -1,10 +1,14 @@
 Id:9727
-ColorIdentity:B
+ColorIdentity:UB
 OriginSet:G0388e25893b1e049
-ManaCost:5 B B
-Types:Creature Demon Dog
-PT:7/6
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | IsPresent$ Card.YouCtrl | PresentCompare$ EQ0 | PresentZone$ Hand | Execute$ TrigLoseLifeEachOpp
-SVar:TrigLoseLifeEachOpp:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 2
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Opponent | TriggerZones$ Battlefield | IsPresent$ Card.ActivePlayerCtrl | PresentCompare$ EQ0 | PresentZone$ Hand | Execute$ TrigLoseLife
-SVar:TrigLoseLife:DB$ LoseLife | Defined$ TriggeredPlayer | LifeAmount$ 2
+ManaCost:3 UB
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAITgts:Card.Black,Card.Blue
+SVar:AttachAILogic:Curiosity
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy+Blue | AddPower$ 1 | AddToughness$ 1 | AddTrigger$ BleTrigger | AddSVar$ HelmTrigDraw
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy+Black | AddPower$ 1 | AddToughness$ 1 | AddTrigger$ BlckTrigger | AddSVar$ HelmTrigDiscard
+SVar:BleTrigger:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Opponent | TriggerZones$ Battlefield | Execute$ HelmTrigDraw
+SVar:BlckTrigger:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Opponent | TriggerZones$ Battlefield | Execute$ HelmTrigDiscard
+SVar:HelmTrigDraw:DB$ Draw
+SVar:HelmTrigDiscard:DB$ Discard | Defined$ TriggeredTarget | NumCards$ 1 | Mode$ TgtChoose

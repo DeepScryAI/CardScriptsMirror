@@ -1,6 +1,9 @@
 Id:30420
-ColorIdentity:G
-OriginSet:G8b2ed00ac2a0ff47
-ManaCost:1 G
-Types:Sorcery
-A:SP$ ManifestDread
+ColorIdentity:
+OriginSet:G7b2137df486dc752
+ManaCost:no cost
+Types:Scheme
+T:Mode$ SetInMotion | ValidCard$ Card.Self | Execute$ TrigMill | TriggerZones$ Command
+SVar:TrigMill:DB$ Mill | NumCards$ 3 | Defined$ Player | RememberMilled$ True | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Hidden$ True | Origin$ Graveyard,Exile | Destination$ Hand | ChangeType$ Permanent.IsRemembered | GainControl$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

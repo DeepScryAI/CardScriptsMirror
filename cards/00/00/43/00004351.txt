@@ -1,9 +1,9 @@
 Id:4351
-ColorIdentity:B
+ColorIdentity:R
 OriginSet:G94d5a0658e4301e7
-ManaCost:2 B B
-Types:Sorcery
-S:Mode$ AlternativeCost | ValidSA$ Spell | ValidCard$ Card.Self | ValidPlayer$ You | Cost$ 0 | EffectZone$ All | CheckSVar$ X | CheckSecondSVar$ Y
-SVar:X:Count$Valid Plains.OppCtrl
-SVar:Y:Count$Valid Swamp.YouCtrl
-A:SP$ PumpAll | ValidCards$ Creature | NumAtt$ -2 | NumDef$ -2 | IsCurse$ True
+ManaCost:1 R R
+Types:Enchantment
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ Player | Execute$ TrigCounters | TriggerZones$ Battlefield
+SVar:TrigCounters:DB$ PutCounter | Defined$ Self | CounterType$ CHARGE | CounterNum$ X
+SVar:X:Count$Valid Land.ActivePlayerCtrl+untapped
+A:AB$ Mana | Cost$ SubCounter<1/CHARGE> | Produced$ C | Activator$ Player | PlayerTurn$ True | ActivationPhases$ Upkeep->Main2

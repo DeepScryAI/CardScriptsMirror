@@ -1,9 +1,10 @@
 Id:20245
-ColorIdentity:G
+ColorIdentity:UB
 OriginSet:G42eb6bda83007836
-ManaCost:4 G G G
-Types:Enchantment Creature Elemental
-PT:5/5
-K:Trample
-R:Event$ ProduceMana | ActiveZones$ Battlefield | ValidActivator$ You | ValidCard$ Permanent | ReplaceWith$ ProduceThrice
-SVar:ProduceThrice:DB$ ReplaceMana | ReplaceAmount$ 3
+ManaCost:3 U B
+Types:Legendary Planeswalker Ashiok
+Loyalty:5
+A:AB$ Token | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | TokenScriptIds$ 4167326996 | TokenOwner$ You
+A:AB$ ChangeZone | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | ValidTgts$ Permanent.nonLand | Origin$ Battlefield | Destination$ Hand | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | ChangeType$ Card | Mandatory$ True | DefinedPlayer$ TargetedOwner | Chooser$ TargetedOwner
+A:AB$ Play | Cost$ SubCounter<7/LOYALTY> | Planeswalker$ True | Ultimate$ True | Valid$ Card.faceUp+OwnedBy Player.Opponent | ValidSA$ Spell | ValidZone$ Exile | WithoutManaCost$ True | Amount$ 3 | Optional$ True

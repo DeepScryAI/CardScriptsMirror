@@ -1,17 +1,10 @@
 Id:29319
-ColorIdentity:BRG
-OriginSet:G2ce881cc55bb9f18
-ManaCost:X X B R G
-Types:Creature Dragon
-PT:3/3
-K:Flying
-K:Trample
-T:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigSacrifice
-SVar:TrigSacrifice:DB$ Sacrifice | Defined$ Player | Amount$ X | SacValid$ Creature | Mode$ TgtChoose | RememberSacrificed$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | ReplacementEffects$ Static | RememberObjects$ Remembered | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:Static:Event$ Moved | Origin$ Stack | ValidCard$ Card.EffectSource | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBCounter
-SVar:ETBCounter:DB$ PutCounter | ETB$ True | Defined$ ReplacedCard | CounterType$ P1P1 | CounterNum$ Y | SubAbility$ RemoveSelf
-SVar:RemoveSelf:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile
-SVar:Y:Remembered$Amount/Twice
-SVar:X:Count$xPaid
+ColorIdentity:W
+OriginSet:G27146c70b74a1e72
+ManaCost:3 W
+Types:Creature Human Noble
+PT:4/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 472008509 | TokenOwner$ You
+A:AB$ Pump | Cost$ 2 Sac<1/Card.token/token> | Defined$ Self | KW$ Indestructible | SubAbility$ DBTap
+SVar:DBTap:DB$ Tap | Defined$ Self

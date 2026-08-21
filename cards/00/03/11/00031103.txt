@@ -1,10 +1,10 @@
 Id:31103
-ColorIdentity:UB
+ColorIdentity:U
 OriginSet:G4524bbf7a3db9dc0
-ManaCost:U B
-Types:Legendary Creature Human Warlock
-PT:3/2
-K:Ward:PayLife<2>
-S:Mode$ Continuous | Affected$ Artifact.YouCtrl | AddKeyword$ Ward:PayLife<2>
-A:AB$ PumpAll | Cost$ 2 U B T ExileFromGrave<X/Artifact> | ValidCards$ Creature.nonArtifact+Other | NumAtt$ -X | NumDef$ -X | IsCurse$ True | Exhaust$ True
-SVar:X:Count$xPaid
+ManaCost:2 U
+Types:Enchantment Aura
+K:Enchant:Creature,Vehicle:creature or Vehicle
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigTap
+SVar:TrigTap:DB$ Tap | Defined$ Enchanted
+S:Mode$ Continuous | Affected$ Permanent.AttachedBy | RemoveAllAbilities$ True
+R:Event$ Untap | ValidCard$ Permanent.AttachedBy | ValidStepTurnToController$ You | Layer$ CantHappen | Secondary$ True

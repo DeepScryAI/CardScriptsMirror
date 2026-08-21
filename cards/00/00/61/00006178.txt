@@ -3,12 +3,7 @@ ColorIdentity:
 OriginSet:Gda59deaeee465b93
 ManaCost:no cost
 Types:Vanguard
-HandLifeModifier:+0/-6
-A:AB$ ChooseSource | Cost$ 0 | ActivationZone$ Command | Choices$ Card,Emblem | AILogic$ NeedsPrevention | SubAbility$ DBEffect | ActivationLimit$ 1
-SVar:DBEffect:DB$ Effect | ReplacementEffects$ SelflessDamage | RememberObjects$ Targeted | SubAbility$ DBCleanup | ConditionDefined$ ChosenCard | ConditionPresent$ Card | ConditionCompare$ GE1 | ValidTgts$ Opponent,Planeswalker
-SVar:SelflessDamage:Event$ DamageDone | ValidTarget$ You | ValidSource$ Card.ChosenCard | PreventionEffect$ True | ReplaceWith$ DamageEffectYou
-SVar:DamageEffectYou:DB$ DealDamage | Defined$ You | DamageSource$ EffectSource | NumDmg$ X | SubAbility$ DamageEffectPlayer | DamageMap$ True
-SVar:DamageEffectPlayer:DB$ DealDamage | Defined$ Remembered | DamageSource$ EffectSource | NumDmg$ X | SubAbility$ DBDamageResolve
-SVar:DBDamageResolve:DB$ DamageResolve
-SVar:X:ReplaceCount$DamageAmount/HalfUp
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearChosenCard$ True
+HandLifeModifier:+1/-5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.YouCtrl | TriggerZones$ Command | Execute$ TrigCopyEquip
+SVar:TrigCopyEquip:DB$ CopyPermanent | Defined$ TriggeredCard | ValidSupportedCopy$ Equipment.cmcLTX | RandomCopied$ True | RandomNum$ 1 | AttachAfter$ True | AttachedTo$ TriggeredCardLKICopy
+SVar:X:TriggeredCard$CardManaCost

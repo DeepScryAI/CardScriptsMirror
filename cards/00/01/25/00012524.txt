@@ -1,8 +1,19 @@
 Id:12524
-ColorIdentity:U
+ColorIdentity:G
 OriginSet:G12585413ffc93ad8
-ManaCost:1 U
-Types:Creature Zombie
-PT:2/1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill
-SVar:TrigMill:DB$ Mill | NumCards$ 2 | Defined$ You
+ManaCost:1 G
+Types:Creature Human Werewolf
+PT:1/1
+A:AB$ Mana | Cost$ T | Produced$ G
+T:Mode$ Phase | Phase$ Upkeep | WerewolfTransformCondition$ True | TriggerZones$ Battlefield | Execute$ TrigTransform
+SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:green
+Types:Creature Werewolf
+PT:2/2
+K:Vigilance
+A:AB$ Mana | Cost$ T | Produced$ G | Amount$ 2
+T:Mode$ Phase | Phase$ Upkeep | WerewolfUntransformCondition$ True | TriggerZones$ Battlefield | Execute$ TrigTransform
+SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform

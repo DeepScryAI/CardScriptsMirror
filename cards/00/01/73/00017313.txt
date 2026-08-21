@@ -1,12 +1,12 @@
 Id:17313
 ColorIdentity:B
 OriginSet:G4b92e66c84393de5
-ManaCost:3 B
-Types:Enchantment Aura Curse
-K:Enchant:Player
-SVar:AttachAILogic:Curse
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Player.EnchantedBy | TriggerZones$ Battlefield | Execute$ TrigGenericChoice
-SVar:TrigGenericChoice:DB$ GenericChoice | Choices$ PaySac,PayDiscard | Defined$ TriggeredPlayer | FallbackAbility$ LoseLifeFallback | AILogic$ PayUnlessCost
-SVar:PaySac:DB$ LoseLife | LifeAmount$ 3 | Defined$ TriggeredPlayer | UnlessCost$ Sac<1/Permanent.nonLand/nonland permanent> | UnlessPayer$ TriggeredPlayer
-SVar:PayDiscard:DB$ LoseLife | LifeAmount$ 3 | Defined$ TriggeredPlayer | UnlessCost$ Discard<1/Card> | UnlessPayer$ TriggeredPlayer
-SVar:LoseLifeFallback:DB$ LoseLife | Defined$ Player.IsRemembered | LifeAmount$ 3
+ManaCost:X B B
+Types:Sorcery
+A:SP$ Repeat | MaxRepeat$ X | RepeatSubAbility$ RepeatTorment | AILogic$ MaxX
+SVar:RepeatTorment:DB$ GenericChoice | Defined$ Opponent | TempRemember$ Chooser | Choices$ SacNonland,Discard | FallbackAbility$ LoseLifeFallback | AILogic$ PayUnlessCost
+SVar:Discard:DB$ LoseLife | Defined$ Remembered | LifeAmount$ 3 | UnlessCost$ Discard<1/Card> | UnlessPayer$ Remembered
+SVar:SacNonland:DB$ LoseLife | Defined$ Remembered | LifeAmount$ 3 | UnlessCost$ Sac<1/Permanent.nonLand/nonland permanent> | UnlessPayer$ Remembered
+SVar:LoseLifeFallback:DB$ LoseLife | Defined$ Remembered | LifeAmount$ 3
+SVar:X:Count$xPaid
+SVar:AIPreference:SacCost$Permanent.nonLand | DiscardCost$Card

@@ -1,8 +1,13 @@
 Id:25682
-ColorIdentity:
-OriginSet:G06ccef4324c14725
-ManaCost:no cost
-Types:Land
-A:AB$ Mana | Cost$ T | Produced$ C
-A:AB$ Mana | Cost$ 1 T | Produced$ Any
-A:AB$ Token | Cost$ 4 T | TokenTapped$ True | TokenScriptIds$ 2975106104
+ColorIdentity:WUR
+OriginSet:Gce0c33e5115830a3
+ManaCost:2 U R W
+Types:Legendary Creature Human Advisor
+PT:0/5
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigGainLife
+SVar:TrigGainLife:DB$ GainLife | LifeAmount$ X
+T:Mode$ LifeGained | TriggerZones$ Battlefield | ValidPlayer$ You | Execute$ TrigPumpAll
+SVar:TrigPumpAll:DB$ PumpAll | ValidCards$ Advisor.YouCtrl,Artificer.YouCtrl,Monk.YouCtrl | NumAtt$ +Y | KW$ Vigilance
+A:AB$ Draw | Cost$ tapXType<3/Advisor.YouCtrl;Monk.YouCtrl;Artificer.YouCtrl/Advisors, Artificers, and/or Monks you control>
+SVar:X:Count$ValidHand Card.YouOwn/Minus.4
+SVar:Y:TriggerCount$LifeAmount

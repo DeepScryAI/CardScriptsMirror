@@ -1,13 +1,9 @@
 Id:30426
-ColorIdentity:B
+ColorIdentity:WU
 OriginSet:G8b2ed00ac2a0ff47
-ManaCost:4 B B
-Types:Creature Demon
-PT:5/4
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDiscard
-SVar:TrigDiscard:DB$ Discard | DiscardValid$ Card | AnyNumber$ True | Optional$ True | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ TrigImmediateTrig
-SVar:TrigImmediateTrig:DB$ ImmediateTrigger | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ GE1 | RememberObjects$ Remembered | Execute$ TrigPump | SubAbility$ DBCleanup
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ X | NumAtt$ -2 | NumDef$ -2 | IsCurse$ True
-SVar:X:TriggerRemembered$Amount
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ LandTapped | ReplacementResult$ Updated
+SVar:LandTapped:DB$ Tap | Defined$ Self | ETB$ True | ConditionCheckSVar$ X | ConditionSVarCompare$ GT13
+SVar:X:PlayerCountPlayers$LowestLifeTotal
+A:AB$ Mana | Cost$ T | Produced$ Combo W U

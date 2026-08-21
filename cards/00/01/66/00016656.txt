@@ -1,7 +1,13 @@
 Id:16656
 ColorIdentity:B
 OriginSet:Ge1d53e4f418bb713
-ManaCost:5 B
-Types:Instant
-K:Undaunted
-A:SP$ Destroy | TargetMin$ 2 | TargetMax$ 2 | ValidTgts$ Creature
+ManaCost:B
+Types:Enchantment Aura Curse
+K:Enchant:Player
+SVar:AttachAILogic:Curse
+T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ Player.EnchantedBy | Execute$ TrigPutCounter | TriggerZones$ Battlefield
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ SPITE | CounterNum$ 1
+T:Mode$ LosesGame | ValidPlayer$ Player.EnchantedBy | Execute$ TrigGainLife
+SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ X | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ X
+SVar:X:Count$CardCounters.SPITE

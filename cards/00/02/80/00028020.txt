@@ -1,9 +1,13 @@
 Id:28020
-ColorIdentity:UG
-OriginSet:Gfd50577710a6ab09
-ManaCost:2 G U
-Types:Creature Merfolk Spirit
-PT:4/4
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigExplore
-SVar:TrigExplore:DB$ Explore | SubAbility$ DBClone
-SVar:DBClone:DB$ Clone | Choices$ Creature.Other+YouCtrl | Optional$ True | AILogic$ CloneBestCreature | Duration$ UntilEndOfTurn
+ColorIdentity:WG
+OriginSet:G30e8a5e111cffb44
+ManaCost:X G G W
+Types:Legendary Creature Alien Insect Scout
+PT:0/0
+K:Flying
+K:etbCounter:P1P1:X
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ X | TokenScriptIds$ 327135718 | TokenOwner$ You
+SVar:X:Count$xPaid
+T:Mode$ AttackersDeclared | ValidAttackers$ Insect.YouCtrl | Execute$ TrigPutCounterAll | TriggerZones$ Battlefield
+SVar:TrigPutCounterAll:DB$ PutCounter | Defined$ TriggeredAttackers | CounterType$ P1P1 | CounterNum$ 1

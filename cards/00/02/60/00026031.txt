@@ -1,13 +1,9 @@
 Id:26031
-ColorIdentity:B
-OriginSet:G2192e8955d5e1ad1
-ManaCost:5 B
-Types:Creature Phyrexian Cleric
-PT:5/5
-K:Deathtouch
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDiscard
-SVar:TrigDiscard:DB$ Discard | Mode$ TgtChoose | Defined$ Opponent | RememberDiscarded$ True | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | LifeAmount$ X | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:SVar$Y/Times.4
-SVar:Y:PlayerCountOpponents$Amount/Minus.Remembered$Amount
+ColorIdentity:W
+OriginSet:Gb879a1706584aeee
+ManaCost:3 W
+Types:Legendary Creature Rabbit Wizard
+PT:2/5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.Other+!token+!wasCast+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigCopyPermanent
+SVar:TrigCopyPermanent:DB$ CopyPermanent | Defined$ TriggeredCardLKICopy | SetColor$ White | SetCreatureTypes$ Illusion | SetPower$ 0 | SetToughness$ 1
+A:AB$ ChangeZone | Cost$ 1 W Sac<5/Illusion> | ValidTgts$ Permanent.nonLand | Origin$ Battlefield | Destination$ Exile

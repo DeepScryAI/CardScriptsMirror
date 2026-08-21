@@ -1,12 +1,9 @@
 Id:18700
-ColorIdentity:UB
+ColorIdentity:W
 OriginSet:G1ecb361a0a117393
-ManaCost:2 U B
-Types:Legendary Creature Vampire Assassin
-PT:3/5
-S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZone | ValidTgts$ Creature.ControlledBy TriggeredTarget | Origin$ Battlefield | Destination$ Exile | WithCountersType$ HIT | SubAbility$ DBLose
-SVar:DBLose:DB$ LosesGame | Defined$ TriggeredTarget | ConditionCheckSVar$ CheckExile | ConditionSVarCompare$ GE3 | SubAbility$ DBShuffle
-SVar:CheckExile:Count$ValidExile Card.counters_GE1_HIT+ControlledBy TriggeredTarget
-SVar:DBShuffle:DB$ ChangeZone | ConditionPresent$ Card.Self | Origin$ Battlefield | Destination$ Library | Shuffle$ True
+ManaCost:3 W
+Types:Enchantment
+K:Convoke
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Permanent.nonLand+OppCtrl | Duration$ UntilHostLeavesPlay
+SVar:OblivionRing:TRUE

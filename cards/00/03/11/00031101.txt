@@ -1,9 +1,12 @@
 Id:31101
-ColorIdentity:G
+ColorIdentity:BR
 OriginSet:G4524bbf7a3db9dc0
-ManaCost:no cost
-Types:Land
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ LandTapped | ReplacementResult$ Updated
-SVar:LandTapped:DB$ Tap | Defined$ Self | ETB$ True | ConditionPresent$ Mount.YouCtrl,Vehicle.YouCtrl | ConditionCompare$ EQ0
-A:AB$ Mana | Cost$ T | Produced$ G
-A:AB$ Token | Cost$ 1 G T Sac<1/CARDNAME/this land> | SorcerySpeed$ True | TokenScriptIds$ 307587310
+ManaCost:2 B R
+Types:Legendary Creature Human Mercenary
+PT:4/5
+K:StartYourEngines
+T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigDamage | TriggerZones$ Battlefield
+SVar:TrigDamage:DB$ DealDamage | NumDmg$ 1 | Defined$ Opponent
+S:Mode$ Continuous | Affected$ Card.Self | Condition$ MaxSpeed | AddReplacementEffect$ DamageRep
+SVar:DamageRep:Event$ DamageDone | MaxSpeed$ True | ActiveZones$ Battlefield | ValidSource$ Card.YouCtrl,Emblem.YouCtrl | ValidTarget$ Player.Opponent,Permanent.OppCtrl | ReplaceWith$ DmgPlus | Secondary$ True
+SVar:DmgPlus:DB$ ReplaceEffect | VarName$ DamageAmount | VarValue$ ReplaceCount$DamageAmount/Plus.1

@@ -1,8 +1,10 @@
 Id:28587
-ColorIdentity:
+ColorIdentity:U
 OriginSet:G7ee0e82a2424d636
-ManaCost:2
-Types:Artifact Creature Construct
-PT:2/1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSurveil
-SVar:TrigSurveil:DB$ Surveil | Amount$ 1
+ManaCost:2 U
+Types:Enchantment Aura
+K:Enchant:Creature
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigTap
+SVar:TrigTap:DB$ Tap | Defined$ Enchanted
+R:Event$ Untap | ActiveZones$ Battlefield | ValidCard$ Creature.EnchantedBy | ValidStepTurnToController$ You | Layer$ CantHappen
+A:AB$ ChangeZone | Cost$ U U | Origin$ Battlefield | Destination$ Library | Shuffle$ True | Defined$ Enchanted

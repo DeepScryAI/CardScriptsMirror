@@ -1,9 +1,12 @@
 Id:24548
-ColorIdentity:B
-OriginSet:G58bfeff4fb121c8e
-ManaCost:4 B
-Types:Creature Horror
-PT:3/3
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigEffect
-SVar:TrigEffect:DB$ Pump | Defined$ TriggeredNewCardLKICopy | PumpZone$ Graveyard | NumAtt$ -1 | NumDef$ -1 | Duration$ Perpetual | SubAbility$ DBReturn
-SVar:DBReturn:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | ConditionDefined$ TriggeredNewCardLKICopy | ConditionPresent$ Creature.toughnessGE1 | Origin$ Graveyard | Destination$ Battlefield
+ColorIdentity:R
+OriginSet:G51fcb7ec0cb81c29
+ManaCost:1 R
+Types:Legendary Creature Human Warlock
+PT:1/1
+R:Event$ RollDice | ActiveZones$ Battlefield | ValidPlayer$ You | ReplaceWith$ PlusRoll
+SVar:PlusRoll:DB$ ReplaceEffect | VarName$ Number | VarValue$ ReplaceCount$Number/Plus.1 | SubAbility$ IgnoreLowest
+SVar:IgnoreLowest:DB$ ReplaceEffect | VarName$ Ignore | VarValue$ ReplaceCount$Ignore/Plus.1
+T:Mode$ RolledDieOnce | TriggerZones$ Battlefield | ValidPlayer$ You | Execute$ TrigPut
+SVar:TrigPut:DB$ PutCounter | CounterType$ P1P1
+K:Choose a Background

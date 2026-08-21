@@ -1,8 +1,14 @@
 Id:32709
-ColorIdentity:B
-OriginSet:G22ed5d6f3707b461
-ManaCost:B
-Types:Sorcery
-K:AlternateAdditionalCost:Sac<1/Creature;Artifact/artifact or creature>:4
-SVar:AIPreference:SacCost$Creature.token,Creature.cmcLE3
-A:SP$ Destroy | ValidTgts$ Creature
+ColorIdentity:WU
+OriginSet:G1f5998b5f01949b9
+ManaCost:1 W U
+Types:Legendary Creature Spider Human Hero
+PT:3/3
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigTap
+SVar:TrigTap:DB$ Tap | ValidTgts$ Creature.ControlledBy TriggeredDefendingPlayer | SubAbility$ DBCounter
+SVar:DBCounter:DB$ PutCounter | Defined$ Targeted | CounterType$ STUN | CounterNum$ 1 | SubAbility$ DBRemoveCounters
+SVar:DBRemoveCounters:DB$ RemoveCounter | Choices$ Permanent.counters_GE1_STUN | ChoiceOptional$ True | CounterType$ STUN | CounterNum$ 3 | CounterNumShared$ True | UpTo$ True | RememberAmount$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$RememberedNumber
+SVar:HasAttackEffect:TRUE

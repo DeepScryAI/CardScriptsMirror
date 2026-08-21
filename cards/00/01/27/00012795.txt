@@ -1,13 +1,14 @@
 Id:12795
-ColorIdentity:
+ColorIdentity:R
 OriginSet:G4801bb28ce9773ed
 ManaCost:no cost
-Types:Plane Azgol
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Command | Execute$ SacToIdol
-SVar:SacToIdol:DB$ Sacrifice | Defined$ You | SacValid$ Creature | SubAbility$ IdolWalk | RememberSacrificed$ True
-SVar:IdolWalk:DB$ Planeswalk | ConditionCheckSVar$ IdolX | ConditionSVarCompare$ EQ0 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:IdolX:Remembered$Amount
+Types:Plane Ravnica
+T:Mode$ PlaneswalkedTo | ValidCard$ Card.Self | Execute$ PutCounter
+T:Mode$ Phase | Phase$ Main1 | ValidPlayer$ You | TriggerZones$ Command | Execute$ PutCounter | Secondary$ True
+SVar:PutCounter:DB$ PutCounter | Defined$ Self | CounterType$ CHARGE | CounterNum$ 1 | SubAbility$ DBMana
+SVar:DBMana:DB$ Mana | Produced$ R | Amount$ Y
 T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos
-SVar:RolledChaos:DB$ Token | ValidTgts$ Player | TargetMin$ 0 | TargetMax$ MaxTgt | TokenScriptIds$ 353162950 | TokenOwner$ Targeted
-SVar:MaxTgt:PlayerCountPlayers$Amount
+SVar:RolledChaos:AB$ DealDamage | Cost$ X | ValidTgts$ Any | NumDmg$ X
+SVar:X:Count$xPaid
+SVar:Y:Count$CardCounters.CHARGE
+SVar:AIRollPlanarDieParams:Mode$ Always

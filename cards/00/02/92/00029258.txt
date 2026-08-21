@@ -1,8 +1,12 @@
 Id:29258
-ColorIdentity:G
+ColorIdentity:R
 OriginSet:G27146c70b74a1e72
-ManaCost:1 G
-Types:Creature Varmint
-PT:2/2
-K:Vigilance
-A:AB$ Destroy | Cost$ 1 Sac<1/CARDNAME> | ValidTgts$ Artifact,Enchantment | AILogic$ AtEOTIfNotAttacking
+ManaCost:2 R
+Types:Creature Wolverine
+PT:3/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ Play | SubAbility$ DBCleanup | ExileOnMoved$ Exile
+SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+K:Plot:2 R

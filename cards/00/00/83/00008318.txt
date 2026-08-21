@@ -1,10 +1,12 @@
 Id:8318
-ColorIdentity:B
+ColorIdentity:BR
 OriginSet:Gde6d8130c178f566
-ManaCost:1 B
-Types:Creature Beast
-PT:3/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ DBSacSelf
-SVar:DBSacSelf:DB$ Sacrifice | UnlessCost$ Discard<1/Card.nonCreature> | UnlessPayer$ You
-SVar:NeedsToPlayVar:Y GE1
-SVar:Y:Count$ValidHand Card.nonCreature+YouCtrl
+ManaCost:3 B R
+Types:Creature Horror
+PT:9/9
+K:Trample
+S:Mode$ Continuous | Affected$ Card.Self | AddPower$ -X | AddToughness$ -X
+SVar:X:Count$ValidHand Card.YouOwn/Times.4
+SVar:BuffedBy:Card
+SVar:NeedsToPlayVar:Y LE2
+SVar:Y:Count$CardsInYourHand

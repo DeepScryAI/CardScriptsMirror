@@ -1,10 +1,9 @@
 Id:27829
-ColorIdentity:UB
+ColorIdentity:
 OriginSet:G30e8a5e111cffb44
-ManaCost:U B
-Types:Legendary Creature Time Lord Rogue
-PT:0/1
-K:ETBReplacement:Copy:DBCopy:Optional
-T:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigExile | OptionalDecider$ You
-SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | Hidden$ True | ChangeType$ Creature.YouCtrl | WithCountersType$ TAKEOVER
-SVar:DBCopy:DB$ Clone | Choices$ Creature.counters_GE1_TAKEOVER | ChoiceZone$ Exile
+ManaCost:no cost
+Types:Plane Earth
+T:Mode$ SpellCast | ValidCard$ Card.Historic | Execute$ TrigDraw | TriggerZones$ Command
+SVar:TrigDraw:DB$ Draw | Defined$ TriggeredActivator | NumCards$ 1
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Card.Historic+YouOwn

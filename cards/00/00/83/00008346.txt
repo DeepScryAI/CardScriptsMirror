@@ -1,11 +1,11 @@
 Id:8346
-ColorIdentity:R
+ColorIdentity:BR
 OriginSet:Gde6d8130c178f566
-ManaCost:1 R R
-Types:Sorcery
-A:SP$ Repeat | RepeatSubAbility$ DBDiscard | RepeatOptional$ True
-SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ Random | RememberDiscarded$ True | SubAbility$ DBDmgAll
-SVar:DBDmgAll:DB$ DamageAll | ValidCards$ Creature | NumDmg$ X | ConditionCheckSVar$ Y | ConditionCompare$ GE1 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Remembered$CardManaCost
-SVar:Y:Remembered$Amount
+ManaCost:R
+Types:Creature Goblin Berserker
+PT:1/1
+S:Mode$ MustAttack | ValidCreature$ Card.Self
+A:AB$ Effect | Cost$ B Sac<1/CARDNAME> | ValidTgts$ Creature | ReplacementEffects$ SelfDamage | RememberObjects$ Targeted | ExileOnMoved$ Battlefield
+SVar:SelfDamage:Event$ DamageDone | ValidTarget$ Creature.IsRemembered | ReplaceWith$ CultistDestroy
+SVar:CultistDestroy:DB$ Destroy | Defined$ ReplacedTarget | SubAbility$ ExileEffect
+SVar:ExileEffect:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile

@@ -1,7 +1,15 @@
 Id:25790
-ColorIdentity:
+ColorIdentity:U
 OriginSet:G06ccef4324c14725
-ManaCost:4
-Types:Artifact
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.equalPT+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigDraw
-SVar:TrigDraw:AB$ Draw | Cost$ 1
+ManaCost:1 U U
+Types:Legendary Creature Human Wizard Advisor
+PT:2/4
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ X | Execute$ TrigDig
+SVar:TrigDig:DB$ PeekAndReveal | PeekAmount$ 5 | NoPeek$ True | RememberRevealed$ True | SubAbility$ DBRepeatEach
+SVar:DBRepeatEach:DB$ RepeatEach | RepeatTypesFrom$ ThisTurnCast_Card.nonCreature+YouCtrl+sharesCardTypeWith Remembered | RepeatSubAbility$ ChooseCard | SubAbility$ DBChangeZoneAll
+SVar:ChooseCard:DB$ ChooseCard | Choices$ Card.IsRemembered+ChosenType | ImprintChosen$ True | ForgetChosen$ True | ChoiceTitleAppend$ ChosenType | ChoiceZone$ Library
+SVar:DBChangeZoneAll:DB$ ChangeZone | Defined$ Imprinted | Origin$ Library | Destination$ Hand | SubAbility$ DBRestRandomOrder
+SVar:DBRestRandomOrder:DB$ ChangeZone | Defined$ Remembered | Origin$ Library | Destination$ Library | LibraryPosition$ -1 | RandomOrder$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True | ClearChosenCard$ True
+SVar:X:Count$ThisTurnCast_Card.nonCreature+YouCtrl
+SVar:BuffedBy:Card.nonCreature

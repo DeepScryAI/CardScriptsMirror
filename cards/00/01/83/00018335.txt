@@ -1,13 +1,9 @@
 Id:18335
-ColorIdentity:W
+ColorIdentity:UB
 OriginSet:G7d4bd61c81d44275
-ManaCost:W W
-Types:Enchantment
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPut
-SVar:TrigPut:DB$ PutCounter | Support$ 2
-A:AB$ ChooseCard | Cost$ 1 | ValidTgts$ Creature.HasCounters | SubAbility$ DBDelayedTrigger
-SVar:DBDelayedTrigger:DB$ DelayedTrigger | Mode$ ChangesZone | RememberObjects$ Targeted | ValidCard$ Card.IsTriggerRemembered | Origin$ Battlefield | Destination$ Graveyard | ThisTurn$ True | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | Defined$ TriggeredCard
-SVar:NonStackingEffect:True
-SVar:PlayMain1:ALWAYS
-SVar:NeedsToPlay:Creature.YouCtrl
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ LandTapped | ReplacementResult$ Updated
+SVar:LandTapped:DB$ Tap | Defined$ Self | ETB$ True | ConditionCheckSVar$ ETBCheckSVar2 | ConditionSVarCompare$ LT2
+SVar:ETBCheckSVar2:PlayerCountOpponents$Amount
+A:AB$ Mana | Cost$ T | Produced$ Combo U B

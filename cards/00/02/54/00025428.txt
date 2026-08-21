@@ -1,0 +1,14 @@
+Id:25428
+ColorIdentity:WR
+OriginSet:G2e872aaf9b98489e
+ManaCost:1 R W
+Types:Legendary Creature Human Pilot Employee
+PT:2/2
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigAnimate
+SVar:TrigAnimate:DB$ Animate | ValidTgts$ Permanent.nonLand+YouCtrl | RemoveCardTypes$ True | RemoveCreatureTypes$ True | Power$ X | Toughness$ X | Types$ Vehicle,Artifact | Keywords$ Crew:2 | Triggers$ CrashLand
+SVar:CrashLand:Mode$ DamageDealtOnce | ValidSource$ Card.Self | ValidTarget$ Player,Permanent | Execute$ RollCounters | TriggerZones$ Battlefield
+SVar:RollCounters:DB$ RollDice | ResultSVar$ Result | SubAbility$ Crash
+SVar:Crash:DB$ Sacrifice | ConditionCheckSVar$ Result | ConditionSVarCompare$ EQY | SubAbility$ CrashDamage
+SVar:CrashDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ Y | ConditionCheckSVar$ Result | ConditionSVarCompare$ EQY
+SVar:X:Targeted$CardManaCost
+SVar:Y:Count$CardManaCost

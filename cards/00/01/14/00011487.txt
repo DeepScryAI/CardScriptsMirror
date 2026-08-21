@@ -1,11 +1,10 @@
 Id:11487
-ColorIdentity:
-OriginSet:G60f19cd67252161d
-ManaCost:3
-Types:Artifact Equipment
-K:Equip:2
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddToughness$ 2 | AddSVar$ SwordOfBodyAndMindCE | AddKeyword$ Protection:Green & Protection:Blue
-T:Mode$ DamageDone | ValidSource$ Creature.EquippedBy | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigToken | TriggerZones$ Battlefield
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 4257275070 | TokenOwner$ You | SubAbility$ DBMill
-SVar:DBMill:DB$ Mill | Defined$ TriggeredTarget | NumCards$ 10
-SVar:SwordOfBodyAndMindCE:SVar:MustBeBlocked:AttackingPlayerConservative
+ColorIdentity:R
+OriginSet:Gf6792163b580976b
+ManaCost:5 R
+Types:Enchantment
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Player | Execute$ TrigEvoke | TriggerZones$ Battlefield
+SVar:TrigEvoke:DB$ Reveal | Random$ True | RememberRevealed$ True | Defined$ TriggeredPlayer | SubAbility$ DBEvokeLand
+SVar:DBEvokeLand:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | Defined$ ValidHand Land.IsRemembered | ForgetChanged$ True | SubAbility$ DBEvokePlay
+SVar:DBEvokePlay:DB$ Play | ValidZone$ Hand | Controller$ TriggeredPlayer | Defined$ Remembered | ValidSA$ Spell | WithoutManaCost$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

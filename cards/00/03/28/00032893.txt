@@ -1,9 +1,13 @@
 Id:32893
-ColorIdentity:U
-OriginSet:G731e0066916b7465
-ManaCost:2 U
-Types:Creature Fox Spirit
-PT:2/2
-T:Mode$ ChangesZoneAll | ValidCards$ Card.!token | Origin$ Any | Destination$ Library | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
-A:AB$ ChangeZone | Cost$ 3 | ValidTgts$ Card | Origin$ Graveyard | Destination$ Library | LibraryPosition$ -1
+ColorIdentity:W
+OriginSet:G22ed5d6f3707b461
+ManaCost:4 W W
+Types:Legendary Creature Bison Ally
+PT:4/4
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigCharm | TriggerZones$ Battlefield | Secondary$ True
+SVar:TrigCharm:DB$ Charm | Choices$ DBPump,DBAirbend
+SVar:DBPump:DB$ Pump | ValidTgts$ Creature.YouCtrl | KW$ Flying
+SVar:DBAirbend:DB$ Airbend | ValidTgts$ Permanent.Other+nonLand+YouCtrl
+SVar:HasAttackEffect:TRUE

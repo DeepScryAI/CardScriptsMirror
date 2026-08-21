@@ -1,9 +1,13 @@
 Id:8282
-ColorIdentity:G
+ColorIdentity:BR
 OriginSet:Gde6d8130c178f566
-ManaCost:1 G
-Types:Creature Spider Mutant
-PT:0/0
-K:Graft:2
-A:AB$ Pump | Cost$ G | ValidTgts$ Creature.counters_GE1_P1P1 | KW$ Reach
-SVar:AIGraftPreference:DontMoveCounterIfLethal
+ManaCost:2 B R R
+Types:Enchantment
+T:Mode$ Attacks | ValidCard$ Creature.YouCtrl | TriggerZones$ Battlefield | Execute$ AnthemPump
+SVar:AnthemPump:DB$ Pump | Defined$ TriggeredAttackerLKICopy | NumAtt$ +2 | SubAbility$ RakdosBurn
+SVar:RakdosBurn:DB$ DealDamage | Defined$ You | NumDmg$ 1
+R:Event$ DamageDone | ActiveZones$ Battlefield | ValidSource$ Card.YouCtrl,Emblem.YouCtrl | ValidTarget$ Permanent,Player | Hellbent$ True | ReplaceWith$ DmgTwice
+SVar:DmgTwice:DB$ ReplaceEffect | VarName$ DamageAmount | VarValue$ X
+SVar:X:ReplaceCount$DamageAmount/Twice
+SVar:PlayMain1:TRUE
+SVar:BuffedBy:Card

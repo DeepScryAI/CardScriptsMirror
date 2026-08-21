@@ -1,9 +1,12 @@
 Id:29968
-ColorIdentity:G
+ColorIdentity:W
 OriginSet:Gf09b85bbcc27770c
-ManaCost:2 G
-Types:Creature Frog Warrior
-PT:3/3
-K:Reach
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZone | ValidTgts$ Permanent.Other+YouCtrl | TargetMin$ 0 | TargetMax$ 1 | Origin$ Battlefield | Destination$ Hand
+ManaCost:1 W
+Types:Creature Bat Cleric
+PT:2/1
+S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ Flying & Vigilance | CheckSVar$ X
+T:Mode$ LifeGained | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter1
+SVar:TrigPutCounter1:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigPutCounter2
+SVar:TrigPutCounter2:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ EachFromSource | EachFromSource$ TriggeredCardLKICopy
+SVar:X:PlayerCountPropertyYou$LifeLostThisTurn

@@ -1,9 +1,8 @@
 Id:24294
 ColorIdentity:B
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:1 B
-Types:Creature Tiefling Rogue Assassin
-PT:2/1
-K:Deathtouch
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self+!blocking | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw
+ManaCost:2 B
+Types:Legendary Enchantment Background
+S:Mode$ Continuous | Affected$ Creature.IsCommander+YouOwn | AddKeyword$ Menace | AddStaticAbility$ PowerGrave
+SVar:PowerGrave:Mode$ Continuous | Affected$ Card.Self | AddPower$ X | This creature gets +X/+0, where X is the number of creature cards in your graveyard.
+SVar:X:Count$ValidGraveyard Creature.YouOwn

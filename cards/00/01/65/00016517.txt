@@ -1,9 +1,9 @@
 Id:16517
-ColorIdentity:WB
+ColorIdentity:U
 OriginSet:G4bddbf7cb4f2475e
-ManaCost:1 W B
-Types:Legendary Creature Human Advisor
+ManaCost:2 U
+Types:Creature Vedalken Soldier
 PT:2/3
-T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ Opponent | TriggerZones$ Battlefield | Execute$ TrigDrain
-SVar:TrigDrain:DB$ LoseLife | Defined$ TriggeredActivator | LifeAmount$ 2 | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigEnergy
+SVar:TrigEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ 2
+A:AB$ TapOrUntap | Cost$ T PayEnergy<2> | ValidTgts$ Artifact,Creature

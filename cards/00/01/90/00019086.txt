@@ -1,7 +1,11 @@
 Id:19086
-ColorIdentity:G
+ColorIdentity:R
 OriginSet:G0b51a0aecbe39efe
-ManaCost:G
-Types:Instant
-A:SP$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBUntap
-SVar:DBUntap:DB$ Untap | Defined$ Targeted
+ManaCost:5 R
+Types:Creature Elemental
+PT:6/6
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigEffect
+SVar:TrigEffect:DB$ Effect | StaticAbilities$ KWPump | SetChosenNumber$ Y
+SVar:KWPump:Mode$ CantBlock | ValidCard$ Creature.OppCtrl+powerLEX
+SVar:X:Count$ChosenNumber
+SVar:Y:Count$Valid Creature.YouCtrl$CardCounters.P1P1

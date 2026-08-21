@@ -1,8 +1,10 @@
 Id:33644
-ColorIdentity:G
-OriginSet:Gf04404de3fa1525e
-ManaCost:3 G
-Types:Sorcery
-A:SP$ Sacrifice | Defined$ You | SacValid$ Land | Amount$ 2 | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Land.Basic | ChangeNum$ 4 | Tapped$ True
-SVar:AIPreference:SacCost$Land.Basic+tapped
+ColorIdentity:R
+OriginSet:G23d1f017cc66962f
+ManaCost:1 R R
+Types:Legendary Creature Human Berserker
+PT:4/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 3 | SubAbility$ DelTrig
+SVar:DelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | RememberObjects$ Targeted | Execute$ TrigDiscard
+SVar:TrigDiscard:DB$ Discard | Defined$ You | NumCards$ 3 | Mode$ Random

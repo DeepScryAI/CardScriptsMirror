@@ -1,7 +1,12 @@
 Id:26584
 ColorIdentity:B
 OriginSet:G06757f68e16377c2
-ManaCost:4 B B
-Types:Instant
-A:SP$ ChangeZone | ValidTgts$ Creature | Origin$ Battlefield | Destination$ Exile | SubAbility$ DBIncubate
-SVar:DBIncubate:DB$ Incubate | Amount$ 3
+ManaCost:3 B B
+Types:Creature Human Warlock
+PT:4/4
+K:Backup:1:BackupAbilities
+SVar:BackupAbilities:DB$ Animate | Keywords$ Deathtouch | Triggers$ DamageTrig
+SVar:DamageTrig:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player,Battle | Execute$ TrigReturn | CombatDamage$ True
+K:Deathtouch
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player,Battle | Execute$ TrigReturn | CombatDamage$ True
+SVar:TrigReturn:DB$ ChangeZone | ValidTgts$ Creature.YouOwn | Origin$ Graveyard | Destination$ Battlefield

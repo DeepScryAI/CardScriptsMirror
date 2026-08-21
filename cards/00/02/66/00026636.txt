@@ -1,8 +1,11 @@
 Id:26636
-ColorIdentity:R
+ColorIdentity:W
 OriginSet:G06757f68e16377c2
-ManaCost:2 R
-Types:Sorcery
-A:SP$ DealDamage | ValidTgts$ Any | NumDmg$ 2 | SubAbility$ DBCantBlock
-SVar:DBCantBlock:DB$ Pump | Defined$ Targeted.Creature | KW$ HIDDEN CARDNAME can't block. | IsCurse$ True | SubAbility$ DBIncubate
-SVar:DBIncubate:DB$ Incubate | Amount$ 1
+ManaCost:W
+Types:Creature Human Scout
+PT:0/1
+K:Backup:1:BackupAbility
+SVar:BackupAbility:DB$ Animate | Triggers$ DiesTrig
+SVar:DiesTrig:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ EachFromSource | EachFromSource$ TriggeredCardLKICopy
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigPutCounter

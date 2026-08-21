@@ -1,8 +1,11 @@
 Id:4486
-ColorIdentity:
+ColorIdentity:U
 OriginSet:G239b3b7a46d83e8e
-ManaCost:4
-Types:Artifact Creature Golem Warrior
-PT:4/4
-S:Mode$ CantAttackUnless | ValidCard$ Card.Self | Cost$ tapXType<1/Creature.!attacking>
-S:Mode$ CantBlockUnless | ValidCard$ Card.Self | Cost$ tapXType<1/Creature.!blocking>
+ManaCost:3 U U
+Types:Enchantment
+K:ETBReplacement:Other:TrigDiscard
+SVar:TrigDiscard:DB$ Discard | Mode$ Hand
+T:Mode$ Phase | Phase$ Draw | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw
+SVar:NeedsToPlayVar:Y LE2
+SVar:Y:Count$ValidHand Card.YouOwn

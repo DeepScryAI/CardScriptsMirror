@@ -1,17 +1,11 @@
 Id:7530
-ColorIdentity:B
+ColorIdentity:U
 OriginSet:G4747f23d5c5760bc
-ManaCost:1 B B
-Types:Creature Human Warrior
-PT:2/2
-T:Mode$ SpellCast | ValidCard$ Card.Spirit,Card.Arcane | ValidActivatingPlayer$ You | Execute$ TrigPutCounter | OptionalDecider$ You | TriggerZones$ Battlefield
-T:Mode$ Phase | Phase$ End of Turn | IsPresent$ Card.Self+counters_GE2_KI | Execute$ TrigFlip | OptionalDecider$ You | TriggerZones$ Battlefield
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ KI | CounterNum$ 1
-SVar:TrigFlip:DB$ SetState | Defined$ Self | Mode$ Flip
-AlternateMode:Flip
-ALTERNATE
-ManaCost:1 B B
-Colors:black
-Types:Legendary Creature Spirit
-PT:4/4
-A:AB$ Pump | Cost$ SubCounter<1/KI> | KW$ Fear | ValidTgts$ Creature
+ManaCost:3 U U
+Types:Legendary Creature Human Ninja
+PT:3/4
+K:Ninjutsu:2 U U
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigSearch | OptionalDecider$ You | CombatDamage$ True
+SVar:TrigSearch:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Ninja | ChangeNum$ 1 | ShuffleNonMandatory$ True
+A:AB$ Effect | Cost$ 2 | ValidTgts$ Creature.Ninja | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable | AILogic$ MakeUnblockable
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered

@@ -1,10 +1,11 @@
 Id:27820
-ColorIdentity:WU
+ColorIdentity:RG
 OriginSet:G30e8a5e111cffb44
-ManaCost:1 W U
-Types:Legendary Creature Time Lord Doctor
-PT:2/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSearch
-SVar:TrigSearch:DB$ ChangeZone | Hidden$ True | Origin$ Library | OriginAlternative$ Graveyard | Destination$ Hand | ChangeType$ Card.YouOwn+catalogId27577
-T:Mode$ SpellCast | ValidCard$ Card.withCascade | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature,Artifact | CounterType$ P1P1 | CounterNum$ 1
+ManaCost:3 R G
+Types:Enchantment Aura
+K:Enchant:Artifact,Land:artifact or land
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Permanent.EnchantedBy | AddAbility$ ABMana
+SVar:ABMana:AB$ Mana | Cost$ T | Defined$ Targeted | ValidTgts$ Player | Produced$ Any | Amount$ 2 | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ GrantCascade | EffectOwner$ Targeted | ForgetOnCast$ Card.YouCtrl
+SVar:GrantCascade:Mode$ Continuous | Affected$ Card.YouCtrl | AffectedZone$ Stack | AddKeyword$ Cascade

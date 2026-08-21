@@ -1,8 +1,9 @@
 Id:16331
-ColorIdentity:B
+ColorIdentity:BR
 OriginSet:Gd94e3db4ef71ffd2
-ManaCost:1 B
-Types:Enchantment
-A:AB$ PutCounter | Cost$ 2 | CounterType$ PLOT | CounterNum$ 1 | Activator$ Player
-T:Mode$ Always | TriggerZones$ Battlefield | IsPresent$ Card.Self+counters_GE5_PLOT | Execute$ TrigDestroy
-SVar:TrigDestroy:AB$ Destroy | TargetMin$ 0 | TargetMax$ 2 | ValidTgts$ Creature | Cost$ Mandatory Sac<1/CARDNAME>
+ManaCost:1 B R
+Types:Legendary Planeswalker Daretti
+Loyalty:3
+A:AB$ Token | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | TokenScriptIds$ 955532924 | TokenOwner$ You
+A:AB$ Destroy | Cost$ SubCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Artifact,Creature | UnlessCost$ Sac<1/Artifact> | UnlessSwitched$ True | UnlessPayer$ You
+A:AB$ CopyPermanent | Cost$ SubCounter<6/LOYALTY> | Planeswalker$ True | Ultimate$ True | ValidTgts$ Artifact | TgtZone$ Battlefield,Graveyard | NumCopies$ 3

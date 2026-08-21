@@ -1,9 +1,12 @@
 Id:26998
-ColorIdentity:U
-OriginSet:G6ce0035cfb774934
-ManaCost:2 U
-Types:Creature Elf Pilot
-PT:3/2
-K:Flash
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigScry
-SVar:TrigScry:DB$ Scry | ScryNum$ 1
+ColorIdentity:B
+OriginSet:G3601f5e223de6c7f
+ManaCost:1 B
+Types:Legendary Creature Halfling Horror
+PT:1/1
+K:Skulk
+T:Mode$ DamageDone | CombatDamage$ True | ValidSource$ Card.catalogId26998 | ValidTarget$ Player | Static$ True | Execute$ NoteDamaged
+SVar:NoteDamaged:DB$ Effect | Name$ 7332083415733821045 | Duration$ Permanent | EffectOwner$ TriggeredTarget | Unique$ True
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | Execute$ TrigLoseLife | TriggerZones$ Battlefield
+SVar:TrigLoseLife:DB$ LoseLife | LifeAmount$ X | Defined$ Opponent.HasCardsInCommand_Effect.named7332083415733821045_GE1
+SVar:X:Count$LifeYouGainedThisTurn

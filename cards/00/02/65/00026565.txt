@@ -1,15 +1,13 @@
 Id:26565
-ColorIdentity:U
-OriginSet:G06757f68e16377c2
-ManaCost:3 U
-Types:Battle Siege
-Defense:4
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | NumCards$ 3 | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ TgtChoose
-AlternateMode:DoubleFaced
-ALTERNATE
+ColorIdentity:
+OriginSet:Gd5f5e54fa26ae40d
 ManaCost:no cost
-Colors:blue
-Types:Artifact
-A:AB$ CopySpellAbility | Cost$ 1 T Sac<1/CARDNAME> | ValidTgts$ Card.YouCtrl | TargetType$ Spell
+Types:Plane Eldraine
+T:Mode$ PlaneswalkedTo | ValidCard$ Card.Self | Execute$ TrigToken
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigToken | TriggerZones$ Command | Secondary$ True
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 134855612 | TokenOwner$ You
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos
+SVar:RolledChaos:DB$ Sacrifice | ValidTgts$ Player | SacValid$ Creature | RememberSacrificed$ True | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 134855612 | TokenAmount$ Z | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:Z:Remembered$Valid Creature.toughnessGE4/Plus.1

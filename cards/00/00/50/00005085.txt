@@ -1,8 +1,9 @@
 Id:5085
-ColorIdentity:URG
+ColorIdentity:B
 OriginSet:Ga43915481c3b48d8
-ManaCost:G U R
-Types:Sorcery
-A:SP$ PeekAndReveal | PeekAmount$ X | NoPeek$ True | SubAbility$ DBCreature
-SVar:DBCreature:DB$ ChangeZone | ChangeType$ EACH Creature.YouOwn & Land.YouOwn & Card.nonCreature+nonLand+YouOwn | Mandatory$ True | Chooser$ Opponent | Origin$ Library | Destination$ Hand | Shuffle$ True
-SVar:X:Count$ValidLibrary Card.YouOwn
+ManaCost:3 B
+Types:Creature Zombie
+PT:2/1
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigDig
+SVar:TrigDig:DB$ Dig | DigNum$ 4 | Reveal$ True | ChangeNum$ All | ChangeValid$ Zombie
+A:AB$ Regenerate | Cost$ 1 B

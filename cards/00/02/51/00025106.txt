@@ -1,11 +1,11 @@
 Id:25106
-ColorIdentity:WUB
-OriginSet:Gf591a76e7a37cf73
-ManaCost:2 W U B
-Types:Enchantment Saga
-K:Chapter:3:DBToken,DBSacrifice,DBDraw
-SVar:DBToken:DB$ Token | TokenScriptIds$ 2779279098 | TokenAmount$ X
-SVar:X:PlayerCountOpponents$Amount
-SVar:DBSacrifice:DB$ Sacrifice | Defined$ Opponent | SacValid$ Creature
-SVar:DBDraw:DB$ Draw | NumCards$ Y
-SVar:Y:PlayerCountOpponents$HasPropertyhasFewerCreaturesInPlayThanYou/Times.2
+ColorIdentity:
+OriginSet:G2aca7ffc9201ba1c
+ManaCost:3
+Types:Artifact Creature Construct
+PT:2/2
+K:ETBReplacement:Other:ChooseCT
+SVar:ChooseCT:DB$ ChooseType | Type$ Creature | AILogic$ MostProminentInComputerDeck
+S:Mode$ Continuous | Affected$ Card.Self | CharacteristicDefining$ True | AddType$ ChosenType
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ PumpAll | ValidCards$ Creature.YouCtrl+Other+ChosenType | PumpZone$ Battlefield,Hand | NumAtt$ +1 | NumDef$ +1 | Duration$ Perpetual

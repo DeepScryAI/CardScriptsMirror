@@ -1,8 +1,11 @@
 Id:33152
-ColorIdentity:B
-OriginSet:G7ab1fe96128a1641
-ManaCost:2 B
-Types:Creature Treefolk Warlock
-PT:3/4
-K:etbCounter:M1M1:2
-A:AB$ Pump | Cost$ 2 B RemoveAnyCounter<2/Any/CARDNAME/this creature> | ValidTgts$ Creature | NumAtt$ -2 | NumDef$ -2 | IsCurse$ True | SorcerySpeed$ True
+ColorIdentity:R
+OriginSet:G731e0066916b7465
+ManaCost:1 R
+Types:Enchantment Aura
+K:Flash
+K:Enchant:Creature.YouCtrl:creature you control
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 1 | AddToughness$ 1 | AddTrigger$ DamageTrig
+SVar:DamageTrig:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigPump | TriggerZones$ Battlefield
+SVar:TrigPump:DB$ Pump | ValidTgts$ Instant.YouOwn,Sorcery.YouOwn | KW$ Flashback | TgtZone$ Graveyard | PumpZone$ Graveyard

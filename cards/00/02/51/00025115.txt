@@ -1,9 +1,14 @@
 Id:25115
-ColorIdentity:
-OriginSet:Gf591a76e7a37cf73
-ManaCost:5
-Types:Artifact Creature Spider
-PT:4/4
-K:Flying
-T:Mode$ ChangesZone | ValidCard$ Creature.Artifact+YouCtrl+Other+!token,Vehicle.YouCtrl+Other+!token | Origin$ Any | Destination$ Battlefield | Execute$ TrigDraw | TriggerZones$ Battlefield
-SVar:TrigDraw:DB$ Draw
+ColorIdentity:BG
+OriginSet:G2aca7ffc9201ba1c
+ManaCost:2 G G
+Types:Creature Insect
+PT:3/2
+K:Kicker:B
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Card.YouOwn | SubAbility$ DBConjure
+SVar:DBConjure:DB$ MakeCard | Conjure$ True | ValidTgts$ Card.OppOwn | TargetMin$ Y | TargetMax$ Y | TgtZone$ Graveyard | DefinedName$ ThisTargetedCard | Zone$ Hand | RememberMade$ True | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Remembered | staticAbilities$ SpendAnyMana | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:SpendAnyMana:Mode$ ManaConvert | EffectZone$ Stack | ValidPlayer$ You | ValidCard$ Card.Self | ValidSA$ Spell | ManaConversion$ AnyType->AnyColor
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:Y:Count$Kicked.1.0

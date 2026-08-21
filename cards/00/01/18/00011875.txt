@@ -1,11 +1,10 @@
 Id:11875
-ColorIdentity:
+ColorIdentity:G
 OriginSet:G43171707a7efd07b
-ManaCost:6
-Types:Artifact
-K:ETBReplacement:Other:ChooseColor
-SVar:ChooseColor:DB$ ChooseColor | Defined$ You | AILogic$ MostProminentInComputerDeck
-S:Mode$ Continuous | Affected$ Creature.ChosenColor+YouCtrl | AddPower$ 1 | AddToughness$ 1
-T:Mode$ ManaAdded | ValidSource$ Land | ValidSA$ SpellAbility.ManaAbility | Produced$ ChosenColor | Player$ You | Execute$ TrigMana | TriggerZones$ Battlefield | Static$ True
-T:Mode$ ManaAdded | ValidSource$ Land | ValidSA$ SpellAbility.!ManaAbility | Produced$ ChosenColor | Player$ You | Execute$ TrigMana | TriggerZones$ Battlefield | Secondary$ True
-SVar:TrigMana:DB$ Mana | Produced$ Chosen | Amount$ 1
+ManaCost:5 G
+Types:Creature Phyrexian Cleric
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | Choices$ DBSearch,DBRemove
+SVar:DBSearch:DB$ ChangeZone | Origin$ Library | Destination$ Library | LibraryPosition$ 0 | ChangeType$ Creature | ChangeNum$ 1
+SVar:DBRemove:DB$ ChangeZone | ValidTgts$ Permanent.nonCreature | IsCurse$ True | Origin$ Battlefield | Destination$ Library | LibraryPosition$ -1

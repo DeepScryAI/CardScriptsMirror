@@ -2,8 +2,12 @@ Id:12785
 ColorIdentity:
 OriginSet:G4801bb28ce9773ed
 ManaCost:no cost
-Types:Plane Innistrad
-S:Mode$ Continuous | EffectZone$ Command | Affected$ Creature | AddKeyword$ Vigilance
-T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos
-SVar:RolledChaos:DB$ PumpAll | ValidCards$ Creature.YouCtrl | KW$ Indestructible
-SVar:AIRollPlanarDieParams:Mode$ Always
+Types:Plane New Phyrexia
+T:Mode$ PlaneswalkedTo | ValidCard$ Plane.Self | Execute$ FurnaceDiscard
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ FurnaceDiscard | TriggerZones$ Command | Secondary$ True
+SVar:FurnaceDiscard:DB$ Discard | ValidTgts$ Player | TargetsAtRandom$ True | NumCards$ 1 | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ Targeted | LifeAmount$ 3 | ConditionDefined$ Remembered | ConditionPresent$ Land | ConditionCompare$ GE1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos | OptionalDecider$ You
+SVar:RolledChaos:DB$ Destroy | ValidTgts$ Permanent.nonLand
+SVar:AIRollPlanarDieParams:Mode$ Always | MinTurn$ 3 | LowPriority$ True | MaxRollsPerTurn$ 9

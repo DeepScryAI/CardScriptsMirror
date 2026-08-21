@@ -1,12 +1,20 @@
 Id:26085
-ColorIdentity:WR
-OriginSet:G2192e8955d5e1ad1
-ManaCost:R W
-Types:Legendary Creature Human Rebel
-PT:2/2
-K:Trample
+ColorIdentity:U
+OriginSet:G6e75ff4f143a3dc3
+ManaCost:1 U
+Types:Creature Spirit
+PT:2/1
+K:Disturb:U
 T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +X | NumDef$ +X | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | ConditionDefined$ Self | ConditionPresent$ Card.powerGE4
-SVar:X:Count$Valid Creature.YouCtrl+equipped
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.OppCtrl | NumAtt$ -2 | IsCurse$ True | Duration$ UntilYourNextTurn
 SVar:HasAttackEffect:TRUE
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:blue
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Curse
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ -2
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Graveyard | ReplaceWith$ Exile
+SVar:Exile:DB$ ChangeZone | Hidden$ True | Origin$ All | Destination$ Exile | Defined$ ReplacedCard

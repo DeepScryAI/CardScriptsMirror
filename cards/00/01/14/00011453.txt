@@ -1,7 +1,11 @@
 Id:11453
 ColorIdentity:G
 OriginSet:Gf6792163b580976b
-ManaCost:3 G G
-Types:Sorcery
-A:SP$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +X | NumDef$ +X | KW$ Trample
-SVar:X:Count$Valid Creature.YouCtrl$GreatestCardPower
+ManaCost:2 G G
+Types:Creature Beast
+PT:4/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGainLife
+SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 4
+R:Event$ Moved | ActiveZones$ Hand | ValidCard$ Card.Self | ValidCause$ SpellAbility.OppCtrl | Discard$ True | EffectOnly$ True | ReplaceWith$ SurpriseETB
+SVar:SurpriseETB:DB$ ChangeZone | Defined$ ReplacedCard | Origin$ Hand | Destination$ Battlefield
+SVar:DiscardMeByOpp:2

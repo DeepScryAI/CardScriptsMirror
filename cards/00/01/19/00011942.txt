@@ -1,6 +1,11 @@
 Id:11942
-ColorIdentity:G
+ColorIdentity:B
 OriginSet:G43171707a7efd07b
-ManaCost:GP
-Types:Instant
-A:SP$ Pump | ValidTgts$ Creature | NumAtt$ +2 | NumDef$ +2
+ManaCost:3 B
+Types:Creature Phyrexian Dog
+PT:2/2
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +2
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | ValidTgts$ Player | LifeAmount$ MortisX
+SVar:MortisX:TriggeredCard$CardPower

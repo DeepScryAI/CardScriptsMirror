@@ -1,11 +1,9 @@
 Id:4935
 ColorIdentity:W
 OriginSet:G9e6cd9ac1f7f4832
-ManaCost:2 W
+ManaCost:1 W
 Types:Enchantment Aura
 K:Enchant:Creature
-SVar:AttachAILogic:Curse
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
-S:Mode$ CantAttack | ValidCard$ Creature.EnchantedBy
-S:Mode$ CantBlock | ValidCard$ Creature.EnchantedBy+Black
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 3 | AddToughness$ 3 | CheckSVar$ X | SVarCompare$ EQ0
+SVar:X:Count$Valid Card.EnchantedBy+SharesColorWith MostProminentColor

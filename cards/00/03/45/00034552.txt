@@ -1,10 +1,12 @@
 Id:34552
-ColorIdentity:W
-OriginSet:G11c0621ce29fa608
-ManaCost:W
-Types:Artifact Equipment
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1 | AddToughness$ 1
-T:Mode$ Attacks | ValidCard$ Card.EquippedBy | Alone$ True | Execute$ TrigUntap
-SVar:TrigUntap:DB$ Untap | Defined$ TriggeredAttackerLKICopy | SubAbility$ DBScry
-SVar:DBScry:DB$ Scry | ScryNum$ 1
-K:Equip:1
+ColorIdentity:R
+OriginSet:Gcb93bbfc68a40806
+ManaCost:1 R
+Types:Legendary Creature Human Monk Hero
+PT:2/1
+K:FirstStrike
+T:Mode$ DamageDone | ValidSource$ Card.YouCtrl,Emblem.YouCtrl | ValidTarget$ You | TriggerZones$ Battlefield | Execute$ TrigExile | ActivationLimit$ 1
+SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ STPlay | SubAbility$ DBCleanup | ForgetOnMoved$ Exile | Duration$ UntilTheEndOfYourNextTurn
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

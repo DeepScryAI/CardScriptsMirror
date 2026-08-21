@@ -1,9 +1,15 @@
 Id:21885
-ColorIdentity:B
-OriginSet:G6fa60d857e930f32
-ManaCost:1 B
-Types:Artifact Equipment
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigLearn
-SVar:TrigLearn:DB$ Learn
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1 | AddToughness$ 1 | AddKeyword$ Lifelink
-K:Equip:1 B
+ColorIdentity:W
+OriginSet:Gabb23d0d25cdc46d
+ManaCost:3 W
+Types:Creature Human Advisor
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigRepeatEach
+SVar:TrigRepeatEach:DB$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | ConditionCheckSVar$ X | ConditionSVarCompare$ LTY | DefinedPlayer$ Remembered | Chooser$ Remembered | ChangeType$ Land.Basic | ChangeNum$ Z | Origin$ Library | Destination$ Battlefield | Tapped$ True
+SVar:X:Count$Valid Land.RememberedPlayerCtrl
+SVar:Y:PlayerCountPlayers$HighestValid Land.YouCtrl
+SVar:Z:SVar$Y/Minus.X
+SVar:Check1:Count$Valid Land.YouCtrl
+SVar:Check2:SVar$Y/Minus.Check1
+SVar:NeedsToPlayVar:Check2 GE2

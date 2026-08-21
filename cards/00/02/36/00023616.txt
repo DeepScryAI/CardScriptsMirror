@@ -1,9 +1,10 @@
 Id:23616
-ColorIdentity:UB
+ColorIdentity:B
 OriginSet:G1a259dba25660062
-ManaCost:1 U B
-Types:Legendary Creature Human Ninja
-PT:2/4
-T:Mode$ AbilityCast | ValidActivatingPlayer$ You | ValidSA$ Activated.Ninjutsu | TriggerZones$ Battlefield | ActivationLimit$ 1 | Execute$ TrigDig
-SVar:TrigDig:DB$ Dig | DigNum$ 3 | ChangeNum$ 1 | NoReveal$ True
-S:Mode$ Continuous | Affected$ Creature.YouOwn | AffectedZone$ Hand | AddKeyword$ Ninjutsu:2 U B
+ManaCost:4 B
+Types:Creature Spirit
+PT:3/3
+T:Mode$ ChangesZone | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | Choices$ RaiseScoundrel,HauntedHarvest
+SVar:RaiseScoundrel:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Creature.Ninja+YouOwn,Creature.Rogue+YouOwn | TargetMin$ 0 | TargetMax$ 1
+SVar:HauntedHarvest:DB$ ChangeZone | Origin$ Graveyard | Destination$ Library | ValidTgts$ Creature.YouOwn

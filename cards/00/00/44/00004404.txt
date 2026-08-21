@@ -1,9 +1,9 @@
 Id:4404
-ColorIdentity:G
+ColorIdentity:W
 OriginSet:G94d5a0658e4301e7
-ManaCost:5 G G
-Types:Creature Beast
-PT:10/10
-K:Fading:2
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+ManaCost:2 W
+Types:Instant
+S:Mode$ AlternativeCost | ValidSA$ Spell.Self | EffectZone$ All | Cost$ tapXType<1/Creature/creature> | IsPresent$ Plains.YouCtrl
+A:SP$ Effect | ValidTgts$ Creature | ReplacementEffects$ SelflessDamage | ForgetOnMoved$ Battlefield | RememberObjects$ Targeted
+SVar:SelflessDamage:Event$ DamageDone | ValidTarget$ Card.IsRemembered | ReplaceWith$ SelflessDmg | DamageTarget$ You
+SVar:SelflessDmg:DB$ ReplaceEffect | VarName$ Affected | VarValue$ You | VarType$ Player

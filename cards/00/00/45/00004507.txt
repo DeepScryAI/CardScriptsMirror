@@ -1,7 +1,8 @@
 Id:4507
-ColorIdentity:G
+ColorIdentity:W
 OriginSet:G239b3b7a46d83e8e
-ManaCost:2 G G
-Types:Creature Wurm
-PT:6/5
-S:Mode$ Continuous | Affected$ You | AddKeyword$ UntapAdjust:Land:1
+ManaCost:3 W
+Types:Instant
+A:SP$ Effect | ReplacementEffects$ DamageEvent | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | ValidTgts$ Creature.attacking+unblocked | IsCurse$ True
+SVar:DamageEvent:Event$ DamageDone | ValidSource$ Creature.IsRemembered | ValidTarget$ You | ReplaceWith$ MirrorStrikeDmg | IsCombat$ True | DamageTarget$ ReplacedSourceController
+SVar:MirrorStrikeDmg:DB$ ReplaceEffect | VarName$ Affected | VarValue$ ReplacedSourceController | VarType$ Player

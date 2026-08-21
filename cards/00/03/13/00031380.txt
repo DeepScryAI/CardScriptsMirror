@@ -1,8 +1,12 @@
 Id:31380
-ColorIdentity:G
-OriginSet:Gf2b808f4f642ac62
-ManaCost:2 G
-Types:Creature Human Warrior
-PT:4/2
-K:Trample
-A:AB$ PutCounter | Cost$ 1 G ExileFromGrave<1/CARDNAME> | ActivationZone$ Graveyard | ValidTgts$ Creature | CounterTypes$ P1P1,Trample | CounterNum$ 1 | SorcerySpeed$ True
+ColorIdentity:UG
+OriginSet:G9de1432c543d1aef
+ManaCost:X G U
+Types:Sorcery
+A:SP$ Repeat | Cost$ XMin1 X G U | RepeatSubAbility$ DBNameCard | MaxRepeat$ X
+SVar:DBNameCard:DB$ NameCard | AtRandom$ True | ValidCards$ Creature.cmcEQM | SubAbility$ DBConjure
+SVar:DBConjure:DB$ MakeCard | Name$ ChosenName | Conjure$ True | Zone$ Battlefield | SubAbility$ DBClearNamed
+SVar:DBClearNamed:DB$ Cleanup | ClearNamedCard$ True | SubAbility$ DBStore
+SVar:DBStore:DB$ StoreSVar | SVar$ M | Type$ CountSVar | Expression$ M/Plus.1
+SVar:M:Number$1
+SVar:X:Count$xPaid

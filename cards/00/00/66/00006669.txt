@@ -1,9 +1,11 @@
 Id:6669
-ColorIdentity:W
+ColorIdentity:U
 OriginSet:G983da6aa108b8f13
-ManaCost:4 W W
-Types:Sorcery
-K:Entwine:Sac<2/Land>
-A:SP$ Charm | Choices$ DBDestroyAll,DBDestroyAll2
-SVar:DBDestroyAll:DB$ DestroyAll | ValidCards$ Creature.powerLE2
-SVar:DBDestroyAll2:DB$ DestroyAll | ValidCards$ Creature.powerGE3
+ManaCost:1 U U
+Types:Creature Slith
+PT:1/1
+T:Mode$ AttackerBlocked | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigPutCounter | TriggerZones$ Battlefield
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+SVar:HasAttackEffect:Blocked

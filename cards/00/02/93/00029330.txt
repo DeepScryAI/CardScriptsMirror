@@ -1,13 +1,10 @@
 Id:29330
-ColorIdentity:UG
-OriginSet:G2ce881cc55bb9f18
-ManaCost:2 GU
-Types:Legendary Creature Shapeshifter Noble
-PT:1/5
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPutCounter
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPutCounter | Secondary$ True
-SVar:TrigPutCounter:DB$ PutCounter | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Land | CounterType$ EVERYTHING | CounterNum$ 1 | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Creature | CounterType$ EVERYTHING | CounterNum$ 1
-S:Mode$ Continuous | Affected$ Land.counters_GE1_EVERYTHING | AddType$ AllBasicLandType & AllNonBasicLandType
-S:Mode$ Continuous | Affected$ Creature.nonLand+counters_GE1_EVERYTHING | AddAllCreatureTypes$ True
-SVar:HasAttackEffect:TRUE
+ColorIdentity:U
+OriginSet:G27146c70b74a1e72
+ManaCost:1 U
+Types:Creature Human Wizard
+PT:1/2
+T:Mode$ SpellCast | ValidCard$ Card.YouCtrl | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter | ActivatorThisTurnCast$ EQ2
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBUnblockable
+SVar:DBUnblockable:DB$ Effect | RememberObjects$ Self | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered

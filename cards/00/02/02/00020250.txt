@@ -1,10 +1,14 @@
 Id:20250
-ColorIdentity:R
+ColorIdentity:WU
 OriginSet:G42eb6bda83007836
-ManaCost:X R
-Types:Sorcery
-A:SP$ Charm | Choices$ DBToken,DBDealDamage
-SVar:DBToken:DB$ Token | TokenScriptIds$ 1134347354 | TokenOwner$ You | TokenPower$ X | AtEOT$ Sacrifice
-SVar:DBDealDamage:DB$ DealDamage | ValidTgts$ Creature,Planeswalker | NumDmg$ XX
-SVar:X:Count$xPaid
-SVar:XX:SVar$X/Twice
+ManaCost:2 W W U U
+Types:Creature Sphinx
+PT:3/5
+K:Flying
+K:Lifelink
+T:Mode$ Drawn | ValidCard$ Card.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +1
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+A:AB$ Pump | Cost$ Discard<1/Card> | Defined$ Self | KW$ Hexproof | SubAbility$ DBTap
+SVar:DBTap:DB$ Tap | Defined$ Self

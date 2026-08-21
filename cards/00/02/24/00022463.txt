@@ -1,17 +1,10 @@
 Id:22463
-ColorIdentity:R
-OriginSet:G9f95a41d532c0550
-ManaCost:3 R
-Types:Legendary Creature Elf Shaman
-PT:3/2
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ DBLoop
-SVar:DBLoop:DB$ Repeat | ValidTgts$ Creature.YouCtrl | RepeatCheckSVar$ RepeatCheck | RepeatSVarCompare$ GT0 | RepeatSubAbility$ DBRollDice | RepeatOptional$ True | AILogic$ CopyBestCreature.IgnoreLegendary
-SVar:DBRollDice:DB$ RollDice | Sides$ 20 | ResultSubAbilities$ 1-14:DBCopy,15-20:DBCopyRepeat
-SVar:DBCopy:DB$ CopyPermanent | Defined$ Targeted | TokenTapped$ True | TokenAttacking$ True | NonLegendary$ True | AddSVars$ DelinaTrigExile | AddTriggers$ TrigPhase | SubAbility$ DBNotRepeat
-SVar:DBNotRepeat:DB$ StoreSVar | SVar$ RepeatCheck | Type$ Number | Expression$ 0
-SVar:DBCopyRepeat:DB$ CopyPermanent | Defined$ Targeted | TokenTapped$ True | TokenAttacking$ True | NonLegendary$ True | AddSVars$ DelinaTrigExile | AddTriggers$ TrigPhase | SubAbility$ DBRepeat
-SVar:TrigPhase:Mode$ Phase | Phase$ EndCombat | TriggerZones$ Battlefield | Execute$ DelinaTrigExile
-SVar:DelinaTrigExile:DB$ ChangeZone | Defined$ Self | Origin$ Battlefield | Destination$ Exile
-SVar:DBRepeat:DB$ StoreSVar | SVar$ RepeatCheck | Type$ Number | Expression$ 1
-SVar:RepeatCheck:Number$1
-SVar:HasAttackEffect:TRUE
+ColorIdentity:G
+OriginSet:G92f7f9489fec5865
+ManaCost:3 G
+Types:Enchantment Aura
+K:Flash
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 3 | AddToughness$ 3
+S:Mode$ AssignCombatDamageAsUnblocked | ValidCard$ Creature.EnchantedBy | Optional$ True

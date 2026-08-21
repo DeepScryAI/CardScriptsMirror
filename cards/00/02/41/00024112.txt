@@ -1,12 +1,10 @@
 Id:24112
-ColorIdentity:U
-OriginSet:Gcf5d9b1e2ed6c496
-ManaCost:U
-Types:Creature Human Rogue
-PT:1/2
-A:AB$ Pump | Cost$ 2 T | ValidTgts$ Opponent | SubAbility$ DBConjure
-SVar:DBConjure:DB$ MakeCard | Conjure$ True | DefinedName$ ValidLibrary Card.TopLibrary+TargetedPlayerOwn | Zone$ Hand | RememberMade$ True | SubAbility$ DBAnimate
-SVar:DBAnimate:DB$ Animate | Defined$ Remembered | staticAbilities$ SpendAnyMana | Duration$ Perpetual | SubAbility$ DBCleanup
-SVar:SpendAnyMana:Mode$ ManaConvert | EffectZone$ Stack | ValidPlayer$ You | ValidCard$ Card.Self | ValidSA$ Spell | ManaConversion$ AnyType->AnyColor
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | SubAbility$ DBExileTop
-SVar:DBExileTop:DB$ Dig | Defined$ TargetedPlayer | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | ExileFaceDown$ True
+ColorIdentity:B
+OriginSet:G9afc9838c5e994df
+ManaCost:1 B B
+Types:Creature Human Warrior
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPumpAll
+SVar:TrigPumpAll:DB$ PumpAll | NumAtt$ -1 | NumDef$ -1 | ValidCards$ Creature.OppCtrl | IsCurse$ True
+K:Blitz:2 B
+SVar:PlayMain1:TRUE

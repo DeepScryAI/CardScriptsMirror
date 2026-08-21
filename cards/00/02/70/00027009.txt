@@ -1,8 +1,13 @@
 Id:27009
-ColorIdentity:
-OriginSet:G6ce0035cfb774934
-ManaCost:2
-Types:Legendary Artifact
-T:Mode$ AttackersDeclaredOneTarget | Execute$ TrigReveal | AttackedTarget$ Player | ValidAttackers$ Creature.YouCtrl | ValidAttackersAmount$ GE2 | TriggerZones$ Battlefield | AttackingPlayer$ You
-SVar:TrigReveal:DB$ Dig | DigNum$ 5 | ChangeNum$ 1 | Optional$ True | ChangeValid$ Creature | ForceRevealToController$ True | DestinationZone$ Hand | RestRandomOrder$ True
+ColorIdentity:W
+OriginSet:G3601f5e223de6c7f
+ManaCost:3 W
+Types:Creature Human Soldier
+PT:3/1
+K:FirstStrike
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self,Creature.YouCtrl+Other+Human | Execute$ TrigTap
+SVar:TrigTap:DB$ Tap | ValidTgts$ Creature.OppCtrl
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 1647422943 | TokenOwner$ You
+SVar:BuffedBy:Creature
 SVar:PlayMain1:TRUE

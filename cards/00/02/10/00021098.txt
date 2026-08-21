@@ -1,7 +1,11 @@
 Id:21098
-ColorIdentity:W
-OriginSet:G72c9c624ceb92bff
-ManaCost:2 W
-Types:Instant
-A:SP$ Pump | TargetMin$ 0 | TargetMax$ 2 | NumAtt$ +X | NumDef$ +X | ValidTgts$ Creature
-SVar:X:Count$Party
+ColorIdentity:B
+OriginSet:G7b2607750b451c25
+ManaCost:3 B B
+Types:Legendary Creature Vampire Cleric
+PT:4/4
+K:Flying
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigChoose
+SVar:TrigChoose:DB$ ChooseCard | Defined$ TriggeredDefendingPlayer | Choices$ Creature.YouOwn+nonLegendary | Mandatory$ True | ChoiceZone$ Graveyard | AILogic$ WorstCard | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Defined$ ChosenCard | Origin$ Graveyard | Destination$ Battlefield | WithCountersType$ P1P1 | StaticEffect$ Animate
+SVar:Animate:Mode$ Continuous | Affected$ Card.IsRemembered | AddType$ Vampire

@@ -1,7 +1,10 @@
 Id:8646
-ColorIdentity:B
+ColorIdentity:UB
 OriginSet:G70f74088c47d66bd
-ManaCost:2 B B
-Types:Sorcery
-K:Flashback:Sac<3/Creature>
-A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouCtrl
+ManaCost:3 U B
+Types:Legendary Creature Zombie Wizard
+PT:3/3
+R:Event$ DamageDone | ActiveZones$ Battlefield | ValidTarget$ Card.Self | ReplaceWith$ Sac
+SVar:Sac:DB$ Sacrifice | Defined$ You | SacValid$ Permanent | Amount$ X
+SVar:X:ReplaceCount$DamageAmount
+A:AB$ Pump | Cost$ T | ValidTgts$ Instant.YouCtrl,Sorcery.YouCtrl | KW$ Flashback | TgtZone$ Graveyard | PumpZone$ Graveyard | AILogic$ ReplaySpell

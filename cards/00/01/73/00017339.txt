@@ -1,10 +1,9 @@
 Id:17339
-ColorIdentity:G
+ColorIdentity:R
 OriginSet:Gaa482ed186eee527
-ManaCost:1 G
-Types:Enchantment Aura Curse
-K:Enchant:Player
-SVar:AttachAILogic:Curse
-T:Mode$ AttackersDeclared | AttackedTarget$ Player.EnchantedBy | Execute$ TrigUntap | TriggerZones$ Battlefield
-SVar:TrigUntap:DB$ UntapAll | Defined$ You | ValidCards$ Permanent.nonLand | SubAbility$ DBUntap
-SVar:DBUntap:DB$ UntapAll | Defined$ TriggeredAttackingPlayer.Opponent+controlsCreature.attacking Player.EnchantedBy | ValidCards$ Permanent.nonLand
+ManaCost:3 R R
+Types:Creature Vampire Knight
+PT:4/5
+K:Trample
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ Player | Execute$ TrigDealDamage | TriggerZones$ Battlefield
+SVar:TrigDealDamage:DB$ DealDamage | Defined$ TriggeredPlayer | NumDmg$ 4 | ConditionPresent$ Permanent.IsCommander+ControlledBy TriggeredPlayer | ConditionCompare$ EQ0

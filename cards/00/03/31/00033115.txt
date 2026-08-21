@@ -1,8 +1,14 @@
 Id:33115
-ColorIdentity:BR
-OriginSet:G7ab1fe96128a1641
-ManaCost:BR BR BR
-Types:Creature Goblin Scout
-PT:2/3
-T:Mode$ ChangesZone | Destination$ Battlefield | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ DBDig
-SVar:DBDig:DB$ Dig | DigNum$ 4 | ChangeNum$ 1 | Optional$ True | ForceRevealToController$ True | ChangeValid$ Goblin,Swamp,Mountain | RestRandomOrder$ True
+ColorIdentity:R
+OriginSet:G731e0066916b7465
+ManaCost:3 R R
+Types:Legendary Creature Dragon
+PT:4/4
+K:Flying
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.Other+Legendary+YouCtrl | NumAtt$ +X
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self+nonSpirit | Execute$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Battlefield | StaticEffect$ Animate | GainControl$ True
+SVar:Animate:Mode$ Continuous | Affected$ Card.IsRemembered | AddType$ Spirit
+SVar:X:Count$CardPower
+SVar:HasAttackEffect:TRUE

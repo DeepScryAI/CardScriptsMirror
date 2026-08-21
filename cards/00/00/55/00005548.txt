@@ -1,11 +1,9 @@
 Id:5548
-ColorIdentity:B
+ColorIdentity:W
 OriginSet:Ge4af4f9459d5dadd
-ManaCost:2 B B
-Types:Creature Nightmare Horror
-PT:2/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigReturn
-SVar:TrigExile:DB$ ChangeZone | IsCurse$ True | ValidTgts$ Creature.Other | Origin$ Battlefield | Destination$ Exile
-SVar:TrigReturn:DB$ ChangeZoneAll | ChangeType$ Card.ExiledWithSource | Origin$ Exile | Destination$ Battlefield
-SVar:PlayMain1:TRUE
+ManaCost:1 W
+Types:Instant
+A:SP$ Effect | ReplacementEffects$ EqualEvent | SubAbility$ DBDraw
+SVar:EqualEvent:Event$ DamageDone | ActiveZones$ Battlefield | ValidSource$ Card,Emblem | ValidTarget$ Permanent,Player | ReplaceWith$ DmgTwo
+SVar:DmgTwo:DB$ ReplaceEffect | VarName$ DamageAmount | VarValue$ 2
+SVar:DBDraw:DB$ Draw

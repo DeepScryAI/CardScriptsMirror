@@ -1,8 +1,14 @@
 Id:21946
-ColorIdentity:UR
-OriginSet:Gd784248bfdf9e1d7
-ManaCost:3 U U R R
-Types:Instant
-A:SP$ DealDamage | ValidTgts$ Any | NumDmg$ 5 | SubAbility$ DBDig
-SVar:DBDig:DB$ Dig | DigNum$ 5 | RestRandomOrder$ True | NoReveal$ True
-A:AB$ Token | Cost$ UR UR Discard<1/CARDNAME> | ActivationZone$ Hand | TokenScriptIds$ 3851718391 | AILogic$ AlwaysOnDiscard
+ColorIdentity:U
+OriginSet:G6fa60d857e930f32
+ManaCost:X 2 U
+Types:Sorcery
+S:Mode$ AlternativeCost | ValidSA$ Spell.Self | EffectZone$ All | Cost$ 2 U
+A:SP$ Branch | BranchConditionSVar$ AltCostPaid | BranchConditionSVarCompare$ GE1 | TrueSubAbility$ DBAltCostEffect | FalseSubAbility$ DBDrawX
+SVar:DBAltCostEffect:DB$ Draw | Defined$ You | NumCards$ 3 | SubAbility$ OppTreasureScry
+SVar:OppTreasureScry:DB$ ChoosePlayer | Defined$ You | Choices$ Player.Opponent | SubAbility$ OppTreasure
+SVar:OppTreasure:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 3851718391 | TokenOwner$ ChosenPlayer | SubAbility$ OppScry
+SVar:OppScry:DB$ Scry | ScryNum$ 2 | Defined$ ChosenPlayer
+SVar:DBDrawX:DB$ Draw | Defined$ You | NumCards$ X
+SVar:X:Count$xPaid
+SVar:AltCostPaid:Count$AltCost.1.0

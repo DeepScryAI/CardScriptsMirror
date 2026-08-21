@@ -1,9 +1,19 @@
 Id:26685
-ColorIdentity:U
+ColorIdentity:BR
 OriginSet:G06757f68e16377c2
-ManaCost:3 U
-Types:Instant
-K:Convoke
-A:SP$ Tap | ValidTgts$ Creature | SubAbility$ DBCounter | TargetMin$ 0 | TargetMax$ 2
-SVar:DBCounter:DB$ PutCounter | Choices$ Card.targetedBy | CounterType$ STUN | CounterNum$ 1 | SubAbility$ DBCounterBis
-SVar:DBCounterBis:DB$ PutCounter | Choices$ Card.targetedBy | CounterType$ STUN | CounterNum$ 1
+ManaCost:B R
+Types:Battle Siege
+Defense:4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSacrifice
+SVar:TrigSacrifice:DB$ Sacrifice | ValidTgts$ Player | SacValid$ Creature,Planeswalker | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ TargetedPlayer | LifeAmount$ 1
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:black,red
+Types:Creature Zombie Elemental
+PT:2/1
+K:Menace
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | ConditionCheckSVar$ Morbid | ConditionSVarCompare$ GE1
+SVar:Morbid:Count$ThisTurnEntered_Graveyard_from_Battlefield_Permanent

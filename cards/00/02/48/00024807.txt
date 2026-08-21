@@ -1,15 +1,12 @@
 Id:24807
-ColorIdentity:R
-OriginSet:G3a8b4b9d4649b357
-ManaCost:5 R
-Types:Sorcery
-A:SP$ Pump | ValidTgts$ Artifact | Imprint$ True | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ Creature | IsCurse$ True
-SVar:Creature:DB$ Pump | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | IsCurse$ True | SubAbility$ Enchantment
-SVar:Enchantment:DB$ Pump | ValidTgts$ Enchantment | TargetMin$ 0 | TargetMax$ 1 | IsCurse$ True | SubAbility$ Planeswalker
-SVar:Planeswalker:DB$ Pump | ValidTgts$ Planeswalker | TargetMin$ 0 | TargetMax$ 1 | IsCurse$ True | SubAbility$ Land
-SVar:Land:DB$ Pump | ValidTgts$ Land | TargetMin$ 0 | TargetMax$ 1 | IsCurse$ True | SubAbility$ DBExile
-SVar:DBExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | Defined$ Targeted | SubAbility$ DBRepeatPlayer | Imprint$ True
-SVar:DBRepeatPlayer:DB$ RepeatEach | RepeatPlayers$ ImprintedController | RepeatSubAbility$ DBRepeatCard | SubAbility$ DBCleanup
-SVar:DBRepeatCard:DB$ RepeatEach | DefinedCards$ ImprintedLKI.RememberedPlayerCtrl | ChooseOrder$ RememberedPlayer | RepeatSubAbility$ DBDigUntil
-SVar:DBDigUntil:DB$ DigUntil | Valid$ Card.sharesCardTypeWith RememberedLKI | FoundDestination$ Battlefield | Defined$ RememberedController | Shuffle$ True | RevealedDestination$ Library | RevealedLibraryPosition$ -1
-SVar:DBCleanup:DB$ Cleanup | ClearImprinted$ True
+ColorIdentity:WBR
+OriginSet:G3c9db52fa0bcee92
+ManaCost:1 R W B
+Types:Legendary Planeswalker Dihada
+Loyalty:5
+A:AB$ Pump | TargetMin$ 0 | TargetMax$ 1 | Cost$ AddCounter<2/LOYALTY> | KW$ Vigilance & Lifelink & Indestructible | Planeswalker$ True | ValidTgts$ Creature.Legendary | Duration$ UntilYourNextTurn
+A:AB$ Dig | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | DigNum$ 4 | Reveal$ True | ChangeNum$ Any | Defined$ You | ChangeValid$ Card.Legendary | DestinationZone2$ Graveyard | SubAbility$ DBTreasure | RememberRevealed$ True
+SVar:DBTreasure:DB$ Token | TokenAmount$ X | TokenScriptIds$ 3851718391 | TokenOwner$ You | SubAbility$ DBCleanup
+A:AB$ GainControl | Cost$ SubCounter<11/LOYALTY> | Planeswalker$ True | Ultimate$ True | AllValid$ Permanent.nonLand | AddKWs$ Haste | LoseControl$ EOT | Untap$ True
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$ValidGraveyard Card.IsRemembered

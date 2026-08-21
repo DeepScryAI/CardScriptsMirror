@@ -1,12 +1,8 @@
 Id:4418
-ColorIdentity:R
+ColorIdentity:B
 OriginSet:G94d5a0658e4301e7
-ManaCost:1 R
+ManaCost:2 B B
 Types:Sorcery
-A:SP$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBChooseCard | SubAbility$ DBReveal
-SVar:DBChooseCard:DB$ ChooseCard | Defined$ Player.IsRemembered | Choices$ Card.RememberedPlayerCtrl | ChoiceZone$ Hand | AILogic$ LowestCMCCreature | RememberChosen$ True | Mandatory$ True
-SVar:DBReveal:DB$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBRevealCard | SubAbility$ FilterCreature
-SVar:DBRevealCard:DB$ Reveal | Defined$ Player.IsRemembered | RevealDefined$ ValidHand Card.IsRemembered+RememberedPlayerCtrl
-SVar:FilterCreature:DB$ Pump | ForgetObjects$ ValidHand Card.nonCreature+IsRemembered | SubAbility$ MoveToPlay
-SVar:MoveToPlay:DB$ ChangeZoneAll | ChangeType$ Card.lowestRememberedCMC | Origin$ Hand | Destination$ Battlefield | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+A:SP$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBLoseLife | AILogic$ AllPlayerLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ Player.IsRemembered | LifeAmount$ X
+SVar:X:Count$Valid Creature.RememberedPlayerCtrl

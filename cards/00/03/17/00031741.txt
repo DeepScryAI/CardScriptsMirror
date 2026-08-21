@@ -1,24 +1,13 @@
 Id:31741
-ColorIdentity:UB
-OriginSet:G7ab4f62d323b0ca7
-ManaCost:1 U B
-Types:Legendary Creature Elder Wizard
-PT:2/4
-K:Vigilance
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
-T:Mode$ Attacks | ValidCard$ Card.Self | Secondary$ True | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ TgtChoose
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | IsPresent$ Card.YouOwn | PresentZone$ Graveyard | PresentCompare$ GE14 | OptionalDecider$ You | Execute$ TrigTransform
-SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:blue,black
-Types:Legendary Creature Avatar
-PT:6/6
-K:Vigilance
-S:Mode$ Continuous | Affected$ Card.YouCtrl | AffectedZone$ Graveyard | Condition$ PlayerTurn | MayPlay$ True
-R:Event$ Moved | ActiveZones$ Battlefield | Destination$ Graveyard | ValidCard$ Card.YouOwn | ReplaceWith$ Exile
-SVar:Exile:DB$ ChangeZone | Hidden$ True | Origin$ All | Destination$ Exile | Defined$ ReplacedCard
-SVar:NonStackingEffect:True
+ColorIdentity:U
+OriginSet:G530ea9d733a13e9d
+ManaCost:2 U
+Types:Artifact Equipment
+K:Job select
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddToughness$ 2 | AddType$ Wizard | AddTrigger$ TrigAttack | AddSVar$ AE
+SVar:TrigAttack:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | DefinedPlayer$ You | TargetMin$ 0 | TargetMax$ 1 | Destination$ Exile | ChangeNum$ 1 | ValidTgts$ Instant,Sorcery | TargetsWithDefinedController$ TriggeredDefendingPlayer | Origin$ Graveyard | RememberChanged$ True | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | Defined$ Remembered | Controller$ You | CopyCard$ True | ValidSA$ Spell | Optional$ True | PlayCost$ 3 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+K:Equip:2:Flavor Spirit of the Whalaqee
+SVar:AE:SVar:HasAttackEffect:TRUE

@@ -1,14 +1,12 @@
 Id:31488
-ColorIdentity:B
-OriginSet:Gf2b808f4f642ac62
-ManaCost:3 B
+ColorIdentity:BG
+OriginSet:G93ac57511923c3dd
+ManaCost:6 B G
 Types:Creature Dragon
-PT:4/4
+PT:7/6
 K:Flying
-K:Ward:Discard<1/Card>
-AlternateMode:Omen
-ALTERNATE
-ManaCost:X B B
-Types:Sorcery Omen
-A:SP$ PumpAll | ValidCards$ Creature.nonDragon | NumAtt$ -X | NumDef$ -X | IsCurse$ True
-SVar:X:Count$xPaid
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigMill | Secondary$ True | TriggerZones$ Battlefield
+SVar:TrigMill:DB$ Mill | Defined$ You | NumCards$ 3
+T:Mode$ ChangesZoneAll | ValidCards$ Creature.YouOwn | Origin$ Library | Destination$ Graveyard | TriggerZones$ Battlefield | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | ChooseFromDefined$ TriggeredCards | ChangeNum$ 1 | Mandatory$ True | Hidden$ True | Origin$ Graveyard | Destination$ Battlefield

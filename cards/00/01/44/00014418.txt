@@ -1,8 +1,11 @@
 Id:14418
 ColorIdentity:B
 OriginSet:Gd3737676789056fe
-ManaCost:2 B
-Types:Enchantment
-T:Mode$ Phase | Phase$ Upkeep | CheckSVar$ X | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1
-SVar:X:PlayerCountOpponents$LifeLostLastTurn
+ManaCost:1 B
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Card.EnchantedBy | AddKeyword$ Lifelink | AddTrigger$ EternalChangeZone | AddSVar$ EternalCounters
+SVar:EternalChangeZone:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.OppCtrl | TriggerZones$ Battlefield | Execute$ EternalCounters
+SVar:EternalCounters:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+SVar:NonStackingAttachEffect:True

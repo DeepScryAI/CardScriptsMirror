@@ -1,12 +1,9 @@
 Id:20540
-ColorIdentity:URG
+ColorIdentity:R
 OriginSet:Gc9c1dd0d52c99ca4
-ManaCost:2 G U R
-Types:Legendary Creature Snake Leviathan
-PT:3/5
-K:Flying
-T:Mode$ Drawn | ValidCard$ Card.OppOwn | FirstCardInDrawStep$ False | TriggerZones$ Battlefield | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 242392460
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You & TriggeredTarget | NumCards$ X
-SVar:X:TriggerCount$DamageAmount
+ManaCost:2 R R
+Types:Enchantment
+K:ETBReplacement:Other:ChooseCT
+SVar:ChooseCT:DB$ ChooseType | Defined$ You | Type$ Creature | AILogic$ MostProminentInComputerDeckNonToken
+T:Mode$ ChangesZone | ValidCard$ Creature.!token+ChosenType+YouCtrl | Origin$ Any | Destination$ Battlefield | Execute$ TrigCopyPermanent | TriggerZones$ Battlefield
+SVar:TrigCopyPermanent:DB$ CopyPermanent | Defined$ TriggeredCardLKICopy | PumpKeywords$ Haste | AtEOT$ Exile

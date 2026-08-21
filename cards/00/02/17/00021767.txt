@@ -1,8 +1,11 @@
 Id:21767
-ColorIdentity:W
-OriginSet:Gabb23d0d25cdc46d
-ManaCost:2 W
-Types:Creature Dwarf Artificer
-PT:3/3
-T:Mode$ SpellCast | ValidCard$ Artifact | ValidActivatingPlayer$ You | Execute$ TrigToken | OptionalDecider$ You | TriggerZones$ Battlefield
-SVar:TrigToken:AB$ Token | Cost$ 2 | TokenScriptIds$ 3837180497 | TokenOwner$ You
+ColorIdentity:B
+OriginSet:G18bf722b221724f8
+ManaCost:3 B
+Types:Creature Elf Cleric
+PT:2/5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | Choices$ DBLoseLife,DBGainLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ X
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ X
+SVar:X:Count$MostProminentCreatureType Creature.YouCtrl

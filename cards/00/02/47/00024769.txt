@@ -1,10 +1,12 @@
 Id:24769
-ColorIdentity:WU
-OriginSet:G3c9db52fa0bcee92
-ManaCost:2 W U
-Types:Legendary Creature Human Soldier
-PT:3/2
-K:Flash
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenAmount$ X | TokenScriptIds$ 353162950 | TokenOwner$ You
-SVar:X:Count$ThisTurnEntered_Graveyard_from_Battlefield_Creature.!token+YouCtrl
+ColorIdentity:BG
+OriginSet:G72c9c624ceb92bff
+ManaCost:B G
+Types:Creature Plant Skeleton
+PT:2/2
+K:Kicker:3
+K:etbCounter:P1P1:3:CheckSVar$ WasKicked
+SVar:WasKicked:Count$Kicked.1.0
+T:Mode$ CounterAddedOnce | ValidCard$ Creature.YouCtrl | CounterType$ P1P1 | TriggerZones$ Graveyard | IsPresent$ Card.StrictlySelf | PresentZone$ Graveyard | Execute$ TrigDelayedTrigger
+SVar:TrigDelayedTrigger:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZone | Defined$ Self | Origin$ Graveyard | Destination$ Hand

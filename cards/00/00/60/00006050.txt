@@ -1,9 +1,10 @@
 Id:6050
-ColorIdentity:G
+ColorIdentity:U
 OriginSet:G0eb5e52d26fe1c23
-ManaCost:3 G G
-Types:Creature Insect
-PT:0/0
-K:etbCounter:P1P1:X:no Condition
-SVar:X:Count$Valid Creature.Other
-SVar:NeedsToPlay:Creature
+ManaCost:U
+Types:Instant
+A:SP$ Pump | ValidTgts$ Player | SubAbility$ DBHand
+SVar:DBHand:DB$ LookAt | Defined$ ValidHand Card.TargetedPlayerCtrl | SubAbility$ DBTopLibrary
+SVar:DBTopLibrary:DB$ LookAt | Defined$ ValidAll Card.TopLibrary+TargetedPlayerCtrl | SubAbility$ DBFaceDown
+SVar:DBFaceDown:DB$ LookAt | Defined$ Valid Creature.faceDown+TargetedPlayerCtrl | SubAbility$ DBRearrange
+SVar:DBRearrange:DB$ RearrangeTopOfLibrary | Defined$ You | NumCards$ 4

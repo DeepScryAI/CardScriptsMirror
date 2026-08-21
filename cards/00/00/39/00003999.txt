@@ -1,7 +1,10 @@
 Id:3999
-ColorIdentity:R
+ColorIdentity:B
 OriginSet:Gdd40b2fbd2aa3c03
-ManaCost:2 R
-Types:Creature Human Spellshaper
-PT:2/2
-A:AB$ Destroy | Cost$ R T Discard<1/Card> | ValidTgts$ Wall
+ManaCost:3 B B
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ CHARGE | CounterNum$ 1
+T:Mode$ Phase | Phase$ Main1 | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigGetMana
+SVar:TrigGetMana:DB$ Mana | Produced$ B | Amount$ X
+SVar:X:Count$CardCounters.CHARGE

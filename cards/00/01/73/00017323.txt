@@ -1,10 +1,8 @@
 Id:17323
-ColorIdentity:U
+ColorIdentity:UBR
 OriginSet:G4b92e66c84393de5
-ManaCost:3 U
-Types:Creature Human Cleric
-PT:2/4
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ VizierSearch
-SVar:VizierSearch:DB$ ChangeZone | Origin$ Library | Destination$ Graveyard | ChangeNum$ 1 | ChangeType$ Creature.withEmbalm+YouCtrl,Creature.withEternalize+YouCtrl
-T:Mode$ AbilityCast | ValidCard$ Creature.YouOwn | ValidActivatingPlayer$ You | ValidSA$ Activated.Eternalize,Activated.Embalm | TriggerZones$ Battlefield | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw
+ManaCost:4
+Types:Artifact
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSearch | OptionalDecider$ You
+SVar:TrigSearch:DB$ ChangeZone | Origin$ Library | OriginAlternative$ Graveyard | Destination$ Hand | ChangeType$ Card.YouOwn+catalogId17257 | ChangeNum$ 1 | Optional$ True
+A:AB$ Mana | Cost$ T | Produced$ Combo U B R

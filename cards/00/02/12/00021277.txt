@@ -1,11 +1,12 @@
 Id:21277
-ColorIdentity:W
-OriginSet:G51d431785c8b33e5
-ManaCost:4 W
-Types:Legendary Creature Human Monk
-PT:3/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPut
-SVar:TrigPut:DB$ PutCounter | TargetMin$ 0 | TargetMax$ 2 | ValidTgts$ Creature.Other | CounterType$ P1P1 | CounterNum$ 1
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl+!token+counters_GE1_P1P1 | TriggerZones$ Battlefield | Execute$ TrigToken | Secondary$ True
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 273812182 | TokenOwner$ You
-K:Partner
+ColorIdentity:
+OriginSet:G72c9c624ceb92bff
+ManaCost:2
+Types:Artifact Equipment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigAttach
+SVar:TrigAttach:DB$ Attach | ValidTgts$ Creature.YouCtrl | AITgts$ Warrior
+S:Mode$ Continuous | Affected$ Card.EquippedBy | AddPower$ X | AddToughness$ 1
+SVar:X:Count$Compare Y GE1.2.1
+SVar:Y:Count$Valid Warrior.AttachedBy
+K:Equip:2
+SVar:NeedsToPlay:Creature.YouCtrl

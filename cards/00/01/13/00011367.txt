@@ -2,10 +2,9 @@ Id:11367
 ColorIdentity:
 OriginSet:G84adc137b751e29e
 ManaCost:no cost
-Types:Scheme
-T:Mode$ SetInMotion | ValidCard$ Card.Self | Execute$ TrigSacEach | TriggerZones$ Command
-SVar:TrigSacEach:DB$ Sacrifice | Defined$ Player.Opponent | SacValid$ Creature | RememberSacrificed$ True | SubAbility$ DBRepeat
-SVar:DBRepeat:DB$ RepeatEach | RepeatPlayers$ Player.Opponent | RepeatSubAbility$ DBDiscard | SubAbility$ DBCleanup
-SVar:DBDiscard:DB$ Discard | Defined$ Player.IsRemembered | Mode$ TgtChoose | NumCards$ 2 | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ0
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Remembered$Valid Card.RememberedPlayerCtrl
+Types:Ongoing Scheme
+R:Event$ DamageDone | ActiveZones$ Command | ValidSource$ Card.OppCtrl,Emblem.OppCtrl | ValidTarget$ You | ReplaceWith$ DBReplace | PreventionEffect$ True
+SVar:DBReplace:DB$ ReplaceDamage | Amount$ 1
+T:Mode$ Phase | Phase$ End of Turn | CheckSVar$ X | SVarCompare$ GE5 | TriggerZones$ Command | Execute$ Abandon
+SVar:Abandon:DB$ Abandon
+SVar:X:PlayerCountPropertyYou$DamageThisTurn

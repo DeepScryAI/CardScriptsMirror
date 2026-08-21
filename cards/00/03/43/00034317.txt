@@ -1,13 +1,9 @@
 Id:34317
-ColorIdentity:
+ColorIdentity:UG
 OriginSet:Gcb93bbfc68a40806
-ManaCost:7
-Types:Legendary Artifact Creature Robot Villain
-PT:7/7
-K:Flying
-K:Menace
-K:Trample
-K:Unearth:7
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDamage
-SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Creature.OppCtrl | TargetMin$ 0 | TargetMax$ OneEach | TargetsForEachPlayer$ True | NumDmg$ 3
-SVar:OneEach:PlayerCountOpponents$Amount
+ManaCost:4 G U
+Types:Enchantment
+T:Mode$ Phase | Phase$ Main1 | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigMana
+SVar:TrigMana:DB$ Mana | Produced$ Combo Any | Amount$ 4
+T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | Execute$ TrigCopySpell | TriggerZones$ Battlefield | OptionalDecider$ You | ResolvedLimit$ 1
+SVar:TrigCopySpell:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | MayChooseTarget$ True

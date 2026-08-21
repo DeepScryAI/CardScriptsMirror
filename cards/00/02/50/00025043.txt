@@ -1,8 +1,10 @@
 Id:25043
-ColorIdentity:WU
-OriginSet:G2aca7ffc9201ba1c
-ManaCost:W U U
-Types:Instant
-A:SP$ Counter | TargetType$ Spell | ValidTgts$ Card | SubAbility$ DBAnimate
-SVar:DBAnimate:DB$ AnimateAll | Defined$ TargetedController | Zone$ Graveyard,Hand,Library | ValidCards$ Targeted.sameName | Duration$ Perpetual | staticAbilities$ PerpetualRaiseCost
-SVar:PerpetualRaiseCost:Mode$ RaiseCost | ValidCard$ Card.Self | Type$ Spell | Amount$ 2 | EffectZone$ All
+ColorIdentity:UG
+OriginSet:G3a8b4b9d4649b357
+ManaCost:G G U
+Types:Legendary Creature Merfolk Druid
+PT:3/3
+S:Mode$ Continuous | Affected$ Creature.Land+YouCtrl | AddKeyword$ Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | IsPresent$ Land.YouCtrl | PresentCompare$ GE7 | TriggerZones$ Battlefield | Execute$ TrigAnimate
+SVar:TrigAnimate:DB$ Animate | ValidTgts$ Land.YouCtrl | TargetMin$ 0 | TargetMax$ 1 | Duration$ Permanent | Power$ 3 | Toughness$ 3 | Types$ Elemental,Creature | Keywords$ Haste
+SVar:BuffedBy:Land

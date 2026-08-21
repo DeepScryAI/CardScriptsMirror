@@ -1,8 +1,10 @@
 Id:13825
-ColorIdentity:B
+ColorIdentity:BG
 OriginSet:G97e9a20e5a5d5822
-ManaCost:4 B
-Types:Instant
-A:SP$ DelayedTrigger | Cost$ 4 B Sac<1/Creature> | ValidTgts$ Creature.YouOwn | TgtZone$ Graveyard | Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ MoveToPlay | RememberObjects$ Targeted & SacrificedCards | SubAbility$ DBExile
-SVar:MoveToPlay:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | Defined$ DelayTriggerRememberedLKI | GainControl$ True
-SVar:DBExile:DB$ ChangeZone | Defined$ Self | Origin$ Stack | Destination$ Exile
+ManaCost:2 B G
+Types:Creature Gorgon
+PT:4/5
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.Other | TriggerZones$ Battlefield | Execute$ TrigScry
+SVar:TrigScry:DB$ Scry | ScryNum$ 1
+A:AB$ Pump | Cost$ B | KW$ Deathtouch | Defined$ Self
+A:AB$ Pump | Cost$ 1 G | KW$ Hexproof | Defined$ Self

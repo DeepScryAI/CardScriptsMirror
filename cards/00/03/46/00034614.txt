@@ -1,9 +1,10 @@
 Id:34614
 ColorIdentity:B
-OriginSet:G11c0621ce29fa608
-ManaCost:3 B
-Types:Creature Vampire Villain
-PT:3/2
-K:Flying
-A:AB$ ChangeZone | Cost$ 5 B B | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Creature.YouOwn | TargetMin$ 0 | TargetMax$ 1 | PowerUp$ True | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 2
+OriginSet:Gcb93bbfc68a40806
+ManaCost:2 B
+Types:Artifact Equipment
+S:Mode$ Continuous | Affected$ Card.EquippedBy | AddPower$ 2 | AddTrigger$ AttackTrig
+SVar:AttackTrig:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDraw | Alone$ True
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1 | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ 1
+K:Equip:2

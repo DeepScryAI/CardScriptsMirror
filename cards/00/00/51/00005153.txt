@@ -1,9 +1,9 @@
 Id:5153
-ColorIdentity:G
+ColorIdentity:B
 OriginSet:Ga43915481c3b48d8
-ManaCost:3 G
-Types:Creature Elf
-PT:2/2
-K:Trample
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigDig
-SVar:TrigDig:DB$ Dig | DigNum$ 4 | Reveal$ True | ChangeNum$ All | ChangeValid$ Elf
+ManaCost:2 B
+Types:Sorcery
+A:SP$ ChangeZoneAll | ValidTgts$ Player | ChangeType$ Card | Origin$ Hand | Destination$ Exile | Hidden$ True | ExileFaceDown$ True | RememberChanged$ True | Reveal$ False | SubAbility$ DelTrig
+SVar:DelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | DelayedTriggerDefinedPlayer$ Targeted | ThisTurn$ True | RememberObjects$ Remembered | Execute$ TrigReturn | Secondary$ True | SubAbility$ DBCleanup
+SVar:TrigReturn:DB$ ChangeZone | Defined$ DelayTriggerRememberedLKI | Origin$ Exile | Destination$ Hand
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

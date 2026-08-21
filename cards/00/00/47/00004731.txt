@@ -1,7 +1,10 @@
 Id:4731
-ColorIdentity:UB
+ColorIdentity:B
 OriginSet:Gfb91362c2efb868e
-ManaCost:2 B
-Types:Creature Phyrexian Minion
-PT:2/2
-A:AB$ ExchangeControl | Cost$ 2 U U | Defined$ Self | ValidTgts$ Creature
+ManaCost:3 B B
+Types:Creature Phyrexian Zombie
+PT:3/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouCtrl | GainControl$ True | ChangeNum$ 1 | SubAbility$ DBLoseLifeYou
+SVar:DBLoseLifeYou:DB$ LoseLife | Defined$ You | LifeAmount$ X
+SVar:X:Targeted$CardManaCost

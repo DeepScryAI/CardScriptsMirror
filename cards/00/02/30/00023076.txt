@@ -1,25 +1,9 @@
 Id:23076
-ColorIdentity:UB
-OriginSet:G7a76c1974b0a33a6
-ManaCost:1 U B
-Types:Legendary Creature Vampire Cleric
-PT:1/4
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
-SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Library | ValidTgts$ Creature.YouOwn | TargetMin$ 0 | TargetMax$ 1 | AITgts$ Creature.cmcGE6
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPeek
-SVar:TrigPeek:DB$ PeekAndReveal | PeekAmount$ 1 | RevealOptional$ True | RememberRevealed$ True | SubAbility$ DBTransform
-SVar:DBTransform:DB$ SetState | Defined$ Self | Mode$ Transform | ConditionDefined$ Remembered | ConditionPresent$ Creature.cmcGE6 | ConditionCompare$ EQ1 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:blue,black
-Types:Legendary Creature Kraken Horror
-PT:3/5
-K:Flying
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigCopy
-SVar:TrigCopy:DB$ CopyPermanent | ValidTgts$ Creature.Other+attacking | TokenTapped$ True | TokenAttacking$ True | NumCopies$ X | AITgts$ Kraken.Other+attacking,Leviathan.Other+attacking,Octopus.Other+attacking,Serpent.Other+attacking
-SVar:X:Count$Compare Y GE1.2.1
-SVar:Y:Targeted$Valid Kraken,Leviathan,Octopus,Serpent
-SVar:HasAttackEffect:TRUE
+ColorIdentity:UG
+OriginSet:Gf78628ad511eefec
+ManaCost:G U
+Types:Sorcery
+A:SP$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1 | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBTap
+SVar:DBTap:DB$ Tap | ValidTgts$ Creature.YouDontCtrl | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ ParentTarget | KW$ HIDDEN This card doesn't untap during your next untap step. | Duration$ Permanent
+K:Flashback:1 G U

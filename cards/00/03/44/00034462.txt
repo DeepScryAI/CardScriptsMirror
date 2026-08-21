@@ -1,11 +1,10 @@
 Id:34462
-ColorIdentity:R
-OriginSet:G11c0621ce29fa608
-ManaCost:3 R
-Types:Legendary Creature Human Archer Hero
-PT:2/4
-K:Reach
-R:Event$ DamageDone | ActiveZones$ Battlefield | ValidSource$ Card.YouCtrl,Emblem.YouCtrl | ValidTarget$ Permanent.OppCtrl,Opponent | IsCombat$ False | ReplaceWith$ DmgPlusX
-SVar:DmgPlusX:DB$ ReplaceEffect | VarName$ DamageAmount | VarValue$ X
-SVar:X:ReplaceCount$DamageAmount/Plus.Y
-SVar:Y:Count$CardPower
+ColorIdentity:WR
+OriginSet:Gcb93bbfc68a40806
+ManaCost:1 RW
+Types:Legendary Creature Kree Soldier Hero
+PT:1/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+T:Mode$ AbilityCast | ValidActivatingPlayer$ You | ValidSA$ Activated.PowerUp | TriggerZones$ Battlefield | Execute$ TrigPutCounter | Secondary$ True
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+SVar:BuffedBy:Creature

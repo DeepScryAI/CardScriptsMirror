@@ -1,10 +1,9 @@
 Id:23855
-ColorIdentity:G
+ColorIdentity:WRG
 OriginSet:G5f5d8cfb206e2fac
-ManaCost:4 G G
+ManaCost:3 R G W
 Types:Sorcery
-A:SP$ PumpAll | ValidCards$ Creature.YouCtrl | KW$ Vigilance & Trample & Melee | SubAbility$ DBDelTrig
-SVar:DBDelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ Main1,Main2 | ThisTurn$ True | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | NumCards$ X
-SVar:X:PlayerCountPlayers$HasPropertywasDealtCombatDamageThisTurn
-SVar:PlayMain1:TRUE
+A:SP$ Charm | Choices$ Copy,Exile,Pump | CharmNum$ 3 | CanRepeatModes$ True
+SVar:Copy:DB$ CopyPermanent | ValidTgts$ Creature.YouCtrl | PumpKeywords$ Haste | AtEOT$ Sacrifice
+SVar:Exile:DB$ ChangeZone | ValidTgts$ Artifact,Enchantment | Origin$ Battlefield | Destination$ Exile
+SVar:Pump:DB$ PumpAll | ValidTgts$ Player | ValidCards$ Creature | NumAtt$ +1 | NumDef$ +1 | KW$ FirstStrike

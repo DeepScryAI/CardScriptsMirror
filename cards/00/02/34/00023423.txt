@@ -1,10 +1,13 @@
 Id:23423
-ColorIdentity:W
-OriginSet:G1a259dba25660062
-ManaCost:1 W
-Types:Artifact Equipment
-T:Mode$ Attacks | ValidCard$ Samurai.YouCtrl,Warrior.YouCtrl | Alone$ True | TriggerZones$ Battlefield | Execute$ TrigImmediateTrig
-SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ 1 | Execute$ TrigAttach | RememberObjects$ TriggeredAttackerLKICopy
-SVar:TrigAttach:DB$ Attach | Defined$ DelayTriggerRememberedLKI
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddToughness$ 1
-K:Equip:3
+ColorIdentity:
+OriginSet:Gbe3783f336562357
+ManaCost:2
+Types:Creature Human
+PT:1/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraft
+SVar:TrigDraft:DB$ Draft | SpellbookCatalogIds$ 23111,23068,23044,22911,23376,23133,23061,22997,23024,23346,23278,23214,22868,23128,22844 | RememberDrafted$ True | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Remembered | staticAbilities$ SpendAnyMana | Triggers$ CastTrigger | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:SpendAnyMana:Mode$ ManaConvert | EffectZone$ Stack | ValidPlayer$ You | ValidCard$ Card.Self | ValidSA$ Spell | ManaConversion$ AnyType->AnyColor
+SVar:CastTrigger:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | ChangeType$ Card.catalogId23423+YouCtrl | ChangeNum$ 1 | Origin$ Battlefield | Destination$ Hand | Hidden$ True | Mandatory$ True
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

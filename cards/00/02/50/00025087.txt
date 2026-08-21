@@ -1,14 +1,10 @@
 Id:25087
-ColorIdentity:WUG
-OriginSet:G9afc9838c5e994df
-ManaCost:2 G W U
-Types:Creature Cat Citizen
-PT:4/4
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.OppCtrl | KW$ HIDDEN CARDNAME can't attack or block. | IsCurse$ True | Duration$ UntilYourNextTurn
-A:AB$ Effect | Cost$ 1 ExileFromHand<1/CARDNAME> | ActivationZone$ Hand | ValidTgts$ Land | RememberObjects$ Targeted & Self | StaticAbilities$ Land,MayPlay | Triggers$ Cast | ImprintCards$ Self | Duration$ Permanent | ForgetOnMoved$ Exile
-SVar:Land:Mode$ Continuous | AffectedZone$ Battlefield | Affected$ Card.IsRemembered+!IsImprinted | AddAbility$ Mana
-SVar:Mana:AB$ Mana | Cost$ T | Produced$ Combo G W U | Amount$ 1
-SVar:MayPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsImprinted+IsRemembered | AffectedZone$ Exile | Secondary$ True
-SVar:Cast:Mode$ SpellCast | ValidCard$ Card.IsImprinted+IsRemembered+wasCastFromExile | Execute$ ExileSelf | Static$ True
-SVar:ExileSelf:DB$ ChangeZone | Origin$ Command | Destination$ Exile | Defined$ Self
+ColorIdentity:RG
+OriginSet:G3a8b4b9d4649b357
+ManaCost:1 G
+Types:Creature Elf
+PT:3/2
+K:Kicker:R
+K:Trample
+T:Mode$ ChangesZone | ValidCard$ Card.Self+kicked | Origin$ Any | Destination$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +1 | NumDef$ +1 | KW$ Haste

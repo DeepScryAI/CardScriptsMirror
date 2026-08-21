@@ -2,7 +2,13 @@ Id:12798
 ColorIdentity:
 OriginSet:G4801bb28ce9773ed
 ManaCost:no cost
-Types:Phenomenon
-T:Mode$ PlaneswalkedTo | ValidCard$ Card.Self | Execute$ Epiphany
-SVar:Epiphany:DB$ Draw | Defined$ Player | NumCards$ 4 | SubAbility$ PWAway
-SVar:PWAway:DB$ Planeswalk
+Types:Plane Regatha
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Command | Execute$ BuildPressure
+SVar:BuildPressure:DB$ PutCounter | Defined$ Self | CounterType$ PRESSURE | CounterNum$ 1
+T:Mode$ PlaneswalkedFrom | ValidCard$ Plane.Self | Execute$ Eruption
+SVar:Eruption:DB$ DamageAll | ValidCards$ Creature,Planeswalker | NumDmg$ KeraliaX
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos
+SVar:RolledChaos:DB$ Effect | ReplacementEffects$ RPrevent | EffectOwner$ You | Duration$ Permanent
+SVar:RPrevent:Event$ DamageDone | Prevent$ True | ActiveZones$ Command | ValidTarget$ Permanent.YouCtrl | ValidSource$ Plane.catalogId12798
+SVar:KeraliaX:TriggeredCard$CardCounters.PRESSURE
+SVar:AIRollPlanarDieParams:Mode$ Always | LowPriority$ True

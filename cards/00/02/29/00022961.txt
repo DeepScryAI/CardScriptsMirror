@@ -2,12 +2,8 @@ Id:22961
 ColorIdentity:U
 OriginSet:Gf78628ad511eefec
 ManaCost:1 U
-Types:Creature Spirit
-PT:2/1
-K:Flash
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPay
-SVar:TrigPay:AB$ ImmediateTrigger | Cost$ Mana<1 U\NumTimes> | Announce$ NumTimes | ConditionCheckSVar$ NumTimes | RememberSVarAmount$ NumTimes | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ X | SubAbility$ DBPhases
-SVar:DBPhases:DB$ Phases | ValidTgts$ Creature.Other,Artifact.Other,Enchantment.Other | TargetMin$ 0 | TargetMax$ X
-SVar:X:Count$TriggerRememberAmount
+Types:Enchantment Aura
+K:Enchant:Creature
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigTap | IsPresent$ Card.YouCtrl | PresentCompare$ GE5 | PresentZone$ Graveyard
+SVar:TrigTap:DB$ Tap | Defined$ Enchanted
+R:Event$ Untap | ActiveZones$ Battlefield | ValidCard$ Creature.AttachedBy | ValidStepTurnToController$ You | Layer$ CantHappen

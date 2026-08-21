@@ -1,7 +1,11 @@
 Id:21945
-ColorIdentity:BG
-OriginSet:Gd784248bfdf9e1d7
-ManaCost:1 BG
-Types:Sorcery
-A:SP$ GainLife | LifeAmount$ 4 | Defined$ You | SubAbility$ DBLearn
-SVar:DBLearn:DB$ Learn
+ColorIdentity:R
+OriginSet:G6fa60d857e930f32
+ManaCost:2 R R
+Types:Sorcery Lesson
+A:SP$ Discard | AnyNumber$ True | Optional$ True | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBDraw | AILogic$ DiscardUncastableAndExcess
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ Y | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | ConditionCheckSVar$ X | ConditionSVarCompare$ GE7 | TokenScriptIds$ 2645485105 | TokenOwner$ You
+SVar:X:Count$ValidGraveyard Card.YouOwn
+SVar:Y:Count$RememberedSize

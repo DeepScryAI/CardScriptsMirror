@@ -1,13 +1,12 @@
 Id:14036
-ColorIdentity:UG
+ColorIdentity:WG
 OriginSet:Gdaee41baa388b0e7
-ManaCost:2 G U
-Types:Legendary Planeswalker Kiora
-Loyalty:2
-A:AB$ Pump | Cost$ AddCounter<1/LOYALTY> | ValidTgts$ Permanent.OppCtrl | Planeswalker$ True | KW$ Prevent all damage that would be dealt to and dealt by CARDNAME. | IsCurse$ True | Duration$ UntilYourNextTurn
-A:AB$ Draw | Cost$ SubCounter<1/LOYALTY> | Planeswalker$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | Name$ 16105399675768317315 | StaticAbilities$ Exploration
-SVar:Exploration:Mode$ Continuous | Affected$ You | AdjustLandPlays$ 1
-A:AB$ Effect | Cost$ SubCounter<5/LOYALTY> | Planeswalker$ True | Ultimate$ True | Name$ 8225785255207891448 | Triggers$ EOTTrig | Duration$ Permanent | AILogic$ Always
-SVar:EOTTrig:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Command | Execute$ KioraToken
-SVar:KioraToken:DB$ Token | TokenScriptIds$ 737572120 | TokenOwner$ You
+ManaCost:3 G W
+Types:Legendary Enchantment Creature God
+PT:6/7
+K:Indestructible
+S:Mode$ Continuous | Affected$ Card.Self | RemoveType$ Creature | CheckSVar$ X | SVarCompare$ LT7
+SVar:X:Count$DevotionDual.Green.White
+T:Mode$ SpellCast | ValidCard$ Creature | ValidActivatingPlayer$ You | Execute$ TrigSearch | TriggerZones$ Battlefield | OptionalDecider$ You
+SVar:TrigSearch:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Forest,Plains | ChangeNum$ 1 | Tapped$ True | ShuffleNonMandatory$ True
+SVar:BuffedBy:Permanent.White,Permanent.Green

@@ -1,18 +1,14 @@
 Id:17882
-ColorIdentity:WR
+ColorIdentity:BR
 OriginSet:G84be946b27d900a1
-ManaCost:R W
-Types:Legendary Enchantment
-T:Mode$ ChangesZone | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDamage
-SVar:TrigDamage:DB$ DamageAll | ValidCards$ Creature.withoutFirstStrike+withoutDoubleStrike+withoutVigilance+withoutHaste | NumDmg$ 1
-T:Mode$ AttackersDeclared | Execute$ TrigTransform | CheckSVar$ X | SVarCompare$ GE2 | NoResolvingCheck$ True | TriggerZones$ Battlefield | AttackingPlayer$ You
-SVar:X:Count$Valid Creature.attacking+YouCtrl+withFirstStrike,Creature.attacking+YouCtrl+withDoubleStrike,Creature.attacking+YouCtrl+withVigilance,Creature.attacking+YouCtrl+withHaste
-SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Types:Legendary Land
-A:AB$ Mana | Cost$ T | Produced$ Any | Amount$ 1
-A:AB$ DamageAll | Cost$ 1 R T | ValidPlayers$ Opponent | NumDmg$ 2
-A:AB$ ChooseCard | Cost$ 2 W T | AtRandom$ True | Choices$ Creature.attackedThisTurn | SubAbility$ DBDestroy
-SVar:DBDestroy:DB$ Destroy | Defined$ ChosenCard
+ManaCost:3 B R
+Types:Legendary Planeswalker Angrath
+Loyalty:4
+A:AB$ Discard | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | Defined$ Player.Opponent | Mode$ TgtChoose | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 2 | Defined$ Player.Opponent
+A:AB$ GainControl | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | ValidTgts$ Creature | LoseControl$ EOT | Untap$ True | AddKWs$ Haste | SubAbility$ DelTrig
+SVar:DelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | ValidPlayer$ Player | Execute$ TrigSac | RememberObjects$ Targeted
+SVar:TrigSac:DB$ SacrificeAll | Defined$ DelayTriggerRememberedLKI | Controller$ You | ConditionDefined$ DelayTriggerRememberedLKI | ConditionPresent$ Card.cmcLE3
+A:AB$ RepeatEach | Cost$ SubCounter<8/LOYALTY> | Planeswalker$ True | Ultimate$ True | RepeatPlayers$ Player.Opponent | RepeatSubAbility$ DBLoseLife2
+SVar:DBLoseLife2:DB$ LoseLife | Defined$ Player.IsRemembered | LifeAmount$ X
+SVar:X:Count$ValidGraveyard Card.RememberedPlayerCtrl

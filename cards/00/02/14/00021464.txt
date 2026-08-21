@@ -1,22 +1,11 @@
 Id:21464
-ColorIdentity:U
-OriginSet:G18bf722b221724f8
-ManaCost:3 U U
-Types:Legendary Creature God
-PT:1/1
-S:Mode$ Continuous | Affected$ Card.Self | AddPower$ Z | AddToughness$ Z
-SVar:X:Count$ValidHand Card.YouOwn
-SVar:Y:Count$ValidExile Card.foretold+YouOwn
-SVar:Z:SVar$X/Plus.Y
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigChooseCardType
-SVar:TrigChooseCardType:DB$ ChooseType | Defined$ You | Type$ Card | SubAbility$ DBDig
-SVar:DBDig:DB$ Dig | DigNum$ 2 | Reveal$ True | ChangeNum$ All | ChangeValid$ Card.ChosenType | DestinationZone2$ Library | LibraryPosition$ -1
-AlternateMode:Modal
-ALTERNATE
-ManaCost:1 U
-Types:Legendary Creature Bird
-PT:2/3
-K:Flying
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZone | Defined$ Self | Origin$ Battlefield | Destination$ Hand | SubAbility$ DBScry
-SVar:DBScry:DB$ Scry | ScryNum$ 2
+ColorIdentity:G
+OriginSet:G51d431785c8b33e5
+ManaCost:2 G
+Types:Legendary Creature Elf Warrior
+PT:2/2
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | Execute$ TrigPayCost | TriggerZones$ Battlefield
+SVar:TrigPayCost:AB$ ImmediateTrigger | Cost$ X X | Execute$ TrigPutCounters
+SVar:TrigPutCounters:DB$ PutCounter | ValidTgts$ Elf | CounterType$ P1P1 | CounterNum$ X | TargetMin$ 0 | TargetMax$ X | DividedAsYouChoose$ X
+SVar:X:Count$xPaid
+K:Partner

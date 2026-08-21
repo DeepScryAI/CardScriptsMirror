@@ -1,12 +1,11 @@
 Id:28922
-ColorIdentity:WB
-OriginSet:Gaf7c94f364052cdd
-ManaCost:2 W B
-Types:Enchantment Saga
-K:Chapter:3:DBToken,DBVote,DBVote
-SVar:DBToken:DB$ Token | TokenAmount$ OneEach | TokenScriptIds$ 1647422943
-SVar:OneEach:PlayerCountOpponents$Amount
-SVar:DBVote:DB$ Vote | Defined$ Player | Secretly$ True | VoteCard$ Creature | UpTo$ True | VoteSubAbility$ DBDestroyAll
-SVar:DBDestroyAll:DB$ DestroyAll | ValidCards$ Creature.IsRemembered | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | Defined$ Player | NumCards$ 1 | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ0
-SVar:X:Remembered$Amount
+ColorIdentity:W
+OriginSet:Gfe262f6450b3d189
+ManaCost:1 W
+Types:Creature Elephant Detective
+PT:3/2
+K:Disguise:1 W
+T:Mode$ TurnFaceUp | ValidCard$ Card.Self,Creature.Other+YouCtrl | Execute$ TrigSeek | TriggerZones$ Battlefield | GameActivationLimit$ 1
+SVar:TrigSeek:DB$ Seek | Type$ Creature.nonElephant+cmcLE3 | RememberFound$ True | SubAbility$ DBCloak
+SVar:DBCloak:DB$ Cloak | Defined$ Remembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

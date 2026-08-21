@@ -1,12 +1,12 @@
 Id:27841
-ColorIdentity:UBR
+ColorIdentity:
 OriginSet:G30e8a5e111cffb44
-ManaCost:1 U B R
-Types:Legendary Creature Time Lord Scientist
-PT:3/4
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigToken | Secondary$ True
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 2506921928 | TokenOwner$ You | AttachedTo$ Targeted | ValidTgts$ Creature.Other
-T:Mode$ DamageDone | ValidSource$ Creature.IsGoaded | ValidTarget$ Opponent | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigInvestigate
-SVar:TrigInvestigate:DB$ Investigate
-SVar:HasAttackEffect:TRUE
+ManaCost:no cost
+Types:Plane The Dalek Asylum
+T:Mode$ PlaneswalkedTo | ValidCard$ Card.Self | Execute$ TrigExile
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigExile | TriggerZones$ Command | Secondary$ True
+SVar:TrigExile:AB$ Token | Cost$ Mandatory Exile<1/Creature.nonDalek/non-Dalek creature> | TokenScriptIds$ 809974435 | PumpKeywords$ Haste | PumpDuration$ EOT
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos
+SVar:RolledChaos:DB$ Pump | ValidTgts$ Dalek.YouCtrl | AILogic$ PowerDmg | SubAbility$ DBDamage
+SVar:DBDamage:DB$ DealDamage | ValidTgts$ Creature.YouDontCtrl | AILogic$ PowerDmg | NumDmg$ X | DamageSource$ ParentTarget
+SVar:X:ParentTargeted$CardPower

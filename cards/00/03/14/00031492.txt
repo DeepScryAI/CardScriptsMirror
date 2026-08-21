@@ -1,8 +1,11 @@
 Id:31492
-ColorIdentity:U
-OriginSet:Gf2b808f4f642ac62
-ManaCost:2 U
-Types:Creature Zombie Advisor
-PT:2/1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDig
-SVar:TrigDig:DB$ Dig | DigNum$ 2 | ChangeNum$ 1 | DestinationZone2$ Graveyard | NoReveal$ True
+ColorIdentity:URG
+OriginSet:G93ac57511923c3dd
+ManaCost:G U R
+Types:Legendary Creature Human Warrior
+PT:2/2
+T:Mode$ SpellCast | ValidCard$ Creature | ValidActivatingPlayer$ You | Execute$ TrigPutCounter | TriggerZones$ Battlefield
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | ConditionCheckSVar$ TriggeredSpellAbility$CardPower | ConditionSVarCompare$ GE4 | SubAbility$ DBDamage
+SVar:DBDamage:DB$ DamageAll | ValidPlayers$ Player.Opponent | ConditionCheckSVar$ TriggeredSpellAbility$CardPower | ConditionSVarCompare$ GE6 | NumDmg$ X
+SVar:X:Count$CardPower

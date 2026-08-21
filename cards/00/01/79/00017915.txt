@@ -1,8 +1,13 @@
 Id:17915
-ColorIdentity:B
-OriginSet:G21ed5bd3b1924169
-ManaCost:1 B B
-Types:Sorcery
-A:SP$ Discard | Defined$ Player.Opponent | NumCards$ 2 | Mode$ TgtChoose | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 2 | ConditionPresent$ Vampire.YouCtrl | ConditionCompare$ GE1 | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | ConditionPresent$ Vampire.YouCtrl | ConditionCompare$ GE1 | LifeAmount$ 2
+ColorIdentity:WB
+OriginSet:G84be946b27d900a1
+ManaCost:1 W B
+Types:Legendary Enchantment
+A:AB$ ChangeZone | Cost$ 3 W B | ValidTgts$ Creature | Origin$ Battlefield | Destination$ Exile | SubAbility$ DBTransform
+SVar:DBTransform:DB$ SetState | ConditionZone$ Exile | ConditionPresent$ Card.ExiledWithSource | ConditionCompare$ GE3 | Defined$ Self | Mode$ Transform
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Types:Legendary Land
+A:AB$ Mana | Cost$ T | Produced$ Any | Amount$ 1
+A:AB$ ChangeZone | Cost$ 2 W B T | ChangeType$ Creature.ExiledWithSource | GainControl$ True | Hidden$ True | Origin$ Exile | Destination$ Battlefield | Mandatory$ True

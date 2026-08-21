@@ -1,9 +1,10 @@
 Id:7787
 ColorIdentity:R
 OriginSet:G3fddc6426f419054
-ManaCost:2 R
-Types:Creature Ogre Samurai Mercenary
+ManaCost:2 R R
+Types:Legendary Creature Kirin Spirit
 PT:3/3
-K:Bushido:1
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigGainControl | APlayerHasMostCardsInHand$ True | TriggerZones$ Battlefield
-SVar:TrigGainControl:DB$ GainControl | Defined$ Self | NewController$ Player.withMostCardsInHand
+K:Flying
+T:Mode$ SpellCast | ValidCard$ Spirit,Arcane | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigChange
+SVar:TrigChange:DB$ GainControl | ValidTgts$ Creature.cmcEQX | LoseControl$ EOT | NewController$ You
+SVar:X:TriggeredSpellAbility$CardManaCostLKI

@@ -1,7 +1,12 @@
 Id:27135
-ColorIdentity:B
+ColorIdentity:UR
 OriginSet:G6ce0035cfb774934
-ManaCost:2 B
-Types:Sorcery
-A:SP$ PumpAll | ValidCards$ Creature.OppCtrl | NumAtt$ -1 | NumDef$ -1 | IsCurse$ True | SubAbility$ TrigTempt
-SVar:TrigTempt:DB$ RingTemptsYou
+ManaCost:3 U R
+Types:Legendary Creature Avatar Wizard
+PT:3/4
+T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | Choices$ DBTapUntap,DBDamage,DBCopy,DBChangeZone | ChoiceRestriction$ ThisGame
+SVar:DBTapUntap:DB$ TapOrUntap | ValidTgts$ Permanent
+SVar:DBDamage:DB$ DealDamage | Defined$ Opponent | NumDmg$ 3
+SVar:DBCopy:DB$ CopySpellAbility | ValidTgts$ Instant.YouCtrl,Sorcery.YouCtrl | TargetType$ Spell | MayChooseTarget$ True
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Battlefield | Destination$ Library | LibraryPosition$ 0

@@ -1,8 +1,10 @@
 Id:29990
 ColorIdentity:G
 OriginSet:Gf09b85bbcc27770c
-ManaCost:1 G
-Types:Creature Frog Druid
-PT:2/3
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Ante,Command,Exile,Hand,Library | ValidCard$ Card.Self,Creature.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1
+ManaCost:2 G
+Types:Creature Rabbit Druid
+PT:1/4
+T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigPump | TriggerZones$ Battlefield
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.YouCtrl | NumAtt$ +1 | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Targeted | ConditionDefined$ Targeted | ConditionPresent$ Permanent.token | KW$ Deathtouch
+SVar:PlayMain1:TRUE

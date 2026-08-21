@@ -1,19 +1,14 @@
 Id:16223
-ColorIdentity:W
+ColorIdentity:B
 OriginSet:G70d19654882197c9
-ManaCost:1 W
-Types:Creature Human Knight
-PT:1/1
-K:FirstStrike
-K:Lifelink
-T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | CheckSVar$ YouLifeGained | SVarCompare$ GE3 | Execute$ TrigTransform
-SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform
-SVar:YouLifeGained:Count$LifeYouGainedThisTurn
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Types:Creature Eldrazi Horror
-PT:4/4
-K:FirstStrike
-K:Trample
-K:Lifelink
+ManaCost:1 B B
+Types:Legendary Planeswalker Liliana
+Loyalty:3
+A:AB$ Pump | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | NumAtt$ -2 | NumDef$ -1 | IsCurse$ True | Duration$ UntilYourNextTurn | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Creature
+A:AB$ Mill | Cost$ SubCounter<2/LOYALTY> | NumCards$ 2 | AILogic$ LilianaMill | Planeswalker$ True | Defined$ You | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ChangeType$ Creature.YouOwn | Hidden$ True
+A:AB$ Effect | Cost$ SubCounter<7/LOYALTY> | Name$ 4894354223767666039 | Triggers$ TrigToken | Planeswalker$ True | Ultimate$ True | Duration$ Permanent | AILogic$ Always
+SVar:TrigToken:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Command | Execute$ DBToken
+SVar:DBToken:DB$ Token | TokenAmount$ X | TokenScriptIds$ 353162950 | TokenOwner$ You
+SVar:X:Count$Valid Card.Zombie+YouCtrl/Plus.2
+SVar:PlayMain1:TRUE

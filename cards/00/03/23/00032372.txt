@@ -1,12 +1,10 @@
 Id:32372
-ColorIdentity:UB
-OriginSet:G66b3a7eeabd9000e
-ManaCost:5 U B
-Types:Legendary Creature Human Scientist Villain
-PT:4/8
-S:Mode$ Continuous | Affected$ Villain.Other+YouCtrl | AddPower$ 2 | AddToughness$ 2
-S:Mode$ Continuous | Affected$ You | SetMaxHandSize$ 8
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ X | SVarCompare$ LT8 | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ Difference
-SVar:X:Count$ValidHand Card.YouOwn
-SVar:Difference:Number$8/Minus.X
+ColorIdentity:W
+OriginSet:G9946f072b5556073
+ManaCost:5 W
+Types:Artifact Spacecraft
+PT:5/6
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouOwn,Enchantment.YouOwn
+K:Station:10
+S:Mode$ Continuous | Affected$ Card.Self+counters_GE10_CHARGE | AddType$ Creature | AddKeyword$ Flying

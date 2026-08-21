@@ -1,10 +1,19 @@
 Id:28895
-ColorIdentity:W
-OriginSet:Gaf7c94f364052cdd
-ManaCost:1 W
-Types:Artifact Creature Robot
-PT:2/2
-K:Squad:3
-K:Vigilance
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.token+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ TriggeredCardLKICopy | CounterType$ P1P1 | CounterNum$ 1
+ColorIdentity:BR
+OriginSet:G8a59924df6623252
+ManaCost:2 B R
+Types:Legendary Creature Chimera
+PT:3/5
+K:Flying
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ ChooseName
+SVar:ChooseName:DB$ NameCard | ValidCards$ Card.nonLand | Defined$ You | AtRandom$ True | SubAbility$ CreateAbility
+SVar:CreateAbility:DB$ Effect | Abilities$ DiscordCast | Triggers$ TrigHostLeaves | Duration$ UntilYourNextEndStep | ImprintCards$ OriginalHost.inZoneBattlefield | SubAbility$ CleanupName
+SVar:CleanupName:DB$ Cleanup | ClearNamedCard$ True
+SVar:DiscordCast:ST$ Play | ActivationZone$ Command | Cost$ 0 | CopyFromChosenName$ True | ManaConversion$ AnyType->AnyColor | ValidSA$ Spell.CouldCastTiming+NamedSpell | Optional$ True | RememberPlayed$ True | SubAbility$ CheckCast | DescriptionFromChosenName$ True
+SVar:WasCast:Remembered$Valid Card
+SVar:CheckCast:DB$ Branch | BranchConditionSVar$ WasCast | TrueSubAbility$ ExileAbility
+SVar:ExileAbility:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile | SubAbility$ CleanupMemory
+SVar:CleanupMemory:DB$ Cleanup | ClearRemembered$ True | ClearNamedCard$ True | SubAbility$ MaybeRepeat
+SVar:MaybeRepeat:DB$ ImmediateTrigger | ConditionPresent$ Card | ConditionDefined$ Imprinted | Execute$ ChooseName
+SVar:TrigHostLeaves:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | Static$ True | ValidCard$ Card.IsImprinted | TriggerZones$ Command | Execute$ OnHostLost
+SVar:OnHostLost:DB$ Cleanup | ClearImprinted$ True

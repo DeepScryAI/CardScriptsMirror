@@ -1,12 +1,7 @@
 Id:18615
-ColorIdentity:B
+ColorIdentity:
 OriginSet:Gd7cbb6e7dea72fb5
-ManaCost:7 B B
-Types:Sorcery
-T:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigCopy
-SVar:TrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | Amount$ X
-SVar:X:Count$TotalCommanderCastFromCommandZone
-A:SP$ Sacrifice | Defined$ Opponent | SacValid$ Creature | RememberSacrificed$ True | SubAbility$ DBRepeatEach
-SVar:DBRepeatEach:DB$ RepeatEach | RepeatPlayers$ OppNonRememberedController | RepeatSubAbility$ DBLoseLife | SubAbility$ DBCleanup
-SVar:DBLoseLife:DB$ LoseLife | Defined$ Remembered | LifeAmount$ PlayerCountRemembered$LifeTotal/HalfUp
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:2
+Types:Artifact
+A:AB$ Draw | Cost$ 2 T | CheckSVar$ X | SVarCompare$ GE3
+SVar:X:Count$MostCardName Land.YouCtrl

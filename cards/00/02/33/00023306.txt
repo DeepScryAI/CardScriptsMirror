@@ -1,9 +1,13 @@
 Id:23306
-ColorIdentity:U
-OriginSet:Gbe3783f336562357
-ManaCost:1 U U
-Types:Instant
-A:SP$ Counter | TargetType$ Spell | ValidTgts$ Card | RememberForCounter$ True | SubAbility$ DBAnimate
-SVar:DBAnimate:DB$ AnimateAll | Zone$ Hand | Duration$ Perpetual | ValidCards$ Card.YouOwn+sharesCardTypeWith Remembered | staticAbilities$ ReduceCost | SubAbility$ DBCleanup
-SVar:ReduceCost:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ 1 | EffectZone$ All
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:W
+OriginSet:G6e75ff4f143a3dc3
+ManaCost:1 W
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Card.EnchantedBy | AddTrigger$ NurturingChangeZone | AddSVar$ NurturingPump
+SVar:NurturingChangeZone:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.YouCtrl | TriggerZones$ Battlefield | Execute$ NurturingPump
+SVar:NurturingPump:DB$ Pump | Defined$ Self | NumAtt$ +1 | NumDef$ +1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 273812182
+SVar:BuffedBy:Creature

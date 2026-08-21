@@ -1,14 +1,8 @@
 Id:26577
-ColorIdentity:RG
+ColorIdentity:R
 OriginSet:G06757f68e16377c2
-ManaCost:2 R R G G
-Types:Legendary Creature Ape Dinosaur Turtle
-PT:7/7
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm
-SVar:TrigCharm:DB$ Charm | Choices$ DBPump,DBFight
-SVar:DBPump:DB$ Pump | Defined$ Self | KW$ Trample & Haste
-SVar:DBFight:DB$ Fight | Defined$ TriggeredCardLKICopy | ValidTgts$ Creature.YouDontCtrl
-A:AB$ Destroy | Cost$ 2 R G Discard<1/CARDNAME> | ValidTgts$ Artifact,Enchantment | TargetMin$ 0 | TargetMax$ 1 | ActivationZone$ Hand | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Library | Shuffle$ True | Defined$ DiscardedCards | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw
-SVar:PlayMain1:TRUE
+ManaCost:R
+Types:Creature Phyrexian Goblin
+PT:1/1
+A:AB$ Draw | Cost$ 1 R T Sac<1/Artifact;Land/artifact or land> | NumCards$ 1
+SVar:AIPreference:SacCost$Artifact.token+nonCreature,Artifact.token+powerLE1,Artifact.cmcEQ1,Artifact.cmcEQ2

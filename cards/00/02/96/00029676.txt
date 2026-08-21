@@ -1,7 +1,11 @@
 Id:29676
-ColorIdentity:B
-OriginSet:G01a610e823cce3ca
-ManaCost:4 B
-Types:Creature Human Assassin
-PT:6/3
-K:Freerunning:3 B
+ColorIdentity:W
+OriginSet:Gac6359c222afbd4f
+ManaCost:4 W
+Types:Creature Human Knight
+PT:3/4
+K:Vigilance
+T:Mode$ ChangesZone | Destination$ Battlefield | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ DBDig
+SVar:DBDig:DB$ Dig | DigNum$ 6 | ChangeNum$ 1 | Optional$ True | ForceRevealToController$ True | ChangeValid$ Artifact,Enchantment | RestRandomOrder$ True | RememberChanged$ True | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Self | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ0 | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

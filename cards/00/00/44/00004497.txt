@@ -1,8 +1,11 @@
 Id:4497
 ColorIdentity:R
 OriginSet:G239b3b7a46d83e8e
-ManaCost:3 R R
-Types:Legendary Creature Human Spellshaper
-PT:3/3
-A:AB$ DealDamage | Cost$ X R T Discard<2/Card> | ValidTgts$ Any | NumDmg$ X
-SVar:X:Count$xPaid
+ManaCost:1 R
+Types:Enchantment Aura
+K:Flash
+K:Enchant:Creature
+SVar:AttachAITgts:Card.powerGE1
+SVar:AttachAILogic:Pump
+T:Mode$ DamageDone | ValidSource$ Card.AttachedBy | ValidTarget$ Player.TriggeredDefendingPlayer | CombatDamage$ True | Execute$ TrigDestroy | OptionalDecider$ You
+SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Artifact.ControlledBy TriggeredTarget

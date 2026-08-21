@@ -1,15 +1,14 @@
 Id:20258
-ColorIdentity:R
+ColorIdentity:B
 OriginSet:G42eb6bda83007836
-ManaCost:2 R R
-Types:Creature Elemental Giant
-PT:3/4
-T:Mode$ Attacks | ValidCard$ Card.Self | ValidSource$ Card.OppCtrl | Execute$ TrigChoose | TriggerZones$ Battlefield
-T:Mode$ BecomesTarget | ValidTarget$ Card.Self | ValidSource$ Spell.OppCtrl | TriggerZones$ Battlefield | Execute$ TrigChoose | Secondary$ True
-SVar:TrigChoose:DB$ Charm | Choices$ DBDamage,DBExilePlay
-SVar:DBDamage:DB$ DamageAll | ValidPlayers$ Player.Opponent | NumDmg$ 3
-SVar:DBExilePlay:DB$ Dig | Defined$ You | DigNum$ 2 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBChoose
-SVar:DBChoose:DB$ ChooseCard | Choices$ Card.IsRemembered | ChoiceZone$ Exile | Defined$ You | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | RememberObjects$ ChosenCard | ForgetOnMoved$ Exile | StaticAbilities$ Play | Duration$ UntilTheEndOfYourNextTurn | SubAbility$ DBCleanup
-SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearChosenCard$ True
+ManaCost:3 B
+Types:Legendary Enchantment Creature God
+PT:5/6
+K:Indestructible
+S:Mode$ Continuous | Affected$ Card.Self | RemoveType$ Creature | CheckSVar$ X | SVarCompare$ LT5
+SVar:X:Count$Devotion.Black
+SVar:BuffedBy:Permanent.Black
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl+Other | TriggerZones$ Battlefield | Execute$ ABDraw
+SVar:ABDraw:AB$ Draw | Cost$ PayLife<2> | NumCards$ 1
+A:AB$ Pump | Cost$ 1 B Sac<1/Creature.Other/another creature> | ValidTgts$ Creature | NumAtt$ -2 | NumDef$ -1 | IsCurse$ True
+SVar:AIPreference:SacCost$Creature.Other+cmcLE2

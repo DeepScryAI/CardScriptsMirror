@@ -1,13 +1,11 @@
 Id:8363
-ColorIdentity:WUR
+ColorIdentity:WU
 OriginSet:Gde6d8130c178f566
-ManaCost:U R
-Types:Instant
-A:SP$ FlipCoin | NoCall$ True | HeadsSubAbility$ OddCounter | TailsSubAbility$ OddCopy | TgtZone$ Stack | TargetType$ Spell | ValidTgts$ Instant,Sorcery
-SVar:OddCounter:DB$ Counter | Defined$ Targeted
-SVar:OddCopy:DB$ CopySpellAbility | Defined$ Targeted | MayChooseTarget$ True
-AlternateMode:Split
-ALTERNATE
-ManaCost:3 R W
-Types:Instant
-A:SP$ Sacrifice | ValidTgts$ Player | Amount$ 2 | SacValid$ Creature.attacking
+ManaCost:3 U
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddAbility$ Draw
+A:AB$ Pump | Cost$ W | Defined$ Enchanted | KW$ Vigilance
+SVar:Draw:AB$ Draw | Cost$ T | NumCards$ 1
+SVar:NonStackingAttachEffect:True

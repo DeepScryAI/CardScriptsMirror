@@ -3,9 +3,7 @@ ColorIdentity:
 OriginSet:Gda59deaeee465b93
 ManaCost:no cost
 Types:Vanguard
-HandLifeModifier:-1/-1
-T:Mode$ Phase | Phase$ Main1 | ValidPlayer$ You | TriggerZones$ Command | Execute$ TrigGetMana
-SVar:TrigGetMana:DB$ Pump | ValidTgts$ Player | RememberObjects$ Targeted | SubAbility$ DBMana
-SVar:DBMana:DB$ Mana | Produced$ C | Amount$ X | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$Valid Land.RememberedPlayerCtrl
+HandLifeModifier:+0/-2
+S:Mode$ Continuous | EffectZone$ Command | AffectedZone$ Battlefield | Affected$ Creature.YouCtrl | AddKeyword$ Haste
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | IsPresent$ Creature | PresentZone$ Battlefield | PresentPlayer$ You | Execute$ TrigBounce | TriggerZones$ Command
+SVar:TrigBounce:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Mandatory$ True | Hidden$ True | ChangeType$ Creature.YouCtrl

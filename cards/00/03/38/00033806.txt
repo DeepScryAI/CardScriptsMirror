@@ -1,9 +1,11 @@
 Id:33806
-ColorIdentity:WB
-OriginSet:Gf8df2bea26dc6b68
-ManaCost:W B
-Types:Creature Inkling Cat
-PT:2/2
-T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | Execute$ TrigPump | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | TargetsValid$ Creature.inZoneBattlefield
-SVar:TrigPump:DB$ Pump | Defined$ Self | KW$ Flying | SubAbility$ DBSurveil
-SVar:DBSurveil:DB$ Surveil | Amount$ 1
+ColorIdentity:UG
+OriginSet:G23d1f017cc66962f
+ManaCost:4 G
+Types:Legendary Creature Mutant Frog Turtle
+PT:5/5
+T:Mode$ DamageDoneOnce | ValidTarget$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ X
+T:Mode$ DamageDone | ValidSource$ Creature.YouCtrl+HasCounters | Execute$ TrigDraw | CombatDamage$ True | ValidTarget$ Player | TriggerZones$ Battlefield
+SVar:TrigDraw:AB$ Draw | Cost$ U
+SVar:X:TriggerCount$DamageAmount

@@ -1,9 +1,10 @@
 Id:14523
-ColorIdentity:W
+ColorIdentity:WBG
 OriginSet:G0a578e83854cf093
-ManaCost:2 W
-Types:Creature Human Soldier
-PT:2/3
-K:Outlast:W
-S:Mode$ Continuous | Affected$ Creature.YouCtrl+counters_GE1_P1P1 | AddKeyword$ Flying
-SVar:PlayMain1:TRUE
+ManaCost:W B G
+Types:Instant
+A:SP$ Charm | Choices$ DBExile,DBDraw,DBCounters
+SVar:DBExile:DB$ ChangeZone | ValidTgts$ Creature.powerGE3 | Origin$ Battlefield | Destination$ Exile
+SVar:DBDraw:DB$ Draw | NumCards$ 2 | SubAbility$ DBLoseLife
+SVar:DBCounters:DB$ PutCounter | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ 2 | TargetMin$ 1 | TargetMax$ 2 | DividedAsYouChoose$ 2
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 2 | Defined$ You

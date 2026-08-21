@@ -1,11 +1,11 @@
 Id:34047
-ColorIdentity:U
-OriginSet:Gcb93bbfc68a40806
-ManaCost:2 U
-Types:Legendary Creature Human Scientist Hero
-PT:2/2
-S:Mode$ IgnoreLegendRule | ValidCard$ Creature.YouCtrl
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ X | Execute$ TrigCopy
-SVar:TrigCopy:DB$ CopyPermanent | Defined$ Self
-SVar:X:Count$ThisTurnCast_Card.nonCreature+YouCtrl
-SVar:PlayMain1:TRUE
+ColorIdentity:W
+OriginSet:Gf8df2bea26dc6b68
+ManaCost:2 W
+Types:Creature Bird Cleric
+PT:2/3
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSurveil
+SVar:TrigSurveil:DB$ Surveil | Amount$ 1
+T:Mode$ ChangesZoneAll | Origin$ Graveyard | Destination$ Any | ValidCards$ Card.YouOwn | Execute$ TrigPump | TriggerZones$ Battlefield
+SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +1 | NumDef$ +1

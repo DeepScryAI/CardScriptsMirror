@@ -1,9 +1,15 @@
 Id:24758
-ColorIdentity:R
-OriginSet:G3c9db52fa0bcee92
-ManaCost:R
-Types:Legendary Creature Kobold Warrior
-PT:0/1
-K:BattleCry
-T:Mode$ SpellCast | ValidActivatingPlayer$ You | TargetsValid$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenOwner$ You | TokenScriptIds$ 1918438868
+ColorIdentity:UR
+OriginSet:Gd784248bfdf9e1d7
+ManaCost:U UR R
+Types:Creature Djinn Wizard
+PT:2/4
+K:Flying
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ CheckPower
+SVar:CheckPower:DB$ StoreSVar | SVar$ CurrPower | Type$ CountSVar | Expression$ X | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ ReduceCost | Triggers$ TrigCastSpell
+SVar:ReduceCost:Mode$ ReduceCost | Type$ Spell | ValidCard$ Instant,Sorcery | Activator$ You | Amount$ CurrPower
+SVar:TrigCastSpell:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Command | Execute$ RemoveEffect | Static$ True
+SVar:RemoveEffect:DB$ ChangeZone | Origin$ Command | Destination$ Exile
+SVar:CurrPower:Number$0
+SVar:X:TriggeredCard$CardPower

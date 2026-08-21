@@ -1,24 +1,10 @@
 Id:31789
-ColorIdentity:U
-OriginSet:G7ab4f62d323b0ca7
-ManaCost:2 U
-Types:Legendary Creature Human Noble Warrior
-PT:2/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZone | ValidTgts$ Permanent.nonLand+Other | TargetMin$ 0 | TargetMax$ 1 | Origin$ Battlefield | Destination$ Hand
-A:AB$ ChangeZone | Cost$ 3 U U T | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn | SorcerySpeed$ True
-SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | Transformed$ True | ForgetOtherRemembered$ True | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:blue
-Types:Legendary Enchantment Creature Saga Elemental
-PT:4/5
-K:Chapter:3:DBEffect,DBEffect,DBTapAll
-SVar:DBEffect:DB$ Effect | ValidTgts$ Creature | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable | AILogic$ Pump
-SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
-SVar:DBTapAll:DB$ TapAll | ValidCards$ Land.OppCtrl | SubAbility$ DBExileSelf
-SVar:DBExileSelf:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | SubAbility$ DBReturnSelf | RememberChanged$ True
-SVar:DBReturnSelf:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:B
+OriginSet:G530ea9d733a13e9d
+ManaCost:5 B
+Types:Sorcery
+A:SP$ Mill | NumCards$ 3 | SubAbility$ DBRepeatEach
+SVar:DBRepeatEach:DB$ RepeatEach | RepeatPlayers$ Player.Opponent | StartingWith$ Opponent | RepeatSubAbility$ OpponentsChoose | SubAbility$ DBChangeZoneAll
+SVar:OpponentsChoose:DB$ ChooseCard | ChoiceZone$ Graveyard | Choices$ Creature.YouOwn+!IsRemembered | Defined$ Player.IsRemembered | RememberChosen$ True
+SVar:DBChangeZoneAll:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered | Origin$ Graveyard | Destination$ Battlefield | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearChosenCard$ True

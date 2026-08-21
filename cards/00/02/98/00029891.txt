@@ -1,8 +1,9 @@
 Id:29891
-ColorIdentity:R
-OriginSet:Gf09b85bbcc27770c
-ManaCost:R
-Types:Instant
-A:SP$ Pump | ValidTgts$ Creature | KW$ Trample | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | Defined$ Targeted | NumAtt$ +1 | ConditionPresent$ Mouse.YouCtrl | ConditionCompare$ GE1 | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1
+ColorIdentity:
+OriginSet:G01a610e823cce3ca
+ManaCost:6
+Types:Legendary Artifact
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Permanent.Legendary+!catalogId29891 | GainControl$ True | ChangeNum$ 1 | Mandatory$ True
+A:AB$ Draw | Cost$ T | NumCards$ Count$Valid Permanent.YouCtrl+YouDontOwn
+SVar:X:Count$Valid Permanent.YouCtrl$Colors

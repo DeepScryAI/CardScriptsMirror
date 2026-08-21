@@ -1,12 +1,10 @@
 Id:33876
-ColorIdentity:U
-OriginSet:Gf8df2bea26dc6b68
-ManaCost:3 U
-Types:Creature Bird Wizard
-PT:3/3
-K:Flying
-K:ETBReplacement:Other:DBPrepare
-SVar:DBPrepare:DB$ AlterAttribute | Attributes$ Prepared
-AlternateMode:Prepare
-ALTERNATE
-CopyFaceFromId:5229
+ColorIdentity:WR
+OriginSet:Gf04404de3fa1525e
+ManaCost:1 R W
+Types:Instant
+A:SP$ ChangeZone | ValidTgts$ Permanent.nonLand | ThisDefinedAndTgts$ TopOfLibrary | Destination$ Exile | RememberChanged$ True | SubAbility$ DBRepeatEach
+SVar:DBRepeatEach:DB$ RepeatEach | UseImprinted$ True | DefinedCards$ Remembered | RepeatSubAbility$ DBEffect | SubAbility$ DBCleanup
+SVar:DBEffect:DB$ Effect | StaticAbilities$ SusPlay | Duration$ UntilTheEndOfYourNextTurn | ExileOnMoved$ Exile | RememberObjects$ Imprinted | EffectOwner$ ImprintedOwner
+SVar:SusPlay:Mode$ Continuous | Affected$ Card.IsRemembered | MayPlay$ True | MayPlayPlayer$ CardOwner | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

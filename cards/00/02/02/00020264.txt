@@ -1,10 +1,11 @@
 Id:20264
 ColorIdentity:U
 OriginSet:G42eb6bda83007836
-ManaCost:3 U U
-Types:Legendary Creature Elemental Giant
-PT:4/5
-K:Flash
-K:Flying
-S:Mode$ ReduceCost | ValidCard$ Card.cmcGE5 | Type$ Spell | Activator$ You | Amount$ 1
-R:Event$ Counter | ValidCard$ Card.cmcGE5+wasCastByYou | ValidSA$ Spell | Layer$ CantHappen | ActiveZones$ Battlefield | Secondary$ True
+ManaCost:5 U U
+Types:Enchantment Saga
+K:Chapter:3:TrigToken,TrigTap,TrigGainControl
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 1192007918
+SVar:TrigTap:DB$ TapAll | ValidTgts$ Opponent | ValidCards$ Permanent.nonLand | SubAbility$ DBPumpAll
+SVar:DBPumpAll:DB$ PumpAll | Defined$ Targeted | ValidCards$ Creature | KW$ HIDDEN This card doesn't untap during your next untap step. | Duration$ Permanent
+SVar:TrigGainControl:DB$ GainControl | ValidTgts$ Permanent.OppCtrl | SubAbility$ DBUntap
+SVar:DBUntap:DB$ Untap | Defined$ Targeted

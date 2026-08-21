@@ -2,7 +2,10 @@ Id:22863
 ColorIdentity:W
 OriginSet:Gf78628ad511eefec
 ManaCost:W
-Types:Artifact Equipment
-K:Equip:2
-S:Mode$ CantBlockBy | ValidAttacker$ Creature.EquippedBy | ValidBlocker$ Creature.powerGE4
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1 | AddToughness$ 1
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Curse
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddKeyword$ Defender
+R:Event$ DamageDone | Prevent$ True | IsCombat$ True | ValidSource$ Creature.EnchantedBy
+A:AB$ ChangeZone | Cost$ 2 W Sac<1/CARDNAME> | Defined$ Enchanted | CheckSVar$ X | SVarCompare$ GE3 | Origin$ Battlefield | Destination$ Exile
+SVar:X:Count$Valid Creature.YouCtrl$DifferentCardPower

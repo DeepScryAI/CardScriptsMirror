@@ -1,7 +1,17 @@
 Id:21989
-ColorIdentity:B
-OriginSet:Gd784248bfdf9e1d7
-ManaCost:1 B
-Types:Sorcery
-A:SP$ Token | TokenScriptIds$ 272656594 | SubAbility$ DBLearn
-SVar:DBLearn:DB$ Learn
+ColorIdentity:WR
+OriginSet:G6fa60d857e930f32
+ManaCost:5 R W
+Types:Legendary Creature Elder Dragon
+PT:5/5
+K:Flying
+K:Vigilance
+K:Haste
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigLook
+SVar:TrigLook:DB$ PeekAndReveal | Defined$ You | PeekAmount$ 7 | NoReveal$ True | RememberPeeked$ True | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | ValidZone$ Library | Valid$ Card.IsRemembered | ValidSA$ Instant.cmcLEX,Sorcery.cmcLEX | Controller$ You | WithoutManaCost$ True | Optional$ True | Amount$ 1 | ForgetPlayed$ True | SubAbility$ DBRestRandomOrder
+SVar:DBRestRandomOrder:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered | Origin$ Library | Destination$ Library | LibraryPosition$ -1 | RandomOrder$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$CardPower
+SVar:HasAttackEffect:TRUE
+SVar:PlayMain1:TRUE

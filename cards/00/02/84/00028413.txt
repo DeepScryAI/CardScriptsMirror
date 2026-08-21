@@ -1,11 +1,10 @@
 Id:28413
-ColorIdentity:G
-OriginSet:G7ee0e82a2424d636
-ManaCost:3 G
-Types:Enchantment Case
-S:Mode$ Continuous | Affected$ You | AdjustLandPlays$ 1
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | CheckSVar$ X | SVarCompare$ GE7 | IsPresent$ Card.Self+!IsSolved | TriggerZones$ Battlefield | Execute$ TrigSolve
-SVar:TrigSolve:DB$ AlterAttribute | Defined$ Self | Attributes$ Solved
-SVar:X:Count$Valid Land.YouCtrl
-S:Mode$ Continuous | Affected$ Card.TopLibrary+YouCtrl | AffectedZone$ Library | MayLookAt$ You | IsPresent$ Card.Self+IsSolved | Secondary$ True
-S:Mode$ Continuous | Affected$ Land.TopLibrary+YouCtrl,Creature.TopLibrary+YouCtrl,Enchantment.TopLibrary+YouCtrl | IsPresent$ Card.Self+IsSolved | AffectedZone$ Library | MayLookAt$ You | MayPlay$ True
+ColorIdentity:W
+OriginSet:G4155bbd49d5da56f
+ManaCost:2 W
+Types:Sorcery Chorus
+K:Starting intensity:3
+A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | WithTotalCMC$ X | ChangeNum$ Y | Hidden$ True | AnyNumber$ True | ChangeType$ Creature.YouOwn | SubAbility$ DBIntensify
+SVar:DBIntensify:DB$ Intensify | AllDefined$ Card.YouOwn+Chorus
+SVar:Y:Count$ValidGraveyard Creature.YouOwn
+SVar:X:Count$Intensity

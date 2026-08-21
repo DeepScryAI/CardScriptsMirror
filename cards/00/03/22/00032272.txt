@@ -1,10 +1,12 @@
 Id:32272
 ColorIdentity:
 OriginSet:G9946f072b5556073
-ManaCost:5
-Types:Legendary Artifact Spacecraft
-A:AB$ Mana | Cost$ T | Produced$ C | Amount$ 3
-K:Station:20
-S:Mode$ Continuous | Affected$ Card.Self+counters_GE20_CHARGE | AddAbility$ ElevatorMana
-SVar:ElevatorMana:AB$ Mana | Cost$ T | Produced$ Any | Amount$ X
-SVar:X:Count$CardCounters.CHARGE
+ManaCost:8
+Types:Artifact Spacecraft
+PT:10/10
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Permanent.nonCreature | SubAbility$ DBDamageAll
+SVar:DBDamageAll:DB$ DamageAll | ValidCards$ Creature | NumDmg$ 4
+K:Station:5
+S:Mode$ Continuous | Affected$ Card.Self+counters_GE5_CHARGE | AddType$ Creature | AddKeyword$ Flying & Trample
+SVar:PlayMain1:TRUE

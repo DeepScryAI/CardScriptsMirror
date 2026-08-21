@@ -1,10 +1,12 @@
 Id:21169
-ColorIdentity:U
-OriginSet:G72c9c624ceb92bff
-ManaCost:X U U U
-Types:Sorcery
-S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ XGrave | Relative$ True | EffectZone$ All
-SVar:XGrave:Count$Compare CheckTgt GE8.3.0
-SVar:CheckTgt:TargetedController$CardsInGraveyard
-A:SP$ GainControl | ValidTgts$ Creature.cmcEQX
-SVar:X:Count$xPaid
+ColorIdentity:W
+OriginSet:G1e059136f10fb240
+ManaCost:2 W W
+Types:Creature Cat Beast
+PT:3/4
+K:Vigilance
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | ValidTgts$ Permanent.YouOwn+cmcLE3 | Origin$ Graveyard | Destination$ Exile
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZoneAll | ChangeType$ Permanent.ExiledWithSource | Origin$ Exile | Destination$ Battlefield
+SVar:BuffedBy:Land

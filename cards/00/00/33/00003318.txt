@@ -1,11 +1,10 @@
 Id:3318
-ColorIdentity:U
+ColorIdentity:R
 OriginSet:G24ae8187eacbba52
-ManaCost:1 U
-Types:Creature Drake
-PT:3/3
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExchange
-SVar:TrigExchange:DB$ ExchangeControl | Defined$ Self | ValidTgts$ Creature.OppCtrl | TargetMin$ 0 | TargetMax$ 1 | CantFizzle$ True | SubAbility$ DBSacSelf
-SVar:DBSacSelf:DB$ Sacrifice | ConditionDefined$ Self | ConditionPresent$ Card.YouCtrl
-SVar:NeedsToPlay:Creature.OppCtrl
+ManaCost:R
+Types:Sorcery
+A:SP$ ChangeZone | Origin$ Library | NoShuffle$ True | Destination$ Hand | ChangeType$ Card | ChangeNum$ 1 | SubAbility$ DBDiscard | Mandatory$ True
+SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ Random | SubAbility$ DBShuffle
+SVar:DBShuffle:DB$ Shuffle | Defined$ You
+SVar:NeedsToPlayVar:Z GE2
+SVar:Z:Count$ValidHand Card.YouOwn

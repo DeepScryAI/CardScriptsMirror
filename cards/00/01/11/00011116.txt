@@ -1,10 +1,12 @@
 Id:11116
-ColorIdentity:W
-OriginSet:G9fb0a9a59b6a9580
-ManaCost:2 W
-Types:Creature Dog
-PT:2/2
-K:Flash
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature | NumDef$ +3
-SVar:AmbushAI:True
+ColorIdentity:R
+OriginSet:G522958c6c7099800
+ManaCost:3 R
+Types:Creature Minotaur Shaman
+PT:3/3
+K:LevelUp:1 R
+S:Mode$ Continuous | Affected$ Card.Self | SetPower$ 6 | SetToughness$ 6 | IsPresent$ Card.Self+counters_GE1_LEVEL+counters_LE5_LEVEL
+S:Mode$ Continuous | Affected$ Card.Self | SetPower$ 6 | SetToughness$ 6 | AddTrigger$ TriggerDamage | AddSVar$ AE | IsPresent$ Card.Self+counters_GE6_LEVEL
+SVar:TriggerDamage:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDamage | TriggerZones$ Battlefield | Secondary$ True
+SVar:TrigDamage:DB$ DamageAll | ValidCards$ Creature.ControlledBy TriggeredDefendingPlayer | NumDmg$ 6
+SVar:AE:SVar:HasAttackEffect:TRUE

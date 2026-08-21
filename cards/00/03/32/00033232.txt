@@ -1,11 +1,13 @@
 Id:33232
-ColorIdentity:U
-OriginSet:G7ab1fe96128a1641
-ManaCost:1 U
-Types:Artifact
-K:ETBReplacement:Other:ChooseCT
-SVar:ChooseCT:DB$ ChooseType | Defined$ You | Type$ Creature | AILogic$ MostProminentInComputerDeck
-T:Mode$ ChangesZone | ValidCard$ Permanent.YouCtrl+ChosenType | Destination$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | CounterType$ CHARGE | CounterNum$ 1
-A:AB$ DelayedTrigger | Cost$ T SubCounter<3/CHARGE> | AILogic$ SpellCopy | Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | ThisTurn$ True | Execute$ EffTrigCopy
-SVar:EffTrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | MayChooseTarget$ True
+ColorIdentity:B
+OriginSet:G530ea9d733a13e9d
+ManaCost:2 B
+Types:Legendary Creature Human Wizard
+PT:3/2
+K:Deathtouch
+A:AB$ Pump | Cost$ B T | ValidTgts$ Creature.Other+YouCtrl | KW$ Deathtouch
+T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | Defined$ Player.Opponent | NumDmg$ X
+SVar:X:Count$Compare Y EQ4.3.1
+SVar:Y:Count$Party
+SVar:BuffedBy:Cleric,Rogue,Warrior

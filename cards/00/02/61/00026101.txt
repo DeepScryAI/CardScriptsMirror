@@ -1,8 +1,12 @@
 Id:26101
-ColorIdentity:G
-OriginSet:G2192e8955d5e1ad1
-ManaCost:1
-Types:Artifact
-A:AB$ Draw | Cost$ 1 Sac<1/CARDNAME>
-A:AB$ Pump | Cost$ 2 G Sac<1/CARDNAME> | ValidTgts$ Creature.YouCtrl | NumAtt$ +3 | NumDef$ +3 | KW$ Trample | SorcerySpeed$ True | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw
+ColorIdentity:B
+OriginSet:G903d26fe51c6a362
+ManaCost:2 B B
+Types:Sorcery
+A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBReturnCorrupted | ValidTgts$ Creature.YouCtrl
+SVar:DBReturnCorrupted:DB$ ChangeZone | Origin$ Graveyard | TargetMin$ 0 | TargetMax$ OneEach | TargetsForEachPlayer$ True | TgtZone$ Graveyard | GainControl$ True | Destination$ Battlefield | ValidTgts$ Creature.RememberedPlayerCtrl,Creature.ControlledBy Opponent.IsCorrupted | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+T:Mode$ SpellCast | ValidCard$ Card.Self | Static$ True | Execute$ CountCorruptedPlayers
+SVar:CountCorruptedPlayers:DB$ Pump | RememberObjects$ Opponent.IsCorrupted
+T:Mode$ ChangesZone | Origin$ Stack | Destination$ Any | ValidCard$ Card.Self | Static$ True | Execute$ DBCleanup
+SVar:OneEach:PlayerCountOpponents$HasPropertyIsCorrupted

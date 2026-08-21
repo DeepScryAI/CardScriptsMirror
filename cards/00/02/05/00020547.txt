@@ -1,11 +1,14 @@
 Id:20547
-ColorIdentity:U
-OriginSet:Gf8d4de878d0536c5
-ManaCost:5 U U
-Types:Creature Leviathan
-PT:7/7
-K:Mutate:5 U
-T:Mode$ Mutates | ValidCard$ Card.Self | Execute$ TrigTap
-SVar:TrigTap:DB$ Tap | TargetMin$ 0 | TargetMax$ X | ValidTgts$ Creature | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | Defined$ Targeted | KW$ HIDDEN This card doesn't untap during your next untap step. | Duration$ Permanent
-SVar:X:Count$TimesMutated
+ColorIdentity:RG
+OriginSet:Gc9c1dd0d52c99ca4
+ManaCost:3 R G
+Types:Legendary Creature Elemental Dog
+PT:3/3
+K:PartnerWithId:20530
+K:Haste
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigExile | TriggerZones$ Battlefield
+SVar:TrigExile:DB$ Dig | DigNum$ 1 | ChangeNum$ All | Defined$ Player | DestinationZone$ Exile | ExileWithCounters$ FETCH | RememberChanged$ True | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$ValidExile Card.IsRemembered+nonCreature
+SVar:HasAttackEffect:TRUE

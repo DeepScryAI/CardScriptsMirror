@@ -1,11 +1,9 @@
 Id:23603
-ColorIdentity:B
+ColorIdentity:
 OriginSet:G1a259dba25660062
-ManaCost:2 B
-Types:Sorcery
-A:SP$ RevealHand | ValidTgts$ Opponent | RememberRevealed$ True | SubAbility$ DBChoose
-SVar:DBChoose:DB$ ChooseCard | ChoiceZone$ Hand | Amount$ 1 | Choices$ Card.nonLand+IsRemembered | SubAbility$ DBBranch
-SVar:DBBranch:DB$ Branch | BranchConditionSVar$ Count$ChosenSize | TrueSubAbility$ DBDiscard | FalseSubAbility$ DBPutCounter
-SVar:DBDiscard:DB$ Discard | DefinedCards$ ChosenCard | Defined$ Targeted | Mode$ Defined | SubAbility$ DBCleanup
-SVar:DBPutCounter:DB$ PutCounter | Choices$ Creature.YouCtrl,Vehicle.YouCtrl | CounterType$ P1P1 | CounterNum$ 2 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearChosenCard$ True
+ManaCost:1
+Types:Artifact Creature Construct
+PT:0/0
+K:etbCounter:P1P1:1
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self+HasCounters | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ EachFromSource | EachFromSource$ TriggeredCardLKICopy

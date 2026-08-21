@@ -1,10 +1,18 @@
 Id:29519
-ColorIdentity:B
+ColorIdentity:BR
 OriginSet:Gac6359c222afbd4f
-ManaCost:B
-Types:Enchantment
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ QUEST | CounterNum$ 1
-A:AB$ ChangeZone | Cost$ 5 B Sac<1/CARDNAME> | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True | SorcerySpeed$ True | ReduceCost$ X | ValidTgts$ Creature
-SVar:X:Count$CardCounters.QUEST
-SVar:MaxQuestEffect:5
+ManaCost:5 BR BR
+Types:Sorcery
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ X | EffectZone$ All
+SVar:X:Count$LifeOppsLostThisTurn
+A:SP$ Dig | ValidTgts$ Opponent | DigNum$ 3 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ Remembered | StaticAbilities$ STLookPlay | Duration$ UntilTheEndOfYourNextTurn | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:STLookPlay:Mode$ Continuous | MayPlay$ True | MayPlayIgnoreType$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+AlternateMode:Modal
+ALTERNATE
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ Combo B R

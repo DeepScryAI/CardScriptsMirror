@@ -1,10 +1,12 @@
 Id:29079
-ColorIdentity:WB
-OriginSet:G27146c70b74a1e72
-ManaCost:no cost
-Types:Land Desert
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDealDamage
-SVar:TrigDealDamage:DB$ DealDamage | ValidTgts$ Opponent | NumDmg$ 1
-A:AB$ Mana | Cost$ T | Produced$ Combo W B
+ColorIdentity:G
+OriginSet:Gaf7c94f364052cdd
+ManaCost:1 G
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddTrigger$ UntapTrigger | AddSVar$ DBPutCounter,DBGainLife,DBDraw
+SVar:UntapTrigger:Mode$ Untaps | ValidCard$ Card.Self | Execute$ DBPutCounter | TriggerZones$ Battlefield | ActivationLimit$ 1
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 2 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ 2 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1

@@ -1,7 +1,12 @@
 Id:26475
-ColorIdentity:B
-OriginSet:G06757f68e16377c2
-ManaCost:2 B B
-Types:Instant
-A:SP$ Destroy | ValidTgts$ Creature,Planeswalker | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenScriptIds$ 3851718391 | TokenOwner$ You
+ColorIdentity:R
+OriginSet:G8a59924df6623252
+ManaCost:4 R R R
+Types:Legendary Creature Dragon
+PT:5/5
+K:Trample
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDamageAllNonFlyers
+SVar:TrigDamageAllNonFlyers:DB$ DamageAll | NumDmg$ X | ValidCards$ Creature.Other+withoutFlying | ValidPlayers$ Player
+S:Mode$ OptionalAttackCost | ValidCard$ Card.Self | Trigger$ TrigPump | Cost$ Exert<1/CARDNAME>
+SVar:TrigPump:DB$ Pump | Defined$ Self | KW$ Flying
+SVar:X:Count$Valid Mountain.YouCtrl

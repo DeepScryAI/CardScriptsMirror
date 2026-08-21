@@ -1,9 +1,14 @@
 Id:13328
-ColorIdentity:B
+ColorIdentity:WB
 OriginSet:Gfdc478e04211a499
-ManaCost:3 B B
-Types:Creature Ogre Rogue
-PT:3/3
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.!token+Other | OptionalDecider$ You | TriggerZones$ Battlefield | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 2440351532 | TokenOwner$ You
-S:Mode$ Continuous | Affected$ Creature.Rat+YouCtrl | AddKeyword$ Deathtouch
+ManaCost:1 W W B B
+Types:Legendary Creature Spirit Advisor
+PT:5/5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDrain
+SVar:TrigDrain:DB$ LoseLife | ValidTgts$ Opponent | LifeAmount$ 2 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigExile | OptionalDecider$ You
+SVar:TrigExile:DB$ ChangeZone | Defined$ Self | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DelTrig
+SVar:DelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ ObzedatReturn | ConditionDefined$ Remembered | ConditionPresent$ Card | RememberObjects$ Remembered
+SVar:ObzedatReturn:DB$ ChangeZone | Defined$ DelayTriggerRememberedLKI | Origin$ Exile,Command | Destination$ Battlefield | SubAbility$ ObzedatPump
+SVar:ObzedatPump:DB$ Pump | Defined$ Remembered | KW$ Haste | Duration$ Permanent

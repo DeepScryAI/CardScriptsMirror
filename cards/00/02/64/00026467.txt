@@ -1,8 +1,12 @@
 Id:26467
-ColorIdentity:G
-OriginSet:G06757f68e16377c2
-ManaCost:3 G
-Types:Creature Phyrexian Beast
-PT:0/1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigIncubate
-SVar:TrigIncubate:DB$ Incubate | Amount$ 5
+ColorIdentity:U
+OriginSet:G74a73d701e7801b3
+ManaCost:1 U
+Types:Instant
+A:SP$ ChangeZone | Origin$ Library | Destination$ Exile | ChangeType$ Card | ChangeNum$ 3 | Hidden$ True | AtRandom$ True | NoShuffle$ True | FaceDown$ True | Mandatory$ True | NoLooking$ True | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ STPlay | Triggers$ Play1,Play2 | SubAbility$ DBCleanup | ExileOnMoved$ Exile | Duration$ Permanent
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | MayLookAt$ You | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:Play1:Mode$ SpellCast | ValidCard$ Card.IsRemembered | ValidActivatingPlayer$ You | TriggerZones$ Command | Execute$ ExileSelf | Static$ True
+SVar:Play2:Mode$ LandPlayed | ValidCard$ Land.IsRemembered | TriggerZones$ Command | Execute$ ExileSelf | Static$ True
+SVar:ExileSelf:DB$ ChangeZone | Origin$ Command | Destination$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

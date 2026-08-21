@@ -1,10 +1,9 @@
 Id:23688
-ColorIdentity:BRG
-OriginSet:G8a59924df6623252
-ManaCost:2 B R G
-Types:Legendary Creature Human Warrior
-PT:7/4
-K:CARDNAME must be blocked if able.
-S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ Indestructible | Condition$ PlayerTurn
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Creature.wasDealtExcessDamageThisTurn | Execute$ TrigSac
-SVar:TrigSac:DB$ Sacrifice | SacValid$ Permanent.nonCreature+nonLand | Defined$ TriggeredTargetController
+ColorIdentity:B
+OriginSet:G1a259dba25660062
+ManaCost:1 B
+Types:Instant
+A:SP$ Pump | ValidTgts$ Creature | NumAtt$ +1 | KW$ Lifelink | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Triggers$ DiesTrig | Defined$ ParentTarget
+SVar:DiesTrig:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | Tapped$ True | Defined$ TriggeredNewCardLKICopy

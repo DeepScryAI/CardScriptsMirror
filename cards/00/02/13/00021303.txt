@@ -1,10 +1,12 @@
 Id:21303
-ColorIdentity:B
-OriginSet:G51d431785c8b33e5
-ManaCost:4 B
-Types:Creature Elf Assassin
-PT:3/4
-K:Encore:3 B
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.OppCtrl | NumAtt$ -1 | NumDef$ -1 | IsCurse$ True
-SVar:HasAttackEffect:TRUE
+ColorIdentity:G
+OriginSet:G72c9c624ceb92bff
+ManaCost:G
+Types:Artifact Equipment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigAttach
+SVar:TrigAttach:DB$ Attach | ValidTgts$ Creature.YouCtrl
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ Equipped | NumAtt$ +2 | NumDef$ +2
+K:Equip:2 G
+SVar:NeedsToPlay:Creature.YouCtrl
+SVar:BuffedBy:Land

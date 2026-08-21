@@ -1,12 +1,10 @@
 Id:24734
-ColorIdentity:WBR
-OriginSet:G3c9db52fa0bcee92
-ManaCost:1 R W B
-Types:Legendary Planeswalker Dihada
-Loyalty:5
-A:AB$ Pump | TargetMin$ 0 | TargetMax$ 1 | Cost$ AddCounter<2/LOYALTY> | KW$ Vigilance & Lifelink & Indestructible | Planeswalker$ True | ValidTgts$ Creature.Legendary | Duration$ UntilYourNextTurn
-A:AB$ Dig | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | DigNum$ 4 | Reveal$ True | ChangeNum$ Any | Defined$ You | ChangeValid$ Card.Legendary | DestinationZone2$ Graveyard | SubAbility$ DBTreasure | RememberRevealed$ True
-SVar:DBTreasure:DB$ Token | TokenAmount$ X | TokenScriptIds$ 3851718391 | TokenOwner$ You | SubAbility$ DBCleanup
-A:AB$ GainControl | Cost$ SubCounter<11/LOYALTY> | Planeswalker$ True | Ultimate$ True | AllValid$ Permanent.nonLand | AddKWs$ Haste | LoseControl$ EOT | Untap$ True
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$ValidGraveyard Card.IsRemembered
+ColorIdentity:W
+OriginSet:G58bfeff4fb121c8e
+ManaCost:2 W
+Types:Legendary Creature Zombie Knight
+PT:3/2
+A:AB$ ChangeZone | Cost$ 2 W | Origin$ Graveyard | Destination$ Battlefield | Defined$ Self | ActivationZone$ Graveyard | IsPresent$ Creature.YouCtrl+powerEQ1+toughnessEQ1 | Tapped$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Pump | NumAtt$ +1 | NumDef$ +1 | Duration$ Perpetual
+SVar:SacMe:3
+SVar:DiscardMe:3

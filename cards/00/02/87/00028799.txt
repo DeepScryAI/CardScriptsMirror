@@ -1,14 +1,10 @@
 Id:28799
-ColorIdentity:B
-OriginSet:Gaf7c94f364052cdd
-ManaCost:3 B
-Types:Creature Insect Mutant
-PT:0/0
-K:Flying
-K:etbCounter:P1P1:5
-R:Event$ DamageDone | ActiveZones$ Battlefield | ValidTarget$ Card.Self+counters_GE1_P1P1 | ReplaceWith$ Counters | PreventionEffect$ True | AlwaysReplace$ True
-SVar:Counters:DB$ RemoveCounter | Defined$ ReplacedTarget | CounterType$ P1P1 | CounterNum$ Y | RememberAmount$ True | SubAbility$ DBRadiation
-SVar:DBRadiation:DB$ Radiation | Defined$ Player | Num$ Z | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:Y:ReplaceCount$DamageAmount
-SVar:Z:Count$RememberedNumber
+ColorIdentity:BR
+OriginSet:Ge329d8d60ca65422
+ManaCost:2 BR
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSuspect
+SVar:TrigSuspect:DB$ AlterAttribute | Defined$ Enchanted | Attributes$ Suspected
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 2 | AddToughness$ 2 | Goad$ True

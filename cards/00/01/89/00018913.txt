@@ -1,14 +1,12 @@
 Id:18913
-ColorIdentity:BR
+ColorIdentity:G
 OriginSet:G586a4ae96288ce18
-ManaCost:4 B R
-Types:Legendary Creature Demon
-PT:6/6
-K:Flying
-K:Trample
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigFlip
-SVar:TrigFlip:DB$ RepeatEach | RepeatCards$ Creature.nonDemon+nonDevil+nonImp | Zone$ Battlefield | UseImprinted$ True | RepeatSubAbility$ DBFlip | SubAbility$ DBDestroy
-SVar:DBFlip:DB$ FlipCoin | NoCall$ True | TailsSubAbility$ DBRememberCreature
-SVar:DBRememberCreature:DB$ Pump | Defined$ Imprinted | RememberObjects$ Imprinted
-SVar:DBDestroy:DB$ DestroyAll | ValidCards$ Creature.IsRemembered | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:3 G G
+Types:Creature Ooze
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 982482567
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounterAll | ValidCards$ Ooze.YouCtrl | CounterType$ P1P1 | CounterNum$ 1
+SVar:BuffedBy:Artifact
+A:AB$ Token | Cost$ 1 G G G | TokenScriptIds$ 982482567

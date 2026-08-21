@@ -1,12 +1,13 @@
 Id:33694
-ColorIdentity:BG
-OriginSet:G14da29c4716bedc3
-ManaCost:1 B G
-Types:Legendary Creature Pest Frog
-PT:1/1
-K:Lifelink
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl+Other | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
-K:ETBReplacement:Other:AddExtraCounter:Mandatory:Battlefield:Creature.!token+YouCtrl
-SVar:AddExtraCounter:DB$ PutCounter | ETB$ True | Defined$ ReplacedCard | CounterType$ P1P1 | CounterNum$ X
-SVar:X:Count$ThisTurnEntered_Graveyard_from_Battlefield_Creature.YouCtrl
+ColorIdentity:U
+OriginSet:G23d1f017cc66962f
+ManaCost:6 U U
+Types:Legendary Artifact Creature Utrom Warrior
+PT:1/4
+K:Affinity:Artifact
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | CheckSVar$ X | SVarCompare$ LT4 | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ Y
+S:Mode$ Continuous | Affected$ Card.Self | AddPower$ Z
+SVar:X:Count$ValidHand Card.YouOwn
+SVar:Y:Number$4/Minus.X
+SVar:Z:Count$Valid Artifact.Other+YouCtrl

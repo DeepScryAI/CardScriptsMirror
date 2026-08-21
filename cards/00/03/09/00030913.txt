@@ -1,11 +1,13 @@
 Id:30913
 ColorIdentity:R
-OriginSet:G4524bbf7a3db9dc0
-ManaCost:4 R R
-Types:Creature Dinosaur Dragon Mount
-PT:4/4
-K:Flying
-K:Haste
-T:Mode$ Attacks | ValidCard$ Card.Self+IsSaddled | TriggerZones$ Battlefield | Execute$ TrigDealDamage
-SVar:TrigDealDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 2
-K:Saddle:3
+OriginSet:Gc5a2f0ff902c0621
+ManaCost:2 R R
+Types:Creature Orc Pirate
+PT:5/2
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | CheckSVar$ RaidTest | OptionalDecider$ You | Execute$ TrigExile
+SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ 2 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBChoose
+SVar:DBChoose:DB$ ChooseCard | Choices$ Card.IsRemembered | ChoiceZone$ Exile | Mandatory$ True | ForgetOtherRemembered$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ ChosenCard | StaticAbilities$ Play | Duration$ UntilTheEndOfYourNextTurn | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.ChosenCard | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+SVar:RaidTest:Count$AttackersDeclared

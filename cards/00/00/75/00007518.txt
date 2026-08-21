@@ -1,15 +1,13 @@
 Id:7518
-ColorIdentity:W
+ColorIdentity:B
 OriginSet:G4747f23d5c5760bc
-ManaCost:W
+ManaCost:B
 Types:Enchantment Aura
-K:Enchant:Plains
+K:Enchant:Swamp
 SVar:AttachAILogic:Pump
-A:AB$ Animate | Cost$ 2 | Defined$ Enchanted | Power$ 2 | Toughness$ 5 | Types$ Creature,Spirit | Colors$ White | Triggers$ PseudoLifelink
+A:AB$ Animate | Cost$ 2 | Defined$ Enchanted | Power$ 2 | Toughness$ 2 | Types$ Creature,Spirit | Colors$ Black | Abilities$ ABPump
 T:Mode$ ChangesZone | ValidCard$ Card.EnchantedBy | Origin$ Battlefield | Destination$ Graveyard | TriggerZones$ Battlefield | Execute$ TrigReturnOwner | OptionalDecider$ You
+SVar:ABPump:AB$ Pump | Cost$ B | Defined$ Self | NumAtt$ +1 | NumDef$ +1
 SVar:TrigReturnOwner:DB$ ChangeZone | Hidden$ True | ChangeType$ Card.StrictlySelf | DefinedPlayer$ You | Origin$ Graveyard | Destination$ Hand | Mandatory$ True
-SVar:PseudoLifelink:Mode$ DamageDealtOnce | ValidSource$ Card.Self | Execute$ GenjuTrigGain | TriggerZones$ Battlefield
-SVar:GenjuTrigGain:DB$ GainLife | Defined$ You | LifeAmount$ GenjuX
 SVar:NonStackingAttachEffect:True
 SVar:AIPaymentPreference:AvoidPayingWithAttachTarget
-SVar:GenjuX:TriggerCount$DamageAmount

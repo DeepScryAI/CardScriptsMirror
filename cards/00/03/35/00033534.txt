@@ -1,8 +1,15 @@
 Id:33534
-ColorIdentity:G
-OriginSet:G23d1f017cc66962f
-ManaCost:4 G
-Types:Creature Dinosaur
-PT:4/3
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Destination$ Battlefield | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZone | ValidTgts$ Creature.YouOwn,Food.YouOwn | TargetMin$ 0 | TargetMax$ 1 | Origin$ Graveyard | Destination$ Hand
+ColorIdentity:RG
+OriginSet:G40dbb28fb92f9206
+ManaCost:2 R G
+Types:Legendary Creature Noggle Rogue
+PT:3/3
+K:Trample
+K:Haste
+T:Mode$ DamageDone | ValidSource$ Creature.YouCtrl | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigExile | TriggerZones$ Battlefield
+SVar:TrigExile:DB$ Dig | Defined$ TriggeredTarget | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Remembered | Types$ Artifact | Duration$ Perpetual | RemoveCardTypes$ True | ConditionDefined$ Remembered | ConditionPresent$ Card.Permanent+nonLand | ConditionCompare$ EQ1 | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | ExileOnMoved$ Exile | RememberObjects$ Remembered | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+A:AB$ Mana | Cost$ T Sac<1/Artifact> | Produced$ Any | Amount$ 3

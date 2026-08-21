@@ -1,21 +1,11 @@
 Id:23142
-ColorIdentity:U
-OriginSet:G6e75ff4f143a3dc3
-ManaCost:2 U
-Types:Creature Serpent Egg
-PT:0/4
-K:Defender
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigScry
-SVar:TrigScry:DB$ Scry | ScryNum$ 2
-T:Mode$ Sacrificed | ValidPlayer$ You | ValidCard$ Card.Self | Execute$ TrigDelay | TriggerZones$ Battlefield
-SVar:TrigDelay:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ TrigReturn | RememberObjects$ TriggeredCard
-SVar:TrigReturn:DB$ ChangeZone | Defined$ DelayTriggerRemembered | Origin$ Graveyard | Destination$ Battlefield | Transformed$ True
-SVar:SacMe:5
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:blue
-Types:Creature Serpent
-PT:4/4
-A:AB$ Effect | Cost$ Sac<2/Island> | RememberObjects$ Self | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable
-SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+ColorIdentity:WR
+OriginSet:G7a76c1974b0a33a6
+ManaCost:1 W
+Types:Instant
+A:SP$ DealDamage | ValidTgts$ Creature,Planeswalker | NumDmg$ Y | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ Y
+A:SP$ DealDamage | Cost$ X R W | ValidTgts$ Creature,Planeswalker | NumDmg$ X | SubAbility$ DBGainLifeC | NonBasicSpell$ True
+SVar:DBGainLifeC:DB$ GainLife | Defined$ You | LifeAmount$ X
+SVar:X:Count$xPaid
+SVar:Y:Count$Valid Creature.YouCtrl

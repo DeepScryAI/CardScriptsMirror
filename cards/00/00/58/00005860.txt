@@ -1,9 +1,10 @@
 Id:5860
-ColorIdentity:W
+ColorIdentity:R
 OriginSet:G0eb5e52d26fe1c23
-ManaCost:3 W
-Types:Creature Human Soldier
-PT:2/2
-K:FirstStrike
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange | OptionalDecider$ You
-SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Card.catalogId5860 | ChangeNum$ 1 | ShuffleNonMandatory$ True
+ManaCost:1 R
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Curse
+S:Mode$ Continuous | Affected$ Creature.AttachedBy | AddTrigger$ TrigCustodyBattlePhase
+SVar:TrigCustodyBattlePhase:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigGainControl | TriggerZones$ Battlefield
+SVar:TrigGainControl:DB$ GainControl | Defined$ Self | ValidTgts$ Opponent | UnlessCost$ Sac<1/Land> | UnlessPayer$ You

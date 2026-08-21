@@ -2,9 +2,10 @@ Id:10710
 ColorIdentity:
 OriginSet:Gc860c737f2a60f83
 ManaCost:no cost
-Types:Plane Moag
-T:Mode$ SpellCast | OptionalDecider$ TriggeredActivator | TriggerZones$ Command | Execute$ LifeSummer
-SVar:LifeSummer:DB$ GainLife | Defined$ TriggeredActivator | LifeAmount$ 2
-T:Mode$ ChaosEnsues | TriggerZones$ Command | OptionalDecider$ You | Execute$ RolledChaos
-SVar:RolledChaos:DB$ GainLife | LifeAmount$ 10 | Defined$ You
-SVar:AIRollPlanarDieParams:Mode$ Always | LowPriority$ True | MaxRollsPerTurn$ 9
+Types:Plane Muraganda
+S:Mode$ ReduceCost | EffectZone$ Command | ValidCard$ Card.Green | Type$ Spell | Amount$ 1
+S:Mode$ ReduceCost | EffectZone$ Command | ValidCard$ Card.Red | Type$ Spell | Amount$ 1
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ Y
+SVar:Y:Targeted$CardManaCost
+SVar:AIRollPlanarDieParams:Mode$ Always | HasCreatureInPlay$ True

@@ -1,12 +1,12 @@
 Id:18260
-ColorIdentity:B
-OriginSet:G7d4bd61c81d44275
-ManaCost:6 B B
-Types:Creature Demon
-PT:6/6
-K:Flying
-S:Mode$ CantGainLife | ValidPlayer$ Player.Opponent
-T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | Execute$ RepeatOpps
-SVar:RepeatOpps:DB$ RepeatEach | RepeatPlayers$ Player.Opponent | RepeatSubAbility$ TrigLoseLife
-SVar:TrigLoseLife:DB$ LoseLife | Defined$ Remembered | LifeAmount$ X
-SVar:X:PlayerCountRemembered$LifeLostThisTurn
+ColorIdentity:U
+OriginSet:G5033d54b23b37629
+ManaCost:3 U
+Types:Enchantment Saga
+K:Chapter:3:DBTap,DBTap,DBChangeZoneAll
+SVar:DBTap:DB$ Tap | ValidTgts$ Creature.OppCtrl | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ Targeted | ForgetOnMoved$ Battlefield | ReplacementEffects$ DontUntap | Duration$ AsLongAsControl
+SVar:DontUntap:Event$ Untap | ValidCard$ Card.IsRemembered | ValidStepTurnToController$ You | Layer$ CantHappen
+SVar:DBChangeZoneAll:DB$ ChangeZoneAll | ChangeType$ Creature.tapped | Origin$ Battlefield | Destination$ Hand
+SVar:PlayMain1:TRUE
+SVar:NeedsToPlay:Creature.OppCtrl

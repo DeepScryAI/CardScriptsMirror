@@ -1,9 +1,29 @@
 Id:22934
-ColorIdentity:W
+ColorIdentity:B
 OriginSet:Gf78628ad511eefec
-ManaCost:2 W
-Types:Creature Human Soldier
-PT:3/2
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ X | SVarCompare$ GE3 | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | Defined$ Self | KW$ Lifelink
-SVar:X:Count$Valid Creature.YouCtrl$DifferentCardPower
+ManaCost:2 B
+Types:Creature Human Werewolf
+PT:3/3
+K:Ward:Discard<1/Card>
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigExile | Secondary$ True
+SVar:TrigExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Card | RememberChanged$ True | SubAbility$ DBDrain
+SVar:DBDrain:DB$ LoseLife | ConditionDefined$ Remembered | ConditionPresent$ Creature | Defined$ Player.Opponent | LifeAmount$ 1 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | ConditionDefined$ Remembered | ConditionPresent$ Creature | Defined$ You | LifeAmount$ 1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+K:Daybound
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:black
+Types:Creature Werewolf
+PT:4/4
+K:Ward:Discard<1/Card>
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExileN
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigExileN | Secondary$ True
+SVar:TrigExileN:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | TargetMin$ 0 | TargetMax$ 2 | ValidTgts$ Card | RememberChanged$ True | SubAbility$ DBDrainN
+SVar:DBDrainN:DB$ LoseLife | ConditionDefined$ Remembered | ConditionPresent$ Creature | Defined$ Player.Opponent | LifeAmount$ X | SubAbility$ DBGainLifeN
+SVar:DBGainLifeN:DB$ GainLife | ConditionDefined$ Remembered | ConditionPresent$ Creature | Defined$ You | LifeAmount$ X | SubAbility$ DBCleanupN
+SVar:X:Remembered$Valid Creature
+SVar:DBCleanupN:DB$ Cleanup | ClearRemembered$ True
+K:Nightbound

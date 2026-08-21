@@ -1,11 +1,11 @@
 Id:20970
-ColorIdentity:R
-OriginSet:G2f853d6139309fb0
-ManaCost:4 R R
-Types:Legendary Creature Goblin Noble
-PT:4/4
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigDig
-SVar:TrigDig:DB$ Dig | DigNum$ 6 | Reveal$ True | ChangeNum$ All | ChangeValid$ Creature.Goblin+cmcLE5 | DestinationZone$ Battlefield | DestinationZone2$ Library | LibraryPosition$ -1 | RestRandomOrder$ True
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +X | NumDef$ +X
-SVar:X:Count$Valid Goblin.Other+YouCtrl
+ColorIdentity:U
+OriginSet:Gfd5e6da37c69dc53
+ManaCost:2 U
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 2 | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ TgtChoose
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 1 | AddToughness$ 1 | AddKeyword$ Flying

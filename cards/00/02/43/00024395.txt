@@ -1,9 +1,11 @@
 Id:24395
-ColorIdentity:W
+ColorIdentity:BG
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:2 W
-Types:Sorcery
-A:SP$ RollDice | Sides$ 20 | ResultSubAbilities$ 1-9:DBSToken,10-19:DBKToken,20:DBTokens
-SVar:DBSToken:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 1214250791 | TokenOwner$ You
-SVar:DBKToken:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 2186494377 | TokenOwner$ You
-SVar:DBTokens:DB$ Token | TokenAmount$ 3 | TokenScriptIds$ 2186494377 | TokenOwner$ You
+ManaCost:2 B G
+Types:Legendary Creature Elf Druid
+PT:1/4
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ Self | KW$ Deathtouch | SubAbility$ TrigMill
+SVar:TrigMill:DB$ Mill | NumCards$ 2
+S:Mode$ Continuous | Affected$ Land.YouOwn+ThisTurnEnteredFrom_Library,Permanent.YouOwn+ThisTurnEnteredFrom_Library | Condition$ PlayerTurn | MayPlay$ True | MayPlayLimit$ 1 | EffectZone$ Battlefield | AffectedZone$ Graveyard
+SVar:HasAttackEffect:TRUE

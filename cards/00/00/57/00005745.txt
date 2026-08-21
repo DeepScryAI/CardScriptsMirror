@@ -1,7 +1,14 @@
 Id:5745
-ColorIdentity:G
+ColorIdentity:U
 OriginSet:G7327b0fa163b48eb
-ManaCost:1 G
-Types:Instant
-A:SP$ AddTurn | NumTurns$ 1 | PlayerTurn$ True | ConditionCheckSVar$ X
-SVar:X:Count$ThisTurnCast_Card.Blue+OppCtrl
+ManaCost:4 U
+Types:Creature Beast
+PT:1/5
+K:Flying
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigExile | TriggerZones$ Battlefield
+SVar:TrigExile:DB$ Repeat | RepeatSubAbility$ DBExileCleanup | RepeatCheckSVar$ X | RepeatSVarCompare$ LTY | SubAbility$ DBCleanup
+SVar:DBExileCleanup:DB$ Cleanup | ClearRemembered$ True | SubAbility$ DBExile
+SVar:DBExile:DB$ Dig | Defined$ TriggeredTarget | DigNum$ 4 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$DifferentCardNames
+SVar:Y:Count$RememberedSize

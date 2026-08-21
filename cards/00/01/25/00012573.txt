@@ -1,9 +1,11 @@
 Id:12573
-ColorIdentity:R
+ColorIdentity:G
 OriginSet:Gfd7b72e0eb9d2cf5
-ManaCost:3 R R
-Types:Instant
-A:SP$ DamageAll | ValidTgts$ Player | NumDmg$ 1 | RememberDamaged$ True | ValidCards$ Creature | SubAbility$ DBAnimate
-SVar:DBAnimate:DB$ Effect | RememberObjects$ Remembered | ForgetOnMoved$ Battlefield | StaticAbilities$ MustAttack | SubAbility$ DBCleanup
-SVar:MustAttack:Mode$ MustAttack | ValidCreature$ Card.IsRemembered
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:G
+Types:Enchantment Aura
+K:Enchant:Land
+SVar:AttachAILogic:Pump
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ FreeCard
+SVar:FreeCard:DB$ Draw
+S:Mode$ Continuous | Affected$ Card.EnchantedBy | AddAbility$ AbundantGrowthTap
+SVar:AbundantGrowthTap:AB$ Mana | Cost$ T | Produced$ Any

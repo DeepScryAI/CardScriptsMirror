@@ -1,10 +1,11 @@
 Id:31520
 ColorIdentity:R
-OriginSet:Gf2b808f4f642ac62
-ManaCost:2 R
-Types:Creature Goblin Warrior
-PT:1/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 1112542976
-A:AB$ Effect | Cost$ 1 T | ValidTgts$ Creature.powerLE2+YouCtrl | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable | AILogic$ MakeUnblockable
-SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+OriginSet:G93ac57511923c3dd
+ManaCost:3 R
+Types:Sorcery
+A:SP$ Charm | MinCharmNum$ 1 | CharmNum$ Count$Compare Y GE1.2.1 | Choices$ DBWheel,DBFlames
+SVar:DBWheel:DB$ Discard | Mode$ Hand | Defined$ Player | Optional$ True | RememberDiscardingPlayers$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ Remembered | NumCards$ 5 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:DBFlames:DB$ PumpAll | ValidCards$ Instant.YouCtrl,Sorcery.YouCtrl | KW$ Flashback | PumpZone$ Graveyard
+SVar:Y:Count$Valid Card.IsCommander+YouCtrl

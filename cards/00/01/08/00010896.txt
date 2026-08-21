@@ -1,13 +1,9 @@
 Id:10896
-ColorIdentity:R
+ColorIdentity:U
 OriginSet:G4398040c23c94f0e
-ManaCost:R
+ManaCost:U
 Types:Enchantment
-T:Mode$ DamageDone | ValidSource$ Card.YouCtrl,Emblem.YouCtrl | ValidTarget$ Opponent | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigPutCounter
+A:AB$ ChangeZoneAll | Cost$ SubCounter<5/QUEST> Sac<1/CARDNAME> | ValidTgts$ Player | ChangeType$ Card | Origin$ Graveyard | Destination$ Library | Shuffle$ True
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Graveyard | ValidCard$ Card.!token+YouOwn | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigPutCounter
 SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ QUEST | CounterNum$ 1
-A:AB$ Effect | Cost$ SubCounter<4/QUEST> Sac<1/CARDNAME> | ReplacementEffects$ DamageEvent
-SVar:DamageEvent:Event$ DamageDone | ValidSource$ Card.YouCtrl,Emblem.YouCtrl | ValidTarget$ Permanent,Player | ReplaceWith$ DmgTwice
-SVar:DmgTwice:DB$ ReplaceEffect | VarName$ DamageAmount | VarValue$ X
-SVar:X:ReplaceCount$DamageAmount/Twice
-SVar:PlayMain1:TRUE
-SVar:MaxQuestEffect:4
+SVar:MaxQuestEffect:5

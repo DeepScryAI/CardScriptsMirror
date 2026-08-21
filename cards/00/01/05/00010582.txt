@@ -1,7 +1,10 @@
 Id:10582
 ColorIdentity:RG
 OriginSet:G9445ff04667ca5ba
-ManaCost:1 R G
-Types:Instant
-A:SP$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +1
-K:Cascade
+ManaCost:4 R G
+Types:Sorcery
+A:SP$ ChangeZone | ValidTgts$ Card.YouCtrl | Origin$ Graveyard | Destination$ Hand | SubAbility$ DBVengefulRebirthDamage | RememberTargets$ True
+SVar:DBVengefulRebirthDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ VengefulRebirthX | ConditionDefined$ Remembered | ConditionPresent$ Card.nonLand | ConditionCompare$ GE1 | SubAbility$ DBVengefulRebirthExile
+SVar:DBVengefulRebirthExile:DB$ ChangeZone | Defined$ Self | Origin$ Stack | Destination$ Exile | SubAbility$ DBVengefulRebirthCleanup
+SVar:DBVengefulRebirthCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:VengefulRebirthX:Remembered$CardManaCost

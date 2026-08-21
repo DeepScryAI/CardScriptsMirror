@@ -1,10 +1,10 @@
 Id:18360
-ColorIdentity:G
-OriginSet:G7d70f513279b26b6
-ManaCost:4 G
-Types:Legendary Planeswalker Yanggu
-Loyalty:4
-A:AB$ Pump | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Creature | NumAtt$ +2 | NumDef$ +2
-A:AB$ Token | Cost$ SubCounter<1/LOYALTY> | Planeswalker$ True | TokenScriptIds$ 2244307669 | TokenOwner$ You | ConditionPresent$ Creature.YouCtrl+namedMowu | ConditionCompare$ EQ0
-A:AB$ Pump | Cost$ SubCounter<5/LOYALTY> | Planeswalker$ True | Ultimate$ True | ValidTgts$ Creature | NumAtt$ +X | NumDef$ +X | KW$ Trample
-SVar:X:Count$Valid Land.YouCtrl
+ColorIdentity:R
+OriginSet:G7d4bd61c81d44275
+ManaCost:4 R
+Types:Enchantment
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigExile
+SVar:TrigExile:DB$ Dig | Defined$ Player.Opponent | DigNum$ 1 | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | ForgetOnMoved$ Exile | RememberObjects$ Remembered | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | MayPlayIgnoreColor$ True | Affected$ Card.IsRemembered+nonLand | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

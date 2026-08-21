@@ -1,14 +1,10 @@
 Id:21362
-ColorIdentity:W
+ColorIdentity:UBG
 OriginSet:G51d431785c8b33e5
-ManaCost:3 W
-Types:Creature Human Soldier
-PT:3/4
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ Opponent | TriggerZones$ Battlefield | CheckSVar$ X | SVarCompare$ GTW | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 1214250791 | TokenOwner$ You
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ Opponent | TriggerZones$ Battlefield | CheckSVar$ Z | SVarCompare$ GTY | Execute$ TrigChangeZone | OptionalDecider$ You
-SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Land.Plains+Basic | Tapped$ True | ChangeNum$ 1
-SVar:W:Count$Valid Creature.YouCtrl
-SVar:X:Count$Valid Creature.ActivePlayerCtrl
-SVar:Y:Count$Valid Land.YouCtrl
-SVar:Z:Count$Valid Land.ActivePlayerCtrl
+ManaCost:1 B G U
+Types:Legendary Creature Turtle Shaman
+PT:2/4
+R:Event$ Moved | ValidCard$ Permanent | Destination$ Battlefield | IsPresent$ Card.Self+tapped | ReplaceWith$ ETBTapped | ReplacementResult$ Updated | ActiveZones$ Battlefield
+SVar:ETBTapped:DB$ Tap | ETB$ True | Defined$ ReplacedCard
+R:Event$ Moved | ValidCard$ Permanent | Destination$ Battlefield | IsPresent$ Card.Self+untapped | ReplaceWith$ ETBUntapped | ReplacementResult$ Updated | ActiveZones$ Battlefield
+SVar:ETBUntapped:DB$ Untap | ETB$ True | Defined$ ReplacedCard

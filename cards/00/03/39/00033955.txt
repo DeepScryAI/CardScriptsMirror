@@ -1,8 +1,11 @@
 Id:33955
-ColorIdentity:G
-OriginSet:Gaf3c6d0810185c00
-ManaCost:G
+ColorIdentity:R
+OriginSet:Gf8df2bea26dc6b68
+ManaCost:4 R
 Types:Sorcery
-A:SP$ Pump | ValidTgts$ Creature.YouCtrl | KW$ Indestructible | NumAtt$ +X | SubAbility$ DBFight
-SVar:DBFight:DB$ Fight | Defined$ ParentTarget | ValidTgts$ Creature.OppCtrl | AILogic$ Always
-SVar:X:Count$ValidHand Card.YouOwn+cmcGE4
+A:SP$ DealDamage | ValidTgts$ Creature | NumDmg$ X | ExcessSVar$ Excess | ExcessSVarCondition$ Card.targetedBy | SubAbility$ DBDig
+SVar:DBDig:DB$ Dig | Defined$ You | DigNum$ Excess | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ Play | ForgetOnMoved$ Exile | SubAbility$ DBCleanup | Duration$ UntilTheEndOfYourNextTurn
+SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$Converge

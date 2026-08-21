@@ -1,8 +1,11 @@
 Id:21375
-ColorIdentity:G
+ColorIdentity:R
 OriginSet:G51d431785c8b33e5
-ManaCost:2 G G
-Types:Creature Human Wizard
-PT:3/3
-A:AB$ ChangeZone | Cost$ G T Sac<1/CARDNAME> Sac<1/Creature.Green+Other/another green creature> | Origin$ Library | Destination$ Battlefield | ChangeType$ Creature.Green | ChangeNum$ 1
-SVar:AIPreference:SacCost$Creature.Green
+ManaCost:1 R
+Types:Artifact Equipment
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ Y
+SVar:Y:PlayerCountOpponents$Amount
+T:Mode$ DamageDoneOnce | Execute$ TrigDamage | ValidTarget$ Creature.EquippedBy | TriggerZones$ Battlefield
+SVar:TrigDamage:DB$ DealDamage | NumDmg$ X | ValidTgts$ Any | DamageSource$ TriggeredTargetLKICopy
+SVar:X:TriggerCount$DamageAmount
+K:Equip:4

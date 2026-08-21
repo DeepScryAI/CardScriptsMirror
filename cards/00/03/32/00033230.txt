@@ -1,10 +1,12 @@
 Id:33230
-ColorIdentity:W
-OriginSet:G7ab1fe96128a1641
-ManaCost:1 W
-Types:Legendary Creature Elf Warrior
-PT:2/2
-K:Flash
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.Other+YouCtrl | KW$ Persist
-A:AB$ RemoveCounter | Cost$ W T | ValidTgts$ Creature.YouCtrl | CounterType$ Any | CounterNum$ Any | SorcerySpeed$ True
+ColorIdentity:BR
+OriginSet:G530ea9d733a13e9d
+ManaCost:2 B R
+Types:Legendary Creature Human Mercenary
+PT:4/3
+K:FirstStrike
+T:Mode$ AttackersDeclaredOneTarget | AttackedTarget$ Player | ValidAttackers$ Creature.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigGoad
+SVar:TrigGoad:DB$ Goad | ValidTgts$ Creature | TargetsWithDefinedController$ TriggeredAttackedTarget
+T:Mode$ AttackerBlocked | ValidCard$ Creature.attacking Opponent | ValidBlocker$ Creature | Execute$ TrigPump | ValidBlockerAmount$ GE2 | TriggerZones$ Battlefield
+SVar:TrigPump:DB$ Pump | Defined$ TriggeredAttacker | KW$ Deathtouch
+SVar:PlayMain1:TRUE

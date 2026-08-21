@@ -1,12 +1,11 @@
 Id:24846
-ColorIdentity:U
-OriginSet:G3a8b4b9d4649b357
-ManaCost:1 U
-Types:Enchantment Saga
-K:Read ahead
-K:Chapter:3:DBPlayFree,DBMill,DBCopy
-SVar:DBPlayFree:DB$ Play | Valid$ Card.YouOwn | ValidSA$ Instant.cmcEQ1,Instant.cmcEQ2,Sorcery.cmcEQ1,Sorcery.cmcEQ2 | ValidZone$ Hand | WithoutManaCost$ True | Amount$ 1 | Controller$ You | Optional$ True
-SVar:DBMill:DB$ Mill | NumCards$ 4 | ValidTgts$ Player
-SVar:DBCopy:DB$ ChangeZone | TargetMax$ 1 | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Instant.YouCtrl,Sorcery.YouCtrl | RememberChanged$ True | SubAbility$ DBPlay
-SVar:DBPlay:DB$ Play | Defined$ Remembered | ValidSA$ Spell | Optional$ True | CopyCard$ True | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:WUBRG
+OriginSet:G3c9db52fa0bcee92
+ManaCost:2 W U B R G
+Types:Instant
+A:SP$ Charm | Choices$ DBPhaseOut,DBDraw,DBExileGrave,DBDamage,DBDestroy | CharmNum$ 5 | CanRepeatModes$ True
+SVar:DBPhaseOut:DB$ Phases | ValidTgts$ Permanent
+SVar:DBDraw:DB$ Draw | ValidTgts$ Player
+SVar:DBExileGrave:DB$ ChangeZoneAll | ValidTgts$ Player | Origin$ Graveyard | Destination$ Exile | ChangeType$ Card | IsCurse$ True
+SVar:DBDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 2
+SVar:DBDestroy:DB$ Destroy | ValidTgts$ Artifact,Enchantment

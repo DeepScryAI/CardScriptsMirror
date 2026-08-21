@@ -1,10 +1,14 @@
 Id:26251
-ColorIdentity:W
-OriginSet:G997e3b19a1e94e85
-ManaCost:1 W
-Types:Artifact Creature Phyrexian Horse
-PT:1/4
-K:Vigilance
-S:Mode$ Continuous | Affected$ Card.Self | AddPower$ 3 | CheckSVar$ X | SVarCompare$ GE3 | Condition$ Metalcraft
-SVar:X:PlayerCountOpponents$HighestCounters.Poison
-SVar:BuffedBy:Artifact
+ColorIdentity:U
+OriginSet:G2192e8955d5e1ad1
+ManaCost:1 U
+Types:Creature Phyrexian Rogue
+PT:2/1
+S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self
+T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | Execute$ TrigPutCounter | TriggerZones$ Battlefield
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ OIL | CounterNum$ 1
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigDelayTrig | CombatDamage$ True
+SVar:TrigDelayTrig:AB$ DelayedTrigger | Cost$ SubCounter<2/OIL> | AILogic$ SpellCopy | Execute$ EffTrigCopy | ThisTurn$ True | Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You
+SVar:EffTrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | MayChooseTarget$ True
+SVar:HasAttackEffect:TRUE
+SVar:BuffedBy:Card.nonCreature

@@ -1,21 +1,10 @@
 Id:21870
-ColorIdentity:UG
-OriginSet:G6fa60d857e930f32
-ManaCost:6 U U
-Types:Legendary Creature Human Wizard
-PT:5/5
-A:AB$ ChangeZone | Cost$ Discard<1/Card> | Origin$ Battlefield | Destination$ Hand
-T:Mode$ SpellCastOrCopy | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDig
-SVar:TrigDig:DB$ PeekAndReveal | RememberRevealed$ True | NoPeek$ True | SubAbility$ CastCard
-SVar:CastCard:DB$ Play | Defined$ Remembered | PlayCost$ 1 | ValidSA$ Spell | Optional$ True | ConditionDefined$ Remembered | ConditionPresent$ Card.nonLand | SubAbility$ MoveLand
-SVar:MoveLand:DB$ ChangeZone | Defined$ Remembered | Origin$ Library | Destination$ Battlefield | ConditionDefined$ Remembered | ConditionPresent$ Card.Land | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:PlayMain1:TRUE
-AlternateMode:Modal
-ALTERNATE
-ManaCost:2 G G
-Types:Sorcery
-A:SP$ ChangeZone | Origin$ Hand | Destination$ Battlefield | ChangeType$ Land | ChangeNum$ X | SubAbility$ DBBounce
-SVar:DBBounce:DB$ ChangeZone | Defined$ Parent | Origin$ Stack | Destination$ Hand | UnlessCost$ Discard<1/Card> | UnlessSwitched$ True | UnlessPayer$ You | ConditionPresent$ Land.YouCtrl | ConditionCompare$ GE8
-SVar:X:Count$ValidHand Land.YouCtrl
-SVar:NeedsToPlayVar:X GE2
+ColorIdentity:U
+OriginSet:Gabb23d0d25cdc46d
+ManaCost:8 U U
+Types:Legendary Creature Elemental Octopus
+PT:8/8
+K:Ward:8
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ 8 | EffectZone$ All | IsPresent$ Instant.YouOwn,Sorcery.YouOwn | PresentZone$ Graveyard | PresentCompare$ GE8
+T:Mode$ SpellCastOrCopy | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigOctify
+SVar:TrigOctify:DB$ Animate | ValidTgts$ Creature | Power$ 8 | Toughness$ 8

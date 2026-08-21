@@ -1,15 +1,7 @@
 Id:11310
-ColorIdentity:B
+ColorIdentity:G
 OriginSet:G9fb0a9a59b6a9580
-ManaCost:2 B B
-Types:Creature Horror
-PT:2/2
-K:Trample
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ EatMyThoughts
-SVar:EatMyThoughts:DB$ PutCounter | Defined$ Self | CounterNum$ OldThoughts | CounterType$ P1P1 | RememberCards$ True | SubAbility$ GorgeOnThoughts
-SVar:GorgeOnThoughts:DB$ Discard | Mode$ Hand | Defined$ You | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:OldThoughts:Count$ValidHand Card.YouOwn
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ BringBackThoughts
-SVar:BringBackThoughts:DB$ Draw | NumCards$ Disgorge | Defined$ TriggeredCardController
-SVar:Disgorge:TriggeredCard$CardCounters.P1P1
+ManaCost:1 G
+Types:Creature Elf Shaman
+PT:2/1
+S:Mode$ CantSacrifice | ValidCard$ Card.YouCtrl | ValidCause$ SpellAbility.OppCtrl | ForCost$ False

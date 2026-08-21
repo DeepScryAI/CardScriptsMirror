@@ -1,7 +1,9 @@
 Id:21921
-ColorIdentity:UG
-OriginSet:Gd784248bfdf9e1d7
-ManaCost:3 G U
+ColorIdentity:BG
+OriginSet:G6fa60d857e930f32
+ManaCost:2 B G
 Types:Sorcery
-A:SP$ ChangeZone | ValidTgts$ Permanent | Origin$ Battlefield | Destination$ Hand | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Permanent.YouCtrl
+A:SP$ DestroyAll | ValidCards$ Permanent.nonLand+cmcLE2 | RememberDestroyed$ True | SubAbility$ DBAddMana
+SVar:DBAddMana:DB$ Mana | Produced$ Combo B G | Amount$ X | SubAbility$ DBCleanup
+SVar:X:Remembered$Amount
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

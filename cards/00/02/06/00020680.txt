@@ -1,9 +1,13 @@
 Id:20680
-ColorIdentity:B
+ColorIdentity:G
 OriginSet:Gf8d4de878d0536c5
-ManaCost:2 B
-Types:Creature Human Soldier
-PT:2/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | CheckSVar$ RaidTest | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 1647422943 | TokenOwner$ You
-SVar:RaidTest:Count$AttackersDeclared
+ManaCost:3 G G G
+Types:Legendary Creature Ape
+PT:7/6
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigFight
+SVar:TrigFight:DB$ Fight | Defined$ TriggeredCardLKICopy | ValidTgts$ Creature.YouDontCtrl | TargetMin$ 0 | TargetMax$ 1
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Artifact.ControlledBy TriggeredDefendingPlayer,Enchantment.ControlledBy TriggeredDefendingPlayer
+A:AB$ ChangeZone | Cost$ 1 G | ValidTgts$ Human.YouCtrl | Origin$ Battlefield | Destination$ Hand | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Self | KW$ Indestructible
+SVar:HasAttackEffect:TRUE

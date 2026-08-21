@@ -1,9 +1,12 @@
 Id:29481
-ColorIdentity:G
-OriginSet:Gac6359c222afbd4f
-ManaCost:G G
-Types:Enchantment Aura
-K:Enchant:Creature.modified:modified creature
-K:Umbra armor
-SVar:AttachAILogic:Pump
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 3 | AddToughness$ 3 | AddKeyword$ Vigilance & Reach
+ColorIdentity:W
+OriginSet:G2ce881cc55bb9f18
+ManaCost:2 W
+Types:Artifact Creature Equipment Rhino
+PT:3/3
+T:Mode$ Attacks | ValidCard$ Card.Self,Creature.EquippedBy | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ 1 | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ TriggeredAttackerLKICopy | NumAtt$ +X | NumDef$ +X
+K:Reconfigure:2:PayEnergy<3>
+SVar:X:Count$YourCountersEnergy
+SVar:HasAttackEffect:TRUE

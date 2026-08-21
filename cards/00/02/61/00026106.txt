@@ -1,14 +1,11 @@
 Id:26106
-ColorIdentity:U
-OriginSet:G2192e8955d5e1ad1
-ManaCost:1 U
-Types:Creature Phyrexian Rogue
-PT:2/1
-S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self
-T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | Execute$ TrigPutCounter | TriggerZones$ Battlefield
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ OIL | CounterNum$ 1
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigDelayTrig | CombatDamage$ True
-SVar:TrigDelayTrig:AB$ DelayedTrigger | Cost$ SubCounter<2/OIL> | AILogic$ SpellCopy | Execute$ EffTrigCopy | ThisTurn$ True | Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You
-SVar:EffTrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | MayChooseTarget$ True
-SVar:HasAttackEffect:TRUE
-SVar:BuffedBy:Card.nonCreature
+ColorIdentity:R
+OriginSet:G903d26fe51c6a362
+ManaCost:3 R R
+Types:Artifact Equipment
+K:For Mirrodin
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddToughness$ 2
+T:Mode$ Attacks | ValidCard$ Card.EquippedBy | FirstCombat$ True | TriggerZones$ Battlefield | Execute$ TrigUntap
+SVar:TrigUntap:DB$ UntapAll | ValidCards$ Creature.attacking | SubAbility$ DBAddPhase
+SVar:DBAddPhase:DB$ AddPhase | ExtraPhase$ Combat | AfterPhase$ EndCombat
+K:Equip:3 R

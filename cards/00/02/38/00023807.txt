@@ -1,9 +1,12 @@
 Id:23807
-ColorIdentity:W
-OriginSet:G5f5d8cfb206e2fac
-ManaCost:1 W
-Types:Sorcery
-A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Permanent.OppOwn | SubAbility$ DBDelayedTrigger
-SVar:DBDelayedTrigger:DB$ DelayedTrigger | RememberObjects$ Targeted | Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.IsTriggerRemembered | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Permanent.YouOwn+cmcLEX
-SVar:X:TriggeredCard$CardManaCost
+ColorIdentity:U
+OriginSet:Gd970889168b5769f
+ManaCost:2 U U
+Types:Creature Human Ninja
+PT:2/2
+K:Flash
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ 2 | EffectZone$ All | IsPresent$ Instant.YouOwn,Sorcery.YouOwn | PresentZone$ Hand | PresentCompare$ EQ0
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Instant.YouOwn,Sorcery.YouOwn
+R:Event$ Moved | ValidCard$ Card.Self | Origin$ Battlefield | Destination$ Graveyard | ReplaceWith$ Exile
+SVar:Exile:DB$ ChangeZone | Destination$ Library | Shuffle$ True | Defined$ ReplacedCard

@@ -1,8 +1,11 @@
 Id:22084
 ColorIdentity:UR
 OriginSet:Gd784248bfdf9e1d7
-ManaCost:UR UR
-Types:Instant
-A:SP$ DelayedTrigger | AILogic$ SpellCopy | Execute$ EffTrigCopy | ThisTurn$ True | Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You
-SVar:EffTrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | MayChooseTarget$ True
-SVar:AIPriorityModifier:9
+ManaCost:1 U UR R
+Types:Creature Djinn Wizard
+PT:2/4
+K:Flying
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigEff
+SVar:TrigEff:DB$ Effect | StaticAbilities$ ReduceCost | ForgetOnCast$ Instant.YouCtrl,Sorcery.YouCtrl | SetChosenNumber$ X
+SVar:ReduceCost:Mode$ ReduceCost | Type$ Spell | ValidCard$ Instant,Sorcery | Activator$ You | Amount$ Count$ChosenNumber
+SVar:X:TriggeredAttacker$CardPower

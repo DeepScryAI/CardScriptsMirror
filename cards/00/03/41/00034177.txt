@@ -1,15 +1,13 @@
 Id:34177
-ColorIdentity:U
-OriginSet:Gcb93bbfc68a40806
-ManaCost:1 U
-Types:Legendary Creature Inhuman Dog Hero
-PT:1/1
-K:Vigilance
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ X | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | RememberAmount$ True | SubAbility$ DBImmediateTrig
-SVar:DBImmediateTrig:DB$ ImmediateTrigger | Execute$ TrigEffect | TriggerAmount$ Count$RememberedNumber | SubAbility$ DBCleanup
-SVar:TrigEffect:DB$ Effect | ValidTgts$ Creature.Other+YouCtrl | TargetMin$ 0 | TargetMax$ 1 | RememberObjects$ Self & Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable
-SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$ThisTurnCast_Card.nonCreature+YouCtrl
-SVar:PlayMain1:TRUE
+ColorIdentity:BG
+OriginSet:Gaf3c6d0810185c00
+ManaCost:1 B G
+Types:Creature Frog Druid
+PT:3/2
+K:Deathtouch
+K:Lifelink
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigAnimateAll
+SVar:TrigAnimateAll:DB$ AnimateAll | Zone$ Graveyard | Duration$ Perpetual | ValidCards$ Permanent.YouCtrl | Triggers$ EnterTrig
+SVar:EnterTrig:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1

@@ -1,8 +1,13 @@
 Id:23078
-ColorIdentity:WB
-OriginSet:G7a76c1974b0a33a6
-ManaCost:no cost
-Types:Land
-A:AB$ Mana | Cost$ T | Produced$ Combo W B
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ LandTapped | ReplacementResult$ Updated
-SVar:LandTapped:DB$ Tap | Defined$ Self | ETB$ True | ConditionPresent$ Land.YouCtrl | ConditionCompare$ LT2
+ColorIdentity:B
+OriginSet:G8a59924df6623252
+ManaCost:4 B B B
+Types:Legendary Enchantment Creature Horror
+PT:9/9
+S:Mode$ Continuous | Affected$ Card.Self | RemoveType$ Creature | IsPresent$ Permanent.YouCtrl+YouDontOwn | PresentCompare$ LT3
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | Execute$ TrigExile | TriggerZones$ Battlefield
+SVar:TrigExile:DB$ ChangeZoneAll | Defined$ Opponent | ChangeType$ Card.BottomLibrary | Origin$ Library | Destination$ Exile | ExileFaceDown$ True | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ Remembered | StaticAbilities$ STLook,STPlay | Duration$ Permanent | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:STLook:Mode$ Continuous | MayLookAt$ You | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | MayPlayIgnoreType$ True | Affected$ Card.IsRemembered+Permanent+nonLand | AffectedZone$ Exile | Secondary$ True
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

@@ -1,12 +1,10 @@
 Id:33614
-ColorIdentity:R
-OriginSet:Gf04404de3fa1525e
-ManaCost:1 R
-Types:Creature Human Wizard
+ColorIdentity:W
+OriginSet:Gff0a4227ae9f1a4b
+ManaCost:2 W
+Types:Legendary Creature Mutant Ninja Rat Turtle
 PT:2/2
-K:FirstStrike
-T:Mode$ SpellCast | ValidCard$ Card.YouCtrl | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPrepare | ActivatorThisTurnCast$ EQ3
-SVar:TrigPrepare:DB$ AlterAttribute | Attributes$ Prepared
-AlternateMode:Prepare
-ALTERNATE
-CopyFaceFromId:145
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | MinCharmNum$ 1 | CharmNum$ 2 | Choices$ DBToken,DBPutCounterAll
+SVar:DBToken:DB$ Token | ValidTgts$ Player | TokenOwner$ ThisTargetedPlayer | TokenScriptIds$ 3094347554
+SVar:DBPutCounterAll:DB$ PutCounterAll | ValidTgts$ Player | TargetUnique$ True | ValidCards$ Creature.Other | CounterType$ P1P1 | CounterNum$ 1

@@ -1,7 +1,9 @@
 Id:5313
-ColorIdentity:G
+ColorIdentity:B
 OriginSet:Gfdac7ecc1e8a7d21
-ManaCost:1 G G
-Types:Enchantment
-A:AB$ Pump | Cost$ 2 ExileFromHand<1/Card> | SubAbility$ DBChangeZone | ValidTgts$ Card.YouOwn | TgtZone$ Graveyard
-SVar:DBChangeZone:DB$ ChangeZone | Defined$ ParentTarget | Origin$ Graveyard | Destination$ Hand | ConditionDefined$ ParentTarget | ConditionPresent$ Card.sharesCardTypeWith Exiled | ConditionCompare$ GE1
+ManaCost:2 B
+Types:Sorcery
+A:SP$ RevealHand | ValidTgts$ Player | IsCurse$ True | RememberRevealed$ True | RememberTargets$ True | SubAbility$ DBRepeat
+SVar:DBRepeat:DB$ RepeatEach | RepeatCards$ Card.IsRemembered+nonLand | Zone$ Hand | RepeatSubAbility$ DBDiscard | UseImprinted$ True | SubAbility$ DBCleanup
+SVar:DBDiscard:DB$ Discard | Mode$ Defined | Defined$ Remembered | DefinedCards$ ValidHand Card.sharesNameWith Imprinted+RememberedPlayerCtrl+!IsImprinted
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

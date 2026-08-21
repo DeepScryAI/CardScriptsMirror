@@ -2,6 +2,11 @@ Id:4277
 ColorIdentity:G
 OriginSet:Gdd40b2fbd2aa3c03
 ManaCost:3 G
-Types:Enchantment
-S:Mode$ CastWithFlash | ValidCard$ Creature,Enchantment | ValidSA$ Spell | Caster$ Player
-SVar:NonStackingEffect:True
+Types:Creature Insect
+PT:1/1
+K:Flying
+T:Mode$ AttackerBlockedByCreature | ValidCard$ Creature | ValidBlocker$ Card.Self | Execute$ DelTrigBlocked
+T:Mode$ AttackerBlockedByCreature | ValidCard$ Card.Self | ValidBlocker$ Creature | Execute$ DelTrigBlocker | Secondary$ True
+SVar:DelTrigBlocked:DB$ DelayedTrigger | Mode$ Phase | Phase$ EndCombat | ValidPlayer$ Player | Execute$ TrigDestroy | RememberObjects$ TriggeredAttackerLKICopy
+SVar:DelTrigBlocker:DB$ DelayedTrigger | Mode$ Phase | Phase$ EndCombat | ValidPlayer$ Player | Execute$ TrigDestroy | RememberObjects$ TriggeredBlockerLKICopy
+SVar:TrigDestroy:DB$ Destroy | Defined$ DelayTriggerRememberedLKI

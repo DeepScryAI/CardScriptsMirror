@@ -1,16 +1,13 @@
 Id:28056
-ColorIdentity:B
-OriginSet:Gfd50577710a6ab09
-ManaCost:3 B
-Types:Enchantment
-T:Mode$ Attacks | ValidCard$ Creature.YouCtrl | Alone$ True | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | Defined$ TriggeredAttackerLKICopy | KW$ Lifelink & Deathtouch | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ DREAD | CounterNum$ 1 | SubAbility$ DBTransform
-SVar:DBTransform:DB$ SetState | ConditionPresent$ Card.Self+counters_GE3_DREAD | Defined$ Self | Mode$ Transform
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Types:Land Cave
-A:AB$ Mana | Cost$ T | Produced$ B
-A:AB$ Draw | Cost$ B T SubCounter<1/Dread> | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 1
+ColorIdentity:UBR
+OriginSet:G06c78c29bfb28e3d
+ManaCost:2 U B R
+Types:Legendary Creature Human Pirate
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill
+SVar:TrigMill:DB$ Mill | NumCards$ 4 | Defined$ You
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | WithCountersType$ FINALITY | ValidTgts$ Pirate.YouOwn | Optional$ True | SubAbility$ DBPump | RememberChanged$ True | StaticEffect$ Animate
+SVar:Animate:Mode$ Continuous | Affected$ Card.IsRemembered | SetPower$ 4 | SetToughness$ 4
+SVar:DBPump:DB$ Pump | KW$ Haste | Defined$ Remembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

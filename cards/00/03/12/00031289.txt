@@ -1,9 +1,9 @@
 Id:31289
-ColorIdentity:W
-OriginSet:Ge1676a27173c0866
-ManaCost:3 W W
-Types:Enchantment
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigChange
-SVar:TrigChange:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.powerLE2+YouCtrl | TargetMin$ 0 | TargetMax$ 2 | SubAbility$ DBPutCounters | RememberChanged$ True
-SVar:DBPutCounters:DB$ PutCounter | Defined$ Remembered | CounterType$ P1P1 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:G
+OriginSet:Gef9d0d0c16b2fcf7
+ManaCost:3 G
+Types:Legendary Creature Elf Druid
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | TriggerZones$ Battlefield | ValidCard$ Land.YouCtrl | Execute$ TrigEnergy
+SVar:TrigEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ 2
+S:Mode$ Continuous | Affected$ Card.YouCtrl+Permanent+nonLand | MayPlay$ True | MayPlayAltManaCost$ PayEnergy<8> | MayPlayDontGrantZonePermissions$ True | AffectedZone$ Hand,Graveyard,Exile,Library,Command

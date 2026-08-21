@@ -1,12 +1,10 @@
 Id:7629
-ColorIdentity:
+ColorIdentity:R
 OriginSet:G4747f23d5c5760bc
-ManaCost:2
-Types:Legendary Artifact Equipment
-K:Equip:2
-T:Mode$ DamageDealtOnce | CombatDamage$ True | ValidSource$ Creature.EquippedBy | Execute$ TrigPutCounter | TriggerZones$ Battlefield
-A:AB$ Charm | Cost$ SubCounter<1/CHARGE> | Choices$ JittePump,JitteCurse,JitteLife | Defined$ You
-SVar:JittePump:DB$ Pump | Defined$ Equipped | NumAtt$ +2 | NumDef$ +2
-SVar:JitteCurse:DB$ Pump | ValidTgts$ Creature | NumAtt$ -1 | NumDef$ -1 | IsCurse$ True
-SVar:JitteLife:DB$ GainLife | LifeAmount$ 2
-SVar:TrigPutCounter:DB$ PutCounter | CounterType$ CHARGE | CounterNum$ 2
+ManaCost:6 R
+Types:Sorcery
+A:SP$ GainControl | ValidTgts$ Opponent | AllValid$ Creature.TargetedPlayerCtrl | NewController$ You | LoseControl$ EOT | RememberControlled$ True | SubAbility$ DBGainCtrlOpp
+SVar:DBGainCtrlOpp:DB$ GainControl | AllValid$ Creature.!IsRemembered+YouCtrl | NewController$ Targeted | LoseControl$ EOT | RememberControlled$ True | SubAbility$ DBUntapAll
+SVar:DBUntapAll:DB$ UntapAll | ValidCards$ Creature.IsRemembered | SubAbility$ DBPumpAll
+SVar:DBPumpAll:DB$ PumpAll | ValidCards$ Creature.IsRemembered | KW$ Haste | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

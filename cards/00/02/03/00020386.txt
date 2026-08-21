@@ -1,8 +1,13 @@
 Id:20386
-ColorIdentity:B
+ColorIdentity:U
 OriginSet:Gfa87e7bbc5a709eb
-ManaCost:2 B
-Types:Instant
-A:SP$ Charm | Choices$ SacCreature,SacEnchantment | Defined$ You
-SVar:SacCreature:DB$ Sacrifice | ValidTgts$ Opponent | SacValid$ Creature
-SVar:SacEnchantment:DB$ Sacrifice | ValidTgts$ Opponent | SacValid$ Enchantment
+ManaCost:1 U
+Types:Enchantment Saga
+K:Chapter:4:DBScry,DBNameCard,DBEffect,DBLook
+SVar:DBScry:DB$ Scry | ScryNum$ 2
+SVar:DBNameCard:DB$ NameCard
+SVar:DBEffect:DB$ Effect | Triggers$ NamedCardCast | SubAbility$ DBCleanup
+SVar:NamedCardCast:Mode$ SpellCast | ValidCard$ Card.NamedCard | ValidActivatingPlayer$ You | ActivatorThisTurnCast$ EQ1 | OneOff$ True | TriggerZones$ Command | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | NumCards$ 2
+SVar:DBCleanup:DB$ Cleanup | ClearNamedCard$ True
+SVar:DBLook:DB$ PeekAndReveal | Defined$ Player | NoReveal$ True

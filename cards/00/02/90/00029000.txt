@@ -1,10 +1,11 @@
 Id:29000
-ColorIdentity:G
-OriginSet:Gc7beb665b378d90a
-ManaCost:1 G
-Types:Creature Snake
-PT:1/1
-K:Reach
-K:Deathtouch
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSearch
-SVar:TrigSearch:DB$ ChangeZone | Hidden$ True | Origin$ Library | OriginAlternative$ Graveyard | Destination$ Hand | ChangeType$ Card.YouOwn+catalogId12027
+ColorIdentity:
+OriginSet:Gaf7c94f364052cdd
+ManaCost:3
+Types:Artifact Bobblehead
+A:AB$ Mana | Cost$ T | Produced$ Any
+A:AB$ RollDice | Cost$ 1 T | Amount$ X | Sides$ 6 | MaxRollsResults$ True | EvenOddResults$ True | SubAbility$ DBCreateTreasure
+SVar:DBCreateTreasure:DB$ Token | TokenScriptIds$ 3851718391 | TokenTapped$ True | TokenAmount$ Y | SubAbility$ DBWinGame
+SVar:DBWinGame:DB$ WinsGame | Defined$ You | ConditionCheckSVar$ MaxRolls | ConditionSVarCompare$ EQ7
+SVar:Y:SVar$EvenResults
+SVar:X:Count$Valid Card.Bobblehead+YouCtrl

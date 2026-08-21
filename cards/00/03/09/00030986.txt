@@ -1,12 +1,10 @@
 Id:30986
-ColorIdentity:WU
-OriginSet:G4524bbf7a3db9dc0
-ManaCost:W U
-Types:Legendary Artifact Creature Robot
-PT:*/3
-S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X
-SVar:X:Count$Valid Artifact.YouCtrl
-K:StartYourEngines
-S:Mode$ Continuous | Affected$ Card.Self | Condition$ MaxSpeed | AddTrigger$ CastTrig
-SVar:CastTrig:Mode$ SpellCast | ValidCard$ Artifact | ValidActivatingPlayer$ You | Execute$ TrigCopy | OptionalDecider$ You | TriggerZones$ Battlefield | Secondary$ True
-SVar:TrigCopy:AB$ CopySpellAbility | Cost$ 1 | Defined$ TriggeredSpellAbility | Amount$ 1
+ColorIdentity:U
+OriginSet:G2c8286a6f234d4b9
+ManaCost:2 U
+Types:Artifact Creature Crab
+PT:1/3
+S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigTap
+SVar:TrigTap:DB$ Tap | ValidTgts$ Creature.OppCtrl | SubAbility$ DBCounter
+SVar:DBCounter:DB$ PutCounter | Defined$ Targeted | CounterType$ Stun | CounterNum$ 1

@@ -1,12 +1,13 @@
 Id:21310
-ColorIdentity:B
-OriginSet:G51d431785c8b33e5
-ManaCost:2 B B
-Types:Enchantment
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMonarch
-SVar:TrigMonarch:DB$ BecomeMonarch
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigRepeat
-SVar:TrigRepeat:DB$ RepeatEach | RepeatPlayers$ Opponent | RepeatSubAbility$ DBDrain
-SVar:DBDrain:DB$ LoseLife | Defined$ Player.IsRemembered | LifeAmount$ X | UnlessCost$ Discard<Y/Card> | UnlessPayer$ Player.IsRemembered
-SVar:X:Count$Monarch.6.3
-SVar:Y:Count$Monarch.2.1
+ColorIdentity:R
+OriginSet:G72c9c624ceb92bff
+ManaCost:3 R R
+Types:Sorcery
+A:SP$ GainControl | ValidTgts$ Creature | LoseControl$ EOT | Untap$ True | AddKWs$ Haste
+AlternateMode:Modal
+ALTERNATE
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ R

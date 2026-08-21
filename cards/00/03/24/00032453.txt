@@ -1,11 +1,10 @@
 Id:32453
-ColorIdentity:G
-OriginSet:G66b3a7eeabd9000e
-ManaCost:1 G
-Types:Sorcery
-A:SP$ Charm | Choices$ DBMill,DBDestroy
-SVar:DBMill:DB$ Mill | NumCards$ 3 | RememberMilled$ True | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | Hidden$ True | Origin$ Graveyard,Exile | Destination$ Hand | ChangeType$ Permanent.IsRemembered | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 3 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:DBDestroy:DB$ Destroy | ValidTgts$ Creature.withFlying
+ColorIdentity:U
+OriginSet:G9946f072b5556073
+ManaCost:4 U U
+Types:Enchantment
+T:Mode$ ChangesZone | ValidCard$ Card.wasCastByYou+Self | Destination$ Battlefield | Execute$ TrigChangeAll
+SVar:TrigChangeAll:DB$ ChangeZoneAll | Origin$ Graveyard,Hand | Destination$ Library | ChangeType$ Card.YouOwn | Shuffle$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 7
+S:Mode$ Continuous | Affected$ Card.nonLand+ControlledBy Player.Active | MayPlayPlayer$ Player.Active | MayPlay$ True | MayPlayWithoutManaCost$ True | MayPlayDontGrantZonePermissions$ True | AffectedZone$ All | CheckSVar$ Y | SVarCompare$ EQ0
+SVar:Y:Count$ThisTurnCast_Card.ControlledBy Player.Active

@@ -1,9 +1,9 @@
 Id:8116
-ColorIdentity:BG
+ColorIdentity:
 OriginSet:Gc563c209d627c4c5
-ManaCost:3 B G
-Types:Creature Plant Zombie
-PT:3/3
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Graveyard | ValidCard$ Card.!token+OppOwn | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+ManaCost:1
+Types:Artifact
+A:AB$ ChangeZone | Cost$ 2 Sac<1/CARDNAME> | ValidTgts$ Creature | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DelTrig
+SVar:DelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ TrigReturn | RememberObjects$ RememberedLKI | SubAbility$ DBCleanup
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Exile | Destination$ Battlefield | Defined$ DelayTriggerRememberedLKI
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

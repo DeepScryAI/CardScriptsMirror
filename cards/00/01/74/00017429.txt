@@ -1,8 +1,15 @@
 Id:17429
 ColorIdentity:W
 OriginSet:G5475e2be497fd272
-ManaCost:2 W
-Types:Legendary Creature Vampire Cleric
-PT:2/2
-T:Mode$ AttackersDeclared | ValidAttackers$ Vampire.!token+YouCtrl | Execute$ TrigToken | TriggerZones$ Battlefield
+ManaCost:W
+Types:Legendary Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
 SVar:TrigToken:DB$ Token | TokenScriptIds$ 2635397045 | TokenOwner$ You
+T:Mode$ AttackersDeclared | Execute$ DBTransform | ValidAttackers$ Creature | ValidAttackersAmount$ GE3 | TriggerZones$ Battlefield | AttackingPlayer$ You
+SVar:DBTransform:DB$ SetState | Defined$ Self | Mode$ Transform
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Types:Legendary Land
+A:AB$ Mana | Cost$ T | Produced$ W | Amount$ 1
+A:AB$ Token | Cost$ 2 W T | TokenScriptIds$ 2635397045 | TokenOwner$ You

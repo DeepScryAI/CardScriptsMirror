@@ -1,10 +1,17 @@
 Id:24289
 ColorIdentity:G
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:2 G
-Types:Creature Ooze
-PT:2/2
-K:Flash
-K:Foretell:G
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigCounterAbility
-SVar:TrigCounterAbility:DB$ Counter | TargetType$ Activated,Triggered | ValidTgts$ Artifact,Enchantment | DestroyPermanent$ True
+ManaCost:5 G
+Types:Creature Badger
+PT:6/5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGainLife
+SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 3
+AlternateMode:Adventure
+ALTERNATE
+ManaCost:1 G
+Types:Sorcery Adventure
+A:SP$ Mill | NumCards$ 4 | RememberMilled$ True | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Valid Creature
+SVar:PlayMain1:TRUE

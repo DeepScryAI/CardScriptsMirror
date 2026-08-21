@@ -1,9 +1,13 @@
 Id:32968
-ColorIdentity:R
-OriginSet:G731e0066916b7465
-ManaCost:2 R R R
-Types:Sorcery
-K:Storm
-A:SP$ ChangeZone | DefinedPlayer$ You | Destination$ Exile | ChangeNum$ 1 | ChangeType$ Instant.YouOwn+cmcLE3,Sorcery.YouOwn+cmcLE3 | AtRandom$ True | Origin$ Graveyard | Hidden$ True | Mandatory$ True | RememberChanged$ True | SubAbility$ DBPlay
-SVar:DBPlay:DB$ Play | Defined$ Remembered | ValidSA$ Spell | WithoutManaCost$ True | Optional$ True | ReplaceGraveyard$ Exile | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:U
+OriginSet:G22ed5d6f3707b461
+ManaCost:U
+Types:Enchantment Aura
+K:Enchant:Creature.OppCtrl:creature an opponent controls
+SVar:AttachAILogic:Curse
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigTap
+SVar:TrigTap:DB$ Tap | Defined$ Enchanted | SubAbility$ DBRemoveCounter
+SVar:DBRemoveCounter:DB$ RemoveCounter | Defined$ Enchanted | CounterType$ All | CounterNum$ All
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | RemoveAllAbilities$ True | AddType$ Citizen | RemoveCreatureTypes$ True | SetPower$ 1 | SetToughness$ 1 | AddAbility$ Mana | SetName$ 7098694773261286262
+SVar:Mana:AB$ Mana | Cost$ T | Produced$ C | Amount$ 1
+SVar:NonStackingAttachEffect:True

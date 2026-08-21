@@ -1,6 +1,11 @@
 Id:22812
-ColorIdentity:G
-OriginSet:Gf78628ad511eefec
-ManaCost:2 G G
-Types:Instant
-A:SP$ PutCounter | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ 3 | TargetMin$ 1 | TargetMax$ 3 | DividedAsYouChoose$ 3
+ColorIdentity:W
+OriginSet:G66f2eb694ffd614a
+ManaCost:5 W
+Types:Creature Human Knight
+PT:4/4
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ChangeType$ Creature.YouOwn+Other | WithTotalPower$ Y | ChangeNum$ X | Hidden$ True | AnyNumber$ True | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Exile
+SVar:X:Count$ValidGraveyard Creature.YouOwn+Other
+SVar:Y:TriggeredCard$CardPower

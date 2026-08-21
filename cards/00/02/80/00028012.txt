@@ -1,10 +1,10 @@
 Id:28012
-ColorIdentity:U
-OriginSet:Gfd50577710a6ab09
-ManaCost:4 U U
-Types:Creature Spirit Advisor
-PT:4/4
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | CheckSVar$ X | SVarCompare$ GE4 | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigReturn
-SVar:X:Count$ValidGraveyard Permanent.YouOwn
-SVar:TrigReturn:DB$ ChangeZone | ValidTgts$ Permanent.nonLand+Other | TargetMin$ 0 | TargetMax$ 1 | Origin$ Battlefield | Destination$ Hand
+ColorIdentity:W
+OriginSet:G30e8a5e111cffb44
+ManaCost:1 W W
+Types:Enchantment Saga
+K:Chapter:4:DBExile,DBExile,DBExile,DBVote
+SVar:DBExile:DB$ ChangeZone | ValidTgts$ Creature.!token+OppCtrl | Origin$ Battlefield | Destination$ Exile | Duration$ UntilHostLeavesPlay
+SVar:DBVote:DB$ Vote | Defined$ Player | Choices$ DBInnocent,DBGuilty | VoteTiedAbility$ DBInnocent
+SVar:DBInnocent:DB$ Effect
+SVar:DBGuilty:DB$ ChangeZoneAll | ChangeType$ Card.ExiledWithSource | Origin$ Exile | Destination$ Library | LibraryPosition$ -1

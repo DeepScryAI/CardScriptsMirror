@@ -1,9 +1,10 @@
 Id:14595
-ColorIdentity:G
+ColorIdentity:
 OriginSet:G0a578e83854cf093
-ManaCost:1 G
-Types:Creature Human Warrior
-PT:2/2
-K:Deathtouch
-T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | IsPresent$ Creature.YouCtrl+powerGE4 | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | NumAtt$ +1 | NumDef$ +1 | Defined$ Self
+ManaCost:2
+Types:Artifact Equipment
+K:Equip:1
+T:Mode$ Attacks | ValidCard$ Card.AttachedBy | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Creature.ControlledBy TriggeredDefendingPlayer | NumDmg$ 1
+S:Mode$ Continuous | Affected$ Creature.AttachedBy | AddSVar$ AE
+SVar:AE:SVar:HasAttackEffect:TRUE

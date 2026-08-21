@@ -1,10 +1,9 @@
 Id:10846
 ColorIdentity:W
 OriginSet:G4398040c23c94f0e
-ManaCost:1 W
+ManaCost:W W
 Types:Creature Kor Soldier
-PT:2/3
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange
-SVar:TrigChange:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Hidden$ True | Mandatory$ True | ChangeType$ Permanent.YouCtrl | AILogic$ NeverBounceItself
-SVar:NeedsToPlay:Creature.YouCtrl+cmcLE2,Permanent.nonLand+YouCtrl+cmcLE1
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ EquipmentSelection | OptionalDecider$ You
+SVar:EquipmentSelection:DB$ Pump | ValidTgts$ Equipment.YouCtrl | SubAbility$ KorOutfitting
+SVar:KorOutfitting:DB$ Attach | Object$ ParentTarget | ValidTgts$ Creature.YouCtrl

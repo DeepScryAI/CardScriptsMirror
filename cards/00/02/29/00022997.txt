@@ -1,13 +1,9 @@
 Id:22997
-ColorIdentity:BR
+ColorIdentity:U
 OriginSet:Gf78628ad511eefec
-ManaCost:3 B R
-Types:Sorcery
-A:SP$ Pump | TargetMin$ 0 | TargetMax$ 2 | ValidTgts$ Creature.YouOwn | TgtZone$ Graveyard | RememberObjects$ Targeted | SubAbility$ DBChoosePlayer
-SVar:DBChoosePlayer:DB$ ChoosePlayer | Defined$ You | Choices$ Player.Opponent | SubAbility$ DBOppChoose
-SVar:DBOppChoose:DB$ ChooseCard | Choices$ Card.IsRemembered | ChoiceZone$ Graveyard | Defined$ ChosenPlayer | Mandatory$ True | ForgetChosen$ True | SubAbility$ DBChangeZone1
-SVar:DBChangeZone1:DB$ ChangeZone | Defined$ ChosenCard | Origin$ Graveyard | Destination$ Hand | SubAbility$ DBChangeZone2
-SVar:DBChangeZone2:DB$ ChangeZone | Defined$ Remembered | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True | SubAbility$ DBAnimate
-SVar:DBAnimate:DB$ Animate | Keywords$ Haste | Defined$ Remembered | Duration$ Permanent | AtEOT$ Sacrifice | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearChosenCard$ True | ClearChosenPlayer$ True
-K:Flashback:4 B R
+ManaCost:2 U
+Types:Creature Spirit Knight
+PT:2/2
+K:Flying
+S:Mode$ Continuous | Affected$ Spirit.Other+YouCtrl | AddPower$ 1 | AddToughness$ 1
+S:Mode$ ReduceCost | ValidCard$ Card.wasCastFromYourGraveyard | Type$ Spell | Activator$ You | Amount$ 1

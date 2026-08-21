@@ -1,8 +1,11 @@
 Id:31846
-ColorIdentity:
+ColorIdentity:U
 OriginSet:G7ab4f62d323b0ca7
-ManaCost:6
-Types:Artifact Creature Robot Spider
-PT:6/5
-S:Mode$ MinMaxBlocker | ValidCard$ Creature.Self | Min$ 3
-A:AB$ ChangeZone | Cost$ 8 | Origin$ Graveyard | Destination$ Battlefield | Tapped$ True | WithCountersType$ FINALITY | ActivationZone$ Graveyard
+ManaCost:1 U
+Types:Artifact Equipment
+K:Job select
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddType$ Wizard | AddTrigger$ TrigSpellCast & TrigDrawn
+SVar:TrigSpellCast:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | Execute$ TrigPutCounter | TriggerZones$ Battlefield
+SVar:TrigDrawn:Mode$ Drawn | ValidCard$ Card.YouCtrl | Number$ 3 | TriggerZones$ Battlefield | Execute$ TrigPutCounter | Secondary$ True
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+K:Equip:2:Flavor Diana

@@ -1,6 +1,11 @@
 Id:6639
-ColorIdentity:W
+ColorIdentity:
 OriginSet:G983da6aa108b8f13
-ManaCost:1 W
-Types:Instant
-A:SP$ Token | TokenAmount$ 2 | TokenScriptIds$ 1214250791 | TokenOwner$ You
+ManaCost:3
+Types:Artifact
+T:Mode$ Phase | Phase$ Upkeep | Execute$ TrigPutCounter | TriggerZones$ Battlefield
+SVar:TrigPutCounter:DB$ PutCounter | TargetingPlayer$ TriggeredPlayer | ValidTgts$ Land.ActivePlayerCtrl+nonIsland | CounterType$ FLOOD | CounterNum$ 1 | Placer$ TriggeredPlayer | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ Targeted | StaticAbilities$ FountainStatic | ForgetOnMoved$ Battlefield | ForgetCounter$ FLOOD | Duration$ Permanent
+SVar:FountainStatic:Mode$ Continuous | Affected$ Card.IsRemembered | AddType$ Island | RemoveLandTypes$ True
+T:Mode$ Phase | Phase$ End of Turn | IsPresent$ Land.nonIsland | PresentCompare$ EQ0 | TriggerZones$ Battlefield | Execute$ TrigRemoveAll
+SVar:TrigRemoveAll:DB$ RemoveCounterAll | ValidCards$ Land | CounterType$ FLOOD | AllCounters$ True

@@ -1,10 +1,17 @@
 Id:23514
 ColorIdentity:W
 OriginSet:G1a259dba25660062
-ManaCost:2 W
-Types:Artifact Vehicle
-PT:3/4
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Creature.YouOwn+cmcLE2,Vehicle.YouOwn+cmcLE2
-K:Crew:2
-SVar:HasAttackEffect:TRUE
+ManaCost:3 W
+Types:Enchantment Saga
+K:Chapter:3:DBPump,DBPump,DBTransform
+SVar:DBPump:DB$ Pump | ValidTgts$ Creature.YouCtrl | NumAtt$ +1 | NumDef$ +1 | KW$ Flying
+SVar:DBTransform:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | Transformed$ True | GainControl$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:white
+Types:Enchantment Creature Insect
+PT:2/4
+K:Flying

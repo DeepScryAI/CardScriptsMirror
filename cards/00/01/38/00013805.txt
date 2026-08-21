@@ -1,7 +1,15 @@
 Id:13805
-ColorIdentity:R
+ColorIdentity:U
 OriginSet:G97e9a20e5a5d5822
-ManaCost:2 R
-Types:Sorcery
-A:SP$ Destroy | ValidTgts$ Mountain | SubAbility$ DBDealDamage
-SVar:DBDealDamage:DB$ DealDamage | Defined$ TargetedController | NumDmg$ 3
+ManaCost:1 U
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+T:Mode$ Attacks | ValidCard$ Card.AttachedBy | Execute$ TrigPutCounter | TriggerZones$ Battlefield
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ TriggeredAttackerLKICopy | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBSac
+SVar:DBSac:DB$ Sacrifice | ConditionDefined$ TriggeredAttackerLKICopy | ConditionPresent$ Card.counters_GE3_P1P1
+T:Mode$ Sacrificed | ValidPlayer$ You | ValidCard$ Card.Self | Execute$ TrigDraw | TriggerZones$ Battlefield
+SVar:TrigDraw:DB$ Draw | NumCards$ 2
+S:Mode$ Continuous | Affected$ Creature.AttachedBy | AddSVar$ AE
+SVar:AE:SVar:HasAttackEffect:TRUE
+SVar:SacMe:4

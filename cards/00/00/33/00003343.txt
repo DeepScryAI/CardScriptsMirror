@@ -1,8 +1,9 @@
 Id:3343
-ColorIdentity:B
+ColorIdentity:G
 OriginSet:G24ae8187eacbba52
-ManaCost:4 B
-Types:Creature Phyrexian Zombie Dog
-PT:3/3
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +2
+ManaCost:1 G
+Types:Enchantment
+T:Mode$ LandPlayed | ValidCard$ Land.OppCtrl | IsPresent$ Card.Self+Enchantment | Execute$ TrigHiddenStagAnimateOppLand | TriggerZones$ Battlefield
+SVar:TrigHiddenStagAnimateOppLand:DB$ Animate | Defined$ Self | Types$ Creature,Elk,Beast | Power$ 3 | Toughness$ 2 | RemoveCardTypes$ True | RemoveCreatureTypes$ True | Duration$ Permanent
+T:Mode$ LandPlayed | ValidCard$ Land.YouCtrl | IsPresent$ Card.Self+Creature | Execute$ TrigHiddenStagAnimateYourLand | TriggerZones$ Battlefield
+SVar:TrigHiddenStagAnimateYourLand:DB$ Animate | Defined$ Self | Types$ Enchantment | RemoveCardTypes$ True | RemoveCreatureTypes$ True | Duration$ Permanent

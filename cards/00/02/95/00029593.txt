@@ -1,8 +1,13 @@
 Id:29593
-ColorIdentity:
+ColorIdentity:R
 OriginSet:Gac6359c222afbd4f
-ManaCost:1
-Types:Artifact
-T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ Player | TriggerZones$ Battlefield | Execute$ TrigCounter | ValidSA$ Spell.ManaSpent EQ0
-SVar:TrigCounter:DB$ Counter | Defined$ TriggeredSpellAbility
-A:AB$ Draw | Cost$ 1 T Sac<1/CARDNAME> | NumCards$ 1
+ManaCost:2 R
+Types:Sorcery
+A:SP$ Dig | Defined$ You | DigNum$ 3 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ STPlay | SubAbility$ DBDelayTrig | ForgetOnMoved$ Exile
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBDelayTrig:DB$ DelayedTrigger | Mode$ Phase | RememberObjects$ Remembered | PresentZone$ Exile | IsPresent$ Card.IsTriggerRemembered | Phase$ End Of Turn | Execute$ TrigChangeAll | SubAbility$ DBCleanup
+SVar:TrigChangeAll:DB$ ChangeZone | Defined$ DelayTriggerRememberedLKI | Origin$ Exile | Destination$ Graveyard | RememberChanged$ True | ForgetOtherRemembered$ True | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenAmount$ X | TokenScriptIds$ 3873110322 | TokenOwner$ You | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Amount

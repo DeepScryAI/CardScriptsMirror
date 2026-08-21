@@ -1,10 +1,13 @@
 Id:8453
-ColorIdentity:BR
+ColorIdentity:G
 OriginSet:Gf7b8c9355081f53b
-ManaCost:3 B
-Types:Creature Zombie
-PT:3/5
-K:Cumulative upkeep:1
-T:Mode$ PayCumulativeUpkeep | ValidCard$ Card.Self | Paid$ True | Execute$ TrigPump
+ManaCost:5 G
+Types:Creature Aurochs
+PT:4/4
+K:Trample
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange | OptionalDecider$ You
+SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Card.Aurochs | ShuffleNonMandatory$ True
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump
 SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +X
-SVar:X:Count$TriggeredPayingMana.B.R
+SVar:X:Count$Valid Aurochs.attacking+Other
+SVar:HasAttackEffect:TRUE

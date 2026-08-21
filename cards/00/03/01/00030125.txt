@@ -1,7 +1,12 @@
 Id:30125
-ColorIdentity:WRG
-OriginSet:Ge949f7cc91575fe7
-ManaCost:no cost
-Types:Land Omenpath
-K:Vanishing:4
-A:AB$ Mana | Cost$ T | Produced$ Combo R G W
+ColorIdentity:BR
+OriginSet:Gf09b85bbcc27770c
+ManaCost:1 B R
+Types:Legendary Creature Weasel Mercenary
+PT:3/3
+K:Menace
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDigUntil | TriggerZones$ Battlefield
+SVar:TrigDigUntil:DB$ DigUntil | Valid$ Card.nonLand | FoundDestination$ Exile | RevealedDestination$ Exile | RememberFound$ True | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | Defined$ Remembered | ValidSA$ Spell | PlayCost$ Discard<1/Card> | Optional$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:MustBeBlocked:True

@@ -1,8 +1,11 @@
 Id:5145
 ColorIdentity:WB
 OriginSet:Ga43915481c3b48d8
-ManaCost:1 W
-Types:Creature Cat Spirit
-PT:2/1
-K:Protection:Green
-A:AB$ Regenerate | Cost$ B
+ManaCost:1 W B
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+T:Mode$ DamageDealtOnce | ValidSource$ Card.AttachedBy | Execute$ TrigGain | TriggerZones$ Battlefield
+T:Mode$ DamageDoneOnce | ValidTarget$ Card.AttachedBy | Execute$ TrigGain | TriggerZones$ Battlefield
+SVar:TrigGain:DB$ GainLife | Defined$ You | LifeAmount$ X
+SVar:X:TriggerCount$DamageAmount

@@ -1,9 +1,11 @@
 Id:32701
-ColorIdentity:U
-OriginSet:G22ed5d6f3707b461
-ManaCost:U U
-Types:Sorcery
-S:Mode$ RaiseCost | ValidCard$ Card.Self | Activator$ You | Type$ Spell | Cost$ Waterbend<X> | EffectZone$ All
-A:SP$ Tap | TargetMin$ 0 | TargetMax$ X | ValidTgts$ Creature | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | Choices$ Creature.tapped+OppCtrl | CounterType$ STUN | CounterNum$ 3 | ChoiceAmount$ 3 | DividedAsYouChoose$ 3
-SVar:X:Count$xPaid
+ColorIdentity:BR
+OriginSet:G1f5998b5f01949b9
+ManaCost:2 B R
+Types:Legendary Creature Goblin Human Villain
+PT:3/3
+K:Flying
+T:Mode$ Discarded | ValidCard$ Card.nonLand+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Goblin.YouCtrl | CounterType$ P1P1 | CounterNum$ 1
+T:Mode$ Discarded | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigTreasure
+SVar:TrigTreasure:DB$ Token | TokenScriptIds$ 3851718391 | TokenTapped$ True

@@ -1,14 +1,11 @@
 Id:23303
 ColorIdentity:G
-OriginSet:G9f95a41d532c0550
-ManaCost:1 G
-Types:Enchantment Class
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigGainLife
-SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
-K:Class:2:2 G:AddStaticAbility$ SLandPlay
-SVar:SLandPlay:Mode$ Continuous | Affected$ You | AdjustLandPlays$ 1 | Secondary$ True
-K:Class:3:2 G:AddTrigger$ TriggerClassLevel
-SVar:TriggerClassLevel:Mode$ ClassLevelGained | ClassLevel$ 3 | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigAnimateLand | Secondary$ True
-SVar:TrigAnimateLand:DB$ Animate | ValidTgts$ Land.YouCtrl | Types$ Creature | Duration$ Permanent | Keywords$ Haste | staticAbilities$ StLandPT
-SVar:StLandPT:Mode$ Continuous | EffectZone$ All | CharacteristicDefining$ True | SetPower$ X | SetToughness$ X
-SVar:X:Count$Valid Land.YouCtrl
+OriginSet:G6e75ff4f143a3dc3
+ManaCost:4 G
+Types:Creature Insect Horror
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill
+SVar:TrigMill:DB$ Mill | Defined$ You | NumCards$ 3 | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ X
+SVar:X:Count$ValidGraveyard Creature.YouCtrl
+SVar:NeedsToPlayVar:X GE3

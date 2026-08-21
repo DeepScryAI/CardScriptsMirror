@@ -1,9 +1,9 @@
 Id:21734
-ColorIdentity:WU
+ColorIdentity:U
 OriginSet:G18bf722b221724f8
-ManaCost:1 W U
-Types:Legendary Creature Bird Spirit
-PT:2/2
-K:Flying
-T:Mode$ SpellCast | ValidCard$ Card.!wasCastFromYourHand | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+ManaCost:4 U
+Types:Enchantment
+K:ETBReplacement:Other:ChooseCT
+SVar:ChooseCT:DB$ ChooseType | Defined$ You | Type$ Creature | AILogic$ MostProminentInComputerDeckNonToken
+T:Mode$ SpellCast | ValidCard$ Card.ChosenType | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigCopy
+SVar:TrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | AILogic$ Always | MayChooseTarget$ True

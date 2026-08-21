@@ -1,11 +1,9 @@
 Id:7806
-ColorIdentity:U
+ColorIdentity:R
 OriginSet:G9231f4a3f94f4472
-ManaCost:4 U
-Types:Creature Sphinx
-PT:2/5
-K:Flying
-T:Mode$ DamageDone | ValidTarget$ Card.Self | Execute$ TrigMill
-SVar:TrigMill:DB$ Mill | Defined$ TriggeredSourceController | NumCards$ X
-SVar:X:TriggerCount$DamageAmount
-SVar:HasCombatEffect:TRUE
+ManaCost:X R
+Types:Instant
+A:SP$ Pump | ValidTgts$ Creature.attacking | NumAtt$ +X | SubAbility$ DelTrigSlowtrip
+SVar:DelTrigSlowtrip:DB$ DelayedTrigger | NextTurn$ True | Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Player | Execute$ DrawSlowtrip
+SVar:DrawSlowtrip:DB$ Draw | Defined$ You
+SVar:X:Count$xPaid

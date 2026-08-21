@@ -1,11 +1,14 @@
 Id:24834
-ColorIdentity:WB
-OriginSet:G3a8b4b9d4649b357
-ManaCost:W B
-Types:Legendary Creature Phyrexian Kor Cleric
-PT:2/2
-K:Deathtouch
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigGainLife
-SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigDrain
-SVar:TrigDrain:DB$ LoseLife | Defined$ Opponent | LifeAmount$ 1
+ColorIdentity:RG
+OriginSet:G3c9db52fa0bcee92
+ManaCost:2 R G
+Types:Legendary Creature Human Warrior
+PT:3/4
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigStangg
+SVar:TrigStangg:DB$ Token | TokenScriptIds$ 4209493094 | TokenOwner$ You | ImprintTokens$ True | RememberTokens$ True | TokenAttacking$ True | TokenTapped$ True | SubAbility$ CreateCopy
+SVar:CreateCopy:DB$ CopyPermanent | Defined$ Valid Equipment.Attached,Aura.Attached | AttachedTo$ Imprinted | RememberTokens$ True | SubAbility$ ExileTokens
+SVar:ExileTokens:DB$ Pump | Defined$ Remembered | AtEOT$ Sacrifice | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearImprinted$ True | ClearRemembered$ True
+SVar:HasAttackEffect:TRUE
+SVar:EnchantMe:Multiple
+SVar:EquipMe:Multiple

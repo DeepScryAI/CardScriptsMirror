@@ -1,0 +1,13 @@
+Id:35177
+ColorIdentity:B
+OriginSet:G21d8f666c5c6b81d
+ManaCost:1 B B
+Types:Legendary Creature Human Wizard
+PT:3/3
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigDamage | TriggerZones$ Command,Battlefield
+SVar:TrigDamage:DB$ DealDamage | Defined$ You | NumDmg$ 1
+T:Mode$ DamageDone | ValidTarget$ You | ValidSource$ Card.YouCtrl,Emblem.YouCtrl | DamageAmount$ EQ1 | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+T:Mode$ LifeLost | ValidPlayer$ You | TriggerZones$ Battlefield | ValidCause$ SpellAbility.YouCtrl | LifeAmount$ EQ1 | Execute$ TrigPutCounter | Secondary$ True
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ2
+SVar:X:Count$ResolvedThisTurn

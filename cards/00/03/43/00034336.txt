@@ -1,12 +1,11 @@
 Id:34336
-ColorIdentity:B
+ColorIdentity:W
 OriginSet:Gcb93bbfc68a40806
-ManaCost:1 B
-Types:Enchantment Plan
-A:AB$ Mill | Cost$ tapXType<1/Villain> | NumCards$ 1 | SorcerySpeed$ True | SubAbility$ DBCounter
-SVar:DBCounter:DB$ PutCounter | Defined$ Self | CounterType$ PLAN | CounterNum$ 1
-T:Mode$ CounterAdded | ValidCard$ Card.Self | TriggerZones$ Battlefield | CounterType$ PLAN | CounterAmount$ EQ4 | Execute$ TrigSac
-SVar:TrigSac:DB$ Sacrifice | Defined$ Self | RememberSacrificed$ True | SubAbility$ DBImmediateTrigger
-SVar:DBImmediateTrigger:DB$ ImmediateTrigger | ConditionDefined$ Remembered | ConditionPresent$ Card | Execute$ TrigReturn | SubAbility$ DBCleanup
-SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouOwn
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:3 W
+Types:Legendary Creature Human Doctor
+PT:2/3
+K:Vigilance
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Creature.YouOwn+cmcLE3 | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ0 | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Defined$ Targeted | Origin$ Graveyard | Destination$ Battlefield | ConditionCheckSVar$ X | ConditionSVarCompare$ GE1
+SVar:X:Count$LifeYouGainedThisTurn

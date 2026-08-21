@@ -1,11 +1,9 @@
 Id:14870
 ColorIdentity:R
 OriginSet:G25ee1eefb1a14f05
-ManaCost:1 R R
-Types:Creature Phoenix
-PT:2/2
-K:Flying
-K:Haste
-S:Mode$ MustAttack | ValidCreature$ Card.Self
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Graveyard | IsPresent$ Creature.YouCtrl+powerGE4 | Execute$ TrigReturn
-SVar:TrigReturn:AB$ ChangeZone | Cost$ R | Defined$ Self | Origin$ Graveyard | Destination$ Battlefield
+ManaCost:4 R
+Types:Creature Human Warrior
+PT:3/3
+K:Dash:2 R R
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigCopy | TriggerZones$ Battlefield
+SVar:TrigCopy:DB$ CopyPermanent | ValidTgts$ Creature.attacking+Other | TokenTapped$ True | TokenAttacking$ True | AtEOT$ ExileCombat

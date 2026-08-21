@@ -1,17 +1,9 @@
 Id:24173
-ColorIdentity:R
-OriginSet:G51fcb7ec0cb81c29
-ManaCost:3 R R
-Types:Creature Demon
-PT:5/5
-K:Flying
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigChoose
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigChoose | Secondary$ True
-SVar:TrigChoose:DB$ Charm | MinCharmNum$ 1 | CharmNum$ MaxUniqueOpponents | Choices$ TrigDrawDiscard,TrigSacrifice,TrigDmg
-SVar:TrigDrawDiscard:DB$ Draw | ValidTgts$ Opponent | TargetUnique$ True | NumCards$ 3 | SubAbility$ Discard3
-SVar:Discard3:DB$ Discard | Defined$ ParentTarget | Mode$ Random | NumCards$ 3
-SVar:TrigSacrifice:DB$ Sacrifice | ValidTgts$ Opponent | TargetUnique$ True | SacValid$ Artifact.!token
-SVar:TrigDmg:DB$ DealDamage | ValidTgts$ Opponent | TargetUnique$ True | NumDmg$ X
-SVar:X:TargetedPlayer$CardsInHand
-SVar:MaxUniqueOpponents:PlayerCountOpponents$Amount
-SVar:NeedsToPlay:Artifact.OppCtrl
+ColorIdentity:BR
+OriginSet:G9afc9838c5e994df
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ Combo B R
+A:AB$ Draw | Cost$ 2 B R T Sac<1/CARDNAME>

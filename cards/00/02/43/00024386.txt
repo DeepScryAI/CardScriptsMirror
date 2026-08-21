@@ -1,8 +1,13 @@
 Id:24386
 ColorIdentity:
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:2
-Types:Artifact
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigToken | Secondary$ True
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 3851718391
+ManaCost:4
+Types:Artifact Creature Dog
+PT:4/4
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ DBTrigRollDice
+SVar:DBTrigRollDice:DB$ RollDice | Sides$ 20 | Amount$ NbAttackedPlayers | UseHighestRoll$ True | ResultSubAbilities$ 1-9:DBDamageToController,10-19:DBDamageToDefending,20:DBDamageToOpponents
+SVar:NbAttackedPlayers:PlayerCountOpponents$HasPropertyDefending
+SVar:DBDamageToController:DB$ DealDamage | Defined$ You | NumDmg$ X
+SVar:DBDamageToDefending:DB$ DealDamage | Defined$ Player.attackedBySourceThisCombat | NumDmg$ X
+SVar:DBDamageToOpponents:DB$ DealDamage | Defined$ Player.Opponent | NumDmg$ X
+SVar:X:Count$CardPower

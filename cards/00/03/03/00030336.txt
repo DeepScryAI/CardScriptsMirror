@@ -1,7 +1,11 @@
 Id:30336
 ColorIdentity:BG
-OriginSet:G8b2ed00ac2a0ff47
+OriginSet:G9ff9681e1fe8713a
 ManaCost:2 B G
-Types:Instant
-S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ 2 | EffectZone$ All | Condition$ Delirium
-A:SP$ Destroy | ValidTgts$ Permanent.nonLand
+Types:Legendary Creature Squirrel Soldier
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigImmediateTrig
+SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ Forage | Execute$ TrigConjure
+SVar:TrigConjure:DB$ MakeCard | CatalogId$ 22190 | Conjure$ True | Zone$ Battlefield
+T:Mode$ DamageDoneOnce | ValidSource$ Squirrel.YouCtrl | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigPutCounterAll | TriggerZones$ Battlefield
+SVar:TrigPutCounterAll:AB$ PutCounterAll | Cost$ Sac<1/Permanent.token/token> | ValidCards$ Permanent.YouCtrl+catalogId22190 | CounterType$ ACORN | CounterNum$ 1

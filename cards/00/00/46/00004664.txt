@@ -1,7 +1,10 @@
 Id:4664
-ColorIdentity:RG
+ColorIdentity:W
 OriginSet:Gfb91362c2efb868e
-ManaCost:1 R
-Types:Creature Human Soldier Ranger
-PT:2/1
-A:AB$ ChangeZone | Cost$ G T | Origin$ Hand | Destination$ Battlefield | ChangeType$ Land.Basic | Optional$ You | AILogic$ AtOppEOT
+ManaCost:3 W
+Types:Enchantment
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ Player.Opponent | Execute$ TrigTwoPile | TriggerZones$ Battlefield
+SVar:TrigTwoPile:DB$ TwoPiles | Defined$ TriggeredPlayer | Chooser$ TriggeredPlayer | ValidCards$ Creature | Zone$ Battlefield | Separator$ You | ChosenPile$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ Remembered | StaticAbilities$ STCantAttack
+SVar:STCantAttack:Mode$ CantAttack | ValidCard$ Creature.!IsRemembered
+SVar:NonStackingAttachEffect:True

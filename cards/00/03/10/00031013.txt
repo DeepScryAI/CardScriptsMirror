@@ -1,12 +1,10 @@
 Id:31013
-ColorIdentity:W
-OriginSet:G4524bbf7a3db9dc0
-ManaCost:3 W
-Types:Creature Zombie Cat Warrior
-PT:2/5
-K:Vigilance
-K:StartYourEngines
-S:Mode$ Continuous | Affected$ Card.Self | Condition$ MaxSpeed | AddTrigger$ PhaseTrig
-SVar:PhaseTrig:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump | Secondary$ True
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.YouCtrl,Vehicle.YouCtrl | KW$ DoubleStrike
-SVar:PlayMain1:TRUE
+ColorIdentity:G
+OriginSet:G2c8286a6f234d4b9
+ManaCost:4 G
+Types:Creature Dinosaur Beast
+PT:5/5
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigImmediateTrig
+SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ 2 G | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Targeted | KW$ Trample

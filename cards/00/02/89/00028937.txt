@@ -1,8 +1,12 @@
 Id:28937
-ColorIdentity:BG
+ColorIdentity:WU
 OriginSet:Gaf7c94f364052cdd
-ManaCost:2 B G
-Types:Creature Lizard Mutant
-PT:4/2
-K:Menace
-S:Mode$ Continuous | Affected$ Creature.YouOwn | AffectedZone$ Graveyard | AddKeyword$ Scavenge:CardManaCost
+ManaCost:2 W U
+Types:Legendary Creature Human Doctor
+PT:2/3
+A:AB$ Draw | Cost$ T | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Mode$ TgtChoose | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | CounterType$ QUEST
+S:Mode$ Continuous | Affected$ Artifact.nonLand+YouOwn+cmcLEX,Human.nonLand+YouOwn+cmcLEX | Condition$ PlayerTurn | MayPlay$ True | MayPlayLimit$ 1 | EffectZone$ Battlefield | AffectedZone$ Graveyard
+SVar:X:Count$CardCounters.QUEST
+SVar:AICounterOverrideQUEST:Positive

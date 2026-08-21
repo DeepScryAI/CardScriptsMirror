@@ -1,8 +1,13 @@
 Id:29438
-ColorIdentity:UBG
-OriginSet:Gac6359c222afbd4f
-ManaCost:no cost
-Types:Land
-A:AB$ Mana | Cost$ T | Produced$ C
-A:AB$ ChangeZone | Cost$ T Sac<1/CARDNAME> | Origin$ Library | Destination$ Battlefield | Tapped$ True | ChangeType$ Swamp.Basic,Forest.Basic,Island.Basic
-K:Cycling:B G U
+ColorIdentity:R
+OriginSet:G0c9f9aa4a8bf0371
+ManaCost:1 R
+Types:Creature Ogre Mercenary
+PT:2/1
+K:Menace
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigRandom | TriggerZones$ Battlefield
+SVar:TrigRandom:DB$ ChooseCard | Choices$ Card.nonLand+OwnedBy TriggeredTarget | ChoiceZone$ Hand | AtRandom$ True | Amount$ 1 | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ ChosenCard | Triggers$ CastSpellLoseLife | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:CastSpellLoseLife:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigDrain
+SVar:TrigDrain:DB$ LoseLife | LifeAmount$ 2
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True

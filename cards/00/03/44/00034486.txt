@@ -1,10 +1,12 @@
 Id:34486
-ColorIdentity:R
-OriginSet:G11c0621ce29fa608
-ManaCost:1 R
-Types:Creature Human Warrior Hero
-PT:2/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChoice
-SVar:TrigChoice:DB$ GenericChoice | Choices$ DBSacToDraw,DBDiscardToDraw
-SVar:DBSacToDraw:DB$ Draw | UnlessCost$ Sac<1/Artifact> | UnlessPayer$ You | UnlessSwitched$ True
-SVar:DBDiscardToDraw:DB$ Draw | UnlessCost$ Discard<1/Card> | UnlessPayer$ You | UnlessSwitched$ True
+ColorIdentity:
+OriginSet:Gcb93bbfc68a40806
+ManaCost:2
+Types:Artifact
+A:AB$ ChangeZone | Cost$ 2 T | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card.OppCtrl | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | ConditionDefined$ Targeted | ConditionPresent$ Creature | ConditionCompare$ EQ1
+SVar:X:Count$ValidExile Creature.ExiledWithSource
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | CheckSVar$ X | SVarCompare$ GE4 | Execute$ TrigFlip | TriggerZones$ Battlefield
+SVar:TrigFlip:DB$ FlipCoin | LoseSubAbility$ DBSacrifice
+SVar:DBSacrifice:DB$ Sacrifice | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Origin$ Exile | Destination$ Hand | AtRandom$ True | Hidden$ True | ChangeType$ Card.ExiledWithSource | ChangeNum$ 1

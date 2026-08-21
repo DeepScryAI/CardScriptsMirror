@@ -1,18 +1,10 @@
 Id:21858
-ColorIdentity:WBR
-OriginSet:G6fa60d857e930f32
-ManaCost:1 W B B
-Types:Legendary Creature Human Warlock
-PT:2/4
-K:DoubleStrike
-T:Mode$ SpellCastOrCopy | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Creature.YouOwn+nonLegendary
-AlternateMode:Modal
-ALTERNATE
-ManaCost:6 B R
+ColorIdentity:G
+OriginSet:Gabb23d0d25cdc46d
+ManaCost:3 G
 Types:Sorcery
-S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ Y | EffectZone$ All | Relative$ True
-SVar:X:Count$xPaid
-SVar:Y:SVar$X/Times.2
-A:SP$ Sacrifice | Cost$ 6 B R Sac<X/Creature/any number of creatures> | AILogic$ SacToReduceCost | SacValid$ Creature | Defined$ Player.Opponent | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenScriptIds$ 1210755336
+K:Demonstrate
+A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Card.YouOwn | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ X | SubAbility$ DBChange
+SVar:DBChange:DB$ ChangeZone | Origin$ Stack | Destination$ Exile
+SVar:X:Targeted$CardManaCost

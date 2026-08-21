@@ -1,11 +1,8 @@
 Id:21847
-ColorIdentity:W
-OriginSet:G6fa60d857e930f32
-ManaCost:2 W W W W
+ColorIdentity:B
+OriginSet:Gabb23d0d25cdc46d
+ManaCost:3 B
 Types:Sorcery
-S:Mode$ AlternativeCost | ValidSA$ Spell.Self | EffectZone$ All | Cost$ 2 W W
-A:SP$ Branch | BranchConditionSVar$ AltCostPaid | BranchConditionSVarCompare$ GE1 | TrueSubAbility$ OppChooses | FalseSubAbility$ DBDestroyAll
-SVar:OppChooses:DB$ ChoosePlayer | Defined$ You | Choices$ Player.Opponent | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | ChangeType$ Permanent.nonLand+ChosenCtrl | Chooser$ ChosenPlayer | DefinedPlayer$ ChosenPlayer | AILogic$ Always | ChangeNum$ 2 | Hidden$ True | Origin$ Battlefield | Destination$ Hand | SubAbility$ DBDestroyAll
-SVar:DBDestroyAll:DB$ DestroyAll | ValidCards$ Permanent.nonLand
-SVar:AltCostPaid:Count$AltCost.1.0
+A:SP$ GainLife | LifeAmount$ 2 | SubAbility$ DBLifeCurse
+SVar:DBLifeCurse:DB$ PumpAll | ValidCards$ Creature | NumAtt$ -X | NumDef$ -X | IsCurse$ True
+SVar:X:Count$LifeYouGainedThisTurn

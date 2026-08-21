@@ -1,10 +1,13 @@
 Id:27130
-ColorIdentity:W
+ColorIdentity:WB
 OriginSet:G6ce0035cfb774934
-ManaCost:3 W W
-Types:Enchantment Saga
-K:Chapter:3:DBPump,DBReturn,DBPumpLifeLink
-SVar:DBPump:DB$ Pump | ValidTgts$ Creature.YouCtrl | KW$ Indestructible | Duration$ AsLongAsControl
-SVar:DBReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouOwn
-SVar:DBPumpLifeLink:DB$ Pump | ValidTgts$ Creature.YouCtrl | TargetMin$ 0 | TargetMax$ 2 | KW$ Lifelink
-SVar:PlayMain1:TRUE
+ManaCost:W
+Types:Legendary Creature Halfling Citizen
+PT:1/2
+A:AB$ Animate | Cost$ WB WB | ConditionPresent$ Card.Self+Citizen | Types$ Halfling,Scout | RemoveCreatureTypes$ True | Duration$ Permanent | Power$ 2 | Toughness$ 3 | Keywords$ Lifelink
+A:AB$ Animate | Cost$ B B B | ConditionPresent$ Card.Self+Scout | Types$ Halfling,Rogue | RemoveCreatureTypes$ True | Duration$ Permanent | Triggers$ TrigDamageDone
+SVar:TrigDamageDone:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigBranch
+SVar:TrigBranch:DB$ Branch | BranchConditionSVar$ NumRingTempted | BranchConditionSVarCompare$ GE4 | TrueSubAbility$ TrigTheyLose | FalseSubAbility$ TrigTempt
+SVar:TrigTheyLose:DB$ LosesGame | Defined$ TriggeredTarget
+SVar:TrigTempt:DB$ RingTemptsYou
+SVar:NumRingTempted:PlayerCountPropertyYou$RingTemptedYou

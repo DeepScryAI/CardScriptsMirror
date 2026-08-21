@@ -1,11 +1,9 @@
 Id:16537
-ColorIdentity:
+ColorIdentity:B
 OriginSet:G4bddbf7cb4f2475e
-ManaCost:11
-Types:Artifact Creature Construct
-PT:10/10
-S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ X | EffectZone$ All
-A:AB$ ChangeZone | Cost$ Sac<2/Artifact> | Origin$ Graveyard | Destination$ Hand | ActivationZone$ Graveyard
-SVar:DiscardMe:1
-SVar:X:Count$Valid Artifact.nonCreature+YouCtrl$CardManaCost
-SVar:AIPreference:SacCost$Artifact.token,Artifact.cmcEQ1,Artifact.cmcEQ2
+ManaCost:2
+Types:Artifact
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1 | SubAbility$ DBLoseLife
+A:AB$ Draw | Cost$ 2 B Sac<1/CARDNAME> | NumCards$ 1 | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 1

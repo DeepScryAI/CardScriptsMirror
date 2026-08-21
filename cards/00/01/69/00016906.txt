@@ -1,9 +1,13 @@
 Id:16906
-ColorIdentity:
+ColorIdentity:B
 OriginSet:Gbcdce58dfbbf1bad
-ManaCost:3
-Types:Legendary Artifact
-S:Mode$ ReduceCost | ValidCard$ Creature.Black | Type$ Spell | Activator$ You | Amount$ 1
-T:Mode$ SpellCast | ValidCard$ Creature | ValidActivatingPlayer$ You | Execute$ TrigDrain | TriggerZones$ Battlefield
-SVar:TrigDrain:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 1 | SubAbility$ DBGainLife
+ManaCost:2 B
+Types:Legendary Creature God
+PT:4/6
+K:Menace
+K:Indestructible
+S:Mode$ CantAttack,CantBlock | ValidCard$ Card.Self | CheckSVar$ X | SVarCompare$ EQ0
+A:AB$ Scry | Cost$ 1 B Sac<1/Creature.Other/another creature> | ScryNum$ 1 | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 1 | SubAbility$ DBGainLife
 SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
+SVar:X:Count$ThisTurnEntered_Graveyard_from_Battlefield_Creature.YouCtrl

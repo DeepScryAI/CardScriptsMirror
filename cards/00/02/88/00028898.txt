@@ -1,11 +1,15 @@
 Id:28898
-ColorIdentity:UR
-OriginSet:Gaf7c94f364052cdd
-ManaCost:3 U R
-Types:Legendary Creature Human Scientist
-PT:3/4
-T:Mode$ AttackersDeclared | ValidAttackers$ Creature.YouCtrl | OptionalDecider$ You | Execute$ TrigCopy | TriggerZones$ Battlefield
-SVar:TrigCopy:DB$ CopyPermanent | ValidTgts$ Creature.attacking+Other+Legendary+YouCtrl | NonLegendary$ True | AddTypes$ Artifact & Creature & Synth | TokenTapped$ True | TokenAttacking$ True
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZoneAll | Origin$ Battlefield | Destination$ Exile | ChangeType$ Synth.YouCtrl+token
-SVar:HasAttackEffect:TRUE
+ColorIdentity:WUBRG
+OriginSet:G8a59924df6623252
+ManaCost:1 R W
+Types:Legendary Creature Pegasus
+PT:2/2
+K:Flying
+K:Haste
+T:Mode$ Attacks | ValidCard$ Creature.withFlying+YouCtrl,Creature.withHaste+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigGetCooler
+SVar:TrigGetCooler:DB$ Effect | Name$ 3223995506075783677 | StaticAbilities$ STCoolness | Duration$ Permanent
+SVar:STCoolness:Mode$ Continuous | Affected$ You
+A:AB$ Mana | Cost$ T | ConditionCheckSVar$ RDCoolness | ConditionSVarCompare$ GE5 | Produced$ W U B R G | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | ConditionCheckSVar$ RDCoolness | ConditionSVarCompare$ GE5 | SubAbility$ ResetCoolness
+SVar:ResetCoolness:DB$ ChangeZoneAll | ConditionCheckSVar$ RDCoolness | ConditionSVarCompare$ GE5 | ChangeType$ Effect.YouCtrl+named3223995506075783677 | Origin$ Command | Destination$ Exile
+SVar:RDCoolness:Count$ValidCommand Effect.YouCtrl+named3223995506075783677

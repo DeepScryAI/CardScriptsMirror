@@ -1,13 +1,10 @@
 Id:24302
-ColorIdentity:B
+ColorIdentity:R
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:5 B B
-Types:Creature Frog Demon
-PT:6/6
-T:Mode$ AttackerBlockedOnce | ValidCard$ Creature.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ PumpAll | NumAtt$ -1 | NumDef$ -1 | ValidCards$ Creature.blocking
-AlternateMode:Adventure
-ALTERNATE
-ManaCost:B
-Types:Instant Adventure
-A:SP$ PumpAll | NumAtt$ -1 | NumDef$ -1 | ValidCards$ Creature.blockedThisTurn
+ManaCost:2 R
+Types:Enchantment
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | CounterType$ DESCENT | CounterNum$ 2 | SubAbility$ DBTreasure
+SVar:DBTreasure:DB$ Token | TokenOwner$ Player | TokenAmount$ X | TokenScriptIds$ 3851718391 | SubAbility$ DBDealDamage
+SVar:DBDealDamage:DB$ DealDamage | Defined$ Player | NumDmg$ X
+SVar:X:Count$CardCounters.DESCENT

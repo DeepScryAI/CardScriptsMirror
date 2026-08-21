@@ -1,11 +1,10 @@
 Id:25225
-ColorIdentity:G
+ColorIdentity:U
 OriginSet:Gf591a76e7a37cf73
-ManaCost:X G
-Types:Creature Tyranid
-PT:0/0
-K:Ravenous
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 3260724308 | TokenAmount$ Y
-SVar:X:Count$xPaid
-SVar:Y:TriggeredCard$CardPower
+ManaCost:3 U
+Types:Creature Tyranid Human
+PT:3/3
+T:Mode$ Attacks | ValidCard$ Creature | Attacked$ You | TriggerZones$ Battlefield | Execute$ TrigDebuff
+SVar:TrigDebuff:DB$ Pump | Defined$ TriggeredAttackerLKICopy | NumAtt$ -1
+T:Mode$ Attacks | ValidCard$ Creature | Attacked$ Player.Opponent | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ TriggeredAttackerLKICopy | NumDef$ +1

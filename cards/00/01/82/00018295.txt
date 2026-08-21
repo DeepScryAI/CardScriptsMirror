@@ -1,16 +1,9 @@
 Id:18295
 ColorIdentity:R
 OriginSet:G7d4bd61c81d44275
-ManaCost:4 R
-Types:Sorcery
-A:SP$ AssignGroup | Defined$ Player | Choices$ FriendRepeat,FoeRepeat | AILogic$ FriendOrFoe
-SVar:FriendRepeat:DB$ RepeatEach | RepeatPlayers$ Remembered | ClearRememberedBeforeLoop$ True | RepeatSubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | Defined$ Player.IsRemembered | Mode$ Hand | RememberDiscarded$ True | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | NumCards$ X | Defined$ Player.IsRemembered | SubAbility$ DBCleanup
-SVar:FoeRepeat:DB$ RepeatEach | RepeatPlayers$ Remembered | ClearRememberedBeforeLoop$ True | RepeatSubAbility$ DBDmg | DamageMap$ True
-SVar:DBDmg:DB$ DealDamage | Defined$ Player.IsRemembered | NumDmg$ Y
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Remembered$Amount/Plus.1
-SVar:Y:Count$ValidHand Card.RememberedPlayerCtrl
-SVar:NeedsToPlayVar:Z GE4
-SVar:Z:Count$ValidHand Card.OppOwn
+ManaCost:2 R
+Types:Creature Azra Warrior
+PT:3/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExploration
+SVar:TrigExploration:DB$ RepeatEach | RepeatPlayers$ Player.YourTeam | RepeatSubAbility$ DBDiscardToDraw
+SVar:DBDiscardToDraw:DB$ Draw | Defined$ Player.IsRemembered | UnlessCost$ Discard<1/Card> | UnlessPayer$ Player.IsRemembered | UnlessSwitched$ True

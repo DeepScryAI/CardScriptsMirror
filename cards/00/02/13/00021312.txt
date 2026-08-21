@@ -1,11 +1,14 @@
 Id:21312
-ColorIdentity:U
-OriginSet:G51d431785c8b33e5
-ManaCost:1 U U
-Types:Enchantment
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMonarch
-SVar:TrigMonarch:DB$ BecomeMonarch
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigMill
-SVar:TrigMill:DB$ Mill | ValidTgts$ Player | TargetMin$ 0 | TargetMax$ MaxTgt | NumCards$ X
-SVar:X:Count$Monarch.10.2
-SVar:MaxTgt:PlayerCountPlayers$Amount
+ColorIdentity:R
+OriginSet:G72c9c624ceb92bff
+ManaCost:R
+Types:Instant
+A:SP$ DealDamage | NumDmg$ 1 | ValidTgts$ Any | RememberDamaged$ True | ReplaceDyingDefined$ Remembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+AlternateMode:Modal
+ALTERNATE
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ R

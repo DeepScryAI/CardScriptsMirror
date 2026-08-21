@@ -1,24 +1,10 @@
 Id:29453
-ColorIdentity:BG
-OriginSet:Gac6359c222afbd4f
-ManaCost:G
-Types:Legendary Creature Insect
-PT:1/2
-K:Deathtouch
-T:Mode$ ChangesZone | Origin$ Graveyard | Destination$ Battlefield | ValidCard$ Card.Self,Creature.YouCtrl | Execute$ TrigTransform | TriggerZones$ Battlefield
-T:Mode$ ChangesZone | Destination$ Battlefield | ValidCard$ Card.Self+wasCastFromYourGraveyardByYou,Creature.YouCtrl+wasCastFromYourGraveyardByYou | Execute$ TrigTransform | TriggerZones$ Battlefield | Secondary$ True
-SVar:TrigTransform:AB$ ChangeZone | Cost$ G | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn
-SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | Transformed$ True | ForgetOtherRemembered$ True | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:black,green
-Types:Legendary Planeswalker Grist
-Loyalty:3
-A:AB$ Token | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | TokenScriptIds$ 2380780906 | TokenOwner$ You | ImprintTokens$ True | SubAbility$ DBMill
-SVar:DBMill:DB$ Mill | Defined$ You | NumCards$ 2 | RememberMilled$ True | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | Defined$ Imprinted | CounterType$ Deathtouch | CounterNum$ 1 | ConditionDefined$ Remembered | ConditionPresent$ Card.Black | ConditionCompare$ EQ1 | SubAbility$ DBCleanup
-A:AB$ Destroy | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | ValidTgts$ Artifact,Enchantment
-A:AB$ CopyPermanent | Cost$ SubCounter<6/LOYALTY> | Planeswalker$ True | Ultimate$ True | Defined$ ValidGraveyard Creature.YouOwn | SetPower$ 1 | SetToughness$ 1 | SetColor$ Black,Green | SetCreatureTypes$ Insect | AILogic$ DuplicatePerms
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True
+ColorIdentity:G
+OriginSet:G2ce881cc55bb9f18
+ManaCost:2 G
+Types:Creature Eldrazi Drone
+PT:2/3
+K:Devoid
+K:Myriad
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 3873110322 | TokenOwner$ You

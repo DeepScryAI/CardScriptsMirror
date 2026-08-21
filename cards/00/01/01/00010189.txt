@@ -1,12 +1,9 @@
 Id:10189
-ColorIdentity:
+ColorIdentity:BRG
 OriginSet:G8f5d5a0744ac5b98
-ManaCost:5
-Types:Artifact
-R:Event$ GameLoss | ActiveZones$ Battlefield | ValidPlayer$ You | ReplaceWith$ ShuffleDrawSetLife
-SVar:ShuffleDrawSetLife:DB$ ChangeZoneAll | ChangeType$ Card.YouOwn | Origin$ Battlefield | Destination$ Library | Shuffle$ True | SubAbility$ Shuffle2
-SVar:Shuffle2:DB$ ChangeZoneAll | ChangeType$ Card.YouOwn | Origin$ Hand | Destination$ Library | Shuffle$ True | SubAbility$ Shuffle3
-SVar:Shuffle3:DB$ ChangeZoneAll | ChangeType$ Card.YouOwn | Origin$ Graveyard | Destination$ Library | Shuffle$ True | SubAbility$ Draw
-SVar:Draw:DB$ Draw | Defined$ You | NumCards$ 7 | SubAbility$ SetLife
-SVar:SetLife:DB$ SetLife | Defined$ You | LifeAmount$ 20
-SVar:NonStackingEffect:True
+ManaCost:2 B R G
+Types:Legendary Creature Human Warrior
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.Other | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ X
+SVar:X:TriggeredCard$CardPower

@@ -1,8 +1,11 @@
 Id:13303
-ColorIdentity:U
+ColorIdentity:R
 OriginSet:Gfdc478e04211a499
-ManaCost:4 U
-Types:Creature Illusion
-PT:5/5
-T:Mode$ DamageDealtOnce | CombatDamage$ True | ValidSource$ Card.Self | Execute$ TrigBounce
-SVar:TrigBounce:DB$ ChangeZone | Defined$ Self | Origin$ Battlefield | Destination$ Hand
+ManaCost:R
+Types:Creature Goblin Soldier
+PT:1/1
+K:Haste
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPump | IsPresent$ Creature.attacking+Other | NoResolvingCheck$ True | PresentCompare$ GE2
+SVar:TrigPump:DB$ PumpAll | ValidCards$ Creature.YouCtrl | KW$ FirstStrike & Trample | SubAbility$ TrigEffect
+SVar:TrigEffect:DB$ Effect | StaticAbilities$ KWPump
+SVar:KWPump:Mode$ CantBlockBy | ValidAttacker$ Creature.YouCtrl | ValidBlocker$ Creature.token

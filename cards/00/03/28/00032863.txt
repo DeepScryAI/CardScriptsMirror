@@ -1,11 +1,19 @@
 Id:32863
-ColorIdentity:R
-OriginSet:G22ed5d6f3707b461
-ManaCost:3 R
-Types:Legendary Creature Human Noble
-PT:4/3
-K:Firebending:3
-A:AB$ Dig | Cost$ 3 | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | Defined$ You | RememberChanged$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | StaticAbilities$ EffSModeContinuous | ExileOnMoved$ Exile | RememberObjects$ Remembered | SubAbility$ DBCleanup
-SVar:EffSModeContinuous:Mode$ Continuous | Affected$ Card.IsRemembered | MayPlay$ True | AffectedZone$ Exile
+ColorIdentity:U
+OriginSet:G36e97d2da170e675
+ManaCost:2 U U
+Types:Enchantment Saga
+K:Chapter:3:DBScry,DBScry,DBTransform
+SVar:DBScry:DB$ Scry | ScryNum$ 2 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw
+SVar:DBTransform:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | Transformed$ True | GainControl$ True | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Types:Legendary Creature Avatar
+PT:4/3
+T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 1482585362 | TokenOwner$ You
+A:AB$ AddTurn | Cost$ Waterbend<20> | NumTurns$ 1 | Exhaust$ True

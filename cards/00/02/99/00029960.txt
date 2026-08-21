@@ -1,11 +1,17 @@
 Id:29960
-ColorIdentity:W
+ColorIdentity:R
 OriginSet:Gf09b85bbcc27770c
-ManaCost:3 W
-Types:Creature Bat Cleric
-PT:3/1
+ManaCost:3 R R
+Types:Legendary Creature Bird Dragon
+PT:5/5
 K:Flying
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ X | Execute$ TrigDig
-SVar:TrigDig:DB$ Dig | DigNum$ 4 | ChangeNum$ 1 | Optional$ True | ForceRevealToController$ True | ChangeValid$ Creature.powerLE3 | RestRandomOrder$ True
-SVar:X:Count$LifeYouGainedThisTurn/Plus.Y
-SVar:Y:PlayerCountPropertyYou$LifeLostThisTurn
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDig
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDig | TriggerZones$ Battlefield | Secondary$ True
+SVar:TrigDig:DB$ Dig | Defined$ You | DigNum$ X | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ Play | SubAbility$ DBDelayedTrigger | ForgetOnMoved$ Exile | Duration$ UntilYourNextEndStep
+SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBDelayedTrigger:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | RememberObjects$ Remembered | Execute$ TrigDamage | SubAbility$ DBCleanup
+SVar:TrigDamage:DB$ DamageAll | ValidPlayers$ Player.Opponent | NumDmg$ Y
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$Valid Permanent.Creature+YouCtrl+powerGE4
+SVar:Y:Count$ValidExile Card.IsTriggerRemembered/Twice

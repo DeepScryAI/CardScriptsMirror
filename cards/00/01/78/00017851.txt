@@ -1,14 +1,8 @@
 Id:17851
-ColorIdentity:BR
-OriginSet:G84be946b27d900a1
-ManaCost:3 B R
-Types:Legendary Planeswalker Angrath
-Loyalty:4
-A:AB$ Discard | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | Defined$ Player.Opponent | Mode$ TgtChoose | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 2 | Defined$ Player.Opponent
-A:AB$ GainControl | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | ValidTgts$ Creature | LoseControl$ EOT | Untap$ True | AddKWs$ Haste | SubAbility$ DelTrig
-SVar:DelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | ValidPlayer$ Player | Execute$ TrigSac | RememberObjects$ Targeted
-SVar:TrigSac:DB$ SacrificeAll | Defined$ DelayTriggerRememberedLKI | Controller$ You | ConditionDefined$ DelayTriggerRememberedLKI | ConditionPresent$ Card.cmcLE3
-A:AB$ RepeatEach | Cost$ SubCounter<8/LOYALTY> | Planeswalker$ True | Ultimate$ True | RepeatPlayers$ Player.Opponent | RepeatSubAbility$ DBLoseLife2
-SVar:DBLoseLife2:DB$ LoseLife | Defined$ Player.IsRemembered | LifeAmount$ X
-SVar:X:Count$ValidGraveyard Card.RememberedPlayerCtrl
+ColorIdentity:
+OriginSet:G1b9a73841edd3e32
+ManaCost:no cost
+Types:Artifact Contraption
+T:Mode$ CrankContraption | ValidCard$ Card.Self | Execute$ TrigCrank
+SVar:TrigCrank:DB$ Effect | ValidTgts$ Creature | StaticAbilities$ MustBlock | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | IsCurse$ True
+SVar:MustBlock:Mode$ MustBlock | ValidCreature$ Card.IsRemembered

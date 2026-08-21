@@ -1,9 +1,11 @@
 Id:31475
-ColorIdentity:G
-OriginSet:Gf2b808f4f642ac62
-ManaCost:3 G
-Types:Sorcery
-A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Hand | TargetMin$ 0 | TargetMax$ 2 | ValidTgts$ Permanent.YouOwn | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | ValidTgts$ Player | SubAbility$ DBChangeZone | IsCurse$ True
-SVar:DBChangeZone:DB$ ChangeZone | TargetMin$ 0 | TargetMax$ 4 | TargetsWithDefinedController$ ParentTarget | Origin$ Graveyard | Destination$ Library | Shuffle$ True | ValidTgts$ Card | SubAbility$ DBExile
-SVar:DBExile:DB$ ChangeZone | Origin$ Stack | Destination$ Exile
+ColorIdentity:WBG
+OriginSet:Ge1676a27173c0866
+ManaCost:1 W B G
+Types:Creature Human Scout
+PT:3/3
+T:Mode$ ChangesZone | ValidCard$ Card.wasCastByYou+Self | Destination$ Battlefield | Execute$ TrigMill
+SVar:TrigMill:DB$ Mill | NumCards$ 4 | Defined$ You | RememberMilled$ True | SubAbility$ DBImmediateTrigger
+SVar:DBImmediateTrigger:DB$ ImmediateTrigger | Execute$ TrigChange | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ4 | SubAbility$ DBCleanup
+SVar:TrigChange:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouCtrl+cmcLE3
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

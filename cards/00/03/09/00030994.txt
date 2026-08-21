@@ -1,11 +1,13 @@
 Id:30994
 ColorIdentity:U
-OriginSet:G4524bbf7a3db9dc0
-ManaCost:2 U U
-Types:Legendary Creature Human Wizard Pilot
-PT:2/4
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 2568417346 | TokenOwner$ You
-S:Mode$ Continuous | Affected$ Vehicle.YouCtrl | AddKeyword$ Flying
-T:Mode$ DamageDoneOnce | CombatDamage$ True | ValidSource$ Creature.YouCtrl+withFlying | TriggerZones$ Battlefield | ValidTarget$ Player | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw
+OriginSet:G2c8286a6f234d4b9
+ManaCost:2 U
+Types:Legendary Creature Merfolk Rogue
+PT:2/2
+T:Mode$ Taps | ValidCard$ Card.Self | Execute$ TrigMill
+SVar:TrigMill:DB$ Mill | NumCards$ X | ValidTgts$ Player
+T:Mode$ SpellCast | ValidCard$ Card.wasCastFromYourGraveyard | ValidActivatingPlayer$ You | Execute$ TrigDraw | TriggerZones$ Battlefield
+T:Mode$ AbilityCast | ValidCard$ Card.inZoneGraveyard | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraw | Secondary$ True
+SVar:TrigDraw:DB$ Draw | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ 1 | Defined$ Self
+SVar:X:Count$CardPower

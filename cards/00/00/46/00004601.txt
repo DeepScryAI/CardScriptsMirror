@@ -1,9 +1,8 @@
 Id:4601
-ColorIdentity:UB
+ColorIdentity:BR
 OriginSet:Gfb91362c2efb868e
-ManaCost:2 U B
-Types:Sorcery
-A:SP$ Pump | ValidTgts$ Creature | TargetMin$ 2 | TargetMax$ 2 | TargetUnique$ True | TargetsWithSameController$ True | IsCurse$ True | SubAbility$ DBChooseSac
-SVar:DBChooseSac:DB$ ChooseCard | DefinedCards$ Targeted | Defined$ TargetedController | SubAbility$ DBSac | AILogic$ WorstCard
-SVar:DBSac:DB$ SacrificeAll | Defined$ ChosenCard | SubAbility$ DBBounce
-SVar:DBBounce:DB$ ChangeZone | Defined$ Targeted.!ChosenCard | Origin$ Battlefield | Destination$ Hand
+ManaCost:1 B R
+Types:Instant
+A:SP$ Tap | ValidTgts$ Creature.untapped | SubAbility$ DBDamage
+SVar:DBDamage:DB$ DealDamage | Defined$ TargetedController | DamageSource$ Targeted | NumDmg$ X
+SVar:X:Targeted$CardPower

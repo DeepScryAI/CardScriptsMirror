@@ -1,14 +1,12 @@
 Id:30329
-ColorIdentity:B
-OriginSet:G8b2ed00ac2a0ff47
-ManaCost:2 B
-Types:Enchantment Room
-T:Mode$ UnlockDoor | ValidPlayer$ You | ValidCard$ Card.Self | ThisDoor$ True | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 2 | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 2
-AlternateMode:Split
-ALTERNATE
-ManaCost:3 B
-Types:Enchantment Room
-T:Mode$ Attacks | ValidCard$ Creature.YouCtrl | Alone$ True | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | Defined$ TriggeredAttackerLKICopy | NumAtt$ +1 | KW$ Deathtouch
+ColorIdentity:WG
+OriginSet:G9ff9681e1fe8713a
+ManaCost:3 G G W
+Types:Legendary Creature Rabbit Noble
+PT:4/4
+K:Convoke
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | IsPresent$ Creature.tapped+YouCtrl | Execute$ TrigSeek
+SVar:TrigSeek:DB$ Seek | Type$ Permanent.nonLand+cmcLEX | RememberFound$ True | SubAbility$ DBPut
+SVar:DBPut:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | Defined$ Remembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$Valid Creature.tapped+YouCtrl

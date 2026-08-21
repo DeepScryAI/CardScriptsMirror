@@ -1,10 +1,11 @@
 Id:13188
-ColorIdentity:UB
+ColorIdentity:WR
 OriginSet:Gdd020b591e71cb52
-ManaCost:UB UB UB
-Types:Creature Specter
-PT:2/3
-K:Flying
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigExile | TriggerZones$ Battlefield
-SVar:TrigExile:DB$ Dig | Defined$ TriggeredTarget | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile
-S:Mode$ Continuous | MayPlay$ True | Affected$ Card.ExiledWithSource | AffectedZone$ Exile
+ManaCost:4 R W
+Types:Creature Elemental Soldier
+PT:4/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ X
+A:AB$ Pump | Cost$ R | Defined$ Self | NumAtt$ +1
+A:AB$ Pump | Cost$ W | Defined$ Self | NumDef$ +1
+SVar:X:Count$Valid Creature.YouCtrl

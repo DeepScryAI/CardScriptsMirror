@@ -1,0 +1,11 @@
+Id:35010
+ColorIdentity:R
+OriginSet:Gf8f2990d7136c11d
+ManaCost:1 R
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ QUEST | CounterNum$ 1 | SubAbility$ DBSac
+SVar:DBSac:DB$ Sacrifice | SacValid$ Self | ConditionPresent$ Card.Self+counters_GE6_QUEST | RememberSacrificed$ True | SubAbility$ DBSearch
+SVar:DBSearch:DB$ ChangeZone | Origin$ Library | OriginAlternative$ Hand | Destination$ Battlefield | ChangeType$ Dragon.YouOwn | Optional$ True | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+K:TypeCycling:Mountain:2

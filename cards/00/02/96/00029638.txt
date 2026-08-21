@@ -1,10 +1,12 @@
 Id:29638
 ColorIdentity:B
-OriginSet:G997e3b19a1e94e85
-ManaCost:2 B B
-Types:Legendary Creature Human Wizard
-PT:4/5
-S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddPower$ 1 | AddTrigger$ JuzamTrigger
-SVar:JuzamTrigger:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDealDamage
-SVar:TrigDealDamage:DB$ DealDamage | Defined$ You | NumDmg$ 1
-SVar:PlayMain1:TRUE
+OriginSet:Gac6359c222afbd4f
+ManaCost:B B B
+Types:Legendary Enchantment
+R:Event$ BeginPhase | ActiveZones$ Battlefield | ValidPlayer$ You | Phase$ Draw | Skip$ True
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:AB$ Draw | Cost$ PayLife<X> | NumCards$ X
+SVar:X:Count$xPaid
+S:Mode$ Continuous | Affected$ You | SetMaxHandSize$ 5
+R:Event$ Moved | ActiveZones$ Battlefield | Destination$ Graveyard | ValidCard$ Card.YouOwn | ReplaceWith$ Exile
+SVar:Exile:DB$ ChangeZone | Hidden$ True | Origin$ All | Destination$ Exile | Defined$ ReplacedCard

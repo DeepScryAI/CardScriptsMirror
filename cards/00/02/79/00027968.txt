@@ -1,10 +1,9 @@
 Id:27968
-ColorIdentity:WR
-OriginSet:Gfd50577710a6ab09
-ManaCost:1 R W
-Types:Legendary Creature Human Soldier
-PT:1/2
-T:Mode$ AttackersDeclared | ValidAttackers$ Creature.YouCtrl+nonGnome | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenAmount$ X | TokenScriptIds$ 2883502801 | TokenOwner$ You | TokenTapped$ True | TokenAttacking$ True
-SVar:X:Count$CardCounters.P1P1
+ColorIdentity:WU
+OriginSet:G30e8a5e111cffb44
+ManaCost:2 W U
+Types:Legendary Creature Time Lord Doctor
+PT:2/2
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigCounters
+SVar:TrigCounters:DB$ PutCounterAll | ValidCards$ Creature.YouCtrl+!ThisTurnEntered+!attackedThisTurn | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBUntap
+SVar:DBUntap:DB$ UntapAll | ValidCards$ Creature.YouCtrl+!ThisTurnEntered+!attackedThisTurn

@@ -1,12 +1,12 @@
 Id:25125
-ColorIdentity:WB
-OriginSet:Gf591a76e7a37cf73
-ManaCost:2 W B
-Types:Creature Human Soldier
-PT:2/4
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenAmount$ X | TokenScriptIds$ 1214250791 | TokenOwner$ You
-SVar:X:PlayerCountOpponents$Amount
-T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ PumpAll | ValidCards$ Creature.YouCtrl | KW$ Deathtouch
-SVar:HasAttackEffect:TRUE
+ColorIdentity:UR
+OriginSet:G2aca7ffc9201ba1c
+ManaCost:R
+Types:Instant
+K:Kicker:U
+A:SP$ DelayedTrigger | Execute$ TrigConjure | ThisTurn$ True | Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You
+SVar:TrigConjure:DB$ MakeCard | Conjure$ True | DefinedName$ TriggeredCard | Zone$ Hand | SubAbility$ DBDelayTrig | RememberMade$ True
+SVar:DBDelayTrig:DB$ DelayedTrigger | Mode$ Phase | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ0 | Phase$ End of Turn | Execute$ TrigDiscard | RememberObjects$ Remembered | SubAbility$ DBCleanup
+SVar:TrigDiscard:DB$ Discard | Mode$ Defined | DefinedCards$ DelayTriggerRemembered
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$TimesKicked

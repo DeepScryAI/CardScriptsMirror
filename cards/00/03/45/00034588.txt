@@ -1,12 +1,13 @@
 Id:34588
-ColorIdentity:W
-OriginSet:G11c0621ce29fa608
-ManaCost:1 W
-Types:Legendary Artifact Infinity Stone
-K:Indestructible
-A:AB$ Mana | Cost$ T | Produced$ W
-A:AB$ AlterAttribute | Cost$ 5 W T | Defined$ Self | Attributes$ Harnessed
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | IsPresent$ Card.Self+harnessed | NoResolvingCheck$ True | TriggerZones$ Battlefield | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZone | ValidTgts$ Permanent.nonLand+YouCtrl+Other | TargetMin$ 0 | TargetMax$ 1 | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn
-SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ All | Destination$ Battlefield | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:
+OriginSet:Gcb93bbfc68a40806
+ManaCost:7
+Types:Legendary Artifact Creature Robot Villain
+PT:7/7
+K:Flying
+K:Menace
+K:Trample
+K:Unearth:7
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Creature.OppCtrl | TargetMin$ 0 | TargetMax$ OneEach | TargetsForEachPlayer$ True | NumDmg$ 3
+SVar:OneEach:PlayerCountOpponents$Amount

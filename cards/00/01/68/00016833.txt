@@ -1,8 +1,8 @@
 Id:16833
-ColorIdentity:WR
+ColorIdentity:
 OriginSet:Gd31f94cf3a5f78e4
-ManaCost:1 R W
-Types:Creature Dwarf Pilot
-PT:3/2
-T:Mode$ Taps | ValidCard$ Card.Self | Execute$ TrigCanNotBlock
-SVar:TrigCanNotBlock:DB$ Pump | ValidTgts$ Creature | KW$ HIDDEN CARDNAME can't block. | IsCurse$ True
+ManaCost:1
+Types:Artifact
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ ChangeZone | Cost$ T Sac<1/CARDNAME> | Origin$ Library | Destination$ Hand | ChangeType$ Land.Basic

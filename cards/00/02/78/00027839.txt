@@ -1,14 +1,10 @@
 Id:27839
-ColorIdentity:R
+ColorIdentity:
 OriginSet:G30e8a5e111cffb44
-ManaCost:4 R R
-Types:Enchantment Saga
-K:Chapter:3:DBDig,DBTimeTravel,DBDestroy
-SVar:DBDig:DB$ Dig | DigNum$ 5 | ChangeNum$ All | ChangeValid$ Card | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBRepeat
-SVar:DBRepeat:DB$ RepeatEach | RepeatCards$ Card.IsRemembered+nonLand | Zone$ Exile | ClearRemembered$ True | RepeatSubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | Defined$ Remembered | CounterType$ TIME | CounterNum$ X | SubAbility$ GiveSuspend
-SVar:GiveSuspend:DB$ PumpAll | ValidCards$ Card.IsRemembered+withoutSuspend | KW$ Suspend | PumpZone$ Exile | Duration$ Permanent
-SVar:X:Remembered$CardManaCost
-SVar:DBTimeTravel:DB$ TimeTravel | Amount$ 2
-SVar:DBDestroy:DB$ Destroy | ValidTgts$ Artifact.OppCtrl | TargetMin$ 0 | TargetMax$ OneEach | TargetsForEachPlayer$ True
-SVar:OneEach:PlayerCountOpponents$Amount
+ManaCost:6
+Types:Artifact Vehicle
+PT:8/8
+K:Flying
+K:Crew:4
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigDig | CombatDamage$ True
+SVar:TrigDig:DB$ Dig | Defined$ TriggeredTarget | DigNum$ 2 | GainControl$ True | ChangeNum$ All | DestinationZone$ Battlefield | FaceDown$ True | FaceDownPower$ 2 | FaceDownToughness$ 2 | FaceDownSetType$ Artifact & Creature & Cyberman

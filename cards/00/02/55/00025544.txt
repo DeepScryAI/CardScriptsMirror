@@ -1,0 +1,14 @@
+Id:25544
+ColorIdentity:
+OriginSet:G2e872aaf9b98489e
+ManaCost:no cost
+Types:Artifact Attraction
+K:Visit:TrigRoll
+K:Prize:TrigPrize
+SVar:TrigRoll:DB$ RollDice | ResultSVar$ Result | Sides$ 6 | SubAbility$ DBCounters
+SVar:DBCounters:DB$ PutCounter | Defined$ Self | CounterType$ LUCK | CounterNum$ Result | SubAbility$ DBTreasure
+SVar:DBTreasure:DB$ Token | TokenScriptIds$ 3851718391 | SubAbility$ DBClaim
+SVar:DBClaim:DB$ ClaimThePrize | ConditionDefined$ Self | ConditionPresent$ Card.Self+counters_GE6_LUCK
+SVar:TrigPrize:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 3851718391 | SubAbility$ DBSack
+SVar:DBSack:DB$ Sacrifice | SacValid$ Self | SubAbility$ DBOpen
+SVar:DBOpen:DB$ OpenAttraction

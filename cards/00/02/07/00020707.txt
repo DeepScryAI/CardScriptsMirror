@@ -1,7 +1,17 @@
 Id:20707
-ColorIdentity:R
+ColorIdentity:WUR
 OriginSet:Gf8d4de878d0536c5
-ManaCost:3 R
-Types:Sorcery
-A:SP$ DealDamage | ValidTgts$ Creature | NumDmg$ X
-SVar:X:Count$Valid Land.YouCtrl
+ManaCost:1 U R W
+Types:Legendary Planeswalker Narset
+Loyalty:4
+A:AB$ GainLife | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | LifeAmount$ 2 | Defined$ You | SubAbility$ DBMana
+SVar:DBMana:DB$ Mana | Produced$ Combo U R W | Amount$ 1 | RestrictValid$ Spell.nonCreature
+A:AB$ Draw | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | NumCards$ 1 | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | Mode$ TgtChoose | Optional$ True | NumCards$ 1 | RememberDiscarded$ True | SubAbility$ DBImmediateTrig
+SVar:DBImmediateTrig:DB$ ImmediateTrigger | ConditionDefined$ Remembered | ConditionPresent$ Card.nonLand | ConditionCompare$ EQ1 | Execute$ TrigDamage | RememberObjects$ Remembered | SubAbility$ DBCleanup
+SVar:TrigDamage:DB$ DealDamage | NumDmg$ X | ValidTgts$ Creature,Planeswalker
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:TriggerRemembered$CardManaCost
+A:AB$ Effect | Cost$ SubCounter<6/LOYALTY> | Planeswalker$ True | Ultimate$ True | Name$ 4150970375821826421 | Triggers$ TrigSpellCast | Duration$ Permanent | AILogic$ Always
+SVar:TrigSpellCast:Mode$ SpellCast | ValidActivatingPlayer$ You | ValidCard$ Card.nonCreature | Execute$ EffSpellCast
+SVar:EffSpellCast:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 2

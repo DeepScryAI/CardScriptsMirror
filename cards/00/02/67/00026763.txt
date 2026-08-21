@@ -1,8 +1,9 @@
 Id:26763
-ColorIdentity:B
-OriginSet:G321081e278de53f0
-ManaCost:2 B
-Types:Instant
-A:SP$ ChooseCard | ValidTgts$ Opponent | Choices$ Creature.TargetedPlayerCtrl+cmcEQX,Planeswalker.TargetedPlayerCtrl+cmcEQX | Mandatory$ True | SubAbility$ DBExile
-SVar:DBExile:DB$ ChangeZone | Defined$ ChosenCard | Origin$ Battlefield | Destination$ Exile
-SVar:X:Count$Valid Creature.TargetedPlayerCtrl,Planeswalker.TargetedPlayerCtrl$GreatestCardManaCost
+ColorIdentity:U
+OriginSet:G06757f68e16377c2
+ManaCost:3 U
+Types:Creature Human Knight
+PT:3/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigTap
+SVar:TrigTap:DB$ Tap | ValidTgts$ Creature.OppCtrl | SubAbility$ DBCounter
+SVar:DBCounter:DB$ PutCounter | Defined$ Targeted | CounterType$ Stun | CounterNum$ 1 | ConditionPresent$ Knight.YouCtrl+StrictlyOther

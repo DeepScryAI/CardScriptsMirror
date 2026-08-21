@@ -1,12 +1,11 @@
 Id:10451
-ColorIdentity:WU
+ColorIdentity:WUB
 OriginSet:G9445ff04667ca5ba
-ManaCost:1 W U
-Types:Creature Bird Wizard
-PT:3/1
-K:Flying
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigPutCounter | TriggerZones$ Battlefield | OptionalDecider$ You
-SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature | CounterType$ FEATHER | CounterNum$ 1 | RememberCards$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | RememberObjects$ Remembered | StaticAbilities$ MimeomancerStatic | ForgetOnMoved$ Battlefield | ForgetCounter$ FEATHER | Duration$ Permanent | SubAbility$ DBCleanup
+ManaCost:2 WB U
+Types:Artifact Creature Construct
+PT:2/2
+K:ETBReplacement:Other:DBReveal
+SVar:DBReveal:DB$ Reveal | RevealValid$ Card.Artifact+YouCtrl | AnyNumber$ True | RememberRevealed$ True | SubAbility$ DBPutCounters
+SVar:DBPutCounters:DB$ PutCounter | ETB$ True | Defined$ Self | CounterType$ P1P1 | CounterNum$ X | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:MimeomancerStatic:Mode$ Continuous | Affected$ Card.IsRemembered | SetPower$ 3 | SetToughness$ 1 | AddKeyword$ Flying
+SVar:X:Remembered$Amount

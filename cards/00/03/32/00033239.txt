@@ -1,9 +1,10 @@
 Id:33239
-ColorIdentity:B
-OriginSet:G7ab1fe96128a1641
-ManaCost:1 B
-Types:Creature Elf Scout
-PT:2/2
-K:Lifelink
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill
-SVar:TrigMill:DB$ Mill | NumCards$ 2 | Defined$ You
+ColorIdentity:R
+OriginSet:Gd2fd13ccc4a412d3
+ManaCost:2 R
+Types:Artifact Food
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDealDamage
+SVar:TrigDealDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 4 | DamageMap$ True | SubAbility$ DBDealDamage
+SVar:DBDealDamage:DB$ DealDamage | Defined$ You | NumDmg$ 3 | SubAbility$ DBDamageResolve
+SVar:DBDamageResolve:DB$ DamageResolve
+A:AB$ GainLife | Cost$ 2 T Sac<1/CARDNAME/this artifact> | LifeAmount$ 3

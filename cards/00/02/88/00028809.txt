@@ -1,13 +1,11 @@
 Id:28809
-ColorIdentity:RG
-OriginSet:Gaf7c94f364052cdd
-ManaCost:R G
-Types:Legendary Creature Human Warrior
-PT:1/1
-S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ Indestructible | Condition$ PlayerTurn
-T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You & TriggeredDefendingPlayer | NumCards$ 1 | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | Mode$ TgtChoose | Defined$ TriggeredDefendingPlayer & You | RememberDiscarded$ True | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | ConditionDefined$ Remembered | ConditionPresent$ Card.greatestRememberedCMC+YouOwn | CounterType$ P1P1 | CounterNum$ 2 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:HasAttackEffect:TRUE
+ColorIdentity:UR
+OriginSet:Ge329d8d60ca65422
+ManaCost:3 UR UR
+Types:Creature Weird Detective
+PT:4/4
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigInvestigate
+SVar:TrigInvestigate:AB$ Investigate | Cost$ Discard<1/Card> | Num$ 2
+A:AB$ CopySpellAbility | Cost$ T tapXType<X/Artifact/artifacts you control> | ValidTgts$ Instant.YouCtrl+cmcEQX,Sorcery.YouCtrl+cmcEQX | TargetType$ Spell | AILogic$ Once | MayChooseTarget$ True
+SVar:X:Count$xPaid

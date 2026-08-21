@@ -1,12 +1,8 @@
 Id:17385
-ColorIdentity:B
+ColorIdentity:G
 OriginSet:Gaa482ed186eee527
-ManaCost:3 B
-Types:Creature Zombie Wizard
-PT:4/1
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigCharm
-SVar:TrigCharm:DB$ Charm | MinCharmNum$ 1 | CharmNum$ MaxUniqueOpponents | Choices$ SacCreature,DiscardCards,LoseLife
-SVar:SacCreature:DB$ Sacrifice | ValidTgts$ Opponent | TargetUnique$ True | SacValid$ Creature
-SVar:DiscardCards:DB$ Discard | ValidTgts$ Opponent | TargetUnique$ True | NumCards$ 2 | Mode$ TgtChoose
-SVar:LoseLife:DB$ LoseLife | ValidTgts$ Opponent | TargetUnique$ True | LifeAmount$ 5
-SVar:MaxUniqueOpponents:PlayerCountOpponents$Amount
+ManaCost:4 G
+Types:Sorcery
+A:SP$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Land.Basic | ChangeNum$ X | Tapped$ True
+SVar:X:Count$Valid Creature.YouCtrl$GreatestCardPower
+SVar:NeedsToPlay:Creature.YouCtrl+powerGE2

@@ -1,8 +1,14 @@
 Id:25997
-ColorIdentity:R
-OriginSet:G2192e8955d5e1ad1
-ManaCost:1 R
-Types:Creature Phyrexian Wizard
-PT:1/3
-K:etbCounter:OIL:2
-A:AB$ Draw | Cost$ T SubCounter<1/OIL> Discard<1/Card>
+ColorIdentity:B
+OriginSet:Gb879a1706584aeee
+ManaCost:3 B
+Types:Legendary Creature Rat Warlock
+PT:3/4
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump
+T:Mode$ Blocks | ValidCard$ Card.Self | Execute$ TrigPump | Secondary$ True
+SVar:TrigPump:DB$ PumpAll | ValidCards$ Rat.StrictlyOther+YouCtrl | NumAtt$ +X | NumDef$ +X
+SVar:X:Count$Valid Rat.YouCtrl
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigChange
+SVar:TrigChange:AB$ ChangeZone | Cost$ Mill<4> | Origin$ Graveyard | Destination$ Hand | ChangeType$ Rat.Creature+YouOwn | ChangeNum$ 2 | Hidden$ True
+SVar:HasAttackEffect:TRUE
+SVar:HasBlockEffect:TRUE

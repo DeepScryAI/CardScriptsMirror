@@ -1,8 +1,12 @@
 Id:19027
-ColorIdentity:B
+ColorIdentity:UG
 OriginSet:G0b51a0aecbe39efe
-ManaCost:1 B
-Types:Creature Human Rogue
-PT:1/2
-K:Deathtouch
-K:Afterlife:1
+ManaCost:3 G U
+Types:Creature Frog Lizard
+PT:3/3
+K:Trample
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | OptionalDecider$ You | Execute$ TrigRemoveCounters
+SVar:TrigRemoveCounters:DB$ RemoveCounter | Choices$ Creature.YouCtrl+counters_GE1_P1P1 | ChoiceOptional$ True | CounterType$ P1P1 | CounterNum$ Any | SubAbility$ DBPutCounters | RememberAmount$ True
+SVar:DBPutCounters:DB$ PutCounter | Defined$ TriggeredCardLKICopy | CounterType$ P1P1 | CounterNum$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$RememberedNumber/Twice

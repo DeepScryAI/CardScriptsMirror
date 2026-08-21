@@ -1,9 +1,20 @@
 Id:28338
 ColorIdentity:B
-OriginSet:G94329e6b3f93276f
-ManaCost:5 B B
-Types:Creature Eye
-PT:3/8
-K:Flying
-K:Lifelink
-S:Mode$ Continuous | Affected$ Card.surveilledThisTurn | AffectedZone$ Graveyard | MayPlay$ True | MayPlayAltManaCost$ PayLife<ConvertedManaCost>
+OriginSet:Gfd50577710a6ab09
+ManaCost:1 B
+Types:Legendary Artifact Book
+A:AB$ Draw | Cost$ T Sac<1/Creature.Other;Artifact.Other/another artifact or creature> | NumCards$ 1 | SorcerySpeed$ True
+A:AB$ SetState | Defined$ Self | Mode$ Transform | Cost$ 2 T Discard<1/Hand>
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Types:Legendary Land Cave
+A:AB$ Mana | Cost$ T | Produced$ B
+A:AB$ Effect | Cost$ T | StaticAbilities$ StaticPlay | Triggers$ SpellCast
+SVar:StaticPlay:Mode$ Continuous | Affected$ Creature.nonLand+YouOwn | MayPlay$ True | MayPlayLimit$ 1 | AffectedZone$ Graveyard
+SVar:SpellCast:Mode$ SpellCast | Static$ True | ValidSA$ Spell.MayPlaySource | ValidActivatingPlayer$ You | OneOff$ True | TriggerZones$ Command | Execute$ ReplEffAddCounter
+SVar:ReplEffAddCounter:DB$ Effect | ReplacementEffects$ ETBAddCounter | RememberObjects$ TriggeredCard | SubAbility$ DBAnimate
+SVar:ETBAddCounter:Event$ Moved | Origin$ Stack | Destination$ Battlefield | ValidCard$ Card.IsRemembered | ReplaceWith$ ETBAddExtraCounter | ReplacementResult$ Updated
+SVar:ETBAddExtraCounter:DB$ PutCounter | ETB$ True | Defined$ ReplacedCard | CounterType$ FINALITY | CounterNum$ 1 | SubAbility$ DBExileSelf
+SVar:DBExileSelf:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile
+SVar:DBAnimate:DB$ Animate | Defined$ TriggeredCardLKICopy | Types$ Vampire | Duration$ Permanent

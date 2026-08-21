@@ -1,12 +1,14 @@
 Id:18340
-ColorIdentity:B
+ColorIdentity:G
 OriginSet:G7d4bd61c81d44275
-ManaCost:2 B
+ManaCost:3 G
 Types:Sorcery
-A:SP$ AssignGroup | Defined$ Player | Choices$ DBToHand,DBSacrifice | AILogic$ FriendOrFoe
-SVar:DBToHand:DB$ ChangeZone | DefinedPlayer$ Remembered | ChangeType$ Creature | Hidden$ True | Mandatory$ True | Origin$ Graveyard | Destination$ Hand
-SVar:DBSacrifice:DB$ Sacrifice | Defined$ Remembered | SacValid$ Creature
-SVar:NeedsToPlayVar:Z GE2
-SVar:Z:SVar$Z1/Plus.Z2
-SVar:Z1:Count$ValidGraveyard Creature.YourTeamCtrl
-SVar:Z2:Count$Valid Creature.OppCtrl
+A:SP$ AssignGroup | Defined$ Player | Choices$ DBSearch,DBSacrifice | AILogic$ FriendOrFoe
+SVar:DBSearch:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | DefinedPlayer$ Remembered | ChangeType$ Land | ChangeNum$ 1 | Tapped$ True
+SVar:DBSacrifice:DB$ Sacrifice | Defined$ Remembered | SacValid$ Artifact,Enchantment
+SVar:NeedsToPlayVar:Z GE1
+SVar:Z:SVar$Z1/Plus.C1
+SVar:Z1:SVar$C2/Plus.C3
+SVar:C1:Count$ValidLibrary Land.YourTeamCtrl
+SVar:C2:Count$Valid Enchantment.OppCtrl
+SVar:C3:Count$Valid Artifact.OppCtrl

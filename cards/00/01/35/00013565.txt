@@ -1,8 +1,10 @@
 Id:13565
 ColorIdentity:W
 OriginSet:G4773f4feb3f15a2b
-ManaCost:3 W
-Types:Enchantment
-T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | CheckSVar$ YouLifeGained | SVarCompare$ GE4 | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 2375228291 | TokenOwner$ You
-SVar:YouLifeGained:Count$LifeYouGainedThisTurn
+ManaCost:2 W W
+Types:Creature Cat Soldier
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Enchantment.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 3238878664 | TokenOwner$ You | RememberTokens$ True | SubAbility$ DBAttach
+SVar:DBAttach:DB$ Attach | Object$ TriggeredCardLKICopy | Defined$ Remembered | Optional$ True | ConditionDefined$ TriggeredCardLKICopy | ConditionPresent$ Aura | ConditionCompare$ GE1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

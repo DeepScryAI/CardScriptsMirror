@@ -1,16 +1,15 @@
 Id:17895
-ColorIdentity:UR
+ColorIdentity:R
 OriginSet:G84be946b27d900a1
-ManaCost:2 U R
-Types:Legendary Enchantment
-T:Mode$ DamageDoneOnce | CombatDamage$ True | ValidSource$ Creature.YouCtrl | ValidTarget$ Player | TriggerZones$ Battlefield | Execute$ DBToken
-SVar:DBToken:DB$ Token | TokenScriptIds$ 3851718391 | TokenOwner$ You
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | IsPresent$ Artifact.YouCtrl | PresentCompare$ GE5 | Execute$ TrigTransform
-SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Types:Legendary Land
-A:AB$ Mana | Cost$ T | Produced$ Any | Amount$ 1
-A:AB$ Mana | Cost$ T | Produced$ U | Amount$ X
-SVar:X:Count$Valid Artifact.YouCtrl
+ManaCost:1 R
+Types:Creature Human Pirate
+PT:2/1
+K:FirstStrike
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Instant.OppOwn,Sorcery.OppOwn | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ Remembered | StaticAbilities$ STPlay | ExileOnMoved$ Exile | SubAbility$ DBEffect2
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | MayPlayIgnoreType$ True | Affected$ Card.nonLand+IsRemembered | AffectedZone$ Exile
+SVar:DBEffect2:DB$ Effect | RememberObjects$ Remembered | ExileOnMoved$ Stack | ReplacementEffects$ ReplaceGraveyard | SubAbility$ DBCleanup
+SVar:ReplaceGraveyard:Event$ Moved | ValidCard$ Card.IsRemembered | Origin$ Stack | Destination$ Graveyard | ReplaceWith$ MoveExile
+SVar:MoveExile:DB$ ChangeZone | Defined$ ReplacedCard | Origin$ Stack | Destination$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

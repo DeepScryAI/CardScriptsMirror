@@ -1,12 +1,7 @@
 Id:3928
-ColorIdentity:R
+ColorIdentity:B
 OriginSet:G3da30095b68d8df0
-ManaCost:2 R R
+ManaCost:3 B B
 Types:Sorcery
-A:SP$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Land.nonBasic | RememberLKI$ True | ForgetOtherTargets$ True | SubAbility$ ExileYard
-SVar:ExileYard:DB$ ChangeZoneAll | Origin$ Graveyard | Destination$ Exile | Defined$ RememberedController | ChangeType$ Remembered.sameName | SubAbility$ ExileHand
-SVar:ExileHand:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | DefinedPlayer$ RememberedController | ChangeType$ Remembered.sameName | ChangeNum$ NumInHand | Chooser$ You | SubAbility$ ExileLib
-SVar:ExileLib:DB$ ChangeZone | Origin$ Library | Destination$ Exile | DefinedPlayer$ RememberedController | ChangeType$ Remembered.sameName | ChangeNum$ NumInLib | Chooser$ You | Shuffle$ True | SubAbility$ DBCleanup
-SVar:NumInHand:PlayerCountRememberedController$CardsInHand
-SVar:NumInLib:PlayerCountRememberedController$CardsInLibrary
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+A:SP$ LoseLife | ValidTgts$ Player | LifeAmount$ 4 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 4

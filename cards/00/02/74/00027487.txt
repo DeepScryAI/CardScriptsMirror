@@ -1,9 +1,13 @@
 Id:27487
-ColorIdentity:B
-OriginSet:G7579344e30f8be85
-ManaCost:B
-Types:Instant
-A:SP$ Animate | Triggers$ TrigChangeZone | ValidTgts$ Creature.YouCtrl
-SVar:TrigChangeZone:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigChangeZone2 | TriggerController$ TriggeredCardController
-SVar:TrigChangeZone2:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | Defined$ TriggeredNewCardLKICopy | Tapped$ True | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenScriptIds$ 2026037357 | TokenOwner$ You | AttachedTo$ TriggeredNewCardLKICopy
+ColorIdentity:UR
+OriginSet:G4e034c55e7afd8b4
+ManaCost:1 R
+Types:Creature Elemental Snake
+PT:2/1
+T:Mode$ SpellCast | ValidCard$ Card.cmcLE3 | TriggerZones$ Battlefield | ValidActivatingPlayer$ Opponent | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | Defined$ TriggeredActivator | NumDmg$ 1
+AlternateMode:Adventure
+ALTERNATE
+ManaCost:1 U
+Types:Sorcery Adventure
+A:SP$ ChangeZone | ValidTgts$ Permanent.nonLand | Origin$ Battlefield | Destination$ Hand

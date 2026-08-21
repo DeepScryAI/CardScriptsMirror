@@ -1,7 +1,9 @@
 Id:31721
-ColorIdentity:U
-OriginSet:G7ab4f62d323b0ca7
-ManaCost:2 U
+ColorIdentity:RG
+OriginSet:Gfac9eb8c75f25726
+ManaCost:1 R G
 Types:Sorcery
-A:SP$ Draw | NumCards$ 2 | ValidTgts$ Player | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | TargetMin$ 0 | TargetMax$ 1 | CounterType$ P1P1 | CounterNum$ 1
+A:SP$ Seek | Types$ Mountain,Forest,Land.nonMountain+nonForest | RememberFound$ True | SubAbility$ DBChangeZone1
+SVar:DBChangeZone1:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | ChangeType$ Land.IsRemembered | ChangeNum$ 1 | Mandatory$ True | SubAbility$ DBChangeZone2
+SVar:DBChangeZone2:DB$ ChangeZone | Origin$ Hand | Destination$ Graveyard | ChangeType$ Land.IsRemembered | ChangeNum$ 1 | Mandatory$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

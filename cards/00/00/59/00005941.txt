@@ -1,9 +1,9 @@
 Id:5941
 ColorIdentity:B
 OriginSet:G0eb5e52d26fe1c23
-ManaCost:1 B
-Types:Creature Human Cleric
-PT:1/1
-K:Morph:B
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigDiscard | CombatDamage$ True
-SVar:TrigDiscard:DB$ Discard | Defined$ TriggeredTarget | NumCards$ 1 | Mode$ TgtChoose
+ManaCost:3 B B
+Types:Sorcery
+A:SP$ ChangeZoneAll | ValidTgts$ Opponent | Origin$ Hand | Destination$ Library | ChangeType$ Card | RememberChanged$ True | IsCurse$ True | SubAbility$ HeadChange
+SVar:HeadChange:DB$ ChangeZone | DefinedPlayer$ Targeted | Origin$ Library | Destination$ Hand | ChangeNum$ X | ChangeType$ Card | Chooser$ You | Mandatory$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Amount

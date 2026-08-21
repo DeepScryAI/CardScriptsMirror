@@ -1,8 +1,11 @@
 Id:24315
-ColorIdentity:G
+ColorIdentity:
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:4 G
-Types:Instant
-A:SP$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Land.Basic | ChangeNum$ X | Tapped$ True | SubAbility$ DBFog
-SVar:X:Count$Valid Creature.attackingYou
-SVar:DBFog:DB$ Fog
+ManaCost:3
+Types:Artifact
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ TakeInitiative | Cost$ 2 T Sac<1/CARDNAME> | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ 3 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | SubAbility$ DBTreasure
+SVar:DBTreasure:DB$ Token | TokenScriptIds$ 3851718391

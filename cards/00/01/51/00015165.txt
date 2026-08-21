@@ -1,7 +1,9 @@
 Id:15165
 ColorIdentity:U
 OriginSet:Gdb18f239871b8cef
-ManaCost:3 U
-Types:Enchantment
-T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigToken
-SVar:TrigToken:AB$ Token | Cost$ 1 U | TokenScriptIds$ 2822763029 | TokenOwner$ You
+ManaCost:U U
+Types:Instant
+S:Mode$ OptionalCost | EffectZone$ All | ValidCard$ Card.Self | ValidSA$ Spell | Cost$ Reveal<1/Dragon>
+A:SP$ Counter | TargetType$ Spell | ValidTgts$ Card | UnlessCost$ 1 | ConditionCheckSVar$ TotalPresence | ConditionSVarCompare$ EQ0 | SubAbility$ DBCounter
+SVar:DBCounter:DB$ Counter | Defined$ Targeted | ConditionCheckSVar$ TotalPresence
+SVar:TotalPresence:Count$Presence_Dragon.1.0

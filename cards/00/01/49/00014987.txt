@@ -1,10 +1,11 @@
 Id:14987
-ColorIdentity:G
+ColorIdentity:RG
 OriginSet:Gdb18f239871b8cef
-ManaCost:G G
-Types:Creature Avatar
-PT:3/2
-K:Reach
-K:Trample
-K:etbCounter:P1P1:X:no Condition
-SVar:X:Count$Valid Creature.Other+YouCtrl+counters_GE1_P1P1
+ManaCost:R G
+Types:Instant
+A:SP$ Charm | Choices$ DBNoLife,DBDamage,DBLand,DBPumpAll | CharmNum$ 2
+SVar:DBNoLife:DB$ Effect | StaticAbilities$ STCantGain | AILogic$ NoGain
+SVar:STCantGain:Mode$ CantGainLife | ValidPlayer$ Player.Opponent
+SVar:DBDamage:DB$ DealDamage | Defined$ Player.Opponent | NumDmg$ 3 | AILogic$ Good
+SVar:DBLand:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | ChangeType$ Land | Optional$ You
+SVar:DBPumpAll:DB$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +1 | NumDef$ +1 | KW$ Reach

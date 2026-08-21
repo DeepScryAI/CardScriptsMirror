@@ -1,8 +1,10 @@
 Id:16466
-ColorIdentity:G
+ColorIdentity:
 OriginSet:G4bddbf7cb4f2475e
-ManaCost:4 G G
-Types:Creature Elf Artificer
-PT:3/4
-S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self | ValidBlocker$ Creature.powerLE2
-K:Fabricate:2
+ManaCost:3
+Types:Artifact Creature Construct
+PT:1/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigEnergy
+SVar:TrigEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ 3
+A:AB$ Pump | Cost$ PayEnergy<3> | Defined$ Self | NumAtt$ +X | NumDef$ +X | AILogic$ Pummeler
+SVar:X:Count$CardPower

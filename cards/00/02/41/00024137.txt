@@ -1,17 +1,9 @@
 Id:24137
-ColorIdentity:WUG
-OriginSet:Gcf5d9b1e2ed6c496
-ManaCost:G W U
-Types:Creature Rhino Warrior
-PT:3/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChoose
-SVar:TrigChoose:DB$ ChooseCard | ChoiceZone$ Hand | Choices$ Creature.YouOwn | SubAbility$ DBBranch
-SVar:DBBranch:DB$ Branch | BranchConditionSVar$ Count$ChosenSize | TrueSubAbility$ DBAnimate | FalseSubAbility$ DBAddCounter
-SVar:DBAnimate:DB$ Animate | Defined$ ChosenCard | Replacements$ ETBShield | Duration$ Perpetual | SubAbility$ DBCleanup
-SVar:ETBShield:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ DBExtraCounter | ReplacementResult$ Updated
-SVar:DBExtraCounter:DB$ PutCounter | ETB$ True | Defined$ ReplacedCard | CounterType$ SHIELD | CounterNum$ 1
-SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
-SVar:DBAddCounter:DB$ PutCounter | CounterType$ SHIELD
-T:Mode$ Phase | Phase$ BeginCombat | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +X | NumDef$ +X
-SVar:X:Count$Valid Creature.YouCtrl+Other$CardCounters.SHIELD
+ColorIdentity:B
+OriginSet:G9afc9838c5e994df
+ManaCost:3 B
+Types:Creature Octopus Rogue
+PT:3/1
+K:Menace
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigConnive
+SVar:TrigConnive:DB$ Connive

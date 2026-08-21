@@ -1,8 +1,13 @@
 Id:29141
-ColorIdentity:UBR
-OriginSet:G27146c70b74a1e72
-ManaCost:U B R
-Types:Legendary Creature Human Rogue
-PT:3/4
-T:Mode$ CommitCrime | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDig
-SVar:TrigDig:AB$ Dig | Cost$ 1 | DigNum$ 2 | ChangeNum$ 1 | DestinationZone2$ Graveyard | NoReveal$ True
+ColorIdentity:U
+OriginSet:Gc7beb665b378d90a
+ManaCost:4 U
+Types:Creature Djinn Wizard Rogue
+PT:3/3
+K:Flash
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | TargetType$ Spell.OppCtrl | ValidTgts$ Card | TgtZone$ Stack | Origin$ Stack | Destination$ Exile | IsCurse$ True
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPlay | IsPresent$ Card.ExiledWithSource | PresentZone$ Exile
+SVar:TrigPlay:DB$ Play | Defined$ ExiledWithSource | Amount$ All | Controller$ You | WithoutManaCost$ True | ValidSA$ Spell | Optional$ True
+SVar:HasAttackEffect:TRUE

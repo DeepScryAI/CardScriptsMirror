@@ -1,10 +1,13 @@
 Id:8545
-ColorIdentity:R
+ColorIdentity:G
 OriginSet:Gf7b8c9355081f53b
-ManaCost:5 R R
-Types:Snow Creature Dragon
-PT:5/5
-K:Flying
-R:Event$ Untap | ActiveZones$ Battlefield | ValidCard$ Creature.counters_GE1_ICE | ValidStepTurnToController$ You | Layer$ CantHappen
-A:AB$ PutCounter | Cost$ 2 S | ValidTgts$ Creature | IsCurse$ True | CounterType$ ICE | CounterNum$ 1 | SubAbility$ DBTap
-SVar:DBTap:DB$ Tap | Defined$ Targeted
+ManaCost:4 G
+Types:Snow Creature Aurochs
+PT:3/3
+K:Trample
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +X
+SVar:X:Count$Valid Creature.Aurochs+attacking+Other
+A:AB$ Pump | Cost$ 2 S | ValidTgts$ Creature | SubAbility$ DBMustBlock
+SVar:DBMustBlock:DB$ MustBlock | DefinedAttacker$ ParentTarget | ValidTgts$ Creature
+SVar:HasAttackEffect:TRUE

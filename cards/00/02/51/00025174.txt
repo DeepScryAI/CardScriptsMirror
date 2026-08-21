@@ -1,12 +1,10 @@
 Id:25174
-ColorIdentity:UG
-OriginSet:Gf591a76e7a37cf73
-ManaCost:1 G U
-Types:Creature Tyranid
+ColorIdentity:B
+OriginSet:G9afc9838c5e994df
+ManaCost:3 B
+Types:Creature Vampire Warlock
 PT:2/2
 K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZoneAll | ValidTgts$ Player | Origin$ Graveyard | Destination$ Exile | ChangeType$ Card | SubAbility$ DBCounter | RememberChanged$ True
-SVar:DBCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ X | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Remembered$Valid Creature
+T:Mode$ LifeGained | ValidPlayer$ You | TriggerZones$ Battlefield | PlayerTurn$ True | Execute$ TrigPutCounter
+T:Mode$ LifeLost | ValidPlayer$ You | TriggerZones$ Battlefield | PlayerTurn$ True | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1

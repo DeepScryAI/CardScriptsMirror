@@ -1,7 +1,12 @@
 Id:14799
-ColorIdentity:B
+ColorIdentity:R
 OriginSet:Gfafc221218d3b700
-ManaCost:X B B
+ManaCost:4 R
 Types:Instant
-A:SP$ ChangeZone | TargetMin$ X | TargetMax$ X | OpponentTurn$ True | ActivationPhases$ BeginCombat->EndCombat | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouOwn | GainControl$ True | AtEOT$ Sacrifice
-SVar:X:Count$xPaid
+A:SP$ Pump | ValidTgts$ Land.nonBasic+YouDontCtrl | AILogic$ Destroy | IsCurse$ True | RememberTargets$ True | SubAbility$ DBDestroyLand
+SVar:DBDestroyLand:DB$ Pump | TargetingPlayer$ Player.Opponent | ValidTgts$ Land.nonBasic+YouDontCtrl | AILogic$ Destroy | IsCurse$ True | RememberTargets$ True | SubAbility$ DBDestroy
+SVar:DBDestroy:DB$ Destroy | Defined$ Remembered | AILogic$ Always | SubAbility$ DBDamage
+SVar:DBDamage:DB$ DealDamage | ValidTgts$ Creature.YouDontCtrl | NumDmg$ 7 | DamageMap$ True | SubAbility$ DBDamage2
+SVar:DBDamage2:DB$ DealDamage | TargetingPlayer$ Player.Opponent | ValidTgts$ Creature.YouDontCtrl | NumDmg$ 7 | SubAbility$ DBDamageResolve
+SVar:DBDamageResolve:DB$ DamageResolve | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

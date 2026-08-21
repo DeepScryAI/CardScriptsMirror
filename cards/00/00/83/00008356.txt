@@ -1,10 +1,10 @@
 Id:8356
-ColorIdentity:
+ColorIdentity:UG
 OriginSet:Gde6d8130c178f566
-ManaCost:4
-Types:Artifact
-A:AB$ ChangeZone | Cost$ 3 T | ValidTgts$ Player | SorcerySpeed$ True | Origin$ Hand | Destination$ Exile | ChangeType$ Card | ChangeNum$ 1 | Chooser$ Targeted | Hidden$ True | IsCurse$ True | Mandatory$ True
-A:AB$ ChooseCard | Cost$ 1 | ChoiceZone$ Exile | Choices$ Card.ExiledWithSource | Amount$ 1 | SubAbility$ DBEffect | AILogic$ Never
-SVar:DBEffect:DB$ Effect | Duration$ EndOfTurn | StaticAbilities$ STPlay | RememberObjects$ ChosenCard | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
-SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
-SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+ManaCost:3 G U
+Types:Legendary Creature Elf Wizard
+PT:2/2
+T:Mode$ SpellCast | ValidCard$ Creature.Green | ValidActivatingPlayer$ You | OptionalDecider$ You | TriggerZones$ Battlefield | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Library | LibraryPosition$ 0 | ChangeType$ Creature | ChangeNum$ 1 | ShuffleNonMandatory$ True
+T:Mode$ SpellCast | ValidCard$ Creature.Blue | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDig
+SVar:TrigDig:DB$ Dig | DigNum$ 1 | Reveal$ True | ChangeNum$ All | ChangeValid$ Creature | LibraryPosition2$ 0

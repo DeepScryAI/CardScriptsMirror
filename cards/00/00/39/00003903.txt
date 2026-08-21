@@ -1,12 +1,9 @@
 Id:3903
-ColorIdentity:U
+ColorIdentity:
 OriginSet:G3da30095b68d8df0
-ManaCost:U
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:Pump
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigPrivateResearchPutCounter
-SVar:TrigPrivateResearchPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ PAGE | CounterNum$ 1
-T:Mode$ ChangesZone | ValidCard$ Card.AttachedBy | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigPrivateResearchDraw
-SVar:TrigPrivateResearchDraw:DB$ Draw | NumCards$ PrivateResearchX
-SVar:PrivateResearchX:Count$CardCounters.PAGE
+ManaCost:2
+Types:Artifact
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ FUSE | CounterNum$ 1
+A:AB$ DestroyAll | Cost$ T Sac<1/CARDNAME> | ValidCards$ Artifact.cmcEQX,Creature.cmcEQX
+SVar:X:Count$CardCounters.FUSE

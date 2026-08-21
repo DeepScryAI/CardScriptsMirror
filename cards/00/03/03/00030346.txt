@@ -1,11 +1,15 @@
 Id:30346
-ColorIdentity:U
-OriginSet:G8b2ed00ac2a0ff47
-ManaCost:2 U
-Types:Creature Spirit
-PT:1/3
+ColorIdentity:B
+OriginSet:G9ff9681e1fe8713a
+ManaCost:1 B
+Types:Creature Bat Cleric
+PT:2/2
 K:Flying
-K:Vigilance
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Enchantment.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPump
-T:Mode$ FullyUnlock | ValidCard$ Card.Room | ValidPlayer$ You | Secondary$ True | Execute$ TrigPump | TriggerZones$ Battlefield
-SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +1 | NumDef$ +1
+K:Lifelink
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigConjure | TriggerZones$ Battlefield
+SVar:TrigConjure:DB$ MakeCard | Conjure$ True | CatalogId$ 10673 | Zone$ Library | LibraryPosition$ Count$Random.0.15 | RememberMade$ True | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Remembered | Triggers$ DrawTrig | staticAbilities$ FreeCast | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:DrawTrig:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:FreeCast:Mode$ Continuous | MayPlay$ True | MayPlayAltManaCost$ 0 | MayPlayDontGrantZonePermissions$ True | Affected$ Card.Self | AffectedZone$ Hand,Graveyard,Exile,Library,Command | EffectZone$ All
+SVar:TrigDraw:DB$ Draw

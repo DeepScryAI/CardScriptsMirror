@@ -2,9 +2,10 @@ Id:9357
 ColorIdentity:B
 OriginSet:G1ddd2c86a9ea60e3
 ManaCost:3 B
-Types:Creature Faerie Rogue
-PT:1/1
-K:Flying
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 2217506954 | TokenOwner$ You
-A:AB$ Animate | Cost$ Sac<1/Goblin> | Defined$ Self | Power$ 3 | Toughness$ 3
+Types:Instant
+A:SP$ ChangeZone | ValidTgts$ Creature.YouCtrl | Origin$ Graveyard | Destination$ Battlefield | WithCountersType$ MANNEQUIN | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ MannequinStatic | Duration$ Permanent | SubAbility$ DBCleanup | ForgetOnMoved$ Battlefield | ForgetCounter$ MANNEQUIN
+SVar:MannequinStatic:Mode$ Continuous | Affected$ Card.IsRemembered | AddTrigger$ MannequinBecomesTarget
+SVar:MannequinBecomesTarget:Mode$ BecomesTarget | ValidTarget$ Card.Self | TriggerZones$ Battlefield | Execute$ MakeshiftSac
+SVar:MakeshiftSac:DB$ Sacrifice
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

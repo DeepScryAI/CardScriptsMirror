@@ -1,11 +1,11 @@
 Id:26958
-ColorIdentity:R
-OriginSet:G6ce0035cfb774934
-ManaCost:X R
-Types:Sorcery
-A:SP$ Effect | StaticAbilities$ STCantPrevent | AILogic$ Burn | SubAbility$ DBDealDamage
-SVar:DBDealDamage:DB$ DealDamage | ValidTgts$ Creature | NumDmg$ X | DamageMap$ True | SubAbility$ DBDamageAll
-SVar:DBDamageAll:DB$ DamageAll | ValidCards$ Creature.NotDefinedTargeted+ControlledBy TargetedController | NumDmg$ 1 | SubAbility$ DBDamageResolve
-SVar:DBDamageResolve:DB$ DamageResolve
-SVar:STCantPrevent:Mode$ CantPreventDamage
-SVar:X:Count$xPaid
+ColorIdentity:U
+OriginSet:G321081e278de53f0
+ManaCost:2 U
+Types:Creature Shapeshifter
+PT:2/4
+K:Flying
+S:Mode$ Continuous | Affected$ Card.TopLibrary+YouCtrl | AffectedZone$ Library | MayLookAt$ You
+T:Mode$ Phase | Phase$ BeginCombat | TriggerZones$ Battlefield | Execute$ TrigReveal | OptionalDecider$ You
+SVar:TrigReveal:DB$ PeekAndReveal | NoPeek$ True | SubAbility$ DBClone
+SVar:DBClone:DB$ Clone | ConditionDefined$ TopOfLibrary | ConditionPresent$ Creature | Defined$ TopOfLibrary | CloneTarget$ Self | Duration$ UntilEndOfTurn | AddKeywords$ Flying

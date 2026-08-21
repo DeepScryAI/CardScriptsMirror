@@ -1,8 +1,12 @@
 Id:4250
-ColorIdentity:B
+ColorIdentity:W
 OriginSet:Gdd40b2fbd2aa3c03
-ManaCost:2 B
-Types:Creature Human Mercenary
-PT:1/1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone | OptionalDecider$ You
-SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Mercenary.YouCtrl
+ManaCost:1 W W
+Types:Enchantment
+K:ETBReplacement:Other:ChooseColor
+SVar:ChooseColor:DB$ ChooseColor | Defined$ You | AILogic$ MostProminentInHumanDeck
+A:AB$ ChooseSource | Cost$ W | Choices$ Card.ChosenColorSource | AILogic$ NeedsPrevention | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | ReplacementEffects$ RPreventNextFromSource | SubAbility$ DBCleanup | ConditionDefined$ ChosenCard | ConditionPresent$ Card | ConditionCompare$ GE1
+SVar:RPreventNextFromSource:Event$ DamageDone | ValidSource$ Card.ChosenCard+ChosenColorSource | ValidTarget$ You | ReplaceWith$ ExileEffect | PreventionEffect$ True
+SVar:ExileEffect:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True

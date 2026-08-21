@@ -1,7 +1,10 @@
 Id:7698
-ColorIdentity:R
+ColorIdentity:G
 OriginSet:G3fddc6426f419054
-ManaCost:3 R
-Types:Instant
-A:SP$ DealDamage | ValidTgts$ Player | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ10 | NumDmg$ 10 | AILogic$ OppAtTenLife
-SVar:X:TargetedPlayer$LifeTotal
+ManaCost:3 G
+Types:Creature Spirit
+PT:2/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+T:Mode$ SpellCast | ValidCard$ Spirit,Arcane | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Defined$ Self

@@ -2,8 +2,10 @@ Id:12801
 ColorIdentity:
 OriginSet:G4801bb28ce9773ed
 ManaCost:no cost
-Types:Plane Shandalar
-S:Mode$ Continuous | EffectZone$ Command | Affected$ Creature | SetColor$ Black | AddKeyword$ Deathtouch
-T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos
-SVar:RolledChaos:DB$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +1 | KW$ FirstStrike
-SVar:AIRollPlanarDieParams:Mode$ Always | HasCreatureInPlay$ True | RollInMain1$ True
+Types:Plane New Phyrexia
+T:Mode$ PlaneswalkedFrom | ValidCard$ Plane.Self | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ DestroyAll | ValidCards$ Permanent.nonLand+counters_LT1_FATE | SubAbility$ DBRemove
+SVar:DBRemove:DB$ RemoveCounterAll | ValidCards$ Permanent | CounterType$ FATE | AllCounters$ True
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos | OptionalDecider$ You
+SVar:RolledChaos:DB$ PutCounter | ValidTgts$ Permanent | CounterType$ FATE | CounterNum$ 1
+SVar:AIRollPlanarDieParams:Mode$ Always

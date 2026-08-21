@@ -1,9 +1,10 @@
 Id:13593
-ColorIdentity:W
+ColorIdentity:B
 OriginSet:G4773f4feb3f15a2b
-ManaCost:1 W W
-Types:Creature Human Knight
-PT:2/2
-K:FirstStrike
-K:Lifelink
-S:Mode$ CantTarget | ValidTarget$ Card.Self | ValidSource$ Card.Black,Card.Red | ValidSA$ Spell | Activator$ Opponent
+ManaCost:B
+Types:Creature Salamander
+PT:1/1
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.OppCtrl | NumAtt$ -1 | NumDef$ -1 | IsCurse$ True | ConditionCheckSVar$ BogbrewWitchPresent | ConditionSVarCompare$ EQ0 | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ ParentTarget | NumAtt$ -4 | NumDef$ -4 | ConditionCheckSVar$ BogbrewWitchPresent | ConditionSVarCompare$ GE1
+SVar:BogbrewWitchPresent:Count$Valid Creature.YouCtrl+catalogId13576

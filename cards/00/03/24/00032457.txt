@@ -1,11 +1,10 @@
 Id:32457
-ColorIdentity:R
-OriginSet:G66b3a7eeabd9000e
-ManaCost:4 R R
-Types:Legendary Creature Human Rogue Villain
-PT:5/5
-S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ FirstStrike | Condition$ PlayerTurn
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDamage
-SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Creature | NumDmg$ 2 | DamageMap$ True | SubAbility$ DBDamage
-SVar:DBDamage:DB$ DealDamage | Defined$ TargetedController | NumDmg$ 2 | SubAbility$ DBDamageResolve
-SVar:DBDamageResolve:DB$ DamageResolve
+ColorIdentity:B
+OriginSet:G9946f072b5556073
+ManaCost:X B
+Types:Sorcery
+A:SP$ DestroyAll | ValidCards$ Creature.toughnessLEX | RememberDestroyed$ True | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ X | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | ConditionCheckSVar$ X | ConditionSVarCompare$ GE6 | ChangeType$ Creature.!token+IsRemembered | ChangeNum$ 1 | Hidden$ True | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True | Mandatory$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$xPaid

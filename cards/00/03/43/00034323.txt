@@ -1,10 +1,11 @@
 Id:34323
-ColorIdentity:B
+ColorIdentity:R
 OriginSet:Gcb93bbfc68a40806
-ManaCost:1 B
-Types:Artifact Creature Robot Villain
-PT:1/1
-K:Menace
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Artifact.Other+YouOwn | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-T:Mode$ ChangesZone | ValidCard$ Artifact.!token+YouOwn | Origin$ Library,Hand,Exile,Command,Stack | Destination$ Graveyard | TriggerZones$ Battlefield | Execute$ TrigPutCounter | Secondary$ True
-SVar:TrigPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ 1
+ManaCost:2 R
+Types:Instant
+K:Teamwork:2
+A:SP$ Dig | Defined$ You | DigNum$ 2 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ STPlay | SubAbility$ DBToken | ForgetOnMoved$ Exile | Duration$ UntilTheEndOfYourNextTurn
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBToken:DB$ Token | TokenScriptIds$ 3851718391 | TokenOwner$ You | ConditionZone$ Stack | ConditionPresent$ Card.Self+Teamwork | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

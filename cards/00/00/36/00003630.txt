@@ -1,8 +1,11 @@
 Id:3630
-ColorIdentity:U
+ColorIdentity:R
 OriginSet:Gf01f1543bdb61bd2
-ManaCost:1 U
-Types:Instant
-A:SP$ ChangeZone | ValidTgts$ Creature | Origin$ Battlefield | Destination$ Hand | SubAbility$ DBUntap
-SVar:DBUntap:DB$ Untap | UntapUpTo$ True | UntapType$ Land | Amount$ 2
-SVar:FreeSpellAI:True
+ManaCost:1 R
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Curse
+S:Mode$ CantBlock | ValidCard$ Creature.EnchantedBy
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | Defined$ TriggeredNewCardLKICopy
+SVar:SacMe:2

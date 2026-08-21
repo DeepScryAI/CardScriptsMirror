@@ -1,7 +1,11 @@
 Id:21680
-ColorIdentity:G
+ColorIdentity:U
 OriginSet:G18bf722b221724f8
-ManaCost:1 G
-Types:Snow Creature Elf Rogue
-PT:2/2
-A:AB$ Untap | Cost$ T | ValidTgts$ Land.Snow | AILogic$ PoolExtraMana
+ManaCost:3 U
+Types:Legendary Creature Human Wizard
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigScry
+SVar:TrigScry:DB$ Scry | ScryNum$ 3
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | NumCards$ 3 | ConditionCheckSVar$ X | ConditionSVarCompare$ GE3
+SVar:X:Count$ThisTurnEntered_Graveyard_from_Battlefield_Creature

@@ -1,12 +1,10 @@
 Id:10769
 ColorIdentity:B
 OriginSet:G4398040c23c94f0e
-ManaCost:B
-Types:Enchantment
-T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | Execute$ TrigPut | OptionalDecider$ You | CheckSVar$ X | SVarCompare$ GE2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Graveyard | ValidCard$ Card.!token+OppOwn | TriggerZones$ Battlefield | IsPresent$ Card.Self+counters_GE3_QUEST | Execute$ TrigLoseLife | OptionalDecider$ You
-SVar:TrigPut:DB$ PutCounter | Defined$ Self | CounterType$ QUEST | CounterNum$ 1
-SVar:TrigLoseLife:DB$ LoseLife | Defined$ TriggeredCardOwner | LifeAmount$ 2 | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2
-SVar:X:PlayerCountRegisteredOpponents$HighestLifeLostThisTurn
-SVar:MaxQuestEffect:3
+ManaCost:4 B B
+Types:Sorcery
+K:Kicker:tapXType<1/Vampire>
+A:SP$ LoseLife | ValidTgts$ Opponent | LifeAmount$ X | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ AFLifeLost | Condition$ Kicked
+SVar:X:TargetedPlayer$LifeTotal/HalfUp
+SVar:AFLifeLost:TargetedPlayer$LifeTotal/HalfUp

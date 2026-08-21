@@ -1,11 +1,10 @@
 Id:33598
 ColorIdentity:G
-OriginSet:Gf04404de3fa1525e
-ManaCost:G
-Types:Creature Turtle Wizard
-PT:1/1
-K:Increment
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self+HasCounters | TriggerZones$ Battlefield | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 1802199211 | TokenOwner$ You | SubAbility$ DBPutCounter | RememberTokens$ True
-SVar:DBPutCounter:DB$ PutCounter | Defined$ Remembered | CounterType$ EachFromSource | EachFromSource$ TriggeredCardLKICopy | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+OriginSet:Gff0a4227ae9f1a4b
+ManaCost:2 G
+Types:Legendary Creature Mutant Ninja Turtle Lizard
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | MinCharmNum$ 1 | CharmNum$ 2 | Choices$ DBPutCounter,DBReturn
+SVar:DBPutCounter:DB$ PutCounter | ValidTgts$ Player | Choices$ Creature.ControlledBy ThisTargetedPlayer | Chooser$ ThisTargetedPlayer | Placer$ ThisTargetedPlayer | CounterType$ P1P1 | CounterNum$ 2
+SVar:DBReturn:DB$ ChangeZone | ValidTgts$ Player | TargetUnique$ True | Hidden$ True | Mandatory$ True | ChangeType$ Creature.OwnedBy ThisTargetedPlayer,Land.OwnedBy ThisTargetedPlayer | ChangeNum$ 1 | Origin$ Graveyard | Destination$ Hand

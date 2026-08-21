@@ -2,6 +2,9 @@ Id:7943
 ColorIdentity:G
 OriginSet:Gc563c209d627c4c5
 ManaCost:4 G
-Types:Creature Centaur Shaman
-PT:3/4
-A:AB$ ChangeZone | Cost$ 2 G T | ValidTgts$ Enchantment.YouCtrl | Origin$ Graveyard | Destination$ Hand
+Types:Enchantment
+R:Event$ CreateToken | ActiveZones$ Battlefield | ValidToken$ Card.YouCtrl | ReplaceWith$ DoubleToken | EffectOnly$ True
+SVar:DoubleToken:DB$ ReplaceToken | Type$ Amount
+R:Event$ AddCounter | ActiveZones$ Battlefield | ValidCard$ Permanent.YouCtrl+inZoneBattlefield | EffectOnly$ True | ReplaceWith$ DoubleCounters
+SVar:DoubleCounters:DB$ ReplaceCounter | Amount$ Y
+SVar:Y:ReplaceCount$CounterNum/Twice

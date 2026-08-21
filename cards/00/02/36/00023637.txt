@@ -1,13 +1,12 @@
 Id:23637
-ColorIdentity:WB
+ColorIdentity:W
 OriginSet:G1a259dba25660062
-ManaCost:3 W B
-Types:Enchantment
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigChoose
-SVar:TrigChoose:DB$ ChooseCard | ValidTgts$ Permanent.YouOwn | TgtZone$ Graveyard | DefinedCards$ Targeted | SubAbility$ DBSacrifice
-SVar:DBSacrifice:DB$ Sacrifice | Optional$ True | SacValid$ Permanent.sharesCardTypeWith Targeted | Amount$ 1 | RememberSacrificed$ True | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | ConditionDefined$ Remembered | ConditionPresent$ Card | Defined$ Targeted | Origin$ Graveyard | Destination$ Battlefield | SubAbility$ DBAnimate
-SVar:DBAnimate:DB$ Animate | ConditionDefined$ Remembered | ConditionPresent$ Card | Replacements$ ReplaceLeaves | Defined$ Targeted | Duration$ Permanent | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearChosenCard$ True
-SVar:ReplaceLeaves:Event$ Moved | ActiveZones$ Battlefield | Origin$ Battlefield | ValidCard$ Card.Self | ReplaceWith$ Exile
-SVar:Exile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | Defined$ ReplacedCard
+ManaCost:X W
+Types:Instant
+A:SP$ ChangeZone | Announce$ Exiled | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Artifact.cmcLEX,Creature.cmcLEX,Enchantment.cmcLEX
+S:Mode$ RaiseCost | ValidCard$ Card.Self | Type$ Spell | Cost$ ExileFromHand<Y/Card.White/white cards> | EffectZone$ All
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ Z | EffectZone$ All | Relative$ True | Secondary$ True
+SVar:X:Count$xPaid
+SVar:Y:SVar$Exiled
+SVar:Z:SVar$Y/Times.2
+SVar:Exiled:Number$0

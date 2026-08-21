@@ -1,9 +1,11 @@
 Id:7575
-ColorIdentity:W
+ColorIdentity:R
 OriginSet:G4747f23d5c5760bc
-ManaCost:6 W
-Types:Legendary Creature Spirit
-PT:3/6
-K:Flying
-T:Mode$ SpellCast | ValidCard$ Spirit,Arcane | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 3710996234 | TokenOwner$ You
+ManaCost:3 R
+Types:Instant Arcane
+K:Splice:Arcane:2 R R
+A:SP$ Effect | ValidTgts$ Permanent | RememberObjects$ Targeted | ReplacementEffects$ OverblazeEvent
+SVar:OverblazeEvent:Event$ DamageDone | ValidSource$ Permanent.IsRemembered | ValidTarget$ Permanent,Player | ReplaceWith$ DmgTwice
+SVar:DmgTwice:DB$ ReplaceEffect | VarName$ DamageAmount | VarValue$ X
+SVar:X:ReplaceCount$DamageAmount/Twice
+SVar:PlayMain1:TRUE

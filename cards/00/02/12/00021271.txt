@@ -1,12 +1,8 @@
 Id:21271
-ColorIdentity:WBR
-OriginSet:G8a59924df6623252
-ManaCost:2 R W B
-Types:Legendary Creature Human Rogue
-PT:4/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChoose
-SVar:TrigChoose:DB$ ChooseCard | ValidTgts$ Opponent | Defined$ TargetedAndYou | Amount$ 1 | Mandatory$ True | Choices$ Creature.TargetedPlayerCtrl | Secretly$ True | Reveal$ True | SubAbility$ DBSacrificeAll
-SVar:DBSacrificeAll:DB$ SacrificeAll | ValidCards$ Creature.ChosenCard | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
-T:Mode$ Sacrificed | ValidCard$ Creature.OppCtrl | Execute$ TrigToken | TriggerZones$ Battlefield
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 3851718391 | TokenOwner$ You
+ColorIdentity:W
+OriginSet:G72c9c624ceb92bff
+ManaCost:W
+Types:Instant
+A:SP$ Pump | ValidTgts$ Creature.attacking,Creature.blocking | SubAbility$ DBDamage
+SVar:DBDamage:DB$ DealDamage | Defined$ Targeted | NumDmg$ X
+SVar:X:Count$Party/Twice

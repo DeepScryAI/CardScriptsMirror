@@ -1,9 +1,14 @@
 Id:29048
-ColorIdentity:
-OriginSet:G27146c70b74a1e72
-ManaCost:no cost
-Types:Land Desert
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSurveil
-SVar:TrigSurveil:DB$ Surveil | Amount$ 1
-A:AB$ Mana | Cost$ T | Produced$ C
-A:AB$ Mana | Cost$ 1 T | Produced$ Any
+ColorIdentity:G
+OriginSet:Gaf7c94f364052cdd
+ManaCost:2 G
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ ReduceCost | ValidTarget$ Creature.EnchantedBy | ValidSpell$ Activated.Equip | Activator$ You | Amount$ 3
+S:Mode$ ReduceCost | ValidCard$ Aura | ValidTarget$ Creature.EnchantedBy | Activator$ You | Type$ Spell | Amount$ 3
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ X | AddToughness$ X | AddSVar$ EqMe & EnMe
+SVar:X:Count$Valid Aura.AttachedTo Creature.EnchantedBy,Equipment.AttachedTo Creature.EnchantedBy/Times.2
+SVar:EqMe:SVar:EquipMe:Multiple
+SVar:EnMe:SVar:EnchantMe:Multiple
+SVar:BuffedBy:Aura,Equipment

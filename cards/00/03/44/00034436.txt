@@ -1,15 +1,14 @@
 Id:34436
-ColorIdentity:B
-OriginSet:G11c0621ce29fa608
-ManaCost:1 B
-Types:Enchantment Plan
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Villain.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigLoseLife
-SVar:TrigLoseLife:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 1 | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1 | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | CounterType$ PLAN | CounterNum$ 1
-T:Mode$ CounterAdded | ValidCard$ Card.Self | TriggerZones$ Battlefield | CounterType$ PLAN | CounterAmount$ EQ5 | Execute$ TrigSac
-SVar:TrigSac:DB$ Sacrifice | Defined$ Self | RememberSacrificed$ True | SubAbility$ DBImmediateTrigger
-SVar:DBImmediateTrigger:DB$ ImmediateTrigger | ConditionDefined$ Remembered | ConditionPresent$ Card | Execute$ TrigDig | SubAbility$ DBCleanup
-SVar:TrigDig:DB$ Dig | ValidTgts$ Opponent | DigNum$ 5 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBPlay
-SVar:DBPlay:DB$ Play | WithoutManaCost$ True | ValidZone$ Exile | Valid$ Card.IsRemembered | ValidSA$ Spell | Amount$ 2 | Optional$ True | SubAbility$ DBCleanup
+ColorIdentity:UB
+OriginSet:Gcb93bbfc68a40806
+ManaCost:3 U B
+Types:Legendary Creature Human Villain
+PT:3/5
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDigUntil
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDigUntil | Secondary$ True
+SVar:TrigDigUntil:DB$ DigUntil | Valid$ Card.nonLand | FoundDestination$ Exile | RevealedDestination$ Exile | RememberFound$ True | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Remembered | CounterType$ TIME | CounterNum$ 2 | SubAbility$ GiveSuspend
+SVar:GiveSuspend:DB$ Pump | Defined$ Remembered.withoutSuspend | KW$ Suspend | PumpZone$ Exile | Duration$ Permanent | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:HasAttackEffect:TRUE

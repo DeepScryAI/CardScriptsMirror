@@ -1,9 +1,12 @@
 Id:28909
-ColorIdentity:U
-OriginSet:Gaf7c94f364052cdd
-ManaCost:3 U U
-Types:Artifact Creature Synth
-PT:0/0
-K:Improvise
-K:ETBReplacement:Copy:DBCopy:Optional
-SVar:DBCopy:DB$ Clone | Choices$ Creature | AddTypes$ Artifact & Creature & Synth
+ColorIdentity:G
+OriginSet:Gfe262f6450b3d189
+ManaCost:2 G
+Types:Creature Plant Rhino
+PT:4/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChoose
+SVar:TrigChoose:DB$ ChooseCard | ChoiceZone$ Hand | Choices$ Creature.YouOwn | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ ChosenCard | Incorporate$ 1 G | Duration$ Perpetual | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | PumpZone$ Hand | Defined$ ChosenCard | Duration$ Perpetual | NumAtt$ +4 | NumDef$ +4 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+S:Mode$ Continuous | Affected$ Creature.MultiColor+YouCtrl | AddKeyword$ Ward:2

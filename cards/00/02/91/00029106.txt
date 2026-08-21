@@ -1,11 +1,12 @@
 Id:29106
-ColorIdentity:W
-OriginSet:G27146c70b74a1e72
-ManaCost:2 W
-Types:Creature Ox Angel
-PT:2/2
-K:Flash
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGainLife
-SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 2 | SubAbility$ DBScry
-SVar:DBScry:DB$ Scry | ScryNum$ 1
+ColorIdentity:
+OriginSet:G343cd0ac847a92b7
+ManaCost:3
+Types:Artifact Equipment
+K:Equip:2
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddToughness$ 2 | AddSVar$ SwordOfWealthAndPowerCE | AddKeyword$ Protection:Instant & Protection:Sorcery
+T:Mode$ DamageDone | ValidSource$ Creature.EquippedBy | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigTreasure | TriggerZones$ Battlefield
+SVar:TrigTreasure:DB$ Token | TokenScriptIds$ 3851718391 | TokenOwner$ You | SubAbility$ DBDelayTrig
+SVar:DBDelayTrig:DB$ DelayedTrigger | AILogic$ SpellCopy | Execute$ EffTrigCopy | ThisTurn$ True | Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You
+SVar:EffTrigCopy:DB$ CopySpellAbility | Amount$ 1 | Defined$ TriggeredSpellAbility | MayChooseTarget$ True
+SVar:SwordOfWealthAndPowerCE:SVar:MustBeBlocked:AttackingPlayerConservative

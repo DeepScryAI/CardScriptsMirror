@@ -1,10 +1,10 @@
 Id:5938
 ColorIdentity:W
 OriginSet:G0eb5e52d26fe1c23
-ManaCost:2 W
-Types:Sorcery
-A:SP$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBChooseType | SubAbility$ DBDestroyAll
-SVar:DBChooseType:DB$ ChooseType | Defined$ Player.IsRemembered | Type$ Creature | AILogic$ MostProminentComputerControls | SubAbility$ DBRemember
-SVar:DBRemember:DB$ PumpAll | ValidCards$ Creature.ChosenType | RememberPumped$ True
-SVar:DBDestroyAll:DB$ DestroyAll | ValidCards$ Creature.!IsRemembered | NoRegen$ True | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:3 W
+Types:Creature Bird Soldier
+PT:2/3
+K:Flying
+T:Mode$ AttackerBlocked | ValidCard$ Card.Self | OptionalDecider$ You | Execute$ TrigUntap
+SVar:TrigUntap:DB$ Untap | Defined$ Self | SubAbility$ RemCombat
+SVar:RemCombat:DB$ RemoveFromCombat | Defined$ Self

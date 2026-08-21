@@ -1,8 +1,16 @@
 Id:23248
-ColorIdentity:G
+ColorIdentity:B
 OriginSet:G6e75ff4f143a3dc3
-ManaCost:2 G
-Types:Sorcery
-A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Hand | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Creature.YouOwn | SubAbility$ DBReturn
-SVar:DBReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Permanent.nonCreature+YouOwn | SubAbility$ DBExile
-SVar:DBExile:DB$ ChangeZone | Origin$ Stack | Destination$ Exile
+ManaCost:2 B
+Types:Creature Human Peasant
+PT:2/2
+K:Lifelink
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigTransform
+SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:black
+Types:Creature Human Knight
+PT:4/3
+K:Lifelink

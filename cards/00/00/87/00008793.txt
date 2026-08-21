@@ -1,7 +1,9 @@
 Id:8793
-ColorIdentity:U
+ColorIdentity:B
 OriginSet:G70f74088c47d66bd
-ManaCost:1 U
-Types:Instant
-S:Mode$ AlternativeCost | ValidSA$ Spell.Self | EffectZone$ All | Cost$ ExileFromHand<1/Card.Blue+Other>
-A:SP$ ChangeZone | ValidTgts$ Creature | Origin$ Battlefield | Destination$ Hand
+ManaCost:B B
+Types:Sorcery
+A:SP$ LoseLife | Defined$ Player | LifeAmount$ 1 | AILifeThreshold$ 1 | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Mode$ TgtChoose | Defined$ Player | SubAbility$ DBSacCreature
+SVar:DBSacCreature:DB$ Sacrifice | SacValid$ Creature | Defined$ Player | SubAbility$ DBSacLand
+SVar:DBSacLand:DB$ Sacrifice | SacValid$ Land | Defined$ Player

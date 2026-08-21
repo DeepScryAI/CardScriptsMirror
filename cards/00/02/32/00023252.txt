@@ -1,7 +1,16 @@
 Id:23252
-ColorIdentity:W
+ColorIdentity:G
 OriginSet:G6e75ff4f143a3dc3
-ManaCost:1 W
-Types:Sorcery
-A:SP$ Destroy | ValidTgts$ Artifact,Enchantment | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | LifeAmount$ 3
+ManaCost:3 G
+Types:Enchantment
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBTransform
+SVar:DBTransform:DB$ SetState | Defined$ Self | Mode$ Transform | ConditionDefined$ Targeted | ConditionPresent$ Creature.toughnessGE6
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:green
+Types:Creature Treefolk
+PT:3/6
+K:Vigilance
+S:Mode$ Continuous | Affected$ Creature.Other+YouCtrl | AddKeyword$ Vigilance

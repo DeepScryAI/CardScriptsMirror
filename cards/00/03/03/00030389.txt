@@ -1,10 +1,11 @@
 Id:30389
-ColorIdentity:UG
-OriginSet:G8b2ed00ac2a0ff47
-ManaCost:G U
-Types:Enchantment
-K:Flash
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDread
-SVar:TrigDread:DB$ ManifestDread
-T:Mode$ TurnFaceUp | ValidCard$ Permanent | ValidCause$ SpellAbility.YouCtrl | Execute$ TrigPutCounter | TriggerZones$ Battlefield
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ TriggeredCardLKICopy | CounterType$ P1P1 | CounterNum$ 1
+ColorIdentity:
+OriginSet:G7b2137df486dc752
+ManaCost:no cost
+Types:Scheme
+T:Mode$ SetInMotion | ValidCard$ Card.Self | Execute$ TrigCharm | TriggerZones$ Command
+SVar:TrigCharm:DB$ Charm | Choices$ DBDraw,DBEffect
+SVar:DBDraw:DB$ Draw | NumCards$ 2
+SVar:DBEffect:DB$ Effect | Triggers$ CastTrig
+SVar:CastTrig:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | Execute$ TrigCopySpell | TriggerZones$ Command
+SVar:TrigCopySpell:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | MayChooseTarget$ True

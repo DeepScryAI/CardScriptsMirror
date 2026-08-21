@@ -1,10 +1,18 @@
 Id:30663
 ColorIdentity:B
-OriginSet:Gc5a2f0ff902c0621
-ManaCost:3 B
-Types:Creature Spirit
-PT:2/3
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill
-SVar:TrigMill:DB$ Mill | Defined$ You | NumCards$ 3
-S:Mode$ Continuous | Affected$ Card.Self | AddPower$ 2 | AddToughness$ 1 | Condition$ Threshold
+OriginSet:G8b2ed00ac2a0ff47
+ManaCost:2 B
+Types:Enchantment Room
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | SubAbility$ DBBranch
+SVar:DBBranch:DB$ Branch | BranchConditionSVar$ X | BranchConditionSVarCompare$ GT0 | TrueSubAbility$ DBLoseLife1 | FalseSubAbility$ DBLoseLife2
+SVar:DBLoseLife1:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 2 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2
+SVar:DBLoseLife2:DB$ LoseLife | Defined$ You | LifeAmount$ 2
+SVar:X:Count$Valid Demon.YouCtrl
+AlternateMode:Split
+ALTERNATE
+ManaCost:3 B B
+Types:Enchantment Room
+T:Mode$ UnlockDoor | ValidPlayer$ You | ValidCard$ Card.Self | ThisDoor$ True | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 2828265726 | TokenOwner$ You

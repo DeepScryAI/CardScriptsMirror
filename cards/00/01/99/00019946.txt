@@ -1,8 +1,10 @@
 Id:19946
-ColorIdentity:B
+ColorIdentity:
 OriginSet:G23be9f486a22d38a
-ManaCost:1 B
-Types:Creature Human Noble
-PT:2/2
-A:AB$ PutCounter | Cost$ 2 Sac<1/Artifact;Creature.Other/artifact or another creature> | CounterType$ P1P1 | CounterNum$ 1
-SVar:AIPreference:SacCost$Artifact.token,Creature.Other+cmcLE2,Artifact.cmcEQ1
+ManaCost:3
+Types:Artifact
+K:ETBReplacement:Other:ChooseColor
+SVar:ChooseColor:DB$ ChooseColor | Defined$ You | AILogic$ MostProminentComputerControls
+S:Mode$ Continuous | Affected$ Creature.ChosenColor+YouCtrl | AddPower$ 1
+A:AB$ Mana | Cost$ T | Produced$ Chosen
+SVar:PlayMain1:TRUE

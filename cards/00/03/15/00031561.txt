@@ -1,17 +1,14 @@
 Id:31561
-ColorIdentity:URG
-OriginSet:Gfac9eb8c75f25726
-ManaCost:3 G U R
+ColorIdentity:BG
+OriginSet:Gf2b808f4f642ac62
+ManaCost:4 G
 Types:Creature Dragon
-PT:6/6
+PT:3/3
 K:Flying
-K:Vigilance
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange
-SVar:TrigChange:DB$ ChangeZoneAll | ChangeType$ Creature.nonDragon | Origin$ Battlefield | Destination$ Hand
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ Destroy | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Artifact,Enchantment
 AlternateMode:Omen
 ALTERNATE
-ManaCost:2 R
+ManaCost:1 B
 Types:Sorcery Omen
-A:SP$ DealDamage | ValidTgts$ Any | NumDmg$ 2 | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | StaticAbilities$ ReduceCost | ForgetOnCast$ Dragon.YouCtrl | Duration$ Permanent
-SVar:ReduceCost:Mode$ ReduceCost | Type$ Spell | Activator$ You | ValidCard$ Dragon | Amount$ 2
+A:SP$ Destroy | ValidTgts$ Creature.powerLE3

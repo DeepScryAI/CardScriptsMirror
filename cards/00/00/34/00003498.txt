@@ -1,9 +1,9 @@
 Id:3498
 ColorIdentity:B
 OriginSet:G24ae8187eacbba52
-ManaCost:2 B B
-Types:Enchantment
-A:AB$ Destroy | Cost$ 1 B Sac<1/CARDNAME> | TargetMin$ 0 | TargetMax$ X | ValidTgts$ Creature.nonBlack | NoRegen$ True
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ VERSE | CounterNum$ 1
-SVar:X:Count$CardCounters.VERSE
+ManaCost:2 B
+Types:Sorcery
+A:SP$ Sacrifice | Defined$ You | SacValid$ Creature | RememberSacrificed$ True | SubAbility$ Rise
+SVar:Rise:DB$ ChangeZone | ValidTgts$ Creature.YouCtrl | TargetMin$ 2 | TargetMax$ 2 | Origin$ Graveyard | Destination$ Battlefield | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ1 | Tapped$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Amount

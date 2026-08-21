@@ -1,11 +1,8 @@
 Id:18114
-ColorIdentity:R
+ColorIdentity:B
 OriginSet:G5033d54b23b37629
-ManaCost:5 R
-Types:Enchantment
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | Choices$ Permanent.YouDontCtrl+nonEnchantment | ChoiceAmount$ 4 | Defined$ ChosenCard | CounterType$ AIM | CounterNum$ 1 | IsCurse$ True
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | IsPresent$ Permanent.YouDontCtrl+counters_GE1_AIM | PresentCompare$ GE2 | Execute$ TrigDestroy
-SVar:TrigDestroy:DB$ ChooseCard | Amount$ 1 | AtRandom$ True | Choices$ Permanent.YouDontCtrl+counters_GE1_AIM+withoutIndestructible | SubAbility$ DBDestroy
-SVar:DBDestroy:DB$ Destroy | Defined$ ChosenCard | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+ManaCost:2 B
+Types:Creature Skeleton Warrior
+PT:2/1
+A:AB$ Pump | Cost$ 3 | Defined$ Self | KW$ Indestructible | SubAbility$ DBTap
+SVar:DBTap:DB$ Tap | Defined$ Self

@@ -1,13 +1,9 @@
 Id:31197
-ColorIdentity:W
-OriginSet:G9de1432c543d1aef
-ManaCost:1 W
-Types:Artifact
-K:StartYourEngines
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigConjure
-SVar:TrigConjure:DB$ MakeCard | Conjure$ True | CatalogId$ 15278 | Zone$ Battlefield | RememberMade$ True | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | Defined$ Remembered | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-S:Mode$ Continuous | Affected$ Card.Self | Condition$ MaxSpeed | AddTrigger$ PhaseTrig
-SVar:PhaseTrig:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter | Secondary$ True
-SVar:TrigPutCounter:DB$ PutCounterAll | ValidCards$ Creature.Artifact+YouCtrl,Vehicle.YouCtrl | CounterType$ P1P1 | CounterNum$ 1
+ColorIdentity:R
+OriginSet:G4524bbf7a3db9dc0
+ManaCost:3 R
+Types:Creature Minotaur Pilot
+PT:3/3
+T:Mode$ Saddled | ValidCrew$ Card.Self | Execute$ TrigPump | TriggerZones$ Battlefield | PlayerTurn$ True | Phase$ Main1,Main2
+T:Mode$ Crewed | ValidCrew$ Card.Self | Execute$ TrigPump | TriggerZones$ Battlefield | Secondary$ True | PlayerTurn$ True | Phase$ Main1,Main2
+SVar:TrigPump:DB$ Pump | Defined$ TriggeredCardLKICopy | NumAtt$ +2 | KW$ Trample

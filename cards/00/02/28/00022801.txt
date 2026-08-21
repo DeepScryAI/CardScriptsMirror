@@ -1,8 +1,12 @@
 Id:22801
-ColorIdentity:B
-OriginSet:Gf78628ad511eefec
-ManaCost:B
-Types:Sorcery
-A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Creature.YouOwn | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | CounterNum$ 1 | CounterType$ P1P1 | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Zombie.YouCtrl
-K:Flashback:3 B
+ColorIdentity:U
+OriginSet:G66f2eb694ffd614a
+ManaCost:X 2 U
+Types:Instant
+A:SP$ Charm | MinCharmNum$ 1 | CharmNum$ W | Choices$ DBDraw,DBMill
+SVar:DBDraw:DB$ Draw | ValidTgts$ Player | NumCards$ X
+SVar:DBMill:DB$ Mill | ValidTgts$ Player | NumCards$ Z
+SVar:W:Count$Compare Y GE1.2.1
+SVar:X:Count$xPaid
+SVar:Y:Count$Valid Card.IsCommander+YouCtrl
+SVar:Z:Count$xPaid/Twice

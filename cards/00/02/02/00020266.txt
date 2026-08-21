@@ -1,11 +1,16 @@
 Id:20266
-ColorIdentity:B
+ColorIdentity:BR
 OriginSet:G42eb6bda83007836
-ManaCost:2 B
-Types:Enchantment Saga
-K:Chapter:3:DBMill,DBMill,DBGainLife
-SVar:DBMill:DB$ Mill | Defined$ You | NumCards$ 3 | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenScriptIds$ 353162950 | TokenOwner$ You | UnlessCost$ ExileFromGrave<1/Creature;Enchantment/creature or enchantment card> | UnlessSwitched$ True | UnlessPayer$ You
-SVar:DBGainLife:DB$ GainLife | LifeAmount$ X | SubAbility$ DBScry
-SVar:DBScry:DB$ Scry | ScryNum$ X
-SVar:X:Count$Valid Zombie.YouCtrl
+ManaCost:B R
+Types:Legendary Creature Elder Giant
+PT:6/6
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice | SacValid$ Self | ConditionNotPresent$ Card.Self+escaped
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ DBDiscard
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ DBDiscard | Secondary$ True
+SVar:DBDiscard:DB$ Discard | Mode$ TgtChoose | Defined$ Player.Opponent | NumCards$ 1 | RememberDiscarded$ True | SubAbility$ DBRepeat
+SVar:DBRepeat:DB$ RepeatEach | RepeatPlayers$ Player.Opponent | RepeatSubAbility$ DBLoseLife | SubAbility$ DBCleanup
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 3 | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ0 | Defined$ Player.IsRemembered
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Valid Card.nonLand+RememberedPlayerOwn
+K:Escape:B B R R ExileFromGrave<5/Card.Other/other>

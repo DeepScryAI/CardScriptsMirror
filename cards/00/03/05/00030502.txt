@@ -1,16 +1,12 @@
 Id:30502
-ColorIdentity:U
+ColorIdentity:UB
 OriginSet:G8b2ed00ac2a0ff47
-ManaCost:2 U
-Types:Legendary Enchantment Saga
-K:Chapter:4:DBRepeat,DBRepeat,DBRepeat,DBChangeZone
-SVar:DBRepeat:DB$ Repeat | RepeatSubAbility$ DBCleanAndGrind | MaxRepeat$ MaxRepeats | RepeatCheckSVar$ MilledSharesType | RepeatSVarCompare$ GE2 | SubAbility$ DBCleanup
-SVar:DBCleanAndGrind:DB$ Cleanup | ClearRemembered$ True | SubAbility$ DBGrind
-SVar:DBGrind:DB$ Mill | NumCards$ 2 | RememberMilled$ True | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | ConditionCheckSVar$ MilledSharesType | ConditionSVarCompare$ GE2
-SVar:MaxRepeats:Count$ValidLibrary Card.YouOwn
-SVar:MilledSharesType:Remembered$Valid Card.sharesCardTypeWithOther Remembered
-SVar:DBChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | TargetMin$ 0 | TargetMax$ Yard | ValidTgts$ Instant.YouOwn,Sorcery.YouOwn,Planeswalker.Tamiyo+YouOwn | RememberChanged$ True | SubAbility$ DBPlay
-SVar:DBPlay:DB$ Play | Valid$ Card.IsRemembered | ValidZone$ Exile | Controller$ You | CopyCard$ True | ValidSA$ Spell | Optional$ True | Amount$ All | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:Yard:Count$ValidGraveyard Instant.YouOwn,Sorcery.YouOwn,Planeswalker.Tamiyo+YouOwn
+ManaCost:1 U B
+Types:Enchantment Creature Nightmare
+PT:2/2
+K:Flying
+K:Lifelink
+S:Mode$ CantBlock | ValidCard$ Card.Self
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Enchantment.YouCtrl | OptionalDecider$ You | TriggerZones$ Graveyard | Execute$ TrigChange
+T:Mode$ FullyUnlock | ValidCard$ Card.Room | ValidPlayer$ You | Secondary$ True | OptionalDecider$ You | TriggerZones$ Graveyard | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand

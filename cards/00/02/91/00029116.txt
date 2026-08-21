@@ -1,11 +1,10 @@
 Id:29116
-ColorIdentity:U
-OriginSet:G27146c70b74a1e72
-ManaCost:U
-Types:Sorcery
-K:Spree
-A:SP$ Charm | Choices$ DBPutCounter,DBChangeZone | MinCharmNum$ 1 | CharmNum$ 2
-SVar:DBPutCounter:DB$ PutCounter | ModeCost$ 3 | ValidTgts$ Creature | CounterType$ P1P1 | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | ExileOnMoved$ Battlefield | RememberObjects$ ParentTarget | StaticAbilities$ Unblockable
-SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
-SVar:DBChangeZone:DB$ ChangeZone | ModeCost$ 2 | ValidTgts$ Artifact,Creature | AlternativeDecider$ ThisTargetedOwner | Origin$ Battlefield | Destination$ Library | DestinationAlternative$ Library | LibraryPositionAlternative$ -1
+ColorIdentity:
+OriginSet:Gc7beb665b378d90a
+ManaCost:no cost
+Types:Land Desert
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ ManaReflected | Cost$ T | ColorOrType$ Type | Valid$ Land.YouCtrl | ReflectProperty$ Produce
+A:AB$ Animate | Cost$ 3 | Defined$ Self | Power$ X | Toughness$ X | Colors$ Green | OverwriteColors$ True | Types$ Creature,Plant | Keywords$ Reach
+SVar:X:Count$ValidAll Card.IsCommander+YouOwn$GreatestCardManaCost

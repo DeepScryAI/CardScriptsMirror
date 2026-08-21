@@ -1,12 +1,10 @@
 Id:26330
-ColorIdentity:R
-OriginSet:G8a59924df6623252
-ManaCost:4 R R R
-Types:Legendary Creature Dragon
-PT:5/5
-K:Trample
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDamageAllNonFlyers
-SVar:TrigDamageAllNonFlyers:DB$ DamageAll | NumDmg$ X | ValidCards$ Creature.Other+withoutFlying | ValidPlayers$ Player
-S:Mode$ OptionalAttackCost | ValidCard$ Card.Self | Trigger$ TrigPump | Cost$ Exert<1/CARDNAME>
-SVar:TrigPump:DB$ Pump | Defined$ Self | KW$ Flying
-SVar:X:Count$Valid Mountain.YouCtrl
+ColorIdentity:U
+OriginSet:G2192e8955d5e1ad1
+ManaCost:2 U U
+Types:Legendary Creature Phyrexian Horror
+PT:3/5
+K:Flying
+R:Event$ Proliferate | ActiveZones$ Battlefield | ValidPlayer$ You | ReplaceWith$ ProlifTwice | AILogic$ DoubleLife
+SVar:ProlifTwice:DB$ ReplaceEffect | VarName$ Num | VarValue$ ReplaceCount$Num/Twice
+A:AB$ PutCounter | Cost$ 1 UP UP RemoveAnyCounter<3/Any/Artifact.Other;Creature.Other;Planeswalker.Other/other artifacts, creatures, and planeswalkers> | CounterType$ Indestructible

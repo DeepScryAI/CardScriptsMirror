@@ -1,9 +1,10 @@
 Id:7569
-ColorIdentity:R
+ColorIdentity:B
 OriginSet:G4747f23d5c5760bc
-ManaCost:3 R
+ManaCost:1 B B
 Types:Creature Ogre Warrior
-PT:5/4
-T:Mode$ SpellCast | Execute$ TrigTap | TriggerZones$ Battlefield
-SVar:TrigTap:DB$ Tap | Defined$ Self
-SVar:AntiBuffedBy:Card
+PT:3/1
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigAnimate | TriggerZones$ Battlefield
+SVar:TrigAnimate:DB$ Animate | UnlessCost$ Sac<1/Creature> | UnlessPayer$ DefendingPlayer | staticAbilities$ Unblockable
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.Self
+SVar:HasAttackEffect:TRUE

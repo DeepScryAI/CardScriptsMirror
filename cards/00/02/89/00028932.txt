@@ -1,9 +1,10 @@
 Id:28932
-ColorIdentity:G
+ColorIdentity:
 OriginSet:Gaf7c94f364052cdd
-ManaCost:2 G
-Types:Creature Elk Mutant
-PT:2/2
-K:Evolve
-T:Mode$ Evolved | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigCopy
-SVar:TrigCopy:DB$ CopyPermanent | Defined$ Self
+ManaCost:3
+Types:Artifact Bobblehead
+A:AB$ Mana | Cost$ T | Produced$ Any
+A:AB$ Pump | Cost$ 3 T | TargetMin$ 0 | TargetMax$ X | ValidTgts$ Creature.YouCtrl | KW$ Haste | SubAbility$ DBUnblockable
+SVar:DBUnblockable:DB$ Effect | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered | ValidBlocker$ Creature.withoutHaste
+SVar:X:Count$Valid Bobblehead.YouCtrl

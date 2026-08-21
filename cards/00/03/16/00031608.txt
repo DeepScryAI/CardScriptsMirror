@@ -1,15 +1,8 @@
 Id:31608
-ColorIdentity:WB
-OriginSet:G530ea9d733a13e9d
-ManaCost:1 W
-Types:Legendary Creature Human Detective
-PT:2/2
-S:Mode$ Continuous | Affected$ Creature.token+YouCtrl | AddPower$ 1 | AddToughness$ 1
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigEffect
-SVar:TrigEffect:DB$ Effect | StaticAbilities$ STPlay | ForgetOnMoved$ Graveyard | RememberObjects$ Self | Duration$ UntilTheEndOfYourNextTurn
-SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered+Adventure | AffectedZone$ Graveyard
-AlternateMode:Adventure
-ALTERNATE
-ManaCost:2 B
-Types:Instant Adventure
-A:SP$ Token | TokenScriptIds$ 353162950 | TokenOwner$ You
+ColorIdentity:G
+OriginSet:Gf2b808f4f642ac62
+ManaCost:2 G
+Types:Sorcery
+A:SP$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | SubAbility$ DBDamage | AILogic$ PowerDmg
+SVar:DBDamage:DB$ DealDamage | ValidTgts$ Creature.OppCtrl | NumDmg$ X | DamageSource$ ParentTarget | AILogic$ PowerDmg
+SVar:X:ParentTargeted$CardPower

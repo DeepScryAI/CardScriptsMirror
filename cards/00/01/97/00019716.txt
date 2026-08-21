@@ -1,9 +1,12 @@
 Id:19716
-ColorIdentity:W
+ColorIdentity:URG
 OriginSet:G7c61dc677f00d087
-ManaCost:4 W
-Types:Creature Human Soldier
-PT:2/2
-K:Vigilance
-K:etbCounter:P1P1:X:no Condition
-SVar:X:Count$Valid Creature.Other+YouCtrl
+ManaCost:1 G U R
+Types:Legendary Creature Elemental
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ X
+SVar:X:Count$Valid Elemental.YouCtrl
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Elemental.YouCtrl | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | ConditionPresent$ Land.YouCtrl | ConditionCompare$ GE8

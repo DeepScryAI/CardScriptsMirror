@@ -1,8 +1,11 @@
 Id:17558
-ColorIdentity:U
+ColorIdentity:G
 OriginSet:Gda050e0f5b47c310
-ManaCost:1 U
+ManaCost:2 G
 Types:Enchantment Aura
-K:Enchant:Creature
+K:Enchant:Land
 SVar:AttachAILogic:Pump
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 2 | AddToughness$ 2 | AddKeyword$ Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1
+S:Mode$ Continuous | Affected$ Card.EnchantedBy | AddAbility$ NewHorizonsTap
+SVar:NewHorizonsTap:AB$ Mana | Cost$ T | Produced$ Any | Amount$ 2

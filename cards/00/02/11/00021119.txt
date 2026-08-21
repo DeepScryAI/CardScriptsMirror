@@ -1,8 +1,15 @@
 Id:21119
 ColorIdentity:U
-OriginSet:G72c9c624ceb92bff
-ManaCost:1 U
-Types:Creature Merfolk Cleric
-PT:1/3
-T:Mode$ AttackerBlocked | ValidBlocker$ Card.Self | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | Defined$ TriggeredAttackerLKICopy | KW$ HIDDEN This card doesn't untap during your next untap step. | Duration$ Permanent
+OriginSet:G7b2607750b451c25
+ManaCost:2 U U
+Types:Creature Sphinx Wizard
+PT:1/4
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 2 | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ TgtChoose
+T:Mode$ SpellCast | ValidCard$ Instant,Sorcery,Wizard | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigChoose
+SVar:TrigChoose:DB$ GenericChoice | Defined$ You | Choices$ Animate41,Animate14
+SVar:Animate41:DB$ Animate | Defined$ Self | Power$ 4 | Toughness$ 1
+SVar:Animate14:DB$ Animate | Defined$ Self | Power$ 1 | Toughness$ 4
+SVar:BuffedBy:Instant,Sorcery,Wizard

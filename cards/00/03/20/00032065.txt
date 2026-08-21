@@ -1,9 +1,12 @@
 Id:32065
-ColorIdentity:W
-OriginSet:G9946f072b5556073
-ManaCost:2 W
-Types:Creature Human Soldier
-PT:2/4
-K:Vigilance
-S:Mode$ Continuous | Affected$ Card.Self | AddPower$ 2 | CheckSVar$ X | SVarCompare$ GE2
-SVar:X:Count$ThisTurnCast_Card.YouCtrl
+ColorIdentity:U
+OriginSet:G7ab4f62d323b0ca7
+ManaCost:4 U U
+Types:Enchantment Creature Saga Leviathan
+PT:6/6
+K:Chapter:3:DBBounce,DBDraw,DBDraw
+K:Ward:2
+SVar:DBBounce:DB$ ChangeZoneAll | ChangeType$ Creature.nonKraken+nonLeviathan+nonMerfolk+nonOctopus+nonSerpent | Origin$ Battlefield | Destination$ Hand
+SVar:DBDraw:DB$ Effect | Triggers$ AttackTrig
+SVar:AttackTrig:Mode$ Attacks | ValidCard$ Card.Kraken,Card.Leviathan,Card.Merfolk,Card.Octopus,Card.Serpent | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1

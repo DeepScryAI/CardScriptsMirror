@@ -1,12 +1,13 @@
 Id:13918
-ColorIdentity:UBR
+ColorIdentity:U
 OriginSet:G6645ca87da6316d5
-ManaCost:1 U B R
-Types:Legendary Creature Vampire Wizard
-PT:1/3
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
-SVar:TrigExile:DB$ Dig | Defined$ Player | DigNum$ X | ChangeNum$ All | DestinationZone$ Exile
-SVar:X:Count$CastTotalManaSpent
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPlay | OptionalDecider$ You
-SVar:TrigPlay:DB$ Play | ValidZone$ Exile | Valid$ Instant.ExiledWithSource,Sorcery.ExiledWithSource | ValidSA$ Spell | Controller$ You | WithoutManaCost$ True | Amount$ 1
+ManaCost:2 U U
+Types:Instant
+A:SP$ RemoveFromCombat | Defined$ Valid Creature.attacking | ActivationPhases$ Declare Blockers | OpponentTurn$ True | RememberRemovedFromCombat$ True | SubAbility$ DBUntap
+SVar:DBUntap:DB$ Untap | Defined$ Remembered | SubAbility$ DBAddPhase
+SVar:DBAddPhase:DB$ AddPhase | ExtraPhase$ Combat | AfterPhase$ EndCombat | SubAbility$ DBDelayedEffect
+SVar:DBDelayedEffect:DB$ DelayedTrigger | Mode$ Phase | Phase$ BeginCombat | Execute$ DBEffect | Static$ True
+SVar:DBEffect:DB$ Effect | RememberObjects$ Remembered | StaticAbilities$ STCantAttack,STMustAttack | SubAbility$ DBCleanup | Duration$ UntilEndOfCombat
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:STCantAttack:Mode$ CantAttack | ValidCard$ Creature.IsRemembered | Target$ You,Planeswalker.YouCtrl
+SVar:STMustAttack:Mode$ MustAttack | ValidCreature$ Creature.IsRemembered

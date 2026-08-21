@@ -1,8 +1,9 @@
 Id:11735
 ColorIdentity:
 OriginSet:Geea47b3330de77a6
-ManaCost:1
-Types:Artifact Equipment
-K:Equip:3
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddToughness$ 2
-S:Mode$ CantBlock | ValidCard$ Creature.EquippedBy | Secondary$ True
+ManaCost:no cost
+Types:Land
+T:Mode$ DamageDone | ValidSource$ Creature | ValidTarget$ You | CombatDamage$ True | Execute$ TrigControl | TriggerZones$ Battlefield
+SVar:TrigControl:DB$ GainControl | Defined$ Self | NewController$ TriggeredSourceController
+A:AB$ Mana | Cost$ T | Produced$ C
+A:AB$ PumpAll | Cost$ 1 T | ValidCards$ Creature.attacking | NumAtt$ +1

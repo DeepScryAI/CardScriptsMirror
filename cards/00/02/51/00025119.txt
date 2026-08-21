@@ -1,14 +1,14 @@
 Id:25119
-ColorIdentity:BR
-OriginSet:Gf591a76e7a37cf73
-ManaCost:3 B R
-Types:Artifact Creature Demon Construct
-PT:5/4
-K:Trample
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigRepeat
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigRepeat | Secondary$ True
-SVar:TrigRepeat:DB$ RepeatEach | RepeatPlayers$ Opponent | RepeatSubAbility$ DBChooseCard | SubAbility$ DBChooseRandom
-SVar:DBChooseCard:DB$ ChooseCard | Choices$ Permanent.nonLand+ControlledBy Remembered | Mandatory$ True | RememberChosen$ True
-SVar:DBChooseRandom:DB$ ChooseCard | AtRandom$ True | Choices$ Card.IsRemembered+withoutIndestructible | Reveal$ True | SubAbility$ DBDestroy
-SVar:DBDestroy:DB$ Destroy | Defined$ ChosenCard | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearChosenCard$ True
+ColorIdentity:WR
+OriginSet:G2aca7ffc9201ba1c
+ManaCost:R W
+Types:Artifact Vehicle
+PT:0/4
+K:ETBReplacement:Other:DBDraft
+SVar:DBDraft:DB$ Draft | TriggerZones$ Battlefield | SpellbookCatalogIds$ 221,18524,21055,22901,20895,12729,18553,18076,21912,17405,23143,25011,22973,16589,13184 | RememberDrafted$ True | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | Defined$ Remembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+T:Mode$ BecomesCrewed | ValidCard$ Card.Self | Execute$ TrigClone
+SVar:TrigClone:DB$ Clone | Defined$ ExiledWith | CloneTarget$ Self | AddTypes$ Vehicle & Artifact | Duration$ UntilEndOfTurn
+K:Crew:3
+SVar:HasAttackEffect:TRUE

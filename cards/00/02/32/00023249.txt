@@ -1,9 +1,12 @@
 Id:23249
 ColorIdentity:B
 OriginSet:G6e75ff4f143a3dc3
-ManaCost:3 B B
-Types:Creature Zombie Kraken
-PT:5/4
-K:Exploit
-T:Mode$ Exploited | ValidCard$ Creature | ValidSource$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigSac
-SVar:TrigSac:DB$ Sacrifice | Defined$ Player.Opponent | SacValid$ Creature
+ManaCost:3 B
+Types:Creature Zombie Bear
+PT:2/3
+K:Deathtouch
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Card | AITgts$ Creature.OppOwn | RememberChanged$ True | SubAbility$ DBDrain
+SVar:DBDrain:DB$ LoseLife | ConditionDefined$ Remembered | ConditionPresent$ Creature | Defined$ Player.Opponent | LifeAmount$ 2 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | ConditionDefined$ Remembered | ConditionPresent$ Creature | Defined$ You | LifeAmount$ 2 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

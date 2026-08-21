@@ -1,0 +1,14 @@
+Id:34815
+ColorIdentity:U
+OriginSet:G11c0621ce29fa608
+ManaCost:2 U
+Types:Enchantment Plan
+T:Mode$ TapAll | ValidCards$ Creature.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Mode$ TgtChoose | SubAbility$ DBCounter
+SVar:DBCounter:DB$ PutCounter | Defined$ Self | CounterType$ PLAN | CounterNum$ 1
+T:Mode$ CounterAdded | ValidCard$ Card.Self | TriggerZones$ Battlefield | CounterType$ PLAN | CounterAmount$ EQ4 | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice | Defined$ Self | RememberSacrificed$ True | SubAbility$ DBImmediateTrigger
+SVar:DBImmediateTrigger:DB$ ImmediateTrigger | ConditionDefined$ Remembered | ConditionPresent$ Card | Execute$ TrigChangeZone | SubAbility$ DBCleanup
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | TargetMin$ 0 | TargetMax$ 2 | ValidTgts$ Instant.YouOwn,Sorcery.YouOwn
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

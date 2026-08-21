@@ -1,6 +1,15 @@
 Id:23891
-ColorIdentity:WRG
-OriginSet:Gfdfe2ebef04be34e
-ManaCost:R G W
-Types:Sorcery
-A:SP$ DamageAll | ValidCards$ Creature.!token | NumDmg$ 3
+ColorIdentity:B
+OriginSet:G5f5d8cfb206e2fac
+ManaCost:1 B B
+Types:Legendary Creature Vampire Assassin
+PT:3/2
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.OppCtrl | TriggerZones$ Battlefield | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Exile | WithCountersType$ HIT
+S:Mode$ Continuous | Affected$ Assassin.YouCtrl,Mercenary.YouCtrl,Rogue.YouCtrl | AddKeyword$ Deathtouch | AddTrigger$ TrigCombatDamagePlayer
+SVar:TrigCombatDamagePlayer:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigRemove
+SVar:TrigRemove:DB$ RemoveCounter | CounterType$ HIT | RememberRemoved$ True | Choices$ Card.counters_GE1_HIT+OwnedBy TriggeredTarget | ChoiceZone$ Exile | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | SubAbility$ DBTreasure | ConditionCheckSVar$ X
+SVar:DBTreasure:DB$ Token | ConditionCheckSVar$ X | TokenAmount$ 2 | TokenScriptIds$ 3851718391 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$RememberedSize

@@ -1,9 +1,10 @@
 Id:27125
-ColorIdentity:
+ColorIdentity:R
 OriginSet:G6ce0035cfb774934
-ManaCost:1
-Types:Legendary Artifact
-R:Event$ Moved | ActiveZones$ Battlefield | Origin$ Battlefield | Destination$ Graveyard | ValidLKI$ Creature.OppCtrl | ReplaceWith$ Exile
-SVar:Exile:DB$ ChangeZone | Hidden$ True | Origin$ All | Destination$ Exile | Defined$ ReplacedCard
-A:AB$ ChangeZoneAll | Cost$ 2 T Sac<1/CARDNAME> | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Player | ChangeType$ Card | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw
+ManaCost:3 R
+Types:Sorcery
+A:SP$ Amass | Type$ Orc | Num$ 2 | RememberAmass$ True | SubAbility$ DBImmediateTrig
+SVar:DBImmediateTrig:DB$ ImmediateTrigger | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ GE1 | Execute$ TrigDealDamage | RememberObjects$ Remembered | SubAbility$ DBCleanup
+SVar:TrigDealDamage:DB$ DealDamage | ValidTgts$ Creature.OppCtrl | NumDmg$ X
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:TriggerRemembered$CardPower

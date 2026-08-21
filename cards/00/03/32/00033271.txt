@@ -1,25 +1,8 @@
 Id:33271
-ColorIdentity:WU
+ColorIdentity:G
 OriginSet:G7ab1fe96128a1641
-ManaCost:1 U
-Types:Legendary Creature Merfolk Wizard
-PT:2/2
-S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigAnimate
-T:Mode$ Transformed | ValidCard$ Card.Self | Execute$ TrigAnimate | Secondary$ True
-SVar:TrigAnimate:DB$ Animate | ValidTgts$ Creature | Triggers$ DamageTrig
-SVar:DamageTrig:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player,Planeswalker | Execute$ TrigDraw | CombatDamage$ True
-SVar:TrigDraw:DB$ Draw
-T:Mode$ Phase | Phase$ Main1 | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigTransform
-SVar:TrigTransform:AB$ SetState | Cost$ W | Defined$ Self | Mode$ Transform
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:white
-Types:Legendary Creature Merfolk Rogue
-PT:2/2
-S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self
-T:Mode$ Transformed | ValidCard$ Card.Self | Execute$ TrigProt
-SVar:TrigProt:DB$ Pump | ValidTgts$ Creature.YouCtrl | KW$ Protection:EachColor | Duration$ UntilYourNextTurn
-T:Mode$ Phase | Phase$ Main1 | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigTransform
-SVar:TrigTransform:AB$ SetState | Cost$ U | Defined$ Self | Mode$ Transform
+ManaCost:1 G
+Types:Sorcery
+A:SP$ Pump | ValidTgts$ Creature.YouCtrl | NumAtt$ +1 | SubAbility$ DBDealDamage | AILogic$ Fight
+SVar:DBDealDamage:DB$ DealDamage | ValidTgts$ Creature.OppCtrl | AILogic$ PowerDmg | TargetMin$ 0 | TargetMax$ 1 | NumDmg$ X | DamageSource$ ParentTarget
+SVar:X:ParentTargeted$CardPower

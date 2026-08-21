@@ -1,8 +1,11 @@
 Id:33057
-ColorIdentity:B
-OriginSet:G7ab1fe96128a1641
-ManaCost:1 B
-Types:Sorcery
-A:SP$ Charm | Choices$ DBDiscard,DBPump
-SVar:DBDiscard:DB$ Discard | ValidTgts$ Opponent | Mode$ RevealYouChoose | DiscardValid$ Card.Permanent+nonLand | NumCards$ 1
-SVar:DBPump:DB$ Pump | ValidTgts$ Creature | IsCurse$ True | NumAtt$ -2 | NumDef$ -2
+ColorIdentity:R
+OriginSet:G22ed5d6f3707b461
+ManaCost:2 R
+Types:Artifact Equipment
+K:Flash
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigAttach
+SVar:TrigAttach:DB$ Attach | ValidTgts$ Creature.YouCtrl | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Targeted | KW$ DoubleStrike
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1 | AddToughness$ 1
+K:Equip:2

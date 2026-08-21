@@ -1,12 +1,14 @@
 Id:22979
 ColorIdentity:
 OriginSet:Gf78628ad511eefec
-ManaCost:3
-Types:Legendary Artifact
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | DayTime$ Neither | ReplaceWith$ DoDay | ReplacementResult$ Updated
-SVar:DoDay:DB$ DayTime | Value$ Day
-A:AB$ Mana | Cost$ T | Produced$ Any
-A:AB$ DayTime | Cost$ 3 T | Value$ Switch | SorcerySpeed$ True
-T:Mode$ DayTimeChanges | Execute$ DBGainLife | TriggerZones$ Battlefield
-SVar:DBGainLife:DB$ GainLife | LifeAmount$ 1 | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | Defined$ You | Mode$ TgtChoose | NumCards$ 1 | UnlessCost$ Draw<1/You> | UnlessPayer$ You | UnlessSwitched$ True
+ManaCost:2
+Types:Artifact
+A:AB$ Mana | Cost$ 1 T | Produced$ Any
+A:AB$ SetState | Cost$ 5 T | Defined$ Self | Mode$ Transform
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Types:Artifact Creature Construct
+PT:5/6
+S:Mode$ Continuous | Affected$ Land.YouCtrl | AddAbility$ AnyMana
+SVar:AnyMana:AB$ Mana | Cost$ T | Produced$ Any | Amount$ 1

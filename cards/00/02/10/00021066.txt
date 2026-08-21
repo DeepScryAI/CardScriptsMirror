@@ -1,14 +1,11 @@
 Id:21066
-ColorIdentity:R
-OriginSet:G7b2607750b451c25
-ManaCost:1 R R
-Types:Creature Giant Warrior
-PT:4/3
-K:Kicker:2
-K:Trample
-K:Haste
-K:etbCounter:P1P1:1:CheckSVar$ WasKicked
-SVar:WasKicked:Count$Kicked.1.0
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | Execute$ TrigReturn | IsPresent$ Card.Self+counters_EQ0_P1P1
-SVar:TrigReturn:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Defined$ Self
-SVar:PlayMain1:TRUE
+ColorIdentity:B
+OriginSet:G2f853d6139309fb0
+ManaCost:3 B B
+Types:Creature Human Warlock
+PT:4/4
+K:Deathtouch
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | CheckSVar$ YouLifeGained | Execute$ TrigSac | TriggerZones$ Battlefield
+SVar:TrigSac:DB$ Sacrifice | Defined$ Opponent | SacValid$ Creature | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Creature.YouOwn
+SVar:YouLifeGained:Count$LifeYouGainedThisTurn

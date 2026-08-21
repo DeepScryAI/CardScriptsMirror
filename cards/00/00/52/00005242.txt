@@ -1,10 +1,9 @@
 Id:5242
-ColorIdentity:R
+ColorIdentity:U
 OriginSet:Gfdac7ecc1e8a7d21
-ManaCost:2 R R
-Types:Enchantment
-T:Mode$ FlippedCoin | ValidPlayer$ You | ValidResult$ Win | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | CounterType$ LUCK | CounterNum$ 1
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | IsPresent$ Card.Self+counters_GE10_LUCK | Execute$ TrigWin
-SVar:TrigWin:DB$ WinsGame | Defined$ You
-SVar:PlayMain1:ALWAYS
+ManaCost:2 U U
+Types:Enchantment Aura
+K:Enchant:Land
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Card.EnchantedBy | AddAbility$ ChamberofManipulationTap
+SVar:ChamberofManipulationTap:AB$ GainControl | Cost$ T Discard<1/Card> | ValidTgts$ Creature | LoseControl$ EOT

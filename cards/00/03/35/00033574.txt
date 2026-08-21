@@ -1,15 +1,10 @@
 Id:33574
-ColorIdentity:BG
-OriginSet:G23d1f017cc66962f
-ManaCost:4 B G
-Types:Enchantment Saga
-K:Chapter:3:DBDestroyAll,DBMill,DBEffect
-SVar:DBDestroyAll:DB$ DestroyAll | ValidCards$ Creature
-SVar:DBMill:DB$ Mill | Defined$ You | NumCards$ 4 | RememberMilled$ True | SubAbility$ DBImmediateTrig
-SVar:DBImmediateTrig:DB$ ImmediateTrigger | Execute$ TrigChangeZone | TriggerAmount$ Remembered$Amount/DivideEvenlyDown.4 | SubAbility$ DBCleanup
-SVar:TrigChangeZone:DB$ ChangeZone | ValidTgts$ Creature.YouOwn | Origin$ Graveyard | Destination$ Hand
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:DBEffect:DB$ Effect | Triggers$ TriggerAttack
-SVar:TriggerAttack:Mode$ Attacks | ValidCard$ Creature.YouCtrl | Alone$ True | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ TriggeredAttackerLKICopy | CounterType$ P1P1 | CounterNum$ 3 | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | Defined$ TriggeredAttackerLKICopy | KW$ Trample & Lifelink & Indestructible
+ColorIdentity:U
+OriginSet:Gff0a4227ae9f1a4b
+ManaCost:4 U
+Types:Legendary Creature Mutant Ninja Human Turtle
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | MinCharmNum$ 1 | CharmNum$ 2 | Choices$ DBDraw,DBChangeZone
+SVar:DBDraw:DB$ Draw | NumCards$ 2 | ValidTgts$ Player | TargetUnique$ True
+SVar:DBChangeZone:DB$ ChangeZone | ValidTgts$ Player | TargetUnique$ True | Hidden$ True | Mandatory$ True | ChangeType$ Artifact.TargetedPlayerOwn,Instant.TargetedPlayerOwn,Sorcery.TargetedPlayerOwn | ChangeNum$ 1 | Origin$ Graveyard | Destination$ Hand

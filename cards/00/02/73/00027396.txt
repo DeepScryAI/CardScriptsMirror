@@ -1,13 +1,10 @@
 Id:27396
-ColorIdentity:G
-OriginSet:G7579344e30f8be85
-ManaCost:4 G
-Types:Creature Plant Wurm
-PT:5/4
-K:Reach
-AlternateMode:Adventure
-ALTERNATE
-ManaCost:1 G
-Types:Sorcery Adventure
-A:SP$ Effect | Name$ 10030159328057151663 | StaticAbilities$ Exploration | AILogic$ Always
-SVar:Exploration:Mode$ Continuous | Affected$ You | AdjustLandPlays$ 1
+ColorIdentity:B
+OriginSet:G8636ad1cfd514d83
+ManaCost:5 B B
+Types:Enchantment
+T:Mode$ ChangesZone | ValidCard$ Card.Self+wasCastByYou | Destination$ Battlefield | Execute$ TrigDestroyAll
+SVar:TrigDestroyAll:DB$ DestroyAll | ValidCards$ Creature.nonEnchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self,Enchantment.Other+YouCtrl | Execute$ TrigAnimate
+SVar:TrigAnimate:DB$ Animate | Defined$ Self | Power$ 6 | Toughness$ 6 | Types$ Legendary,Creature,Nightmare,God | Keywords$ Menace & Deathtouch
+SVar:PlayMain1:ALWAYS

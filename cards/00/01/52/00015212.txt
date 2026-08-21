@@ -1,10 +1,8 @@
 Id:15212
 ColorIdentity:
 OriginSet:G70acd28f254172ff
-ManaCost:5
-Types:Legendary Artifact
-R:Event$ GainLife | ActiveZones$ Battlefield | ValidPlayer$ You | ReplaceWith$ GainDouble | AILogic$ DoubleLife
-SVar:GainDouble:DB$ ReplaceEffect | VarName$ LifeGained | VarValue$ X
-SVar:X:ReplaceCount$LifeGained/Twice
-R:Event$ Draw | ActiveZones$ Battlefield | ValidPlayer$ You | NotFirstCardInDrawStep$ True | ReplaceWith$ DrawTwo
-SVar:DrawTwo:DB$ Draw | Defined$ You | NumCards$ 2
+ManaCost:2
+Types:Artifact
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+A:AB$ Pump | Cost$ 1 T Sac<1/CARDNAME> | ValidTgts$ Creature | IsCurse$ True | KW$ HIDDEN CARDNAME can't attack or block.

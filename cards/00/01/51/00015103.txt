@@ -1,8 +1,14 @@
 Id:15103
-ColorIdentity:U
+ColorIdentity:W
 OriginSet:Gdb18f239871b8cef
-ManaCost:3 U
-Types:Creature Bird Soldier
-PT:3/1
-K:Flying
-K:Megamorph:3 U
+ManaCost:2 W W
+Types:Creature Human Monk
+PT:4/4
+T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | Execute$ TrigCharm | TriggerZones$ Battlefield
+SVar:TrigCharm:DB$ Charm | Choices$ DBTap,DBPump,DBBlink
+SVar:DBTap:DB$ Tap | ValidTgts$ Creature
+SVar:DBPump:DB$ Pump | Defined$ Self | KW$ FirstStrike & Lifelink
+SVar:DBBlink:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | SubAbility$ DBReturn | RememberChanged$ True
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | Tapped$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:BuffedBy:Card.nonLand+nonCreature

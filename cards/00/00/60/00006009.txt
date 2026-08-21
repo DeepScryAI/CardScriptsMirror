@@ -1,12 +1,8 @@
 Id:6009
-ColorIdentity:R
+ColorIdentity:U
 OriginSet:G0eb5e52d26fe1c23
-ManaCost:3 R R R
-Types:Enchantment
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Player | Execute$ TrigGainControl | TriggerZones$ Battlefield
-SVar:TrigGainControl:DB$ GainControl | NewController$ TriggeredPlayer | Defined$ Self
-T:Mode$ ChangesController | ValidCard$ Card.Self | ValidOriginalController$ Player.Other | TriggerZones$ Battlefield | Execute$ TrigChoose
-SVar:TrigChoose:DB$ ChooseCard | Defined$ You | Choices$ Creature.YouCtrl | Mandatory$ True | AILogic$ WorstCard | SubAbility$ DBChoosePlayer
-SVar:DBChoosePlayer:DB$ ChoosePlayer | Defined$ You | Choices$ Player.Opponent | SubAbility$ DBFlip
-SVar:DBFlip:DB$ FlipCoin | LoseSubAbility$ DBControl
-SVar:DBControl:DB$ GainControl | NewController$ Player.Chosen | Defined$ ChosenCard
+ManaCost:3 U U
+Types:Creature Shapeshifter
+PT:3/3
+A:AB$ ChooseType | Cost$ 2 U U Sac<1/CARDNAME> | Type$ Creature | SubAbility$ DBDigUntil
+SVar:DBDigUntil:DB$ DigUntil | Valid$ Creature.ChosenType | FoundDestination$ Battlefield | RevealedDestination$ Library | Shuffle$ True

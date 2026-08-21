@@ -1,14 +1,12 @@
 Id:13942
-ColorIdentity:R
+ColorIdentity:U
 OriginSet:G6645ca87da6316d5
-ManaCost:X R
+ManaCost:3 U
 Types:Sorcery
-A:SP$ Token | TokenAmount$ X | TokenScriptIds$ 2099312066 | TokenOwner$ You | SubAbility$ DBRepeat
-SVar:DBRepeat:DB$ RepeatEach | RepeatSubAbility$ DBTokenOpp | RepeatPlayers$ Player.Opponent | RepeatOptionalForEachPlayer$ True | SubAbility$ DBToken | ChangeZoneTable$ True
-SVar:DBTokenOpp:DB$ Token | TokenAmount$ X | TokenScriptIds$ 2099312066 | TokenOwner$ Player.IsRemembered | SubAbility$ DBCount
-SVar:DBCount:DB$ StoreSVar | SVar$ Y | Type$ CountSVar | Expression$ Y/Plus.1
-SVar:DBToken:DB$ Token | TokenAmount$ Z | TokenScriptIds$ 2099312066 | TokenOwner$ You | SubAbility$ DBReset
-SVar:DBReset:DB$ StoreSVar | SVar$ Y | Type$ Number | Expression$ 0
-SVar:Y:Number$0
-SVar:X:Count$xPaid
-SVar:Z:SVar$X/Times.Y
+A:SP$ CopyPermanent | ValidTgts$ Creature.YouCtrl | SubAbility$ DBRepeat
+SVar:DBRepeat:DB$ RepeatEach | RepeatSubAbility$ DBCopyPermanent | RepeatPlayers$ Player.Opponent | SubAbility$ CopyAgain | ChangeZoneTable$ True | RepeatOptionalForEachPlayer$ True
+SVar:DBCopyPermanent:DB$ CopyPermanent | Defined$ ParentTarget | Controller$ Player.IsRemembered | SubAbility$ DBCount
+SVar:DBCount:DB$ StoreSVar | SVar$ X | Type$ CountSVar | Expression$ X/Plus.1
+SVar:CopyAgain:DB$ CopyPermanent | Defined$ ParentTarget | NumCopies$ X | SubAbility$ DBReset
+SVar:DBReset:DB$ StoreSVar | SVar$ X | Type$ Number | Expression$ 0
+SVar:X:Number$0

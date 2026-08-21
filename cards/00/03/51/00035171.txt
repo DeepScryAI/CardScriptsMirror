@@ -1,0 +1,15 @@
+Id:35171
+ColorIdentity:B
+OriginSet:G21d8f666c5c6b81d
+ManaCost:2 B B
+Types:Legendary Creature Demon Advisor
+PT:5/3
+K:Menace
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player.counters_EQ0_Contract | CombatDamage$ True | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ TriggeredTarget | NumCards$ 7 | UnlessCost$ Discard<1/Hand> | UnlessPayer$ TriggeredTarget | UnlessSwitched$ True | UnlessResolveSubs$ WhenPaid | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ TriggeredTarget | CounterType$ Contract | CounterNum$ 1 | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ TriggeredTarget | Triggers$ LoseGameTrigger,ExileEffect | Duration$ Permanent
+SVar:LoseGameTrigger:Mode$ LosesGame | ValidPlayer$ Player.IsRemembered | Execute$ TrigCopy
+SVar:TrigCopy:DB$ CopyPermanent | Defined$ TriggeredLastStateBattlefieldLKICopy.Creature+ControlledBy TriggeredPlayer,Artifact+ControlledBy TriggeredPlayer
+SVar:ExileEffect:Mode$ Always | TriggerZones$ Battlefield | CheckDefinedPlayer$ Player.IsRemembered+counters_EQ0_Contract | Execute$ RemoveEffect | Static$ True
+SVar:RemoveEffect:DB$ ChangeZone | Origin$ Command | Destination$ Exile | Defined$ Self

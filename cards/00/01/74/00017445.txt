@@ -1,9 +1,14 @@
 Id:17445
-ColorIdentity:W
+ColorIdentity:U
 OriginSet:G5475e2be497fd272
-ManaCost:2 W W
-Types:Instant
-A:SP$ ChangeZoneAll | ValidTgts$ Player | ChangeType$ Creature.attacking | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBGetLands
-SVar:DBGetLands:DB$ ChangeZone | Optional$ True | Origin$ Library | Destination$ Battlefield | Tapped$ True | ChangeType$ Land.Basic | ChangeNum$ X | DefinedPlayer$ TargetedPlayer | ShuffleNonMandatory$ True | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$RememberedSize
+ManaCost:1 U
+Types:Legendary Enchantment
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigSurveil
+SVar:TrigSurveil:DB$ Surveil | Amount$ 1 | SubAbility$ DBTransform
+SVar:DBTransform:DB$ SetState | Defined$ Self | Mode$ Transform | Optional$ True | ConditionPresent$ Card.YouOwn | ConditionZone$ Graveyard | ConditionCompare$ GE7
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Types:Legendary Land
+A:AB$ Mana | Cost$ T | Produced$ U | Amount$ 1
+A:AB$ Dig | Cost$ 2 U T | DigNum$ 4 | ChangeNum$ 1 | Optional$ True | ChangeValid$ Card.nonCreature+nonLand

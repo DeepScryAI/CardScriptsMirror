@@ -1,11 +1,10 @@
 Id:30903
 ColorIdentity:R
-OriginSet:G4524bbf7a3db9dc0
-ManaCost:4 R
-Types:Legendary Creature Goblin Artificer
-PT:*/5
-S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigReturn
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigReturn | Secondary$ True
-SVar:TrigReturn:AB$ ChangeZone | Cost$ Sac<1/Artifact> | Origin$ Graveyard | Destination$ Battlefield | Defined$ Targeted | ValidTgts$ Artifact.YouCtrl | TgtZone$ Graveyard
-SVar:X:Count$Valid Artifact.YouCtrl$GreatestCardManaCost
+OriginSet:Gc5a2f0ff902c0621
+ManaCost:1 R
+Types:Creature Dog
+PT:4/2
+R:Event$ Untap | ValidCard$ Card.Self | ValidStepTurnToController$ You | Layer$ CantHappen
+T:Mode$ Phase | Phase$ End of Turn | CheckSVar$ X | TriggerZones$ Battlefield | Execute$ TrigUntap
+SVar:TrigUntap:DB$ Untap | Defined$ Self
+SVar:X:Count$ThisTurnEntered_Graveyard_from_Battlefield_Creature

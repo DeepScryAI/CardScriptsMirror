@@ -1,13 +1,10 @@
 Id:29458
-ColorIdentity:W
-OriginSet:Gac6359c222afbd4f
-ManaCost:1 W
-Types:Creature Slith
-PT:2/1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigEnergy
-SVar:TrigEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ 2
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump
-SVar:TrigPump:AB$ Pump | Cost$ PayEnergy<2> | Defined$ Self | KW$ FirstStrike
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigPutCounter | TriggerZones$ Battlefield
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
-SVar:HasAttackEffect:TRUE
+ColorIdentity:BRG
+OriginSet:G2ce881cc55bb9f18
+ManaCost:2 B R G
+Types:Legendary Creature Human Scout
+PT:5/6
+T:Mode$ ChangesZone | ValidCard$ Permanent.Lhurgoyf+YouOwn | Origin$ Library,Hand,Exile,Command,Stack | Destination$ Graveyard | TriggerZones$ Battlefield | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Defined$ TriggeredCard | Origin$ Graveyard | Destination$ Battlefield
+T:Mode$ DamageDoneOnce | ValidSource$ Creature.YouCtrl | TriggerZones$ Battlefield | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigToken
+SVar:TrigToken:DB$ CopyPermanent | DefinedCatalogId$ 9180

@@ -1,9 +1,11 @@
 Id:21667
-ColorIdentity:G
+ColorIdentity:B
 OriginSet:G18bf722b221724f8
-ManaCost:1 G
+ManaCost:4 B B
 Types:Sorcery
-A:SP$ Mill | NumCards$ 3 | Defined$ You | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | Hidden$ True | Mandatory$ True | ChangeType$ Elf.YouOwn,Land.YouOwn | ChangeNum$ 1 | Origin$ Graveyard | Destination$ Hand | RememberChanged$ True | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1 | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ0 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+A:SP$ ChooseType | Defined$ You | Type$ Creature | AILogic$ MostProminentInComputerGraveyard | SubAbility$ DBBranch
+SVar:DBBranch:DB$ Branch | BranchConditionSVar$ X | BranchConditionSVarCompare$ GE1 | TrueSubAbility$ ReturnAll | FalseSubAbility$ ReturnUpToTwo
+SVar:ReturnUpToTwo:DB$ ChangeZone | ChangeType$ Creature.ChosenType+YouOwn | Origin$ Graveyard | Destination$ Battlefield | ChangeNum$ 2 | Hidden$ True
+SVar:ReturnAll:DB$ ChangeZoneAll | ChangeType$ Creature.ChosenType+YouOwn | Origin$ Graveyard | Destination$ Battlefield
+SVar:X:Count$Foretold.1.0
+K:Foretell:5 B B

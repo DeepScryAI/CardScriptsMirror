@@ -1,8 +1,11 @@
 Id:18781
-ColorIdentity:UB
+ColorIdentity:G
 OriginSet:G1ecb361a0a117393
-ManaCost:1 U B
-Types:Sorcery
-A:SP$ Surveil | Amount$ 2 | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 2 | SubAbility$ DBDamage
-SVar:DBDamage:DB$ DealDamage | Defined$ You | NumDmg$ 2
+ManaCost:1 G
+Types:Creature Insect Warrior
+PT:3/2
+K:Reach
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +X | SubAbility$ DBFight
+SVar:DBFight:DB$ Fight | Defined$ Self | ValidTgts$ Creature.withFlying+YouDontCtrl | TargetMin$ 0 | TargetMax$ 1 | Optional$ True
+SVar:X:Count$ValidGraveyard Creature.YouOwn

@@ -1,11 +1,13 @@
 Id:27582
-ColorIdentity:
-OriginSet:G997e3b19a1e94e85
-ManaCost:1
-Types:Artifact
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigFood
-SVar:TrigFood:DB$ Token | TokenScriptIds$ 134855612
-A:AB$ Token | Cost$ T Sac<1/Food> | TokenScriptIds$ 1719521299 | SubAbility$ DBDrain
-SVar:DBDrain:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 1 | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
-SVar:AIPreference:SacCost$Food.token
+ColorIdentity:W
+OriginSet:G7579344e30f8be85
+ManaCost:2 W
+Types:Creature Human Noble
+PT:2/3
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigTreasure | CheckSVar$ Y | SVarCompare$ GTX
+SVar:TrigTreasure:DB$ Token | TokenScriptIds$ 3851718391
+SVar:X:Count$Valid Land.YouCtrl
+SVar:Y:PlayerCountOpponents$HighestValid Land.YouCtrl
+A:AB$ ChoosePlayer | Cost$ 2 W | Choices$ Player.Other | SubAbility$ DBGainControl
+SVar:DBGainControl:DB$ GainControl | NewController$ Player.Chosen | ValidTgts$ Treasure.YouCtrl | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw

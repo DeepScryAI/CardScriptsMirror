@@ -1,12 +1,18 @@
 Id:17383
-ColorIdentity:WUBRG
+ColorIdentity:R
 OriginSet:Gaa482ed186eee527
-ManaCost:4 W U B R G
-Types:Legendary Creature Dragon Avatar
-PT:10/10
-S:Mode$ ReduceCost | EffectZone$ Battlefield,Command | ValidCard$ Dragon.Other | Type$ Spell | Activator$ You | Amount$ 1
+ManaCost:2 R R
+Types:Creature Dragon
+PT:6/5
 K:Flying
-T:Mode$ AttackersDeclared | ValidAttackers$ Dragon.YouCtrl | Execute$ TrigDraw | TriggerZones$ Battlefield
-SVar:TrigDraw:DB$ Draw | NumCards$ X | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | ChangeType$ Permanent | ChangeNum$ 1
-SVar:X:TriggerObjectsAttackers$Amount
+K:Haste
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | Execute$ TrigChoose | TriggerZones$ Battlefield
+SVar:TrigChoose:DB$ ChoosePlayer | Defined$ You | Choices$ Player.Opponent+!IsRemembered | Random$ True | ChooseSubAbility$ DBPump | CantChooseSubAbility$ DBTap
+SVar:DBPump:DB$ Effect | Defined$ Self | StaticAbilities$ AttackChosen | Duration$ UntilEndOfCombat
+SVar:AttackChosen:Mode$ MustAttack | ValidCreature$ Card.EffectSource | MustAttack$ ChosenPlayer
+SVar:DBTap:DB$ Tap | Defined$ Self | SubAbility$ DBCleanup
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigClearRem | Static$ True
+SVar:TrigClearRem:DB$ Cleanup | ClearRemembered$ True | SubAbility$ TrigRemember
+SVar:TrigRemember:DB$ Pump | RememberObjects$ TriggeredDefendingPlayer
+T:Mode$ Phase | Phase$ EndCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ DBCleanup | IsPresent$ Card.!attackedThisTurn+Self | Static$ True
+SVar:DBCleanup:DB$ Cleanup | ClearChosenPlayer$ True | ClearRemembered$ True

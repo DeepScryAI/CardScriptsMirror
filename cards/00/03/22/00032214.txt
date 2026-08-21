@@ -1,8 +1,11 @@
 Id:32214
-ColorIdentity:R
+ColorIdentity:W
 OriginSet:G9946f072b5556073
-ManaCost:1 R R
-Types:Sorcery
-A:SP$ Charm | Choices$ DBDealDamage,DBExile
-SVar:DBDealDamage:DB$ DealDamage | Defined$ Player.Opponent | NumDmg$ 3
-SVar:DBExile:DB$ ChangeZoneAll | ChangeType$ Artifact.cmcLE3 | Origin$ Battlefield | Destination$ Exile
+ManaCost:3 W W
+Types:Creature Angel Warrior
+PT:5/4
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Permanent.nonCreature+nonLand+YouOwn+cmcLEX
+K:Warp:2 W
+SVar:X:Count$CastTotalManaSpent

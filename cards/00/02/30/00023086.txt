@@ -1,18 +1,15 @@
 Id:23086
-ColorIdentity:G
-OriginSet:G7a76c1974b0a33a6
-ManaCost:2 G G
-Types:Creature Beast
-PT:4/4
-K:Trample
-K:Haste
-A:AB$ SetState | Cost$ 5 G G | Defined$ Self | Mode$ Transform | AILogic$ Always
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:green
-Types:Creature Beast Horror
-PT:8/8
-K:Trample
-K:Haste
-S:Mode$ Continuous | Affected$ Creature.YouCtrl+Other | AddPower$ 1 | AddToughness$ 1 | AddKeyword$ Trample & Haste
+ColorIdentity:WB
+OriginSet:G8a59924df6623252
+ManaCost:W B
+Types:Legendary Creature Human
+PT:1/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigInvestigate
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigInvestigate | Secondary$ True
+SVar:TrigInvestigate:DB$ Investigate | Defined$ Opponent | Optional$ True | RememberInvestigatingPlayers$ True | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ Opponent.!IsRemembered | LifeAmount$ 1 | SubAbility$ DBInvestigate
+SVar:DBInvestigate:DB$ Investigate | Num$ Y | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:PlayerCountRemembered$Amount
+SVar:Y:SVar$X/Plus.1
+K:Partner:Friends forever

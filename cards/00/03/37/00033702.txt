@@ -1,12 +1,14 @@
 Id:33702
-ColorIdentity:U
-OriginSet:G14da29c4716bedc3
-ManaCost:2 U
-Types:Creature Human Bard
-PT:2/2
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw
-T:Mode$ SpellCast | ValidCard$ Instant.cmcGE5,Sorcery.cmcGE5 | ValidActivatingPlayer$ You | Execute$ TrigCopy | TriggerZones$ Battlefield
-SVar:TrigCopy:DB$ CopyPermanent | Defined$ Self
-A:AB$ Effect | Cost$ 2 U | StaticAbilities$ Unblockable
-SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Creature.catalogId33702
+ColorIdentity:W
+OriginSet:G23d1f017cc66962f
+ManaCost:3 W
+Types:Legendary Creature Mutant Ninja Turtle Samurai
+PT:3/3
+K:Sneak:2 W W
+K:DoubleStrike
+S:Mode$ Continuous | Affected$ Creature.nonLand+YouOwn+powerLE1,Creature.nonLand+YouOwn+toughnessLE1 | Condition$ PlayerTurn | MayPlay$ True | EffectZone$ Battlefield | AffectedZone$ Graveyard
+T:Mode$ SpellCast | ValidCard$ Card.CastSa Spell.MayPlaySource | Execute$ TrigEffect | Static$ True | TriggerZones$ Battlefield
+SVar:TrigEffect:DB$ Effect | ReplacementEffects$ ReMoved | RememberObjects$ TriggeredCard
+SVar:ReMoved:Event$ Moved | Origin$ Stack | ValidCard$ Card.IsRemembered | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBCounter
+SVar:ETBCounter:DB$ PutCounter | ETB$ True | Defined$ ReplacedCard | CounterType$ FINALITY | CounterNum$ 1 | SubAbility$ RemoveSelf
+SVar:RemoveSelf:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile

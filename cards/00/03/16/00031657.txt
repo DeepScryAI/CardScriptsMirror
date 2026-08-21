@@ -1,10 +1,12 @@
 Id:31657
-ColorIdentity:B
-OriginSet:G530ea9d733a13e9d
-ManaCost:2 B
-Types:Instant
-A:SP$ Draw | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ TgtChoose | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 1 | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenScriptIds$ 2848864617 | TokenOwner$ You | ConditionDefined$ Self | ConditionPresent$ Card.wasCastFromYourHand | ConditionCompare$ EQ1
-K:Rebound
+ColorIdentity:WBR
+OriginSet:Gf2b808f4f642ac62
+ManaCost:2 R W B
+Types:Creature Dragon
+PT:4/4
+K:Flying
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigDealDamage
+SVar:TrigDealDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 2 | RememberDamaged$ True | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ 2 | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ Player.IsRemembered | Mode$ TgtChoose | NumCards$ 1 | ConditionDefined$ Remembered | ConditionPresent$ Player | ConditionCompare$ GE1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

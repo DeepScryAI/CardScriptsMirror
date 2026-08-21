@@ -1,7 +1,11 @@
 Id:27242
-ColorIdentity:
-OriginSet:G8636ad1cfd514d83
-ManaCost:8
-Types:Artifact
-K:Indestructible
-S:Mode$ Continuous | MayPlay$ True | MayPlayAltManaCost$ 0 | MayPlayLimit$ 1 | MayPlayDontGrantZonePermissions$ True | Affected$ Card.nonLand+Colorless+YouOwn | AffectedZone$ Hand
+ColorIdentity:B
+OriginSet:G6ce0035cfb774934
+ManaCost:4 B B
+Types:Creature Wraith Knight
+PT:5/5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | NumAtt$ -3 | NumDef$ -3 | IsCurse$ True | ValidTgts$ Creature.OppCtrl | SubAbility$ TrigLose
+SVar:TrigLose:DB$ LoseLife | Defined$ TargetedController | LifeAmount$ 3 | ConditionDefined$ Targeted | ConditionPresent$ Legendary
+T:Mode$ RingTemptsYou | ValidPlayer$ You | Execute$ TrigReturn | TriggerZones$ Graveyard
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | Defined$ Self

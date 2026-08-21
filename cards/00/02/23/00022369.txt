@@ -1,11 +1,8 @@
 Id:22369
-ColorIdentity:B
-OriginSet:G92f7f9489fec5865
-ManaCost:3 B B
+ColorIdentity:W
+OriginSet:Geb2cf181996ee3b2
+ManaCost:X W
 Types:Sorcery
-A:SP$ Sacrifice | SacValid$ Creature.!token | Defined$ Player | RememberSacrificed$ True | SubAbility$ RollD20
-SVar:RollD20:DB$ RollDice | Sides$ 20 | Modifier$ Y | ResultSubAbilities$ 1-14:ChooseOne,Else:ChooseTwo
-SVar:ChooseOne:DB$ ChangeZone | ChangeType$ Creature.IsRemembered | ChangeNum$ 1 | Hidden$ True | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True | SubAbility$ DBCleanup | Mandatory$ True
-SVar:ChooseTwo:DB$ ChangeZone | ChangeType$ Creature.IsRemembered | ChangeNum$ 2 | Hidden$ True | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:Y:RememberedLKI$Valid Card.YouCtrl$CardToughness
+A:SP$ ChangeZone | ValidTgts$ Permanent.nonLand | Origin$ Battlefield | Destination$ Exile | ConditionDefined$ Targeted | ConditionPresent$ Permanent.nonLand+cmcLEY | ConditionCompare$ EQ1
+SVar:X:Count$xPaid
+SVar:Y:Count$Converge

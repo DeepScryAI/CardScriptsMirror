@@ -1,9 +1,17 @@
 Id:28073
-ColorIdentity:U
-OriginSet:Gfd50577710a6ab09
-ManaCost:3 U U
-Types:Instant
-A:SP$ Counter | TargetType$ Spell | ValidTgts$ Artifact,Creature | RememberCounteredCMC$ True | SubAbility$ DBDiscover
-SVar:DBDiscover:DB$ Discover | Num$ X | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$RememberedNumber
+ColorIdentity:
+OriginSet:G06c78c29bfb28e3d
+ManaCost:3
+Types:Artifact
+A:AB$ Mana | Cost$ T | Produced$ Any
+K:Craft:6 ExileCtrlOrGrave<2/Permanent.Other+withSharedCardType/permanent>:two that share a card type:the two
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Types:Artifact
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ ETBTapped | ReplacementResult$ Updated
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+K:ETBReplacement:Other:DBChooseType
+SVar:DBChooseType:DB$ ChooseType | Type$ Shared | TypesFromDefined$ ExiledWith | AILogic$ MostProminentComputerControlsOrOwns
+A:AB$ Effect | Cost$ T | StaticAbilities$ Play | ForgetOnCast$ Card.ChosenType+YouCtrl
+SVar:Play:Mode$ Continuous | MayPlay$ True | MayPlayWithoutManaCost$ True | MayPlayDontGrantZonePermissions$ True | Affected$ Card.ChosenType | AffectedZone$ Hand,Graveyard,Library,Exile,Command

@@ -3,11 +3,7 @@ ColorIdentity:
 OriginSet:Gda59deaeee465b93
 ManaCost:no cost
 Types:Vanguard
-HandLifeModifier:+0/+4
-R:Event$ BeginPhase | ActiveZones$ Command | ValidPlayer$ You | Phase$ Draw | Skip$ True
-T:Mode$ Phase | Phase$ End Of Turn | ValidPlayer$ You | TriggerZones$ Command | CheckSVar$ Turns | SVarCompare$ GT1 | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ DEATH | CounterNum$ 1 | SubAbility$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ X | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ X
-SVar:X:Count$CardCounters.DEATH
-SVar:Turns:Count$TotalTurns
+HandLifeModifier:+0/-2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.YouCtrl+HasCounters | TriggerZones$ Command | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Any | DamageSource$ TriggeredCard | NumDmg$ Damage
+SVar:Damage:TriggeredCard$CardPower

@@ -1,9 +1,17 @@
 Id:26692
-ColorIdentity:U
+ColorIdentity:G
 OriginSet:G06757f68e16377c2
-ManaCost:1 U
-Types:Creature Elemental
-PT:2/1
-K:Flying
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigUntap | TriggerZones$ Battlefield
-SVar:TrigUntap:DB$ Untap | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1
+ManaCost:X G G
+Types:Battle Siege
+Defense:6
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSearch
+SVar:TrigSearch:DB$ ChangeZone | ChangeType$ Creature.YouCtrl+nonHuman+cmcLEX | Hidden$ True | Origin$ Library | OriginAlternative$ Graveyard | Destination$ Battlefield | ShuffleNonMandatory$ True
+SVar:X:Count$xPaid
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:green
+Types:Legendary Creature Dinosaur
+PT:8/8
+K:Reach
+S:Mode$ AssignCombatDamageAsUnblocked | ValidCard$ Creature.YouCtrl+nonHuman | Optional$ True

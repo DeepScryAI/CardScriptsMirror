@@ -1,13 +1,8 @@
 Id:22153
 ColorIdentity:W
-OriginSet:Ga575fa2f4f5cded4
-ManaCost:W W
-Types:Creature Human Cleric
-PT:2/2
-K:Protection:Black
-K:Protection:Red
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZoneAll
-SVar:TrigChangeZoneAll:DB$ ChangeZoneAll | ChangeType$ Card.Black,Card.Red | Origin$ Graveyard | Destination$ Exile
-R:Event$ Moved | ActiveZones$ Battlefield | Destination$ Graveyard | ValidLKI$ Card.Black,Card.Red | ReplaceWith$ Exile
-SVar:Exile:DB$ ChangeZone | Hidden$ True | Origin$ All | Destination$ Exile | Defined$ ReplacedCard
-SVar:NonStackingEffect:True
+OriginSet:Gd784248bfdf9e1d7
+ManaCost:W
+Types:Creature Spirit Dog
+PT:1/1
+T:Mode$ ChangesZoneAll | ValidCards$ Card.!token+!copiedSpell | Destination$ Exile | TriggerZones$ Battlefield | Execute$ TrigPutCounter | PlayerTurn$ True | ActivationLimit$ 1
+SVar:TrigPutCounter:DB$ PutCounter | CounterType$ P1P1 | Defined$ Self | CounterNum$ 1

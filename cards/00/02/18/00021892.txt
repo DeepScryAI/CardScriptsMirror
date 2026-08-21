@@ -1,9 +1,12 @@
 Id:21892
-ColorIdentity:BG
-OriginSet:G6fa60d857e930f32
-ManaCost:B G
-Types:Instant
-A:SP$ ChooseCard | ValidTgts$ Creature | SubAbility$ DBDelayedTrigger
-SVar:DBDelayedTrigger:DB$ DelayedTrigger | Mode$ ChangesZone | RememberObjects$ Targeted | ValidCard$ Card.IsTriggerRemembered | Origin$ Battlefield | Destination$ Graveyard | ThisTurn$ True | Execute$ TrigChangeZone
-SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Creature.cmcLTX | ChangeNum$ 1 | Tapped$ True
-SVar:X:TriggerRemembered$CardManaCost
+ColorIdentity:R
+OriginSet:Gabb23d0d25cdc46d
+ManaCost:4 R R
+Types:Sorcery
+A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Instant.YouCtrl,Sorcery.YouCtrl | RememberChanged$ True | SubAbility$ DBPump
+SVar:DBPump:DB$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +X | SubAbility$ DBEffect
+SVar:X:Remembered$CardManaCost
+SVar:DBEffect:DB$ Effect | RememberObjects$ Remembered | Triggers$ TrigDamage | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:TrigDamage:Mode$ DamageDone | ValidSource$ Creature.YouCtrl | ValidTarget$ Player | CombatDamage$ True | Execute$ DBCopy
+SVar:DBCopy:DB$ Play | Defined$ Remembered | Amount$ All | CopyCard$ True | WithoutManaCost$ True | ValidSA$ Spell

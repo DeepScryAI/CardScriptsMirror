@@ -3,9 +3,7 @@ ColorIdentity:B
 OriginSet:G1a259dba25660062
 ManaCost:1 B B
 Types:Sorcery
-A:SP$ Charm | MinCharmNum$ 1 | CharmNum$ Count$Compare B GE2.2.1 | Choices$ Exile,Return
-SVar:Exile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Creature,Planeswalker
-SVar:Return:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Creature.YouOwn,Planeswalker.YouOwn
-SVar:B:SVar$A/Plus.E
-SVar:A:Count$Valid Artifact.YouCtrl/LimitMax.1
-SVar:E:Count$Valid Enchantment.YouCtrl/LimitMax.1
+A:SP$ PumpAll | NumAtt$ -2 | NumDef$ -2 | IsCurse$ True | ValidCards$ Creature | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | ReplacementEffects$ DeathRep
+SVar:DeathRep:Event$ Moved | ValidLKI$ Creature | Origin$ Battlefield | Destination$ Graveyard | ReplaceWith$ Exile
+SVar:Exile:DB$ ChangeZone | Defined$ ReplacedCard | Origin$ Battlefield | Destination$ Exile

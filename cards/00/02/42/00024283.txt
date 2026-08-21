@@ -1,9 +1,10 @@
 Id:24283
-ColorIdentity:W
+ColorIdentity:R
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:4 W
-Types:Creature Giant Knight
-PT:3/6
-K:Vigilance
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigInitiative
-SVar:TrigInitiative:DB$ TakeInitiative
+ManaCost:no cost
+Types:Land Gate
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+K:ETBReplacement:Other:ChooseColor
+SVar:ChooseColor:DB$ ChooseColor | Defined$ You | Exclude$ red | AILogic$ MostProminentInComputerDeck
+A:AB$ Mana | Cost$ T | Produced$ Combo R Chosen

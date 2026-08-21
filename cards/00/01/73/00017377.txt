@@ -1,13 +1,9 @@
 Id:17377
-ColorIdentity:R
+ColorIdentity:W
 OriginSet:Gaa482ed186eee527
-ManaCost:2 R
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:Pump
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddKeyword$ Haste | AddTrigger$ ShadowUpkeepTrig
-SVar:ShadowUpkeepTrig:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ ShadowDestroyEnchanted
-SVar:ShadowDestroyEnchanted:DB$ Destroy | Defined$ Self | SubAbility$ ShadowRevealCards
-SVar:ShadowRevealCards:DB$ DigUntil | Valid$ Creature | FoundDestination$ Battlefield | RevealedDestination$ Library | RevealedLibraryPosition$ -1 | RevealRandomOrder$ True | RememberFound$ True | SubAbility$ ShadowReattach
-SVar:ShadowReattach:DB$ Attach | Defined$ Remembered | Object$ OriginalHost | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:3 W W
+Types:Creature Dragon
+PT:4/4
+K:Flying
+T:Mode$ BecomesTarget | ValidTarget$ Dragon.inZoneBattlefield+YouCtrl | ValidSource$ SpellAbility.OppCtrl | TriggerZones$ Battlefield | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Permanent.nonLand | TargetsWithDefinedController$ TriggeredSourceController

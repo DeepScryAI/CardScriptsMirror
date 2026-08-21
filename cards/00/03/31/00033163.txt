@@ -1,10 +1,13 @@
 Id:33163
-ColorIdentity:B
-OriginSet:G7ab1fe96128a1641
-ManaCost:2 B
-Types:Creature Goblin Warlock
-PT:4/4
-K:etbCounter:M1M1:2
-T:Mode$ ChangesZone | ValidCard$ Creature.Other+YouCtrl | Origin$ Battlefield | Destination$ Graveyard | TriggerZones$ Battlefield | Execute$ TrigSurveil
-SVar:TrigSurveil:DB$ Surveil | Amount$ 1 | SubAbility$ DBRemoveCounter
-SVar:DBRemoveCounter:DB$ RemoveCounter | Defined$ Self | CounterType$ M1M1 | CounterNum$ 1
+ColorIdentity:U
+OriginSet:G731e0066916b7465
+ManaCost:2 U
+Types:Enchantment Saga
+K:Chapter:4:DBEffect,DBEffect,DBEffect,DBDraw
+SVar:DBEffect:DB$ Effect | Triggers$ CastTrig | Duration$ UntilYourNextTurn
+SVar:CastTrig:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | Execute$ TrigMill
+SVar:TrigMill:DB$ Mill | NumCards$ X | ValidTgts$ Player
+SVar:DBDraw:DB$ Draw | NumCards$ Y
+SVar:X:TriggeredSpellAbility$CardManaCostLKI
+SVar:CheckGrave:PlayerCountPlayers$HighestValidGraveyard Card.YouOwn
+SVar:Y:Count$Compare CheckGrave GE20.3.1

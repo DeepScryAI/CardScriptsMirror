@@ -1,7 +1,16 @@
 Id:21462
-ColorIdentity:
-OriginSet:G18bf722b221724f8
-ManaCost:no cost
-Types:Snow Land Mountain Plains
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+ColorIdentity:WUB
+OriginSet:G51d431785c8b33e5
+ManaCost:3 W U B
+Types:Legendary Creature Zombie Wizard
+PT:3/6
+K:Hexproof:Artifact
+K:Hexproof:Creature
+K:Hexproof:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ X | TokenScriptIds$ 353162950 | TokenTapped$ True | TokenOwner$ You
+SVar:X:Count$ThisTurnEntered_Graveyard_from_Battlefield_Creature
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigPayCost
+SVar:TrigPayCost:AB$ ImmediateTrigger | Cost$ 1 | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ DestroyAll | ValidCards$ Artifact,Creature,Enchantment
+SVar:NeedsToPlayVar:X GE1

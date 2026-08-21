@@ -1,14 +1,12 @@
 Id:34322
-ColorIdentity:B
+ColorIdentity:R
 OriginSet:Gcb93bbfc68a40806
-ManaCost:3 B B
-Types:Legendary Artifact Creature Robot Villain
-PT:3/4
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigToken | Secondary$ True | TriggerZones$ Battlefield
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 2564522677 | TokenOwner$ You
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Artifact.Other+YouOwn | TriggerZones$ Battlefield | Execute$ TrigLoseLife
-T:Mode$ ChangesZone | ValidCard$ Artifact.!token+YouOwn | Origin$ Library,Hand,Exile,Command,Stack | Destination$ Graveyard | TriggerZones$ Battlefield | Execute$ TrigLoseLife | Secondary$ True
-SVar:TrigLoseLife:DB$ LoseLife | Defined$ Opponent | LifeAmount$ 1
-SVar:HasAttackEffect:TRUE
+ManaCost:3 R
+Types:Artifact Creature Human Villain
+PT:3/2
+K:Prowess
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | Duration$ UntilTheEndOfYourNextTurn | StaticAbilities$ Play | SubAbility$ DBCleanup | ForgetOnMoved$ Exile
+SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

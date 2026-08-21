@@ -1,17 +1,9 @@
 Id:31873
-ColorIdentity:WG
+ColorIdentity:B
 OriginSet:G7ab4f62d323b0ca7
-ManaCost:1 G W
-Types:Legendary Creature Human Citizen
-PT:2/2
-S:Mode$ ReduceCost | EffectZone$ Battlefield | ValidCard$ Creature.Legendary | Activator$ You | Type$ Spell | OnlyFirstSpell$ True | Amount$ 2
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | IsPresent$ Creature.Other+Legendary+YouCtrl | PresentCompare$ GE2 | TriggerZones$ Battlefield | Execute$ TrigTransform | OptionalDecider$ You
-SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform
-AlternateMode:DoubleFaced
-SVar:PlayMain1:TRUE
-ALTERNATE
-ManaCost:no cost
-Colors:green,white
-Types:Legendary Artifact
-S:Mode$ ReduceCost | EffectZone$ Battlefield | ValidCard$ Creature.Legendary | Activator$ You | Type$ Spell | OnlyFirstSpell$ True | Amount$ 2
-S:Mode$ Continuous | Affected$ Creature.Legendary+YouCtrl | AddPower$ 2 | AddToughness$ 2
+ManaCost:3 B
+Types:Sorcery
+A:SP$ Draw | NumCards$ 2 | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 2 | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 2848864617 | TokenOwner$ You | SubAbility$ DBPumpAll
+SVar:DBPumpAll:DB$ PumpAll | ValidCards$ Wizard.YouCtrl | NumAtt$ +1 | KW$ Lifelink

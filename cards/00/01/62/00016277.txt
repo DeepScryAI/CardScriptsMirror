@@ -1,9 +1,11 @@
 Id:16277
-ColorIdentity:B
+ColorIdentity:
 OriginSet:G70d19654882197c9
-ManaCost:B
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:Pump
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 1 | AddToughness$ 1
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | Condition$ Delirium | AddPower$ 2 | AddToughness$ 2
+ManaCost:1
+Types:Artifact Equipment
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 3 | AddToughness$ 3
+T:Mode$ Attacks | ValidCard$ Card.EquippedBy | Execute$ StayTapped
+SVar:StayTapped:DB$ Pump | KW$ HIDDEN This card doesn't untap during your next untap step. | Defined$ TriggeredAttackerLKICopy | Duration$ Permanent
+T:Mode$ Unattached | ValidAttachment$ Card.Self | ValidObject$ Permanent | Execute$ TrigSac
+SVar:TrigSac:DB$ SacrificeAll | Defined$ TriggeredObjectLKICopy | Controller$ You
+K:Equip:2

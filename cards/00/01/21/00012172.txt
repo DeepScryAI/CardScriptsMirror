@@ -1,10 +1,20 @@
 Id:12172
-ColorIdentity:B
-OriginSet:G14de52802b0b467c
-ManaCost:3 B
-Types:Creature Zombie
-PT:3/2
-K:FirstStrike
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.DamagedBy | TriggerZones$ Battlefield | Execute$ TrigGainLife
-SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ X
-SVar:X:TriggeredCard$CardToughness
+ColorIdentity:G
+OriginSet:G0e6152bacca9f1a3
+ManaCost:1 G
+Types:Creature Human Advisor Werewolf
+PT:1/1
+S:Mode$ Continuous | Affected$ Creature.Human+Other+YouCtrl | AddPower$ 1 | AddToughness$ 1
+T:Mode$ Phase | Phase$ Upkeep | WerewolfTransformCondition$ True | TriggerZones$ Battlefield | Execute$ TrigTransform
+SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:green
+Types:Creature Werewolf
+PT:3/3
+S:Mode$ Continuous | Affected$ Creature.Werewolf+Other+YouCtrl,Creature.Wolf+Other+YouCtrl | AddPower$ 1 | AddToughness$ 1
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigToken
+T:Mode$ Phase | Phase$ Upkeep | WerewolfUntransformCondition$ True | TriggerZones$ Battlefield | Execute$ TrigTransform
+SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 4257275070 | TokenOwner$ You

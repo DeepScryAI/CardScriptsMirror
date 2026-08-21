@@ -1,8 +1,11 @@
 Id:9384
-ColorIdentity:B
+ColorIdentity:W
 OriginSet:G1ddd2c86a9ea60e3
-ManaCost:1 B
-Types:Creature Faerie Rogue
-PT:3/1
-K:Flying
-A:AB$ Pump | Cost$ Discard<1/Card> | Defined$ Self | NumAtt$ -2 | Activator$ Player
+ManaCost:2 W
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigReturn
+SVar:TrigExile:DB$ ChangeZone | IsCurse$ True | ValidTgts$ Permanent.nonLand+Other | Origin$ Battlefield | Destination$ Exile
+SVar:TrigReturn:DB$ ChangeZone | Defined$ ExiledWith | Origin$ Exile | Destination$ Battlefield
+SVar:PlayMain1:TRUE
+SVar:OblivionRing:TRUE

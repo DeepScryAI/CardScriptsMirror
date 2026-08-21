@@ -1,13 +1,7 @@
 Id:23500
-ColorIdentity:B
+ColorIdentity:R
 OriginSet:G1a259dba25660062
-ManaCost:2 B
-Types:Creature Spirit
-PT:2/2
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigBranch
-SVar:TrigBranch:DB$ Branch | BranchConditionSVar$ X | TrueSubAbility$ DBDraw | FalseSubAbility$ DBSac
-SVar:DBDraw:DB$ Draw
-SVar:DBSac:DB$ Sacrifice | Defined$ Player | SacValid$ Creature
-SVar:X:Count$ThisTurnEntered_Graveyard_from_Battlefield_Creature
-SVar:NeedsToPlayVar:X GE1
+ManaCost:2 R
+Types:Instant
+A:SP$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +2 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | ConditionPresent$ Creature.YouCtrl+modified | ConditionCompare$ GE1

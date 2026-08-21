@@ -1,11 +1,11 @@
 Id:21880
-ColorIdentity:U
-OriginSet:G6fa60d857e930f32
-ManaCost:X U
+ColorIdentity:BG
+OriginSet:Gabb23d0d25cdc46d
+ManaCost:4 B G
 Types:Sorcery
-A:SP$ Scry | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ1 | OrOtherConditionSVarCompare$ GE4 | SubAbility$ DBDraw | AILogic$ MultipleChoice
-SVar:DBDraw:DB$ Draw | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ1 | OrOtherConditionSVarCompare$ GE4 | SubAbility$ DBChoosePlayer
-SVar:DBChoosePlayer:DB$ ChoosePlayer | Defined$ You | Choices$ Player | Optional$ True | AILogic$ Curse | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ2 | OrOtherConditionSVarCompare$ GE4 | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | DefinedPlayer$ ChosenPlayer | Chooser$ ChosenPlayer | Origin$ Battlefield | Destination$ Hand | Hidden$ True | Mandatory$ True | ChangeType$ Creature.ChosenCtrl | ChangeNum$ 1 | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ2 | OrOtherConditionSVarCompare$ GE4 | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenScriptIds$ 2606685679 | ConditionCheckSVar$ X | ConditionSVarCompare$ GE3
-SVar:X:Count$xPaid
+A:SP$ ChooseCard | Defined$ You | Choices$ Card.Permanent+YouOwn | ChoiceZone$ Graveyard | ChooseEach$ Artifact & Battle & Creature & Enchantment & Land & Planeswalker | ControlledByPlayer$ Chooser | MinAmount$ 0 | Amount$ 1 | Reveal$ True | RememberChosen$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | Defined$ Remembered | RememberChanged$ True | ForgetOtherRemembered$ True | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ X | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | Origin$ Stack | Destination$ Exile | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearChosenCard$ True
+SVar:X:Remembered$Amount/Times.3

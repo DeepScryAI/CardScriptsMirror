@@ -1,11 +1,9 @@
 Id:12617
 ColorIdentity:B
 OriginSet:Gfd7b72e0eb9d2cf5
-ManaCost:2 B B
+ManaCost:2 B
 Types:Creature Demon
-PT:5/4
+PT:4/3
 K:Flying
-K:Undying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExileUnless
-SVar:TrigExileUnless:DB$ ChangeZone | Defined$ Self | Origin$ Battlefield | Destination$ Exile | UnlessCost$ Sac<1/Creature.Other/other creature> | UnlessPayer$ You
-SVar:NeedsToPlay:Creature.cmcLE2+YouCtrl
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice | Defined$ You | SacValid$ Creature.Other

@@ -1,10 +1,9 @@
 Id:21744
-ColorIdentity:B
+ColorIdentity:G
 OriginSet:G18bf722b221724f8
-ManaCost:1 B
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:Curse
-S:Mode$ Continuous | Affected$ Card.EnchantedBy | SetPower$ 0 | AddTrigger$ WitherTrig | AddSVar$ TrigLoseLife
-SVar:WitherTrig:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigLoseLife
-SVar:TrigLoseLife:DB$ LoseLife | LifeAmount$ 1 | UnlessCost$ Sac<1/CARDNAME> | UnlessPayer$ You
+ManaCost:1 G
+Types:Sorcery
+A:SP$ Mill | NumCards$ 3 | Defined$ You | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Hidden$ True | Mandatory$ True | ChangeType$ Elf.YouOwn,Land.YouOwn | ChangeNum$ 1 | Origin$ Graveyard | Destination$ Hand | RememberChanged$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1 | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ0 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

@@ -1,8 +1,10 @@
 Id:15839
-ColorIdentity:
+ColorIdentity:UR
 OriginSet:G5b1ad34969911ca7
-ManaCost:4
-Types:Creature Eldrazi Drone
-PT:2/3
-K:Vigilance
-A:AB$ Mana | Cost$ T | Produced$ C
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ Combo U R
+A:AB$ Animate | Cost$ 2 U R | Defined$ Self | Power$ 1 | Toughness$ 4 | Types$ Creature,Elemental | Colors$ Blue,Red | OverwriteColors$ True | Abilities$ ABPump
+SVar:ABPump:AB$ Pump | Cost$ 0 | Defined$ Self | AILogic$ SwitchPT | KW$ HIDDEN CARDNAME's power and toughness are switched

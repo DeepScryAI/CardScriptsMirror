@@ -1,9 +1,8 @@
 Id:24341
-ColorIdentity:G
+ColorIdentity:W
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:2 G
+ManaCost:1 W
 Types:Legendary Enchantment Background
-S:Mode$ Continuous | Affected$ Creature.IsCommander+YouOwn | AddReplacementEffect$ This & Other
-SVar:This:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ ExtraCounter | ReplacementResult$ Updated
-SVar:Other:Event$ Moved | ValidCard$ Creature.Other+YouCtrl | ActiveZones$ Battlefield | Destination$ Battlefield | ReplaceWith$ ExtraCounter | ReplacementResult$ Updated
-SVar:ExtraCounter:DB$ PutCounter | ETB$ True | Defined$ ReplacedCard | CounterType$ P1P1
+S:Mode$ Continuous | Affected$ Creature.IsCommander+YouOwn | AddTrigger$ SacTypeDraw
+SVar:SacTypeDraw:Mode$ SpellCast | ValidCard$ Card.sharesCreatureTypeWith | ValidActivatingPlayer$ You | Execute$ TrigDraw | ActivationLimit$ 1
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1

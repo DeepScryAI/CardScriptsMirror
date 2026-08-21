@@ -1,10 +1,14 @@
 Id:26674
-ColorIdentity:G
+ColorIdentity:B
 OriginSet:G06757f68e16377c2
-ManaCost:G G G
-Types:Enchantment
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigBranch
-SVar:TrigBranch:DB$ Branch | BranchConditionSVar$ X | BranchConditionSVarCompare$ GE3 | TrueSubAbility$ DBDraw | FalseSubAbility$ DBPutCounter
-SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1
-SVar:DBPutCounter:DB$ PutCounter | Defined$ TriggeredCardLKICopy | CounterType$ P1P1 | CounterNum$ 2
-SVar:X:TriggeredCard$CardPower
+ManaCost:5 B B B
+Types:Creature Dragon
+PT:7/6
+K:Convoke
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSearch
+SVar:TrigSearch:DB$ ChangeZone | ChangeNum$ 1 | ChangeType$ Card | Mandatory$ True | SubAbility$ DBEffect | Origin$ Library | Destination$ Exile | ExileFaceDown$ True | RememberChanged$ True
+SVar:DBEffect:DB$ Effect | RememberObjects$ Remembered | StaticAbilities$ STPlay | Duration$ Permanent | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | MayLookAt$ You | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+S:Mode$ Continuous | Affected$ Card.YouCtrl+wasCastFromExile | AffectedZone$ Stack | AddKeyword$ Convoke

@@ -1,9 +1,11 @@
 Id:3435
 ColorIdentity:W
 OriginSet:G24ae8187eacbba52
-ManaCost:2 W W
+ManaCost:W
 Types:Enchantment
-A:AB$ Destroy | Cost$ W Sac<1/CARDNAME> | TargetMin$ 0 | TargetMax$ X | ValidTgts$ Artifact,Enchantment
 T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigPutCounter
 SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ VERSE | CounterNum$ 1
+A:AB$ PreventDamage | Cost$ Sac<1/CARDNAME> | ValidTgts$ Any | Amount$ X | TargetMin$ 0 | TargetMax$ MaxTgts | DividedAsYouChoose$ X
 SVar:X:Count$CardCounters.VERSE
+SVar:MaxTgts:PlayerCountPlayers$Amount/Plus.MaxPermanents
+SVar:MaxPermanents:Count$Valid Any

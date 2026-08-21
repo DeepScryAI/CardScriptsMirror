@@ -1,9 +1,13 @@
 Id:18605
-ColorIdentity:G
+ColorIdentity:UG
 OriginSet:Gd7cbb6e7dea72fb5
-ManaCost:2 G
-Types:Enchantment
-S:Mode$ ReduceCost | ValidCard$ Card.IsCommander+YouOwn | Type$ Spell | Amount$ AffectedX
-T:Mode$ ChangesZone | ValidCard$ Card.IsCommander+YouOwn | Origin$ Any | Destination$ Command | Execute$ TrigDraw | TriggerZones$ Battlefield
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
-SVar:AffectedX:Count$CommanderCastFromCommandZone
+ManaCost:2 G U
+Types:Legendary Creature Kraken
+PT:12/12
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ LandTapped | ReplacementResult$ Updated
+SVar:LandTapped:DB$ Tap | Defined$ Self | ETB$ True | SubAbility$ DBAddCounter
+SVar:DBAddCounter:DB$ PutCounter | Defined$ Self | ETB$ True | CounterType$ SLUMBER | CounterNum$ 5
+S:Mode$ Continuous | Affected$ Card.Self+counters_GE1_SLUMBER | AddType$ Land | RemoveCardTypes$ True
+T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ You | Execute$ TrigRemoveCounter | TriggerZones$ Battlefield | OptionalDecider$ You
+SVar:TrigRemoveCounter:DB$ RemoveCounter | Defined$ Self | CounterType$ SLUMBER | CounterNum$ 1 | AILogic$ Always
+A:AB$ Mana | Cost$ T | Produced$ G U

@@ -1,11 +1,12 @@
 Id:21536
-ColorIdentity:R
-OriginSet:G18bf722b221724f8
-ManaCost:2 R
-Types:Artifact Equipment
-K:Equip:3
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 3 | AddKeyword$ Trample
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken | TriggerZones$ Battlefield
-SVar:TrigToken:AB$ Token | Cost$ 2 | TokenScriptIds$ 3836085774 | RememberTokens$ True | SubAbility$ DBAttach
-SVar:DBAttach:DB$ Attach | Object$ TriggeredCardLKICopy | Defined$ Remembered | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:G
+OriginSet:Gc3edc7c448c17480
+ManaCost:4 G G
+Types:Creature Elf Warrior
+PT:4/4
+T:Mode$ Phase | Phase$ Upkeep | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 1441965772 | TokenOwner$ You
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Elf.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigGainLife
+SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ X
+SVar:X:TriggeredCard$CardToughness
+SVar:PlayMain1:TRUE

@@ -1,7 +1,13 @@
 Id:3486
-ColorIdentity:U
+ColorIdentity:B
 OriginSet:G24ae8187eacbba52
-ManaCost:U
-Types:Enchantment
-T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ Opponent | TriggerZones$ Battlefield | IsPresent$ Card.Self+Enchantment | Execute$ TrigAnimate
-SVar:TrigAnimate:DB$ Animate | Defined$ Self | Power$ 1 | Toughness$ 1 | Keywords$ Flying | Types$ Creature,Bird | RemoveCardTypes$ True | RemoveCreatureTypes$ True | Duration$ Permanent
+ManaCost:B
+Types:Creature Phyrexian Horror
+PT:0/0
+K:etbCounter:P1P1:1
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigPutCounter | TriggerZones$ Battlefield | OptionalDecider$ You
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ DelTrigDestroy
+T:Mode$ Blocks | ValidCard$ Card.Self | Execute$ DelTrigDestroy | Secondary$ True
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterNum$ 1 | CounterType$ P1P1
+SVar:DelTrigDestroy:DB$ DelayedTrigger | Mode$ Phase | Phase$ EndCombat | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ Destroy | Defined$ Self

@@ -1,10 +1,10 @@
 Id:28575
-ColorIdentity:WG
+ColorIdentity:U
 OriginSet:G7ee0e82a2424d636
-ManaCost:5 G W
-Types:Sorcery
-A:SP$ Pump | TgtZone$ Graveyard | ValidTgts$ Artifact.YouOwn | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBLand
-SVar:DBLand:DB$ Pump | TgtZone$ Graveyard | ValidTgts$ Land.YouOwn | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBEnchantment
-SVar:DBEnchantment:DB$ Pump | TgtZone$ Graveyard | SubAbility$ DBChangeZoneAll | ValidTgts$ Enchantment.nonAura+YouOwn | TargetMin$ 0 | TargetMax$ 1
-SVar:DBChangeZoneAll:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | Defined$ Targeted | StaticEffect$ Animate
-SVar:Animate:Mode$ Continuous | Affected$ Card.IsRemembered | AddType$ Creature & Elemental | SetPower$ 5 | SetToughness$ 5
+ManaCost:U
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Curiosity
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 1 | AddToughness$ 1 | AddTrigger$ TrigDamageDone
+SVar:TrigDamageDone:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigInvestigate
+SVar:TrigInvestigate:DB$ Investigate

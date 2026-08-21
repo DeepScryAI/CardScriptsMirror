@@ -1,8 +1,12 @@
 Id:11878
-ColorIdentity:U
+ColorIdentity:W
 OriginSet:G43171707a7efd07b
-ManaCost:5 U
-Types:Creature Phyrexian Horror
-PT:5/5
-K:Infect
-S:Mode$ CantAttack | ValidCard$ Card.Self | UnlessDefender$ IsPoisoned
+ManaCost:1 WP
+Types:Artifact Creature Phyrexian Wall
+PT:0/3
+K:Defender
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigDmg | Phase$ BeginCombat->EndCombat
+SVar:TrigDmg:DB$ DamageAll | ValidCards$ Creature.IsRemembered | NumDmg$ 6
+T:Mode$ Blocks | ValidCard$ Card.Self | Execute$ TrigRem | Secondary$ True | TriggerZones$ Battlefield | Static$ True
+SVar:TrigRem:DB$ Cleanup | ClearRemembered$ True | SubAbility$ DBRem
+SVar:DBRem:DB$ Pump | RememberObjects$ Valid Creature.blockedBySource

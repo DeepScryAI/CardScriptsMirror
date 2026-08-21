@@ -1,9 +1,11 @@
 Id:10884
 ColorIdentity:G
 OriginSet:G4398040c23c94f0e
-ManaCost:1 G
-Types:Creature Human Warrior Ally
-PT:1/1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self,Ally.Other+YouCtrl | OptionalDecider$ You | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
-SVar:BuffedBy:Ally
+ManaCost:2 G
+Types:Creature Spider
+PT:1/3
+K:Kicker:2 G
+K:Reach
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self+kicked | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Creature.withFlying
+SVar:NeedsToPlayKicked:Creature.withFlying+OppCtrl

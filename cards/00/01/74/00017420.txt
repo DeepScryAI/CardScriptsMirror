@@ -1,9 +1,12 @@
 Id:17420
-ColorIdentity:W
+ColorIdentity:WRG
 OriginSet:G5475e2be497fd272
-ManaCost:5 W W
-Types:Creature Dinosaur
-PT:3/3
-K:DoubleStrike
-T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ PumpAll | ValidCards$ Creature.YouCtrl+StrictlyOther | KW$ DoubleStrike
+ManaCost:5 R G W
+Types:Legendary Creature Dinosaur Avatar
+PT:7/6
+K:Trample
+K:Vigilance
+K:Haste
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ DBDig | TriggerZones$ Battlefield
+SVar:DBDig:DB$ Dig | Defined$ You | DigNum$ X | Reveal$ True | ChangeValid$ Creature.Dinosaur | ChangeNum$ Any | DestinationZone$ Battlefield | DestinationZone2$ Library | LibraryPosition2$ -1 | RestRandomOrder$ True
+SVar:X:TriggerCount$DamageAmount

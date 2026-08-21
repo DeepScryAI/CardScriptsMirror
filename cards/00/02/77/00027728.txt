@@ -1,18 +1,12 @@
 Id:27728
-ColorIdentity:
-OriginSet:G30e8a5e111cffb44
-ManaCost:no cost
-Types:Plane Spacecraft
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigExile | TriggerZones$ Command
-SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ Y | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | ForgetOnMoved$ Exile | RememberObjects$ Remembered | SubAbility$ DBCleanup
-SVar:STPlay:Mode$ Continuous | Affected$ Card.IsRemembered | MayPlay$ True | AffectedZone$ Exile
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:Y:Remembered$CardManaCost
-T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ TrigChooseColor
-SVar:TrigChooseColor:DB$ ChooseColor | AILogic$ MostProminentInComputerDeck | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ X | ValidTgts$ Creature.YouCtrl | SubAbility$ DBSacrifice
-SVar:DBSacrifice:DB$ Sacrifice | SacValid$ Creature.NotDefinedTargeted | SubAbility$ DBCleanup2
-SVar:DBCleanup2:DB$ Cleanup | ClearChosenColor$ True
-SVar:X:Count$Devotion.Chosen
+ColorIdentity:G
+OriginSet:G7579344e30f8be85
+ManaCost:2 G
+Types:Creature Treefolk
+PT:1/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.token+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.attacking+Other | NumAtt$ +X | NumDef$ +X
+SVar:X:Count$CardPower
+SVar:HasAttackEffect:TRUE

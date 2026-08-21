@@ -1,8 +1,11 @@
 Id:32047
-ColorIdentity:
-OriginSet:G9946f072b5556073
-ManaCost:3
-Types:Artifact
-A:AB$ Mana | Cost$ T | Produced$ Any
-A:AB$ Draw | Cost$ 7 T Sac<1/CARDNAME> | NumCards$ X
-SVar:X:Count$Valid Land.YouCtrl$DifferentCardNames
+ColorIdentity:U
+OriginSet:G7ab4f62d323b0ca7
+ManaCost:U
+Types:Enchantment Aura
+K:Enchant:Creature
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigTap
+SVar:TrigTap:DB$ Tap | Defined$ Enchanted
+R:Event$ Untap | ActiveZones$ Battlefield | ValidCard$ Creature.EnchantedBy | ValidStepTurnToController$ You | Layer$ CantHappen
+T:Mode$ DamageDoneOnce | ValidTarget$ Card.AttachedBy | TriggerZones$ Battlefield | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice

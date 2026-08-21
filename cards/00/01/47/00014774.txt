@@ -1,9 +1,9 @@
 Id:14774
-ColorIdentity:W
+ColorIdentity:U
 OriginSet:Gfafc221218d3b700
-ManaCost:2 W W
-Types:Legendary Creature Cat Warrior
-PT:4/4
-K:FirstStrike
-A:AB$ PumpAll | Cost$ 3 W W | ValidCards$ Creature.YouCtrl+attacking | NumAtt$ +X | NumDef$ +X
-SVar:X:Count$Valid Creature.attacking
+ManaCost:4 U
+Types:Instant
+A:SP$ ChoosePlayer | Defined$ You | Choices$ Player.Opponent | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ .Chosen,You | NumCards$ 3 | SubAbility$ DBChoose
+SVar:DBChoose:DB$ ChoosePlayer | Defined$ You | Choices$ Player.Opponent | SubAbility$ DBUntap
+SVar:DBUntap:DB$ UntapAll | ValidCards$ Permanent.nonLand+YouCtrl,Permanent.nonLand+ChosenCtrl

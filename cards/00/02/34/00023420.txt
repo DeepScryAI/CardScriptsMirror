@@ -1,8 +1,16 @@
 Id:23420
-ColorIdentity:R
-OriginSet:G1a259dba25660062
-ManaCost:1 R
-Types:Creature Goblin Samurai
-PT:1/3
-T:Mode$ Attacks | ValidCard$ Samurai.YouCtrl,Warrior.YouCtrl | Alone$ True | Execute$ TrigDraw | TriggerZones$ Battlefield
-SVar:TrigDraw:AB$ Draw | Cost$ Discard<1/Card> | NumCards$ 1
+ColorIdentity:G
+OriginSet:Gbe3783f336562357
+ManaCost:3 G
+Types:Creature Wolf
+PT:4/4
+K:Trample
+K:Haste
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Destination$ Exile | Execute$ TrigNoteNum | Static$ True
+SVar:TrigNoteNum:DB$ Pump | NoteNumber$ X
+SVar:X:Count$YourTurns
+K:etbCounter:P1P1:Z:CheckSVar$ WasForetold
+SVar:Z:SVar$X/Minus.Y
+SVar:Y:Count$NotedNumber
+SVar:WasForetold:Count$Foretold.1.0
+K:Foretell:4 G G

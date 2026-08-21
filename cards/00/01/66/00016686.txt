@@ -1,10 +1,13 @@
 Id:16686
-ColorIdentity:WG
+ColorIdentity:W
 OriginSet:Ge1d53e4f418bb713
-ManaCost:2 G W
-Types:Legendary Creature Human Knight
-PT:2/5
-K:Flanking
-S:Mode$ CantBlockBy | ValidAttacker$ Creature.powerLE2 | ValidBlocker$ Creature.withoutFlying+withoutReach+OppCtrl
-K:Partner
-SVar:PlayMain1:TRUE
+ManaCost:3 W
+Types:Creature Human Soldier
+PT:1/1
+K:Flash
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ DBEffect
+SVar:DBEffect:DB$ Effect | ReplacementEffects$ RPrevent
+SVar:RPrevent:Event$ DamageDone | Prevent$ True | ActiveZones$ Command | ValidTarget$ You
+T:Mode$ DamagePreventedOnce | ValidTarget$ You | TriggerZones$ Battlefield | Execute$ TrigPut
+SVar:TrigPut:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ X
+SVar:X:TriggerCount$DamageAmount

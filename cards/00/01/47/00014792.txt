@@ -1,10 +1,11 @@
 Id:14792
-ColorIdentity:G
+ColorIdentity:U
 OriginSet:Gfafc221218d3b700
-ManaCost:X G
-Types:Sorcery
-A:SP$ ChoosePlayer | Defined$ You | Choices$ Player.Opponent | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenScriptIds$ 3952064732 | TokenOwner$ .Chosen,You | TokenPower$ X | TokenToughness$ X | SubAbility$ DBChoose
-SVar:DBChoose:DB$ ChoosePlayer | Defined$ You | Choices$ Player.Opponent | SubAbility$ DBToken2
-SVar:DBToken2:DB$ Token | TokenAmount$ X | TokenScriptIds$ 1441965772 | TokenOwner$ .Chosen,You
-SVar:X:Count$xPaid
+ManaCost:3 U U
+Types:Creature Kraken
+PT:5/5
+K:Hexproof
+S:Mode$ Continuous | Affected$ Card.Self | AddPower$ 2 | AddToughness$ 2 | AddTrigger$ TrigBlocked | AddSVar$ StormsurgeKrakenDraw | IsPresent$ Card.IsCommander+YouOwn+YouCtrl
+SVar:TrigBlocked:Mode$ AttackerBlocked | ValidCard$ Card.Self | Execute$ StormsurgeKrakenDraw
+SVar:StormsurgeKrakenDraw:DB$ Draw | NumCards$ 2 | OptionalDecider$ You
+SVar:BuffedBy:Card.IsCommander

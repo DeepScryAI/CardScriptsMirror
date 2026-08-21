@@ -1,9 +1,12 @@
 Id:19654
-ColorIdentity:G
+ColorIdentity:
 OriginSet:G7c61dc677f00d087
-ManaCost:5 G G
-Types:Creature Giant Druid
-PT:5/5
-K:Reach
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 4257275070 | TokenOwner$ You
+ManaCost:3
+Types:Artifact Creature Knight
+PT:1/1
+K:Vigilance
+K:ETBReplacement:Other:ChooseColor
+SVar:ChooseColor:DB$ ChooseColor | Defined$ You | AILogic$ MostProminentInComputerDeck
+T:Mode$ SpellCast | ValidCard$ Card.ChosenColor | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+SVar:BuffedBy:Card.ChosenColor

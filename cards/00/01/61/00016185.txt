@@ -1,9 +1,10 @@
 Id:16185
-ColorIdentity:R
+ColorIdentity:G
 OriginSet:G70d19654882197c9
-ManaCost:1 R
-Types:Creature Vampire Berserker
-PT:1/2
-K:Trample
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | Execute$ TrigPump | TriggerZones$ Battlefield
-SVar:TrigPump:AB$ Pump | Cost$ Discard<1/Card> | Defined$ Self | NumAtt$ +3
+ManaCost:2 G
+Types:Creature Human Horror
+PT:1/1
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigDig
+SVar:TrigDig:DB$ Dig | DigNum$ 4 | ChangeNum$ 1 | Optional$ True | ChangeValid$ Creature
+T:Mode$ Sacrificed | ValidCard$ Card.Self | WhileKeyword$ Spell.withEmerge | Execute$ TrigToken | TriggerZones$ Battlefield
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 3739367272 | TokenOwner$ You

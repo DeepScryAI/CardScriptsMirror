@@ -1,9 +1,13 @@
 Id:28943
-ColorIdentity:U
-OriginSet:G343cd0ac847a92b7
-ManaCost:2 U
-Types:Artifact Clue
-T:Mode$ Sacrificed | ValidPlayer$ You | ValidCard$ Card.Self,Artifact.Other | TriggerZones$ Battlefield | Execute$ TrigDelayedTrig
-SVar:TrigDelayedTrig:AB$ DelayedTrigger | Cost$ 2 | Mode$ Phase | Phase$ End of Turn | ValidPlayer$ Player | RememberObjects$ TriggeredCardLKICopy | Execute$ TrigCopy
-SVar:TrigCopy:DB$ CopyPermanent | Defined$ DelayTriggerRememberedLKI
-A:AB$ Draw | Cost$ 2 Sac<1/CARDNAME>
+ColorIdentity:
+OriginSet:Gaf7c94f364052cdd
+ManaCost:6
+Types:Artifact Creature Robot
+PT:6/6
+K:Trample
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigEnergy
+SVar:TrigEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ 4
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigImmediateTrig
+SVar:TrigImmediateTrig:DB$ ImmediateTrigger | RememberObjects$ Targeted | ValidTgts$ Permanent.nonLand | UnlessCost$ PayEnergy<X> | UnlessPayer$ You | UnlessSwitched$ True | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ Destroy | Defined$ DelayTriggerRememberedLKI
+SVar:X:Targeted$CardManaCost

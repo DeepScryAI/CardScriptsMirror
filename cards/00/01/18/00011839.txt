@@ -1,9 +1,11 @@
 Id:11839
-ColorIdentity:G
+ColorIdentity:UB
 OriginSet:Geea47b3330de77a6
-ManaCost:2 G G
-Types:Legendary Creature Troll Shaman
-PT:4/4
-A:AB$ Regenerate | Cost$ 1 G
-R:Event$ Counter | ValidCard$ Card.Self | ValidSA$ Spell | Layer$ CantHappen
-K:Hexproof
+ManaCost:2 U B
+Types:Legendary Planeswalker Tezzeret
+Loyalty:3
+A:AB$ Dig | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | DigNum$ 5 | ChangeNum$ 1 | Optional$ True | ChangeValid$ Artifact
+A:AB$ Animate | Cost$ SubCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Artifact | AITgts$ Artifact.YouCtrl | AITgtsStrict$ True | Power$ 5 | Toughness$ 5 | Types$ Creature | Duration$ Permanent
+A:AB$ LoseLife | Cost$ SubCounter<4/LOYALTY> | Planeswalker$ True | Ultimate$ True | ValidTgts$ Player | LifeAmount$ X | SubAbility$ DBGain
+SVar:DBGain:DB$ GainLife | Defined$ You | LifeAmount$ X
+SVar:X:Count$Valid Artifact.YouCtrl/Times.2

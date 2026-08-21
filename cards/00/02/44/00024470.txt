@@ -1,10 +1,9 @@
 Id:24470
 ColorIdentity:W
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:4 W
-Types:Creature Angel
-PT:4/4
+ManaCost:1 W
+Types:Creature Elemental Spirit
+PT:2/2
 K:Flash
-K:Flying
-T:Mode$ ChangesZone | Phase$ Declare Attackers | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigEachAttacker
-SVar:TrigEachAttacker:DB$ ChangeCombatants | Defined$ Valid Creature.attacking | Optional$ True | Attacking$ True
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone | OptionalDecider$ You
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Hidden$ True | AILogic$ BounceOwnTrigger | Mandatory$ True | ChangeType$ Permanent.Other+YouCtrl

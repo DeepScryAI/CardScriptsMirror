@@ -1,10 +1,11 @@
 Id:27572
-ColorIdentity:W
-OriginSet:G8a59924df6623252
-ManaCost:2 W W
-Types:Legendary Planeswalker Ajani
-Loyalty:4
-A:AB$ GainLife | Cost$ AddCounter<1/LOYALTY> | LifeAmount$ 2 | Planeswalker$ True
-A:AB$ PutCounterAll | Cost$ SubCounter<1/LOYALTY> | ValidCards$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1 | Planeswalker$ True | SubAbility$ DBPumpAll
-SVar:DBPumpAll:DB$ PumpAll | ValidCards$ Creature.YouCtrl | KW$ Vigilance
-A:AB$ Token | Cost$ SubCounter<6/LOYALTY> | TokenScriptIds$ 634638064 | TokenOwner$ You | Planeswalker$ True | Ultimate$ True
+ColorIdentity:R
+OriginSet:G7579344e30f8be85
+ManaCost:3 R
+Types:Creature Human Peasant
+PT:3/3
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +X | SubAbility$ DBPumpBis
+SVar:DBPumpBis:DB$ Pump | Defined$ Self | KW$ Trample | ConditionPresent$ Rat.attacking
+SVar:X:Count$Valid Creature.attacking
+SVar:HasAttackEffect:TRUE

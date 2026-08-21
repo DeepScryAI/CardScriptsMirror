@@ -1,8 +1,12 @@
 Id:12390
-ColorIdentity:W
+ColorIdentity:U
 OriginSet:G14de52802b0b467c
-ManaCost:1 W
-Types:Creature Human
-PT:1/1
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl+Other | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+ManaCost:3 U
+Types:Creature Zombie
+PT:4/2
+R:Event$ DamageDone | ActiveZones$ Battlefield | ValidSource$ Creature.Zombie+YouCtrl | ValidTarget$ Player | ReplaceWith$ Mill | IsCombat$ True | ExecuteMode$ PerTarget
+SVar:Mill:DB$ Mill | Defined$ ReplacedTarget | NumCards$ X
+SVar:X:ReplaceCount$DamageAmount
+T:Mode$ ChangesZone | ValidCard$ Creature.!token+OppOwn | Origin$ Library | Destination$ Graveyard | Execute$ ExileAndToken | TriggerZones$ Battlefield
+SVar:ExileAndToken:DB$ ChangeZone | Defined$ TriggeredCardLKICopy | Origin$ Graveyard | Destination$ Exile | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 353162950 | TokenOwner$ You

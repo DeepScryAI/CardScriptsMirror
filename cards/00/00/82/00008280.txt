@@ -1,10 +1,11 @@
 Id:8280
-ColorIdentity:WU
-OriginSet:Gde6d8130c178f566
-ManaCost:2 W U
-Types:Instant
-A:SP$ Dig | DigNum$ 4 | Reveal$ True | ChangeNum$ 1 | Optional$ True | ChangeValid$ Creature | DestinationZone$ Battlefield | RememberChanged$ True | SubAbility$ DBAnimate
-SVar:DBAnimate:DB$ Animate | Defined$ Remembered | Duration$ Permanent | Triggers$ TrigAethermage | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:TrigAethermage:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | ValidPlayer$ You | Execute$ BounceAethermage
-SVar:BounceAethermage:DB$ ChangeZone | Defined$ Self | Origin$ Battlefield | Destination$ Hand
+ColorIdentity:BR
+OriginSet:Gfcde6cd8a196beb7
+ManaCost:BR BR BR
+Types:Creature Avatar
+PT:5/3
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ DBSacSelf
+SVar:DBSacSelf:DB$ Sacrifice | UnlessCost$ Discard<2/Card> | UnlessPayer$ You
+SVar:NeedsToPlayVar:Y GE3
+SVar:Y:Count$ValidHand Card.YouOwn

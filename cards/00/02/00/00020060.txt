@@ -1,8 +1,10 @@
 Id:20060
-ColorIdentity:W
+ColorIdentity:BR
 OriginSet:G23be9f486a22d38a
-ManaCost:W
+ManaCost:B R
 Types:Creature Human Knight
-PT:2/1
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Knight.YouCtrl | CounterType$ P1P1 | CounterNum$ 1
+PT:2/2
+K:Menace
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ Player | NumCards$ 1 | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ Player | LifeAmount$ 1

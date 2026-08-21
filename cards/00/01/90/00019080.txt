@@ -1,9 +1,14 @@
 Id:19080
-ColorIdentity:WUBRG
+ColorIdentity:WB
 OriginSet:G0b51a0aecbe39efe
-ManaCost:7
-Types:Artifact Creature Sphinx
-PT:5/5
-S:Mode$ Continuous | Affected$ Card.Self | CharacteristicDefining$ True | SetColor$ All
-K:Flying
-K:Hexproof:Card.MonoColor:monocolored
+ManaCost:WB WB
+Types:Sorcery
+A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouOwn+cmcLE3
+AlternateMode:Split
+ALTERNATE
+ManaCost:4 W B
+Types:Sorcery
+A:SP$ SetLife | LifeAmount$ X | Defined$ You | SubAbility$ DBLoseHalf
+SVar:DBLoseHalf:DB$ LoseLife | ValidTgts$ Opponent | LifeAmount$ Y
+SVar:X:Count$YourLifeTotal/Twice
+SVar:Y:TargetedPlayer$LifeTotal/HalfUp

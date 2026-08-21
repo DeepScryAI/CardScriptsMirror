@@ -1,12 +1,11 @@
 Id:30037
-ColorIdentity:B
-OriginSet:G30e4cc621dfc3a2e
-ManaCost:3 B B
-Types:Creature Bat Warlock
-PT:4/4
-K:Flying
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.OppCtrl | Execute$ TrigToken | TriggerZones$ Battlefield
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 2179622914 | TokenOwner$ You
-T:Mode$ Sacrificed | ValidCard$ Artifact | ValidPlayer$ You | Execute$ TrigPutCounter | TriggerZones$ Battlefield
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
+ColorIdentity:U
+OriginSet:Gf09b85bbcc27770c
+ManaCost:4 U
+Types:Sorcery
+K:Gift
+SVar:GiftAbility:DB$ Token | TokenScriptIds$ 2753563426 | TokenTapped$ True | TokenOwner$ Promised | LockTokenScript$ True
+A:SP$ Draw | NumCards$ 3 | ValidTgts$ Player | SubAbility$ DBTap
+SVar:DBTap:DB$ Tap | ValidTgts$ Creature.OppCtrl | TargetMin$ X | TargetMax$ X | SubAbility$ DBCounter
+SVar:DBCounter:DB$ PutCounter | Defined$ ParentTarget | ConditionZone$ Stack | ConditionPresent$ Card.Self+PromisedGift | ConditionCompare$ EQ1 | CounterType$ Stun | CounterNum$ 1
+SVar:X:Count$PromisedGift.1.0

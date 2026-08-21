@@ -1,15 +1,11 @@
 Id:26560
-ColorIdentity:G
-OriginSet:G06757f68e16377c2
-ManaCost:3 G G
-Types:Battle Siege
-Defense:4
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | TargetMin$ 0 | TargetMax$ 3 | ValidTgts$ Permanent.YouOwn
-AlternateMode:DoubleFaced
-ALTERNATE
+ColorIdentity:
+OriginSet:Gd5f5e54fa26ae40d
 ManaCost:no cost
-Colors:green
-Types:Enchantment
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigChangeZone
-SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | ChangeType$ Permanent.YouOwn
+Types:Plane Antausia
+T:Mode$ TapsForMana | ValidCard$ Land | Execute$ AddMana | TriggerZones$ Command | Static$ True
+SVar:AddMana:DB$ ManaReflected | ColorOrType$ Type | ReflectProperty$ Produced | Defined$ TriggeredActivator
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ TrigDigUntil
+SVar:TrigDigUntil:DB$ DigUntil | Valid$ Plane | DigZone$ PlanarDeck | RememberFound$ True | FoundDestination$ PlanarDeck | FoundLibraryPosition$ -1 | RevealedDestination$ PlanarDeck | RevealedLibraryPosition$ -1 | SubAbility$ DBChaosEnsues
+SVar:DBChaosEnsues:DB$ ChaosEnsues | Defined$ Remembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

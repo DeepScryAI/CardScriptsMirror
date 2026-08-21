@@ -1,11 +1,9 @@
 Id:25312
-ColorIdentity:R
-OriginSet:G2e872aaf9b98489e
-ManaCost:2 R
-Types:Creature Goblin Guest
-PT:2/2
-T:Mode$ ChangesZone | ExcludedOrigins$ Graveyard,Exile | Destination$ Battlefield | ValidCard$ Card.Self | IsPresent$ Creature.YouCtrl+catalogId25312 | IsPresent2$ Card.Self | PresentCompare$ LE9 | Execute$ TrigRollDice
-SVar:TrigRollDice:DB$ RollDice | Sides$ 20 | ResultSubAbilities$ 1-6:DBMana1,7-14:DBMana2,15-20:DBMana3
-SVar:DBMana1:DB$ Mana | Produced$ R | Amount$ 4
-SVar:DBMana2:DB$ Mana | Produced$ R | Amount$ 5
-SVar:DBMana3:DB$ Mana | Produced$ R | Amount$ 6
+ColorIdentity:
+OriginSet:Gf591a76e7a37cf73
+ManaCost:4
+Types:Legendary Artifact
+R:Event$ GameLoss | ActiveZones$ Battlefield | ValidPlayer$ You | ReplaceWith$ ExileSetLife
+SVar:ExileSetLife:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | Defined$ Self | SubAbility$ DBSetLife
+SVar:DBSetLife:DB$ SetLife | Defined$ You | LifeAmount$ 1
+A:AB$ Mana | Cost$ T Sac<1/Creature> | Produced$ Combo Any | Amount$ 3

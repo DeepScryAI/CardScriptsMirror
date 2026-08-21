@@ -1,19 +1,15 @@
 Id:26554
-ColorIdentity:WB
-OriginSet:G06757f68e16377c2
-ManaCost:W B
-Types:Battle Siege
-Defense:4
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigImmediateTrig
-SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ Sac<1/Artifact;Creature/artifact or creature> | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZone | ValidTgts$ Artifact.OppCtrl,Creature.OppCtrl | Origin$ Battlefield | Destination$ Exile
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:white,black
-Types:Artifact Equipment
-T:Mode$ Attacks | ValidCard$ Creature.EquippedBy | Execute$ TrigPutCounters
-SVar:TrigPutCounters:DB$ PutCounterAll | ValidCards$ Creature.TriggeredAttacker,Creature.YouCtrl+sharesCreatureTypeWith TriggeredAttackerLKICopy | CounterType$ P1P1
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddSVar$ AE
-SVar:AE:SVar:HasAttackEffect:TRUE
-K:Equip:1
+ColorIdentity:WUB
+OriginSet:Gd5f5e54fa26ae40d
+ManaCost:1 W U B
+Types:Legendary Creature Human Knight
+PT:4/3
+T:Mode$ AttackersDeclared | ValidAttackers$ Card.Knight+YouCtrl | TriggerZones$ Command | PresentZone$ Command | IsPresent$ Card.StrictlySelf | Execute$ TrigLoot
+T:Mode$ AttackersDeclared | ValidAttackers$ Card.Knight+YouCtrl | TriggerZones$ Battlefield | PresentZone$ Battlefield | IsPresent$ Card.StrictlySelf | Execute$ TrigLoot | Secondary$ True
+SVar:TrigLoot:DB$ Draw | Defined$ You | NumCards$ 1 | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ TgtChoose
+K:Flying
+K:FirstStrike
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigReturn | TriggerZones$ Battlefield
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ChangeNum$ 1 | ValidTgts$ Creature.YouOwn+Knight
+SVar:BuffedBy:Knight

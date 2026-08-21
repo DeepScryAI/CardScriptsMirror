@@ -1,11 +1,16 @@
 Id:9157
-ColorIdentity:R
+ColorIdentity:B
 OriginSet:Gdf2f562751f0d037
-ManaCost:2 R R
-Types:Creature Lizard Shaman
-PT:3/2
-K:Suspend:4:R
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChoose
-SVar:TrigChoose:DB$ Charm | Choices$ LoseTime,GainTime
-SVar:LoseTime:DB$ RemoveCounter | ValidTgts$ Permanent.inZoneBattlefield,Card.suspended | AITgts$ Card.counters_GE1_TIME+inZoneBattlefield+YouDontCtrl,Card.suspended+YouCtrl | CounterType$ TIME | CounterNum$ 2 | TgtZone$ Battlefield,Exile
-SVar:GainTime:DB$ PutCounter | ValidTgts$ Permanent.counters_GE1_TIME+inZoneBattlefield,Card.suspended | AITgts$ Card.inZoneBattlefield+YouCtrl,Card.suspended+YouDontCtrl | CounterType$ TIME | CounterNum$ 2 | TgtZone$ Battlefield,Exile
+ManaCost:2 B B
+Types:Creature Specter
+PT:2/2
+K:Flying
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigReveal
+SVar:TrigReveal:DB$ RevealHand | Defined$ TriggeredTarget | SubAbility$ ChooseCard
+SVar:ChooseCard:DB$ ChooseCard | Choices$ Card.nonLand+OwnedBy TriggeredTarget | ChoiceZone$ Hand | SubAbility$ ExileYard | RememberChosen$ True
+SVar:ExileYard:DB$ ChangeZoneAll | Origin$ Graveyard | Destination$ Exile | Defined$ TriggeredTarget | ChangeType$ Remembered.sameName | SubAbility$ ExileHand
+SVar:ExileHand:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | DefinedPlayer$ TriggeredTarget | ChangeType$ Remembered.sameName | ChangeNum$ NumInHand | Chooser$ You | SubAbility$ ExileLib
+SVar:ExileLib:DB$ ChangeZone | Origin$ Library | Destination$ Exile | DefinedPlayer$ TriggeredTarget | ChangeType$ Remembered.sameName | ChangeNum$ NumInLib | Chooser$ You | Shuffle$ True | SubAbility$ DBCleanup
+SVar:NumInHand:TriggeredTarget$CardsInHand
+SVar:NumInLib:TriggeredTarget$CardsInLibrary
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

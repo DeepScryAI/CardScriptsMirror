@@ -1,9 +1,12 @@
 Id:22464
-ColorIdentity:W
-OriginSet:G9f95a41d532c0550
-ManaCost:1 W
-Types:Artifact Equipment
-K:Equip:3
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1 | AddToughness$ 1
-T:Mode$ Attacks | ValidCard$ Card.EquippedBy | Execute$ DBVenture
-SVar:DBVenture:DB$ Venture | Defined$ You
+ColorIdentity:BR
+OriginSet:G92f7f9489fec5865
+ManaCost:3 B R
+Types:Legendary Creature Beholder
+PT:5/5
+T:Mode$ AttackersDeclaredOneTarget | ValidAttackers$ Creature.YouCtrl | AttackedTarget$ Player | Execute$ TrigTap | TriggerZones$ Battlefield
+SVar:TrigTap:DB$ Tap | ValidTgts$ Creature | TargetsWithDefinedController$ TriggeredAttackedTarget | SubAbility$ DBGoad
+SVar:DBGoad:DB$ Goad | Defined$ Targeted
+T:Mode$ AttackersDeclaredOneTarget | AttackingPlayer$ Player.Opponent | AttackedTarget$ Opponent | Execute$ TrigDraw | TriggerZones$ Battlefield
+SVar:TrigDraw:DB$ Draw | Defined$ TriggeredAttackingPlayer & You | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ TriggeredAttackingPlayer & You | LifeAmount$ 1

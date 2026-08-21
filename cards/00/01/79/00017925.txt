@@ -1,13 +1,8 @@
 Id:17925
-ColorIdentity:G
-OriginSet:G21ed5bd3b1924169
-ManaCost:1 G
-Types:Creature Dinosaur
-PT:2/1
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigEffect
-SVar:TrigEffect:DB$ Effect | StaticAbilities$ STFlash | Triggers$ HatchlingCast
-SVar:STFlash:Mode$ CastWithFlash | ValidCard$ Dinosaur | ValidSA$ Spell | Caster$ You
-SVar:HatchlingCast:Mode$ SpellCast | ValidCard$ Dinosaur | ValidActivatingPlayer$ You | Execute$ TrigHatchlingAnimate | TriggerZones$ Command
-SVar:TrigHatchlingAnimate:DB$ Animate | Defined$ TriggeredCardLKICopy | Duration$ Permanent | Triggers$ TrigETBHatchling
-SVar:TrigETBHatchling:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ HatchlingFight | OptionalDecider$ You
-SVar:HatchlingFight:DB$ Fight | Defined$ TriggeredCardLKICopy | ValidTgts$ Creature.Other
+ColorIdentity:W
+OriginSet:G84be946b27d900a1
+ManaCost:1 W
+Types:Sorcery
+A:SP$ RepeatEach | RepeatPlayers$ Player.Opponent | NextTurnForEachPlayer$ True | RepeatSubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STCantBeCast | EffectOwner$ Remembered
+SVar:STCantBeCast:Mode$ CantBeCast | ValidCard$ Instant,Sorcery | Caster$ You

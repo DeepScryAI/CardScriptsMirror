@@ -1,8 +1,12 @@
 Id:8418
-ColorIdentity:G
+ColorIdentity:W
 OriginSet:Gde6d8130c178f566
-ManaCost:2 G
-Types:Sorcery
-A:SP$ Pump | ValidTgts$ Artifact | AILogic$ Destroy | IsCurse$ True | SubAbility$ DestroyEnch
-SVar:DestroyEnch:DB$ Pump | ValidTgts$ Enchantment | AILogic$ Destroy | IsCurse$ True | SubAbility$ DBDestroy
-SVar:DBDestroy:DB$ Destroy | Defined$ Targeted
+ManaCost:2 W
+Types:Creature Spirit
+PT:5/5
+K:Defender
+K:Flying
+T:Mode$ Blocks | ValidCard$ Card.Self | Execute$ DelTrig
+SVar:DelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ EndCombat | ValidPlayer$ Opponent | Execute$ TrigSacrifice
+SVar:TrigSacrifice:DB$ SacrificeAll | Defined$ Self | Controller$ You
+SVar:SacrificeEndCombat:True

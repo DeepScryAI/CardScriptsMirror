@@ -1,8 +1,11 @@
 Id:31419
-ColorIdentity:W
-OriginSet:Gf2b808f4f642ac62
-ManaCost:1 W
-Types:Creature Spirit Warrior
-PT:3/1
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl | TriggerZones$ Graveyard | Execute$ TrigChangeZone
-SVar:TrigChangeZone:AB$ ChangeZone | Cost$ 1 W | Defined$ Self | Origin$ Graveyard | Destination$ Hand
+ColorIdentity:WBG
+OriginSet:Ge1676a27173c0866
+ManaCost:W B G
+Types:Legendary Creature Human Warrior
+PT:3/3
+K:Trample
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigImmediateTrig
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigImmediateTrig | Secondary$ True
+SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ Sac<1/Permanent.nonLand/nonland permanent> | Execute$ TrigPutCounters
+SVar:TrigPutCounters:DB$ PutCounterAll | ValidCards$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1

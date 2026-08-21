@@ -1,9 +1,11 @@
 Id:16845
-ColorIdentity:G
+ColorIdentity:R
 OriginSet:Gd31f94cf3a5f78e4
-ManaCost:1 G
-Types:Creature Cat Monkey
-PT:0/0
-K:etbCounter:P1P1:2
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigMoveCounter
-SVar:TrigMoveCounter:DB$ MoveCounter | ValidTgts$ Creature.Other | Source$ Self | CounterType$ P1P1 | CounterNum$ Any
+ManaCost:3 R
+Types:Creature Human Artificer
+PT:2/2
+K:DoubleStrike
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigEnergy
+SVar:TrigEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ 2
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPutCounter
+SVar:TrigPutCounter:AB$ PutCounter | Cost$ PayEnergy<2> | CounterType$ P1P1 | CounterNum$ 1

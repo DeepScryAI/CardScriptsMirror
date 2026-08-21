@@ -1,7 +1,11 @@
 Id:18743
-ColorIdentity:UR
+ColorIdentity:
 OriginSet:G1ecb361a0a117393
-ManaCost:1 U R
-Types:Instant
-A:SP$ Counter | TargetType$ Spell | ValidTgts$ Card | SubAbility$ DBDealDamage
-SVar:DBDealDamage:DB$ DealDamage | NumDmg$ 2 | Defined$ TargetedController
+ManaCost:no cost
+Types:Land Gate
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice | UnlessCost$ 1 | UnlessPayer$ You
+SVar:NeedsToPlay:Land.untapped+YouCtrl
+A:AB$ Mana | Cost$ T | Produced$ Any

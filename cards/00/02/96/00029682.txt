@@ -1,9 +1,10 @@
 Id:29682
-ColorIdentity:W
-OriginSet:G01a610e823cce3ca
-ManaCost:2 W
-Types:Legendary Artifact Equipment
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddKeyword$ Lifelink
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | CheckSVar$ X | SVarCompare$ GE30 | AddPower$ 5 | AddToughness$ 5 | AddKeyword$ Indestructible & Prevent all damage that would be dealt to CARDNAME.
-K:Equip:W W
-SVar:X:Count$YourLifeTotal
+ColorIdentity:WR
+OriginSet:Gac6359c222afbd4f
+ManaCost:2 R W
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 1333405635 | SubAbility$ DBEnergy
+SVar:DBEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ X
+A:AB$ PumpAll | Cost$ PayEnergy<4> | ValidCards$ Creature.YouCtrl | NumAtt$ +1 | KW$ Haste
+SVar:X:Count$Valid Creature.YouCtrl

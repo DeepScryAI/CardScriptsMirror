@@ -1,0 +1,11 @@
+Id:31973
+ColorIdentity:
+OriginSet:G7ab4f62d323b0ca7
+ManaCost:4
+Types:Artifact Equipment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigAttach | OptionalDecider$ You
+SVar:TrigAttach:DB$ Attach | ValidTgts$ Creature.YouCtrl | RememberAttached$ True | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Targeted | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ GE1 | KW$ FirstStrike & HIDDEN CARDNAME must be blocked if able. | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddToughness$ 1
+K:Equip:2

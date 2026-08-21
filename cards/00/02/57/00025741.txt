@@ -1,11 +1,10 @@
 Id:25741
 ColorIdentity:B
 OriginSet:G06ccef4324c14725
-ManaCost:7
-Types:Artifact Creature Phyrexian Wurm
-PT:7/5
-K:Prototype:1 B B:3:3
-K:Menace
-K:Lifelink
-K:Ward:PayLife<X/life equal to CARDNAME's power>
-SVar:X:Count$CardPower
+ManaCost:B
+Types:Sorcery
+A:SP$ RevealHand | ValidTgts$ Opponent | ImprintRevealed$ True | RememberTargets$ True | SubAbility$ DBChooseCard
+SVar:DBChooseCard:DB$ ChooseCard | ChoiceZone$ Hand | Choices$ Artifact.IsImprinted,Creature.IsImprinted | RememberChosen$ True | Mandatory$ True | SubAbility$ DBChooseFromGraveyard
+SVar:DBChooseFromGraveyard:DB$ ChooseCard | ChoiceZone$ Graveyard | Choices$ Artifact.RememberedPlayerOwn,Creature.RememberedPlayerOwn | RememberChosen$ True | Mandatory$ True | Amount$ 1 | SubAbility$ DBExileBoth
+SVar:DBExileBoth:DB$ ChangeZone | Defined$ RememberedCard | Origin$ Graveyard,Hand | Destination$ Exile | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True

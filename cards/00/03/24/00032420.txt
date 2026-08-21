@@ -1,13 +1,10 @@
 Id:32420
-ColorIdentity:U
-OriginSet:G66b3a7eeabd9000e
-ManaCost:3 U
-Types:Legendary Creature Human Villain
-PT:3/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenAmount$ X | TokenScriptIds$ 1751953109 | TokenOwner$ You | RememberTokens$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedLKI | Triggers$ TrigExile | Duration$ Permanent | ForgetOnMoved$ Battlefield | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:TrigExile:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.EffectSource | Execute$ ExileTwin
-SVar:ExileTwin:DB$ ChangeZone | Defined$ Remembered | Origin$ Battlefield | Destination$ Exile
-SVar:X:Count$Valid Villain.!token+YouCtrl
+ColorIdentity:RG
+OriginSet:G9946f072b5556073
+ManaCost:1 R G
+Types:Legendary Creature Kavu Pilot
+PT:2/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | Defined$ Player.Opponent | NumDmg$ 1 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | ConditionCheckSVar$ Resolved | ConditionSVarCompare$ EQ2
+SVar:Resolved:Count$ResolvedThisTurn

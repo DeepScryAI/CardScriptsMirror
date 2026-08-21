@@ -1,8 +1,11 @@
 Id:9450
-ColorIdentity:U
+ColorIdentity:W
 OriginSet:G1ddd2c86a9ea60e3
-ManaCost:3 U
-Types:Creature Shapeshifter
-PT:1/4
-K:Changeling
-A:AB$ Pump | Cost$ 1 U | Defined$ Self | AILogic$ SwitchPT | KW$ HIDDEN CARDNAME's power and toughness are switched
+ManaCost:1 W
+Types:Enchantment Aura
+K:Enchant:Creature
+K:Flash
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 1 | AddToughness$ 1 | AddKeyword$ Vigilance
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigUntap
+SVar:TrigUntap:DB$ Untap | Defined$ Enchanted

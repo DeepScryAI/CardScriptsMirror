@@ -1,0 +1,12 @@
+Id:35168
+ColorIdentity:R
+OriginSet:G21d8f666c5c6b81d
+ManaCost:3 R
+Types:Legendary Creature Human Barbarian Wizard
+PT:2/3
+T:Mode$ DamageDealtOnce | ValidSource$ Card.YouCtrl,Emblem.YouCtrl | AtLeastOneInstance$ EQ2 | Execute$ TrigExile | TriggerZones$ Battlefield
+SVar:TrigExile:DB$ Dig | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ Play | ForgetOnMoved$ Exile | Duration$ UntilTheEndOfYourNextTurn | SubAbility$ DBCleanup
+SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+A:AB$ DealDamage | Cost$ R T ExileFromGrave<2/Card> | ValidTgts$ Creature.Other,Planeswalker.Other,Battle.Other,Player | NumDmg$ 2

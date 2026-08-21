@@ -1,7 +1,12 @@
 Id:7565
-ColorIdentity:B
+ColorIdentity:
 OriginSet:G4747f23d5c5760bc
-ManaCost:B
-Types:Creature Rat Warrior
-PT:1/1
-A:AB$ Destroy | Cost$ Sac<1/CARDNAME> | ValidTgts$ Ninja
+ManaCost:3
+Types:Artifact Equipment
+K:Equip:2
+T:Mode$ DamageDone | ValidSource$ Card.EquippedBy | ValidTarget$ Creature | Execute$ TrigNekoTeTap | TriggerZones$ Battlefield
+SVar:TrigNekoTeTap:DB$ Tap | Defined$ TriggeredTargetLKICopy | SubAbility$ DBNekoTe
+SVar:DBNekoTe:DB$ Effect | RememberObjects$ TriggeredTargetLKICopy | ForgetOnMoved$ Battlefield | ReplacementEffects$ DontUntap | Duration$ UntilHostLeavesPlay
+SVar:DontUntap:Event$ Untap | ValidCard$ Card.IsRemembered | ValidStepTurnToController$ You | Layer$ CantHappen
+T:Mode$ DamageDone | ValidSource$ Card.EquippedBy | ValidTarget$ Player | Execute$ TrigNekoTeLoseLife | TriggerZones$ Battlefield
+SVar:TrigNekoTeLoseLife:DB$ LoseLife | LifeAmount$ 1 | Defined$ TriggeredTarget

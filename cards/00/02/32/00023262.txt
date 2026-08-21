@@ -1,9 +1,11 @@
 Id:23262
 ColorIdentity:B
 OriginSet:G6e75ff4f143a3dc3
-ManaCost:3 B
-Types:Creature Vampire Assassin
-PT:4/2
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.OppCtrl | NumAtt$ -2 | NumDef$ -2 | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ1
-SVar:X:Count$Valid Creature.ControlledBy TargetedController
+ManaCost:2 B
+Types:Creature Zombie Scorpion
+PT:3/2
+K:Deathtouch
+K:Exploit
+T:Mode$ Exploited | ValidCard$ Creature | ValidSource$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | NumCards$ 2 | ValidTgts$ Player | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 2 | Defined$ Targeted

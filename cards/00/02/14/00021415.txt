@@ -1,15 +1,10 @@
 Id:21415
-ColorIdentity:R
+ColorIdentity:U
 OriginSet:G51d431785c8b33e5
-ManaCost:6 R R R
-Types:Sorcery
-A:SP$ RepeatEach | ValidTgts$ Any | TargetMin$ 0 | TargetMax$ MaxTgt | RepeatSubAbility$ DBDig | RepeatTargeted$ True | SubAbility$ DBEffect
-SVar:DBDig:DB$ Dig | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | ImprintRevealed$ True | Reveal$ True | SubAbility$ DBDealDamage
-SVar:DBDealDamage:DB$ DealDamage | Defined$ Remembered | NumDmg$ X | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearImprinted$ True
-SVar:DBEffect:DB$ Effect | StaticAbilities$ STMayPlay | Duration$ UntilTheEndOfYourNextTurn | RememberObjects$ ValidExile Card.ExiledWithSource | ForgetOnMoved$ Exile
-SVar:STMayPlay:Mode$ Continuous | Affected$ Card.IsRemembered | AffectedZone$ Exile | MayPlay$ True
-SVar:MaxTgt:SVar$MaxPlayers/Plus.MaxCreaturesAndPW
-SVar:MaxPlayers:PlayerCountPlayers$Amount
-SVar:MaxCreaturesAndPW:Count$Valid Creature,Planeswalker
-SVar:X:Imprinted$CardManaCost
+ManaCost:5 U
+Types:Legendary Creature Human Artificer
+PT:3/6
+K:Partner
+A:AB$ Dig | Cost$ T tapXType<X/Artifact/artifacts you control> | DigNum$ X | ChangeNum$ 1 | DestinationZone2$ Graveyard | SubAbility$ DBStackDesc
+SVar:DBStackDesc:DB$ Pump
+SVar:X:Count$xPaid

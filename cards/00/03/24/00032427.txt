@@ -1,12 +1,13 @@
 Id:32427
-ColorIdentity:B
-OriginSet:G66b3a7eeabd9000e
-ManaCost:2 B
-Types:Enchantment
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | Execute$ TrigReveal | TriggerZones$ Battlefield
-SVar:TrigReveal:DB$ PeekAndReveal | NoPeek$ True | ValidTgts$ Player | TargetMin$ 2 | TargetMax$ 2 | RememberRevealed$ True | SubAbility$ DBRepeatEach
-SVar:DBRepeatEach:DB$ RepeatEach | RepeatPlayers$ Targeted | RepeatSubAbility$ DBLoseLife | SubAbility$ DBChangeZoneAll
-SVar:DBLoseLife:DB$ LoseLife | Defined$ Player.IsRemembered | LifeAmount$ X
-SVar:DBChangeZoneAll:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered | Origin$ Library | Destination$ Hand | SubAbility$ DBCleanup
+ColorIdentity:R
+OriginSet:G9946f072b5556073
+ManaCost:4 R R
+Types:Creature Beast
+PT:6/6
+K:Reach
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ DBDigUntil
+SVar:DBDigUntil:DB$ DigUntil | Valid$ Card.nonLand | FoundDestination$ Exile | RevealedDestination$ Exile | RememberFound$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ Play | SubAbility$ DBCleanup | ExileOnMoved$ Exile
+SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered+nonLand | AffectedZone$ Exile
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$ValidLibrary Card.IsRemembered+!RememberedPlayerOwn$CardManaCost
+SVar:BuffedBy:Land

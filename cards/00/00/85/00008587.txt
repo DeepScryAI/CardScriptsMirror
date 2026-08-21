@@ -1,8 +1,12 @@
 Id:8587
-ColorIdentity:B
+ColorIdentity:W
 OriginSet:Gf7b8c9355081f53b
-ManaCost:3 B
-Types:Snow Creature Zombie
-PT:2/3
-K:Landwalk:Land.Snow:snow Land
-A:AB$ Regenerate | Cost$ S
+ManaCost:2 W W
+Types:Creature Boar Beast
+PT:7/7
+K:etbCounter:ICE:3
+R:Event$ DamageDone | Prevent$ True | IsCombat$ True | ValidSource$ Card.Self+counters_GE1_ICE
+S:Mode$ Continuous | Affected$ Card.Self+counters_GE1_ICE | AddKeyword$ Defender
+T:Mode$ Blocks | ValidCard$ Card.Self | Execute$ TrigRemoveCounter | TriggerZones$ Battlefield
+SVar:TrigRemoveCounter:DB$ RemoveCounter | CounterType$ ICE | CounterNum$ 1 | Defined$ TriggeredBlockerLKICopy
+SVar:HasBlockEffect:TRUE

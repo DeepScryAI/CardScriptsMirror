@@ -1,11 +1,10 @@
 Id:23907
-ColorIdentity:WG
-OriginSet:Gfdfe2ebef04be34e
-ManaCost:G W
-Types:Creature Pegasus
-PT:2/1
-K:Flying
-K:Trample
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDraw | CheckSVar$ X | SVarCompare$ GE2 | TriggerZones$ Battlefield
-SVar:TrigDraw:DB$ Draw
-SVar:X:Count$ThisTurnEntered_Battlefield_Creature.YouCtrl
+ColorIdentity:BRG
+OriginSet:G5f5d8cfb206e2fac
+ManaCost:2 B R G
+Types:Sorcery
+A:SP$ Charm | Choices$ Draw,Damage,PutLand | CharmNum$ 3 | CanRepeatModes$ True
+SVar:Draw:DB$ Draw | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 1
+SVar:Damage:DB$ DamageAll | ValidCards$ Creature.YouDontCtrl,Planeswalker.YouDontCtrl | NumDmg$ 1
+SVar:PutLand:DB$ ChangeZone | Origin$ Hand,Graveyard | Destination$ Battlefield | Tapped$ True | ChangeType$ Land.YouCtrl

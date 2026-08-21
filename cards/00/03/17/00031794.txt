@@ -1,14 +1,12 @@
 Id:31794
-ColorIdentity:B
-OriginSet:G7ab4f62d323b0ca7
-ManaCost:2 B
-Types:Legendary Creature Human Knight
-PT:2/4
-S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ Flying | Condition$ PlayerTurn
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigControl
-SVar:TrigControl:DB$ GainControl | Defined$ Self | NewController$ TriggeredTarget | RememberControlled$ True | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | NumCards$ X | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ GE1 | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenScriptIds$ 3851718391 | TokenAmount$ X | TokenTapped$ True | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ GE1 | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ X | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ GE1 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:TriggerCount$DamageAmount
+ColorIdentity:BR
+OriginSet:G530ea9d733a13e9d
+ManaCost:1 B R
+Types:Legendary Creature Human Rogue Pilot
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken1
+SVar:TrigToken1:DB$ Token | TokenScriptIds$ 3964469014 | TokenOwner$ You
+T:Mode$ DamageDone | ValidSource$ Vehicle.YouCtrl | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigFlip | TriggerZones$ Battlefield
+SVar:TrigFlip:DB$ FlipCoin
+T:Mode$ FlippedCoin | ValidPlayer$ You | ValidResult$ Win | TriggerZones$ Battlefield | Execute$ TrigToken2
+SVar:TrigToken2:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 3851718391 | TokenTapped$ True

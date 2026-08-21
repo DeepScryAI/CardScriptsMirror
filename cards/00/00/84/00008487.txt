@@ -1,8 +1,10 @@
 Id:8487
-ColorIdentity:R
+ColorIdentity:G
 OriginSet:Gf7b8c9355081f53b
-ManaCost:5 R R
-Types:Sorcery
-S:Mode$ AlternativeCost | ValidSA$ Spell.Self | EffectZone$ All | Cost$ ExileFromHand<2/Card.Red+Other>
-A:SP$ UntapAll | ValidCards$ Creature.attackedThisTurn | SubAbility$ DBAddCombat
-SVar:DBAddCombat:DB$ AddPhase | ExtraPhase$ Combat | FollowedBy$ Main2 | ConditionPhases$ Main1,Main2
+ManaCost:2 G
+Types:Snow Creature Spider
+PT:1/3
+K:Reach
+T:Mode$ AttackerBlocked | ValidCard$ Creature.withFlying | ValidBlocker$ Card.Self | Execute$ DelayedTrig
+SVar:DelayedTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ EndCombat | ValidPlayer$ Player | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1

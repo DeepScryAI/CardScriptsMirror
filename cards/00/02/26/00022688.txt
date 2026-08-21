@@ -1,47 +1,9 @@
 Id:22688
 ColorIdentity:B
-OriginSet:G268a0d6ee06912c2
-ManaCost:2 B B
-Types:Legendary Planeswalker Davriel
-Loyalty:4
-A:AB$ Effect | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | Name$ 18334466384231846224 | Triggers$ AttackTrigger | Duration$ UntilYourNextTurn | AILogic$ Main2
-SVar:AttackTrigger:Mode$ AttackersDeclared | AttackingPlayer$ Player.Opponent | AttackedTarget$ You,Planeswalker.YouCtrl | NoResolvingCheck$ True | TriggerZones$ Command | Execute$ TrigDiscard
-SVar:TrigDiscard:DB$ Discard | Defined$ TriggeredAttackingPlayer | NumCards$ 1 | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBSacrifice
-SVar:DBSacrifice:DB$ Sacrifice | SacValid$ Creature.attacking | Defined$ TriggeredAttackingPlayer | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ0
-A:AB$ GenericChoice | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | NumRandomChoices$ 3 | Choices$ Draw3,Conjure,Return2,ReturnBig,EmblemBuff,EmblemReduceCost,EmblemDavrielPW,EmblemDrawGain | SubAbility$ DBCondition
-SVar:Draw3:DB$ Draw | NumCards$ 3
-SVar:Conjure:DB$ MakeCard | Conjure$ True | CatalogId$ 22697 | Zone$ Hand
-SVar:Return2:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ChangeType$ Creature.YouOwn | ChangeNum$ 2 | RememberChanged$ True | Hidden$ True | Mandatory$ True | AtRandom$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Pump | PumpZone$ Hand | Defined$ Remembered | NumAtt$ +1 | NumDef$ +1 | Duration$ Perpetual | SubAbility$ DBCleanup
-SVar:ReturnBig:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ChangeType$ Creature.cmcEQV | ChangeNum$ 1 | Hidden$ True | Mandatory$ True | AtRandom$ True
-SVar:V:Count$ValidGraveyard Creature.YouOwn$GreatestCardManaCost
-SVar:EmblemBuff:DB$ Effect | Name$ 12420460504826593329 | StaticAbilities$ YoursP2Pow | Duration$ Permanent
-SVar:YoursP2Pow:Mode$ Continuous | Affected$ Creature.YouCtrl | AffectedZone$ Battlefield | AddPower$ 2 | AffectedZone$ Battlefield
-SVar:EmblemReduceCost:DB$ Effect | Name$ 18377026384039293668 | StaticAbilities$ CostBLess | Duration$ Permanent
-SVar:CostBLess:Mode$ ReduceCost | ValidCard$ Card | Activator$ You | Type$ Spell | Amount$ 1 | Color$ B
-SVar:EmblemDavrielPW:DB$ Effect | Name$ 3249317870469046327 | StaticAbilities$ AddP2Ab | Duration$ Permanent
-SVar:AddP2Ab:Mode$ Continuous | Affected$ Planeswalker.Davriel+YouCtrl | AddAbility$ ABDraw
-SVar:ABDraw:AB$ Draw | Cost$ AddCounter<2/LOYALTY> | Planeswalker$ True | NumCards$ 1
-SVar:EmblemDrawGain:DB$ Effect | Name$ 4047127046782537780 | Triggers$ DrawGainTrig | Duration$ Permanent
-SVar:DrawGainTrig:Mode$ Drawn | ValidCard$ Card.YouOwn | TriggerZones$ Command | Execute$ TrigGainLife
-SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2
-SVar:DBCondition:DB$ GenericChoice | NumRandomChoices$ 3 | Choices$ Lose6,Exile2,Sac2,PerpetualBuffTheirs,EmblemDebuff,EmblemRaiseCost,EmblemDrawExile,EmblemUpkeepLose
-SVar:Lose6:DB$ LoseLife | Defined$ You | LifeAmount$ 6
-SVar:Exile2:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | ChangeType$ Card.YouOwn | ChangeNum$ 2 | RememberChanged$ True | Hidden$ True | Mandatory$ True | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | Defined$ Opponent | ConditionCheckSVar$ X | ConditionSVarCompare$ LT2 | NumCards$ Y | SubAbility$ DBCleanup
-SVar:X:Remembered$Amount
-SVar:Y:Number$2/Minus.X
-SVar:Sac2:DB$ Sacrifice | Amount$ 2 | SacValid$ Permanent | Defined$ You
-SVar:PerpetualBuffTheirs:DB$ PumpAll | ValidCards$ Creature.YouDontCtrl | NumAtt$ +1 | NumDef$ +1 | Duration$ Perpetual
-SVar:EmblemDebuff:DB$ Effect | Name$ 9244366529641084888 | StaticAbilities$ YoursM1Pow | Duration$ Permanent
-SVar:YoursM1Pow:Mode$ Continuous | Affected$ Creature.YouCtrl | AffectedZone$ Battlefield | AddPower$ -1 | AffectedZone$ Battlefield
-SVar:EmblemRaiseCost:DB$ Effect | Name$ 1880833555963497747 | StaticAbilities$ CostBMore | Duration$ Permanent
-SVar:CostBMore:Mode$ RaiseCost | ValidCard$ Card | Activator$ You | Type$ Spell | Cost$ B
-SVar:EmblemDrawExile:DB$ Effect | Name$ 8273921588974616741 | Triggers$ DrawTrig | Duration$ Permanent
-SVar:DrawTrig:Mode$ Drawn | ValidCard$ Card.YouCtrl | TriggerZones$ Command | Execute$ TrigDig
-SVar:TrigDig:DB$ Dig | Defined$ TriggeredPlayer | DigNum$ 2 | ChangeNum$ All | DestinationZone$ Exile
-SVar:EmblemUpkeepLose:DB$ Effect | Name$ 5026874875100566630 | Triggers$ UpkeepLoseTrig | Duration$ Permanent
-SVar:UpkeepLoseTrig:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigLose | TriggerZones$ Command
-SVar:TrigLose:DB$ LoseLife | Defined$ You | LifeAmount$ Count$Valid Creature.YouCtrl
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-A:AB$ Pump | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | ValidTgts$ Creature.OppCtrl | IsCurse$ True | NumAtt$ -3 | NumDef$ -3 | Duration$ Perpetual
+OriginSet:G9f95a41d532c0550
+ManaCost:2 B
+Types:Creature Dwarf Citizen
+PT:1/4
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 3851718391 | TokenOwner$ You
+A:AB$ Draw | Cost$ 1 B Sac<1/Creature.Other;Artifact.Treasure/another creature or a Treasure> | NumCards$ 1

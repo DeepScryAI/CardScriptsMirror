@@ -1,12 +1,9 @@
 Id:8722
-ColorIdentity:U
+ColorIdentity:W
 OriginSet:G70f74088c47d66bd
-ManaCost:3 U U
+ManaCost:2 W W
 Types:Creature Human Wizard
-PT:3/3
-A:AB$ ChangeZoneAll | Cost$ T Sac<1/CARDNAME> | ChangeType$ Card | Origin$ Hand | Destination$ Exile | ExileFaceDown$ True | RememberChanged$ True | SubAbility$ YouDraw
-SVar:YouDraw:DB$ Draw | Defined$ Player | NumCards$ 7 | SubAbility$ DelayedReturn
-SVar:DelayedReturn:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ DBDiscard | RememberObjects$ RememberedLKI | SubAbility$ DBCleanup
-SVar:DBDiscard:DB$ Discard | Defined$ Player | Mode$ Hand | SubAbility$ ReturnAll
-SVar:ReturnAll:DB$ ChangeZone | Defined$ DelayTriggerRememberedLKI | Origin$ Exile | Destination$ Hand
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+PT:2/4
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ DestroyAll | Cost$ 1 T | ValidCards$ Artifact,Creature,Enchantment

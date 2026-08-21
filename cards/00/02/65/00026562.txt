@@ -1,17 +1,11 @@
 Id:26562
-ColorIdentity:WU
-OriginSet:G06757f68e16377c2
-ManaCost:2 W
-Types:Battle Siege
-Defense:4
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSearch
-SVar:TrigSearch:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Aura,Demigod,God | ChangeNum$ 1
-AlternateMode:DoubleFaced
-ALTERNATE
+ColorIdentity:
+OriginSet:Gd5f5e54fa26ae40d
 ManaCost:no cost
-Colors:white,blue
-Types:Legendary Enchantment Creature God
-PT:4/4
-S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ Lifelink & Indestructible | IsPresent$ Enchantment.Other+YouCtrl | PresentCompare$ GE3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Enchantment.Other+YouCtrl | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+Types:Plane Tarkir
+T:Mode$ PlaneswalkedTo | ValidCard$ Card.Self | Execute$ TrigBolster
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigBolster | TriggerZones$ Command | Secondary$ True
+SVar:TrigBolster:DB$ PutCounter | Bolster$ 3
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos
+SVar:RolledChaos:DB$ Pump | ValidTgts$ Creature.YouCtrl | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBEachDamage
+SVar:DBEachDamage:DB$ EachDamage | ValidTgts$ Creature.OppCtrl | TargetMin$ 0 | TargetMax$ 1 | ToEachOther$ Targeted | NumDmg$ Count$CardToughness

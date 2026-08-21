@@ -1,12 +1,10 @@
 Id:32884
-ColorIdentity:R
-OriginSet:G731e0066916b7465
-ManaCost:3 R
-Types:Legendary Creature Human Bard Ally
-PT:3/3
-T:Mode$ AttackersDeclared | ValidAttackers$ Bard.YouCtrl | Execute$ TrigCharm | TriggerZones$ Battlefield
-SVar:TrigCharm:DB$ Charm | Choices$ DBPutCounter,DBPumpAll
-SVar:DBPutCounter:DB$ PutCounter | ValidTgts$ Saga.YouCtrl | TargetMin$ 0 | TargetMax$ X | CounterType$ LORE | CounterNum$ 1
-SVar:DBPumpAll:DB$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +Y
-SVar:X:Count$Valid Saga.YouCtrl
-SVar:Y:Count$Valid Saga.YouCtrl$CardCounters.LORE
+ColorIdentity:
+OriginSet:G22ed5d6f3707b461
+ManaCost:2
+Types:Sorcery Lesson
+K:Kicker:2
+A:SP$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Land.Basic | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ0 | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ EACH Land.Basic & Shrine | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ1 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ 2
+SVar:X:Count$TimesKicked

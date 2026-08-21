@@ -1,12 +1,9 @@
 Id:27847
-ColorIdentity:UR
+ColorIdentity:B
 OriginSet:G30e8a5e111cffb44
-ManaCost:3 U R
-Types:Legendary Creature Time Lord Doctor
-PT:3/5
-T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigExile | TriggerZones$ Battlefield
-SVar:TrigExile:DB$ DigUntil | Valid$ Card.nonLand | FoundDestination$ Exile | RevealedDestination$ Exile | RememberFound$ True | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | Defined$ Remembered | CounterType$ TIME | CounterNum$ 3 | SubAbility$ GiveSuspend
-SVar:GiveSuspend:DB$ Pump | Defined$ Remembered.withoutSuspend | KW$ Suspend | PumpZone$ Exile | Duration$ Permanent | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-A:AB$ TimeTravel | Cost$ 7 | SorcerySpeed$ True | Amount$ 3
+ManaCost:3 B
+Types:Enchantment Saga
+K:Chapter:3:DBMill,DBMill,DBChangeZoneAll
+SVar:DBMill:DB$ Mill | NumCards$ 2 | ValidTgts$ Player | SubAbility$ DBExileGrave
+SVar:DBExileGrave:DB$ ChangeZoneAll | Origin$ Graveyard | Destination$ Exile | Defined$ Targeted | ChangeType$ Card
+SVar:DBChangeZoneAll:DB$ ChangeZoneAll | Origin$ Exile | GainControl$ True | Destination$ Battlefield | ChangeType$ Card.Creature+ExiledWithSource | FaceDown$ True | FaceDownPower$ 2 | FaceDownToughness$ 2 | FaceDownSetType$ Artifact & Creature & Cyberman

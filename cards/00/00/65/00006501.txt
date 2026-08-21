@@ -1,7 +1,11 @@
 Id:6501
-ColorIdentity:G
+ColorIdentity:B
 OriginSet:G983da6aa108b8f13
-ManaCost:2
-Types:Artifact Creature Myr
-PT:1/1
-A:AB$ Mana | Cost$ T | Produced$ G
+ManaCost:1 B
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Curse
+T:Mode$ Attacks | ValidCard$ Card.AttachedBy | TriggerZones$ Battlefield | Execute$ TrigLoseLifeAttack
+T:Mode$ Blocks | ValidCard$ Card.AttachedBy | TriggerZones$ Battlefield | Execute$ TrigLoseLifeBlock | Secondary$ True
+SVar:TrigLoseLifeAttack:DB$ LoseLife | Defined$ TriggeredAttackerController | LifeAmount$ 3
+SVar:TrigLoseLifeBlock:DB$ LoseLife | Defined$ TriggeredBlockerController | LifeAmount$ 3

@@ -1,10 +1,12 @@
 Id:12068
-ColorIdentity:U
-OriginSet:G8932289779cba1f1
-ManaCost:2 U U
-Types:Creature Dragon Illusion
-PT:5/5
-K:Flying
-T:Mode$ BecomesTarget | ValidTarget$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigSac
-SVar:TrigSac:DB$ Sacrifice
-SVar:Targeting:Dies
+ColorIdentity:WUR
+OriginSet:G28b959a4da853005
+ManaCost:1 U R W
+Types:Legendary Creature Minotaur Monk
+PT:2/4
+A:AB$ Pump | Cost$ U R W | ValidTgts$ Opponent | SubAbility$ DBGainControl | AILogic$ DonateTargetPerm
+SVar:DBGainControl:DB$ GainControl | ValidTgts$ Permanent.YouCtrl | NewController$ ParentTarget
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ GainLife
+SVar:GainLife:DB$ GainLife | LifeAmount$ X | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ X
+SVar:X:Count$Valid Permanent.YouOwn+OppCtrl

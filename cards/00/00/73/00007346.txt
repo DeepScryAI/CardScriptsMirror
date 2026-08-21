@@ -1,8 +1,10 @@
 Id:7346
-ColorIdentity:R
+ColorIdentity:W
 OriginSet:G332b6b8a53f3d107
-ManaCost:1 R R
-Types:Legendary Creature Goblin Warrior
-PT:2/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land | TriggerZones$ Battlefield | Execute$ TrigDamage
-SVar:TrigDamage:DB$ DealDamage | Defined$ TriggeredCardController | NumDmg$ 2
+ManaCost:4 W W
+Types:Legendary Creature Dragon Spirit
+PT:5/5
+K:Flying
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigSkipPhase
+SVar:TrigSkipPhase:DB$ SkipPhase | ValidTgts$ Player | Step$ Untap | IsCurse$ True | SubAbility$ TrigTap
+SVar:TrigTap:DB$ Tap | TargetMin$ 0 | TargetMax$ 5 | ValidTgts$ Permanent.ControlledBy ParentTarget

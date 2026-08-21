@@ -1,9 +1,11 @@
 Id:18606
-ColorIdentity:R
+ColorIdentity:B
 OriginSet:Gd7cbb6e7dea72fb5
-ManaCost:3 R R
-Types:Creature Dragon
-PT:5/4
+ManaCost:3 B
+Types:Creature Vampire Wizard
+PT:2/2
 K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenOwner$ You | TokenScriptIds$ 4102352221
+A:AB$ PutCounter | Cost$ B PayLife<2> | CounterType$ P1P1 | CounterNum$ 1
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ X
+SVar:X:TriggeredCard$CardCounters.P1P1

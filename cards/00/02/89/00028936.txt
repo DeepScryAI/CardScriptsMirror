@@ -2,13 +2,9 @@ Id:28936
 ColorIdentity:W
 OriginSet:Gaf7c94f364052cdd
 ManaCost:2 W
-Types:Legendary Artifact Creature Robot
-PT:2/2
-A:AB$ GainControl | Cost$ T | Defined$ Self | ValidTgts$ Opponent | SubAbility$ DBImmediateTrigger | PlayerTurn$ True
-SVar:DBImmediateTrigger:DB$ ImmediateTrigger | ConditionDefined$ Self | ConditionPresent$ Card.ControlledBy ParentTarget | Execute$ DBDraw
-SVar:DBDraw:DB$ Draw | NumCards$ 2 | SubAbility$ DBCounter
-SVar:DBCounter:DB$ PutCounter | Defined$ Self | CounterType$ QUEST | CounterNum$ 1
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenAmount$ X | TokenScriptIds$ 1214250791 | TokenOwner$ TriggeredCardOwner | TokenTapped$ True
-SVar:X:TriggeredCard$CardCounters.QUEST
-SVar:AICounterOverrideQUEST:Positive
+Types:Legendary Creature Human Soldier
+PT:1/4
+K:Enlist
+T:Mode$ Attacks | ValidCard$ Creature.YouCtrl+enlistedThisCombat | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ TriggeredAttackerLKICopy | KW$ DoubleStrike | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | ConditionCheckSVar$ TriggeredAttacker$CardPower | ConditionSVarCompare$ GE4

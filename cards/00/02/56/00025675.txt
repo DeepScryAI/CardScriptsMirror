@@ -1,7 +1,14 @@
 Id:25675
-ColorIdentity:
-OriginSet:G06ccef4324c14725
-ManaCost:1
-Types:Artifact
-K:Flash
-A:AB$ Destroy | Cost$ 7 T Sac<1/CARDNAME> | ValidTgts$ Permanent
+ColorIdentity:R
+OriginSet:Gce0c33e5115830a3
+ManaCost:1 R
+Types:Creature Goblin Warrior
+PT:1/1
+K:FirstStrike
+K:Trample
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +X
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Artifact.OppCtrl | TriggerZones$ Battlefield | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | Defined$ TriggeredCardController | NumDmg$ 1
+SVar:X:Count$Valid Artifact.OppCtrl
+SVar:HasAttackEffect:TRUE

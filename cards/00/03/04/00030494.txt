@@ -1,11 +1,12 @@
 Id:30494
-ColorIdentity:U
+ColorIdentity:W
 OriginSet:G8b2ed00ac2a0ff47
-ManaCost:1 U
-Types:Creature Human Wizard
-PT:3/3
-K:Defender
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Enchantment.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigEffect
-T:Mode$ FullyUnlock | ValidCard$ Card.Room | ValidPlayer$ You | Secondary$ True | Execute$ TrigEffect | TriggerZones$ Battlefield
-SVar:TrigEffect:DB$ Effect | StaticAbilities$ CanAttack | ForgetOnMoved$ Battlefield
-SVar:CanAttack:Mode$ CanAttackDefender | ValidCard$ Card.EffectSource
+ManaCost:4 W W
+Types:Enchantment Creature Nightmare
+PT:5/5
+A:SP$ PermanentCreature | Cost$ 4 W W Exile<1/Creature>
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Creature.OppCtrl
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZoneAll | ChangeType$ Card.ExiledWithSource | Origin$ Exile | Destination$ Hand

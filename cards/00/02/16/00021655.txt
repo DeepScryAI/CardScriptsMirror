@@ -1,11 +1,14 @@
 Id:21655
-ColorIdentity:G
+ColorIdentity:R
 OriginSet:G18bf722b221724f8
-ManaCost:2 G
-Types:Creature Shapeshifter
-PT:2/3
-K:Changeling
-K:ETBReplacement:Other:ChooseCT
-SVar:ChooseCT:DB$ ChooseType | Defined$ You | Type$ Creature | AILogic$ MostProminentInComputerDeckNonToken
-S:Mode$ Continuous | Affected$ Card.TopLibrary+YouCtrl | AffectedZone$ Library | MayLookAt$ You
-S:Mode$ Continuous | Affected$ Creature.ChosenType+TopLibrary+YouCtrl+nonLand | AffectedZone$ Library | MayPlay$ True
+ManaCost:3 R R
+Types:Creature Dragon
+PT:4/4
+K:Flying
+K:Haste
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigToken
+T:Mode$ BecomesTarget | ValidTarget$ Card.Self | ValidSource$ Spell | TriggerZones$ Battlefield | Execute$ TrigToken | Secondary$ True
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 3851718391
+S:Mode$ Continuous | Affected$ Card.Treasure+YouCtrl | AddAbility$ Mana
+SVar:Mana:AB$ Mana | Cost$ T Sac<1/CARDNAME/this artifact> | Produced$ Any | Amount$ 2
+SVar:HasAttackEffect:TRUE

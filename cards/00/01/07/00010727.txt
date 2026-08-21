@@ -2,10 +2,14 @@ Id:10727
 ColorIdentity:
 OriginSet:Gc860c737f2a60f83
 ManaCost:no cost
-Types:Plane Shadowmoor
-S:Mode$ Continuous | EffectZone$ Command | Affected$ Creature | AddKeyword$ Wither
-T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature | TargetUnique$ True | CounterType$ M1M1 | SubAbility$ DBPutTwo
-SVar:DBPutTwo:DB$ PutCounter | ValidTgts$ Creature | TargetUnique$ True | CounterType$ M1M1 | CounterNum$ 2 | SubAbility$ DBPutThree
-SVar:DBPutThree:DB$ PutCounter | ValidTgts$ Creature | TargetUnique$ True | CounterType$ M1M1 | CounterNum$ 3
-SVar:AIRollPlanarDieParams:Mode$ Always | OppHasCreatureInPlay$ True
+Types:Plane Bolas's Meditation Realm
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Command | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZoneAll | ChangeType$ Card.YouOwn | Origin$ Hand | Destination$ Library | LibraryPosition$ -1 | RememberChanged$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ Y | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:Y:Remembered$Amount
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos
+SVar:RolledChaos:DB$ PeekAndReveal | PeekAmount$ 3 | NoPeek$ True | SourceZone$ PlanarDeck | RememberRevealed$ True | SubAbility$ DBRunChaos
+SVar:DBRunChaos:DB$ RunChaos | Defined$ Remembered | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Defined$ Remembered | Origin$ PlanarDeck | Destination$ PlanarDeck | LibraryPosition$ -1 | SubAbility$ DBCleanup
+SVar:AIRollPlanarDieParams:Mode$ Always

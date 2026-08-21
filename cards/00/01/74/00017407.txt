@@ -1,10 +1,20 @@
 Id:17407
-ColorIdentity:U
+ColorIdentity:
 OriginSet:G5475e2be497fd272
-ManaCost:1 U
-Types:Creature Human Pirate
-PT:2/1
-A:AB$ Effect | Cost$ 2 U | RememberObjects$ Self | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable
-SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigLoot
-SVar:TrigLoot:AB$ Discard | Defined$ You | Mode$ TgtChoose | NumCards$ 1 | Cost$ Draw<1/You>
+ManaCost:4
+Types:Artifact Vehicle
+PT:2/10
+K:Crew:4
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ DelayedTransform
+SVar:DelayedTransform:DB$ DelayedTrigger | Mode$ Phase | Phase$ EndCombat | RememberObjects$ TriggeredAttacker | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Defined$ DelayTriggerRememberedLKI | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | Transformed$ True
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Types:Land
+A:AB$ Mana | Cost$ T | Produced$ C | Amount$ 1
+A:AB$ Draw | Cost$ 2 T | NumCards$ 1 | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | Mode$ TgtChoose | NumCards$ 1
+A:AB$ Draw | Cost$ 4 T | NumCards$ 1
+A:AB$ ChangeZone | Cost$ 6 T | ValidTgts$ Card.YouCtrl | Origin$ Graveyard | Destination$ Hand

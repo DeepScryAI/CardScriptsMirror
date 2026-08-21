@@ -1,9 +1,11 @@
 Id:18885
-ColorIdentity:WU
-OriginSet:G586a4ae96288ce18
-ManaCost:1 W U
-Types:Creature Vedalken Wizard
-PT:1/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
-SVar:TrigExile:DB$ Pump | ValidTgts$ Permanent.nonLand+OppCtrl | SubAbility$ DBChangeZoneAll
-SVar:DBChangeZoneAll:DB$ ChangeZoneAll | Origin$ Battlefield | Destination$ Exile | ChangeType$ TargetedCard.Self,Permanent.nonLand+NotDefinedTargeted+sharesNameWith Targeted+ControlledBy TargetedController | Duration$ UntilHostLeavesPlay
+ColorIdentity:BG
+OriginSet:G1ecb361a0a117393
+ManaCost:5 B G
+Types:Legendary Planeswalker Vraska
+Loyalty:5
+A:AB$ PutCounter | Cost$ AddCounter<2/LOYALTY> | Planeswalker$ True | CounterNum$ 1 | CounterType$ P1P1 | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Creature | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Targeted | KW$ Menace
+A:AB$ Destroy | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | ValidTgts$ Creature
+A:AB$ PutCounterAll | Cost$ SubCounter<10/LOYALTY> | Planeswalker$ True | Ultimate$ True | ValidCards$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ X
+SVar:X:Count$ValidGraveyard Creature.YouCtrl

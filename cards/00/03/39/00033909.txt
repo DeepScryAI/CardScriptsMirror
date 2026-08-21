@@ -1,8 +1,12 @@
 Id:33909
-ColorIdentity:WR
-OriginSet:Gf8df2bea26dc6b68
-ManaCost:2 R W
-Types:Instant
-S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ 2 | EffectZone$ All | CheckSVar$ X
-A:SP$ DealDamage | ValidTgts$ Creature | NumDmg$ 5 | ReplaceDyingDefined$ Targeted
-SVar:X:Count$LeftGraveyardThisTurn Card.YouOwn
+ColorIdentity:BG
+OriginSet:G14da29c4716bedc3
+ManaCost:1 B G
+Types:Legendary Creature Pest Frog
+PT:1/1
+K:Lifelink
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl+Other | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+K:ETBReplacement:Other:AddExtraCounter:Mandatory:Battlefield:Creature.!token+YouCtrl
+SVar:AddExtraCounter:DB$ PutCounter | ETB$ True | Defined$ ReplacedCard | CounterType$ P1P1 | CounterNum$ X
+SVar:X:Count$ThisTurnEntered_Graveyard_from_Battlefield_Creature.YouCtrl

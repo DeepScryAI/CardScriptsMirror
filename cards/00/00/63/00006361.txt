@@ -1,9 +1,12 @@
 Id:6361
-ColorIdentity:G
+ColorIdentity:B
 OriginSet:Gd11012ee98ee8d76
-ManaCost:7 G G
-Types:Instant
-K:Cycling:4 G G
-A:SP$ PutCounterAll | ValidCards$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 4
-T:Mode$ Cycled | ValidCard$ Card.Self | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ 4
+ManaCost:6 B B
+Types:Sorcery
+K:Cycling:3 B B
+A:SP$ DestroyAll | ValidCards$ Creature | RememberDestroyed$ True | NoRegen$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ DecreeX | SubAbility$ DBCleanup
+T:Mode$ Cycled | ValidCard$ Card.Self | Execute$ TrigPumpAll
+SVar:TrigPumpAll:DB$ PumpAll | NumAtt$ -2 | NumDef$ -2 | ValidCards$ Creature
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:DecreeX:Remembered$Amount

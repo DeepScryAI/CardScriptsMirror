@@ -1,11 +1,11 @@
 Id:10507
-ColorIdentity:BR
+ColorIdentity:BRG
 OriginSet:G9445ff04667ca5ba
-ManaCost:1 B R
-Types:Creature Bird Shaman
-PT:2/2
+ManaCost:4 B R G
+Types:Legendary Creature Dragon
+PT:7/7
 K:Flying
-K:Unearth:3 B R
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 1112542976 | TokenOwner$ You | SubAbility$ DBSac
-SVar:DBSac:DB$ Sacrifice | SacValid$ Self
+K:Haste
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGainControl
+SVar:TrigGainControl:DB$ GainControl | AllValid$ Dragon | Untap$ True | NewController$ You
+S:Mode$ Continuous | Affected$ Creature.Dragon+Other+YouCtrl | AddKeyword$ Haste

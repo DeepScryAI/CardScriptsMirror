@@ -1,11 +1,10 @@
 Id:20216
-ColorIdentity:WG
-OriginSet:G42eb6bda83007836
-ManaCost:G W
-Types:Creature Cat
-PT:3/3
-A:AB$ Pump | Cost$ G W | KW$ Indestructible | Defined$ Self
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ DBReturn
-SVar:DBReturn:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True | StaticEffect$ Animate
-SVar:Animate:Mode$ Continuous | Affected$ Card.IsRemembered | AddType$ Aura & Enchantment | RemoveCardTypes$ True | RemoveAllAbilities$ True | AddKeyword$ Enchant:Creature.YouCtrl:creature you control | AddAbility$ ABPump
-SVar:ABPump:AB$ Pump | Cost$ G W | KW$ Indestructible | Defined$ Enchanted
+ColorIdentity:U
+OriginSet:G00aff909a83a7400
+ManaCost:4 U U U U
+Types:Sorcery
+K:MayEffectFromOpeningHand:ExileCard
+A:SP$ AddTurn | NumTurns$ 1
+SVar:ExileCard:DB$ ChangeZone | Defined$ Self | Origin$ Hand | Destination$ Exile | RememberChanged$ True | SubAbility$ DBMakeCard
+SVar:DBMakeCard:DB$ MakeCard | TokenCard$ True | CatalogId$ 249 | Amount$ 4 | Zone$ Library | SubAbility$ DBCleanup | ConditionDefined$ Remembered | ConditionPresent$ Card.Self | ConditionCompare$ GE1
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

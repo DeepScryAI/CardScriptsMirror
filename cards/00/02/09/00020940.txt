@@ -1,10 +1,11 @@
 Id:20940
-ColorIdentity:G
+ColorIdentity:B
 OriginSet:Gfd5e6da37c69dc53
-ManaCost:2 G
-Types:Creature Boar
-PT:2/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm
-SVar:TrigCharm:DB$ Charm | Choices$ DBCounter,DBGainLife
-SVar:DBCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ 1
-SVar:DBGainLife:DB$ GainLife | LifeAmount$ 4
+ManaCost:4 B B
+Types:Legendary Planeswalker Liliana
+Loyalty:4
+A:AB$ ChangeZone | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Creature.YouOwn | TargetMin$ 0 | TargetMax$ 1
+A:AB$ Destroy | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | ValidTgts$ Creature | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ TargetedController | LifeAmount$ 2
+A:AB$ LoseLife | Cost$ SubCounter<7/LOYALTY> | Planeswalker$ True | Ultimate$ True | ValidTgts$ Opponent | LifeAmount$ X
+SVar:X:TargetedPlayer$ValidGraveyard Creature.YouOwn/Times.2

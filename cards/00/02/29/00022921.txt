@@ -1,7 +1,13 @@
 Id:22921
-ColorIdentity:G
+ColorIdentity:BR
 OriginSet:Gf78628ad511eefec
-ManaCost:1 G
-Types:Creature Wolf
-PT:2/2
-A:AB$ Pump | Cost$ 2 G | Defined$ Self | KW$ Deathtouch
+ManaCost:1 B R
+Types:Legendary Creature Vampire Noble
+PT:3/3
+K:FirstStrike
+T:Mode$ Phase | Phase$ Main2 | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDig
+SVar:TrigDig:DB$ Dig | DigNum$ X | ChangeNum$ 1 | DestinationZone$ Exile | RestRandomOrder$ True | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ Play | SubAbility$ DBCleanup | ForgetOnMoved$ Exile
+SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$LifeOppsLostThisTurn

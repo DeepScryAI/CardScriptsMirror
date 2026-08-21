@@ -2,8 +2,9 @@ Id:10010
 ColorIdentity:UR
 OriginSet:G6a049984467eca45
 ManaCost:2 UR
-Types:Creature Noggle Rogue
-PT:2/1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ Player | NumCards$ 2 | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | Defined$ Player | Mode$ Random | NumCards$ 1
+Types:Creature Noggle Wizard
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | IsPresent$ Island.YouCtrl | PresentCompare$ GE2 | Execute$ TrigTap | OptionalDecider$ You
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | IsPresent$ Mountain.YouCtrl | PresentCompare$ GE2 | Execute$ TrigDamage | OptionalDecider$ You
+SVar:TrigTap:DB$ Tap | TargetMin$ 2 | TargetMax$ 2 | ValidTgts$ Permanent
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Player,Planeswalker | NumDmg$ 2

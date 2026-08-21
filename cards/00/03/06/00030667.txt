@@ -1,7 +1,12 @@
 Id:30667
-ColorIdentity:R
-OriginSet:Gc5a2f0ff902c0621
-ManaCost:1 R
-Types:Instant
-A:SP$ Pump | ValidTgts$ Creature | NumAtt$ Double
-K:Flashback:4 R R
+ColorIdentity:B
+OriginSet:G8b2ed00ac2a0ff47
+ManaCost:2 B
+Types:Creature Zombie Assassin
+PT:2/3
+K:Deathtouch
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigLoseLifeOpp
+SVar:TrigLoseLifeOpp:DB$ LoseLife | Defined$ TriggeredTarget | LifeAmount$ X
+T:Mode$ ChangesZone | ValidCard$ Card.Self+!HasCounters | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | Tapped$ True | Defined$ TriggeredCard | WithCountersType$ STUN | WithCountersAmount$ 2
+SVar:X:TriggeredTarget$LifeTotal/HalfUp

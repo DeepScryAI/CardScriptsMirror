@@ -1,9 +1,9 @@
 Id:10374
-ColorIdentity:WUB
+ColorIdentity:WUBRG
 OriginSet:Ga3dbc4b644a9a2c5
-ManaCost:4 W U B
-Types:Artifact Creature Sphinx
+ManaCost:W U B R G
+Types:Creature Angel
 PT:5/5
 K:Flying
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigLife
-SVar:TrigLife:DB$ SetLife | ValidTgts$ Player | LifeAmount$ 10
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigPlay | TriggerZones$ Battlefield | OptionalDecider$ You
+SVar:TrigPlay:DB$ Play | Valid$ Card.YouCtrl | ValidSA$ Spell | ValidZone$ Hand | WithoutManaCost$ True | Optional$ True

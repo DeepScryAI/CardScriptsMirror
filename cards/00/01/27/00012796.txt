@@ -2,15 +2,12 @@ Id:12796
 ColorIdentity:
 OriginSet:G4801bb28ce9773ed
 ManaCost:no cost
-Types:Phenomenon
-T:Mode$ PlaneswalkedTo | ValidCard$ Card.Self | Execute$ TrigPut
-SVar:TrigPut:DB$ RepeatEach | StartingWith$ You | RepeatPlayers$ Player | RepeatSubAbility$ DBShuffle | SubAbility$ ChangePermanent
-SVar:DBShuffle:DB$ ChangeZoneAll | ChangeType$ Permanent.RememberedPlayerOwn | Imprint$ True | Origin$ Battlefield | Destination$ Library | Shuffle$ True | SubAbility$ DBReveal
-SVar:DBReveal:DB$ PeekAndReveal | Defined$ Remembered | PeekAmount$ WarpX | NoPeek$ True | RememberRevealed$ True | SubAbility$ DBCleanImprint
-SVar:DBCleanImprint:DB$ Cleanup | ClearImprinted$ True
-SVar:WarpX:Imprinted$Amount
-SVar:ChangePermanent:DB$ ChangeZoneAll | ChangeType$ Artifact.IsRemembered,Creature.IsRemembered,Land.IsRemembered,Planeswalker.IsRemembered | Origin$ Library | Destination$ Battlefield | ForgetChanged$ True | SubAbility$ ChangeEnchantment
-SVar:ChangeEnchantment:DB$ ChangeZoneAll | ChangeType$ Enchantment.IsRemembered | Origin$ Library | Destination$ Battlefield | ForgetChanged$ True | SubAbility$ GotoBottom
-SVar:GotoBottom:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered | Origin$ Library | Destination$ Library | LibraryPosition$ -1 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | SubAbility$ PWAway
-SVar:PWAway:DB$ Planeswalk
+Types:Plane Azgol
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Command | Execute$ SacToIdol
+SVar:SacToIdol:DB$ Sacrifice | Defined$ You | SacValid$ Creature | SubAbility$ IdolWalk | RememberSacrificed$ True
+SVar:IdolWalk:DB$ Planeswalk | ConditionCheckSVar$ IdolX | ConditionSVarCompare$ EQ0 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:IdolX:Remembered$Amount
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos
+SVar:RolledChaos:DB$ Token | ValidTgts$ Player | TargetMin$ 0 | TargetMax$ MaxTgt | TokenScriptIds$ 353162950 | TokenOwner$ Targeted
+SVar:MaxTgt:PlayerCountPlayers$Amount

@@ -1,11 +1,11 @@
 Id:31572
-ColorIdentity:W
-OriginSet:G530ea9d733a13e9d
-ManaCost:2 W
-Types:Legendary Creature Elf Wizard
-PT:3/2
-K:PartnerWithId:31573
-K:FirstStrike
-S:Mode$ ReduceCost | ValidCard$ Card | Type$ Spell | Activator$ You | Amount$ 2 | CheckSVar$ YouCastThisTurn | SVarCompare$ EQ1
-SVar:YouCastThisTurn:Count$ThisTurnCast_Card.YouCtrl
-SVar:PlayMain1:TRUE
+ColorIdentity:
+OriginSet:Gf2b808f4f642ac62
+ManaCost:2
+Types:Artifact Creature Chimera
+PT:2/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigBranch | OptionalDecider$ You
+SVar:TrigBranch:DB$ Branch | BranchConditionSVar$ X | BranchConditionSVarCompare$ GE1 | TrueSubAbility$ RampantLand | FalseSubAbility$ GuidedLand
+SVar:GuidedLand:DB$ ChangeZone | Origin$ Library | Destination$ Library | LibraryPosition$ 0 | ChangeType$ Land.Basic | ShuffleNonMandatory$ True
+SVar:RampantLand:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Land.Basic | Tapped$ True | ShuffleNonMandatory$ True
+SVar:X:Count$Valid Dragon.YouCtrl

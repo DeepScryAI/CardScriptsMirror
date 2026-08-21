@@ -1,8 +1,10 @@
 Id:33060
 ColorIdentity:W
-OriginSet:G7ab1fe96128a1641
-ManaCost:1 W
-Types:Artifact Equipment
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddToughness$ 1
-S:Mode$ CombatDamageToughness | ValidCard$ Creature.EquippedBy+powerLTtoughness
-K:Equip:1
+OriginSet:G22ed5d6f3707b461
+ManaCost:3 W
+Types:Creature Human Citizen
+PT:3/3
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigTap | TriggerZones$ Battlefield
+SVar:TrigTap:DB$ Tap | ValidTgts$ Creature.OppCtrl | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | UnlessCost$ Sac<1/Artifact;Creature/artifact or creature> | UnlessPayer$ You | UnlessSwitched$ True | Defined$ Targeted | CounterType$ Stun | CounterNum$ 1
+SVar:HasAttackEffect:TRUE

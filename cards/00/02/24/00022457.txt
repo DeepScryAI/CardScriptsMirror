@@ -1,10 +1,11 @@
 Id:22457
-ColorIdentity:U
-OriginSet:G9f95a41d532c0550
-ManaCost:3 U
+ColorIdentity:B
+OriginSet:G92f7f9489fec5865
+ManaCost:5 B B
 Types:Instant
-A:SP$ RollDice | Sides$ 20 | ResultSubAbilities$ 1-9:DBDraw2,10-19:DBScry2,20:DBScry3
-SVar:DBDraw2:DB$ Draw | NumCards$ 2
-SVar:DBScry2:DB$ Scry | ScryNum$ 2 | SubAbility$ DBDraw2
-SVar:DBScry3:DB$ Scry | ScryNum$ 3 | SubAbility$ DBDraw3
-SVar:DBDraw3:DB$ Draw | NumCards$ 3
+A:SP$ RollDice | Amount$ 2 | Sides$ 10 | ChosenSVar$ X | OtherSVar$ Y | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ChangeType$ Creature.YouOwn | ChangeNum$ 1 | Mandatory$ True | Hidden$ True | RememberChanged$ True | SubAbility$ DBCounter
+SVar:DBCounter:DB$ PutCounter | Defined$ Remembered | CounterType$ P1P1 | CounterNum$ X | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ Y | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ Y | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

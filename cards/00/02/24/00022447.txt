@@ -1,14 +1,10 @@
 Id:22447
-ColorIdentity:R
-OriginSet:G9f95a41d532c0550
-ManaCost:2 R R
-Types:Creature Human Shaman
-PT:4/3
-T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigRollDice
-SVar:TrigRollDice:DB$ RollDice | Sides$ 20 | ResultSubAbilities$ 1-9:Exile1,10-19:Exile2,20:Exile3
-SVar:Exile1:DB$ Dig | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
-SVar:Exile2:DB$ Dig | Defined$ You | DigNum$ 2 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
-SVar:Exile3:DB$ Dig | Defined$ You | DigNum$ 3 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | RememberObjects$ Remembered | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
-SVar:STPlay:Mode$ Continuous | AffectedZone$ Exile | Affected$ Card.IsRemembered | MayPlay$ True
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:B
+OriginSet:G92f7f9489fec5865
+ManaCost:4 B
+Types:Creature Beholder Skeleton
+PT:4/6
+K:Menace
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.attacking+YouCtrl,Creature.blocking+OppCtrl | Execute$ TrigToken | TriggerZones$ Battlefield
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 353162950 | TokenOwner$ You
+A:AB$ ChangeZone | Cost$ 5 B | Origin$ Graveyard | Destination$ Battlefield | ActivationZone$ Graveyard | Tapped$ True

@@ -1,12 +1,10 @@
 Id:13923
-ColorIdentity:WUB
+ColorIdentity:UBR
 OriginSet:G6645ca87da6316d5
-ManaCost:3 W U B
-Types:Legendary Creature Giant Soldier
-PT:4/5
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigGainLife
-SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 2
-T:Mode$ LifeGained | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraw
-SVar:TrigDraw:AB$ Draw | Cost$ 1 | NumCards$ 1 | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 1
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Command | IsPresent$ Card.Self | PresentZone$ Command | Execute$ TrigGainLife
+ManaCost:2 U B R
+Types:Legendary Creature Zombie Wizard
+PT:2/4
+T:Mode$ Phase | Phase$ Draw | ValidPlayer$ Player | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ TriggeredPlayer
+T:Mode$ Drawn | ValidCard$ Card.OppOwn | TriggerZones$ Battlefield | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | Defined$ TriggeredPlayer | NumDmg$ 1

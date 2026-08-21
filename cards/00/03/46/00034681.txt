@@ -1,0 +1,12 @@
+Id:34681
+ColorIdentity:BR
+OriginSet:G11c0621ce29fa608
+ManaCost:2 BR
+Types:Legendary Creature Human Assassin Villain
+PT:2/3
+T:Mode$ ChangesZone | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigChoice
+SVar:TrigChoice:DB$ GenericChoice | Choices$ DBSacToHit,DBDiscardToHit
+SVar:DBSacToHit:DB$ ImmediateTrigger | UnlessCost$ Sac<1/Artifact> | UnlessPayer$ You | UnlessSwitched$ True | Execute$ TrigDamage
+SVar:DBDiscardToHit:DB$ ImmediateTrigger | UnlessCost$ Discard<1/Card.nonLand> | UnlessPayer$ You | UnlessSwitched$ True | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | NumDmg$ 2 | ValidTgts$ Any
+A:AB$ DealDamage | Cost$ 3 T Sac<1/Artifact> | AlternateCost$ 3 T Discard<1/Card.nonLand> | ValidTgts$ Any | NumDmg$ 2

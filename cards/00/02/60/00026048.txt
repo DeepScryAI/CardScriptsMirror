@@ -1,10 +1,12 @@
 Id:26048
-ColorIdentity:UG
-OriginSet:G2192e8955d5e1ad1
-ManaCost:2 G U
-Types:Legendary Creature Phyrexian Elf Warrior
-PT:3/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigProliferate
-SVar:TrigProliferate:AB$ Proliferate | Cost$ 3 | Amount$ 2
-T:Mode$ Proliferate | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw
+ColorIdentity:BR
+OriginSet:G880fc7f6ed36df4d
+ManaCost:1 B R
+Types:Legendary Creature Human Pirate
+PT:3/1
+T:Mode$ Phase | Phase$ End of Turn | OptionalDecider$ You | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:AB$ Token | Cost$ Discard<1/Card> | TokenScriptIds$ 3851718391 | SubAbility$ DBChoose
+SVar:DBChoose:DB$ GenericChoice | Choices$ Ambitious,Expedient | Defined$ You | AILogic$ Random
+SVar:Ambitious:DB$ Seek | Type$ Card.cmcGTX
+SVar:Expedient:DB$ Seek | Type$ Card.cmcLTX
+SVar:X:Discarded$CardManaCost

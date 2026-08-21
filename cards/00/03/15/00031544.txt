@@ -1,12 +1,11 @@
 Id:31544
-ColorIdentity:
-OriginSet:Gfac9eb8c75f25726
-ManaCost:no cost
-Types:Land Desert
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ LandTapped | ReplacementResult$ Updated
-SVar:LandTapped:DB$ Tap | Defined$ Self | ETB$ True | ConditionCheckSVar$ X | ConditionSVarCompare$ LT1
-SVar:X:Count$StartingPlayer.0.1
-K:ETBReplacement:Other:ChooseColors
-SVar:ChooseColors:DB$ ChooseColor | Defined$ You | TwoColors$ True | UpTo$ True | ColorsFrom$ ValidHand Card.YouOwn | AILogic$ MostProminentInComputerDeck
-A:AB$ Mana | Cost$ T | Produced$ C
-A:AB$ Mana | Cost$ T | Produced$ Combo Chosen
+ColorIdentity:R
+OriginSet:Gf2b808f4f642ac62
+ManaCost:4 R
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDigUntil
+SVar:TrigDigUntil:DB$ DigUntil | Valid$ Card.nonLand | FoundDestination$ Exile | RevealedDestination$ Exile | RememberFound$ True | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | Defined$ Remembered | ValidSA$ Spell.cmcLE8 | WithoutManaCost$ True | Optional$ True | ForgetPlayed$ True | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Exile | Destination$ Hand | Defined$ Remembered | ForgetChanged$ True
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | TriggerZones$ Battlefield | ValidCard$ Dragon.YouCtrl | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Defined$ Self

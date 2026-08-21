@@ -1,14 +1,11 @@
 Id:32478
-ColorIdentity:
-OriginSet:G66b3a7eeabd9000e
-ManaCost:3
-Types:Artifact Vehicle
-PT:3/3
-K:Trample
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump | TriggerZones$ Battlefield
-T:Mode$ Blocks | ValidCard$ Card.Self | Execute$ TrigPump | Secondary$ True | TriggerZones$ Battlefield
-SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +X | NumDef$ +X
-K:Crew:2
-SVar:X:Count$Valid Spider.YouCtrl
-SVar:HasAttackEffect:TRUE
-SVar:HasBlockEffect:TRUE
+ColorIdentity:B
+OriginSet:G324b911e0e372b1b
+ManaCost:B
+Types:Creature Human Pilot
+PT:2/1
+S:Mode$ CantBlock | ValidCard$ Card.Self
+T:Mode$ SpellCast | ValidCard$ Card | ValidSA$ Spell.Warp | ValidActivatingPlayer$ You | TriggerZones$ Graveyard | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | Defined$ Self | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Pump | ConditionDefined$ Remembered | ConditionPresent$ Card.Self | NumAtt$ +1 | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

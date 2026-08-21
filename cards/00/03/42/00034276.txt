@@ -1,10 +1,13 @@
 Id:34276
-ColorIdentity:R
+ColorIdentity:BG
 OriginSet:Gcb93bbfc68a40806
-ManaCost:4 R
-Types:Legendary Creature Spider Human Hero
+ManaCost:2 BG BG
+Types:Legendary Creature Human Villain
 PT:5/4
 K:Reach
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigUnblockable
-SVar:TrigUnblockable:DB$ Effect | ValidTgts$ Creature.powerLE2 | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable | AILogic$ Pump
-SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigGainLife
+T:Mode$ Blocks | ValidCard$ Card.Self | Execute$ TrigGainLife | Secondary$ True
+SVar:TrigGainLife:DB$ GainLife | LifeAmount$ X
+SVar:X:Count$Valid Creature.powerGE4+YouCtrl
+SVar:HasAttackEffect:TRUE
+SVar:HasBlockEffect:TRUE

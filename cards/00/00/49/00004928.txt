@@ -1,7 +1,9 @@
 Id:4928
-ColorIdentity:G
+ColorIdentity:
 OriginSet:G9e6cd9ac1f7f4832
-ManaCost:1 G
-Types:Creature Elf
-PT:1/1
-R:Event$ Counter | ValidSA$ Spell.Creature | Layer$ CantHappen | ActiveZones$ Battlefield
+ManaCost:no cost
+Types:Land
+R:Event$ Untap | ValidCard$ Card.Self | ValidStepTurnToController$ You | Layer$ CantHappen
+A:AB$ Mana | Cost$ T | Produced$ Any
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigUntap
+SVar:TrigUntap:AB$ Untap | Cost$ ExileFromHand<1/Card> | Defined$ Self

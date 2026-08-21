@@ -1,11 +1,9 @@
 Id:33221
-ColorIdentity:
-OriginSet:G7ab1fe96128a1641
-ManaCost:2
-Types:Artifact
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | SubAbility$ DBChooseColor
-SVar:DBChooseColor:DB$ ChooseColor | Defined$ You | SubAbility$ DBAnimate
-SVar:DBAnimate:DB$ Animate | Defined$ Self | Colors$ ChosenColor | OverwriteColors$ True | Duration$ Permanent
-A:AB$ Draw | Cost$ 3 T | NumCards$ 1 | CheckSVar$ X | SVarCompare$ EQ5
-SVar:X:Count$Valid Permanent.YouCtrl$Colors
+ColorIdentity:W
+OriginSet:G530ea9d733a13e9d
+ManaCost:3 W W
+Types:Sorcery
+S:Mode$ CastWithFlash | ValidCard$ Card.Self | ValidSA$ Spell | IsPresent$ Creature.attacking | IsPresent2$ Creature.blocking | EffectZone$ All | Caster$ You
+A:SP$ Pump | KW$ Indestructible | ValidTgts$ Creature.YouCtrl | SubAbility$ DBPumpOpp
+SVar:DBPumpOpp:DB$ Pump | KW$ Indestructible | ValidTgts$ Creature.OppCtrl | SubAbility$ DBDestroyAll
+SVar:DBDestroyAll:DB$ DestroyAll | ValidCards$ Creature

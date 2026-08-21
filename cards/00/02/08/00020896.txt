@@ -1,8 +1,11 @@
 Id:20896
-ColorIdentity:WUBRG
+ColorIdentity:G
 OriginSet:Gfd5e6da37c69dc53
-ManaCost:W U B R G
-Types:Legendary Enchantment Shrine
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigSearch
-SVar:TrigSearch:DB$ ChangeZone | Origin$ Library | OriginAlternative$ Graveyard | Destination$ Battlefield | ChangeType$ Shrine.YouOwn | Optional$ True
-S:Mode$ Panharmonicon | ValidCard$ Shrine.Other+YouCtrl | IsPresent$ Shrine.YouCtrl | PresentCompare$ GE6
+ManaCost:2 G
+Types:Creature Cat
+PT:2/3
+S:Mode$ Continuous | Affected$ Cat.Other+YouCtrl | AddPower$ 1 | AddToughness$ 1 | AddKeyword$ Protection:Dog
+T:Mode$ DamageDoneOnce | CombatDamage$ True | ValidSource$ Creature.Cat+YouCtrl | ValidTarget$ Player | TriggerZones$ Battlefield | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ Destroy | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Artifact,Enchantment | TargetsWithDefinedController$ TriggeredTarget
+SVar:PlayMain1:TRUE
+SVar:BuffedBy:Cat

@@ -1,7 +1,9 @@
 Id:27818
-ColorIdentity:WUR
+ColorIdentity:
 OriginSet:G30e8a5e111cffb44
-ManaCost:1 U R W
-Types:Legendary Creature Alien Advisor
-PT:0/4
-A:AB$ Play | Cost$ T | Valid$ Card.withSuspend | PlayCost$ SuspendCost | Optional$ True | SorcerySpeed$ True
+ManaCost:no cost
+Types:Plane Earth
+S:Mode$ Continuous | Affected$ Creature | AddAbility$ ABBoast | EffectZone$ Command
+SVar:ABBoast:AB$ PutCounter | Cost$ 1 | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | Boast$ True
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl+attackedThisTurn | CounterType$ Indestructible | CounterNum$ 1

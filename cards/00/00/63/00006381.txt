@@ -1,7 +1,11 @@
 Id:6381
-ColorIdentity:U
+ColorIdentity:R
 OriginSet:Gd11012ee98ee8d76
-ManaCost:2 U
-Types:Enchantment
-T:Mode$ ChangesZone | Origin$ Battlefield | ValidCard$ Creature | Destination$ Graveyard | TriggerZones$ Battlefield | Execute$ TrigTaporUntapAll
-SVar:TrigTaporUntapAll:DB$ TaporUntapAll | ValidCards$ TriggeredCard.sharesCreatureTypeWith
+ManaCost:4 R
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+T:Mode$ Attacks | ValidCard$ Card.AttachedBy | Execute$ TrigDamage | TriggerZones$ Battlefield
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Any | DamageSource$ TriggeredAttackerLKICopy | NumDmg$ 2
+S:Mode$ Continuous | Affected$ Creature.AttachedBy | AddSVar$ AE
+SVar:AE:SVar:HasAttackEffect:TRUE

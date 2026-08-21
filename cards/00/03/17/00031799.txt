@@ -1,14 +1,10 @@
 Id:31799
-ColorIdentity:WR
-OriginSet:G7ab4f62d323b0ca7
-ManaCost:1 R W
-Types:Legendary Creature Human Soldier
-PT:3/2
-K:FirstStrike
-K:Trample
-K:Lifelink
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigEffect | CombatDamage$ True
-SVar:TrigEffect:DB$ Effect | ReplacementEffects$ Stagger | RememberObjects$ TriggeredTarget | Duration$ UntilYourNextTurn
-SVar:Stagger:Event$ DamageDone | ActiveZones$ Command | ValidSource$ Card,Emblem | ValidTarget$ Player.IsRemembered,Permanent.ControlledBy Player.IsRemembered | ReplaceWith$ DmgTwice
-SVar:DmgTwice:DB$ ReplaceEffect | VarName$ DamageAmount | VarValue$ StaggerX
-SVar:StaggerX:ReplaceCount$DamageAmount/Twice
+ColorIdentity:R
+OriginSet:G530ea9d733a13e9d
+ManaCost:3 R
+Types:Sorcery
+A:SP$ Discard | Mode$ Hand | Defined$ Player | Optional$ True | RememberDiscardingPlayers$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ Remembered | NumCards$ 5 | SubAbility$ DBDmg
+SVar:DBDmg:DB$ DamageAll | ValidPlayers$ Opponent.IsRemembered | NumDmg$ 5 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+K:Flashback:5 R

@@ -1,9 +1,10 @@
 Id:7323
 ColorIdentity:R
 OriginSet:G332b6b8a53f3d107
-ManaCost:4 R R
-Types:Enchantment
-T:Mode$ BlockersDeclared | Execute$ WarFlip | TriggerZones$ Battlefield
-SVar:WarFlip:DB$ FlipCoin | WinSubAbility$ SacBlockers | LoseSubAbility$ SacAttackers
-SVar:SacBlockers:DB$ SacrificeAll | Defined$ TriggeredBlockers
-SVar:SacAttackers:DB$ SacrificeAll | Defined$ TriggeredAttackers
+ManaCost:4 R
+Types:Instant Arcane
+K:Splice:Arcane:2 R R
+A:SP$ ChangeZone | Origin$ Hand | Destination$ Battlefield | ChangeType$ Creature.YouCtrl | SubAbility$ DBPump | RememberChanged$ True | ForgetOtherRemembered$ True | AILogic$ BeforeCombat
+SVar:DBPump:DB$ Animate | Keywords$ Haste | Defined$ Remembered | Duration$ Permanent | AtEOT$ Sacrifice | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:PlayMain1:TRUE

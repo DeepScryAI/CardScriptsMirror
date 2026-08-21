@@ -1,13 +1,15 @@
 Id:31016
-ColorIdentity:RG
-OriginSet:G4524bbf7a3db9dc0
-ManaCost:2 R R G G
-Types:Artifact Creature Construct
-PT:7/7
-K:Vigilance
-K:Menace
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPumpAll
-SVar:TrigPumpAll:DB$ PumpAll | ValidCards$ Creature.StrictlyOther+YouCtrl | NumAtt$ +2 | NumDef$ +2 | KW$ Vigilance & Menace | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | StaticAbilities$ STCantPrevent
-SVar:STCantPrevent:Mode$ CantPreventDamage
-SVar:PlayMain1:TRUE
+ColorIdentity:UB
+OriginSet:G2c8286a6f234d4b9
+ManaCost:3 U
+Types:Legendary Creature Turtle Ninja
+PT:4/5
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Ante,Command,Exile,Hand,Library | ValidCard$ Creature.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigScry
+SVar:TrigScry:DB$ Scry | ScryNum$ 1 | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ 1
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigImmediateTrig
+SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ UB | Execute$ TrigUnblockable
+SVar:TrigUnblockable:DB$ Effect | ValidTgts$ Creature.attacking | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered

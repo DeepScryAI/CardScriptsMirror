@@ -1,7 +1,12 @@
 Id:28572
 ColorIdentity:U
 OriginSet:G7ee0e82a2424d636
-ManaCost:1 U
-Types:Instant
-A:SP$ Counter | TargetType$ Spell | ValidTgts$ Card | UnlessCost$ 2 | UnlessPayer$ ThisTargetedController | SubAbility$ DBSuspect
-SVar:DBSuspect:DB$ AlterAttribute | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | Attributes$ Suspected
+ManaCost:2 U
+Types:Artifact Equipment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCloak
+SVar:TrigCloak:DB$ Cloak | Defined$ TopOfLibrary | RememberCloaked$ True | SubAbility$ DBAttach
+SVar:DBAttach:DB$ Attach | Defined$ Remembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1
+S:Mode$ CantBlockBy | ValidAttacker$ Creature.EquippedBy | Secondary$ True
+A:AB$ ChangeZone | Cost$ 1 U | Origin$ Battlefield | Destination$ Hand | Defined$ Self

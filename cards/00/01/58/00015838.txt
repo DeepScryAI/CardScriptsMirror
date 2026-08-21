@@ -1,10 +1,11 @@
 Id:15838
-ColorIdentity:UR
+ColorIdentity:W
 OriginSet:G5b1ad34969911ca7
-ManaCost:no cost
-Types:Land
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
-A:AB$ Mana | Cost$ T | Produced$ Combo U R
-A:AB$ Animate | Cost$ 2 U R | Defined$ Self | Power$ 1 | Toughness$ 4 | Types$ Creature,Elemental | Colors$ Blue,Red | OverwriteColors$ True | Abilities$ ABPump
-SVar:ABPump:AB$ Pump | Cost$ 0 | Defined$ Self | AILogic$ SwitchPT | KW$ HIDDEN CARDNAME's power and toughness are switched
+ManaCost:2 W
+Types:Creature Wall
+PT:0/6
+K:Defender
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigPutCounter | OptionalDecider$ You
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Land.YouCtrl | CounterType$ P1P1 | CounterNum$ 3 | RememberCards$ True | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Remembered | Power$ 0 | Toughness$ 0 | Types$ Creature,Elemental | Keywords$ Haste | Duration$ Permanent | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

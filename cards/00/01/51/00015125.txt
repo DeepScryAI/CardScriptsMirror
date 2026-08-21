@@ -1,11 +1,11 @@
 Id:15125
-ColorIdentity:B
+ColorIdentity:G
 OriginSet:Gdb18f239871b8cef
-ManaCost:2 B B
-Types:Creature Zombie Warrior
-PT:4/3
-S:Mode$ CantBlock | ValidCard$ Card.Self
-S:Mode$ Continuous | Affected$ Creature.Zombie+Other+YouCtrl | AddPower$ 1 | AddToughness$ 1
-S:Mode$ Continuous | Affected$ Card.Self | MayPlay$ True | AffectedZone$ Graveyard | EffectZone$ Graveyard | RaiseCost$ X
-SVar:X:Count$ValidGraveyard Creature.Other+YouOwn
-SVar:PlayMain1:TRUE
+ManaCost:2 G
+Types:Instant
+A:SP$ Fog | SubAbility$ DBRepeatLook
+SVar:DBRepeatLook:DB$ Repeat | RepeatSubAbility$ DBCleanLoop | RepeatDefined$ Remembered | RepeatPresent$ Card | SubAbility$ DBCleanup
+SVar:DBCleanLoop:DB$ Cleanup | ClearRemembered$ True | SubAbility$ DBChoose
+SVar:DBChoose:DB$ ChooseCard | Choices$ Creature.faceDown+attacking,Creature.faceDown+blocking | RememberChosen$ True | SubAbility$ DBLook
+SVar:DBLook:DB$ LookAt | Defined$ Remembered
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

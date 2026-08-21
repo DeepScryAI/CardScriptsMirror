@@ -1,11 +1,10 @@
 Id:8375
 ColorIdentity:WU
 OriginSet:Gde6d8130c178f566
-ManaCost:W U
-Types:Creature Elemental Cat
-PT:1/1
-K:Flying
-S:Mode$ Continuous | Affected$ Card.Self | AddPower$ X | AddToughness$ X
-A:AB$ Token | Cost$ 2 W U Reveal<1/CARDNAME> | Forecast$ True | TokenScriptIds$ 3079833567 | TokenOwner$ You
-SVar:X:Count$Valid Creature.withFlying+Other
-SVar:BuffedBy:Creature.withFlying
+ManaCost:no cost
+Types:Land
+A:AB$ Mana | Cost$ T | Produced$ C
+A:AB$ ChooseSource | Cost$ 4 W U T | Choices$ Card,Emblem | AILogic$ NeedsPrevention | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | ReplacementEffects$ RPreventNextFromSource | SubAbility$ DBCleanup | ConditionDefined$ ChosenCard | ConditionPresent$ Card,Emblem
+SVar:RPreventNextFromSource:Event$ DamageDone | ValidSource$ Card.ChosenCardStrict,Emblem.ChosenCard | Prevent$ True
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True

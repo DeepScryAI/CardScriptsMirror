@@ -1,8 +1,15 @@
 Id:26267
-ColorIdentity:WUBRG
-OriginSet:G997e3b19a1e94e85
-ManaCost:4
-Types:Legendary Artifact Creature Rebel Golem
-PT:4/4
-S:Mode$ CantPutCounter | ValidPlayer$ You | CounterType$ POISON
-A:AB$ ChangeZone | Cost$ W U B R G | ValidTgts$ Artifact | Origin$ Battlefield | Destination$ Exile
+ColorIdentity:WR
+OriginSet:G2192e8955d5e1ad1
+ManaCost:1 R RWP W
+Types:Legendary Planeswalker Nahiri
+Loyalty:5
+K:Compleated
+A:AB$ Effect | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | Duration$ UntilYourNextTurn | StaticAbilities$ MustAttack
+SVar:MustAttack:Mode$ MustAttack | MustAttack$ Player | ValidCreature$ Card.IsRemembered
+A:AB$ Discard | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | Mode$ TgtChoose | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw
+A:AB$ ChangeZone | Cost$ AddCounter<0/LOYALTY> | Planeswalker$ True | SubAbility$ DBCopy | Origin$ Graveyard | RememberChanged$ True | Destination$ Exile | ValidTgts$ Creature.YouCtrl+cmcLTX,Equipment.YouCtrl+cmcLTX
+SVar:DBCopy:DB$ CopyPermanent | Defined$ Remembered | PumpKeywords$ Haste | AtEOT$ Exile | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$CardCounters.LOYALTY

@@ -1,9 +1,13 @@
 Id:25677
 ColorIdentity:W
-OriginSet:G06ccef4324c14725
-ManaCost:4 W
-Types:Creature Human Artificer
-PT:3/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenAmount$ X | TokenTapped$ True | TokenScriptIds$ 2975106104
-SVar:X:Count$Valid Creature.YouCtrl+StrictlyOther
+OriginSet:Gce0c33e5115830a3
+ManaCost:1 W
+Types:Creature Human Scout
+PT:1/1
+K:etbCounter:P1P1:1
+A:AB$ ChangeZone | Cost$ T RemoveAnyCounter<1/Any/Permanent> | Origin$ Library | Destination$ Library | ChangeType$ Plains | ChangeNum$ 1 | RememberChanged$ True | Reveal$ True | Shuffle$ False | SubAbility$ ToBattlefieldTapped
+SVar:ToBattlefieldTapped:DB$ ChangeZone | ConditionCheckSVar$ Y | ConditionSVarCompare$ GTX | Defined$ Remembered | Optional$ True | Origin$ Library | Destination$ Battlefield | Tapped$ True | SubAbility$ ToHand | ForgetChanged$ True
+SVar:ToHand:DB$ ChangeZone | Defined$ Remembered | Origin$ Library | Destination$ Hand | Shuffle$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$Valid Land.YouCtrl
+SVar:Y:PlayerCountOpponents$HighestValid Land.YouCtrl

@@ -1,9 +1,10 @@
 Id:10962
-ColorIdentity:R
+ColorIdentity:G
 OriginSet:G4398040c23c94f0e
-ManaCost:R R
-Types:Creature Goblin Berserker
-PT:1/1
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Opponent | Execute$ TrigChange
-SVar:TrigChange:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | ChangeType$ Creature.Goblin | ChangeNum$ 1
-K:DoubleStrike
+ManaCost:G
+Types:Instant
+K:Kicker:G
+A:SP$ Pump | ValidTgts$ Creature | NumAtt$ +X | NumDef$ +X | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | Defined$ Targeted | AILogic$ Always | StaticAbilities$ STCantTarget | RememberObjects$ Targeted | ExileOnMoved$ Battlefield
+SVar:STCantTarget:Mode$ CantTarget | ValidTarget$ Card.IsRemembered | Activator$ Player.Opponent
+SVar:X:Count$Kicked.4.0

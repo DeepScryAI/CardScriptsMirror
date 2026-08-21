@@ -1,9 +1,10 @@
 Id:7756
 ColorIdentity:W
 OriginSet:G3fddc6426f419054
-ManaCost:2 W W
-Types:Sorcery
-A:SP$ GainLife | LifeAmount$ X
-SVar:X:Count$CardsInYourHand/Times.2
-SVar:NeedsToPlayVar:Z GE3
-SVar:Z:Count$ValidHand Card.YouOwn
+ManaCost:1 W
+Types:Instant Arcane
+A:SP$ ChangeZone | Origin$ Battlefield | Destination$ Hand | ChangeType$ Plains.YouCtrl | ChangeNum$ X | Hidden$ True | RememberChanged$ True | SubAbility$ ReitoPump
+SVar:ReitoPump:DB$ Pump | ValidTgts$ Creature | NumAtt$ +Y | NumDef$ +Y | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$Valid Plains.YouCtrl
+SVar:Y:Remembered$Amount

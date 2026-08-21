@@ -1,11 +1,13 @@
 Id:29536
 ColorIdentity:B
 OriginSet:Gac6359c222afbd4f
-ManaCost:3 B
-Types:Creature Human Knight Rogue
-PT:2/3
-K:Menace
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigConnive
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigConnive | TriggerZones$ Battlefield | Secondary$ True
-SVar:TrigConnive:DB$ Connive
-SVar:HasAttackEffect:TRUE
+ManaCost:4 B B
+Types:Creature Crab Demon
+PT:5/5
+K:Emerge:5 B B:Artifact
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ ExileTop
+SVar:ExileTop:DB$ Dig | ValidTgts$ Opponent | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ RandomGraveyard
+SVar:RandomGraveyard:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | DefinedPlayer$ Targeted | Mandatory$ True | ChangeNum$ 1 | Hidden$ True | IsCurse$ True | AtRandom$ True | RememberChanged$ True | SubAbility$ RandomHand
+SVar:RandomHand:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | DefinedPlayer$ Targeted | Mandatory$ True | ChangeNum$ 1 | Hidden$ True | IsCurse$ True | AtRandom$ True | RememberChanged$ True | SubAbility$ CastOneExiled
+SVar:CastOneExiled:DB$ Play | Valid$ Card.IsRemembered | ValidSA$ Spell | ValidZone$ Exile | Amount$ 1 | Optional$ True | WithoutManaCost$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

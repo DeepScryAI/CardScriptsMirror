@@ -1,10 +1,10 @@
 Id:24484
-ColorIdentity:UBR
+ColorIdentity:W
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:1 U B R
-Types:Legendary Creature Tiefling Warrior
-PT:4/2
-K:Haste
-A:AB$ Effect | Cost$ 2 T | Triggers$ SpellCast
-SVar:SpellCast:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | IsSingleTarget$ True | TargetsValid$ Opponent,Permanent.OppCtrl+inZoneBattlefield | Execute$ TrigCopy | OneOff$ True | TriggerZones$ Battlefield
-SVar:TrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | Controller$ You | DefinedTarget$ OppNonTriggeredSpellAbilityTargetsOrController
+ManaCost:3 W W
+Types:Sorcery
+A:SP$ ChooseCard | Choices$ Creature.YouCtrl | Mandatory$ True | ImprintChosen$ True | SubAbility$ DBChooseCard
+SVar:DBChooseCard:DB$ ChooseCard | Defined$ Opponent | ControlledByPlayer$ Chooser | Choices$ Creature.powerLEX | Mandatory$ True | RememberChosen$ True | SubAbility$ DBChangeZoneAll
+SVar:X:Imprinted$CardPower
+SVar:DBChangeZoneAll:DB$ ChangeZoneAll | ConditionDefined$ Imprinted | ConditionPresent$ Creature | Origin$ Battlefield | Destination$ Exile | ChangeType$ Creature.!IsRemembered+!IsImprinted | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True | ClearChosenCard$ True

@@ -1,0 +1,14 @@
+Id:35181
+ColorIdentity:BR
+OriginSet:G21d8f666c5c6b81d
+ManaCost:3 B R
+Types:Legendary Planeswalker Sifa
+Loyalty:4
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature | TriggerZones$ Battlefield | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | ValidTgts$ Opponent | LifeAmount$ 1 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
+A:AB$ Goad | Cost$ AddCounter<1/LOYALTY> | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 2
+A:AB$ Dig | Cost$ SubCounter<6/LOYALTY> | Planeswalker$ True | Ultimate$ True | Defined$ Opponent | DestinationZone$ Exile | DigNum$ 2 | ChangeNum$ All | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ STPlay | SubAbility$ DBCleanup | ForgetOnMoved$ Exile
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile | MayPlayWithoutManaCost$ True
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

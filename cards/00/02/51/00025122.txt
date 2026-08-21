@@ -1,9 +1,13 @@
 Id:25122
-ColorIdentity:B
-OriginSet:Gf591a76e7a37cf73
-ManaCost:1 B
-Types:Artifact Creature Necron Wizard
-PT:1/1
+ColorIdentity:U
+OriginSet:G2aca7ffc9201ba1c
+ManaCost:3 U
+Types:Creature Djinn
+PT:3/4
 K:Flying
-A:AB$ Draw | Cost$ 1 T Sac<1/Artifact.Other/another artifact>
-K:Unearth:2 B
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMakeCard
+SVar:TrigMakeCard:DB$ MakeCard | Conjure$ True | AtRandom$ True | SpellbookCatalogIds$ 22333,6443,19267,23719,18074,24104,20656,12650,20982,20675,19372,23040,17976,5843,22014 | Zone$ Hand | SubAbility$ DBRepeat
+SVar:DBRepeat:DB$ Repeat | RepeatCheckSVar$ X | RepeatSVarCompare$ LTY | ConditionCheckSVar$ X | ConditionSVarCompare$ LTY | RepeatSubAbility$ DBMakeCard
+SVar:DBMakeCard:DB$ MakeCard | Conjure$ True | AtRandom$ True | SpellbookCatalogIds$ 22333,6443,19267,23719,18074,24104,20656,12650,20982,20675,19372,23040,17976,5843,22014 | Zone$ Hand
+SVar:X:Count$CardsInYourHand
+SVar:Y:Count$Domain

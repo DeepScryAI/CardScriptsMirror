@@ -1,11 +1,13 @@
 Id:4343
 ColorIdentity:R
 OriginSet:G94d5a0658e4301e7
-ManaCost:5 R R
-Types:Creature Beast
-PT:6/6
-T:Mode$ AttackerBlocked | ValidCard$ Card.Self | Execute$ TrigDamage | OptionalDecider$ You
-SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Creature | NumDmg$ X | SubAbility$ DBNoCombatDamage
-SVar:DBNoCombatDamage:DB$ Effect | StaticAbilities$ SNoCombatDamage | Duration$ UntilHostLeavesPlayOrEOT
-SVar:SNoCombatDamage:Mode$ AssignNoCombatDamage | ValidCard$ Card.EffectSource
-SVar:X:Count$CardPower
+ManaCost:R
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAITgts:Card.powerGE1
+SVar:AttachAILogic:Pump
+T:Mode$ AttackerBlocked | ValidCard$ Card.AttachedBy | TriggerZones$ Battlefield | Execute$ LaccolithDmg | OptionalDecider$ You
+SVar:LaccolithDmg:DB$ DealDamage | ValidTgts$ Creature | NumDmg$ RigX | SubAbility$ DBNoCombatDamage | DamageSource$ TriggeredAttacker
+SVar:DBNoCombatDamage:DB$ Effect | RememberObjects$ TriggeredAttackerLKICopy | StaticAbilities$ SNoCombatDamage | ForgetOnMoved$ Battlefield
+SVar:SNoCombatDamage:Mode$ AssignNoCombatDamage | ValidCard$ Card.IsRemembered
+SVar:RigX:TriggeredAttacker$CardPower

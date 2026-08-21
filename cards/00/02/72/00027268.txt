@@ -1,14 +1,13 @@
 Id:27268
-ColorIdentity:U
-OriginSet:G8636ad1cfd514d83
-ManaCost:4 U U
-Types:Creature Illusion
-PT:6/6
-K:ETBReplacement:Other:ChooseCT
-SVar:ChooseCT:DB$ ChooseType | Type$ Creature | AILogic$ MostProminentInComputerDeck
-S:Mode$ Continuous | Affected$ Card.Self | AddType$ ChosenType
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDraw | Secondary$ True
-SVar:TrigDraw:AB$ Discard | Cost$ Draw<X/You> | Defined$ You | NumCards$ 1 | Mode$ TgtChoose
-SVar:X:Count$Valid Creature.YouCtrl+Other+sharesCreatureTypeWith
-SVar:HasAttackEffect:TRUE
+ColorIdentity:BG
+OriginSet:G6ce0035cfb774934
+ManaCost:4 B G
+Types:Legendary Creature Spider Demon
+PT:8/8
+K:Deathtouch
+K:Ward:2
+S:Mode$ Continuous | Affected$ Spider.Other+YouCtrl | AddKeyword$ Deathtouch & Ward:2
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.Other+DamagedBySpider.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigCopy
+SVar:TrigCopy:DB$ CopyPermanent | Defined$ TriggeredCardLKICopy | AddAbilities$ FoodSac | AddTypes$ Artifact & Food | RemoveCardTypes$ True | RemoveSubTypes$ True
+SVar:FoodSac:AB$ GainLife | Cost$ 2 T Sac<1/CARDNAME/this creature> | Defined$ You | LifeAmount$ 3
+SVar:PlayMain1:TRUE

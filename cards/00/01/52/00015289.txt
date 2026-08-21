@@ -1,12 +1,11 @@
 Id:15289
 ColorIdentity:B
 OriginSet:G70acd28f254172ff
-ManaCost:1 B B
-Types:Sorcery
-A:SP$ NameCard | Defined$ You | ValidCards$ Creature | SubAbility$ ExileYard
-SVar:ExileYard:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Player.Opponent | ChangeType$ Card.NamedCard | Chooser$ You | ChangeNum$ NumInYard | Hidden$ True | SubAbility$ ExileHand
-SVar:ExileHand:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | DefinedPlayer$ Targeted | ChangeType$ Card.NamedCard | ChangeNum$ NumInHand | Chooser$ You | SubAbility$ ExileLib
-SVar:ExileLib:DB$ ChangeZone | Origin$ Library | Destination$ Exile | DefinedPlayer$ Targeted | ChangeType$ Card.NamedCard | ChangeNum$ NumInLib | Chooser$ You | Shuffle$ True
-SVar:NumInLib:TargetedPlayer$CardsInLibrary
-SVar:NumInHand:TargetedPlayer$CardsInHand
-SVar:NumInYard:TargetedPlayer$CardsInGraveyard
+ManaCost:1 B
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 2 | AddTrigger$ TrigDraw | AddSVar$ InfernalDraw
+SVar:TrigDraw:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ InfernalDraw | TriggerController$ TriggeredCardController
+SVar:InfernalDraw:DB$ Draw | Defined$ TriggeredCardController
+SVar:PlayMain1:TRUE

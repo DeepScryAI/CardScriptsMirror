@@ -1,13 +1,9 @@
 Id:31575
-ColorIdentity:W
-OriginSet:G530ea9d733a13e9d
-ManaCost:3 W
-Types:Legendary Creature Human Spirit Samurai
-PT:2/5
-K:Vigilance
-T:Mode$ Attacks | ValidCard$ Creature.Self | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | RememberAmount$ True | SubAbility$ TrigImmediate
-SVar:TrigImmediate:DB$ ImmediateTrigger | Execute$ TrigExile | TriggerAmount$ Count$RememberedNumber | SubAbility$ DBCleanup
-SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Creature.ControlledBy Spawner>TriggeredDefendingPlayer+powerLTX | Duration$ UntilHostLeavesPlay
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$CardPower
+ColorIdentity:U
+OriginSet:Gf2b808f4f642ac62
+ManaCost:2 U
+Types:Artifact
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigSurveil
+SVar:TrigSurveil:DB$ Surveil | Amount$ 1
+A:AB$ Token | Cost$ T | TokenScriptIds$ 354358367 | TokenOwner$ You | PlayerTurn$ True | CheckSVar$ X
+SVar:X:Count$LeftGraveyardThisTurn Card.YouOwn

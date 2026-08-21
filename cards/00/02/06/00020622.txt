@@ -1,8 +1,10 @@
 Id:20622
-ColorIdentity:B
+ColorIdentity:UBG
 OriginSet:Gf8d4de878d0536c5
-ManaCost:1 B B
-Types:Creature Nightmare
-PT:3/3
-K:ETBReplacement:Other:CounterChoice
-SVar:CounterChoice:DB$ PutCounter | ETB$ True | CounterType$ Menace,Deathtouch,Lifelink | ChooseDifferent$ 2
+ManaCost:B B G G G U U
+Types:Sorcery
+A:SP$ ChangeZone | Origin$ Library | Hidden$ True | ChangeNum$ 3 | ChangeType$ Card.MonoColor | DifferentNames$ True | Destination$ Exile | RememberChanged$ True | SubAbility$ DBShuffle | Shuffle$ False
+SVar:DBShuffle:DB$ ChangeZone | Origin$ Exile | Destination$ Library | ChangeType$ Card.IsRemembered | Mandatory$ True | ForgetChanged$ True | Hidden$ True | Chooser$ Opponent | Shuffle$ True | SubAbility$ DBCast
+SVar:DBCast:DB$ Play | Valid$ Card.IsRemembered | ValidZone$ Exile | ValidSA$ Spell | WithoutManaCost$ True | Optional$ True | Amount$ All | SubAbility$ DBExileSelf
+SVar:DBExileSelf:DB$ ChangeZone | Origin$ Stack | Destination$ Exile | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

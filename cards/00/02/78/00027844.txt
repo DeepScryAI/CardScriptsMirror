@@ -1,15 +1,10 @@
 Id:27844
-ColorIdentity:WU
+ColorIdentity:U
 OriginSet:G30e8a5e111cffb44
-ManaCost:3 W U
-Types:Legendary Creature Time Lord Doctor
-PT:3/6
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigGuess | TriggerZones$ Battlefield
-SVar:TrigGuess:DB$ ChooseCard | ChoiceZone$ Hand | Mandatory$ True | Defined$ You | Choices$ Card.YouOwn | AILogic$ RandomNonLand | Guess$ True | SubAbility$ DBGuess
-SVar:DBGuess:DB$ GenericChoice | Defined$ TriggeredDefendingPlayer | Choices$ GuessGreaterArtifacts,GuessNotGreaterArtifacts | AILogic$ Random | ShowChoice$ True
-SVar:GuessGreaterArtifacts:DB$ Play | Controller$ You | Defined$ ChosenCard | Optional$ True | WithoutManaCost$ True | ConditionDefined$ ChosenCard | ConditionPresent$ Card.cmcLEX+nonLand | RememberPlayed$ True | ConditionCompare$ GE1 | SubAbility$ DBInvestigate
-SVar:GuessNotGreaterArtifacts:DB$ Play | Controller$ You | Defined$ ChosenCard | Optional$ True | WithoutManaCost$ True | ValidSA$ Spell | ConditionDefined$ ChosenCard | ConditionPresent$ Card.cmcGTX+nonLand | RememberPlayed$ True | SubAbility$ DBInvestigate | ConditionCompare$ GE1
-SVar:DBInvestigate:DB$ Investigate | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ0 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearChosenCard$ True
-SVar:X:Count$Valid Artifact.YouCtrl
-SVar:HasAttackEffect:TRUE
+ManaCost:3 U
+Types:Legendary Creature Human Soldier Advisor
+PT:4/3
+K:Mentor
+S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddTrigger$ CountersAdded
+SVar:CountersAdded:Mode$ CounterTypeAddedAll | ValidObject$ Card.Self | FirstTime$ True | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw

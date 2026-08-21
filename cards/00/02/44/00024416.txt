@@ -1,7 +1,13 @@
 Id:24416
-ColorIdentity:U
+ColorIdentity:
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:1 U
-Types:Legendary Enchantment Background
-S:Mode$ Continuous | Affected$ Creature.IsCommander+YouOwn | AddAbility$ Copy
-SVar:Copy:AB$ Clone | Cost$ 2 U | ValidTgts$ Creature.Other
+ManaCost:3
+Types:Artifact Vehicle
+PT:6/6
+K:Trample
+K:Ward:Discard<1/Card>
+T:Mode$ BecomesCrewed | ValidCard$ Card.Self | FirstTimeCrewed$ True | ValidCrewAmount$ 2 | Execute$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Self | Duration$ UntilEndOfTurn | Triggers$ TrigCDPlayer
+SVar:TrigCDPlayer:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ DBDraw | CombatDamage$ True | TriggerZones$ Battlefield
+SVar:DBDraw:DB$ Draw | NumCards$ 2
+K:Crew:4

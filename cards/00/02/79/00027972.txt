@@ -1,7 +1,12 @@
 Id:27972
-ColorIdentity:WB
-OriginSet:Gfd50577710a6ab09
-ManaCost:W B
-Types:Legendary Creature Vampire Knight
-PT:2/1
-A:AB$ PutCounter | Cost$ Sac<1/Creature.Other;Artifact.Other/another creature or artifact> | CounterType$ P1P1 | CounterNum$ 1
+ColorIdentity:R
+OriginSet:G30e8a5e111cffb44
+ManaCost:2 R R
+Types:Enchantment Saga
+K:Chapter:6:DBDamage,DBExile,DBExile,DBExile,DBExile,DBMana
+SVar:DBDamage:DB$ DealDamage | ValidTgts$ Creature.OppCtrl | NumDmg$ 4
+SVar:DBExile:DB$ Dig | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ Play | SubAbility$ DBCleanup | ExileOnMoved$ Exile
+SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:DBMana:DB$ Mana | Produced$ R | Amount$ 6

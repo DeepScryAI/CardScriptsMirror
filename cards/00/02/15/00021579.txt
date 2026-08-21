@@ -1,9 +1,13 @@
 Id:21579
-ColorIdentity:
+ColorIdentity:B
 OriginSet:G18bf722b221724f8
-ManaCost:2
-Types:Artifact Equipment
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1 | AddToughness$ 1
-T:Mode$ DamageDone | ValidSource$ Creature.EquippedBy | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigTreasure | TriggerZones$ Battlefield
-SVar:TrigTreasure:DB$ Token | TokenScriptIds$ 3851718391 | TokenOwner$ You
-K:Equip:1
+ManaCost:4 B B
+Types:Creature Demon Berserker
+PT:6/6
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange | OptionalDecider$ You
+SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Library | ChangeType$ Card.!catalogId21579 | ChangeNum$ 2 | DifferentNames$ True | Exactly$ True | RememberChanged$ True | Reveal$ True | Shuffle$ False | AILogic$ Intuition | SubAbility$ DBChoosePlayer
+SVar:DBChoosePlayer:DB$ ChoosePlayer | Defined$ You | Choices$ Player.Opponent | SubAbility$ DBChangeZone1
+SVar:DBChangeZone1:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Card.IsRemembered | Chooser$ ChosenPlayer | ChangeNum$ 1 | Mandatory$ True | NoLooking$ True | Shuffle$ False | SubAbility$ DBChangeZone2
+SVar:DBChangeZone2:DB$ ChangeZoneAll | Origin$ Library | Destination$ Graveyard | ChangeType$ Card.IsRemembered | Shuffle$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearChosenPlayer$ True

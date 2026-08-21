@@ -1,18 +1,10 @@
 Id:24361
-ColorIdentity:
+ColorIdentity:W
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:4
-Types:Artifact Vehicle
-PT:5/5
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExileGrave
-SVar:TrigExileGrave:DB$ ChangeZoneAll | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Player | ChangeType$ Card | RememberChanged$ True
-T:Mode$ DamageDone | ValidSource$ Card.Self | Execute$ TrigPut | CombatDamage$ True | ValidTarget$ Player | TriggerZones$ Battlefield | OptionalDecider$ You
-SVar:TrigPut:DB$ ChangeZone | Origin$ Exile | Destination$ Battlefield | Hidden$ True | ChangeType$ Creature.IsRemembered | GainControl$ True
-T:Mode$ ChangesZone | Origin$ Exile | Destination$ Any | Static$ True | ValidCard$ Card.IsRemembered | Execute$ DBForget
-SVar:DBForget:DB$ Pump | ForgetObjects$ TriggeredCard
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | Static$ True | ValidCard$ Card.Self | Execute$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-K:Crew:3
-SVar:NeedsToPlayVar:X GE2
-SVar:X:PlayerCountOpponents$HighestValidGraveyard Creature.YouOwn
+ManaCost:1 W
+Types:Artifact Equipment
+T:Mode$ Attacks | ValidCard$ Card.AttachedBy | Execute$ TrigPut
+SVar:TrigPut:DB$ PutCounter | Defined$ TriggeredAttackerLKICopy | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBTap
+SVar:DBTap:DB$ Tap | ValidTgts$ Creature | TargetsWithDefinedController$ TriggeredDefendingPlayer | TargetMin$ 0 | TargetMax$ 1
+SVar:HasAttackEffect:TRUE
+K:Equip:W

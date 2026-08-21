@@ -1,14 +1,8 @@
 Id:29659
-ColorIdentity:R
-OriginSet:G01a610e823cce3ca
-ManaCost:3 R
-Types:Legendary Creature Human Berserker
-PT:4/4
-K:Trample
-S:Mode$ CantAttack | ValidCard$ Card.Self | Target$ Player.CardOwner
-S:Mode$ MustAttack | ValidCreature$ Card.Self | Secondary$ True
-S:Mode$ CantSacrifice | ValidCard$ Card.Self | Secondary$ True
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Player | TriggerZones$ Battlefield | Execute$ TrigControl
-SVar:TrigControl:DB$ GainControl | Defined$ Self | NewController$ TriggeredPlayer | Untap$ True | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | Defined$ Self | Placer$ TriggeredPlayer | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | Defined$ Self | KW$ Haste
+ColorIdentity:G
+OriginSet:Gac6359c222afbd4f
+ManaCost:2 G G
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigEnergy
+SVar:TrigEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ 2
+S:Mode$ Continuous | Affected$ Creature.cmcLE3 | MayPlay$ True | MayPlayAltManaCost$ PayEnergy<1> | MayPlayDontGrantZonePermissions$ True | MayPlayWithFlash$ True | AffectedZone$ Hand,Graveyard,Exile,Library,Command

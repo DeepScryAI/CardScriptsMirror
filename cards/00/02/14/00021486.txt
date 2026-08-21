@@ -1,11 +1,13 @@
 Id:21486
-ColorIdentity:U
-OriginSet:G18bf722b221724f8
-ManaCost:4 U
-Types:Snow Creature Giant Wizard
+ColorIdentity:B
+OriginSet:G51d431785c8b33e5
+ManaCost:4 B B
+Types:Legendary Creature Vampire Noble
 PT:4/4
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigTap
-SVar:TrigTap:DB$ Tap | ValidTgts$ Artifact.OppCtrl,Creature.OppCtrl | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | Defined$ Targeted | ConditionCheckSVar$ S | KW$ HIDDEN This card doesn't untap during your next untap step. | Duration$ Permanent
-SVar:S:Count$CastTotalManaSpent Snow
-SVar:AIPreference:ManaFrom$Snow
+K:Flying
+K:Partner
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.Other | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 2
+T:Mode$ LosesGame | ValidPlayer$ Player.Other | TriggerZones$ Battlefield | Execute$ TrigGainLife
+SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ X
+SVar:X:TriggeredPlayer$LifeStartedThisTurnWith

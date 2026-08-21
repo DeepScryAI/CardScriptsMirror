@@ -1,9 +1,12 @@
 Id:25193
-ColorIdentity:B
+ColorIdentity:R
 OriginSet:Gf591a76e7a37cf73
-ManaCost:2 B B
-Types:Artifact Creature Necron Wizard
-PT:3/3
+ManaCost:5 R
+Types:Creature Demon
+PT:6/6
 K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange
-SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Swamp.Basic
+K:Trample
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigUntap
+SVar:TrigUntap:DB$ Untap | Defined$ Self | SubAbility$ DBAddCombat
+SVar:DBAddCombat:DB$ AddPhase | ExtraPhase$ Combat | AfterPhase$ EndCombat
+S:Mode$ CantAttack | ValidCard$ Card.Self | Target$ Player.attackedBySourceThisTurn

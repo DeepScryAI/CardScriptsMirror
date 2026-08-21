@@ -1,9 +1,13 @@
 Id:25766
-ColorIdentity:W
+ColorIdentity:B
 OriginSet:G06ccef4324c14725
-ManaCost:4
-Types:Artifact Creature Soldier
-PT:3/1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 1912559273
-K:Unearth:2 W
+ManaCost:1 B B
+Types:Legendary Creature Phyrexian Praetor
+PT:3/3
+T:Mode$ DamageDone | ValidSource$ Creature | ValidTarget$ Opponent | CombatDamage$ True | OptionalDecider$ TriggeredSourceController | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | UnlessCost$ PayLife<1> | UnlessPayer$ TriggeredSourceController | Defined$ TriggeredSourceController | UnlessSwitched$ True
+A:AB$ Dig | Cost$ 4 B B B Discard<X/Card/card> | DigNum$ X | ChangeNum$ All | ValidTgts$ Opponent | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | WithoutManaCost$ True | ValidZone$ Exile | Valid$ Card.IsRemembered | Amount$ All | Optional$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$xPaid
+SVar:PlayMain1:TRUE

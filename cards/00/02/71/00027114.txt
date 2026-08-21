@@ -1,9 +1,12 @@
 Id:27114
-ColorIdentity:W
+ColorIdentity:G
 OriginSet:G6ce0035cfb774934
-ManaCost:1 W
-Types:Instant
-A:SP$ ChangeZone | ValidTgts$ Creature.YouOwn | Origin$ Battlefield | Destination$ Exile | RememberTargets$ True | SubAbility$ DBReturn
-SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ All | Destination$ Battlefield | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | SubAbility$ TrigTempt
-SVar:TrigTempt:DB$ RingTemptsYou
+ManaCost:1 G
+Types:Enchantment Saga
+K:Chapter:3:DBScry,DBPutCounter,DBAnimate
+SVar:DBScry:DB$ Scry | ScryNum$ 2
+SVar:DBPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 2
+SVar:DBAnimate:DB$ Animate | SubAbility$ DBFight | ValidTgts$ Creature.YouCtrl | Triggers$ DiesTrig
+SVar:DiesTrig:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | NumCards$ 2
+SVar:DBFight:DB$ Fight | Defined$ ParentTarget | ValidTgts$ Creature | TargetUnique$ True | TargetMin$ 0 | TargetMax$ 1

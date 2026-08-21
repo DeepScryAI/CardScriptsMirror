@@ -1,8 +1,10 @@
 Id:6887
 ColorIdentity:
 OriginSet:G8b552b617d13301f
-ManaCost:3
+ManaCost:4
 Types:Artifact
-R:Event$ DamageDone | ActiveZones$ Battlefield | ValidSource$ Creature | ValidTarget$ You | IsCombat$ True | ReplaceWith$ DBReplace | PreventionEffect$ True | IsPresent$ Card.Self+untapped
-SVar:DBReplace:DB$ ReplaceDamage | Amount$ 1
-A:AB$ PumpAll | Cost$ 2 T | ValidCards$ Creature.attacking | NumAtt$ +1
+A:AB$ DigUntil | Cost$ X T | ValidTgts$ Opponent | MaxRevealed$ X | Valid$ Artifact | IsCurse$ True | RevealedDestination$ Graveyard | FoundDestination$ Battlefield | GainControl$ True | RememberFound$ True | SubAbility$ SacThought
+SVar:SacThought:DB$ Sacrifice | ConditionCheckSVar$ Found | ConditionSVarCompare$ EQ1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:Found:Remembered$Amount
+SVar:X:Count$xPaid

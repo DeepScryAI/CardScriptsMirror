@@ -1,13 +1,7 @@
 Id:25190
 ColorIdentity:B
 OriginSet:Gf591a76e7a37cf73
-ManaCost:2 B
-Types:Enchantment
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ BuildCounter
-SVar:BuildCounter:DB$ PutCounter | CounterType$ EON | CounterNum$ 2 | Defined$ Self | SubAbility$ DBMill
-SVar:DBMill:DB$ Mill | NumCards$ X
-SVar:X:Count$CardCounters.EON
-R:Event$ Draw | ActiveZones$ Battlefield | ValidPlayer$ You | IsPresent$ Card.YouOwn | PresentZone$ Library | PresentCompare$ EQ0 | ReplaceWith$ Reanimate
-SVar:Reanimate:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ChangeType$ Creature.YouOwn | ChangeNum$ 1 | Mandatory$ True | Hidden$ True | RememberChanged$ True | SubAbility$ DBLoseGame
-SVar:DBLoseGame:DB$ LosesGame | Defined$ You | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ0 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:4 B
+Types:Sorcery
+A:SP$ Destroy | ValidTgts$ Creature | SubAbility$ DBDebuff
+SVar:DBDebuff:DB$ PumpAll | ValidCards$ Creature | NumAtt$ -3 | NumDef$ -3

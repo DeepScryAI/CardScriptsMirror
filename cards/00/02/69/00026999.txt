@@ -1,12 +1,13 @@
 Id:26999
-ColorIdentity:R
-OriginSet:G6ce0035cfb774934
-ManaCost:2 R
-Types:Legendary Creature Goblin Soldier
+ColorIdentity:W
+OriginSet:G3601f5e223de6c7f
+ManaCost:3 W
+Types:Creature Spirit Soldier
 PT:1/1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigAmass
-SVar:TrigAmass:DB$ Amass | Type$ Orc | Num$ 2 | RememberAmass$ True | SubAbility$ DBImmediateTrig
-SVar:DBImmediateTrig:DB$ ImmediateTrigger | ConditionDefined$ Remembered | ConditionPresent$ Card | RememberObjects$ Remembered | Execute$ TrigGainControl | SubAbility$ DBCleanup
-SVar:TrigGainControl:DB$ GainControl | ValidTgts$ Creature.nonLegendary+powerLEX+OppCtrl | LoseControl$ EOT | Untap$ True | AddKWs$ Haste
+K:Flying
+K:Ward:3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZoneAll | ValidTgts$ Player | Origin$ Graveyard | Destination$ Exile | ChangeType$ Card | SubAbility$ DBCounter | RememberChanged$ True
+SVar:DBCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ X | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:TriggerRemembered$CardPower
+SVar:X:Remembered$Valid Creature

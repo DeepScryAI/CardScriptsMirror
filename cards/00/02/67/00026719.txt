@@ -1,11 +1,29 @@
 Id:26719
-ColorIdentity:B
-OriginSet:G997e3b19a1e94e85
-ManaCost:1 B
-Types:Sorcery
-A:SP$ Charm | Choices$ CemeteryRecruitment,Duress,HumanFrailty | Defined$ You
-SVar:CemeteryRecruitment:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Creature.YouCtrl | SubAbility$ DBDraw | RememberChanged$ True
-SVar:DBDraw:DB$ Draw | ConditionDefined$ Remembered | ConditionPresent$ Card.Zombie | ConditionCompare$ GE1 | SubAbility$ DBCleanup
+ColorIdentity:U
+OriginSet:G06757f68e16377c2
+ManaCost:3 U U
+Types:Legendary Creature Phyrexian Praetor
+PT:5/5
+K:Ward:2
+T:Mode$ SpellCast | ValidCard$ Card.nonCreature+cmcGE3 | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ DBDraw
+SVar:DBDraw:DB$ Draw
+A:AB$ ChangeZone | Cost$ 3 U | CheckSVar$ X | SVarCompare$ GE7 | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn | SorcerySpeed$ True
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | Transformed$ True | ForgetOtherRemembered$ True | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:Duress:DB$ Discard | ValidTgts$ Opponent | Mode$ RevealYouChoose | DiscardValid$ Card.nonCreature+nonLand | NumCards$ 1
-SVar:HumanFrailty:DB$ Destroy | ValidTgts$ Creature.Human
+SVar:X:Count$ValidHand Card.YouOwn
+SVar:BuffedBy:Card.nonCreature+cmcGE3
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:blue
+Types:Enchantment Saga
+K:Chapter:3:DBDraw,DBBounceAll,DBCastAll
+SVar:DBDraw:DB$ Draw | NumCards$ Y | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STHandSize | Duration$ AsLongAsControl
+SVar:STHandSize:Mode$ Continuous | Affected$ You | SetMaxHandSize$ Unlimited
+SVar:DBBounceAll:DB$ ChangeZoneAll | ChangeType$ Creature.nonPhyrexian | Origin$ Battlefield | Destination$ Hand
+SVar:DBCastAll:DB$ Play | Valid$ Card.nonLand+YouOwn | ValidSA$ Spell | ValidZone$ Hand | WithoutManaCost$ True | Amount$ All | Controller$ You | Optional$ True | SubAbility$ DBExileSelf | Ultimate$ True
+SVar:DBExileSelf:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | SubAbility$ DBReturnSelf | RememberChanged$ True
+SVar:DBReturnSelf:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:Y:Count$ValidHand Card.YouOwn

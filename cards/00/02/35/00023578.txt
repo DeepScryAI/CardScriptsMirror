@@ -1,10 +1,13 @@
 Id:23578
 ColorIdentity:B
 OriginSet:G1a259dba25660062
-ManaCost:1 B
-Types:Artifact Vehicle
-PT:4/3
-K:Crew:2
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPutCounter
-SVar:TrigPutCounter:AB$ PutCounter | Cost$ Sac<1/Creature.Other;Artifact.Other/another artifact or creature> | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | Defined$ Self | KW$ Menace
+ManaCost:2 B
+Types:Creature Spirit
+PT:2/2
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigBranch
+SVar:TrigBranch:DB$ Branch | BranchConditionSVar$ X | TrueSubAbility$ DBDraw | FalseSubAbility$ DBSac
+SVar:DBDraw:DB$ Draw
+SVar:DBSac:DB$ Sacrifice | Defined$ Player | SacValid$ Creature
+SVar:X:Count$ThisTurnEntered_Graveyard_from_Battlefield_Creature
+SVar:NeedsToPlayVar:X GE1

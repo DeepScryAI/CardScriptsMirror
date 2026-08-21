@@ -1,10 +1,10 @@
 Id:24229
 ColorIdentity:R
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:2 R
-Types:Enchantment
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | CounterType$ DESCENT | CounterNum$ 2 | SubAbility$ DBTreasure
-SVar:DBTreasure:DB$ Token | TokenOwner$ Player | TokenAmount$ X | TokenScriptIds$ 3851718391 | SubAbility$ DBDealDamage
-SVar:DBDealDamage:DB$ DealDamage | Defined$ Player | NumDmg$ X
-SVar:X:Count$CardCounters.DESCENT
+ManaCost:4 R R
+Types:Creature Elder Dragon
+PT:6/5
+K:Flying
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigRoll
+SVar:TrigRoll:DB$ RollDice | ResultSVar$ Result | Sides$ 20 | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 3851718391 | TokenAmount$ Result

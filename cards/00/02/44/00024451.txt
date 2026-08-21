@@ -1,7 +1,14 @@
 Id:24451
-ColorIdentity:U
+ColorIdentity:B
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:1 U
-Types:Creature Orc Rogue
-PT:1/3
-A:AB$ Draw | Cost$ 8 | NumCards$ 2
+ManaCost:3 B
+Types:Artifact Equipment
+K:Equip:Discard<1/Card>
+R:Event$ GameLoss | ActiveZones$ Battlefield | ValidPlayer$ You | ValidLoseReason$ LifeReachedZero | Layer$ CantHappen | IsPresent$ Card.Self+AttachedTo Creature
+T:Mode$ Attacks | ValidCard$ Creature.EquippedBy | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Reveal$ True | RememberDrawn$ True | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ TriggeredAttackerLKICopy | NumAtt$ +X | NumDef$ +X | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ X | Defined$ You | SubAbility$ DBClean
+SVar:DBClean:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$CardManaCost
+SVar:AIPreference:DiscardCost$Card

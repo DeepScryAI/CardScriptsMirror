@@ -1,10 +1,11 @@
 Id:17452
-ColorIdentity:B
+ColorIdentity:R
 OriginSet:G5475e2be497fd272
-ManaCost:2 B
-Types:Sorcery
-A:SP$ PeekAndReveal | PeekAmount$ 3 | NoPeek$ True | RememberRevealed$ True | SubAbility$ DBRepeat
-SVar:DBRepeat:DB$ RepeatEach | RepeatSubAbility$ DBChangeZone | RepeatCards$ Card.IsRemembered | ChooseOrder$ True | Zone$ Library | UseImprinted$ True | SubAbility$ PutIntoHand
-SVar:DBChangeZone:DB$ ChangeZone | Defined$ Imprinted | Origin$ Library | Destination$ Hand | UnlessCost$ PayLife<3> | UnlessPayer$ Opponent | ForgetChanged$ True
-SVar:PutIntoHand:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered | Origin$ Library | Destination$ Exile | SubAbility$ DBCleanup
+ManaCost:5 R
+Types:Enchantment
+T:Mode$ SpellCast | ValidCard$ Card.wasCastFromYourHand | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDig
+SVar:TrigDig:DB$ PeekAndReveal | Defined$ You | PeekAmount$ X | RememberRevealed$ True | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | ValidZone$ Library | Valid$ Card.nonLand+IsRemembered | ValidSA$ Spell.cmcLEX | WithoutManaCost$ True | Optional$ True | Amount$ 1 | ShowCards$ Card.IsRemembered | ForgetPlayed$ True | SubAbility$ DBRestRandomOrder
+SVar:DBRestRandomOrder:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered | Origin$ Library | Destination$ Library | LibraryPosition$ -1 | RandomOrder$ True | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:TriggeredSpellAbility$CardManaCostLKI

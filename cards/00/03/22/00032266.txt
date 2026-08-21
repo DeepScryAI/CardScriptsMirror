@@ -1,13 +1,16 @@
 Id:32266
-ColorIdentity:R
+ColorIdentity:B
 OriginSet:G9946f072b5556073
-ManaCost:4 R R
-Types:Creature Beast
-PT:6/6
-K:Reach
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ DBDigUntil
-SVar:DBDigUntil:DB$ DigUntil | Valid$ Card.nonLand | FoundDestination$ Exile | RevealedDestination$ Exile | RememberFound$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ Play | SubAbility$ DBCleanup | ExileOnMoved$ Exile
-SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered+nonLand | AffectedZone$ Exile
+ManaCost:3 B
+Types:Artifact Spacecraft
+PT:3/10
+K:Station:8
+S:Mode$ Continuous | Affected$ Card.Self+counters_GE1_CHARGE | AddTrigger$ DiscardTrig
+SVar:DiscardTrig:Mode$ Discarded | ValidCard$ Card.OppOwn | TriggerZones$ Battlefield | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ TriggeredCardController | LifeAmount$ 3
+S:Mode$ Continuous | Affected$ Card.Self+counters_GE8_CHARGE | AddType$ Creature | AddKeyword$ Flying & Deathtouch | AddTrigger$ AttackTrig
+SVar:AttackTrig:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDiscard
+SVar:TrigDiscard:DB$ Discard | Mode$ TgtChoose | Defined$ Opponent | NumCards$ 1 | RememberDiscarded$ True | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ OppNonRememberedController | LifeAmount$ 3 | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:BuffedBy:Land
+SVar:HasAttackEffect:TRUE

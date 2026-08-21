@@ -1,11 +1,9 @@
 Id:26810
-ColorIdentity:U
-OriginSet:G3601f5e223de6c7f
-ManaCost:2 U
-Types:Creature Human Advisor
-PT:2/3
-T:Mode$ DamageDone | ValidSource$ Card.IsCommander+YouOwn | ValidTarget$ Player | CheckSVar$ Monarch | SVarCompare$ EQ0 | CombatDamage$ True | Execute$ TrigMonarch | TriggerZones$ Battlefield
-SVar:TrigMonarch:DB$ BecomeMonarch
-SVar:Monarch:PlayerCountPlayers$HasPropertyisMonarch
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ Player.isMonarch | TriggerZones$ Battlefield | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ TriggeredPlayer
+ColorIdentity:G
+OriginSet:G06757f68e16377c2
+ManaCost:4 G
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGainLife
+SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 5 | SubAbility$ DBIncubate
+SVar:DBIncubate:DB$ Incubate | Amount$ 5
+S:Mode$ Continuous | Affected$ Phyrexian.YouCtrl | AddKeyword$ Reach

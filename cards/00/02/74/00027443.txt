@@ -1,14 +1,15 @@
 Id:27443
-ColorIdentity:UR
-OriginSet:G7579344e30f8be85
-ManaCost:2 U
-Types:Creature Otter Wizard
+ColorIdentity:G
+OriginSet:G4e034c55e7afd8b4
+ManaCost:1 G
+Types:Creature Elemental Raccoon
 PT:2/2
-K:Flying
-T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +1 | NumDef$ +1
+A:AB$ Mana | Cost$ T | Produced$ G
+A:AB$ ChangeZone | Cost$ 1 G T Discard<1/Card> | Origin$ Battlefield | Destination$ Hand
 AlternateMode:Adventure
 ALTERNATE
-ManaCost:R
-Types:Instant Adventure
-A:SP$ DealDamage | ValidTgts$ Any | NumDmg$ 1
+ManaCost:5 G G
+Types:Sorcery Adventure
+A:SP$ Mill | NumCards$ 7 | RememberMilled$ True | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Hidden$ True | Mandatory$ True | Origin$ Graveyard,Exile | Destination$ Battlefield | ChangeType$ Creature.IsRemembered,Enchantment.IsRemembered,Land.IsRemembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

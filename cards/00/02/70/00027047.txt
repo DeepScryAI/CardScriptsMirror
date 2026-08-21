@@ -1,10 +1,13 @@
 Id:27047
-ColorIdentity:B
-OriginSet:G6ce0035cfb774934
-ManaCost:1 B
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:Curse
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ -3 | AddTrigger$ TrigExile
-SVar:TrigExile:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigExileEnchanted
-SVar:TrigExileEnchanted:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | UnlessCost$ PayLife<2> | UnlessPayer$ TriggeredPlayer
+ColorIdentity:WR
+OriginSet:G3601f5e223de6c7f
+ManaCost:3 R W
+Types:Legendary Creature Human Noble
+PT:2/2
+K:DoubleStrike
+K:etbCounter:P1P1:X:no Condition
+SVar:X:Count$Valid Human.Other+YouCtrl
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMonarch
+SVar:TrigMonarch:DB$ BecomeMonarch | ValidTgts$ Player | SubAbility$ DBPower
+SVar:DBPower:DB$ DealDamage | ValidTgts$ Any | NumDmg$ Y
+SVar:Y:Count$CardPower

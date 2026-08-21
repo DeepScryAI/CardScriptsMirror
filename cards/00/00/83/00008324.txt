@@ -1,8 +1,9 @@
 Id:8324
 ColorIdentity:UG
 OriginSet:Gde6d8130c178f566
-ManaCost:2 G G U U
-Types:Legendary Creature Ooze Mutant
-PT:4/6
-S:Mode$ Continuous | Affected$ Card.Self | EffectZone$ Battlefield | GainsAbilitiesOf$ Creature.Other+counters_GE1_P1P1
-A:AB$ PutCounter | Cost$ T | CounterType$ P1P1 | CounterNum$ 1 | ValidTgts$ Creature
+ManaCost:3
+Types:Artifact
+A:AB$ Tap | Cost$ 3 T | ValidTgts$ Creature | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Targeted | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Targeted | Abilities$ ABPutCounter
+SVar:ABPutCounter:AB$ MultiplyCounter | Cost$ 2 G U | Defined$ Self | CounterType$ P1P1

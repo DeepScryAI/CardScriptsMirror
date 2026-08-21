@@ -1,13 +1,10 @@
 Id:25230
-ColorIdentity:UBR
+ColorIdentity:B
 OriginSet:Gf591a76e7a37cf73
-ManaCost:3 U B R
-Types:Enchantment Saga
-K:Chapter:3:GainControl,DBDraw,DBChoose
-SVar:GainControl:DB$ GainControl | ValidTgts$ Creature.nonLegendary+OppCtrl | LoseControl$ LeavesPlay | TargetMin$ 0 | TargetMax$ OneEach | TargetsForEachPlayer$ True
-SVar:OneEach:PlayerCountOpponents$Amount
-SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ X
-SVar:X:Count$Valid Creature.YouDontOwn+YouCtrl
-SVar:DBChoose:DB$ ChooseCard | Defined$ Player | StartingWith$ You | Choices$ Creature | Mandatory$ True | SubAbility$ DBDestroy
-SVar:DBDestroy:DB$ Destroy | Defined$ ChosenCard | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+ManaCost:4 B
+Types:Creature Demon
+PT:4/5
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ Opponent | LifeAmount$ 2 | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 2556463763 | TokenAmount$ X | TokenOwner$ You
+SVar:X:PlayerCountOpponents$HasPropertylifeLTCount$YourLifeTotal

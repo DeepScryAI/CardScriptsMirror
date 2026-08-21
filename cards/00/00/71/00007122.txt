@@ -1,9 +1,10 @@
 Id:7122
 ColorIdentity:U
 OriginSet:G332b6b8a53f3d107
-ManaCost:1 U
-Types:Creature Zubera Spirit
-PT:1/2
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ X
-SVar:X:Count$ThisTurnEntered_Graveyard_from_Battlefield_Card.Zubera
+ManaCost:2 U
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ CantBlockBy | ValidAttacker$ Creature.EnchantedBy | ValidBlocker$ Creature.Spirit
+A:AB$ ChangeZone | Cost$ 1 U | Origin$ Battlefield | Destination$ Hand
+SVar:NonStackingAttachEffect:True

@@ -1,10 +1,9 @@
 Id:17394
-ColorIdentity:R
+ColorIdentity:UBR
 OriginSet:G5475e2be497fd272
-ManaCost:5 R R
-Types:Creature Human Pirate
-PT:4/4
-R:Event$ DamageDone | ActiveZones$ Battlefield | ValidSource$ Card.YouCtrl,Emblem.YouCtrl | ValidTarget$ Permanent,Player | ReplaceWith$ DmgTwice
-SVar:DmgTwice:DB$ ReplaceEffect | VarName$ DamageAmount | VarValue$ X
-SVar:X:ReplaceCount$DamageAmount/Twice
-SVar:PlayMain1:TRUE
+ManaCost:1 U B R
+Types:Legendary Creature Human Pirate
+PT:3/3
+S:Mode$ Continuous | Affected$ Creature.Pirate+Other+YouCtrl | AddPower$ 1 | AddToughness$ 1
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigGainCtrl
+SVar:TrigGainCtrl:DB$ GainControl | ValidTgts$ Permanent.nonLand+ControlledBy Player.wasDealtCombatDamageThisTurnBy Creature.Pirate GE3

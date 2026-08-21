@@ -1,11 +1,8 @@
 Id:16440
-ColorIdentity:W
+ColorIdentity:U
 OriginSet:G4bddbf7cb4f2475e
-ManaCost:3 W
-Types:Creature Dwarf Soldier
-PT:3/4
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigEnergy
-SVar:TrigEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ 2
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump
-SVar:TrigPump:AB$ Pump | Cost$ PayEnergy<1> | ValidTgts$ Creature.attacking+Other | KW$ Indestructible
-SVar:HasAttackEffect:TRUE
+ManaCost:3 U U
+Types:Sorcery
+A:SP$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ 4 | SubAbility$ DBGainControl
+SVar:DBGainControl:DB$ GainControl | ValidTgts$ Artifact,Creature | UnlessCost$ PayEnergy<X> | UnlessPayer$ You | UnlessSwitched$ True
+SVar:X:Targeted$CardManaCost

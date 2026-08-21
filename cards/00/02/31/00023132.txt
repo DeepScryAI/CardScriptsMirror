@@ -1,19 +1,9 @@
 Id:23132
-ColorIdentity:R
-OriginSet:G6e75ff4f143a3dc3
-ManaCost:2 R
-Types:Creature Vampire
-PT:2/3
-T:Mode$ AttackersDeclared | Execute$ TrigTransform | ValidAttackers$ Creature | ValidAttackersAmount$ EQ2 | TriggerZones$ Battlefield | AttackingPlayer$ You
-SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:red
-Types:Creature Vampire
-PT:3/3
-K:Trample
-T:Mode$ Transformed | ValidCard$ Card.Self | Execute$ TrigMana
-SVar:TrigMana:DB$ Mana | Produced$ R | Amount$ 2 | PersistentMana$ True
-A:AB$ Pump | Cost$ R R | Defined$ Self | NumAtt$ +1 | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | ValidTgts$ Creature.Other | NumAtt$ +1
+ColorIdentity:G
+OriginSet:G7a76c1974b0a33a6
+ManaCost:2 G
+Types:Enchantment
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | ValidTgts$ Wolf.YouCtrl,Werewolf.YouCtrl | NumAtt$ +2 | NumDef$ +2
+T:Mode$ SpellCast | ValidActivatingPlayer$ Opponent | ActivatorThisTurnCast$ EQ2 | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 4257275070

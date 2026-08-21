@@ -1,10 +1,11 @@
 Id:27423
-ColorIdentity:B
-OriginSet:G7579344e30f8be85
-ManaCost:3 B
-Types:Creature Faerie Warlock
+ColorIdentity:
+OriginSet:G8636ad1cfd514d83
+ManaCost:3
+Types:Creature Insect
 PT:2/2
-K:Flying
-T:Mode$ SpellCast | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | OpponentTurn$ True | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.OppCtrl | NumAtt$ -1 | NumDef$ -1 | IsCurse$ True | TargetMin$ 0 | TargetMax$ 1
-SVar:BuffedBy:Creature.withFlash
+K:Flash
+S:Mode$ CastWithFlash | ValidCard$ Card.Colorless | ValidSA$ Spell | EffectZone$ Battlefield | Caster$ You
+T:Mode$ SpellCast | ValidCard$ Card.Colorless | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +X | NumDef$ +X | KW$ Trample
+SVar:X:TriggeredSpellAbility$CardManaCostLKI

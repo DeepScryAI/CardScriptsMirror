@@ -1,13 +1,8 @@
 Id:23540
-ColorIdentity:G
+ColorIdentity:U
 OriginSet:G1a259dba25660062
-ManaCost:1 G
-Types:Creature Spirit
-PT:2/2
-K:Trample
-T:Mode$ SpellCast | ValidCard$ Enchantment | ValidActivatingPlayer$ You | Execute$ TrigPutCounter | TriggerZones$ Battlefield
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
-T:Mode$ Phase | Phase$ End of Turn | CheckSVar$ X | TriggerZones$ Graveyard | OptionalDecider$ You | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | Defined$ Self
-SVar:X:Count$ThisTurnEntered_Graveyard_from_Battlefield_Enchantment.YouOwn
-SVar:BuffedBy:Enchantment
+ManaCost:2 U
+Types:Instant
+A:SP$ Dig | Defined$ You | DigNum$ 5 | DestinationZone$ Exile | ExileFaceDown$ True | RememberChanged$ True | RestRandomOrder$ True | SubAbility$ DBCast
+SVar:DBCast:DB$ Play | Optional$ True | Defined$ Remembered | ValidSA$ Instant.cmcLE2 | WithoutManaCost$ True | ForgetPlayed$ True | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Exile | Destination$ Hand | Defined$ Remembered | ForgetChanged$ True

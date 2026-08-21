@@ -1,14 +1,11 @@
 Id:31409
 ColorIdentity:R
-OriginSet:Gf2b808f4f642ac62
-ManaCost:3 R
-Types:Creature Dog Monk
-PT:2/4
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
-SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | Duration$ UntilTheEndOfYourNextTurn | StaticAbilities$ Play | SubAbility$ DBCleanup | ForgetOnMoved$ Exile
-SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+OriginSet:Ge1676a27173c0866
+ManaCost:1 R
+Types:Artifact Equipment
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1 | AddToughness$ 1 | AddKeyword$ Trample & Haste
+T:Mode$ SpellCast | ValidCard$ Card.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigToken | ValidActivatingPlayer$ You | ActivatorThisTurnCast$ EQ2
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 1221548164 | TokenOwner$ You | RememberTokens$ True | SubAbility$ DBAttach
+SVar:DBAttach:DB$ Attach | Defined$ Remembered | Optional$ True | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-T:Mode$ SpellCast | ValidCard$ Card.YouCtrl | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump | ActivatorThisTurnCast$ EQ2
-SVar:TrigPump:DB$ Pump | Defined$ Self | KW$ DoubleStrike
-SVar:BuffedBy:Card
+K:Equip:1 R

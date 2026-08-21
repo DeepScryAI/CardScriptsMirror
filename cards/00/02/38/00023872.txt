@@ -1,9 +1,11 @@
 Id:23872
-ColorIdentity:B
-OriginSet:Gfdfe2ebef04be34e
-ManaCost:X B B
+ColorIdentity:U
+OriginSet:G5f5d8cfb206e2fac
+ManaCost:3 U U
 Types:Sorcery
 K:Casualty:3
-A:SP$ Draw | NumCards$ X | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ X
-SVar:X:Count$xPaid
+A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Instant.OppOwn,Sorcery.OppOwn | RememberChanged$ True | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | Valid$ Card.IsRemembered+ExiledWithSource | ValidSA$ Spell | ValidZone$ Exile | Amount$ All | WithoutManaCost$ True | Optional$ True | CopyCard$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$ValidGraveyard Instant.OppOwn+cmcGE4,Sorcery.OppOwn+cmcGE4
+SVar:NeedsToPlayVar:X GE1

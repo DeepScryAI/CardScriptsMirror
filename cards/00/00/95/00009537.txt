@@ -1,10 +1,10 @@
 Id:9537
 ColorIdentity:U
 OriginSet:G49bcc8b9b86b628d
-ManaCost:3 U
-Types:Creature Faerie Rogue
-PT:3/1
-K:Flying
-K:Prowl:2 U
-T:Mode$ ChangesZone | Origin$ Stack | Destination$ Battlefield | ValidCard$ Card.Self+prowled | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw
+ManaCost:5 U U
+Types:Kindred Sorcery Rogue
+K:Prowl:3 U
+A:SP$ ChangeZone | ValidTgts$ Opponent | Origin$ Library | Destination$ Library | ChangeType$ Instant,Sorcery | RememberChanged$ True | Reveal$ True | Shuffle$ False | DefinedPlayer$ Targeted | Chooser$ You | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | Defined$ Remembered | Controller$ You | WithoutManaCost$ True | ValidSA$ Spell | Optional$ True | SubAbility$ DBShuffle
+SVar:DBShuffle:DB$ Shuffle | Defined$ RememberedController | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

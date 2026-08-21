@@ -1,9 +1,11 @@
 Id:33291
-ColorIdentity:U
+ColorIdentity:WG
 OriginSet:G7ab1fe96128a1641
-ManaCost:1 U
-Types:Creature Faerie Rogue
-PT:2/1
-K:Flying
-T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | OpponentTurn$ True | Execute$ TrigSurveil
-SVar:TrigSurveil:DB$ Surveil | Amount$ 2
+ManaCost:1 G W
+Types:Kindred Sorcery Kithkin
+A:SP$ Charm | Choices$ DBCopy,DBToken,DBPump,DBFight | CharmNum$ 2
+SVar:DBCopy:DB$ CopyPermanent | ValidTgts$ Kithkin.YouCtrl
+SVar:DBToken:DB$ Token | ValidTgts$ Player | TokenScriptIds$ 2841281128 | TokenOwner$ TargetedPlayer
+SVar:DBPump:DB$ Pump | ValidTgts$ Creature.YouCtrl | NumAtt$ +3 | NumDef$ +3
+SVar:DBFight:DB$ Pump | AILogic$ Fight | ValidTgts$ Creature.YouCtrl | SubAbility$ DBFight2
+SVar:DBFight2:DB$ Fight | Defined$ ParentTarget | ValidTgts$ Creature.OppCtrl

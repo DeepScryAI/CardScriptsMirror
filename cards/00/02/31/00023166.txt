@@ -1,9 +1,20 @@
 Id:23166
-ColorIdentity:G
-OriginSet:G6e75ff4f143a3dc3
-ManaCost:2 G
-Types:Enchantment
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigMill | TriggerZones$ Battlefield
-SVar:TrigMill:DB$ Mill | NumCards$ 2 | Defined$ You | Optional$ True
-T:Mode$ ChangesZoneAll | ValidCards$ Creature.YouOwn+!token | Origin$ Any | Destination$ Graveyard | TriggerZones$ Battlefield | ActivationLimit$ 1 | PlayerTurn$ True | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 704294417
+ColorIdentity:B
+OriginSet:G7a76c1974b0a33a6
+ManaCost:1 B
+Types:Creature Vampire Wizard
+PT:2/1
+K:Flying
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self,Creature.Other+!token+YouCtrl | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 2179622914
+T:Mode$ TokenCreated | ValidPlayer$ You | ValidToken$ Blood | IsPresent$ Blood.token+YouCtrl | PresentCompare$ GE5 | Execute$ TrigTransform | TriggerZones$ Battlefield
+SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:black
+Types:Creature Vampire Wizard
+PT:3/3
+K:Flying
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | Execute$ TrigAnimate | TriggerZones$ Battlefield
+SVar:TrigAnimate:DB$ Animate | ValidTgts$ Blood.token+YouCtrl | TargetMin$ 0 | TargetMax$ 1 | Power$ 2 | Toughness$ 2 | Colors$ Black | OverwriteColors$ True | Types$ Creature,Bat | Keywords$ Flying & Haste | Duration$ Permanent

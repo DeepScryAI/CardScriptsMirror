@@ -1,11 +1,9 @@
 Id:19120
-ColorIdentity:UBR
-OriginSet:G0852bdaf94eef605
-ManaCost:U B B B R
-Types:Legendary Planeswalker Bolas
-Loyalty:4
-S:Mode$ Continuous | Affected$ Card.Self | EffectZone$ Battlefield | GainsAbilitiesOf$ Planeswalker.Other | GainsValidAbilities$ Activated.Loyalty
-A:AB$ Draw | Cost$ AddCounter<1/LOYALTY> | NumCards$ 1 | SubAbility$ DBChangeZone | Planeswalker$ True
-SVar:DBChangeZone:DB$ ChangeZone | Origin$ Battlefield,Hand | Destination$ Exile | DefinedPlayer$ Player.Opponent | ChangeType$ Card | ChangeNum$ 1 | Mandatory$ True
-A:AB$ Destroy | Cost$ SubCounter<3/LOYALTY> | ValidTgts$ Creature,Planeswalker | Planeswalker$ True
-A:AB$ LosesGame | Cost$ SubCounter<8/LOYALTY> | Defined$ Player.Opponent+controlsLegendary.Creature_EQ0+controlsPlaneswalker_LE0 | Planeswalker$ True | Ultimate$ True
+ColorIdentity:RG
+OriginSet:G0b51a0aecbe39efe
+ManaCost:R R G G
+Types:Creature Giant Shaman
+PT:5/5
+S:Mode$ MinMaxBlocker | ValidCard$ Card.Self | Max$ 1
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDestroy | TriggerZones$ Battlefield
+SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Artifact.ControlledBy TriggeredTarget,Enchantment.ControlledBy TriggeredTarget

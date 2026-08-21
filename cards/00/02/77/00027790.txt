@@ -1,10 +1,15 @@
 Id:27790
-ColorIdentity:
-OriginSet:G30e8a5e111cffb44
-ManaCost:3
-Types:Artifact
-A:AB$ Mana | Cost$ T | Produced$ Any
-A:AB$ Untap | Cost$ 1 T | ValidTgts$ Artifact.Other
-A:AB$ Scry | Cost$ 2 T | ScryNum$ 1
-A:AB$ Effect | Cost$ 3 T | ValidTgts$ Creature | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable | AILogic$ MakeUnblockable
-SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+ColorIdentity:WU
+OriginSet:Gd488b4ad788f0529
+ManaCost:4 W W
+Types:Creature Giant
+PT:6/6
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigAurify
+SVar:TrigAurify:DB$ ChangeZone | Origin$ Hand,Graveyard | Destination$ Battlefield | ChangeType$ Aura.CanEnchantSource+YouOwn | AttachedTo$ Self | ChangeNum$ CountAuras | Optional$ True | Hidden$ True
+SVar:CountAuras:Count$ValidHand,Graveyard Aura.CanEnchantSource+YouOwn
+AlternateMode:Adventure
+ALTERNATE
+ManaCost:X U U
+Types:Instant Adventure
+A:SP$ MakeCard | SpellbookAmount$ X | Conjure$ True | AtRandom$ True | SpellbookCatalogIds$ 18409,19843,10779,18099,2899,13030,19436,13068,18501,18196,20970,20448,25889 | Zone$ Hand
+SVar:X:Count$xPaid

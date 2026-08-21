@@ -1,16 +1,10 @@
 Id:16200
-ColorIdentity:U
+ColorIdentity:BG
 OriginSet:G70d19654882197c9
-ManaCost:2 U
-Types:Creature Human
-PT:2/3
-A:AB$ Mill | Cost$ T | Defined$ You | NumCards$ 2 | SubAbility$ DBTransform
-SVar:DBTransform:DB$ SetState | Defined$ Self | Mode$ Transform | ConditionCheckSVar$ X | ConditionSVarCompare$ GE1
-SVar:X:Count$ValidGraveyard Creature.YouOwn+Colorless
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Types:Creature Eldrazi Fish
-PT:4/5
-A:AB$ Effect | Cost$ 6 | StaticAbilities$ MustAttack
-SVar:MustAttack:Mode$ MustAttack | ValidCreature$ Creature.OppCtrl
+ManaCost:B G
+Types:Creature Human Warrior
+PT:2/2
+K:Trample
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigSurveil | CombatDamage$ True
+SVar:TrigSurveil:DB$ Surveil | Amount$ 3
+S:Mode$ Continuous | Affected$ Card.Self | AddPower$ 2 | AddToughness$ 2 | Condition$ Delirium

@@ -1,15 +1,9 @@
 Id:33722
-ColorIdentity:B
-OriginSet:G14da29c4716bedc3
-ManaCost:1 B
-Types:Creature Vampire Cleric
-PT:2/2
-T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigPump | TriggerZones$ Battlefield
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature | KW$ Deathtouch | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | RememberObjects$ Targeted | Triggers$ DamageTrigger | Duration$ UntilEndOfCombat
-SVar:DamageTrigger:Mode$ DamageDone | ValidSource$ Creature.IsRemembered | ValidTarget$ Player | Execute$ TrigPrepare | CombatDamage$ True
-SVar:TrigPrepare:DB$ AlterAttribute | Defined$ EffectSource | Attributes$ Prepared
-AlternateMode:Prepare
-SVar:PlayMain1:TRUE
-ALTERNATE
-CopyFaceFromId:11551
+ColorIdentity:R
+OriginSet:G23d1f017cc66962f
+ManaCost:1 R
+Types:Artifact
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigToken | Secondary$ True
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 157951881 | TokenOwner$ You
+A:AB$ DealDamage | Cost$ 4 R Sac<1/CARDNAME/this artifact> | ValidTgts$ Creature | NumDmg$ 3

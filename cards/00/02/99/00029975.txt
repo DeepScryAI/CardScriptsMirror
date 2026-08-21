@@ -1,12 +1,12 @@
 Id:29975
-ColorIdentity:R
+ColorIdentity:WG
 OriginSet:Gf09b85bbcc27770c
-ManaCost:2 R R
-Types:Creature Elemental Cat
-PT:5/4
-S:Mode$ CantGainLife | ValidPlayer$ Player
-S:Mode$ CantPreventDamage
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigRepeatEach
-SVar:TrigRepeatEach:DB$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBDamage | DamageMap$ True
-SVar:DBDamage:DB$ DealDamage | Defined$ Remembered | NumDmg$ X
-SVar:X:Count$Valid Land.nonBasic+RememberedPlayerCtrl
+ManaCost:G W
+Types:Legendary Creature Rabbit Archer
+PT:2/2
+K:Vigilance
+K:Reach
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPutCounterAll
+SVar:TrigPutCounterAll:DB$ PutCounterAll | ValidCards$ Creature.YouCtrl+StrictlyOther+token,Creature.YouCtrl+StrictlyOther+Rabbit | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | ConditionCheckSVar$ X | ConditionSVarCompare$ GE10
+SVar:X:Count$Valid Creature.YouCtrl$CardPower

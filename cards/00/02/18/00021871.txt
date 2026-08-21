@@ -1,14 +1,10 @@
 Id:21871
-ColorIdentity:UG
-OriginSet:G6fa60d857e930f32
-ManaCost:1 G U
-Types:Legendary Planeswalker Kasmina
-Loyalty:2
-S:Mode$ Continuous | Affected$ Planeswalker.Other+YouCtrl | EffectZone$ Battlefield | GainsAbilitiesOfDefined$ Self | GainsValidAbilities$ Activated.Loyalty
-A:AB$ Scry | Cost$ AddCounter<2/LOYALTY> | Planeswalker$ True | ScryNum$ 1
-A:AB$ Token | Cost$ SubCounter<X/LOYALTY> | Planeswalker$ True | TokenScriptIds$ 1802199211 | SubAbility$ DBPutCounter | RememberTokens$ True
-SVar:DBPutCounter:DB$ PutCounter | Defined$ Remembered | CounterType$ P1P1 | CounterNum$ X | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:WR
+OriginSet:Gabb23d0d25cdc46d
+ManaCost:2 R W
+Types:Legendary Creature Giant Artificer
+PT:4/4
+K:Vigilance
+A:AB$ Pump | Cost$ 1 Sac<1/Artifact> | NumAtt$ +2 | ValidTgts$ Creature.YouCtrl
+A:AB$ CopyPermanent | Cost$ X T ExileFromGrave<1/Artifact.cmcEQX/artifact card with mana value X> | Defined$ Exiled | NumCopies$ 2 | SorcerySpeed$ True
 SVar:X:Count$xPaid
-A:AB$ ChangeZone | Cost$ SubCounter<8/LOYALTY> | Planeswalker$ True | Ultimate$ True | Origin$ Library | Destination$ Exile | ChangeType$ Instant.SharesColorWith,Sorcery.SharesColorWith | ChangeNum$ 1 | SubAbility$ DBPlay | RememberChanged$ True
-SVar:DBPlay:DB$ Play | Defined$ Remembered | WithoutManaCost$ True | ValidSA$ Spell | Optional$ True | SubAbility$ DBCleanup

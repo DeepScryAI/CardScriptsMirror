@@ -1,11 +1,14 @@
 Id:16210
-ColorIdentity:U
+ColorIdentity:R
 OriginSet:G70d19654882197c9
-ManaCost:2 U
-Types:Enchantment Aura
-K:Enchant:Creature,Land,Planeswalker:creature, land, or planeswalker
-SVar:AttachAITgts:Card.cmcGE3
-SVar:AttachAILogic:Curse
-S:Mode$ Continuous | Affected$ Card.EnchantedBy | SetColor$ Colorless | AddType$ Land | RemoveCardTypes$ True | RemoveAllAbilities$ True | AddAbility$ ABMana
-SVar:ABMana:AB$ Mana | Cost$ T | Produced$ C
-SVar:NonStackingAttachEffect:True
+ManaCost:2 R R
+Types:Creature Devil
+PT:6/1
+K:Haste
+K:Trample
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigProvoke
+SVar:TrigProvoke:DB$ MustBlock | Duration$ UntilEndOfCombat | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Creature.DefenderCtrl
+T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice | SacValid$ Self
+SVar:EndOfTurnLeavePlay:True
+SVar:PlayMain1:TRUE

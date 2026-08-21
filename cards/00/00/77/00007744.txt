@@ -1,8 +1,10 @@
 Id:7744
-ColorIdentity:
+ColorIdentity:W
 OriginSet:G3fddc6426f419054
-ManaCost:1
-Types:Artifact Equipment
-K:Equip:2
-S:Mode$ CantAttach | ValidCard$ Card.Self | Target$ Creature.powerLT3
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 3 | AddKeyword$ Trample
+ManaCost:2 W
+Types:Creature Spirit
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDestroy
+T:Mode$ SpellCast | ValidCard$ Spirit,Arcane | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Defined$ Self | Origin$ Battlefield | Destination$ Hand
+SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Enchantment

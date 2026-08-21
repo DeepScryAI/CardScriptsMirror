@@ -1,7 +1,14 @@
 Id:30423
 ColorIdentity:
-OriginSet:G8b2ed00ac2a0ff47
-ManaCost:2
-Types:Legendary Artifact Creature Toy
-PT:2/2
-S:Mode$ Continuous | Affected$ Card.Self | EffectZone$ Battlefield | GainsAbilitiesOf$ Creature.YouCtrl+!sharesNameWith Self
+OriginSet:G7b2137df486dc752
+ManaCost:no cost
+Types:Scheme
+T:Mode$ SetInMotion | ValidCard$ Card.Self | Execute$ DBChoosePlayer | TriggerZones$ Command
+SVar:DBChoosePlayer:DB$ Pump | ValidTgts$ Player | TargetMin$ 0 | TargetMax$ MaxTgts | SubAbility$ DBRepeat
+SVar:DBRepeat:DB$ RepeatEach | RepeatPlayers$ Targeted | RepeatSubAbility$ DBDiscard | SubAbility$ DBYouDraw
+SVar:DBDiscard:DB$ Discard | Defined$ Remembered | Mode$ Hand | RememberDiscarded$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ X | Defined$ Player.Opponent+IsRemembered
+SVar:DBYouDraw:DB$ Draw | Defined$ You | NumCards$ 7 | ConditionDefined$ Remembered | ConditionPresent$ Card.YouOwn | SubAbility$ DBClearRemembered
+SVar:DBClearRemembered:DB$ Cleanup | ClearRemembered$ True
+SVar:MaxTgts:PlayerCountPlayers$Amount
+SVar:X:Remembered$Valid Card.RememberedPlayerOwn/Minus.1

@@ -1,11 +1,11 @@
 Id:32602
-ColorIdentity:UB
-OriginSet:G36e97d2da170e675
-ManaCost:2 U B B
-Types:Legendary Creature Human Noble Rogue
-PT:4/4
-K:Firebending:2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
-SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Opponent | DefinedPlayer$ Targeted | Mandatory$ True | ChangeType$ Creature.!token | ChangeNum$ 1 | Hidden$ True | IsCurse$ True | Chooser$ Targeted | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | DefinedPlayer$ Targeted | Chooser$ Targeted | ChangeType$ Card.nonLand | ChangeNum$ 1 | Hidden$ True | IsCurse$ True | Mandatory$ True
-S:Mode$ Continuous | Affected$ Card.ExiledWithSource | Condition$ PlayerTurn | MayPlay$ True | MayPlayWithFlash$ True | MayPlayIgnoreType$ True | EffectZone$ Battlefield | AffectedZone$ Exile
+ColorIdentity:U
+OriginSet:G66b3a7eeabd9000e
+ManaCost:4 U
+Types:Enchantment Aura
+K:Flash
+K:Enchant:Creature
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 494159262 | TokenOwner$ You
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 2 | AddToughness$ 2
+SVar:AttachAILogic:Pump

@@ -1,17 +1,10 @@
 Id:21490
-ColorIdentity:R
-OriginSet:G18bf722b221724f8
-ManaCost:2 R
-Types:Legendary Creature God
-PT:3/3
-T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ You | Execute$ TrigMana | TriggerZones$ Battlefield
-SVar:TrigMana:DB$ Mana | Produced$ R | PersistentMana$ True
-S:Mode$ Activations | ValidCard$ Creature.YouCtrl | ValidSA$ Activated.Boast | ValidPlayer$ You | MinLimit$ 2 | PlayerTurn$ You
-AlternateMode:Modal
-ALTERNATE
-ManaCost:4 R
-Types:Legendary Artifact
-A:AB$ Dig | Cost$ Discard<1/Card> | Defined$ You | DigNum$ 2 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | StaticAbilities$ StaticMayPlay | RememberObjects$ Remembered | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:StaticMayPlay:Mode$ Continuous | Affected$ Card.IsRemembered | AffectedZone$ Exile | MayPlay$ True
+ColorIdentity:G
+OriginSet:G51d431785c8b33e5
+ManaCost:5 G
+Types:Legendary Creature Ooze
+PT:0/0
+K:etbCounter:P1P1:5
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self+counters_GE1_P1P1,Creature.Other+YouCtrl+counters_GE1_P1P1 | Execute$ TrigPutCounterAll
+SVar:TrigPutCounterAll:DB$ PutCounterAll | ValidCards$ Creature.YouCtrl+counters_GE1_P1P1 | CounterType$ P1P1 | CounterNum$ 1
+K:Partner

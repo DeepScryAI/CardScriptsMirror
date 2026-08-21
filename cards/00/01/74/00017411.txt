@@ -1,14 +1,9 @@
 Id:17411
-ColorIdentity:B
+ColorIdentity:G
 OriginSet:G5475e2be497fd272
-ManaCost:3 B B
-Types:Creature Orc Pirate Wizard
-PT:4/4
-K:Menace
-K:Deathtouch
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigLoseLife
-SVar:TrigLoseLife:DB$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ CntLife | Defined$ Player.IsRemembered
-SVar:CntLife:PlayerCountRemembered$LifeTotal/ThirdUp
-SVar:NeedsToPlayVar:MyLife GT1
-SVar:MyLife:Count$YourLifeTotal
+ManaCost:1 G
+Types:Creature Merfolk Shaman
+PT:1/1
+T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | Execute$ TrigPutCounter | TriggerZones$ Battlefield
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+SVar:BuffedBy:Card.nonCreature

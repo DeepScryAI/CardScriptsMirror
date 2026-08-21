@@ -1,13 +1,9 @@
 Id:18622
-ColorIdentity:R
+ColorIdentity:G
 OriginSet:Gd7cbb6e7dea72fb5
-ManaCost:2 R
-Types:Legendary Creature Human Knight
-PT:3/3
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenOwner$ TriggeredTarget | TokenAmount$ X | TokenScriptIds$ 2389963374
-SVar:X:TriggerCount$DamageAmount
-S:Mode$ CantBlock | ValidCard$ Survivor.OppCtrl
-S:Mode$ CantAttack | ValidCard$ Creature.Survivor+OppCtrl | Target$ You,Planeswalker.YouCtrl
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigGainControl
-SVar:TrigGainControl:DB$ GainControl | AllValid$ Survivor | NewController$ You
+ManaCost:4 G G
+Types:Sorcery
+T:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigCopy
+SVar:TrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | Amount$ X | MayChooseTarget$ True
+SVar:X:Count$TotalCommanderCastFromCommandZone
+A:SP$ DigUntil | Valid$ Permanent.nonLand | FoundDestination$ Battlefield | OptionalFoundMove$ True | RevealedDestination$ Library | RevealedLibraryPosition$ -1 | RevealRandomOrder$ True

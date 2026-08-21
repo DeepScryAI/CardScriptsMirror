@@ -1,7 +1,10 @@
 Id:16019
-ColorIdentity:G
+ColorIdentity:B
 OriginSet:Gc276c26a85a70470
-ManaCost:G
-Types:Creature Dryad Horror
-PT:1/2
-A:AB$ Mana | Cost$ T tapXType<1/Creature> | Produced$ Any
+ManaCost:X B
+Types:Sorcery
+A:SP$ Mill | NumCards$ X | Defined$ You | RememberMilled$ True | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | ValidTgts$ Player | LifeAmount$ Y | SubAbility$ DBCleanup
+SVar:X:Count$xPaid
+SVar:Y:Count$ValidGraveyard Creature.IsRemembered/Times.2
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

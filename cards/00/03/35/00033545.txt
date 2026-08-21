@@ -1,9 +1,11 @@
 Id:33545
-ColorIdentity:U
-OriginSet:G23d1f017cc66962f
-ManaCost:3 U U
-Types:Legendary Creature Human Wizard
-PT:4/3
-K:Flash
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZoneAll
-SVar:TrigChangeZoneAll:DB$ ChangeZoneAll | Origin$ Battlefield | Destination$ Hand | ChangeType$ Permanent.Other+nonLand+ThisTurnEntered
+ColorIdentity:W
+OriginSet:G40dbb28fb92f9206
+ManaCost:W
+Types:Sorcery
+A:SP$ Charm | Choices$ DBSeek,DBPumpAll
+SVar:DBSeek:DB$ Seek | Type$ Kithkin | RememberFound$ True | SubAbility$ DBDelayTrig
+SVar:DBDelayTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | PresentZone$ Hand | IsPresent$ Card.IsTriggerRemembered | Execute$ TrigExile | RememberObjects$ Remembered | SubAbility$ DBCleanup
+SVar:TrigExile:DB$ ChangeZone | Defined$ DelayTriggerRemembered | Origin$ Hand | Destination$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:DBPumpAll:DB$ PumpAll | ValidCards$ Creature.YouCtrl | PumpZone$ Hand | Duration$ Perpetual | NumAtt$ +1 | NumDef$ +1

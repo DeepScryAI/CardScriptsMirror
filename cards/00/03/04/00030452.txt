@@ -1,10 +1,13 @@
 Id:30452
-ColorIdentity:G
+ColorIdentity:R
 OriginSet:G8b2ed00ac2a0ff47
-ManaCost:G
-Types:Artifact Creature Beast
-PT:3/3
-S:Mode$ CantAttack,CantBlock | ValidCard$ Card.Self | CheckSVar$ X
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigMill | TriggerZones$ Battlefield
-SVar:TrigMill:DB$ Mill | NumCards$ 1 | Defined$ You | Optional$ True
-SVar:X:Count$Delirium.0.1
+ManaCost:1 R
+Types:Artifact Equipment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDealDamage
+SVar:TrigDealDamage:DB$ DealDamage | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | NumDmg$ 3
+T:Mode$ ChangesZoneAll | TriggerZones$ Battlefield | ValidCards$ Creature | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | CounterType$ REV
+S:Mode$ Continuous | Affected$ Card.EquippedBy | AddPower$ X
+K:Equip:3
+SVar:X:Count$CardCounters.REV
+SVar:PlayMain1:TRUE

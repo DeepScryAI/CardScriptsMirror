@@ -1,10 +1,13 @@
 Id:32845
-ColorIdentity:W
-OriginSet:G22ed5d6f3707b461
-ManaCost:3 W
-Types:Creature Human Citizen
-PT:3/3
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigTap | TriggerZones$ Battlefield
-SVar:TrigTap:DB$ Tap | ValidTgts$ Creature.OppCtrl | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | UnlessCost$ Sac<1/Artifact;Creature/artifact or creature> | UnlessPayer$ You | UnlessSwitched$ True | Defined$ Targeted | CounterType$ Stun | CounterNum$ 1
-SVar:HasAttackEffect:TRUE
+ColorIdentity:BR
+OriginSet:G36e97d2da170e675
+ManaCost:2 B B R R
+Types:Legendary Creature Human Noble
+PT:7/7
+K:Trample
+K:Firebending:4
+K:Haste
+R:Event$ LoseMana | ValidPlayer$ You | ReplacementResult$ Replaced | ReplaceWith$ ConvertMana | ActiveZones$ Battlefield
+SVar:ConvertMana:DB$ ReplaceMana | ReplaceType$ Red
+S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ Flying & Indestructible | CheckSVar$ X | SVarCompare$ GE6
+SVar:X:Count$ManaPool:All

@@ -1,10 +1,11 @@
 Id:23193
 ColorIdentity:B
-OriginSet:G6e75ff4f143a3dc3
-ManaCost:B
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:SpecificCard
-SVar:AttachAIValid:Vampire
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy+Vampire | AddPower$ 2 | AddToughness$ 2
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy+nonVampire | AddPower$ -2 | AddToughness$ -2 | Secondary$ True
+OriginSet:G3aa323ca47c740b1
+ManaCost:1 B
+Types:Sorcery
+A:SP$ AnimateAll | ValidCards$ Creature.YouCtrl | Keywords$ Menace | Triggers$ DamageTrig
+SVar:DamageTrig:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDig | TriggerZones$ Battlefield
+SVar:TrigDig:DB$ Dig | DigNum$ 1 | Defined$ TriggeredTarget | DestinationZone$ Exile | ExileFaceDown$ True | WithMayLook$ True | RememberChanged$ True | ChangeNum$ All | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ Remembered | StaticAbilities$ STLookPlay | Duration$ Permanent | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:STLookPlay:Mode$ Continuous | MayPlay$ True | MayPlayIgnoreType$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

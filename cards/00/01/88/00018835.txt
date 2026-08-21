@@ -1,10 +1,12 @@
 Id:18835
-ColorIdentity:U
+ColorIdentity:WR
 OriginSet:G1ecb361a0a117393
-ManaCost:U
-Types:Creature Spirit
-PT:2/2
-K:Defender
-T:Mode$ Surveil | ValidPlayer$ You | Execute$ TrigPutCounter | TriggerZones$ Battlefield
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
-S:Mode$ CanAttackDefender | ValidCard$ Card.Self+counters_GE3_P1P1
+ManaCost:RW RW
+Types:Instant
+A:SP$ DealDamage | ValidTgts$ Creature.attacking,Creature.blocking | NumDmg$ 5
+AlternateMode:Split
+ALTERNATE
+ManaCost:3 R W
+Types:Sorcery
+A:SP$ PumpAll | ValidCards$ Creature.YouCtrl | KW$ FirstStrike & Vigilance | SubAbility$ DBAddCombat
+SVar:DBAddCombat:DB$ AddPhase | ExtraPhase$ Combat | FollowedBy$ Main2 | ConditionPhases$ Main1,Main2

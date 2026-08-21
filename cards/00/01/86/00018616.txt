@@ -1,17 +1,8 @@
 Id:18616
 ColorIdentity:B
 OriginSet:Gd7cbb6e7dea72fb5
-ManaCost:4 B B
-Types:Creature Demon
-PT:6/6
-K:Flying
-K:ETBReplacement:Other:ChooseP
-SVar:ChooseP:DB$ ChoosePlayer | Defined$ You | Choices$ Player | AILogic$ Curse | RememberChosen$ True | SubAbility$ ChoosePTwo
-SVar:ChoosePTwo:DB$ ChoosePlayer | Defined$ You | Choices$ NonChosenPlayer | AILogic$ Curse
-T:Mode$ DamageDoneOnce | ActiveZones$ Battlefield | ValidTarget$ Player.Chosen | Execute$ TrigLoseLifeRemembered
-T:Mode$ DamageDoneOnce | ActiveZones$ Battlefield | ValidTarget$ Player.IsRemembered | Execute$ TrigLoseLifeChosen | Secondary$ True
-SVar:TrigLoseLifeRemembered:DB$ LoseLife | Defined$ Player.IsRemembered | LifeAmount$ X
-SVar:TrigLoseLifeChosen:DB$ LoseLife | Defined$ Player.Chosen | LifeAmount$ X
-SVar:X:TriggerCount$DamageAmount
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ DBCleanup | Static$ True
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:X X B B B
+Types:Sorcery
+A:SP$ ChangeZone | TargetMin$ X | TargetMax$ X | ValidTgts$ Creature.YouOwn | Origin$ Graveyard | Destination$ Battlefield
+K:Miracle:X B B
+SVar:X:Count$xPaid

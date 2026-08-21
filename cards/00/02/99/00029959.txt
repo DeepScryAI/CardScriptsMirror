@@ -1,9 +1,11 @@
 Id:29959
-ColorIdentity:U
+ColorIdentity:B
 OriginSet:Gf09b85bbcc27770c
-ManaCost:U
-Types:Sorcery
-A:SP$ ChangeZone | ValidTgts$ Creature.YouCtrl | Origin$ Battlefield | Destination$ Exile | RememberTargets$ True | SubAbility$ DBReturn
-SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | RememberChanged$ True | ForgetOtherRemembered$ True | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | Defined$ You | ConditionDefined$ Remembered | ConditionPresent$ Bird,Frog,Otter,Rat | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:3 B
+Types:Creature Skunk Assassin
+PT:4/2
+K:Flash
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | Choices$ DBPump,DBDestroy
+SVar:DBPump:DB$ Pump | ValidTgts$ Creature.OppCtrl | IsCurse$ True | NumAtt$ -1 | NumDef$ -1
+SVar:DBDestroy:DB$ Destroy | ValidTgts$ Creature.OppCtrl+wasDealtDamageThisTurn

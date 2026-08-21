@@ -1,11 +1,11 @@
 Id:23827
-ColorIdentity:UBR
-OriginSet:G5f5d8cfb206e2fac
-ManaCost:2 U B R
-Types:Legendary Creature Vampire Wizard
-PT:4/4
-T:Mode$ BecomesTarget | ValidTarget$ You,Permanent.YouCtrl+inZoneBattlefield | ValidSource$ SpellAbility.OppCtrl | TriggerZones$ Battlefield | Execute$ TrigCounter
-SVar:TrigCounter:DB$ Counter | Defined$ TriggeredSourceSA | UnlessCost$ PayLife<4> | UnlessPayer$ TriggeredSourceSAController
-T:Mode$ SpellCopy | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigTarget
-SVar:TrigTarget:DB$ Pump | ValidTgts$ Opponent | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBCopy
-SVar:DBCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | AILogic$ Always | Controller$ Targeted | Optional$ True | MayChooseTarget$ True
+ColorIdentity:B
+OriginSet:G18bf722b221724f8
+ManaCost:3 B
+Types:Creature Elf Rogue
+PT:4/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | Choices$ DBRemoveCounter,DBPump
+SVar:DBRemoveCounter:DB$ RemoveCounter | ValidTgts$ Permanent | CounterType$ Any | CounterNum$ X
+SVar:DBPump:DB$ Pump | ValidTgts$ Creature.OppCtrl | IsCurse$ True | NumAtt$ -X | NumDef$ -X
+SVar:X:Count$Valid Elf.YouCtrl

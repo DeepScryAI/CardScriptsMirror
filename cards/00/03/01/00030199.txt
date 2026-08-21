@@ -1,11 +1,13 @@
 Id:30199
-ColorIdentity:WR
-OriginSet:G9ff9681e1fe8713a
-ManaCost:R W
-Types:Creature Mouse Warrior
-PT:1/1
-T:Mode$ AttackersDeclared | ValidAttackers$ Card.Self | Execute$ TrigDraft | TriggerZones$ Battlefield
-SVar:TrigDraft:DB$ Draft | SpellbookCatalogIds$ 22755,19822,27397,23950,27414,29804,14565,19865,29825,29887,29891,12310,20942,30005
-T:Mode$ BecomesTarget | ValidTarget$ Card.Self | ValidSource$ SpellAbility.YouCtrl | TriggerZones$ Battlefield | FirstTime$ True | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 1098512333 | TokenOwner$ You
-SVar:HasAttackEffect:TRUE
+ColorIdentity:G
+OriginSet:G30e4cc621dfc3a2e
+ManaCost:3 G G
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ X
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 2 | ConditionPresent$ Creature.YouCtrl | ConditionCompare$ GE1 | ConditionCheckSVar$ Y | ConditionSVarCompare$ GEZ
+SVar:X:Targeted$CardPower
+SVar:Y:Count$Valid Creature.YouCtrl$GreatestCardPower
+SVar:Z:Count$Valid Creature.YouDontCtrl$GreatestCardPower
+SVar:PlayMain1:TRUE

@@ -1,11 +1,8 @@
 Id:27105
-ColorIdentity:BR
+ColorIdentity:G
 OriginSet:G6ce0035cfb774934
-ManaCost:2 B R
-Types:Legendary Creature Orc Soldier
-PT:4/4
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigAttach | TriggerZones$ Battlefield
-SVar:TrigAttach:DB$ Attach | ValidTgts$ Equipment | TargetMin$ 0 | TargetMax$ 1 | Object$ Targeted | Defined$ Self | SubAbility$ DBAmass
-SVar:DBAmass:DB$ Amass | Type$ Orc | Num$ X
-SVar:X:Count$Valid Equipment.Attached
-SVar:HasAttackEffect:TRUE
+ManaCost:1 G
+Types:Sorcery
+A:SP$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1 | ConditionDefined$ Targeted | ConditionPresent$ Creature.powerGE4 | AILogic$ Fight | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | NumAtt$ +1 | NumDef$ +1 | Defined$ ParentTarget | SubAbility$ DBFight
+SVar:DBFight:DB$ Fight | Defined$ ParentTarget | ValidTgts$ Creature.YouDontCtrl

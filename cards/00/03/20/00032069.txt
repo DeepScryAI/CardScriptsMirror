@@ -1,14 +1,13 @@
 Id:32069
-ColorIdentity:B
-OriginSet:G9946f072b5556073
-ManaCost:3 B
-Types:Enchantment Aura
-K:Enchant:Creature.YouCtrl:creature you control
-T:Mode$ Attacks | ValidCard$ Card.AttachedBy | Execute$ TrigChange | TriggerZones$ Battlefield
-SVar:TrigChange:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.OwnedBy TriggeredDefendingPlayer | Tapped$ True | Attacking$ True | GainControl$ True
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigSac
-SVar:TrigSac:DB$ Sacrifice | SacValid$ Self | ConditionCheckSVar$ X
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddSVar$ AE
-SVar:X:Count$Void.0.1
-SVar:AE:SVar:HasAttackEffect:TRUE
-SVar:AttachAILogic:Pump
+ColorIdentity:G
+OriginSet:G7ab4f62d323b0ca7
+ManaCost:3 G G
+Types:Enchantment Creature Saga Giant
+PT:7/7
+K:Chapter:3:DBMill,DBChangeZoneAll,DBPump
+SVar:DBMill:DB$ Mill | Defined$ You | NumCards$ 5
+SVar:DBChangeZoneAll:DB$ ChangeZoneAll | ChangeType$ Land.YouOwn | Origin$ Graveyard | Destination$ Battlefield | Tapped$ True
+SVar:DBPump:DB$ Pump | ValidTgts$ Creature.Other+YouCtrl | NumAtt$ +X | NumDef$ +X | KW$ Trample
+K:Reach
+K:Trample
+SVar:X:Count$Valid Land.YouCtrl

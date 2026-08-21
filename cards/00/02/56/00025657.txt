@@ -1,15 +1,26 @@
 Id:25657
-ColorIdentity:R
-OriginSet:G06ccef4324c14725
-ManaCost:1 R
-Types:Legendary Creature Human Artificer
-PT:2/2
-K:Haste
-S:Mode$ CantBlock | ValidCard$ Card.Self
-T:Mode$ DamageDoneOnce | ValidTarget$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigExile
-SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ X | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBChoose
-SVar:DBChoose:DB$ ChooseCard | Choices$ Card.IsRemembered | ChoiceZone$ Exile | Mandatory$ True | ForgetOtherRemembered$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | RememberObjects$ ChosenCard | StaticAbilities$ Play | Duration$ UntilTheEndOfYourNextTurn | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
-SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.ChosenCard | AffectedZone$ Exile
-SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
-SVar:X:TriggerCount$DamageAmount
+ColorIdentity:W
+OriginSet:Gfb000cedf5e9c32e
+ManaCost:3 W
+Types:Legendary Artifact Creature Robot
+PT:3/3
+K:More Than Meets the Eye:2 W
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | ValidTgts$ Creature.Other+tapped,Vehicle.Other+tapped | TargetMin$ 0 | TargetMax$ 1 | Origin$ Battlefield | Destination$ Exile | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ Targeted | StaticAbilities$ Play | ForgetOnMoved$ Exile | EffectOwner$ TargetedOwner | Duration$ Permanent
+SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+T:Mode$ SpellCast | ValidCard$ Card.ExiledWithSourceLKI | TriggerZones$ Battlefield | Execute$ TrigDraw
+T:Mode$ LandPlayed | ValidCard$ Card.ExiledWithSourceLKI | TriggerZones$ Battlefield | Execute$ TrigDraw | Secondary$ True
+SVar:TrigDraw:DB$ Draw | SubAbility$ DBConvert
+SVar:DBConvert:DB$ SetState | Mode$ Transform
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:white
+Types:Legendary Artifact Vehicle
+PT:2/3
+K:Living metal
+T:Mode$ ChangesZone | ValidCard$ Creature.YouCtrl+Other,Vehicle.YouCtrl+Other | Destination$ Battlefield | TriggerZones$ Battlefield | Execute$ TrigCounter
+SVar:TrigCounter:DB$ PutCounter | CounterType$ P1P1 | SubAbility$ DBConvert
+SVar:DBConvert:DB$ SetState | Mode$ Transform | ConditionCheckSVar$ TrigAmount | ConditionSVarCompare$ EQ2
+SVar:TrigAmount:Count$ResolvedThisTurn

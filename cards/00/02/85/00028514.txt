@@ -1,19 +1,14 @@
 Id:28514
-ColorIdentity:UG
+ColorIdentity:G
 OriginSet:G7ee0e82a2424d636
-ManaCost:2 G U
-Types:Legendary Creature Human Faerie Detective
-PT:3/4
-K:Flying
-K:Vigilance
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDestroy
-SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Artifact | TargetMin$ 0 | TargetMax$ 1 | RememberLKI$ True | AlwaysRemember$ True | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | ConditionDefined$ RememberedLKI | ConditionPresent$ Card.YouCtrl | NumCards$ 1 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-AlternateMode:Adventure
-ALTERNATE
-ManaCost:G U
-Types:Sorcery Adventure
-A:SP$ Investigate | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | StaticAbilities$ Exploration
-SVar:Exploration:Mode$ Continuous | Affected$ You | AdjustLandPlays$ 1
+ManaCost:2 G
+Types:Enchantment Aura
+K:Flash
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigUntap
+SVar:TrigUntap:DB$ Untap | Defined$ Enchanted | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Enchanted | KW$ Hexproof | SubAbility$ DBUnsuspect
+SVar:DBUnsuspect:DB$ AlterAttribute | Attributes$ Suspected | ConditionDefined$ Enchanted | ConditionPresent$ Card.IsSuspected | Activate$ False | Defined$ Enchanted
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 2 | AddToughness$ 2
+S:Mode$ CantBeSuspected | ValidCard$ Creature.EnchantedBy | Secondary$ True

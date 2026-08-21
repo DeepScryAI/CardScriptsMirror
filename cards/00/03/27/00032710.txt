@@ -1,8 +1,10 @@
 Id:32710
-ColorIdentity:R
-OriginSet:G22ed5d6f3707b461
-ManaCost:1 R
-Types:Creature Human Rebel Ally
-PT:2/2
-A:AB$ Effect | Cost$ T | ValidTgts$ Creature.Other+YouCtrl+powerLE2 | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable | AILogic$ MakeUnblockable
-SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+ColorIdentity:U
+OriginSet:G1f5998b5f01949b9
+ManaCost:4 U
+Types:Legendary Creature Spider Human Hero
+PT:4/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | Origin$ Battlefield | Destination$ Hand
+T:Mode$ DamageDoneOnce | CombatDamage$ True | ValidSource$ Creature.YouCtrl | TriggerZones$ Battlefield | ValidTarget$ Player | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw

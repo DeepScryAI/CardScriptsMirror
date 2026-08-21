@@ -1,10 +1,18 @@
 Id:22207
-ColorIdentity:R
-OriginSet:Geb2cf181996ee3b2
-ManaCost:2 R
-Types:Legendary Creature Human Pirate
-PT:3/2
-T:Mode$ SpellCast | ValidCard$ Card.YouCtrl | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter | ActivatorThisTurnCast$ EQ3
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBDealDamage
-SVar:DBDealDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ X
-SVar:X:Count$CardPower
+ColorIdentity:BG
+OriginSet:Ga575fa2f4f5cded4
+ManaCost:1 B G
+Types:Legendary Planeswalker Grist
+Loyalty:3
+S:Mode$ Continuous | Affected$ Card.Self | ExcludeZone$ Battlefield | SetPower$ 1 | SetToughness$ 1 | AddType$ Creature & Insect | CharacteristicDefining$ True
+A:AB$ Repeat | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | RepeatSubAbility$ CleanupBegin | RepeatCheckSVar$ MilledInsect | RepeatSVarCompare$ EQ1 | SubAbility$ DBCleanup
+SVar:CleanupBegin:DB$ Cleanup | ClearRemembered$ True | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 2380780906 | TokenOwner$ You | Planeswalker$ True | SubAbility$ DBMill
+SVar:DBMill:DB$ Mill | Defined$ You | NumCards$ 1 | RememberMilled$ True | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ LOYALTY | CounterNum$ 1 | ConditionDefined$ Remembered | ConditionPresent$ Card.Insect | ConditionCompare$ EQ1
+SVar:MilledInsect:Remembered$Valid Card.Insect
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+A:AB$ ImmediateTrigger | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | Execute$ TrigDestroy | UnlessCost$ Sac<1/Creature> | UnlessPayer$ You | UnlessSwitched$ True | AILogic$ WeakerCreature
+SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Creature,Planeswalker
+A:AB$ LoseLife | Cost$ SubCounter<5/LOYALTY> | LifeAmount$ X | Defined$ Player.Opponent | Planeswalker$ True | Ultimate$ True
+SVar:X:Count$ValidGraveyard Creature.YouOwn

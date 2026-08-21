@@ -1,10 +1,13 @@
 Id:29610
-ColorIdentity:G
+ColorIdentity:BR
 OriginSet:Gac6359c222afbd4f
-ManaCost:3 G
-Types:Creature Eldrazi Beast
-PT:6/6
-K:Devoid
-T:Mode$ SpellCast | ValidCard$ Card.Self | CheckSVar$ CastSA>Count$Adamant_1.Colorless.0.1 | Execute$ TrigChangeZone
-SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | ValidTgts$ Opponent | Chooser$ Targeted | ChangeType$ Creature | ChangeNum$ 1 | Optional$ True
-K:Trample
+ManaCost:6 B R
+Types:Legendary Creature Demon
+PT:5/5
+K:Affinity:Artifact
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Destination$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | NumCards$ Y | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ Y
+SVar:Y:Count$Valid Artifact.YouCtrl/HalfDown
+A:AB$ DealDamage | Cost$ 3 R Sac<1/Artifact> | ValidTgts$ Any | NumDmg$ X
+SVar:X:Sacrificed$CardManaCost

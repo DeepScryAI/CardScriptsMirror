@@ -1,8 +1,10 @@
 Id:18256
-ColorIdentity:B
+ColorIdentity:G
 OriginSet:G5033d54b23b37629
-ManaCost:4 B
-Types:Legendary Sorcery
-A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True | ValidTgts$ Creature,Planeswalker | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBDestroy
-SVar:DBDestroy:DB$ Destroy | ValidTgts$ Creature,Planeswalker | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBExile
-SVar:DBExile:DB$ ChangeZone | Origin$ Stack | Destination$ Exile
+ManaCost:3 G G
+Types:Enchantment Saga
+K:Chapter:3:TrigMill,TrigMill,DBChangeZoneAll
+SVar:TrigMill:DB$ Mill | NumCards$ 2 | Defined$ You | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Hidden$ True | Origin$ Graveyard | Destination$ Hand | ChangeType$ Creature.YouOwn
+SVar:DBChangeZoneAll:DB$ ChangeZoneAll | ChangeType$ Land.YouCtrl | Origin$ Graveyard | Destination$ Battlefield | SubAbility$ DBShuffle
+SVar:DBShuffle:DB$ ChangeZoneAll | ChangeType$ Card.YouOwn | Origin$ Graveyard | Destination$ Library | Shuffle$ True

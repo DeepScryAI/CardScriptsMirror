@@ -1,11 +1,7 @@
 Id:13362
-ColorIdentity:RG
+ColorIdentity:W
 OriginSet:Gfdc478e04211a499
-ManaCost:R G
+ManaCost:W
 Types:Instant
-A:SP$ ChangeZone | Origin$ Library | Destination$ Library | ChangeType$ Creature | ChangeNum$ 3 | RememberChanged$ True | Reveal$ True | Shuffle$ False | SubAbility$ DBChoose
-SVar:DBChoose:DB$ ChooseCard | Defined$ You | Amount$ 1 | AtRandom$ True | Choices$ Card.IsRemembered | ChoiceZone$ Library | SubAbility$ DBChange | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ3
-SVar:DBChange:DB$ ChangeZone | Origin$ Library | Destination$ Hand | Defined$ ChosenCard | SubAbility$ DBShuffle | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ3
-SVar:DBShuffle:DB$ Shuffle | Defined$ You | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Remembered$DifferentCardNames
+A:SP$ Effect | ValidTgts$ Creature | ReplacementEffects$ RPrevent | RememberObjects$ Targeted | ExileOnMoved$ Battlefield
+SVar:RPrevent:Event$ DamageDone | Prevent$ True | ValidTarget$ Card.IsRemembered

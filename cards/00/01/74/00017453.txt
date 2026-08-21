@@ -1,15 +1,10 @@
 Id:17453
-ColorIdentity:
+ColorIdentity:B
 OriginSet:G5475e2be497fd272
-ManaCost:2
-Types:Artifact
-A:AB$ ChangeZone | Cost$ 3 T | Origin$ Library | Destination$ Hand | ChangeType$ Land.Basic
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | IsPresent$ Land.YouCtrl | PresentCompare$ GE7 | Execute$ DBTransform
-SVar:DBTransform:DB$ SetState | Defined$ Self | Mode$ Transform
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Types:Land
-A:AB$ Mana | Cost$ T | Produced$ C | Amount$ 1
-A:AB$ Untap | Cost$ T | ValidTgts$ Creature.attacking+OppCtrl | IsCurse$ True | SubAbility$ RemCombat
-SVar:RemCombat:DB$ RemoveFromCombat | Defined$ Targeted | AILogic$ RemoveBestAttacker
+ManaCost:2 B
+Types:Sorcery
+A:SP$ PeekAndReveal | PeekAmount$ 3 | NoPeek$ True | RememberRevealed$ True | SubAbility$ DBRepeat
+SVar:DBRepeat:DB$ RepeatEach | RepeatSubAbility$ DBChangeZone | RepeatCards$ Card.IsRemembered | ChooseOrder$ True | Zone$ Library | UseImprinted$ True | SubAbility$ PutIntoHand
+SVar:DBChangeZone:DB$ ChangeZone | Defined$ Imprinted | Origin$ Library | Destination$ Hand | UnlessCost$ PayLife<3> | UnlessPayer$ Opponent | ForgetChanged$ True
+SVar:PutIntoHand:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered | Origin$ Library | Destination$ Exile | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

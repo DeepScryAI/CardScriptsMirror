@@ -1,9 +1,9 @@
 Id:20770
-ColorIdentity:WR
+ColorIdentity:
 OriginSet:Gf8d4de878d0536c5
-ManaCost:1 RW RW
-Types:Legendary Creature Elemental Fox
-PT:3/3
-K:Companion:Permanent.hasAbility Activated,Instant,Sorcery:Each permanent card in your starting deck has an activated ability.
-S:Mode$ ReduceCost | ValidCard$ Card | Activator$ You | ValidSpell$ Activated.!ManaAbility | Amount$ 2 | MinMana$ 1
-A:AB$ Pump | Cost$ 1 T | ValidTgts$ Creature | KW$ HIDDEN CARDNAME can't block. | IsCurse$ True
+ManaCost:1
+Types:Legendary Artifact
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Creature.YouCtrl+HasCounters | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ EachFromSource | EachFromSource$ TriggeredCardLKICopy
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | IsPresent$ Card.Self+HasCounters | TriggerZones$ Battlefield | Execute$ TrigMoveCounter | OptionalDecider$ You
+SVar:TrigMoveCounter:DB$ MoveCounter | Source$ Self | ValidTgts$ Creature | CounterType$ All | CounterNum$ All

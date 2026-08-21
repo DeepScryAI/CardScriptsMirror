@@ -1,12 +1,12 @@
 Id:18336
-ColorIdentity:U
+ColorIdentity:WUBRG
 OriginSet:G7d4bd61c81d44275
-ManaCost:3 U
-Types:Legendary Creature Illusion
-PT:1/1
-K:PartnerWithId:18310
-T:Mode$ Drawn | ValidCard$ Card.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ X
-SVar:X:TriggeredCard$CardCounters.P1P1
+ManaCost:2 R
+Types:Legendary Creature Human Warrior
+PT:3/2
+T:Mode$ Attacks | ValidCard$ Warrior | TriggerZones$ Battlefield | Execute$ TrigToken | OptionalDecider$ You
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 277292334 | TokenOwner$ TriggeredAttackerController | TokenTapped$ True | TokenAttacking$ True | AILogic$ OnlyOnAlliedAttack
+A:AB$ UntapAll | Cost$ W U B R G | ValidCards$ Creature.attacking | ActivationPhases$ BeginCombat->EndCombat | SubAbility$ DBAddCombat
+SVar:DBAddCombat:DB$ AddPhase | ExtraPhase$ Combat | AfterPhase$ EndCombat | SubAbility$ DBPumpAll
+SVar:DBPumpAll:DB$ PumpAll | ValidCards$ Creature.attacking | KW$ Trample & Lifelink & Haste
+SVar:PlayMain1:TRUE

@@ -1,14 +1,12 @@
 Id:23085
-ColorIdentity:UB
-OriginSet:G7a76c1974b0a33a6
-ManaCost:5 B B
-Types:Legendary Creature Slug Horror
-PT:7/7
-T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | Execute$ TrigCounters
-SVar:TrigCounters:DB$ PutCounterAll | ValidCards$ Creature.YouDontCtrl | CounterType$ SLIME | CounterNum$ 1
-S:Mode$ Continuous | Affected$ Creature.YouDontCtrl | AffectedZone$ Battlefield | AddPower$ -AffectedX | AddToughness$ -AffectedX
-SVar:AffectedX:Count$CardCounters.SLIME
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouDontCtrl+counters_GE1_SLIME | TriggerZones$ Battlefield | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 934522760
-A:AB$ Draw | Cost$ U B Sac<1/Slug> | NumCards$ 1
-SVar:AIPreference:SacCost$Slug.token
+ColorIdentity:WR
+OriginSet:G8a59924df6623252
+ManaCost:2 R W
+Types:Legendary Creature Human Soldier
+PT:4/4
+K:Menace
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigInvestigate | TriggerZones$ Battlefield
+SVar:TrigInvestigate:DB$ Investigate | Num$ X
+SVar:X:Count$Valid Creature.attacking+!token
+K:Partner:Friends forever
+SVar:HasAttackEffect:TRUE

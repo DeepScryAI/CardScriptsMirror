@@ -1,13 +1,12 @@
 Id:13919
-ColorIdentity:WRG
+ColorIdentity:UBR
 OriginSet:G6645ca87da6316d5
-ManaCost:R G W
-Types:Legendary Creature Elemental Beast
-PT:0/0
-K:etbCounter:P1P1:Y:no Condition
-SVar:Y:Count$CastTotalManaSpent
-A:AB$ Charm | Cost$ XMin1 X SubCounter<X/P1P1/NICKNAME> | Choices$ MarathCounters,MarathDmg,MarathToken | Defined$ You | MinCharmNum$ 1
-SVar:MarathCounters:DB$ PutCounter | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ X
-SVar:MarathDmg:DB$ DealDamage | ValidTgts$ Any | NumDmg$ X
-SVar:MarathToken:DB$ Token | TokenScriptIds$ 1573311632 | TokenOwner$ You | TokenPower$ X | TokenToughness$ X
-SVar:X:Count$xPaid
+ManaCost:1 U B R
+Types:Legendary Creature Vampire Wizard
+PT:1/3
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ Dig | Defined$ Player | DigNum$ X | ChangeNum$ All | DestinationZone$ Exile
+SVar:X:Count$CastTotalManaSpent
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPlay | OptionalDecider$ You
+SVar:TrigPlay:DB$ Play | ValidZone$ Exile | Valid$ Instant.ExiledWithSource,Sorcery.ExiledWithSource | ValidSA$ Spell | Controller$ You | WithoutManaCost$ True | Amount$ 1

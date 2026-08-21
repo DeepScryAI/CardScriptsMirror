@@ -1,14 +1,8 @@
 Id:8395
-ColorIdentity:UBR
+ColorIdentity:BR
 OriginSet:Gde6d8130c178f566
-ManaCost:U B
-Types:Sorcery
-A:SP$ ChangeZone | ValidTgts$ Creature | Origin$ Graveyard | Destination$ Hand | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | ValidTgts$ Creature | Origin$ Battlefield | Destination$ Hand | IsCurse$ True
-AlternateMode:Split
-ALTERNATE
-ManaCost:B R
-Types:Sorcery
-A:SP$ Reveal | ValidTgts$ Player | IsCurse$ True | Random$ True | NumCards$ 2 | RememberRevealed$ True | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | Mode$ Defined | Defined$ Targeted | DefinedCards$ ValidHand Card.nonLand+IsRemembered | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:BR
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 2 | AddToughness$ -1

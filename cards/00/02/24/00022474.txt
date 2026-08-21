@@ -1,12 +1,17 @@
 Id:22474
-ColorIdentity:U
-OriginSet:G9f95a41d532c0550
-ManaCost:1 U U
-Types:Creature Dragon Turtle
+ColorIdentity:WUB
+OriginSet:G92f7f9489fec5865
+ManaCost:2 W U B
+Types:Legendary Creature Horror
 PT:3/5
-K:Flash
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigTap
-SVar:TrigTap:DB$ Tap | Defined$ Self | RememberTapped$ True | SubAbility$ DBTap
-SVar:DBTap:DB$ Tap | ValidTgts$ Creature.OppCtrl | TargetMin$ 0 | TargetMax$ 1 | AlwaysRemember$ True | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | Defined$ Remembered | KW$ HIDDEN This card doesn't untap during your next untap step. | Duration$ Permanent | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ DBRepeat
+SVar:DBRepeat:DB$ RepeatEach | RepeatPlayers$ Player.Opponent | RepeatSubAbility$ DBChoose | SubAbility$ DBCleanup
+SVar:DBChoose:DB$ ChooseCard | Defined$ You | MinAmount$ 0 | Amount$ 1 | Choices$ Creature.untapped+YouCtrl | ChoiceTitleAppend$ Defined Player.IsRemembered | ChoiceZone$ Battlefield | SubAbility$ DBTap
+SVar:DBTap:DB$ Tap | Defined$ ChosenCard | SubAbility$ DBImmediateTrigger
+SVar:DBImmediateTrigger:DB$ ImmediateTrigger | RememberObjects$ ChosenCard & Player.IsRemembered | ConditionDefined$ ChosenCard | ConditionPresent$ Card | ConditionCompare$ GE1 | Execute$ TrigGainControl | TrigDescReminderDefined$ Player.IsRemembered
+SVar:TrigGainControl:DB$ GainControl | ValidTgts$ Creature.powerLEX+ControlledBy DelayTriggerRemembered | LoseControl$ LeavesPlay,LoseControl
+SVar:X:TriggerRemembered$CardPower
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+T:Mode$ Attacks | ValidCard$ Creature.YouCtrl+OppOwn | TriggerZones$ Battlefield | Execute$ TrigGain
+SVar:TrigGain:DB$ GainLife | LifeAmount$ 2 | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 2 | Defined$ TriggeredAttackerOwner

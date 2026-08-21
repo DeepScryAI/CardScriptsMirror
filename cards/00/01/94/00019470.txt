@@ -1,11 +1,12 @@
 Id:19470
-ColorIdentity:W
+ColorIdentity:UG
 OriginSet:G9d37112ca6693432
-ManaCost:W
-Types:Snow Enchantment Aura
-K:Enchant:Land.Snow+YouCtrl:snow land you control
-SVar:AttachAILogic:Pump
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Creature.OppCtrl | Duration$ UntilHostLeavesPlay
-SVar:PlayMain1:TRUE
-SVar:NeedsToPlay:Creature.OppCtrl
+ManaCost:G U
+Types:Snow Creature Snake
+PT:1/1
+K:Flash
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ Deathtouch | IsPresent$ Permanent.Snow+Other+YouCtrl | PresentCompare$ GE3
+SVar:BuffedBy:Permanent.Snow

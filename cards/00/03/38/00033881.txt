@@ -1,10 +1,16 @@
 Id:33881
-ColorIdentity:WR
-OriginSet:Gf8df2bea26dc6b68
-ManaCost:2 R W
-Types:Creature Sloth Beast
+ColorIdentity:G
+OriginSet:Gf04404de3fa1525e
+ManaCost:1 G G
+Types:Creature Bear Druid
 PT:4/4
-K:Trample
-K:Lifelink
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | Execute$ TrigExile | TriggerZones$ Battlefield
-SVar:TrigExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Card
+K:Deathtouch
+K:ETBReplacement:Other:DBPrepare
+SVar:DBPrepare:DB$ AlterAttribute | Attributes$ Prepared
+AlternateMode:Prepare
+ALTERNATE
+ManaCost:4 G
+Types:Instant
+A:SP$ Mill | NumCards$ 7 | Defined$ You | RememberMilled$ True | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Hidden$ True | Origin$ Graveyard,Exile | Destination$ Battlefield | ChangeType$ Creature.IsRemembered | Mandatory$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

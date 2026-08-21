@@ -1,10 +1,11 @@
 Id:6409
 ColorIdentity:U
 OriginSet:Gd11012ee98ee8d76
-ManaCost:4 U
-Types:Creature Beast
-PT:3/3
-K:Morph:1 U U
-A:AB$ SetState | Cost$ 3 U U | Defined$ Self | Mode$ TurnFaceDown
-T:Mode$ TurnFaceUp | ValidCard$ Card.Self | Execute$ TrigCopy | TriggerZones$ Battlefield
-SVar:TrigCopy:DB$ CopySpellAbility | ValidTgts$ Instant,Sorcery | MayChooseTarget$ True
+ManaCost:4 U U
+Types:Sorcery
+K:Storm
+A:SP$ Shuffle | SubAbility$ DBExile | AILogic$ Always
+SVar:DBExile:DB$ ChangeZone | Defined$ TopOfLibrary | Origin$ Library | Destination$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ Remembered | StaticAbilities$ Play | SubAbility$ DBCleanup | ExileOnMoved$ Exile
+SVar:Play:Mode$ Continuous | MayPlay$ True | MayPlayWithoutManaCost$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

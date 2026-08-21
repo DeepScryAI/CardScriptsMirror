@@ -1,8 +1,9 @@
 Id:4737
-ColorIdentity:BR
+ColorIdentity:B
 OriginSet:Gfb91362c2efb868e
-ManaCost:4 B R
-Types:Sorcery
-A:SP$ Pump | ValidTgts$ Creature.nonBlack | AILogic$ Destroy | IsCurse$ True | SubAbility$ DBLand
-SVar:DBLand:DB$ Pump | ValidTgts$ Land | AILogic$ Destroy | IsCurse$ True | SubAbility$ DBDestroy
-SVar:DBDestroy:DB$ Destroy | Defined$ Targeted | NoRegen$ True
+ManaCost:2 B
+Types:Creature Phyrexian Horror
+PT:2/2
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDamageAll
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigDamageAll
+SVar:TrigDamageAll:DB$ DamageAll | ValidCards$ Creature | ValidPlayers$ Player | NumDmg$ 1

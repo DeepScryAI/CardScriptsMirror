@@ -1,9 +1,11 @@
 Id:15222
-ColorIdentity:W
+ColorIdentity:R
 OriginSet:G70acd28f254172ff
-ManaCost:5 W
-Types:Creature Bird Cleric
-PT:3/3
+ManaCost:2 R R
+Types:Creature Dragon
+PT:4/4
 K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGainLife
-SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 3
+T:Mode$ Phase | Phase$ Draw | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraw
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDiscard
+SVar:TrigDraw:DB$ Draw
+SVar:TrigDiscard:DB$ Discard | Mode$ Hand

@@ -1,8 +1,11 @@
 Id:5553
 ColorIdentity:R
 OriginSet:Ge4af4f9459d5dadd
-ManaCost:1 R
-Types:Sorcery
-K:Flashback:1 R PayLife<3>
-A:SP$ Effect | StaticAbilities$ KWPump | AILogic$ Evasion
-SVar:KWPump:Mode$ Continuous | AffectedZone$ Battlefield | Affected$ Creature.Green,Creature.White | AddHiddenKeyword$ CARDNAME can't block.
+ManaCost:X R
+Types:Instant
+K:Flashback:X R R
+A:SP$ Pump | IsCurse$ True | ValidTgts$ Player,Planeswalker | SubAbility$ DBChooseCard
+SVar:DBChooseCard:DB$ ChooseCard | Choices$ Card.Creature | Defined$ TargetedOrController | MinAmount$ 0 | TargetControls$ True | AILogic$ WorstCard | SubAbility$ DBDamagePlayer
+SVar:DBDamagePlayer:DB$ DealDamage | Defined$ ParentTarget | NumDmg$ X | ConditionDefined$ ChosenCard | ConditionPresent$ Card | ConditionCompare$ EQ0 | SubAbility$ DBDamageCreature
+SVar:DBDamageCreature:DB$ DealDamage | Defined$ ChosenCard | NumDmg$ X | ConditionDefined$ ChosenCard | ConditionPresent$ Card | ConditionCompare$ GE1
+SVar:X:Count$xPaid

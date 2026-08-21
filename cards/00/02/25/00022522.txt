@@ -1,12 +1,9 @@
 Id:22522
-ColorIdentity:
+ColorIdentity:W
 OriginSet:G9f95a41d532c0550
-ManaCost:3
-Types:Legendary Artifact Equipment
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | Execute$ TrigChoose | TriggerZones$ Battlefield
-SVar:TrigChoose:DB$ ChooseCard | Choices$ Creature.EquippedBy,Creature.YouCtrl+namedVecna | Mandatory$ True | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | Defined$ ChosenCard | NumAtt$ +X | NumDef$ +X | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
-K:Equip:PayLife<X/1 life for each card in your hand>
-K:Equip:2
-SVar:X:Count$CardsInYourHand
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ LandTapped | ReplacementResult$ Updated
+SVar:LandTapped:DB$ Tap | Defined$ Self | ETB$ True | ConditionPresent$ Land.YouCtrl | ConditionCompare$ GE2
+A:AB$ Mana | Cost$ T | Produced$ W
+A:AB$ Animate | Cost$ 4 W | Defined$ Self | Power$ 3 | Toughness$ 4 | Types$ Creature,Dragon | Colors$ White | OverwriteColors$ True | Keywords$ Flying

@@ -1,20 +1,10 @@
 Id:22762
 ColorIdentity:B
-OriginSet:Gf78628ad511eefec
-ManaCost:3 B
-Types:Creature Human Rogue Werewolf
-PT:4/3
-T:Mode$ AttackerBlocked | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ PumpAll | ValidCards$ Creature.blockingSource | NumAtt$ -1 | NumDef$ -1
-K:Daybound
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:black
-Types:Creature Werewolf
-PT:5/4
-T:Mode$ AttackerBlocked | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ PumpAll | ValidCards$ Creature.blockingSource | NumAtt$ -1 | NumDef$ -1
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.blockingSource | Execute$ TrigLoseLife | TriggerZones$ Battlefield
-SVar:TrigLoseLife:DB$ LoseLife | Defined$ TriggeredCardController | LifeAmount$ 1
-K:Nightbound
+OriginSet:G268a0d6ee06912c2
+ManaCost:4 B
+Types:Creature Skeleton Dog
+PT:3/3
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Exile | RememberChanged$ True | SubAbility$ DBConjure
+SVar:DBConjure:DB$ MakeCard | Conjure$ True | ConditionDefined$ Remembered | ConditionPresent$ Card | CatalogId$ 11336 | Zone$ Graveyard | Amount$ 3 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

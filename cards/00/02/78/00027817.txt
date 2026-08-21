@@ -1,9 +1,10 @@
 Id:27817
 ColorIdentity:U
 OriginSet:G30e8a5e111cffb44
-ManaCost:3 U
-Types:Enchantment Saga
-K:Chapter:3:DBSearch,DBFood,DBCopy
-SVar:DBSearch:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Card.Doctor | ChangeNum$ 1
-SVar:DBFood:DB$ Token | TokenScriptIds$ 134855612,1146808872
-SVar:DBCopy:DB$ CopyPermanent | ValidTgts$ Creature | NewName$ 3567176162456577855 | SetCreatureTypes$ Alien | AddTypes$ Legendary
+ManaCost:3 U U
+Types:Enchantment Aura
+K:Enchant:Creature.!IsCommander:noncommander creature
+SVar:AttachAILogic:GainControl
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | GainControl$ You
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 2 | AddToughness$ 2
+S:Mode$ CantBlockBy | ValidAttacker$ Creature.EnchantedBy | ValidBlocker$ Creature.!ControlledBy EnchantedOwner

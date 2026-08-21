@@ -1,11 +1,8 @@
 Id:25819
-ColorIdentity:R
+ColorIdentity:
 OriginSet:G06ccef4324c14725
-ManaCost:2 R
-Types:Creature Human Artificer
-PT:2/1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill
-SVar:TrigMill:DB$ Mill | NumCards$ 3 | RememberMilled$ True | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | Hidden$ True | Origin$ Graveyard,Exile | Destination$ Hand | ChangeType$ Artifact.IsRemembered | RememberChanged$ True | ForgetOtherRemembered$ True | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ0 | CounterType$ P1P1 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:no cost
+Types:Land
+A:AB$ Mana | Cost$ T | Produced$ C
+A:AB$ Animate | Cost$ 2 | Defined$ Self | Power$ 2 | Toughness$ 2 | Types$ Artifact,Creature,Assembly-Worker | RemoveCreatureTypes$ True
+A:AB$ Pump | Cost$ 1 T | ValidTgts$ Creature.Assembly-Worker+attacking | NumAtt$ +2 | NumDef$ +2

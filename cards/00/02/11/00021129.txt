@@ -1,10 +1,11 @@
 Id:21129
 ColorIdentity:B
-OriginSet:G72c9c624ceb92bff
-ManaCost:2 B
-Types:Creature Human Cleric
-PT:3/1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSac
-SVar:TrigSac:DB$ Sacrifice | Defined$ Player | SacValid$ Creature,Planeswalker
-SVar:X:Count$Valid Creature.OppCtrl,Planeswalker.OppCtrl
-SVar:NeedsToPlayVar:X GE1
+OriginSet:G7b2607750b451c25
+ManaCost:1 B
+Types:Creature Vampire Cleric
+PT:2/1
+K:Kicker:3 B
+K:Menace
+K:Lifelink
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self+kicked | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouOwn

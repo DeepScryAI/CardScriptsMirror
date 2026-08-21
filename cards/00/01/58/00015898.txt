@@ -1,8 +1,12 @@
 Id:15898
-ColorIdentity:B
+ColorIdentity:U
 OriginSet:G92026fbb3573fda5
-ManaCost:3 B B
-Types:Creature Vampire Knight
-PT:3/3
-K:Flying
-A:AB$ PutCounter | Cost$ 2 B Discard<1/Card> | CounterType$ P1P1 | CounterNum$ 2
+ManaCost:3 U U
+Types:Legendary Planeswalker Jace
+Loyalty:5
+A:AB$ Scry | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | ScryNum$ 1 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1
+A:AB$ ChangeZone | Cost$ SubCounter<2/LOYALTY> | Origin$ Battlefield | Destination$ Hand | ValidTgts$ Creature | Planeswalker$ True
+A:AB$ Effect | Cost$ SubCounter<8/LOYALTY> | Name$ 17916911902131956170 | Triggers$ TrigCounter | Planeswalker$ True | Ultimate$ True | Stackable$ False | Duration$ Permanent | AILogic$ Always
+SVar:TrigCounter:Mode$ SpellCast | ValidActivatingPlayer$ Player.Opponent | ActivatorThisTurnCast$ EQ1 | Execute$ DBCounter | TriggerZones$ Command
+SVar:DBCounter:DB$ Counter | Defined$ TriggeredSpellAbility | Destination$ Graveyard

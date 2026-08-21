@@ -1,8 +1,15 @@
 Id:15757
-ColorIdentity:G
+ColorIdentity:W
 OriginSet:G5b1ad34969911ca7
-ManaCost:1 G
-Types:Creature Insect
-PT:1/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange | OptionalDecider$ You
-SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Library | LibraryPosition$ 0 | ChangeType$ Land.Basic | ShuffleNonMandatory$ True
+ManaCost:4 W W
+Types:Legendary Creature Angel
+PT:5/5
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGainLife | CheckSVar$ X | SVarCompare$ GTZ
+SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken | CheckSVar$ W | SVarCompare$ GTY
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 1162405091 | TokenOwner$ You
+SVar:X:PlayerCountOpponents$HighestLifeTotal
+SVar:Y:Count$Valid Creature.YouCtrl
+SVar:Z:Count$YourLifeTotal
+SVar:W:PlayerCountOpponents$HighestValid Creature.YouCtrl

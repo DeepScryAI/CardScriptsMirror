@@ -1,10 +1,9 @@
 Id:24618
-ColorIdentity:W
+ColorIdentity:B
 OriginSet:G58bfeff4fb121c8e
-ManaCost:2 W W
-Types:Enchantment Aura
-K:Enchant:Creature.YouDontCtrl,Planeswalker.YouDontCtrl:creature or planeswalker you don't control
-SVar:AttachAILogic:Curse
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigConjure
-SVar:TrigConjure:DB$ MakeCard | Conjure$ True | CatalogId$ 24635 | Zone$ Battlefield
-S:Mode$ CantAttack,CantBlock,CantBeActivated | ValidCard$ Card.EnchantedBy
+ManaCost:2 B
+Types:Creature Hag Warlock
+PT:2/2
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigMill
+SVar:TrigMill:DB$ Mill | NumCards$ 5 | Defined$ Opponent | SubAbility$ DBExileGrave
+SVar:DBExileGrave:DB$ ChangeZoneAll | Origin$ Graveyard | Destination$ Exile | Defined$ Opponent | ChangeType$ Card

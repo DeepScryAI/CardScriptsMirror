@@ -1,10 +1,10 @@
 Id:22373
-ColorIdentity:G
-OriginSet:G92f7f9489fec5865
-ManaCost:3 G
-Types:Creature Human Druid
-PT:2/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChoice
-SVar:TrigChoice:DB$ ChooseCard | Defined$ Player | StartingWith$ You | Choices$ Artifact.YouDontCtrl,Enchantment.YouDontCtrl | Optional$ True | SubAbility$ DBDestroy
-SVar:DBDestroy:DB$ Destroy | Defined$ ChosenCard | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+ColorIdentity:BG
+OriginSet:Geb2cf181996ee3b2
+ManaCost:BG
+Types:Creature Squirrel
+PT:1/1
+T:Mode$ Sacrificed | ValidCard$ Artifact.YouCtrl,Creature.YouCtrl | ValidPlayer$ You | Execute$ TrigPutCounter | TriggerZones$ Battlefield
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+A:AB$ GainLife | Cost$ 1 B G Sac<1/Artifact;Creature/artifact or creature> | Defined$ You | LifeAmount$ 1 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw

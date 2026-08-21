@@ -1,11 +1,10 @@
 Id:19869
-ColorIdentity:U
+ColorIdentity:R
 OriginSet:G23be9f486a22d38a
-ManaCost:2 U
-Types:Legendary Creature Merfolk Wizard
-PT:1/2
-K:Affinity:Artifact
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill
-SVar:TrigMill:DB$ Mill | NumCards$ 4 | Defined$ You
-A:AB$ Effect | Cost$ T | TgtZone$ Graveyard | ValidTgts$ Artifact.YouOwn | RememberObjects$ Targeted | StaticAbilities$ STPlay | ExileOnMoved$ Graveyard
-SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered+nonLand | AffectedZone$ Graveyard
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ LandTapped | ReplacementResult$ Updated
+SVar:LandTapped:DB$ Tap | Defined$ Self | ETB$ True | ConditionPresent$ Mountain.YouCtrl | ConditionCompare$ EQ0
+A:AB$ Mana | Cost$ T | Produced$ R
+SVar:PlayMain1:TRUE
+A:AB$ PumpAll | Cost$ 1 R R T | ValidCards$ Creature.YouCtrl | NumAtt$ +1

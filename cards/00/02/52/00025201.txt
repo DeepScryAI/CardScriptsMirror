@@ -1,13 +1,11 @@
 Id:25201
-ColorIdentity:
+ColorIdentity:W
 OriginSet:Gf591a76e7a37cf73
-ManaCost:5
-Types:Artifact Creature Astartes Dreadnought
-PT:4/4
-K:Trample
-S:Mode$ OptionalCost | EffectZone$ All | ValidCard$ Card.Self | ValidSA$ Spell | Cost$ ExileFromGrave<1/Creature>
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump | IsPresent$ Card.ExiledWithSource | PresentZone$ Exile
-SVar:TrigPump:DB$ Pump | Defined$ Self | NumDef$ +Y | NumAtt$ +Y
-SVar:X:Count$xPaid
-SVar:Y:Count$ValidExile Card.ExiledWithSource$CardPower
-SVar:HasAttackEffect:TRUE
+ManaCost:4 W
+Types:Legendary Creature Human Warrior
+PT:3/4
+K:Flying
+K:Lifelink
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | Execute$ TrigReturn | TriggerZones$ Battlefield
+SVar:TrigReturn:DB$ ChangeZone | ValidTgts$ Creature.cmcLEX+YouOwn | Origin$ Graveyard | Destination$ Battlefield
+SVar:X:Count$LifeYouGainedThisTurn

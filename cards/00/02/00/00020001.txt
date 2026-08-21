@@ -1,6 +1,12 @@
 Id:20001
-ColorIdentity:U
+ColorIdentity:G
 OriginSet:G23be9f486a22d38a
-ManaCost:1 U
+ManaCost:3 G
 Types:Instant
-A:SP$ ChangeZone | TargetMin$ 2 | TargetMax$ 2 | TargetsWithDifferentControllers$ True | ValidTgts$ Creature | Origin$ Battlefield | Destination$ Hand
+A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Card.YouOwn | SubAbility$ DBPump | AIManaPref$ G
+SVar:DBPump:DB$ Pump | TargetMin$ 0 | TargetMax$ 1 | TgtZone$ Graveyard | ValidTgts$ Card.YouOwn | TargetUnique$ True | RememberObjects$ ThisTargetedCard | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Library | Hidden$ True | Defined$ Remembered | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ0 | SubAbility$ DBReturn2
+SVar:DBReturn2:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | Hidden$ True | Defined$ Remembered | ConditionCheckSVar$ X | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | Defined$ Self | Origin$ Stack | Destination$ Exile | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$Adamant.Green.1.0

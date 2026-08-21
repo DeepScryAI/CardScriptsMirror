@@ -1,7 +1,10 @@
 Id:5806
 ColorIdentity:W
 OriginSet:G0eb5e52d26fe1c23
-ManaCost:1 W
-Types:Instant
-A:SP$ ChangeZone | ValidTgts$ Enchantment | Origin$ Battlefield | Destination$ Library | LibraryPosition$ 0
-K:Cycling:2
+ManaCost:2 W
+Types:Enchantment
+T:Mode$ Cycled | ValidCard$ Card | Execute$ TrigExile | TriggerZones$ Battlefield | OptionalDecider$ You
+SVar:TrigExile:DB$ ChangeZone | ValidTgts$ Creature | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DelTrigEffect
+SVar:DelTrigEffect:DB$ DelayedTrigger | Mode$ Phase | Phase$ End Of Turn | Execute$ TrigReturn | RememberObjects$ RememberedLKI | SubAbility$ DBCleanup | AILogic$ Always
+SVar:TrigReturn:DB$ ChangeZone | Defined$ DelayTriggerRememberedLKI | Origin$ Exile | Destination$ Battlefield
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

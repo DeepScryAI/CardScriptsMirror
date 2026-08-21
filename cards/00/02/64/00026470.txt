@@ -1,10 +1,24 @@
 Id:26470
-ColorIdentity:U
-OriginSet:G06757f68e16377c2
-ManaCost:4 U
-Types:Enchantment
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigIncubate
-SVar:TrigIncubate:DB$ Incubate | Amount$ 4
-T:Mode$ Transformed | ValidCard$ Permanent.YouCtrl+inZoneBattlefield | Execute$ TrigDraw | TriggerZones$ Battlefield | OptionalDecider$ You | ResolvedLimit$ 1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Permanent.Transformed+YouCtrl | OptionalDecider$ You | TriggerZones$ Battlefield | Execute$ TrigDraw | Secondary$ True | ResolvedLimit$ 1
-SVar:TrigDraw:DB$ Draw
+ColorIdentity:G
+OriginSet:G8a59924df6623252
+ManaCost:3 G
+Types:Legendary Creature Tiefling Druid
+PT:3/3
+K:Vigilance
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | Tapped$ True | ChangeType$ Forest | ChangeNum$ 1
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigTransform
+SVar:TrigTransform:AB$ SetState | Cost$ 1 G | Defined$ Self | Mode$ Transform
+SVar:HasAttackEffect:TRUE
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:green
+Types:Legendary Creature Bird Bear
+PT:6/6
+K:Vigilance
+K:Trample
+T:Mode$ Transformed | ValidCard$ Card.Self | Execute$ TrigPumpAll
+SVar:TrigPumpAll:DB$ PumpAll | ValidCards$ Creature.StrictlyOther+Legendary+YouCtrl | NumAtt$ +2 | NumDef$ +2 | KW$ Trample
+T:Mode$ Phase | Phase$ Upkeep | TriggerZones$ Battlefield | ValidPlayer$ You | Execute$ TrigTransformBis
+SVar:TrigTransformBis:DB$ SetState | Defined$ Self | Mode$ Transform

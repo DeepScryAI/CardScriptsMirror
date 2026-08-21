@@ -1,11 +1,10 @@
 Id:32213
-ColorIdentity:R
+ColorIdentity:B
 OriginSet:G9946f072b5556073
-ManaCost:3 R
-Types:Artifact Creature Robot
-PT:3/4
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile | CheckSVar$ X
-SVar:TrigExile:DB$ ChangeZone | TargetMin$ 0 | TargetMax$ 1 | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Instant.YouOwn+cmcLE2,Sorcery.YouOwn+cmcLE2 | RememberChanged$ True | SubAbility$ DBPlay
-SVar:DBPlay:DB$ Play | Defined$ Remembered | ValidSA$ Spell | Optional$ True | CopyCard$ True | WithoutManaCost$ True | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$Void.1.0
+ManaCost:B B B
+Types:Instant
+A:SP$ Charm | Choices$ DBExile,DBReturn,DBPutCounter
+SVar:DBExile:DB$ ChangeZone | ValidTgts$ Creature,Planeswalker | Origin$ Battlefield | Destination$ Exile
+SVar:DBReturn:DB$ ChangeZone | ValidTgts$ Creature.YouOwn,Planeswalker.YouOwn | TargetMin$ 1 | TargetMax$ 2 | TgtZone$ Graveyard | Origin$ Graveyard | Destination$ Hand
+SVar:DBPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 2 | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ ParentTarget | KW$ Lifelink

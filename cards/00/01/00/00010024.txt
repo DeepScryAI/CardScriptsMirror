@@ -1,9 +1,10 @@
 Id:10024
-ColorIdentity:G
+ColorIdentity:W
 OriginSet:G6a049984467eca45
-ManaCost:4 G G G
-Types:Creature Elemental
-PT:5/5
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ X
-SVar:X:Count$Valid Creature.Green+YouCtrl
+ManaCost:2 W
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Curse
+S:Mode$ CantAttack,CantBlock | ValidCard$ Creature.EnchantedBy
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigGainLife
+SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1

@@ -1,12 +1,13 @@
 Id:26345
-ColorIdentity:B
-OriginSet:Gd5f5e54fa26ae40d
-ManaCost:4 B B
-Types:Creature Phyrexian Giant
-PT:6/6
-K:Deathtouch
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigMill | Secondary$ True | TriggerZones$ Battlefield
-SVar:TrigMill:DB$ Mill | Defined$ You | NumCards$ 2 | SubAbility$ DBIncubate
-SVar:DBIncubate:DB$ Incubate | Amount$ X
-SVar:X:Count$ValidGraveyard Creature.YouCtrl
+ColorIdentity:U
+OriginSet:G2192e8955d5e1ad1
+ManaCost:2 U
+Types:Creature Phyrexian Drake
+PT:0/0
+K:Flying
+K:etbCounter:OIL:1
+S:Mode$ Continuous | Affected$ Card.Self | AddPower$ X | AddToughness$ X
+T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | Execute$ TrigPutCounter | TriggerZones$ Battlefield
+SVar:TrigPutCounter:DB$ PutCounter | CounterType$ OIL
+SVar:X:Count$CardCounters.OIL
+SVar:BuffedBy:Card.nonCreature

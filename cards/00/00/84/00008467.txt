@@ -1,8 +1,10 @@
 Id:8467
-ColorIdentity:U
+ColorIdentity:
 OriginSet:Gf7b8c9355081f53b
-ManaCost:5 U U
-Types:Instant
-S:Mode$ AlternativeCost | ValidSA$ Spell.Self | EffectZone$ All | Cost$ ExileFromHand<2/Card.Blue+Other>
-A:SP$ ControlSpell | ValidTgts$ Card.nonCreature | TargetType$ Spell | Mode$ Gain | SubAbility$ DBChooseTargets
-SVar:DBChooseTargets:DB$ ChangeTargets | Defined$ Targeted | Optional$ True
+ManaCost:2
+Types:Snow Artifact
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+K:ETBReplacement:Other:ChooseColor
+SVar:ChooseColor:DB$ ChooseColor | Defined$ You | AILogic$ MostProminentInComputerDeck
+A:AB$ Mana | Cost$ T | Produced$ Chosen

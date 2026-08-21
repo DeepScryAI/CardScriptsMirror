@@ -1,11 +1,12 @@
 Id:18057
 ColorIdentity:B
-OriginSet:G5033d54b23b37629
-ManaCost:1 B
-Types:Creature Human Wizard
-PT:1/3
-K:Kicker:3 B
-T:Mode$ ChangesZone | ValidCard$ Card.Self+kicked | Origin$ Any | Destination$ Battlefield | Execute$ TrigDiscard
-SVar:TrigDiscard:DB$ Discard | Defined$ Player.Opponent | NumCards$ 2 | Mode$ TgtChoose
-SVar:NeedsToPlayKickedVar:Z GE1
-SVar:Z:Count$ValidHand Card.OppOwn
+OriginSet:G21ed5bd3b1924169
+ManaCost:4 B B
+Types:Legendary Planeswalker Vraska
+Loyalty:5
+A:AB$ PumpAll | Cost$ AddCounter<2/LOYALTY> | Planeswalker$ True | ValidCards$ Creature.YouCtrl | NumAtt$ +1
+A:AB$ Destroy | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | ValidTgts$ Creature
+A:AB$ AnimateAll | Cost$ SubCounter<10/LOYALTY> | Planeswalker$ True | Ultimate$ True | ValidCards$ Creature.YouCtrl | Keywords$ Deathtouch | Triggers$ Trig
+SVar:Trig:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Opponent | Execute$ Eff
+SVar:Eff:DB$ LosesGame | Defined$ TriggeredTarget
+SVar:PlayMain1:TRUE

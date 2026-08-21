@@ -1,10 +1,11 @@
 Id:29389
-ColorIdentity:U
-OriginSet:Gac6359c222afbd4f
-ManaCost:2 U U
-Types:Creature Shapeshifter Rogue
-PT:0/0
-K:ETBReplacement:Copy:DBCopy:Optional
-SVar:DBCopy:DB$ Clone | Choices$ Creature.Other | AddTriggers$ AttackTrig | AddSVars$ TrigConnive
-SVar:AttackTrig:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigConnive
-SVar:TrigConnive:DB$ Connive
+ColorIdentity:B
+OriginSet:G27146c70b74a1e72
+ManaCost:B
+Types:Legendary Enchantment
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigDiscard
+SVar:TrigDiscard:DB$ Discard | ValidTgts$ Player | NumCards$ 1 | Mode$ TgtChoose | TargetMin$ 0 | TargetMax$ MaxTgt
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.YouCtrl+Legendary | TriggerZones$ Battlefield | Execute$ TrigMill
+SVar:TrigMill:DB$ Mill | ValidTgts$ Player | TargetMin$ 0 | TargetMax$ MaxTgt | NumCards$ 1 | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 1 | Defined$ Targeted
+SVar:MaxTgt:PlayerCountPlayers$Amount

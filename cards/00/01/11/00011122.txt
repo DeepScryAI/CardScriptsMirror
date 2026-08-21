@@ -1,9 +1,10 @@
 Id:11122
-ColorIdentity:
+ColorIdentity:B
 OriginSet:G9fb0a9a59b6a9580
-ManaCost:9
-Types:Creature Eldrazi
-PT:10/9
-K:Annihilator:2
-T:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigReturn | OptionalDecider$ You
-SVar:TrigReturn:DB$ ChangeZone | ValidTgts$ Creature.YouOwn | Origin$ Graveyard | Destination$ Battlefield
+ManaCost:1 B B
+Types:Creature Vampire Knight
+PT:4/4
+T:Mode$ AttackerBlockedByCreature | ValidCard$ Creature.powerLE1 | ValidBlocker$ Card.Self | Execute$ DelTrig
+T:Mode$ AttackerBlockedByCreature | ValidCard$ Card.Self | ValidBlocker$ Creature.powerLE1 | Execute$ DelTrig | Secondary$ True
+SVar:DelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ EndCombat | ValidPlayer$ Player | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ Destroy | Defined$ Self

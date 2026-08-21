@@ -1,13 +1,11 @@
 Id:34631
-ColorIdentity:WB
-OriginSet:G11c0621ce29fa608
-ManaCost:W B
-Types:Legendary Creature Human Assassin Villain
-PT:2/2
-K:Vigilance
-K:Menace
-S:Mode$ Continuous | Affected$ Card.Self | AddPower$ X
-SVar:X:Count$Valid Equipment.Attached/Times.2
-A:AB$ ChangeZone | Cost$ 3 W B | Origin$ Graveyard | Destination$ Battlefield | WithCountersType$ FINALITY | ActivationZone$ Graveyard | SubAbility$ DBAttach
-SVar:DBAttach:DB$ Attach | Optional$ True | Choices$ Equipment.YouCtrl | Defined$ Self
-SVar:EquipMe:Multiple
+ColorIdentity:R
+OriginSet:Gcb93bbfc68a40806
+ManaCost:3 R
+Types:Legendary Creature Mutant Warlock Hero
+PT:3/3
+T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | Execute$ DBExile | TriggerZones$ Battlefield
+SVar:DBExile:DB$ Dig | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ MayPlay | RememberObjects$ Remembered | ForgetOnMoved$ Exile | Duration$ UntilYourNextEndStep | Affected$ Card.IsRemembered | AffectedZone$ Exile | SubAbility$ DBCleanup
+SVar:MayPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

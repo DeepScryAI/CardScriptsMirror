@@ -1,12 +1,13 @@
 Id:32132
-ColorIdentity:W
-OriginSet:G9946f072b5556073
-ManaCost:2 W
-Types:Legendary Creature Human Soldier
-PT:3/3
-T:Mode$ ChangesZone | ValidCard$ Card.Self,Creature.Other+YouCtrl,Artifact.Other+YouCtrl | Destination$ Battlefield | Execute$ TrigGainLife
-SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 1
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | ConditionCheckSVar$ X | ConditionSVarCompare$ GE3
-K:Warp:W
-SVar:X:Count$LifeYouGainedThisTurn
+ColorIdentity:B
+OriginSet:G7ab4f62d323b0ca7
+ManaCost:B B B B B
+Types:Legendary Creature God
+PT:5/5
+K:Indestructible
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigRepeatEach
+SVar:TrigRepeatEach:DB$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBSacrifice
+SVar:DBSacrifice:DB$ Sacrifice | Amount$ Y | SacValid$ Creature.nonGod | Defined$ Remembered
+SVar:Y:Count$Valid Creature.nonGod+RememberedPlayerCtrl/HalfDown
+T:Mode$ Sacrificed | ValidCard$ Creature.Other | ValidPlayer$ Player | Execute$ TrigPutCounter | TriggerZones$ Battlefield
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1

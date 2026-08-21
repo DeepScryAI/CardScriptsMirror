@@ -1,9 +1,12 @@
 Id:24714
 ColorIdentity:B
 OriginSet:G58bfeff4fb121c8e
-ManaCost:1 B
-Types:Creature Tiefling Rogue Assassin
-PT:1/1
-K:Deathtouch
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self+!blocking | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw
+ManaCost:4 B B
+Types:Legendary Creature Hag Warlock
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraft
+SVar:TrigDraft:DB$ Draft | DraftNum$ 2 | SpellbookCatalogIds$ 24619,24613,24612,24615,24614,24618,24620,24616,24617 | RememberDrafted$ True | SubAbility$ DBPut
+SVar:DBPut:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | Defined$ Remembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+S:Mode$ Continuous | Affected$ Warlock.Other+YouCtrl | AddPower$ 1 | AddToughness$ 1
+SVar:PlayMain1:TRUE

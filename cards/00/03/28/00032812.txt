@@ -1,10 +1,15 @@
 Id:32812
-ColorIdentity:
-OriginSet:G22ed5d6f3707b461
-ManaCost:no cost
-Types:Land
-K:Vigilance
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigScry
-SVar:TrigScry:DB$ Scry | ScryNum$ 1
-A:AB$ Mana | Cost$ T | Produced$ C
-A:AB$ Mana | Cost$ 1 T | Produced$ Any
+ColorIdentity:W
+OriginSet:G36e97d2da170e675
+ManaCost:1 W
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigAirbend
+SVar:TrigAirbend:DB$ Airbend | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ QUEST | CounterNum$ 1
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | Execute$ TrigChangeZone | TriggerZones$ Battlefield | IsPresent$ Card.Self+counters_GE4_QUEST | PresentCompare$ EQ1
+SVar:TrigChangeZone:DB$ ChangeZone | ValidTgts$ Creature.YouCtrl | TargetMin$ 0 | TargetMax$ 1 | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Defined$ Remembered | Origin$ All | Destination$ Battlefield | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:BuffedBy:Creature
+SVar:MaxQuestEffect:4

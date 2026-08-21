@@ -1,11 +1,12 @@
 Id:23799
-ColorIdentity:U
-OriginSet:G5f5d8cfb206e2fac
-ManaCost:3 U U
-Types:Sorcery
-K:Casualty:3
-A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Instant.OppOwn,Sorcery.OppOwn | RememberChanged$ True | SubAbility$ DBPlay
-SVar:DBPlay:DB$ Play | Valid$ Card.IsRemembered+ExiledWithSource | ValidSA$ Spell | ValidZone$ Exile | Amount$ All | WithoutManaCost$ True | Optional$ True | CopyCard$ True | SubAbility$ DBCleanup
+ColorIdentity:R
+OriginSet:Gd970889168b5769f
+ManaCost:2 R
+Types:Creature Goblin Artificer
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Artifact.!token+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | ChangeType$ Artifact.nonLand+cmcLTX | Origin$ Library | Destination$ Exile | Hidden$ True | AtRandom$ True | NoShuffle$ True | Mandatory$ True | NoLooking$ True | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ Play | ForgetOnMoved$ Exile | Duration$ UntilTheEndOfYourNextTurn | SubAbility$ DBCleanup
+SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$ValidGraveyard Instant.OppOwn+cmcGE4,Sorcery.OppOwn+cmcGE4
-SVar:NeedsToPlayVar:X GE1
+SVar:X:TriggeredCard$CardManaCost

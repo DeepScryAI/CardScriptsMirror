@@ -1,8 +1,12 @@
 Id:17248
-ColorIdentity:R
+ColorIdentity:G
 OriginSet:G4b92e66c84393de5
-ManaCost:3 R R
-Types:Creature Zombie Manticore
-PT:5/4
-K:Afflict:3
-S:Mode$ MustAttack | ValidCreature$ Card.Self
+ManaCost:4 G
+Types:Creature Chimera
+PT:*/*
+S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X | SetToughness$ X
+T:Mode$ Phase | Phase$ BeginCombat | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ Self | KW$ FirstStrike & Flying & Deathtouch & DoubleStrike & Haste & Hexproof & Indestructible & Lifelink & Menace & Reach & Trample & Vigilance | SharedKeywordsZone$ Battlefield | SharedRestrictions$ Creature.YouCtrl
+SVar:X:Count$Valid Creature.YouCtrl/Twice
+SVar:BuffedBy:Creature
+SVar:NoZeroToughnessAI:True

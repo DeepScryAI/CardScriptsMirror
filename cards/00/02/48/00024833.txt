@@ -1,9 +1,10 @@
 Id:24833
-ColorIdentity:B
-OriginSet:G3a8b4b9d4649b357
-ManaCost:2 B
-Types:Creature Spirit Cleric
-PT:3/1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill
-SVar:TrigMill:DB$ Mill | NumCards$ 3 | Defined$ You
-A:AB$ ChangeZone | Cost$ 4 B ExileFromGrave<1/CARDNAME> | ActivationZone$ Graveyard | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Creature.YouOwn+Other
+ColorIdentity:UB
+OriginSet:G3c9db52fa0bcee92
+ManaCost:2 U B
+Types:Legendary Planeswalker Sivitri
+Loyalty:4
+A:AB$ Effect | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | StaticAbilities$ CantAttack | Duration$ UntilYourNextTurn
+SVar:CantAttack:Mode$ CantAttackUnless | ValidCard$ Creature | Target$ You,Planeswalker.YouCtrl | Cost$ PayLife<2>
+A:AB$ ChangeZone | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | Origin$ Library | Destination$ Hand | ChangeType$ Dragon
+A:AB$ DestroyAll | Cost$ SubCounter<7/LOYALTY> | Ultimate$ True | Planeswalker$ True | ValidCards$ Creature.nonDragon

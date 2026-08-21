@@ -1,7 +1,13 @@
 Id:19781
-ColorIdentity:U
-OriginSet:Ga539dc09c09c4538
-ManaCost:2 U
-Types:Instant
-A:SP$ ChangeZoneAll | ValidTgts$ Player | Origin$ Battlefield | Destination$ Command | ChangeType$ Permanent.IsCommander+TargetedPlayerCtrl | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw
+ColorIdentity:WUR
+OriginSet:Gc586f37a51dca466
+ManaCost:1 U R W
+Types:Legendary Enchantment Saga
+K:Chapter:3:DBToken,DBToken,DBSearch
+SVar:DBToken:DB$ Token | TokenScriptIds$ 3376626530 | TokenOwner$ You | SubAbility$ DBDiscount
+SVar:DBDiscount:DB$ Effect | StaticAbilities$ SReduceCost
+SVar:SReduceCost:Mode$ ReduceCost | ValidCard$ Card | Type$ Spell | Activator$ You | Amount$ X
+SVar:X:Count$Valid Wizard.YouCtrl
+SVar:DBSearch:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Planeswalker | ChangeNum$ 1 | RememberChanged$ True | SubAbility$ DBCounter
+SVar:DBCounter:DB$ PutCounter | Defined$ Remembered | CounterType$ LOYALTY | CounterNum$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

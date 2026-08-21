@@ -1,13 +1,11 @@
 Id:32341
-ColorIdentity:WUG
-OriginSet:G324b911e0e372b1b
-ManaCost:1 G W U
+ColorIdentity:U
+OriginSet:G9946f072b5556073
+ManaCost:3 U U
 Types:Legendary Creature Jellyfish Advisor
-PT:4/4
+PT:3/4
 K:Flying
-K:Vigilance
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigConjure
-SVar:TrigConjure:DB$ MakeCard | Conjure$ True | SpellbookCatalogIds$ 32046,32108,32156,32251,32282 | Zone$ Battlefield
-T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigToken | TriggerZones$ Battlefield
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 2258507865 | RememberTokens$ True | SubAbility$ DBAnimate
-SVar:DBAnimate:DB$ Animate | Defined$ Remembered | Power$ 2 | Toughness$ 1 | Types$ Creature,Artifact | Keywords$ Flying | Duration$ Permanent
+S:Mode$ Continuous | Affected$ Card.TopLibrary+YouCtrl | AffectedZone$ Library | MayLookAt$ You
+S:Mode$ Continuous | Affected$ Artifact.TopLibrary+YouCtrl+nonLand | AffectedZone$ Library | MayPlay$ True
+S:Mode$ Continuous | Affected$ Artifact.YouCtrl | AddAbility$ AnyMana
+SVar:AnyMana:AB$ Mana | Cost$ T | Produced$ U | Amount$ 1 | RestrictValid$ Spell.!wasCastFromYourHand

@@ -1,8 +1,13 @@
 Id:20953
-ColorIdentity:B
+ColorIdentity:W
 OriginSet:Gfd5e6da37c69dc53
-ManaCost:B
-Types:Artifact
-A:AB$ GainLife | Cost$ 1 B T Sac<1/Creature> | Defined$ You | LifeAmount$ 1 | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw
-SVar:AIPreference:SacCost$Creature.token,Creature.cmcLE2
+ManaCost:1 W W
+Types:Enchantment
+K:Hexproof
+R:Event$ DamageDone | ActiveZones$ Battlefield | ValidSource$ Card,Emblem | ValidTarget$ You | PreventionEffect$ True | ReplaceWith$ AddCounters | AlwaysReplace$ True | ExecuteMode$ PerSource
+SVar:AddCounters:DB$ PutCounter | Defined$ Self | CounterType$ INCARNATION | CounterNum$ 1
+T:Mode$ Always | TriggerZones$ Battlefield | IsPresent$ Card.Self+counters_GE9_INCARNATION | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | Defined$ Self
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigLose
+SVar:TrigLose:DB$ LosesGame | Defined$ You
+SVar:DonateMe:3

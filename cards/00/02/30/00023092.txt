@@ -1,10 +1,21 @@
 Id:23092
-ColorIdentity:W
+ColorIdentity:G
 OriginSet:G7a76c1974b0a33a6
-ManaCost:2 W
-Types:Creature Vampire
-PT:2/3
-K:Flying
-T:Mode$ ChangesZoneAll | ValidCards$ Creature.powerLE2+YouCtrl+Other | Destination$ Battlefield | TriggerZones$ Battlefield | ActivationLimit$ 1 | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
-SVar:BuffedBy:Creature.powerLE2
+ManaCost:4 G G
+Types:Creature Human Werewolf
+PT:4/4
+K:Hexproof
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.Other+YouCtrl | CounterType$ P1P1 | CounterNum$ 2
+K:Daybound
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:green
+Types:Creature Werewolf
+PT:6/6
+K:Hexproof
+S:Mode$ Continuous | Affected$ Permanent.Other+YouCtrl | AddKeyword$ Hexproof
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounterAll
+SVar:TrigPutCounterAll:DB$ PutCounterAll | ValidCards$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 2
+K:Nightbound

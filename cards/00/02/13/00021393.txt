@@ -1,10 +1,15 @@
 Id:21393
 ColorIdentity:R
 OriginSet:G51d431785c8b33e5
-ManaCost:3 R R
-Types:Creature Orc Pirate
-PT:4/4
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigUntap
-SVar:TrigUntap:DB$ UntapAll | ValidCards$ Creature.YouCtrl | SubAbility$ DBAddCombat
-SVar:DBAddCombat:DB$ AddPhase | ExtraPhase$ Combat | AfterPhase$ EndCombat
-S:Mode$ CantAttack | ValidCard$ Card.Self | Target$ Player.attackedBySourceThisTurn
+ManaCost:6 R
+Types:Legendary Creature Giant Pirate
+PT:7/5
+A:SP$ PermanentCreature | Cost$ 6 R Sac<X/Artifact;Creature/any number of artifacts and/or creatures> | AILogic$ SacToReduceCost
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ Y | EffectZone$ All | Relative$ True
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ Z | EffectZone$ All
+SVar:X:Count$xPaid
+SVar:Y:SVar$X/Times.2
+SVar:Z:PlayerCountPropertyYou$SacrificedThisTurn Artifact,Creature/Times.2
+SVar:AIPreference:SacCost$Creature.token,Creature.cmcLE2
+K:Trample
+K:Partner

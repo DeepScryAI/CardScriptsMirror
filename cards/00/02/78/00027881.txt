@@ -1,9 +1,11 @@
 Id:27881
-ColorIdentity:R
-OriginSet:G3601f5e223de6c7f
-ManaCost:5 R R R
-Types:Sorcery
-K:Cascade
-K:Cascade
-A:SP$ DamageAll | NumDmg$ X | ValidCards$ Creature.OppCtrl
-SVar:X:Count$ThisTurnCast_Card.YouCtrl+!CastSaSource$CardManaCost
+ColorIdentity:UR
+OriginSet:G30e8a5e111cffb44
+ManaCost:1 U R
+Types:Legendary Creature Human Incarnation
+PT:3/3
+K:Vanishing:3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | ChangeType$ Artifact.Other+YouCtrl | ChangeNum$ 1 | Hidden$ True | Mandatory$ True | Origin$ Battlefield | Destination$ Exile | Duration$ UntilHostLeavesPlay
+S:Mode$ Continuous | Affected$ Card.Self | EffectZone$ Battlefield | GainsAbilitiesOf$ Card.ExiledWithSource | GainsTriggerAbsOf$ Card.ExiledWithSource | GainsAbilitiesOfZones$ Exile | AddPower$ X | AddToughness$ X
+SVar:X:Count$ValidExile Card.ExiledWithSource$CardManaCost

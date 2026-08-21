@@ -1,13 +1,9 @@
 Id:24201
-ColorIdentity:UB
-OriginSet:G51fcb7ec0cb81c29
-ManaCost:3 U B
-Types:Legendary Creature Horror Pirate
-PT:3/6
-S:Mode$ Continuous | Affected$ Card.Horror+YouCtrl | AddKeyword$ Menace
-T:Mode$ DamageDone | ValidSource$ Card.Horror+YouCtrl | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigMill | TriggerZones$ Battlefield
-SVar:TrigMill:DB$ Mill | Defined$ TriggeredTarget | NumCards$ X
-SVar:X:TriggerCount$DamageAmount
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigChangeZone
-SVar:TrigChangeZone:DB$ ChangeZone | ValidTgts$ Artifact.OppOwn+ThisTurnEnteredFrom_Library,Creature.OppOwn+ThisTurnEnteredFrom_Library | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True
-SVar:PlayMain1:TRUE
+ColorIdentity:G
+OriginSet:Gcf5d9b1e2ed6c496
+ManaCost:1 G
+Types:Creature Human Citizen
+PT:1/3
+A:AB$ Mana | Cost$ T | Produced$ Any | Amount$ 1 | RestrictValid$ Spell.Creature
+T:Mode$ SpellCast | TriggerZones$ Battlefield | ValidCard$ Card.Creature+!sharesCreatureTypeWith ValidLibrary Creature.YouOwn | ValidActivatingPlayer$ You | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1

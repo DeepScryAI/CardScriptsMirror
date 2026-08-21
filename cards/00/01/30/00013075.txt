@@ -1,7 +1,11 @@
 Id:13075
-ColorIdentity:W
+ColorIdentity:G
 OriginSet:G5449dea2d54987a1
-ManaCost:2 W W
+ManaCost:X G
 Types:Enchantment
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ Detain
-SVar:Detain:DB$ Detain | ValidTgts$ Creature.OppCtrl
+K:etbCounter:CHARGE:X
+A:AB$ Mana | Cost$ SubCounter<1/CHARGE> | Produced$ Any | Amount$ 1 | ActivationLimit$ 1
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ NoCharge | SVarCompare$ EQ0 | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Defined$ Self | Origin$ Battlefield | Destination$ Hand
+SVar:NoCharge:Count$CardCounters.CHARGE
+SVar:X:Count$xPaid

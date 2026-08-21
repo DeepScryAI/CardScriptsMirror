@@ -1,11 +1,12 @@
 Id:29947
-ColorIdentity:W
+ColorIdentity:B
 OriginSet:Gf09b85bbcc27770c
-ManaCost:3 W W
+ManaCost:B B
 Types:Sorcery
-A:SP$ Charm | Choices$ DBToken,DBExile,DBReanimate | CharmNum$ 5 | MinCharmNum$ 0 | CanRepeatModes$ True | Pawprint$ 5
-SVar:DBToken:DB$ Token | Pawprint$ 1 | TokenScriptIds$ 3546809703
-SVar:DBExile:DB$ ChangeZone | Pawprint$ 2 | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Permanent.nonLand | RememberLKI$ True | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | Defined$ RememberedController | NumCards$ 1 | SubAbility$ DBCleanup
+K:Gift
+SVar:GiftAbility:DB$ Draw | Defined$ Promised
+A:SP$ ChangeZone | Origin$ Hand | Destination$ Exile | DefinedPlayer$ Targeted | ValidTgts$ Opponent | Chooser$ You | ChangeType$ Card.nonLand | ChangeNum$ 1 | IsCurse$ True | Mandatory$ True | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | RememberObjects$ Remembered | Duration$ Permanent | ForgetOnMoved$ Exile | ConditionZone$ Stack | ConditionPresent$ Card.Self+PromisedGift | ConditionCompare$ EQ1 | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | MayPlayIgnoreType$ True | Affected$ Card.IsRemembered+nonLand | AffectedZone$ Exile
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:DBReanimate:DB$ ChangeZone | Pawprint$ 3 | ValidTgts$ Permanent.YouCtrl+cmcLE3 | Origin$ Graveyard | Destination$ Battlefield | WithCountersType$ Indestructible
+SVar:PlayMain1:TRUE

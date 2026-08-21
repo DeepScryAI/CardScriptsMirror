@@ -1,10 +1,14 @@
 Id:22556
-ColorIdentity:B
+ColorIdentity:G
 OriginSet:G9f95a41d532c0550
-ManaCost:3 B
-Types:Creature Manticore
-PT:2/1
-K:Flash
-K:Flying
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TailSpikes
-SVar:TailSpikes:DB$ Destroy | ValidTgts$ Creature.wasDealtDamageThisTurn+OppCtrl
+ManaCost:1 G
+Types:Enchantment Class
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigGainLife
+SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
+K:Class:2:2 G:AddStaticAbility$ SLandPlay
+SVar:SLandPlay:Mode$ Continuous | Affected$ You | AdjustLandPlays$ 1 | Secondary$ True
+K:Class:3:4 G:AddTrigger$ TriggerClassLevel
+SVar:TriggerClassLevel:Mode$ ClassLevelGained | ClassLevel$ 3 | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigAnimateLand | Secondary$ True
+SVar:TrigAnimateLand:DB$ Animate | ValidTgts$ Land.YouCtrl | Types$ Creature | Duration$ Permanent | Keywords$ Haste | staticAbilities$ StLandPT
+SVar:StLandPT:Mode$ Continuous | EffectZone$ All | CharacteristicDefining$ True | SetPower$ X | SetToughness$ X
+SVar:X:Count$Valid Land.YouCtrl

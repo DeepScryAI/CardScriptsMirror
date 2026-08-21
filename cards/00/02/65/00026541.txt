@@ -1,22 +1,10 @@
 Id:26541
-ColorIdentity:W
-OriginSet:G06757f68e16377c2
-ManaCost:1 W
-Types:Battle Siege
-Defense:3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigLook
-SVar:TrigLook:DB$ RevealHand | ValidTgts$ Opponent | Look$ True | RememberRevealed$ True | SubAbility$ DBChooseCard
-SVar:DBChooseCard:DB$ ChooseCard | ChoiceZone$ Hand | Choices$ Card.nonLand+IsRemembered | MinAmount$ 0 | Amount$ 1 | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | Defined$ ChosenCard | Origin$ Hand | Destination$ Exile | Imprint$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | Duration$ Permanent | StaticAbilities$ MayPlay,CostsMore | RememberObjects$ Imprinted | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
-SVar:MayPlay:Mode$ Continuous | Affected$ Card.IsRemembered | AffectedZone$ Exile | MayPlay$ True | MayPlayPlayer$ CardOwner
-SVar:CostsMore:Mode$ RaiseCost | ValidCard$ Card.IsRemembered | AffectedZone$ Exile | Type$ Spell | Amount$ 2
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearChosenCard$ True | ClearImprinted$ True
-AlternateMode:DoubleFaced
-ALTERNATE
+ColorIdentity:
+OriginSet:Gd5f5e54fa26ae40d
 ManaCost:no cost
-Colors:white
-Types:Enchantment
-A:AB$ PumpAll | Cost$ Sac<1/CARDNAME> | ValidCards$ Creature.YouCtrl | KW$ Indestructible & Hexproof
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounterAll | ValidCards$ Creature.attackedThisTurn | CounterType$ P1P1 | CounterNum$ 1
+Types:Plane Fiora
+T:Mode$ DamageDoneOnce | ValidSource$ Creature.YouCtrl | ValidTarget$ Player | CheckSVar$ Monarch | SVarCompare$ EQ0 | CombatDamage$ True | Execute$ TrigMonarch | TriggerZones$ Command
+SVar:TrigMonarch:DB$ BecomeMonarch
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos
+SVar:RolledChaos:DB$ Token | TokenScriptIds$ 3443540260 | TokenOwner$ You
+SVar:Monarch:PlayerCountPlayers$HasPropertyisMonarch

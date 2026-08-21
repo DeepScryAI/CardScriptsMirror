@@ -1,9 +1,12 @@
 Id:20277
-ColorIdentity:W
-OriginSet:Gfa87e7bbc5a709eb
-ManaCost:4 W W
-Types:Creature Archon
-PT:4/4
-K:Flying
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigReturn | OptionalDecider$ TriggeredCardController
-SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Enchantment.YouOwn
+ColorIdentity:R
+OriginSet:G42eb6bda83007836
+ManaCost:3 R R
+Types:Creature Ox
+PT:4/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Mode$ Hand | Defined$ You | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 3
+K:Escape:R R ExileFromGrave<8/Card.Other/other>
+K:etbCounter:P1P1:1:ValidCard$ Card.Self+escaped
+SVar:AIPreference:SacCost$Card.YouOwn+Other+inZoneGraveyard

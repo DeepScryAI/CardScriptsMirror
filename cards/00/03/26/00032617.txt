@@ -1,9 +1,13 @@
 Id:32617
 ColorIdentity:R
-OriginSet:G36e97d2da170e675
-ManaCost:no cost
-Types:Land
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ LandTapped | ReplacementResult$ Updated
-SVar:LandTapped:DB$ Tap | Defined$ Self | ETB$ True | ConditionPresent$ Land.Basic+YouCtrl | ConditionCompare$ EQ0
-A:AB$ Mana | Cost$ T | Produced$ R
-A:AB$ Pump | Cost$ 1 R T | ValidTgts$ Creature.YouCtrl | KW$ Firebending:4
+OriginSet:G66b3a7eeabd9000e
+ManaCost:1 R
+Types:Enchantment
+T:Mode$ Phase | Phase$ Main1 | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDiscard
+SVar:TrigDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ GE1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+T:Mode$ LandPlayed | ValidCard$ Land.YouCtrl | Origin$ Ante,Command,Exile,Graveyard,Library | Execute$ TrigDamage | TriggerZones$ Battlefield
+T:Mode$ LandPlayed | ValidCard$ Land.YouCtrl+YouDontOwn | Origin$ Hand | Execute$ TrigDamage | TriggerZones$ Battlefield | Secondary$ True
+T:Mode$ SpellCast | ValidCard$ Card.!wasCastFromYourHand | ValidActivatingPlayer$ You | Execute$ TrigDamage | TriggerZones$ Battlefield | Secondary$ True
+SVar:TrigDamage:DB$ DealDamage | Defined$ Player.Opponent | NumDmg$ 1

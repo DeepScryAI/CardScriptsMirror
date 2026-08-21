@@ -1,8 +1,12 @@
 Id:32094
-ColorIdentity:R
-OriginSet:G9946f072b5556073
-ManaCost:1 R
-Types:Instant
-A:SP$ Charm | Choices$ DBPutCounter,DBDestroy
-SVar:DBPutCounter:DB$ PutCounter | ValidTgts$ Spacecraft.YouCtrl,Planet.YouCtrl | CounterType$ CHARGE | CounterNum$ 5
-SVar:DBDestroy:DB$ Destroy | ValidTgts$ Artifact
+ColorIdentity:G
+OriginSet:G7ab4f62d323b0ca7
+ManaCost:1 G
+Types:Legendary Creature Wolf
+PT:2/2
+T:Mode$ SpellCast | ValidCard$ Creature.Human | ValidActivatingPlayer$ You | ActivatorThisTurnCast$ EQ1 | Execute$ TrigEffect | TriggerZones$ Battlefield
+SVar:TrigEffect:DB$ Effect | RememberObjects$ TriggeredCard | SetChosenNumber$ X | ReplacementEffects$ ETBCreat | ExileOnMoved$ Stack
+SVar:ETBCreat:Event$ Moved | ValidCard$ Card.IsRemembered | Destination$ Battlefield | ReplaceWith$ DBPutP1P1 | ReplacementResult$ Updated
+SVar:DBPutP1P1:DB$ PutCounter | Defined$ ReplacedCard | CounterType$ P1P1 | ETB$ True | CounterNum$ Count$ChosenNumber
+A:AB$ Mana | Cost$ T | Produced$ Any
+SVar:X:Count$Valid Dog.YouCtrl,Wolf.YouCtrl

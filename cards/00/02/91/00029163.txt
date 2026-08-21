@@ -1,10 +1,8 @@
 Id:29163
-ColorIdentity:R
+ColorIdentity:BR
 OriginSet:G27146c70b74a1e72
-ManaCost:2 R
-Types:Instant
-A:SP$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +2 | SubAbility$ DBExile
-SVar:DBExile:DB$ Dig | DigNum$ 1 | ConditionPresent$ Card.Outlaw+YouCtrl | Reveal$ True | ChangeNum$ All | ChangeValid$ Card | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ Play | Duration$ UntilTheEndOfYourNextTurn | SubAbility$ DBCleanup
-SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:1 B R
+Types:Enchantment
+S:Mode$ Continuous | Affected$ Creature.Outlaw+YouCtrl | AddKeyword$ FirstStrike | Condition$ PlayerTurn
+T:Mode$ CommitCrime | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigToken | ActivationLimit$ 1
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 472008509 | TokenOwner$ You

@@ -1,9 +1,11 @@
 Id:5331
-ColorIdentity:B
+ColorIdentity:U
 OriginSet:Gfdac7ecc1e8a7d21
-ManaCost:2 B
+ManaCost:4 U
 Types:Sorcery
-A:SP$ Discard | AnyNumber$ True | Optional$ True | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBLastRitesDiscard | AILogic$ DiscardUncastableAndExcess
-SVar:DBLastRitesDiscard:DB$ Discard | Mode$ RevealYouChoose | NumCards$ X | DiscardValid$ Card.nonLand | ValidTgts$ Opponent
-SVar:DBLastRitesCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Remembered$Amount
+A:SP$ Draw | NumCards$ X | ValidTgts$ Player | RememberDrawn$ AllReplaced | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ Targeted | Mode$ TgtChoose | NumCards$ Z | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:TargetedPlayer$CardsInHand
+SVar:Y:Remembered$Amount
+SVar:Z:SVar$X/Minus.Y

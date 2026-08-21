@@ -2,13 +2,15 @@ Id:12797
 ColorIdentity:
 OriginSet:G4801bb28ce9773ed
 ManaCost:no cost
-Types:Plane Regatha
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Command | Execute$ BuildPressure
-SVar:BuildPressure:DB$ PutCounter | Defined$ Self | CounterType$ PRESSURE | CounterNum$ 1
-T:Mode$ PlaneswalkedFrom | ValidCard$ Plane.Self | Execute$ Eruption
-SVar:Eruption:DB$ DamageAll | ValidCards$ Creature,Planeswalker | NumDmg$ KeraliaX
-T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos
-SVar:RolledChaos:DB$ Effect | ReplacementEffects$ RPrevent | EffectOwner$ You | Duration$ Permanent
-SVar:RPrevent:Event$ DamageDone | Prevent$ True | ActiveZones$ Command | ValidTarget$ Permanent.YouCtrl | ValidSource$ Plane.catalogId12797
-SVar:KeraliaX:TriggeredCard$CardCounters.PRESSURE
-SVar:AIRollPlanarDieParams:Mode$ Always | LowPriority$ True
+Types:Phenomenon
+T:Mode$ PlaneswalkedTo | ValidCard$ Card.Self | Execute$ TrigPut
+SVar:TrigPut:DB$ RepeatEach | StartingWith$ You | RepeatPlayers$ Player | RepeatSubAbility$ DBShuffle | SubAbility$ ChangePermanent
+SVar:DBShuffle:DB$ ChangeZoneAll | ChangeType$ Permanent.RememberedPlayerOwn | Imprint$ True | Origin$ Battlefield | Destination$ Library | Shuffle$ True | SubAbility$ DBReveal
+SVar:DBReveal:DB$ PeekAndReveal | Defined$ Remembered | PeekAmount$ WarpX | NoPeek$ True | RememberRevealed$ True | SubAbility$ DBCleanImprint
+SVar:DBCleanImprint:DB$ Cleanup | ClearImprinted$ True
+SVar:WarpX:Imprinted$Amount
+SVar:ChangePermanent:DB$ ChangeZoneAll | ChangeType$ Artifact.IsRemembered,Creature.IsRemembered,Land.IsRemembered,Planeswalker.IsRemembered | Origin$ Library | Destination$ Battlefield | ForgetChanged$ True | SubAbility$ ChangeEnchantment
+SVar:ChangeEnchantment:DB$ ChangeZoneAll | ChangeType$ Enchantment.IsRemembered | Origin$ Library | Destination$ Battlefield | ForgetChanged$ True | SubAbility$ GotoBottom
+SVar:GotoBottom:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered | Origin$ Library | Destination$ Library | LibraryPosition$ -1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | SubAbility$ PWAway
+SVar:PWAway:DB$ Planeswalk

@@ -1,11 +1,11 @@
 Id:34334
-ColorIdentity:
+ColorIdentity:UBR
 OriginSet:Gcb93bbfc68a40806
-ManaCost:5
-Types:Legendary Artifact Creature Human Hero
-PT:4/4
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card.YouOwn | RememberChanged$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | RememberObjects$ Remembered | StaticAbilities$ STPlay | ForgetOnMoved$ Exile | Duration$ AsLongAsControl | SubAbility$ DBCleanup
-SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:1 U B R
+Types:Legendary Creature Human Noble Villain
+PT:3/3
+T:Mode$ DiscardedAll | ValidCard$ Land | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 2
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | ValidTgts$ Villain.YouCtrl | KW$ Menace | SubAbility$ DBConnive
+SVar:DBConnive:DB$ Connive | Defined$ Targeted

@@ -1,10 +1,13 @@
 Id:31745
-ColorIdentity:
-OriginSet:G7ab4f62d323b0ca7
-ManaCost:1
-Types:Legendary Artifact Equipment
-K:Equip:3
-S:Mode$ Continuous | Affected$ Card.EquippedBy | AddPower$ X | AddToughness$ X
-T:Mode$ LifeGained | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | CounterType$ CHARGE | CounterNum$ 1
-SVar:X:Count$CardCounters.CHARGE
+ColorIdentity:W
+OriginSet:G530ea9d733a13e9d
+ManaCost:X W W
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ X | TokenScriptIds$ 3709958967 | TokenOwner$ You
+T:Mode$ AttackersDeclared | Execute$ TrigScry | ValidAttackers$ Creature | ValidAttackersAmount$ GE4 | TriggerZones$ Battlefield | AttackingPlayer$ You
+SVar:TrigScry:DB$ Scry | ScryNum$ 2 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw
+T:Mode$ AttackersDeclared | Execute$ TrigPump | ValidAttackers$ Creature | ValidAttackersAmount$ GE8 | TriggerZones$ Battlefield | AttackingPlayer$ You
+SVar:TrigPump:DB$ Pump | Defined$ TriggeredAttackers | NumAtt$ +4 | NumDef$ +4
+SVar:X:Count$xPaid

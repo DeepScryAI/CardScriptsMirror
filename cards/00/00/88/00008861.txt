@@ -1,13 +1,12 @@
 Id:8861
 ColorIdentity:R
 OriginSet:Gce1d73449bd71b54
-ManaCost:5 R R R
-Types:Legendary Creature Angel
-PT:6/6
-K:Flying
-K:Trample
-K:Protection:White
-K:Protection:Blue
-A:AB$ Pump | Cost$ R | Defined$ Self | NumAtt$ +1
-K:Morph:3 R R R
-R:Event$ Counter | ValidCard$ Card.Self | ValidSA$ Spell | Layer$ CantHappen
+ManaCost:1 R R
+Types:Creature Wall
+PT:0/5
+K:Defender
+K:Reach
+T:Mode$ AttackerBlocked | ValidCard$ Creature | ValidBlocker$ Card.Self | Execute$ DelayedTrig
+SVar:DelayedTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ EndCombat | ValidPlayer$ Player | Execute$ TrigBounce | RememberObjects$ TriggeredAttackerLKICopy
+SVar:TrigBounce:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Defined$ DelayTriggerRememberedLKI
+SVar:HasBlockEffect:TRUE

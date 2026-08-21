@@ -1,9 +1,13 @@
 Id:24011
-ColorIdentity:G
-OriginSet:G9afc9838c5e994df
-ManaCost:2 G
-Types:Creature Elf Citizen
-PT:2/3
-K:Reach
-T:Mode$ AttackerBlocked | ValidCard$ Creature.withFlying | ValidBlocker$ Card.Self | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +2
+ColorIdentity:BRG
+OriginSet:Gfdfe2ebef04be34e
+ManaCost:3 B R G
+Types:Legendary Creature Demon Dragon
+PT:6/6
+K:Flying
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | Execute$ DBTrigger | TriggerZones$ Battlefield
+SVar:DBTrigger:AB$ ImmediateTrigger | Cost$ Sac<1/Creature.StrictlyOther/another creature> | Execute$ DBDealDmg | AILogic$ SacForDamage | RememberObjects$ Sacrificed
+SVar:DBDealDmg:DB$ DealDamage | ValidTgts$ Any | NumDmg$ XPower | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenAmount$ 3 | TokenScriptIds$ 3851718391
+SVar:XPower:TriggerRemembered$CardPower
+SVar:AIPreferenceParams:CreatureEvalThreshold$ 200

@@ -1,8 +1,15 @@
 Id:7194
 ColorIdentity:W
 OriginSet:G332b6b8a53f3d107
-ManaCost:1 W W
+ManaCost:3 W
 Types:Creature Fox Wizard
-PT:2/1
-K:Protection:Spirit
-K:Protection:Arcane
+PT:2/3
+T:Mode$ Phase | Phase$ End of Turn | IsPresent$ Aura.Attached | PresentCompare$ GE2 | Execute$ TrigFlip | TriggerZones$ Battlefield
+SVar:TrigFlip:DB$ SetState | Defined$ Self | Mode$ Flip
+SVar:EnchantMe:Multiple
+AlternateMode:Flip
+ALTERNATE
+ManaCost:3 W
+Types:Legendary Creature Fox Wizard
+PT:4/5
+A:AB$ Attach | Cost$ 1 | ValidTgts$ Aura.AttachedTo Creature | Object$ Targeted | Choices$ Creature | Move$ True

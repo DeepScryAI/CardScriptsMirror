@@ -1,9 +1,10 @@
 Id:19279
-ColorIdentity:
+ColorIdentity:R
 OriginSet:Gb6b8d78626a44788
-ManaCost:no cost
-Types:Land
-T:Mode$ SpellCast | ValidCard$ Planeswalker | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigGainLife
-SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
-A:AB$ Mana | Cost$ T | Produced$ C
-A:AB$ Mana | Cost$ 1 T | Produced$ Combo AnyDifferent | Amount$ 2 | RestrictValid$ Spell.Planeswalker
+ManaCost:3 R
+Types:Creature Zombie Jackal Warrior
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ DBAmass
+SVar:DBAmass:DB$ Amass | Type$ Zombie | Num$ 2
+S:Mode$ Continuous | Affected$ Zombie.token+YouCtrl | AddKeyword$ Trample
+SVar:PlayMain1:TRUE

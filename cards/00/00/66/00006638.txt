@@ -1,11 +1,9 @@
 Id:6638
-ColorIdentity:
+ColorIdentity:U
 OriginSet:G983da6aa108b8f13
-ManaCost:3
-Types:Artifact
-T:Mode$ Phase | Phase$ Upkeep | Execute$ TrigPutCounter | TriggerZones$ Battlefield
-SVar:TrigPutCounter:DB$ PutCounter | TargetingPlayer$ TriggeredPlayer | ValidTgts$ Land.ActivePlayerCtrl+nonIsland | CounterType$ FLOOD | CounterNum$ 1 | Placer$ TriggeredPlayer | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | RememberObjects$ Targeted | StaticAbilities$ FountainStatic | ForgetOnMoved$ Battlefield | ForgetCounter$ FLOOD | Duration$ Permanent
-SVar:FountainStatic:Mode$ Continuous | Affected$ Card.IsRemembered | AddType$ Island | RemoveLandTypes$ True
-T:Mode$ Phase | Phase$ End of Turn | IsPresent$ Land.nonIsland | PresentCompare$ EQ0 | TriggerZones$ Battlefield | Execute$ TrigRemoveAll
-SVar:TrigRemoveAll:DB$ RemoveCounterAll | ValidCards$ Land | CounterType$ FLOOD | AllCounters$ True
+ManaCost:3 U U
+Types:Creature Elemental
+PT:3/4
+S:Mode$ ManaConvert | ValidPlayer$ You | ValidCard$ Card.Self | ValidSA$ Activated | ManaConversion$ Blue->AnyColor
+A:AB$ Effect | Cost$ U | ValidTgts$ Creature | TgtZone$ Battlefield | StaticAbilities$ STSteal | RememberLKI$ Targeted | Duration$ UntilHostLeavesPlayOrEOT
+SVar:STSteal:Mode$ Continuous | Affected$ Card.EffectSource | GainsAbilitiesOfDefined$ RememberedLKI

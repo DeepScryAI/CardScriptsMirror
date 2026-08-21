@@ -1,8 +1,11 @@
 Id:31793
-ColorIdentity:G
-OriginSet:G7ab4f62d323b0ca7
-ManaCost:5 G G
-Types:Creature Plant
-PT:1/7
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +9999
+ColorIdentity:WR
+OriginSet:G530ea9d733a13e9d
+ManaCost:3 R W
+Types:Legendary Creature Human Avatar Soldier
+PT:7/5
+T:Mode$ Attacks | ValidCard$ Creature.Self | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature | CounterType$ CELL | CounterNum$ 1 | Optional$ True | SubAbility$ DBAnimateAll
+SVar:DBAnimateAll:DB$ AnimateAll | ValidCards$ Creature.modified+YouCtrl | Power$ 7 | Toughness$ 5
+A:AB$ ChangeZone | Cost$ 3 Sac<1/Creature.modified/a modified creature> | Origin$ Graveyard | Destination$ Battlefield | ActivationZone$ Graveyard | Tapped$ True
+SVar:HasAttackEffect:TRUE

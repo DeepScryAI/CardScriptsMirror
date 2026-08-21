@@ -1,10 +1,13 @@
 Id:30993
-ColorIdentity:
-OriginSet:G4524bbf7a3db9dc0
-ManaCost:3
-Types:Artifact
-T:Mode$ Discarded | ValidCard$ Card.YouOwn | TriggerZones$ Battlefield | Execute$ TrigCharm
-SVar:TrigCharm:DB$ Charm | Choices$ DBDraw,DBToken,DBLoseLife | ChoiceRestriction$ ThisTurn
-SVar:DBDraw:DB$ Draw
-SVar:DBToken:DB$ Token | TokenScriptIds$ 3851718391
-SVar:DBLoseLife:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 3
+ColorIdentity:B
+OriginSet:G2c8286a6f234d4b9
+ManaCost:3 B
+Types:Legendary Creature Vampire Warlock
+PT:3/3
+K:Menace
+T:Mode$ LifeGained | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ FEEDING | CounterNum$ 1
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:AB$ Draw | Cost$ SubCounter<3/FEEDING> | Defined$ You | NumCards$ 3 | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ 3
+SVar:HasAttackEffect:TRUE

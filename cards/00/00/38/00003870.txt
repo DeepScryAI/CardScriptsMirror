@@ -1,12 +1,8 @@
 Id:3870
 ColorIdentity:R
 OriginSet:G3da30095b68d8df0
-ManaCost:R
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:Pump
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ FUSE | CounterNum$ 1
-T:Mode$ ChangesZone | ValidCard$ Card.AttachedBy | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigDamage
-SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ X
-SVar:X:Count$CardCounters.FUSE
+ManaCost:2 R
+Types:Enchantment
+T:Mode$ Phase | Phase$ End of Turn | CheckSVar$ TrigCast | SVarCompare$ EQ0 | Execute$ ImpatientDamage | TriggerZones$ Battlefield
+SVar:ImpatientDamage:DB$ DealDamage | Defined$ TriggeredPlayer | NumDmg$ 2
+SVar:TrigCast:Count$ThisTurnCast_Card.ActivePlayerCtrl

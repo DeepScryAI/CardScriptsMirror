@@ -1,10 +1,10 @@
 Id:8747
-ColorIdentity:W
+ColorIdentity:R
 OriginSet:G70f74088c47d66bd
-ManaCost:2 W
-Types:Creature Kor Rebel Knight
-PT:2/2
-K:Flanking
-A:AB$ Effect | Cost$ 0 | Name$ 16816376986866203223 | ValidTgts$ Creature.YouCtrl | ReplacementEffects$ EnKor | Duration$ UntilHostLeavesPlayOrEOT | RememberObjects$ Targeted | ExileOnMoved$ Battlefield
-SVar:EnKor:Event$ DamageDone | ValidTarget$ Creature.EffectSource | ReplaceWith$ EnKorDmg | DamageTarget$ Remembered
-SVar:EnKorDmg:DB$ ReplaceSplitDamage | DamageTarget$ Remembered
+ManaCost:1 R R
+Types:Instant
+A:SP$ DealDamage | ValidTgts$ Any | NumDmg$ 2 | DamageMap$ True | AILogic$ SelfDamage | SubAbility$ DB1
+SVar:DB1:DB$ DealDamage | NumDmg$ 3 | Defined$ You | SubAbility$ DBDamageResolve
+SVar:DBDamageResolve:DB$ DamageResolve | SubAbility$ DB2
+SVar:DB2:DB$ Draw
+SVar:SelfDamageAmount:3

@@ -1,9 +1,10 @@
 Id:18322
-ColorIdentity:U
+ColorIdentity:B
 OriginSet:G7d4bd61c81d44275
-ManaCost:2 U
-Types:Creature Bird Warrior
-PT:2/2
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ Player | NumCards$ 1
+ManaCost:2 B B
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 2 | AddToughness$ 2 | AddKeyword$ Flying | AddType$ Demon
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPumpAll
+SVar:TrigPumpAll:DB$ PumpAll | NumAtt$ -2 | NumDef$ -2 | ValidCards$ Creature.nonDemon | IsCurse$ True

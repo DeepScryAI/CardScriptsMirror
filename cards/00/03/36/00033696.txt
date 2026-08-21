@@ -1,7 +1,13 @@
 Id:33696
-ColorIdentity:BG
-OriginSet:G14da29c4716bedc3
-ManaCost:1 B G
-Types:Sorcery
-A:SP$ Destroy | Cost$ 1 B G Sac<X/Creature> | TargetMin$ X | TargetMax$ X | ValidTgts$ Permanent.nonLand
-SVar:X:Count$xPaid
+ColorIdentity:W
+OriginSet:G23d1f017cc66962f
+ManaCost:1 W
+Types:Enchantment Class
+T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigPutCounter | TriggerZones$ Battlefield
+SVar:TrigPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ 1 | ValidTgts$ Creature.attacking
+K:Class:2:2 W:AddTrigger$ TriggerLeaves
+SVar:TriggerLeaves:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Creature.YouCtrl+HasCounters | TriggerZones$ Battlefield | Execute$ TrigGainLife | Secondary$ True
+SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2
+K:Class:3:3 W:AddTrigger$ TriggerSpell
+SVar:TriggerSpell:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ You | Execute$ TrigPutCounterAll | TriggerZones$ Battlefield | Secondary$ True
+SVar:TrigPutCounterAll:DB$ PutCounterAll | ValidCards$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1

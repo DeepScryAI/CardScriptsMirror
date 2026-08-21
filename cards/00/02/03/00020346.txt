@@ -1,10 +1,10 @@
 Id:20346
-ColorIdentity:R
+ColorIdentity:
 OriginSet:Gfa87e7bbc5a709eb
-ManaCost:3 R
-Types:Enchantment Aura
-K:Enchant:Creature.YouCtrl:creature you control
-SVar:AttachAILogic:Pump
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigDamage
-SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Creature.OppCtrl,Planeswalker.OppCtrl | NumDmg$ 4
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 1 | AddToughness$ 1
+ManaCost:3
+Types:Artifact
+K:You may choose not to untap CARDNAME during your untap step.
+A:AB$ Tap | Cost$ X T | ValidTgts$ Creature.powerLEX | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | ReplacementEffects$ DontUntap | RememberObjects$ Targeted | Duration$ UntilUntaps | ExileOnMoved$ Battlefield
+SVar:DontUntap:Event$ Untap | ValidCard$ Card.IsRemembered | ValidStepTurnToController$ You | Layer$ CantHappen
+SVar:X:Count$xPaid

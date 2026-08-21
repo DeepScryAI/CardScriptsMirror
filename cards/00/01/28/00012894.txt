@@ -2,8 +2,14 @@ Id:12894
 ColorIdentity:B
 OriginSet:G98ca154ecf4968d7
 ManaCost:2 B B
-Types:Creature Shade
-PT:1/1
-A:AB$ Pump | Cost$ B | NumAtt$ +1 | NumDef$ +1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange | OptionalDecider$ You
-SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Swamp | ChangeNum$ 1 | ShuffleNonMandatory$ True
+Types:Legendary Planeswalker Liliana
+Loyalty:3
+A:AB$ ChangeZone | Cost$ AddCounter<1/LOYALTY> | Origin$ Library | Destination$ Hand | Planeswalker$ True | NumCards$ 1 | ChangeType$ Swamp
+A:AB$ Pump | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | ValidTgts$ Creature | SubAbility$ ABChoice
+A:AB$ Effect | Cost$ SubCounter<6/LOYALTY> | Planeswalker$ True | Ultimate$ True | Name$ 504354060136715879 | StaticAbilities$ SwampBoost | Stackable$ False | Duration$ Permanent
+SVar:X:Count$Valid Swamp.YouCtrl
+SVar:ABChoice:DB$ GenericChoice | Defined$ You | Choices$ ABPump1,ABPump2
+SVar:ABPump1:DB$ Pump | Defined$ Targeted | NumAtt$ +X | NumDef$ +X
+SVar:ABPump2:DB$ Pump | Defined$ Targeted | NumAtt$ -X | NumDef$ -X
+SVar:SwampBoost:Mode$ Continuous | Affected$ Swamp.YouCtrl | AffectedZone$ Battlefield | AddAbility$ BlackTap
+SVar:BlackTap:AB$ Mana | Cost$ T | Produced$ B | Amount$ 4

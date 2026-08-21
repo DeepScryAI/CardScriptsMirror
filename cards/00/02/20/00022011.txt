@@ -1,8 +1,11 @@
 Id:22011
-ColorIdentity:WR
+ColorIdentity:G
 OriginSet:Gd784248bfdf9e1d7
-ManaCost:RW
-Types:Instant
-A:SP$ Pump | ValidTgts$ Creature | NumAtt$ +1 | SubAbility$ DBDelayedTrigger
-SVar:DBDelayedTrigger:DB$ DelayedTrigger | Mode$ ChangesZone | RememberObjects$ Targeted | ValidCard$ Card.IsTriggerRemembered | Origin$ Battlefield | Destination$ Graveyard | ThisTurn$ True | Execute$ DBToken
-SVar:DBToken:DB$ Token | TokenScriptIds$ 2645485105
+ManaCost:7 G
+Types:Creature Wurm
+PT:7/7
+K:Trample
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGainLife
+SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 3 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1
+A:AB$ ChangeZone | Cost$ 2 G | Origin$ Graveyard | Destination$ Library | LibraryPosition$ 2 | ActivationZone$ Graveyard

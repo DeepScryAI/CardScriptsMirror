@@ -1,9 +1,11 @@
 Id:17018
-ColorIdentity:R
+ColorIdentity:G
 OriginSet:Gbcdce58dfbbf1bad
-ManaCost:4 R
-Types:Creature Manticore
-PT:5/4
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ M1M1 | IsCurse$ True | SubAbility$ DBDealDamage | CounterNum$ 1
-SVar:DBDealDamage:DB$ DealDamage | ValidTgts$ Opponent,Planeswalker | NumDmg$ 3
+ManaCost:2 G
+Types:Creature Beast
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDestroy | OptionalDecider$ You
+SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Artifact
+R:Event$ Moved | ValidCard$ Artifact.OppCtrl | Destination$ Battlefield | ReplaceWith$ ETBTapped | ReplacementResult$ Updated | ActiveZones$ Battlefield
+SVar:ETBTapped:DB$ Tap | ETB$ True | Defined$ ReplacedCard
+SVar:PlayMain1:TRUE

@@ -1,11 +1,10 @@
 Id:23285
-ColorIdentity:UG
+ColorIdentity:R
 OriginSet:G6e75ff4f143a3dc3
-ManaCost:G U
-Types:Creature Spider
-PT:2/3
-K:Reach
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigMill
-SVar:TrigMill:DB$ Mill | Defined$ You | NumCards$ 1
-A:AB$ Token | Cost$ 2 G U T Sac<1/CARDNAME> | TokenScriptIds$ 704294417 | TokenAmount$ X | SorcerySpeed$ True | AICheckSVar$ X | AISVarCompare$ GE4
-SVar:X:Count$ValidGraveyard Creature.YouOwn
+ManaCost:3 R
+Types:Sorcery
+A:SP$ DayTime | Value$ Night | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | AnyNumber$ True | Optional$ True | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ Y | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:Y:Remembered$Amount/Plus.1

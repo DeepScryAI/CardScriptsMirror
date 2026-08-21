@@ -1,12 +1,8 @@
 Id:9060
-ColorIdentity:
+ColorIdentity:R
 OriginSet:Gdf2f562751f0d037
-ManaCost:2
-Types:Artifact Creature Construct
-PT:1/1
-K:etbCounter:P1P1:3:ValidCard$ Card.Self+!wasCastFromYourHandByYou
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Exile | SubAbility$ DBPutCounter | RememberChanged$ True
-SVar:DBPutCounter:DB$ PutCounter | Defined$ Remembered | CounterType$ TIME | CounterNum$ 3 | SubAbility$ GiveSuspend
-SVar:GiveSuspend:DB$ Pump | Defined$ Remembered | KW$ Suspend | PumpZone$ Exile | Duration$ Permanent | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:1 R
+Types:Enchantment Aura
+K:Enchant:Creature.YouCtrl:creature you control
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddKeyword$ Haste

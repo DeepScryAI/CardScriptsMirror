@@ -1,0 +1,11 @@
+Id:34988
+ColorIdentity:B
+OriginSet:Gf8f2990d7136c11d
+ManaCost:1 B
+Types:Legendary Creature Halfling Horror
+PT:2/2
+S:Mode$ CantBlock | ValidCard$ Card.Self
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card.OppOwn | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 2
+A:AB$ ChangeZone | Cost$ 2 Sac<1/Artifact;Creature/artifact or creature> | Origin$ Graveyard | Destination$ Hand | ActivationZone$ Graveyard | SorcerySpeed$ True

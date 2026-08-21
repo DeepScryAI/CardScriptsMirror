@@ -1,12 +1,21 @@
 Id:8700
-ColorIdentity:R
+ColorIdentity:G
 OriginSet:G70f74088c47d66bd
-ManaCost:3 R
-Types:Legendary Creature Goblin Advisor
-PT:3/2
-A:AB$ Token | Cost$ Sac<2/Mountain> | TokenAmount$ 2 | TokenScriptIds$ 1112542976 | TokenOwner$ You
-T:Mode$ AttackerBlocked | ValidCard$ Goblin.YouCtrl+Other | Execute$ HalfHeartTrigSacrifice | TriggerZones$ Battlefield
-SVar:HalfHeartTrigSacrifice:DB$ Sacrifice | SacValid$ TriggeredAttacker | RememberSacrificed$ True | SubAbility$ HalfHeartDBDamage
-SVar:HalfHeartDBDamage:DB$ DealDamage | DamageSource$ TriggeredAttacker | NumDmg$ 4 | Defined$ TriggeredBlockers | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ1 | SubAbility$ DBCleanup
+ManaCost:no cost
+Colors:green
+Types:Sorcery
+K:Suspend:3:1 G G
+A:SP$ Repeat | RepeatSubAbility$ ResetCheck | RepeatCheckSVar$ NumPlayerGiveup | RepeatSVarCompare$ LTTotalPlayer | SubAbility$ FinalReset
+SVar:ResetCheck:DB$ StoreSVar | SVar$ NumPlayerGiveup | Type$ Number | Expression$ 0 | SubAbility$ DBRepeatChoice
+SVar:DBRepeatChoice:DB$ RepeatEach | StartingWith$ You | RepeatSubAbility$ DBChoice | RepeatPlayers$ Player
+SVar:DBChoice:DB$ GenericChoice | Choices$ DBCheckHand,DBNoChange | Defined$ Player.IsRemembered
+SVar:DBCheckHand:DB$ StoreSVar | SVar$ NumPlayerGiveup | Type$ CountSVar | Expression$ NumPlayerGiveup/Plus.1 | ConditionCheckSVar$ CheckHand | ConditionSVarCompare$ EQ0 | SubAbility$ DBChoose
+SVar:DBChoose:DB$ ChangeZone | DefinedPlayer$ Player.IsRemembered | Origin$ Hand | Destination$ Battlefield | ChangeType$ Artifact,Creature,Enchantment,Land | ChangeNum$ 1 | ConditionCheckSVar$ CheckHand | ConditionSVarCompare$ GE1
+SVar:DBNoChange:DB$ StoreSVar | SVar$ NumPlayerGiveup | Type$ CountSVar | Expression$ NumPlayerGiveup/Plus.1
+SVar:FinalReset:DB$ StoreSVar | SVar$ NumPlayerGiveup | Type$ Number | Expression$ 0 | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Remembered$Amount
+SVar:NumPlayerGiveup:Number$0
+SVar:TotalPlayer:PlayerCountPlayers$Amount
+SVar:CheckHand:Count$ValidHand Artifact.RememberedPlayerCtrl,Creature.RememberedPlayerCtrl,Enchantment.RememberedPlayerCtrl,Land.RememberedPlayerCtrl
+SVar:NeedsToPlayVar:Y GE1
+SVar:Y:Count$ValidHand Permanent.YouCtrl+cmcGE5

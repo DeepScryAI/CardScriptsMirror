@@ -1,10 +1,8 @@
 Id:19887
-ColorIdentity:R
+ColorIdentity:WU
 OriginSet:G23be9f486a22d38a
-ManaCost:3 R
-Types:Enchantment
-S:Mode$ CantBeCast | Caster$ You.NonActive
-S:Mode$ CantBeCast | NumLimitEachTurn$ 2 | Caster$ You | Secondary$ True
-S:Mode$ Continuous | Affected$ Card.nonLand+cmcLEX | MayPlay$ True | MayPlayWithoutManaCost$ True | AffectedZone$ Hand,Graveyard,Exile,Command,Library | MayPlayDontGrantZonePermissions$ True
-SVar:X:Count$Valid Land.YouCtrl
-SVar:NonStackingEffect:True
+ManaCost:X W U
+Types:Sorcery
+A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Artifact.cmcLEX+YouOwn,Enchantment.cmcLEX+YouOwn+nonAura | TargetMin$ 0 | TargetMax$ X | StaticEffect$ Animate | StaticEffectCheckSVar$ X | StaticEffectSVarCompare$ GE6
+SVar:Animate:Mode$ Continuous | Affected$ Card.IsRemembered | AddType$ Creature | SetPower$ 4 | SetToughness$ 4
+SVar:X:Count$xPaid

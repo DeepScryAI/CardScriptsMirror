@@ -1,14 +1,12 @@
 Id:33654
-ColorIdentity:B
-OriginSet:Gf04404de3fa1525e
-ManaCost:1 B
-Types:Creature Vampire Warlock
-PT:1/3
-K:Flying
-K:Lifelink
-T:Mode$ Phase | Phase$ Main | PhaseCount$ 2 | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPrepare | CheckSVar$ X | SVarCompare$ GE2
-SVar:TrigPrepare:DB$ AlterAttribute | Attributes$ Prepared
-SVar:X:Count$LifeYouGainedThisTurn
-AlternateMode:Prepare
-ALTERNATE
-CopyFaceFromId:10676
+ColorIdentity:WU
+OriginSet:G23d1f017cc66962f
+ManaCost:3 WU WU
+Types:Legendary Creature Mutant Ninja Turtle
+PT:4/6
+K:Vigilance
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | ValidTgts$ Artifact.YouCtrl | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | ValidTgts$ Creature.YouCtrl | TargetMin$ 0 | TargetMax$ 1 | ThisDefinedAndTgts$ ParentTarget | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ All | Destination$ Battlefield | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

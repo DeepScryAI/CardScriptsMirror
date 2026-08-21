@@ -1,7 +1,12 @@
 Id:19222
-ColorIdentity:W
-OriginSet:Gb6b8d78626a44788
-ManaCost:4 W
-Types:Sorcery
-A:SP$ TapAll | ValidCards$ Creature.OppCtrl | AILogic$ AtLeast3 | SubAbility$ DBPumpAll
-SVar:DBPumpAll:DB$ PumpAll | ValidCards$ Creature.YouCtrl | KW$ Lifelink
+ColorIdentity:WB
+OriginSet:Gf56613712ce2ae1f
+ManaCost:2 W B
+Types:Legendary Planeswalker Sorin
+Loyalty:4
+S:Mode$ Continuous | Affected$ Creature.YouCtrl,Planeswalker.YouCtrl | AddKeyword$ Lifelink | Condition$ PlayerTurn
+SVar:NonStackingEffect:True
+A:AB$ DealDamage | Cost$ AddCounter<2/LOYALTY> | Planeswalker$ True | ValidTgts$ Player,Planeswalker | NumDmg$ 1
+A:AB$ ChangeZone | Cost$ SubCounter<X/LOYALTY> | Planeswalker$ True | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouOwn+cmcEQX | AILogic$ SorinVengefulBloodlord | StaticEffect$ Animate
+SVar:Animate:Mode$ Continuous | Affected$ Card.IsRemembered | AddType$ Vampire
+SVar:X:Count$xPaid

@@ -1,10 +1,9 @@
 Id:15630
 ColorIdentity:B
 OriginSet:Gc1f5e527f9d411df
-ManaCost:4 B B
-Types:Sorcery
-A:SP$ DestroyAll | ValidCards$ Creature | RememberDestroyed$ True | SubAbility$ DBRepeat
-SVar:DBRepeat:DB$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBLoseLife | SubAbility$ DBCleanup
-SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ X | Defined$ Player.IsRemembered
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:RememberedLKI$Valid Card.RememberedPlayerCtrl
+ManaCost:3 B
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self,Enchantment.Other+YouCtrl | Execute$ TrigAnimate
+SVar:TrigAnimate:DB$ Animate | Defined$ Self | Power$ 5 | Toughness$ 5 | Types$ Creature,Demon | Keywords$ Flying & Haste
+SVar:PlayMain1:ALWAYS
+SVar:BuffedBy:Enchantment

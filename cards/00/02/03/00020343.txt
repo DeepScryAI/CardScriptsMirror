@@ -1,9 +1,9 @@
 Id:20343
-ColorIdentity:R
+ColorIdentity:B
 OriginSet:Gfa87e7bbc5a709eb
-ManaCost:1 R
-Types:Creature Human Shaman
-PT:2/2
-A:AB$ Pump | Cost$ 1 R | Defined$ Self | NumAtt$ +1
-R:Event$ Moved | ValidLKI$ Creature.DamagedBy | Destination$ Graveyard | ReplaceWith$ DBExile | ActiveZones$ Battlefield
-SVar:DBExile:DB$ ChangeZone | Defined$ ReplacedCard | Origin$ Battlefield | Destination$ Exile
+ManaCost:2 B
+Types:Enchantment Saga
+K:Chapter:3:DBDestroy,DBDiscard,DBExile
+SVar:DBDestroy:DB$ Destroy | ValidTgts$ Creature.OppCtrl+powerLE2
+SVar:DBDiscard:DB$ Discard | ValidTgts$ Opponent | DiscardValid$ Card.nonCreature+nonLand | Mode$ RevealYouChoose
+SVar:DBExile:DB$ ChangeZoneAll | Origin$ Graveyard | Destination$ Exile | ChangeType$ Card | IsCurse$ True | ValidTgts$ Opponent

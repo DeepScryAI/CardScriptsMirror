@@ -1,11 +1,15 @@
 Id:34025
-ColorIdentity:B
-OriginSet:Gcb93bbfc68a40806
-ManaCost:1 B
-Types:Legendary Creature Human Coward Villain
-PT:2/2
-T:Mode$ Attacks | ValidCard$ Card.Self | Alone$ True | Execute$ TrigChangeZone
-SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | RememberChanged$ True | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 2 | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2 | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:WR
+OriginSet:Gf8df2bea26dc6b68
+ManaCost:R W
+Types:Legendary Creature Vampire Cleric
+PT:2/3
+T:Mode$ ChangesZoneAll | ValidCards$ Card.YouOwn | Origin$ Graveyard | Destination$ Any | TriggerZones$ Battlefield | Execute$ TrigPrepare
+SVar:TrigPrepare:DB$ AlterAttribute | Attributes$ Prepared
+AlternateMode:Prepare
+ALTERNATE
+ManaCost:1 R W
+Types:Sorcery
+A:SP$ Mill | NumCards$ 1 | Defined$ You | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ 2 | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Targeted | KW$ Trample

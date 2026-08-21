@@ -1,10 +1,8 @@
 Id:6395
-ColorIdentity:W
+ColorIdentity:R
 OriginSet:Gd11012ee98ee8d76
-ManaCost:W
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:SpecificCard
-T:Mode$ DamageDealtOnce | ValidSource$ Card.AttachedBy | Execute$ TrigDamage | TriggerZones$ Battlefield
-SVar:TrigDamage:DB$ DealDamage | Defined$ TriggeredSourceLKICopy | NumDmg$ X
-SVar:X:TriggerCount$DamageAmount
+ManaCost:4 R R
+Types:Enchantment
+T:Mode$ SpellAbilityCast | ValidSA$ SpellAbility.!ManaAbility | IsSingleTarget$ True | TriggerZones$ Battlefield | Execute$ TrigChangeTarget
+T:Mode$ SpellAbilityCopy | IsSingleTarget$ True | TriggerZones$ Battlefield | Execute$ TrigChangeTarget | Secondary$ True
+SVar:TrigChangeTarget:DB$ ChangeTargets | Defined$ TriggeredSpellAbility | RandomTarget$ True

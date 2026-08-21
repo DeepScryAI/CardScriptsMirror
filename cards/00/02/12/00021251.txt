@@ -1,6 +1,16 @@
 Id:21251
-ColorIdentity:R
+ColorIdentity:B
 OriginSet:G72c9c624ceb92bff
-ManaCost:1 R
-Types:Sorcery
-A:SP$ DealDamage | ValidTgts$ Creature,Planeswalker | NumDmg$ 4
+ManaCost:B
+Types:Instant
+A:SP$ LoseLife | Defined$ You | LifeAmount$ 2 | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | ValidTgts$ Creature | Triggers$ TrigDies
+SVar:TrigDies:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Battlefield | Tapped$ True
+AlternateMode:Modal
+ALTERNATE
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ B

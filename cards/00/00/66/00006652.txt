@@ -1,11 +1,8 @@
 Id:6652
 ColorIdentity:
 OriginSet:G983da6aa108b8f13
-ManaCost:2
-Types:Artifact Equipment
-K:Equip:4
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddToughness$ 2
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.DamagedBy Equipped | TriggerZones$ Battlefield | Execute$ ScytheReturn
-SVar:ScytheReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True | Defined$ TriggeredCard | RememberChanged$ True | SubAbility$ ScytheAttach
-SVar:ScytheAttach:DB$ Attach | Defined$ Remembered | SubAbility$ WretchedCleanup
-SVar:WretchedCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:3
+Types:Artifact
+K:ETBReplacement:Copy:DBCopy:Optional
+SVar:DBCopy:DB$ Clone | Choices$ Artifact.Other
+SVar:NeedsToPlay:Artifact.YouDontCtrl+!catalogId6652,Artifact.YouCtrl+nonLegendary+!catalogId6652

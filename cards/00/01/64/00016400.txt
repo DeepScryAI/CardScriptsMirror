@@ -1,9 +1,10 @@
 Id:16400
-ColorIdentity:
+ColorIdentity:B
 OriginSet:G4bddbf7cb4f2475e
-ManaCost:4
-Types:Artifact
-T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ You | Execute$ TrigGainLife | TriggerZones$ Battlefield
-SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ X
-SVar:X:Count$ThisTurnCast_Card.YouCtrl
-A:AB$ DealDamage | Cost$ PayLife<50> | ValidTgts$ Any | NumDmg$ 50
+ManaCost:3 B
+Types:Creature Aetherborn Rogue
+PT:2/2
+K:Flying
+K:Lifelink
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMoveCounters
+SVar:TrigMoveCounters:DB$ MoveCounter | ValidSource$ Permanent.YouCtrl+Other+counters_GE1_P1P1 | Defined$ Self | CounterType$ P1P1 | CounterNum$ Any | AILogic$ FromValid

@@ -1,7 +1,11 @@
 Id:5631
-ColorIdentity:WB
+ColorIdentity:U
 OriginSet:Ge4af4f9459d5dadd
-ManaCost:no cost
-Types:Land
-A:AB$ Mana | Cost$ T | Produced$ C
-A:AB$ Mana | Cost$ T | Produced$ Combo W B | IsPresent$ Swamp.YouCtrl
+ManaCost:1 U
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAITgts:Card.hasAbility Activated
+SVar:AttachAILogic:Curse
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+S:Mode$ CantBeActivated | ValidCard$ Creature.EnchantedBy | ValidSA$ Activated

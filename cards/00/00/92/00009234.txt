@@ -1,9 +1,12 @@
 Id:9234
-ColorIdentity:R
+ColorIdentity:U
 OriginSet:G1ddd2c86a9ea60e3
-ManaCost:3 R
-Types:Creature Goblin Shaman
-PT:2/2
-S:Mode$ Continuous | Affected$ Goblin.YouCtrl | AddKeyword$ Menace
-S:Mode$ Continuous | Affected$ Elemental.YouCtrl | AddKeyword$ Menace
-SVar:PlayMain1:TRUE
+ManaCost:2 U
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Curse
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ CaptiveClash
+SVar:CaptiveClash:DB$ Clash | WinSubAbility$ YouControl | OtherwiseSubAbility$ OppControl | RememberClasher$ True | SubAbility$ DBCleanup
+SVar:YouControl:DB$ GainControl | Defined$ Enchanted | NewController$ You
+SVar:OppControl:DB$ GainControl | Defined$ Enchanted | NewController$ Remembered
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

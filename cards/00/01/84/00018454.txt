@@ -1,12 +1,10 @@
 Id:18454
-ColorIdentity:B
+ColorIdentity:U
 OriginSet:G3b823183c96b2df3
-ManaCost:1 B B
-Types:Legendary Creature Human Wizard
-PT:3/3
-K:Deathtouch
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigImmediateTrig | TriggerZones$ Battlefield
-SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ X | Execute$ TrigChange
-SVar:X:Count$xPaid
-SVar:TrigChange:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouOwn+cmcEQX | WithCountersType$ CORPSE | AILogic$ BeforeCombat | LeaveBattlefield$ Exile
-SVar:HasAttackEffect:TRUE
+ManaCost:2 U
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Curse
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ -6
+T:Mode$ AttackerBlockedByCreature | ValidCard$ Creature | ValidBlocker$ Creature.EnchantedBy | TriggerZones$ Battlefield | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ Destroy | Defined$ TriggeredBlockerLKICopy

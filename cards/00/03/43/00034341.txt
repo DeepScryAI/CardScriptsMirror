@@ -2,10 +2,9 @@ Id:34341
 ColorIdentity:
 OriginSet:Gcb93bbfc68a40806
 ManaCost:4
-Types:Legendary Artifact Creature Robot Hero
-PT:3/3
-K:Flying
-T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ Player.NonActive | Execute$ TrigCharm | TriggerZones$ Battlefield
-SVar:TrigCharm:DB$ Charm | Choices$ DBPutCounter,DBPhaseOut
-SVar:DBPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ 1
-SVar:DBPhaseOut:DB$ Phases | Defined$ Self
+Types:Artifact
+T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigExile | TriggerZones$ Battlefield
+SVar:TrigExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card.nonLand+YouOwn | RememberChanged$ True | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Remembered | CounterType$ TIME | CounterNum$ 2 | SubAbility$ GiveSuspend
+SVar:GiveSuspend:DB$ Pump | Defined$ Remembered.withoutSuspend | KW$ Suspend | PumpZone$ Exile | Duration$ Permanent | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

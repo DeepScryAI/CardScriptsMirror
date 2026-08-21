@@ -1,8 +1,9 @@
 Id:4128
-ColorIdentity:R
+ColorIdentity:
 OriginSet:Gdd40b2fbd2aa3c03
-ManaCost:1 R
-Types:Creature Goblin
-PT:1/1
-K:Flying
-S:Mode$ CantBlock | ValidCard$ Card.Self
+ManaCost:3
+Types:Artifact Book
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigKyrenExile | TriggerZones$ Battlefield | OptionalDecider$ You
+SVar:TrigKyrenExile:DB$ ChangeZone | Defined$ TopOfLibrary | Origin$ Library | Destination$ Exile | ExileFaceDown$ True
+A:AB$ ChangeZoneAll | Cost$ 5 Discard<1/Hand> Sac<1/CARDNAME> | ChangeType$ Card.ExiledWithSource | Origin$ Exile | Destination$ Hand | Hidden$ True | AILogic$ DiscardAllAndRetExiled.minAdv2
+SVar:AIPreference:DiscardCost$Card

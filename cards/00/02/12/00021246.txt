@@ -1,9 +1,10 @@
 Id:21246
-ColorIdentity:G
+ColorIdentity:U
 OriginSet:G72c9c624ceb92bff
-ManaCost:2 G
-Types:Creature Elf Wizard
-PT:2/3
-K:Kicker:3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self+kicked | Execute$ TrigKicker
-SVar:TrigKicker:DB$ Pump | ValidTgts$ Creature | KW$ HIDDEN All creatures able to block CARDNAME do so.
+ManaCost:X U U U
+Types:Sorcery
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ XGrave | Relative$ True | EffectZone$ All
+SVar:XGrave:Count$Compare CheckTgt GE8.3.0
+SVar:CheckTgt:TargetedController$CardsInGraveyard
+A:SP$ GainControl | ValidTgts$ Creature.cmcEQX
+SVar:X:Count$xPaid

@@ -1,11 +1,14 @@
 Id:22243
-ColorIdentity:R
-OriginSet:Geb2cf181996ee3b2
-ManaCost:2 R
-Types:Sorcery
-K:Storm
-A:SP$ Dig | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBDelay
-SVar:DBDelay:DB$ DelayedTrigger | Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ DBEffect | RememberObjects$ Remembered | Static$ True | SubAbility$ DBCleanup
+ColorIdentity:RG
+OriginSet:Ga575fa2f4f5cded4
+ManaCost:R G
+Types:Creature Kavu
+PT:*/*
+S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X | SetToughness$ X
+SVar:X:Count$Domain
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | Choices$ DBDiscard,DBExile
+SVar:DBDiscard:DB$ Discard | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ GE1 | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | RememberObjects$ DelayTriggerRemembered | ForgetOnMoved$ Exile
-SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBExile:DB$ ChangeZone | ValidTgts$ Card | TargetMin$ 0 | TargetMax$ 1 | Origin$ Graveyard | Destination$ Exile

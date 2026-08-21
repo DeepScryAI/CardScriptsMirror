@@ -2,8 +2,12 @@ Id:10745
 ColorIdentity:
 OriginSet:Ga6c7ef9c5deb908c
 ManaCost:no cost
-Types:Plane Pyrulea
-S:Mode$ UntapOtherPlayer | ValidCard$ Permanent | EffectZone$ Command
-T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ DBFetch
-SVar:DBFetch:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | Tapped$ True | ChangeType$ Land.Basic | ChangeNum$ 3 | ShuffleNonMandatory$ True
-SVar:AIRollPlanarDieParams:Mode$ Always | LowPriority$ True | MaxRollsPerTurn$ 9
+Types:Plane Luvion
+S:Mode$ CantAttack | EffectZone$ Command | ValidCard$ Creature.withoutFlying+!hasKeywordLandwalk:Island
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos
+SVar:RolledChaos:DB$ Effect | ReplacementEffects$ DBYouCantLose,DBOppCantWin | Triggers$ TrigPlaneswalk | Duration$ Permanent
+SVar:DBYouCantLose:Event$ GameLoss | ValidPlayer$ You | Layer$ CantHappen
+SVar:DBOppCantWin:Event$ GameWin | ValidPlayer$ Opponent | Layer$ CantHappen | Secondary$ True
+SVar:TrigPlaneswalk:Mode$ PlaneswalkedTo | Execute$ DBCleanup | Static$ True
+SVar:DBCleanup:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile
+SVar:AIRollPlanarDieParams:Mode$ Always

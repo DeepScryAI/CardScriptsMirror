@@ -1,8 +1,12 @@
 Id:24202
-ColorIdentity:G
-OriginSet:G51fcb7ec0cb81c29
-ManaCost:2 G
-Types:Creature Gnome Ranger
-PT:1/4
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:AB$ Token | Cost$ 1 G | TokenScriptIds$ 3311172694 | TokenOwner$ You | TokenTapped$ True | TokenAttacking$ True
+ColorIdentity:U
+OriginSet:Gcf5d9b1e2ed6c496
+ManaCost:2 U U
+Types:Creature Human Rogue
+PT:2/3
+K:Flash
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | ValidTgts$ Permanent.nonLand+OppCtrl | Origin$ Battlefield | Destination$ Hand | RememberChanged$ True | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Remembered | staticAbilities$ RaiseCost | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:RaiseCost:Mode$ RaiseCost | ValidCard$ Card.Self | Type$ Spell | Amount$ 2 | EffectZone$ All
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

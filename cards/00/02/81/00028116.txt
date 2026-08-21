@@ -1,18 +1,7 @@
 Id:28116
 ColorIdentity:U
 OriginSet:Gfd50577710a6ab09
-ManaCost:2 U U
-Types:Legendary Creature God
-PT:4/3
-K:Flying
-T:Mode$ SpellCast | ValidCard$ Instant.wasCastFromYourHand | TriggerZones$ Battlefield | ValidActivatingPlayer$ You | Execute$ AddRebound
-SVar:AddRebound:DB$ Pump | Defined$ TriggeredCard | KW$ Rebound | PumpZone$ Stack
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigTransform
-SVar:TrigTransform:DB$ ChangeZone | Defined$ TriggeredCard | Origin$ Graveyard | Tapped$ True | Destination$ Battlefield | Transformed$ True | WithCountersType$ TIME | WithCountersAmount$ 3
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Types:Land
-A:AB$ Mana | Cost$ T | Produced$ U | SubAbility$ DBSubCounter
-SVar:DBSubCounter:DB$ RemoveCounter | Defined$ Self | CounterType$ TIME | CounterNum$ 1
-A:AB$ SetState | Cost$ 2 U T | IsPresent$ Card.Self+counters_EQ0_TIME | Defined$ Self | Mode$ Transform | SorcerySpeed$ True
+ManaCost:3 U
+Types:Sorcery
+A:SP$ Draw | NumCards$ 3 | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ TgtChoose

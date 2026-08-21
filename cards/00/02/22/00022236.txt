@@ -1,7 +1,13 @@
 Id:22236
-ColorIdentity:U
-OriginSet:Geb2cf181996ee3b2
-ManaCost:U
-Types:Creature Elemental Dog
-PT:1/2
-A:AB$ Investigate | Cost$ 3 T
+ColorIdentity:W
+OriginSet:Ga575fa2f4f5cded4
+ManaCost:3 W W
+Types:Creature Elemental Incarnation
+PT:3/2
+K:Flash
+K:Lifelink
+K:Evoke:ExileFromHand<1/Card.White+Other/white card>
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Creature.Other | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ TargetedController | LifeAmount$ X
+SVar:X:Targeted$CardPower

@@ -1,9 +1,11 @@
 Id:25018
-ColorIdentity:WG
+ColorIdentity:B
 OriginSet:G3a8b4b9d4649b357
-ManaCost:3 G W
-Types:Legendary Creature Cat Warrior
-PT:4/4
-T:Mode$ Taps | ValidCard$ Card.Self | Execute$ TrigPutCounter | TriggerZones$ Battlefield
-SVar:TrigPutCounter:DB$ PutCounterAll | ValidCards$ Creature.YouCtrl+toughnessLTX | CounterType$ P1P1 | CounterNum$ 1
-SVar:X:Count$Domain
+ManaCost:2 B B
+Types:Legendary Creature Phyrexian Praetor
+PT:4/5
+K:Deathtouch
+T:Mode$ Drawn | ValidCard$ Card.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigGainLife
+SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2
+T:Mode$ Drawn | ValidCard$ Card.OppCtrl | TriggerZones$ Battlefield | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ TriggeredCardController | LifeAmount$ 2

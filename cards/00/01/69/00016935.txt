@@ -1,7 +1,11 @@
 Id:16935
-ColorIdentity:U
+ColorIdentity:BG
 OriginSet:Gbcdce58dfbbf1bad
-ManaCost:3 U
-Types:Instant
-A:SP$ Tap | TargetMin$ 0 | TargetMax$ 2 | ValidTgts$ Creature | SubAbility$ TrigPump
-SVar:TrigPump:DB$ Pump | Defined$ Targeted | KW$ HIDDEN This card doesn't untap during your next untap step. | Duration$ Permanent
+ManaCost:3 B G
+Types:Creature Insect
+PT:4/5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ M1M1 | IsCurse$ True | CounterNum$ 1
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigRemoveCounter
+SVar:TrigRemoveCounter:DB$ RemoveCounter | ValidTgts$ Creature.YouCtrl | CounterType$ M1M1 | CounterNum$ 1 | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | CounterType$ M1M1 | CounterNum$ 1 | TargetsWithDefinedController$ TriggeredDefendingPlayer

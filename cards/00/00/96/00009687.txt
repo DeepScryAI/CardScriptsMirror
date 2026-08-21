@@ -1,7 +1,9 @@
 Id:9687
-ColorIdentity:WG
+ColorIdentity:
 OriginSet:G0388e25893b1e049
-ManaCost:GW
-Types:Creature Elf Shaman
-PT:1/1
-A:AB$ Destroy | Cost$ GW T Sac<1/CARDNAME> | ValidTgts$ Enchantment
+ManaCost:2
+Types:Artifact
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Destination$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw
+A:AB$ ChooseType | Cost$ Sac<1/CARDNAME> | Type$ Basic Land | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ AnimateAll | ValidCards$ Land.YouCtrl | Types$ ChosenType | RemoveLandTypes$ True

@@ -1,10 +1,12 @@
 Id:30486
-ColorIdentity:UB
+ColorIdentity:B
 OriginSet:G8b2ed00ac2a0ff47
-ManaCost:U B
-Types:Creature Insect Skeleton
-PT:1/4
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Enchantment.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigSurveil
-T:Mode$ FullyUnlock | ValidCard$ Card.Room | ValidPlayer$ You | Secondary$ True | Execute$ TrigSurveil | TriggerZones$ Battlefield
-SVar:TrigSurveil:DB$ Surveil | Amount$ 1
+ManaCost:2 B B
+Types:Enchantment Creature Snake Glimmer
+PT:4/3
+T:Mode$ LifeGained | ValidPlayer$ You | Execute$ TrigLoseLife | TriggerZones$ Battlefield
+SVar:TrigLoseLife:DB$ LoseLife | ValidTgts$ Opponent | LifeAmount$ X
+SVar:X:TriggerCount$LifeAmount
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self+Creature | Execute$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Battlefield | StaticEffect$ Animate
+SVar:Animate:Mode$ Continuous | Affected$ Card.IsRemembered | AddType$ Enchantment | RemoveCardTypes$ True

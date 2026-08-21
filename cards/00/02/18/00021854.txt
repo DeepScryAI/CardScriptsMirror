@@ -1,9 +1,12 @@
 Id:21854
-ColorIdentity:R
-OriginSet:G6fa60d857e930f32
-ManaCost:3 R
-Types:Creature Efreet Shaman
-PT:1/4
-K:DoubleStrike
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigPlay | TriggerZones$ Battlefield | OptionalDecider$ You
-SVar:TrigPlay:DB$ Play | TgtZone$ Graveyard | ValidTgts$ Instant.YouOwn,Sorcery.YouOwn | ValidSA$ Spell | WithoutManaCost$ True | Optional$ True | ReplaceGraveyard$ Exile | AILogic$ ReplaySpell
+ColorIdentity:
+OriginSet:Gabb23d0d25cdc46d
+ManaCost:2
+Types:Artifact
+T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | Execute$ TrigPutCounter | TriggerZones$ Battlefield
+SVar:TrigPutCounter:DB$ PutCounter | CounterType$ CHARGE | CounterNum$ Y
+SVar:Y:TriggeredSpellAbility$CardManaCostLKI
+A:AB$ Token | Cost$ 6 T SubCounter<All/CHARGE> | TokenScriptIds$ 1802199211 | RememberTokens$ True | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Remembered | CounterType$ P1P1 | CounterNum$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:SVar$CostCountersRemoved

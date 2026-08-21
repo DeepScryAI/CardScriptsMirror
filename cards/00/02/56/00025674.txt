@@ -1,8 +1,12 @@
 Id:25674
-ColorIdentity:R
-OriginSet:G06ccef4324c14725
-ManaCost:R
-Types:Creature Goblin
-PT:1/2
-S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ Menace | AddPower$ 2 | CheckSVar$ SaccThisTurn
-SVar:SaccThisTurn:PlayerCountPropertyYou$SacrificedThisTurn Permanent
+ColorIdentity:W
+OriginSet:Gce0c33e5115830a3
+ManaCost:1 W
+Types:Legendary Creature Human Pilot
+PT:3/1
+R:Event$ DamageDone | Prevent$ True | ValidTarget$ Creature.Self | IsPresent$ Artifact.Creature+YouCtrl+attacking
+T:Mode$ Taps | ValidCard$ Card.Self | Execute$ DBExileTopCard
+SVar:DBExileTopCard:DB$ Dig | Defined$ You | DigNum$ 6 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | Valid$ Vehicle.IsRemembered,Artifact.Creature+IsRemembered | ValidSA$ Spell | ValidZone$ Exile | Controller$ You | Optional$ True | Amount$ 1 | SubAbility$ PutRestBackBottomLibrary
+SVar:PutRestBackBottomLibrary:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered | Origin$ Exile | Destination$ Library | LibraryPosition$ -1 | RandomOrder$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

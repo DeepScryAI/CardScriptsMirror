@@ -1,7 +1,13 @@
 Id:27420
-ColorIdentity:R
-OriginSet:G7579344e30f8be85
-ManaCost:3 R
-Types:Sorcery
-A:SP$ DealDamage | ValidTgts$ Creature | NumDmg$ 4 | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenScriptIds$ 2082369100 | TargetMin$ 0 | TargetMax$ 1 | TokenOwner$ You | AttachedTo$ ThisTargetedCard | ValidTgts$ Creature.YouCtrl
+ColorIdentity:W
+OriginSet:G8636ad1cfd514d83
+ManaCost:3 W
+Types:Creature Sliver
+PT:3/3
+S:Mode$ Continuous | Affected$ Creature.Sliver+YouCtrl | AddTrigger$ ETBTrig
+SVar:ETBTrig:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPumpAll
+SVar:TrigPumpAll:DB$ PumpAll | ValidCards$ Sliver.YouCtrl | NumAtt$ +1 | NumDef$ +1 | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ1 | SubAbility$ DBMonarch
+SVar:DBMonarch:DB$ BecomeMonarch | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ0
+SVar:X:Count$Monarch.1.0
+SVar:PlayMain1:TRUE
+SVar:BuffedBy:Sliver

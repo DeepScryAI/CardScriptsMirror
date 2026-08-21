@@ -1,13 +1,11 @@
 Id:22602
-ColorIdentity:U
+ColorIdentity:B
 OriginSet:G9f95a41d532c0550
-ManaCost:2 U
-Types:Creature Tiefling Shaman
-PT:2/1
-K:Flash
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.OppCtrl | SubAbility$ DBRollDice
-SVar:DBRollDice:DB$ RollDice | Sides$ 20 | ResultSubAbilities$ 1-9:DBTap,10-20:DBReallyTap
-SVar:DBTap:DB$ Tap | Defined$ Targeted
-SVar:DBReallyTap:DB$ Tap | Defined$ Targeted | SubAbility$ DBNoUntap
-SVar:DBNoUntap:DB$ Pump | Defined$ Targeted | KW$ HIDDEN This card doesn't untap during your next untap step. | Duration$ Permanent | IsCurse$ True
+ManaCost:1 B
+Types:Creature Elf Warlock
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | CheckSVar$ TreasureCheck | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1 | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 1
+SVar:TreasureCheck:Count$CastTotalManaSpent Treasure
+SVar:AIPreference:ManaFrom$Treasure

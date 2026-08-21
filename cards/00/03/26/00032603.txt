@@ -1,9 +1,10 @@
 Id:32603
-ColorIdentity:G
-OriginSet:G36e97d2da170e675
-ManaCost:no cost
-Types:Land
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ LandTapped | ReplacementResult$ Updated
-SVar:LandTapped:DB$ Tap | Defined$ Self | ETB$ True | ConditionPresent$ Land.Basic+YouCtrl | ConditionCompare$ EQ0
-A:AB$ Mana | Cost$ T | Produced$ G
-A:AB$ Earthbend | Cost$ 2 G T | SorcerySpeed$ True | Num$ 2
+ColorIdentity:
+OriginSet:G66b3a7eeabd9000e
+ManaCost:3
+Types:Artifact Equipment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self+wasCastFromYourGraveyard | Execute$ TrigAttach
+SVar:TrigAttach:DB$ Attach | ValidTgts$ Creature.YouCtrl
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddKeyword$ Flying & Haste
+K:Equip:2
+K:Mayhem:2

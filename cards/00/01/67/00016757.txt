@@ -1,9 +1,11 @@
 Id:16757
 ColorIdentity:W
 OriginSet:Gd31f94cf3a5f78e4
-ManaCost:3 W
-Types:Creature Cat Beast
-PT:1/4
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ RestorationExile | OptionalDecider$ You
-SVar:RestorationExile:DB$ ChangeZone | ValidTgts$ Permanent.Other+YouCtrl | Origin$ Battlefield | Destination$ Exile | RememberTargets$ True | ForgetOtherTargets$ True | AILogic$ BounceOnce | SubAbility$ RestorationReturn
-SVar:RestorationReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | GainControl$ True
+ManaCost:5 W W
+Types:Creature Angel
+PT:5/5
+K:Flying
+R:Event$ GameLoss | ActiveZones$ Battlefield | ValidPlayer$ You | ReplaceWith$ ExileSetLife
+SVar:ExileSetLife:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | Defined$ Self | SubAbility$ DBSetLife
+SVar:DBSetLife:DB$ SetLife | Defined$ You | LifeAmount$ X
+SVar:X:Count$YourStartingLife

@@ -1,8 +1,11 @@
 Id:27409
 ColorIdentity:B
-OriginSet:G7579344e30f8be85
-ManaCost:1 B
-Types:Instant
-K:Bargain
-A:SP$ Pump | ValidTgts$ Creature | NumAtt$ -X | NumDef$ -X | IsCurse$ True
-SVar:X:Count$Bargained.5.3
+OriginSet:G8636ad1cfd514d83
+ManaCost:2 B
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 1 | AddKeyword$ Deathtouch | AddToughness$ 1 | Goad$ True
+T:Mode$ ChangesZone | ValidCard$ Card.EnchantedBy | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigDelayedTrigger
+SVar:TrigDelayedTrigger:DB$ DelayedTrigger | Mode$ Phase | Phase$ End Of Turn | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Defined$ Self | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True

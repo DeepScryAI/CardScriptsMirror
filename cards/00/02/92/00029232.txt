@@ -1,10 +1,8 @@
 Id:29232
 ColorIdentity:G
 OriginSet:G27146c70b74a1e72
-ManaCost:1 G
-Types:Creature Badger Beast Mount
-PT:2/2
-T:Mode$ BecomesSaddled | ValidSaddled$ Card.Self | FirstTimeSaddled$ True | TriggerZones$ Battlefield | Execute$ TrigMill
-SVar:TrigMill:DB$ Mill | NumCards$ 2 | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | NumAtt$ +Count$ValidGraveyard Creature.YouOwn | NumDef$ +Count$ValidGraveyard Creature.YouOwn
-K:Saddle:2
+ManaCost:3 G G
+Types:Sorcery
+A:SP$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +2 | NumDef$ +2 | KW$ Trample | SubAbility$ DBAnimateAll
+SVar:DBAnimateAll:DB$ AnimateAll | ValidCards$ Creature.YouCtrl | staticAbilities$ MinMaxBlocked
+SVar:MinMaxBlocked:Mode$ MinMaxBlocker | ValidCard$ Card.Self | Max$ 1

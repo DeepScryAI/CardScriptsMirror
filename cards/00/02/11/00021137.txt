@@ -1,8 +1,11 @@
 Id:21137
-ColorIdentity:W
-OriginSet:G72c9c624ceb92bff
-ManaCost:2 W
-Types:Creature Kor Wizard
-PT:3/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | ValidTgts$ Opponent | Defined$ TargetedAndYou | NumCards$ 1
+ColorIdentity:R
+OriginSet:G7b2607750b451c25
+ManaCost:1 R
+Types:Enchantment
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Player | Execute$ Trig1Damage | TriggerZones$ Battlefield
+SVar:Trig1Damage:DB$ DealDamage | Defined$ TriggeredPlayer | NumDmg$ 1
+T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ Player | TriggerZones$ Battlefield | Execute$ Trig5Damage | ValidSA$ Spell.ManaSpent EQ0
+SVar:Trig5Damage:DB$ DealDamage | Defined$ TriggeredActivator | NumDmg$ 5
+A:AB$ Effect | Cost$ R | StaticAbilities$ STCantGain | AILogic$ NoGain
+SVar:STCantGain:Mode$ CantGainLife | ValidPlayer$ Player.Opponent

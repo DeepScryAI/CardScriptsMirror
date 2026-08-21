@@ -1,9 +1,10 @@
 Id:23869
-ColorIdentity:B
-OriginSet:Gfdfe2ebef04be34e
-ManaCost:2 B
-Types:Enchantment
-K:Hideaway:5
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigMill | TriggerZones$ Battlefield
-SVar:TrigMill:DB$ Mill | NumCards$ 3 | Optional$ True | SubAbility$ DBPlay
-SVar:DBPlay:DB$ Play | ConditionPresent$ Card.YouOwn | ConditionZone$ Graveyard | ConditionCompare$ GE20 | Defined$ ExiledWith | Amount$ All | Controller$ You | WithoutManaCost$ True | Optional$ True
+ColorIdentity:
+OriginSet:G5f5d8cfb206e2fac
+ManaCost:4
+Types:Artifact
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+R:Event$ Moved | ValidCard$ Creature | Destination$ Battlefield | ReplaceWith$ ETBTapped | ReplacementResult$ Updated | ActiveZones$ Battlefield
+SVar:ETBTapped:DB$ Tap | ETB$ True | Defined$ ReplacedCard
+A:AB$ ChangeZoneAll | Cost$ 2 T Exile<1/CARDNAME> | ChangeType$ Creature.untapped | Origin$ Battlefield | Destination$ Exile | SorcerySpeed$ True

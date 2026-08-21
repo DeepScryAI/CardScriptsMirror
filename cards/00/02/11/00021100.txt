@@ -1,10 +1,11 @@
 Id:21100
-ColorIdentity:U
-OriginSet:G72c9c624ceb92bff
-ManaCost:1 U
-Types:Instant
-A:SP$ Branch | BranchConditionSVar$ X | TargetType$ Spell | TgtZone$ Stack | ValidTgts$ Creature,Planeswalker | BranchConditionSVarCompare$ GE8 | TrueSubAbility$ CounterScry | FalseSubAbility$ CounterUnless | AILogic$ BranchCounter
-SVar:CounterUnless:DB$ Counter | Defined$ Targeted | UnlessCost$ 2
-SVar:CounterScry:DB$ Counter | Defined$ Targeted | SubAbility$ DBScry
-SVar:DBScry:DB$ Scry | ScryNum$ 2
-SVar:X:PlayerCountOpponents$HighestCardsInGraveyard
+ColorIdentity:W
+OriginSet:G7b2607750b451c25
+ManaCost:3 W
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | TriggerZones$ Battlefield | ValidCard$ Land.YouCtrl | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | Choices$ DBToken,DBPutCounterAll
+SVar:DBToken:DB$ Token | TokenScriptIds$ 1957135142 | TokenOwner$ You
+SVar:DBPutCounterAll:DB$ PutCounterAll | ValidCards$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBPumpAll
+SVar:DBPumpAll:DB$ PumpAll | ValidCards$ Creature.YouCtrl | KW$ Vigilance
+SVar:BuffedBy:Land

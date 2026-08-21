@@ -2,10 +2,7 @@ Id:17197
 ColorIdentity:B
 OriginSet:G4b92e66c84393de5
 ManaCost:2 B
-Types:Creature Human Wizard
-PT:1/2
-K:Menace
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDiscard
-SVar:TrigDiscard:DB$ Discard | Defined$ TriggeredTarget | NumCards$ X | Mode$ TgtChoose
-SVar:X:TriggerCount$DamageAmount
-K:Eternalize:4 B B
+Types:Sorcery
+A:SP$ Charm | Choices$ DBChangeZone1,DBChangeZone2 | Defined$ You
+SVar:DBChangeZone1:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Opponent | DefinedPlayer$ Targeted | Mandatory$ True | ChangeType$ Creature | ChangeNum$ 1 | Hidden$ True | IsCurse$ True | Chooser$ Targeted
+SVar:DBChangeZone2:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | DefinedPlayer$ Targeted | ValidTgts$ Opponent | Chooser$ You | ChangeType$ Card.nonLand | ChangeNum$ 1 | IsCurse$ True | Mandatory$ True

@@ -1,21 +1,10 @@
 Id:22887
-ColorIdentity:UB
+ColorIdentity:WG
 OriginSet:Gf78628ad511eefec
-ManaCost:U B
-Types:Legendary Creature Human Wizard
-PT:2/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigMill | Secondary$ True
-SVar:TrigMill:DB$ Mill | NumCards$ 1 | Defined$ You
-A:AB$ SetState | Cost$ XMin1 X U U B B ExileFromGrave<X/Creature/creature cards> | Defined$ Self | Mode$ Transform | SorcerySpeed$ True
-SVar:X:Count$xPaid
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:blue,black
-Types:Legendary Creature Zombie
-PT:4/4
-R:Event$ Transform | ValidCard$ Card.Self | ReplaceWith$ Copy
-SVar:Copy:DB$ Clone | Choices$ Creature.ExiledWithSource | ChoiceZone$ Exile | NewName$ 17237007875102655340 | SetPower$ 4 | SetToughness$ 4 | AddTypes$ Legendary & Zombie | AddColors$ Blue & Black | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | CounterNum$ Y | CounterType$ P1P1
-SVar:Y:Count$ValidExile Creature.ExiledWithSource
+ManaCost:1 G W
+Types:Creature Human Warlock
+PT:3/3
+K:Vigilance
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ X | SVarCompare$ GE3 | Execute$ TrigPumpAll
+SVar:TrigPumpAll:DB$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +1
+SVar:X:Count$Valid Creature.YouCtrl$DifferentCardPower

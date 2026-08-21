@@ -1,9 +1,12 @@
 Id:26501
-ColorIdentity:
-OriginSet:G06757f68e16377c2
-ManaCost:2
-Types:Artifact Vehicle
-PT:3/2
-K:Vigilance
-A:AB$ Mana | Cost$ T | Produced$ Any | Amount$ 1 | IsPresent$ Creature.Self
-K:Crew:1
+ColorIdentity:UR
+OriginSet:Gd5f5e54fa26ae40d
+ManaCost:2 U R
+Types:Creature Orc Pirate
+PT:4/3
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPeek | TriggerZones$ Battlefield
+SVar:TrigPeek:DB$ PeekAndReveal | Defined$ Player | RememberRevealed$ True | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 3851718391 | TokenTapped$ True | TokenAmount$ X | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ Player | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Valid Card.nonLand

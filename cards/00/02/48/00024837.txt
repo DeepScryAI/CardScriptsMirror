@@ -1,9 +1,10 @@
 Id:24837
-ColorIdentity:UG
-OriginSet:G3a8b4b9d4649b357
-ManaCost:2 G
-Types:Creature Elf Wizard
-PT:3/2
-K:Kicker:3 U
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self+kicked | Execute$ TrigCopy
-SVar:TrigCopy:DB$ CopyPermanent | ValidTgts$ Creature.YouCtrl
+ColorIdentity:RG
+OriginSet:G3c9db52fa0bcee92
+ManaCost:3 R G
+Types:Legendary Creature Avatar
+PT:5/5
+S:Mode$ AlternativeCost | ValidSA$ Spell.Self | EffectZone$ All | Cost$ tapXType<3/Dwarf>
+T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | Execute$ TrigDig | CheckSVar$ X
+SVar:TrigDig:DB$ Dig | DigNum$ 4 | ChangeValid$ Dwarf | DestinationZone$ Hand | RestRandomOrder$ True | ChangeNum$ Any
+SVar:X:Count$ThisTurnEntered_Graveyard_from_Battlefield_Land.YouCtrl+YouOwn

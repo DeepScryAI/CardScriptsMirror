@@ -1,9 +1,11 @@
 Id:29556
-ColorIdentity:W
+ColorIdentity:R
 OriginSet:Gac6359c222afbd4f
-ManaCost:2 W
-Types:Creature Rhino Cleric
-PT:2/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigEnergy
-SVar:TrigEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ 2
-A:AB$ Tap | Cost$ T PayEnergy<1> | ValidTgts$ Creature
+ManaCost:1 C R
+Types:Creature Eldrazi
+PT:3/3
+K:Devoid
+K:Trample
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.YouCtrl | NumAtt$ +X | KW$ Haste
+SVar:X:Count$Valid Eldrazi.YouCtrl

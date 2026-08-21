@@ -1,14 +1,12 @@
 Id:32033
-ColorIdentity:WUR
-OriginSet:G7856e27bce45729f
-ManaCost:U R W
-Types:Legendary Artifact Spacecraft
-PT:5/5
-K:Station:8
-S:Mode$ Continuous | Affected$ Card.Self+counters_GE1_CHARGE | AddTrigger$ CombatTrig
-SVar:CombatTrig:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | Execute$ TrigChoose | TriggerZones$ Battlefield
-SVar:TrigChoose:DB$ GenericChoice | ValidTgts$ Artifact.Other | TargetMin$ 0 | TargetMax$ 1 | Choices$ P1P1Counter,ChargeCounters | ConditionDefined$ Targeted | ConditionPresent$ Card | Defined$ You
-SVar:P1P1Counter:DB$ PutCounter | Defined$ Targeted | CounterType$ P1P1 | CounterNum$ 1
-SVar:ChargeCounters:DB$ PutCounter | Defined$ Targeted | CounterType$ CHARGE | CounterNum$ 2
-S:Mode$ Continuous | Affected$ Card.Self+counters_GE8_CHARGE | AddType$ Creature | AddKeyword$ Flying | AddStaticAbility$ DBStatic
-SVar:DBStatic:Mode$ Continuous | Affected$ Artifact.YouCtrl+Other | AddKeyword$ Hexproof & Indestructible
+ColorIdentity:UB
+OriginSet:G7ab4f62d323b0ca7
+ManaCost:4 U B
+Types:Legendary Creature Human Avatar Soldier
+PT:4/4
+K:Vigilance
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPumpAll
+SVar:TrigPumpAll:DB$ PumpAll | NumAtt$ -2 | NumDef$ -2 | ValidCards$ Creature.OppCtrl | IsCurse$ True
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.OppCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+SVar:PlayMain1:TRUE

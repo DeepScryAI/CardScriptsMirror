@@ -1,9 +1,14 @@
 Id:27964
-ColorIdentity:BG
-OriginSet:Gfd50577710a6ab09
-ManaCost:1 B G
-Types:Legendary Creature Fungus
-PT:3/3
-S:Mode$ Continuous | Affected$ Card.Self | AddPower$ 2 | AddToughness$ 2 | IsPresent$ Permanent.YouOwn | PresentZone$ Graveyard | PresentCompare$ GE4 | AddKeyword$ Trample
-S:Mode$ Continuous | Affected$ Card.Self | AddPower$ 2 | AddToughness$ 2 | IsPresent$ Permanent.YouOwn | PresentZone$ Graveyard | PresentCompare$ GE8
-S:Mode$ MinMaxBlocker | ValidCard$ Card.Self | Max$ 1 | IsPresent$ Permanent.YouOwn | PresentZone$ Graveyard | PresentCompare$ GE8 | Secondary$ True
+ColorIdentity:WU
+OriginSet:G30e8a5e111cffb44
+ManaCost:4 W U
+Types:Legendary Creature Time Lord Doctor
+PT:4/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill
+SVar:TrigMill:DB$ Mill | Defined$ You | NumCards$ 3
+S:Mode$ Continuous | Affected$ Permanent.YouOwn+Historic,Land.YouOwn+Historic | Condition$ PlayerTurn | MayPlay$ True | MayPlayLimit$ 1 | EffectZone$ Battlefield | AffectedZone$ Graveyard
+T:Mode$ SpellCast | ValidCard$ Card | ValidSA$ Spell.MayPlaySource | Static$ True | Execute$ DBAnimate | TriggerZones$ Battlefield | Secondary$ True
+T:Mode$ LandPlayed | ValidCard$ Land | ValidSA$ SpellAbility.MayPlaySource | Static$ True | Execute$ DBAnimate | TriggerZones$ Battlefield | Secondary$ True
+SVar:DBAnimate:DB$ Animate | Defined$ TriggeredCardLKICopy | Replacements$ ReplaceDies | Duration$ Permanent
+SVar:ReplaceDies:Event$ Moved | ActiveZones$ Battlefield | Origin$ Battlefield | ExcludeDestination$ Exile | ValidCard$ Card.Self | ReplaceWith$ Exile
+SVar:Exile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | Defined$ ReplacedCard

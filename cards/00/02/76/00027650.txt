@@ -1,9 +1,12 @@
 Id:27650
-ColorIdentity:
-OriginSet:G30e8a5e111cffb44
-ManaCost:2
-Types:Legendary Artifact Equipment
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 3
-S:Mode$ Continuous | Affected$ Creature.EquippedBy+attacking | AddKeyword$ FirstStrike & MustBeBlockedBy Creature.Dalek
-K:Equip:1:Creature.Legendary+YouCtrl:legendary creature
-K:Equip:3
+ColorIdentity:R
+OriginSet:G7579344e30f8be85
+ManaCost:4 R R
+Types:Creature Ogre Warrior
+PT:6/5
+K:Menace
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigToken | Secondary$ True
+SVar:TrigToken:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 3370794869 | SubAbility$ DBPumpAll
+SVar:DBPumpAll:DB$ PumpAll | ValidCards$ Rat.YouCtrl | NumAtt$ +2 | ConditionPresent$ Rat.YouCtrl | ConditionCompare$ GE5
+SVar:HasAttackEffect:TRUE

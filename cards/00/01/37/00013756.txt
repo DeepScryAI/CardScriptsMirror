@@ -1,6 +1,13 @@
 Id:13756
 ColorIdentity:W
 OriginSet:G97e9a20e5a5d5822
-ManaCost:1 W
-Types:Sorcery
-A:SP$ ChangeZone | ValidTgts$ Permanent.White | Origin$ Battlefield | Destination$ Exile
+ManaCost:2 W
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAITgts:Creature.!token
+SVar:AttachAILogic:Pump
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.EnchantedBy | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | Defined$ TriggeredNewCardLKICopy | RememberChanged$ True | ForgetOtherRemembered$ True | SubAbility$ DBDelTrig
+SVar:DBDelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ TrigReturn | SubAbility$ DBCleanup | RememberObjects$ Remembered
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | Defined$ Self | AttachedTo$ DelayTriggerRememberedLKI
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

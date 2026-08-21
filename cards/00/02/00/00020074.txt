@@ -1,8 +1,12 @@
 Id:20074
 ColorIdentity:U
 OriginSet:G23be9f486a22d38a
-ManaCost:U
-Types:Artifact
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigScry
-SVar:TrigScry:DB$ Scry | ScryNum$ 2
-A:AB$ Draw | Cost$ 3 U Sac<1/CARDNAME> | NumCards$ 2
+ManaCost:6 U U U
+Types:Legendary Artifact
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ X | EffectZone$ All
+SVar:X:Count$ValidGraveyard Instant.YouOwn,Sorcery.YouOwn
+S:Mode$ Continuous | Affected$ You | SetMaxHandSize$ Unlimited
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ KNOWLEDGE | CounterNum$ 1 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ Y
+SVar:Y:Count$CardCounters.KNOWLEDGE

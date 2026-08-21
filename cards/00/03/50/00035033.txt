@@ -1,0 +1,15 @@
+Id:35033
+ColorIdentity:G
+OriginSet:Gf8f2990d7136c11d
+ManaCost:4 G
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl+!token | TriggerZones$ Battlefield | Execute$ TrigDigUntil | ActivationLimit$ 1
+SVar:TrigDigUntil:DB$ DigUntil | Valid$ Creature | NoMoveRevealed$ True | ImprintRevealed$ True | FoundDestination$ Library | FoundLibraryPosition$ 0 | RememberFound$ True | SubAbility$ DBBranch
+SVar:DBBranch:DB$ Branch | BranchConditionSVar$ X | TrueSubAbility$ ToBattlefield | FalseSubAbility$ ToHand | SubAbility$ DBRestRandomOrder
+SVar:ToBattlefield:DB$ ChangeZone | Defined$ Remembered | Origin$ Library | Destination$ Battlefield
+SVar:ToHand:DB$ ChangeZone | Defined$ Remembered | Origin$ Library | Destination$ Hand
+SVar:DBRestRandomOrder:DB$ ChangeZoneAll | ChangeType$ Card.IsImprinted | Origin$ Library | Destination$ Library | LibraryPosition$ -1 | RandomOrder$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True
+SVar:X:Remembered$Valid Card.cmcLEY
+SVar:Y:Count$Valid Land.YouCtrl
+SVar:PlayMain1:TRUE

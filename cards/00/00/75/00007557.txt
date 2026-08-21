@@ -1,11 +1,12 @@
 Id:7557
-ColorIdentity:G
+ColorIdentity:B
 OriginSet:G4747f23d5c5760bc
-ManaCost:1 G
-Types:Creature Snake Warrior Archer
-PT:1/1
-A:AB$ DealDamage | Cost$ T | ValidTgts$ Creature.withFlying | NumDmg$ 1
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Creature | TriggerZones$ Battlefield | Execute$ TrigTap
-SVar:TrigTap:DB$ Tap | Defined$ TriggeredTargetLKICopy | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | Defined$ TriggeredTargetLKICopy | KW$ HIDDEN This card doesn't untap during your next untap step. | Duration$ Permanent | IsCurse$ True
-SVar:HasCombatEffect:TRUE
+ManaCost:2 B
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:GainControl
+S:Mode$ Continuous | Affected$ Card.EnchantedBy | GainControl$ You
+T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | IsPresent$ Demon.YouCtrl | PresentCompare$ EQ0 | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice
+SVar:PlayMain1:TRUE
+SVar:NeedsToPlay:Demon.YouCtrl

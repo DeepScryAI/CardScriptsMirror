@@ -1,14 +1,18 @@
 Id:25441
-ColorIdentity:U
+ColorIdentity:WR
 OriginSet:G2e872aaf9b98489e
-ManaCost:2 U U
-Types:Creature Human Employee
-PT:2/5
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigOpenAttraction
-SVar:TrigOpenAttraction:DB$ OpenAttraction
-T:Mode$ TurnBegin | Execute$ ResetTurnCount | Static$ True
-SVar:ResetTurnCount:DB$ StoreSVar | SVar$ ModsThisTurn | Type$ Number | Expression$ 0
-K:Once each turn, you may pay {1} to reroll one or more dice you rolled.
-SVar:RollModificationsLimit:1
-SVar:ModsThisTurn:Number$0
-SVar:RollRerollCost:1
+ManaCost:2 R W
+Types:Legendary Planeswalker Comet
+Loyalty:5
+A:AB$ RollDice | Cost$ AddCounter<0/LOYALTY> | Planeswalker$ True | ResultSubAbilities$ 1-2:Token,3:Unearth,4-5:Damage,6:CometGo
+SVar:Token:DB$ PutCounter | CounterType$ LOYALTY | CounterNum$ 2 | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 798446951 | PumpKeywords$ Haste | PumpDuration$ EOT
+SVar:Unearth:DB$ RemoveCounter | CounterType$ LOYALTY | CounterNum$ 1 | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | Mandatory$ True | ChangeType$ Card.YouOwn+cmcLE2 | Hidden$ True
+SVar:Damage:DB$ DealDamage | NumDmg$ X | CardChoices$ Creature | PlayerChoices$ Player | SubAbility$ DBRemoveCounters
+SVar:X:Count$CardCounters.LOYALTY
+SVar:DBRemoveCounters:DB$ RemoveCounter | CounterType$ LOYALTY | CounterNum$ 2 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:CometGo:DB$ PutCounter | CounterType$ LOYALTY | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ LoyaltyAbs | RememberObjects$ Self | ExileOnMoved$ Battlefield
+SVar:LoyaltyAbs:Mode$ NumLoyaltyAct | ValidCard$ Card.EffectSource | Additional$ 2 | OnlySourceAbs$ True

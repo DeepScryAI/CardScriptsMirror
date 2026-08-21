@@ -1,11 +1,10 @@
 Id:12950
-ColorIdentity:BG
+ColorIdentity:UR
 OriginSet:G527bea9dcc97f690
-ManaCost:B B G G
-Types:Legendary Creature Zombie Elf
-PT:2/2
-S:Mode$ Continuous | Affected$ Card.Self | AddPower$ X | AddToughness$ X
-A:AB$ LoseLife | Cost$ 1 B G Sac<1/Creature.Other/another creature> | Defined$ Player.Opponent | LifeAmount$ LichLeech
-A:AB$ ChangeZone | Cost$ Sac<1/Swamp> Sac<1/Forest> | Origin$ Graveyard | Destination$ Hand | ActivationZone$ Graveyard
-SVar:X:Count$ValidGraveyard Creature.YouOwn
-SVar:LichLeech:Sacrificed$CardPower
+ManaCost:U R
+Types:Instant
+A:SP$ Charm | Choices$ DBCounter,DBDealDamage,DBDraw
+SVar:DBCounter:DB$ Counter | TargetType$ Spell | ValidTgts$ Card.nonCreature | UnlessCost$ 2
+SVar:DBDealDamage:DB$ DealDamage | ValidTgts$ Creature | NumDmg$ 2
+SVar:DBDraw:DB$ Draw | NumCards$ 2 | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 2 | Mode$ TgtChoose

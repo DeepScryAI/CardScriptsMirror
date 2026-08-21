@@ -1,9 +1,14 @@
 Id:29804
-ColorIdentity:W
-OriginSet:Gf09b85bbcc27770c
-ManaCost:W
-Types:Instant
-K:Gift
-SVar:GiftAbility:DB$ Token | TokenScriptIds$ 134855612 | TokenOwner$ Promised
-A:SP$ Pump | ValidTgts$ Creature.YouCtrl | NumAtt$ +2 | NumDef$ +2 | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | Defined$ Targeted | KW$ Indestructible | ConditionZone$ Stack | ConditionPresent$ Card.Self+PromisedGift | ConditionCompare$ EQ1
+ColorIdentity:R
+OriginSet:G01a610e823cce3ca
+ManaCost:3 R
+Types:Legendary Creature Human Berserker
+PT:4/4
+K:Trample
+S:Mode$ CantAttack | ValidCard$ Card.Self | Target$ Player.CardOwner
+S:Mode$ MustAttack | ValidCreature$ Card.Self | Secondary$ True
+S:Mode$ CantSacrifice | ValidCard$ Card.Self | Secondary$ True
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Player | TriggerZones$ Battlefield | Execute$ TrigControl
+SVar:TrigControl:DB$ GainControl | Defined$ Self | NewController$ TriggeredPlayer | Untap$ True | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Self | Placer$ TriggeredPlayer | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Self | KW$ Haste

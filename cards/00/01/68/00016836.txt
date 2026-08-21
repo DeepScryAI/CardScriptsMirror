@@ -1,7 +1,9 @@
 Id:16836
-ColorIdentity:B
+ColorIdentity:
 OriginSet:Gd31f94cf3a5f78e4
-ManaCost:1 B
-Types:Sorcery
-A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Creature.YouOwn | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | ConditionPresent$ Artifact.YouCtrl | ConditionCompare$ GE1
+ManaCost:5
+Types:Artifact Creature Construct
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGainLife
+SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 3 | SubAbility$ DBEnergy
+SVar:DBEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ 3

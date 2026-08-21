@@ -1,13 +1,11 @@
 Id:11858
 ColorIdentity:B
 OriginSet:Gdabdfcbb34989064
-ManaCost:BP
-Types:Instant
-A:SP$ Pump | ValidTgts$ Card.nonBasic | TgtZone$ Graveyard | RememberObjects$ Targeted | SubAbility$ ExileYard
-SVar:ExileYard:DB$ ChangeZone | ChangeType$ Remembered.sameName | Origin$ Graveyard | DefinedPlayer$ TargetedController | Chooser$ You | Destination$ Exile | ChangeNum$ NumInYard | Hidden$ True | SubAbility$ ExileHand
-SVar:ExileHand:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | DefinedPlayer$ TargetedController | ChangeType$ Remembered.sameName | ChangeNum$ NumInHand | Chooser$ You | SubAbility$ ExileLib
-SVar:ExileLib:DB$ ChangeZone | Origin$ Library | Destination$ Exile | DefinedPlayer$ TargetedController | ChangeType$ Remembered.sameName | ChangeNum$ NumInLib | Chooser$ You | Shuffle$ True | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:NumInLib:TargetedController$CardsInLibrary
-SVar:NumInHand:TargetedController$CardsInHand
-SVar:NumInYard:TargetedController$CardsInGraveyard
+ManaCost:5 B B
+Types:Legendary Creature Phyrexian Praetor
+PT:6/6
+K:Landwalk:Swamp
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouCtrl
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Opponent | TriggerZones$ Battlefield | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice | SacValid$ Creature | Defined$ TriggeredPlayer

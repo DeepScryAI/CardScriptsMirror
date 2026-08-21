@@ -1,12 +1,7 @@
 Id:12043
-ColorIdentity:U
+ColorIdentity:W
 OriginSet:G28b959a4da853005
-ManaCost:U
-Types:Sorcery
-A:SP$ RepeatEach | RepeatPlayers$ Player | StartingWith$ You | RepeatSubAbility$ DBPay | SubAbility$ DBDraw
-SVar:DBPay:DB$ ChooseNumber | Defined$ Player.IsRemembered | ChooseAnyNumber$ True | SubAbility$ DBStore
-SVar:DBStore:DB$ StoreSVar | SVar$ JoinForcesAmount | Type$ CountSVar | Expression$ JoinForcesAmount/Plus.Y | UnlessCost$ Y | UnlessPayer$ Player.IsRemembered | UnlessSwitched$ True
-SVar:DBDraw:DB$ Draw | Defined$ Player | NumCards$ JoinForcesAmount | SubAbility$ DBReset
-SVar:DBReset:DB$ StoreSVar | SVar$ JoinForcesAmount | Type$ Number | Expression$ 0
-SVar:Y:Count$ChosenNumber
-SVar:JoinForcesAmount:Number$0
+ManaCost:4 W W
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self,Permanent.nonLand+YouCtrl+Other | Execute$ TrigMartyrsSacrifice | TriggerZones$ Battlefield
+SVar:TrigMartyrsSacrifice:DB$ Sacrifice | Amount$ 1 | SacValid$ TriggeredCard.sharesCardTypeWith | Defined$ TriggeredCardOpponent

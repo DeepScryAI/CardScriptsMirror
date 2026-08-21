@@ -1,7 +1,13 @@
 Id:23981
-ColorIdentity:B
-OriginSet:G9afc9838c5e994df
-ManaCost:B
-Types:Creature Vampire Warrior
-PT:1/1
-A:AB$ Pump | Cost$ PayLife<1> | ActivationLimit$ 1 | Defined$ Self | NumAtt$ +1
+ColorIdentity:R
+OriginSet:Gfdfe2ebef04be34e
+ManaCost:2 R
+Types:Creature Human Warrior
+PT:2/3
+K:Menace
+T:Mode$ DamageDoneOnce | CombatDamage$ True | ValidSource$ Creature.YouCtrl | ValidTarget$ Player | TriggerZones$ Battlefield | Execute$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 3851718391
+A:AB$ Dig | Cost$ Sac<1/Treasure> | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | RememberObjects$ Remembered | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | AffectedZone$ Exile | Affected$ Card.IsRemembered | MayPlay$ True
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

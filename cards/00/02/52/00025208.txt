@@ -1,8 +1,12 @@
 Id:25208
-ColorIdentity:R
+ColorIdentity:WB
 OriginSet:Gf591a76e7a37cf73
-ManaCost:3 R
-Types:Creature Demon
-PT:3/3
-K:Haste
-S:Mode$ PlayerMustAttack | ValidPlayer$ Opponent
+ManaCost:2 W B
+Types:Creature Human Soldier
+PT:2/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ X | TokenScriptIds$ 1214250791 | TokenOwner$ You
+SVar:X:PlayerCountOpponents$Amount
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ PumpAll | ValidCards$ Creature.YouCtrl | KW$ Deathtouch
+SVar:HasAttackEffect:TRUE

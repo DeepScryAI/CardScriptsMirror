@@ -1,9 +1,15 @@
 Id:29424
-ColorIdentity:G
-OriginSet:Gac6359c222afbd4f
-ManaCost:2 G
-Types:Creature Elf Shaman Mutant
-PT:2/1
-A:AB$ PutCounter | Cost$ 1 G | Adapt$ 2
-T:Mode$ CounterAddedOnce | ValidCard$ Card.Self | TriggerZones$ Battlefield | CounterType$ P1P1 | Execute$ TrigChangeZone
-SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Permanent.YouCtrl
+ColorIdentity:B
+OriginSet:G0c9f9aa4a8bf0371
+ManaCost:1 B B
+Types:Legendary Creature Faerie Rogue
+PT:1/3
+K:Flying
+S:Mode$ Continuous | EffectZone$ Battlefield | Affected$ Card.Self | AddKeyword$ Lifelink & Haste | CheckSVar$ X | SVarCompare$ EQ0
+SVar:X:PlayerCountOpponents$LowestValid Creature.YouCtrl
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ DBTrigger
+SVar:DBTrigger:AB$ ImmediateTrigger | Cost$ PayLife<1> | Execute$ TrigDiscard
+SVar:TrigDiscard:DB$ Discard | Mode$ TgtChoose | Defined$ Player | SubAbility$ DBSacCreature
+SVar:DBSacCreature:DB$ Sacrifice | SacValid$ Creature | Defined$ Player
+T:Mode$ Discarded | ValidCard$ Card | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +1 | Duration$ Perpetual

@@ -1,15 +1,10 @@
 Id:11449
-ColorIdentity:B
+ColorIdentity:
 OriginSet:Gf6792163b580976b
-ManaCost:2 B B
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:Curse
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddTrigger$ NecroticPlagueTrig | AddSVar$ NecroticPlagueSac
-SVar:NecroticPlagueTrig:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ NecroticPlagueSac
-SVar:NecroticPlagueSac:DB$ Sacrifice | SacValid$ Self
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.EnchantedBy | Execute$ TrigChoose
-SVar:TrigChoose:DB$ Pump | ValidTgts$ Creature | TargetsWithDefinedController$ TriggeredCardOpponent | IsCurse$ True | TargetingPlayer$ TriggeredCardController | SubAbility$ DBChange
-SVar:DBChange:DB$ ChangeZone | Defined$ Self | Origin$ Graveyard | Destination$ Battlefield | AttachedTo$ ParentTarget
-SVar:NeedsToPlayVar:Z GE3
-SVar:Z:Count$Valid Creature.OppCtrl
+ManaCost:no cost
+Types:Land
+A:AB$ Mana | Cost$ T | Produced$ C
+A:AB$ ChangeZone | Cost$ 4 T | ValidTgts$ Creature.attacking+OppCtrl | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DelTrig
+SVar:DelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ TrigReturn | RememberObjects$ RememberedLKI | SubAbility$ DBCleanup
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Exile | Destination$ Battlefield | Defined$ DelayTriggerRememberedLKI | Tapped$ True
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

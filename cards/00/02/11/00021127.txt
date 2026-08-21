@@ -1,8 +1,13 @@
 Id:21127
-ColorIdentity:B
-OriginSet:G72c9c624ceb92bff
-ManaCost:4 B
-Types:Instant
-S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ X | EffectZone$ All
+ColorIdentity:U
+OriginSet:G7b2607750b451c25
+ManaCost:1 U
+Types:Creature Human Rogue
+PT:2/1
+S:Mode$ CantBlockBy | ValidAttacker$ Card.Self | CheckSVar$ JoinedParty
+SVar:JoinedParty:Count$ThisTurnEntered_Battlefield_Cleric.YouCtrl+StrictlyOther,Rogue.YouCtrl+StrictlyOther,Warrior.YouCtrl+StrictlyOther,Wizard.YouCtrl+StrictlyOther
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ X | SVarCompare$ EQ4 | Execute$ TrigAnimateAll
+SVar:TrigAnimateAll:DB$ AnimateAll | ValidCards$ Creature.YouCtrl | Triggers$ TrigCDPlayer
+SVar:TrigCDPlayer:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDraw | TriggerZones$ Battlefield
+SVar:TrigDraw:DB$ Draw
 SVar:X:Count$Party
-A:SP$ Destroy | ValidTgts$ Creature,Planeswalker

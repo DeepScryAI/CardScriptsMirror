@@ -1,12 +1,14 @@
 Id:13117
-ColorIdentity:W
+ColorIdentity:U
 OriginSet:G5449dea2d54987a1
-ManaCost:2 W
-Types:Enchantment Aura
-K:Enchant:Land
-SVar:AttachAILogic:Pump
-S:Mode$ Continuous | Affected$ Land.AttachedBy | AddAbility$ PreventDamage
-SVar:PreventDamage:AB$ PreventDamage | Cost$ T | Defined$ You | Amount$ 1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 1066714595 | TokenOwner$ You
-SVar:NonStackingAttachEffect:True
+ManaCost:4 U
+Types:Enchantment
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ SetupSearch
+SVar:SetupSearch:DB$ Dig | Defined$ You | DigNum$ 5 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | ForgetOtherRemembered$ True
+T:Mode$ SpellCast | ValidCard$ Card.sharesNameWith Remembered | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigFind
+T:Mode$ LandPlayed | ValidCard$ Land.YouCtrl+sharesNameWith Remembered | TriggerZones$ Battlefield | Execute$ TrigFind | OptionalDecider$ You | Secondary$ True
+SVar:TrigFind:DB$ ChangeZone | ChangeType$ TriggeredCard.sharesNameWith | Hidden$ True | Origin$ Exile | Destination$ Hand | ChangeNum$ 1 | ForgetChanged$ True | SubAbility$ SacSelf
+SVar:SacSelf:DB$ Sacrifice | ConditionCheckSVar$ StillLooking | ConditionSVarCompare$ EQ0 | RememberSacrificed$ True | SubAbility$ AllFoundCelebration
+SVar:AllFoundCelebration:DB$ AddTurn | NumTurns$ 1 | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ1
+SVar:StillLooking:Remembered$Amount
+SVar:X:Remembered$Amount

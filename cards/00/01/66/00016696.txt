@@ -1,10 +1,12 @@
 Id:16696
-ColorIdentity:UBRG
+ColorIdentity:BR
 OriginSet:Ge1d53e4f418bb713
-ManaCost:U B R G
-Types:Legendary Creature Ogre Wizard
-PT:5/4
-K:Trample
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigCascade
-SVar:TrigCascade:DB$ Effect | StaticAbilities$ GrantCascade
-SVar:GrantCascade:Mode$ Continuous | Affected$ Card.YouCtrl+YouOwn+wasCastFromHand | AffectedZone$ Stack | AddKeyword$ Cascade
+ManaCost:1 B R
+Types:Legendary Creature Goblin Berserker
+PT:2/3
+T:Mode$ SpellCast | ValidActivatingPlayer$ You | ActivatorThisTurnCast$ EQ1 | ValidCard$ Card | Execute$ TrigChoose | TriggerZones$ Battlefield
+SVar:TrigChoose:DB$ ChoosePlayer | Defined$ You | Choices$ Player.Opponent | Random$ True | SubAbility$ DBDealDamage
+SVar:DBDealDamage:DB$ DealDamage | Defined$ ChosenPlayer | NumDmg$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenPlayer$ True
+SVar:X:TriggeredSpellAbility$CardManaCostLKI
+K:Partner

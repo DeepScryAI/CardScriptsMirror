@@ -1,8 +1,21 @@
 Id:22881
-ColorIdentity:U
+ColorIdentity:B
 OriginSet:Gf78628ad511eefec
-ManaCost:3 U U
-Types:Legendary Creature Human Wizard
-PT:3/4
-R:Event$ Counter | ValidSA$ Spell | Layer$ CantHappen | ActiveZones$ Battlefield
-S:Mode$ Continuous | Affected$ Instant.YouOwn,Sorcery.YouOwn | AffectedZone$ Graveyard | AddKeyword$ Flashback
+ManaCost:2 B
+Types:Enchantment Aura Curse
+K:Enchant:Player
+SVar:AttachAILogic:Curse
+R:Event$ Transform | ValidCard$ Card.Self | ReplaceWith$ Attach
+SVar:Attach:DB$ Attach | Object$ Self | PlayerChoices$ Player | AILogic$ Curse
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Player.EnchantedBy | TriggerZones$ Battlefield | Execute$ TrigDrain
+SVar:TrigDrain:DB$ LoseLife | Defined$ TriggeredPlayer | LifeAmount$ 1 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
+K:Daybound
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:black
+Types:Creature Leech Horror
+PT:4/4
+K:Lifelink
+K:Nightbound

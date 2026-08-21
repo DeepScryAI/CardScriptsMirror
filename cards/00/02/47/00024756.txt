@@ -1,8 +1,12 @@
 Id:24756
-ColorIdentity:W
-OriginSet:G3c9db52fa0bcee92
-ManaCost:3 W
-Types:Creature Human Mercenary
-PT:3/4
-K:Vigilance
-S:Mode$ Continuous | Affected$ Card.Self | EffectZone$ Battlefield | GainsAbilitiesOf$ Creature.Legendary+YouCtrl
+ColorIdentity:R
+OriginSet:Gd784248bfdf9e1d7
+ManaCost:2 R
+Types:Creature Minotaur Shaman
+PT:3/2
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ ABImpulse | TriggerZones$ Battlefield
+SVar:ABImpulse:AB$ Dig | Cost$ PutCardToLibFromGrave<1/-1/Sorcery;Instant> | Defined$ You | DigNum$ 2 | ChangeNum$ All | DestinationZone$ Exile | SubAbility$ DBEffect | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ Play | SubAbility$ DBCleanup | ForgetOnMoved$ Exile
+SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:HasAttackEffect:TRUE

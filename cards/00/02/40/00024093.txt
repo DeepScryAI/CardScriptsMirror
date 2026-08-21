@@ -1,8 +1,12 @@
 Id:24093
 ColorIdentity:RG
 OriginSet:G9afc9838c5e994df
-ManaCost:2 R G
-Types:Enchantment
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ DBToken
-SVar:DBToken:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 3851718391
-A:AB$ Token | Cost$ Sac<1/Treasure> | TokenScriptIds$ 1092778731
+ManaCost:R G
+Types:Creature Cat Warrior
+PT:2/2
+A:AB$ Branch | Cost$ R G | BranchConditionSVar$ TreasureCheck | BranchConditionSVarCompare$ GE1 | FalseSubAbility$ DBPump | TrueSubAbility$ DBPutCounter
+SVar:DBPump:DB$ Pump | Defined$ Self | NumAtt$ +1 | NumDef$ +1
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1
+SVar:TreasureCheck:Count$TotalManaSpent Treasure
+SVar:AIPreference:ManaFrom$Treasure
+SVar:PlayMain1:TRUE

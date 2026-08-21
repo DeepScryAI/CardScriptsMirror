@@ -1,7 +1,9 @@
 Id:16619
-ColorIdentity:BR
+ColorIdentity:B
 OriginSet:G4bddbf7cb4f2475e
-ManaCost:1 B R
-Types:Instant
-A:SP$ Destroy | ValidTgts$ Creature | SubAbility$ DBDamageController
-SVar:DBDamageController:DB$ DealDamage | Defined$ ParentTargetedController | NumDmg$ 3 | ConditionPresent$ Artifact.YouCtrl
+ManaCost:1 B
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Artifact.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigDrain
+SVar:TrigDrain:AB$ LoseLife | Cost$ 1 | Defined$ Player.Opponent | LifeAmount$ 1 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
+A:AB$ Destroy | Cost$ 1 B Sac<1/CARDNAME> | ValidTgts$ Creature | IsPresent$ Card.Artifact+YouCtrl | PresentCompare$ GE2

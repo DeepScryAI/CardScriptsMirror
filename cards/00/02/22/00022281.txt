@@ -1,12 +1,10 @@
 Id:22281
-ColorIdentity:R
+ColorIdentity:U
 OriginSet:Geb2cf181996ee3b2
-ManaCost:2 R R
-Types:Enchantment Creature Manticore
-PT:3/4
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | Execute$ TrigDiscard | TriggerZones$ Battlefield | OptionalDecider$ You
-SVar:TrigDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBImmediateTrigger
-SVar:DBImmediateTrigger:DB$ ImmediateTrigger | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ GE1 | Execute$ TrigDamage | RememberObjects$ RememberedCard | SubAbility$ DBCleanup
-SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ X
-SVar:X:TriggerRemembered$CardTypes
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:2 U
+Types:Creature Human Pirate
+PT:3/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigTreasure
+SVar:TrigTreasure:DB$ Token | TokenScriptIds$ 3851718391 | TokenOwner$ You
+T:Mode$ Sacrificed | ValidPlayer$ You | ValidCard$ Permanent.token+YouCtrl | Origin$ Any | Destination$ Battlefield | Execute$ TrigPump | TriggerZones$ Battlefield
+SVar:TrigPump:DB$ Pump | Defined$ Self | KW$ Flying

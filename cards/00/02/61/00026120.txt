@@ -1,8 +1,9 @@
 Id:26120
-ColorIdentity:
-OriginSet:G2192e8955d5e1ad1
-ManaCost:4
-Types:Artifact Creature Myr
-PT:3/1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSearch
-SVar:TrigSearch:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Myr | ChangeNum$ 1 | Shuffle$ True
+ColorIdentity:U
+OriginSet:G903d26fe51c6a362
+ManaCost:3 UP
+Types:Artifact
+A:AB$ DigUntil | Cost$ 1 UP T ExileFromStack<1/Card.YouCtrl/spell you control> | ValidTgts$ Opponent | Valid$ Card.cmcEQX | FoundDestination$ Exile | RevealedDestination$ Library | ImprintFound$ True | Shuffle$ True | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | Defined$ Imprinted | ValidSA$ Spell | WithoutManaCost$ True | Optional$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearImprinted$ True
+SVar:X:Exiled$CardManaCost/Plus.1

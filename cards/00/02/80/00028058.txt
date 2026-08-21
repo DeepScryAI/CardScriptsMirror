@@ -1,8 +1,12 @@
 Id:28058
-ColorIdentity:W
-OriginSet:Gfd50577710a6ab09
-ManaCost:W W
-Types:Creature Angel
-PT:4/4
-K:Flying
-A:SP$ PermanentCreature | Cost$ W W tapXType<4/Artifact;Creature;Land/artifacts, creatures, and/or lands>
+ColorIdentity:
+OriginSet:G06c78c29bfb28e3d
+ManaCost:3
+Types:Artifact Equipment
+K:Equip:2:::ReduceCost$ Y
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddToughness$ 2 | AddKeyword$ Menace
+SVar:X:Count$ValidHand Card.YouOwn
+SVar:Y:Count$Compare X LE1.2.0
+T:Mode$ DamageDone | ValidSource$ Creature.AttachedBy | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigLoot | TriggerZones$ Battlefield
+SVar:TrigLoot:DB$ Draw | NumCards$ 2 | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | Mode$ TgtChoose | NumCards$ 2 | UnlessType$ Pirate

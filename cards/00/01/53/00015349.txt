@@ -1,10 +1,11 @@
 Id:15349
-ColorIdentity:R
+ColorIdentity:W
 OriginSet:G70acd28f254172ff
-ManaCost:1 R
-Types:Creature Goblin Scout
-PT:2/1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigUnblockable
-SVar:TrigUnblockable:DB$ Effect | ValidTgts$ Creature.powerLE2 | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable | AILogic$ Pump
-SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
-SVar:PlayMain1:TRUE
+ManaCost:4 W
+Types:Enchantment
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ChangeNum$ 1 | ValidTgts$ Enchantment.YouOwn
+S:Mode$ Continuous | IsPresent$ Enchantment.YouCtrl | PresentCompare$ GE5 | Affected$ Enchantment.YouCtrl+nonAura+Other | SetPower$ AffectedX | SetToughness$ AffectedX | AddType$ Creature
+SVar:AffectedX:Count$CardManaCost
+SVar:BuffedBy:Enchantment
+SVar:PlayMain1:ALWAYS

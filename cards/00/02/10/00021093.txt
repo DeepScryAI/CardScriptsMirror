@@ -1,10 +1,11 @@
 Id:21093
-ColorIdentity:B
-OriginSet:G1e059136f10fb240
-ManaCost:2 B
-Types:Artifact Equipment
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2
-T:Mode$ DamageDone | CombatDamage$ True | ValidSource$ Creature.EquippedBy | ValidTarget$ Player | OptionalDecider$ You | Execute$ TrigEffect | TriggerZones$ Battlefield
-SVar:TrigEffect:DB$ Effect | StaticAbilities$ MayCastGrave | RememberObjects$ TriggeredTarget
-SVar:MayCastGrave:Mode$ Continuous | Affected$ Creature.RememberedPlayerCtrl | MayPlay$ True | MayPlayLimit$ 1 | MayPlayIgnoreType$ True | AffectedZone$ Graveyard
-K:Equip:3
+ColorIdentity:U
+OriginSet:G7b2607750b451c25
+ManaCost:2 U
+Types:Creature Merfolk Wizard
+PT:2/2
+T:Mode$ SpellCast | ValidCard$ Card.YouCtrl+kicked | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | Mode$ TgtChoose | NumCards$ 1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDig
+SVar:TrigDig:DB$ Dig | DigNum$ 5 | ChangeNum$ 1 | Optional$ True | ForceRevealToController$ True | ChangeValid$ Card.withKicker,Card.withMultikicker | RestRandomOrder$ True

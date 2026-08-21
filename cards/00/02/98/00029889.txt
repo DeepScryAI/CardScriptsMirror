@@ -1,10 +1,12 @@
 Id:29889
-ColorIdentity:B
-OriginSet:Gf09b85bbcc27770c
-ManaCost:3 B B
-Types:Legendary Creature Elemental Bird
-PT:6/5
-K:Flying
-K:Trample
-K:Ward:Discard<1/Card>
-S:Mode$ Continuous | Affected$ Creature.OppCtrl | SetToughness$ 1
+ColorIdentity:WU
+OriginSet:G01a610e823cce3ca
+ManaCost:1 W U
+Types:Legendary Creature Human Advisor
+PT:0/4
+K:Defender
+S:Mode$ Continuous | Affected$ Card.Self+untapped | AddKeyword$ Hexproof
+A:AB$ Animate | Cost$ T | ValidTgts$ Creature | Replacements$ RPrevent
+SVar:RPrevent:Event$ DamageDone | ValidTarget$ Player | Prevent$ True | IsCombat$ True | ValidSource$ Card.Self | ReplaceWith$ Draw
+SVar:Draw:DB$ Draw | Defined$ CardController & ReplacedTarget | NumCards$ X
+SVar:X:ReplaceCount$DamageAmount/HalfDown

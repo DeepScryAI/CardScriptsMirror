@@ -1,14 +1,8 @@
 Id:33983
 ColorIdentity:G
-OriginSet:Gaf3c6d0810185c00
-ManaCost:X G
-Types:Sorcery
-A:SP$ GainLife | LifeAmount$ 2 | ConditionCheckSVar$ X | ConditionSVarCompare$ GE4 | SubAbility$ DBSeek
-SVar:DBSeek:DB$ Seek | Type$ Card.Land+Basic | SubAbility$ DBPut | RememberFound$ True | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ1 | OrOtherConditionSVarCompare$ GE4
-SVar:DBPut:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | Defined$ Remembered | Tapped$ True | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ1 | OrOtherConditionSVarCompare$ GE4 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | SubAbility$ DBSac
-SVar:DBSac:DB$ Sacrifice | Defined$ Opponent | SacValid$ Artifact | Amount$ 1 | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ2 | OrOtherConditionSVarCompare$ GE4 | SubAbility$ DBNameCard
-SVar:DBNameCard:DB$ NameCard | AtRandom$ True | ValidCards$ Creature.cmcEQX | SubAbility$ DBConjure | ConditionCheckSVar$ X | ConditionSVarCompare$ GE3
-SVar:DBConjure:DB$ MakeCard | Name$ ChosenName | Conjure$ True | Zone$ Battlefield | ConditionCheckSVar$ X | ConditionSVarCompare$ GE3 | SubAbility$ DBClearNamed
-SVar:DBClearNamed:DB$ Cleanup | ClearNamedCard$ True
-SVar:X:Count$xPaid
+OriginSet:Gf8df2bea26dc6b68
+ManaCost:2 G
+Types:Instant
+A:SP$ PutCounter | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ 2 | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Targeted | KW$ Trample & Indestructible | ConditionCheckSVar$ X
+SVar:X:Count$LifeYouGainedThisTurn

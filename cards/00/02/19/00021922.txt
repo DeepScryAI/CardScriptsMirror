@@ -1,6 +1,14 @@
 Id:21922
-ColorIdentity:W
-OriginSet:Gd784248bfdf9e1d7
-ManaCost:1 W
-Types:Creature Spirit Soldier
-PT:1/4
+ColorIdentity:UR
+OriginSet:G6fa60d857e930f32
+ManaCost:X U R
+Types:Sorcery
+A:SP$ Dig | Defined$ You | DigNum$ X | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenAmount$ L | TokenScriptIds$ 3851718391 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ B | SubAbility$ DBDealDamage
+SVar:DBDealDamage:DB$ DealDamage | Defined$ Player.Opponent | NumDmg$ R | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$xPaid
+SVar:L:Remembered$Valid Card.Land
+SVar:B:Remembered$Valid Card.Blue
+SVar:R:Remembered$Valid Card.Red

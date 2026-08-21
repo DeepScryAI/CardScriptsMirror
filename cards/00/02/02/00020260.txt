@@ -1,11 +1,10 @@
 Id:20260
-ColorIdentity:U
+ColorIdentity:B
 OriginSet:G42eb6bda83007836
-ManaCost:U U
-Types:Creature Merfolk Wizard
-PT:1/3
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigDig
-SVar:TrigDig:DB$ Dig | DigNum$ X | ChangeNum$ 1 | DestinationZone$ Library | LibraryPosition$ 0 | RestRandomOrder$ True | Optional$ True | SubAbility$ DBWin
-SVar:DBWin:DB$ WinsGame | Defined$ You | ConditionCheckSVar$ Y | ConditionSVarCompare$ LEX
-SVar:X:Count$Devotion.Blue
-SVar:Y:Count$ValidLibrary Card.YouOwn
+ManaCost:4 B
+Types:Enchantment Creature Snake Lamia
+PT:4/4
+K:Lifelink
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Graveyard | ChangeNum$ 1 | ChangeType$ Card | Mandatory$ True
+S:Mode$ ReduceCost | ValidCard$ Card.wasCastFromYourGraveyard | Type$ Spell | Activator$ You | Amount$ 1

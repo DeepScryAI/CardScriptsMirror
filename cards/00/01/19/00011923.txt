@@ -1,7 +1,14 @@
 Id:11923
-ColorIdentity:
+ColorIdentity:R
 OriginSet:G43171707a7efd07b
-ManaCost:4
-Types:Artifact
-T:Mode$ SpellCast | ValidCard$ Creature | ValidActivatingPlayer$ Opponent | TriggerZones$ Battlefield | Execute$ TrigLose
-SVar:TrigLose:DB$ LoseLife | Defined$ TriggeredCardController | LifeAmount$ 2 | UnlessCost$ 2 | UnlessPayer$ TriggeredCardController
+ManaCost:3 R R
+Types:Creature Phyrexian Insect
+PT:3/2
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Imprint$ True | ValidTgts$ Land | Origin$ Battlefield | Destination$ Exile
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.sharesNameWith Imprinted+OppCtrl | TriggerZones$ Battlefield | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | Defined$ TriggeredCardController | NumDmg$ 2
+T:Mode$ ChangesZone | Origin$ Battlefield | ValidCard$ Card.Self | Destination$ Any | Execute$ DBCleanup | Static$ True
+SVar:DBCleanup:DB$ Cleanup | ClearImprinted$ True
+T:Mode$ ChangesZone | Origin$ Exile | Destination$ Any | Static$ True | ValidCard$ Card.IsImprinted+ExiledWithSourceLKI | Execute$ DBForget
+SVar:DBForget:DB$ Pump | ForgetImprinted$ TriggeredCard

@@ -1,12 +1,10 @@
 Id:29323
-ColorIdentity:BG
-OriginSet:G2ce881cc55bb9f18
-ManaCost:3 B G
-Types:Creature Lizard
-PT:4/4
-K:Flash
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigEffect
-SVar:TrigEffect:DB$ Effect | Triggers$ DiesTrig
-SVar:DiesTrig:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.!token+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenAmount$ X | TokenScriptIds$ 3815350479 | TokenOwner$ You
-SVar:X:TriggeredCard$CardPower
+ColorIdentity:BR
+OriginSet:G27146c70b74a1e72
+ManaCost:3 B R
+Types:Legendary Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouOwn | WithCountersType$ P1P1 | WithCountersAmount$ 2
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.Legendary+YouCtrl | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Opponent | NumDmg$ Damage
+SVar:Damage:TriggeredCard$CardPower

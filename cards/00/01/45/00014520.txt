@@ -1,7 +1,11 @@
 Id:14520
 ColorIdentity:WBG
 OriginSet:G0a578e83854cf093
-ManaCost:3
-Types:Artifact
-A:AB$ Mana | Cost$ T | Produced$ Combo W B G
-A:AB$ Draw | Cost$ W B G T Sac<1/CARDNAME>
+ManaCost:W B G
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPutCounters
+SVar:TrigPutCounters:DB$ PutCounterAll | ValidCards$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl+!token | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 273812182 | TokenOwner$ You
+SVar:PlayMain1:TRUE
+SVar:NeedsToPlay:Creature.YouCtrl

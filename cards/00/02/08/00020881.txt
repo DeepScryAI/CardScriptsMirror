@@ -1,8 +1,9 @@
 Id:20881
-ColorIdentity:B
+ColorIdentity:
 OriginSet:Gfd5e6da37c69dc53
-ManaCost:1 B B
-Types:Sorcery
-A:SP$ Charm | Choices$ DBPumpAll,DBRemoveCounters
-SVar:DBPumpAll:DB$ PumpAll | ValidCards$ Creature | NumAtt$ -2 | NumDef$ -2 | IsCurse$ True
-SVar:DBRemoveCounters:DB$ RemoveCounterAll | ValidCards$ Planeswalker | CounterType$ LOYALTY | CounterNum$ 2
+ManaCost:5
+Types:Artifact Creature Construct
+PT:4/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | CheckSVar$ X | SVarCompare$ GE2 | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 2570838575 | TokenOwner$ You
+SVar:X:Count$MostCardName Permanent.nonLand+!token+YouCtrl

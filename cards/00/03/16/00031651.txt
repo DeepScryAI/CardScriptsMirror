@@ -1,12 +1,11 @@
 Id:31651
-ColorIdentity:WBR
-OriginSet:G530ea9d733a13e9d
-ManaCost:R W B
-Types:Legendary Creature Human Wizard Warrior
-PT:3/3
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigMill
-SVar:TrigMill:DB$ Mill | NumCards$ 2 | Defined$ You | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | Defined$ Self | KW$ Flying
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigPayCost | CombatDamage$ True
-SVar:TrigPayCost:AB$ ImmediateTrigger | Cost$ 2 | Execute$ TrigChange
-SVar:TrigChange:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouOwn+powerLE3 | Tapped$ True
+ColorIdentity:R
+OriginSet:Gf2b808f4f642ac62
+ManaCost:2 R
+Types:Instant
+A:SP$ Charm | Choices$ DBExile,DBPump
+SVar:DBExile:DB$ Dig | Defined$ You | DigNum$ 2 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ STPlay | SubAbility$ DBCleanup | ForgetOnMoved$ Exile | Duration$ UntilTheEndOfYourNextTurn
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:DBPump:DB$ Pump | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 2 | NumAtt$ +2 | NumDef$ +1

@@ -1,9 +1,11 @@
 Id:21218
-ColorIdentity:B
+ColorIdentity:R
 OriginSet:G72c9c624ceb92bff
-ManaCost:2 B
-Types:Creature Vampire Rogue
-PT:1/4
-A:AB$ Pump | Cost$ tapXType<1/Rogue.Other> | Defined$ Self | KW$ Deathtouch
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigMill | TriggerZones$ Battlefield
-SVar:TrigMill:DB$ Mill | Defined$ TriggeredTarget | NumCards$ 3
+ManaCost:R
+Types:Creature Goblin Warrior
+PT:1/1
+S:Mode$ Continuous | Affected$ Card.Self+equipped | AddKeyword$ Haste
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ X
+SVar:X:TriggeredCard$CardPower
+SVar:EquipMe:Once

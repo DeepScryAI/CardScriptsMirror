@@ -1,55 +1,11 @@
 Id:24612
 ColorIdentity:B
 OriginSet:G58bfeff4fb121c8e
-ManaCost:3 B
-Types:Legendary Creature Human Knight
-PT:3/3
-K:Specialize:3
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.YouCtrl | NumAtt$ +X
-SVar:X:Count$ValidGraveyard Creature.YouOwn
-AlternateMode:Specialize
-SPECIALIZE:WHITE
-ManaCost:3 W B
-Types:Legendary Creature Human Knight
-PT:4/4
-K:FirstStrike
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.YouCtrl | NumAtt$ +X | KW$ FirstStrike
-SVar:X:Count$ValidGraveyard Creature.YouOwn
-SPECIALIZE:BLUE
-ManaCost:3 U B
-Types:Legendary Creature Human Knight
-PT:4/4
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.YouCtrl | NumAtt$ +X
-SVar:X:Count$ValidGraveyard Instant.YouOwn,Sorcery.YouOwn,Creature.YouOwn
-SVar:BuffedBy:Instant,Sorcery
-SPECIALIZE:BLACK
-ManaCost:3 B B
-Types:Legendary Creature Human Knight
-PT:4/4
-T:Mode$ Specializes | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigSeek
-SVar:TrigSeek:DB$ Seek | Type$ Card.Creature | RememberFound$ True | SubAbility$ DBPut
-SVar:DBPut:DB$ ChangeZone | Origin$ Hand | Destination$ Graveyard | Defined$ Remembered | SubAbility$ DBConjure
-SVar:DBConjure:DB$ MakeCard | Conjure$ True | DefinedName$ Remembered | Zone$ Graveyard | Amount$ 2 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.YouCtrl | NumAtt$ +X
-SVar:X:Count$ValidGraveyard Creature.YouOwn
-SPECIALIZE:RED
-ManaCost:3 B R
-Types:Legendary Creature Human Knight
-PT:4/4
-K:Menace
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.YouCtrl | NumAtt$ +X | KW$ Menace
-SVar:X:Count$ValidGraveyard Creature.YouOwn
-SPECIALIZE:GREEN
-ManaCost:3 B G
-Types:Legendary Creature Human Knight
-PT:4/4
-K:Trample
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.YouCtrl | NumAtt$ +X | KW$ Trample
-SVar:X:Count$ValidGraveyard Creature.YouOwn
+ManaCost:2 B
+Types:Creature Hag Warlock
+PT:2/2
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigChoose
+SVar:TrigChoose:DB$ GenericChoice | Defined$ Opponent | TempRemember$ Chooser | Choices$ SacNonland,Discard | FallbackAbility$ LoseLifeFallback | AILogic$ PayUnlessCost
+SVar:SacNonland:DB$ LoseLife | Defined$ Remembered | LifeAmount$ 3 | UnlessCost$ Sac<1/Permanent.nonLand/nonland permanent> | UnlessPayer$ Remembered
+SVar:Discard:DB$ LoseLife | Defined$ Remembered | LifeAmount$ 3 | UnlessCost$ Discard<1/Card> | UnlessPayer$ Remembered
+SVar:LoseLifeFallback:DB$ LoseLife | Defined$ Remembered | LifeAmount$ 3

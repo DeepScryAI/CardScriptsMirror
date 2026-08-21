@@ -1,13 +1,12 @@
 Id:33514
-ColorIdentity:B
-OriginSet:G23d1f017cc66962f
-ManaCost:2 B
-Types:Enchantment Class
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Creature.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigLoseLife
-SVar:TrigLoseLife:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 1
-K:Class:2:1 B:AddStaticAbility$ SBoost
-SVar:SBoost:Mode$ Continuous | EffectZone$ Battlefield | Affected$ Creature.YouCtrl | AddPower$ 1 | AddKeyword$ Menace | Secondary$ True
-K:Class:3:B:AddStaticAbility$ SSneak & SMayPlay
-SVar:SSneak:Mode$ Continuous | EffectZone$ Battlefield | AffectedZone$ Graveyard | Affected$ Creature.YouOwn | AddKeyword$ Sneak:3 B | Secondary$ True
-SVar:SMayPlay:Mode$ Continuous | Affected$ Creature.YouCtrl | MayPlay$ True | EffectZone$ Battlefield | AffectedZone$ Graveyard | ValidSA$ Spell.Sneak | Secondary$ True
-SVar:PlayMain1:TRUE
+ColorIdentity:W
+OriginSet:G7ab1fe96128a1641
+ManaCost:4 W W
+Types:Sorcery
+K:Convoke
+A:SP$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ YouChoose | SubAbility$ DBRepeatEach
+SVar:YouChoose:DB$ ChooseCard | Defined$ You | Choices$ Creature | ControlledByPlayer$ Remembered | RememberChosen$ True | Mandatory$ True | Reveal$ True
+SVar:DBRepeatEach:DB$ RepeatEach | DefinedCards$ Remembered | ClearRemembered$ True | RepeatSubAbility$ DBPump | SubAbility$ SacAllOthers
+SVar:DBPump:DB$ Pump | ImprintCards$ Valid Creature.!IsRemembered+ControlledBy RememberedController+!sharesCreatureTypeWith Remembered
+SVar:SacAllOthers:DB$ SacrificeAll | ValidCards$ Creature.IsImprinted | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True

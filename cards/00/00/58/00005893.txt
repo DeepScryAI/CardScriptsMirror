@@ -1,9 +1,12 @@
 Id:5893
-ColorIdentity:R
+ColorIdentity:B
 OriginSet:G0eb5e52d26fe1c23
-ManaCost:2 R
-Types:Sorcery
-A:SP$ DigUntil | Valid$ Card.nonLand | RevealedDestination$ Library | RevealedLibraryPosition$ -1 | RememberFound$ True | SubAbility$ Damage
-SVar:Damage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ X | SubAbility$ DBCleanup
+ManaCost:B
+Types:Creature Zombie Cat
+PT:1/1
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigExile | TriggerZones$ Battlefield
+SVar:TrigExile:DB$ ChangeZone | ChangeType$ Creature | ChangeNum$ 1 | Origin$ Graveyard | Destination$ Exile | Optional$ True | IsCurse$ True | RememberChanged$ True | Hidden$ True | Chooser$ You | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Self | CounterNum$ 1 | CounterType$ P1P1 | ConditionCheckSVar$ X | SubAbility$ DBTap
+SVar:DBTap:DB$ Tap | ConditionCheckSVar$ X | ConditionSVarCompare$ LE0 | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Remembered$CardManaCost
+SVar:X:Remembered$Amount

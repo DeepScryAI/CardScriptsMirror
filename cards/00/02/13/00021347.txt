@@ -1,9 +1,11 @@
 Id:21347
-ColorIdentity:U
-OriginSet:G51d431785c8b33e5
-ManaCost:2 U
-Types:Creature Merfolk Pirate
-PT:3/2
-K:Flash
-R:Event$ Draw | ActiveZones$ Battlefield | ValidPlayer$ Opponent | ReplaceWith$ RepTreasure | NotFirstCardInDrawStep$ True
-SVar:RepTreasure:DB$ Token | TokenScriptIds$ 3851718391
+ColorIdentity:RG
+OriginSet:G8a59924df6623252
+ManaCost:2 R G
+Types:Legendary Creature Human Archer
+PT:4/4
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigToken | TriggerZones$ Battlefield
+SVar:TrigToken:DB$ Token | ValidTgts$ Opponent | TokenAmount$ 3 | TokenScriptIds$ 3635419940 | TokenOwner$ TargetedPlayer | LockTokenScript$ True
+A:AB$ DealDamage | Cost$ T | ValidTgts$ Creature | NumDmg$ 2
+T:Mode$ ChangesZone | ValidCard$ Zombie.OppCtrl | Origin$ Battlefield | Destination$ Graveyard | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1

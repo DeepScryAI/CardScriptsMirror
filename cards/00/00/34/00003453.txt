@@ -1,11 +1,10 @@
 Id:3453
-ColorIdentity:U
+ColorIdentity:R
 OriginSet:G24ae8187eacbba52
-ManaCost:2 U U
-Types:Creature Illusion
-PT:2/2
-K:Flying
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigTap
-SVar:TrigTap:DB$ Tap | ValidTgts$ Creature | TargetsWithDefinedController$ TriggeredTarget | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | RememberObjects$ Targeted | ForgetOnMoved$ Battlefield | ReplacementEffects$ DontUntap | Duration$ AsLongAsInPlay
-SVar:DontUntap:Event$ Untap | ValidCard$ Card.IsRemembered | ValidStepTurnToController$ You | Layer$ CantHappen
+ManaCost:3 R
+Types:Enchantment
+A:AB$ ChangeZone | Cost$ R | Origin$ Hand | Destination$ Battlefield | ChangeType$ Creature.YouCtrl | SubAbility$ DBPump | RememberChanged$ True | ForgetOtherRemembered$ True | AILogic$ BeforeCombat
+SVar:DBPump:DB$ Animate | Keywords$ Haste | Defined$ Remembered | Duration$ Permanent | AtEOT$ Sacrifice | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:NonStackingEffect:True
+SVar:PlayMain1:ALWAYS

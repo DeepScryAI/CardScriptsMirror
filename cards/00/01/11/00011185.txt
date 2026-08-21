@@ -1,7 +1,14 @@
 Id:11185
-ColorIdentity:G
+ColorIdentity:W
 OriginSet:G9fb0a9a59b6a9580
-ManaCost:7 G
-Types:Creature Human Shaman
-PT:1/1
-A:AB$ Animate | Cost$ 1 | ValidTgts$ Creature.YouCtrl | Power$ 7 | Toughness$ 7
+ManaCost:3 W W
+Types:Legendary Planeswalker Gideon
+Loyalty:6
+A:AB$ DelayedTrigger | Cost$ AddCounter<2/LOYALTY> | Planeswalker$ True | ValidTgts$ Opponent | Mode$ Phase | Phase$ Upkeep-> | DelayedTriggerDefinedPlayer$ Targeted | RememberObjects$ Targeted | Execute$ TrigEffect | Static$ True
+SVar:TrigEffect:DB$ Effect | RememberObjects$ DelayTriggerRemembered | StaticAbilities$ MustAttack | SubAbility$ DBCleanup
+SVar:MustAttack:Mode$ MustAttack | ValidCreature$ Creature.RememberedPlayerCtrl | MustAttack$ EffectSource
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+A:AB$ Destroy | Cost$ SubCounter<2/LOYALTY> | ValidTgts$ Creature.tapped | Planeswalker$ True
+A:AB$ Animate | Cost$ AddCounter<0/LOYALTY> | Defined$ Self | Power$ 6 | Toughness$ 6 | Types$ Creature,Human,Soldier | SubAbility$ DBPrevent | Planeswalker$ True | Ultimate$ True
+SVar:DBPrevent:DB$ Effect | ReplacementEffects$ RPrevent | Duration$ UntilHostLeavesPlayOrEOT
+SVar:RPrevent:Event$ DamageDone | Prevent$ True | ValidTarget$ Card.EffectSource

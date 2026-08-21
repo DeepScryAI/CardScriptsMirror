@@ -1,8 +1,16 @@
 Id:17926
-ColorIdentity:W
-OriginSet:G21ed5bd3b1924169
-ManaCost:1 W
-Types:Sorcery
-A:SP$ Charm | Choices$ DBDestroy,DBDestroy2
-SVar:DBDestroy:DB$ Destroy | ValidTgts$ Vampire
-SVar:DBDestroy2:DB$ Destroy | ValidTgts$ Enchantment
+ColorIdentity:UR
+OriginSet:G84be946b27d900a1
+ManaCost:2 U R
+Types:Legendary Enchantment
+T:Mode$ DamageDoneOnce | CombatDamage$ True | ValidSource$ Creature.YouCtrl | ValidTarget$ Player | TriggerZones$ Battlefield | Execute$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 3851718391 | TokenOwner$ You
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | IsPresent$ Artifact.YouCtrl | PresentCompare$ GE5 | Execute$ TrigTransform
+SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Types:Legendary Land
+A:AB$ Mana | Cost$ T | Produced$ Any | Amount$ 1
+A:AB$ Mana | Cost$ T | Produced$ U | Amount$ X
+SVar:X:Count$Valid Artifact.YouCtrl

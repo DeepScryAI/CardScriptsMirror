@@ -1,10 +1,14 @@
 Id:18944
-ColorIdentity:B
-OriginSet:G0b51a0aecbe39efe
-ManaCost:2 B
-Types:Creature Vampire
-PT:3/1
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigUnblockable
-SVar:TrigUnblockable:AB$ Effect | Cost$ Sac<1/Creature.Other/another creature> | RememberObjects$ Self | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable
-SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
-SVar:HasAttackEffect:TRUE
+ColorIdentity:BR
+OriginSet:G586a4ae96288ce18
+ManaCost:4 B R
+Types:Legendary Creature Demon
+PT:6/6
+K:Flying
+K:Trample
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigFlip
+SVar:TrigFlip:DB$ RepeatEach | RepeatCards$ Creature.nonDemon+nonDevil+nonImp | Zone$ Battlefield | UseImprinted$ True | RepeatSubAbility$ DBFlip | SubAbility$ DBDestroy
+SVar:DBFlip:DB$ FlipCoin | NoCall$ True | TailsSubAbility$ DBRememberCreature
+SVar:DBRememberCreature:DB$ Pump | Defined$ Imprinted | RememberObjects$ Imprinted
+SVar:DBDestroy:DB$ DestroyAll | ValidCards$ Creature.IsRemembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

@@ -1,9 +1,11 @@
 Id:31551
-ColorIdentity:G
-OriginSet:Gfac9eb8c75f25726
-ManaCost:G
+ColorIdentity:B
+OriginSet:Gf2b808f4f642ac62
+ManaCost:1 B
 Types:Enchantment
-T:Mode$ CounterAdded | ValidCard$ Creature.YouCtrl | TriggerZones$ Battlefield | CounterType$ P1P1 | Execute$ TrigSeek | ActivationLimit$ 1
-SVar:TrigSeek:DB$ Seek | Type$ Card.Creature | RememberFound$ True | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | PumpZone$ Hand | NumAtt$ +1 | NumDef$ +1 | Duration$ Perpetual | Defined$ Remembered | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 2 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2 | SubAbility$ DBSurveil
+SVar:DBSurveil:DB$ Surveil | Amount$ 2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | TriggerZones$ Battlefield | ValidCard$ Dragon.YouCtrl | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Defined$ Self

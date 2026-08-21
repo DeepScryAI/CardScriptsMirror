@@ -1,11 +1,17 @@
 Id:32506
-ColorIdentity:B
-OriginSet:G66b3a7eeabd9000e
-ManaCost:1 B
-Types:Legendary Artifact Infinity Stone
-K:Indestructible
-A:AB$ Mana | Cost$ T | Produced$ B
-A:AB$ AlterAttribute | Cost$ 6 B T Exile<1/Creature> | Defined$ Self | Attributes$ Harnessed
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | IsPresent$ Card.Self+harnessed | NoResolvingCheck$ True | TriggerZones$ Battlefield | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZone | ValidTgts$ Creature.YouOwn | Origin$ Graveyard | Destination$ Battlefield
-SVar:PlayMain1:TRUE
+ColorIdentity:WUG
+OriginSet:G8932289779cba1f1
+ManaCost:1 W
+Types:Legendary Creature Human Scientist Hero
+PT:0/1
+AlternateMode:Modal
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 4005227940 | TokenOwner$ You
+A:AB$ SetState | Cost$ 1 G W U | Defined$ Self | Mode$ Transform | SorcerySpeed$ True | AILogic$ Always
+ALTERNATE
+ManaCost:1 G W U
+Types:Legendary Creature Spider Human Hero
+PT:4/4
+K:Vigilance
+K:Reach
+S:Mode$ Continuous | Affected$ Legendary.YouCtrl+wasCast+nonColorless | AffectedZone$ Stack | AddKeyword$ WebSlinging:G W U:Spell.Legendary+nonColorless

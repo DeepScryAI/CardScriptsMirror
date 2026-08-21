@@ -1,9 +1,14 @@
 Id:27784
-ColorIdentity:WU
-OriginSet:G30e8a5e111cffb44
-ManaCost:2 W U
-Types:Legendary Creature Human Detective
-PT:2/3
-S:Mode$ CastWithFlash | ValidCard$ Creature | ValidSA$ Spell | Caster$ You
-T:Mode$ ChangesZoneAll | Origin$ Battlefield | ActivationLimit$ 1 | Destination$ Any | ValidCards$ Creature.YouCtrl+Other | Execute$ TrigInvestigate | TriggerZones$ Battlefield
-SVar:TrigInvestigate:DB$ Investigate
+ColorIdentity:BR
+OriginSet:Gd488b4ad788f0529
+ManaCost:2 B R
+Types:Creature Knight
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigConjure
+SVar:TrigConjure:DB$ MakeCard | Conjure$ True | CatalogIds$ 20056,14402 | Zone$ Battlefield | RememberMade$ True | SubAbility$ DBAttach
+SVar:DBAttach:DB$ Attach | Object$ Remembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+R:Event$ DamageDone | ActiveZones$ Battlefield | ValidTarget$ Card.Self+equipped | ReplaceWith$ DBImmediateTrigger | PreventionEffect$ True
+SVar:DBImmediateTrigger:DB$ ImmediateTrigger | Execute$ TrigSacrifice
+SVar:TrigSacrifice:DB$ Sacrifice | SacValid$ Equipment.AttachedTo Card.Self
+SVar:EquipMe:Once

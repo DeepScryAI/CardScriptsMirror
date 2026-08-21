@@ -1,0 +1,15 @@
+Id:35175
+ColorIdentity:B
+OriginSet:G21d8f666c5c6b81d
+ManaCost:3 B
+Types:Legendary Creature Skunk Rogue
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPutCounter
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPutCounter | Secondary$ True | TriggerZones$ Battlefield
+SVar:TrigPutCounter:DB$ PutCounter | IsCurse$ True | ValidTgts$ Creature.OppCtrl+counters_EQ0_ODOR | TargetMin$ 0 | TargetMax$ OneEach | TargetsForEachPlayer$ True | CounterType$ ODOR | CounterNum$ 1 | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ Targeted | StaticAbilities$ OlindaStatic | ForgetOnMoved$ Battlefield | ForgetCounter$ ODOR | Duration$ Permanent
+SVar:OlindaStatic:Mode$ Continuous | Affected$ Card.IsRemembered | AddTrigger$ OlindaOdorTrig
+SVar:OlindaOdorTrig:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ OlindaOdorLoseLife
+SVar:OlindaOdorLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ 2
+SVar:OneEach:PlayerCountOpponents$Amount
+SVar:HasAttackEffect:TRUE

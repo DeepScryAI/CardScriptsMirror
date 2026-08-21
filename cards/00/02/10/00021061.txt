@@ -1,14 +1,10 @@
 Id:21061
-ColorIdentity:B
-OriginSet:G7b2607750b451c25
-ManaCost:1 B
-Types:Creature Demon
-PT:*/*
-K:Kicker:4 B
-T:Mode$ SpellCast | ValidCard$ Card.Self+kicked | Execute$ TrigLoseLife
-SVar:TrigLoseLife:DB$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBLoseLife | AILifeThreshold$ 1
-SVar:DBLoseLife:DB$ LoseLife | Defined$ Player.IsRemembered | LifeAmount$ HalfUp
-SVar:HalfUp:PlayerCountRemembered$LifeTotal/HalfUp
-S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X | SetToughness$ X
-SVar:Y:PlayerCountPlayers$HighestLifeTotal
-SVar:X:SVar$Y/NMinus.20
+ColorIdentity:U
+OriginSet:G2f853d6139309fb0
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+K:ETBReplacement:Other:ChooseColor
+SVar:ChooseColor:DB$ ChooseColor | Defined$ You | Exclude$ blue | AILogic$ MostProminentInComputerDeck
+A:AB$ Mana | Cost$ T | Produced$ Combo U Chosen

@@ -1,10 +1,18 @@
 Id:28912
-ColorIdentity:UBG
-OriginSet:Gaf7c94f364052cdd
-ManaCost:1 B G U
-Types:Legendary Artifact Creature Mutant
-PT:2/4
-T:Mode$ ChangesZone | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigRadiation
-SVar:TrigRadiation:DB$ Radiation | ValidTgts$ Player | Num$ 2
-A:AB$ ChangeZone | Cost$ T | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True | ValidTgts$ Creature.milledThisTurn | StaticEffect$ Animate
-SVar:Animate:Mode$ Continuous | Affected$ Card.IsRemembered | AddType$ Mutant | SetColor$ Green | SetPower$ 3 | SetToughness$ 3 | RemoveCreatureTypes$ True
+ColorIdentity:B
+OriginSet:Gfe262f6450b3d189
+ManaCost:3 B
+Types:Creature Horror
+PT:5/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChoose
+SVar:TrigChoose:DB$ ChooseCard | ChoiceZone$ Hand | Choices$ Card.nonLand+YouOwn | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ ChosenCard | Incorporate$ 1 B | Triggers$ CastTrig | Duration$ Perpetual | SubAbility$ DBCleanChosen
+SVar:DBCleanChosen:DB$ Cleanup | ClearChosenCard$ True
+SVar:CastTrig:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice | Defined$ Opponent | SacValid$ Creature | RememberSacrificed$ True | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Mode$ TgtChoose | Defined$ OppNonRememberedController | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+T:Mode$ SpellCast | ValidCard$ Card.MultiColor | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDrain
+SVar:TrigDrain:DB$ LoseLife | Defined$ Opponent | LifeAmount$ TriggeredCard$CardNumColors | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ TriggeredCard$CardNumColors
+SVar:BuffedBy:Card.MultiColor

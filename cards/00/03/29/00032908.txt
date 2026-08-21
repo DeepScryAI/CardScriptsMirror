@@ -1,10 +1,11 @@
 Id:32908
-ColorIdentity:R
-OriginSet:G731e0066916b7465
-ManaCost:2 R
-Types:Artifact
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | NumAtt$ +2 | KW$ Firebending:2
-A:AB$ PutCounter | Cost$ R | Defined$ Self | CounterType$ CHARGE | CounterNum$ 1
-A:AB$ DealDamage | Cost$ SubCounter<50/CHARGE> | ValidTgts$ Any | NumDmg$ 50
-SVar:PlayMain1:TRUE
+ColorIdentity:B
+OriginSet:G22ed5d6f3707b461
+ManaCost:3 B
+Types:Creature Bird Insect
+PT:2/2
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:AB$ Draw | Cost$ Sac<1/Artifact;Creature/artifact or creature>
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.Other+YouCtrl+HasCounters | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | CounterType$ EachFromSource | EachFromSource$ TriggeredCardLKICopy

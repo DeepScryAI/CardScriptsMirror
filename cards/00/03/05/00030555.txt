@@ -1,13 +1,10 @@
 Id:30555
-ColorIdentity:UG
-OriginSet:G2a4addc042b7552f
-ManaCost:G U
-Types:Enchantment Creature Nightmare
-PT:2/3
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Destination$ Battlefield | Execute$ TrigExile
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Destination$ Graveyard | Execute$ TrigExile | Secondary$ True
-SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ChangeType$ Creature.YouCtrl+Other | Hidden$ True | ChangeNum$ 1 | RememberChanged$ True | SubAbility$ DBNameCard
-SVar:DBNameCard:DB$ NameCard | AtRandom$ True | ValidCards$ Creature.cmcEQX | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ1 | SubAbility$ DBConjure
-SVar:DBConjure:DB$ MakeCard | Name$ ChosenName | Conjure$ True | Zone$ Battlefield | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Remembered$CardManaCost/Plus.2
+ColorIdentity:B
+OriginSet:G8b2ed00ac2a0ff47
+ManaCost:3 B
+Types:Sorcery
+A:SP$ Charm | MinCharmNum$ 1 | CharmNum$ Count$Delirium.3.1 | Choices$ DBPumpAll,DBDiscard,DBLoseLife
+SVar:DBPumpAll:DB$ PumpAll | ValidCards$ Creature.OppCtrl | NumAtt$ -1 | NumDef$ -1 | IsCurse$ True
+SVar:DBDiscard:DB$ Discard | Defined$ Opponent | Mode$ TgtChoose | NumCards$ 2
+SVar:DBLoseLife:DB$ LoseLife | Defined$ Opponent | LifeAmount$ 3 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 3

@@ -1,20 +1,9 @@
 Id:26558
-ColorIdentity:R
-OriginSet:G06757f68e16377c2
-ManaCost:2 R
-Types:Battle Siege
-Defense:5
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDealDamage
-SVar:TrigDealDamage:DB$ DealDamage | ValidTgts$ Battle.Other,Opponent | NumDmg$ 4 | SubAbility$ DBDealDamage
-SVar:DBDealDamage:DB$ DealDamage | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | NumDmg$ 1
-AlternateMode:DoubleFaced
-ALTERNATE
+ColorIdentity:
+OriginSet:Gd5f5e54fa26ae40d
 ManaCost:no cost
-Colors:red
-Types:Creature Human Monk
-PT:4/4
-K:Prowess
-R:Event$ DamageDone | ValidSource$ Card.YouCtrl+nonCreature,Emblem.YouCtrl | ValidTarget$ Creature,Battle,Opponent | ReplaceWith$ DmgPlus2
-SVar:DmgPlus2:DB$ ReplaceEffect | VarName$ DamageAmount | VarValue$ X
-SVar:X:ReplaceCount$DamageAmount/Plus.2
-SVar:BuffedBy:Card.nonCreature
+Types:Plane Shenmeng
+T:Mode$ PlanarDice | TriggerZones$ Command | Execute$ RolledDie
+SVar:RolledDie:DB$ PutCounter | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ 1
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos
+SVar:RolledChaos:DB$ PumpAll | ValidCards$ Creature.YouCtrl | KW$ Flying

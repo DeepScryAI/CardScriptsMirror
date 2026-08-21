@@ -1,9 +1,10 @@
 Id:20623
 ColorIdentity:U
 OriginSet:Gf8d4de878d0536c5
-ManaCost:3 U
-Types:Sorcery
-S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ 2 | EffectZone$ All | IsPresent$ Creature.YouCtrl+withFlying
-A:SP$ ChangeZone | ValidTgts$ Permanent.nonLand+YouDontCtrl | Origin$ Battlefield | Destination$ Hand | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw
-SVar:BuffedBy:Creature.withFlying
+ManaCost:1 U
+Types:Enchantment
+T:Mode$ Cycled | ValidCard$ Card.YouOwn | Execute$ TrigImmediateTrig | TriggerZones$ Battlefield
+SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ 1 | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | ValidTgts$ Creature.YouCtrl,Artifact.YouCtrl | Origin$ Battlefield | Destination$ Exile | RememberTargets$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

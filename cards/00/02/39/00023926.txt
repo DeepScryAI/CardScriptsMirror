@@ -1,11 +1,10 @@
 Id:23926
-ColorIdentity:G
-OriginSet:Gfdfe2ebef04be34e
-ManaCost:1 G G
-Types:Creature Plant Dinosaur
-PT:4/4
-K:Vigilance
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSearch
-SVar:TrigSearch:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Land.Basic | Tapped$ True
-S:Mode$ CantAttack,CantBlock | ValidCard$ Card.Self | IsPresent$ Land.YouCtrl | PresentCompare$ LT7
-SVar:BuffedBy:Land
+ColorIdentity:R
+OriginSet:G5f5d8cfb206e2fac
+ManaCost:4 R
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | CounterType$ CONTESTED | ValidTgts$ Land | TargetMin$ OneEach | TargetMax$ OneEach | TargetsForEachPlayer$ True
+SVar:OneEach:PlayerCountPlayers$Amount
+T:Mode$ DamageDone | ValidSource$ Creature | ValidTarget$ Player.controlsLand.counters\_GE1\_CONTESTED | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigGainControl
+SVar:TrigGainControl:DB$ GainControl | Choices$ Land.ControlledBy TriggeredTarget+counters_GE1_CONTESTED | Chooser$ TriggeredSourceController | Untap$ True | NewController$ TriggeredSourceController

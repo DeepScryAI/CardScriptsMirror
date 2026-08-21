@@ -1,11 +1,11 @@
 Id:20945
-ColorIdentity:B
+ColorIdentity:W
 OriginSet:Gfd5e6da37c69dc53
-ManaCost:2 B
-Types:Legendary Creature Vampire Cleric
-PT:1/3
-T:Mode$ LifeGained | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDrain
-SVar:TrigDrain:DB$ LoseLife | ValidTgts$ Opponent | LifeAmount$ X
-SVar:X:TriggerCount$LifeAmount
-A:AB$ PumpAll | Cost$ 3 B B | ValidCards$ Creature.YouCtrl | KW$ Lifelink
-SVar:PlayMain1:TRUE
+ManaCost:3 W
+Types:Legendary Creature Human Cleric
+PT:2/4
+K:Lifelink
+T:Mode$ AttackersDeclared | AttackingPlayer$ Player.Opponent | CheckSVar$ X | SVarCompare$ GE2 | Execute$ TrigDraw | TriggerZones$ Battlefield
+SVar:X:Count$ValidAll Creature.attackingYouOrYourPWLKI
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+T:Mode$ SpellCast | ValidActivatingPlayer$ Opponent | ActivatorThisTurnCast$ EQ2 | TriggerZones$ Battlefield | Execute$ TrigDraw

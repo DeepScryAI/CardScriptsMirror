@@ -1,9 +1,14 @@
 Id:30797
-ColorIdentity:W
-OriginSet:G2c8286a6f234d4b9
-ManaCost:3 W
-Types:Creature Rhino Monk Soldier
-PT:3/4
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigScry
-SVar:TrigScry:DB$ Scry | ScryNum$ 2
-S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ FirstStrike | Condition$ PlayerTurn
+ColorIdentity:B
+OriginSet:Gc5a2f0ff902c0621
+ManaCost:4 B B
+Types:Creature Demon
+PT:5/4
+A:SP$ PermanentCreature | Cost$ 4 B B Sac<1/Creature>
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDiscard
+SVar:TrigDiscard:DB$ Discard | Defined$ Opponent | Mode$ TgtChoose | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 2 | Defined$ Opponent | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2
+SVar:AIPreference:SacCost$Creature.token,Creature.cmcLE4

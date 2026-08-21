@@ -1,10 +1,17 @@
 Id:28304
-ColorIdentity:G
-OriginSet:G3a8b4b9d4649b357
-ManaCost:3 G
-Types:Creature Plant Hydra
-PT:5/5
-K:Trample
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ DBCounter | TriggerZones$ Battlefield
-SVar:DBCounter:DB$ PutCounter | CounterNum$ X | CounterType$ P1P1 | ValidTgts$ Creature.YouCtrl
-SVar:X:Count$Domain
+ColorIdentity:R
+OriginSet:Gfd50577710a6ab09
+ManaCost:1 R
+Types:Artifact
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDiscard
+SVar:TrigDiscard:AB$ Draw | Cost$ Discard<1/Card> | NumCards$ 2
+K:Craft:4 R XMin1 ExileCtrlOrGrave<X/Dinosaur.Other>
+SVar:X:Count$xPaid
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:red
+Types:Artifact Creature Dinosaur
+PT:*/4
+S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X
+SVar:X:ExiledWith$CardPower

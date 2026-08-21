@@ -1,11 +1,14 @@
 Id:27491
 ColorIdentity:B
-OriginSet:G7579344e30f8be85
-ManaCost:4 B
-Types:Legendary Creature Rat Faerie
-PT:3/4
+OriginSet:G4e034c55e7afd8b4
+ManaCost:3 B B
+Types:Creature Specter
+PT:3/3
 K:Flying
-T:Mode$ Phase | Phase$ End of Turn | CheckSVar$ Morbid | TriggerZones$ Battlefield | Execute$ TrigFood
-SVar:TrigFood:DB$ Token | TokenScriptIds$ 134855612 | TokenOwner$ You
-SVar:Morbid:Count$Morbid.1.0
-A:AB$ Pump | Cost$ 2 B Sac<1/Creature.Other;Artifact.Other/another creature or artifact> | Defined$ Self | NumAtt$ +2 | NumDef$ +2
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Destination$ Battlefield | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Graveyard | ChangeType$ Creature.YouOwn | Hidden$ True | Destination$ Exile | Optional$ You | ChangeNum$ X | SubAbility$ DBImmediateTrig | RememberChanged$ True | AITgtOwnCards$ True | AIMinTgts$ 3
+SVar:DBImmediateTrig:DB$ ImmediateTrigger | ConditionDefined$ Remembered | ConditionPresent$ Card | RememberObjects$ Remembered | ConditionCompare$ GE1 | SubAbility$ DBCleanup | Execute$ TrigPumpAll
+SVar:TrigPumpAll:DB$ PumpAll | ValidCards$ Creature.Other | NumAtt$ -Y | NumDef$ -Y
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:Y:TriggerRemembered$Amount
+SVar:X:Count$ValidGraveyard Creature.YouOwn

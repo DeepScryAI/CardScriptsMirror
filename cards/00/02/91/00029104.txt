@@ -1,9 +1,10 @@
 Id:29104
-ColorIdentity:R
-OriginSet:G27146c70b74a1e72
-ManaCost:1 R
-Types:Sorcery
-A:SP$ GenericChoice | Choices$ DBDiscardToDraw,DBSacToDraw
-SVar:DBSacToDraw:DB$ Draw | UnlessCost$ Sac<1/Land> | NumCards$ 2 | UnlessPayer$ You | UnlessSwitched$ True
-SVar:DBDiscardToDraw:DB$ Draw | UnlessCost$ Discard<1/Card> | NumCards$ 2 | UnlessPayer$ You | UnlessSwitched$ True
-K:Plot:1 R
+ColorIdentity:G
+OriginSet:G343cd0ac847a92b7
+ManaCost:2 G
+Types:Creature Human Artificer
+PT:1/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 3338649862 | TokenOwner$ You
+A:AB$ PutCounterAll | Cost$ 2 T | ValidCards$ Creature.token+YouCtrl | SubAbility$ DBPumpAll | CounterType$ P1P1 | CounterNum$ 1
+SVar:DBPumpAll:DB$ PumpAll | KW$ Trample | ValidCards$ Creature.token+YouCtrl

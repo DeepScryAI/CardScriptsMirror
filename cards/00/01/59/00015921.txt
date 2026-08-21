@@ -1,12 +1,11 @@
 Id:15921
-ColorIdentity:BG
+ColorIdentity:W
 OriginSet:G92026fbb3573fda5
-ManaCost:3 B G
-Types:Legendary Creature Frog Horror
-PT:6/6
-K:Deathtouch
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigUpkeep
-SVar:TrigUpkeep:DB$ Sacrifice | UnlessPayer$ You | UnlessCost$ Sac<1/Land>
-S:Mode$ Continuous | Affected$ You | AdjustLandPlays$ 1
-T:Mode$ ChangesZoneAll | ValidCards$ Land.YouOwn+!token | Origin$ Any | Destination$ Graveyard | TriggerZones$ Battlefield | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+ManaCost:1 W
+Types:Creature Human Soldier
+PT:1/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPutCounterAll
+SVar:TrigPutCounterAll:DB$ PutCounterAll | ValidCards$ Human.YouCtrl+StrictlyOther | CounterType$ P1P1 | CounterNum$ 1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Human.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ 1
+SVar:BuffedBy:Human

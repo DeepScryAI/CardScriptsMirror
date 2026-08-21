@@ -1,0 +1,14 @@
+Id:35196
+ColorIdentity:URG
+OriginSet:G21d8f666c5c6b81d
+ManaCost:1 G U R
+Types:Legendary Creature Human Peasant
+PT:4/2
+K:Vigilance
+K:Trample
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigRepeatEach
+SVar:TrigRepeatEach:DB$ RepeatEach | RepeatSubAbility$ DBToken | RepeatPlayers$ Player | ChangeZoneTable$ True | RepeatOptionalForEachPlayer$ True | SubAbility$ DBEffect
+SVar:DBToken:DB$ Token | TokenScriptIds$ 1600441015 | TokenTapped$ True | TokenOwner$ Player.IsRemembered | RememberTokens$ True
+SVar:DBEffect:DB$ Effect | EffectOwner$ RememberedOwner.Opponent | RememberObjects$ You | StaticAbilities$ STCantAttack | Duration$ UntilTheEndOfYourNextTurn | SubAbility$ DBCleanup
+SVar:STCantAttack:Mode$ CantAttack | ValidCard$ Creature.YouCtrl | Target$ Player.IsRemembered
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

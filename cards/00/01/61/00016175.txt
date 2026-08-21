@@ -1,19 +1,9 @@
 Id:16175
-ColorIdentity:W
+ColorIdentity:
 OriginSet:G70d19654882197c9
-ManaCost:2 W
-Types:Creature Human Cleric
-PT:0/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:AB$ Token | Cost$ Sac<1/Permanent.Other/another permanent> | TokenScriptIds$ 3739367272 | TokenOwner$ You
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Delirium$ True | TriggerZones$ Battlefield | Execute$ TrigTransform
-SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform
-SVar:AIPreference:SacCost$Creature.token
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
+ManaCost:3
 Types:Creature Eldrazi Horror
-PT:3/5
-S:Mode$ Continuous | Affected$ Card.Eldrazi+YouCtrl | AddKeyword$ Vigilance
-A:AB$ Token | Cost$ 2 T Sac<1/Creature.nonEldrazi/non-Eldrazi creature> | TokenOwner$ You | TokenScriptIds$ 3739367272
-SVar:AIPreference:SacCost$Creature.token
+PT:3/3
+S:Mode$ Continuous | Affected$ Card.Self | MayPlay$ True | AffectedZone$ Exile | EffectZone$ Exile
+T:Mode$ BecomesTarget | ValidTarget$ Card.Self | ValidSource$ SpellAbility.OppCtrl | TriggerZones$ Battlefield | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Defined$ Self | Origin$ Battlefield | Destination$ Exile

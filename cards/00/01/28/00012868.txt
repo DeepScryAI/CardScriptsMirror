@@ -1,6 +1,13 @@
 Id:12868
-ColorIdentity:U
+ColorIdentity:B
 OriginSet:G98ca154ecf4968d7
-ManaCost:1 U
-Types:Instant
-A:SP$ Tap | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 3
+ManaCost:3 B
+Types:Creature Human Wizard
+PT:2/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice | Amount$ 1 | SacValid$ Creature.Other | RememberSacrificed$ True | SubAbility$ GainLife
+SVar:GainLife:DB$ GainLife | LifeAmount$ X | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:RememberedLKI$CardPower
+SVar:NeedsToPlay:Creature.YouCtrl

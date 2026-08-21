@@ -1,9 +1,11 @@
 Id:33858
-ColorIdentity:BG
-OriginSet:Gf8df2bea26dc6b68
-ManaCost:3 B G
-Types:Sorcery
-A:SP$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +2 | NumDef$ +2 | KW$ Menace | SubAbility$ DBAnimateAll
-SVar:DBAnimateAll:DB$ AnimateAll | ValidCards$ Creature.YouCtrl | Triggers$ AttackTrig
-SVar:AttackTrig:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigGainLife
-SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
+ColorIdentity:
+OriginSet:Gf04404de3fa1525e
+ManaCost:no cost
+Types:Land
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigNameCard
+SVar:TrigNameCard:DB$ NameCard | Defined$ You | ValidCards$ Land
+S:Mode$ CantBeActivated | ValidCard$ Card.NamedCard | ValidSA$ Activated.!ManaAbility
+S:Mode$ Continuous | Affected$ Land.NamedCard | AddAbility$ ColorlessMana
+SVar:ColorlessMana:AB$ Mana | Cost$ T | Produced$ C
+A:AB$ Mana | Cost$ T | Produced$ C

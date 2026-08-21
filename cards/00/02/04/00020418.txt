@@ -1,9 +1,11 @@
 Id:20418
-ColorIdentity:R
+ColorIdentity:B
 OriginSet:Gfa87e7bbc5a709eb
-ManaCost:2 R
-Types:Creature Satyr
-PT:2/3
-K:Trample
-T:Mode$ Phase | Phase$ BeginCombat | TriggerZones$ Battlefield | Execute$ TrigPump | IsPresent$ Creature.YouCtrl+powerGE4
-SVar:TrigPump:DB$ Pump | NumAtt$ +1 | NumDef$ +1 | Defined$ Self
+ManaCost:3 B
+Types:Creature Gorgon
+PT:3/4
+K:Escape:5 B ExileFromGrave<3/Card.Other/other>
+R:Event$ Moved | ValidCard$ Card.Self+escaped | Destination$ Battlefield | ReplaceWith$ ETBCounters | ReplacementResult$ Updated
+SVar:ETBCounters:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | ETB$ True | CounterNum$ 2 | SubAbility$ DBTrigger
+SVar:DBTrigger:DB$ ImmediateTrigger | Execute$ DBSac
+SVar:DBSac:DB$ Sacrifice | Defined$ Player.Opponent | SacValid$ Creature.nonGorgon

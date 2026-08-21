@@ -1,9 +1,14 @@
 Id:15569
-ColorIdentity:G
+ColorIdentity:B
 OriginSet:Gec9609c94c5b1cdf
-ManaCost:1 G
-Types:Creature Beast
-PT:2/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +1 | NumDef$ +1
-SVar:BuffedBy:Land
+ManaCost:2 B B
+Types:Creature Eldrazi
+PT:4/3
+K:Devoid
+K:Flying
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice | Defined$ You | SacValid$ Creature
+T:Mode$ Sacrificed | ValidCard$ Creature.YouCtrl | Execute$ TrigDrawCard | TriggerZones$ Battlefield
+SVar:TrigDrawCard:DB$ Draw | Defined$ You | NumCards$ 1
+SVar:NeedsToPlayVar:Z GE2
+SVar:Z:Count$Valid Creature.YouCtrl

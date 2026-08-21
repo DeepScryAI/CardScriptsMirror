@@ -1,8 +1,12 @@
 Id:9480
-ColorIdentity:G
-OriginSet:G49bcc8b9b86b628d
-ManaCost:3 G
-Types:Creature Treefolk Warrior
-PT:3/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 1441965772 | TokenOwner$ You
+ColorIdentity:
+OriginSet:G2c616c2731c5e881
+ManaCost:4
+Types:Artifact
+K:ETBReplacement:Other:ChooseCT
+SVar:ChooseCT:DB$ ChooseType | Defined$ You | Type$ Creature | AILogic$ MostProminentInComputerDeck
+T:Mode$ SpellCast | ValidCard$ Card.ChosenType | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ CHARGE | CounterNum$ 1
+S:Mode$ Continuous | Affected$ Creature.ChosenType+YouCtrl | AddPower$ X | AddToughness$ X
+SVar:X:Count$CardCounters.CHARGE
+SVar:BuffedBy:Creature

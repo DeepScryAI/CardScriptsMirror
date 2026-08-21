@@ -1,10 +1,13 @@
 Id:20665
-ColorIdentity:R
+ColorIdentity:URG
 OriginSet:Gf8d4de878d0536c5
-ManaCost:3 R
-Types:Creature Dinosaur
-PT:3/3
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPutCounter | IsPresent$ Card.Self+withFirstStrike | PresentCompare$ EQ0
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ TriggeredAttackerLKICopy | CounterType$ FirstStrike | CounterNum$ 1
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump | IsPresent$ Card.Self+withFirstStrike | PresentCompare$ EQ1
-SVar:TrigPump:DB$ Pump | Defined$ TriggeredAttackerLKICopy | KW$ DoubleStrike
+ManaCost:2 G U R
+Types:Legendary Creature Beast Elemental Dinosaur
+PT:6/6
+K:Mutate:3 RG U U
+K:Flying
+K:Trample
+T:Mode$ Mutates | ValidCard$ Card.Self | Execute$ TrigDigUntil
+SVar:TrigDigUntil:DB$ DigUntil | Valid$ Permanent.nonLand | FoundDestination$ Exile | RevealedDestination$ Exile | RememberFound$ True | SubAbility$ DBChange
+SVar:DBChange:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | DestinationAlternative$ Hand | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

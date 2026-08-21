@@ -1,7 +1,10 @@
 Id:14725
-ColorIdentity:WB
+ColorIdentity:
 OriginSet:G0a578e83854cf093
-ManaCost:3 B
-Types:Creature Orc Warrior
-PT:3/3
-A:AB$ Pump | Cost$ 1 W | Defined$ Self | KW$ FirstStrike
+ManaCost:5
+Types:Legendary Artifact
+R:Event$ BeginTurn | ActiveZones$ Battlefield | ExtraTurn$ True | Skip$ True
+R:Event$ Moved | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | ReplaceWith$ DBExile
+SVar:DBExile:DB$ ChangeZone | Defined$ ReplacedCard | Origin$ Battlefield | Destination$ Exile | SubAbility$ DBAddTurn
+SVar:DBAddTurn:DB$ AddTurn | Defined$ ReplacedCardLKIController | NumTurns$ 1
+SVar:SacMe:5

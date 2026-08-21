@@ -1,10 +1,13 @@
 Id:9894
-ColorIdentity:W
+ColorIdentity:G
 OriginSet:G0388e25893b1e049
-ManaCost:5 W
-Types:Creature Elemental
-PT:3/5
-A:AB$ RemoveCounter | Cost$ W T | ValidTgts$ Creature | AITgts$ Creature.counters_GE1_M1M1 | CounterType$ M1M1 | CounterNum$ 1 | RememberRemoved$ True | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | LifeAmount$ 2 | ConditionCheckSVar$ X | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$RememberedSize
+ManaCost:4 G G
+Types:Creature Wurm
+PT:9/9
+T:Mode$ AttackerBlockedByCreature | ValidCard$ Creature | ValidBlocker$ Card.Self | Execute$ TrigPumpAttacker | TriggerZones$ Battlefield
+T:Mode$ AttackerBlockedByCreature | ValidCard$ Card.Self | ValidBlocker$ Creature | Execute$ TrigPumpBlocker | Secondary$ True | TriggerZones$ Battlefield
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Opponent | Execute$ TrigRemoveCounter | TriggerZones$ Battlefield
+SVar:TrigPumpAttacker:DB$ Pump | Defined$ TriggeredAttackerLKICopy | KW$ Wither
+SVar:TrigPumpBlocker:DB$ Pump | Defined$ TriggeredBlockerLKICopy | KW$ Wither
+SVar:TrigRemoveCounter:DB$ RemoveCounter | CounterType$ M1M1 | CounterNum$ All
+SVar:All:Count$CardCounters.M1M1

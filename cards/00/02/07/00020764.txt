@@ -1,14 +1,10 @@
 Id:20764
-ColorIdentity:WU
+ColorIdentity:W
 OriginSet:Gf8d4de878d0536c5
-ManaCost:3 WU WU
-Types:Legendary Creature Bird Serpent
-PT:4/5
-K:Companion:Special:DeckSizePlus20:Your starting deck contains at least twenty cards more than the minimum deck size.
+ManaCost:2 W
+Types:Creature Bird Goat
+PT:1/3
 K:Flying
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ChangeType$ Permanent.nonLand+Other+YouOwn+YouCtrl | Hidden$ True | ChangeNum$ X | RememberChanged$ True | SubAbility$ DelTrig
-SVar:DelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ TrigReturn | RememberObjects$ RememberedLKI | SubAbility$ DBCleanup
-SVar:TrigReturn:DB$ ChangeZone | Origin$ Exile | Destination$ Battlefield | Defined$ DelayTriggerRememberedLKI
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$Valid Permanent.nonLand+Other+YouOwn+YouCtrl
+R:Event$ DamageDone | IsCombat$ False | ActiveZones$ Battlefield | ValidTarget$ Card.Self | ReplaceWith$ Counters | PreventionEffect$ True
+SVar:Counters:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ X | Defined$ Self
+SVar:X:ReplaceCount$DamageAmount

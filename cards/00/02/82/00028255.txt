@@ -1,20 +1,7 @@
 Id:28255
-ColorIdentity:G
-OriginSet:G4f78ded7b58f78f8
-ManaCost:1 G G
-Types:Enchantment Saga
-K:Chapter:3:DBAnimateAll,DBToken,DBWrath
-SVar:DBAnimateAll:DB$ Animate | ValidTgts$ Artifact.nonCreature+OppCtrl | TargetMin$ 0 | TargetMax$ OneEach | TargetsForEachPlayer$ True | Defined$ Targeted | Power$ 0 | Toughness$ 4 | Types$ Creature,Artifact,Wall | Keywords$ Defender | Duration$ AsLongAsControl
-SVar:OneEach:PlayerCountOpponents$Amount
-SVar:DBToken:DB$ Token | TokenOwner$ You | TokenScriptIds$ 1788530226 | PumpKeywords$ Haste
-SVar:DBWrath:DB$ DestroyAll | ValidCards$ Creature.Wall | SubAbility$ DBTransform
-SVar:DBTransform:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn
-SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | Transformed$ True | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Types:Legendary Land
-S:Mode$ Continuous | Affected$ Dinosaur.YouOwn | AffectedZone$ Graveyard | AddKeyword$ Escape:CardManaCost ExileFromGrave<3/Card.Other/other>
-A:AB$ Mana | Cost$ T | Produced$ G | Amount$ X
-SVar:X:Count$Valid Dinosaur.YouCtrl
+ColorIdentity:W
+OriginSet:Gfd50577710a6ab09
+ManaCost:2 W
+Types:Enchantment
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.YouCtrl | NumAtt$ +2 | KW$ Vigilance

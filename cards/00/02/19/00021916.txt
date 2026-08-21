@@ -1,14 +1,12 @@
 Id:21916
-ColorIdentity:
+ColorIdentity:B
 OriginSet:G6fa60d857e930f32
-ManaCost:5
-Types:Creature Avatar
-PT:4/4
-T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ Opponent | TriggerZones$ Battlefield | Execute$ TrigCopySpell
-SVar:TrigCopySpell:DB$ CopySpellAbility | UnlessCost$ 2 | UnlessPayer$ TriggeredActivator | Controller$ You | Defined$ TriggeredSpellAbility | AILogic$ Always | Optional$ True | MayChooseTarget$ True
-AlternateMode:Modal
-ALTERNATE
-ManaCost:3
-Types:Sorcery
-A:SP$ DigMultiple | Defined$ Player | DigNum$ 5 | Optional$ True | ChangeValid$ Land,Spell.!Aura | RestRandomOrder$ True | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | Defined$ Player | LifeAmount$ 3
+ManaCost:2 B
+Types:Creature Vampire Warlock
+PT:2/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | Choices$ DBToken,DBDraw,DBExileYard
+SVar:DBToken:DB$ Token | TokenScriptIds$ 272656594 | TokenOwner$ You
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1 | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 1
+SVar:DBExileYard:DB$ ChangeZoneAll | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Player | ChangeType$ Card

@@ -1,12 +1,9 @@
 Id:28169
-ColorIdentity:U
+ColorIdentity:UG
 OriginSet:Gfd50577710a6ab09
-ManaCost:1 U
-Types:Enchantment Aura
-K:Enchant:Creature,Vehicle:creature or Vehicle
-SVar:AttachAITgts:Creature
-SVar:AttachAILogic:Curse
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill
-SVar:TrigMill:DB$ Mill | Defined$ You | NumCards$ 2 | Optional$ True
-S:Mode$ Continuous | Affected$ Permanent.EnchantedBy | AddPower$ -X
-SVar:X:Count$ValidGraveyard Permanent.YouOwn
+ManaCost:2 G U
+Types:Creature Merfolk Spirit
+PT:4/4
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigExplore
+SVar:TrigExplore:DB$ Explore | SubAbility$ DBClone
+SVar:DBClone:DB$ Clone | Choices$ Creature.Other+YouCtrl | Optional$ True | AILogic$ CloneBestCreature | Duration$ UntilEndOfTurn

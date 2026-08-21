@@ -1,10 +1,9 @@
 Id:11255
-ColorIdentity:B
+ColorIdentity:
 OriginSet:G9fb0a9a59b6a9580
-ManaCost:1 B
-Types:Creature Zombie Warrior
-PT:1/1
-K:LevelUp:3
-S:Mode$ Continuous | Affected$ Card.Self | SetPower$ 4 | SetToughness$ 2 | IsPresent$ Card.Self+counters_GE1_LEVEL+counters_LE3_LEVEL
-S:Mode$ Continuous | Affected$ Card.Self | SetPower$ 7 | SetToughness$ 3 | AddAbility$ Regen | IsPresent$ Card.Self+counters_GE4_LEVEL
-SVar:Regen:AB$ Regenerate | Cost$ B | Secondary$ True
+ManaCost:7
+Types:Kindred Instant Eldrazi
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ CostReduction | Relative$ True | EffectZone$ All
+A:SP$ Counter | TargetType$ Spell,Activated,Triggered | ValidTgts$ Card,Emblem | TargetValidTargeting$ Permanent.YouCtrl+inRealZoneBattlefield
+SVar:CostReduction:Count$Compare CheckTgt GE1.7.0
+SVar:CheckTgt:TargetedByTarget$Valid Card.powerGE7+YouCtrl

@@ -1,11 +1,9 @@
 Id:21799
-ColorIdentity:W
-OriginSet:Gabb23d0d25cdc46d
-ManaCost:4 W
-Types:Sorcery
-A:SP$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBPutCounter | SubAbility$ DBEffect
-SVar:DBPutCounter:DB$ PutCounter | Choices$ Creature.ControlledBy Player.IsRemembered | Chooser$ Player.IsRemembered | Placer$ Player.IsRemembered | CounterType$ VOW | CounterNum$ 1 | RememberCards$ True | SubAbility$ SacAllOthers
-SVar:SacAllOthers:DB$ SacrificeAll | ValidCards$ Creature.!IsRemembered+ControlledBy Player.IsRemembered
-SVar:DBEffect:DB$ Effect | RememberObjects$ Remembered | StaticAbilities$ VowStatic | ForgetOnMoved$ Battlefield | ForgetCounter$ VOW | Duration$ Permanent | SubAbility$ DBCleanup
-SVar:VowStatic:Mode$ CantAttack | ValidCard$ Card.IsRemembered | Target$ You,Planeswalker.YouCtrl
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:R
+OriginSet:G18bf722b221724f8
+ManaCost:1 R R
+Types:Snow Sorcery
+A:SP$ DealDamage | ValidTgts$ Creature,Planeswalker | NumDmg$ 4 | SubAbility$ DBColorlessMana
+SVar:DBColorlessMana:DB$ Mana | Produced$ C | Amount$ X | PersistentMana$ True
+SVar:X:Count$CastTotalManaSpent Snow
+SVar:AIPreference:ManaFrom$Snow

@@ -1,14 +1,13 @@
 Id:29032
-ColorIdentity:UR
-OriginSet:G27146c70b74a1e72
-ManaCost:1 U R
-Types:Legendary Creature Goblin Pirate
-PT:3/3
-K:Menace
-T:Mode$ SpellCast | ValidCard$ Card.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigFlip | ValidActivatingPlayer$ You | ActivatorThisTurnCast$ EQ2
-SVar:TrigFlip:AB$ FlipCoin | Cost$ Sac<1/Artifact> | WinSubAbility$ DBImmediateTrigDamageCopy | LoseSubAbility$ DBImmediateTrigDamage
-SVar:DBImmediateTrigDamageCopy:DB$ ImmediateTrigger | Execute$ TrigCopy
-SVar:TrigCopy:DB$ CopySpellAbility | Defined$ Spawner>TriggeredSpellAbility | MayChooseTarget$ True
-SVar:DBImmediateTrigDamage:DB$ ImmediateTrigger | Execute$ TrigDamage
-SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ X
-SVar:X:Spawner>TriggeredSpellAbility$CardManaCost
+ColorIdentity:G
+OriginSet:Gaf7c94f364052cdd
+ManaCost:X G G G
+Types:Creature Bear Mutant
+PT:2/2
+K:Vigilance
+K:Trample
+K:etbCounter:P1P1:X
+SVar:X:Count$xPaid
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ Destroy | TargetMin$ 0 | TargetMax$ Y | MaxTotalTargetCMC$ X | ValidTgts$ Artifact,Enchantment
+SVar:Y:Count$Valid Enchantment,Artifact

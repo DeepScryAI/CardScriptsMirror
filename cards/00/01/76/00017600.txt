@@ -1,7 +1,9 @@
 Id:17600
-ColorIdentity:B
+ColorIdentity:U
 OriginSet:Gda050e0f5b47c310
-ManaCost:B
-Types:Creature Insect
-PT:1/2
-A:AB$ Pump | Cost$ B | Defined$ Self | KW$ Deathtouch
+ManaCost:1 U
+Types:Instant
+A:SP$ ChangeZone | ValidTgts$ Creature.YouCtrl | Origin$ Battlefield | Destination$ Exile | RememberLKI$ True | Imprint$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Imprinted | Origin$ All | Destination$ Battlefield | SubAbility$ DBPirateDraw
+SVar:DBPirateDraw:DB$ Draw | ConditionDefined$ Remembered | ConditionPresent$ Pirate | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True

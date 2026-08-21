@@ -1,8 +1,11 @@
 Id:28429
-ColorIdentity:R
-OriginSet:G7ee0e82a2424d636
-ManaCost:1 R
-Types:Enchantment
-T:Mode$ Attacks | ValidCard$ Creature.YouCtrl | Execute$ TrigExile | TriggerZones$ Battlefield
-SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | ExileFaceDown$ True | NoReveal$ True
-A:AB$ ChangeZoneAll | Cost$ 1 R Discard<0/Hand> Sac<1/CARDNAME> | ChangeType$ Card.ExiledWithSource | Origin$ Exile | Destination$ Hand | AILogic$ DiscardAllAndRetExiled.minAdv2
+ColorIdentity:W
+OriginSet:G4155bbd49d5da56f
+ManaCost:2 W
+Types:Creature Human Knight
+PT:3/3
+K:Flying
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigBoon
+SVar:TrigBoon:DB$ Effect | Boon$ True | Duration$ Permanent | Triggers$ Boon | EffectOwner$ TriggeredTarget
+SVar:Boon:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ Opponent | UnlessCost$ 1 | UnlessPayer$ You | NumCards$ 1

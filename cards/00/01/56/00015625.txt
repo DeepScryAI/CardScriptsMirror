@@ -1,7 +1,11 @@
 Id:15625
-ColorIdentity:
+ColorIdentity:G
 OriginSet:Gc1f5e527f9d411df
-ManaCost:no cost
-Types:Land
-A:AB$ Mana | Cost$ T | Produced$ C
-A:AB$ ChangeZone | Cost$ T Sac<1/CARDNAME> | ChangeType$ Card.IsCommander+YouOwn | ChangeNum$ 1 | Mandatory$ True | Origin$ Command | Destination$ Hand | Hidden$ True
+ManaCost:3 G
+Types:Creature Plant Centaur
+PT:1/1
+K:Trample
+K:etbCounter:P1P1:X:no Condition
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Graveyard | TriggerZones$ Graveyard | ValidCard$ Card.!token+Land | Execute$ TrigReturn
+SVar:TrigReturn:AB$ ChangeZone | Cost$ G G | Defined$ Self | Origin$ Graveyard | Destination$ Hand
+SVar:X:Count$ValidGraveyard Land

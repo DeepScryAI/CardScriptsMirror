@@ -1,11 +1,8 @@
 Id:15310
 ColorIdentity:B
 OriginSet:G70acd28f254172ff
-ManaCost:3 B
+ManaCost:4 B
 Types:Sorcery
-A:SP$ RevealHand | ValidTgts$ Opponent | RememberRevealed$ True | SubAbility$ DBChoose
-SVar:DBChoose:DB$ ChooseCard | ChoiceZone$ Hand | Amount$ 1 | Choices$ Card.nonLand+IsRemembered | SubAbility$ DBBranch
-SVar:DBBranch:DB$ Branch | BranchConditionSVar$ Count$ChosenSize | TrueSubAbility$ DBDiscard | FalseSubAbility$ DBDiscard2
-SVar:DBDiscard:DB$ Discard | DefinedCards$ ChosenCard | Defined$ Targeted | Mode$ Defined | SubAbility$ DBCleanup
-SVar:DBDiscard2:DB$ Discard | Defined$ Targeted | NumCards$ 2 | Mode$ TgtChoose | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearChosenCard$ True
+A:SP$ ChangeZone | ValidTgts$ Creature | Origin$ Graveyard | Destination$ Battlefield | WithCountersType$ P1P1 | WithCountersAmount$ Y | GainControl$ True
+SVar:X:Count$ValidGraveyard Instant.YouOwn,Sorcery.YouOwn
+SVar:Y:Count$Compare X GE2.2.0

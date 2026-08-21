@@ -1,8 +1,9 @@
 Id:23243
 ColorIdentity:G
 OriginSet:G6e75ff4f143a3dc3
-ManaCost:1 G
-Types:Creature Human Druid
-PT:1/2
-S:Mode$ Continuous | Affected$ Card.Self | AddPower$ 3 | AddToughness$ 2 | IsPresent$ Creature.YouOwn | PresentCompare$ GE4 | PresentZone$ Graveyard
-A:AB$ Mana | Cost$ T | Produced$ Any
+ManaCost:2 G
+Types:Enchantment
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigMill | TriggerZones$ Battlefield
+SVar:TrigMill:DB$ Mill | NumCards$ 2 | Defined$ You | Optional$ True
+T:Mode$ ChangesZoneAll | ValidCards$ Creature.YouOwn+!token | Origin$ Any | Destination$ Graveyard | TriggerZones$ Battlefield | ActivationLimit$ 1 | PlayerTurn$ True | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 704294417

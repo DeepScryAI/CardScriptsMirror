@@ -1,9 +1,10 @@
 Id:22368
 ColorIdentity:
-OriginSet:G92f7f9489fec5865
-ManaCost:3
-Types:Artifact
-A:AB$ Mana | Cost$ T SubCounter<1/COMPONENT> | Amount$ 2 | Produced$ Combo AnyDifferent
-A:AB$ RollDice | Cost$ T | Sides$ 20 | ResultSubAbilities$ 1-9:PutOne,10-20:PutTwo
-SVar:PutOne:DB$ PutCounter | Defined$ Self | CounterType$ COMPONENT | CounterNum$ 1
-SVar:PutTwo:DB$ PutCounter | Defined$ Self | CounterType$ COMPONENT | CounterNum$ 2
+OriginSet:Geb2cf181996ee3b2
+ManaCost:no cost
+Types:Artifact Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+K:Modular:1
+A:AB$ Mana | Cost$ T | Produced$ C
+A:AB$ Mana | Cost$ T | Produced$ Any | RestrictValid$ Spell.Artifact,Activated.Artifact+inZoneBattlefield

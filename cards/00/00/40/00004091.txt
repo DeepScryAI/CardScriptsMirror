@@ -1,8 +1,11 @@
 Id:4091
-ColorIdentity:R
+ColorIdentity:
 OriginSet:Gdd40b2fbd2aa3c03
-ManaCost:4 R
-Types:Creature Human Soldier
-PT:4/2
-K:Haste
-K:Trample
+ManaCost:3
+Types:Artifact
+A:AB$ ChooseSource | Cost$ 3 | Choices$ Card,Emblem | AILogic$ NeedsPrevention | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | ValidTgts$ Creature.YouCtrl | ReplacementEffects$ GeneralDamage | ExileOnMoved$ Battlefield | RememberObjects$ Targeted | SubAbility$ DBCleanup
+SVar:GeneralDamage:Event$ DamageDone | ValidSource$ Card.ChosenCardStrict,Emblem.ChosenCard | ValidTarget$ You | DamageTarget$ Remembered | ReplaceWith$ GeneralDmg
+SVar:GeneralDmg:DB$ ReplaceEffect | VarName$ Affected | VarValue$ Remembered | VarType$ Card | SubAbility$ ExileEffect
+SVar:ExileEffect:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True

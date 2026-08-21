@@ -1,10 +1,10 @@
 Id:6418
-ColorIdentity:
+ColorIdentity:G
 OriginSet:Gd11012ee98ee8d76
-ManaCost:3
-Types:Artifact Creature Shapeshifter
-PT:2/2
-K:Morph:0
-T:Mode$ TurnFaceUp | ValidCard$ Card.Self | Execute$ TrigChoose | TriggerZones$ Battlefield
-SVar:TrigChoose:DB$ ChooseType | Defined$ You | Type$ Creature | SubAbility$ DBAnimate | AILogic$ MostProminentInComputerDeck
-SVar:DBAnimate:DB$ Animate | Defined$ Self | Types$ ChosenType | RemoveCreatureTypes$ True | Duration$ Permanent
+ManaCost:2 G G
+Types:Enchantment
+T:Mode$ Drawn | ValidCard$ Card.YouOwn | Number$ 1 | Static$ True | ForReveal$ True | Execute$ DBReveal | TriggerZones$ Battlefield
+SVar:DBReveal:DB$ Reveal | Defined$ You | RevealDefined$ TriggeredCard | RememberRevealed$ True | SubAbility$ DBTrigger
+SVar:DBTrigger:DB$ ImmediateTrigger | ConditionDefined$ Remembered | ConditionPresent$ Card.Creature+YouCtrl | SubAbility$ DBCleanup | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

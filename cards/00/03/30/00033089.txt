@@ -1,13 +1,11 @@
 Id:33089
-ColorIdentity:U
-OriginSet:G7ab1fe96128a1641
-ManaCost:3 U
-Types:Creature Merfolk Soldier
-PT:4/6
-S:Mode$ RaiseCost | ValidCard$ Card.Self | Activator$ You | Type$ Spell | Cost$ BeholdExile<1/Merfolk> | EffectZone$ All
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigTap
-T:Mode$ Taps | ValidCard$ Card.Self | Execute$ TrigTap | Secondary$ True
-SVar:TrigTap:DB$ Tap | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | Defined$ Targeted | CounterType$ Stun | CounterNum$ 1
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigChangeZone
-SVar:TrigChangeZone:DB$ ChangeZone | Defined$ ExiledWith | Origin$ Exile | Destination$ Hand
+ColorIdentity:G
+OriginSet:G731e0066916b7465
+ManaCost:5 G G G
+Types:Legendary Creature Human Avatar
+PT:6/6
+S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ Hexproof | Condition$ PlayerTurn
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | Execute$ TrigEarthbend | TriggerZones$ Battlefield
+SVar:TrigEarthbend:DB$ Earthbend | Num$ 8 | SubAbility$ DBUntap
+SVar:DBUntap:DB$ Untap | Defined$ Targeted
+SVar:PlayMain1:TRUE

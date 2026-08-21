@@ -1,10 +1,12 @@
 Id:28009
 ColorIdentity:B
-OriginSet:Gfd50577710a6ab09
-ManaCost:2 B
-Types:Enchantment
-S:Mode$ Continuous | Affected$ Creature.Skeleton+YouCtrl | AddPower$ 1 | AddKeyword$ Haste
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 498367015
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You.descended | TriggerZones$ Battlefield | Execute$ TrigReturn
-SVar:TrigReturn:AB$ ChangeZone | Cost$ PayLife<1> | Defined$ Self | Origin$ Battlefield | Destination$ Hand | Hidden$ True
+OriginSet:G30e8a5e111cffb44
+ManaCost:3 B B
+Types:Creature Alien Horror
+PT:4/4
+K:Flying
+K:Haste
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Exile | LibraryPosition$ -1 | Destination$ Library | ValidTgts$ Card.faceUp | ChangeNum$ 1 | RememberChanged$ True | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ 3 | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

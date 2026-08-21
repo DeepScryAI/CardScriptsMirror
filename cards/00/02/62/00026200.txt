@@ -1,13 +1,11 @@
 Id:26200
-ColorIdentity:U
+ColorIdentity:R
 OriginSet:G2192e8955d5e1ad1
-ManaCost:2 U
-Types:Creature Phyrexian Drake
-PT:0/0
-K:Flying
-K:etbCounter:OIL:1
-S:Mode$ Continuous | Affected$ Card.Self | AddPower$ X | AddToughness$ X
-T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | Execute$ TrigPutCounter | TriggerZones$ Battlefield
-SVar:TrigPutCounter:DB$ PutCounter | CounterType$ OIL
-SVar:X:Count$CardCounters.OIL
-SVar:BuffedBy:Card.nonCreature
+ManaCost:2 R
+Types:Creature Phyrexian Warrior
+PT:3/3
+K:Menace
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Player | Execute$ TrigDealDamage | TriggerZones$ Battlefield
+SVar:TrigDealDamage:DB$ DealDamage | Defined$ TriggeredPlayer | NumDmg$ 2 | ConditionPresent$ Land.Basic+ControlledBy TriggeredPlayer | ConditionCompare$ LT2
+SVar:X:Count$Valid Land.Basic+YouCtrl
+SVar:NeedsToPlayVar:X GE2

@@ -1,12 +1,12 @@
 Id:8945
-ColorIdentity:R
+ColorIdentity:B
 OriginSet:Gce1d73449bd71b54
-ManaCost:4 R
-Types:Creature Phoenix
-PT:2/2
+ManaCost:2 B B
+Types:Legendary Creature Vampire Cat
+PT:3/2
+K:FirstStrike
 K:Flying
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigSkipDraw
-SVar:TrigSkipDraw:DB$ SkipPhase | Defined$ TriggeredCardController | Step$ Draw | SubAbility$ TrigDelay
-SVar:TrigDelay:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ TrigReturn | RememberObjects$ TriggeredNewCardLKICopy
-SVar:TrigReturn:DB$ ChangeZone | Defined$ DelayTriggerRememberedLKI | Origin$ Graveyard | Destination$ Battlefield
-A:AB$ ChangeZone | Cost$ 4 R | Origin$ Battlefield | Destination$ Exile
+K:Haste
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Creature | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+SVar:HasCombatEffect:TRUE

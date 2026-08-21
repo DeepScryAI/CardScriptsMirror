@@ -1,7 +1,10 @@
 Id:9679
-ColorIdentity:B
+ColorIdentity:UB
 OriginSet:G0388e25893b1e049
-ManaCost:1 B
-Types:Sorcery
-A:SP$ ChangeZone | ValidTgts$ Creature | Origin$ Graveyard | Destination$ Hand
-K:Conspire
+ManaCost:3 UB UB
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.Blue+YouCtrl | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigDraw
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.Black+YouCtrl | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigDiscard
+SVar:TrigDraw:DB$ Draw | ValidTgts$ Player | NumCards$ 1
+SVar:TrigDiscard:DB$ Discard | ValidTgts$ Player | NumCards$ 1 | Mode$ TgtChoose
+SVar:BuffedBy:Creature.Blue,Creature.Black

@@ -1,12 +1,12 @@
 Id:29331
-ColorIdentity:R
-OriginSet:G2ce881cc55bb9f18
-ManaCost:2 R
-Types:Creature Lizard Wizard
-PT:2/2
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:AB$ PutCounter | Cost$ PayEnergy<3> | CounterType$ P1P1
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | Defined$ TriggeredAttackerLKICopy | NumAtt$ Double
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Creature.wasDealtExcessDamageThisTurn | Execute$ TrigEnergy
-SVar:TrigEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ CardTriggeredTarget$ExcessDamageReceivedThisTurn
+ColorIdentity:G
+OriginSet:G27146c70b74a1e72
+ManaCost:3 G
+Types:Enchantment Aura
+K:Flash
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 3 | AddToughness$ 2 | AddKeyword$ Reach
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw
+SVar:SacMe:2

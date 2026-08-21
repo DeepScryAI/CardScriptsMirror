@@ -1,11 +1,11 @@
 Id:23845
 ColorIdentity:R
 OriginSet:G5f5d8cfb206e2fac
-ManaCost:4 R
-Types:Sorcery
-A:SP$ RepeatEach | RepeatPlayers$ Opponent | RepeatSubAbility$ DBDamage | DamageMap$ True | SubAbility$ DBTreasure
-SVar:DBDamage:DB$ DealDamage | Defined$ Remembered | NumDmg$ Y | ConditionCheckSVar$ Y
-SVar:DBTreasure:DB$ Token | TokenAmount$ Z | TokenScriptIds$ 3851718391
-SVar:X:Count$Valid Land.YouCtrl
-SVar:Y:Count$Valid Land.RememberedPlayerCtrl/Minus.X
-SVar:Z:Count$TotalDamageDoneByThisTurn
+ManaCost:3 R
+Types:Instant
+K:Casualty:2
+A:SP$ ChangeZone | ValidTgts$ Permanent.nonEnchantment | Origin$ Battlefield | Destination$ Library | Shuffle$ True | SubAbility$ DBExile
+SVar:DBExile:DB$ Dig | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | Defined$ TargetedOwner | RememberChanged$ True | SubAbility$ DBPutLand
+SVar:DBPutLand:DB$ ChangeZone | ConditionDefined$ Remembered | ConditionPresent$ Land | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | ForgetChanged$ True | SubAbility$ DBCast
+SVar:DBCast:DB$ Play | ConditionDefined$ Remembered | ConditionPresent$ Card | Defined$ Remembered | ValidSA$ Spell | Controller$ RememberedOwner | WithoutManaCost$ True | Optional$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

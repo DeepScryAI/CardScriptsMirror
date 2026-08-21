@@ -1,8 +1,11 @@
 Id:29387
-ColorIdentity:B
-OriginSet:Gac6359c222afbd4f
-ManaCost:B B
-Types:Instant
-A:SP$ DealDamage | ValidTgts$ Creature,Planeswalker | NumDmg$ X | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | LifeAmount$ X
-SVar:X:Count$Valid Swamp.YouCtrl
+ColorIdentity:W
+OriginSet:G27146c70b74a1e72
+ManaCost:2 W
+Types:Artifact Equipment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigAttach
+SVar:TrigAttach:DB$ Attach | ValidTgts$ Creature.YouCtrl
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1 | AddToughness$ 1
+T:Mode$ Attacks | ValidCard$ Card.AttachedBy | Execute$ TrigTap
+SVar:TrigTap:DB$ Tap | ValidTgts$ Creature.ControlledBy TriggeredDefendingPlayer
+K:Equip:2

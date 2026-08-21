@@ -1,9 +1,11 @@
 Id:28565
-ColorIdentity:U
+ColorIdentity:R
 OriginSet:G7ee0e82a2424d636
-ManaCost:2 U
-Types:Creature Human Detective
-PT:3/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Detective.YouCtrl+Other,Card.Self | TriggerZones$ Battlefield | Execute$ TrigDraw
-T:Mode$ TurnFaceUp | ValidCard$ Detective.YouCtrl | Execute$ TrigDraw | TriggerZones$ Battlefield | Secondary$ True
-SVar:TrigDraw:AB$ Discard | Mode$ TgtChoose | Cost$ Draw<1/You> | NumCards$ 1
+ManaCost:R
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSuspect
+SVar:TrigSuspect:DB$ AlterAttribute | Defined$ Enchanted | Attributes$ Suspected
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 1 | AddToughness$ 1
+A:AB$ ChangeZone | Cost$ 2 R | Origin$ Graveyard | Destination$ Hand | ActivationZone$ Graveyard

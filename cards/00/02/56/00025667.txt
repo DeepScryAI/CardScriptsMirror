@@ -1,15 +1,12 @@
 Id:25667
-ColorIdentity:B
-OriginSet:G06ccef4324c14725
-ManaCost:3 B B
-Types:Sorcery
-A:SP$ Charm | Choices$ DBChoose,DBMurder,DBChangeZone,DBSacrifice | CharmNum$ 2
-SVar:DBChoose:DB$ ChooseCard | SubAbility$ DBCounter | Choices$ Creature
-SVar:DBCounter:DB$ PutCounter | Defined$ ChosenCard | CounterType$ P1P1 | CounterNum$ 2 | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | Defined$ ChosenCard | KW$ Lifelink
-SVar:DBMurder:DB$ DestroyAll | ValidCards$ Creature.powerLE2
-SVar:DBChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ChangeNum$ 2 | ChangeType$ Creature.YouOwn | Hidden$ True
-SVar:DBSacrifice:DB$ RepeatEach | RepeatPlayers$ Player.Opponent | RepeatSubAbility$ DBChooseCard | SubAbility$ DBSac
-SVar:DBChooseCard:DB$ ChooseCard | Defined$ Player.IsRemembered | Choices$ Creature.greatestPowerControlledByRemembered | Mandatory$ True | Reveal$ True | RememberChosen$ True
-SVar:DBSac:DB$ SacrificeAll | ValidCards$ Card.IsRemembered | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:U
+OriginSet:Gce0c33e5115830a3
+ManaCost:3 U
+Types:Creature Drake
+PT:1/3
+K:Flying
+S:Mode$ Continuous | Affected$ Card.Self | AddPower$ X
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | OptionalDecider$ You | Execute$ DBDig | TriggerZones$ Battlefield
+SVar:DBDig:DB$ Dig | Defined$ You | DigNum$ Y | Reveal$ True | ChangeValid$ Card.Artifact | DestinationZone$ Hand | DestinationZone2$ Graveyard
+SVar:Y:TriggerCount$DamageAmount
+SVar:X:Count$Valid Artifact.YouCtrl$GreatestCardManaCost

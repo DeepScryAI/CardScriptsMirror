@@ -1,10 +1,12 @@
 Id:21043
-ColorIdentity:W
-OriginSet:G7b2607750b451c25
-ManaCost:2 W
-Types:Artifact Equipment
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigAttach
-SVar:TrigAttach:DB$ Attach | ValidTgts$ Creature.YouCtrl
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddToughness$ 2 | AddKeyword$ Flying & FirstStrike
-K:Equip:2 W W
-SVar:NeedsToPlay:Creature.YouCtrl
+ColorIdentity:R
+OriginSet:G2f853d6139309fb0
+ManaCost:2 R
+Types:Creature Phoenix
+PT:2/2
+K:Flying
+K:Haste
+S:Mode$ CantBlock | ValidCard$ Card.Self
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | Execute$ TrigReturn | TriggerZones$ Graveyard | CheckSVar$ X | SVarCompare$ GE3
+SVar:TrigReturn:AB$ ChangeZone | Cost$ R | Defined$ Self | Origin$ Graveyard | Destination$ Battlefield
+SVar:X:Count$MaxOppDamageThisTurn

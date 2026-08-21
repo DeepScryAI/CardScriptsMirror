@@ -1,8 +1,13 @@
 Id:23416
-ColorIdentity:U
-OriginSet:Ga4d5d94d587eb185
-ManaCost:X U U U
-Types:Sorcery
-K:Improvise
-A:SP$ Draw | NumCards$ X
-SVar:X:Count$xPaid
+ColorIdentity:W
+OriginSet:Gbe3783f336562357
+ManaCost:3 W
+Types:Creature Human Cleric
+PT:3/3
+K:Vigilance
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.wasCast+Self | CheckSVar$ X | SVarCompare$ GE20 | Execute$ TrigSeek
+SVar:TrigSeek:DB$ Seek | Type$ Creature.YouOwn+cmcLE3 | Num$ 2 | RememberFound$ True | SubAbility$ DBChangeZone1
+SVar:DBChangeZone1:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | ChangeType$ Creature.IsRemembered | ChangeNum$ 1 | Mandatory$ True | SubAbility$ DBChangeZone2
+SVar:DBChangeZone2:DB$ ChangeZone | Origin$ Hand | Destination$ Library | ChangeType$ Creature.IsRemembered | Mandatory$ True | Shuffle$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$ValidGraveyard,Library,Hand Creature.YouOwn+cmcLE3

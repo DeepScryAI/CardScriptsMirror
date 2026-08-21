@@ -1,13 +1,9 @@
 Id:21718
-ColorIdentity:R
+ColorIdentity:U
 OriginSet:G18bf722b221724f8
-ManaCost:1 R
-Types:Instant
-A:SP$ Counter | TargetType$ Spell | ValidTgts$ Card | SubAbility$ DBRandom | Destination$ Graveyard | RememberForCounter$ True
-SVar:DBRandom:DB$ ChooseNumber | Min$ 1 | Max$ 3 | Defined$ You | Random$ True | SubAbility$ DBMill
-SVar:DBMill:DB$ Mill | NumCards$ X | Defined$ TargetedController | SubAbility$ DBDig
-SVar:DBDig:DB$ DigUntil | Defined$ TargetedController | Valid$ Card.nonLand+doesNotShareNameWith Remembered | FoundDestination$ Exile | RevealedDestination$ Exile | RememberFound$ True | ForgetOtherRemembered$ True | ImprintRevealed$ True | SubAbility$ DBPlay
-SVar:DBPlay:DB$ Play | Controller$ TargetedController | Defined$ Remembered | ValidSA$ Spell | WithoutManaCost$ True | Optional$ True | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZoneAll | ChangeType$ Card.IsImprinted | Origin$ Exile | Destination$ Library | RandomOrder$ True | LibraryPosition$ -1 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True
-SVar:X:Count$ChosenNumber
+ManaCost:1 U
+Types:Snow Creature Bird
+PT:1/2
+K:Flying
+A:AB$ Draw | Cost$ S T | NumCards$ 1 | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ TgtChoose

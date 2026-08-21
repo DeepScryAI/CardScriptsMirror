@@ -1,7 +1,18 @@
 Id:33845
-ColorIdentity:UG
-OriginSet:Gf8df2bea26dc6b68
-ManaCost:2 G U
-Types:Instant
-A:SP$ ChangeZone | ValidTgts$ Permanent.nonLand | TargetMin$ 0 | TargetMax$ 1 | Origin$ Battlefield | Destination$ Hand | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Land.Basic | Tapped$ True | ChangeNum$ 1
+ColorIdentity:U
+OriginSet:Gf04404de3fa1525e
+ManaCost:2 U
+Types:Legendary Creature Human Wizard
+PT:2/4
+K:ETBReplacement:Other:DBPrepare
+SVar:DBPrepare:DB$ AlterAttribute | Attributes$ Prepared
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | NumCards$ 2 | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 2 | Mode$ TgtChoose
+AlternateMode:Prepare
+ALTERNATE
+ManaCost:X X U
+Types:Sorcery
+A:SP$ Token | TokenAmount$ X | TokenScriptIds$ 1802199211 | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounterAll | ValidCards$ Fractal.YouCtrl | CounterType$ P1P1 | CounterNum$ X
+SVar:X:Count$xPaid

@@ -1,6 +1,16 @@
 Id:18346
-ColorIdentity:U
-OriginSet:G7d70f513279b26b6
-ManaCost:2 U
-Types:Creature Turtle
-PT:0/5
+ColorIdentity:R
+OriginSet:G7d4bd61c81d44275
+ManaCost:4 R R
+Types:Legendary Planeswalker Rowan
+Loyalty:4
+K:PartnerWithId:18372
+A:AB$ Effect | Cost$ AddCounter<2/LOYALTY> | Planeswalker$ True | Name$ 3348364669816389926 | ValidTgts$ Player | StaticAbilities$ MustAttack | RememberObjects$ Targeted | IsCurse$ True | Triggers$ RemoveEffect | Duration$ Permanent | SubAbility$ DBCleanup
+SVar:MustAttack:Mode$ MustAttack | ValidCreature$ Creature.RememberedPlayerCtrl
+SVar:RemoveEffect:Mode$ Phase | Phase$ Cleanup | ValidPlayer$ Player.IsRemembered | TriggerZones$ Command | Static$ True | Execute$ ExileEffect
+SVar:ExileEffect:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+A:AB$ DamageAll | Cost$ SubCounter<2/LOYALTY> | ValidTgts$ Player | NumDmg$ 3 | ValidCards$ Creature.tapped | Planeswalker$ True
+A:AB$ Effect | Cost$ SubCounter<8/LOYALTY> | Planeswalker$ True | Ultimate$ True | ValidTgts$ Player | EffectOwner$ Targeted | Name$ 5419962367839831624 | Triggers$ CopyAbility | Duration$ Permanent | AILogic$ Always
+SVar:CopyAbility:Mode$ AbilityCast | ValidActivatingPlayer$ You | ValidSA$ SpellAbility.!ManaAbility | TriggerZones$ Command | Execute$ TrigCopy
+SVar:TrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | MayChooseTarget$ True

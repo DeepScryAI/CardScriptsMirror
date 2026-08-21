@@ -1,6 +1,12 @@
 Id:29212
-ColorIdentity:B
+ColorIdentity:W
 OriginSet:G27146c70b74a1e72
-ManaCost:1 B
-Types:Instant
-A:SP$ Destroy | ValidTgts$ Creature.!Outlaw
+ManaCost:1 W
+Types:Creature Spirit
+PT:2/3
+K:Flying
+K:ETBReplacement:Other:CounterChoice
+SVar:CounterChoice:DB$ PutCounter | ETB$ True | CounterNum$ 2 | CounterType$ P1P1 | ConditionCheckSVar$ X | ConditionSVarCompare$ GE5 | SubAbility$ LifelinkCounter
+SVar:LifelinkCounter:DB$ PutCounter | ConditionCheckSVar$ X | ConditionSVarCompare$ GE5 | ETB$ True | CounterType$ Lifelink
+SVar:X:Count$Valid Land.YouCtrl+untapped
+K:Plot:1 W

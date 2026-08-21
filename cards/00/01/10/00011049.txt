@@ -1,7 +1,10 @@
 Id:11049
-ColorIdentity:B
+ColorIdentity:W
 OriginSet:Gd09f2fd86b2e8dd0
-ManaCost:B
-Types:Sorcery
-A:SP$ Discard | ValidTgts$ Player | Mode$ RevealYouChoose | RevealNumber$ X | NumCards$ 1
-SVar:X:Count$Valid Swamp.YouCtrl
+ManaCost:2 W W
+Types:Enchantment
+S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddPower$ 1 | AddToughness$ 1
+K:Multikicker:1 W
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | TargetMin$ 0 | TargetMax$ X | ValidTgts$ Creature.YouCtrl
+SVar:X:Count$TimesKicked

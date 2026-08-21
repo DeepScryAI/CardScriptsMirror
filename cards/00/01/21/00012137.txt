@@ -1,9 +1,11 @@
 Id:12137
-ColorIdentity:B
+ColorIdentity:G
 OriginSet:Gcf233112e9f1fe8c
-ManaCost:5 B B
-Types:Creature Demon
-PT:6/6
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange
-SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Card | ChangeNum$ 1 | Mandatory$ True
+ManaCost:X G G
+Types:Creature Hydra
+PT:0/0
+K:etbCounter:P1P1:X
+S:Mode$ Continuous | Affected$ Card.Self+counters_GT9_P1P1 | AddKeyword$ Trample
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDoubleCounters
+SVar:TrigDoubleCounters:DB$ MultiplyCounter | Defined$ Self | CounterType$ P1P1
+SVar:X:Count$xPaid

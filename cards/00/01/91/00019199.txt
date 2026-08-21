@@ -1,9 +1,12 @@
 Id:19199
-ColorIdentity:W
+ColorIdentity:R
 OriginSet:Gf56613712ce2ae1f
-ManaCost:3 W
-Types:Legendary Planeswalker
-Loyalty:5
-R:Event$ DamageDone | ActiveZones$ Battlefield | Prevent$ True | ValidTarget$ You,Permanent.Other+YouCtrl | IsCombat$ False
-SVar:NonStackingEffect:True
-A:AB$ ChangeZone | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | ValidTgts$ Creature.powerGE4 | Origin$ Battlefield | Destination$ Exile
+ManaCost:1 R R
+Types:Artifact Vehicle
+PT:3/2
+K:Trample
+T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigAnimate
+SVar:TrigAnimate:DB$ Animate | Defined$ Self | Types$ Creature,Artifact | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | NumAtt$ +1 | NumDef$ +1 | Defined$ Self
+SVar:BuffedBy:Card.nonCreature+nonLand
+K:Crew:1

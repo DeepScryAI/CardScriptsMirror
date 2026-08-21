@@ -1,10 +1,11 @@
 Id:29341
-ColorIdentity:
-OriginSet:G2ce881cc55bb9f18
-ManaCost:3 C C
-Types:Sorcery
-A:SP$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBChooseColor | SubAbility$ ExileAll
-SVar:DBChooseColor:DB$ ChooseColor | Defined$ Remembered | AILogic$ MostProminentComputerControls | SubAbility$ FilterForExile
-SVar:FilterForExile:DB$ Pump | RememberObjects$ Valid Permanent.RememberedPlayerCtrl+MonoColor+ChosenColor
-SVar:ExileAll:DB$ ChangeZoneAll | Origin$ Battlefield | Destination$ Exile | ChangeType$ Card.nonColorless+!IsRemembered | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:B
+OriginSet:G27146c70b74a1e72
+ManaCost:3 B
+Types:Creature Vampire Assassin
+PT:2/2
+K:Flash
+K:Flying
+K:Lifelink
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Creature.wasDealtDamageThisTurn+OppCtrl

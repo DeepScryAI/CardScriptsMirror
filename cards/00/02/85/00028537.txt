@@ -1,9 +1,12 @@
 Id:28537
-ColorIdentity:W
+ColorIdentity:U
 OriginSet:G7ee0e82a2424d636
-ManaCost:1 W
-Types:Creature Spirit Detective
-PT:2/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.powerLE2+YouCtrl+Other | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | Defined$ Self | KW$ Flying
-SVar:BuffedBy:Creature.powerLE2
+ManaCost:1 U
+Types:Enchantment Aura
+K:Flash
+K:Enchant:Creature
+SVar:AttachAITgts:Card.Detective+YouCtrl,Creature.OppCtrl
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy+Detective+YouCtrl | AddPower$ 2 | AddToughness$ 2
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy+nonDetective,Creature.EnchantedBy+YouDontCtrl | Secondary$ True | SetPower$ 1 | SetToughness$ 1
+S:Mode$ CantBlockBy | ValidAttacker$ Creature.Detective | Secondary$ True | ValidBlocker$ Creature.EnchantedBy+nonDetective,Creature.EnchantedBy+YouDontCtrl

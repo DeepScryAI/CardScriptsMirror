@@ -1,10 +1,13 @@
 Id:21763
-ColorIdentity:U
-OriginSet:Gabb23d0d25cdc46d
-ManaCost:3 U
-Types:Creature Bird Wizard
-PT:3/3
-K:Flying
-S:Mode$ Continuous | Affected$ You | SetMaxHandSize$ Unlimited
-T:Mode$ DamageDone | ValidSource$ Creature.token+YouCtrl | ValidTarget$ Player | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw
+ColorIdentity:WR
+OriginSet:G18bf722b221724f8
+ManaCost:2 R W
+Types:Enchantment Saga
+K:Chapter:3:TrigExile,TrigEffect,TrigEffect
+SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ 4 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ Remembered | StaticAbilities$ MayPlay | Duration$ UntilTheEndOfYourNextTurn | SubAbility$ DBCleanup | ForgetOnMoved$ Exile
+SVar:MayPlay:Mode$ Continuous | Affected$ Card.IsRemembered | AffectedZone$ Exile | MayPlay$ True
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:TrigEffect:DB$ Effect | Triggers$ CastSpell
+SVar:CastSpell:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ You | TriggerZones$ Command | Execute$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ 1 | ValidTgts$ Creature.YouCtrl

@@ -1,14 +1,13 @@
 Id:33613
-ColorIdentity:G
-OriginSet:Gf04404de3fa1525e
-ManaCost:2 G
-Types:Creature Elf Druid
-PT:3/4
-K:Vigilance
-K:ETBReplacement:Other:DBPrepare
-SVar:DBPrepare:DB$ AlterAttribute | Attributes$ Prepared
-T:Mode$ Attacks | ValidCard$ Card.Self | IsPresent$ Land.YouCtrl | PresentCompare$ GE8 | Execute$ TrigPrepare
-SVar:TrigPrepare:DB$ AlterAttribute | Attributes$ Prepared
-AlternateMode:Prepare
-ALTERNATE
-CopyFaceFromId:202
+ColorIdentity:R
+OriginSet:Gff0a4227ae9f1a4b
+ManaCost:2 R
+Types:Instant
+A:SP$ Charm | Choices$ DBJumpKick,DBDashAttack,DBFootToss | CharmNum$ 2
+SVar:DBJumpKick:DB$ Destroy | ValidTgts$ Artifact
+SVar:DBDashAttack:DB$ PutCounter | ValidTgts$ Creature.attacking+YouCtrl,Creature.blocking+YouCtrl | CounterType$ P1P1 | CounterNum$ 2
+SVar:DBFootToss:DB$ Pump | ValidTgts$ Creature.YouCtrl | RememberObjects$ ThisTargetedCard | AILogic$ PowerDmg | SubAbility$ DBDamage
+SVar:DBDamage:DB$ DealDamage | AILogic$ PowerDmg | ValidTgts$ Any.NotDefinedParentTarget,Player | DamageSource$ ParentTarget | NumDmg$ X | SubAbility$ DBSac
+SVar:DBSac:DB$ SacrificeAll | Defined$ Remembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:ParentTargeted$CardPower

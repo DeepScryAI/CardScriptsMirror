@@ -1,8 +1,10 @@
 Id:9539
-ColorIdentity:R
+ColorIdentity:G
 OriginSet:G49bcc8b9b86b628d
-ManaCost:3 R
-Types:Creature Goblin Shaman
-PT:3/3
-K:Champion:Goblin,Shaman
-A:AB$ DealDamage | Cost$ T | ValidTgts$ Any | NumDmg$ 3
+ManaCost:2 G G
+Types:Creature Treefolk Shaman
+PT:3/5
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigKinship | TriggerZones$ Battlefield | OptionalDecider$ You
+SVar:TrigKinship:DB$ PeekAndReveal | PeekAmount$ 1 | RevealValid$ Card.sharesCreatureTypeWith | RevealOptional$ True | RememberRevealed$ True | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | Defined$ TopOfLibrary | WithoutManaCost$ True | Optional$ True | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

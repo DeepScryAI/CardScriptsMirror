@@ -1,9 +1,11 @@
 Id:26587
-ColorIdentity:WR
+ColorIdentity:U
 OriginSet:G06757f68e16377c2
-ManaCost:R W
-Types:Creature Human Soldier
-PT:2/2
-K:Vigilance
-T:Mode$ BecomesTarget | ValidTarget$ Creature.inZoneBattlefield+YouCtrl | ValidSource$ Ability.Backup | TriggerZones$ Battlefield | Execute$ TrigCopy | ActivationLimit$ 1
-SVar:TrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSourceSA | MayChooseTarget$ True
+ManaCost:4 U
+Types:Enchantment Aura
+K:Convoke
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 2 | AddToughness$ 2 | AddKeyword$ Flying

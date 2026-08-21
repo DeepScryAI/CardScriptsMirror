@@ -1,8 +1,9 @@
 Id:18417
 ColorIdentity:R
 OriginSet:G3b823183c96b2df3
-ManaCost:R R
-Types:Sorcery
-A:SP$ DelayedTrigger | AILogic$ SpellCopy | Execute$ EffTrigCopy | ThisTurn$ True | Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You
-SVar:EffTrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | MayChooseTarget$ True
-SVar:AIPriorityModifier:9
+ManaCost:R
+Types:Enchantment
+K:ETBReplacement:Other:DBNameCard
+SVar:DBNameCard:DB$ NameCard | Defined$ You | ValidCards$ Card.Land+nonBasic
+S:Mode$ Continuous | Affected$ Land.NamedCard+OppCtrl | RemoveAllAbilities$ True | RemoveLandTypes$ True | AddAbility$ ABMana
+SVar:ABMana:AB$ Mana | Cost$ T | Produced$ Any | Amount$ 1

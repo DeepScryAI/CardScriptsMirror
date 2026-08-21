@@ -1,14 +1,12 @@
 Id:33143
-ColorIdentity:
-OriginSet:G7ab1fe96128a1641
-ManaCost:4
-Types:Artifact
-K:ETBReplacement:Other:ChooseCT
-SVar:ChooseCT:DB$ ChooseType | Defined$ You | Type$ Creature | AILogic$ MostProminentInComputerDeck
-S:Mode$ ReduceCost | ValidCard$ Card.ChosenType | Type$ Spell | Activator$ You | Amount$ 1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPeek
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigPeek | TriggerZones$ Battlefield | Secondary$ True
-SVar:TrigPeek:DB$ PeekAndReveal | PeekAmount$ 1 | RevealValid$ Card.ChosenType | RevealOptional$ True | RememberRevealed$ True | SubAbility$ DBToHand
-SVar:DBToHand:DB$ ChangeZone | Defined$ Remembered | Origin$ Library | Destination$ Hand | SubAbility$ DBToGrave
-SVar:DBToGrave:DB$ ChangeZone | Defined$ TopOfLibrary | Origin$ Library | Destination$ Graveyard | Optional$ True | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ0 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:U
+OriginSet:G731e0066916b7465
+ManaCost:1 U
+Types:Legendary Creature Human Warrior Ally
+PT:1/3
+T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | OpponentTurn$ True | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ You | CounterType$ Experience | CounterNum$ 1
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:AB$ Discard | Cost$ Draw<X/You> | Defined$ You | Mode$ TgtChoose | NumCards$ 1
+SVar:X:Count$YourCountersExperience
+SVar:HasAttackEffect:TRUE

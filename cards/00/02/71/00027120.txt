@@ -1,10 +1,8 @@
 Id:27120
 ColorIdentity:R
 OriginSet:G6ce0035cfb774934
-ManaCost:X R R
-Types:Enchantment
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDamageAll
-SVar:TrigDamageAll:DB$ DamageAll | NumDmg$ X | ValidCards$ Creature
-SVar:X:Count$xPaid
-T:Mode$ ChangesZoneAll | ValidCards$ Creature.OppCtrl | ActivationLimit$ 1 | Origin$ Battlefield | Destination$ Graveyard | TriggerZones$ Battlefield | ActivationLimit$ 1 | Execute$ TrigTreasure
-SVar:TrigTreasure:DB$ Token | TokenScriptIds$ 3851718391 | TokenOwner$ You
+ManaCost:3 R
+Types:Sorcery
+A:SP$ Destroy | ValidTgts$ Artifact,Land | SubAbility$ CantBlockEffect
+SVar:CantBlockEffect:DB$ Effect | StaticAbilities$ KWPump | AILogic$ Evasion
+SVar:KWPump:Mode$ Continuous | AffectedZone$ Battlefield | Affected$ Creature.withoutFlying | AddHiddenKeyword$ CARDNAME can't block.

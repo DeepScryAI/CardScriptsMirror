@@ -1,8 +1,16 @@
 Id:34408
-ColorIdentity:W
-OriginSet:G11c0621ce29fa608
-ManaCost:1 W
-Types:Creature Human Warrior Hero
-PT:2/1
-K:Lifelink
-A:AB$ PutCounter | Cost$ 4 W | Defined$ Self | CounterType$ P1P1 | CounterNum$ 2 | PowerUp$ True
+ColorIdentity:WURG
+OriginSet:Gcb93bbfc68a40806
+ManaCost:3 R
+Types:Legendary Creature Human Hero
+PT:3/2
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ X | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | KW$ Flying & DoubleStrike & Haste | Defined$ Self
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ DBEffect
+SVar:DBEffect:AB$ Effect | Cost$ R G W U | Triggers$ TrigDamage
+SVar:TrigDamage:Mode$ DamageDone | ValidSource$ Card.EffectSource | ValidTarget$ Opponent | Execute$ TrigDamageAll | CombatDamage$ True
+SVar:TrigDamageAll:DB$ DamageAll | ValidPlayers$ OppNonTriggeredTarget | DamageSource$ EffectSource | NumDmg$ Y
+SVar:X:Count$ThisTurnCast_Card.nonCreature+YouCtrl
+SVar:Y:TriggerCount$DamageAmount
+SVar:HasAttackEffect:TRUE
+SVar:PlayMain1:TRUE

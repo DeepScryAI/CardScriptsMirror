@@ -1,9 +1,11 @@
 Id:4897
-ColorIdentity:BRG
+ColorIdentity:B
 OriginSet:G9e6cd9ac1f7f4832
-ManaCost:2 R
-Types:Creature Kavu
-PT:2/2
-A:AB$ Pump | Cost$ 1 B | Defined$ Self | NumAtt$ +1 | NumDef$ +1
-A:AB$ ChooseColor | Cost$ G | Defined$ You | SubAbility$ Animate
-SVar:Animate:DB$ Animate | Defined$ Self | Colors$ ChosenColor | OverwriteColors$ True
+ManaCost:2 B
+Types:Sorcery
+K:Kicker:Sac<2/Land>
+A:SP$ Discard | ValidTgts$ Player | NumCards$ WasKicked | Mode$ TgtChoose
+SVar:WasKicked:Count$Kicked.3.2
+SVar:NeedsToPlayKickedVar:Z GE3
+SVar:Z:Count$ValidHand Card.OppOwn
+SVar:AIPreference:SacCost$Land.basic+YouCtrl

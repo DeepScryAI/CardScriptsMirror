@@ -1,9 +1,13 @@
 Id:12977
-ColorIdentity:W
+ColorIdentity:WU
 OriginSet:G5449dea2d54987a1
-ManaCost:1 W
-Types:Creature Human Soldier
-PT:2/1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ Detain
-SVar:Detain:DB$ Detain | ValidTgts$ Creature.OppCtrl
-SVar:PlayMain1:TRUE
+ManaCost:3 WU WU
+Types:Creature Human Advisor
+PT:3/5
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ PutCounter
+SVar:PutCounter:DB$ PutCounter | Defined$ Self | CounterType$ FILIBUSTER | CounterNum$ 1 | SubAbility$ WinGame
+SVar:WinGame:DB$ WinsGame | Defined$ You | ConditionCheckSVar$ TalkedEnough | ConditionSVarCompare$ GE5
+SVar:TalkedEnough:Count$CardCounters.FILIBUSTER
+T:Mode$ DamageDone | ValidTarget$ You | TriggerZones$ Battlefield | Execute$ RemoveCounter
+SVar:RemoveCounter:DB$ RemoveCounter | Defined$ Self | CounterType$ FILIBUSTER | CounterNum$ 1
+SVar:AIEvaluationModifier:30

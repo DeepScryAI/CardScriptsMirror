@@ -1,9 +1,10 @@
 Id:34284
-ColorIdentity:G
+ColorIdentity:R
 OriginSet:Gcb93bbfc68a40806
-ManaCost:4 G G
-Types:Legendary Creature Mutant Hero
-PT:4/3
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDestroy
-SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Artifact,Enchantment,Creature.withFlying | TargetMin$ 0 | TargetMax$ 1
+ManaCost:X R R
+Types:Sorcery
+A:SP$ Pump | ValidTgts$ Creature.YouCtrl | AILogic$ PowerDmg | NumAtt$ +X | SubAbility$ DBDamage
+SVar:DBDamage:DB$ DealDamage | ValidTgts$ Creature | TargetUnique$ True | TargetMin$ 0 | TargetMax$ 1 | AILogic$ PowerDmg | NumDmg$ Y | DamageSource$ ParentTarget
+SVar:X:Count$xPaid
+SVar:Y:ParentTargeted$CardPower
+SVar:PlayMain1:TRUE

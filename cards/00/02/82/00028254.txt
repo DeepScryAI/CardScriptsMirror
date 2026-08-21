@@ -1,13 +1,10 @@
 Id:28254
-ColorIdentity:WR
-OriginSet:G4f78ded7b58f78f8
-ManaCost:3 R W
-Types:Creature Dinosaur
-PT:3/3
-K:Flying
-K:Haste
-T:Mode$ ChangesZone | ValidCard$ Card.Self,Dinosaur.withFlying+Other+YouCtrl | Origin$ Any | Destination$ Battlefield | Execute$ TrigGainControl
-SVar:TrigGainControl:DB$ GainControl | ValidTgts$ Creature.OppCtrl | LoseControl$ EOT | Untap$ True | AddKWs$ Haste & Flying | SubAbility$ DBDelayTrig
-SVar:DBDelayTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ TrigChooseLand | RememberObjects$ Targeted
-SVar:TrigChooseLand:DB$ Pump | ValidTgts$ Land | SubAbility$ DBDamage
-SVar:DBDamage:DB$ DealDamage | Defined$ DelayTriggerRemembered | DamageSource$ Targeted | NumDmg$ 3
+ColorIdentity:U
+OriginSet:Gfd50577710a6ab09
+ManaCost:2 U
+Types:Creature Merfolk Scout
+PT:2/4
+T:Mode$ Explores | Execute$ TrigPump | ValidCard$ Creature.YouCtrl | TriggerZones$ Battlefield
+SVar:TrigPump:DB$ Pump | NumAtt$ +1 | SubAbility$ DBUnblockable
+SVar:DBUnblockable:DB$ Effect | RememberObjects$ Self | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered

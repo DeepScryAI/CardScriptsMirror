@@ -1,7 +1,17 @@
 Id:21937
-ColorIdentity:U
-OriginSet:Gd784248bfdf9e1d7
-ManaCost:4 U
+ColorIdentity:WR
+OriginSet:G6fa60d857e930f32
+ManaCost:1 R
+Types:Creature Human Shaman
+PT:2/1
+T:Mode$ AbilityCast | ValidActivatingPlayer$ Opponent | ValidSA$ SpellAbility.!ManaAbility | TriggerZones$ Battlefield | Execute$ TrigDmg
+SVar:TrigDmg:DB$ DealDamage | NumDmg$ 1 | Defined$ TriggeredActivator
+A:AB$ Pump | Cost$ 1 R | Defined$ Self | NumAtt$ +2
+AlternateMode:Modal
+ALTERNATE
+ManaCost:W W
 Types:Instant
-S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ 2 | ValidTarget$ Creature.attacking | EffectZone$ All
-A:SP$ ChangeZone | Origin$ Battlefield | Destination$ Library | ValidTgts$ Creature | LibraryPosition$ 1
+A:SP$ Effect | StaticAbilities$ STCantBeCast,STCantBeActivated | AILogic$ BeginningOfOppTurn | SubAbility$ DBChange
+SVar:DBChange:DB$ ChangeZone | Origin$ Stack | Destination$ Exile
+SVar:STCantBeCast:Mode$ CantBeCast | ValidCard$ Card | Caster$ Opponent
+SVar:STCantBeActivated:Mode$ CantBeActivated | Activator$ Opponent | ValidCard$ Planeswalker | ValidSA$ Activated.Loyalty

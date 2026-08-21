@@ -1,12 +1,10 @@
 Id:25240
 ColorIdentity:B
 OriginSet:Gf591a76e7a37cf73
-ManaCost:4 B B
-Types:Artifact Creature Necron
-PT:5/4
-K:Flying
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigLoseLife | CombatDamage$ True
-SVar:TrigLoseLife:DB$ LoseLife | Defined$ TriggeredTarget | UnlessCost$ Sac<1/Creature> | UnlessPayer$ TriggeredTarget | LifeAmount$ X
-SVar:X:TriggeredTarget$Valid Creature.YouCtrl
-K:Unearth:6 B B
-SVar:HasAttackEffect:TRUE
+ManaCost:2 B B
+Types:Legendary Artifact Creature Necron
+PT:3/3
+T:Mode$ ChangesZoneAll | Origin$ Graveyard | Destination$ Any | ValidCards$ Artifact.YouOwn | Execute$ TrigToken | TriggerZones$ Battlefield
+SVar:TrigToken:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 321060237 | TokenOwner$ You
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | Execute$ TrigPump | TriggerZones$ Battlefield
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.Other+Artifact+YouCtrl | NumDef$ +2 | NumAtt$ +2 | KW$ Menace

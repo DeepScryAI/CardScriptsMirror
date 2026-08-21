@@ -1,20 +1,10 @@
 Id:23432
 ColorIdentity:G
-OriginSet:G1a259dba25660062
-ManaCost:1 G
-Types:Enchantment Saga
-K:Chapter:3:DBEffect,DBGainLife,DBTransform
-SVar:DBEffect:DB$ Effect | StaticAbilities$ Exploration
-SVar:Exploration:Mode$ Continuous | Affected$ You | AdjustLandPlays$ 1
-SVar:DBGainLife:DB$ GainLife | LifeAmount$ 3
-SVar:DBTransform:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn
-SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | Transformed$ True | GainControl$ True | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:green
-Types:Enchantment Creature Human Monk
-PT:3/3
-T:Mode$ AttackerBlocked | ValidCard$ Card.Self | Execute$ TrigUntap
-SVar:TrigUntap:DB$ Untap | UntapUpTo$ True | UntapType$ Land.YouCtrl | Amount$ 3
+OriginSet:Gbe3783f336562357
+ManaCost:2 G
+Types:Sorcery
+A:SP$ Seek | Type$ Card.Land+Basic | SubAbility$ DBPut | RememberFound$ True
+SVar:DBPut:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | Defined$ Remembered | Tapped$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | SubAbility$ DBSeek
+SVar:DBSeek:DB$ Seek | Type$ Card.Permanent+cmcEQX
+SVar:X:Count$Valid Land.YouCtrl

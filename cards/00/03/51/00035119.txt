@@ -1,0 +1,13 @@
+Id:35119
+ColorIdentity:R
+OriginSet:G9a4c1754c2b7c355
+ManaCost:4 R R
+Types:Legendary Planeswalker Ajani
+Loyalty:5
+T:Mode$ AbilityCast | ValidActivatingPlayer$ You | ValidSA$ Activated.Loyalty | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 1232650706
+A:AB$ PumpAll | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | ValidCards$ Creature.YouCtrl | NumAtt$ +1 | KW$ Haste
+A:AB$ Discard | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | Mode$ Hand | Defined$ You | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ X
+SVar:X:Count$Valid Creature.YouCtrl
+A:AB$ DamageAll | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | Ultimate$ True | ValidCards$ Creature.YouCtrl+!token,Creature.YouDontCtrl | NumDmg$ 4

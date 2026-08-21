@@ -1,11 +1,16 @@
 Id:32883
-ColorIdentity:U
-OriginSet:G731e0066916b7465
-ManaCost:2 U
-Types:Enchantment
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Destination$ Battlefield | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZone | ValidTgts$ Instant.YouOwn,Sorcery.YouOwn | Origin$ Graveyard | TargetMin$ 0 | TargetMax$ 1 | Destination$ Hand
-T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | Execute$ TrigDraw | TriggerZones$ Battlefield
-SVar:TrigDraw:DB$ Draw | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | Defined$ You | Mode$ TgtChoose | NumCards$ 1 | ConditionCheckSVar$ X | ConditionSVarCompare$ LT3
-SVar:X:Count$ValidGraveyard Lesson.YouOwn
+ColorIdentity:BR
+OriginSet:G36e97d2da170e675
+ManaCost:B R
+Types:Legendary Creature Human Rogue
+PT:2/3
+T:Mode$ Phase | Phase$ Main1 | ValidPlayer$ You | Execute$ TrigCharm | TriggerZones$ Battlefield
+SVar:TrigCharm:DB$ Charm | Choices$ DBDraw,DBPutCounter,DBMana,DBChangeZone | ChoiceRestriction$ ThisGame
+SVar:DBDraw:DB$ Draw | SubAbility$ DBLoseLife
+SVar:DBPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBLoseLife
+SVar:DBMana:DB$ Mana | Produced$ R | SubAbility$ DBLoseLife
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | SubAbility$ DBChooseOpp | RememberChanged$ True
+SVar:DBChooseOpp:DB$ ChoosePlayer | Defined$ You | Choices$ Opponent | SubAbility$ MoveToPlay
+SVar:MoveToPlay:DB$ ChangeZone | Hidden$ True | Origin$ All | Destination$ Battlefield | Defined$ Remembered | GainControl$ ChosenPlayer | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearChosenPlayer$ True | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ 2

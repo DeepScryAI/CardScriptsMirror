@@ -1,12 +1,13 @@
 Id:18603
-ColorIdentity:W
+ColorIdentity:WUB
 OriginSet:Gd7cbb6e7dea72fb5
-ManaCost:3 W
-Types:Creature Unicorn
-PT:3/4
-K:Vigilance
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | IsPresent$ Card.IsCommander+YouOwn+YouCtrl | TriggerZones$ Battlefield | Execute$ PreventEffect
-SVar:PreventEffect:DB$ Effect | ReplacementEffects$ RPrevent | SubAbility$ DBPumpAll
-SVar:RPrevent:Event$ DamageDone | Prevent$ True | IsCombat$ True | ActiveZones$ Command | ValidTarget$ Creature.YouCtrl
-SVar:DBPumpAll:DB$ PumpAll | ValidCards$ Creature.StrictlyOther+YouCtrl | KW$ Vigilance
-SVar:BuffedBy:Card.IsCommander
+ManaCost:W U B
+Types:Legendary Planeswalker Aminatou
+Loyalty:3
+A:AB$ Draw | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | SubAbility$ DBTop
+SVar:DBTop:DB$ ChangeZone | Origin$ Hand | Destination$ Library | ChangeType$ Card | Mandatory$ True
+A:AB$ ChangeZone | Cost$ SubCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Permanent.Other+YouOwn | Origin$ Battlefield | Destination$ Exile | RememberTargets$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | GainControl$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+A:AB$ ChooseDirection | Cost$ SubCounter<6/LOYALTY> | Planeswalker$ True | Ultimate$ True | SubAbility$ DBControl | AILogic$ Aminatou
+SVar:DBControl:DB$ GainControlVariant | AllValid$ Permanent.nonLand+Other | ChangeController$ NextPlayerInChosenDirection

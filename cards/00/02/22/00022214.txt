@@ -1,7 +1,12 @@
 Id:22214
-ColorIdentity:G
-OriginSet:Geb2cf181996ee3b2
-ManaCost:2 G
-Types:Sorcery
-A:SP$ Destroy | ValidTgts$ Artifact,Enchantment | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenScriptIds$ 3851718391 | TokenOwner$ You
+ColorIdentity:UB
+OriginSet:Ga575fa2f4f5cded4
+ManaCost:1 U B
+Types:Creature Zombie Wizard
+PT:3/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSurveil
+SVar:TrigSurveil:DB$ Surveil | Amount$ 2
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | IsPresent$ Card.StrictlySelf | PresentZone$ Graveyard | PresentPlayer$ You | TriggerZones$ Graveyard | OptionalDecider$ You | Execute$ TrigReturn
+SVar:TrigReturn:AB$ ChangeZone | Cost$ PayLife<1> | Defined$ Self | Origin$ Graveyard | Destination$ Hand
+SVar:SacMe:2
+SVar:DiscardMe:1

@@ -1,21 +1,14 @@
 Id:22758
-ColorIdentity:RG
-OriginSet:Gf78628ad511eefec
-ManaCost:2 R G
-Types:Legendary Planeswalker Arlinn
-Loyalty:4
-K:Daybound
-A:AB$ Effect | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | Duration$ UntilYourNextTurn | StaticAbilities$ WithFlash | ReplacementEffects$ ExtraETBCounter
-SVar:WithFlash:Mode$ CastWithFlash | ValidCard$ Creature | ValidSA$ Spell | Caster$ You
-SVar:ExtraETBCounter:Event$ Moved | ReplacementResult$ Updated | ActiveZones$ Command | Destination$ Battlefield | ValidCard$ Creature.YouCtrl | ReplaceWith$ AddExtraCounter | Secondary$ True
-SVar:AddExtraCounter:DB$ PutCounter | ETB$ True | Defined$ ReplacedCard | CounterType$ P1P1 | CounterNum$ 1
-A:AB$ Token | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | TokenAmount$ 2 | TokenScriptIds$ 4257275070
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:red,green
-Types:Legendary Planeswalker Arlinn
-Loyalty:4
-K:Nightbound
-A:AB$ Mana | Cost$ AddCounter<2/LOYALTY> | Planeswalker$ True | Produced$ R G
-A:AB$ Animate | Cost$ AddCounter<0/LOYALTY> | Planeswalker$ True | Defined$ Self | Power$ 5 | Toughness$ 5 | Keywords$ Trample & Indestructible & Haste | Types$ Creature,Werewolf | RemoveCreatureTypes$ True | RemoveCardTypes$ True
+ColorIdentity:R
+OriginSet:Gc21c9827c2eb8a2b
+ManaCost:2 R
+Types:Artifact Vehicle
+PT:5/3
+K:Flying
+K:Haste
+K:Crew:3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ LiftMountain
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ LiftMountain | Secondary$ True
+SVar:LiftMountain:DB$ ChangeZone | Reveal$ True | Origin$ Sideboard | Destination$ Exile | ChangeType$ Card.Mountain+YouOwn | ChangeNum$ 1 | Hidden$ True
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ DropMountain
+SVar:DropMountain:DB$ ChangeZone | Defined$ ExiledWith | Origin$ Exile | Destination$ Battlefield | GainControl$ True

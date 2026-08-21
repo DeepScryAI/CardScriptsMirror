@@ -1,6 +1,13 @@
 Id:18703
-ColorIdentity:R
+ColorIdentity:UR
 OriginSet:G1ecb361a0a117393
-ManaCost:2 R
-Types:Creature Human Warrior
-PT:3/2
+ManaCost:U U R R
+Types:Creature Drake
+PT:*/4
+K:Flying
+S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+SVar:GraveCount:Count$ValidGraveyard Instant.YouOwn,Sorcery.YouOwn
+SVar:ExileCount:Count$ValidExile Instant.YouOwn,Sorcery.YouOwn
+SVar:X:SVar$GraveCount/Plus.ExileCount

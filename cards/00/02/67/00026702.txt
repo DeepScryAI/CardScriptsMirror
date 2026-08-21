@@ -1,12 +1,17 @@
 Id:26702
-ColorIdentity:WB
-OriginSet:G997e3b19a1e94e85
-ManaCost:4 W W B B
-Types:Legendary Creature Angel Demon
-PT:8/8
-K:Flying
-K:Vigilance
-K:Lifelink
-A:AB$ PumpAll | Cost$ PayLife<8> | ValidCards$ Creature.YouCtrl | KW$ Indestructible | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | NumCards$ X
-SVar:X:Count$Valid Creature.YouCtrl
+ColorIdentity:WG
+OriginSet:G06757f68e16377c2
+ManaCost:2 G W
+Types:Battle Siege
+Defense:5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPutCounters
+SVar:TrigPutCounters:DB$ PutCounterAll | ValidCards$ Creature.YouCtrl | CounterType$ P1P1
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:white,green
+Types:Creature Dryad
+PT:3/3
+K:Ward:2
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1

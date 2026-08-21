@@ -1,11 +1,7 @@
 Id:8301
 ColorIdentity:
 OriginSet:Gde6d8130c178f566
-ManaCost:4
-Types:Artifact Creature Construct
-PT:4/1
-T:Mode$ Always | TriggerZones$ Battlefield | IsPresent$ Card.Self+OwnerDoesntControl | Execute$ TrigSac
-SVar:TrigSac:DB$ SacrificeAll | Defined$ Self | RememberSacrificed$ True | SubAbility$ DBDmg
-SVar:DBDmg:DB$ DealDamage | Defined$ RememberedController | NumDmg$ 7 | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:DonateMe:5
+ManaCost:no cost
+Types:Land Forest Island
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ DBTap | ReplacementResult$ Updated
+SVar:DBTap:DB$ Tap | ETB$ True | Defined$ Self | UnlessCost$ PayLife<2> | UnlessPayer$ You

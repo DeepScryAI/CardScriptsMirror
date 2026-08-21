@@ -1,12 +1,14 @@
 Id:8863
-ColorIdentity:U
+ColorIdentity:UBG
 OriginSet:Gce1d73449bd71b54
-ManaCost:2 U U
-Types:Creature Shapeshifter
-PT:*/*
-K:Morph:2 U
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | Layer$ Copy | ReplacementResult$ Updated | ReplaceWith$ MorphChoice
-R:Event$ TurnFaceUp | ValidCard$ Card.Self | ActiveZones$ Battlefield | Layer$ Copy | Secondary$ True | ReplaceWith$ MorphChoice
-SVar:MorphChoice:DB$ GenericChoice | Defined$ You | Choices$ BigTough,BigPower
-SVar:BigPower:DB$ Clone | Defined$ Self | SetPower$ 5 | SetToughness$ 1
-SVar:BigTough:DB$ Clone | Defined$ Self | SetPower$ 1 | SetToughness$ 5
+ManaCost:2 G
+Types:Creature Human Wizard
+PT:2/2
+K:Kicker:2 U:1 B
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self+kicked 1 | Execute$ TrigKicker
+SVar:TrigKicker:DB$ Discard | ValidTgts$ Player | NumCards$ 3 | Mode$ TgtChoose
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self+kicked 2 | Execute$ TrigKicker2
+SVar:TrigKicker2:DB$ Tap | ValidTgts$ Creature.untapped | SubAbility$ DBDamage
+SVar:DBDamage:DB$ DealDamage | Defined$ TargetedController | DamageSource$ Targeted | NumDmg$ X
+SVar:X:Targeted$CardPower
+SVar:PlayMain1:TRUE

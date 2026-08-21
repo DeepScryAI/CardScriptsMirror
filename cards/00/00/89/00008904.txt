@@ -1,9 +1,13 @@
 Id:8904
-ColorIdentity:G
+ColorIdentity:B
 OriginSet:Gce1d73449bd71b54
-ManaCost:1 G
-Types:Creature Human Shaman
-PT:1/1
-A:AB$ Draw | Cost$ T | NumCards$ 1 | Reveal$ All | RememberDrawn$ True | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | Mode$ Defined | Defined$ You | DefinedCards$ Remembered | ConditionDefined$ Remembered | ConditionPresent$ Card.nonLand | ConditionCompare$ EQ1 | SubAbility$ DBCleanup
+ManaCost:B
+Types:Instant
+K:Split second
+A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card.nonBasic | RememberTargets$ True | ForgetOtherTargets$ True | SubAbility$ ExileYard
+SVar:ExileYard:DB$ ChangeZoneAll | Origin$ Graveyard | Destination$ Exile | Defined$ TargetedController | ChangeType$ Remembered.sameName | SubAbility$ ExileHand
+SVar:ExileHand:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | DefinedPlayer$ TargetedController | ChangeType$ Remembered.sameName | ChangeNum$ NumInHand | Chooser$ You | SubAbility$ ExileLib
+SVar:ExileLib:DB$ ChangeZone | Origin$ Library | Destination$ Exile | DefinedPlayer$ TargetedController | ChangeType$ Remembered.sameName | ChangeNum$ NumInLib | Chooser$ You | Shuffle$ True | SubAbility$ DBCleanup
+SVar:NumInHand:TargetedController$CardsInHand
+SVar:NumInLib:TargetedController$CardsInLibrary
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

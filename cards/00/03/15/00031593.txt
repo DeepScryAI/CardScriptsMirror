@@ -1,15 +1,13 @@
 Id:31593
-ColorIdentity:WR
-OriginSet:G530ea9d733a13e9d
-ManaCost:2 R W
-Types:Legendary Creature Human Artificer Noble
-PT:2/4
-S:Mode$ Continuous | Affected$ Artifact.nonLand+YouOwn | Condition$ PlayerTurn | MayPlay$ True | MayPlayLimit$ 1 | EffectZone$ Battlefield | AffectedZone$ Graveyard
-T:Mode$ SpellCast | ValidCard$ Card.CastSa Spell.MayPlaySource | Execute$ TrigEffect | Static$ True | TriggerZones$ Battlefield
-SVar:TrigEffect:DB$ Effect | ReplacementEffects$ ReMoved | RememberObjects$ TriggeredCard
-SVar:ReMoved:Event$ Moved | Origin$ Stack | ValidCard$ Card.IsRemembered | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | ETB$ True | Defined$ ReplacedCard | SubAbility$ RemoveSelf
-SVar:RemoveSelf:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +X
-SVar:X:Count$Valid Artifact.YouCtrl$GreatestCardManaCost
+ColorIdentity:B
+OriginSet:Gf2b808f4f642ac62
+ManaCost:3 B
+Types:Creature Zombie Warrior
+PT:4/2
+S:Mode$ Continuous | Affected$ Card.Self | AddPower$ 2 | AddToughness$ 4 | CheckSVar$ X | SVarCompare$ GE3
+S:Mode$ Continuous | Affected$ Card.Self | AffectedZone$ Graveyard | EffectZone$ Graveyard | MayPlay$ True
+T:Mode$ SpellCast | ValidCard$ Card | ValidSA$ Spell.MayPlaySource | Static$ True | Execute$ ReplEffAddCounter | TriggerZones$ Stack | Secondary$ True
+SVar:ReplEffAddCounter:DB$ Effect | ReplacementEffects$ ETBAddCounter | RememberObjects$ TriggeredCard
+SVar:ETBAddCounter:Event$ Moved | Origin$ Stack | Destination$ Battlefield | ValidCard$ Card.IsRemembered | ReplaceWith$ ETBAddExtraCounter | ReplacementResult$ Updated
+SVar:ETBAddExtraCounter:DB$ PutCounter | ETB$ True | Defined$ ReplacedCard | CounterType$ FINALITY | CounterNum$ 1
+SVar:X:Count$DifferentCounterKinds_Creature.YouCtrl

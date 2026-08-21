@@ -1,8 +1,9 @@
 Id:14171
-ColorIdentity:WR
+ColorIdentity:
 OriginSet:Gc18355312510df89
-ManaCost:R W
-Types:Sorcery
-K:Strive:R W
-A:SP$ Pump | ValidTgts$ Creature | NumAtt$ +2 | KW$ FirstStrike & Vigilance | TargetMin$ 0 | TargetMax$ MaxTargets
-SVar:MaxTargets:Count$Valid Creature
+ManaCost:2
+Types:Artifact
+K:You may choose not to untap CARDNAME during your untap step.
+A:AB$ Tap | Cost$ 6 T | ValidTgts$ Creature | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | IsCurse$ True | ReplacementEffects$ DontUntap | Duration$ UntilUntaps | RememberObjects$ Targeted | ExileOnMoved$ Battlefield
+SVar:DontUntap:Event$ Untap | ValidCard$ Card.IsRemembered | ValidStepTurnToController$ You | Layer$ CantHappen

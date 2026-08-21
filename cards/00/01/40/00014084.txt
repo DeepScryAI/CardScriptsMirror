@@ -1,8 +1,11 @@
 Id:14084
-ColorIdentity:G
+ColorIdentity:B
 OriginSet:Gdaee41baa388b0e7
-ManaCost:1 G G
-Types:Creature Satyr Warrior
-PT:1/1
-T:Mode$ SpellCast | ValidActivatingPlayer$ You | TargetsValid$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 2
+ManaCost:2 B
+Types:Creature Zombie
+PT:1/3
+A:AB$ Regenerate | Cost$ 2 B
+T:Mode$ Untaps | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigDrain
+SVar:TrigDrain:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 1 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ AFLifeLost
+SVar:AFLifeLost:Number$0

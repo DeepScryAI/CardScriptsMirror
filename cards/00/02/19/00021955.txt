@@ -1,11 +1,14 @@
 Id:21955
-ColorIdentity:BG
-OriginSet:Gd784248bfdf9e1d7
-ManaCost:B G
-Types:Legendary Creature Dryad Druid
-PT:1/3
-T:Mode$ LifeGained | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDrain
-SVar:TrigDrain:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 1
-A:AB$ Pump | Cost$ 1 Sac<1/Creature.Other/another creature> | Defined$ Self | NumAtt$ +X | AILogic$ Aristocrat
-SVar:X:Sacrificed$CardPower
-SVar:AIPreference:SacCost$Creature.Other
+ColorIdentity:W
+OriginSet:G6fa60d857e930f32
+ManaCost:2 W
+Types:Legendary Creature Bird Advisor
+PT:2/3
+K:Flying
+A:AB$ Effect | Cost$ 0 | ValidTgts$ Instant.YouOwn,Sorcery.YouOwn | TgtZone$ Graveyard | ActivationLimit$ 1 | RememberObjects$ Targeted | StaticAbilities$ MayPlay,RaiseCost | ReplacementEffects$ ReplaceGraveyard | SubAbility$ DBCleanup
+SVar:MayPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered+nonLand | AffectedZone$ Graveyard
+SVar:RaiseCost:Mode$ RaiseCost | ValidCard$ Card.IsRemembered+CastSa Spell.MayPlaySource | ValidTarget$ Creature.YouCtrl+inZoneBattlefield | UnlessValidTarget$ True | Activator$ You | Type$ Spell | Amount$ 8
+SVar:ReplaceGraveyard:Event$ Moved | ValidLKI$ Card.IsRemembered+CastSa Spell.MayPlaySource | Destination$ Graveyard | ReplaceWith$ MoveExile
+SVar:MoveExile:DB$ ChangeZone | Defined$ ReplacedCard | Origin$ All | Destination$ Exile | SubAbility$ ExileSelf
+SVar:ExileSelf:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

@@ -1,9 +1,12 @@
 Id:11063
-ColorIdentity:R
+ColorIdentity:U
 OriginSet:Gd09f2fd86b2e8dd0
-ManaCost:R
+ManaCost:U
 Types:Enchantment
-S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddPower$ 2 | IsPresent$ Card.Self+counters_GE5_QUEST
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Goblin.YouCtrl | Execute$ TrigPutCounter | OptionalDecider$ You | TriggerZones$ Battlefield
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ QUEST | CounterNum$ 1
-SVar:MaxQuestEffect:5
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigPeek | TriggerZones$ Battlefield | OptionalDecider$ You
+SVar:TrigPeek:DB$ PeekAndReveal | RevealValid$ Creature | RevealOptional$ True | RememberRevealed$ True | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | CounterType$ QUEST | CounterNum$ 1 | Defined$ Self | ConditionDefined$ Remembered | ConditionPresent$ Creature | ConditionCompare$ EQ1 | SubAbility$ DBCleanup
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ Player | Execute$ TrigChangeZone | OptionalDecider$ You | TriggerZones$ Battlefield | IsPresent$ Card.Self+counters_GE3_QUEST | PresentCompare$ EQ1
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | ChangeType$ Creature.Kraken,Creature.Leviathan,Creature.Octopus,Creature.Serpent | ChangeNum$ 1 | Hidden$ True
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:MaxQuestEffect:3

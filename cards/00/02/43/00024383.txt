@@ -1,16 +1,9 @@
 Id:24383
-ColorIdentity:W
+ColorIdentity:R
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:5 W
-Types:Creature Pegasus
-PT:3/3
-K:Flying
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | Revolt$ True | TriggerZones$ Battlefield | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 315831722
-AlternateMode:Adventure
-ALTERNATE
-ManaCost:1 W
-Types:Instant Adventure
-A:SP$ ChangeZone | ValidTgts$ Creature.YouCtrl | Origin$ Battlefield | Destination$ Exile | RememberTargets$ True | SubAbility$ DBReturn
-SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:1 R
+Types:Creature Dwarf Bard
+PT:2/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCanNotBlock
+SVar:TrigCanNotBlock:DB$ Pump | ValidTgts$ Creature.OppCtrl | KW$ HIDDEN CARDNAME can't block. | IsCurse$ True | SubAbility$ DBGoad
+SVar:DBGoad:DB$ Goad | Defined$ Targeted

@@ -1,9 +1,11 @@
 Id:29022
-ColorIdentity:G
-OriginSet:G27146c70b74a1e72
-ManaCost:2 G
-Types:Creature Human Druid
-PT:3/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | IsPresent$ Creature.YouCtrl+powerGE4 | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You
-K:Plot:1 G
+ColorIdentity:WR
+OriginSet:Gaf7c94f364052cdd
+ManaCost:1 R W
+Types:Legendary Creature Human Knight
+PT:3/2
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | IsPresent$ Creature.attacking+Other | NoResolvingCheck$ True | PresentCompare$ GE2 | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | ChangeType$ Creature.YouCtrl+cmcLEX | Origin$ Hand | Tapped$ True | Attacking$ True | Destination$ Battlefield
+SVar:X:Count$CardPower
+SVar:HasAttackEffect:TRUE

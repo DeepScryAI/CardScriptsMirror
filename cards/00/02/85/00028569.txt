@@ -1,11 +1,11 @@
 Id:28569
-ColorIdentity:BR
+ColorIdentity:U
 OriginSet:G7ee0e82a2424d636
-ManaCost:4 B R
-Types:Legendary Creature Demon
-PT:6/6
+ManaCost:2 U
+Types:Creature Faerie Detective
+PT:2/2
+S:Mode$ OptionalCost | EffectZone$ All | ValidCard$ Card.Self | ValidSA$ Spell | Cost$ CollectEvidence<6>
 K:Flying
-K:Trample
-T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | ValidPlayer$ You | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | IsCurse$ True | ValidTgts$ Opponent | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | UnlessCost$ Sac<2/Permanent.nonLand+!token/nonland nontoken permanents> | UnlessPayer$ Targeted | NumCards$ 2 | Defined$ You
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigTap
+SVar:TrigTap:DB$ Tap | ValidTgts$ Creature | SubAbility$ DBStun
+SVar:DBStun:DB$ PutCounter | Defined$ Targeted | CounterType$ Stun | CounterNum$ 1 | ConditionDefined$ CastSA>Collected | ConditionPresent$ Card

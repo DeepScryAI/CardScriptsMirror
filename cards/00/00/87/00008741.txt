@@ -1,13 +1,12 @@
 Id:8741
 ColorIdentity:B
 OriginSet:G70f74088c47d66bd
-ManaCost:2 B B
-Types:Creature Human Assassin
-PT:2/1
-K:FirstStrike
-K:Madness:1 B
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigReveal | OptionalDecider$ You
-SVar:TrigReveal:DB$ Reveal | Defined$ You | RevealValid$ Card.Black | AnyNumber$ True | RememberRevealed$ True | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | ValidTgts$ Creature | NumAtt$ -X | NumDef$ -X | IsCurse$ True | SubAbility$ DBNightshadeCleanup
-SVar:DBNightshadeCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Remembered$Amount
+ManaCost:B B
+Types:Creature Spirit
+PT:1/1
+K:Haste
+K:Shadow
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl+Other | OptionalDecider$ You | TriggerZones$ Graveyard | Execute$ TrigReturn
+SVar:TrigReturn:AB$ ChangeZone | Cost$ B | Defined$ Self | Origin$ Graveyard | Destination$ Battlefield
+SVar:SacMe:1
+SVar:DiscardMe:1

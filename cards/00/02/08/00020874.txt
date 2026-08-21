@@ -1,15 +1,9 @@
 Id:20874
-ColorIdentity:B
+ColorIdentity:R
 OriginSet:Gfd5e6da37c69dc53
-ManaCost:1 B B
-Types:Sorcery
-A:SP$ NameCard | Defined$ You | ValidCards$ Card.nonBasic | SubAbility$ ExileYard
-SVar:ExileYard:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Player.Opponent | ChangeType$ Card.NamedCard | Chooser$ You | ChangeNum$ NumInYard | Hidden$ True | SubAbility$ ExileHand
-SVar:ExileHand:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | DefinedPlayer$ Targeted | ChangeType$ Card.NamedCard | ChangeNum$ NumInHand | Chooser$ You | RememberChanged$ True | SubAbility$ ExileLib
-SVar:ExileLib:DB$ ChangeZone | Origin$ Library | Destination$ Exile | DefinedPlayer$ Targeted | ChangeType$ Card.NamedCard | ChangeNum$ NumInLib | Chooser$ You | Shuffle$ True | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenAmount$ X | TokenScriptIds$ 353162950 | TokenOwner$ Targeted | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:NumInLib:TargetedPlayer$CardsInLibrary
-SVar:NumInHand:TargetedPlayer$CardsInHand
-SVar:NumInYard:TargetedPlayer$CardsInGraveyard
-SVar:X:Remembered$Amount
+ManaCost:3 R R
+Types:Creature Hellion
+PT:4/2
+K:Haste
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSearch | OptionalDecider$ You
+SVar:TrigSearch:DB$ ChangeZone | Optional$ True | Origin$ Library | OriginAlternative$ Graveyard | Destination$ Hand | ChangeType$ Card.YouOwn+catalogId20878 | ChangeNum$ 1

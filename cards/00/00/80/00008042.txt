@@ -1,12 +1,10 @@
 Id:8042
-ColorIdentity:WG
+ColorIdentity:BG
 OriginSet:Gc563c209d627c4c5
-ManaCost:4 G W
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAITgts:Card.powerGE1
-SVar:AttachAILogic:Pump
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddKeyword$ Flying
-T:Mode$ DamageDone | ValidSource$ Card.AttachedBy | CombatDamage$ True | ValidTarget$ Player | TriggerZones$ Battlefield | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenAmount$ X | TokenScriptIds$ 3815350479 | TokenOwner$ You
-SVar:X:TriggerCount$DamageAmount
+ManaCost:3
+Types:Artifact
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ PutPlagueCounter
+SVar:PutPlagueCounter:DB$ PutCounter | Defined$ Self | CounterType$ PLAGUE | CounterNum$ 1
+A:AB$ AddOrRemoveCounter | Cost$ 1 B G | Defined$ Self | CounterType$ PLAGUE | CounterNum$ 1
+T:Mode$ Always | TriggerZones$ Battlefield | IsPresent$ Card.Self+counters_GE3_PLAGUE | Execute$ TrigDestroyAll
+SVar:TrigDestroyAll:AB$ DestroyAll | ValidCards$ Permanent.nonLand | Cost$ Mandatory Sac<1/CARDNAME>

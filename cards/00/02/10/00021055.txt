@@ -1,10 +1,10 @@
 Id:21055
-ColorIdentity:WB
-OriginSet:G7b2607750b451c25
-ManaCost:2 W B
-Types:Legendary Creature Kor Cleric
+ColorIdentity:W
+OriginSet:G2f853d6139309fb0
+ManaCost:3 W W
+Types:Creature Bird Soldier
 PT:3/3
-K:Lifelink
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self,Cleric.YouCtrl+Other | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZone | ValidTgts$ Cleric.cmcLTX+YouOwn | Origin$ Graveyard | Destination$ Battlefield
-SVar:X:TriggeredCard$CardManaCost
+K:Flying
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ PumpAll | ValidCards$ Creature.attacking+withFlying+Other+YouCtrl | NumAtt$ +2 | NumDef$ +2
+SVar:HasAttackEffect:TRUE

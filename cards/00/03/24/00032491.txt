@@ -1,9 +1,13 @@
 Id:32491
-ColorIdentity:R
-OriginSet:G66b3a7eeabd9000e
-ManaCost:4 R
-Types:Legendary Creature Dinosaur Villain
-PT:5/4
-K:Menace
-A:AB$ Pump | Cost$ 1 R Discard<1/CARDNAME> | ValidTgts$ Creature.YouCtrl | NumAtt$ +3 | NumDef$ +1 | ActivationZone$ Hand | SubAbility$ DBAnimate
-SVar:DBAnimate:DB$ Animate | Defined$ Targeted | Types$ Dinosaur
+ColorIdentity:UB
+OriginSet:G324b911e0e372b1b
+ManaCost:8 U B
+Types:Legendary Artifact Creature Robot Octopus
+PT:8/8
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ X | EffectZone$ All
+SVar:X:Count$ValidGraveyard Creature.YouOwn/Twice
+T:Mode$ ChangesZone | Destination$ Battlefield | ValidCard$ Creature.wasCastByYou+YouCtrl+Other | Execute$ TrigSac | TriggerZones$ Battlefield
+SVar:TrigSac:DB$ SacrificeAll | Defined$ TriggeredCardLKICopy | SubAbility$ DBConjure
+SVar:DBConjure:DB$ MakeCard | Conjure$ True | DefinedName$ TriggeredCardLKICopy | Zone$ Battlefield | RememberMade$ True | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Remembered | Types$ Artifact,Robot | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

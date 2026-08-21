@@ -1,9 +1,13 @@
 Id:27033
 ColorIdentity:B
-OriginSet:G6ce0035cfb774934
-ManaCost:1 B
-Types:Enchantment
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigAmass
-T:Mode$ Attacks | ValidCard$ Army.YouCtrl | Execute$ TrigAmass | TriggerZones$ Battlefield | Secondary$ True
-SVar:TrigAmass:DB$ Amass | Type$ Orc | Num$ 1
+OriginSet:G3601f5e223de6c7f
+ManaCost:3 B
+Types:Legendary Creature Spider Demon
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.OppCtrl+!token | TriggerZones$ Battlefield | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Exile
+A:AB$ PutCounter | Cost$ 2 B ExiledMoveToGrave<1/Creature.ExiledWithSource> | CounterType$ P1P1 | CounterNum$ 2 | SubAbility$ TrigDraw
+SVar:TrigDraw:DB$ Draw
+A:AB$ ChangeZone | Cost$ X 1 B | Origin$ Exile | Destination$ Battlefield | Tapped$ True | ValidTgts$ Creature.ExiledWithSource+cmcEQX | GainControl$ True
+SVar:X:Count$xPaid
 SVar:PlayMain1:TRUE

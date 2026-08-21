@@ -1,13 +1,10 @@
 Id:24154
-ColorIdentity:B
-OriginSet:G51fcb7ec0cb81c29
-ManaCost:5 B B
-Types:Creature Elder Dragon
-PT:7/6
-K:Flying
-T:Mode$ DamageDone | ValidSource$ Card.Self | Execute$ TrigRoll | CombatDamage$ True | ValidTarget$ Player | TriggerZones$ Battlefield
-SVar:TrigRoll:DB$ RollDice | ResultSVar$ Result | Sides$ 20 | SubAbility$ DBImmediateTrigger
-SVar:DBImmediateTrigger:DB$ ImmediateTrigger | Execute$ TrigChangeZone | RememberSVarAmount$ Result
-SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | TargetMin$ 0 | TargetMax$ Y | ValidTgts$ Creature | MaxTotalTargetCMC$ X | GainControl$ True
-SVar:X:Count$TriggerRememberAmount
-SVar:Y:Count$ValidGraveyard Creature
+ColorIdentity:U
+OriginSet:G9afc9838c5e994df
+ManaCost:5 U
+Types:Creature Crocodile
+PT:4/6
+A:AB$ Effect | Cost$ 3 U | RememberObjects$ Self | ReduceCost$ X | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+SVar:X:Count$Compare Y GE5.3.0
+SVar:Y:Count$ValidGraveyard Card.YouOwn$DifferentCardManaCost

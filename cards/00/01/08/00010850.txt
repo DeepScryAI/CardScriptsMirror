@@ -1,7 +1,9 @@
 Id:10850
-ColorIdentity:U
+ColorIdentity:R
 OriginSet:G4398040c23c94f0e
-ManaCost:3 U
+ManaCost:6 R R
 Types:Instant Trap
-S:Mode$ AlternativeCost | ValidSA$ Spell.Self | EffectZone$ All | Cost$ U | IsPresent$ Creature.attacking | PresentCompare$ GE3
-A:SP$ PumpAll | ValidCards$ Creature.attacking | NumAtt$ -3 | IsCurse$ True
+S:Mode$ AlternativeCost | ValidSA$ Spell.Self | EffectZone$ All | Cost$ 3 R R | CheckSVar$ LandsEntered
+A:SP$ Destroy | TargetMin$ 2 | TargetMax$ 2 | ValidTgts$ Land | SubAbility$ DBDamageAll
+SVar:DBDamageAll:DB$ DamageAll | ValidCards$ Creature | NumDmg$ 4
+SVar:LandsEntered:PlayerCountOpponents$ConditionGE2 ThisTurnEntered_Battlefield_Land.YouCtrl

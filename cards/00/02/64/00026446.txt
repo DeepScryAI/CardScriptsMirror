@@ -1,16 +1,14 @@
 Id:26446
 ColorIdentity:BG
-OriginSet:G06757f68e16377c2
-ManaCost:1 B
-Types:Creature Fungus
-PT:2/2
-A:AB$ SetState | Cost$ 3 GP | Defined$ Self | Mode$ Transform | SorcerySpeed$ True | AILogic$ Always
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:black,green
-Types:Creature Phyrexian Fungus
-PT:3/3
-T:Mode$ Transformed | ValidCard$ Card.Self | Execute$ TrigToken
-T:Mode$ ChangesZone | Destination$ Graveyard | Origin$ Battlefield | ValidCard$ Card.Self | TriggerZones$ Battlefield | Secondary$ True | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 1909102685
+OriginSet:G74a73d701e7801b3
+ManaCost:1 B G
+Types:Legendary Creature Phyrexian Warlock
+PT:2/4
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Creature | CounterType$ OIL
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl+!token+counters_GE1_OIL | TriggerZones$ Battlefield | Execute$ TrigConjure
+SVar:TrigConjure:DB$ MakeCard | Conjure$ True | DefinedName$ TriggeredCardLKICopy | Amount$ X | Zone$ Exile | RememberMade$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Pump | PumpZone$ Exile | Defined$ Remembered | NumAtt$ +X | NumDef$ +X | Duration$ Perpetual | SubAbility$ DBShuffle
+SVar:DBShuffle:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Library | Shuffle$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:TriggeredCard$CardCounters.OIL

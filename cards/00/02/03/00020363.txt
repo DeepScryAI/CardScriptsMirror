@@ -1,9 +1,12 @@
 Id:20363
-ColorIdentity:B
+ColorIdentity:W
 OriginSet:Gfa87e7bbc5a709eb
-ManaCost:B
+ManaCost:1 W
 Types:Enchantment Aura
 K:Enchant:Creature
-SVar:AttachAILogic:Pump
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 2 | AddToughness$ -1
-K:Escape:2 B ExileFromGrave<2/Card.Other/other>
+K:etbCounter:TASK:4
+SVar:AttachAILogic:Curse
+S:Mode$ CantAttack,CantBlock | ValidCard$ Creature.EnchantedBy
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | RemoveAllAbilities$ True | AddAbility$ ABRemoveCounter | AddSVar$ DBHeliodsPunishment
+SVar:ABRemoveCounter:AB$ RemoveCounter | Cost$ T | CounterType$ TASK | CounterNum$ 1 | Defined$ OriginalHost | SubAbility$ DBHeliodsPunishment
+SVar:DBHeliodsPunishment:DB$ Destroy | Defined$ OriginalHost | ConditionDefined$ OriginalHost | ConditionPresent$ Card.counters_EQ0_TASK

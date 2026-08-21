@@ -1,11 +1,10 @@
 Id:25194
-ColorIdentity:B
+ColorIdentity:G
 OriginSet:Gf591a76e7a37cf73
-ManaCost:2 B
-Types:Creature Zombie
-PT:3/1
-K:Deathtouch
-T:Mode$ SpellCast | ValidCard$ Card.!wasCastFromYourHand | ValidActivatingPlayer$ You | TriggerZones$ Graveyard | Execute$ TrigChange
-SVar:TrigChange:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | Tapped$ True
-SVar:SacMe:3
-SVar:DiscardMe:3
+ManaCost:2 G
+Types:Artifact Equipment
+K:Equip:3
+T:Mode$ Attacks | ValidCard$ Creature.EquippedBy | Execute$ TrigCounter
+SVar:TrigCounter:DB$ PutCounter | Defined$ TriggeredAttackerLKICopy | CounterType$ P1P1 | CounterNum$ 4
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddSVar$ AE
+SVar:AE:SVar:HasAttackEffect:TRUE

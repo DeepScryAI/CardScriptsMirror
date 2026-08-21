@@ -1,10 +1,10 @@
 Id:14956
-ColorIdentity:UBG
+ColorIdentity:G
 OriginSet:G25ee1eefb1a14f05
-ManaCost:4 U
-Types:Creature Elemental
-PT:3/5
-K:Flying
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigTap
-SVar:TrigTap:DB$ TapAll | ValidCards$ Creature.ControlledBy TriggeredDefendingPlayer
-A:AB$ ChangeZone | Cost$ 3 BG BG | ActivationZone$ Exile | Origin$ Exile | Destination$ Battlefield | Tapped$ True | SorcerySpeed$ True
+ManaCost:4 G G
+Types:Creature Human Shaman
+PT:4/5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigManifest
+SVar:TrigManifest:DB$ Manifest
+T:Mode$ TurnFaceUp | ValidCard$ Permanent.Creature+YouCtrl | Execute$ TrigFight | TriggerZones$ Battlefield | OptionalDecider$ You
+SVar:TrigFight:DB$ Fight | Defined$ TriggeredCardLKICopy | ValidTgts$ Creature.YouDontCtrl

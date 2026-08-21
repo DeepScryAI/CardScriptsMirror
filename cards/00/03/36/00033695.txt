@@ -1,15 +1,11 @@
 Id:33695
-ColorIdentity:W
-OriginSet:G14da29c4716bedc3
-ManaCost:3 W
-Types:Creature Griffin
-PT:2/2
+ColorIdentity:
+OriginSet:G23d1f017cc66962f
+ManaCost:9
+Types:Legendary Artifact Creature Utrom Robot
+PT:9/9
 K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDig
-SVar:TrigDig:DB$ Dig | Defined$ You | DigNum$ 8 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBPlay
-SVar:DBPlay:DB$ Play | Valid$ Aura.IsRemembered | ValidSA$ Spell | WithoutManaCost$ True | ValidZone$ Exile | Controller$ You | Optional$ True | Amount$ 1 | SubAbility$ PutRestBackBottomLibrary
-SVar:PutRestBackBottomLibrary:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered | Origin$ Exile | Destination$ Library | LibraryPosition$ -1 | RandomOrder$ True | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +X | NumDef$ +X
-SVar:X:Count$Valid Aura.YouCtrl
+K:Trample
+K:Indestructible
+K:Haste
+S:Mode$ Continuous | Affected$ Creature.Artifact+Other+YouCtrl | AddKeyword$ Flying & Trample & Indestructible & Haste

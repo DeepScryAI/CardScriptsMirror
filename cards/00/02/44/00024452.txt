@@ -2,13 +2,10 @@ Id:24452
 ColorIdentity:B
 OriginSet:G51fcb7ec0cb81c29
 ManaCost:3 B
-Types:Creature Crab Ooze Horror
-PT:*/4
-S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Creature.OppOwn | TargetMin$ 0 | TargetMax$ 1 | RememberChanged$ True | SubAbility$ DBCopy
-SVar:DBCopy:DB$ CopyPermanent | Defined$ Self | NumCopies$ Y | SubAbility$ DBCleanup
-SVar:X:Count$Valid Crab.YouCtrl,Ooze.YouCtrl,Horror.YouCtrl
-SVar:Y:Remembered$Amount
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:BuffedBy:Crab,Ooze,Horror
+Types:Creature Tiefling Warlock
+PT:2/2
+K:Lifelink
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigInitiative
+SVar:TrigInitiative:DB$ TakeInitiative
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | CheckDefinedPlayer$ You.hasInitiative | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | CounterType$ P1P1

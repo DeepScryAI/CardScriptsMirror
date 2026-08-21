@@ -1,9 +1,12 @@
 Id:25231
-ColorIdentity:UR
+ColorIdentity:W
 OriginSet:Gf591a76e7a37cf73
-ManaCost:1 U R
-Types:Enchantment
-T:Mode$ ChangesZone | ExcludedOrigins$ Hand | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigToken
-T:Mode$ ChangesZone | Origin$ Hand | Destination$ Battlefield | ValidCard$ Land.YouCtrl+YouDontOwn | TriggerZones$ Battlefield | Execute$ TrigToken | Secondary$ True
-T:Mode$ SpellCast | ValidCard$ Card.!wasCastFromYourHand | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigToken | Secondary$ True
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 3311816755
+ManaCost:4 W
+Types:Creature Astartes Knight
+PT:4/4
+K:Flash
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigBranch
+SVar:TrigBranch:DB$ Branch | ValidTgts$ Creature.attacking | BranchConditionSVar$ X | BranchConditionSVarCompare$ EQ1 | TrueSubAbility$ ExileDemon | FalseSubAbility$ DestroyAttacker
+SVar:DestroyAttacker:DB$ Destroy | Defined$ Targeted
+SVar:ExileDemon:DB$ ChangeZone | Defined$ Targeted | Origin$ Battlefield | Destination$ Exile
+SVar:X:Targeted$Valid Creature.Demon

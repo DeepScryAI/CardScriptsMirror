@@ -1,13 +1,10 @@
 Id:34123
-ColorIdentity:W
-OriginSet:Gcb93bbfc68a40806
-ManaCost:3 W W
-Types:Legendary Creature Demigod Warrior Hero
-PT:3/3
-T:Mode$ Attacks | ValidCard$ Creature.Self | Execute$ TrigPutCounter1
-SVar:TrigPutCounter1:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | KW$ Indestructible | Defined$ Self
-T:Mode$ DamageDoneOnce | ValidTarget$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPutCounter2 | FirstTime$ True
-SVar:TrigPutCounter2:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ X
-SVar:X:TriggerCount$DamageAmount
-SVar:HasAttackEffect:TRUE
+ColorIdentity:G
+OriginSet:Gf8df2bea26dc6b68
+ManaCost:X G
+Types:Sorcery
+A:SP$ Token | TokenScriptIds$ 1802199211 | RememberTokens$ True | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Remembered | CounterType$ P1P1 | CounterNum$ X | SubAbility$ DBSurveil
+SVar:DBSurveil:DB$ Surveil | Amount$ 2 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$xPaid

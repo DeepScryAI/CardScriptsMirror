@@ -1,7 +1,11 @@
 Id:14497
-ColorIdentity:W
+ColorIdentity:
 OriginSet:Gd3737676789056fe
-ManaCost:4 W W
-Types:Sorcery
-K:Convoke
-A:SP$ Token | TokenAmount$ 3 | TokenScriptIds$ 273812182 | TokenOwner$ You
+ManaCost:4
+Types:Legendary Artifact
+T:Mode$ Phase | Phase$ End of Turn | CheckSVar$ X | SVarCompare$ EQ0 | ValidPlayer$ You | Execute$ TrigLoseLife | TriggerZones$ Battlefield
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ 2
+A:AB$ Effect | Cost$ 4 T | StaticAbilities$ LoyaltyAbs | AILogic$ ChainVeil
+SVar:LoyaltyAbs:Mode$ NumLoyaltyAct | ValidCard$ Planeswalker.YouCtrl | Additional$ 1
+SVar:X:Count$ThisTurnActivated_Activated.Loyalty+Planeswalker+YouCtrl
+SVar:NeedsToPlay:Planeswalker.YouCtrl

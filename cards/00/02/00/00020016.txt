@@ -1,15 +1,14 @@
 Id:20016
-ColorIdentity:W
+ColorIdentity:B
 OriginSet:G23be9f486a22d38a
-ManaCost:5 W
-Types:Creature Human Knight
-PT:*/*
+ManaCost:2 B B
+Types:Legendary Creature Faerie Rogue
+PT:3/3
 K:Flying
-K:Vigilance
-S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X | SetToughness$ X
-SVar:X:Count$Valid Creature.YouCtrl
-SVar:BuffedBy:Creature
-SVar:NoZeroToughnessAI:True
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenOwner$ You | TokenAmount$ Y | TokenScriptIds$ 1066714595
-SVar:Y:PlayerCountOpponents$Amount
+K:Haste
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | Choices$ DBDiscard,DBLoseLife,DBSac | MinCharmNum$ 0 | CharmNum$ 3
+SVar:DBDiscard:DB$ Discard | Mode$ TgtChoose | Defined$ Player | AILogic$ AnyPhaseIfFavored
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 1 | Defined$ Player | SubAbility$ DBDraw | AILogic$ AnyPhase
+SVar:DBDraw:DB$ Draw | Defined$ Player | NumCards$ 1
+SVar:DBSac:DB$ Sacrifice | SacValid$ Creature | Defined$ Player

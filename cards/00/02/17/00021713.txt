@@ -3,11 +3,8 @@ ColorIdentity:WU
 OriginSet:G18bf722b221724f8
 ManaCost:1 W U
 Types:Enchantment Saga
-K:Chapter:3:DBToken,DBEffect,DBWish
-SVar:DBToken:DB$ Token | TokenScriptIds$ 4227844541 | TokenOwner$ You | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2
-SVar:DBEffect:DB$ Effect | Triggers$ TrigDamage
-SVar:TrigDamage:Mode$ DamageDoneOnce | ValidSource$ Creature.YouCtrl+withFlying | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigPeek
-SVar:TrigPeek:DB$ RevealHand | Defined$ TriggeredTarget | SubAbility$ DBDraw | Look$ True
-SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1
-SVar:DBWish:DB$ ChangeZone | Origin$ Sideboard | Destination$ Library | OptionalDecider$ You | ChangeType$ Card.YouOwn | ChangeNum$ 1 | Optional$ True | Hidden$ True
+K:Chapter:3:DBGainLife,DBMana,DBChangeZone
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ X
+SVar:X:Count$ValidExile Card.foretold+YouOwn/Times.2
+SVar:DBMana:DB$ Mana | Produced$ W U | RestrictValid$ Static.Foretelling,Spell.withForetell
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Card.YouOwn+withForetell

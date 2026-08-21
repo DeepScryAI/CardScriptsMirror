@@ -1,16 +1,11 @@
 Id:26563
-ColorIdentity:WB
-OriginSet:G06757f68e16377c2
-ManaCost:3 W B
-Types:Battle Siege
-Defense:5
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
-SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Permanent.nonBattle+YouCtrl
-AlternateMode:DoubleFaced
-ALTERNATE
+ColorIdentity:
+OriginSet:Gd5f5e54fa26ae40d
 ManaCost:no cost
-Colors:white,black
-Types:Enchantment
-S:Mode$ Continuous | Affected$ Creature.token+YouCtrl | AddPower$ 1 | AddKeyword$ Lifelink
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenOwner$ You | TokenScriptIds$ 1377738288
+Types:Plane The Abyss
+T:Mode$ PlaneswalkedTo | ValidCard$ Card.Self | Execute$ TrigChoice | TriggerZones$ Command
+SVar:TrigChoice:DB$ GenericChoice | Defined$ Player | Choices$ Angel,Demon | TempRemember$ Chooser | ChangeZoneTable$ True
+SVar:Angel:DB$ Token | TokenScriptIds$ 1162405091 | TokenOwner$ Remembered
+SVar:Demon:DB$ Token | TokenScriptIds$ 3641619819 | TokenOwner$ Remembered
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos
+SVar:RolledChaos:DB$ Sacrifice | SacValid$ Creature.nonArtifact | Defined$ Player

@@ -1,10 +1,8 @@
 Id:12603
 ColorIdentity:W
 OriginSet:Gfd7b72e0eb9d2cf5
-ManaCost:4 W
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:Pump
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddTrigger$ CommanderTrig | AddSVar$ CommanderToken
-SVar:CommanderTrig:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ CommanderToken
-SVar:CommanderToken:DB$ Token | TokenScriptIds$ 638238902 | TokenOwner$ You
+ManaCost:W
+Types:Instant
+A:SP$ ChangeZone | ValidTgts$ Creature.YouCtrl | Origin$ Battlefield | Destination$ Exile | RememberTargets$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ All | Destination$ Battlefield | GainControl$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

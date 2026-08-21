@@ -1,6 +1,16 @@
 Id:17242
-ColorIdentity:B
+ColorIdentity:WR
 OriginSet:G4b92e66c84393de5
-ManaCost:2 B
+ManaCost:1 W
+Types:Instant
+A:SP$ ChangeZone | ValidTgts$ Permanent.YouOwn | TargetMin$ 0 | TargetMax$ X | Origin$ Battlefield | Destination$ Hand
+SVar:X:Count$Valid Permanent.YouOwn
+AlternateMode:Split
+ALTERNATE
+ManaCost:3 R
 Types:Sorcery
-A:SP$ Destroy | Cost$ 2 B AddCounter<1/M1M1/Creature.YouCtrl/a creature you control> | ValidTgts$ Creature
+K:Aftermath
+A:SP$ Discard | AnyNumber$ True | Optional$ True | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ Y | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:Y:Remembered$Amount

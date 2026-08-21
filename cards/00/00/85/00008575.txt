@@ -1,8 +1,10 @@
 Id:8575
-ColorIdentity:R
+ColorIdentity:U
 OriginSet:Gf7b8c9355081f53b
-ManaCost:4 R
-Types:Snow Creature Slug
-PT:4/3
-A:AB$ Mana | Cost$ Sac<1/Creature> | Produced$ R
-A:AB$ Pump | Cost$ S | KW$ Haste | Defined$ Self
+ManaCost:U
+Types:Instant
+A:SP$ Charm | Choices$ ChooseFreeze,ChooseThaw | Defined$ You
+SVar:ChooseFreeze:DB$ Animate | ValidTgts$ Permanent.nonSnow | Types$ Snow | SubAbility$ DelTrigSlowtrip
+SVar:ChooseThaw:DB$ Animate | ValidTgts$ Permanent.Snow | RemoveTypes$ Snow | SubAbility$ DelTrigSlowtrip
+SVar:DelTrigSlowtrip:DB$ DelayedTrigger | NextTurn$ True | Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Player | Execute$ DrawSlowtrip
+SVar:DrawSlowtrip:DB$ Draw | Defined$ You

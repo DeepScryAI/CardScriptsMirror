@@ -1,14 +1,10 @@
 Id:33850
-ColorIdentity:W
-OriginSet:Gf8df2bea26dc6b68
-ManaCost:1 W
-Types:Creature Human Cleric
-PT:1/1
-K:DoubleStrike
-K:ETBReplacement:Other:DBPrepare
-SVar:DBPrepare:DB$ AlterAttribute | Attributes$ Prepared
-AlternateMode:Prepare
-ALTERNATE
-ManaCost:1 W
-Types:Sorcery
-A:SP$ Pump | ValidTgts$ Creature | NumAtt$ +1 | KW$ DoubleStrike
+ColorIdentity:U
+OriginSet:Gf04404de3fa1525e
+ManaCost:1 U U
+Types:Instant
+A:SP$ Counter | TargetType$ Spell | RememberForCounter$ True | ValidTgts$ Card | SubAbility$ DBDelTrig
+SVar:DBDelTrig:DB$ DelayedTrigger | ConditionPresent$ Wizard.YouCtrl | Mode$ Phase | Phase$ Main1,Main2 | ValidPlayer$ You | Execute$ AddMana | RememberObjects$ RememberedLKI | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:AddMana:DB$ Mana | Produced$ C | Amount$ X
+SVar:X:TriggerRemembered$CastTotalManaSpent

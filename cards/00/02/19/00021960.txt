@@ -1,7 +1,17 @@
 Id:21960
-ColorIdentity:UR
-OriginSet:Gd784248bfdf9e1d7
-ManaCost:5 U R
+ColorIdentity:BG
+OriginSet:G6fa60d857e930f32
+ManaCost:2 B
+Types:Artifact
+A:AB$ Token | Cost$ T Discard<1/Card> | TokenScriptIds$ 272656594
+A:AB$ Mill | Cost$ 1 T | Defined$ Opponent | NumCards$ X
+A:AB$ ChangeZone | Cost$ 4 T | TargetMin$ 4 | TargetMax$ 4 | TargetsWithSameController$ True | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw
+SVar:X:Count$LifeYouGainedThisTurn
+AlternateMode:Modal
+ALTERNATE
+ManaCost:3 G G
 Types:Sorcery
-A:SP$ Token | TokenAmount$ 2 | TokenScriptIds$ 2606685679 | TokenOwner$ You
-A:AB$ Token | Cost$ UR UR Discard<1/CARDNAME> | ActivationZone$ Hand | TokenScriptIds$ 3851718391 | AILogic$ AlwaysOnDiscard
+A:SP$ ChangeZone | TargetMin$ 0 | TargetMax$ 2 | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Card.Creature+YouOwn,Card.Land+YouOwn,Card.Planeswalker+YouOwn | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ Player | LifeAmount$ 4 | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | Origin$ Stack | Destination$ Exile

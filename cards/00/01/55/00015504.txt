@@ -1,9 +1,10 @@
 Id:15504
-ColorIdentity:WR
+ColorIdentity:B
 OriginSet:Gec9609c94c5b1cdf
-ManaCost:2 R W
-Types:Legendary Creature Kor Ally
-PT:3/4
-K:Haste
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self,Ally.Other+YouCtrl | Execute$ TrigDig | OptionalDecider$ You
-SVar:TrigDig:DB$ Dig | DigNum$ 4 | ChangeNum$ Any | ChangeValid$ Ally | DestinationZone$ Library | LibraryPosition$ 0
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ B
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange | OptionalDecider$ You
+SVar:TrigChange:DB$ ChangeZone | ValidTgts$ Creature | TargetsWithDefinedController$ TriggeredCardController | Origin$ Graveyard | Destination$ Library

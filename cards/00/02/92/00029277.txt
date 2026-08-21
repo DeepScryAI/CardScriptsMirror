@@ -1,12 +1,10 @@
 Id:29277
-ColorIdentity:W
-OriginSet:G0c9f9aa4a8bf0371
-ManaCost:1 W
-Types:Creature Human Scout
-PT:0/1
-K:Flying
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.YouCtrl | NumAtt$ +1 | Duration$ Perpetual | SubAbility$ DBChooseCard
-SVar:DBChooseCard:DB$ ChooseCard | ChoiceZone$ Hand | Choices$ Card.Creature+YouOwn | Mandatory$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Pump | PumpZone$ Hand | Defined$ ChosenCard | NumAtt$ +1 | Duration$ Perpetual | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+ColorIdentity:WU
+OriginSet:G27146c70b74a1e72
+ManaCost:no cost
+Types:Land Desert
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDealDamage
+SVar:TrigDealDamage:DB$ DealDamage | ValidTgts$ Opponent | NumDmg$ 1
+A:AB$ Mana | Cost$ T | Produced$ Combo W U

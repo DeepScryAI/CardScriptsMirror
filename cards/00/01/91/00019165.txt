@@ -1,14 +1,15 @@
 Id:19165
 ColorIdentity:B
 OriginSet:Gf56613712ce2ae1f
-ManaCost:4 B B
-Types:Legendary Planeswalker Liliana
-Loyalty:6
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw
-A:AB$ Token | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | TokenScriptIds$ 353162950
-A:AB$ Sacrifice | Cost$ SubCounter<4/LOYALTY> | Planeswalker$ True | Amount$ 2 | SacValid$ Creature | Defined$ Player
-A:AB$ ChooseCard | Cost$ SubCounter<9/LOYALTY> | Planeswalker$ True | Ultimate$ True | Defined$ Opponent | Choices$ Permanent | ChooseEach$ Artifact & Battle & Creature & Enchantment & Land & Planeswalker | ControlledByPlayer$ Chooser | Mandatory$ True | Reveal$ True | SubAbility$ SacAllOthers
-SVar:SacAllOthers:DB$ SacrificeAll | ValidCards$ Permanent.nonChosenCard+OppCtrl | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
-SVar:PlayMain1:TRUE
+ManaCost:2 B
+Types:Sorcery
+A:SP$ Pump | ValidTgts$ Card.YouCtrl | TargetMin$ 0 | TargetMax$ 4 | TgtZone$ Graveyard | SubAbility$ DBBranch
+SVar:DBBranch:DB$ Branch | BranchConditionSVar$ X | TrueSubAbility$ DBChangeZone | FalseSubAbility$ DBChooseOpp | SubAbility$ DBExile
+SVar:X:Count$Valid Planeswalker.Bolas+YouCtrl
+SVar:DBChangeZone:DB$ ChangeZone | Defined$ Targeted | Origin$ Graveyard | Destination$ Hand
+SVar:DBChooseOpp:DB$ ChoosePlayer | Choices$ Player.Opponent | SubAbility$ DBChoose
+SVar:DBChoose:DB$ ChooseCard | DefinedCards$ Targeted | ChoiceZone$ Graveyard | Amount$ 2 | Mandatory$ True | Defined$ ChosenPlayer | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Targeted.!ChosenCard | Origin$ Graveyard | Destination$ Hand
+SVar:DBExile:DB$ ChangeZone | Origin$ Stack | Destination$ Exile
+SVar:NeedsToPlayVar:Z GE3
+SVar:Z:Count$ValidGraveyard Card.YouOwn

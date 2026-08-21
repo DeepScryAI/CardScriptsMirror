@@ -1,10 +1,20 @@
 Id:28365
-ColorIdentity:WR
-OriginSet:G94329e6b3f93276f
-ManaCost:2 R W
-Types:Instant
-A:SP$ Effect | ReplacementEffects$ RPrevent | OpponentTurn$ True | ActivationPhases$ BeginCombat->EndCombat | SubAbility$ DBUnTapAll
-SVar:RPrevent:Event$ DamageDone | Prevent$ True | IsCombat$ True | ValidTarget$ You,Planeswalker.YouCtrl
-SVar:DBUnTapAll:DB$ UntapAll | ValidCards$ Creature.attacking | SubAbility$ DBGoad
-SVar:DBGoad:DB$ Goad | Defined$ Valid Creature.attacking | SubAbility$ DBAddCombat
-SVar:DBAddCombat:DB$ AddPhase | ExtraPhase$ Combat | AfterPhase$ EndCombat
+ColorIdentity:B
+OriginSet:Gfd50577710a6ab09
+ManaCost:1 B
+Types:Artifact
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigRemove
+SVar:TrigRemove:DB$ Discard | ValidTgts$ Opponent | NumCards$ 1 | Mode$ RevealYouChoose | DiscardValid$ Artifact,Creature
+K:Craft:5 B ExileCtrlOrGrave<2/Creature.Other>
+SVar:X:Count$xPaid
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:black
+Types:Creature Dinosaur Skeleton Horror
+PT:5/4
+K:Menace
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigMill | Secondary$ True
+SVar:TrigMill:DB$ Mill | NumCards$ 2 | Optional$ True
+SVar:HasAttackEffect:TRUE

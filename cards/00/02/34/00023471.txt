@@ -1,8 +1,13 @@
 Id:23471
-ColorIdentity:
-OriginSet:G1a259dba25660062
-ManaCost:2
-Types:Artifact
-T:Mode$ ChangesZone | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange | OptionalDecider$ You
-SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Land.Basic | ShuffleNonMandatory$ True
-A:AB$ PutCounter | Cost$ 2 T Sac<1/CARDNAME> | ValidTgts$ Creature | SorcerySpeed$ True | CounterType$ P1P1 | CounterNum$ 1
+ColorIdentity:R
+OriginSet:Ga4d5d94d587eb185
+ManaCost:4 R
+Types:Creature Spirit
+PT:3/3
+T:Mode$ Attacks | ValidCard$ Creature.modified+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigExile
+SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | RememberObjects$ Remembered | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+T:Mode$ SpellCast | ValidCard$ Card.wasCastFromExile | ValidActivatingPlayer$ You | Execute$ TrigPutCounter | TriggerZones$ Battlefield
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1

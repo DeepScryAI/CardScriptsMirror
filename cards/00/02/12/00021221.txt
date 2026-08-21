@@ -1,10 +1,10 @@
 Id:21221
-ColorIdentity:W
+ColorIdentity:U
 OriginSet:G72c9c624ceb92bff
-ManaCost:4 W
-Types:Creature Angel Cleric
-PT:3/4
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGainLife
-SVar:TrigGainLife:DB$ GainLife | LifeAmount$ X
-SVar:X:Count$Party/Twice
+ManaCost:2 U
+Types:Instant
+A:SP$ Tap | ValidTgts$ Creature | AILogic$ Curse | SubAbility$ DBMill
+SVar:DBMill:DB$ Mill | Defined$ TargetedController | NumCards$ 2 | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ ParentTarget | KW$ HIDDEN This card doesn't untap during your next untap step. | Duration$ Permanent | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw
+SVar:NeedsToPlay:Creature.OppCtrl

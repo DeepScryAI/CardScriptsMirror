@@ -1,10 +1,11 @@
 Id:30976
-ColorIdentity:W
-OriginSet:G4524bbf7a3db9dc0
-ManaCost:2 W
-Types:Creature Bird Cleric
+ColorIdentity:U
+OriginSet:G2c8286a6f234d4b9
+ManaCost:3 U
+Types:Legendary Creature Human Wizard
 PT:2/2
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature,Vehicle | KW$ Lifelink & Indestructible
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigToken | Secondary$ True
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 555052921 | TokenOwner$ You
+S:Mode$ Continuous | Affected$ Creature.withFlying+YouCtrl | AddPower$ 1 | AddToughness$ 1
 SVar:PlayMain1:TRUE

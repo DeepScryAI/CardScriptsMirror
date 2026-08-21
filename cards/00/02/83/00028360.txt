@@ -1,11 +1,18 @@
 Id:28360
-ColorIdentity:
-OriginSet:G94329e6b3f93276f
-ManaCost:1
-Types:Artifact Clue
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSurveil
-SVar:TrigSurveil:DB$ Surveil | Amount$ 1
-A:AB$ Charm | Cost$ 2 Sac<1/CARDNAME> | Choices$ DBCloak,DBGoad,DBDraw
-SVar:DBCloak:DB$ Cloak | Defined$ TopOfLibrary
-SVar:DBGoad:DB$ Goad | ValidTgts$ Creature
-SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1
+ColorIdentity:G
+OriginSet:Gfd50577710a6ab09
+ManaCost:G
+Types:Enchantment
+R:Event$ Explore | ActiveZones$ Battlefield | ValidExplorer$ Creature.YouCtrl | ReplaceWith$ DBScry
+SVar:DBScry:DB$ Scry | SubAbility$ DBExplore
+SVar:DBExplore:DB$ Explore | Defined$ ReplacedCard
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExplore
+SVar:TrigExplore:DB$ Explore | ValidTgts$ Creature.YouCtrl
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | CheckSVar$ Count$Valid Land.YouCtrl | SVarCompare$ GE7 | Execute$ TrigTransform
+SVar:TrigTransform:DB$ SetState | Mode$ Transform
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Types:Land Cave
+A:AB$ Mana | Cost$ T | Produced$ G
+A:AB$ Dig | Cost$ 3 G T | ForceRevealToController$ True | DigNum$ 4 | ChangeNum$ 1 | Optional$ True | ChangeValid$ Creature | RestRandomOrder$ True

@@ -1,11 +1,12 @@
 Id:29559
-ColorIdentity:R
+ColorIdentity:U
 OriginSet:Gac6359c222afbd4f
-ManaCost:3 R R
-Types:Creature Eldrazi Goblin
-PT:2/2
-K:Devoid
-A:AB$ DealDamage | Cost$ 1 C Sac<1/Eldrazi> | ValidTgts$ Any | NumDmg$ 2
-T:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenAmount$ 3 | TokenScriptIds$ 3873110322 | TokenOwner$ You
-SVar:AIPreference:SacCost$Creature.Eldrazi+token,Creature.Eldrazi+cmcLE1
+ManaCost:2 U
+Types:Creature Jellyfish
+PT:3/1
+K:Flash
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigEnergy
+SVar:TrigEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ 2
+T:Mode$ Phase | Phase$ Main1 | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigTap
+SVar:TrigTap:DB$ Tap | UnlessCost$ PayEnergy<1> | UnlessPayer$ You | Defined$ Self

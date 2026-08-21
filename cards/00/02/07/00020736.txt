@@ -1,8 +1,11 @@
 Id:20736
-ColorIdentity:G
+ColorIdentity:R
 OriginSet:Gf8d4de878d0536c5
-ManaCost:1 G
-Types:Sorcery
-A:SP$ Charm | MinCharmNum$ 1 | CharmNum$ 2 | Choices$ Human,NonHuman
-SVar:Human:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Creature.Human+YouOwn
-SVar:NonHuman:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Creature.nonHuman+YouOwn
+ManaCost:4 R
+Types:Creature Lizard
+PT:4/4
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card.YouOwn+withCycling,Card.YouOwn+withTypeCycling | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ Targeted | ForgetOnMoved$ Exile | StaticAbilities$ Play | Duration$ UntilTheEndOfYourNextTurn
+SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+K:Cycling:2

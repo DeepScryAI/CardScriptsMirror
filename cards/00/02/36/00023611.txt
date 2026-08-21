@@ -1,11 +1,14 @@
 Id:23611
-ColorIdentity:WR
+ColorIdentity:B
 OriginSet:G1a259dba25660062
-ManaCost:1 R W
-Types:Legendary Creature Human Samurai
-PT:3/3
-K:Haste
-T:Mode$ DamageDone | ValidSource$ Card.Self+counters_EQ0_Indestructible | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | ConditionPresent$ Card.Self+counters_EQ0_Indestructible | CounterType$ Indestructible | CounterNum$ 1
-T:Mode$ DamageDoneOnce | ValidTarget$ You | TriggerZones$ Battlefield | CombatDamage$ True | Execute$ TrigRemCounter
-SVar:TrigRemCounter:DB$ RemoveCounter | Defined$ Self | CounterType$ Indestructible | CounterNum$ 1
+ManaCost:3 B B
+Types:Legendary Creature Dragon Spirit
+PT:5/5
+K:Flying
+K:Menace
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigCharm | TriggerController$ TriggeredCardController
+SVar:TrigCharm:DB$ Charm | Choices$ DiscardTwo,ReviveCreature
+SVar:DiscardTwo:DB$ Discard | Defined$ Opponent | NumCards$ 2 | Mode$ TgtChoose | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 2 | Defined$ Opponent
+SVar:ReviveCreature:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True | ValidTgts$ Creature.nonDragon | ChangeNum$ 1 | SubAbility$ DBReviveLife
+SVar:DBReviveLife:DB$ LoseLife | Defined$ You | LifeAmount$ 2

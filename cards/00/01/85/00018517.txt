@@ -1,11 +1,10 @@
 Id:18517
-ColorIdentity:UG
+ColorIdentity:BG
 OriginSet:G3b823183c96b2df3
-ManaCost:2 G U
-Types:Creature Elf Scout
+ManaCost:2 B G
+Types:Creature Elf Archer
 PT:2/3
-K:Flying
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigPayCost
-SVar:TrigPayCost:AB$ ImmediateTrigger | Cost$ G U | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.Other+YouCtrl | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ TrigPump
-SVar:TrigPump:DB$ Pump | Defined$ Targeted | KW$ Flying
+K:Reach
+K:Deathtouch
+T:Mode$ ChangesZone | Origin$ Battlefield | ValidCard$ Creature.Other | Destination$ Graveyard | TriggerZones$ Battlefield | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 1

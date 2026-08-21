@@ -1,7 +1,11 @@
 Id:21384
-ColorIdentity:B
+ColorIdentity:R
 OriginSet:G51d431785c8b33e5
-ManaCost:6 B
-Types:Sorcery
-A:SP$ Sacrifice | Amount$ 6 | SacValid$ Creature | Defined$ Player | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenOwner$ You | TokenScriptIds$ 353162950 | TokenAmount$ 6 | TokenTapped$ True
+ManaCost:4 R
+Types:Creature Orc Pirate
+PT:4/3
+T:Mode$ ChangesZone | ValidCard$ Card.Self,Pirate.Other+YouCtrl | Origin$ Any | Destination$ Battlefield | Execute$ TrigGainControl
+SVar:TrigGainControl:DB$ GainControl | ValidTgts$ Creature | LoseControl$ EOT | Untap$ True | AddKWs$ Haste | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Targeted | Types$ Pirate
+SVar:PlayMain1:ALWAYS
+SVar:NeedsToPlay:Creature.OppCtrl+powerGE5

@@ -1,9 +1,11 @@
 Id:25683
-ColorIdentity:WU
-OriginSet:G06ccef4324c14725
-ManaCost:W U
-Types:Legendary Creature Human Soldier
-PT:3/2
-K:Flying
-T:Mode$ AttackersDeclared | AttackingPlayer$ You | ValidAttackers$ Creature.Soldier | ValidAttackersAmount$ GE5 | Execute$ TrigPump | TriggerZones$ Battlefield
-SVar:TrigPump:DB$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +1 | NumDef$ +1 | KW$ Flying
+ColorIdentity:R
+OriginSet:Gce0c33e5115830a3
+ManaCost:3 R
+Types:Enchantment Saga
+K:Chapter:3:DBPowerStone,DBEffect,DBDamage
+SVar:DBPowerStone:DB$ Token | TokenAmount$ 2 | TokenTapped$ True | TokenScriptIds$ 2975106104 | TokenOwner$ You
+SVar:DBEffect:DB$ Effect | TargetMin$ 2 | TargetMax$ 2 | ValidTgts$ Player | RememberObjects$ Targeted | Duration$ UntilYourNextTurn | StaticAbilities$ MustAttack
+SVar:MustAttack:Mode$ MustAttack | ValidCreature$ Creature.RememberedPlayerCtrl+ActivePlayerCtrl | MustAttack$ Remembered.NonActive
+SVar:DBDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ X | TargetMin$ 2 | TargetMax$ 2 | TargetUnique$ True
+SVar:X:Count$Valid Artifact.YouCtrl

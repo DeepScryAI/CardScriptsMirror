@@ -1,8 +1,11 @@
 Id:33444
 ColorIdentity:U
-OriginSet:G23d1f017cc66962f
-ManaCost:3 U
-Types:Legendary Creature Mutant Ninja Turtle
-PT:3/4
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | IsPresent$ Artifact.YouCtrl | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw
+OriginSet:G7ab1fe96128a1641
+ManaCost:1 U
+Types:Artifact
+K:ETBReplacement:Other:ChooseCT
+SVar:ChooseCT:DB$ ChooseType | Defined$ You | Type$ Creature | AILogic$ MostProminentInComputerDeck
+T:Mode$ ChangesZone | ValidCard$ Permanent.YouCtrl+ChosenType | Destination$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | CounterType$ CHARGE | CounterNum$ 1
+A:AB$ DelayedTrigger | Cost$ T SubCounter<3/CHARGE> | AILogic$ SpellCopy | Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | ThisTurn$ True | Execute$ EffTrigCopy
+SVar:EffTrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | MayChooseTarget$ True

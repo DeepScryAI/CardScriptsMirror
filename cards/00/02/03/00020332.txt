@@ -1,12 +1,9 @@
 Id:20332
-ColorIdentity:W
+ColorIdentity:G
 OriginSet:Gfa87e7bbc5a709eb
-ManaCost:1 W
-Types:Enchantment Aura
-K:Enchant:Creature
-K:etbCounter:TASK:4
-SVar:AttachAILogic:Curse
-S:Mode$ CantAttack,CantBlock | ValidCard$ Creature.EnchantedBy
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | RemoveAllAbilities$ True | AddAbility$ ABRemoveCounter | AddSVar$ DBHeliodsPunishment
-SVar:ABRemoveCounter:AB$ RemoveCounter | Cost$ T | CounterType$ TASK | CounterNum$ 1 | Defined$ OriginalHost | SubAbility$ DBHeliodsPunishment
-SVar:DBHeliodsPunishment:DB$ Destroy | Defined$ OriginalHost | ConditionDefined$ OriginalHost | ConditionPresent$ Card.counters_EQ0_TASK
+ManaCost:1 G
+Types:Enchantment Creature Human
+PT:2/3
+R:Event$ Counter | ValidSA$ Spell.Creature+YouCtrl,Spell.Enchantment+YouCtrl | Layer$ CantHappen | ActiveZones$ Battlefield
+A:AB$ Animate | Cost$ 3 G | ValidTgts$ Land.YouCtrl | Power$ X | Toughness$ X | Types$ Creature,Elemental | Keywords$ Trample & Haste
+SVar:X:Count$Valid Enchantment.YouCtrl

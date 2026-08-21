@@ -1,14 +1,14 @@
 Id:18658
-ColorIdentity:WUBRG
-OriginSet:G1ecb361a0a117393
-ManaCost:X
-Types:Artifact Creature Construct
-PT:0/0
-K:etbCounter:P1P1:Y:no Condition
-SVar:Y:Count$Converge
-A:AB$ DealDamage | Cost$ X T SubCounter<X/P1P1> | ValidTgts$ Any | NumDmg$ X
-SVar:X:Count$xPaid
-A:AB$ ChangeZone | Cost$ W U B R G | Origin$ Graveyard | Destination$ Hand | ActivationZone$ Graveyard
-SVar:DiscardMe:1
-SVar:NeedsToPlayVar:Z GE1
-SVar:Z:Count$UniqueManaColorsProduced.ByUntappedSources
+ColorIdentity:BR
+OriginSet:Gd7cbb6e7dea72fb5
+ManaCost:1 B R
+Types:Legendary Creature Phyrexian Minion
+PT:5/5
+S:Mode$ MustAttack | ValidCreature$ Card.Self
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ DBChooseOpp | Layer$ Control
+SVar:DBChooseOpp:DB$ ChoosePlayer | Defined$ You | Choices$ Player.Opponent | AILogic$ Curse | SubAbility$ MoveToPlay
+SVar:MoveToPlay:DB$ ChangeZone | Hidden$ True | Origin$ All | Destination$ Battlefield | Defined$ ReplacedCard | GainControl$ ChosenPlayer | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenPlayer$ True
+S:Mode$ CantAttack | ValidCard$ Card.Self | Target$ Player.CardOwner,Planeswalker.ControlledBy Player.CardOwner
+A:AB$ Draw | Cost$ 3 | NumCards$ 1 | Activator$ Player | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 2 | Defined$ CardController

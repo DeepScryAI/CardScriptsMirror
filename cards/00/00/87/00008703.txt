@@ -1,8 +1,10 @@
 Id:8703
 ColorIdentity:R
 OriginSet:G70f74088c47d66bd
-ManaCost:2 R
-Types:Creature Orc Scout
-PT:2/2
-S:Mode$ CantBlockBy | ValidAttacker$ Creature.powerGE2 | ValidBlocker$ Creature.Self
-A:AB$ Pump | Cost$ R | Defined$ Self | KW$ Flying
+ManaCost:4 R
+Types:Sorcery
+K:Storm
+A:SP$ Reveal | Random$ True | RememberRevealed$ True | ValidTgts$ Player | SubAbility$ DBDamage
+SVar:DBDamage:DB$ DealDamage | NumDmg$ X | Defined$ Targeted | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$CardManaCost

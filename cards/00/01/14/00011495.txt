@@ -1,8 +1,11 @@
 Id:11495
-ColorIdentity:B
-OriginSet:G2d898b14d41bf1b9
-ManaCost:3 B
-Types:Sorcery
-A:SP$ NameCard | Defined$ You | ValidCards$ Card.nonLand | SubAbility$ DBExile
-SVar:DBExile:DB$ ChangeZone | ValidTgts$ Player | ChangeType$ Card.NamedCard | Origin$ Graveyard,Hand,Library | DefinedPlayer$ Targeted | Chooser$ You | Destination$ Exile | ChangeNum$ NumTotal | Hidden$ True
-SVar:NumTotal:Count$ValidGraveyard,Hand,Library Card.TargetedPlayerOwn
+ColorIdentity:
+OriginSet:Ga6c7ef9c5deb908c
+ManaCost:no cost
+Types:Ongoing Scheme
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Command | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ DOOM | CounterNum$ 1 | SubAbility$ DBChoosePlayer
+SVar:DBChoosePlayer:DB$ ChoosePlayer | Defined$ You | Choices$ Player.Opponent+lifeEQX | SubAbility$ DBDmg
+SVar:DBDmg:DB$ DealDamage | Defined$ ChosenPlayer | NumDmg$ Y
+SVar:X:PlayerCountOpponents$HighestLifeTotal
+SVar:Y:Count$CardCounters.DOOM

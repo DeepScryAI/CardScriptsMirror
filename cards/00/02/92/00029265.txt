@@ -1,10 +1,11 @@
 Id:29265
-ColorIdentity:G
-OriginSet:G0c9f9aa4a8bf0371
-ManaCost:3 G G
-Types:Creature Plant Druid
-PT:5/5
-K:Trample
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigAnimate
-SVar:TrigAnimate:DB$ AnimateAll | ValidCards$ Card.nonLand+YouOwn | Zone$ Hand | staticAbilities$ ReduceCost | Duration$ Perpetual
-SVar:ReduceCost:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ 1 | EffectZone$ All
+ColorIdentity:B
+OriginSet:G27146c70b74a1e72
+ManaCost:1 B B
+Types:Legendary Creature Human Warlock
+PT:3/3
+T:Mode$ CommitCrime | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | ValidTgts$ Card.Black+YouOwn | Origin$ Graveyard | Destination$ Exile | Imprint$ True | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBCast
+SVar:DBCast:DB$ Play | Valid$ Card.IsImprinted | ValidZone$ Exile | CopyCard$ True | ValidSA$ Spell | Optional$ True | RememberPlayed$ True | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 2 | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True

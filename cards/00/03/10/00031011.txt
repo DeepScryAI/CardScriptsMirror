@@ -1,10 +1,11 @@
 Id:31011
-ColorIdentity:U
-OriginSet:G4524bbf7a3db9dc0
-ManaCost:3 U U
-Types:Artifact Vehicle
-PT:5/5
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange
-SVar:TrigChange:DB$ GainControl | ValidTgts$ Creature.OppCtrl | LoseControl$ LeavesPlay,LoseControl | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | KW$ HIDDEN CARDNAME can't attack or block. | Duration$ AsLongAsControl | Defined$ Targeted
-K:Crew:3
+ColorIdentity:G
+OriginSet:G2c8286a6f234d4b9
+ManaCost:1 G
+Types:Creature Fungus Bard
+PT:2/1
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigBranch
+SVar:TrigBranch:DB$ Branch | BranchConditionSVar$ X | BranchConditionSVarCompare$GE4 | TrueSubAbility$ DBPump1 | FalseSubAbility$ DBPump2
+SVar:DBPump1:DB$ Pump | Defined$ Self | NumAtt$ +2 | NumDef$ +2 | KW$ Indestructible
+SVar:DBPump2:DB$ Pump | Defined$ Self | NumAtt$ +1 | NumDef$ +1
+SVar:X:Count$Valid Creature.YouCtrl

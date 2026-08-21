@@ -1,11 +1,11 @@
 Id:27276
-ColorIdentity:
-OriginSet:G4e034c55e7afd8b4
-ManaCost:2
-Types:Legendary Artifact
-S:Mode$ ManaConvert | ValidPlayer$ You | ValidCard$ Creature.YouCtrl+inZoneBattlefield | ValidSA$ Activated | ManaConversion$ AnyType->AnyColor
-S:Mode$ Continuous | Affected$ Creature.YouCtrl+counters_GE1_P1P1 | EffectZone$ Battlefield | GainsAbilitiesOf$ Creature.ExiledWithSource | GainsAbilitiesOfZones$ Exile
-A:AB$ ChangeZone | Cost$ T | Origin$ Graveyard | Destination$ Exile | RememberChanged$ True | ValidTgts$ Card | SubAbility$ TrigImmediateTrig
-SVar:TrigImmediateTrig:DB$ ImmediateTrigger | ConditionDefined$ Remembered | ConditionPresent$ Creature | ConditionCompare$ GE1 | Execute$ TrigPutCounter | SubAbility$ DBCleanup
-SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:BG
+OriginSet:G6ce0035cfb774934
+ManaCost:1 B G
+Types:Legendary Creature Halfling Horror
+PT:4/2
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | CheckSVar$ X | TriggerZones$ Battlefield | Execute$ TrigTempt
+SVar:X:Count$ThisTurnEntered_Graveyard_from_Battlefield_Creature.YouCtrl
+SVar:TrigTempt:DB$ RingTemptsYou
+T:Mode$ RingTemptsYou | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDigUntil
+SVar:TrigDigUntil:DB$ DigUntil | Reveal$ True | ValidTgts$ Opponent | IsCurse$ True | Valid$ Land | FoundDestination$ Battlefield | GainControl$ True | Tapped$ True | RevealedDestination$ Graveyard

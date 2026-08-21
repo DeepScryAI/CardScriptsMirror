@@ -1,0 +1,14 @@
+Id:34909
+ColorIdentity:R
+OriginSet:G107f89901a23d4e2
+ManaCost:3 R
+Types:Legendary Creature Human Officer
+PT:4/3
+K:Menace
+T:Mode$ Attacks | ValidCard$ Card.Self | CheckSVar$ X | SVarCompare$ GE8 | NoResolvingCheck$ True | TriggerZones$ Battlefield | Execute$ TrigExile
+SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | RememberObjects$ Remembered | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$Valid Creature.YouCtrl$CardPower
+SVar:HasAttackEffect:TRUE

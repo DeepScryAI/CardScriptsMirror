@@ -1,6 +1,12 @@
 Id:28548
-ColorIdentity:WU
+ColorIdentity:W
 OriginSet:G7ee0e82a2424d636
-ManaCost:W U
-Types:Instant
-A:SP$ Counter | TargetType$ Spell | UnlessCost$ 3 | ValidTgts$ Card | Destination$ Exile
+ManaCost:1 W
+Types:Enchantment Case
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Detective.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+T:Mode$ TurnFaceUp | ValidCard$ Detective.YouCtrl | Execute$ TrigPutCounter | TriggerZones$ Battlefield | Secondary$ True
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ TriggeredCardLKICopy | CounterType$ P1P1 | CounterNum$ 1
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | IsPresent$ Detective.YouCtrl | PresentCompare$ GE3 | IsPresent2$ Card.Self+!IsSolved | Execute$ Solved
+SVar:Solved:DB$ AlterAttribute | Defined$ Self | Attributes$ Solved
+R:Event$ CreateToken | IsPresent$ Card.Self+IsSolved | ActiveZones$ Battlefield | ValidToken$ Card.YouCtrl | ReplaceWith$ DBReplace
+SVar:DBReplace:DB$ ReplaceToken | Type$ AddToken | Amount$ 1 | TokenScriptIds$ 2822783804

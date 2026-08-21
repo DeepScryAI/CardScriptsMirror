@@ -1,9 +1,16 @@
 Id:23095
-ColorIdentity:U
-OriginSet:G3aa323ca47c740b1
-ManaCost:3 U
-Types:Enchantment
-S:Mode$ CastWithFlash | ValidCard$ Spirit | ValidSA$ Spell | EffectZone$ Battlefield | Caster$ You
-T:Mode$ SpellCast | ValidCard$ Creature | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | OpponentTurn$ True | Execute$ TrigTap
-SVar:TrigTap:DB$ Tap | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Creature
-SVar:BuffedBy:Creature.withFlash
+ColorIdentity:B
+OriginSet:G7a76c1974b0a33a6
+ManaCost:4 B B
+Types:Creature Zombie
+PT:4/4
+K:Menace
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigExile | Secondary$ True
+SVar:TrigExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | Hidden$ True | RememberChanged$ True | ChangeType$ Card.Other | ChangeNum$ 1 | Mandatory$ True | AILogic$ ExilePreference:HighestCMC | SubAbility$ DBImmediateTrigger
+SVar:DBImmediateTrigger:DB$ ImmediateTrigger | ConditionDefined$ Remembered | ConditionPresent$ Card | RememberObjects$ Remembered | SubAbility$ DBCleanup | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | Choices$ DBRemoveCounter,DBPump
+SVar:DBRemoveCounter:DB$ RemoveCounter | ValidTgts$ Permanent | CounterType$ Any | CounterNum$ X
+SVar:DBPump:DB$ Pump | ValidTgts$ Creature.OppCtrl | IsCurse$ True | NumAtt$ -X | NumDef$ -X
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:TriggerRemembered$CardManaCost

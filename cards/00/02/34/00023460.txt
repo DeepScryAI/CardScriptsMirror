@@ -1,11 +1,9 @@
 Id:23460
 ColorIdentity:R
-OriginSet:G1a259dba25660062
-ManaCost:1 R
-Types:Enchantment Aura
-K:Enchant:Land.YouCtrl:Land you control
-SVar:AttachAILogic:Animate
-S:Mode$ Continuous | Affected$ Land.EnchantedBy | AddType$ Creature & Spirit | SetColor$ Red | SetPower$ 3 | SetToughness$ 3 | AddKeyword$ Haste
-R:Event$ Destroy | ValidCard$ Card.EnchantedBy | ReplaceWith$ CracklingEgress
-SVar:CracklingEgress:DB$ Sacrifice | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | Defined$ Enchanted | KW$ Indestructible
+OriginSet:Ga4d5d94d587eb185
+ManaCost:5 R
+Types:Creature Goblin Samurai
+PT:6/6
+T:Mode$ AttackersDeclared | ValidAttackers$ Creature.modified+YouCtrl | Execute$ TrigUntap | TriggerZones$ Battlefield | ActivationLimit$ 1
+SVar:TrigUntap:DB$ UntapAll | ValidCards$ Creature.modified+YouCtrl | SubAbility$ DBAddCombat
+SVar:DBAddCombat:DB$ AddPhase | ExtraPhase$ Combat | AfterPhase$ EndCombat

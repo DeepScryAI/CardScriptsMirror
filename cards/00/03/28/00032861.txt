@@ -1,8 +1,12 @@
 Id:32861
 ColorIdentity:B
-OriginSet:G22ed5d6f3707b461
-ManaCost:B
-Types:Instant
-K:Kicker:4
-A:SP$ ChangeZone | ValidTgts$ Creature.YouOwn | Origin$ Graveyard | Destination$ Hand | DestinationAlternative$ Battlefield | DestAltSVar$ MANDATORY X | Tapped$ True
-SVar:X:Count$Kicked.1.0
+OriginSet:G36e97d2da170e675
+ManaCost:2 B B
+Types:Legendary Artifact Vehicle
+PT:6/3
+K:Trample
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigImmediateTrigger
+SVar:TrigImmediateTrigger:AB$ ImmediateTrigger | Cost$ tapXType<1/Card.Self/CARDNAME> | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Creature.powerLE4
+A:AB$ AnimateAll | Cost$ 1 | ValidCards$ Permanent.OppCtrl | RemoveKeywords$ Hexproof & Indestructible
+K:Crew:2

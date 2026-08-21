@@ -1,11 +1,11 @@
 Id:7206
-ColorIdentity:
+ColorIdentity:B
 OriginSet:G332b6b8a53f3d107
-ManaCost:3
-Types:Artifact Equipment
-K:Equip:3
-S:Mode$ Continuous | Affected$ Card.EquippedBy | AddAbility$ GamaPump
-SVar:GamaPump:AB$ Pump | Cost$ 2 | Defined$ Self | NumAtt$ +1
-T:Mode$ DamageDone | ValidSource$ Card.EquippedBy | ValidTarget$ Creature.blocking | Execute$ GamaDamage | TriggerZones$ Battlefield
-SVar:GamaDamage:DB$ DamageAll | NumDmg$ X | ValidCards$ Creature.!TriggeredTarget+ControlledBy TriggeredTargetController
-SVar:X:TriggerCount$DamageAmount
+ManaCost:6 B B B
+Types:Legendary Creature Demon Spirit
+PT:9/9
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigUpkeep
+SVar:TrigUpkeep:DB$ Sacrifice | UnlessPayer$ You | UnlessCost$ B B B B
+A:AB$ Pump | Cost$ PayLife<1> | ValidTgts$ Creature | NumAtt$ -1 | NumDef$ -1 | IsCurse$ True
+SVar:NeedsToPlayVar:Z GE4
+SVar:Z:Count$Valid Card.YouCtrl+canProduceManaColor Black

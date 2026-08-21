@@ -1,9 +1,10 @@
 Id:15924
-ColorIdentity:B
+ColorIdentity:G
 OriginSet:G92026fbb3573fda5
-ManaCost:2 B
-Types:Instant
-A:SP$ StoreSVar | SVar$ XDelirium | Type$ Count | Expression$ Delirium.1.0 | SubAbility$ DBSacrifice
-SVar:DBSacrifice:DB$ Sacrifice | ValidTgts$ Player | SacValid$ Creature,Planeswalker | ConditionCheckSVar$ XDelirium | ConditionSVarCompare$ EQ0 | SubAbility$ DBSacrificeBoth
-SVar:DBSacrificeBoth:DB$ Sacrifice | Defined$ Targeted | SacValid$ Creature & Planeswalker | SacEachValid$ True | ConditionCheckSVar$ XDelirium
-SVar:XDelirium:Number$0
+ManaCost:2 G
+Types:Creature Human Scout
+PT:3/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigInvestigate
+SVar:TrigInvestigate:DB$ Investigate
+T:Mode$ Sacrificed | ValidCard$ Clue.YouCtrl | Execute$ TrigPutCounter | TriggerZones$ Battlefield
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1

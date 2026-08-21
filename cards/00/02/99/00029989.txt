@@ -1,7 +1,11 @@
 Id:29989
-ColorIdentity:G
+ColorIdentity:W
 OriginSet:Gf09b85bbcc27770c
-ManaCost:1 G
-Types:Creature Mole Druid
-PT:1/3
-A:AB$ Mana | Cost$ T | Produced$ Any
+ManaCost:2 W
+Types:Creature Rabbit Citizen
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self,Rabbit.Other+YouCtrl | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.YouCtrl | NumAtt$ +1 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | ConditionCheckSVar$ Resolved | ConditionSVarCompare$ EQ2
+SVar:Resolved:Count$ResolvedThisTurn
+SVar:PlayMain1:TRUE

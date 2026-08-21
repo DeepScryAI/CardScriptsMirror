@@ -1,8 +1,12 @@
 Id:33599
-ColorIdentity:W
-OriginSet:Gf04404de3fa1525e
-ManaCost:1 W W
-Types:Sorcery
-A:SP$ Token | TokenAmount$ 2 | TokenScriptIds$ 1360930860 | TokenOwner$ You | SubAbility$ DBPutCounterAll
-SVar:DBPutCounterAll:DB$ PutCounterAll | ValidCards$ Spirit.YouCtrl | CounterType$ P1P1 | CounterNum$ 1 | ConditionDefined$ Self | ConditionPresent$ Card.wasCast+!wasCastFromYourHand | ConditionCompare$ EQ1
-K:Flashback:4 W W
+ColorIdentity:
+OriginSet:Gff0a4227ae9f1a4b
+ManaCost:5
+Types:Artifact Vehicle
+PT:6/6
+K:Menace
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigMill | TriggerZones$ Battlefield
+SVar:TrigMill:DB$ Mill | NumCards$ 4 | RememberMilled$ True | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Graveyard,Exile | Destination$ Battlefield | Hidden$ True | ChangeType$ Permanent.IsRemembered | ChangeNum$ 1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+K:Crew:2

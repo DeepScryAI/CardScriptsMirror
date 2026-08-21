@@ -1,7 +1,15 @@
 Id:21123
-ColorIdentity:U
-OriginSet:G72c9c624ceb92bff
-ManaCost:U
-Types:Instant
-A:SP$ Counter | TargetType$ Spell | ValidTgts$ Card.nonCreature | UnlessCost$ Y
-SVar:Y:Count$Party/Plus.1
+ColorIdentity:R
+OriginSet:G7b2607750b451c25
+ManaCost:X R R
+Types:Sorcery
+A:SP$ Sacrifice | SacValid$ Land | Amount$ X | RememberSacrificed$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ Y | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | SetChosenNumber$ X | StaticAbilities$ PlayMoreLand | ReplacementEffects$ LandETB | SubAbility$ DBCleanup
+SVar:PlayMoreLand:Mode$ Continuous | Affected$ You | AdjustLandPlays$ Z
+SVar:LandETB:Event$ Moved | ValidCard$ Land.YouCtrl | Destination$ Battlefield | ReplaceWith$ ETBTapped | ReplacementResult$ Updated
+SVar:ETBTapped:DB$ Tap | ETB$ True | Defined$ ReplacedCard
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$xPaid
+SVar:Y:Count$RememberedSize
+SVar:Z:Count$ChosenNumber

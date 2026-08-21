@@ -1,9 +1,14 @@
 Id:28651
-ColorIdentity:WG
-OriginSet:Ge329d8d60ca65422
-ManaCost:no cost
-Types:Land
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
-A:AB$ Mana | Cost$ T | Produced$ Combo G W
-A:AB$ Investigate | Cost$ 4 T
+ColorIdentity:R
+OriginSet:G7ee0e82a2424d636
+ManaCost:2 R R
+Types:Artifact Creature Insect Thopter
+PT:4/4
+K:Flying
+K:Trample
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ DBForEach
+SVar:DBForEach:DB$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBChoose | SubAbility$ DBDestroy
+SVar:DBChoose:DB$ ChooseCard | ChoiceZone$ Battlefield | Amount$ 1 | Choices$ Land.nonBasic+RememberedPlayerCtrl | Optional$ True | ImprintChosen$ True
+SVar:DBDestroy:DB$ Destroy | Defined$ Imprinted | RememberDestroyed$ True | SubAbility$ DBSearch
+SVar:DBSearch:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | Tapped$ True | ChangeType$ Land.Basic | DefinedPlayer$ RememberedController | Optional$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True

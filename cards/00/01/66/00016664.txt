@@ -1,9 +1,10 @@
 Id:16664
 ColorIdentity:R
 OriginSet:Ge1d53e4f418bb713
-ManaCost:2 R
-Types:Creature Goblin Rogue
-PT:2/1
-K:FirstStrike
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ Opponent | TriggerZones$ Battlefield | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 2277972042 | TokenOwner$ TriggeredPlayer
+ManaCost:3 R
+Types:Enchantment Aura
+K:Enchant:Permanent
+SVar:AttachAILogic:Curse
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Execute$ TrigGainControl | Origin$ Any | Destination$ Battlefield
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigGainControl | Secondary$ True
+SVar:TrigGainControl:DB$ GainControl | Defined$ Enchanted | Untap$ True | AddKWs$ Haste | LoseControl$ EOT

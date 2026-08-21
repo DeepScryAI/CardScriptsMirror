@@ -1,9 +1,10 @@
 Id:31857
-ColorIdentity:WB
+ColorIdentity:B
 OriginSet:G7ab4f62d323b0ca7
-ManaCost:1 W B
-Types:Legendary Creature Human Noble
-PT:2/4
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigToken | TriggerZones$ Battlefield | IsPresent$ Creature.YouCtrl+namedDarkstar | PresentCompare$ EQ0
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 1586558933
-SVar:HasAttackEffect:TRUE
+ManaCost:1 B
+Types:Artifact Equipment
+K:Job select
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1 | AddType$ Wizard | AddTrigger$ TrigSpellCast
+SVar:TrigSpellCast:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | Execute$ TrigDamage | TriggerZones$ Battlefield
+SVar:TrigDamage:DB$ DealDamage | Defined$ Player.Opponent | NumDmg$ 1
+K:Equip:3

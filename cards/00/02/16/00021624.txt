@@ -1,12 +1,16 @@
 Id:21624
-ColorIdentity:R
+ColorIdentity:WUBRG
 OriginSet:G18bf722b221724f8
-ManaCost:1 R
-Types:Legendary Creature Dwarf Berserker
-PT:2/1
-S:Mode$ Continuous | Affected$ Dwarf.Other+YouCtrl | AddPower$ 1
-T:Mode$ Taps | ValidCard$ Dwarf.YouCtrl | Execute$ TrigToken | TriggerZones$ Battlefield
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 3851718391 | TokenOwner$ You
-A:AB$ ChangeZone | Cost$ Sac<5/Treasure> | Origin$ Library | Destination$ Battlefield | ChangeType$ Card.Artifact,Card.Dragon | ChangeNum$ 1
-SVar:BuffedBy:Dwarf
-SVar:PlayMain1:TRUE
+ManaCost:1 G G
+Types:Legendary Creature God
+PT:1/4
+K:Vigilance
+A:AB$ Mana | Cost$ T | Produced$ Any | Amount$ 1
+S:Mode$ Continuous | Affected$ Creature.Legendary+Other+YouCtrl | AddAbility$ Mana | AddKeyword$ Vigilance
+SVar:Mana:AB$ Mana | Cost$ T | Produced$ Any | Amount$ 1
+AlternateMode:Modal
+ALTERNATE
+ManaCost:W U B R G
+Types:Legendary Enchantment
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDig
+SVar:TrigDig:DB$ DigUntil | Valid$ Creature,Planeswalker | FoundDestination$ Battlefield | RevealedDestination$ Library | RevealedLibraryPosition$ -1 | RevealRandomOrder$ True

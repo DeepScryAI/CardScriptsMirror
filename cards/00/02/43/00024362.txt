@@ -1,9 +1,10 @@
 Id:24362
-ColorIdentity:
+ColorIdentity:G
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:3
-Types:Artifact
-A:AB$ ChangeZone | Cost$ 2 T Sac<1/CARDNAME> | Origin$ Library | Destination$ Library | ChangeType$ Land.Basic,Gate | ChangeNum$ 2 | RememberChanged$ True | Reveal$ True | Shuffle$ False | SubAbility$ DBChangeZone1
-SVar:DBChangeZone1:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Land.IsRemembered,Gate.IsRemembered | ChangeNum$ 1 | Mandatory$ True | ForgetChanged$ True | NoLooking$ True | Tapped$ True | Shuffle$ True | SubAbility$ DBChangeZone2
-SVar:DBChangeZone2:DB$ ChangeZone | Origin$ Library | Destination$ Hand | Defined$ Remembered | ConditionDefined$ Remembered | ConditionPresent$ Card | ForgetChanged$ True | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:2 G
+Types:Creature Ooze
+PT:2/2
+K:Flash
+K:Foretell:G
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigCounterAbility
+SVar:TrigCounterAbility:DB$ Counter | TargetType$ Activated,Triggered | ValidTgts$ Artifact,Enchantment | DestroyPermanent$ True

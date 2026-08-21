@@ -1,9 +1,15 @@
 Id:21334
-ColorIdentity:R
-OriginSet:G51d431785c8b33e5
-ManaCost:4 R
-Types:Creature Orc Warrior
-PT:5/4
-K:Haste
-S:Mode$ CanAttackIfHaste | ValidTarget$ Opponent,Planeswalker.OppCtrl
-SVar:PlayMain1:TRUE
+ColorIdentity:U
+OriginSet:G72c9c624ceb92bff
+ManaCost:4 U
+Types:Creature Merfolk Wizard
+PT:4/3
+T:Mode$ SpellCast | ValidCard$ Instant,Sorcery,Wizard | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigFlying
+SVar:TrigFlying:DB$ Pump | Defined$ Self | KW$ Flying
+AlternateMode:Modal
+ALTERNATE
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ U

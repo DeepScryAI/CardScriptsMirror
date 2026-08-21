@@ -1,14 +1,12 @@
 Id:27635
-ColorIdentity:BR
-OriginSet:Gd488b4ad788f0529
-ManaCost:2 B R
-Types:Creature Knight
-PT:2/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigConjure
-SVar:TrigConjure:DB$ MakeCard | Conjure$ True | CatalogIds$ 20025,14401 | Zone$ Battlefield | RememberMade$ True | SubAbility$ DBAttach
-SVar:DBAttach:DB$ Attach | Object$ Remembered | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-R:Event$ DamageDone | ActiveZones$ Battlefield | ValidTarget$ Card.Self+equipped | ReplaceWith$ DBImmediateTrigger | PreventionEffect$ True
-SVar:DBImmediateTrigger:DB$ ImmediateTrigger | Execute$ TrigSacrifice
-SVar:TrigSacrifice:DB$ Sacrifice | SacValid$ Equipment.AttachedTo Card.Self
-SVar:EquipMe:Once
+ColorIdentity:B
+OriginSet:G7579344e30f8be85
+ManaCost:2 B
+Types:Creature Rat Peasant
+PT:2/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | Choices$ DBToken,DBScry,DBPumpAll
+SVar:DBToken:DB$ Token | TokenScriptIds$ 3370794869
+SVar:DBScry:DB$ Scry | UnlessCost$ Sac<1/Creature.Other/another creature> | UnlessPayer$ You | UnlessSwitched$ True | ScryNum$ 2 | UnlessResolveSubs$ WhenPaid | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw
+SVar:DBPumpAll:DB$ PumpAll | ValidCards$ Creature.YouCtrl | KW$ Menace

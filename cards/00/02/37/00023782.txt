@@ -1,9 +1,10 @@
 Id:23782
-ColorIdentity:WRG
-OriginSet:G5f5d8cfb206e2fac
-ManaCost:3 R G W
-Types:Sorcery
-A:SP$ Charm | Choices$ Copy,Exile,Pump | CharmNum$ 3 | CanRepeatModes$ True
-SVar:Copy:DB$ CopyPermanent | ValidTgts$ Creature.YouCtrl | PumpKeywords$ Haste | AtEOT$ Sacrifice
-SVar:Exile:DB$ ChangeZone | ValidTgts$ Artifact,Enchantment | Origin$ Battlefield | Destination$ Exile
-SVar:Pump:DB$ PumpAll | ValidTgts$ Player | ValidCards$ Creature | NumAtt$ +1 | NumDef$ +1 | KW$ FirstStrike
+ColorIdentity:R
+OriginSet:Gd970889168b5769f
+ManaCost:R
+Types:Creature Goblin Artificer
+PT:1/2
+S:Mode$ Continuous | Affected$ Creature.modified+YouCtrl | AddKeyword$ Menace
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSeek
+SVar:TrigSeek:AB$ Seek | Cost$ Discard<1/Card> | Type$ Card.cmcEQX
+SVar:X:Discarded$CardManaCost

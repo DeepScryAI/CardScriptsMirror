@@ -1,7 +1,11 @@
 Id:21522
 ColorIdentity:W
-OriginSet:G18bf722b221724f8
-ManaCost:W W
-Types:Sorcery
-A:SP$ ChangeZone | ValidTgts$ Artifact.OppCtrl,Creature.OppCtrl,Enchantment.OppCtrl | Origin$ Battlefield | Destination$ Exile | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | DefinedPlayer$ TargetedController | ChangeType$ Permanent | Origin$ Hand | Destination$ Battlefield
+OriginSet:Gc3edc7c448c17480
+ManaCost:3 W
+Types:Instant
+A:SP$ Effect | ReplacementEffects$ ReplaceGrave
+SVar:ReplaceGrave:Event$ Moved | ValidCard$ Permanent.YouCtrl | Origin$ Battlefield | Destination$ Graveyard | ReplaceWith$ Exile
+SVar:Exile:DB$ ChangeZone | Defined$ ReplacedCard | Origin$ All | Destination$ Exile | SubAbility$ DBDelayTrigger
+SVar:DBDelayTrigger:DB$ DelayedTrigger | RememberObjects$ ReplacedCard | Mode$ Phase | Phase$ End of Turn | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Defined$ DelayTriggerRemembered | Destination$ Battlefield
+K:Foretell:1 W

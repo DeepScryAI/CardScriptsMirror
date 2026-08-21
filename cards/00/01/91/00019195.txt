@@ -1,12 +1,11 @@
 Id:19195
-ColorIdentity:UG
+ColorIdentity:R
 OriginSet:Gf56613712ce2ae1f
-ManaCost:2 G U
-Types:Legendary Planeswalker Tamiyo
-Loyalty:5
-S:Mode$ CantDiscard | ValidPlayer$ You | ValidCause$ SpellAbility.OppCtrl | ForCost$ False
-S:Mode$ CantSacrifice | ValidCard$ Card.YouCtrl | ValidCause$ SpellAbility.OppCtrl | ForCost$ False | Secondary$ True
-A:AB$ NameCard | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | Defined$ You | ValidCards$ Card.nonLand | SubAbility$ DBDig
-SVar:DBDig:DB$ Dig | DigNum$ 4 | Reveal$ True | ChangeNum$ All | ChangeValid$ Card.NamedCard | DestinationZone2$ Graveyard | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearNamedCard$ True
-A:AB$ ChangeZone | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | ValidTgts$ Card.YouCtrl | Origin$ Graveyard | Destination$ Hand
+ManaCost:2 R
+Types:Legendary Creature Goblin
+PT:1/2
+T:Mode$ Attacks | ValidCard$ Creature.Self | Execute$ TrigPut
+SVar:TrigPut:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 1112542976 | TokenOwner$ You | TokenAmount$ X
+SVar:X:Count$CardPower
+SVar:HasAttackEffect:TRUE

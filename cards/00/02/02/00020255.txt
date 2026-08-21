@@ -1,14 +1,10 @@
 Id:20255
-ColorIdentity:R
+ColorIdentity:W
 OriginSet:G42eb6bda83007836
-ManaCost:2 R
-Types:Creature Human Shaman
-PT:3/2
-K:Haste
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ GraveAuras
-SVar:GraveAuras:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ChangeType$ Aura.YouOwn | RememberChanged$ True | AttachedTo$ Creature.YouCtrl | ChangeNum$ GraveX | Optional$ True | Hidden$ True | AILogic$ Pump | SubAbility$ DBUnearthed
-SVar:DBUnearthed:DB$ Animate | Defined$ Remembered | LeaveBattlefield$ Exile | Duration$ Permanent | SubAbility$ DelayedExile
-SVar:DelayedExile:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | Execute$ TrigReturn | RememberObjects$ RememberedLKI | SubAbility$ DBCleanup
-SVar:TrigReturn:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | Defined$ DelayTriggerRememberedLKI
-SVar:GraveX:Count$ValidGraveyard Aura.YouOwn
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:2 W W
+Types:Legendary Planeswalker Elspeth
+Loyalty:5
+A:AB$ Pump | Cost$ SubCounter<1/LOYALTY> | Planeswalker$ True | TargetMin$ 0 | TargetMax$ 2 | ValidTgts$ Creature.YouCtrl | NumAtt$ +2 | NumDef$ +1
+A:AB$ Token | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | TokenAmount$ 2 | TokenScriptIds$ 1647422943 | TokenOwner$ You
+A:AB$ GainLife | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | Ultimate$ True | LifeAmount$ 5
+K:Escape:4 W W ExileFromGrave<4/Card.Other/other>

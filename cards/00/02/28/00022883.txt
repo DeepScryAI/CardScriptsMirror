@@ -1,10 +1,12 @@
 Id:22883
-ColorIdentity:R
+ColorIdentity:W
 OriginSet:Gf78628ad511eefec
-ManaCost:X R
-Types:Sorcery
-A:SP$ DealDamage | ValidTgts$ Any | NumDmg$ Z
-SVar:X:Count$xPaid
-SVar:Y:Targeted$Valid Creature,Planeswalker
-SVar:Z:SVar$X/Plus.Y
-K:Flashback:XMin1 3 R RemoveAnyCounter<X/LOYALTY/Planeswalker>::If you cast this spell this way, X can't be 0.
+ManaCost:W
+Types:Enchantment Aura Curse
+K:Enchant:Player
+SVar:AttachAILogic:Curse
+K:ETBReplacement:Other:DBNameCard
+SVar:DBNameCard:DB$ NameCard | Defined$ You
+S:Mode$ RaiseCost | EffectZone$ Battlefield | ValidCard$ Card.NamedCard | Type$ Spell | Activator$ Player.EnchantedBy | Amount$ 2
+T:Mode$ SpellCast | ValidCard$ Card.NamedCard | ValidActivatingPlayer$ Player.EnchantedBy | Execute$ TrigDraw | TriggerZones$ Battlefield
+SVar:TrigDraw:AB$ Draw | Cost$ Sac<1/CARDNAME> | NumCards$ 1

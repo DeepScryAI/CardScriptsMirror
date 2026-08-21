@@ -1,9 +1,9 @@
 Id:18620
-ColorIdentity:G
+ColorIdentity:
 OriginSet:Gd7cbb6e7dea72fb5
-ManaCost:2 G
-Types:Creature Elf Druid
-PT:3/3
-T:Mode$ ChangesZoneAll | ValidCards$ Land.YouOwn+!token | Origin$ Any | Destination$ Graveyard | TriggerZones$ Battlefield | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 3097960584 | TokenOwner$ You
-A:AB$ ChangeZone | Cost$ G Sac<3/Creature> | ValidTgts$ Land.YouCtrl | Origin$ Graveyard | Destination$ Hand
+ManaCost:no cost
+Types:Land
+A:AB$ Mana | Cost$ T | Produced$ C
+A:AB$ Pump | Cost$ T | ValidTgts$ Card.IsCommander+ThisTurnEntered | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ ParentTarget | CounterType$ P1P1 | CounterNum$ 1 | ConditionDefined$ ParentTarget | ConditionPresent$ Creature | ConditionCompare$ GE1 | SubAbility$ DBPutCounterCommander
+SVar:DBPutCounterCommander:DB$ PutCounter | Defined$ ParentTarget | CounterType$ LOYALTY | CounterNum$ 1 | ConditionDefined$ ParentTarget | ConditionPresent$ Planeswalker | ConditionCompare$ GE1

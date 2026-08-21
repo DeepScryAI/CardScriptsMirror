@@ -1,12 +1,8 @@
 Id:11877
-ColorIdentity:W
+ColorIdentity:B
 OriginSet:G43171707a7efd07b
-ManaCost:1 WP
-Types:Artifact Creature Phyrexian Wall
-PT:0/3
-K:Defender
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigDmg | Phase$ BeginCombat->EndCombat
-SVar:TrigDmg:DB$ DamageAll | ValidCards$ Creature.IsRemembered | NumDmg$ 6
-T:Mode$ Blocks | ValidCard$ Card.Self | Execute$ TrigRem | Secondary$ True | TriggerZones$ Battlefield | Static$ True
-SVar:TrigRem:DB$ Cleanup | ClearRemembered$ True | SubAbility$ DBRem
-SVar:DBRem:DB$ Pump | RememberObjects$ Valid Creature.blockedBySource
+ManaCost:3 B B
+Types:Sorcery
+A:SP$ Draw | NumCards$ 3 | ValidTgts$ Player | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 3 | Defined$ Targeted | SubAbility$ DBPoison
+SVar:DBPoison:DB$ Poison | Num$ 3 | Defined$ Targeted

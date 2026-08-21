@@ -1,8 +1,10 @@
 Id:16557
-ColorIdentity:G
+ColorIdentity:U
 OriginSet:G4bddbf7cb4f2475e
-ManaCost:2 G G
-Types:Creature Elf Artificer
-PT:3/3
-K:Trample
-K:Fabricate:1
+ManaCost:3 U
+Types:Instant
+A:SP$ ChangeZone | ValidTgts$ Permanent.nonLand+!token+YouCtrl | TargetMin$ 0 | TargetMax$ X | Origin$ Battlefield | Destination$ Hand | RememberChanged$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ Y | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$Valid Permanent.nonLand+!token+YouCtrl
+SVar:Y:Remembered$Valid Card.YouOwn

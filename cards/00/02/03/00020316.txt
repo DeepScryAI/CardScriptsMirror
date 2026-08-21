@@ -1,9 +1,11 @@
 Id:20316
 ColorIdentity:R
 OriginSet:Gfa87e7bbc5a709eb
-ManaCost:R
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:Pump
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 1 | AddKeyword$ Haste
-K:Escape:1 R ExileFromGrave<2/Card.Other/other>
+ManaCost:1 R
+Types:Creature Satyr Berserker
+PT:1/1
+T:Mode$ Sacrificed | ValidCard$ Permanent.YouCtrl | Execute$ TrigPutCounter | TriggerZones$ Battlefield | ValidPlayer$ You
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+A:AB$ DealDamage | Cost$ 1 R T Sac<1/Creature;Enchantment/creature or enchantment> | ValidTgts$ Creature | NumDmg$ 1 | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Targeted | KW$ HIDDEN CARDNAME can't block. | IsCurse$ True
+SVar:AIPreference:SacCost$Creature.cmcLE1,Enchantment.cmcLE1

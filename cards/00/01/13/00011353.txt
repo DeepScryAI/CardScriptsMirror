@@ -2,6 +2,8 @@ Id:11353
 ColorIdentity:
 OriginSet:G84adc137b751e29e
 ManaCost:no cost
-Types:Scheme
-T:Mode$ SetInMotion | ValidCard$ Card.Self | Execute$ DarkEffect | TriggerZones$ Command
-SVar:DarkEffect:DB$ CopyPermanent | ValidTgts$ Permanent.OppCtrl
+Types:Ongoing Scheme
+S:Mode$ UntapOtherPlayer | ValidCard$ Permanent.YouCtrl | EffectZone$ Command
+T:Mode$ Phase | Phase$ End of Turn | Execute$ Abandon | TriggerZones$ Command | CheckSVar$ X | SVarCompare$ GE3
+SVar:Abandon:DB$ Abandon
+SVar:X:Count$ThisTurnEntered_Graveyard_Card.YouOwn

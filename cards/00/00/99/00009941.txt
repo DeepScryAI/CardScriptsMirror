@@ -1,10 +1,8 @@
 Id:9941
 ColorIdentity:U
 OriginSet:G6a049984467eca45
-ManaCost:2 U
-Types:Creature Faerie Rogue
-PT:2/1
-K:Flying
-T:Mode$ ChangesZone | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You | ConditionCheckSVar$ X
-SVar:X:Count$ThisTurnCast_Card.!CastSaSource+Blue+YouCtrl
+ManaCost:1 U U
+Types:Instant
+A:SP$ Counter | TargetType$ Spell | ValidTgts$ Card | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ TargetedController | NumCards$ 1 | SubAbility$ DBDrawYou
+SVar:DBDrawYou:DB$ Draw | Defined$ You | NumCards$ 1

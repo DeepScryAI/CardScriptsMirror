@@ -1,9 +1,17 @@
 Id:7531
-ColorIdentity:W
+ColorIdentity:B
 OriginSet:G4747f23d5c5760bc
-ManaCost:2 W W
-Types:Legendary Creature Spirit
+ManaCost:1 B B
+Types:Creature Human Warrior
 PT:2/2
-R:Event$ Untap | ActiveZones$ Battlefield | ValidCard$ Land | ValidStepTurnToController$ You | Layer$ CantHappen
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Player | TriggerZones$ Battlefield | Execute$ TrigUntap
-SVar:TrigUntap:DB$ Untap | UntapExactly$ True | UntapType$ Land.ActivePlayerCtrl | Amount$ 1 | Defined$ TriggeredPlayer
+T:Mode$ SpellCast | ValidCard$ Card.Spirit,Card.Arcane | ValidActivatingPlayer$ You | Execute$ TrigPutCounter | OptionalDecider$ You | TriggerZones$ Battlefield
+T:Mode$ Phase | Phase$ End of Turn | IsPresent$ Card.Self+counters_GE2_KI | Execute$ TrigFlip | OptionalDecider$ You | TriggerZones$ Battlefield
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ KI | CounterNum$ 1
+SVar:TrigFlip:DB$ SetState | Defined$ Self | Mode$ Flip
+AlternateMode:Flip
+ALTERNATE
+ManaCost:1 B B
+Colors:black
+Types:Legendary Creature Spirit
+PT:4/4
+A:AB$ Pump | Cost$ SubCounter<1/KI> | KW$ Fear | ValidTgts$ Creature

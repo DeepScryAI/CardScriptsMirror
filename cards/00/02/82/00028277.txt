@@ -1,13 +1,11 @@
 Id:28277
 ColorIdentity:U
-OriginSet:G4155bbd49d5da56f
-ManaCost:X U
-Types:Sorcery
-A:SP$ Seek | Type$ Artifact.nonLand+cmcLEX | RememberFound$ True | SubAbility$ DBPut
-SVar:DBPut:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | Defined$ Remembered | SubAbility$ DBBranch
-SVar:DBBranch:DB$ Branch | BranchConditionSVar$ Remembered$CardManaCost | BranchConditionSVarCompare$ LTX | TrueSubAbility$ DBAnimate | FalseSubAbility$ DBCleanup
-SVar:DBAnimate:DB$ Animate | staticAbilities$ RaiseCost | Duration$ Perpetual | SubAbility$ DBReturn
-SVar:RaiseCost:Mode$ RaiseCost | ValidCard$ Card.Self | Type$ Spell | Amount$ 1 | EffectZone$ All
-SVar:DBReturn:DB$ ChangeZone | Origin$ Stack | Destination$ Hand | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$xPaid
+OriginSet:Gfd50577710a6ab09
+ManaCost:1 U
+Types:Artifact Equipment
+S:Mode$ Continuous | Affected$ Card.EquippedBy | AddPower$ 1 | AddToughness$ 1 | AddTrigger$ TrigAttack
+SVar:TrigAttack:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1 | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ TgtChoose
+K:Equip:1:Creature.Pirate+YouCtrl:Pirate
+K:Equip:2

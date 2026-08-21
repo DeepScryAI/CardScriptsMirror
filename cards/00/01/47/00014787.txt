@@ -1,8 +1,9 @@
 Id:14787
-ColorIdentity:G
+ColorIdentity:R
 OriginSet:Gfafc221218d3b700
-ManaCost:5 G G
-Types:Creature Beast
-PT:7/4
-K:Hexproof
-S:Mode$ AssignCombatDamageAsUnblocked | IsPresent$ Card.Self+attacking | ValidCard$ Creature.YouCtrl | Optional$ True
+ManaCost:3 R R
+Types:Sorcery
+A:SP$ ChangeZoneAll | ChangeType$ Artifact | Origin$ Graveyard | Destination$ Exile | RememberChanged$ True | SubAbility$ DBSacrifice
+SVar:DBSacrifice:DB$ SacrificeAll | ValidCards$ Artifact | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

@@ -1,8 +1,12 @@
 Id:23871
-ColorIdentity:U
-OriginSet:Gfdfe2ebef04be34e
-ManaCost:4 U U
-Types:Sorcery
-K:Casualty:2
-A:SP$ Mill | ValidTgts$ Player | NumCards$ X
-SVar:X:TargetedPlayer$CardsInLibrary/HalfDown
+ColorIdentity:G
+OriginSet:G5f5d8cfb206e2fac
+ManaCost:3 G
+Types:Creature Ogre Citizen
+PT:3/3
+K:Vigilance
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Hidden$ True | ChangeType$ Creature.StrictlyOther+YouCtrl | RememberLKI$ True | AILogic$ BounceOwnTrigger | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:RememberedLKI$CardPower

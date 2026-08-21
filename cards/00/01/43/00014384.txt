@@ -1,9 +1,10 @@
 Id:14384
 ColorIdentity:G
 OriginSet:Gd10cbd11b89035b7
-ManaCost:2 G
-Types:Creature Elf Shaman
-PT:2/1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDestroy | OptionalDecider$ You
-SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Artifact,Enchantment
-SVar:PlayMain1:TRUE
+ManaCost:4 G G
+Types:Creature Plant Elemental
+PT:7/2
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ DelTrig
+SVar:DelTrig:DB$ DelayedTrigger | ValidPlayer$ Player.IsTriggerRemembered | Mode$ Phase | Phase$ Upkeep | Execute$ TrigChange | RememberObjects$ TriggeredNewCardLKICopy & TriggeredCardOwner
+SVar:TrigChange:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | Defined$ DelayTriggerRememberedLKI | Tapped$ True
+SVar:SacMe:1

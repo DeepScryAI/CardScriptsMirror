@@ -1,8 +1,10 @@
 Id:17261
 ColorIdentity:G
 OriginSet:G4b92e66c84393de5
-ManaCost:3 G
-Types:Creature Snake Druid
-PT:2/4
-A:AB$ Mana | Cost$ T | Produced$ Any
-A:AB$ Mana | Cost$ T Exert<1/CARDNAME> | Produced$ Any | Amount$ 2
+ManaCost:5 G G
+Types:Legendary Planeswalker Nissa
+Loyalty:5
+A:AB$ Untap | Cost$ AddCounter<2/LOYALTY> | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 2 | Planeswalker$ True | SubAbility$ DBUntap
+SVar:DBUntap:DB$ Untap | ValidTgts$ Land | TargetMin$ 0 | TargetMax$ 2 | AILogic$ Always
+A:AB$ Pump | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | ValidTgts$ Creature | NumAtt$ +5 | NumDef$ +5
+A:AB$ Dig | Cost$ SubCounter<10/LOYALTY> | DigNum$ 10 | ChangeNum$ Any | ChangeValid$ Creature,Land | DestinationZone$ Battlefield | Ultimate$ True | Planeswalker$ True | DestinationZone2$ Library | LibraryPosition$ -1 | RestRandomOrder$ True

@@ -1,11 +1,10 @@
 Id:4496
 ColorIdentity:R
 OriginSet:G239b3b7a46d83e8e
-ManaCost:1 R
-Types:Enchantment Aura
-K:Flash
-K:Enchant:Creature
-SVar:AttachAITgts:Card.powerGE1
-SVar:AttachAILogic:Pump
-T:Mode$ DamageDone | ValidSource$ Card.AttachedBy | ValidTarget$ Player.TriggeredDefendingPlayer | CombatDamage$ True | Execute$ TrigDestroy | OptionalDecider$ You
-SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Artifact.ControlledBy TriggeredTarget
+ManaCost:3 R R
+Types:Creature Human Soldier
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChooseThree
+SVar:TrigChooseThree:DB$ ChooseCard | Defined$ Player | Choices$ Land | ControlledByPlayer$ Chooser | Amount$ 3 | Mandatory$ True | Reveal$ True | SubAbility$ DBAllOthers
+SVar:DBAllOthers:DB$ SacrificeAll | ValidCards$ Land.nonChosenCard | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True

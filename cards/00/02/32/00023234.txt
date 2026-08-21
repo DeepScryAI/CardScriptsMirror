@@ -1,8 +1,17 @@
 Id:23234
 ColorIdentity:B
 OriginSet:G6e75ff4f143a3dc3
-ManaCost:1 B
-Types:Instant
-A:SP$ DealDamage | NumDmg$ 3 | ValidTgts$ Creature.Human | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | LifeAmount$ 3
-A:SP$ DealDamage | Cost$ 1 B B | NumDmg$ 3 | ValidTgts$ Creature | SubAbility$ DBGainLife | NonBasicSpell$ True
+ManaCost:2 B
+Types:Creature Zombie
+PT:1/5
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | IsPresent$ Creature.YouCtrl+powerLTtoughness | PresentCompare$ GE3 | Execute$ TrigTransform
+SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform
+SVar:PlayMain1:TRUE
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:black
+Types:Creature Zombie
+PT:2/6
+A:AB$ LoseLife | Cost$ 2 B T Sac<1/Creature.Other/another creature> | ValidTgts$ Opponent | LifeAmount$ X
+SVar:X:Sacrificed$CardToughness

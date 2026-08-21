@@ -1,11 +1,8 @@
 Id:25890
-ColorIdentity:B
-OriginSet:Gb879a1706584aeee
-ManaCost:3 B
-Types:Creature Worm
-PT:3/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDiscard
-SVar:TrigDiscard:DB$ Discard | Defined$ Opponent | RememberDiscarded$ True | Mode$ TgtChoose | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ X
-SVar:X:SVar$Y/Times.2
-SVar:Y:PlayerCountOpponents$Amount/Minus.Remembered$Amount
+ColorIdentity:G
+OriginSet:G06ccef4324c14725
+ManaCost:3 G
+Types:Instant
+A:SP$ PutCounter | CounterType$ P1P1 | CounterNum$ 2 | ValidTgts$ Artifact.YouCtrl,Creature.YouCtrl,Land.YouCtrl | SubAbility$ DBUntap
+SVar:DBUntap:DB$ Untap | Defined$ Targeted | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Targeted | ConditionDefined$ Targeted | ConditionPresent$ Card.nonCreature | Power$ 0 | Toughness$ 0 | Types$ Creature | Duration$ Permanent

@@ -1,13 +1,8 @@
 Id:34629
-ColorIdentity:U
-OriginSet:G11c0621ce29fa608
-ManaCost:4 U
-Types:Legendary Creature Mutant Warlock Hero
-PT:4/4
-K:Flying
-T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | Execute$ TrigExile | TriggerZones$ Battlefield
-SVar:TrigExile:DB$ ChangeZone | ValidTgts$ Permanent.Other+nonLand+!token | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DelTrig
-SVar:DelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ TrigBounce | RememberObjects$ RememberedLKI | SubAbility$ DBCleanup
-SVar:TrigBounce:DB$ ChangeZone | Origin$ Exile | Destination$ Battlefield | Defined$ DelayTriggerRememberedLKI
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:BuffedBy:Card.nonCreature
+ColorIdentity:G
+OriginSet:Gcb93bbfc68a40806
+ManaCost:1 G
+Types:Legendary Creature Human Hero
+PT:3/1
+A:AB$ Draw | Cost$ 3 G ExileFromGrave<1/CARDNAME> | ActivationZone$ Graveyard | Defined$ You | NumCards$ 1 | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | Optional$ True | ChangeType$ Land | ChangeNum$ 1

@@ -1,9 +1,11 @@
 Id:14816
-ColorIdentity:W
+ColorIdentity:U
 OriginSet:G8cf37064e79a7aa9
-ManaCost:1 W
-Types:Enchantment
-T:Mode$ TurnFaceUp | ValidCard$ Permanent.YouCtrl | Execute$ TrigGainLife | TriggerZones$ Battlefield
-SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ X
-SVar:X:Count$Valid Creature.YouCtrl
-A:AB$ Manifest | Cost$ 3 W
+ManaCost:2 U
+Types:Creature Human Monk
+PT:2/3
+S:Mode$ CantBlockBy | ValidAttacker$ Card.Self | IsPresent$ Creature.YouCtrl+Other | PresentCompare$ EQ0
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBExileTopCard
+SVar:DBExileTopCard:DB$ Dig | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | ExileFaceDown$ True | SubAbility$ DBManifest
+SVar:DBManifest:DB$ Manifest | Amount$ 2 | Defined$ Remembered | Shuffle$ True

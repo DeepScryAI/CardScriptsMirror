@@ -1,9 +1,12 @@
 Id:22711
-ColorIdentity:U
-OriginSet:G268a0d6ee06912c2
-ManaCost:2 U
-Types:Legendary Artifact Book
-A:AB$ MakeCard | Cost$ U T | Conjure$ True | AtRandom$ True | SpellbookCatalogIds$ 20653,240,545,9390,55,3292,11506,145,88,97 | Zone$ Hand | RememberMade$ True | SubAbility$ DBAnimate
-SVar:DBAnimate:DB$ Animate | Defined$ Remembered | staticAbilities$ SpendAnyMana | Duration$ Perpetual | SubAbility$ DBCleanup
-SVar:SpendAnyMana:Mode$ ManaConvert | EffectZone$ Stack | ValidPlayer$ You | ValidCard$ Card.Self | ValidSA$ Spell | ManaConversion$ AnyType->AnyColor
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:R
+OriginSet:G9f95a41d532c0550
+ManaCost:3 R R
+Types:Creature Human Barbarian
+PT:4/4
+K:Trample
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigImmediate | TriggerZones$ Battlefield | CheckSVar$ PackTactics | SVarCompare$ GE6 | NoResolvingCheck$ True
+SVar:TrigImmediate:AB$ ImmediateTrigger | Cost$ Sac<1/Creature.Other/another creature> | RememberObjects$ Sacrificed | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | ConditionDefined$ DelayTriggerRememberedLKI | ValidTgts$ Creature | NumDmg$ X
+SVar:X:TriggerRemembered$CardPower
+SVar:PackTactics:Count$Valid Creature.attacking$CardPower

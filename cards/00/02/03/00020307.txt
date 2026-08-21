@@ -1,8 +1,13 @@
 Id:20307
 ColorIdentity:R
 OriginSet:Gfa87e7bbc5a709eb
-ManaCost:2 R
-Types:Enchantment Creature Manticore
-PT:4/2
-T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ You | ActivatorThisTurnCast$ EQ1 | TriggerZones$ Battlefield | OpponentTurn$ True | Execute$ TrigDamage
-SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 1
+ManaCost:1 R R
+Types:Legendary Enchantment Creature Demigod
+PT:*/3
+S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X
+SVar:X:Count$Devotion.Red
+SVar:BuffedBy:Permanent.Red
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self,Creature.Other+!token+YouCtrl | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ Y | TokenScriptIds$ 4151338040
+SVar:Y:Count$Compare Z GE4.2.1
+SVar:Z:TriggeredCard$CardPower

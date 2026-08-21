@@ -1,13 +1,8 @@
 Id:11282
-ColorIdentity:BR
+ColorIdentity:
 OriginSet:G9fb0a9a59b6a9580
-ManaCost:3 B R
-Types:Legendary Planeswalker Sarkhan
-Loyalty:7
-A:AB$ Dig | Cost$ AddCounter<0/LOYALTY> | DigNum$ 1 | Reveal$ True | ChangeNum$ All | ChangeValid$ Card | DestinationZone$ Hand | RememberChanged$ True | SubAbility$ DBDamage | Planeswalker$ True | AILogic$ MadSarkhanDigDmg
-SVar:DBDamage:DB$ DealDamage | Defined$ Self | NumDmg$ Y | SubAbility$ DBCleanup | AILogic$ MadSarkhanDigDmg
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:Y:Remembered$CardManaCost
-A:AB$ SacrificeAll | Cost$ SubCounter<2/LOYALTY> | Defined$ Targeted | ValidTgts$ Creature | SubAbility$ DBToken | Planeswalker$ True | AILogic$ MadSarkhanDragon
-SVar:DBToken:DB$ Token | TokenScriptIds$ 4249416919 | TokenOwner$ TargetedController
-A:AB$ EachDamage | Cost$ SubCounter<4/LOYALTY> | Planeswalker$ True | Ultimate$ True | ValidCards$ Dragon.Creature+YouCtrl | NumDmg$ Count$CardPower | ValidTgts$ Player,Planeswalker | AILogic$ MadSarkhanUltimate
+ManaCost:2
+Types:Artifact Creature Construct
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ Player | NumCards$ 1

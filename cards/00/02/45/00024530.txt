@@ -1,10 +1,11 @@
 Id:24530
-ColorIdentity:R
-OriginSet:G58bfeff4fb121c8e
-ManaCost:5 R
-Types:Creature Gnoll
-PT:4/4
-S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ X | EffectZone$ All
-S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ FirstStrike | Condition$ PlayerTurn
-SVar:X:Count$AttackersDeclared
-K:Double team
+ColorIdentity:G
+OriginSet:G51fcb7ec0cb81c29
+ManaCost:3 G
+Types:Sorcery
+K:Suspend:3:1 G
+A:SP$ DigUntil | Defined$ You | Valid$ Permanent.Land | FoundDestination$ Exile | RevealedDestination$ Exile | ImprintFound$ True | RememberRevealed$ True | SubAbility$ DBToPlay
+SVar:DBToPlay:DB$ ChangeZone | Defined$ Imprinted | Origin$ Exile | Destination$ Battlefield | SubAbility$ DBRestRandomOrder
+SVar:DBRestRandomOrder:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered | Origin$ Exile | Destination$ Library | LibraryPosition$ -1 | RandomOrder$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True | SubAbility$ DBExileSelf
+SVar:DBExileSelf:DB$ ChangeZone | Origin$ Stack | Destination$ Exile | WithCountersType$ TIME | WithCountersAmount$ 3

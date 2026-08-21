@@ -1,11 +1,10 @@
 Id:28854
-ColorIdentity:
-OriginSet:Gaf7c94f364052cdd
-ManaCost:3
-Types:Artifact Bobblehead
-A:AB$ Mana | Cost$ T | Produced$ Any
-A:AB$ RollDice | Cost$ 1 T | Amount$ X | Sides$ 6 | MaxRollsResults$ True | EvenOddResults$ True | SubAbility$ DBCreateTreasure
-SVar:DBCreateTreasure:DB$ Token | TokenScriptIds$ 3851718391 | TokenTapped$ True | TokenAmount$ Y | SubAbility$ DBWinGame
-SVar:DBWinGame:DB$ WinsGame | Defined$ You | ConditionCheckSVar$ MaxRolls | ConditionSVarCompare$ EQ7
-SVar:Y:SVar$EvenResults
-SVar:X:Count$Valid Card.Bobblehead+YouCtrl
+ColorIdentity:B
+OriginSet:G997e3b19a1e94e85
+ManaCost:4 B
+Types:Enchantment
+R:Event$ CreateToken | ActiveZones$ Battlefield | ValidToken$ Card.OppCtrl | ReplaceWith$ HalveToken | EffectOnly$ True
+SVar:HalveToken:DB$ ReplaceToken | Type$ Amount | Amount$ HalfDown
+R:Event$ AddCounter | ActiveZones$ Battlefield | ValidSource$ Opponent | ValidObject$ Permanent.inZoneBattlefield,Player | ReplaceWith$ HalfCounters
+SVar:HalfCounters:DB$ ReplaceCounter | ValidSource$ Opponent | Amount$ Y
+SVar:Y:ReplaceCount$CounterNum/HalfDown

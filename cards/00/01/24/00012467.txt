@@ -1,8 +1,10 @@
 Id:12467
-ColorIdentity:W
+ColorIdentity:R
 OriginSet:G12585413ffc93ad8
-ManaCost:2 W
-Types:Creature Human Soldier
-PT:1/4
-S:Mode$ Continuous | Affected$ Creature.YouCtrl+Other | AddPower$ 1 | AddToughness$ 4 | Condition$ FatefulHour
-SVar:PlayMain1:TRUE
+ManaCost:R
+Types:Creature Devil
+PT:1/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDealDamage
+SVar:TrigDealDamage:DB$ DealDamage | ValidTgts$ Creature | NumDmg$ 1 | DamageMap$ True | SubAbility$ DBDamageYou
+SVar:DBDamageYou:DB$ DealDamage | Defined$ You | NumDmg$ 1 | SubAbility$ DBDamageResolve
+SVar:DBDamageResolve:DB$ DamageResolve

@@ -1,10 +1,11 @@
 Id:30996
-ColorIdentity:B
-OriginSet:G4524bbf7a3db9dc0
-ManaCost:2 B
-Types:Creature Mutant Scout
-PT:2/3
-K:StartYourEngines
-A:AB$ Pump | Cost$ 2 | Defined$ Self | NumAtt$ +1 | NumDef$ +1
-S:Mode$ Continuous | EffectZone$ Graveyard | AffectedZone$ Graveyard | Affected$ Card.Self | Condition$ MaxSpeed | AddAbility$ ABDraw
-SVar:ABDraw:AB$ Draw | Cost$ 3 ExileFromGrave<1/CARDNAME/this card> | ActivationZone$ Graveyard | Secondary$ True
+ColorIdentity:U
+OriginSet:G2c8286a6f234d4b9
+ManaCost:U
+Types:Creature Turtle Illusion
+PT:1/3
+T:Mode$ BecomesTarget | ValidTarget$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ TriggeredCardController
+SVar:Targeting:Dies

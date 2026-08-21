@@ -1,8 +1,12 @@
 Id:29926
-ColorIdentity:R
+ColorIdentity:UR
 OriginSet:Gf09b85bbcc27770c
-ManaCost:1 R
-Types:Instant
-A:SP$ Pump | ValidTgts$ Creature.YouCtrl | AILogic$ PowerDmg | NumAtt$ +1 | SubAbility$ SoulsDamage
-SVar:SoulsDamage:DB$ DealDamage | ValidTgts$ Creature.YouDontCtrl | AILogic$ PowerDmg | NumDmg$ X | DamageSource$ ParentTarget
-SVar:X:ParentTargeted$CardPower
+ManaCost:2 U R
+Types:Legendary Creature Otter Rogue
+PT:3/3
+K:Prowess
+S:Mode$ Continuous | Affected$ Creature.Other+YouCtrl | AddKeyword$ Prowess
+T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigUnblockable
+SVar:TrigUnblockable:DB$ Effect | ValidTgts$ Creature.YouCtrl | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable | AILogic$ Pump
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+SVar:BuffedBy:Card.nonCreature

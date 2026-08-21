@@ -1,10 +1,20 @@
 Id:12453
-ColorIdentity:W
+ColorIdentity:B
 OriginSet:G12585413ffc93ad8
-ManaCost:3 W
-Types:Creature Human Cleric
-PT:2/2
-K:Lifelink
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 273812182 | TokenOwner$ You
-SVar:SacMe:1
+ManaCost:7
+Types:Legendary Artifact Equipment
+K:Equip:1
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1
+T:Mode$ DamageDone | ValidSource$ Creature.AttachedBy | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigTransform | TriggerZones$ Battlefield
+SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:black
+Types:Legendary Creature Demon
+PT:13/13
+K:Flying
+K:Trample
+K:Intimidate
+T:Mode$ LosesGame | Execute$ TrigCounter
+SVar:TrigCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 13

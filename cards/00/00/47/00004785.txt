@@ -1,7 +1,9 @@
 Id:4785
-ColorIdentity:G
+ColorIdentity:R
 OriginSet:Gfb91362c2efb868e
-ManaCost:1 G
-Types:Sorcery
-A:SP$ ChangeZone | ChangeNum$ X | ChangeType$ Land.Basic | Origin$ Library | Destination$ Library | Reorder$ True | LibraryPosition$ 0
-SVar:X:Count$ValidLibrary Land.Basic+YouOwn
+ManaCost:1 R
+Types:Instant
+K:Kicker:R
+A:SP$ DealDamage | ValidTgts$ Any | NumDmg$ 2 | ReplaceDyingDefined$ ThisTargetedCard.Creature | ReplaceDyingCondition$ Kicked | SubAbility$ KickingLava
+SVar:KickingLava:DB$ Effect | RememberObjects$ ParentTarget | ForgetOnMoved$ Battlefield | StaticAbilities$ NoRegen | IsCurse$ True | ConditionDefined$ ParentTarget | ConditionPresent$ Creature | Condition$ Kicked | AILogic$ CantRegenerate
+SVar:NoRegen:Mode$ CantRegenerate | ValidCard$ Card.IsRemembered

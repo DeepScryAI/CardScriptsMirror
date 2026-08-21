@@ -1,12 +1,12 @@
 Id:24244
-ColorIdentity:WUR
+ColorIdentity:R
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:1 U R W
-Types:Legendary Creature Human Wizard
-PT:4/4
-K:Haste
-S:Mode$ ActivateAbilityAsIfHaste | ValidCard$ Creature.Other+YouCtrl+inZoneBattlefield
-A:AB$ Effect | Cost$ T | Triggers$ ActivateTrig
-SVar:ActivateTrig:Mode$ AbilityCast | ValidSA$ SpellAbility.!ManaAbility+ManaSpent GE4 | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigCopy | OneOff$ True
-SVar:TrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | MayChooseTarget$ True
-SVar:BuffedBy:Creature.hasAbility Activated
+ManaCost:4 R
+Types:Legendary Creature Elf Shaman
+PT:2/5
+K:Choose a Background
+S:Mode$ Continuous | Affected$ Creature.powerLTY+OppCtrl | Goad$ True
+SVar:Y:Count$CardPower
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.attacking+IsGoaded,Creature.blocking+IsGoaded | Execute$ TrigToken | TriggerZones$ Battlefield
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 3851718391 | TokenOwner$ You
+SVar:HasAttackEffect:TRUE

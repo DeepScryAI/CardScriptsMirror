@@ -1,8 +1,11 @@
 Id:29137
-ColorIdentity:UG
-OriginSet:G27146c70b74a1e72
-ManaCost:3 G U
+ColorIdentity:R
+OriginSet:Gc7beb665b378d90a
+ManaCost:4 R
 Types:Sorcery
-A:SP$ Dig | DigNum$ 3 | ChangeNum$ 1 | Optional$ True | ChangeValid$ Card.nonLand | DestinationZone$ Exile | DestinationZone2$ Hand | RememberChanged$ True | SubAbility$ DBPlot
-SVar:DBPlot:DB$ AlterAttribute | Defined$ Remembered | Attributes$ Plotted | SubAbility$ DBCleanup
+K:Plot:3 R
+A:SP$ Discard | Mode$ Hand | RememberDiscarded$ True | Defined$ You | SubAbility$ BetThat
+SVar:BetThat:DB$ Draw | Defined$ You | NumCards$ 4 | SubAbility$ DBPumpAll
+SVar:DBPumpAll:DB$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +X | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Amount

@@ -1,13 +1,13 @@
 Id:21449
-ColorIdentity:W
-OriginSet:Gc3edc7c448c17480
-ManaCost:2 W
-Types:Creature Human Warrior
-PT:1/1
-T:Mode$ ChangesZoneAll | Origin$ Hand | Destination$ Exile | ValidCards$ Card.YouOwn | Execute$ TrigPutCounter | TriggerZones$ Battlefield
-T:Mode$ ChangesZoneAll | ValidCause$ SpellAbility.YouCtrl | Origin$ Battlefield | Destination$ Exile | Execute$ TrigPutCounter | TriggerZones$ Battlefield | Secondary$ True
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ X
-S:Mode$ Continuous | Affected$ Card.Self | CheckSVar$ Y | SVarCompare$ GT4 | AddKeyword$ Flying | AddType$ Angel
-S:Mode$ Continuous | Affected$ Card.Self | CheckSVar$ Y | SVarCompare$ GT9 | AddKeyword$ Indestructible | AddType$ God
-SVar:X:TriggerCount$Amount
-SVar:Y:Count$CardCounters.ALL
+ColorIdentity:WB
+OriginSet:G51d431785c8b33e5
+ManaCost:2 W W B
+Types:Legendary Creature Angel
+PT:5/5
+S:Mode$ ReduceCost | ValidCard$ Card.Self+wasCastFromCommand | Type$ Spell | Amount$ X | EffectZone$ Stack
+S:Mode$ RaiseCost | ValidCard$ Card.Self+wasCastFromCommand | Type$ Spell | Cost$ PayLife<X> | EffectZone$ Stack | Secondary$ True
+SVar:X:Count$CommanderCastFromCommandZone/Times.2
+K:Flying
+K:Lifelink
+T:Mode$ SpellCast | TriggerZones$ Battlefield | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ TriggeredActivator | LifeAmount$ 2

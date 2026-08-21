@@ -1,11 +1,25 @@
 Id:23232
-ColorIdentity:G
+ColorIdentity:WU
 OriginSet:G6e75ff4f143a3dc3
-ManaCost:1 G
-Types:Creature Wolf
+ManaCost:1 W U
+Types:Creature Spirit
 PT:1/1
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | IsPresent$ Wolf.Other+YouCtrl,Werewolf.Other+YouCtrl | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigGainLife
-SVar:TrigGainLife:DB$ GainLife | Defined$ TriggeredCardController | LifeAmount$ X
-SVar:X:TriggeredCard$CardPower
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+T:Mode$ BecomesTarget | ValidTarget$ Card.Self | ValidSource$ Spell.Aura | TriggerZones$ Battlefield | Execute$ TrigToken | Secondary$ True
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 273812182
+K:Disturb:W U
+SVar:EnchantMe:Multiple
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:white,blue
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+T:Mode$ BecomesTarget | ValidTarget$ Creature.EnchantedBy | ValidSource$ Spell.Aura | TriggerZones$ Battlefield | Execute$ TrigToken | Secondary$ True
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 273812182
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Graveyard | ReplaceWith$ Exile
+SVar:Exile:DB$ ChangeZone | Hidden$ True | Origin$ All | Destination$ Exile | Defined$ ReplacedCard
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddSVar$ EnMe | Secondary$ True
+SVar:EnMe:SVar:EnchantMe:Multiple

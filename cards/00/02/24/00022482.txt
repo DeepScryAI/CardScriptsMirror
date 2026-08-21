@@ -1,9 +1,12 @@
 Id:22482
-ColorIdentity:
-OriginSet:G9f95a41d532c0550
-ManaCost:no cost
-Types:Land
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
-A:AB$ Mana | Cost$ T | Produced$ C
-A:AB$ Venture | Cost$ 4 T tapXType<1/Creature.Legendary/legendary creature> | SorcerySpeed$ True
+ColorIdentity:U
+OriginSet:G92f7f9489fec5865
+ManaCost:2 U
+Types:Artifact
+T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | Execute$ TrigEffect | TriggerZones$ Battlefield
+SVar:TrigEffect:DB$ Effect | ReplacementEffects$ ReMoved | RememberObjects$ TriggeredCard
+SVar:ReMoved:Event$ Moved | ValidCard$ Card.IsRemembered | Origin$ Stack | Destination$ Graveyard | Fizzle$ False | ReplaceWith$ DBExile
+SVar:DBExile:DB$ ChangeZone | Defined$ ReplacedCard | Origin$ Stack | Destination$ Exile | ExiledWithEffectSource$ True | SubAbility$ ExileSelf
+SVar:ExileSelf:DB$ ChangeZone | Origin$ Command | Destination$ Exile | Defined$ Self
+A:AB$ Play | Cost$ X T Sac<1/CARDNAME> | Defined$ ExiledWith | ValidSA$ Spell | Amount$ All | WithTotalCMC$ X | WithoutManaCost$ True | Optional$ True | AILogic$ WithTotalCMC
+SVar:X:Count$xPaid

@@ -1,8 +1,12 @@
 Id:26901
-ColorIdentity:R
-OriginSet:G6ce0035cfb774934
-ManaCost:1 R
-Types:Creature Goblin Warrior
+ColorIdentity:
+OriginSet:G997e3b19a1e94e85
+ManaCost:no cost
+Types:Legendary Artifact Land Vehicle Island
 PT:2/2
-T:Mode$ AttackerBlocked | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigDamage
-SVar:TrigDamage:DB$ DamageAll | NumDmg$ 1 | ValidCards$ Creature.blockingSource
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player,Battle | Execute$ TrigDraw | CombatDamage$ True
+SVar:TrigDraw:DB$ Draw | Defined$ You | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | Mode$ TgtChoose | NumCards$ 1
+K:Crew:2

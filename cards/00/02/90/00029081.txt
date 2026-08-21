@@ -1,11 +1,11 @@
 Id:29081
-ColorIdentity:B
-OriginSet:G27146c70b74a1e72
-ManaCost:B
-Types:Creature Skeleton Rogue
-PT:2/2
-S:Mode$ CantBlock | ValidCard$ Card.Self
-T:Mode$ CommitCrime | ValidPlayer$ You | TriggerZones$ Graveyard | Execute$ TrigChange
-SVar:TrigChange:AB$ ChangeZone | Cost$ B | Origin$ Graveyard | Destination$ Battlefield
-SVar:DiscardMe:2
-SVar:SacMe:2
+ColorIdentity:R
+OriginSet:Gaf7c94f364052cdd
+ManaCost:2 R
+Types:Enchantment
+R:Event$ BeginPhase | ActiveZones$ Battlefield | ValidPlayer$ You | Phase$ Draw | Skip$ True
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ ExileTwo | TriggerZones$ Battlefield
+SVar:ExileTwo:DB$ Dig | Defined$ You | DigNum$ 2 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ STPlay | SubAbility$ DBCleanup | ForgetOnMoved$ Exile | Duration$ EndOfTurn
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

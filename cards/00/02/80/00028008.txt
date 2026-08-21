@@ -1,13 +1,8 @@
 Id:28008
-ColorIdentity:
-OriginSet:Gfd50577710a6ab09
-ManaCost:2
-Types:Artifact
-T:Mode$ DamageDoneOnce | CombatDamage$ True | ValidTarget$ You | ValidSource$ Card | TriggerZones$ Battlefield | Execute$ TrigGainGontrol
-SVar:TrigGainGontrol:DB$ GainControl | NewController$ TriggeredAttackingPlayer | Untap$ True
-A:AB$ Draw | Cost$ 2 T | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | CounterType$ POINT | CounterNum$ 1 | SubAbility$ DBBranch
-SVar:DBBranch:DB$ Branch | BranchConditionSVar$ CountCounters | BranchConditionSVarCompare$ GE5 | TrueSubAbility$ DBSac
-SVar:DBSac:DB$ Sacrifice | SacValid$ Self | ConditionPresent$ Card.Self+counters_GE5_POINT | SubAbility$ DBTreasure
-SVar:DBTreasure:DB$ Token | TokenScriptIds$ 3851718391
-SVar:CountCounters:Count$CardCounters.POINT
+ColorIdentity:U
+OriginSet:G30e8a5e111cffb44
+ManaCost:U
+Types:Instant
+A:SP$ Animate | ValidTgts$ Time Lord.YouCtrl | Triggers$ DiesTrig
+SVar:DiesTrig:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigReveal
+SVar:TrigReveal:DB$ DigUntil | Defined$ You | Valid$ Creature.Time Lord | FoundDestination$ Battlefield | RevealedDestination$ Library | RevealedLibraryPosition$ -1 | RevealRandomOrder$ True

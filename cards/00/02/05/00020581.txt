@@ -1,8 +1,8 @@
 Id:20581
-ColorIdentity:WB
+ColorIdentity:BG
 OriginSet:Gf8d4de878d0536c5
-ManaCost:W B
+ManaCost:4 B G
 Types:Instant
-A:SP$ ChangeZone | ValidTgts$ Creature | Origin$ Battlefield | Destination$ Exile | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | ConditionPresent$ Human.YouCtrl | ConditionCompare$ EQ0 | Defined$ You | LifeAmount$ X
-SVar:X:Targeted$CardToughness
+A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouOwn | SubAbility$ DBImmediateTrigger
+SVar:DBImmediateTrigger:DB$ ImmediateTrigger | RememberObjects$ Targeted | Execute$ DBFight | Secondary$ True
+SVar:DBFight:DB$ Fight | Defined$ DelayTriggerRemembered | ValidTgts$ Creature.YouDontCtrl | TargetMin$ 0 | TargetMax$ 1 | AILogic$ ChosenAsTgt

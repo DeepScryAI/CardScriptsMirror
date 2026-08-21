@@ -1,10 +1,11 @@
 Id:23538
-ColorIdentity:B
+ColorIdentity:R
 OriginSet:G1a259dba25660062
-ManaCost:4 B
-Types:Creature Spirit
-PT:3/3
-T:Mode$ ChangesZone | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm
-SVar:TrigCharm:DB$ Charm | Choices$ RaiseScoundrel,HauntedHarvest
-SVar:RaiseScoundrel:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Creature.Ninja+YouOwn,Creature.Rogue+YouOwn | TargetMin$ 0 | TargetMax$ 1
-SVar:HauntedHarvest:DB$ ChangeZone | Origin$ Graveyard | Destination$ Library | ValidTgts$ Creature.YouOwn
+ManaCost:1 R
+Types:Enchantment Aura
+K:Enchant:Land.YouCtrl:Land you control
+SVar:AttachAILogic:Animate
+S:Mode$ Continuous | Affected$ Land.EnchantedBy | AddType$ Creature & Spirit | SetColor$ Red | SetPower$ 3 | SetToughness$ 3 | AddKeyword$ Haste
+R:Event$ Destroy | ValidCard$ Card.EnchantedBy | ReplaceWith$ CracklingEgress
+SVar:CracklingEgress:DB$ Sacrifice | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Enchanted | KW$ Indestructible

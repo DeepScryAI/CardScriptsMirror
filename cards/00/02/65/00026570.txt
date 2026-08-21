@@ -1,10 +1,12 @@
 Id:26570
-ColorIdentity:UR
-OriginSet:G06757f68e16377c2
-ManaCost:3 U R
-Types:Creature Human Shaman
-PT:2/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 4117845418
-T:Mode$ SpellCast | ValidCard$ Card.withConvoke | ValidActivatingPlayer$ You | Execute$ TrigDamage | TriggerZones$ Battlefield
-SVar:TrigDamage:DB$ DamageAll | ValidPlayers$ Player.Opponent | ValidCards$ Battle.OppProtect | NumDmg$ 1
+ColorIdentity:G
+OriginSet:Gd5f5e54fa26ae40d
+ManaCost:1 G G
+Types:Enchantment Aura
+K:Enchant:Planeswalker
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Planeswalker.EnchantedBy | AddAbility$ VivienPlus
+SVar:VivienPlus:AB$ Dig | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | DigNum$ 4 | ChangeNum$ 1 | Optional$ True | ChangeValid$ Creature,Land | ForceRevealToController$ True | RestRandomOrder$ True
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.!token+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Enchanted | CounterType$ LOYALTY | CounterNum$ 1
+SVar:BuffedBy:Creature

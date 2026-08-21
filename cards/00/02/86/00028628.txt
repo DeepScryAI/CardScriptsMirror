@@ -1,10 +1,9 @@
 Id:28628
-ColorIdentity:BG
+ColorIdentity:
 OriginSet:G7ee0e82a2424d636
-ManaCost:2 B G
-Types:Instant
-A:SP$ Pump | Cost$ CollectEvidence<X> 2 B G | ValidTgts$ Artifact | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBCreature
-SVar:DBCreature:DB$ Pump | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBEnchantment
-SVar:DBEnchantment:DB$ Pump | SubAbility$ DBDestroyAll | ValidTgts$ Enchantment | TargetMin$ 0 | TargetMax$ 1
-SVar:DBDestroyAll:DB$ Destroy | Defined$ Targeted
-SVar:X:AllTargeted$CardManaCost
+ManaCost:no cost
+Types:Land Forest Island
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSurveil
+SVar:TrigSurveil:DB$ Surveil | Amount$ 1

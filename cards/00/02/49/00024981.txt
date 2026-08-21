@@ -1,11 +1,10 @@
 Id:24981
-ColorIdentity:
+ColorIdentity:WB
 OriginSet:G3a8b4b9d4649b357
-ManaCost:no cost
-Types:Land Gate
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ LandTapped | ReplacementResult$ Updated
-SVar:LandTapped:DB$ Tap | Defined$ Self | ETB$ True | ConditionPresent$ Land.YouCtrl | ConditionCompare$ GT2
-K:ETBReplacement:Other:DBChooseBasic
-SVar:DBChooseBasic:DB$ ChooseType | Type$ Basic Land
-S:Mode$ Continuous | Affected$ Card.Self | AddType$ ChosenType
-S:Mode$ RaiseCost | Type$ Ability | ValidSpell$ Activated.ManaAbility | ValidCard$ Card.Self | Cost$ PayLife<1> | EffectZone$ All
+ManaCost:1 W
+Types:Creature Phyrexian Human Cleric
+PT:2/3
+K:Kicker:1 B
+K:Lifelink
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self+kicked | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Creature.YouCtrl

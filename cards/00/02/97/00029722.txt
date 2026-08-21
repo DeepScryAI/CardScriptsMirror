@@ -1,10 +1,11 @@
 Id:29722
-ColorIdentity:B
-OriginSet:G01a610e823cce3ca
-ManaCost:2 B
-Types:Creature Human Assassin
-PT:2/1
-K:Freerunning:1 B
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1 | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 1
+ColorIdentity:W
+OriginSet:Gac6359c222afbd4f
+ManaCost:1 W
+Types:Instant
+A:SP$ Charm | Choices$ DBDealDamage,DBDestroy,DBExileYards
+SVar:DBDealDamage:DB$ DealDamage | ValidTgts$ Creature | NumDmg$ X
+SVar:X:Count$Valid Creature.YouCtrl/Times.2
+SVar:DBDestroy:DB$ Destroy | ValidTgts$ Enchantment
+SVar:DBExileYards:DB$ ChangeZoneAll | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Player | TargetMin$ 0 | TargetMax$ MaxTgt | ChangeType$ Card
+SVar:MaxTgt:PlayerCountPlayers$Amount

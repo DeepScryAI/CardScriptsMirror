@@ -1,8 +1,12 @@
 Id:22768
-ColorIdentity:W
-OriginSet:Gf78628ad511eefec
-ManaCost:W
-Types:Instant
-A:SP$ Pump | ValidTgts$ Creature.YouCtrl | NumAtt$ +2 | KW$ Lifelink | SubAbility$ DBDelayedTrigger
-SVar:DBDelayedTrigger:DB$ DelayedTrigger | Mode$ ChangesZone | RememberObjects$ Targeted | ValidCard$ Card.IsTriggerRemembered | Origin$ Battlefield | Destination$ Graveyard | ThisTurn$ True | Execute$ DBToken
-SVar:DBToken:DB$ Token | TokenScriptIds$ 273812182
+ColorIdentity:G
+OriginSet:G268a0d6ee06912c2
+ManaCost:1 G G
+Types:Legendary Planeswalker Freyalise
+Loyalty:4
+A:AB$ Untap | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Elf | TargetMin$ 0 | TargetMax$ 1 | RememberTargets$ True | SubAbility$ DBRandom
+SVar:DBRandom:DB$ ChooseCard | Defined$ You | Choices$ Elf.YouOwn | ChoiceZone$ Hand | AtRandom$ True | RememberChosen$ True | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Remembered | PumpZone$ Battlefield,Hand | NumAtt$ +1 | NumDef$ +1 | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True | ClearRemembered$ True
+A:AB$ Seek | Cost$ SubCounter<1/LOYALTY> | Planeswalker$ True | Type$ Card.Elf
+A:AB$ MakeCard | Conjure$ True | Cost$ SubCounter<6/LOYALTY> | Planeswalker$ True | Ultimate$ True | CatalogId$ 10025 | Zone$ Battlefield

@@ -3,6 +3,10 @@ ColorIdentity:
 OriginSet:Gda59deaeee465b93
 ManaCost:no cost
 Types:Vanguard
-HandLifeModifier:-1/+4
-S:Mode$ ReduceCost | EffectZone$ Command | ValidCard$ Card.Creature | Activator$ You | Type$ Spell | OnlyFirstSpell$ True | Amount$ 1
-S:Mode$ RaiseCost | EffectZone$ Command | ValidCard$ Card.nonCreature | Activator$ Player.Opponent | Type$ Spell | OnlyFirstSpell$ True | Amount$ 1
+HandLifeModifier:+0/-3
+A:AB$ Effect | ActivationZone$ Command | Cost$ PayLife<1> | TgtZone$ Graveyard | ValidTgts$ Creature.YouOwn | PumpZone$ Graveyard | RememberObjects$ Targeted | StaticAbilities$ Play | ExileOnMoved$ Graveyard
+SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Graveyard
+T:Mode$ SpellCast | ValidCard$ Creature.wasCastFromYourGraveyard | ValidActivatingPlayer$ You | TriggerZones$ Command | Execute$ TrigAnimate
+SVar:TrigAnimate:DB$ Animate | Defined$ TriggeredCard | Types$ Zombie,Knight | Colors$ Black | OverwriteColors$ True | Duration$ Permanent | RemoveCreatureTypes$ True
+R:Event$ Moved | ValidCard$ Card.Zombie+Knight | Destination$ Graveyard | ReplaceWith$ DBExile
+SVar:DBExile:DB$ ChangeZone | Defined$ ReplacedCard | Origin$ Battlefield | Destination$ Exile

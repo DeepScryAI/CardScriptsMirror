@@ -1,13 +1,11 @@
 Id:21372
-ColorIdentity:WB
+ColorIdentity:W
 OriginSet:G51d431785c8b33e5
-ManaCost:2 W W B
-Types:Legendary Creature Angel
-PT:5/5
-S:Mode$ ReduceCost | ValidCard$ Card.Self+wasCastFromCommand | Type$ Spell | Amount$ X | EffectZone$ Stack
-S:Mode$ RaiseCost | ValidCard$ Card.Self+wasCastFromCommand | Type$ Spell | Cost$ PayLife<X> | EffectZone$ Stack | Secondary$ True
-SVar:X:Count$CommanderCastFromCommandZone/Times.2
-K:Flying
-K:Lifelink
-T:Mode$ SpellCast | TriggerZones$ Battlefield | Execute$ TrigLoseLife
-SVar:TrigLoseLife:DB$ LoseLife | Defined$ TriggeredActivator | LifeAmount$ 2
+ManaCost:1 W
+Types:Enchantment Aura
+K:Flash
+K:Enchant:Creature
+K:ETBReplacement:Other:ChooseColor
+SVar:ChooseColor:DB$ ChooseColor | Defined$ You | AILogic$ MostProminentInHumanDeck
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddKeyword$ Protection:Card.ChosenColor:chosenColor:Aura.ControlledBy Player.PlayerUID_HostCardControllerUID,Equipment.ControlledBy Player.PlayerUID_HostCardControllerUID:SBA

@@ -1,12 +1,9 @@
 Id:30535
-ColorIdentity:WB
+ColorIdentity:W
 OriginSet:G8b2ed00ac2a0ff47
-ManaCost:1 W B
-Types:Legendary Creature Human Warlock
-PT:3/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Enchantment.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigSurveil
-T:Mode$ FullyUnlock | ValidCard$ Card.Room | ValidPlayer$ You | Secondary$ True | Execute$ TrigSurveil | TriggerZones$ Battlefield
-SVar:TrigSurveil:DB$ Surveil | Amount$ 2 | ConditionCheckSVar$ Resolved | ConditionSVarCompare$ EQ1 | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | Defined$ Player.Opponent | Mode$ TgtChoose | ConditionCheckSVar$ Resolved | ConditionSVarCompare$ EQ2 | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ChangeType$ Creature | ChangeNum$ 1 | Mandatory$ True | GainControl$ True | ConditionCheckSVar$ Resolved | ConditionSVarCompare$ EQ3 | Hidden$ True
-SVar:Resolved:Count$ResolvedThisTurn
+ManaCost:2 W
+Types:Creature Human Soldier
+PT:2/4
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump | TriggerZones$ Battlefield
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.YouCtrl+Other | KW$ Indestructible | NumAtt$ +1
+SVar:HasAttackEffect:TRUE

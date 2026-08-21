@@ -1,13 +1,25 @@
 Id:23119
-ColorIdentity:R
-OriginSet:G3aa323ca47c740b1
-ManaCost:2 R
-Types:Creature Vampire Noble
-PT:3/1
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self,Vampire.Other+!token+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 3851718391
-A:AB$ Dig | Cost$ R Sac<2/Artifact> | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | Defined$ You | RememberChanged$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | StaticAbilities$ EffSModeContinuous | ExileOnMoved$ Exile | RememberObjects$ Remembered | SubAbility$ DBCleanup
-SVar:EffSModeContinuous:Mode$ Continuous | Affected$ Card.IsRemembered | MayPlay$ True | AffectedZone$ Exile
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:AIPreference:SacCost$Artifact.token
+ColorIdentity:W
+OriginSet:G7a76c1974b0a33a6
+ManaCost:1 W W
+Types:Creature Spirit Soldier
+PT:4/4
+K:Defender
+K:Flying
+K:Vigilance
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | IsPresent$ Card.Self+counters_LE2_JUDGMENT | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | CounterType$ JUDGMENT
+S:Mode$ CanAttackDefender | ValidCard$ Card.Self+counters_GE3_JUDGMENT
+K:Disturb:5 W W
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:white
+Types:Enchantment Aura Curse
+K:Enchant:Player
+SVar:AttachAILogic:Curse
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ JUDGMENT | CounterNum$ 1 | SubAbility$ DBLose
+SVar:DBLose:DB$ LosesGame | Defined$ EnchantedPlayer | ConditionPresent$ Card.Self+counters_GE3_JUDGMENT
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Graveyard | ReplaceWith$ Exile
+SVar:Exile:DB$ ChangeZone | Hidden$ True | Origin$ All | Destination$ Exile | Defined$ ReplacedCard

@@ -1,14 +1,8 @@
 Id:6520
 ColorIdentity:
 OriginSet:G983da6aa108b8f13
-ManaCost:3
-Types:Artifact
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigExile | OptionalDecider$ You
-SVar:TrigExile:DB$ ChangeZone | Imprint$ True | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Land.YouCtrl | AILogic$ ExtraplanarLens
-T:Mode$ TapsForMana | ValidCard$ Land.sharesNameWith Imprinted | Execute$ TrigMana | TriggerZones$ Battlefield | Static$ True
-SVar:TrigMana:DB$ ManaReflected | ColorOrType$ Type | ReflectProperty$ Produced | Defined$ TriggeredCardController
-T:Mode$ ChangesZone | Origin$ Battlefield | ValidCard$ Card.Self | Destination$ Any | Execute$ DBCleanup | Static$ True
-SVar:DBCleanup:DB$ Cleanup | ClearImprinted$ True
-T:Mode$ ChangesZone | ValidCard$ Card.IsImprinted+ExiledWithSourceLKI | Origin$ Exile | Execute$ DBForget | Static$ True
-SVar:DBForget:DB$ Pump | ForgetImprinted$ TriggeredCard
-SVar:NeedsToPlay:Land.Basic+YouCtrl
+ManaCost:2
+Types:Artifact Equipment
+K:Equip:2
+S:Mode$ Continuous | Affected$ Card.EquippedBy | AddPower$ X | AddToughness$ X
+SVar:X:Count$ValidHand Card.YouOwn

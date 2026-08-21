@@ -1,11 +1,10 @@
 Id:20705
-ColorIdentity:R
+ColorIdentity:WBR
 OriginSet:Gf8d4de878d0536c5
-ManaCost:4 R
-Types:Creature Lizard
-PT:4/4
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigChangeZone
-SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card.YouOwn+withCycling,Card.YouOwn+withTypeCycling | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | RememberObjects$ Targeted | ForgetOnMoved$ Exile | StaticAbilities$ Play | Duration$ UntilTheEndOfYourNextTurn
-SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
-K:Cycling:2
+ManaCost:2 W W
+Types:Sorcery
+A:SP$ RepeatEach | ConditionManaSpent$ B R | RepeatPlayers$ Player | RepeatSubAbility$ YouChoose | SubAbility$ AllChoose
+SVar:YouChoose:DB$ ChooseCard | Defined$ You | Choices$ Permanent.nonLand | ChooseEach$ Artifact & Creature & Enchantment & Planeswalker | ControlledByPlayer$ Remembered | Reveal$ True | RememberChosen$ True | Mandatory$ True
+SVar:AllChoose:DB$ ChooseCard | ConditionManaNotSpent$ B R | Defined$ Player | Choices$ Permanent.nonLand | ChooseEach$ Artifact & Creature & Enchantment & Planeswalker | ControlledByPlayer$ Chooser | Reveal$ True | Mandatory$ True | RememberChosen$ True | SubAbility$ SacAllOthers
+SVar:SacAllOthers:DB$ SacrificeAll | ValidCards$ Permanent.nonLand+!IsRemembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

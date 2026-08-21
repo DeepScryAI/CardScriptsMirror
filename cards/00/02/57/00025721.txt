@@ -1,8 +1,9 @@
 Id:25721
-ColorIdentity:
+ColorIdentity:W
 OriginSet:G06ccef4324c14725
-ManaCost:no cost
-Types:Land
-A:AB$ Mana | Cost$ T | Produced$ C
-A:AB$ Animate | Cost$ 2 | Defined$ Self | Power$ 2 | Toughness$ 2 | Types$ Artifact,Creature,Assembly-Worker | RemoveCreatureTypes$ True
-A:AB$ Pump | Cost$ 1 T | ValidTgts$ Creature.Assembly-Worker+attacking | NumAtt$ +2 | NumDef$ +2
+ManaCost:1 W
+Types:Instant
+A:SP$ ChangeZoneAll | ChangeType$ Card | Origin$ Graveyard | Destination$ Exile | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STCantBeCast | SubAbility$ ExileSelf
+SVar:STCantBeCast:Mode$ CantBeCast | ValidCard$ Card.nonCreature | Caster$ Player
+SVar:ExileSelf:DB$ ChangeZone | Origin$ Stack | Destination$ Exile

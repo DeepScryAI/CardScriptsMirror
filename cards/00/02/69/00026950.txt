@@ -1,9 +1,10 @@
 Id:26950
 ColorIdentity:W
-OriginSet:G6ce0035cfb774934
+OriginSet:G321081e278de53f0
 ManaCost:2 W
-Types:Creature Human Soldier
-PT:3/2
+Types:Enchantment
 T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | Origin$ Hand | Destination$ Library | ChangeNum$ 1 | Mandatory$ True | LibraryPosition$ -1 | ConditionPresent$ Creature.Legendary+YouCtrl | ConditionCompare$ EQ0
+SVar:TrigDraw:DB$ Draw
+S:Mode$ Continuous | Affected$ Planeswalker.counters_GE1_LOYALTY | AddType$ Creature | RemoveCardTypes$ True | RemoveAllAbilities$ True | SetPower$ AffectedX | SetToughness$ AffectedX
+SVar:AffectedX:Count$CardCounters.LOYALTY
+SVar:NonStackingEffect:True

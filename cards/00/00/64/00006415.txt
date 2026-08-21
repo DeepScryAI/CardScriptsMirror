@@ -1,13 +1,10 @@
 Id:6415
-ColorIdentity:U
+ColorIdentity:G
 OriginSet:Gd11012ee98ee8d76
-ManaCost:3 U U
-Types:Enchantment
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSearch
-SVar:TrigSearch:DB$ ChangeZone | ChangeNum$ 7 | ChangeType$ Card | Mandatory$ True | Origin$ Library | Destination$ Exile | ShuffleChangedPile$ True | ExileFaceDown$ True | RememberChanged$ True
-T:Mode$ ChangesZone | ValidCard$ Card.IsRemembered | Origin$ Exile | Destination$ Any | Static$ True | Execute$ TrigForget
-SVar:TrigForget:DB$ Pump | ForgetObjects$ TriggeredCard
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigReset | Static$ True
-SVar:TrigReset:DB$ Cleanup | ClearRemembered$ True
-R:Event$ Draw | ActiveZones$ Battlefield | ValidPlayer$ You | ReplaceWith$ RepParallelThoughts | Optional$ True | OptionalDecider$ You
-SVar:RepParallelThoughts:DB$ ChangeZone | Defined$ RememberedFirst | Origin$ Exile | Destination$ Hand
+ManaCost:G
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAITgts:Card.powerGE1
+SVar:AttachAILogic:Pump
+T:Mode$ DamageDone | ValidSource$ Card.AttachedBy | ValidTarget$ Player | TriggerZones$ Battlefield | Execute$ TrigChange | CombatDamage$ True
+SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | Tapped$ True | ChangeType$ Land.Basic | ShuffleNonMandatory$ True

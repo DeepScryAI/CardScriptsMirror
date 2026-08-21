@@ -1,14 +1,8 @@
 Id:13116
-ColorIdentity:U
+ColorIdentity:WU
 OriginSet:G5449dea2d54987a1
-ManaCost:4 U
-Types:Enchantment
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ SetupSearch
-SVar:SetupSearch:DB$ Dig | Defined$ You | DigNum$ 5 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | ForgetOtherRemembered$ True
-T:Mode$ SpellCast | ValidCard$ Card.sharesNameWith Remembered | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigFind
-T:Mode$ LandPlayed | ValidCard$ Land.YouCtrl+sharesNameWith Remembered | TriggerZones$ Battlefield | Execute$ TrigFind | OptionalDecider$ You | Secondary$ True
-SVar:TrigFind:DB$ ChangeZone | ChangeType$ TriggeredCard.sharesNameWith | Hidden$ True | Origin$ Exile | Destination$ Hand | ChangeNum$ 1 | ForgetChanged$ True | SubAbility$ SacSelf
-SVar:SacSelf:DB$ Sacrifice | ConditionCheckSVar$ StillLooking | ConditionSVarCompare$ EQ0 | RememberSacrificed$ True | SubAbility$ AllFoundCelebration
-SVar:AllFoundCelebration:DB$ AddTurn | NumTurns$ 1 | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ1
-SVar:StillLooking:Remembered$Amount
-SVar:X:Remembered$Amount
+ManaCost:W U
+Types:Sorcery
+A:SP$ RevealHand | ValidTgts$ Player | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ X
+SVar:X:Count$ValidHand Card.TargetedPlayerOwn

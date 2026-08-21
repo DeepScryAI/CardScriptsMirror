@@ -1,7 +1,11 @@
 Id:13107
-ColorIdentity:WG
+ColorIdentity:WU
 OriginSet:G5449dea2d54987a1
-ManaCost:5 G W
-Types:Creature Elemental
-PT:8/8
-K:Vigilance
+ManaCost:3 W U
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ X | AddToughness$ X
+SVar:X:Count$ValidHand Card.OwnedBy EnchantedController
+T:Mode$ Phase | Phase$ Draw | ValidPlayer$ Player.EnchantedController | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ TriggeredPlayer

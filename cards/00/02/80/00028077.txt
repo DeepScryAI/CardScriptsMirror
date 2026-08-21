@@ -1,14 +1,12 @@
 Id:28077
-ColorIdentity:G
-OriginSet:Gfd50577710a6ab09
-ManaCost:1 G
-Types:Creature Human Druid
-PT:2/2
-A:AB$ Mana | Cost$ T | Produced$ Any
-A:AB$ ChangeZone | Cost$ 2 | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card
-S:Mode$ Continuous | MayPlay$ True | Affected$ Dinosaur.ExiledWithSource+YouOwn | AffectedZone$ Exile
-T:Mode$ SpellCast | ValidCard$ Card.CastSa Spell.MayPlaySource | Execute$ TrigEffect | Static$ True | TriggerZones$ Battlefield
-SVar:TrigEffect:DB$ Effect | ReplacementEffects$ ReMoved | RememberObjects$ TriggeredCard
-SVar:ReMoved:Event$ Moved | Origin$ Stack | ValidCard$ Card.IsRemembered | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBCounter
-SVar:ETBCounter:DB$ PutCounter | ETB$ True | Defined$ ReplacedCard | CounterType$ FINALITY | CounterNum$ 1 | SubAbility$ RemoveSelf
-SVar:RemoveSelf:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile
+ColorIdentity:UG
+OriginSet:G06c78c29bfb28e3d
+ManaCost:2 G U
+Types:Legendary Creature Merfolk Scout
+PT:3/3
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigExplore
+SVar:TrigExplore:DB$ Explore | Defined$ Valid Creature.Merfolk+YouCtrl
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigChangeZone | TriggerZones$ Battlefield
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | ChangeType$ Land | ChangeNum$ 1 | Optional$ True | RememberChanged$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ0 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

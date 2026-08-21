@@ -1,10 +1,12 @@
 Id:8304
 ColorIdentity:W
 OriginSet:Gde6d8130c178f566
-ManaCost:3 W W
-Types:Creature Elemental
-PT:3/3
-K:Flying
-T:Mode$ SpellCast | ValidCard$ Enchantment | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigCounters
-SVar:TrigCounters:DB$ PutCounterAll | ValidCards$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1
-SVar:BuffedBy:Enchantment
+ManaCost:1 W
+Types:Instant
+A:SP$ Pump | ValidTgts$ Creature | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | ValidTgts$ Creature | TargetUnique$ True | ReplacementEffects$ CaromDamage | Triggers$ OutOfSight | RememberObjects$ ParentTarget | ImprintCards$ ThisTargetedCard | ExileOnMoved$ Battlefield | ConditionDefined$ ParentTarget | ConditionPresent$ Creature | ConditionCompare$ GE1 | SubAbility$ DBDraw
+SVar:CaromDamage:Event$ DamageDone | ValidTarget$ Creature.IsRemembered | ReplaceWith$ CaromDmg | DamageTarget$ Imprinted
+SVar:CaromDmg:DB$ ReplaceSplitDamage | DamageTarget$ Imprinted
+SVar:OutOfSight:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.IsImprinted | Execute$ ExileEffect | Static$ True
+SVar:ExileEffect:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile
+SVar:DBDraw:DB$ Draw

@@ -1,13 +1,11 @@
 Id:13507
-ColorIdentity:WBG
+ColorIdentity:UR
 OriginSet:G9b1658d4f3a50109
-ManaCost:1 G W
-Types:Instant
-K:Fuse
-A:SP$ PumpAll | ValidCards$ Creature.YouCtrl | KW$ Indestructible | SubAbility$ DBUnTapAll
-SVar:DBUnTapAll:DB$ UntapAll | ValidCards$ Creature.YouCtrl
-AlternateMode:Split
-ALTERNATE
-ManaCost:1 W B
-Types:Instant
-A:SP$ PumpAll | ValidCards$ Creature.YouCtrl | KW$ Deathtouch & Lifelink
+ManaCost:2 U R
+Types:Legendary Planeswalker Ral
+Loyalty:4
+A:AB$ Tap | Cost$ AddCounter<1/LOYALTY> | ValidTgts$ Permanent | Planeswalker$ True | SubAbility$ DBUntap
+SVar:DBUntap:DB$ Untap | ValidTgts$ Permanent | TargetUnique$ True
+A:AB$ DealDamage | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | ValidTgts$ Any | NumDmg$ 3
+A:AB$ FlipCoin | Cost$ SubCounter<7/LOYALTY> | Amount$ 5 | NoCall$ True | HeadsSubAbility$ DBAddTurn | Planeswalker$ True | Ultimate$ True
+SVar:DBAddTurn:DB$ AddTurn | Defined$ You | NumTurns$ X

@@ -1,7 +1,11 @@
 Id:15855
-ColorIdentity:W
+ColorIdentity:UG
 OriginSet:G92026fbb3573fda5
-ManaCost:1 W W
-Types:Enchantment
-S:Mode$ Continuous | Affected$ Creature.!token+YouCtrl | AddPower$ 1 | AddToughness$ 1 | AddKeyword$ Vigilance
-SVar:PlayMain1:TRUE
+ManaCost:X 2 G U
+Types:Creature Shapeshifter
+PT:0/0
+R:Event$ Counter | ValidCard$ Card.Self | ValidSA$ Spell | Layer$ CantHappen
+K:ETBReplacement:Copy:DBCopy:Optional
+SVar:DBCopy:DB$ Clone | Choices$ Creature.Other | SubAbility$ DBAddCounter
+SVar:DBAddCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | ETB$ True | CounterNum$ X
+SVar:X:Count$xPaid

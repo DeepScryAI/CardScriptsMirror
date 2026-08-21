@@ -1,12 +1,14 @@
 Id:31300
-ColorIdentity:WBR
-OriginSet:Ge1676a27173c0866
-ManaCost:R W B
-Types:Enchantment Saga
-K:Chapter:3:DBDraw,DBEffect,DBEffect
-SVar:DBDraw:DB$ Draw | NumCards$ 2 | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 2
-SVar:DBEffect:DB$ Effect | Triggers$ CreatureETB
-SVar:CreatureETB:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.YouCtrl | Execute$ TrigLoseLife
-SVar:TrigLoseLife:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 1 | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
+ColorIdentity:WUB
+OriginSet:Gef9d0d0c16b2fcf7
+ManaCost:2 W U B
+Types:Legendary Creature Zombie Wizard
+PT:4/4
+K:Vigilance
+K:Menace
+T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigDraw | TriggerZones$ Battlefield
+SVar:TrigDraw:DB$ Draw | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ TgtChoose
+T:Mode$ Drawn | ValidCard$ Card.YouOwn | TriggerZones$ Battlefield | Execute$ TrigPumpAll
+SVar:TrigPumpAll:DB$ PumpAll | ValidCards$ Zombie.YouCtrl | NumAtt$ +1 | NumDef$ +1
+SVar:PlayMain1:TRUE

@@ -1,10 +1,11 @@
 Id:5518
-ColorIdentity:U
+ColorIdentity:B
 OriginSet:Ge4af4f9459d5dadd
-ManaCost:X U
-Types:Sorcery
-A:SP$ Draw | NumCards$ 4 | SubAbility$ DBBreakthroughDiscard
-SVar:DBBreakthroughDiscard:DB$ Discard | Defined$ You | Mode$ TgtChoose | NumCards$ BreakthroughZ
-SVar:X:Count$xPaid
-SVar:BreakthroughY:Count$ValidHand Card.YouOwn
-SVar:BreakthroughZ:SVar$BreakthroughY/Minus.X
+ManaCost:1 B
+Types:Creature Horror
+PT:1/1
+K:Flying
+S:Mode$ Continuous | Affected$ Card.Self | AddPower$ 2 | AddToughness$ 2 | AddTrigger$ SpellTarget | AddSVar$ SlasherSac & SlasherTarget | Condition$ Threshold
+SVar:SpellTarget:Mode$ BecomesTarget | ValidTarget$ Card.Self | TriggerZones$ Battlefield | Execute$ SlasherSac
+SVar:SlasherSac:DB$ Sacrifice
+SVar:SlasherTarget:Targeting:Dies

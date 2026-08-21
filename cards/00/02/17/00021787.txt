@@ -1,14 +1,21 @@
 Id:21787
-ColorIdentity:R
-OriginSet:Gabb23d0d25cdc46d
-ManaCost:2 R
-Types:Legendary Creature Spirit Warrior
-PT:2/2
-K:Haste
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigExile
-SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | RememberObjects$ Remembered | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
-SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-T:Mode$ ChangesZoneAll | Origin$ Library,Graveyard | Destination$ Exile | ValidCards$ Card.YouOwn | Execute$ TrigPutCounter | TriggerZones$ Battlefield
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+ColorIdentity:B
+OriginSet:G18bf722b221724f8
+ManaCost:3 B B
+Types:Legendary Creature God
+PT:4/5
+K:Menace
+T:Mode$ Sacrificed | ValidCard$ Permanent.!token+OppCtrl | OptionalDecider$ You | Execute$ TrigReturn | TriggerZones$ Battlefield
+T:Mode$ Discarded | ValidCard$ Permanent.!token+OppCtrl | OptionalDecider$ You | Execute$ TrigReturn | TriggerZones$ Battlefield
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True | Defined$ TriggeredCard
+SVar:PlayMain1:TRUE
+AlternateMode:Modal
+ALTERNATE
+ManaCost:3 B
+Types:Legendary Artifact
+A:AB$ Pump | Cost$ T | ValidTgts$ Player | SubAbility$ TrigGenericChoice | IsCurse$ True
+A:AB$ Untap | Cost$ 3 B
+SVar:TrigGenericChoice:DB$ GenericChoice | Defined$ Targeted | Choices$ PaySac,PayDiscard | FallbackAbility$ LoseLifeFallback | AILogic$ PayUnlessCost
+SVar:PaySac:DB$ LoseLife | LifeAmount$ 3 | Defined$ Targeted | UnlessCost$ Sac<1/Permanent.nonLand/nonland permanent> | UnlessPayer$ Targeted
+SVar:PayDiscard:DB$ LoseLife | LifeAmount$ 3 | Defined$ Targeted | UnlessCost$ Discard<1/Card> | UnlessPayer$ Targeted
+SVar:LoseLifeFallback:DB$ LoseLife | Defined$ Targeted | LifeAmount$ 3

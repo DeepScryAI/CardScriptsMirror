@@ -1,9 +1,12 @@
 Id:32269
 ColorIdentity:G
 OriginSet:G9946f072b5556073
-ManaCost:2 G
-Types:Creature Insect Scout
-PT:4/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSurveil
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigSurveil | Secondary$ True
-SVar:TrigSurveil:DB$ Surveil | Amount$ 1
+ManaCost:no cost
+Types:Land Planet
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ G
+K:Station:12
+S:Mode$ Continuous | Affected$ Card.Self+counters_GE12_CHARGE | AddAbility$ EvendoMana
+SVar:EvendoMana:AB$ Mana | Cost$ G T | Produced$ G | Amount$ X
+SVar:X:Count$Valid Creature.YouCtrl

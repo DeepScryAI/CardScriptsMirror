@@ -1,8 +1,15 @@
 Id:24221
-ColorIdentity:B
+ColorIdentity:UG
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:2 B
-Types:Legendary Enchantment Background
-S:Mode$ Continuous | Affected$ Creature.IsCommander+YouOwn | AddKeyword$ Menace | AddStaticAbility$ PowerGrave
-SVar:PowerGrave:Mode$ Continuous | Affected$ Card.Self | AddPower$ X | This creature gets +X/+0, where X is the number of creature cards in your graveyard.
-SVar:X:Count$ValidGraveyard Creature.YouOwn
+ManaCost:2 G U
+Types:Legendary Creature Human Shaman
+PT:3/5
+A:AB$ Draw | Cost$ T | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | WithCountersType$ TIME | WithCountersAmount$ X | SubAbility$ DBAddTrigger | RememberChanged$ True | Mandatory$ True
+SVar:X:Remembered$CardManaCost
+SVar:DBAddTrigger:DB$ Animate | Defined$ Remembered | Triggers$ TWhenLastTimeCounterRemoved | Duration$ Permanent | SubAbility$ DBRemoveTimeCounterOtherCardsInExile
+SVar:TWhenLastTimeCounterRemoved:Mode$ CounterRemoved | ValidCard$ Card.Self+counters_EQ0_TIME | TriggerZones$ Exile | CounterType$ TIME | Execute$ DBCastWithoutPayingManaCost
+SVar:DBCastWithoutPayingManaCost:DB$ Play | Valid$ Card.Self | ValidSA$ Spell | ValidZone$ Exile | Destination$ Battlefield | WithoutManaCost$ True | Optional$ True | SubAbility$ DBGiveHaste
+SVar:DBGiveHaste:DB$ Pump | Defined$ Self | KW$ Haste | ConditionDefined$ Self | ConditionPresent$ Card.Creature | PumpZone$ Stack
+SVar:DBRemoveTimeCounterOtherCardsInExile:DB$ RemoveCounterAll | ValidCards$ Card.YouOwn+!IsRemembered | ValidZone$ Exile | CounterType$ TIME | CounterNum$ 1 | SubAbility$ DBCleanUp
+SVar:DBCleanUp:DB$ Cleanup | ClearRemembered$ True

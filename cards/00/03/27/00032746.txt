@@ -1,9 +1,11 @@
 Id:32746
-ColorIdentity:W
-OriginSet:G22ed5d6f3707b461
-ManaCost:2 W
-Types:Artifact Equipment
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigAirbend
-SVar:TrigAirbend:DB$ Airbend | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1 | AddToughness$ 1 | AddKeyword$ Flying
-K:Equip:2
+ColorIdentity:UR
+OriginSet:G7ab4f62d323b0ca7
+ManaCost:1 U R
+Types:Legendary Creature Wizard
+PT:0/3
+A:AB$ Mana | Cost$ T | Produced$ Combo U R | Amount$ X
+SVar:X:Count$CardPower
+T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBDamage
+SVar:DBDamage:DB$ DealDamage | Defined$ Opponent | NumDmg$ 1

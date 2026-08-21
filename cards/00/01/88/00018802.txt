@@ -1,10 +1,11 @@
 Id:18802
-ColorIdentity:UR
+ColorIdentity:UB
 OriginSet:G1ecb361a0a117393
-ManaCost:4 U R
-Types:Legendary Planeswalker Ral
-Loyalty:4
-A:AB$ Draw | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | NumCards$ 1
-A:AB$ DealDamage | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | ValidTgts$ Any | NumDmg$ 3 | TargetMin$ 1 | TargetMax$ 3 | DividedAsYouChoose$ 3
-A:AB$ Draw | Cost$ SubCounter<7/LOYALTY> | Planeswalker$ True | Ultimate$ True | NumCards$ 7 | SubAbility$ DBDamage
-SVar:DBDamage:DB$ DamageAll | ValidCards$ Creature.OppCtrl | NumDmg$ 7
+ManaCost:1 U B
+Types:Sorcery
+A:SP$ ChangeZoneAll | Defined$ Player.Opponent | Origin$ Graveyard | Destination$ Exile | ChangeType$ Card | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | Duration$ Permanent | StaticAbilities$ STPlay | RememberObjects$ Remembered | ForgetOnMoved$ Exile | SubAbility$ DelTrig
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | MayPlayIgnoreType$ True | Affected$ Card.nonLand+IsRemembered | AffectedZone$ Exile
+SVar:DelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ TrigReturn | RememberObjects$ RememberedLKI | IsPresent$ Card.IsTriggerRemembered | PresentZone$ Exile | SubAbility$ ExileSelf
+SVar:TrigReturn:DB$ ChangeZone | Defined$ DelayTriggerRememberedLKI | Origin$ Exile | Destination$ Graveyard
+SVar:ExileSelf:DB$ ChangeZone | Defined$ Self | Origin$ Stack | Destination$ Exile

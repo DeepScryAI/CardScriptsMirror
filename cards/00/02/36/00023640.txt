@@ -1,15 +1,13 @@
 Id:23640
-ColorIdentity:G
+ColorIdentity:B
 OriginSet:G1a259dba25660062
-ManaCost:2 G
+ManaCost:X B
 Types:Instant
-A:SP$ Charm | Choices$ P1P1,Lore
-SVar:P1P1:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 2
-SVar:Lore:DB$ PutCounter | ValidTgts$ Saga.YouCtrl | CounterType$ LORE | CounterNum$ 2 | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | ReplacementEffects$ ReplaceETB | Triggers$ TrigRemove
-SVar:ReplaceETB:Event$ Moved | Destination$ Battlefield | ValidCard$ Creature.Enchantment | ReplaceWith$ DBPutP1P1 | ReplacementResult$ Updated
-SVar:DBPutP1P1:DB$ PutCounter | Defined$ ReplacedCard | CounterType$ P1P1 | ETB$ True | CounterNum$ 2 | SubAbility$ DBImprint
-SVar:DBImprint:DB$ Pump | ImprintCards$ ReplacedCard
-SVar:TrigRemove:Mode$ ChangesZoneAll | CheckSVar$ Z | Execute$ ExileSelf | Static$ True
-SVar:ExileSelf:DB$ ChangeZone | Origin$ Command | Destination$ Exile | Defined$ Self
-SVar:Z:Imprinted$Amount
+A:SP$ DealDamage | Announce$ Exiled | ValidTgts$ Creature,Planeswalker | NumDmg$ X | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ X
+S:Mode$ RaiseCost | ValidCard$ Card.Self | Type$ Spell | Cost$ ExileFromHand<Y/Card.Black/black cards> | EffectZone$ All
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ Z | EffectZone$ All | Relative$ True | Secondary$ True
+SVar:X:Count$xPaid
+SVar:Y:SVar$Exiled
+SVar:Z:SVar$Y/Times.2
+SVar:Exiled:Number$0

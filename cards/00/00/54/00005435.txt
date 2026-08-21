@@ -1,7 +1,12 @@
 Id:5435
-ColorIdentity:R
+ColorIdentity:U
 OriginSet:Gfdac7ecc1e8a7d21
-ManaCost:3 R R
-Types:Sorcery
-A:SP$ DealDamage | NumDmg$ X | TargetMin$ 0 | TargetMax$ 3 | ValidTgts$ Any
-SVar:X:Count$Threshold.4.2
+ManaCost:2 U
+Types:Creature Shapeshifter
+PT:1/1
+A:AB$ ChangeZone | Cost$ 3 U Exile<1/CARDNAME> | Origin$ Hand | Destination$ Battlefield | ChangeType$ Creature.YouOwn | Optional$ True | RememberChanged$ True | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Remembered | KW$ Haste | ConditionDefined$ Remembered | ConditionPresent$ Creature | ConditionCompare$ EQ1 | SubAbility$ DBDelTrig
+SVar:DBDelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ TrigSac | RememberObjects$ Remembered | ConditionDefined$ Remembered | ConditionPresent$ Creature | SubAbility$ DBCleanup
+SVar:TrigSac:DB$ SacrificeAll | Defined$ DelayTriggerRememberedLKI | Controller$ You | RememberSacrificed$ True | SubAbility$ DBBounce
+SVar:DBBounce:DB$ ChangeZone | Origin$ Exile | Defined$ Self | Destination$ Battlefield | ConditionDefined$ Remembered | ConditionPresent$ Card
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

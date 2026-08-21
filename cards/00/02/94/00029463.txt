@@ -1,16 +1,11 @@
 Id:29463
-ColorIdentity:U
-OriginSet:Gac6359c222afbd4f
-ManaCost:2 U
-Types:Creature Weird
-PT:1/4
-K:Flash
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange | OptionalDecider$ You
-SVar:TrigChange:DB$ ChangeTargets | TargetType$ Instant.singleTarget,Sorcery.singleTarget | ValidTgts$ Card | DefinedMagnet$ Self | ChangeSingleTarget$ True
-AlternateMode:Modal
-ALTERNATE
-ManaCost:no cost
-Types:Land
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ DBTap | ReplacementResult$ Updated
-SVar:DBTap:DB$ Tap | ETB$ True | Defined$ Self | UnlessCost$ PayLife<3> | UnlessPayer$ You
-A:AB$ Mana | Cost$ T | Produced$ U
+ColorIdentity:B
+OriginSet:G2ce881cc55bb9f18
+ManaCost:4 B B
+Types:Sorcery
+A:SP$ Charm | MinCharmNum$ 1 | CharmNum$ 5 | Choices$ DestroyAllCreatures,DestroyAllPlaneswalkers,DestroyAllBattles,ExileAllGraveyards,RemoveAllCounters
+SVar:DestroyAllCreatures:DB$ DestroyAll | ValidCards$ Creature
+SVar:DestroyAllPlaneswalkers:DB$ DestroyAll | ValidCards$ Planeswalker
+SVar:DestroyAllBattles:DB$ DestroyAll | ValidCards$ Battle
+SVar:ExileAllGraveyards:DB$ ChangeZoneAll | ChangeType$ Card | Origin$ Graveyard | Destination$ Exile
+SVar:RemoveAllCounters:DB$ RemoveCounter | CounterType$ All | CounterNum$ All | Defined$ Opponent

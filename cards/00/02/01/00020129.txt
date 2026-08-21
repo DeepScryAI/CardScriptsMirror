@@ -1,9 +1,12 @@
 Id:20129
-ColorIdentity:R
+ColorIdentity:B
 OriginSet:G00aff909a83a7400
-ManaCost:1 R
-Types:Creature Lizard Wizard
-PT:2/1
-K:MayEffectFromOpeningHand:RevealCard:!PlayFirst
-SVar:RevealCard:DB$ Reveal | RevealDefined$ Self | BecomeStartingPlayer$ True
-K:Haste
+ManaCost:4 B
+Types:Creature Lhurgoyf Imp
+PT:*/1+*
+K:Flying
+S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X | SetToughness$ Y
+SVar:X:Count$ValidGraveyard Card$CardTypes
+SVar:Y:SVar$X/Plus.1
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Hand | Destination$ Library | LibraryPosition$ 0 | ValidTgts$ Opponent | Chooser$ Targeted | ChangeType$ Card | ChangeNum$ 1 | Mandatory$ True | IsCurse$ True

@@ -1,11 +1,9 @@
 Id:19527
-ColorIdentity:
+ColorIdentity:RG
 OriginSet:G9d37112ca6693432
-ManaCost:3
-Types:Artifact Equipment
-K:Equip:2
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddToughness$ 2 | AddSVar$ SwordOfSinewAndSteelCE | AddKeyword$ Protection:Black & Protection:Red
-T:Mode$ DamageDone | ValidSource$ Creature.EquippedBy | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDestroyPlaneswalker | TriggerZones$ Battlefield
-SVar:TrigDestroyPlaneswalker:DB$ Destroy | ValidTgts$ Planeswalker | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DestroyArtifact
-SVar:DestroyArtifact:DB$ Destroy | ValidTgts$ Artifact | TargetMin$ 0 | TargetMax$ 1
-SVar:SwordOfSinewAndSteelCE:SVar:MustBeBlocked:AttackingPlayerConservative
+ManaCost:R G
+Types:Creature Human Berserker
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigDamage | OptionalDecider$ You
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ X
+SVar:X:Count$ValidGraveyard Land.YouOwn

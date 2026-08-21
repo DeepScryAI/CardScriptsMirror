@@ -1,11 +1,17 @@
 Id:30201
-ColorIdentity:W
-OriginSet:G9ff9681e1fe8713a
-ManaCost:2 W
-Types:Creature Elemental Horse
-PT:2/4
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigConjure
-SVar:TrigConjure:DB$ MakeCard | Amount$ 3 | Conjure$ True | CatalogId$ 17087 | Defined$ Player | Zone$ Library | LibraryPosition$ Count$Random.0.10
-T:Mode$ LandPlayed | ValidCard$ Desert | TriggerZones$ Battlefield | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ TriggeredCardController | NumCards$ 1 | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | LifeAmount$ 3
+ColorIdentity:U
+OriginSet:G30e4cc621dfc3a2e
+ManaCost:3 U
+Types:Creature Frog Wizard
+PT:3/3
+S:Mode$ Continuous | Affected$ You | SetMaxHandSize$ 20
+T:Mode$ AttackersDeclared | Execute$ TrigPutCounter | ValidAttackers$ Creature | ValidAttackersAmount$ GE2 | TriggerZones$ Battlefield | AttackingPlayer$ You
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigWinGame | TriggerZones$ Battlefield
+SVar:TrigWinGame:DB$ WinsGame | Defined$ You | ConditionCheckSVar$ Win | ConditionSVarCompare$ GE20
+SVar:Win:Count$Compare Y GE20.20.Z
+SVar:Y:Count$CardCounters.ALL
+SVar:Z:Count$ValidHand Card.YouOwn
+SVar:HasAttackEffect:TRUE
+SVar:PlayMain1:TRUE

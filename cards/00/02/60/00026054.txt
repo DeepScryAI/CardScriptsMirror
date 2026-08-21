@@ -1,7 +1,13 @@
 Id:26054
-ColorIdentity:R
-OriginSet:G2192e8955d5e1ad1
-ManaCost:R
-Types:Instant
-A:SP$ Pump | ValidTgts$ Creature | NumAtt$ +2 | NumDef$ +2 | SubAbility$ DBCounter
-SVar:DBCounter:DB$ PutCounter | Defined$ Targeted | CounterType$ OIL | CounterNum$ 2
+ColorIdentity:U
+OriginSet:G880fc7f6ed36df4d
+ManaCost:2 U
+Types:Creature Human Soldier
+PT:1/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenTapped$ True | TokenScriptIds$ 2975106104
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigUnblockable
+SVar:TrigUnblockable:AB$ Effect | Cost$ 2 | StaticAbilities$ Unblockable | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | NumAtt$ +2 | Duration$ Perpetual
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.EffectSource
+SVar:HasAttackEffect:TRUE

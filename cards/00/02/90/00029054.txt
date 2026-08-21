@@ -1,9 +1,14 @@
 Id:29054
-ColorIdentity:U
-OriginSet:G27146c70b74a1e72
-ManaCost:3 U
-Types:Creature Turtle Rogue
-PT:4/4
-K:Flash
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+ColorIdentity:R
+OriginSet:Gaf7c94f364052cdd
+ManaCost:2 R
+Types:Artifact Creature Synth Soldier
+PT:3/3
+K:Haste
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | Imprint$ True | SubAbility$ DBEnergy
+SVar:DBEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ 2 | RememberPut$ True | Optional$ True | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Effect | StaticAbilities$ STPlay | RememberObjects$ Imprinted | ConditionDefined$ Remembered | ConditionPresent$ Player | ConditionCompare$ EQ0 | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True
+A:AB$ DealDamage | Cost$ T PayEnergy<3> | ValidTgts$ Any | NumDmg$ 3

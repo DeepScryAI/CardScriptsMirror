@@ -1,9 +1,12 @@
 Id:33809
-ColorIdentity:WB
-OriginSet:Gf8df2bea26dc6b68
-ManaCost:W B
-Types:Sorcery
-A:SP$ Pump | ValidTgts$ Creature | NumAtt$ +1 | NumDef$ +1 | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw
-T:Mode$ DamageDoneOnce | CombatDamage$ True | ValidSource$ Creature.YouCtrl | TriggerZones$ Graveyard | ValidTarget$ Player | Execute$ TrigChangeZone
-SVar:TrigChangeZone:AB$ ChangeZone | Cost$ WB | Defined$ Self | Origin$ Graveyard | Destination$ Hand
+ColorIdentity:R
+OriginSet:G23d1f017cc66962f
+ManaCost:1 R
+Types:Legendary Creature Bat Mutant
+PT:1/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ Self | KWChoice$ Flying,Menace,Haste
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPumpAll
+SVar:TrigPumpAll:DB$ PumpAll | ValidCards$ Creature.attacking+Other | NumAtt$ +1
+SVar:BuffedBy:Creature
+SVar:HasAttackEffect:TRUE

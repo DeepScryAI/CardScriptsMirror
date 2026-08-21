@@ -1,11 +1,17 @@
 Id:29708
-ColorIdentity:R
-OriginSet:G01a610e823cce3ca
-ManaCost:R
-Types:Artifact Equipment
-K:Flash
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigAttach
-SVar:TrigAttach:DB$ Attach | ValidTgts$ Creature.YouCtrl | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | Defined$ Targeted | KW$ FirstStrike
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1 | AddKeyword$ Haste
-K:Equip:2
+ColorIdentity:WG
+OriginSet:Gac6359c222afbd4f
+ManaCost:2 GW
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ X | AddToughness$ X
+SVar:X:Count$Valid Creature.YouCtrl,Enchantment.YouCtrl
+SVar:BuffedBy:Enchantment
+AlternateMode:Modal
+ALTERNATE
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ Combo G W

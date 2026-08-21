@@ -1,9 +1,10 @@
 Id:4568
-ColorIdentity:
+ColorIdentity:B
 OriginSet:G239b3b7a46d83e8e
-ManaCost:6
-Types:Artifact
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | IsPresent$ Land.untapped+YouCtrl | PresentCompare$ EQ0 | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw
-S:Mode$ Continuous | Affected$ Land.YouCtrl | AddSVar$ AITap
-SVar:AITap:SVar:AITapDown:True
+ManaCost:2 B
+Types:Creature Snake Wall
+PT:2/4
+K:Defender
+A:AB$ Pump | Cost$ 3 | Defined$ Self | Activator$ Player | AILogic$ Destroy | IsCurse$ True | SubAbility$ SnakeBite
+SVar:SnakeBite:DB$ Pump | ValidTgts$ Creature.blockedBySource | AILogic$ Destroy | IsCurse$ True | SubAbility$ DBDestroy
+SVar:DBDestroy:DB$ Destroy | Defined$ Targeted

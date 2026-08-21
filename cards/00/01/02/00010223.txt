@@ -1,9 +1,10 @@
 Id:10223
-ColorIdentity:WUG
+ColorIdentity:
 OriginSet:G8f5d5a0744ac5b98
-ManaCost:1 G W U
-Types:Legendary Creature Human Knight
-PT:3/3
-K:Exalted
-T:Mode$ Attacks | ValidCard$ Creature.YouCtrl | Alone$ True | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | Defined$ TriggeredAttackerLKICopy | KW$ DoubleStrike
+ManaCost:3
+Types:Artifact Equipment
+K:Equip:3
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddKeyword$ Deathtouch
+T:Mode$ DamageDone | ValidSource$ Creature.EquippedBy | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigLoseLifeOpp
+SVar:TrigLoseLifeOpp:DB$ LoseLife | Defined$ TriggeredTarget | LifeAmount$ QuietusX
+SVar:QuietusX:TriggeredTarget$LifeTotal/HalfUp

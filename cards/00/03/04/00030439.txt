@@ -1,11 +1,8 @@
 Id:30439
-ColorIdentity:G
+ColorIdentity:RG
 OriginSet:G8b2ed00ac2a0ff47
-ManaCost:2 G
-Types:Creature Plant
-PT:2/4
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPutCounter | Delirium$ True
-T:Mode$ Attacks | ValidCard$ Card.Self | Secondary$ True | Execute$ TrigPutCounter | Delirium$ True
-SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ 2 | TargetMin$ 1 | TargetMax$ 2 | DividedAsYouChoose$ 2 | SubAbility$ DBMultiplyCounter
-SVar:DBMultiplyCounter:DB$ MultiplyCounter | Defined$ Targeted | CounterType$ P1P1 | ConditionCheckSVar$ X | ConditionSVarCompare$ GE6
-SVar:X:Count$ValidGraveyard Card.YouOwn$CardTypes
+ManaCost:R G
+Types:Sorcery
+A:SP$ PutCounter | ValidTgts$ Creature.YouCtrl | Condition$ Delirium | AILogic$ Fight | CounterType$ P1P1 | CounterNum$ 2 | SubAbility$ DBDealDamage
+SVar:DBDealDamage:DB$ DealDamage | ValidTgts$ Creature.OppCtrl | AILogic$ PowerDmg | NumDmg$ X | DamageSource$ ParentTarget
+SVar:X:ParentTargeted$CardPower

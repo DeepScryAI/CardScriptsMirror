@@ -1,18 +1,13 @@
 Id:26550
-ColorIdentity:BG
-OriginSet:G06757f68e16377c2
-ManaCost:4 B G
-Types:Battle Siege
-Defense:5
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigDestroy
-SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Creature.nonElf+OppCtrl+powerLEX
-SVar:X:Count$Valid Land.YouCtrl
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:black,green
-Types:Creature Elf Warrior
-PT:*/*
-S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X | SetToughness$ X
-SVar:X:Count$Valid Land.YouCtrl
-SVar:BuffedBy:Land
+ColorIdentity:WUR
+OriginSet:Gd5f5e54fa26ae40d
+ManaCost:U R W
+Types:Legendary Creature Spirit Human
+PT:3/4
+T:Mode$ Taps | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 670061161 | ConditionCheckSVar$ Resolved | ConditionSVarCompare$ EQ1 | SubAbility$ DBTokenBis
+SVar:DBTokenBis:DB$ Token | TokenScriptIds$ 1049363140 | ConditionCheckSVar$ Resolved | ConditionSVarCompare$ EQ2 | SubAbility$ DBTokenTrice
+SVar:DBTokenTrice:DB$ Token | TokenScriptIds$ 2375228291 | ConditionCheckSVar$ Resolved | ConditionSVarCompare$ EQ3
+SVar:Resolved:Count$ResolvedThisTurn
+T:Mode$ SpellCast | ValidCard$ Card.withConvoke | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigUntap
+SVar:TrigUntap:DB$ Untap | Defined$ Self

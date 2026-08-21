@@ -1,13 +1,14 @@
 Id:24009
-ColorIdentity:B
-OriginSet:G9afc9838c5e994df
-ManaCost:B
-Types:Sorcery
-K:Casualty:1
-A:SP$ Branch | ValidTgts$ Creature,Planeswalker | BranchConditionSVar$ X | TrueSubAbility$ Damage3 | FalseSubAbility$ Damage1 | AILogic$ GrislySigil
-SVar:Damage3:DB$ DealDamage | Defined$ Targeted | NumDmg$ 3 | SubAbility$ DBGain3Life
-SVar:Damage1:DB$ DealDamage | Defined$ Targeted | NumDmg$ 1 | SubAbility$ DBGain1Life
-SVar:DBGain3Life:DB$ GainLife | LifeAmount$ 3
-SVar:DBGain1Life:DB$ GainLife | LifeAmount$ 1
-SVar:X:Targeted$Valid Card.wasDealtNonCombatDamageThisTurn
-SVar:AINoCasualtyPayment:TRUE
+ColorIdentity:BRG
+OriginSet:Gfdfe2ebef04be34e
+ManaCost:1 B R G
+Types:Creature Lizard Warrior
+PT:5/4
+K:Trample
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigPeek | TriggerZones$ Battlefield
+SVar:TrigPeek:DB$ PeekAndReveal | PeekAmount$ 1 | NoReveal$ True | RememberPeeked$ True | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | Optional$ True | Defined$ Remembered | ValidSA$ SpellAbility.Land,Spell.cmcLEX | WithoutManaCost$ True | ForgetPlayed$ True | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Defined$ Remembered | Origin$ Library | Destination$ Hand | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:TriggerCount$DamageAmount
+K:Blitz:2 B R G

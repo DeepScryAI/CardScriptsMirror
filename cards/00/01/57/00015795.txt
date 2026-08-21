@@ -1,8 +1,9 @@
 Id:15795
-ColorIdentity:G
+ColorIdentity:
 OriginSet:G5b1ad34969911ca7
-ManaCost:3 G
-Types:Creature Lizard
-PT:3/1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPut
-SVar:TrigPut:DB$ PutCounter | Support$ 2
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ C
+A:AB$ PutCounter | Cost$ T | ValidTgts$ Creature.Colorless+ThisTurnEntered | CounterType$ P1P1 | CounterNum$ 1

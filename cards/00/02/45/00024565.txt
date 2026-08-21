@@ -1,74 +1,15 @@
 Id:24565
-ColorIdentity:R
+ColorIdentity:UB
 OriginSet:G58bfeff4fb121c8e
-ManaCost:1 R
-Types:Legendary Creature Tiefling Barbarian
-PT:2/2
-K:FirstStrike
-K:Specialize:6:::AdditionalActivationZone$ Graveyard
-AlternateMode:Specialize
-SPECIALIZE:WHITE
-ManaCost:1 R W
-Types:Legendary Creature Tiefling Barbarian
-PT:4/4
-K:FirstStrike
-K:Haste
-T:Mode$ Specializes | ValidCard$ Card.Self | TriggerZones$ Graveyard | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | Defined$ TriggeredCard | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | RememberObjects$ TriggeredCard | StaticAbilities$ PerpetualStatic | Duration$ Permanent
-SVar:PerpetualStatic:Mode$ Continuous | Affected$ Card.IsRemembered | AddKeyword$ CARDNAME can't block. | AffectedZone$ All
-T:Mode$ Specializes | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 2186494377 | SubAbility$ DBPumpAll
-SVar:DBPumpAll:DB$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +1 | NumDef$ +1 | KW$ Haste
-SPECIALIZE:BLUE
-ManaCost:1 U R
-Types:Legendary Creature Tiefling Barbarian
-PT:4/4
-K:FirstStrike
-K:Haste
-T:Mode$ Specializes | ValidCard$ Card.Self | TriggerZones$ Graveyard | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | Defined$ TriggeredCard | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | RememberObjects$ TriggeredCard | StaticAbilities$ PerpetualStatic | Duration$ Permanent
-SVar:PerpetualStatic:Mode$ Continuous | Affected$ Card.IsRemembered | AddKeyword$ CARDNAME can't block. | AffectedZone$ All
-T:Mode$ Specializes | ValidCard$ Card.Self | Execute$ TrigSeek
-SVar:TrigSeek:DB$ Seek | Type$ Instant.cmcLE3,Sorcery.cmcLE3 | RememberFound$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | StaticAbilities$ MayPlay | RememberObjects$ Remembered | ForgetOnMoved$ Hand | SubAbility$ DBCleanup
-SVar:MayPlay:Mode$ Continuous | Affected$ Card.IsRemembered+nonLand | MayPlayWithoutManaCost$ True | AffectedZone$ Hand
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SPECIALIZE:BLACK
-ManaCost:1 B R
-Types:Legendary Creature Tiefling Barbarian
-PT:4/4
-K:FirstStrike
-K:Haste
-T:Mode$ Specializes | ValidCard$ Card.Self | TriggerZones$ Graveyard | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | Defined$ TriggeredCard | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | RememberObjects$ TriggeredCard | StaticAbilities$ PerpetualStatic | Duration$ Permanent
-SVar:PerpetualStatic:Mode$ Continuous | Affected$ Card.IsRemembered | AddKeyword$ CARDNAME can't block. | AffectedZone$ All
-T:Mode$ Specializes | ValidCard$ Card.Self | Execute$ TrigDraw
-SVar:TrigDraw:AB$ Draw | Cost$ Sac<1/Creature> | NumCards$ 2 | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | Defined$ Opponent | LifeAmount$ 2
-SPECIALIZE:RED
-ManaCost:1 R R
-Types:Legendary Creature Tiefling Barbarian
-PT:4/4
-K:FirstStrike
-K:Haste
-T:Mode$ Specializes | ValidCard$ Card.Self | TriggerZones$ Graveyard | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | Defined$ TriggeredCard | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | RememberObjects$ TriggeredCard | StaticAbilities$ PerpetualStatic | Duration$ Permanent
-SVar:PerpetualStatic:Mode$ Continuous | Affected$ Card.IsRemembered | AddKeyword$ CARDNAME can't block. | AffectedZone$ All
-T:Mode$ Specializes | ValidCard$ Card.Self | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.OppCtrl | KW$ HIDDEN CARDNAME can't block. | IsCurse$ True
-SPECIALIZE:GREEN
-ManaCost:1 R G
-Types:Legendary Creature Tiefling Barbarian
-PT:4/4
-K:FirstStrike
-K:Haste
-T:Mode$ Specializes | ValidCard$ Card.Self | TriggerZones$ Graveyard | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | Defined$ TriggeredCard | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | RememberObjects$ TriggeredCard | StaticAbilities$ PerpetualStatic | Duration$ Permanent
-SVar:PerpetualStatic:Mode$ Continuous | Affected$ Card.IsRemembered | AddKeyword$ CARDNAME can't block. | AffectedZone$ All
-T:Mode$ Specializes | ValidCard$ Card.Self | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.Other+YouCtrl | NumAtt$ +4 | NumDef$ +4
+ManaCost:U B
+Types:Legendary Creature Human Elf Rogue
+PT:1/3
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ TriggeredTarget | LifeAmount$ 1 | SubAbility$ DBMill
+SVar:DBMill:DB$ Mill | Defined$ TriggeredTarget | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ 1 | SubAbility$ DBScry
+SVar:DBScry:DB$ Scry
+T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigUnblockable | TriggerZones$ Battlefield
+SVar:TrigUnblockable:DB$ Effect | ValidTgts$ Creature | RememberObjects$ Targeted | StaticAbilities$ Unblockable
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+SVar:HasAttackEffect:TRUE

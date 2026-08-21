@@ -1,7 +1,12 @@
 Id:15530
-ColorIdentity:R
+ColorIdentity:W
 OriginSet:Gec9609c94c5b1cdf
-ManaCost:2 R
-Types:Sorcery
-A:SP$ DamageAll | NumDmg$ X | ValidCards$ Creature
-SVar:X:Count$Converge
+ManaCost:X X W W
+Types:Enchantment
+K:etbCounter:ISOLATION:X
+SVar:X:Count$xPaid
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Permanent.nonLand+OppCtrl | TargetMin$ 0 | TargetMax$ Y | Duration$ UntilHostLeavesPlay
+SVar:Y:Count$CardCounters.ISOLATION
+SVar:PlayMain1:TRUE
+SVar:OblivionRing:TRUE

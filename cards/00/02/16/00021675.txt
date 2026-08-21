@@ -1,9 +1,12 @@
 Id:21675
-ColorIdentity:W
+ColorIdentity:BR
 OriginSet:G18bf722b221724f8
-ManaCost:2 W
-Types:Creature Dwarf Warrior
-PT:2/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange | OptionalDecider$ You
-SVar:TrigChange:DB$ ChangeZone | Origin$ Library | OriginAlternative$ Graveyard | Destination$ Hand | ChangeType$ Rune.YouOwn | ChangeNum$ 1 | Optional$ True
-S:Mode$ AlternativeCost | ValidSA$ Spell | ValidCard$ Card.Rune | ValidPlayer$ You | Cost$ 1
+ManaCost:2 B R
+Types:Creature Vampire Dragon
+PT:3/3
+K:Flying
+T:Mode$ Taps | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | ValidTgts$ Card | TargetMin$ 0 | TargetMax$ 1 | Origin$ Graveyard | Destination$ Exile | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+A:AB$ Pump | Cost$ Sac<1/Creature.Other/another creature> | Defined$ Self | KW$ Indestructible | SubAbility$ DBTap
+SVar:DBTap:DB$ Tap | Defined$ Self

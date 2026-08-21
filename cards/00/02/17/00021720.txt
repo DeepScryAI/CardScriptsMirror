@@ -1,10 +1,10 @@
 Id:21720
-ColorIdentity:R
+ColorIdentity:UB
 OriginSet:G18bf722b221724f8
-ManaCost:R
-Types:Artifact Equipment
-K:Equip:1
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1 | AddToughness$ 1
-T:Mode$ AttackerBlocked | ValidCard$ Creature.EquippedBy | Execute$ TrigDealDamage
-SVar:TrigDealDamage:DB$ DealDamage | Defined$ TriggeredDefendingPlayer | NumDmg$ 1
-SVar:HasAttackEffect:Blocked
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ U
+A:AB$ Mill | Cost$ 3 U B B T Sac<1/CARDNAME> | Defined$ You | NumCards$ 4 | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ChangeType$ Creature.YouCtrl | ChangeNum$ 1 | Hidden$ True | Tapped$ True

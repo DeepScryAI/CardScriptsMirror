@@ -1,16 +1,11 @@
 Id:27810
-ColorIdentity:WR
+ColorIdentity:UBR
 OriginSet:G30e8a5e111cffb44
-ManaCost:3 R W
-Types:Enchantment Saga
-K:Chapter:4:DBDig,DBDig,DBDig,DBChoose
-SVar:DBDig:DB$ DigUntil | Defined$ You | Valid$ Card.Legendary | FoundDestination$ Exile | RevealedDestination$ Exile | RememberRevealed$ True | ImprintFound$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | StaticAbilities$ MayPlay | RememberObjects$ Imprinted | Duration$ UntilHostLeavesPlay | ForgetOnMoved$ Exile | SubAbility$ DBRestRandomOrder
-SVar:MayPlay:Mode$ Continuous | Affected$ Card.IsRemembered | MayPlay$ True | AffectedZone$ Exile
-SVar:DBRestRandomOrder:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered+!IsImprinted | Origin$ Exile | Destination$ Library | LibraryPosition$ -1 | RandomOrder$ True | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True
-SVar:DBChoose:DB$ ChooseCard | Defined$ You | MinAmount$ 0 | Amount$ 3 | Choices$ Doctor | SubAbility$ DBGenericChoice
-SVar:DBGenericChoice:DB$ GenericChoice | Choices$ DBExileAll,DBCleanupBis
-SVar:DBExileAll:DB$ ChangeZoneAll | ChangeType$ Creature.nonChosenCard | Origin$ Battlefield | Destination$ Exile | SubAbility$ DBDamage
-SVar:DBDamage:DB$ DealDamage | Defined$ You | NumDmg$ 13 | SubAbility$ DBCleanupBis
-SVar:DBCleanupBis:DB$ Cleanup | ClearChosenCard$ True
+ManaCost:1 U B R
+Types:Legendary Artifact Creature Cyberman
+PT:3/3
+S:Mode$ Continuous | Affected$ Card.Artifact+nonLegendary+YouCtrl | AffectedZone$ Stack | CheckSVar$ X | SVarCompare$ EQ0 | AddKeyword$ Casualty:2
+SVar:X:Count$ThisTurnCast_Artifact.nonLegendary+YouCtrl
+T:Mode$ Sacrificed | ValidCard$ Creature.Other | ValidPlayer$ You | Execute$ TrigPutCounter | TriggerZones$ Battlefield
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+SVar:AIDontSacToCasualty:TRUE

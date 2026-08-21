@@ -1,9 +1,8 @@
 Id:3516
-ColorIdentity:W
+ColorIdentity:
 OriginSet:G24ae8187eacbba52
-ManaCost:3 W
-Types:Enchantment
-R:Event$ LifeReduced | ActiveZones$ Battlefield | ValidPlayer$ You.lifeGE1 | Result$ LT1 | IsDamage$ True | IsPresent$ Creature.YouCtrl | ReplaceWith$ ReduceLoss
-SVar:ReduceLoss:DB$ ReplaceEffect | VarName$ Amount | VarValue$ X
-SVar:X:ReplaceCount$Amount/LimitMax.Difference
-SVar:Difference:Count$YourLifeTotal/Minus.1
+ManaCost:3
+Types:Artifact
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ C | Amount$ 2

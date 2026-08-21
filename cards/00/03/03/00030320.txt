@@ -1,13 +1,10 @@
 Id:30320
 ColorIdentity:R
-OriginSet:G8b2ed00ac2a0ff47
-ManaCost:2 R R
-Types:Artifact
-T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ TIME | CounterNum$ 1 | SubAbility$ DBBranch
-SVar:DBBranch:DB$ Branch | BranchConditionSVar$ Count$CardCounters.TIME | BranchConditionSVarCompare$ GE7 | TrueSubAbility$ DBRemoveCounter
-SVar:DBRemoveCounter:DB$ RemoveCounter | CounterType$ TIME | CounterNum$ All | SubAbility$ DBDealDamage
-SVar:DBDealDamage:DB$ DealDamage | NumDmg$ 20 | Defined$ You
-A:AB$ DelayedTrigger | Cost$ T | AILogic$ SpellCopy | Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | ThisTurn$ True | Execute$ EffTrigCopy
-SVar:EffTrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | MayChooseTarget$ True
-SVar:BuffedBy:Instant,Sorcery
+OriginSet:Gac6359c222afbd4f
+ManaCost:R
+Types:Instant
+A:SP$ PutCounter | Defined$ You | AILogic$ PayEnergy | CounterType$ ENERGY | CounterNum$ 2 | SubAbility$ DBChooseNumber
+SVar:DBChooseNumber:DB$ ChooseNumber | Max$ Max | SubAbility$ DBDealDamage
+SVar:DBDealDamage:DB$ DealDamage | ValidTgts$ Creature,Planeswalker | NumDmg$ X | UnlessCost$ PayEnergy<X> | UnlessPayer$ You | UnlessSwitched$ True
+SVar:Max:Count$YourCountersEnergy
+SVar:X:Count$ChosenNumber

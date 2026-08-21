@@ -2,13 +2,9 @@ Id:13851
 ColorIdentity:R
 OriginSet:G97e9a20e5a5d5822
 ManaCost:3 R R
-Types:Creature Dragon
-PT:4/4
-K:Flying
-K:Haste
-K:Protection:White
-A:AB$ PutCounter | Cost$ 5 R R | Monstrosity$ 3
-T:Mode$ BecomeMonstrous | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigDmg
-SVar:TrigDmg:DB$ RepeatEach | RepeatPlayers$ Player.Opponent | RepeatSubAbility$ DBDmg | DamageMap$ True
-SVar:DBDmg:DB$ DealDamage | Defined$ Player.IsRemembered | NumDmg$ X
-SVar:X:Count$ValidHand Card.RememberedPlayerCtrl
+Types:Creature Giant
+PT:5/4
+A:AB$ PutCounter | Cost$ 6 R R | Monstrosity$ 3
+T:Mode$ BecomeMonstrous | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Effect | StaticAbilities$ KWPump
+SVar:KWPump:Mode$ Continuous | Affected$ Creature.withoutFlying+OppCtrl | AddHiddenKeyword$ CARDNAME can't block.

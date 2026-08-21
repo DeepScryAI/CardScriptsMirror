@@ -1,11 +1,11 @@
 Id:25589
-ColorIdentity:WUB
-OriginSet:Gce0c33e5115830a3
-ManaCost:3 W U B
-Types:Legendary Creature Human Artificer
-PT:4/5
-K:Affinity:Creature.Artifact:artifact creature
-S:Mode$ Continuous | Affected$ Creature.Artifact+YouCtrl | AddKeyword$ Menace
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | Execute$ TrigToken | TriggerZones$ Battlefield
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 3837180497
+ColorIdentity:W
+OriginSet:G2e872aaf9b98489e
+ManaCost:2 W W
+Types:Enchantment
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigLoop
+SVar:TrigLoop:DB$ RepeatEach | RepeatCards$ Creature.YouCtrl | ChooseOrder$ True | SubAbility$ DBCleanup | RepeatSubAbility$ ParadePump | ClearRemembered$ True | UseImprinted$ True
+SVar:ParadePump:DB$ Pump | Defined$ Imprinted | NumAtt$ +X | NumDef$ +X | RememberPumped$ True
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Amount
 SVar:PlayMain1:TRUE

@@ -1,8 +1,9 @@
 Id:21926
-ColorIdentity:B
-OriginSet:Gd784248bfdf9e1d7
-ManaCost:1 B
-Types:Creature Human Warlock
-PT:2/1
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump
-SVar:TrigPump:AB$ Pump | Cost$ PayLife<2> | Defined$ Self | KW$ Flying
+ColorIdentity:R
+OriginSet:G6fa60d857e930f32
+ManaCost:2 R R
+Types:Sorcery
+A:SP$ DamageAll | Cost$ 2 R R ExileFromGrave<1/Instant;Sorcery> | NumDmg$ X | ValidCards$ Creature.nonDragon | RememberDamaged$ True | ReplaceDyingDefined$ Remembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | SubAbility$ DBChange
+SVar:DBChange:DB$ ChangeZone | Origin$ Stack | Destination$ Exile
+SVar:X:Exiled$CardManaCost

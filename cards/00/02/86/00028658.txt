@@ -1,11 +1,10 @@
 Id:28658
-ColorIdentity:BR
-OriginSet:Ge329d8d60ca65422
-ManaCost:3 B R
-Types:Creature Horror
-PT:4/4
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGoad
-SVar:TrigGoad:DB$ Goad | TargetMin$ 0 | TargetMax$ OneEach | ValidTgts$ Creature.OppCtrl | TargetsForEachPlayer$ True
-T:Mode$ AttackersDeclaredOneTarget | ValidAttackers$ Creature | AttackedTarget$ Opponent | Execute$ TrigPumpAll | TriggerZones$ Battlefield
-SVar:TrigPumpAll:DB$ Pump | Defined$ TriggeredAttackers | KW$ Menace
-SVar:OneEach:PlayerCountOpponents$Amount
+ColorIdentity:B
+OriginSet:G7ee0e82a2424d636
+ManaCost:B
+Types:Artifact Clue Equipment
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.EquippedBy | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | LifeAmount$ 1 | Defined$ Opponent
+A:AB$ Draw | Cost$ 2 Sac<1/CARDNAME> | NumCards$ 1
+K:Equip:2

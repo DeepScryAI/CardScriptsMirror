@@ -1,14 +1,13 @@
 Id:24977
-ColorIdentity:U
+ColorIdentity:BG
 OriginSet:G3a8b4b9d4649b357
-ManaCost:2 U U
-Types:Enchantment Saga
-K:Read ahead
-K:Chapter:3:DBPhase,DBPhase,DBDestroyAll
-SVar:DBPhase:DB$ Phases | ValidTgts$ Permanent.nonLand+Other | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | StaticAbilities$ CantPhaseIn | RememberObjects$ Targeted | Duration$ AsLongAsControl
-SVar:CantPhaseIn:Mode$ CantPhaseIn | ValidCard$ Card.phasedOutIsRemembered
-SVar:DBDestroyAll:DB$ DestroyAll | ValidCards$ Creature | RememberDestroyed$ True | SubAbility$ DBRepeat
-SVar:DBRepeat:DB$ RepeatEach | UseImprinted$ True | DefinedCards$ DirectRemembered | RepeatSubAbility$ DBToken | SubAbility$ DBCleanup | ChangeZoneTable$ True
-SVar:DBToken:DB$ Token | TokenOwner$ ImprintedController | TokenScriptIds$ 1784011747
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ true
+ManaCost:2 B G
+Types:Legendary Creature Treefolk
+PT:3/4
+K:Reach
+R:Event$ Moved | ActiveZones$ Battlefield | Origin$ Battlefield | Destination$ Graveyard | ValidLKI$ Card.Creature+OppCtrl | ReplaceWith$ Exile
+SVar:Exile:DB$ ChangeZone | Hidden$ True | Origin$ All | Destination$ Exile | Defined$ ReplacedCard | SubAbility$ DBImmediateTrigger
+SVar:DBImmediateTrigger:DB$ ImmediateTrigger | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 3815350479 | TokenOwner$ You
+A:AB$ Pump | Cost$ G Sac<1/Saproling> | NumAtt$ +2 | NumDef$ +2 | AILogic$ Aristocrat
+A:AB$ Draw | Cost$ 1 B Sac<2/Saproling> | Defined$ You | NumCards$ 1

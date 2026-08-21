@@ -1,9 +1,12 @@
 Id:18735
-ColorIdentity:W
+ColorIdentity:BG
 OriginSet:G1ecb361a0a117393
-ManaCost:W
-Types:Creature Human
-PT:1/1
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 2151135643
-SVar:SacMe:1
+ManaCost:BG BG
+Types:Sorcery
+A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Hand | TargetMin$ 0 | TargetMax$ 2 | ValidTgts$ Creature.YouOwn
+AlternateMode:Split
+ALTERNATE
+ManaCost:4 B G
+Types:Sorcery
+A:SP$ PutCounter | Choices$ Creature.YouCtrl | ChoiceOptional$ True | CounterType$ P1P1 | CounterNum$ 2 | SubAbility$ DBPumpAll
+SVar:DBPumpAll:DB$ PumpAll | ValidCards$ Creature | NumAtt$ -4 | NumDef$ -4 | IsCurse$ True

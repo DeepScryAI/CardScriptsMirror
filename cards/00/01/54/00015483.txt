@@ -1,7 +1,13 @@
 Id:15483
-ColorIdentity:W
+ColorIdentity:UG
 OriginSet:Gec9609c94c5b1cdf
-ManaCost:W
-Types:Creature Kor Scout
-PT:1/1
-K:Flying
+ManaCost:2 G U
+Types:Legendary Planeswalker Kiora
+Loyalty:4
+A:AB$ Untap | Cost$ AddCounter<1/LOYALTY> | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | Planeswalker$ True | SubAbility$ DBUntap
+SVar:DBUntap:DB$ Untap | ValidTgts$ Land | TargetMin$ 0 | TargetMax$ 1
+A:AB$ DigMultiple | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | DigNum$ 4 | Reveal$ True | ChangeValid$ Creature,Land | DestinationZone2$ Graveyard | Optional$ True
+A:AB$ Effect | Cost$ SubCounter<8/LOYALTY> | Planeswalker$ True | Ultimate$ True | Name$ 1166048655326029602 | Triggers$ TrigFight | Duration$ Permanent | AILogic$ Always | SubAbility$ DBToken
+SVar:TrigFight:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.YouCtrl | Execute$ DBFight | OptionalDecider$ You | TriggerZones$ Command
+SVar:DBFight:DB$ Fight | Defined$ TriggeredCardLKICopy | ValidTgts$ Creature
+SVar:DBToken:DB$ Token | TokenAmount$ 3 | TokenScriptIds$ 3388877773 | TokenOwner$ You

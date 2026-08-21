@@ -1,9 +1,11 @@
 Id:24152
-ColorIdentity:G
-OriginSet:G51fcb7ec0cb81c29
-ManaCost:3 G
-Types:Creature Dragon Barbarian
-PT:0/0
-K:etbCounter:P1P1:X:no Condition
-SVar:X:Count$ValidGraveyard,Battlefield Creature.YouCtrl$GreatestCardPower
-SVar:NeedsToPlay:X GE1
+ColorIdentity:U
+OriginSet:G9afc9838c5e994df
+ManaCost:1 U
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ CantBlockBy | ValidAttacker$ Creature.EnchantedBy+attacking | IsPresent$ Creature.attacking+!EnchantedBy | PresentCompare$ EQ0
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddTrigger$ DamageDone | AddSVar$ TrigConnive
+SVar:DamageDone:Mode$ DamageDone | CombatDamage$ True | ValidSource$ Card.Self | ValidTarget$ Player | TriggerZones$ Battlefield | Execute$ TrigConnive
+SVar:TrigConnive:DB$ Connive

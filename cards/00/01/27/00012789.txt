@@ -2,9 +2,10 @@ Id:12789
 ColorIdentity:
 OriginSet:G4801bb28ce9773ed
 ManaCost:no cost
-Types:Plane Zendikar
-S:Mode$ CantAttack | EffectZone$ Command | ValidCard$ Creature.powerGE7
-S:Mode$ CantBlockBy | EffectZone$ Command | ValidBlocker$ Creature.powerGE7 | Secondary$ True
+Types:Plane Fabacin
+T:Mode$ PlaneswalkedTo | ValidCard$ Card.Self | Execute$ DreampodsDig
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ DreampodsDig | TriggerZones$ Command | Secondary$ True
+SVar:DreampodsDig:DB$ DigUntil | Valid$ Creature | FoundDestination$ Battlefield | RevealedDestination$ Library | RevealedLibraryPosition$ -1 | RevealRandomOrder$ True
 T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos
-SVar:RolledChaos:DB$ Token | TokenScriptIds$ 1822661781
-SVar:AIRollPlanarDieParams:Mode$ Always | LowPriority$ True | MaxRollsPerTurn$ 9
+SVar:RolledChaos:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouCtrl
+SVar:AIRollPlanarDieParams:Mode$ Always | MinTurn$ 3

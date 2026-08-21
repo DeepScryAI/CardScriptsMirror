@@ -1,11 +1,13 @@
 Id:26073
-ColorIdentity:U
-OriginSet:G2192e8955d5e1ad1
-ManaCost:1 U
-Types:Creature Phyrexian Wizard
-PT:1/3
-T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | Execute$ TrigPutCounter | TriggerZones$ Battlefield
-SVar:TrigPutCounter:DB$ PutCounter | CounterType$ OIL
-S:Mode$ Continuous | Affected$ Card.Self+counters_GE4_OIL | AddPower$ 2
-S:Mode$ CantBlockBy | ValidAttacker$ Card.Self+counters_GE4_OIL | Secondary$ True
-SVar:BuffedBy:Card.nonCreature
+ColorIdentity:UR
+OriginSet:G880fc7f6ed36df4d
+ManaCost:U R
+Types:Creature Human Artificer
+PT:2/2
+K:Flying
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | Choices$ Powerstone,Seek | ChoiceRestriction$ YourLastCombat
+SVar:Powerstone:DB$ Token | TokenTapped$ True | TokenScriptIds$ 2975106104
+SVar:Seek:DB$ Seek | Type$ Card.nonLand+cmcEQX
+SVar:X:Count$Valid Powerstone.YouCtrl
+SVar:HasAttackEffect:TRUE

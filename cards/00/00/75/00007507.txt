@@ -1,6 +1,18 @@
 Id:7507
 ColorIdentity:W
 OriginSet:G4747f23d5c5760bc
-ManaCost:4 W W
-Types:Sorcery
-A:SP$ ChangeZoneAll | ChangeType$ Creature | Origin$ Battlefield | Destination$ Exile
+ManaCost:1 W W
+Types:Creature Human Soldier
+PT:2/2
+T:Mode$ SpellCast | ValidCard$ Spirit,Arcane | ValidActivatingPlayer$ You | Execute$ TrigPutCounter | OptionalDecider$ You | TriggerZones$ Battlefield
+T:Mode$ Phase | Phase$ End of Turn | IsPresent$ Card.Self+counters_GE2_KI | Execute$ TrigFlip | OptionalDecider$ You | TriggerZones$ Battlefield
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ KI | CounterNum$ 1
+SVar:TrigFlip:DB$ SetState | Defined$ Self | Mode$ Flip
+AlternateMode:Flip
+ALTERNATE
+ManaCost:1 W W
+Colors:white
+Types:Legendary Creature Spirit
+PT:3/4
+K:Flying
+A:AB$ Pump | Cost$ SubCounter<1/KI> | KW$ Prevent all damage that would be dealt to CARDNAME. | ValidTgts$ Creature

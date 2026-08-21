@@ -1,10 +1,10 @@
 Id:4212
-ColorIdentity:U
+ColorIdentity:R
 OriginSet:Gdd40b2fbd2aa3c03
-ManaCost:3 U U
-Types:Creature Merfolk
-PT:2/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigReturn
-SVar:TrigExile:DB$ ChangeZoneAll | ChangeType$ Artifact,Enchantment | Origin$ Graveyard | Destination$ Exile
-SVar:TrigReturn:DB$ ChangeZoneAll | ChangeType$ Artifact,Enchantment | Origin$ Graveyard | Destination$ Hand
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ LandTapped | ReplacementResult$ Updated
+SVar:LandTapped:DB$ Tap | Defined$ Self | ETB$ True | SubAbility$ DBAddCounter
+SVar:DBAddCounter:DB$ PutCounter | Defined$ Self | ETB$ True | CounterType$ DEPLETION | CounterNum$ 2
+A:AB$ Mana | Cost$ T SubCounter<1/DEPLETION> | Produced$ R | SubAbility$ DBSac | Amount$ 2
+SVar:DBSac:DB$ Sacrifice | SacValid$ Self | ConditionPresent$ Card.Self+counters_EQ0_DEPLETION

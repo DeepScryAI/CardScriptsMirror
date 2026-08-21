@@ -1,11 +1,13 @@
 Id:29713
-ColorIdentity:B
-OriginSet:G01a610e823cce3ca
-ManaCost:2 B
-Types:Legendary Creature Human Assassin
-PT:3/2
-K:PartnerWithId:29696
-T:Mode$ DamageDoneOnce | CombatDamage$ True | ValidSource$ Assassin.YouCtrl | ValidTarget$ Player | TriggerZones$ Battlefield | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZone | ValidTgts$ Card.Assassin+YouCtrl,Card.withFreerunning+YouCtrl | TargetMin$ 0 | TargetMax$ 1 | Origin$ Graveyard | Destination$ Exile | RememberChanged$ True | SubAbility$ DBCast
-SVar:DBCast:DB$ Play | Valid$ Card.IsRemembered | ValidZone$ Exile | CopyCard$ True | ValidSA$ Spell | Optional$ True | SubAbility$ DBCleanup
+ColorIdentity:U
+OriginSet:Gac6359c222afbd4f
+ManaCost:1 U
+Types:Enchantment Saga
+K:Chapter:3:DBShrink,DBDiscard,DBShuffle
+SVar:DBShrink:DB$ Effect | Triggers$ TrigAttack | Duration$ UntilYourNextTurn
+SVar:TrigAttack:Mode$ Attacks | ValidCard$ Creature | Attacked$ You,Planeswalker.YouCtrl | TriggerZones$ Command | Execute$ TamiyoPump
+SVar:TamiyoPump:DB$ Pump | Defined$ TriggeredAttackerLKICopy | NumAtt$ -2
+SVar:DBDiscard:DB$ Discard | AnyNumber$ True | Optional$ True | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBInvestigate
+SVar:DBInvestigate:DB$ Investigate | Num$ Remembered$Amount/Times.2 | Defined$ RememberedController | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:DBShuffle:DB$ ChangeZone | Origin$ Graveyard | Destination$ Library | ValidTgts$ Card.YouOwn | TargetMin$ 0 | TargetMax$ 3 | Shuffle$ True

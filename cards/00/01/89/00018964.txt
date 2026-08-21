@@ -1,15 +1,7 @@
 Id:18964
-ColorIdentity:WB
+ColorIdentity:U
 OriginSet:G0b51a0aecbe39efe
-ManaCost:1 WB
+ManaCost:2 U
 Types:Instant
-A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw
-AlternateMode:Split
-ALTERNATE
-ManaCost:2 W B
-Types:Sorcery
-A:SP$ Sacrifice | ValidTgts$ Player | SacValid$ Creature.greatestPowerControlledByTargeted | SubAbility$ DBGainLife | RememberSacrificed$ True
-SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ X | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:RememberedLKI$CardPower
+A:SP$ ChangeZone | ValidTgts$ Creature | Origin$ Battlefield | Destination$ Hand | SubAbility$ DBAddendum
+SVar:DBAddendum:DB$ Draw | ConditionPlayerTurn$ True | ConditionPhases$ Main1,Main2 | ConditionDefined$ Self | ConditionPresent$ Card.wasCast

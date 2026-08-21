@@ -1,9 +1,10 @@
 Id:3899
 ColorIdentity:B
 OriginSet:G3da30095b68d8df0
-ManaCost:4 B
-Types:Creature Phyrexian Zombie Dog
-PT:3/3
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigNausea
-SVar:TrigNausea:DB$ PumpAll | ValidCards$ Creature | NumAtt$ -1 | NumDef$ -1 | IsCurse$ True
-A:AB$ Draw | Cost$ 2 Sac<1/CARDNAME> | NumCards$ 1
+ManaCost:2 B
+Types:Creature Phyrexian Horror
+PT:5/5
+K:Trample
+T:Mode$ DamageDoneOnce | ValidTarget$ Card.Self | Execute$ TrigSac | TriggerZones$ Battlefield
+SVar:TrigSac:DB$ Sacrifice | Amount$ X | SacValid$ Permanent
+SVar:X:TriggerCount$DamageAmount

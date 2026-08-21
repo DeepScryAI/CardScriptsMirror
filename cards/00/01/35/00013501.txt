@@ -1,12 +1,11 @@
 Id:13501
-ColorIdentity:WU
+ColorIdentity:UG
 OriginSet:G9b1658d4f3a50109
-ManaCost:2 W
-Types:Instant
-K:Fuse
-A:SP$ Pump | ValidTgts$ Creature | NumAtt$ +2 | NumDef$ +4
-AlternateMode:Split
-ALTERNATE
-ManaCost:1 U
-Types:Instant
-A:SP$ Pump | ValidTgts$ Creature | NumAtt$ -6 | IsCurse$ True
+ManaCost:4 G U
+Types:Creature Shapeshifter
+PT:0/0
+K:ETBReplacement:Copy:DBCopy:Optional
+SVar:DBCopy:DB$ Clone | Choices$ Creature.Other | AddTriggers$ ProgenitorTrig | AddSVars$ ProgenitorCopy,ProgenitorTrig
+SVar:ProgenitorTrig:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ ProgenitorCopy | IsPresent$ Card.Self+!token
+SVar:ProgenitorCopy:DB$ CopyPermanent | Defined$ Self
+SVar:NeedsToPlay:Creature

@@ -1,9 +1,13 @@
 Id:30404
 ColorIdentity:R
-OriginSet:G8b2ed00ac2a0ff47
-ManaCost:1 R
-Types:Creature Gremlin
-PT:2/2
-K:Menace
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.powerLE2+Other+YouCtrl | ResolvedLimit$ 1 | TriggerZones$ Battlefield | Execute$ TrigDraw
-SVar:TrigDraw:AB$ Draw | Cost$ Discard<1/Card>
+OriginSet:G7b2137df486dc752
+ManaCost:3 R
+Types:Enchantment Room
+T:Mode$ UnlockDoor | ValidPlayer$ You | ValidCard$ Card.Self | ThisDoor$ True | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ 3 | TokenScriptIds$ 1965070986 | TokenOwner$ You
+AlternateMode:Split
+ALTERNATE
+ManaCost:3 R
+Types:Enchantment Room
+R:Event$ DamageDone | ActiveZones$ Battlefield | ValidSource$ Card.YouCtrl,Emblem.YouCtrl | ValidTarget$ Opponent | IsCombat$ False | ReplaceWith$ DamageReplace
+SVar:DamageReplace:DB$ ReplaceEffect | VarName$ DamageAmount | VarValue$ ReplaceCount$DamageAmount/Plus.2

@@ -1,12 +1,10 @@
 Id:32646
-ColorIdentity:B
-OriginSet:G36e97d2da170e675
-ManaCost:2 B B
-Types:Legendary Artifact Vehicle
-PT:6/3
-K:Trample
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigImmediateTrigger
-SVar:TrigImmediateTrigger:AB$ ImmediateTrigger | Cost$ tapXType<1/Card.Self/CARDNAME> | Execute$ TrigDestroy
-SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Creature.powerLE4
-A:AB$ AnimateAll | Cost$ 1 | ValidCards$ Permanent.OppCtrl | RemoveKeywords$ Hexproof & Indestructible
-K:Crew:2
+ColorIdentity:R
+OriginSet:G66b3a7eeabd9000e
+ManaCost:3 R R
+Types:Enchantment
+S:Mode$ IgnoreLegendRule | ValidCard$ Spider.YouCtrl
+T:Mode$ SpellCast | ValidCard$ Card.!wasCastFromYourHand | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigCopySpell | ResolvedLimit$ 1 | OptionalDecider$ You
+SVar:TrigCopySpell:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | MayChooseTarget$ True | RememberNewCard$ True | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Remembered | ConditionDefined$ Remembered | ConditionPresent$ Permanent | Keywords$ Haste | Duration$ Permanent | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

@@ -1,7 +1,10 @@
 Id:5901
 ColorIdentity:B
 OriginSet:G0eb5e52d26fe1c23
-ManaCost:2 B
+ManaCost:B B
 Types:Instant
-A:SP$ Pump | ValidTgts$ Creature | NumAtt$ -X | NumDef$ -X | IsCurse$ True
-SVar:X:Count$Valid Zombie
+A:SP$ Effect | Triggers$ GainLife
+SVar:GainLife:Mode$ LifeGained | ValidPlayer$ Player | TriggerZones$ Command | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ TriggeredPlayer | LifeAmount$ X
+SVar:X:TriggerCount$LifeAmount/Times.2
+SVar:PlayMain1:TRUE

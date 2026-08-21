@@ -1,8 +1,11 @@
 Id:29255
-ColorIdentity:W
+ColorIdentity:UB
 OriginSet:G27146c70b74a1e72
-ManaCost:2 W
-Types:Creature Human Citizen
-PT:3/3
-T:Mode$ ChangesZoneAll | TriggerZones$ Battlefield | ValidCards$ Creature.Other+YouCtrl | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+ManaCost:1 U B
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ Opponent | LifeAmount$ 1 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ 1 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw
+T:Mode$ CommitCrime | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Defined$ Self | Optional$ True

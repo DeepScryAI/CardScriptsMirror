@@ -1,9 +1,11 @@
 Id:24901
-ColorIdentity:G
+ColorIdentity:R
 OriginSet:G3a8b4b9d4649b357
-ManaCost:5 G G
-Types:Creature Treefolk
-PT:7/7
-K:Trample
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGainLife
-SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 5
+ManaCost:2 R R
+Types:Creature Phyrexian Kavu
+PT:4/4
+K:FirstStrike
+S:Mode$ OptionalCost | ValidCard$ Permanent.Red | ValidSA$ Spell | Activator$ You | Cost$ PayLife<2> | ReduceColor$ R
+T:Mode$ SpellCast | ValidCard$ Permanent.Red | ValidActivatingPlayer$ You | Execute$ TrigDamage | TriggerZones$ Battlefield
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 1
+SVar:BuffedBy:Permanent.Red

@@ -1,10 +1,12 @@
 Id:20555
-ColorIdentity:B
-OriginSet:Gf8d4de878d0536c5
-ManaCost:5 B
-Types:Creature Leech
-PT:5/2
-K:Flash
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.OppCtrl | NumAtt$ -2 | NumDef$ -2 | IsCurse$ True | SubAbility$ DBRemoveCounter
-SVar:DBRemoveCounter:DB$ RemoveCounter | Defined$ Targeted | CounterType$ All | CounterNum$ All
+ColorIdentity:WU
+OriginSet:Gc9c1dd0d52c99ca4
+ManaCost:3 W U
+Types:Legendary Creature Shark Bird
+PT:3/3
+K:PartnerWithId:20508
+K:Flying
+T:Mode$ Drawn | ValidCard$ Card.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
+A:AB$ Pump | Cost$ WU | ValidTgts$ Human | KW$ Flying

@@ -1,9 +1,11 @@
 Id:13910
-ColorIdentity:U
+ColorIdentity:WUG
 OriginSet:G6645ca87da6316d5
-ManaCost:4 U
-Types:Creature Spirit
-PT:2/4
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You & TriggeredTarget | NumCards$ X
-SVar:X:TriggerCount$DamageAmount
+ManaCost:G W U
+Types:Legendary Creature Bird Wizard
+PT:2/3
+K:Flying
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigTapOrUntap | OptionalDecider$ You
+T:Mode$ DamageDone | ValidSource$ Creature.YouCtrl | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigTapOrUntap | TriggerZones$ Battlefield | OptionalDecider$ You | Secondary$ True
+SVar:TrigTapOrUntap:DB$ TapOrUntap | ValidTgts$ Permanent
+A:AB$ ChangeZone | Cost$ 1 G W U | ActivationZone$ Command | Origin$ Command | Destination$ Battlefield

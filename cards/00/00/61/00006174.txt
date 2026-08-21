@@ -3,10 +3,6 @@ ColorIdentity:
 OriginSet:Gda59deaeee465b93
 ManaCost:no cost
 Types:Vanguard
-HandLifeModifier:+0/+7
-T:Mode$ SpellCast | ValidCard$ Creature.nonSliver | ValidActivatingPlayer$ You | TriggerZones$ Command | Execute$ TrigCopy
-SVar:TrigCopy:DB$ ChangeZone | Defined$ TriggeredCardLKICopy | Origin$ Stack | Destination$ Exile | RememberChanged$ True | SubAbility$ DBCopy
-SVar:DBCopy:DB$ CopyPermanent | ValidSupportedCopy$ Creature.Sliver+nonShapeshifter+cmcEQX | RandomCopied$ True | RandomNum$ 1 | ConditionCheckSVar$ RememberedSize | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:TriggeredCard$CardManaCost
-SVar:RememberedSize:Remembered$Amount
+HandLifeModifier:+1/-5
+S:Mode$ Continuous | EffectZone$ Command | Affected$ Creature.YouCtrl | AddHiddenKeyword$ CARDNAME must be blocked if able.
+A:AB$ ChangeZone | ActivationZone$ Command | Cost$ 4 | ValidTgts$ Creature.blockingCreatureYouCtrl | Origin$ Battlefield | Destination$ Exile

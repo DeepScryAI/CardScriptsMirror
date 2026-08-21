@@ -1,8 +1,11 @@
 Id:3984
-ColorIdentity:W
+ColorIdentity:U
 OriginSet:Gdd40b2fbd2aa3c03
-ManaCost:2 W
-Types:Creature Wall
-PT:0/4
-K:Defender
-A:AB$ PreventDamage | Cost$ T | ValidTgts$ Any | Amount$ 1
+ManaCost:4 U U
+Types:Creature Human Soldier
+PT:4/3
+K:Flying
+A:AB$ Dig | Cost$ 1 U U | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect | AILogic$ ExileAndPlayUntilEOT
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ Play | SubAbility$ DBCleanup | ExileOnMoved$ Exile
+SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

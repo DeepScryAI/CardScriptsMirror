@@ -1,18 +1,8 @@
 Id:23815
-ColorIdentity:R
-OriginSet:G5f5d8cfb206e2fac
-ManaCost:3 R
-Types:Creature Elemental
-PT:0/1
-K:FirstStrike
-K:Trample
-K:Haste
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | NumAtt$ +X
-SVar:X:Count$Valid Creature.YouCtrl
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self+!token | Execute$ TrigCopyPermanent
-SVar:TrigCopyPermanent:DB$ CopyPermanent | Defined$ TriggeredCardLKICopy | Controller$ Opponent | RememberTokens$ True | SubAbility$ DBGoad
-SVar:DBGoad:DB$ Goad | Defined$ Remembered | Duration$ Permanent | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:NeedsToPlayVar:X GE3
-SVar:HasAttackEffect:TRUE
+ColorIdentity:W
+OriginSet:G9f95a41d532c0550
+ManaCost:1 W
+Types:Artifact Equipment
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 3 | AddToughness$ 3 | AddKeyword$ Ward:1
+K:Equip:3:::ReduceCost$ Y
+SVar:Y:Count$Valid Equipment.YouCtrl+Other

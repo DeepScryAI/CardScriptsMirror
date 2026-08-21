@@ -1,13 +1,9 @@
 Id:26442
-ColorIdentity:UR
-OriginSet:G06757f68e16377c2
-ManaCost:1 U R
-Types:Legendary Creature Human
-PT:2/4
-K:FirstStrike
-K:Menace
-T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | ActivatorThisTurnCast$ EQ1 | Execute$ TrigMayCast | TriggerZones$ Battlefield
-SVar:TrigMayCast:DB$ Play | Valid$ Card.nonLand+YouOwn+sharesCardTypeWith TriggeredCard | ValidSA$ Spell.cmcLTX | ValidZone$ Hand | WithoutManaCost$ True | Optional$ True | RememberPlayed$ True | SubAbility$ DBTokenIfNotPlayed
-SVar:DBTokenIfNotPlayed:DB$ Token | TokenScriptIds$ 2407794927 | TokenOwner$ You | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ0 | PumpKeywords$ Haste | PumpDuration$ EOT | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:TriggeredCard$CardManaCost
+ColorIdentity:UG
+OriginSet:G74a73d701e7801b3
+ManaCost:2 G U
+Types:Artifact
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigProliferate
+SVar:TrigProliferate:DB$ Proliferate
+T:Mode$ Proliferate | ValidPlayer$ You | TriggerZones$ Battlefield | PlayerTurn$ True | ActivationLimit$ 1 | Execute$ TrigDraft
+SVar:TrigDraft:DB$ Draft | SpellbookCatalogIds$ 19251,11530,11489,19288,19267,19290,11588,19335,19344,19214,19559,11683,22393,26160,11994

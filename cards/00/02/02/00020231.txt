@@ -1,10 +1,10 @@
 Id:20231
-ColorIdentity:W
-OriginSet:G42eb6bda83007836
-ManaCost:X W W
-Types:Instant
-A:SP$ Charm | Choices$ DBDestroy,DBGainLife
-SVar:DBDestroy:DB$ Destroy | TargetMin$ X | TargetMax$ X | ValidTgts$ Artifact,Enchantment
-SVar:DBGainLife:DB$ GainLife | ValidTgts$ Player | LifeAmount$ XX
-SVar:X:Count$xPaid
-SVar:XX:SVar$X/Twice
+ColorIdentity:B
+OriginSet:G00aff909a83a7400
+ManaCost:2 B
+Types:Sorcery
+A:SP$ Effect | ReplacementEffects$ GraveExileToLibrary | StaticAbilities$ STPlay | AINoRecursiveCheck$ True
+SVar:STPlay:Mode$ Continuous | Affected$ Card.YouOwn+faceUp | AffectedZone$ Exile | MayPlay$ True
+SVar:GraveExileToLibrary:Event$ Moved | ActiveZones$ Command | Destination$ Graveyard,Exile | ValidCard$ Card.!token+YouOwn | ReplaceWith$ PutLibrary
+SVar:PutLibrary:DB$ ChangeZone | Hidden$ True | Origin$ All | Destination$ Library | Defined$ ReplacedCard | LibraryPosition$ -1 | Reveal$ True
+SVar:PlayMain1:ALWAYS

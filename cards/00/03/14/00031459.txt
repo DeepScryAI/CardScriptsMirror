@@ -1,10 +1,9 @@
 Id:31459
-ColorIdentity:B
-OriginSet:Gf2b808f4f642ac62
-ManaCost:2 B
-Types:Creature Goblin Soldier
-PT:1/3
-K:Deathtouch
-K:Mobilize:1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSurveil
-SVar:TrigSurveil:DB$ Surveil | Amount$ 1
+ColorIdentity:U
+OriginSet:Ge1676a27173c0866
+ManaCost:1 U
+Types:Enchantment
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigMill
+SVar:TrigMill:DB$ Mill | Defined$ You | NumCards$ 3 | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ConditionPresent$ Card.YouOwn | ConditionZone$ Library | ConditionCompare$ EQ0 | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | ChangeType$ Card.YouOwn | ChangeNum$ 5 | Origin$ Graveyard | Destination$ Library | Hidden$ True | Reorder$ True | Mandatory$ True | ConditionPresent$ Card.YouOwn | ConditionZone$ Library | ConditionCompare$ EQ0

@@ -1,0 +1,12 @@
+Id:34962
+ColorIdentity:U
+OriginSet:Gf8f2990d7136c11d
+ManaCost:2 U
+Types:Legendary Creature Elf Noble
+PT:3/3
+T:Mode$ AbilityCast | ValidCard$ Creature.inZoneBattlefield | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraw | ActivationLimit$ 1
+SVar:TrigDraw:DB$ Draw
+A:AB$ ChangeZone | Cost$ 5 U U | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Permanent.nonLand+YouCtrl+Other | TargetMin$ 0 | TargetMax$ 2 | RememberChanged$ True | SubAbility$ DelTrig
+SVar:DelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ TrigReturn | RememberObjects$ RememberedLKI | SubAbility$ DBCleanup
+SVar:TrigReturn:DB$ ChangeZone | Defined$ DelayTriggerRememberedLKI | Origin$ Exile | Destination$ Battlefield
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

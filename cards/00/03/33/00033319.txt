@@ -1,11 +1,12 @@
 Id:33319
 ColorIdentity:B
-OriginSet:G40dbb28fb92f9206
-ManaCost:3 B B
-Types:Creature Elemental Incarnation
-PT:6/5
-K:Wither
-K:Evoke:1 B B PayLife<3>
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigConjure
-SVar:TrigConjure:DB$ MakeCard | Conjure$ True | CatalogId$ 9649 | Zone$ Battlefield | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounterAll | ValidCards$ Creature | CounterType$ M1M1 | CounterNum$ 1
+OriginSet:G7ab1fe96128a1641
+ManaCost:3 B
+Types:Creature Elf Warlock
+PT:3/3
+K:Menace
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill
+SVar:TrigMill:DB$ Mill | Defined$ You | NumCards$ 3 | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 2 | SubAbility$ DBGainLife | ConditionCheckSVar$ X
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2 | ConditionCheckSVar$ X
+SVar:X:Count$ValidGraveyard Elf.YouOwn

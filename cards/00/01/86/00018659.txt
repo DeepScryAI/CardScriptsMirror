@@ -1,9 +1,14 @@
 Id:18659
-ColorIdentity:WR
-OriginSet:G1ecb361a0a117393
-ManaCost:1 R W
-Types:Instant
-A:SP$ PumpAll | ValidCards$ Creature.YouCtrl | KW$ Indestructible | Duration$ Permanent | SubAbility$ DBAddTurn
-SVar:DBAddTurn:DB$ AddTurn | NumTurns$ 1 | ExtraTurnDelayedTrigger$ DBDelTrig | ExtraTurnDelayedTriggerExecute$ TrigLose
-SVar:DBDelTrig:ThisTurn$ True | Mode$ Phase | Phase$ End of Turn
-SVar:TrigLose:DB$ LosesGame | Defined$ You
+ColorIdentity:WUB
+OriginSet:Gd7cbb6e7dea72fb5
+ManaCost:2 W U B
+Types:Legendary Creature Sphinx
+PT:3/5
+K:Flying
+K:Vigilance
+K:Menace
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigReveal
+SVar:TrigReveal:DB$ PeekAndReveal | PeekAmount$ 1 | RevealValid$ Card | RememberRevealed$ True | SubAbility$ DBMayCast
+SVar:DBMayCast:DB$ Play | Defined$ Remembered | ForgetRemembered$ True | ValidSA$ Spell | WithoutManaCost$ True | Optional$ True | ConditionDefined$ Remembered | ConditionPresent$ Card.cmcOdd | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

@@ -1,9 +1,10 @@
 Id:19852
-ColorIdentity:UB
+ColorIdentity:WU
 OriginSet:G23be9f486a22d38a
-ManaCost:UB UB UB UB
-Types:Sorcery
-A:SP$ ChangeZone | Origin$ Hand,Graveyard | Destination$ Exile | ValidTgts$ Opponent | DefinedPlayer$ Targeted | Chooser$ You | ChangeType$ Card.nonLand | ChangeNum$ 1 | IsCurse$ True | RememberChanged$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | RememberObjects$ Remembered | Duration$ Permanent | ExileOnMoved$ Exile | SubAbility$ DBCleanup
-SVar:STPlay:Mode$ Continuous | MayPlay$ True | MayPlayIgnoreColor$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:4 W U
+Types:Instant
+T:Mode$ SpellCast | ValidCard$ Card.Self+wasCastFromYourHandByYou | Execute$ TrigCopy
+SVar:TrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | ConditionPresent$ Artifact.YouCtrl | ConditionCompare$ GE1 | MayChooseTarget$ True | SubAbility$ DBCopy
+SVar:DBCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | ConditionPresent$ Enchantment.YouCtrl | ConditionCompare$ GE1 | MayChooseTarget$ True
+A:SP$ ChangeZone | ValidTgts$ Permanent.nonLand | Origin$ Battlefield | Destination$ Hand | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 1066714595 | TokenOwner$ You

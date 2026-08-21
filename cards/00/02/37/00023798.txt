@@ -1,12 +1,11 @@
 Id:23798
 ColorIdentity:G
-OriginSet:G5f5d8cfb206e2fac
-ManaCost:3 G
-Types:Creature Ogre Citizen
+OriginSet:Gd970889168b5769f
+ManaCost:2 G
+Types:Creature Snake Ninja
 PT:3/3
-K:Vigilance
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Hidden$ True | ChangeType$ Creature.StrictlyOther+YouCtrl | RememberLKI$ True | AILogic$ BounceOwnTrigger | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ X | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:RememberedLKI$CardPower
+K:Ninjutsu:1 G
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigChoose | TriggerZones$ Battlefield
+SVar:TrigChoose:DB$ ChooseType | Type$ Card | ValidTypes$ Land,Nonland | SubAbility$ DBSeek
+SVar:DBSeek:DB$ Seek | Type$ Card.Permanent+ChosenType | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenType$ True

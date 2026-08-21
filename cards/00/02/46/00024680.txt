@@ -1,10 +1,49 @@
 Id:24680
-ColorIdentity:WG
-OriginSet:G18bf722b221724f8
-ManaCost:no cost
-Types:Land
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
-A:AB$ Mana | Cost$ T | Produced$ G
-A:AB$ PutCounter | Cost$ G W W T Sac<1/CARDNAME> | CounterNum$ 2 | CounterType$ P1P1 | TargetMin$ 1 | TargetMax$ 2 | DividedAsYouChoose$ 2 | ValidTgts$ Creature.YouCtrl | SorcerySpeed$ True | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | Defined$ Targeted | KW$ Vigilance & Lifelink
+ColorIdentity:W
+OriginSet:G58bfeff4fb121c8e
+ManaCost:2 W
+Types:Legendary Creature Human Monk
+PT:2/2
+K:Specialize:5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Creature.OppCtrl | Duration$ UntilHostLeavesPlay | RememberChanged$ True
+T:Mode$ ChangesZone | Origin$ Exile | Destination$ Any | Static$ True | ValidCard$ Card.IsRemembered+ExiledWithSource | Execute$ DBForget
+SVar:DBForget:DB$ Pump | ForgetObjects$ TriggeredCard
+T:Mode$ ChangesZone | Origin$ Battlefield | ValidCard$ Card.Self | Destination$ Any | Execute$ DBCleanup | Static$ True
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+AlternateMode:Specialize
+SPECIALIZE:WHITE
+ManaCost:2 W W
+Types:Legendary Creature Human Monk
+PT:4/4
+T:Mode$ Specializes | ValidCard$ Card.Self | Execute$ TrigEffect
+SVar:TrigEffect:DB$ Effect | Name$ 8415599965029634122 | ValidTgts$ Creature.IsRemembered+ExiledWithSource | TgtZone$ Exile | IsCurse$ True | RememberObjects$ Targeted | StaticAbilities$ PerpetualLoss | Duration$ Permanent
+SVar:PerpetualLoss:Mode$ Continuous | SetPower$ 1 | SetToughness$ 1 | Affected$ Card.IsRemembered | RemoveAllAbilities$ True | AffectedZone$ All
+T:Mode$ ChangesZone | Origin$ Exile | Destination$ Any | Static$ True | ValidCard$ Card.IsRemembered+ExiledWithSource | Execute$ DBForget
+SVar:DBForget:DB$ Pump | ForgetObjects$ TriggeredCard
+T:Mode$ ChangesZone | Origin$ Battlefield | ValidCard$ Card.Self | Destination$ Any | Execute$ DBCleanup | Static$ True
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SPECIALIZE:BLUE
+ManaCost:2 W U
+Types:Legendary Creature Human Monk
+PT:4/4
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 387014161
+SPECIALIZE:BLACK
+ManaCost:2 W B
+Types:Legendary Creature Human Monk
+PT:4/4
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 889157275
+SPECIALIZE:RED
+ManaCost:2 R W
+Types:Legendary Creature Human Monk
+PT:4/4
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ 3 | TokenScriptIds$ 1214250791
+SPECIALIZE:GREEN
+ManaCost:2 G W
+Types:Legendary Creature Human Monk
+PT:4/4
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 3311172694

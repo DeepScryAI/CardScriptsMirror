@@ -3,5 +3,8 @@ ColorIdentity:
 OriginSet:Gda59deaeee465b93
 ManaCost:no cost
 Types:Vanguard
-HandLifeModifier:-1/+6
-A:AB$ DamageAll | ActivationZone$ Command | Cost$ 2 | NumDmg$ 1 | ValidCards$ Creature | ValidPlayers$ Player
+HandLifeModifier:+0/+3
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Command | Execute$ BuildCounter | OptionalDecider$ You
+SVar:BuildCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ 1 | ValidTgts$ Creature.YouCtrl
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Command | Execute$ ChargeCounter | OptionalDecider$ You
+SVar:ChargeCounter:DB$ PutCounter | CounterType$ CHARGE | CounterNum$ 1 | ValidTgts$ Permanent.YouCtrl

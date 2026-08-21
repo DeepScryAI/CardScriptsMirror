@@ -1,9 +1,12 @@
 Id:26270
-ColorIdentity:R
-OriginSet:G997e3b19a1e94e85
-ManaCost:3 R
-Types:Artifact Creature Phyrexian Cleric
-PT:4/3
-K:Haste
-A:AB$ PutCounter | Cost$ 3 R ExileFromGrave<1/CARDNAME> | ActivationZone$ Graveyard | ValidTgts$ Creature | CounterType$ OIL | CounterNum$ ScavengeX | SorcerySpeed$ True
-SVar:ScavengeX:Exiled$CardPower
+ColorIdentity:B
+OriginSet:G2192e8955d5e1ad1
+ManaCost:3 B
+Types:Creature Phyrexian Insect
+PT:0/0
+K:Flying
+K:etbCounter:OIL:2
+S:Mode$ Continuous | Affected$ Card.Self | AddPower$ X | AddToughness$ X
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl+Other,Artifact.YouCtrl+Other | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ OIL | CounterNum$ 1
+SVar:X:Count$CardCounters.OIL

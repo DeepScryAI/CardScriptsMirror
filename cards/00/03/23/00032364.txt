@@ -1,13 +1,13 @@
 Id:32364
-ColorIdentity:WUBRG
-OriginSet:G66b3a7eeabd9000e
-ManaCost:W U B R G
-Types:Legendary Creature Spider Human Hero
-PT:5/5
+ColorIdentity:U
+OriginSet:G9946f072b5556073
+ManaCost:3 U U
+Types:Creature Sphinx
+PT:4/6
 K:Flying
-K:FirstStrike
-K:Trample
-K:Lifelink
-K:Haste
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPumpAll
-SVar:TrigPumpAll:DB$ PumpAll | ValidCards$ Spider.Other+YouCtrl | KW$ Flying & FirstStrike & Trample & Lifelink & Haste
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw
+R:Event$ DrawCards | ActiveZones$ Battlefield | ValidPlayer$ You | CheckSVar$ X | SVarCompare$ LE1 | ReplaceWith$ DrawPlusOne
+SVar:DrawPlusOne:DB$ Draw | NumCards$ ReplaceCount$Number/Plus.1
+SVar:X:Count$ValidHand Card.YouOwn
+K:Warp:1 U

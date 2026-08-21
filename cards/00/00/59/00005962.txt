@@ -1,8 +1,12 @@
 Id:5962
-ColorIdentity:G
+ColorIdentity:R
 OriginSet:G0eb5e52d26fe1c23
-ManaCost:2 G
-Types:Creature Beast
-PT:4/2
-T:Mode$ AttackerBlocked | ValidCard$ Card.Self | Execute$ TrigFog
-SVar:TrigFog:DB$ Fog
+ManaCost:1 R
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy+nonWizard | AddAbility$ Damage1
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy+Wizard | AddAbility$ Damage2
+SVar:Damage1:AB$ DealDamage | Cost$ T | ValidTgts$ Creature | NumDmg$ 1
+SVar:Damage2:AB$ DealDamage | Cost$ T | ValidTgts$ Creature | NumDmg$ 2
+SVar:NonStackingAttachEffect:True

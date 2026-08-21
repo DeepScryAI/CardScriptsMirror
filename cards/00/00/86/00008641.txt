@@ -1,11 +1,10 @@
 Id:8641
-ColorIdentity:UB
+ColorIdentity:U
 OriginSet:G70f74088c47d66bd
-ManaCost:3 U B
-Types:Creature Sliver
-PT:3/3
-S:Mode$ Continuous | Affected$ Sliver | AddAbility$ ABDementiaNameCard
-SVar:ABDementiaNameCard:AB$ NameCard | Cost$ T | Defined$ You | SubAbility$ DBDementiaReveal | PlayerTurn$ True
-SVar:DBDementiaReveal:DB$ Reveal | ValidTgts$ Opponent | Random$ True | RememberRevealed$ True | SubAbility$ DBDementiaDiscard
-SVar:DBDementiaDiscard:DB$ Discard | DiscardValid$ Card.NamedCard+IsRemembered | Mode$ TgtChoose | Defined$ Targeted | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearNamedCard$ True
+ManaCost:7 U U U
+Types:Creature Kraken
+PT:6/6
+S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self
+K:Suspend:9:2 U
+T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ Opponent | Execute$ TrigRemoveCounter | TriggerZones$ Exile | IsPresent$ Card.Self+suspended | PresentZone$ Exile
+SVar:TrigRemoveCounter:DB$ RemoveCounter | Defined$ Self | CounterType$ TIME | CounterNum$ 1

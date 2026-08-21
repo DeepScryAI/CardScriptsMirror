@@ -1,8 +1,11 @@
 Id:8687
-ColorIdentity:R
+ColorIdentity:G
 OriginSet:G70f74088c47d66bd
-ManaCost:1 R
-Types:Creature Goblin Warrior
+ManaCost:1 G G
+Types:Creature Snake
 PT:2/1
-A:AB$ DealDamage | Cost$ Sac<1/CARDNAME> | ValidTgts$ Creature.withFlying | NumDmg$ 2 | SubAbility$ DBDebuff
-SVar:DBDebuff:DB$ Debuff | Defined$ Targeted | Keywords$ Flying
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ NafsEffect | TriggerZones$ Battlefield
+SVar:NafsEffect:DB$ Effect | RememberObjects$ TriggeredTarget | Duration$ Permanent | Triggers$ DrawTrig | Abilities$ PayUp
+SVar:DrawTrig:Mode$ Phase | Phase$ Draw | ValidPlayer$ Player.IsRemembered | TriggerZones$ Command | OneOff$ True | Execute$ Bleed
+SVar:Bleed:DB$ LoseLife | Defined$ Player.IsRemembered | LifeAmount$ 2
+SVar:PayUp:ST$ ChangeZone | Cost$ 2 | Defined$ Self | Origin$ Command | Destination$ Exile | ActivationZone$ Command | Activator$ Player.IsRemembered | AILogic$ Always

@@ -1,13 +1,18 @@
 Id:27747
-ColorIdentity:RG
-OriginSet:G30e8a5e111cffb44
-ManaCost:3 R G
-Types:Sorcery
-A:SP$ ChooseCard | ValidTgts$ Creature | TargetMin$ 2 | TargetMax$ 2 | Amount$ 2 | Defined$ You | DefinedCards$ Targeted | SubAbility$ DBUntap
-SVar:DBUntap:DB$ Untap | Defined$ Targeted | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | Defined$ Targeted | CounterType$ P1P1 | CounterNum$ 2 | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | Defined$ Targeted | KW$ Vigilance & Indestructible & Haste | SubAbility$ DBAddCombat
-SVar:DBAddCombat:DB$ AddPhase | ExtraPhase$ Combat | ExtraPhaseDelayedTrigger$ DelTrigStatic | ExtraPhaseDelayedTriggerExcute$ TrigEffect | ConditionPhases$ Main1,Main2
-SVar:DelTrigStatic:Mode$ Phase | Static$ True | Phase$ BeginCombat
-SVar:TrigEffect:DB$ Effect | StaticAbilities$ ForbidAttack | Duration$ UntilEndOfCombat
-SVar:ForbidAttack:Mode$ CantAttack | ValidCard$ Creature.nonChosenCard
+ColorIdentity:R
+OriginSet:G997e3b19a1e94e85
+ManaCost:4 R R R R
+Types:Legendary Creature Dragon
+PT:8/8
+K:Devour:2
+K:Flying
+K:Landwalk:Mountain
+K:Rampage:2
+K:Bushido:2
+K:Trample:Planeswalker
+R:Event$ Counter | ValidCard$ Card.Self | ValidSA$ Spell | Layer$ CantHappen
+S:Mode$ CantPreventDamage
+S:Mode$ CantGainLife | ValidPlayer$ Player
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigControl | TriggerZones$ Battlefield
+SVar:TrigControl:DB$ GainControl | ValidTgts$ Land.ControlledBy TriggeredTarget | SubAbility$ DBUntap
+SVar:DBUntap:DB$ Untap | Defined$ Targeted

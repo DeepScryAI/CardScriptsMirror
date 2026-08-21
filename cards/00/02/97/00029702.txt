@@ -1,10 +1,26 @@
 Id:29702
-ColorIdentity:WRG
-OriginSet:G01a610e823cce3ca
-ManaCost:3 R G W
-Types:Legendary Creature God Warrior
-PT:6/6
-S:Mode$ Continuous | Affected$ Card.Self | IsPresent$ Card.Historic+YouOwn | PresentZone$ Graveyard | PresentCompare$ GE4 | AddKeyword$ Indestructible
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self,Creature.Legendary+YouCtrl+Other | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZone | ValidTgts$ Creature.Legendary+cmcLTX+YouOwn | Origin$ Graveyard | Destination$ Battlefield | Tapped$ True
-SVar:X:TriggeredCard$CardManaCost
+ColorIdentity:WB
+OriginSet:Gac6359c222afbd4f
+ManaCost:1 B
+Types:Legendary Creature Human Noble
+PT:1/4
+K:Lifelink
+K:Extort
+T:Mode$ Phase | Phase$ Main2 | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ LifeGained | SVarCompare$ GE3 | Execute$ TrigTransform
+SVar:TrigTransform:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | Transformed$ True | ForgetOtherRemembered$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:LifeGained:Count$LifeYouGainedThisTurn
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:white,black
+Types:Legendary Planeswalker Sorin
+Loyalty:3
+K:Extort
+A:AB$ Token | Cost$ AddCounter<2/LOYALTY> | Planeswalker$ True | TokenScriptIds$ 134855612 | TokenOwner$ You
+A:AB$ DealDamage | Cost$ SubCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Any | NumDmg$ X
+A:AB$ GainControl | Cost$ SubCounter<6/LOYALTY> | Planeswalker$ True | Ultimate$ True | ValidTgts$ Creature | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Targeted | Types$ Vampire | Duration$ Permanent | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Targeted | CounterType$ Lifelink | CounterNum$ 1 | ConditionPresent$ Permanent.White+YouCtrl+Other+NotDefinedTargeted
+SVar:X:Count$LifeYouGainedThisTurn

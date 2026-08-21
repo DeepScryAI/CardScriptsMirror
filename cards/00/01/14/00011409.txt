@@ -1,10 +1,11 @@
 Id:11409
-ColorIdentity:B
+ColorIdentity:R
 OriginSet:Gf6792163b580976b
-ManaCost:2 B
-Types:Enchantment
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDig
-SVar:TrigDig:DB$ Dig | DigNum$ 1 | Reveal$ True | ChangeNum$ All | ChangeValid$ Card | DestinationZone$ Hand | RememberChanged$ True | SubAbility$ DBLose
-SVar:DBLose:DB$ LoseLife | LifeAmount$ X | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Remembered$CardManaCost
+ManaCost:1 R R R
+Types:Creature Cyclops Warrior
+PT:4/4
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigExchangeDamage | OptionalDecider$ You
+SVar:TrigExchangeDamage:DB$ DealDamage | ValidTgts$ Creature.ControlledBy TriggeredDefendingPlayer | NumDmg$ MyX | SubAbility$ ReturnDmg
+SVar:ReturnDmg:DB$ DealDamage | DamageSource$ Targeted | NumDmg$ TheirX
+SVar:MyX:Count$CardPower
+SVar:TheirX:Targeted$CardPower

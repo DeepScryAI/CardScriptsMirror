@@ -1,15 +1,12 @@
 Id:29447
-ColorIdentity:WB
-OriginSet:Gac6359c222afbd4f
-ManaCost:3 WB WB
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:Pump
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 2 | AddToughness$ 2 | AddKeyword$ Lifelink & Flying
-AlternateMode:Modal
-ALTERNATE
-ManaCost:no cost
-Types:Land
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
-A:AB$ Mana | Cost$ T | Produced$ Combo W B
+ColorIdentity:U
+OriginSet:G2ce881cc55bb9f18
+ManaCost:6 U
+Types:Creature Eldrazi Serpent
+PT:7/8
+K:Devoid
+T:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigForEach
+SVar:TrigForEach:DB$ RepeatEach | RepeatPlayers$ Opponent | RepeatSubAbility$ DBChoose | SubAbility$ DBCopy
+SVar:DBChoose:DB$ ChooseCard | Choices$ Creature.RememberedPlayerCtrl | Mandatory$ True | Amount$ 1 | ImprintChosen$ True
+SVar:DBCopy:DB$ CopyPermanent | Choices$ Creature.IsImprinted | SetPower$ Imprinted$CardPower | SetToughness$ Imprinted$CardToughness | SetColor$ Colorless | AddTypes$ Creature & Eldrazi | RemoveCardTypes$ True | RemoveSubTypes$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True | ClearImprinted$ True

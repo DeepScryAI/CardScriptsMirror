@@ -1,8 +1,11 @@
 Id:8402
 ColorIdentity:UG
 OriginSet:Gde6d8130c178f566
-ManaCost:GU GU
-Types:Creature Elf Wizard
-PT:2/2
-A:AB$ MoveCounter | Cost$ 1 G | ValidTgts$ Creature | TargetMin$ 2 | TargetMax$ 2 | TargetsWithSameController$ True | CounterType$ P1P1 | CounterNum$ 1
-A:AB$ Attach | Cost$ 1 U | ValidTgts$ Aura.AttachedTo Permanent | Object$ Targeted | Choices$ Permanent.sharesControllerWith AttachedBy Targeted | Move$ True
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ G U
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Hidden$ True | Mandatory$ True | ChangeType$ Land.YouCtrl | AILogic$ NeverBounceItself
+SVar:NeedsToPlay:Land.Basic+YouCtrl

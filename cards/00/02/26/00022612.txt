@@ -1,15 +1,13 @@
 Id:22612
-ColorIdentity:UR
+ColorIdentity:R
 OriginSet:G9f95a41d532c0550
-ManaCost:U R
-Types:Enchantment Class
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | NumCards$ 2 | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 2 | Mode$ TgtChoose
-K:Class:2:U R:AddStaticAbility$ STapMana
-SVar:STapMana:Mode$ Continuous | EffectZone$ Battlefield | Affected$ Creature.YouCtrl | AddAbility$ AddMana | Secondary$ True
-SVar:AddMana:AB$ Mana | Cost$ T | Produced$ Combo U R | Amount$ 1 | RestrictValid$ Spell.Instant,Spell.Sorcery,Activated.ClassLevelUp
-K:Class:3:3 U R:AddTrigger$ TriggerSpellCast
-SVar:TriggerSpellCast:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDealDamage | Secondary$ True
-SVar:TrigDealDamage:DB$ DamageAll | ValidPlayers$ Player.Opponent | NumDmg$ X | DamageSource$ TriggeredCard
-SVar:X:Count$ThisTurnCast_Instant.YouCtrl,Sorcery.YouCtrl
+ManaCost:4 R R
+Types:Legendary Creature Dragon
+PT:6/6
+R:Event$ Counter | ValidCard$ Card.Self | ValidSA$ Spell | Layer$ CantHappen
+K:Flying
+K:Haste
+A:AB$ Pump | Cost$ R | Defined$ Self | NumAtt$ +1 | SubAbility$ DBImmediateTrigger | AILogic$ InfernoOfTheStarMounts
+SVar:DBImmediateTrigger:DB$ ImmediateTrigger | Execute$ TrigDealDamage | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ20
+SVar:TrigDealDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 20
+SVar:X:Count$CardPower

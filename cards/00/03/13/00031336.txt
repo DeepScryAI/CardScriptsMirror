@@ -1,11 +1,15 @@
 Id:31336
-ColorIdentity:W
-OriginSet:G93ac57511923c3dd
-ManaCost:4 W W
-Types:Creature Dragon
-PT:5/5
+ColorIdentity:U
+OriginSet:G997e3b19a1e94e85
+ManaCost:4 U U
+Types:Creature Sphinx
+PT:4/6
 K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
-T:Mode$ BecomeMonstrous | Secondary$ True | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZone | ValidTgts$ Artifact,Enchantment | TargetMin$ 0 | TargetMax$ 2 | TargetsWithDifferentControllers$ True | Origin$ Battlefield | Destination$ Exile
-A:AB$ PutCounter | Cost$ 4 W | Monstrosity$ 3
+T:Mode$ Drawn | ValidCard$ Card.OppOwn | TriggerZones$ Battlefield | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | Choices$ DBFriends,DBCards,DBPrizes,DBSleep | ChoiceRestriction$ ThisGame | CharmNum$ 1
+SVar:DBFriends:DB$ Token | TokenAmount$ 1 | TokenScriptIds$ 2299875842 | TokenOwner$ You
+SVar:DBCards:DB$ Investigate
+SVar:DBPrizes:DB$ Token | TokenAmount$ 1 | TokenScriptIds$ 3851718391 | TokenOwner$ You
+SVar:DBSleep:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | SubAbility$ DBReturn | RememberChanged$ True
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

@@ -1,14 +1,9 @@
 Id:30649
-ColorIdentity:BR
-OriginSet:Gc5a2f0ff902c0621
-ManaCost:1 B R
-Types:Legendary Creature Human Warrior
-PT:2/2
-K:FirstStrike
-T:Mode$ Attacks | ValidCard$ Creature.Self | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ RaidTest | Execute$ TrigChangeZone
-SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouOwn+cmcLEX
-SVar:RaidTest:Count$AttackersDeclared
-SVar:X:Count$CardPower
-SVar:HasAttackEffect:TRUE
+ColorIdentity:G
+OriginSet:G8b2ed00ac2a0ff47
+ManaCost:3 G
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDread
+SVar:TrigDread:DB$ ManifestDread
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Permanent.faceDown+YouCtrl | Execute$ TrigChange | TriggerZones$ Battlefield
+SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | Tapped$ True | ChangeType$ Land.Basic

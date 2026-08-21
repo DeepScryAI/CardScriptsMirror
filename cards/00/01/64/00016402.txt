@@ -1,12 +1,10 @@
 Id:16402
-ColorIdentity:W
+ColorIdentity:U
 OriginSet:G4bddbf7cb4f2475e
-ManaCost:2 W W
-Types:Creature Bird
-PT:3/3
+ManaCost:5 U U
+Types:Creature Leviathan
+PT:6/6
 K:Flying
-T:Mode$ ChangesZone | ValidCard$ Card.Self,Creature.YouCtrl | Origin$ Any | Destination$ Battlefield | Execute$ TrigEnergy | TriggerZones$ Battlefield
-SVar:TrigEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ 1
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPutCounter
-SVar:TrigPutCounter:AB$ PutCounter | Cost$ PayEnergy<2> | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBTap
-SVar:DBTap:DB$ Tap | ValidTgts$ Creature | TargetsWithDefinedController$ TriggeredDefendingPlayer | TargetMin$ 0 | TargetMax$ 1
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigEnergy
+SVar:TrigEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ 3
+A:AB$ ChangeZoneAll | Cost$ PayEnergy<8> | ChangeType$ Creature.StrictlyOther | SorcerySpeed$ True | Origin$ Battlefield | Destination$ Hand

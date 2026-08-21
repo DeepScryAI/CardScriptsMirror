@@ -1,9 +1,10 @@
 Id:12230
 ColorIdentity:W
 OriginSet:G14de52802b0b467c
-ManaCost:W
-Types:Creature Human Soldier
-PT:1/1
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 273812182 | TokenOwner$ You
-SVar:SacMe:2
+ManaCost:2 W W
+Types:Sorcery
+K:Flashback:5 W W
+A:SP$ ChooseCard | Defined$ Player | Amount$ 1 | Choices$ Creature | ControlledByPlayer$ Chooser | Mandatory$ True | SubAbility$ DBDestroyAll
+SVar:DBDestroyAll:DB$ DestroyAll | ValidCards$ Creature.!ChosenCard
+SVar:NeedsToPlayVar:Z GE2
+SVar:Z:Count$Valid Creature.OppCtrl

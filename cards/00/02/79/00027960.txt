@@ -1,8 +1,13 @@
 Id:27960
-ColorIdentity:B
-OriginSet:Gfd50577710a6ab09
-ManaCost:2 B
-Types:Creature Vampire Cleric
-PT:1/4
-A:AB$ LoseLife | Cost$ T Sac<1/Creature.Other;Artifact.Other/another creature or artifact> | LifeAmount$ 1 | Defined$ Opponent | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | LifeAmount$ 1
+ColorIdentity:
+OriginSet:G30e8a5e111cffb44
+ManaCost:no cost
+Types:Plane Spacecraft
+T:Mode$ PlaneswalkedTo | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 134855612 | TokenOwner$ Player
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigChoose | TriggerZones$ Command
+SVar:TrigChoose:DB$ Sacrifice | SacValid$ Creature.leastToughnessControlledByTriggeredPlayer | Defined$ TriggeredPlayer | SubAbility$ DBInvestigate
+SVar:DBInvestigate:DB$ Investigate
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ TrigEffect
+SVar:TrigEffect:DB$ Effect | StaticAbilities$ STaticReduce
+SVar:STaticReduce:Mode$ ReduceCost | ValidCard$ Artifact.token+YouCtrl | Type$ Ability | Amount$ 2 | AffectedZone$ Battlefield

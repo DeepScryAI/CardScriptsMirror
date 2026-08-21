@@ -1,12 +1,11 @@
 Id:21047
-ColorIdentity:WR
-OriginSet:G7b2607750b451c25
-ManaCost:2 R W
-Types:Legendary Planeswalker Nahiri
-Loyalty:4
-A:AB$ Token | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | TokenScriptIds$ 1595455868 | RememberTokens$ True | SubAbility$ DBAttach
-SVar:DBAttach:DB$ Attach | Optional$ True | Choices$ Equipment.YouCtrl | Defined$ Remembered | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-A:AB$ Dig | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | DigNum$ 6 | ChangeNum$ 1 | Optional$ True | ForceRevealToController$ True | ChangeValid$ Card.Warrior,Card.Equipment | RestRandomOrder$ True
-A:AB$ DealDamage | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | Ultimate$ True | ValidTgts$ Creature,Planeswalker | NumDmg$ X
-SVar:X:Count$Valid Equipment.YouCtrl/Twice
+ColorIdentity:R
+OriginSet:G2f853d6139309fb0
+ManaCost:4 R R
+Types:Legendary Creature Goblin Noble
+PT:4/4
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigDig
+SVar:TrigDig:DB$ Dig | DigNum$ 6 | Reveal$ True | ChangeNum$ All | ChangeValid$ Creature.Goblin+cmcLE5 | DestinationZone$ Battlefield | DestinationZone2$ Library | LibraryPosition$ -1 | RestRandomOrder$ True
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +X | NumDef$ +X
+SVar:X:Count$Valid Goblin.Other+YouCtrl

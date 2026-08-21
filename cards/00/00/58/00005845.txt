@@ -1,9 +1,9 @@
 Id:5845
-ColorIdentity:U
+ColorIdentity:R
 OriginSet:G0eb5e52d26fe1c23
-ManaCost:2 U
+ManaCost:2 R
 Types:Instant
-K:Cycling:2 U
-A:SP$ Counter | TargetType$ Spell | ValidTgts$ Card | UnlessCost$ 3
-T:Mode$ Cycled | ValidCard$ Card.Self | Execute$ TrigExile
-SVar:TrigExile:DB$ Counter | TargetType$ Spell | ValidTgts$ Card | Optional$ True | UnlessCost$ 1
+A:SP$ Animate | ValidTgts$ Creature.YouCtrl | Triggers$ TrigDamage
+SVar:TrigDamage:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ Damage | OptionalDecider$ You
+SVar:Damage:DB$ DealDamage | ValidTgts$ Creature.ControlledBy TriggeredTarget | NumDmg$ CommandoRaidX
+SVar:CommandoRaidX:Count$CardPower

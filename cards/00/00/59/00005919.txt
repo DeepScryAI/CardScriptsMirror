@@ -1,10 +1,10 @@
 Id:5919
 ColorIdentity:R
 OriginSet:G0eb5e52d26fe1c23
-ManaCost:1 R
-Types:Creature Goblin Warrior
-PT:1/2
-K:Protection:Blue
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +X
-SVar:X:Count$Valid Goblin.attacking+Other/Times.2
+ManaCost:4 R
+Types:Creature Goblin
+PT:0/5
+A:AB$ DigUntil | Cost$ 2 R | Valid$ Card.nonLand | RevealedDestination$ Library | RevealedLibraryPosition$ -1 | RememberFound$ True | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Self | NumAtt$ +RCX | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:RCX:Remembered$CardManaCost

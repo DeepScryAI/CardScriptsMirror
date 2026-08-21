@@ -1,9 +1,13 @@
 Id:17378
-ColorIdentity:W
+ColorIdentity:R
 OriginSet:Gaa482ed186eee527
-ManaCost:2 W
-Types:Creature Cat Archer
-PT:3/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChooseOpp
-SVar:TrigChooseOpp:DB$ ChoosePlayer | Defined$ You | Choices$ Opponent | Secretly$ True
-A:AB$ ChangeZone | Cost$ RevealChosen<Player> | ValidTgts$ Creature.attackingYou | Origin$ Battlefield | Destination$ Exile | ConditionDefined$ Targeted | ConditionPresent$ Card.ChosenCtrl | GameActivationLimit$ 1
+ManaCost:2 R
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddKeyword$ Haste | AddTrigger$ ShadowUpkeepTrig
+SVar:ShadowUpkeepTrig:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ ShadowDestroyEnchanted
+SVar:ShadowDestroyEnchanted:DB$ Destroy | Defined$ Self | SubAbility$ ShadowRevealCards
+SVar:ShadowRevealCards:DB$ DigUntil | Valid$ Creature | FoundDestination$ Battlefield | RevealedDestination$ Library | RevealedLibraryPosition$ -1 | RevealRandomOrder$ True | RememberFound$ True | SubAbility$ ShadowReattach
+SVar:ShadowReattach:DB$ Attach | Defined$ Remembered | Object$ OriginalHost | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

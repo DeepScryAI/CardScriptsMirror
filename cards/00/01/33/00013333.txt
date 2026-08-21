@@ -1,8 +1,13 @@
 Id:13333
 ColorIdentity:WB
 OriginSet:Gfdc478e04211a499
-ManaCost:no cost
-Types:Land Gate
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
-A:AB$ Mana | Cost$ T | Produced$ Combo W B
+ManaCost:W B
+Types:Instant
+A:SP$ Charm | Choices$ ReturnAll,DBDestroy,DBZombify
+SVar:ReturnAll:DB$ Pump | ValidTgts$ Creature.YouCtrl | SubAbility$ DBChangeZoneAll | RememberObjects$ Targeted
+SVar:DBChangeZoneAll:DB$ ChangeZoneAll | ChangeType$ Creature.IsRemembered,Aura.AttachedTo Creature.IsRemembered+YouCtrl | Origin$ Battlefield | Destination$ Hand | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:DBDestroy:DB$ Destroy | ValidTgts$ Creature | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ X
+SVar:X:Targeted$CardToughness
+SVar:DBZombify:DB$ ChangeZone | ValidTgts$ Creature.cmcLE1+YouOwn | Origin$ Graveyard | Destination$ Battlefield

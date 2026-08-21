@@ -1,24 +1,12 @@
 Id:21872
 ColorIdentity:UG
-OriginSet:G6fa60d857e930f32
-ManaCost:2 G
-Types:Legendary Creature Elf Druid
-PT:2/2
-A:AB$ Dig | Cost$ T | DigNum$ 1 | ChangeNum$ All | ChangeValid$ Card | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | Origin$ Exile | Destination$ Hand | Defined$ Remembered | ConditionDefined$ Remembered | ConditionPresent$ Land | ConditionCompare$ GE1 | SubAbility$ DBCounter
-SVar:DBCounter:DB$ PutCounter | Defined$ Remembered | CounterType$ STUDY | TgtZone$ Exile | ConditionDefined$ Remembered | ConditionPresent$ Land | ConditionCompare$ LT1 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True
-A:AB$ Token | Cost$ 4 G | TokenScriptIds$ 1802199211 | ImprintTokens$ True | SubAbility$ DBCounters
-SVar:DBCounters:DB$ PutCounter | Defined$ Imprinted | CounterType$ P1P1 | CounterNum$ X | SubAbility$ DBCleanup
-SVar:X:Count$ValidExile Card.YouOwn+nonLand+counters_GE1_STUDY$DifferentCardManaCost
-AlternateMode:Modal
-ALTERNATE
-ManaCost:2 U U
-Types:Legendary Creature Bird Wizard
-PT:3/3
-K:Flying
-A:AB$ Dig | Cost$ X U U T | Defined$ You | DigNum$ X | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBCounter
-SVar:DBCounter:DB$ PutCounter | Defined$ Remembered | CounterType$ STUDY | TgtZone$ Exile | SubAbility$ DBHand
-SVar:DBHand:DB$ ChangeZone | Hidden$ True | Origin$ Exile | Destination$ Hand | ChangeType$ Card.YouOwn+counters_GE1_STUDY | Optional$ True | SubAbility$ DBCleanup
+OriginSet:Gabb23d0d25cdc46d
+ManaCost:3 G U
+Types:Sorcery
+A:SP$ ChangeZoneAll | ChangeType$ Creature | Origin$ Battlefield | Destination$ Exile | RememberLKI$ True | SubAbility$ DBRepeatEach
+SVar:DBRepeatEach:DB$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBToken | SubAbility$ DBCleanup
+SVar:DBToken:DB$ Token | TokenScriptIds$ 1802199211 | TokenOwner$ Player.IsRemembered | ImprintTokens$ True | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Imprinted | CounterType$ P1P1 | CounterNum$ X | Placer$ Player.IsRemembered | SubAbility$ DBCleanImprinted
+SVar:DBCleanImprinted:DB$ Cleanup | ClearImprinted$ True
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$xPaid
+SVar:X:RememberedLKI$Valid Card.RememberedPlayerCtrl$CardPower

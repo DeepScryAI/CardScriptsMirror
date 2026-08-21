@@ -1,14 +1,13 @@
 Id:30834
-ColorIdentity:W
-OriginSet:G2c8286a6f234d4b9
-ManaCost:1 W
-Types:Legendary Creature Human Warrior
-PT:1/1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPut
-SVar:TrigPut:DB$ PutCounter | ValidTgts$ Creature | CounterType$ P1P1
-T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigPump | TriggerZones$ Battlefield
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.attacking+counters_GE1_P1P1 | SubAbility$ DBBranch
-SVar:DBBranch:DB$ Branch | BranchConditionSVar$ X | BranchConditionSVarCompare$ GE2 | TrueSubAbility$ DBPump1 | FalseSubAbility$ DBPump2
-SVar:DBPump1:DB$ Pump | Defined$ Targeted | KW$ DoubleStrike
-SVar:DBPump2:DB$ Pump | Defined$ Targeted | KW$ FirstStrike
-SVar:X:Targeted$CardCounters.P1P1
+ColorIdentity:WB
+OriginSet:Gc5a2f0ff902c0621
+ManaCost:2 W B
+Types:Legendary Creature Vampire Knight
+PT:4/4
+K:Lifelink
+K:Hexproof:Instant
+S:Mode$ Continuous | Affected$ Card.Self | AddPower$ 1 | AddToughness$ 1 | AddKeyword$ Menace | CheckSVar$ X | SVarCompare$ GTY
+S:Mode$ Continuous | Affected$ Card.Self | AddPower$ 5 | AddToughness$ 5 | Secondary$ True | CheckSVar$ X | SVarCompare$ GEZ
+SVar:X:Count$YourLifeTotal
+SVar:Y:Count$YourStartingLife
+SVar:Z:Count$YourStartingLife/Plus.10

@@ -1,11 +1,9 @@
 Id:16867
-ColorIdentity:
+ColorIdentity:W
 OriginSet:Gd31f94cf3a5f78e4
-ManaCost:4
-Types:Artifact Creature Construct
-PT:3/3
-T:Mode$ ChangesZone | ValidCard$ Card.Self | TriggerZones$ Battlefield | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigKeeperCascade
-SVar:TrigKeeperCascade:DB$ DigUntil | Defined$ You | Amount$ 1 | Valid$ Card.nonLand+cmcLE3 | NoMoveRevealed$ True | ImprintRevealed$ True | RememberFound$ True | SubAbility$ CascadeCast
-SVar:CascadeCast:DB$ Play | Defined$ Remembered | WithoutManaCost$ True | ValidSA$ Spell | Optional$ True | SubAbility$ CascadeMoveToLib
-SVar:CascadeMoveToLib:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered,Card.IsImprinted | Origin$ Library | Destination$ Library | RandomOrder$ True | LibraryPosition$ -1 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True
+ManaCost:2 W
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Artifact.OppCtrl,Creature.OppCtrl | Duration$ UntilHostLeavesPlay
+SVar:PlayMain1:TRUE
+SVar:OblivionRing:TRUE

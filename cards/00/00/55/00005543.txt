@@ -1,7 +1,11 @@
 Id:5543
-ColorIdentity:U
+ColorIdentity:B
 OriginSet:Ge4af4f9459d5dadd
-ManaCost:3 U
-Types:Sorcery
-K:Flashback:1 U PayLife<3>
-A:SP$ Draw | ValidTgts$ Player | NumCards$ 2
+ManaCost:2 B B B
+Types:Enchantment
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ 1
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouCtrl | SubAbility$ DBPump | RememberChanged$ True
+SVar:DBPump:DB$ Animate | Keywords$ Haste | Defined$ Remembered | AtEOT$ Exile | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

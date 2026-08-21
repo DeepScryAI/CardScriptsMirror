@@ -1,9 +1,11 @@
 Id:26895
-ColorIdentity:WG
-OriginSet:G6ce0035cfb774934
-ManaCost:1 G W
-Types:Legendary Creature Elf Noble
-PT:2/2
-K:etbCounter:Indestructible:1
-A:AB$ Pump | Cost$ 1 SubCounter<1/Indestructible> | KW$ Indestructible | CounterNum$ 1 | ValidTgts$ Creature.Other | SubAbility$ PutCounterSelf
-SVar:PutCounterSelf:DB$ PutCounter | Defined$ Self & Targeted | CounterNum$ 1 | CounterTypes$ Lifelink,P1P1
+ColorIdentity:
+OriginSet:G997e3b19a1e94e85
+ManaCost:3
+Types:Artifact Equipment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 105024841 | TokenOwner$ You | RememberTokens$ True | SubAbility$ DBAttach
+SVar:DBAttach:DB$ Attach | Defined$ Remembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddToughness$ 2 | AddKeyword$ Skulk
+K:Equip:3

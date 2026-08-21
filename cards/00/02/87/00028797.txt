@@ -1,13 +1,15 @@
 Id:28797
-ColorIdentity:
-OriginSet:Gaf7c94f364052cdd
-ManaCost:6
-Types:Artifact Creature Robot
-PT:6/6
-K:Trample
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigEnergy
-SVar:TrigEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ 4
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigImmediateTrig
-SVar:TrigImmediateTrig:DB$ ImmediateTrigger | RememberObjects$ Targeted | ValidTgts$ Permanent.nonLand | UnlessCost$ PayEnergy<X> | UnlessPayer$ You | UnlessSwitched$ True | Execute$ TrigDestroy
-SVar:TrigDestroy:DB$ Destroy | Defined$ DelayTriggerRememberedLKI
-SVar:X:Targeted$CardManaCost
+ColorIdentity:R
+OriginSet:Ge329d8d60ca65422
+ManaCost:3 R
+Types:Legendary Creature Human Warlock
+PT:3/3
+K:Haste
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Destination$ Battlefield | Execute$ TrigEffect
+SVar:TrigEffect:DB$ Effect | ValidTgts$ Player | AILogic$ Evasion | StaticAbilities$ OppCantBlock | RememberObjects$ Targeted
+SVar:OppCantBlock:Mode$ CantBlock | ValidCard$ Creature.RememberedPlayerCtrl
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigExile | TriggerZones$ Battlefield
+SVar:TrigExile:DB$ ChangeZone | Defined$ TopOfLibrary | Origin$ Library | RememberChanged$ True | Destination$ Exile | ExileFaceDown$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ Remembered | StaticAbilities$ STPlay | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | MayLookAt$ You | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

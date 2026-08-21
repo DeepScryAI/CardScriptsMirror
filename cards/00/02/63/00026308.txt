@@ -1,13 +1,14 @@
 Id:26308
-ColorIdentity:BG
-OriginSet:G74a73d701e7801b3
-ManaCost:1 B G
-Types:Creature Phyrexian Ooze
-PT:3/3
-K:Trample
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigConjure
-SVar:TrigConjure:DB$ MakeCard | Conjure$ True | CatalogId$ 26308 | Amount$ 1 | Zone$ Graveyard | RememberMade$ True | SubAbility$ DBRemember
-SVar:DBRemember:DB$ Pump | RememberObjects$ TriggeredCardLKICopy | SubAbility$ DBDouble
-SVar:DBDouble:DB$ Pump | PumpZone$ Graveyard | Defined$ Remembered | NumAtt$ Double | NumDef$ Double | Duration$ Perpetual | SubAbility$ DBShuffle
-SVar:DBShuffle:DB$ ChangeZone | Origin$ Graveyard | Shuffle$ True | Destination$ Library | Defined$ Remembered | SubAbility$ DBCleanup
+ColorIdentity:UR
+OriginSet:G2192e8955d5e1ad1
+ManaCost:2 U R
+Types:Creature Phyrexian Chimera
+PT:2/4
+K:Flying
+T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigCounter
+SVar:TrigCounter:DB$ PutCounter | Defined$ Self | CounterType$ OIL | CounterNum$ 1
+A:AB$ Draw | Cost$ SubCounter<3/OIL> | SorcerySpeed$ True | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | DiscardValid$ Card.nonLand | Optional$ True | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBImmediateTrig
+SVar:DBImmediateTrig:DB$ ImmediateTrigger | ConditionDefined$ Remembered | ConditionPresent$ Card | Execute$ TrigDamage | SubAbility$ DBCleanup
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Creature,Planeswalker | NumDmg$ 3
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

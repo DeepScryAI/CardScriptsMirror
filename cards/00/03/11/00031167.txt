@@ -1,0 +1,11 @@
+Id:31167
+ColorIdentity:B
+OriginSet:G4524bbf7a3db9dc0
+ManaCost:1 B
+Types:Enchantment
+K:StartYourEngines
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ DBSacrifice
+SVar:DBSacrifice:DB$ Sacrifice | Defined$ Opponent | SacValid$ Creature,Vehicle | RememberSacrificed$ True | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Mode$ TgtChoose | Defined$ OppNonRememberedController | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+A:AB$ GainLife | Cost$ 2 Sac<1/CARDNAME/this enchantment> | LifeAmount$ Count$YourSpeed

@@ -1,10 +1,10 @@
 Id:30533
-ColorIdentity:W
+ColorIdentity:UG
 OriginSet:G8b2ed00ac2a0ff47
-Types:Creature Human Survivor
-ManaCost:W
-PT:2/1
-T:Mode$ Phase | Phase$ Main | PhaseCount$ 2 | ValidPlayer$ You | PresentDefined$ Self | IsPresent$ Card.tapped | TriggerZones$ Battlefield | Execute$ TrigChangeZone
-SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card | TargetMin$ 0 | TargetMax$ 1
-S:Mode$ Continuous | Affected$ Card.Self | AddPower$ 3 | AddToughness$ 3 | AddKeyword$ Hexproof | CheckSVar$ X | SVarCompare$ GE3
-SVar:X:ExiledWith$Amount
+ManaCost:G U
+Types:Enchantment
+K:Flash
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDread
+SVar:TrigDread:DB$ ManifestDread
+T:Mode$ TurnFaceUp | ValidCard$ Permanent | ValidCause$ SpellAbility.YouCtrl | Execute$ TrigPutCounter | TriggerZones$ Battlefield
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ TriggeredCardLKICopy | CounterType$ P1P1 | CounterNum$ 1

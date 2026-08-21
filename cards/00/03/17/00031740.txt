@@ -1,10 +1,13 @@
 Id:31740
-ColorIdentity:
-OriginSet:G7ab4f62d323b0ca7
-ManaCost:1
+ColorIdentity:U
+OriginSet:G530ea9d733a13e9d
+ManaCost:X U
 Types:Artifact
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
-A:AB$ ChangeZoneAll | Cost$ 5 T Exile<1/CARDNAME/this artifact> | ChangeType$ Card.nonLand+YouCtrl | Origin$ Graveyard | Destination$ Library | RememberChanged$ True | SubAbility$ DBGainLife | Shuffle$ True
-SVar:DBGainLife:DB$ GainLife | LifeAmount$ Remembered$Amount | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPut
+SVar:TrigPut:DB$ PutCounter | Support$ X
+A:AB$ Animate | Cost$ 3 T | Triggers$ DamageTrigger | ValidTgts$ Creature | SubAbility$ DBEffect
+SVar:DamageTrigger:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ Count$DifferentCounterKinds_Card.Self
+SVar:DBEffect:DB$ Effect | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+SVar:X:Count$xPaid

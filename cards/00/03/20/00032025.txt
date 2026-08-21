@@ -1,14 +1,10 @@
 Id:32025
-ColorIdentity:B
-OriginSet:G7856e27bce45729f
-ManaCost:2 B B
-Types:Creature Insect Cleric
-PT:4/4
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigChoose | TriggerZones$ Battlefield
-SVar:TrigChoose:DB$ ChooseCard | Defined$ TriggeredDefendingPlayer & You | Mandatory$ True | Choices$ Card.inZoneHand,Permanent.CanBeSacrificedBy | ChoiceZone$ Hand,Battlefield | ControlledByPlayer$ Chooser | AILogic$ WorstCard | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | Mode$ TgtChoose | Defined$ TriggeredDefendingPlayer & You | DiscardValid$ Card.ChosenCard | SubAbility$ DBSac
-SVar:DBSac:DB$ SacrificeAll | ValidCards$ Card.ChosenCardStrict | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | NumCards$ X | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
-K:Encore:6 B B
-SVar:X:Count$ValidGraveyard Land.ChosenCard
+ColorIdentity:R
+OriginSet:G7ab4f62d323b0ca7
+ManaCost:4 R
+Types:Creature Worm
+PT:5/4
+K:Haste
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Land | SubAbility$ DBChange | AITgts$ Land.nonBasic
+SVar:DBChange:DB$ ChangeZone | Optional$ True | Origin$ Library | Destination$ Battlefield | ChangeType$ Land.Basic | Tapped$ True | DefinedPlayer$ TargetedController | ShuffleNonMandatory$ True

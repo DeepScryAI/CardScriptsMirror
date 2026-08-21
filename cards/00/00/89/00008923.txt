@@ -1,14 +1,8 @@
 Id:8923
-ColorIdentity:URG
+ColorIdentity:B
 OriginSet:Gce1d73449bd71b54
-ManaCost:3 G U R
-Types:Legendary Creature Dragon
-PT:6/6
-K:Flying
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | OptionalDecider$ You | Execute$ TrigExile | TriggerZones$ Battlefield
-SVar:TrigExile:AB$ ChangeZone | Cost$ 2 U | Defined$ TopOfLibrary | Origin$ Library | Destination$ Exile | ExileFaceDown$ True | RememberChanged$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | Name$ 9392660510803601295 | RememberObjects$ Remembered | StaticAbilities$ STMayLookAt | ForgetOnMoved$ Exile | Duration$ Permanent | SubAbility$ DBEffect2
-SVar:STMayLookAt:Mode$ Continuous | Affected$ Card.IsRemembered | MayLookAt$ You | AffectedZone$ Exile
-SVar:DBEffect2:DB$ Effect | Name$ 1633913411625205394 | StaticAbilities$ STMayPlay | ForgetOnMoved$ Exile | RememberObjects$ Remembered | Duration$ UntilHostLeavesPlay | SubAbility$ DBCleanup
-SVar:STMayPlay:Mode$ Continuous | Affected$ Card.IsRemembered | MayPlay$ True | MayPlayWithoutManaCost$ True | AffectedZone$ Exile
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:1 B
+Types:Instant
+A:SP$ ChangeTargets | TargetType$ Spell.singleTarget | ValidTgts$ Card | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ X
+SVar:X:Targeted$CardManaCost

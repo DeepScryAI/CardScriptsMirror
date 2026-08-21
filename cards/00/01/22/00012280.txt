@@ -1,19 +1,10 @@
 Id:12280
-ColorIdentity:R
+ColorIdentity:
 OriginSet:G14de52802b0b467c
-ManaCost:3 R
-Types:Creature Human Werewolf
-PT:2/3
-S:Mode$ Continuous | Affected$ Creature.attacking+YouCtrl | AddPower$ 1
-T:Mode$ Phase | Phase$ Upkeep | WerewolfTransformCondition$ True | TriggerZones$ Battlefield | Execute$ TrigTransform
-SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:red
-Types:Creature Werewolf
-PT:5/5
-K:Trample
-S:Mode$ Continuous | Affected$ Creature.attacking+YouCtrl | AddPower$ 3
-T:Mode$ Phase | Phase$ Upkeep | WerewolfUntransformCondition$ True | TriggerZones$ Battlefield | Execute$ TrigTransform
-SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform
+ManaCost:2
+Types:Artifact Equipment
+K:Equip:2
+R:Event$ DamageDone | ActiveZones$ Battlefield | ValidSource$ Creature.EquippedBy | ReplaceWith$ DmgTwice | IsCombat$ True
+R:Event$ DamageDone | ActiveZones$ Battlefield | ValidTarget$ Creature.EquippedBy | ValidSource$ Creature.Other | ReplaceWith$ DmgTwice | IsCombat$ True
+SVar:DmgTwice:DB$ ReplaceEffect | VarName$ DamageAmount | VarValue$ X
+SVar:X:ReplaceCount$DamageAmount/Twice

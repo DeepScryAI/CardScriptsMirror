@@ -1,12 +1,12 @@
 Id:34307
-ColorIdentity:U
+ColorIdentity:WR
 OriginSet:Gcb93bbfc68a40806
-ManaCost:1 U
-Types:Legendary Creature Human Hero
-PT:2/1
-K:Flash
+ManaCost:5 R W
+Types:Legendary Creature Human Kree Hero
+PT:4/4
 K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | ValidTgts$ Hero | KW$ Hexproof
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigTap
-SVar:TrigTap:DB$ Tap | ValidTgts$ Creature.ControlledBy TriggeredDefendingPlayer
+K:DoubleStrike
+K:Indestructible
+T:Mode$ CounterPlayerAddedAll | ValidObject$ Creature.inRealZoneBattlefield+Other+nonKree | TriggerZones$ Battlefield | ValidSource$ You | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Placer$ TriggeredSource | TriggeredCounterMap$ True | Defined$ Self | Optional$ True | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ0
+SVar:X:TriggeredObject$Valid Kree

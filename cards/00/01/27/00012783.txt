@@ -2,9 +2,11 @@ Id:12783
 ColorIdentity:
 OriginSet:G4801bb28ce9773ed
 ManaCost:no cost
-Types:Plane Belenon
-R:Event$ Untap | ActiveZones$ Command | ValidCard$ Creature.YouCtrl | ReplaceWith$ RepPutCounter | ValidStepTurnToController$ You
-SVar:RepPutCounter:DB$ PutCounter | Defined$ ReplacedCard | CounterType$ P1P1 | CounterNum$ 2
-T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos
-SVar:RolledChaos:DB$ UntapAll | ValidCards$ Creature.YouCtrl
-SVar:AIRollPlanarDieParams:Mode$ Always | HasCreatureInPlay$ True
+Types:Phenomenon
+T:Mode$ PlaneswalkedTo | ValidCard$ Card.Self | Execute$ Aether
+SVar:Aether:DB$ Effect | ReplacementEffects$ BlankIsChaos | Triggers$ TPWAway | SubAbility$ PWAway | Duration$ Permanent
+SVar:PWAway:DB$ Planeswalk
+SVar:BlankIsChaos:Event$ PlanarDiceResult | ValidRoll$ Blank | ReplaceWith$ REChaos
+SVar:REChaos:DB$ ReplaceEffect | VarName$ Result | VarValue$ Chaos | VarType$ PlanarDice
+SVar:TPWAway:Mode$ PlaneswalkedFrom | ValidCard$ Plane | Execute$ ExileSelf | Static$ True
+SVar:ExileSelf:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile

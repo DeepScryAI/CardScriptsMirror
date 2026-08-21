@@ -1,8 +1,13 @@
 Id:14493
-ColorIdentity:U
+ColorIdentity:B
 OriginSet:Gd3737676789056fe
-ManaCost:2 U U
-Types:Instant
-A:SP$ Counter | TargetType$ Spell | ValidTgts$ Card | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | ConditionPresent$ Creature.Blue+YouCtrl | ConditionCompare$ GE1 | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ TgtChoose | ConditionPresent$ Creature.Blue+YouCtrl | ConditionCompare$ GE1
+ManaCost:4 B
+Types:Sorcery
+K:Convoke
+A:SP$ NameCard | Defined$ You | ValidCards$ Card.nonLand | SubAbility$ ExileYard
+SVar:ExileYard:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Player | ChangeType$ Card.NamedCard | Chooser$ You | ChangeNum$ NumInYard | Hidden$ True | SubAbility$ ExileHand
+SVar:ExileHand:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | DefinedPlayer$ Targeted | ChangeType$ Card.NamedCard | ChangeNum$ NumInHand | Chooser$ You | SubAbility$ ExileLib
+SVar:ExileLib:DB$ ChangeZone | Origin$ Library | Destination$ Exile | DefinedPlayer$ Targeted | ChangeType$ Card.NamedCard | ChangeNum$ NumInLib | Chooser$ You | Shuffle$ True
+SVar:NumInLib:TargetedPlayer$CardsInLibrary
+SVar:NumInHand:TargetedPlayer$CardsInHand
+SVar:NumInYard:TargetedPlayer$CardsInGraveyard

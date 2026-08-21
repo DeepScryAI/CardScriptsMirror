@@ -1,12 +1,8 @@
 Id:27602
 ColorIdentity:U
-OriginSet:G997e3b19a1e94e85
+OriginSet:G7579344e30f8be85
 ManaCost:1 U
-Types:Creature Faerie Noble
-PT:2/1
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChoose
-SVar:TrigChoose:DB$ NameCard | AtRandom$ True | ChooseFromCatalogIds$ 8955,1824,6074,2072 | SubAbility$ DBCast
-SVar:DBCast:DB$ Play | WithoutManaCost$ True | CopyFromChosenName$ True | Optional$ True | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearNamedCard$ True
-SVar:PlayMain1:TRUE
+Types:Sorcery
+A:SP$ Tap | ValidTgts$ Creature.OppCtrl | SubAbility$ DBCounter
+SVar:DBCounter:DB$ PutCounter | Defined$ Targeted | CounterType$ Stun | CounterNum$ 3 | SubAbility$ DBScry
+SVar:DBScry:DB$ Scry | ScryNum$ 2

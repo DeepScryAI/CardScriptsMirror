@@ -1,15 +1,14 @@
 Id:18929
-ColorIdentity:W
-OriginSet:G0b51a0aecbe39efe
-ManaCost:3 W W
-Types:Creature Angel
-PT:5/4
-K:Flash
+ColorIdentity:UG
+OriginSet:G586a4ae96288ce18
+ManaCost:X G U
+Types:Creature Jellyfish Hydra Beast
+PT:0/0
+T:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigGainLife
+SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ HalfXDown | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ HalfXDown
 K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigEffect
-SVar:TrigEffect:DB$ Effect | ReplacementEffects$ SelflessDamage
-SVar:SelflessDamage:Event$ LifeReduced | ValidPlayer$ You.lifeGE1 | Result$ LT1 | IsDamage$ True | ReplaceWith$ ReduceLoss
-SVar:ReduceLoss:DB$ ReplaceEffect | VarName$ Amount | VarValue$ X
-SVar:X:ReplaceCount$Amount/LimitMax.Difference
-SVar:Difference:Count$YourLifeTotal/Minus.1
-A:AB$ SetLife | Cost$ 4 W W ExileFromGrave<1/CARDNAME> | Defined$ You | ActivationZone$ Graveyard | LifeAmount$ 10
+K:Trample
+K:etbCounter:P1P1:X
+SVar:X:Count$xPaid
+SVar:HalfXDown:Count$xPaid/HalfDown

@@ -1,13 +1,8 @@
 Id:30433
-ColorIdentity:UB
+ColorIdentity:
 OriginSet:G8b2ed00ac2a0ff47
-ManaCost:U B
-Types:Legendary Creature Rat Ninja Wizard
-PT:2/2
-K:Menace
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigMill | TriggerZones$ Battlefield
-SVar:TrigMill:DB$ Mill | NumCards$ X | Defined$ You | RememberMilled$ True | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | Hidden$ True | Origin$ Graveyard,Exile | Destination$ Hand | ChangeType$ Card.Legendary+IsRemembered,Enchantment.IsRemembered | ChangeNum$ X | RememberChanged$ True | ForgetOtherRemembered$ True | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | Defined$ Self | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ0 | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:TriggerCount$DamageAmount
+ManaCost:3
+Types:Artifact Creature Toy
+PT:2/4
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump | OptionalDecider$ You
+SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +4 | AtEOT$ Sacrifice

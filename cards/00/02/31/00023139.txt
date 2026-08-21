@@ -1,18 +1,27 @@
 Id:23139
-ColorIdentity:R
-OriginSet:G6e75ff4f143a3dc3
-ManaCost:2 R R
-Types:Creature Human Soldier Werewolf
-PT:4/3
-K:Daybound
-A:AB$ DealDamage | Cost$ 2 R T | ValidTgts$ Any | NumDmg$ 1
+ColorIdentity:W
+OriginSet:G7a76c1974b0a33a6
+ManaCost:1 W W
+Types:Legendary Creature Spirit Warlock
+PT:*/*
+K:Flying
+K:Lifelink
+K:Protection:Vampire
+K:Disturb:3 W W
+S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X | SetToughness$ X
+SVar:X:Count$Valid Spirit.YouCtrl,Enchantment.YouCtrl
+SVar:NeedsToPlayVar:X GE2
+SVar:BuffedBy:Enchantment,Spirit
+SVar:NoZeroToughnessAI:True
 AlternateMode:DoubleFaced
 ALTERNATE
 ManaCost:no cost
-Colors:red
-Types:Creature Werewolf
-PT:5/5
-K:Nightbound
-A:AB$ DealDamage | Cost$ 2 R | ValidTgts$ Any | NumDmg$ 1 | RememberDamaged$ True | SubAbility$ DBNoBlock
-SVar:DBNoBlock:DB$ Pump | ConditionDefined$ Remembered | ConditionPresent$ Creature | KW$ HIDDEN CARDNAME can't block. | Defined$ Remembered | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+Colors:white
+Types:Legendary Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ X | AddToughness$ X | AddKeyword$ Flying & Lifelink & Protection:Vampire
+SVar:X:Count$Valid Spirit.YouCtrl,Enchantment.YouCtrl
+SVar:BuffedBy:Enchantment,Spirit
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Graveyard | ReplaceWith$ Exile
+SVar:Exile:DB$ ChangeZone | Hidden$ True | Origin$ All | Destination$ Exile | Defined$ ReplacedCard

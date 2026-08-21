@@ -1,9 +1,13 @@
 Id:18263
-ColorIdentity:W
-OriginSet:G7d4bd61c81d44275
-ManaCost:2 W
-Types:Creature Elf Warrior
-PT:3/2
-T:Mode$ Attacks | ValidCard$ Card.Self | IsPresent$ Warrior.Other+YourTeamCtrl | TriggerZones$ Battlefield | Execute$ TrigTap
-SVar:TrigTap:DB$ Tap | ValidTgts$ Creature
-SVar:BuffedBy:Warrior
+ColorIdentity:
+OriginSet:G5033d54b23b37629
+ManaCost:4
+Types:Legendary Artifact Creature Construct
+PT:7/7
+K:Trample
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+R:Event$ Untap | ValidCard$ Card.Self | ValidStepTurnToController$ You | Layer$ CantHappen
+T:Mode$ SpellCast | ValidCard$ Card.Historic | ValidActivatingPlayer$ You | Execute$ TrigUntap | TriggerZones$ Battlefield
+SVar:TrigUntap:DB$ Untap | Defined$ Self
+SVar:BuffedBy:Card.Historic

@@ -1,14 +1,10 @@
 Id:20283
-ColorIdentity:WB
-OriginSet:Gfa87e7bbc5a709eb
-ManaCost:4 W B
-Types:Legendary Enchantment Creature God
-PT:4/7
-K:Indestructible
-S:Mode$ Continuous | Affected$ Card.Self | RemoveType$ Creature | CheckSVar$ X | SVarCompare$ LT7
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | Execute$ TrigPutCounter | TriggerZones$ Battlefield
-SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.Other | CounterType$ COIN | CounterNum$ 1 | AITgts$ Creature.!token
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard,Exile | TriggerZones$ Battlefield | ValidCard$ Creature.counters_GE1_COIN | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard,Exile | Destination$ Battlefield | Defined$ TriggeredNewCardLKICopy | GainControl$ True
-SVar:X:Count$DevotionDual.White.Black
-SVar:BuffedBy:Permanent.Black,Permanent.White
+ColorIdentity:G
+OriginSet:G42eb6bda83007836
+ManaCost:2 G
+Types:Creature Human Warrior
+PT:1/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Enchantment.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigCounter
+SVar:TrigCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw
+SVar:BuffedBy:Enchantment

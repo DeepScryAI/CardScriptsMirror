@@ -1,9 +1,11 @@
 Id:28545
-ColorIdentity:G
+ColorIdentity:W
 OriginSet:G7ee0e82a2424d636
-ManaCost:1 G
-Types:Creature Dryad
-PT:2/2
-K:Disguise:G
-T:Mode$ TurnFaceUp | ValidCard$ Card.Self | Execute$ TrigSearch | TriggerZones$ Battlefield
-SVar:TrigSearch:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Land.hasABasicLandType | ChangeNum$ 1 | Reveal$ True
+ManaCost:1 W
+Types:Enchantment Case
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDamageEach
+SVar:TrigDamageEach:DB$ EachDamage | ValidTgts$ Creature.YouDontCtrl | DefinedDamagers$ Valid Creature.YouCtrl | Defined$ Targeted | NumDmg$ 1
+T:Mode$ Phase | Phase$ End of Turn | CheckSVar$ X | SVarCompare$ GE3 | ValidPlayer$ You | IsPresent$ Card.Self+!IsSolved | TriggerZones$ Battlefield | Execute$ TrigSolve
+SVar:TrigSolve:DB$ AlterAttribute | Defined$ Self | Attributes$ Solved
+S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddPower$ 1 | IsPresent$ Card.Self+IsSolved
+SVar:X:Count$AttackersDeclared

@@ -1,11 +1,11 @@
 Id:20532
-ColorIdentity:WBG
+ColorIdentity:WBR
 OriginSet:Gc9c1dd0d52c99ca4
-ManaCost:1 W B G
-Types:Legendary Creature Nightmare Beast
+ManaCost:1 R W B
+Types:Legendary Creature Human Soldier
 PT:3/3
-K:ETBReplacement:Other:AddExtraCounter:Mandatory:Battlefield:Creature.Other+YouCtrl
-SVar:AddExtraCounter:DB$ PutCounter | ETB$ True | Defined$ ReplacedCard | CounterType$ Vigilance | CounterNum$ 1
-A:AB$ Mill | Cost$ 3 RemoveAnyCounter<3/Any/Creature> | NumCards$ 3 | Defined$ You | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | Hidden$ True | Mandatory$ True | ChangeType$ Permanent.YouOwn+cmcLE3 | ChangeNum$ 1 | Origin$ Graveyard | Destination$ Battlefield
-SVar:AIRemoveCounterCostPriority:Vigilance
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ X | TokenScriptIds$ 638238902 | TokenOwner$ You | AILogic$ Always
+SVar:X:Count$TotalCommanderCastFromCommandZone
+S:Mode$ Continuous | Affected$ Human.Other+YouCtrl | AddPower$ 2
+SVar:PlayMain1:TRUE

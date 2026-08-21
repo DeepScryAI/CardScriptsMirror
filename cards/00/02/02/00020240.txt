@@ -1,9 +1,8 @@
 Id:20240
-ColorIdentity:G
+ColorIdentity:BR
 OriginSet:G42eb6bda83007836
-ManaCost:3 G G
-Types:Creature Boar
-PT:10/6
-K:All creatures able to block CARDNAME do so.
-T:Mode$ AttackerBlockedByCreature | ValidCard$ Card.Self | ValidBlocker$ Creature | TriggerZones$ Battlefield | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ TriggeredBlockerController | NumCards$ 1
+ManaCost:3 B R
+Types:Sorcery
+A:SP$ Dig | DigNum$ 6 | Reveal$ True | Choser$ Opponent | SetChosenPlayer$ True | ChangeNum$ 1 | ChangeValid$ Card.nonLand | AILogic$ BestCard | DestinationZone$ Exile | DestinationZone2$ Hand | RememberChanged$ True | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | WithoutManaCost$ True | Controller$ ChosenPlayer | Optional$ True | Defined$ Remembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearChosenPlayer$ True

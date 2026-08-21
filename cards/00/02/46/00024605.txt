@@ -1,8 +1,10 @@
 Id:24605
-ColorIdentity:W
+ColorIdentity:B
 OriginSet:G58bfeff4fb121c8e
-ManaCost:4 W W
-Types:Creature Cat Ranger
-PT:3/4
-K:Flying
-K:Double team
+ManaCost:2 B
+Types:Instant
+A:SP$ Sacrifice | ValidTgts$ Opponent | SacValid$ Creature.!token | RememberSacrificed$ True | SubAbility$ TrigConjure
+SVar:TrigConjure:DB$ MakeCard | Conjure$ True | ConditionDefined$ Remembered | ConditionPresent$ Creature.cmcLE2 | DefinedName$ Remembered | Zone$ Hand | RememberMade$ True | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Remembered | staticAbilities$ SpendAnyMana | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:SpendAnyMana:Mode$ ManaConvert | EffectZone$ Stack | ValidPlayer$ You | ValidCard$ Card.Self | ValidSA$ Spell | ManaConversion$ AnyType->AnyColor
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

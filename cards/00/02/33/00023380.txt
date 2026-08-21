@@ -1,12 +1,14 @@
 Id:23380
-ColorIdentity:WU
-OriginSet:Gb6b8d78626a44788
-ManaCost:2 W U
-Types:Legendary Planeswalker Teferi
-Loyalty:5
-S:Mode$ CantBeCast | ValidCard$ Card | Condition$ PlayerTurn | Caster$ Opponent
-A:AB$ Effect | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | StaticAbilities$ STPlay | Duration$ UntilYourNextTurn | AILogic$ Main2
-SVar:STPlay:Mode$ CastWithFlash | ValidCard$ Sorcery | ValidSA$ Spell | Caster$ You
-SVar:PlayMain1:TRUE
-A:AB$ ChangeZone | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | Origin$ Battlefield | Destination$ Hand | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Artifact,Creature,Enchantment | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw
+ColorIdentity:G
+OriginSet:G9f95a41d532c0550
+ManaCost:1 G
+Types:Enchantment Class
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigGainLife
+SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
+K:Class:2:2 G:AddStaticAbility$ SLandPlay
+SVar:SLandPlay:Mode$ Continuous | Affected$ You | AdjustLandPlays$ 1 | Secondary$ True
+K:Class:3:2 G:AddTrigger$ TriggerClassLevel
+SVar:TriggerClassLevel:Mode$ ClassLevelGained | ClassLevel$ 3 | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigAnimateLand | Secondary$ True
+SVar:TrigAnimateLand:DB$ Animate | ValidTgts$ Land.YouCtrl | Types$ Creature | Duration$ Permanent | Keywords$ Haste | staticAbilities$ StLandPT
+SVar:StLandPT:Mode$ Continuous | EffectZone$ All | CharacteristicDefining$ True | SetPower$ X | SetToughness$ X
+SVar:X:Count$Valid Land.YouCtrl

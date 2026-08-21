@@ -1,8 +1,13 @@
 Id:22506
-ColorIdentity:W
+ColorIdentity:B
 OriginSet:G9f95a41d532c0550
-ManaCost:2 W
-Types:Creature Dwarf Ranger
-PT:2/3
-S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ DoubleStrike | CheckSVar$ X
-SVar:X:DungeonsCompleted$Amount
+ManaCost:4 B B
+Types:Legendary Creature Devil God
+PT:6/6
+R:Event$ Draw | ActiveZones$ Battlefield | ValidPlayer$ You | ReplaceWith$ ExileTop
+SVar:ExileTop:DB$ ChangeZone | Defined$ TopOfLibrary | Origin$ Library | Destination$ Exile | ExileFaceDown$ True
+A:AB$ Draw | Cost$ B B B | NumCards$ 7
+A:AB$ ChangeZoneAll | Cost$ B | ChangeType$ Card.ExiledWithSource | Origin$ Exile | Destination$ Hand | RememberChanged$ True | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Amount

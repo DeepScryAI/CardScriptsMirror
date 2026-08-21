@@ -1,14 +1,15 @@
 Id:28654
-ColorIdentity:UB
-OriginSet:Ge329d8d60ca65422
-ManaCost:2 UB UB
-Types:Creature Faerie Rogue
-PT:3/3
-K:Flying
-T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigSurveil | TriggerZones$ Battlefield
-SVar:TrigSurveil:DB$ Surveil | Amount$ X
-T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | CheckSVar$ Y | SVarCompare$ GE3 | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw
-SVar:X:PlayerCountPropertyYou$OpponentsAttackedThisCombat
-SVar:Y:Count$ThisTurnEntered_Graveyard_Card.YouOwn/Minus.Z
-SVar:Z:Count$ThisTurnEntered_Graveyard_from_Battlefield_Card.YouOwn
+ColorIdentity:UR
+OriginSet:G7ee0e82a2424d636
+ManaCost:1 U R
+Types:Artifact Vehicle
+PT:4/4
+A:AB$ Animate | Cost$ CollectEvidence<6> | Defined$ Self | Types$ Artifact,Creature
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPlay | OptionalDecider$ You
+SVar:TrigPlay:DB$ Play | ValidZone$ Exile | Valid$ Card.ExiledWithSource | ValidSA$ Instant,Sorcery | Controller$ You | Optional$ True | RememberPlayed$ True | Amount$ 1 | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | ReplacementEffects$ StaticReplace | RememberObjects$ Remembered
+SVar:StaticReplace:Event$ Moved | ValidLKI$ Card.IsRemembered | Origin$ Stack | Destination$ Graveyard | ReplaceWith$ MoveLibrary
+SVar:MoveLibrary:DB$ ChangeZone | Defined$ ReplacedCard | Origin$ Stack | Destination$ Library | LibraryPosition$ -1 | SubAbility$ ExileSelf
+SVar:ExileSelf:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile
+K:Crew:2
+SVar:HasAttackEffect:TRUE

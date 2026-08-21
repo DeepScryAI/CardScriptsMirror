@@ -1,13 +1,9 @@
 Id:6362
-ColorIdentity:U
+ColorIdentity:G
 OriginSet:Gd11012ee98ee8d76
-ManaCost:6 U U
-Types:Enchantment
-K:Cycling:4 U U
-T:Mode$ SpellCast | ValidCard$ Card.OppCtrl | Execute$ TrigCounterSpell | TriggerZones$ Battlefield
-SVar:TrigCounterSpell:DB$ Counter | Defined$ TriggeredSpellAbility | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | CounterType$ DEPLETION | CounterNum$ 1 | Defined$ Self | SubAbility$ DBSac
-SVar:DBSac:DB$ Sacrifice | ConditionCheckSVar$ DecreeX | ConditionSVarCompare$ GE1
-T:Mode$ Cycled | ValidCard$ Card.Self | Execute$ TrigCounter | OptionalDecider$ You
-SVar:TrigCounter:DB$ Counter | TargetType$ Spell | ValidTgts$ Card
-SVar:DecreeX:Count$Valid Card.Self+counters_GE3_DEPLETION
+ManaCost:7 G G
+Types:Instant
+K:Cycling:4 G G
+A:SP$ PutCounterAll | ValidCards$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 4
+T:Mode$ Cycled | ValidCard$ Card.Self | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ 4

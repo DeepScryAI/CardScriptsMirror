@@ -1,7 +1,15 @@
 Id:29480
-ColorIdentity:B
-OriginSet:Gac6359c222afbd4f
-ManaCost:B
-Types:Sorcery
-A:SP$ Destroy | Cost$ B Sac<1/Creature/creature or sacrifice a modified creature> | ValidTgts$ Creature,Planeswalker | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | ConditionDefined$ Sacrificed | ConditionPresent$ Card.modified
+ColorIdentity:G
+OriginSet:G2ce881cc55bb9f18
+ManaCost:2 G
+Types:Creature Frog
+PT:3/3
+K:Trample
+S:Mode$ Continuous | AddPower$ X | AddToughness$ X | Affected$ Card.Self
+SVar:X:PlayerCountHasLost$Amount/Times.10
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigMill | TriggerZones$ Battlefield
+SVar:TrigMill:DB$ Mill | Defined$ You | NumCards$ Y | RememberMilled$ True | Optional$ True | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Graveyard,Exile | Destination$ Battlefield | ChangeType$ Land.IsRemembered | Tapped$ True | Hidden$ True | ChangeNum$ Z | AnyNumber$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:Y:TriggerCount$DamageAmount
+SVar:Z:Count$ValidGraveyard Land.YouOwn+IsRemembered

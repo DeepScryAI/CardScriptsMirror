@@ -1,7 +1,12 @@
 Id:15789
-ColorIdentity:RG
+ColorIdentity:WU
 OriginSet:G5b1ad34969911ca7
-ManaCost:1 R G
-Types:Creature Human Warrior
-PT:3/3
-A:AB$ Pump | Cost$ 1 R G | Defined$ Self | NumAtt$ +1 | NumDef$ +1 | KW$ Trample
+ManaCost:1 W U
+Types:Creature Human Wizard
+PT:2/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | ValidTgts$ Creature.OppCtrl | Origin$ Battlefield | Destination$ Hand | RememberLKI$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedLKI & RememberedOwner | StaticAbilities$ CantCast | Duration$ UntilYourNextTurn | SubAbility$ DBCleanup
+SVar:CantCast:Mode$ CantBeCast | ValidCard$ Card.nonLand+sharesNameWith RememberedLKI | Caster$ Player.IsRemembered
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:PlayMain1:TRUE

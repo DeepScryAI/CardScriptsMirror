@@ -1,15 +1,13 @@
 Id:17256
 ColorIdentity:UBR
 OriginSet:G4b92e66c84393de5
-ManaCost:5 U B R
+ManaCost:4 U B R
 Types:Legendary Planeswalker Bolas
-Loyalty:5
-A:AB$ GenericChoice | Cost$ AddCounter<3/LOYALTY> | Planeswalker$ True | Defined$ Opponent | Choices$ SacNonland,Discard | TempRemember$ Chooser | FallbackAbility$ LoseLifeFallback | AILogic$ PayUnlessCost
-SVar:Discard:DB$ LoseLife | Defined$ Remembered | LifeAmount$ 3 | UnlessCost$ Discard<1/Card> | UnlessPayer$ Remembered
-SVar:SacNonland:DB$ LoseLife | Defined$ Remembered | LifeAmount$ 3 | UnlessCost$ Sac<1/Permanent.nonLand> | UnlessPayer$ Remembered
-SVar:LoseLifeFallback:DB$ LoseLife | Defined$ Remembered | LifeAmount$ 3
-A:AB$ Destroy | Cost$ SubCounter<3/LOYALTY> | ValidTgts$ Creature | Planeswalker$ True | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw
-A:AB$ DealDamage | Cost$ SubCounter<11/LOYALTY> | Defined$ Opponent | NumDmg$ 7 | Planeswalker$ True | Ultimate$ True | SubAbility$ DBDrawSeven
-SVar:DBDrawSeven:DB$ Draw | NumCards$ 7
-SVar:AIPreference:SacCost$Permanent.nonLand | DiscardCost$Card
+Loyalty:7
+A:AB$ DigUntil | Cost$ AddCounter<2/LOYALTY> | Planeswalker$ True | ValidTgts$ Opponent | Valid$ Card.nonLand | FoundDestination$ Exile | RevealedDestination$ Exile | RememberFound$ True | IsCurse$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ MayPlay | RememberObjects$ Remembered | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:MayPlay:Mode$ Continuous | MayPlay$ True | MayPlayWithoutManaCost$ True | Affected$ Card.IsRemembered+nonLand | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+A:AB$ ChangeZone | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | DefinedPlayer$ Player.Opponent | Origin$ Hand | Destination$ Exile | ChangeType$ Card | ChangeNum$ 2 | Hidden$ True | Mandatory$ True
+A:AB$ DealDamage | Cost$ SubCounter<4/LOYALTY> | Planeswalker$ True | NumDmg$ 7 | ValidTgts$ Opponent,Creature.OppCtrl,Planeswalker.OppCtrl
+A:AB$ ChangeZoneAll | Cost$ SubCounter<12/LOYALTY> | Planeswalker$ True | Ultimate$ True | ChangeType$ Permanent.OppCtrl+nonLand | Origin$ Battlefield | Destination$ Exile

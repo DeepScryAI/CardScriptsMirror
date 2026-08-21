@@ -1,15 +1,14 @@
 Id:29082
 ColorIdentity:W
-OriginSet:G27146c70b74a1e72
+OriginSet:Gaf7c94f364052cdd
 ManaCost:2 W
-Types:Legendary Creature Beast Mount
-PT:2/4
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigScry
-SVar:TrigScry:DB$ Scry | ScryNum$ 2
-T:Mode$ Attacks | ValidCard$ Card.Self+IsSaddled | TriggerZones$ Battlefield | Execute$ TrigDelayedTrig
-SVar:TrigDelayedTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ EndCombat | ValidPlayer$ Player | Execute$ TrigChoose
-SVar:TrigChoose:DB$ ChooseCard | MinAmount$ 0 | Choices$ Creature.SaddledThisTurn | SubAbility$ DBExile
-SVar:DBExile:DB$ ChangeZone | Defined$ Self & ChosenCard | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn
-SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ All | Destination$ Battlefield | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-K:Saddle:1
+Types:Legendary Artifact Creature Robot
+PT:2/2
+A:AB$ GainControl | Cost$ T | Defined$ Self | ValidTgts$ Opponent | SubAbility$ DBImmediateTrigger | PlayerTurn$ True
+SVar:DBImmediateTrigger:DB$ ImmediateTrigger | ConditionDefined$ Self | ConditionPresent$ Card.ControlledBy ParentTarget | Execute$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ 2 | SubAbility$ DBCounter
+SVar:DBCounter:DB$ PutCounter | Defined$ Self | CounterType$ QUEST | CounterNum$ 1
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ X | TokenScriptIds$ 1214250791 | TokenOwner$ TriggeredCardOwner | TokenTapped$ True
+SVar:X:TriggeredCard$CardCounters.QUEST
+SVar:AICounterOverrideQUEST:Positive

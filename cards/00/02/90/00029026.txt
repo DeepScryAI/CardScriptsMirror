@@ -1,10 +1,12 @@
 Id:29026
-ColorIdentity:B
-OriginSet:G27146c70b74a1e72
-ManaCost:1 B
-Types:Creature Vampire Rogue
-PT:1/1
-T:Mode$ CommitCrime | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter | ActivationLimit$ 1
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
-A:AB$ LoseLife | Cost$ 3 B | ValidTgts$ Opponent | LifeAmount$ 1 | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
+ColorIdentity:R
+OriginSet:Gaf7c94f364052cdd
+ManaCost:1 R
+Types:Artifact Equipment
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1 | AddToughness$ 1
+T:Mode$ Attacks | ValidCard$ Card.EquippedBy | Execute$ TrigEnergy
+SVar:TrigEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ 2
+A:AB$ FlipCoin | Cost$ PayEnergy<2> | ValidTgts$ Creature.blockingEquipped | WinSubAbility$ ExileIt | LoseSubAbility$ DamageIt
+SVar:ExileIt:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | Defined$ Targeted
+SVar:DamageIt:DB$ DealDamage | NumDmg$ 1 | Defined$ Targeted
+K:Equip:2

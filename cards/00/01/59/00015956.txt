@@ -1,8 +1,10 @@
 Id:15956
-ColorIdentity:G
+ColorIdentity:B
 OriginSet:Gc276c26a85a70470
-ManaCost:4 G
-Types:Creature Human Shaman
-PT:5/4
-T:Mode$ Transformed | ValidCard$ Creature.YouCtrl+nonHuman+inZoneBattlefield | Execute$ Token | TriggerZones$ Battlefield
-SVar:Token:DB$ Token | TokenOwner$ You | TokenScriptIds$ 4257275070
+ManaCost:2 B
+Types:Creature Zombie Bird
+PT:2/1
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigMill | Secondary$ True
+SVar:TrigMill:DB$ Mill | NumCards$ 2 | Defined$ You

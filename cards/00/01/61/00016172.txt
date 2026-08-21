@@ -1,15 +1,7 @@
 Id:16172
-ColorIdentity:
+ColorIdentity:G
 OriginSet:G70d19654882197c9
-ManaCost:13
-Types:Legendary Creature Eldrazi
-PT:13/13
-K:Flying
-K:Trample
-K:Protection:Instant:instants
-S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ X | EffectZone$ All
-SVar:X:Count$ValidGraveyard Card.YouOwn$CardTypes
-T:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigControlPlayer
-SVar:TrigControlPlayer:DB$ ControlPlayer | ValidTgts$ Opponent | SubAbility$ DBDelTrig
-SVar:DBDelTrig:DB$ DelayedTrigger | Mode$ Phase | DelayedTriggerDefinedPlayer$ Targeted | RememberObjects$ Targeted | Phase$ Cleanup | Execute$ DBAddTurn | Static$ True
-SVar:DBAddTurn:DB$ AddTurn | Defined$ DelayTriggerRemembered | NumTurns$ 1
+ManaCost:2 G G
+Types:Enchantment
+T:Mode$ SpellCast | ValidCard$ Creature.Eldrazi+cmcGE7 | ValidActivatingPlayer$ You | Execute$ TrigDraw | TriggerZones$ Battlefield
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 2

@@ -1,8 +1,13 @@
 Id:21118
 ColorIdentity:R
-OriginSet:G72c9c624ceb92bff
+OriginSet:G7b2607750b451c25
 ManaCost:1 R
-Types:Sorcery
-A:SP$ Destroy | ValidTgts$ Land | SubAbility$ DBChange
-SVar:DBChange:DB$ ChangeZone | Optional$ True | Origin$ Library | Destination$ Battlefield | ChangeType$ Land.Basic | Tapped$ True | ChangeNum$ 1 | DefinedPlayer$ TargetedController | ShuffleNonMandatory$ True | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw
+Types:Creature Human Wizard
+PT:1/3
+S:Mode$ Continuous | Affected$ Card.Self | AddPower$ 3 | AddToughness$ 1 | IsPresent$ Instant.YouOwn,Sorcery.YouOwn | PresentZone$ Graveyard | PresentCompare$ GE4
+A:AB$ Dig | Cost$ T Discard<1/Card> | Defined$ You | DigNum$ 2 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBChoose
+SVar:DBChoose:DB$ ChooseCard | Defined$ You | Amount$ 1 | Choices$ Card.IsRemembered | ChoiceZone$ Exile | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | ExileOnMoved$ Exile | RememberObjects$ ChosenCard | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearChosenCard$ True
+SVar:BuffedBy:Instant,Sorcery

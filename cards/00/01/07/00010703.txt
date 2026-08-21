@@ -1,8 +1,12 @@
 Id:10703
-ColorIdentity:U
+ColorIdentity:W
 OriginSet:Gc84c0c45e8a76685
-ManaCost:3 U U
-Types:Instant Trap
-S:Mode$ AlternativeCost | ValidSA$ Spell.Self | EffectZone$ All | Cost$ U | CheckSVar$ CreaturesEntered
-A:SP$ ChangeZone | Origin$ Battlefield | Destination$ Hand | ValidTgts$ Creature | TargetMin$ 2 | TargetMax$ 2
-SVar:CreaturesEntered:PlayerCountOpponents$ConditionGE2 ThisTurnEntered_Battlefield_Creature.YouCtrl
+ManaCost:2 W
+Types:Creature Kor Cleric
+PT:2/3
+K:Kicker:W
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self+kicked | Execute$ TrigKicker
+SVar:TrigKicker:DB$ Destroy | ValidTgts$ Artifact,Enchantment
+SVar:NeedsToPlayKickedVar:Z GE1
+SVar:Z:Count$Valid Artifact.OppCtrl/Plus.Z1
+SVar:Z1:Count$Valid Enchantment.OppCtrl

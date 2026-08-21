@@ -1,10 +1,9 @@
 Id:18534
-ColorIdentity:U
+ColorIdentity:R
 OriginSet:G3b823183c96b2df3
-ManaCost:4 U U
-Types:Legendary Planeswalker Tezzeret
-Loyalty:4
-A:AB$ Draw | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | NumCards$ 1 | Defined$ You
-A:AB$ Animate | Cost$ AddCounter<0/LOYALTY> | Planeswalker$ True | ValidTgts$ Artifact.YouCtrl | Power$ 5 | Toughness$ 5 | Types$ Creature | Duration$ UntilYourNextTurn
-A:AB$ ChangeZone | Cost$ SubCounter<7/LOYALTY> | Planeswalker$ True | Ultimate$ True | Origin$ Hand | Destination$ Battlefield | ChangeType$ Card | ChangeNum$ X | FaceDown$ True | FaceDownPower$ 5 | FaceDownToughness$ 5 | FaceDownSetType$ Artifact & Creature
-SVar:X:Count$ValidHand Card.YouOwn
+ManaCost:3 R
+Types:Enchantment
+T:Mode$ SpellCast | ValidCard$ Creature.powerGE4+powerLE6 | ValidActivatingPlayer$ You | Execute$ TrigDamage | TriggerZones$ Battlefield
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 4
+T:Mode$ SpellCast | ValidCard$ Creature.powerGE7 | ValidActivatingPlayer$ You | Execute$ TrigDamageAll | TriggerZones$ Battlefield
+SVar:TrigDamageAll:DB$ DamageAll | ValidCards$ Creature.OppCtrl,Planeswalker.OppCtrl | ValidPlayers$ Player.Opponent | NumDmg$ 4

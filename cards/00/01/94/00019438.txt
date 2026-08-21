@@ -1,10 +1,12 @@
 Id:19438
-ColorIdentity:R
+ColorIdentity:UB
 OriginSet:G9d37112ca6693432
-ManaCost:2 R
-Types:Creature Sliver
-PT:2/2
-S:Mode$ Continuous | Affected$ Creature.Sliver+YouCtrl | AddAbility$ Rummage
-SVar:Rummage:AB$ Draw | Cost$ T Discard<1/Card> | NumCards$ 1
-SVar:PlayMain1:TRUE
-SVar:BuffedBy:Sliver
+ManaCost:3 U B
+Types:Creature Zombie Ninja
+PT:5/4
+K:Ninjutsu:2 U B
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigExile | TriggerZones$ Battlefield
+SVar:TrigExile:DB$ Dig | Defined$ TriggeredTarget | DigNum$ 2 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ Play | SubAbility$ DBCleanup | ForgetOnMoved$ Exile
+SVar:Play:Mode$ Continuous | MayPlay$ True | MayPlayWithoutManaCost$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

@@ -1,8 +1,11 @@
 Id:19178
-ColorIdentity:G
+ColorIdentity:R
 OriginSet:Gf56613712ce2ae1f
-ManaCost:1 G
-Types:Creature Elf Druid
-PT:2/1
-S:Mode$ Continuous | Affected$ Card.Self+untapped | AddKeyword$ Hexproof
-A:AB$ Mana | Cost$ T | Produced$ Any
+ManaCost:X R R
+Types:Sorcery
+A:SP$ Pump | ValidTgts$ Instant.YouOwn+cmcLEX | TgtZone$ Graveyard | TargetMin$ 0 | TargetMax$ 1 | RememberObjects$ Targeted | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | ValidTgts$ Sorcery.YouOwn+cmcLEX | TgtZone$ Graveyard | TargetMin$ 0 | TargetMax$ 1 | RememberObjects$ Targeted | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | Valid$ Card.IsRemembered | ValidZone$ Graveyard | ValidSA$ Spell | Controller$ You | WithoutManaCost$ True | Optional$ True | Amount$ All | SubAbility$ DBCopy | ReplaceGraveyard$ Exile
+SVar:DBCopy:DB$ CopySpellAbility | Amount$ 2 | Defined$ ValidStack Spell.IsRemembered | MayChooseTarget$ True | ConditionCheckSVar$ X | ConditionSVarCompare$ GE10 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$xPaid

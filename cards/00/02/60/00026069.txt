@@ -1,8 +1,11 @@
 Id:26069
-ColorIdentity:R
-OriginSet:G2192e8955d5e1ad1
-ManaCost:3 R
-Types:Sorcery
-A:SP$ DamageAll | ValidCards$ Creature.OppCtrl | NumDmg$ 1 | SubAbility$ OppCantBlock
-SVar:OppCantBlock:DB$ Effect | StaticAbilities$ KWPump
-SVar:KWPump:Mode$ CantBlock | ValidCard$ Creature.OppCtrl
+ColorIdentity:W
+OriginSet:G880fc7f6ed36df4d
+ManaCost:W
+Types:Instant
+A:SP$ ChangeZone | ValidTgts$ Creature | RememberTargets$ True | Origin$ Battlefield | Destination$ Exile | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Remembered | Duration$ Permanent | Triggers$ UpkeepTrig | SubAbility$ DBCleanup
+SVar:UpkeepTrig:Mode$ Phase | Phase$ Upkeep | TriggerZones$ Exile | Execute$ TrigPerpetual | ValidPlayer$ You
+SVar:TrigPerpetual:DB$ Pump | PumpZone$ Exile | Defined$ Self | NumAtt$ +1 | NumDef$ +1 | Duration$ Perpetual | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Self | Origin$ Exile | Destination$ Battlefield | Optional$ True
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

@@ -1,11 +1,12 @@
 Id:17353
-ColorIdentity:UBR
+ColorIdentity:G
 OriginSet:Gaa482ed186eee527
-ManaCost:2 U B R
-Types:Legendary Creature Human Wizard
-PT:4/5
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Wizard.YouCtrl+!token+Other | TriggerZones$ Command | PresentZone$ Command | IsPresent$ Card.StrictlySelf | Execute$ TrigCopyPermanent
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Wizard.YouCtrl+!token+Other | TriggerZones$ Battlefield | PresentZone$ Battlefield | IsPresent$ Card.StrictlySelf | Execute$ TrigCopyPermanent | Secondary$ True
-SVar:TrigCopyPermanent:AB$ CopyPermanent | Cost$ 1 | Defined$ TriggeredCardLKICopy | PumpKeywords$ Haste | AtEOT$ Exile
-A:AB$ LoseLife | Cost$ tapXType<5/Wizard> | ValidTgts$ Player | LifeAmount$ 7
-SVar:BuffedBy:Wizard
+ManaCost:1 G
+Types:Creature Cat
+PT:2/2
+S:Mode$ Continuous | Affected$ Creature.Cat+YouCtrl | AddKeyword$ Protection:Rat
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | ValidTgts$ Opponent | TokenScriptIds$ 2696332490 | TokenOwner$ Targeted
+T:Mode$ ChangesZone | ValidCard$ Rat | Origin$ Battlefield | Destination$ Graveyard | TriggerZones$ Battlefield | Execute$ TrigPutCounters
+SVar:TrigPutCounters:DB$ PutCounterAll | ValidCards$ Cat.YouCtrl | CounterType$ P1P1 | CounterNum$ 1
+SVar:PlayMain1:TRUE

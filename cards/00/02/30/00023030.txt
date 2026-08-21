@@ -1,8 +1,10 @@
 Id:23030
-ColorIdentity:BG
-OriginSet:G7a76c1974b0a33a6
-ManaCost:no cost
-Types:Land
-A:AB$ Mana | Cost$ T | Produced$ Combo B G
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ LandTapped | ReplacementResult$ Updated
-SVar:LandTapped:DB$ Tap | Defined$ Self | ETB$ True | ConditionPresent$ Land.YouCtrl | ConditionCompare$ LT2
+ColorIdentity:UB
+OriginSet:Gf78628ad511eefec
+ManaCost:U B
+Types:Instant
+A:SP$ Dig | ValidTgts$ Opponent | DigNum$ 2 | ChangeNum$ 1 | DestinationZone$ Exile | DestinationZone2$ Library | ExileFaceDown$ True | WithMayLook$ True | ChangeValid$ Card | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ Remembered | StaticAbilities$ STPlay | Duration$ Permanent | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | MayPlayIgnoreColor$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile | Secondary$ True
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+K:Flashback:1 U B

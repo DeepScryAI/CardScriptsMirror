@@ -1,11 +1,12 @@
 Id:30181
-ColorIdentity:U
-OriginSet:G9ff9681e1fe8713a
-ManaCost:3 U U
-Types:Sorcery
-K:Gift
-SVar:GiftAbility:DB$ MakeCard | CatalogId$ 4528 | Defined$ Promised | Zone$ Battlefield
-A:SP$ ChangeZoneAll | Origin$ Graveyard,Hand | Destination$ Library | ChangeType$ Card.YouOwn | Shuffle$ True | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 7 | SubAbility$ DBChangeZoneAllOpponents
-SVar:DBChangeZoneAllOpponents:DB$ ChangeZoneAll | ConditionPresent$ Card.PromisedGift | ConditionCompare$ EQ0 | Origin$ Graveyard,Hand | Destination$ Library | ChangeType$ Card.OwnedBy Player.Other | Shuffle$ True | SubAbility$ DBDrawBis
-SVar:DBDrawBis:DB$ Draw | Defined$ Player.Other | ConditionPresent$ Card.PromisedGift | ConditionCompare$ EQ0 | NumCards$ 7
+ColorIdentity:B
+OriginSet:G30e4cc621dfc3a2e
+ManaCost:3 B B
+Types:Creature Bat Warlock
+PT:4/4
+K:Flying
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.OppCtrl | Execute$ TrigToken | TriggerZones$ Battlefield
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 2179622914 | TokenOwner$ You
+T:Mode$ Sacrificed | ValidCard$ Artifact | ValidPlayer$ You | Execute$ TrigPutCounter | TriggerZones$ Battlefield
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1

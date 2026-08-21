@@ -1,11 +1,10 @@
 Id:8214
-ColorIdentity:WB
+ColorIdentity:W
 OriginSet:G2c4e6f6c46954cd6
-ManaCost:no cost
-Types:Land
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Hidden$ True | Mandatory$ True | ChangeType$ Land.YouCtrl | AILogic$ NeverBounceItself
-A:AB$ Mana | Cost$ T | Produced$ W B
-SVar:NeedsToPlay:Land.Basic+YouCtrl
+ManaCost:W
+Types:Creature Human Cleric
+PT:0/1
+K:Defender
+K:ETBReplacement:Other:ChooseColor
+SVar:ChooseColor:DB$ ChooseColor | Defined$ You | AILogic$ MostProminentInHumanDeck
+S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ Protection:Card.ChosenColor:chosenColor

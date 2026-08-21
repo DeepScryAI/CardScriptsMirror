@@ -1,7 +1,13 @@
 Id:18243
-ColorIdentity:U
+ColorIdentity:WU
 OriginSet:G5033d54b23b37629
-ManaCost:1 U
-Types:Creature Merfolk Wizard
-PT:1/3
-A:AB$ Mana | Cost$ T | Produced$ C | RestrictValid$ Spell.Instant,Spell.Sorcery
+ManaCost:3 W U
+Types:Legendary Planeswalker Teferi
+Loyalty:4
+A:AB$ Draw | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | Defined$ You | NumCards$ 1 | SubAbility$ DelTrigUntap
+SVar:DelTrigUntap:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ TrigUntap
+SVar:TrigUntap:DB$ Untap | UntapUpTo$ True | UntapType$ Land | Amount$ 2 | Defined$ You
+A:AB$ ChangeZone | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | ValidTgts$ Permanent.nonLand | Origin$ Battlefield | Destination$ Library | LibraryPosition$ 2 | IsCurse$ True
+A:AB$ Effect | Cost$ SubCounter<8/LOYALTY> | Planeswalker$ True | Ultimate$ True | Name$ 1689026756692408497 | Triggers$ TrigDraw | Duration$ Permanent | AILogic$ Always
+SVar:TrigDraw:Mode$ Drawn | ValidCard$ Card.YouCtrl | Execute$ EffSpellCast
+SVar:EffSpellCast:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Permanent.OppCtrl

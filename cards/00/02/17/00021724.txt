@@ -1,9 +1,11 @@
 Id:21724
-ColorIdentity:
+ColorIdentity:R
 OriginSet:G18bf722b221724f8
-ManaCost:no cost
-Types:Land
-A:AB$ Mana | Cost$ T | Produced$ C
-A:AB$ Animate | Cost$ 2 T | ValidTgts$ Creature.Legendary | Types$ God | Duration$ Permanent | SubAbility$ DBPutCounter
-A:AB$ PutCounter | Cost$ 4 T Sac<1/CARDNAME> | ValidTgts$ God | CounterType$ Indestructible | CounterNum$ 1
-SVar:DBPutCounter:DB$ PutCounter | Defined$ Targeted | CounterType$ P1P1 | CounterNum$ 1
+ManaCost:3 R R
+Types:Creature Giant Berserker
+PT:5/4
+S:Mode$ CantGainLife | ValidPlayer$ Player.Opponent
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDealDamage
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Graveyard | IsPresent$ Creature.YouCtrl+Giant | Execute$ TrigDealDamage | Secondary$ True
+SVar:TrigDealDamage:DB$ DealDamage | NumDmg$ 2 | Defined$ Player.Opponent
+K:Foretell:2 R R

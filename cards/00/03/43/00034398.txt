@@ -1,9 +1,11 @@
 Id:34398
-ColorIdentity:B
-OriginSet:G11c0621ce29fa608
-ManaCost:B B B
-Types:Legendary Creature Human Noble Villain
-PT:3/3
-T:Mode$ SpellCast | ValidCard$ Card.Black+wasCastFromYourHand | TriggerZones$ Battlefield | Execute$ TrigConnive
-SVar:TrigConnive:DB$ Connive
-A:AB$ Play | Cost$ ExileFromGrave<1+/Card.Black+withTotalManaSymbols_Black_GE15> | Boast$ True | Defined$ ExiledWith | ValidSA$ Spell | WithoutManaCost$ True | CopyCard$ True | Amount$ 3 | Optional$ True
+ColorIdentity:W
+OriginSet:Gcb93bbfc68a40806
+ManaCost:1 W
+Types:Instant
+A:SP$ Effect | ValidTgts$ Creature.YouCtrl | ReplacementEffects$ DamageMagnet | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | SubAbility$ DBDelayedTrigger
+SVar:DamageMagnet:Event$ DamageDone | ActiveZones$ Battlefield | ValidTarget$ You,Creature.YouCtrl | DamageTarget$ Remembered | ReplaceWith$ DmgMe
+SVar:DmgMe:DB$ ReplaceEffect | VarName$ Affected | VarValue$ Remembered | VarType$ Card
+SVar:DBDelayedTrigger:DB$ DelayedTrigger | Mode$ ChangesZone | RememberObjects$ Targeted | ValidCard$ Card.IsTriggerRemembered | Origin$ Battlefield | Destination$ Graveyard | ThisTurn$ True | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | TargetMin$ 0 | TargetMax$ 1 | CounterType$ EachFromSource | EachFromSource$ TriggeredCardLKICopy | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw

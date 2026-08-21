@@ -1,10 +1,13 @@
 Id:33519
-ColorIdentity:R
-OriginSet:G23d1f017cc66962f
-ManaCost:2 R
-Types:Creature Mutant Mercenary
-PT:3/1
-S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ FirstStrike | Condition$ PlayerTurn
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDraw
-SVar:TrigDraw:AB$ Draw | Cost$ Discard<1/Card>
-SVar:HasAttackEffect:TRUE
+ColorIdentity:W
+OriginSet:G40dbb28fb92f9206
+ManaCost:2 W W
+Types:Creature Giant Warrior
+PT:4/3
+K:Vigilance
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraft
+SVar:TrigDraft:DB$ Draft | SpellbookCatalogIds$ 19397,24045,23532,16653,6527,30845,28653,23627,23632,19975,21120,18225,18543,25905,29387 | RememberDrafted$ True | SubAbility$ DBPut
+SVar:DBPut:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | Defined$ Remembered | SubAbility$ DBTrigger
+SVar:DBTrigger:DB$ ImmediateTrigger | Execute$ TrigAttach | Defined$ Remembered | ConditionDefined$ Remembered | RememberObjects$ Remembered | ConditionPresent$ Card.Equipment
+SVar:TrigAttach:DB$ Attach | ValidTgts$ Creature.YouCtrl | Object$ DelayTriggerRememberedLKI | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

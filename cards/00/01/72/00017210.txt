@@ -1,7 +1,10 @@
 Id:17210
-ColorIdentity:G
+ColorIdentity:U
 OriginSet:G4b92e66c84393de5
-ManaCost:G
-Types:Creature Lizard
-PT:1/1
-A:AB$ Pump | Cost$ 1 G | Defined$ Self | NumAtt$ +2 | NumDef$ +2 | ActivationLimit$ 1
+ManaCost:2 U
+Types:Enchantment Aura Curse
+K:Enchant:Player
+SVar:AttachAILogic:Curse
+T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | Execute$ TrigMill
+SVar:TrigMill:DB$ Mill | Defined$ Player.EnchantedBy | NumCards$ X
+SVar:X:Count$ThisTurnEntered_Graveyard_Card.EnchantedPlayerOwn+!token

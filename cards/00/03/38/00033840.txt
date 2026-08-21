@@ -1,8 +1,10 @@
 Id:33840
 ColorIdentity:
-OriginSet:Gf8df2bea26dc6b68
-ManaCost:3
-Types:Artifact
-A:AB$ Mana | Cost$ T | Produced$ Any
-A:AB$ GainLife | Cost$ T | LifeAmount$ 2 | CheckSVar$ CastTest
-SVar:CastTest:Count$ThisTurnCast_Card.Instant+YouCtrl,Card.Sorcery+YouCtrl
+OriginSet:Gf04404de3fa1525e
+ManaCost:no cost
+Types:Land
+A:AB$ Mana | Cost$ T | Produced$ C
+A:AB$ Mana | Cost$ T PayLife<1> | Produced$ Any | RestrictValid$ Spell.Instant,Spell.Sorcery
+A:AB$ Animate | Cost$ 5 | ConditionPresent$ Card.Self+nonCreature | Defined$ Self | Power$ 2 | Toughness$ 4 | Types$ Creature,Wizard | Triggers$ CastTrigger | Duration$ Permanent
+SVar:CastTrigger:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +1

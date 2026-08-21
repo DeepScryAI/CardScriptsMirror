@@ -1,14 +1,11 @@
 Id:18949
-ColorIdentity:BR
-OriginSet:G0b51a0aecbe39efe
-ManaCost:5 B R
+ColorIdentity:UG
+OriginSet:G586a4ae96288ce18
+ManaCost:G U
 Types:Enchantment
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ DBChooseOpp | Layer$ Control
-SVar:DBChooseOpp:DB$ ChoosePlayer | Defined$ You | Choices$ Player.Opponent | AILogic$ Curse | SubAbility$ MoveToPlay
-SVar:MoveToPlay:DB$ ChangeZone | Hidden$ True | Origin$ All | Destination$ Battlefield | Defined$ ReplacedCard | GainControl$ ChosenPlayer
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigCharm | TriggerZones$ Battlefield
-SVar:TrigCharm:DB$ Charm | Choices$ LifePact,DiscardPact,MakeZombies | ChoiceRestriction$ ThisGame
-SVar:LifePact:DB$ SetLife | Defined$ You | LifeAmount$ 4
-SVar:DiscardPact:DB$ Discard | Defined$ You | Mode$ Hand
-SVar:MakeZombies:DB$ Token | TokenAmount$ 5 | TokenScriptIds$ 353162950 | TokenOwner$ Opponent
-SVar:SacMe:6
+A:AB$ PutCounter | Cost$ 1 G U | CounterType$ P1P1 | CounterNum$ 1 | ValidTgts$ Creature.YouCtrl
+T:Mode$ CounterAddedOnce | ValidCard$ Creature.YouCtrl+inZoneBattlefield | TriggerZones$ Battlefield | CounterType$ P1P1 | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | CounterType$ GROWTH | CounterNum$ X
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | IsPresent$ Card.Self+counters_GE20_GROWTH | Execute$ TrigWinGame
+SVar:TrigWinGame:DB$ WinsGame | Defined$ You
+SVar:X:TriggerCount$Amount

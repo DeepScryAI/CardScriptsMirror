@@ -1,15 +1,12 @@
 Id:26665
-ColorIdentity:WBG
+ColorIdentity:W
 OriginSet:G06757f68e16377c2
-ManaCost:1 W B G
-Types:Legendary Creature Human Frog Horror
-PT:4/4
-K:FirstStrike
-K:Deathtouch
-S:Mode$ Continuous | Affected$ You | AdjustLandPlays$ 1
-R:Event$ Moved | ValidCard$ Creature.OppCtrl,Land.nonBasic+OppCtrl | Destination$ Battlefield | ReplaceWith$ ETBTapped | ReplacementResult$ Updated | ActiveZones$ Battlefield
-SVar:ETBTapped:DB$ Tap | ETB$ True | Defined$ ReplacedCard
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigSac
-SVar:TrigSac:DB$ Sacrifice | Defined$ You | SacValid$ Land,Creature | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw
-SVar:HasAttackEffect:TRUE
+ManaCost:2 W
+Types:Creature Angel
+PT:3/3
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigBlink
+SVar:TrigBlink:DB$ ChangeZone | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Creature.YouCtrl+Other,Artifact.YouCtrl+Other | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DelTrig
+SVar:DelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ TrigReturn | RememberObjects$ RememberedLKI | SubAbility$ DBCleanup
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Exile | Destination$ Battlefield | Defined$ DelayTriggerRememberedLKI
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

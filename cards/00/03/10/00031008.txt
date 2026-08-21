@@ -1,10 +1,12 @@
 Id:31008
-ColorIdentity:
-OriginSet:G4524bbf7a3db9dc0
-ManaCost:2
-Types:Artifact Creature Construct
-PT:0/4
-K:Defender
-A:AB$ Mana | Cost$ T | Produced$ C | Amount$ 2 | RestrictValid$ Activated
-A:AB$ DelayedTrigger | Cost$ 2 T | AILogic$ SpellCopy | Mode$ AbilityCast | ValidSA$ Activated.Exhaust+!ManaAbility | ValidActivatingPlayer$ You | ThisTurn$ True | Execute$ EffTrigCopy
-SVar:EffTrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | MayChooseTarget$ True
+ColorIdentity:G
+OriginSet:G2c8286a6f234d4b9
+ManaCost:1 G
+Types:Creature Cat
+PT:2/2
+K:Trample
+T:Mode$ ChangesZone | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.YouCtrl | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Targeted | CounterType$ P1P1 | CounterNum$ 1 | ConditionCheckSVar$ X | ConditionSVarCompare$ NE2 | SubAbility$ DBMultiplyCounter
+SVar:DBMultiplyCounter:DB$ MultiplyCounter | Defined$ Targeted | CounterType$ P1P1 | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ2
+SVar:X:Count$ResolvedThisTurn

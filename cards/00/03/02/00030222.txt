@@ -1,15 +1,15 @@
 Id:30222
-ColorIdentity:G
-OriginSet:G7b2137df486dc752
-ManaCost:3 G
-Types:Sorcery
-A:SP$ Pump | ValidTgts$ Artifact.OppCtrl,Enchantment.OppCtrl | TargetMin$ 0 | TargetMax$ OneEach | TargetsForEachPlayer$ True | SubAbility$ DBRepeat
-SVar:DBRepeat:DB$ RepeatEach | RepeatPlayers$ TargetedController | RepeatSubAbility$ DBChoice | SubAbility$ DBExile
-SVar:DBChoice:DB$ GenericChoice | Choices$ DBDoNotKeep,DBIncrease | Defined$ Remembered | AILogic$ Random | ShowChoice$ ExceptSelf
-SVar:DBDoNotKeep:DB$ Pump | Defined$ Targeted.RememberedPlayerCtrl | RememberPumped$ True
-SVar:DBIncrease:DB$ StoreSVar | SVar$ X | Type$ CountSVar | Expression$ X/Plus.1
-SVar:DBExile:DB$ ChangeZoneAll | Origin$ Battlefield | Destination$ Exile | ChangeType$ Card.IsRemembered | SubAbility$ DBSearchLibrary
-SVar:DBSearchLibrary:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Land | Tapped$ True | ChangeNum$ X | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Number$0
-SVar:OneEach:PlayerCountOpponents$Amount
+ColorIdentity:B
+OriginSet:Ge949f7cc91575fe7
+ManaCost:2 B B
+Types:Instant
+A:SP$ Charm | Choices$ DBSnack,DBBauble,DBMenace,DBTrauma | CharmNum$ 1
+SVar:DBSnack:DB$ Destroy | ValidTgts$ Creature | SubAbility$ DBFood
+SVar:DBFood:DB$ Token | TokenAmount$ 1 | TokenScriptIds$ 134855612 | TokenOwner$ You
+SVar:DBBauble:DB$ Destroy | ValidTgts$ Creature | SubAbility$ DBTreasure
+SVar:DBTreasure:DB$ Token | TokenAmount$ 1 | TokenScriptIds$ 3851718391 | TokenOwner$ You
+SVar:DBMenace:DB$ Destroy | ValidTgts$ Creature | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Choices$ Creature.YouCtrl | CounterType$ Menace | CounterNum$ 1
+SVar:DBTrauma:DB$ Destroy | ValidTgts$ Creature | SubAbility$ DBMill
+SVar:DBMill:DB$ Mill | NumCards$ X | Defined$ TargetedController
+SVar:X:Targeted$CardPower

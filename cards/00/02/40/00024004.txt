@@ -1,15 +1,14 @@
 Id:24004
-ColorIdentity:UBR
-OriginSet:G9afc9838c5e994df
-ManaCost:3 U B R
-Types:Creature Vampire Rogue
-PT:4/5
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDealDamage
-SVar:TrigDealDamage:DB$ DealDamage | NumDmg$ 2 | Defined$ Opponent | SubAbility$ DBScry
-SVar:DBScry:DB$ Scry | ScryNum$ 2
-A:AB$ Effect | Cost$ 2 ExileFromHand<1/CARDNAME> | ActivationZone$ Hand | ValidTgts$ Land | RememberObjects$ Targeted & Self | StaticAbilities$ Land,MayPlay | Triggers$ Cast | ImprintCards$ Self | Duration$ Permanent | ForgetOnMoved$ Exile
-SVar:Land:Mode$ Continuous | AffectedZone$ Battlefield | Affected$ Card.IsRemembered+!IsImprinted | AddAbility$ Mana
-SVar:Mana:AB$ Mana | Cost$ T | Produced$ Combo U B R | Amount$ 1
-SVar:MayPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsImprinted+IsRemembered | AffectedZone$ Exile | Secondary$ True
-SVar:Cast:Mode$ SpellCast | ValidCard$ Card.IsImprinted+IsRemembered+wasCastFromExile | Execute$ ExileSelf | Static$ True
-SVar:ExileSelf:DB$ ChangeZone | Origin$ Command | Destination$ Exile | Defined$ Self
+ColorIdentity:G
+OriginSet:Gfdfe2ebef04be34e
+ManaCost:4 G G
+Types:Legendary Planeswalker Vivien
+Loyalty:4
+A:AB$ Sacrifice | Cost$ AddCounter<2/LOYALTY> | Planeswalker$ True | Optional$ True | SacValid$ Creature | RememberSacrificed$ True | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | ConditionDefined$ Remembered | ConditionPresent$ Card | Origin$ Library | Destination$ Battlefield | ChangeType$ Creature.cmcEQX | ChangeNum$ 1 | SubAbility$ DBCleanup
+SVar:X:Remembered$CardManaCost/Plus.1
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+A:AB$ Mill | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | Defined$ You | NumCards$ 5 | RememberMilled$ True | SubAbility$ DBChangeZone2
+SVar:DBChangeZone2:DB$ ChangeZone | Origin$ Graveyard,Exile | Destination$ Hand | Hidden$ True | ChangeType$ Creature.IsRemembered | ChangeNum$ Z | SubAbility$ DBCleanup
+SVar:Z:Remembered$Valid Creature
+A:AB$ Token | Cost$ SubCounter<1/LOYALTY> | Planeswalker$ True | TokenScriptIds$ 2099946125

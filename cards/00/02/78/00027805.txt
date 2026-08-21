@@ -1,12 +1,11 @@
 Id:27805
-ColorIdentity:W
+ColorIdentity:R
 OriginSet:G30e8a5e111cffb44
-ManaCost:3 W
-Types:Enchantment Saga
-K:Chapter:4:DBStunCounter,DBChooseCard,DBChooseCard,DBSearch
-SVar:DBStunCounter:DB$ PutCounter | ValidTgts$ Creature.tapped | CounterType$ STUN | CounterNum$ 2 | TargetMin$ 0 | TargetMax$ 2
-SVar:DBChooseCard:DB$ ChooseCard | Choices$ Permanent.nonSaga+HasCounters | MinAmount$ 0 | ChoiceZone$ Battlefield | Amount$ X | SubAbility$ DBAdditionalCounter
-SVar:X:Count$Valid Permanent.nonSaga+HasCounters
-SVar:DBAdditionalCounter:DB$ PutCounter | Defined$ ChosenCard | CounterType$ ExistingCounter | CounterNum$ 1 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
-SVar:DBSearch:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Doctor | ChangeNum$ 1 | Hidden$ True
+ManaCost:2 R
+Types:Legendary Creature Human
+PT:2/2
+K:PartnerWithId:27928
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigRemove
+SVar:TrigRemove:DB$ RemoveCounter | Choices$ Card.suspended+YouOwn | ChoiceZone$ Exile | CounterType$ TIME | CounterNum$ X
+SVar:X:TriggerCount$DamageAmount
+K:Doctor's companion

@@ -1,11 +1,9 @@
 Id:15787
-ColorIdentity:R
+ColorIdentity:B
 OriginSet:G5b1ad34969911ca7
-ManaCost:2 R
-Types:Creature Goblin Warrior Ally
+ManaCost:B
+Types:Creature Eldrazi Drone
 PT:2/1
-K:Surge:1 R
-K:Haste
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self+surged | Execute$ TrigPumpAll
-SVar:TrigPumpAll:DB$ PumpAll | ValidCards$ Creature.YouCtrl+StrictlyOther | NumAtt$ +1 | KW$ Haste
-SVar:PlayMain1:TRUE
+K:Devoid
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigLoseLife | TriggerZones$ Battlefield
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ 1 | ConditionPresent$ Creature.YouCtrl+Colorless+Other | ConditionCompare$ EQ0

@@ -1,9 +1,11 @@
 Id:13093
-ColorIdentity:UR
+ColorIdentity:U
 OriginSet:G5449dea2d54987a1
-ManaCost:1 R
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:Pump
-S:Mode$ Continuous | Affected$ Card.EnchantedBy | AddPower$ 2 | AddToughness$ 2 | AddAbility$ POFPump
-SVar:POFPump:AB$ Pump | Cost$ U | Defined$ Self | KW$ Flying
+ManaCost:4 U
+Types:Instant
+A:SP$ ChangeZoneAll | ChangeType$ Card.YouOwn | Origin$ Graveyard | Destination$ Library | Shuffle$ True | RememberChanged$ True | SubAbility$ DBMill
+SVar:DBMill:DB$ Mill | ValidTgts$ Player | NumCards$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Amount
+SVar:NeedsToPlayVar:SpiralYet GE6
+SVar:SpiralYet:Count$ValidGraveyard Card.YouOwn

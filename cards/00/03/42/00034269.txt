@@ -1,17 +1,15 @@
 Id:34269
-ColorIdentity:U
+ColorIdentity:UG
 OriginSet:Gcb93bbfc68a40806
-ManaCost:4 U U
-Types:Legendary Creature Alien Hero
-PT:5/5
-K:Flash
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZone | ValidTgts$ Permanent.Other+YouCtrl | TargetMin$ 0 | TargetMax$ X | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DelTrig
-SVar:DelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ TrigEffect | RememberObjects$ RememberedLKI | SubAbility$ DBCleanup
-SVar:TrigEffect:DB$ Effect | RememberObjects$ DelayTriggerRemembered | ReplacementEffects$ ETBLand | ForgetOnMoved$ Exile | SubAbility$ DBReturn
-SVar:ETBLand:Event$ Moved | ValidCard$ Land.IsRemembered | Destination$ Battlefield | ReplaceWith$ DBTapped | ReplacementResult$ Updated
-SVar:DBTapped:DB$ Tap | Defined$ ReplacedCard | ETB$ True
-SVar:DBReturn:DB$ ChangeZone | Origin$ Exile | Destination$ Battlefield | Defined$ DelayTriggerRememberedLKI
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$Valid Permanent.Other+YouCtrl
+ManaCost:2 GU
+Types:Legendary Creature Human Rogue Hero
+PT:2/3
+T:Mode$ SpellCast | ValidCard$ Card.Green | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPumpPlus
+SVar:TrigPumpPlus:DB$ Pump | NumAtt$ +1 | KW$ Trample | Defined$ Self
+T:Mode$ SpellCast | ValidCard$ Card.Blue | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPumpMinus
+SVar:TrigPumpMinus:DB$ Pump | NumAtt$ -1 | Defined$ Self | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | ExileOnMoved$ Battlefield | RememberObjects$ Self | StaticAbilities$ Unblockable
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+SVar:BuffedBy:Card.Green,Card.Blue

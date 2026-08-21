@@ -1,7 +1,12 @@
 Id:32201
-ColorIdentity:G
-OriginSet:G9946f072b5556073
-ManaCost:3 G G
-Types:Sorcery
-A:SP$ ChangeZone | ValidTgts$ Permanent.nonLand+YouOwn | TargetMin$ 0 | TargetMax$ 2 | Origin$ Graveyard | Destination$ Hand | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | ValidTgts$ Land.YouOwn | TargetMin$ 0 | TargetMax$ 2 | Origin$ Graveyard | Destination$ Battlefield | Tapped$ True
+ColorIdentity:BG
+OriginSet:G7856e27bce45729f
+ManaCost:1 B G
+Types:Creature Insect
+PT:1/1
+K:Flying
+T:Mode$ Sacrificed | ValidCard$ Land | Execute$ TrigBranch | TriggerZones$ Battlefield | ValidPlayer$ You
+SVar:TrigBranch:DB$ Branch | BranchConditionSVar$ X | BranchConditionSVarCompare$ GE7 | TrueSubAbility$ DBCopy | FalseSubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 414510107 | TokenTapped$ True | TokenOwner$ You
+SVar:DBCopy:DB$ CopyPermanent | Defined$ Self | TokenTapped$ True
+SVar:X:Count$ValidGraveyard Land.YouOwn

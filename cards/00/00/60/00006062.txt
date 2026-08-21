@@ -1,12 +1,9 @@
 Id:6062
-ColorIdentity:G
+ColorIdentity:B
 OriginSet:G0eb5e52d26fe1c23
-ManaCost:1 G
-Types:Creature Wurm
-PT:5/5
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ EachOpponent
-SVar:EachOpponent:DB$ RepeatEach | RepeatPlayers$ Player.Opponent | RepeatSubAbility$ TemptingChange
-SVar:TemptingChange:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | ChangeType$ Artifact,Creature,Enchantment,Land | DefinedPlayer$ Remembered | ChangeNum$ X
-SVar:X:Count$ValidHand Artifact.RememberedPlayerCtrl,Creature.RememberedPlayerCtrl,Enchantment.RememberedPlayerCtrl,Land.RememberedPlayerCtrl
-SVar:NeedsToPlayVar:Y LE2
-SVar:Y:Count$ValidHand Card.OppOwn
+ManaCost:3 B
+Types:Sorcery
+A:SP$ Discard | Defined$ Player.Other | NumCards$ 1 | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Amount

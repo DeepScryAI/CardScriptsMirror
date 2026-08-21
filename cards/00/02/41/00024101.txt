@@ -1,14 +1,8 @@
 Id:24101
-ColorIdentity:R
+ColorIdentity:UBR
 OriginSet:G9afc9838c5e994df
-ManaCost:R
+ManaCost:2 B
 Types:Creature Human Citizen
-PT:1/1
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigExile
-SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ 2 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | Triggers$ Play1,Play2 | RememberObjects$ Remembered | ForgetOnMoved$ Exile | Duration$ UntilYourNextEndStep | SubAbility$ DBCleanup
-SVar:STPlay:Mode$ Continuous | AffectedZone$ Exile | Affected$ Card.IsRemembered | MayPlay$ True
-SVar:Play1:Mode$ SpellCast | ValidCard$ Card.IsRemembered | ValidActivatingPlayer$ You | TriggerZones$ Command | Execute$ ExileSelf | Static$ True
-SVar:Play2:Mode$ LandPlayed | ValidCard$ Land.IsRemembered | TriggerZones$ Command | Execute$ ExileSelf | Static$ True
-SVar:ExileSelf:DB$ ChangeZone | Origin$ Command | Destination$ Exile
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+PT:3/1
+A:AB$ Draw | Cost$ 4 UR ExileFromGrave<1/CARDNAME> | ActivationZone$ Graveyard | NumCards$ 2 | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Mode$ TgtChoose

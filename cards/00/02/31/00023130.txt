@@ -1,8 +1,13 @@
 Id:23130
-ColorIdentity:B
-OriginSet:G6e75ff4f143a3dc3
-ManaCost:2 B
-Types:Sorcery
-A:SP$ Charm | Choices$ DBChangeZone1,DBChangeZone2 | Defined$ You
-SVar:DBChangeZone1:DB$ ChangeZone | ValidTgts$ Creature.Zombie | Origin$ Battlefield | Destination$ Exile
-SVar:DBChangeZone2:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | DefinedPlayer$ Targeted | ValidTgts$ Opponent | Chooser$ Targeted | ChangeType$ Card | ChangeNum$ 2 | IsCurse$ True | Mandatory$ True
+ColorIdentity:G
+OriginSet:G7a76c1974b0a33a6
+ManaCost:3 G
+Types:Creature Human Shaman
+PT:3/5
+T:Mode$ Attacks | ValidCard$ Card.Self | OptionalDecider$ You | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Land.Basic+!sharesLandTypeWith Valid Land.YouCtrl | ChangeNum$ 1 | ShuffleNonMandatory$ True
+A:AB$ Token | Cost$ 5 G | TokenScriptIds$ 704294417 | RememberTokens$ True | SorcerySpeed$ True | SubAbility$ DBCounters
+SVar:DBCounters:DB$ PutCounter | Defined$ Remembered | CounterType$ P1P1 | CounterNum$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$Domain
+SVar:HasAttackEffect:TRUE

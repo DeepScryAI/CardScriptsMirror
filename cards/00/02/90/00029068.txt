@@ -1,7 +1,12 @@
 Id:29068
-ColorIdentity:W
-OriginSet:G27146c70b74a1e72
-ManaCost:1 W
-Types:Sorcery
-A:SP$ Destroy | ValidTgts$ Creature.tapped | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | LifeAmount$ 2
+ColorIdentity:WB
+OriginSet:Gaf7c94f364052cdd
+ManaCost:2 W B
+Types:Enchantment Saga
+K:Chapter:3:DBToken,DBVote,DBVote
+SVar:DBToken:DB$ Token | TokenAmount$ OneEach | TokenScriptIds$ 1647422943
+SVar:OneEach:PlayerCountOpponents$Amount
+SVar:DBVote:DB$ Vote | Defined$ Player | Secretly$ True | VoteCard$ Creature | UpTo$ True | VoteSubAbility$ DBDestroyAll
+SVar:DBDestroyAll:DB$ DestroyAll | ValidCards$ Creature.IsRemembered | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ Player | NumCards$ 1 | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ0
+SVar:X:Remembered$Amount

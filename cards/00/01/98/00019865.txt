@@ -1,14 +1,14 @@
 Id:19865
-ColorIdentity:R
+ColorIdentity:U
 OriginSet:G23be9f486a22d38a
-ManaCost:4 R R
-Types:Legendary Artifact Equipment
+ManaCost:1 U U
+Types:Creature Faerie Rogue
+PT:3/1
 K:Flash
-S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ X | EffectZone$ All
-SVar:X:Count$Valid Creature.attacking+YouCtrl
-SVar:BuffedBy:Creature.attacking
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigAttach
-SVar:TrigAttach:DB$ Attach | ValidTgts$ Creature.YouCtrl
-SVar:NeedsToPlay:Creature.YouCtrl
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1 | AddToughness$ 1 | AddKeyword$ DoubleStrike & Trample
-K:Equip:3
+K:Flying
+S:Mode$ CantBlockBy | ValidAttacker$ Creature.withoutFlying | ValidBlocker$ Creature.Self
+AlternateMode:Adventure
+ALTERNATE
+ManaCost:1 U
+Types:Instant Adventure
+A:SP$ ChangeZone | ValidTgts$ Permanent.nonLand+OppCtrl | Origin$ Battlefield | Destination$ Hand

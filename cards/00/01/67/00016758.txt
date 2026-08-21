@@ -1,8 +1,9 @@
 Id:16758
-ColorIdentity:B
+ColorIdentity:W
 OriginSet:Gd31f94cf3a5f78e4
-ManaCost:6 B
-Types:Creature Insect
-PT:5/5
-K:Improvise
-S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self | ValidBlocker$ Artifact.Creature
+ManaCost:3 W
+Types:Creature Cat Beast
+PT:1/4
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ RestorationExile | OptionalDecider$ You
+SVar:RestorationExile:DB$ ChangeZone | ValidTgts$ Permanent.Other+YouCtrl | Origin$ Battlefield | Destination$ Exile | RememberTargets$ True | ForgetOtherTargets$ True | AILogic$ BounceOnce | SubAbility$ RestorationReturn
+SVar:RestorationReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | GainControl$ True

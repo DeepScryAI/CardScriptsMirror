@@ -1,9 +1,10 @@
 Id:22178
-ColorIdentity:W
-OriginSet:Geb2cf181996ee3b2
-ManaCost:2 W
-Types:Enchantment
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigCharm
-SVar:TrigCharm:DB$ Charm | Choices$ DBGainLife,DBChangeZone
-SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
-SVar:DBChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.cmcEQ1+YouCtrl
+ColorIdentity:
+OriginSet:Gd784248bfdf9e1d7
+ManaCost:1
+Types:Artifact Equipment
+K:Equip:2
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddKeyword$ Flying
+T:Mode$ DamageDone | ValidSource$ Creature.AttachedBy | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigLoot | TriggerZones$ Battlefield
+SVar:TrigLoot:DB$ Draw | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | Mode$ TgtChoose | NumCards$ 1

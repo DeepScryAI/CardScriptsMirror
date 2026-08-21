@@ -1,8 +1,12 @@
 Id:27528
-ColorIdentity:W
-OriginSet:G7579344e30f8be85
-ManaCost:2 W
-Types:Creature Dwarf Knight
-PT:3/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigScry
-SVar:TrigScry:AB$ Scry | ScryNum$ 2 | Cost$ Return<1/Permanent.nonLand+Other/another nonland permanent>
+ColorIdentity:WG
+OriginSet:Ge16da27db30ac32e
+ManaCost:2 G W
+Types:Legendary Creature Human Knight
+PT:4/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigToken | Secondary$ True
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 1470956282 | AttachedTo$ Targeted | ValidTgts$ Creature.YouCtrl+Other | TokenOwner$ You
+T:Mode$ DamageDone | ValidSource$ Creature.YouCtrl+enchanted | ValidTarget$ Player | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw
+SVar:HasAttackEffect:TRUE

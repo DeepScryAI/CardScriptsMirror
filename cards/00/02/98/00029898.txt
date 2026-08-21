@@ -1,12 +1,11 @@
 Id:29898
 ColorIdentity:B
-OriginSet:Gf09b85bbcc27770c
+OriginSet:G01a610e823cce3ca
 ManaCost:2 B
-Types:Creature Bat Warrior
-PT:1/3
-K:Flying
-K:Deathtouch
-T:Mode$ LifeGained | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump | ActivationLimit$ 1 | PlayerTurn$ True
-T:Mode$ LifeLost | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump | ActivationLimit$ 1 | PlayerTurn$ True | Secondary$ True
-SVar:TrigPump:DB$ PumpAll | ValidCards$ Bat.YouCtrl | KW$ Deathtouch | NumAtt$ +1
-SVar:PlayMain1:TRUE
+Types:Enchantment Saga
+K:Chapter:3:DBDestroy,DBEffect,DBChangeZone
+SVar:DBDestroy:DB$ Destroy | ValidTgts$ Creature.OppCtrl+tapped
+SVar:DBEffect:DB$ Effect | Triggers$ TrigAttack
+SVar:TrigAttack:Mode$ Attacks | ValidCard$ Assassin.YouCtrl | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ TriggeredAttackerLKICopy | CounterType$ P1P1 | CounterNum$ 1
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.Assassin+YouOwn | WithCountersType$ P1P1

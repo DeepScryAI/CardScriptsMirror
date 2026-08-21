@@ -1,7 +1,9 @@
 Id:18800
-ColorIdentity:U
+ColorIdentity:B
 OriginSet:G1ecb361a0a117393
-ManaCost:3 U U
-Types:Instant
-A:SP$ ChangeZone | ValidTgts$ Creature | Origin$ Battlefield | Destination$ Hand | SubAbility$ DBSearch
-SVar:DBSearch:DB$ ChangeZone | Origin$ Library | OriginAlternative$ Graveyard | Destination$ Hand | ChangeType$ Card.YouOwn+catalogId18802 | Optional$ True
+ManaCost:2 B
+Types:Creature Zombie Knight
+PT:3/2
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl+!token | TriggerZones$ Battlefield | Execute$ TrigDealDamage
+SVar:TrigDealDamage:DB$ DealDamage | Defined$ You | NumDmg$ 1 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1

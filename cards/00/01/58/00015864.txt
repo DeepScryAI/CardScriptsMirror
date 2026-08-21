@@ -1,9 +1,10 @@
 Id:15864
-ColorIdentity:R
+ColorIdentity:
 OriginSet:G92026fbb3573fda5
-ManaCost:X R
-Types:Sorcery
-A:SP$ DealDamage | ValidTgts$ Any | NumDmg$ X | RememberDamaged$ True | ReplaceDyingDefined$ Remembered.Creature | SubAbility$ DBDebuff
-SVar:DBDebuff:DB$ Debuff | Defined$ Remembered.Creature | Keywords$ Indestructible | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:2
+Types:Artifact
+A:AB$ PutCounter | Cost$ 1 T | CounterType$ CHARGE | CounterNum$ 1 | SubAbility$ DBCast
+SVar:DBCast:DB$ Play | ValidZone$ Hand | Valid$ Card.YouOwn | ValidSA$ Instant.cmcEQY,Sorcery.cmcEQY | Controller$ You | WithoutManaCost$ True | Optional$ True | Amount$ 1
+A:AB$ Scry | Cost$ 3 T SubCounter<X/CHARGE> | ScryNum$ X | AILogic$ BrainJar
 SVar:X:Count$xPaid
+SVar:Y:Count$CardCounters.CHARGE

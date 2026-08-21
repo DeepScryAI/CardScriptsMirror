@@ -1,13 +1,10 @@
 Id:28404
-ColorIdentity:WG
-OriginSet:G7ee0e82a2424d636
-ManaCost:2 G W
-Types:Enchantment Aura
-K:Enchant:Land
-SVar:AttachAILogic:Pump
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Permanent.nonLand+YouDontCtrl | Duration$ UntilHostLeavesPlay
-T:Mode$ TapsForMana | ValidCard$ Card.AttachedBy | Execute$ TrigMana | Static$ True
-SVar:TrigMana:DB$ Mana | Produced$ Any | Amount$ 1 | Defined$ TriggeredCardController
-SVar:PlayMain1:TRUE
-SVar:NeedsToPlay:Permanent.nonLand+YouDontCtrl
+ColorIdentity:W
+OriginSet:G4155bbd49d5da56f
+ManaCost:1 W
+Types:Artifact Creature Gnome
+PT:2/2
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigSeek
+SVar:TrigSeek:AB$ Seek | Cost$ ExileCtrlOrGrave<1/Artifact.Other> | Type$ Artifact | RememberFound$ True | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Remembered | Power$ 1 | Toughness$ 1 | Types$ Creature,Gnome | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

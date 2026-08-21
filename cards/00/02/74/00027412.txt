@@ -1,11 +1,15 @@
 Id:27412
 ColorIdentity:R
-OriginSet:G7579344e30f8be85
-ManaCost:3 R
-Types:Creature Human Peasant
+OriginSet:G8636ad1cfd514d83
+ManaCost:4 R
+Types:Creature Phoenix
 PT:3/3
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +X | SubAbility$ DBPumpBis
-SVar:DBPumpBis:DB$ Pump | Defined$ Self | KW$ Trample | ConditionPresent$ Rat.attacking
-SVar:X:Count$Valid Creature.attacking
-SVar:HasAttackEffect:TRUE
+K:Flying
+K:Haste
+T:Mode$ DamageDone | CombatDamage$ True | ValidTarget$ Player,Planeswalker | ValidSource$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigDelayedTrigger
+SVar:TrigDelayedTrigger:DB$ DelayedTrigger | AILogic$ SpellCopy | Execute$ EffTrigCopy | ThisTurn$ True | Mode$ SpellAbilityCast | ValidSA$ Activated.Loyalty | ValidActivatingPlayer$ You
+SVar:EffTrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | Amount$ 1 | MayChooseTarget$ True
+T:Mode$ SpellCast | ValidCard$ Card.Planeswalker | OptionalDecider$ You | ValidActivatingPlayer$ You | TriggerZones$ Graveyard | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Defined$ Self | Origin$ Graveyard | Destination$ Battlefield
+SVar:SacMe:2
+SVar:DiscardMe:3

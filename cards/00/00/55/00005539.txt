@@ -1,9 +1,13 @@
 Id:5539
-ColorIdentity:R
+ColorIdentity:U
 OriginSet:Ge4af4f9459d5dadd
-ManaCost:R
+ManaCost:U
 Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:Pump
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 1
-A:AB$ DealDamage | Cost$ Sac<1/CARDNAME> | ValidTgts$ Creature | NumDmg$ 1
+K:Enchant:Creature.Green,Creature.White:green or white creature
+SVar:AttachAILogic:Curse
+S:Mode$ Continuous | Affected$ Creature.AttachedBy | AddTrigger$ TrigCoralPhase | AddSVar$ TrigCoralDiscard & DBCoralSacrifice & DBCoralCleanup
+SVar:TrigCoralPhase:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigCoralDiscard | TriggerZones$ Battlefield
+SVar:TrigCoralDiscard:DB$ Discard | Defined$ You | Mode$ TgtChoose | NumCards$ 1 | Optional$ True | RememberDiscarded$ True | SubAbility$ DBCoralSacrifice
+SVar:DBCoralSacrifice:DB$ Sacrifice | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ0 | SubAbility$ DBCoralCleanup
+SVar:DBCoralCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:NonStackingAttachEffect:True

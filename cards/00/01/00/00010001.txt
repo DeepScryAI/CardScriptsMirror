@@ -2,10 +2,8 @@ Id:10001
 ColorIdentity:B
 OriginSet:G6a049984467eca45
 ManaCost:1 B B
-Types:Creature Specter
-PT:1/1
-K:Flying
+Types:Creature Elemental
+PT:1/4
 K:Wither
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDiscard
-SVar:TrigDiscard:DB$ Discard | Defined$ TriggeredTarget | NumCards$ X | Mode$ TgtChoose
-SVar:X:TriggerCount$DamageAmount
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.OppCtrl+counters_GE1_M1M1 | TriggerZones$ Battlefield | Execute$ TrigReturn | OptionalDecider$ You
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True | Defined$ TriggeredNewCardLKICopy

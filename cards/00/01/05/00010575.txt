@@ -1,10 +1,11 @@
 Id:10575
-ColorIdentity:WRG
+ColorIdentity:UBR
 OriginSet:G9445ff04667ca5ba
-ManaCost:2 R G W
-Types:Legendary Creature Beast
-PT:5/5
-K:Hexproof
-S:Mode$ Continuous | Affected$ Card.Self | AddPower$ X | AddToughness$ X
-SVar:X:Count$Valid Aura.Attached/Times.2
-SVar:EnchantMe:Multiple
+ManaCost:U B B R
+Types:Legendary Artifact Equipment
+K:Equip:2
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 3 | AddToughness$ 3 | AddKeyword$ FirstStrike
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.DamagedBy Equipped | Execute$ UnscytheTrigExile | TriggerZones$ Battlefield | OptionalDecider$ You
+SVar:UnscytheTrigExile:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Exile | RememberChanged$ True | SubAbility$ UnscytheDBToken
+SVar:UnscytheDBToken:DB$ Token | TokenOwner$ You | TokenScriptIds$ 353162950 | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ UnscytheDBCleanup
+SVar:UnscytheDBCleanup:DB$ Cleanup | ClearRemembered$ True

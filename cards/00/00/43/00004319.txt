@@ -1,10 +1,10 @@
 Id:4319
-ColorIdentity:B
+ColorIdentity:W
 OriginSet:G94d5a0658e4301e7
-ManaCost:1 B
-Types:Creature Human Spellshaper
-PT:1/1
-A:AB$ NameCard | Cost$ 1 B T Discard<1/Card> | Defined$ You | SubAbility$ DBExile
-SVar:DBExile:DB$ Dig | Defined$ You | DigNum$ 6 | ChangeNum$ All | DestinationZone$ Exile | SubAbility$ DBDigUntil
-SVar:DBDigUntil:DB$ DigUntil | Valid$ Card.NamedCard | FoundDestination$ Hand | RevealedDestination$ Exile | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearNamedCard$ True
+ManaCost:2 W
+Types:Creature Human Rebel
+PT:2/2
+A:AB$ ChangeZone | Cost$ 5 T | Origin$ Library | Destination$ Battlefield | ChangeType$ Permanent.Rebel+cmcLE4 | ChangeNum$ 1
+T:Mode$ Blocks | ValidCard$ Card.Self | Execute$ DelTrig
+SVar:DelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ EndCombat | ValidPlayer$ Player | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ DestroyAll | ValidCards$ Card.Self,Card.blockedBySourceThisTurn

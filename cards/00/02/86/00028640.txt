@@ -1,13 +1,10 @@
 Id:28640
-ColorIdentity:RG
+ColorIdentity:BG
 OriginSet:G7ee0e82a2424d636
-ManaCost:2 R G
-Types:Legendary Creature Centaur Druid
-PT:4/4
-S:Mode$ Continuous | Affected$ Creature.YouCtrl+Other | AddKeyword$ Haste
-T:Mode$ DamageDoneOnce | CombatDamage$ True | ValidSource$ Creature.faceDown+YouCtrl | ValidTarget$ Player | TriggerZones$ Battlefield | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.faceDown+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | FaceDown$ True | RememberChanged$ True | Defined$ TriggeredNewCardLKICopy | SubAbility$ DBTurnFaceUp | ConditionDefined$ TriggeredCard | ConditionPresent$ Card.Permanent
-SVar:DBTurnFaceUp:DB$ SetState | Defined$ Remembered | Mode$ TurnFaceUp | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:B G
+Types:Enchantment
+S:Mode$ Continuous | Affected$ Creature.token+YouCtrl | AddAbility$ AnyMana
+SVar:AnyMana:AB$ Mana | Cost$ T | Produced$ Any | Amount$ 1
+T:Mode$ ChangesZoneAll | ValidCards$ Creature.YouOwn | Origin$ Graveyard | Destination$ Any | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 3097960584 | SubAbility$ DBCounters
+SVar:DBCounters:DB$ PutCounterAll | ValidCards$ Plant.YouCtrl | CounterType$ P1P1 | CounterNum$ 1

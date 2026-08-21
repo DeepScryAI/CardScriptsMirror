@@ -1,9 +1,12 @@
 Id:21873
-ColorIdentity:W
-OriginSet:G6fa60d857e930f32
-ManaCost:1 W
-Types:Creature Cat Cleric
-PT:2/2
-T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPumpAll
-T:Mode$ SpellCopy | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPumpAll | Secondary$ True
-SVar:TrigPumpAll:DB$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +1 | NumDef$ +1
+ColorIdentity:G
+OriginSet:Gabb23d0d25cdc46d
+ManaCost:4 G
+Types:Enchantment
+K:etbCounter:GROWTH:1
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDoubleCounters
+SVar:TrigDoubleCounters:DB$ MultiplyCounter | Defined$ Self | CounterType$ GROWTH | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 1802199211 | RememberTokens$ True | SubAbility$ DBCounters
+SVar:DBCounters:DB$ PutCounter | Defined$ Remembered | CounterType$ P1P1 | CounterNum$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$CardCounters.GROWTH

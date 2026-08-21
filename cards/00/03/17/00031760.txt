@@ -1,10 +1,15 @@
 Id:31760
-ColorIdentity:
-OriginSet:G7ab4f62d323b0ca7
-ManaCost:5
-Types:Artifact Equipment
-K:Equip:3
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddKeyword$ DoubleStrike
-T:Mode$ Attacks | ValidCard$ Card.EquippedBy | TriggerZones$ Battlefield | FirstCombat$ True | Execute$ DBUntap
-SVar:DBUntap:DB$ Untap | Defined$ Equipped | SubAbility$ DBAddCombat
-SVar:DBAddCombat:DB$ AddPhase | ExtraPhase$ Combat | AfterPhase$ EndCombat
+ColorIdentity:B
+OriginSet:G530ea9d733a13e9d
+ManaCost:4 B
+Types:Legendary Creature Elder Wizard
+PT:4/5
+T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | Execute$ TrigSurveil | TriggerZones$ Battlefield
+SVar:TrigSurveil:DB$ Surveil | Amount$ 1
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | Execute$ TrigSac | TriggerZones$ Battlefield
+SVar:TrigSac:DB$ Sacrifice | Defined$ Opponent | SacValid$ Creature.!token | RememberSacrificed$ True | Optional$ True | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ OppNonRememberedController | LifeAmount$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:SVar$Y/Times.2
+SVar:Y:Count$ValidGraveyard Instant.YouOwn,Sorcery.YouOwn
+SVar:BuffedBy:Instant,Sorcery

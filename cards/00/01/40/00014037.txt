@@ -1,8 +1,13 @@
 Id:14037
-ColorIdentity:R
+ColorIdentity:UG
 OriginSet:Gdaee41baa388b0e7
-ManaCost:2 R
-Types:Creature Minotaur Warrior
-PT:2/3
-T:Mode$ Untaps | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +2
+ManaCost:2 G U
+Types:Legendary Planeswalker Kiora
+Loyalty:2
+A:AB$ Pump | Cost$ AddCounter<1/LOYALTY> | ValidTgts$ Permanent.OppCtrl | Planeswalker$ True | KW$ Prevent all damage that would be dealt to and dealt by CARDNAME. | IsCurse$ True | Duration$ UntilYourNextTurn
+A:AB$ Draw | Cost$ SubCounter<1/LOYALTY> | Planeswalker$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | Name$ 16105399675768317315 | StaticAbilities$ Exploration
+SVar:Exploration:Mode$ Continuous | Affected$ You | AdjustLandPlays$ 1
+A:AB$ Effect | Cost$ SubCounter<5/LOYALTY> | Planeswalker$ True | Ultimate$ True | Name$ 8225785255207891448 | Triggers$ EOTTrig | Duration$ Permanent | AILogic$ Always
+SVar:EOTTrig:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Command | Execute$ KioraToken
+SVar:KioraToken:DB$ Token | TokenScriptIds$ 737572120 | TokenOwner$ You

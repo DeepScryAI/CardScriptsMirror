@@ -1,9 +1,13 @@
 Id:23401
-ColorIdentity:U
-OriginSet:Ga4d5d94d587eb185
-ManaCost:5 U U U
-Types:Legendary Creature Spirit
+ColorIdentity:W
+OriginSet:Gbe3783f336562357
+ManaCost:2 W
+Types:Creature Spirit
 PT:3/3
-K:etbCounter:Indestructible:1:CheckSVar$ FromHand
-SVar:FromHand:Count$wasCastFromYourHandByYou.1.0
-A:AB$ CopySpellAbility | Cost$ SubCounter<1/Indestructible> | ValidTgts$ Permanent.YouCtrl | TargetType$ Spell | Amount$ 3
+K:Lifelink
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChoose
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigChoose | Secondary$ True
+SVar:TrigChoose:DB$ ChooseCard | ChoiceZone$ Hand | Choices$ Card.YouOwn | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ ChosenCard | PumpZone$ Hand | KW$ Lifelink | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+SVar:HasAttackEffect:TRUE

@@ -1,8 +1,12 @@
 Id:34454
 ColorIdentity:G
-OriginSet:G11c0621ce29fa608
+OriginSet:Gcb93bbfc68a40806
 ManaCost:1 G
-Types:Creature Ape Soldier Hero
+Types:Legendary Creature Dog
 PT:2/2
-K:Reach
-A:AB$ Destroy | Cost$ Sac<1/CARDNAME> | ValidTgts$ Artifact.nonCreature,Enchantment.nonCreature | SorcerySpeed$ True
+T:Mode$ SpellCast | ValidCard$ Cat,Dog,Hero | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 134855612 | TokenOwner$ You
+T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | CheckSVar$ X | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+SVar:X:Count$LifeYouGainedThisTurn
+SVar:PlayMain1:TRUE

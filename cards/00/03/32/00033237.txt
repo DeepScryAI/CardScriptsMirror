@@ -1,23 +1,9 @@
 Id:33237
-ColorIdentity:UR
-OriginSet:G7ab1fe96128a1641
-ManaCost:2 UR UR
-Types:Legendary Creature Goblin Sorcerer
-PT:2/4
-T:Mode$ Phase | Phase$ Main1 | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDigUntil
-SVar:TrigDigUntil:DB$ DigUntil | Amount$ X | Valid$ Card.nonLand | RevealedDestination$ Library | RememberRevealed$ True | SubAbility$ DBExileW
-SVar:DBExileW:DB$ ChangeZone | ChooseFromDefined$ Remembered.White | Origin$ Library | Destination$ Exile | ConditionCheckSVar$ HaveW | Imprint$ True | LockInText$ True | ChangeNum$ 1 | SubAbility$ DBExileU
-SVar:DBExileU:DB$ ChangeZone | ChooseFromDefined$ Remembered.Blue | Origin$ Library | Destination$ Exile | ConditionCheckSVar$ HaveU | Imprint$ True | LockInText$ True | ChangeNum$ 1 | SubAbility$ DBExileB
-SVar:DBExileB:DB$ ChangeZone | ChooseFromDefined$ Remembered.Black | Origin$ Library | Destination$ Exile | ConditionCheckSVar$ HaveB | Imprint$ True | LockInText$ True | ChangeNum$ 1 | SubAbility$ DBExileR
-SVar:DBExileR:DB$ ChangeZone | ChooseFromDefined$ Remembered.Red | Origin$ Library | Destination$ Exile | ConditionCheckSVar$ HaveR | Imprint$ True | LockInText$ True | ChangeNum$ 1 | SubAbility$ DBExileG
-SVar:DBExileG:DB$ ChangeZone | ChooseFromDefined$ Remembered.Green | Origin$ Library | Destination$ Exile | ConditionCheckSVar$ HaveG | Imprint$ True | LockInText$ True | ChangeNum$ 1 | SubAbility$ DBShuffle
-SVar:DBShuffle:DB$ Shuffle | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | RememberObjects$ Imprinted | StaticAbilities$ STPlay | SubAbility$ DBCleanup | ForgetOnMoved$ Exile
-SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.nonLand+IsRemembered | AffectedZone$ Exile
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True
-SVar:X:Count$Valid Permanent.YouCtrl$Colors
-SVar:HaveW:Count$Valid Permanent.White+YouCtrl
-SVar:HaveU:Count$Valid Permanent.Blue+YouCtrl
-SVar:HaveB:Count$Valid Permanent.Black+YouCtrl
-SVar:HaveR:Count$Valid Permanent.Red+YouCtrl
-SVar:HaveG:Count$Valid Permanent.Green+YouCtrl
+ColorIdentity:W
+OriginSet:G530ea9d733a13e9d
+ManaCost:2 W
+Types:Enchantment
+S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddKeyword$ Training
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | Execute$ TrigDraw | TriggerZones$ Battlefield | IsPresent$ Creature.YouCtrl+counters_GE1_P1P1+attackedThisTurn
+SVar:TrigDraw:DB$ Draw
+SVar:PlayMain1:TRUE

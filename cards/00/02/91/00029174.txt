@@ -1,7 +1,12 @@
 Id:29174
-ColorIdentity:R
+ColorIdentity:UG
 OriginSet:G27146c70b74a1e72
-ManaCost:R
-Types:Instant
-A:SP$ Pump | NumAtt$ +1 | NumDef$ +1 | KW$ FirstStrike | ValidTgts$ Creature.YouCtrl | SubAbility$ DBCurse
-SVar:DBCurse:DB$ AnimateAll | ValidCards$ Creature.TargetedPlayerCtrl | ValidTgts$ Opponent | RemoveKeywords$ FirstStrike & DoubleStrike
+ManaCost:3 G U U
+Types:Legendary Creature Giant Scout
+PT:6/5
+K:Reach
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 2796311950 | TokenOwner$ You
+T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigDraw | TriggerZones$ Battlefield
+SVar:TrigDraw:DB$ Draw | SubAbility$ DBPut
+SVar:DBPut:DB$ ChangeZone | ChangeType$ Land.YouOwn | ChangeNum$ 1 | Origin$ Hand,Graveyard | Hidden$ True | Destination$ Battlefield

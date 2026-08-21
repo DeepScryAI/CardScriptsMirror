@@ -1,0 +1,11 @@
+Id:35073
+ColorIdentity:B
+OriginSet:Gf8f2990d7136c11d
+ManaCost:1 B
+Types:Legendary Creature Halfling Citizen
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:AB$ Draw | Cost$ Sac<1/Artifact.Other;Creature.Other/another creature or artifact> | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 3851718391 | TokenOwner$ You
+T:Mode$ Sacrificed | ValidPlayer$ You | ValidCard$ Permanent.token+YouCtrl | Origin$ Any | Destination$ Battlefield | Execute$ TrigLoseLife | TriggerZones$ Battlefield
+SVar:TrigLoseLife:DB$ LoseLife | LifeAmount$ 1 | ValidTgts$ Opponent

@@ -1,10 +1,10 @@
 Id:12466
 ColorIdentity:R
 OriginSet:G12585413ffc93ad8
-ManaCost:R
+ManaCost:5 R
 Types:Creature Devil
-PT:1/1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDealDamage
-SVar:TrigDealDamage:DB$ DealDamage | ValidTgts$ Creature | NumDmg$ 1 | DamageMap$ True | SubAbility$ DBDamageYou
-SVar:DBDamageYou:DB$ DealDamage | Defined$ You | NumDmg$ 1 | SubAbility$ DBDamageResolve
-SVar:DBDamageResolve:DB$ DamageResolve
+PT:4/2
+K:Undying
+T:Mode$ ChangesZone | Origin$ Graveyard | Destination$ Battlefield | TriggerZones$ Battlefield | ValidCard$ Card.Self+YouOwn,Creature.YouOwn+Other | Execute$ ReanimateDmg
+SVar:ReanimateDmg:DB$ DealDamage | ValidTgts$ Any | DamageSource$ TriggeredCardLKICopy | NumDmg$ Damage
+SVar:Damage:TriggeredCard$CardPower

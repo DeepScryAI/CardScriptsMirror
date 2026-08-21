@@ -1,13 +1,11 @@
 Id:20508
-ColorIdentity:B
+ColorIdentity:R
 OriginSet:Gc9c1dd0d52c99ca4
-ManaCost:4 B B
-Types:Creature Nightmare
-PT:5/5
-K:Mutate:4 B
-K:Flying
-T:Mode$ Mutates | ValidCard$ Card.Self | Execute$ TrigExile | TriggerZones$ Battlefield
-SVar:TrigExile:DB$ Dig | DigNum$ 1 | ChangeNum$ All | Defined$ Opponent | DestinationZone$ Exile | RememberChanged$ True | ExileFaceDown$ True | WithMayLook$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | RememberObjects$ Remembered | StaticAbilities$ STPlay | Duration$ Permanent | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
-SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:3 R
+Types:Legendary Creature Human Shaman
+PT:3/3
+K:PartnerWithId:20555
+T:Mode$ Discarded | ValidCard$ Card.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBDealDamage
+SVar:DBDealDamage:DB$ DealDamage | Defined$ Player.Opponent | NumDmg$ 1
+A:AB$ Pump | Cost$ R | ValidTgts$ Shark | KW$ Trample

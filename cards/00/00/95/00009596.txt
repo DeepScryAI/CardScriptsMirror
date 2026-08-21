@@ -1,10 +1,10 @@
 Id:9596
-ColorIdentity:B
+ColorIdentity:R
 OriginSet:G49bcc8b9b86b628d
-ManaCost:3 B
-Types:Creature Goblin Shaman
-PT:3/2
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigKinship | TriggerZones$ Battlefield | OptionalDecider$ You
-SVar:TrigKinship:DB$ PeekAndReveal | PeekAmount$ 1 | RevealValid$ Card.sharesCreatureTypeWith | RevealOptional$ True | RememberRevealed$ True | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | Defined$ Opponent | NumCards$ 1 | Mode$ TgtChoose | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ1 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:5 R
+Types:Creature Elemental
+PT:6/1
+K:Evoke:1 R R
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigDamageCreature
+SVar:TrigDamageCreature:DB$ DealDamage | ValidTgts$ Creature | NumDmg$ 6
+SVar:NeedsToPlayEvoked:Creature.OppCtrl+toughnessLE6

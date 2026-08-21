@@ -1,12 +1,10 @@
 Id:27200
-ColorIdentity:
-OriginSet:G997e3b19a1e94e85
-ManaCost:3
-Types:Artifact Creature Wall
-PT:0/5
-K:Reach
-K:Defender
-S:Mode$ ReduceCost | ValidCard$ Card.IsCommander+YouCtrl | Type$ Spell | Activator$ You | Amount$ 1
-T:Mode$ SpellCast | ValidCard$ Card.IsCommander+YouCtrl | ValidActivatingPlayer$ You | Execute$ TrigToken | TriggerZones$ Battlefield
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 2577233952 | TokenAmount$ X
-SVar:X:TriggeredCard$CardNumColors
+ColorIdentity:B
+OriginSet:G6ce0035cfb774934
+ManaCost:3 B
+Types:Creature Bat
+PT:2/3
+K:Flying
+T:Mode$ TokenCreated | ValidPlayer$ You | ValidToken$ Card.token+YouCtrl | Execute$ TrigLoseLife | TriggerZones$ Battlefield
+T:Mode$ Sacrificed | ValidCard$ Card.token+YouCtrl | Execute$ TrigLoseLife | TriggerZones$ Battlefield | Secondary$ True
+SVar:TrigLoseLife:DB$ LoseLife | LifeAmount$ 1 | Defined$ Opponent

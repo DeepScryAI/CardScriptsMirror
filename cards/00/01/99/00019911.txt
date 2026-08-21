@@ -1,8 +1,13 @@
 Id:19911
-ColorIdentity:RG
+ColorIdentity:G
 OriginSet:G23be9f486a22d38a
-ManaCost:1 R G
-Types:Legendary Creature Goblin Shaman
-PT:3/3
-K:ETBReplacement:Other:AddExtraCounter:Mandatory:Battlefield:Creature.YouCtrl+Other+nonHuman
-SVar:AddExtraCounter:DB$ PutCounter | ETB$ True | Defined$ ReplacedCard | CounterType$ P1P1 | CounterNum$ 1
+ManaCost:2 G G G G
+Types:Creature Troll Noble
+PT:7/6
+K:Vigilance
+K:Trample
+T:Mode$ ChangesZone | ValidCard$ Card.wasCastFromYourHandByYou+Self | Destination$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ 3 | TokenScriptIds$ 134855612 | TokenOwner$ You
+A:AB$ ChangeZone | Cost$ Sac<3/Food> | Origin$ Graveyard | Destination$ Battlefield | ActivationZone$ Graveyard | PlayerTurn$ True
+SVar:DiscardMe:1
+SVar:AIPreference:SacCost$Card.Food

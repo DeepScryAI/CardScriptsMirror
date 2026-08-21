@@ -1,7 +1,11 @@
 Id:22987
-ColorIdentity:U
+ColorIdentity:BG
 OriginSet:Gf78628ad511eefec
-ManaCost:1 U
-Types:Creature Homunculus
-PT:2/1
-A:AB$ Mana | Cost$ T | Produced$ U | RestrictValid$ Spell.Disturb,Spell.Instant,Spell.Sorcery
+ManaCost:X B G
+Types:Legendary Creature Horror
+PT:*/*
+T:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigDigUntil
+SVar:TrigDigUntil:DB$ DigUntil | Amount$ X | Valid$ Creature | FoundDestination$ Graveyard | RevealedDestination$ Library | RevealedLibraryPosition$ -1 | RevealRandomOrder$ True
+SVar:X:Count$xPaid
+S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ Y | SetToughness$ Y
+SVar:Y:Count$ValidGraveyard Creature.YouOwn

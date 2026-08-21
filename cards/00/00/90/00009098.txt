@@ -1,7 +1,12 @@
 Id:9098
-ColorIdentity:G
+ColorIdentity:U
 OriginSet:Gdf2f562751f0d037
-ManaCost:G
-Types:Creature Elf Shaman
-PT:0/3
-A:AB$ Pump | Cost$ Sac<1/CARDNAME> | NumAtt$ +3 | NumDef$ +3 | KW$ Trample | ValidTgts$ Creature | ActivationPhases$ Upkeep | PlayerTurn$ True
+ManaCost:3 U
+Types:Legendary Creature Human Wizard
+PT:3/3
+A:AB$ ChangeZone | Cost$ X U U T | Origin$ Battlefield | Destination$ Hand | ValidTgts$ Creature.cmcEQX | ChangeNum$ 1
+SVar:X:Count$xPaid
+A:AB$ ChangeZone | Cost$ Discard<1/Card.catalogId9098> | ValidTgts$ Player | Chooser$ Targeted | Mandatory$ True | Hidden$ True | Origin$ Battlefield | Destination$ Hand | ChangeType$ Creature.TargetedPlayerCtrl | SubAbility$ DBArtifact
+SVar:DBArtifact:DB$ ChangeZone | DefinedPlayer$ Targeted | ChangeType$ Artifact | Origin$ Battlefield | Destination$ Hand | Chooser$ Targeted | Mandatory$ True | Hidden$ True | SubAbility$ DBEnchant
+SVar:DBEnchant:DB$ ChangeZone | DefinedPlayer$ Targeted | ChangeType$ Enchantment | Origin$ Battlefield | Destination$ Hand | Chooser$ Targeted | Mandatory$ True | Hidden$ True | SubAbility$ DBLand
+SVar:DBLand:DB$ ChangeZone | DefinedPlayer$ Targeted | ChangeType$ Land | Origin$ Battlefield | Destination$ Hand | Chooser$ Targeted | Mandatory$ True | Hidden$ True

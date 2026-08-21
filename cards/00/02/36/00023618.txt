@@ -1,9 +1,13 @@
 Id:23618
-ColorIdentity:R
+ColorIdentity:G
 OriginSet:G1a259dba25660062
-ManaCost:2 R
-Types:Creature Goblin Artificer
-PT:3/3
-A:AB$ ChangeZone | Cost$ T Sac<1/Artifact.cmcGTX/artifact with mana value X> | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Artifact.YouOwn | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | Defined$ Targeted | KW$ Haste
-SVar:X:Targeted$CardManaCost
+ManaCost:1 G
+Types:Creature Spirit
+PT:2/2
+K:Trample
+T:Mode$ SpellCast | ValidCard$ Enchantment | ValidActivatingPlayer$ You | Execute$ TrigPutCounter | TriggerZones$ Battlefield
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+T:Mode$ Phase | Phase$ End of Turn | CheckSVar$ X | TriggerZones$ Graveyard | OptionalDecider$ You | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | Defined$ Self
+SVar:X:Count$ThisTurnEntered_Graveyard_from_Battlefield_Enchantment.YouOwn
+SVar:BuffedBy:Enchantment

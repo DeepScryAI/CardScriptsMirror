@@ -1,13 +1,9 @@
 Id:20440
-ColorIdentity:B
+ColorIdentity:G
 OriginSet:Gfa87e7bbc5a709eb
-ManaCost:B B
-Types:Legendary Enchantment Creature Demigod
-PT:2/*
-S:Mode$ Continuous | CharacteristicDefining$ True | SetToughness$ X
-SVar:X:Count$Devotion.Black
-SVar:BuffedBy:Permanent.Black
-A:AB$ ChangeZone | Cost$ 1 B | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card | TargetMin$ 0 | TargetMax$ 2 | RememberChanged$ True | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ Y | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:Y:Remembered$Valid Creature
+ManaCost:1 G
+Types:Enchantment Creature Satyr Druid
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Graveyard | ValidCard$ Land.!token+YouOwn | TriggerZones$ Battlefield | Execute$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
+A:AB$ Mill | Cost$ 2 G | Defined$ You | NumCards$ 1

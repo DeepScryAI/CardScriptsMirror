@@ -1,11 +1,14 @@
 Id:31843
-ColorIdentity:R
+ColorIdentity:G
 OriginSet:G7ab4f62d323b0ca7
-ManaCost:1 R
-Types:Legendary Creature Human Warrior
-PT:2/2
-K:Ward:PayLife<X/life equal to NICKNAME's power>
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump | TriggerZones$ Battlefield
-SVar:TrigPump:DB$ Pump | ValidTgts$ Equipment.YouCtrl | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBAttach
-SVar:DBAttach:DB$ Attach | Object$ ParentTarget | ValidTgts$ Creature.attacking
-SVar:X:Count$CardPower
+ManaCost:5 G G G
+Types:Creature Turtle
+PT:8/20
+K:Vigilance
+K:Ward:3
+S:Mode$ NoCleanupDamage | ValidCard$ Card.Self
+R:Event$ DamageDone | ActiveZones$ Battlefield | ValidTarget$ You,Permanent.Other+YouCtrl | DamageTarget$ Self | ReplaceWith$ DmgMe
+SVar:DmgMe:DB$ ReplaceEffect | VarName$ Affected | VarValue$ Self | VarType$ Card
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Exile | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 3851718391 | TokenAmount$ 10 | TokenTapped$ True

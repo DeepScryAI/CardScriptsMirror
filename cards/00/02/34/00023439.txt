@@ -1,9 +1,16 @@
 Id:23439
-ColorIdentity:B
-OriginSet:G1a259dba25660062
-ManaCost:1 B
-Types:Artifact Creature Equipment Demon
-PT:3/1
-K:Menace
-K:Reconfigure:2 B B
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | SetPower$ 5 | SetToughness$ 5 | AddKeyword$ Menace | AddType$ Demon | AddColor$ Black
+ColorIdentity:R
+OriginSet:Gbe3783f336562357
+ManaCost:3 R R
+Types:Legendary Planeswalker Tibalt
+Loyalty:3
+A:AB$ Mana | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | Produced$ R | Amount$ 2 | SubAbility$ DBDraft
+SVar:DBDraft:DB$ Draft | SpellbookCatalogIds$ 21037,12205,22915,12467,23268,20916,12486,20920,12328,15915,21054,19378,12546,22854,12168 | RememberDrafted$ True | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | Defined$ Remembered | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ Play | ExileOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+A:AB$ DealDamage | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Creature,Planeswalker | NumDmg$ 4 | UnlessCost$ DamageYou<4> | UnlessPayer$ TargetedController | UnlessResolveSubs$ WhenPaid | SubAbility$ DBDiscardDraw
+SVar:DBDiscardDraw:DB$ Draw | UnlessCost$ Discard<1/Card> | UnlessPayer$ You | UnlessSwitched$ True | OrString$ Draw a card.
+A:AB$ Token | Cost$ SubCounter<X/LOYALTY> | Planeswalker$ True | TokenAmount$ X | TokenScriptIds$ 1965070986
+SVar:X:Count$xPaid

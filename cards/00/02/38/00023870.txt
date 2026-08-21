@@ -1,7 +1,13 @@
 Id:23870
-ColorIdentity:BR
-OriginSet:Gfdfe2ebef04be34e
-ManaCost:1 B R
-Types:Sorcery
-A:SP$ DamageAll | Cost$ 1 B R ExileFromGrave<1/Creature> | NumDmg$ X | ValidCards$ Creature,Planeswalker
-SVar:X:Exiled$CardPower
+ColorIdentity:G
+OriginSet:G5f5d8cfb206e2fac
+ManaCost:2 G
+Types:Enchantment
+T:Mode$ AttackersDeclared | AttackingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.attacking | CounterType$ SHIELD | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Targeted | Triggers$ DealsDamage
+SVar:DealsDamage:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigRemoveCounter
+SVar:TrigRemoveCounter:DB$ RemoveCounter | CounterType$ SHIELD | RememberRemoved$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | ConditionCheckSVar$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$RememberedSize

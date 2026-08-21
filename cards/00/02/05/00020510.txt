@@ -1,10 +1,10 @@
 Id:20510
-ColorIdentity:U
+ColorIdentity:G
 OriginSet:Gc9c1dd0d52c99ca4
-ManaCost:1 U
-Types:Creature Shapeshifter
-PT:1/1
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDigUntil
-T:Mode$ Blocks | ValidCard$ Card.Self | Execute$ TrigDigUntil | Secondary$ True
-SVar:TrigDigUntil:DB$ DigUntil | Reveal$ True | ValidTgts$ Opponent | IsCurse$ True | Valid$ Creature | RevealedDestination$ Library | RevealedLibraryPosition$ -1 | RememberFound$ True | RevealRandomOrder$ True | SubAbility$ DBClone
-SVar:DBClone:DB$ Clone | Defined$ Remembered | CloneTarget$ Self | Duration$ UntilEndOfTurn
+ManaCost:X G
+Types:Creature Goat Hydra
+PT:0/0
+K:etbCounter:P1P1:X
+SVar:X:Count$xPaid
+A:AB$ PutCounter | Cost$ 2 | Activator$ Player | IsPresent$ Card.Self+attackingYou | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBReselect | ActivationPhases$ Declare Attackers | AILogic$ AlwaysWithNoTgt
+SVar:DBReselect:DB$ ChangeCombatants | Defined$ Self | AILogic$ WeakestOppExceptCtrl | Attacking$ Player.OpponentOf CardController

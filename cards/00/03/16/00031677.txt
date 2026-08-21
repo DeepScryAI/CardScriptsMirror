@@ -1,8 +1,10 @@
 Id:31677
-ColorIdentity:
-OriginSet:G7ab4f62d323b0ca7
-ManaCost:6
-Types:Legendary Artifact Equipment
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | SetPower$ X | SetToughness$ X
-K:Equip:5
-SVar:X:Count$YourLifeTotal
+ColorIdentity:G
+OriginSet:Gf2b808f4f642ac62
+ManaCost:3 G
+Types:Creature Dog Soldier
+PT:4/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1 | ConditionPresent$ Creature.YouCtrl+HasCounters | RememberDrawn$ True | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ 1 | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ0 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

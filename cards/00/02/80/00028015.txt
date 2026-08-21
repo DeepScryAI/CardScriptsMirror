@@ -1,10 +1,17 @@
 Id:28015
-ColorIdentity:W
-OriginSet:Gfd50577710a6ab09
-ManaCost:1 W
-Types:Creature Human Artificer
-PT:1/4
-R:Event$ Moved | ValidCard$ Artifact.OppCtrl | Destination$ Battlefield | ReplaceWith$ ETBTapped | ReplacementResult$ Updated | ActiveZones$ Battlefield
-SVar:ETBTapped:DB$ Tap | ETB$ True | Defined$ ReplacedCard
-A:AB$ DestroyAll | Cost$ X X W Sac<1/CARDNAME> | ValidCards$ Artifact.cmcEQX
-SVar:X:Count$xPaid
+ColorIdentity:
+OriginSet:G30e8a5e111cffb44
+ManaCost:no cost
+Types:Plane Apalapucia
+T:Mode$ PlaneswalkedTo | ValidCard$ Card.Self | Execute$ TrigChoose
+T:Mode$ Phase | FirstUpkeepThisGame$ True | Execute$ TrigChoose | TriggerZones$ Command | Secondary$ True
+SVar:TrigChoose:DB$ GenericChoice | Defined$ Player | TempRemember$ Chooser | Choices$ GreenAnchor,RedWaterfall | ShowChoice$ ExceptSelf
+SVar:GreenAnchor:DB$ Pump | Defined$ Remembered | NoteCards$ Self | NoteCardsFor$ GreenAnchor
+SVar:RedWaterfall:DB$ Pump | Defined$ Remembered | NoteCards$ Self | NoteCardsFor$ RedWaterfall
+S:Mode$ Continuous | EffectZone$ Command | Affected$ Player.NotedForGreenAnchor | AdjustLandPlays$ 1
+S:Mode$ Continuous | EffectZone$ Command | Affected$ Creature.ControlledBy Player.NotedForRedWaterfall | AddPower$ 2 | AddKeyword$ Haste
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ TrigSwitch
+SVar:TrigSwitch:DB$ Pump | RememberObjects$ Player.NotedForRedWaterfall | Defined$ Player | ClearNotedCardsFor$ GreenAnchor,RedWaterfall | SubAbility$ GreenToRed
+SVar:GreenToRed:DB$ Pump | Defined$ Player.!IsRemembered | NoteCards$ Self | NoteCardsFor$ RedWaterfall | SubAbility$ RedToGreen
+SVar:RedToGreen:DB$ Pump | Defined$ Remembered | NoteCards$ Self | NoteCardsFor$ GreenAnchor | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

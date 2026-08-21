@@ -1,10 +1,10 @@
 Id:23501
-ColorIdentity:WB
+ColorIdentity:W
 OriginSet:G1a259dba25660062
-ManaCost:1 W B
-Types:Legendary Creature Rat Pilot
-PT:4/3
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Vehicle.YouOwn | SubAbility$ Animate | RememberChanged$ True | AtEOT$ Hand
-SVar:Animate:DB$ Animate | Keywords$ Haste | Defined$ Remembered | Duration$ Permanent | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:1 W
+Types:Artifact Equipment
+T:Mode$ Attacks | ValidCard$ Samurai.YouCtrl,Warrior.YouCtrl | Alone$ True | TriggerZones$ Battlefield | Execute$ TrigImmediateTrig
+SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ 1 | Execute$ TrigAttach | RememberObjects$ TriggeredAttackerLKICopy
+SVar:TrigAttach:DB$ Attach | Defined$ DelayTriggerRememberedLKI
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddToughness$ 1
+K:Equip:3

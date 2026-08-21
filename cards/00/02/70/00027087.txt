@@ -1,10 +1,11 @@
 Id:27087
-ColorIdentity:W
+ColorIdentity:WB
 OriginSet:G6ce0035cfb774934
-ManaCost:2 W
-Types:Legendary Creature Halfling Peasant
-PT:1/1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigFood
-SVar:TrigFood:DB$ Token | TokenScriptIds$ 134855612 | TokenOwner$ You
-T:Mode$ TokenCreated | ValidPlayer$ You | ValidToken$ Card.token+YouCtrl | Execute$ TrigCounter | TriggerZones$ Battlefield
-SVar:TrigCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl+Other | CounterType$ P1P1
+ManaCost:1 W B
+Types:Legendary Creature Human Noble
+PT:2/4
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | CheckSVar$ X | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 1647422943 | TokenOwner$ You
+SVar:X:Count$ThisTurnEntered_Graveyard_from_Battlefield_Creature.YouCtrl
+A:AB$ LoseLife | Cost$ 2 Sac<1/Creature.Other/another creature> | Defined$ Player.Opponent | LifeAmount$ 1 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1

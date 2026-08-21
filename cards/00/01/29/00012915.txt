@@ -1,9 +1,10 @@
 Id:12915
-ColorIdentity:G
+ColorIdentity:
 OriginSet:G98ca154ecf4968d7
-ManaCost:3 G
-Types:Creature Beast
-PT:4/4
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigBounce
-SVar:TrigBounce:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Hidden$ True | Mandatory$ True | ChangeType$ Creature.YouCtrl | ChangeNum$ 1
-SVar:NeedsToPlay:Creature.YouCtrl
+ManaCost:2
+Types:Artifact Equipment
+K:Equip:1
+A:AB$ Regenerate | Cost$ 2 | Defined$ Equipped
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ XathridCounter
+SVar:XathridCounter:DB$ PutCounter | Defined$ Equipped | ConditionDefined$ Equipped | ConditionPresent$ Creature.Black | ConditionCompare$ EQ1 | CounterType$ P1P1 | CounterNum$ 1
+SVar:AttachAi:AITgts$ Creature.Black

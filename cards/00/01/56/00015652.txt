@@ -1,9 +1,10 @@
 Id:15652
-ColorIdentity:U
+ColorIdentity:R
 OriginSet:Gc1f5e527f9d411df
-ManaCost:3 U U
-Types:Instant
-A:SP$ Charm | Choices$ DBCounter,DBReturn,DBDraw | CharmNum$ 3 | CanRepeatModes$ True
-SVar:DBCounter:DB$ Counter | TargetType$ Spell | ValidTgts$ Card | UnlessCost$ 3 | UnlessPayer$ ThisTargetedController
-SVar:DBReturn:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | ValidTgts$ Creature
-SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1
+ManaCost:3 R
+Types:Sorcery
+A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Instant.YouOwn,Sorcery.YouOwn | RememberChanged$ True | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | Defined$ Remembered | ValidZone$ Exile | Controller$ You | CopyCard$ True | WithoutManaCost$ True | ValidSA$ Spell | Optional$ True | Amount$ All | SubAbility$ ExileMe
+SVar:ExileMe:DB$ ChangeZone | Defined$ Self | Origin$ Stack | Destination$ Exile | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+K:Overload:5 R R R

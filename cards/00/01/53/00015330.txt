@@ -1,9 +1,11 @@
 Id:15330
-ColorIdentity:W
+ColorIdentity:UR
 OriginSet:G70acd28f254172ff
-ManaCost:1 W
-Types:Creature Human Soldier
-PT:2/2
-K:Renown:1
-T:Mode$ BecomeRenowned | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigSearch | OptionalDecider$ You
-SVar:TrigSearch:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Card.Equipment | ChangeNum$ 1 | ShuffleNonMandatory$ True
+ManaCost:2 U R
+Types:Creature Human Artificer
+PT:2/3
+K:Haste
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDamage | OptionalDecider$ You
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Creature | NumDmg$ X
+SVar:X:Count$Valid Artifact.YouCtrl
+SVar:PlayMain1:TRUE

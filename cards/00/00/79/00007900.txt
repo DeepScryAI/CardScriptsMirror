@@ -1,7 +1,11 @@
 Id:7900
-ColorIdentity:B
+ColorIdentity:
 OriginSet:Gc563c209d627c4c5
-ManaCost:3 B B
-Types:Sorcery
-A:SP$ Destroy | ValidTgts$ Creature.!enchanted | NoRegen$ True
-K:Transmute:1 B B
+ManaCost:4
+Types:Artifact
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Opponent | Execute$ TrigExile | TriggerZones$ Battlefield
+SVar:TrigExile:DB$ ChangeZoneAll | Origin$ Hand | Destination$ Exile | ExileFaceDown$ True | ChangeType$ Card.YouCtrl | RememberChanged$ True
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigReturn | TriggerZones$ Battlefield
+SVar:TrigReturn:DB$ ChangeZoneAll | Origin$ Exile | Destination$ Hand | ChangeType$ Card.IsRemembered+YouOwn | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

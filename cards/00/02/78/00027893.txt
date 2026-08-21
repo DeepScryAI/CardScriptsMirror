@@ -1,9 +1,11 @@
 Id:27893
-ColorIdentity:U
-OriginSet:G3601f5e223de6c7f
-ManaCost:2 U
-Types:Sorcery
-K:Replicate:U
-A:SP$ Pump | ValidTgts$ Permanent.nonLand | SubAbility$ DBChangeZoneAll
-SVar:DBChangeZoneAll:DB$ ChangeZoneAll | Origin$ Battlefield | Destination$ Hand | ChangeType$ TargetedCard.Self,Permanent.nonLand+NotDefinedTargeted+cmcEQX
-SVar:X:Targeted$CardManaCost
+ColorIdentity:
+OriginSet:G30e8a5e111cffb44
+ManaCost:no cost
+Types:Plane Kandoka
+T:Mode$ DamageDoneOnce | ValidSource$ Creature.YouCtrl | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigToken | TriggerZones$ Command
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 3851718391 | TokenOwner$ You
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ TrigAnimateAll
+SVar:TrigAnimateAll:DB$ AnimateAll | ValidCards$ Artifact.nonCreature+YouCtrl | Abilities$ ABExplode | Duration$ UntilYourNextTurn
+SVar:ABExplode:AB$ FlipCoin | Cost$ T Sac<1/CARDNAME/this artifact> | WinSubAbility$ DBDamage
+SVar:DBDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 3

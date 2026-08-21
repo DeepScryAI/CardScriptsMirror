@@ -1,9 +1,11 @@
 Id:32370
-ColorIdentity:
-OriginSet:G66b3a7eeabd9000e
-ManaCost:1
-Types:Artifact Equipment
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.YouCtrl+cmcGE5 | TriggerZones$ Battlefield | Execute$ TrigAttach | OptionalDecider$ You
-SVar:TrigAttach:DB$ Attach | Defined$ TriggeredCardLKICopy
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 4 | AddToughness$ 4
-K:Equip:5
+ColorIdentity:B
+OriginSet:G9946f072b5556073
+ManaCost:2 B
+Types:Artifact
+A:AB$ Animate | Cost$ T | Triggers$ DamageTrigger | ValidTgts$ Creature | SubAbility$ DBDamage | SorcerySpeed$ True
+SVar:DamageTrigger:Mode$ DamageDoneOnce | ValidTarget$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ X | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ X
+SVar:DBDamage:DB$ DealDamage | Defined$ Targeted | NumDmg$ 1 | OptionalDecider$ TargetedController
+SVar:X:TriggerCount$DamageAmount

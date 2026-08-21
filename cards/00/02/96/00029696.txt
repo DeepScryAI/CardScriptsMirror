@@ -1,13 +1,12 @@
 Id:29696
-ColorIdentity:U
-OriginSet:G01a610e823cce3ca
-ManaCost:1 U
-Types:Legendary Creature Human Assassin
-PT:2/1
-K:PartnerWithId:29713
-A:AB$ Draw | Cost$ 1 T | NumCards$ 1 | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | Defined$ You | Mode$ TgtChoose | Optional$ True | NumCards$ 1 | RememberDiscarded$ True | SubAbility$ DBImmediateTrig
-SVar:DBImmediateTrig:DB$ ImmediateTrigger | ConditionDefined$ Remembered | ConditionPresent$ Creature | ConditionCompare$ EQ1 | Execute$ TrigUnblockable | SubAbility$ DBCleanup
-SVar:TrigUnblockable:DB$ Effect | ValidTgts$ Creature.YouCtrl | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable
-SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:R
+OriginSet:Gac6359c222afbd4f
+ManaCost:1 R
+Types:Artifact Creature Insect
+PT:1/3
+K:Menace
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigEnergy
+SVar:TrigEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ 2
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump
+SVar:TrigPump:AB$ Pump | Cost$ PayEnergy<1> | ValidTgts$ Creature.attacking+Other | NumAtt$ +1 | KW$ Menace
+SVar:HasAttackEffect:TRUE

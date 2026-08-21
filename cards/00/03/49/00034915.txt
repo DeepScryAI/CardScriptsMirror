@@ -1,0 +1,12 @@
+Id:34915
+ColorIdentity:B
+OriginSet:Gf8f2990d7136c11d
+ManaCost:2 B
+Types:Legendary Creature Goblin Soldier
+PT:1/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Creature.Other | TargetMin$ 0 | TargetMax$ 1 | RememberLKI$ True | AlwaysRemember$ True | SubAbility$ DBAmass
+SVar:DBAmass:DB$ Amass | Type$ Goblin | Num$ X | Defined$ RememberedController | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | ConditionDefined$ RememberedLKI | ConditionPresent$ Card.YouCtrl | NumCards$ 1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:RememberedLKI$CardPower

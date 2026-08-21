@@ -1,12 +1,9 @@
 Id:25706
-ColorIdentity:
+ColorIdentity:B
 OriginSet:G06ccef4324c14725
-ManaCost:3
-Types:Legendary Artifact Creature Thopter
-PT:1/2
-K:Flash
-K:Flying
-S:Mode$ CastWithFlash | ValidCard$ Artifact,Card.Colorless | ValidSA$ Spell | Caster$ You
-T:Mode$ SpellCast | ValidCard$ Card | ValidSA$ Spell.ManaSpent GTX | Execute$ TrigCounter | ValidActivatingPlayer$ You | TriggerZones$ Battlefield
-SVar:TrigCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
-SVar:X:Count$CardPower
+ManaCost:B
+Types:Instant
+A:SP$ Pump | ValidTgts$ Creature | NumAtt$ +2 | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Triggers$ TrigDieExile | Defined$ ParentTarget
+SVar:TrigDieExile:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard,Exile | ValidCard$ Card.Self | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard,Exile | Destination$ Hand

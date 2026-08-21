@@ -1,8 +1,9 @@
 Id:13047
 ColorIdentity:B
 OriginSet:G5449dea2d54987a1
-ManaCost:1 B
-Types:Creature Skeleton Warrior
-PT:1/1
-K:Unleash
-A:AB$ Regenerate | Cost$ 1 B | Defined$ Self
+ManaCost:5 B B
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouDontCtrl | TriggerZones$ Battlefield | Execute$ DelTrig
+SVar:DelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ GBReturn | RememberObjects$ TriggeredNewCardLKICopy
+SVar:GBReturn:DB$ ChangeZone | Defined$ DelayTriggerRememberedLKI | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True | WithCountersType$ P1P1 | StaticEffect$ Animate
+SVar:Animate:Mode$ Continuous | Affected$ Card.IsRemembered | AddType$ Zombie | AddColor$ Black

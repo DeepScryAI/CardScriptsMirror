@@ -2,15 +2,8 @@ Id:12779
 ColorIdentity:
 OriginSet:G4801bb28ce9773ed
 ManaCost:no cost
-Types:Plane Kephalai
-T:Mode$ PlaneswalkedTo | ValidCard$ Plane.Self | Execute$ AcquireScrolls
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ AcquireScrolls | TriggerZones$ Command | Secondary$ True
-SVar:AcquireScrolls:DB$ PutCounter | Defined$ Self | CounterType$ SCROLL | CounterNum$ 1 | SubAbility$ ScrollsOfLife
-SVar:ScrollsOfLife:DB$ GainLife | Defined$ You | LifeAmount$ NumScrolls
-SVar:NumScrolls:Count$CardCounters.SCROLL
-T:Mode$ Always | TriggerZones$ Command | CheckSVar$ NumScrolls | SVarCompare$ GE10 | Execute$ RolledWalk
-SVar:RolledWalk:DB$ Planeswalk
-T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | CounterType$ SCROLL | SubAbility$ ScrollsOfKnowledge
-SVar:ScrollsOfKnowledge:DB$ Draw | NumCards$ NumScrolls
-SVar:AIRollPlanarDieParams:Mode$ Always | LowPriority$ True | MaxRollsPerTurn$ 9
+Types:Plane Zendikar
+S:Mode$ CastWithFlash | ValidCard$ Enchantment | ValidSA$ Spell | EffectZone$ Command | Caster$ Player
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos
+SVar:RolledChaos:DB$ Destroy | ValidTgts$ Creature.!enchanted
+SVar:AIRollPlanarDieParams:Mode$ Always | OppHasCreatureInPlay$ True | RollInMain1$ True

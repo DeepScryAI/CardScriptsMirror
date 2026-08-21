@@ -1,8 +1,10 @@
 Id:22039
-ColorIdentity:UG
+ColorIdentity:G
 OriginSet:Gd784248bfdf9e1d7
-ManaCost:G U
-Types:Creature Human Wizard
-PT:2/2
-T:Mode$ SpellCastOrCopy | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDig
-SVar:TrigDig:DB$ Dig | DigNum$ 3 | ChangeNum$ 1 | Optional$ True | ForceRevealToController$ True | ChangeValid$ Land
+ManaCost:1 G
+Types:Sorcery
+A:SP$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Land.Basic | Tapped$ True | RememberChanged$ True | ChangeNum$ 1 | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Remembered | Power$ 0 | Toughness$ 0 | Colors$ Green,Blue | OverwriteColors$ True | Types$ Creature,Fractal | Duration$ Permanent | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Remembered | CounterType$ P1P1 | CounterNum$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$ThisTurnEntered_Battlefield_Land.YouCtrl

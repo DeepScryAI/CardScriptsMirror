@@ -1,9 +1,16 @@
 Id:15915
-ColorIdentity:
+ColorIdentity:R
 OriginSet:G92026fbb3573fda5
-ManaCost:3
-Types:Artifact Equipment
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 4 | AddToughness$ 2
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.AttachedBy+Human | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 273812182 | TokenOwner$ You
-K:Equip:3
+ManaCost:2 R
+Types:Creature Devil
+PT:3/2
+K:Menace
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPeek
+SVar:TrigPeek:DB$ PeekAndReveal | PeekAmount$ 1 | RevealValid$ Card | ImprintRevealed$ True | SubAbility$ DBProd
+SVar:DBProd:DB$ GenericChoice | Defined$ Opponent | TempRemember$ Chooser | Choices$ DBGraveAndDamage,DoNothing | ConditionDefined$ Imprinted | ConditionPresent$ Card | ConditionCompare$ EQ1 | AILogic$ SinProdder | SubAbility$ DBPutIntoHand
+SVar:DoNothing:DB$ Cleanup
+SVar:DBGraveAndDamage:DB$ ChangeZone | Origin$ Library | Destination$ Graveyard | Defined$ Imprinted | SubAbility$ DBDamage
+SVar:DBDamage:DB$ DealDamage | Defined$ Remembered | NumDmg$ X | SubAbility$ DBCleanup
+SVar:X:Imprinted$CardManaCost
+SVar:DBPutIntoHand:DB$ Dig | DigNum$ 1 | ChangeNum$ All | ChangeValid$ Card | DestinationZone$ Hand | SubAbility$ DBCleanup | ConditionDefined$ Imprinted | ConditionPresent$ Card | ConditionCompare$ EQ1
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True

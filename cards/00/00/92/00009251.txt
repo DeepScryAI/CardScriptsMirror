@@ -1,11 +1,12 @@
 Id:9251
-ColorIdentity:W
+ColorIdentity:G
 OriginSet:G1ddd2c86a9ea60e3
-ManaCost:3 W
-Types:Creature Elemental
-PT:0/3
-K:Flash
-K:Evoke:W
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPrevent
-SVar:TrigPrevent:DB$ PreventDamage | ValidTgts$ Any | Amount$ 3
-SVar:AmbushAI:True
+ManaCost:3 G
+Types:Creature Treefolk Warrior
+PT:*/*
+S:Mode$ Continuous | Affected$ Card.Self | CharacteristicDefining$ True | SetPower$ X | SetToughness$ X
+S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ Trample | IsPresent$ Treefolk.YouCtrl+Other
+SVar:X:Count$Valid Treefolk.YouCtrl/Plus.FOREST
+SVar:FOREST:Count$Valid Forest.YouCtrl
+SVar:BuffedBy:Forest,Treefolk
+SVar:NoZeroToughnessAI:True

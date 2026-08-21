@@ -1,12 +1,13 @@
 Id:27023
-ColorIdentity:G
-OriginSet:G6ce0035cfb774934
-ManaCost:1 G G
-Types:Legendary Creature Elf Archer
-PT:1/4
-K:Reach
-T:Mode$ SpellCast | ValidActivatingPlayer$ You | TargetsValid$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigCounters
-SVar:TrigCounters:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
-T:Mode$ SpellCast | ValidActivatingPlayer$ You | TargetsValid$ Creature.YouDontCtrl | TriggerZones$ Battlefield | Execute$ TrigFight
-SVar:TrigFight:DB$ DealDamage | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | AILogic$ PowerDmg | NumDmg$ X
-SVar:X:Count$CardPower
+ColorIdentity:UG
+OriginSet:G3601f5e223de6c7f
+ManaCost:2 G U
+Types:Legendary Creature Avatar Wizard
+PT:3/5
+K:Ward:1
+S:Mode$ Continuous | Affected$ Beast.YouCtrl,Bird.YouCtrl | AddKeyword$ Ward:1
+T:Mode$ SpellCast | ValidCard$ Card.cmcGE5 | ValidActivatingPlayer$ You | Execute$ TrigCharm | TriggerZones$ Battlefield
+SVar:TrigCharm:DB$ Charm | Choices$ BeastToken,BirdToken
+SVar:BeastToken:DB$ Token | TokenScriptIds$ 273416837
+SVar:BirdToken:DB$ Token | TokenScriptIds$ 3625246308
+SVar:PlayMain1:TRUE

@@ -1,12 +1,10 @@
 Id:31116
-ColorIdentity:G
-OriginSet:Gef9d0d0c16b2fcf7
-ManaCost:2 G
-Types:Creature Elephant Warrior
-PT:3/3
+ColorIdentity:R
+OriginSet:G4524bbf7a3db9dc0
+ManaCost:2 R
+Types:Creature Goblin Scout
+PT:3/2
 K:Trample
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigEnergy
-SVar:TrigEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ TriggerCount$DamageAmount
-A:AB$ PutCounter | Cost$ PayEnergy<6> | Defined$ Self | CounterType$ P1P1 | CounterNum$ 2 | Exhaust$ True | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | NumCards$ X
-SVar:X:Count$Valid Creature.YouCtrl$GreatestCardPower
+K:StartYourEngines
+S:Mode$ Continuous | EffectZone$ Graveyard | AffectedZone$ Graveyard | Affected$ Card.Self | Condition$ MaxSpeed | AddAbility$ ABDraw
+SVar:ABDraw:AB$ Draw | Cost$ 3 ExileFromGrave<1/CARDNAME/this card> | ActivationZone$ Graveyard | Secondary$ True

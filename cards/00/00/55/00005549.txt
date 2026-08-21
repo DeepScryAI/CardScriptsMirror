@@ -1,8 +1,11 @@
 Id:5549
-ColorIdentity:U
+ColorIdentity:B
 OriginSet:Ge4af4f9459d5dadd
-ManaCost:1 U
-Types:Instant
-A:SP$ Mill | NumCards$ 7 | SubAbility$ DelTrig
-SVar:DelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ChangeType$ Card.YouCtrl | ChangeNum$ 7 | Hidden$ True
+ManaCost:2 B B
+Types:Creature Nightmare Horror
+PT:2/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigReturn
+SVar:TrigExile:DB$ ChangeZone | IsCurse$ True | ValidTgts$ Creature.Other | Origin$ Battlefield | Destination$ Exile
+SVar:TrigReturn:DB$ ChangeZoneAll | ChangeType$ Card.ExiledWithSource | Origin$ Exile | Destination$ Battlefield
+SVar:PlayMain1:TRUE

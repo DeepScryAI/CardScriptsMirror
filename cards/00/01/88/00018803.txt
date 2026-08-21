@@ -1,11 +1,10 @@
 Id:18803
-ColorIdentity:
+ColorIdentity:BG
 OriginSet:G1ecb361a0a117393
-ManaCost:4
-Types:Artifact Creature Cleric
-PT:0/0
-K:Trample
-K:etbCounter:P1P1:3
-T:Mode$ SpellCast | ValidCard$ Card.MultiColor | ValidActivatingPlayer$ You | Execute$ TrigPutCounter | TriggerZones$ Battlefield
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
-SVar:BuffedBy:Card.MultiColor
+ManaCost:7 B G
+Types:Creature Fungus Zombie
+PT:6/6
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ X | EffectZone$ All
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Land.YouCtrl
+SVar:X:Count$ValidGraveyard Creature.YouOwn

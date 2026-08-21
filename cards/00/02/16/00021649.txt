@@ -1,8 +1,10 @@
 Id:21649
-ColorIdentity:B
+ColorIdentity:G
 OriginSet:G18bf722b221724f8
-ManaCost:1 B
-Types:Instant
-A:SP$ Charm | Choices$ DBChangeZone1,DBChangeZone2
-SVar:DBChangeZone1:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | Mandatory$ True | ValidTgts$ Creature.YouOwn | AILogic$ NoSameCreatureType
-SVar:DBChangeZone2:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | Mandatory$ True | TargetsWithSameCreatureType$ True | TargetMin$ 2 | TargetMax$ 2 | ValidTgts$ Creature.YouOwn
+ManaCost:2 G
+Types:Snow Enchantment Aura
+K:Enchant:Land
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Land.EnchantedBy | AddType$ Snow
+T:Mode$ TapsForMana | ValidCard$ Card.AttachedBy | TriggerZones$ Battlefield | Execute$ TrigMana | Static$ True
+SVar:TrigMana:DB$ Mana | Produced$ Any | Defined$ TriggeredCardController

@@ -1,7 +1,10 @@
 Id:19045
-ColorIdentity:G
+ColorIdentity:B
 OriginSet:G0b51a0aecbe39efe
-ManaCost:4 G
-Types:Creature Beast
-PT:4/4
-K:Riot
+ManaCost:3 B
+Types:Enchantment
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDealDamage
+SVar:TrigDealDamage:DB$ DamageAll | ValidPlayers$ Player.Opponent | NumDmg$ 1 | SubAbility$ DBGainOneLife
+SVar:DBGainOneLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
+A:AB$ DealDamage | Cost$ 5 B Sac<1/CARDNAME> | ValidTgts$ Opponent | NumDmg$ 4 | SubAbility$ DBGainFourLife
+SVar:DBGainFourLife:DB$ GainLife | Defined$ You | LifeAmount$ 4

@@ -1,12 +1,10 @@
 Id:32529
-ColorIdentity:W
+ColorIdentity:G
 OriginSet:G66b3a7eeabd9000e
-ManaCost:3 W
-Types:Enchantment Aura
-K:Enchant:Creature.YouCtrl:creature you control
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ X | AddToughness$ X | AddSVar$ EqMe & EnMe
-R:Event$ DamageDone | ActiveZones$ Battlefield | ValidTarget$ You | ReplaceWith$ DmgEnchanted | DamageTarget$ Enchanted
-SVar:DmgEnchanted:DB$ ReplaceEffect | VarName$ Affected | VarValue$ Enchanted | VarType$ Card
-SVar:X:Count$Valid Aura.AttachedTo Creature.EnchantedBy,Equipment.AttachedTo Creature.EnchantedBy/Times.2
-SVar:EqMe:SVar:EquipMe:Multiple
-SVar:EnMe:SVar:EnchantMe:Multiple
+ManaCost:3 G
+Types:Creature Human Citizen
+PT:3/3
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | Choices$ DBRepair,DBImpound
+SVar:DBRepair:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Card.YouCtrl+cmcGE4
+SVar:DBImpound:DB$ ChangeZone | ValidTgts$ Artifact,Enchantment | Origin$ Battlefield | Destination$ Exile

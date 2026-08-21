@@ -1,11 +1,12 @@
 Id:16681
-ColorIdentity:BG
+ColorIdentity:WB
 OriginSet:Ge1d53e4f418bb713
-ManaCost:1 B G
-Types:Legendary Creature Human Warrior
-PT:0/0
-K:etbCounter:P1P1:3
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard,Command | ValidCard$ Creature.YouCtrl+counters_GE1_P1P1 | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ X
-SVar:X:TriggeredCard$CardCounters.P1P1
+ManaCost:3 W B
+Types:Legendary Creature Human Cleric
+PT:2/2
+K:Flying
+S:Mode$ Continuous | Affected$ Creature.Other+YouCtrl | AddPower$ 1 | AddToughness$ 1
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigChangeZone | OptionalDecider$ You | TriggerZones$ Battlefield
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Creature.YouCtrl
 K:Partner
+SVar:PlayMain1:TRUE

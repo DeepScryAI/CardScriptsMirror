@@ -1,11 +1,11 @@
 Id:23260
-ColorIdentity:W
+ColorIdentity:U
 OriginSet:G6e75ff4f143a3dc3
-ManaCost:2 W
+ManaCost:1 U
 Types:Enchantment Aura
 K:Enchant:Creature
 SVar:AttachAILogic:Curse
-S:Mode$ CantAttack,CantBlock | ValidCard$ Creature.EnchantedBy
-A:AB$ ChangeZone | Cost$ 4 W | Defined$ Enchanted | Origin$ Battlefield | Destination$ Exile | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenScriptIds$ 2179622914
-SVar:NonStackingAttachEffect:True
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill
+SVar:TrigMill:DB$ Mill | NumCards$ 2 | Defined$ You
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ -X
+SVar:X:Count$ValidGraveyard Card.YouOwn

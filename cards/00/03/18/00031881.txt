@@ -1,20 +1,11 @@
 Id:31881
-ColorIdentity:B
+ColorIdentity:G
 OriginSet:G7ab4f62d323b0ca7
-ManaCost:3 B B
-Types:Enchantment
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDestroy
-SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | Execute$ TrigToken | TriggerZones$ Battlefield | CheckSVar$ DiedThisTurn
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 3851718391 | SubAbility$ DBTransform
-SVar:DBTransform:DB$ SetState | Defined$ Self | ConditionCheckSVar$ NumTreasure | ConditionSVarCompare$ GE3 | Mode$ Transform
-SVar:DiedThisTurn:Count$ThisTurnEntered_Graveyard_from_Battlefield_Creature.OppCtrl
-SVar:NumTreasure:Count$Valid Treasure.YouCtrl
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:black
-Types:Legendary Creature Dragon
-PT:5/6
-A:AB$ Pump | Cost$ 1 B Sac<1/Creature.Other;Artifact.Other/another creature or artifact> | Defined$ Self | KW$ Indestructible | SubAbility$ DBTap
-SVar:DBTap:DB$ Tap | Defined$ Self
+ManaCost:5 G G
+Types:Creature Beast
+PT:7/7
+K:Trample
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | Choices$ DBDestroy,DBDraw
+SVar:DBDestroy:DB$ Destroy | ValidTgts$ Artifact,Enchantment
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1

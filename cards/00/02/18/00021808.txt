@@ -1,15 +1,10 @@
 Id:21808
 ColorIdentity:W
-OriginSet:Gabb23d0d25cdc46d
-ManaCost:3 W
-Types:Creature Human Advisor
-PT:3/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigRepeatEach
-SVar:TrigRepeatEach:DB$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | ConditionCheckSVar$ X | ConditionSVarCompare$ LTY | DefinedPlayer$ Remembered | Chooser$ Remembered | ChangeType$ Land.Basic | ChangeNum$ Z | Origin$ Library | Destination$ Battlefield | Tapped$ True
-SVar:X:Count$Valid Land.RememberedPlayerCtrl
-SVar:Y:PlayerCountPlayers$HighestValid Land.YouCtrl
-SVar:Z:SVar$Y/Minus.X
-SVar:Check1:Count$Valid Land.YouCtrl
-SVar:Check2:SVar$Y/Minus.Check1
-SVar:NeedsToPlayVar:Check2 GE2
+OriginSet:G18bf722b221724f8
+ManaCost:W
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 1 | AddToughness$ 1
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.AttachedBy | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 273812182 | TokenOwner$ You

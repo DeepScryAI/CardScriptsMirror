@@ -1,13 +1,11 @@
 Id:15355
-ColorIdentity:G
+ColorIdentity:U
 OriginSet:G70acd28f254172ff
-ManaCost:6 G G G
+ManaCost:2 U U
 Types:Sorcery
-A:SP$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBShuffle | SubAbility$ RepeatLands
-SVar:DBShuffle:DB$ ChangeZoneAll | ChangeType$ Card.RememberedPlayerOwn | Origin$ Hand,Battlefield | Destination$ Library | Shuffle$ True | RememberChanged$ True | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | Defined$ Remembered | NumCards$ Remembered$Amount | SubAbility$ DBCleanup
+A:SP$ PeekAndReveal | ValidTgts$ Opponent | Reveal$ True | NoPeek$ True | PeekAmount$ 7 | RememberRevealed$ True | SubAbility$ TelepathCast
+SVar:TelepathCast:DB$ Play | ValidZone$ Library | Valid$ Card.IsRemembered | ValidSA$ Instant,Sorcery | Controller$ You | WithoutManaCost$ True | Optional$ True | Amount$ X | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Library | Destination$ Graveyard | Defined$ Remembered | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:RepeatLands:DB$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBAurora | SubAbility$ ExileAurora
-SVar:DBAurora:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | DefinedPlayer$ Remembered | Chooser$ Remembered | ChangeType$ Land | ChangeNum$ HandSize
-SVar:HandSize:Count$ValidHand Land.RememberedPlayerCtrl
-SVar:ExileAurora:DB$ ChangeZone | Origin$ Stack | Destination$ Exile | Defined$ Self
+SVar:X:Count$Compare Y GE2.2.1
+SVar:Y:Count$ValidGraveyard Instant.YouOwn,Sorcery.YouOwn

@@ -1,12 +1,8 @@
 Id:9578
-ColorIdentity:W
+ColorIdentity:U
 OriginSet:G49bcc8b9b86b628d
-ManaCost:4 W
-Types:Creature Elemental
-PT:4/3
-K:Flying
-K:Evoke:5 W
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigReturnCreatures
-SVar:TrigReturnCreatures:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | TargetMin$ 0 | TargetMax$ 2 | ValidTgts$ Creature.powerLE2 | TargetsWithDefinedController$ TriggeredCardController
-SVar:NeedsToPlayEvokedVar:Z GE2
-SVar:Z:Count$ValidGraveyard Creature.YouCtrl+powerLE2
+ManaCost:1 U
+Types:Sorcery
+A:SP$ Draw | Defined$ You | NumCards$ 1 | SubAbility$ DBClash
+SVar:DBClash:DB$ Clash | WinSubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Parent | Origin$ Stack | Destination$ Hand

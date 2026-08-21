@@ -1,12 +1,12 @@
 Id:19401
-ColorIdentity:WB
+ColorIdentity:R
 OriginSet:G9d37112ca6693432
-ManaCost:1 W B
+ManaCost:2 R
 Types:Enchantment
-K:ETBReplacement:Other:ChooseCT
-SVar:ChooseCT:DB$ ChooseType | Defined$ You | Type$ Creature | AILogic$ MostProminentInComputerDeck
-S:Mode$ Continuous | Affected$ Creature.ChosenType+YouCtrl | AddPower$ 1 | AddToughness$ 1
-SVar:PlayMain1:TRUE
-SVar:AIPreference:SacCost$Creature.ChosenType+Other
-SVar:AIPreferenceParams:CreatureEvalThreshold$ Targeted/Plus.10
-A:AB$ Pump | Cost$ 1 Sac<1/Creature.ChosenType/creature of the chosen type> | ValidTgts$ Creature.YouCtrl | KW$ Indestructible
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGainLife
+T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigGainLife:DB$ GainLife | Defined$ Player.Opponent | LifeAmount$ 10
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ VERSE | CounterNum$ 1 | SubAbility$ DBDealDamage
+SVar:DBDealDamage:DB$ DealDamage | ValidTgts$ Player,Planeswalker | NumDmg$ X
+SVar:X:Count$CardCounters.VERSE
+SVar:BuffedBy:Instant,Sorcery

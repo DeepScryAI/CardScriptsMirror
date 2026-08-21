@@ -1,10 +1,11 @@
 Id:29223
 ColorIdentity:W
 OriginSet:G27146c70b74a1e72
-ManaCost:4 W
-Types:Creature Human Soldier
-PT:4/5
-K:Plot:3 W
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPumpAll
-SVar:TrigPumpAll:DB$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +1 | NumDef$ +1 | KW$ Vigilance
-SVar:PlayMain1:TRUE
+ManaCost:W
+Types:Instant
+K:Spree
+A:SP$ Charm | Choices$ DBDebuffAll,DBChooseCard,DBDestroyAll | MinCharmNum$ 1 | CharmNum$ 3
+SVar:DBDebuffAll:DB$ AnimateAll | ModeCost$ 1 | ValidCards$ Creature | RemoveAllAbilities$ True
+SVar:DBChooseCard:DB$ ChooseCard | ModeCost$ 1 | Choices$ Creature.YouCtrl | Mandatory$ True | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ ChosenCard | KW$ Indestructible
+SVar:DBDestroyAll:DB$ DestroyAll | ValidCards$ Creature | ModeCost$ 3 W W

@@ -1,10 +1,10 @@
 Id:19516
 ColorIdentity:W
 OriginSet:G9d37112ca6693432
-ManaCost:1 W
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:Pump
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 1 | AddToughness$ 1 | AddKeyword$ Vigilance
-T:Mode$ ChangesZone | ValidCard$ Card.AttachedBy | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigManifest
-SVar:TrigManifest:DB$ Manifest
+ManaCost:1 W W
+Types:Creature Human Soldier Ranger
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | OptionalDecider$ You | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Creature.cmcLE1 | ChangeNum$ 1 | ShuffleNonMandatory$ True
+A:AB$ Effect | Cost$ Sac<1/CARDNAME> | StaticAbilities$ STCantBeCast
+SVar:STCantBeCast:Mode$ CantBeCast | ValidCard$ Card.nonCreature | Caster$ Opponent

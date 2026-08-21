@@ -1,14 +1,9 @@
 Id:29418
-ColorIdentity:
-OriginSet:Gac6359c222afbd4f
-ManaCost:12
-Types:Legendary Creature Eldrazi
-PT:12/12
-K:Flying
-K:Protection:Spell.ThisTurnCast:spells that were cast this turn
-K:Protection:Permanent.ThisTurnCast:permanents that were cast this turn
-T:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigGainControl
-SVar:TrigGainControl:DB$ GainControl | ValidTgts$ Player | AllValid$ Creature.TargetedPlayerCtrl | NewController$ You
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigSacrificeAll
-SVar:TrigSacrificeAll:DB$ SacrificeAll | ValidCards$ Creature.YouCtrl
-K:Madness:C C C C C C
+ColorIdentity:BR
+OriginSet:G0c9f9aa4a8bf0371
+ManaCost:B R
+Types:Sorcery
+A:SP$ Pump | ValidTgts$ Creature.YouCtrl | AILogic$ PowerDmg | SubAbility$ DBDamage
+SVar:DBDamage:DB$ DealDamage | ValidTgts$ Creature.OppCtrl | AILogic$ PowerDmg | NumDmg$ ParentTargeted$CardPower | ExcessSVar$ Excess | DamageSource$ ParentTarget | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | ConditionCheckSVar$ Excess | Defined$ ParentTargetedController | NumCards$ 1 | DiscardValid$ Card.cmcEQX | Mode$ TgtChoose
+SVar:X:Count$ValidHand Card.ControlledBy ParentTargetedController$GreatestCardManaCost

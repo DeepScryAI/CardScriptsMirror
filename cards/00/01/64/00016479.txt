@@ -1,10 +1,11 @@
 Id:16479
-ColorIdentity:
+ColorIdentity:R
 OriginSet:G4bddbf7cb4f2475e
-ManaCost:3
-Types:Artifact Creature Fox
-PT:2/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGainLife
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ TriggeredCardController | NumCards$ 1
-SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2
+ManaCost:2 R R
+Types:Instant
+A:SP$ DealDamage | ValidTgts$ Any | NumDmg$ X | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | RememberDiscarded$ True | Mode$ Hand | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ Y | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$CardsInYourHand
+SVar:Y:Remembered$Amount

@@ -1,13 +1,11 @@
 Id:25584
-ColorIdentity:WUR
-OriginSet:Gce0c33e5115830a3
-ManaCost:2 U R W
-Types:Legendary Creature Human Advisor
-PT:0/5
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigGainLife
-SVar:TrigGainLife:DB$ GainLife | LifeAmount$ X
-T:Mode$ LifeGained | TriggerZones$ Battlefield | ValidPlayer$ You | Execute$ TrigPumpAll
-SVar:TrigPumpAll:DB$ PumpAll | ValidCards$ Advisor.YouCtrl,Artificer.YouCtrl,Monk.YouCtrl | NumAtt$ +Y | KW$ Vigilance
-A:AB$ Draw | Cost$ tapXType<3/Advisor.YouCtrl;Monk.YouCtrl;Artificer.YouCtrl/Advisors, Artificers, and/or Monks you control>
-SVar:X:Count$ValidHand Card.YouOwn/Minus.4
-SVar:Y:TriggerCount$LifeAmount
+ColorIdentity:BG
+OriginSet:G2e872aaf9b98489e
+ManaCost:3 B G
+Types:Legendary Creature Spider Performer
+PT:2/4
+K:Reach
+S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ Menace | AddPower$ 2 | CheckSVar$ X | SVarCompare$ GE3
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigOpenAttraction
+SVar:TrigOpenAttraction:DB$ OpenAttraction
+SVar:X:Count$Valid Attraction.YouCtrl

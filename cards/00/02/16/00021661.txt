@@ -1,12 +1,9 @@
 Id:21661
-ColorIdentity:W
+ColorIdentity:G
 OriginSet:G18bf722b221724f8
-ManaCost:1 W W
-Types:Creature Angel Warrior
-PT:3/3
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigExile | Secondary$ True
-SVar:TrigExile:DB$ ChangeZone | ChangeType$ Creature.Other+YouOwn | ChangeNum$ 1 | Origin$ Graveyard | Destination$ Exile | RememberChanged$ True | Hidden$ True | Chooser$ You | Optional$ True | SubAbility$ DBPutCounters
-SVar:DBPutCounters:DB$ PutCounterAll | ConditionDefined$ Remembered | ConditionPresent$ Card.nonLand | ConditionCompare$ GE1 | ValidCards$ Creature.StrictlyOther+YouCtrl+sharesCreatureTypeWith Remembered | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:1 G
+Types:Creature Shapeshifter
+PT:1/1
+K:Changeling
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPut
+SVar:TrigPut:DB$ PutCounter | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ 1

@@ -1,8 +1,9 @@
 Id:10262
-ColorIdentity:U
+ColorIdentity:BR
 OriginSet:G8f5d5a0744ac5b98
-ManaCost:2 U
-Types:Artifact Creature Human Wizard
-PT:1/3
-S:Mode$ Continuous | Affected$ Card.TopLibrary+YouCtrl | AffectedZone$ Library | MayLookAt$ Player
-S:Mode$ Continuous | Affected$ Card.Self | EffectZone$ Battlefield | GainsAbilitiesOf$ Creature.TopLibrary+YouCtrl,Artifact.TopLibrary+YouCtrl | TopCardOfLibraryIs$ Creature,Artifact | GainsAbilitiesOfZones$ Library
+ManaCost:4 R
+Types:Instant
+A:SP$ DealDamage | NumDmg$ 3 | ValidTgts$ Creature | RememberDamaged$ True | SubAbility$ DBDelayedTrigger
+SVar:DBDelayedTrigger:DB$ DelayedTrigger | Mode$ ChangesZone | RememberObjects$ Remembered | ValidCard$ Card.IsTriggerRemembered | Origin$ Battlefield | Destination$ Graveyard | ThisTurn$ True | Execute$ TrigToken | SubAbility$ DBCleanup
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 3737579991
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

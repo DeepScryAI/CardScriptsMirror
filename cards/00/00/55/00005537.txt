@@ -1,8 +1,11 @@
 Id:5537
-ColorIdentity:U
+ColorIdentity:W
 OriginSet:Ge4af4f9459d5dadd
-ManaCost:1 U
-Types:Enchantment
-A:AB$ Draw | Cost$ 1 U Discard<1/Card> | NumCards$ 1
-A:AB$ Draw | Cost$ 1 U Sac<1/CARDNAME> | NumCards$ 1
-SVar:NonStackingEffect:True
+ManaCost:1 W W
+Types:Sorcery
+A:SP$ Branch | BranchConditionSVar$ X | BranchConditionSVarCompare$ GE7 | TrueSubAbility$ ThreshDestruction | FalseSubAbility$ Destruction
+SVar:Destruction:DB$ DestroyAll | ValidCards$ Enchantment
+SVar:ThreshDestruction:DB$ DestroyAll | ValidCards$ Enchantment | SubAbility$ ThreshReturn | RememberDestroyed$ True
+SVar:ThreshReturn:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered+YouCtrl | Origin$ Graveyard | Destination$ Battlefield | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$ValidGraveyard Card.YouCtrl

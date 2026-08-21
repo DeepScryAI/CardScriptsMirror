@@ -1,8 +1,11 @@
 Id:24028
-ColorIdentity:UBR
+ColorIdentity:WUG
 OriginSet:G9afc9838c5e994df
-ManaCost:2 B
-Types:Creature Human Citizen
-PT:3/1
-A:AB$ Draw | Cost$ 4 UR ExileFromGrave<1/CARDNAME> | ActivationZone$ Graveyard | NumCards$ 2 | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | Mode$ TgtChoose
+ManaCost:G W U
+Types:Instant
+A:SP$ Charm | Choices$ DBPump,DBDestroy,DBDraw
+SVar:DBPump:DB$ Pump | ValidTgts$ Creature.YouCtrl | NumAtt$ +1 | SubAbility$ DBDealDamage | AILogic$ PowerDmg
+SVar:DBDealDamage:DB$ DealDamage | ValidTgts$ Creature.OppCtrl,Planeswalker.OppCtrl | AILogic$ PowerDmg | NumDmg$ X | DamageSource$ ParentTarget
+SVar:X:ParentTargeted$CardPower
+SVar:DBDestroy:DB$ Destroy | ValidTgts$ Enchantment
+SVar:DBDraw:DB$ Draw | NumCards$ 2

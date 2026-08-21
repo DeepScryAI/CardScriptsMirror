@@ -1,13 +1,11 @@
 Id:33757
-ColorIdentity:WR
-OriginSet:Gf8df2bea26dc6b68
-ManaCost:4 R W
-Types:Artifact Creature Construct
-PT:6/6
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDealDamage
-SVar:TrigDealDamage:DB$ DealDamage | NumDmg$ 3 | Defined$ Opponent | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 3
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigDiscard
-SVar:TrigDiscard:DB$ Discard | AnyNumber$ True | Optional$ True | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | NumCards$ Remembered$Amount/Plus.1 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:B
+OriginSet:G23d1f017cc66962f
+ManaCost:1 B
+Types:Legendary Creature Rat Avatar
+PT:1/1
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | Revolt$ True | Execute$ TrigToken | TriggerZones$ Battlefield
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 2440351532 | TokenOwner$ You | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+A:AB$ Pump | Cost$ T Sac<3/Rat> | ValidTgts$ Creature.YouOwn | TgtZone$ Graveyard | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZoneAll | Origin$ Graveyard | Destination$ Battlefield | Tapped$ True | Defined$ You | ChangeType$ TargetedCard.Self,Card.NotDefinedTargeted+sharesNameWith Targeted

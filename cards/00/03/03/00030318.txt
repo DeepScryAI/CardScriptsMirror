@@ -1,10 +1,33 @@
 Id:30318
-ColorIdentity:G
-OriginSet:G8b2ed00ac2a0ff47
-ManaCost:2 G
-Types:Creature Elf Warrior
-PT:2/3
-K:Vigilance
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Permanent.faceDown+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-T:Mode$ TurnFaceUp | ValidCard$ Card.Self,Permanent.Other+YouCtrl | Secondary$ True | Execute$ TrigPutCounter | TriggerZones$ Battlefield
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1
+ColorIdentity:
+OriginSet:G997e3b19a1e94e85
+ManaCost:7
+Types:Battle Siege
+Defense:6
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | Choices$ DBDestroyAll,DBManifestThree
+SVar:DBDestroyAll:DB$ DestroyAll | ValidCards$ Creature | SubAbility$ DBClearUgin
+SVar:DBClearUgin:DB$ Pump | Defined$ Player | ClearNotedCardsFor$ BattleUgin | SubAbility$ DBNoteBolas
+SVar:DBNoteBolas:DB$ Pump | NoteCards$ Self | NoteCardsFor$ BattleBolas
+SVar:DBManifestThree:DB$ Manifest | Amount$ 3 | SubAbility$ DBClearBolas
+SVar:DBClearBolas:DB$ Pump | Defined$ Player | ClearNotedCardsFor$ BattleBolas | SubAbility$ DBNoteUgin
+SVar:DBNoteUgin:DB$ Pump | NoteCards$ Self | NoteCardsFor$ BattleUgin
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Types:Enchantment Saga
+K:Chapter:3:DBCharm,DBCopyToken,DBReforge
+SVar:DBCharm:DB$ Branch | BranchConditionSVar$ PlayerCountPropertyYou$HasPropertyNotedForBattleBolas | BranchConditionSVarCompare$ EQ1 | TrueSubAbility$ DBDiscardAll | FalseSubAbility$ DBBranchTwo
+SVar:DBDiscardAll:DB$ Discard | Defined$ Player.Opponent | Mode$ Hand | SubAbility$ DBDrawSeven
+SVar:DBBranchTwo:DB$ Branch | BranchConditionSVar$ PlayerCountPropertyYou$HasPropertyNotedForBattleUgin | BranchConditionSVarCompare$ EQ1 | TrueSubAbility$ DBManifestHand | FalseSubAbility$ DBFizzle
+SVar:DBManifestHand:DB$ Manifest | Amount$ X | Defined$ ValidHand Card.YouOwn | SubAbility$ DBDrawSeven
+SVar:DBFizzle:DB$ Pump
+SVar:DBDrawSeven:DB$ Draw | NumCards$ 7
+SVar:X:Count$ValidHand Card.YouOwn
+SVar:DBCopyToken:DB$ NameCard | Defined$ You | ChooseFromCatalogIds$ 473,500,638,642,740 | SubAbility$ DBMake
+SVar:DBMake:DB$ MakeCard | Name$ ChosenName | Zone$ None | RememberMade$ True | SubAbility$ DBCopyPerm
+SVar:DBCopyPerm:DB$ CopyPermanent | Defined$ Remembered | SubAbility$ DBClearNamed
+SVar:DBClearNamed:DB$ Cleanup | ClearNamedCard$ True | ClearRemembered$ True
+SVar:DBReforge:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | SubAbility$ DBReturnSelf | RememberChanged$ True
+SVar:DBReturnSelf:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

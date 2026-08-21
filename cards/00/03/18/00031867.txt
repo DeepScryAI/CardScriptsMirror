@@ -1,7 +1,24 @@
 Id:31867
-ColorIdentity:U
+ColorIdentity:WB
 OriginSet:G7ab4f62d323b0ca7
-ManaCost:1 U
-Types:Artifact Creature Robot Scorpion
-PT:1/4
-S:Mode$ Continuous | IsPresent$ Land.YouCtrl | PresentCompare$ GE7 | Affected$ Card.Self | AddPower$ 3
+ManaCost:B
+Types:Legendary Creature Human Knight
+PT:2/3
+K:Deathtouch
+T:Mode$ DamageDealtOnce | ValidSource$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ X | SubAbility$ DBUntap
+SVar:DBUntap:DB$ Untap | Defined$ Self | ConditionCheckSVar$ Z | ConditionSVarCompare$ LEY | SubAbility$ DBTransform
+SVar:DBTransform:DB$ SetState | Defined$ Self | ConditionCheckSVar$ Z | ConditionSVarCompare$ LEY | Mode$ Transform
+SVar:X:TriggerCount$DamageAmount
+SVar:Z:Count$YourLifeTotal
+SVar:Y:Count$YourStartingLife/HalfDown
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:white
+Types:Legendary Creature Human Knight
+PT:4/4
+K:Lifelink
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPumpAttack
+SVar:HasAttackEffect:TRUE
+SVar:TrigPumpAttack:DB$ PumpAll | ValidCards$ Creature.attacking+Other | KW$ Indestructible

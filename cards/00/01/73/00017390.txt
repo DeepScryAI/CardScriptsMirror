@@ -1,9 +1,15 @@
 Id:17390
-ColorIdentity:R
-OriginSet:G024fc2244a6b356b
-ManaCost:2 R R
-Types:Legendary Planeswalker Chandra
-Loyalty:3
-A:AB$ Token | Cost$ AddCounter<1/LOYALTY> | TokenScriptIds$ 620718646 | TokenOwner$ You | Planeswalker$ True
-A:AB$ DealDamage | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | ValidTgts$ Creature,Player | NumDmg$ X
-SVar:X:Count$Valid Gremlin.YouCtrl
+ColorIdentity:
+OriginSet:Ge0711d195338c189
+ManaCost:3
+Types:Artifact Equipment
+K:Equip:2
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddToughness$ 2 | AddSVar$ SwordOfBodyAndMindCE | AddKeyword$ Protection:Rogue & Protection:Cleric
+T:Mode$ DamageDone | ValidSource$ Creature.EquippedBy | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigLoop | TriggerZones$ Battlefield
+SVar:TrigLoop:DB$ Repeat | RepeatCheckSVar$ RepeatCheck | RepeatSVarCompare$ GT0 | RepeatSubAbility$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 387995076 | TokenOwner$ You | SubAbility$ RollDie
+SVar:RollDie:DB$ RollDice | Sides$ 20 | ResultSubAbilities$ 20:Win,Else:Lose
+SVar:Win:DB$ StoreSVar | SVar$ RepeatCheck | Type$ Number | Expression$ 1
+SVar:Lose:DB$ StoreSVar | SVar$ RepeatCheck | Type$ Number | Expression$ 0
+SVar:RepeatCheck:Number$ 1
+SVar:SwordOfBodyAndMindCE:SVar:MustBeBlocked:AttackingPlayerConservative

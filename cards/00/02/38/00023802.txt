@@ -1,15 +1,11 @@
 Id:23802
-ColorIdentity:BG
-OriginSet:G5f5d8cfb206e2fac
-ManaCost:2 B G
-Types:Creature Horror
-PT:3/3
-K:Menace
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigRepeatTypes | TriggerZones$ Battlefield
-SVar:TrigRepeatTypes:DB$ RepeatEach | RepeatTypesFrom$ ValidGraveyard Card.OwnedBy TriggeredDefendingPlayer | RepeatSubAbility$ ChooseCard | SubAbility$ DBExile
-SVar:ChooseCard:DB$ ChooseCard | ChoiceZone$ Graveyard | Choices$ Card.ChosenType+OwnedBy TriggeredDefendingPlayer | ChoiceTitleAppend$ ChosenType | RememberChosen$ True
-SVar:DBExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | Defined$ Remembered | RememberChanged$ True | ForgetOtherRemembered$ True | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ X | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearChosenCard$ True
-SVar:X:Remembered$Amount
-SVar:HasAttackEffect:TRUE
+ColorIdentity:W
+OriginSet:Gd970889168b5769f
+ManaCost:1 W
+Types:Creature Spirit
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigCharm | Secondary$ True
+SVar:TrigCharm:DB$ Charm | Choices$ Artifact,Enchantment
+SVar:Artifact:DB$ AnimateAll | Zone$ Hand | ValidCards$ Permanent.YouOwn | Types$ Artifact | Duration$ Perpetual
+SVar:Enchantment:DB$ AnimateAll | Zone$ Hand | ValidCards$ Permanent.YouOwn | Types$ Enchantment | Duration$ Perpetual

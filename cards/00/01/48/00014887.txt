@@ -1,8 +1,10 @@
 Id:14887
-ColorIdentity:R
+ColorIdentity:B
 OriginSet:G25ee1eefb1a14f05
-ManaCost:1 R
-Types:Creature Human Rogue
-PT:2/1
-A:AB$ Draw | Cost$ T | NumCards$ 2 | SubAbility$ DBGainControl | PlayerTurn$ True
-SVar:DBGainControl:DB$ GainControl | Defined$ Self | ValidTgts$ Opponent
+ManaCost:2 B
+Types:Creature Human Assassin
+PT:1/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | Choices$ DBCounter,DBRemove
+SVar:DBCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ 1
+SVar:DBRemove:DB$ Destroy | ValidTgts$ Creature.wasDealtDamageThisTurn

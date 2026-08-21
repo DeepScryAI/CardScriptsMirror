@@ -1,14 +1,13 @@
 Id:29928
-ColorIdentity:UR
+ColorIdentity:W
 OriginSet:Gf09b85bbcc27770c
-ManaCost:2 U R
-Types:Legendary Planeswalker Ral
-Loyalty:4
-T:Mode$ SpellCast | ValidCard$ Card.nonCreature+YouCtrl | Execute$ TrigLoyalty | TriggerZones$ Battlefield
-SVar:TrigLoyalty:DB$ PutCounter | Defined$ Self | CounterType$ LOYALTY | CounterNum$ 1
-A:AB$ Token | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | TokenScriptIds$ 1116612644 | TokenOwner$ You
-A:AB$ Draw | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | NumCards$ 3 | SubAbility$ DiscardTwo
-SVar:DiscardTwo:DB$ Discard | Defined$ You | NumCards$ 2 | Mode$ TgtChoose
-A:AB$ Draw | Cost$ SubCounter<10/LOYALTY> | Planeswalker$ True | Ultimate$ True | NumCards$ 3 | SubAbility$ WitEmblem
-SVar:WitEmblem:DB$ Effect | Name$ 2306416840759210882 | StaticAbilities$ STWit | Duration$ Permanent
-SVar:STWit:Mode$ Continuous | Affected$ Instant.YouCtrl,Sorcery.YouCtrl | AffectedZone$ Stack | AddKeyword$ Storm
+ManaCost:1 W
+Types:Enchantment Class
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 3501673513 | TokenOwner$ You
+K:Class:2:W:AddTrigger$ TriggerEnter
+SVar:TriggerEnter:Mode$ ChangesZoneAll | ValidCards$ Permanent.nonCreature+nonLand+YouCtrl | Destination$ Battlefield | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1
+K:Class:3:4 W:AddTrigger$ TriggerClassLevel
+SVar:TriggerClassLevel:Mode$ ClassLevelGained | ClassLevel$ 3 | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigChangeZone | Secondary$ True
+SVar:TrigChangeZone:DB$ ChangeZone | ValidTgts$ Permanent.nonCreature+nonLand+YouOwn | Origin$ Graveyard | Destination$ Battlefield

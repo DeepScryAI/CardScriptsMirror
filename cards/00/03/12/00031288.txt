@@ -1,11 +1,12 @@
 Id:31288
 ColorIdentity:B
-OriginSet:Ge1676a27173c0866
-ManaCost:1 B
-Types:Creature Bird Scout
-PT:1/3
-K:Flying
-T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigLoseLife
-SVar:TrigLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ 1 | SubAbility$ DBEndure
-SVar:DBEndure:DB$ Endure | Num$ 1
-SVar:HasAttackEffect:TRUE
+OriginSet:Gef9d0d0c16b2fcf7
+ManaCost:3 B
+Types:Creature Zombie Noble
+PT:4/4
+K:Afflict:3
+S:Mode$ Continuous | Affected$ Zombie.Other+YouCtrl | AddKeyword$ Afflict:3
+T:Mode$ Phase | Phase$ Main | PhaseCount$ 2 | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ X | Execute$ TrigMill
+SVar:TrigMill:DB$ Mill | NumCards$ 3 | Defined$ You | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ChangeType$ Creature.YouOwn | Hidden$ True | Optional$ True
+SVar:X:PlayerCountDefinedRegistered$HasPropertywasDealtCombatDamageThisTurnBy Zombie GE1

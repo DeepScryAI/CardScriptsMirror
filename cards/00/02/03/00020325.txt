@@ -1,8 +1,10 @@
 Id:20325
-ColorIdentity:B
+ColorIdentity:W
 OriginSet:Gfa87e7bbc5a709eb
-ManaCost:2 B
-Types:Sorcery
-A:SP$ Draw | NumCards$ 2 | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 2 | SubAbility$ TrigMill
-SVar:TrigMill:DB$ Mill | NumCards$ 2 | Defined$ You
+ManaCost:3 W
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 2 | AddToughness$ 2 | AddKeyword$ FirstStrike | AddTrigger$ TriggerDamageDone
+SVar:TriggerDamageDone:Mode$ DamageDone | ValidSource$ Card.Self | CombatDamage$ True | ValidTarget$ Player | Execute$ DBToken
+SVar:DBToken:DB$ Token | TokenOwner$ You | TokenScriptIds$ 1647422943

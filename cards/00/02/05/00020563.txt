@@ -1,10 +1,11 @@
 Id:20563
-ColorIdentity:B
-OriginSet:Gf8d4de878d0536c5
-ManaCost:3 B
-Types:Creature Human Soldier
-PT:2/4
-A:AB$ GainLife | Cost$ 1 T Sac<1/Creature.Other/another creature> | Defined$ You | LifeAmount$ X | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw
-SVar:X:Sacrificed$CardToughness
-SVar:AIPreference:SacCost$Creature.token,Creature.cmcLE3
+ColorIdentity:WBG
+OriginSet:Gc9c1dd0d52c99ca4
+ManaCost:1 W B G
+Types:Legendary Creature Nightmare Beast
+PT:3/3
+K:ETBReplacement:Other:AddExtraCounter:Mandatory:Battlefield:Creature.Other+YouCtrl
+SVar:AddExtraCounter:DB$ PutCounter | ETB$ True | Defined$ ReplacedCard | CounterType$ Vigilance | CounterNum$ 1
+A:AB$ Mill | Cost$ 3 RemoveAnyCounter<3/Any/Creature> | NumCards$ 3 | Defined$ You | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Hidden$ True | Mandatory$ True | ChangeType$ Permanent.YouOwn+cmcLE3 | ChangeNum$ 1 | Origin$ Graveyard | Destination$ Battlefield
+SVar:AIRemoveCounterCostPriority:Vigilance

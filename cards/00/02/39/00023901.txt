@@ -1,10 +1,13 @@
 Id:23901
-ColorIdentity:WUBRG
-OriginSet:Gfdfe2ebef04be34e
-ManaCost:3 W U B R G
-Types:Sorcery
-A:SP$ Dig | DigNum$ 10 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | StaticAbilities$ EffSModeContinuous | ForgetOnMoved$ Exile | RememberObjects$ Remembered | SubAbility$ DBCleanup
-SVar:EffSModeContinuous:Mode$ Continuous | Affected$ Card.IsRemembered+numColorsEQ3 | MayPlay$ True | AffectedZone$ Exile
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | SubAbility$ DBMana
-SVar:DBMana:DB$ Mana | Produced$ W W U U B B R R G G | RestrictValid$ Spell.numColorsEQ3
+ColorIdentity:WUG
+OriginSet:G5f5d8cfb206e2fac
+ManaCost:1 G W U
+Types:Legendary Creature Rhino Soldier
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPut
+SVar:TrigPut:DB$ PutCounter | ValidTgts$ Creature | CounterType$ SHIELD
+SVar:PlayMain1:TRUE
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.YouCtrl | KW$ Trample | NumAtt$ +X | NumDef$ +X
+SVar:X:Count$DifferentCounterKinds_Permanent.YouCtrl
+SVar:HasAttackEffect:TRUE

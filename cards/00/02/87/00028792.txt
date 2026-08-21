@@ -1,12 +1,11 @@
 Id:28792
-ColorIdentity:WR
-OriginSet:Gaf7c94f364052cdd
-ManaCost:1 R W
-Types:Creature Human Knight
-PT:3/3
-K:Trample
-T:Mode$ SpellCast | ValidCard$ Aura,Equipment | ValidActivatingPlayer$ You | Execute$ TrigDig | TriggerZones$ Battlefield
-SVar:TrigDig:DB$ Dig | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ STPlay | SubAbility$ DBCleanup | ForgetOnMoved$ Exile | Duration$ UntilTheEndOfYourNextTurn
-SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:UR
+OriginSet:Ge329d8d60ca65422
+ManaCost:1 UR UR
+Types:Creature Goblin Wizard
+PT:2/3
+K:Prowess
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDraw | Secondary$ True
+SVar:TrigDraw:AB$ Draw | Cost$ Discard<1/Card> | NumCards$ 1
+SVar:HasAttackEffect:TRUE

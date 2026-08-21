@@ -1,18 +1,10 @@
 Id:23199
 ColorIdentity:U
-OriginSet:G6e75ff4f143a3dc3
+OriginSet:G3aa323ca47c740b1
 ManaCost:3 U
-Types:Creature Spirit
-PT:3/3
-K:Disturb:3 U
-S:Mode$ CantBlockBy | ValidAttacker$ Card.Self+attacking | IsPresent$ Card.Other+attacking | PresentCompare$ EQ0
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:blue
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:Pump
-S:Mode$ CantBlockBy | ValidAttacker$ Creature.EnchantedBy+attacking | IsPresent$ Card.attacking | PresentCompare$ EQ1
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Graveyard | ReplaceWith$ Exile
-SVar:Exile:DB$ ChangeZone | Hidden$ True | Origin$ All | Destination$ Exile | Defined$ ReplacedCard
+Types:Creature Spirit Wizard
+PT:3/2
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ Play | ValidZone$ Graveyard | Valid$ Card.YouOwn | ValidSA$ Instant.cmcLEX,Sorcery.cmcLEX | WithoutManaCost$ True | Optional$ True | ReplaceGraveyard$ Exile
+SVar:X:Count$Valid Spirit.YouCtrl

@@ -1,8 +1,12 @@
 Id:26527
-ColorIdentity:W
-OriginSet:G06757f68e16377c2
-ManaCost:4 W
-Types:Creature Phyrexian Knight
-PT:4/3
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigIncubate
-SVar:TrigIncubate:DB$ Incubate | Amount$ 3
+ColorIdentity:
+OriginSet:Gd5f5e54fa26ae40d
+ManaCost:no cost
+Types:Plane Ikoria
+T:Mode$ PlaneswalkedTo | ValidCard$ Card.Self | Execute$ TrigCounter | TriggerZones$ Command
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigCounter | TriggerZones$ Command | Secondary$ True
+SVar:TrigCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ Vigilance,Menace,Trample | CounterTypePerDefined$ True
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos
+SVar:RolledChaos:DB$ DigUntil | ValidPlayer$ You | Valid$ Permanent.nonLand | FoundDestination$ Exile | RevealedDestination$ Exile | RememberFound$ True | SubAbility$ DBChoose
+SVar:DBChoose:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | DestinationAlternative$ Hand | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

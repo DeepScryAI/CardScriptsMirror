@@ -1,11 +1,10 @@
 Id:13929
-ColorIdentity:BRG
+ColorIdentity:G
 OriginSet:G6645ca87da6316d5
-ManaCost:3 B R G
-Types:Legendary Creature Dragon
-PT:5/5
-K:Flying
-T:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenAmount$ X | TokenScriptIds$ 1918438868 | TokenOwner$ You
-SVar:X:Count$CastTotalManaSpent
-A:AB$ Pump | Cost$ Sac<1/Creature.Other/another creature> | Defined$ Self | NumAtt$ +1
+ManaCost:4 G
+Types:Enchantment
+R:Event$ CreateToken | ActiveZones$ Battlefield | ReplaceWith$ DoubleToken
+SVar:DoubleToken:DB$ ReplaceToken | Type$ Amount
+R:Event$ AddCounter | ActiveZones$ Battlefield | ValidCard$ Creature.inZoneBattlefield | ValidCounterType$ P1P1 | ReplaceWith$ DoubleCounters
+SVar:DoubleCounters:DB$ ReplaceCounter | ValidCounterType$ P1P1 | Amount$ X
+SVar:X:ReplaceCount$CounterNum/Twice

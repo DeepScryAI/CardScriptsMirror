@@ -1,13 +1,9 @@
 Id:23558
-ColorIdentity:G
+ColorIdentity:R
 OriginSet:G1a259dba25660062
-ManaCost:X G
-Types:Instant
-A:SP$ Pump | Announce$ Exiled | ValidTgts$ Creature.cmcLTX | SubAbility$ DBSearch
-SVar:DBSearch:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Targeted.Creature+sameName | ChangeNum$ 1 | Tapped$ True
-S:Mode$ RaiseCost | ValidCard$ Card.Self | Type$ Spell | Cost$ ExileFromHand<Y/Card.Green/green cards> | EffectZone$ All
-S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ Z | EffectZone$ All | Relative$ True | Secondary$ True
-SVar:X:Count$xPaid
-SVar:Y:SVar$Exiled
-SVar:Z:SVar$Y/Times.2
-SVar:Exiled:Number$0
+ManaCost:8 R R
+Types:Sorcery
+A:SP$ DealDamage | Announce$ Tapped | ValidTgts$ Any | NumDmg$ 10
+S:Mode$ RaiseCost | ValidCard$ Card.Self | Type$ Spell | Cost$ tapXType<Tapped/Creature> | EffectZone$ All
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ Tapped | EffectZone$ All | Relative$ True | Secondary$ True
+SVar:Tapped:Number$0

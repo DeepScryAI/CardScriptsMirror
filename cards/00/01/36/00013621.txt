@@ -1,8 +1,12 @@
 Id:13621
-ColorIdentity:G
+ColorIdentity:W
 OriginSet:G4773f4feb3f15a2b
-ManaCost:1 G
-Types:Creature Sliver
-PT:1/1
-S:Mode$ Continuous | Affected$ Creature.Sliver+YouCtrl | AddPower$ 1 | AddToughness$ 1
+ManaCost:2 W
+Types:Enchantment
+S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddPower$ 1 | AddToughness$ 1 | CheckSVar$ X | SVarCompare$ GEY
+SVar:X:Count$YourLifeTotal
+SVar:Y:Count$YourStartingLife
+SVar:Z:Count$Valid Creature.attacking+YouCtrl
+T:Mode$ AttackersDeclared | AttackingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigGainLife
+SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ Z
 SVar:PlayMain1:TRUE

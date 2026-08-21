@@ -1,9 +1,11 @@
 Id:32510
-ColorIdentity:B
+ColorIdentity:R
 OriginSet:G66b3a7eeabd9000e
-ManaCost:2 B
-Types:Legendary Creature Human Villain
+ManaCost:1 R
+Types:Creature Human Citizen
 PT:2/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Villain.YouOwn
-S:Mode$ ReduceCost | ValidCard$ Villain | Type$ Spell | Activator$ You | Amount$ 1
+K:Trample
+T:Mode$ SpellCast | ValidCard$ Card.cmcGE4 | ValidActivatingPlayer$ You | Execute$ TrigDamage | TriggerZones$ Battlefield
+SVar:TrigDamage:DB$ DealDamage | Defined$ Player.Opponent | NumDmg$ 1
+A:AB$ PutCounter | Cost$ 5 R | Defined$ Self | CounterType$ P1P1 | CounterNum$ 2 | SorcerySpeed$ True
+SVar:BuffedBy:Card.cmcGE4

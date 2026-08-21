@@ -1,7 +1,11 @@
 Id:30718
-ColorIdentity:B
-OriginSet:Gc5a2f0ff902c0621
-ManaCost:1 B
-Types:Creature Zombie
-PT:2/2
-A:AB$ PutCounter | Cost$ 1 Sac<1/Creature.Other/another creature> | CounterType$ P1P1 | CounterNum$ 1
+ColorIdentity:G
+OriginSet:G2a4addc042b7552f
+ManaCost:2 G
+Types:Creature Human Survivor
+PT:3/3
+T:Mode$ Phase | Phase$ Main | PhaseCount$ 2 | ValidPlayer$ You | PresentDefined$ Self | IsPresent$ Card.tapped | TriggerZones$ Battlefield | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Land.YouCtrl | TargetMin$ 0 | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Self | PumpZone$ Battlefield | NumAtt$ +1 | NumDef$ +1 | Duration$ Perpetual
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True

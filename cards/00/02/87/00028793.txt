@@ -1,10 +1,11 @@
 Id:28793
-ColorIdentity:R
-OriginSet:Gaf7c94f364052cdd
-ManaCost:1 R
-Types:Artifact Creature Robot
-PT:2/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigEnergy
-SVar:TrigEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ 2
-T:Mode$ Attacks | ValidCard$ Creature.Artifact+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:AB$ PutCounter | Cost$ PayEnergy<1> | CounterType$ P1P1,FirstStrike,Trample | CounterNum$ 1 | Defined$ TriggeredAttackerLKICopy
+ColorIdentity:G
+OriginSet:Ge329d8d60ca65422
+ManaCost:4 G
+Types:Legendary Creature Human Advisor
+PT:3/3
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigVote
+SVar:TrigVote:DB$ Vote | Defined$ Player | Choices$ DBVoteProfit,DBVoteSecurity | StoreVoteNum$ True
+SVar:DBVoteProfit:DB$ Token | TokenAmount$ SVar$VoteNum/Times.2 | TokenScriptIds$ 3851718391 | TokenOwner$ You
+SVar:DBVoteSecurity:DB$ PutCounterAll | ValidCards$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ VoteNum
+SVar:HasAttackEffect:TRUE

@@ -1,8 +1,10 @@
 Id:14966
-ColorIdentity:R
+ColorIdentity:G
 OriginSet:G25ee1eefb1a14f05
-ManaCost:R
-Types:Instant
-A:SP$ Effect | StaticAbilities$ STCantPrevent | AILogic$ Burn | SubAbility$ DBDmg | ConditionPresent$ Creature.YouCtrl+powerGE4
-SVar:STCantPrevent:Mode$ CantPreventDamage
-SVar:DBDmg:DB$ DealDamage | ValidTgts$ Any | AILogic$ Burn | NumDmg$ 2
+ManaCost:3 G G
+Types:Creature Elemental
+PT:4/4
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigManifest
+SVar:TrigManifest:DB$ Manifest
+A:AB$ AnimateAll | Cost$ Sac<1/CARDNAME> | ValidCards$ Creature.YouCtrl+!token+faceUp | Triggers$ Trig
+SVar:Trig:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigManifest

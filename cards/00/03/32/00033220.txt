@@ -1,7 +1,12 @@
 Id:33220
-ColorIdentity:W
-OriginSet:G7ab1fe96128a1641
-ManaCost:2 W
-Types:Instant
-K:Convoke
-A:SP$ Destroy | ValidTgts$ Creature.attacking,Creature.blocking
+ColorIdentity:UBR
+OriginSet:G530ea9d733a13e9d
+ManaCost:2 U B R
+Types:Legendary Creature Human Warlock
+PT:2/5
+K:Ward:2
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | Execute$ TrigGainControl | TriggerZones$ Battlefield
+SVar:TrigGainControl:DB$ GainControl | ValidTgts$ Creature.OppCtrl | LoseControl$ EOT | Untap$ True | AddKWs$ Haste
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | TriggerZones$ Battlefield | ValidCard$ Creature.YouDontOwn+YouCtrl | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Origin$ All | Destination$ Battlefield | SubAbility$ TrigDraw
+SVar:TrigDraw:DB$ Draw

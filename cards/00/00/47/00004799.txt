@@ -1,7 +1,11 @@
 Id:4799
-ColorIdentity:R
+ColorIdentity:UB
 OriginSet:Gfb91362c2efb868e
-ManaCost:2 R
-Types:Creature Kavu
-PT:2/2
-A:AB$ Animate | Cost$ T | ValidTgts$ Land | Types$ Swamp | RemoveLandTypes$ True
+ManaCost:U B
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAITgts:Card.powerGE1
+SVar:AttachAILogic:Curiosity
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddKeyword$ Fear
+T:Mode$ DamageDone | ValidSource$ Card.AttachedBy | ValidTarget$ Opponent | OptionalDecider$ You | Execute$ TrigDraw | CombatDamage$ True
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1

@@ -1,11 +1,14 @@
 Id:30321
-ColorIdentity:U
-OriginSet:G8b2ed00ac2a0ff47
-ManaCost:2 U
-Types:Artifact Equipment
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDread
-SVar:TrigDread:DB$ ManifestDread | RememberManifested$ True | SubAbility$ DBAttach
-SVar:DBAttach:DB$ Attach | Defined$ Remembered | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddKeyword$ Flying
-K:Equip:3
+ColorIdentity:W
+OriginSet:Gac6359c222afbd4f
+ManaCost:W
+Types:Creature Human Cleric
+PT:1/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigGainLife
+SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1 | SubAbility$ DBEnergy
+SVar:DBEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ 1
+T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigImmediateTrig | TriggerZones$ Battlefield
+SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ PayEnergy<4> | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ Pump | ValidTgts$ Creature.attacking | SubAbility$ DBCounter
+SVar:DBCounter:DB$ PutCounterAll | ValidCards$ Creature.targetedBy | CounterType$ P1P1 | CounterNum$ 2 | CounterType2$ Flying | CounterNum2$ 1 | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Targeted | Types$ Angel | Duration$ Permanent

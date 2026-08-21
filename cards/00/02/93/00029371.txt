@@ -1,10 +1,13 @@
 Id:29371
-ColorIdentity:G
-OriginSet:Gac6359c222afbd4f
-ManaCost:1 G
-Types:Creature Eldrazi Lizard
-PT:2/2
-K:Devoid
-A:AB$ PutCounter | Cost$ 1 G | Adapt$ 1
-T:Mode$ CounterAddedOnce | ValidCard$ Card.Self | TriggerZones$ Battlefield | OptionalDecider$ You | CounterType$ P1P1 | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 3873110322 | TokenOwner$ You
+ColorIdentity:U
+OriginSet:G27146c70b74a1e72
+ManaCost:3 U U
+Types:Sorcery
+K:Plot:4 U U
+A:SP$ GenericChoice | Defined$ Player | TempRemember$ Chooser | Choices$ Stargate,Homebody | ShowChoice$ ExceptSelf | SubAbility$ DBTimetwister | AILogic$ Timetwister
+SVar:Stargate:DB$ Pump | Defined$ Remembered | NoteCards$ Self | NoteCardsFor$ Stargate
+SVar:Homebody:DB$ Pump | Defined$ Remembered
+SVar:DBTimetwister:DB$ ChangeZoneAll | ChangeType$ Card.OwnedBy Player.NotedForStargate | Origin$ Hand,Graveyard | Destination$ Library | Shuffle$ True | UseAllOriginZones$ True | SubAbility$ DBRepeatDraw
+SVar:DBRepeatDraw:DB$ Draw | Defined$ Player.NotedForStargate | NumCards$ 7 | SubAbility$ DBClearNoted
+SVar:DBClearNoted:DB$ Pump | Defined$ Player | ClearNotedCardsFor$ Stargate | SubAbility$ DBChange
+SVar:DBChange:DB$ ChangeZone | Origin$ Stack | Destination$ Exile

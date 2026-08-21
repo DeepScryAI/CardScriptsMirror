@@ -1,8 +1,9 @@
 Id:30374
 ColorIdentity:
-OriginSet:G8b2ed00ac2a0ff47
-ManaCost:1
-Types:Artifact
-A:AB$ ChangeZone | Cost$ T | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card
-A:AB$ ChangeZoneAll | Cost$ 6 T Sac<1/CARDNAME> | ChangeType$ Creature.ExiledWithSource | Origin$ Exile | Destination$ Battlefield | GainControl$ True | SorcerySpeed$ True | WithCountersType$ Flying | StaticEffect$ Animate
-SVar:Animate:Mode$ Continuous | Affected$ Card.IsRemembered | AddType$ Spirit | SetPower$ 1 | SetToughness$ 1
+OriginSet:G7b2137df486dc752
+ManaCost:no cost
+Types:Ongoing Scheme
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Command | Execute$ TrigPlay
+SVar:TrigPlay:DB$ Play | Valid$ Card.YouCtrl | ValidSA$ Spell | ValidZone$ Hand | WithoutManaCost$ True | Optional$ True | RememberPlayed$ True
+SVar:Abandon:DB$ Abandon | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

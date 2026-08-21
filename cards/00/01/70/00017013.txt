@@ -1,11 +1,9 @@
 Id:17013
 ColorIdentity:B
 OriginSet:Gbcdce58dfbbf1bad
-ManaCost:3 B B
+ManaCost:5 B B
 Types:Legendary Planeswalker Liliana
 Loyalty:5
-A:AB$ Token | Cost$ AddCounter<1/LOYALTY> | TokenScriptIds$ 353162950 | TokenOwner$ You | Planeswalker$ True | SubAbility$ DBMill
-SVar:DBMill:DB$ Mill | Defined$ You | NumCards$ 2
-A:AB$ ChangeZone | Cost$ SubCounter<3/LOYALTY> | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouCtrl | StaticEffect$ Animate | Planeswalker$ True
-SVar:Animate:Mode$ Continuous | Affected$ Card.IsRemembered | AddType$ Zombie | AddColor$ Black
-A:AB$ DestroyAll | Cost$ SubCounter<7/LOYALTY> | Ultimate$ True | ValidCards$ Creature.nonZombie | Planeswalker$ True
+A:AB$ PutCounter | Cost$ AddCounter<2/LOYALTY> | Planeswalker$ True | CounterNum$ 1 | CounterType$ M1M1 | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Creature | IsCurse$ True
+A:AB$ Destroy | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | ValidTgts$ Creature.counters_GE1_M1M1
+A:AB$ ChangeZoneAll | Cost$ SubCounter<10/LOYALTY> | Planeswalker$ True | Ultimate$ True | ChangeType$ Creature.YouCtrl | Origin$ Graveyard | Destination$ Battlefield

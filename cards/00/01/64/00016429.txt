@@ -1,6 +1,11 @@
 Id:16429
-ColorIdentity:R
+ColorIdentity:W
 OriginSet:G4bddbf7cb4f2475e
-ManaCost:1 R
-Types:Sorcery
-A:SP$ Draw | Cost$ 1 R Discard<2/Card/cards> | NumCards$ 3 | Defined$ You
+ManaCost:3 W W
+Types:Artifact Creature Construct
+PT:4/5
+K:Vigilance
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChoose
+SVar:TrigChoose:DB$ ChooseCard | Defined$ Player | Choices$ Permanent.nonLand | ChooseEach$ Artifact & Creature & Enchantment & Planeswalker | ControlledByPlayer$ Chooser | Reveal$ True | Mandatory$ True | SubAbility$ SacAllOthers
+SVar:SacAllOthers:DB$ SacrificeAll | ValidCards$ Permanent.nonLand+nonChosenCard | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True

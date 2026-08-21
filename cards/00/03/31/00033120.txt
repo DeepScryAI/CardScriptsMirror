@@ -1,9 +1,12 @@
 Id:33120
-ColorIdentity:
-OriginSet:G7ab1fe96128a1641
-ManaCost:no cost
-Types:Land
-K:ETBReplacement:Other:ChooseCT
-SVar:ChooseCT:DB$ ChooseType | Defined$ You | Type$ Creature | ValidTypes$ Elemental,Elf,Faerie,Giant,Goblin,Kithkin,Merfolk,Treefolk | AILogic$ MostProminentInComputerDeck
-A:AB$ Mana | Cost$ T | Produced$ C
-A:AB$ Mana | Cost$ T | Produced$ Any | RestrictValid$ Spell.ChosenType,Activated.ChosenType
+ColorIdentity:B
+OriginSet:G731e0066916b7465
+ManaCost:3 B B
+Types:Creature Human Soldier
+PT:3/3
+K:Menace
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl,Vehicle.YouCtrl | CounterType$ P1P1
+T:Mode$ DamageDoneOnce | CombatDamage$ True | ValidSource$ Creature.YouCtrl+HasCounters | ValidTarget$ Player | TriggerZones$ Battlefield | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True | ValidTgts$ Creature,Vehicle | TargetsWithDefinedController$ TriggeredTarget
+SVar:PlayMain1:TRUE

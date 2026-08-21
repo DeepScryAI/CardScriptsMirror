@@ -1,7 +1,10 @@
 Id:10037
-ColorIdentity:
+ColorIdentity:UG
 OriginSet:G6a049984467eca45
-ManaCost:4
-Types:Artifact Creature Scarecrow
-PT:3/2
-A:AB$ Pump | Cost$ 3 | ValidTgts$ Creature.Blue | KW$ Shroud
+ManaCost:2 GU
+Types:Creature Merfolk Wizard
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | IsPresent$ Forest.YouCtrl | PresentCompare$ GE2 | Execute$ TrigGainLife | OptionalDecider$ You
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | IsPresent$ Island.YouCtrl | PresentCompare$ GE2 | Execute$ TrigBounce | OptionalDecider$ You
+SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 3
+SVar:TrigBounce:DB$ ChangeZone | ValidTgts$ Creature.tapped | Origin$ Battlefield | Destination$ Hand

@@ -1,11 +1,14 @@
 Id:19778
-ColorIdentity:B
-OriginSet:Ga539dc09c09c4538
-ManaCost:4 BP BP BP
-Types:Legendary Creature Phyrexian Horror Minion
-PT:2/2
-K:Lifelink
-S:Mode$ Continuous | Affected$ You | AddKeyword$ PayLifeInsteadOf:B
-T:Mode$ SpellCast | ValidCard$ Card.Black | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
-SVar:BuffedBy:Card.Black
+ColorIdentity:WG
+OriginSet:Gc586f37a51dca466
+ManaCost:1 G G W W
+Types:Legendary Creature Dragon Eye Wizard
+PT:1/20
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigToken | TriggerZones$ Battlefield | Secondary$ True
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 638238902 | TokenOwner$ You | SubAbility$ DBRoll
+SVar:DBRoll:DB$ RollDice | Sides$ 20 | ResultSVar$ Result | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounterAll | ConditionCheckSVar$ X | ConditionSVarCompare$ GT11 | ValidCards$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBCopy
+SVar:DBCopy:DB$ CopyPermanent | ConditionCheckSVar$ Result | ConditionSVarCompare$ EQ20 | Defined$ Valid Creature.nonLegendary+YouCtrl
+SVar:X:Count$Valid Creature.YouCtrl/Plus.Result

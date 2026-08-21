@@ -1,12 +1,10 @@
 Id:18164
-ColorIdentity:WU
+ColorIdentity:BR
 OriginSet:G5033d54b23b37629
-ManaCost:3 W U
-Types:Legendary Enchantment
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZone | ValidTgts$ Permanent.Other+YouCtrl | Mandatory$ True | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DelTrig
-SVar:DelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ TrigBounce | RememberObjects$ RememberedLKI | SubAbility$ DBCleanup
-SVar:TrigBounce:DB$ ChangeZone | Origin$ Exile | Destination$ Battlefield | Defined$ DelayTriggerRememberedLKI
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-S:Mode$ NumLoyaltyAct | ValidCard$ Planeswalker.YouCtrl | Twice$ True
-SVar:NeedsToPlay:Planeswalker.YouCtrl
+ManaCost:5 B B
+Types:Legendary Creature Vampire
+PT:4/4
+K:Flying
+T:Mode$ DamageDoneOnce | ValidTarget$ Creature.OppCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+A:AB$ DealDamage | Cost$ 3 R | ValidTgts$ Creature | NumDmg$ 2

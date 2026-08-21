@@ -1,9 +1,10 @@
 Id:7229
-ColorIdentity:W
+ColorIdentity:U
 OriginSet:G332b6b8a53f3d107
-ManaCost:3 W
-Types:Legendary Creature Human Samurai
-PT:3/3
-K:Bushido:1
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPumpAll
-SVar:TrigPumpAll:DB$ PumpAll | ValidCards$ Creature.Samurai+YouCtrl | NumAtt$ +1 | NumDef$ +1
+ManaCost:2 U U
+Types:Enchantment Aura
+K:Flash
+K:Enchant:Creature
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigTap
+SVar:TrigTap:DB$ Tap | Defined$ Enchanted
+R:Event$ Untap | ActiveZones$ Battlefield | ValidCard$ Creature.EnchantedBy | ValidStepTurnToController$ You | Layer$ CantHappen

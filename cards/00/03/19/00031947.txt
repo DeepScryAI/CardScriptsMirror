@@ -1,13 +1,21 @@
 Id:31947
-ColorIdentity:R
+ColorIdentity:B
 OriginSet:G7ab4f62d323b0ca7
-ManaCost:2 R
-Types:Legendary Creature Human Scout
-PT:2/2
-T:Mode$ DamageDoneOnce | ValidSource$ Scout.YouCtrl,Pirate.YouCtrl,Rogue.YouCtrl | TriggerZones$ Battlefield | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDig
-SVar:TrigDig:DB$ Dig | Defined$ TriggeredTarget | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBPlay
-SVar:DBPlay:DB$ Play | Defined$ Remembered | ValidSA$ Spell | Optional$ True | ForgetPlayed$ True | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenScriptIds$ 3851718391 | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ GT0 | SubAbility$ DBCleanup
+ManaCost:3 B
+Types:Legendary Creature Human Warrior
+PT:4/3
+K:Menace
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | TriggerZones$ Battlefield | Execute$ TrigExile | OptionalDecider$ You | CombatDamage$ True
+SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | Transformed$ True | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-T:Mode$ SpellCast | ValidCard$ Card.YouDontOwn | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounterAll
-SVar:TrigPutCounterAll:DB$ PutCounterAll | ValidCards$ Scout.YouCtrl,Pirate.YouCtrl,Rogue.YouCtrl | CounterType$ P1P1 | CounterNum$ 1
+AlternateMode:DoubleFaced
+ALTERNATE
+Colors:black
+Types:Legendary Enchantment Creature Saga Nightmare
+PT:7/7
+K:Chapter:3:DBJechtBeam,DBJechtBeam,DBUltimateJechtShot
+SVar:DBJechtBeam:DB$ Discard | Defined$ Opponent | Mode$ TgtChoose | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw
+SVar:DBUltimateJechtShot:DB$ Sacrifice | SacValid$ Creature | Amount$ 2 | Defined$ Player.Opponent
+K:Menace

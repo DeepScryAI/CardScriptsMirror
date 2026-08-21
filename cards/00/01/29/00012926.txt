@@ -1,7 +1,10 @@
 Id:12926
-ColorIdentity:G
+ColorIdentity:U
 OriginSet:G98ca154ecf4968d7
-ManaCost:3 G
-Types:Creature Beast
-PT:4/2
-K:Trample
+ManaCost:5 U
+Types:Sorcery
+A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Instant.YouCtrl,Sorcery.YouCtrl | RememberChanged$ True | SubAbility$ TgtOpp
+SVar:TgtOpp:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Instant.OppOwn,Sorcery.OppOwn | RememberChanged$ True | SubAbility$ CopyYou
+SVar:CopyYou:DB$ Play | Defined$ Remembered | Amount$ All | CopyCard$ True | WithoutManaCost$ True | SubAbility$ ExileSelf
+SVar:ExileSelf:DB$ ChangeZone | Origin$ Stack | Destination$ Exile | Defined$ Self | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

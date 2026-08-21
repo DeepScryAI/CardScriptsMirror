@@ -1,10 +1,8 @@
 Id:28563
-ColorIdentity:WU
+ColorIdentity:R
 OriginSet:G7ee0e82a2424d636
-ManaCost:1 W U
-Types:Creature Homunculus Detective
-PT:3/3
-S:Mode$ Continuous | Affected$ Detective.YouCtrl+Other | AddToughness$ 1 | AddPower$ 1
-T:Mode$ Drawn | ValidCard$ Card.YouCtrl | Number$ 2 | TriggerZones$ Battlefield | Execute$ TrigUnblockable
-SVar:TrigUnblockable:DB$ Effect | ValidTgts$ Card.Detective | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable | AILogic$ Pump
-SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+ManaCost:1 R
+Types:Enchantment
+T:Mode$ Attacks | ValidCard$ Creature.YouCtrl | Execute$ TrigExile | TriggerZones$ Battlefield
+SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | ExileFaceDown$ True | NoReveal$ True
+A:AB$ ChangeZoneAll | Cost$ 1 R Discard<0/Hand> Sac<1/CARDNAME> | ChangeType$ Card.ExiledWithSource | Origin$ Exile | Destination$ Hand | AILogic$ DiscardAllAndRetExiled.minAdv2

@@ -1,9 +1,11 @@
 Id:26529
-ColorIdentity:B
-OriginSet:G06757f68e16377c2
-ManaCost:4 B B
-Types:Creature Phyrexian Crocodile
-PT:5/5
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigIncubate
-SVar:TrigIncubate:DB$ Incubate | Amount$ 3
-K:TypeCycling:Swamp:2
+ColorIdentity:
+OriginSet:Gd5f5e54fa26ae40d
+ManaCost:no cost
+Types:Plane Kaldheim
+T:Mode$ PlaneswalkedTo | ValidCard$ Card.Self | Execute$ TrigToken | TriggerZones$ Command
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigToken | TriggerZones$ Command | Secondary$ True
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 4035210102 | TokenOwner$ You
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos
+SVar:RolledChaos:DB$ ChooseType | Defined$ You | Type$ Creature | SubAbility$ DBPutCounterAll | AILogic$ MostProminentComputerControls
+SVar:DBPutCounterAll:DB$ PutCounterAll | ValidCards$ Creature.ChosenType+YouCtrl | CounterType$ P1P1 | CounterNum$ 1

@@ -1,13 +1,8 @@
 Id:21894
-ColorIdentity:WB
-OriginSet:G6fa60d857e930f32
-ManaCost:2 W
-Types:Creature Human Cleric
-PT:2/3
-A:AB$ PumpAll | Cost$ Exile<1/CARDNAME> | ValidCards$ Creature.YouCtrl | KW$ Indestructible
-AlternateMode:Modal
-ALTERNATE
-ManaCost:5 B B B
-Types:Sorcery
-A:SP$ ChooseCard | Defined$ You | Amount$ 1 | Choices$ Creature,Planeswalker | Mandatory$ True | ChoiceZone$ Battlefield | SubAbility$ DBDestroyAll
-SVar:DBDestroyAll:DB$ DestroyAll | ValidCards$ Creature.nonChosenCard,Planeswalker.nonChosenCard
+ColorIdentity:U
+OriginSet:Gabb23d0d25cdc46d
+ManaCost:2 U
+Types:Instant
+A:SP$ Effect | Triggers$ CreatureETB
+SVar:CreatureETB:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.!token+OppCtrl | TriggerZones$ Command | Execute$ TrigCopy
+SVar:TrigCopy:DB$ CopyPermanent | Defined$ TriggeredCardLKICopy | Controller$ You

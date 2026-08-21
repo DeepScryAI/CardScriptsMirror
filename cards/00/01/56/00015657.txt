@@ -1,12 +1,8 @@
 Id:15657
-ColorIdentity:
+ColorIdentity:R
 OriginSet:Gc1f5e527f9d411df
-ManaCost:7
-Types:Artifact Creature Sphinx
-PT:4/4
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChooseOpp
-SVar:TrigChooseOpp:DB$ ChoosePlayer | Defined$ You | Choices$ Player.Opponent | AILogic$ MostCardsInHand | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | NumCards$ X | Defined$ You | ConditionCheckSVar$ X | ConditionSVarCompare$ GE1
-SVar:Y:Count$ValidHand Card.YouOwn
-SVar:X:Count$ValidHand Card.ChosenCtrl/Minus.Y
+ManaCost:3 R R
+Types:Enchantment
+S:Mode$ CantAttack | ValidCard$ Creature.tokenId866385561 | Target$ You,Planeswalker.YouCtrl
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Player | Execute$ TrigToken | TriggerZones$ Battlefield
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 866385561 | TokenOwner$ TriggeredPlayer

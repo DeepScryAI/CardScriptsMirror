@@ -1,15 +1,13 @@
 Id:30018
-ColorIdentity:WB
+ColorIdentity:U
 OriginSet:Gf09b85bbcc27770c
-ManaCost:1 W B
-Types:Legendary Creature Bat Cleric
-PT:3/3
-K:Flying
-K:Vigilance
-T:Mode$ Attacks | ValidCard$ Bat.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigGainLife
-SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 1 | Defined$ You
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigImmediateTrig
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigImmediateTrig | TriggerZones$ Battlefield | Secondary$ True
-SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ W B PayLife<2> | Execute$ TrigChange
-SVar:TrigChange:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Permanent.nonLand+YouOwn+cmcLE3 | WithCountersType$ FINALITY
-SVar:HasAttackEffect:TRUE
+ManaCost:2 U U
+Types:Enchantment Aura
+K:Gift
+K:Enchant:Creature
+SVar:GiftAbility:DB$ Draw | Defined$ Promised
+SVar:AttachAILogic:GainControl
+S:Mode$ Continuous | Affected$ Card.EnchantedBy | GainControl$ You
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigTap
+SVar:TrigTap:DB$ Tap | Defined$ Enchanted | SubAbility$ DBStun
+SVar:DBStun:DB$ PutCounter | Defined$ Enchanted | CounterType$ Stun | CounterNum$ 3 | ConditionDefined$ Self | ConditionPresent$ Card.PromisedGift | ConditionCompare$ EQ0

@@ -1,7 +1,11 @@
 Id:10030
-ColorIdentity:WR
+ColorIdentity:UR
 OriginSet:G6a049984467eca45
-ManaCost:no cost
-Types:Land
-A:AB$ Mana | Cost$ T | Produced$ C
-A:AB$ Mana | Cost$ RW T | Produced$ Combo R W | Amount$ 2
+ManaCost:1 UR
+Types:Creature Shapeshifter
+PT:2/1
+T:Mode$ SpellCast | ValidCard$ Card.Blue+Red | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigAnimate
+SVar:TrigAnimate:DB$ Animate | Defined$ Self | Power$ 3 | Toughness$ 3 | SubAbility$ DBUnblockable
+SVar:DBUnblockable:DB$ Effect | ExileOnMoved$ Battlefield | RememberObjects$ Self | StaticAbilities$ Unblockable
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+SVar:BuffedBy:Card.Blue+Red

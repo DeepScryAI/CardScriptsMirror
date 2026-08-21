@@ -1,9 +1,13 @@
 Id:11420
-ColorIdentity:G
+ColorIdentity:U
 OriginSet:Gf6792163b580976b
-ManaCost:5 G G
-Types:Creature Elemental
-PT:8/5
-R:Event$ Counter | ValidCard$ Card.Self | ValidSA$ Spell | Layer$ CantHappen
-K:Haste
-S:Mode$ CantTarget | ValidTarget$ Card.Self | ValidSource$ Card.nonGreen
+ManaCost:4 U U
+Types:Creature Giant
+PT:6/6
+T:Mode$ BecomesTarget | ValidSource$ SpellAbility.OppCtrl | ValidTarget$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigCounter
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigTap
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigTap | Secondary$ True
+SVar:TrigTap:DB$ Tap | ValidTgts$ Permanent | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Targeted | Duration$ Permanent | KW$ HIDDEN This card doesn't untap during your next untap step.
+SVar:TrigCounter:DB$ Counter | Defined$ TriggeredSourceSA | UnlessCost$ 2 | UnlessPayer$ TriggeredSourceSAController
+SVar:HasAttackEffect:TRUE

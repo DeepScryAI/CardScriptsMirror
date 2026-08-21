@@ -1,7 +1,10 @@
 Id:18536
 ColorIdentity:R
 OriginSet:G3b823183c96b2df3
-ManaCost:R
-Types:Sorcery
-A:SP$ DealDamage | Cost$ R Sac<1/Creature> | NumDmg$ X | ValidTgts$ Any
-SVar:X:Sacrificed$CardPower
+ManaCost:4 R R
+Types:Legendary Planeswalker Sarkhan
+Loyalty:5
+A:AB$ DamageAll | Cost$ AddCounter<2/LOYALTY> | Planeswalker$ True | ValidPlayers$ Player.Opponent | ValidCards$ Creature.OppCtrl | NumDmg$ 1
+A:AB$ DealDamage | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | ValidTgts$ Player,Planeswalker | NumDmg$ 4
+A:AB$ ChangeZone | Cost$ SubCounter<9/LOYALTY> | Origin$ Library | Destination$ Battlefield | ChangeType$ Creature.Dragon | ChangeNum$ XFetch | Planeswalker$ True | Ultimate$ True
+SVar:XFetch:Count$ValidLibrary Creature.Dragon+YouOwn

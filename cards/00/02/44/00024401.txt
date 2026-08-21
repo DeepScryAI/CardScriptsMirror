@@ -2,9 +2,8 @@ Id:24401
 ColorIdentity:
 OriginSet:G51fcb7ec0cb81c29
 ManaCost:3
-Types:Artifact Creature Construct
-PT:1/3
-K:Flying
-T:Mode$ SpellCast | ValidActivatingPlayer$ Player | TriggerZones$ Battlefield | Execute$ TrigLoseLife
-SVar:TrigLoseLife:DB$ LoseLife | Defined$ TriggeredActivator | LifeAmount$ X
-SVar:X:TriggeredActivator$SpellsCastThisTurn
+Types:Artifact
+A:AB$ Mana | Cost$ T | Produced$ Any
+A:AB$ Dig | Cost$ 4 T | DigNum$ 1 | ChangeNum$ All | ForceRevealToController$ True | Optional$ True | PromptToSkipOptionalAbility$ True | ChangeValid$ Land | DestinationZone$ Battlefield | Tapped$ True | DestinationZone2$ Library | LibraryPosition2$ 0 | RememberChanged$ True | SubAbility$ DBMoveToBottom
+SVar:DBMoveToBottom:DB$ Dig | DigNum$ 1 | NoReveal$ True | DestinationZone$ Library | Optional$ True | LibraryPosition$ -1 | LibraryPosition2$ 0 | ConditionPresent$ Card | ConditionDefined$ Remembered | ConditionCompare$ EQ0 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

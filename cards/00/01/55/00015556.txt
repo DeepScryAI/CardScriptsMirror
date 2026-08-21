@@ -1,7 +1,11 @@
 Id:15556
-ColorIdentity:W
+ColorIdentity:R
 OriginSet:Gec9609c94c5b1cdf
-ManaCost:2 W
-Types:Creature Kor Soldier
-PT:2/2
-K:Flying
+ManaCost:5 R R
+Types:Sorcery
+K:Devoid
+A:SP$ DealDamage | ValidTgts$ Creature | NumDmg$ 2 | DamageMap$ True | SubAbility$ DBDamageTwo
+SVar:DBDamageTwo:DB$ DealDamage | ValidTgts$ Creature | NumDmg$ 3 | TargetUnique$ True | SubAbility$ DBDamageThree
+SVar:DBDamageThree:DB$ DealDamage | ValidTgts$ Creature | NumDmg$ 4 | TargetUnique$ True | SubAbility$ DBDamageResolve
+SVar:DBDamageResolve:DB$ DamageResolve | RememberDamaged$ True | ReplaceDyingDefined$ Remembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

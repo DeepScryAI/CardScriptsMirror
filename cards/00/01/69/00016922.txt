@@ -1,13 +1,9 @@
 Id:16922
-ColorIdentity:U
+ColorIdentity:R
 OriginSet:Gbcdce58dfbbf1bad
-ManaCost:3 U
-Types:Instant
-A:SP$ ChangeZone | TgtZone$ Stack,Battlefield | Origin$ Battlefield,Stack | Destination$ Library | ValidTgts$ Permanent.nonLand,Card.inZoneStack | LibraryPosition$ 1
-AlternateMode:Split
-ALTERNATE
-ManaCost:4 U U
-Types:Sorcery
-K:Aftermath
-A:SP$ ChangeZoneAll | ChangeType$ Card | Origin$ Hand,Graveyard | Destination$ Library | Shuffle$ True | SubAbility$ DBDraw | UseAllOriginZones$ True | AILogic$ Timetwister
-SVar:DBDraw:DB$ Draw | NumCards$ 7 | Defined$ Player
+ManaCost:2 R
+Types:Creature Human Warrior
+PT:4/1
+S:Mode$ OptionalAttackCost | ValidCard$ Card.Self | IsPresent$ Creature.Self+notExertedThisTurn | Trigger$ TrigUntapAll | Cost$ Exert<1/CARDNAME>
+SVar:TrigUntapAll:DB$ UntapAll | ValidCards$ Creature.YouCtrl+StrictlyOther | SubAbility$ DBAddCombat
+SVar:DBAddCombat:DB$ AddPhase | ExtraPhase$ Combat | AfterPhase$ EndCombat

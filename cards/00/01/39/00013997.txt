@@ -1,9 +1,12 @@
 Id:13997
-ColorIdentity:W
+ColorIdentity:WU
 OriginSet:Gdaee41baa388b0e7
-ManaCost:W
+ManaCost:1 W U
 Types:Enchantment Aura
 K:Enchant:Creature
 SVar:AttachAILogic:Pump
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddAbility$ ABGainLife
-SVar:ABGainLife:AB$ GainLife | Cost$ 1 W T | LifeAmount$ 3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Enchanted | CounterType$ P1P1 | CounterNum$ 1
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddKeyword$ Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.YouCtrl | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand

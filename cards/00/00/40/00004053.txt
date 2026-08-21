@@ -1,8 +1,9 @@
 Id:4053
-ColorIdentity:U
+ColorIdentity:
 OriginSet:Gdd40b2fbd2aa3c03
-ManaCost:1 U
-Types:Enchantment
-T:Mode$ SpellCast | ValidCard$ Creature | ValidActivatingPlayer$ You | Execute$ TrigLoot | TriggerZones$ Battlefield | OptionalDecider$ You
-SVar:TrigLoot:AB$ Draw | Cost$ 1 | NumCards$ 1 | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | Defined$ You | Mode$ TgtChoose | NumCards$ 1
+ManaCost:5
+Types:Artifact
+R:Event$ DamageDone | ActiveZones$ Battlefield | ValidTarget$ Player | ReplaceWith$ ExileTop | ExecuteMode$ PerTarget
+SVar:ExileTop:DB$ Dig | Defined$ ReplacedTarget | DigNum$ X | ChangeNum$ All | DestinationZone$ Exile
+SVar:X:ReplaceCount$DamageAmount
+SVar:NonStackingEffect:True

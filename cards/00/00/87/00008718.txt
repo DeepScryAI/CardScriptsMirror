@@ -1,7 +1,12 @@
 Id:8718
-ColorIdentity:
+ColorIdentity:B
 OriginSet:G70f74088c47d66bd
-ManaCost:1
-Types:Artifact
-S:Mode$ ReduceCost | ValidCard$ Card | Type$ Spell | Activator$ You | Amount$ AffectedX
-SVar:AffectedX:Count$ValidGraveyard Card.sharesNameWith+YouCtrl
+ManaCost:no cost
+Colors:black
+Types:Sorcery
+K:Suspend:3:2 B B
+A:SP$ ChangeZoneAll | ChangeType$ Creature | Origin$ Graveyard | Destination$ Exile | RememberChanged$ True | AILogic$ LivingDeath | SubAbility$ SacAll
+SVar:SacAll:DB$ SacrificeAll | ValidCards$ Creature | SubAbility$ ReturnAll
+SVar:ReturnAll:DB$ ChangeZoneAll | Origin$ Exile | Destination$ Battlefield | ChangeType$ Card.IsRemembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:IsReanimatorCard:TRUE

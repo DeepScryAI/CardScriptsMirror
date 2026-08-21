@@ -1,10 +1,10 @@
 Id:30923
-ColorIdentity:WR
-OriginSet:G4524bbf7a3db9dc0
-ManaCost:3 R W
-Types:Sorcery
-A:SP$ ChangeZone | ValidTgts$ Artifact,Creature | Origin$ Battlefield | Destination$ Exile | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DelTrig | RememberChanged$ True
-SVar:DelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ TrigReturn | RememberObjects$ RememberedLKI | SubAbility$ DBDamageAll
-SVar:TrigReturn:DB$ ChangeZone | Origin$ Exile | Destination$ Battlefield | Defined$ DelayTriggerRememberedLKI
-SVar:DBDamageAll:DB$ DamageAll | NumDmg$ 4 | ValidCards$ Creature | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:B
+OriginSet:Gc5a2f0ff902c0621
+ManaCost:1 B
+Types:Creature Vampire
+PT:2/2
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:AB$ Draw | Cost$ Sac<1/Creature.Other/another creature> | Defined$ You | SubAbility$ DBUnblockable
+SVar:DBUnblockable:DB$ Effect | RememberObjects$ Self | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered

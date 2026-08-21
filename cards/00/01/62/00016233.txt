@@ -1,9 +1,10 @@
 Id:16233
-ColorIdentity:U
+ColorIdentity:B
 OriginSet:G70d19654882197c9
-ManaCost:5 U U
-Types:Enchantment
-T:Mode$ SpellCast | ValidActivatingPlayer$ Player.Opponent | ActivatorThisTurnCast$ EQ1 | Execute$ TrigExile | TriggerZones$ Battlefield
-SVar:TrigExile:DB$ Dig | Defined$ TriggeredActivator | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ CastCard
-SVar:CastCard:DB$ Play | Defined$ Remembered | WithoutManaCost$ True | ValidSA$ Spell | Optional$ True | Controller$ You | ShowCardToActivator$ True | ConditionDefined$ Remembered | ConditionPresent$ Card.nonLand | ConditionCompare$ EQ1 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:4 B
+Types:Creature Human Rogue
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone | OptionalDecider$ You
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Creature.YouCtrl+cmcLE3
+MeldPairId:16198
+AlternateMode:Meld

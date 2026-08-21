@@ -1,9 +1,16 @@
 Id:18153
 ColorIdentity:R
 OriginSet:G5033d54b23b37629
-ManaCost:no cost
-Types:Land
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
-A:AB$ Mana | Cost$ T | Produced$ R
-A:AB$ Destroy | Cost$ 4 R T Sac<1/CARDNAME> | ValidTgts$ Land
+ManaCost:2 R R R
+Types:Legendary Planeswalker Jaya
+Loyalty:5
+A:AB$ Mana | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | Produced$ R | Amount$ 3 | RestrictValid$ Spell.Instant,Spell.Sorcery | AILogic$ ManaRitual
+A:AB$ Discard | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | NumCards$ 3 | Optional$ True | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Amount
+A:AB$ Effect | Cost$ SubCounter<8/LOYALTY> | Planeswalker$ True | Ultimate$ True | Name$ 8531471187886669366 | StaticAbilities$ STJaya | ReplacementEffects$ JayaReplace | Stackable$ False | Duration$ Permanent | AILogic$ Always
+SVar:STJaya:Mode$ Continuous | Affected$ Instant.YouCtrl,Sorcery.YouCtrl | MayPlay$ True | AffectedZone$ Graveyard
+SVar:JayaReplace:Event$ Moved | EffectZone$ Command | ValidLKI$ Card.CastSa Spell.MayPlaySource | Origin$ Stack | Destination$ Graveyard | ReplaceWith$ JayaMoveExile
+SVar:JayaMoveExile:DB$ ChangeZone | Defined$ ReplacedCard | Origin$ Stack | Destination$ Exile
+SVar:PlayMain1:ALWAYS

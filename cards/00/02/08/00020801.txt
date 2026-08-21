@@ -1,12 +1,9 @@
 Id:20801
-ColorIdentity:R
-OriginSet:Gfd5e6da37c69dc53
-ManaCost:4 R R
-Types:Legendary Planeswalker Chandra
-Loyalty:5
-A:AB$ DealDamage | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | NumDmg$ 3 | Defined$ Player.Opponent
-A:AB$ Play | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | Optional$ True | ValidTgts$ Instant.Red+YouOwn,Sorcery.Red+YouOwn | TgtZone$ Graveyard | ReplaceGraveyard$ Exile | AILogic$ ReplaySpell
-A:AB$ Discard | Cost$ SubCounter<8/LOYALTY> | Planeswalker$ True | Ultimate$ True | Mode$ Hand | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 7 | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | StaticAbilities$ MayPlay | Stackable$ False
-SVar:MayPlay:Mode$ Continuous | Affected$ Card.nonLand+YouOwn | MayPlay$ True | MayPlayWithoutManaCost$ True | AffectedZone$ Hand
+ColorIdentity:WR
+OriginSet:Gf8d4de878d0536c5
+ManaCost:1 RW RW
+Types:Legendary Creature Elemental Fox
+PT:3/3
+K:Companion:Permanent.hasAbility Activated,Instant,Sorcery:Each permanent card in your starting deck has an activated ability.
+S:Mode$ ReduceCost | ValidCard$ Card | Activator$ You | ValidSpell$ Activated.!ManaAbility | Amount$ 2 | MinMana$ 1
+A:AB$ Pump | Cost$ 1 T | ValidTgts$ Creature | KW$ HIDDEN CARDNAME can't block. | IsCurse$ True

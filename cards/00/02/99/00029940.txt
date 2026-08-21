@@ -1,7 +1,12 @@
 Id:29940
-ColorIdentity:B
+ColorIdentity:UG
 OriginSet:Gf09b85bbcc27770c
-ManaCost:2 B
-Types:Instant
-K:Affinity:Lizard
-A:SP$ Pump | ValidTgts$ Creature | NumAtt$ +2 | KW$ Lifelink & Indestructible
+ManaCost:1 G U
+Types:Legendary Creature Frog Druid
+PT:3/3
+K:Vigilance
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self,Creature.Other+YouCtrl | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | ValidTgts$ Creature.YouCtrl+cmcLTX | TargetMin$ 0 | TargetMax$ 1 | Origin$ Battlefield | Destination$ Hand
+S:Mode$ Continuous | Affected$ Frog.YouCtrl | AddAbility$ AnyMana
+SVar:AnyMana:AB$ Mana | Cost$ T | Produced$ Combo G U | RestrictValid$ Spell.Creature
+SVar:X:TriggeredCard$CardManaCost

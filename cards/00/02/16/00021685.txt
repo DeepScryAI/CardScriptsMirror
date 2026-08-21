@@ -1,10 +1,18 @@
 Id:21685
-ColorIdentity:
+ColorIdentity:UBG
 OriginSet:G18bf722b221724f8
-ManaCost:no cost
-Types:Snow Land
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
-K:ETBReplacement:Other:ChooseColor
-SVar:ChooseColor:DB$ ChooseColor | Defined$ You | AILogic$ MostProminentInComputerDeck
-A:AB$ Mana | Cost$ T | Produced$ Chosen
+ManaCost:2 G
+Types:Legendary Snow Creature God
+PT:3/3
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigUntapAllSnow
+SVar:TrigUntapAllSnow:DB$ UntapAll | ValidCards$ Permanent.Snow+YouCtrl
+SVar:PlayMain1:TRUE
+AlternateMode:Modal
+ALTERNATE
+ManaCost:1 U B
+Types:Legendary Snow Artifact
+A:AB$ Effect | Cost$ T | TgtZone$ Graveyard | ValidTgts$ Permanent.Snow+YouCtrl | StaticAbilities$ STPlay | ReplacementEffects$ ETBCreat | RememberObjects$ Targeted | ForgetOnMoved$ Graveyard,Stack | ForgetOnCast$ False
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Graveyard
+SVar:ETBCreat:Event$ Moved | ValidCard$ Card.IsRemembered | ValidCause$ SpellAbility.MayPlaySource | Destination$ Battlefield | ReplaceWith$ DBTap | ReplacementResult$ Updated
+SVar:DBTap:DB$ Tap | Defined$ ReplacedCard | ETB$ True | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile

@@ -1,8 +1,12 @@
 Id:8043
-ColorIdentity:G
+ColorIdentity:WG
 OriginSet:Gc563c209d627c4c5
-ManaCost:4 G G
-Types:Creature Spirit
-PT:4/5
-T:Mode$ SpellCast | ValidCard$ Creature | ValidActivatingPlayer$ You | Execute$ TrigDraw | TriggerZones$ Battlefield | OptionalDecider$ You
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+ManaCost:4 G W
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAITgts:Card.powerGE1
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddKeyword$ Flying
+T:Mode$ DamageDone | ValidSource$ Card.AttachedBy | CombatDamage$ True | ValidTarget$ Player | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ X | TokenScriptIds$ 3815350479 | TokenOwner$ You
+SVar:X:TriggerCount$DamageAmount

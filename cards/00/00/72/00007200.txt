@@ -1,9 +1,11 @@
 Id:7200
-ColorIdentity:
+ColorIdentity:B
 OriginSet:G332b6b8a53f3d107
-ManaCost:2
-Types:Legendary Artifact Equipment
-K:Equip:2
-S:Mode$ CantAttach | ValidCard$ Card.Self | Target$ Creature.nonLegendary
-S:Mode$ Continuous | Affected$ Creature.SharesColorWith Equipped | AddPower$ 1 | AddToughness$ 1
-S:Mode$ Continuous | Affected$ Creature.sharesCreatureTypeWith Equipped | AddPower$ 1 | AddToughness$ 1
+ManaCost:4 B B
+Types:Legendary Creature Dragon Spirit
+PT:5/5
+K:Flying
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ Opponent | LifeAmount$ 5 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ TriggeredCardController | LifeAmount$ AFLifeLost
+SVar:AFLifeLost:Number$0

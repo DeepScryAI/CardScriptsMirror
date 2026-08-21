@@ -1,9 +1,12 @@
 Id:23097
-ColorIdentity:B
-OriginSet:G3aa323ca47c740b1
-ManaCost:5 B
-Types:Creature Vampire
-PT:5/5
-S:Mode$ Continuous | Affected$ Vampire.attacking+YouCtrl | AddKeyword$ Deathtouch & Lifelink
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Vampire.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigDraw
-SVar:TrigDraw:AB$ Draw | Cost$ PayLife<2> | Defined$ You | NumCards$ 1
+ColorIdentity:U
+OriginSet:G7a76c1974b0a33a6
+ManaCost:1 U U
+Types:Creature Spirit
+PT:2/3
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigExile | Secondary$ True
+SVar:TrigExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ChangeType$ Card | ChangeNum$ 1 | Mandatory$ True | Hidden$ True | Imprint$ True | AILogic$ ExilePreference:MostProminentOwnType
+S:Mode$ Continuous | Affected$ Card.TopLibrary+YouCtrl | AffectedZone$ Library | MayLookAt$ You
+S:Mode$ Continuous | EffectZone$ Battlefield | Affected$ Card.nonLand+TopLibrary+YouCtrl+sharesCardTypeWith Imprinted.ExiledWithSource | AffectedZone$ Library | MayPlay$ True | MayPlayLimit$ 1

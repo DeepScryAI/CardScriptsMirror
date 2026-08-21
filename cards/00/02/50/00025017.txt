@@ -1,12 +1,12 @@
 Id:25017
-ColorIdentity:R
+ColorIdentity:WB
 OriginSet:G3a8b4b9d4649b357
-ManaCost:1 R
-Types:Enchantment Saga
-K:Read ahead
-K:Chapter:3:DBToken,TrigTap,DBAnimate
-SVar:DBToken:DB$ Token | TokenScriptIds$ 1404492500
-SVar:TrigTap:AB$ ImmediateTrigger | Cost$ Mandatory tapXType<X/Artifact> | Execute$ DBDamage
-SVar:DBDamage:DB$ DealDamage | ValidTgts$ Creature,Planeswalker | NumDmg$ X
-SVar:X:Count$xPaid
-SVar:DBAnimate:DB$ Animate | ValidTgts$ Artifact.YouCtrl | Power$ 4 | Toughness$ 4 | Types$ Artifact,Creature
+ManaCost:3 B
+Types:Sorcery
+K:Kicker:2 W
+A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouOwn | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ X | SubAbility$ DBLoseLife | Condition$ Kicked
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ X | ConditionCheckSVar$ Y | ConditionSVarCompare$ EQ0 | SubAbility$ DBChange
+SVar:DBChange:DB$ ChangeZone | Origin$ Stack | Destination$ Exile
+SVar:X:Targeted$CardManaCost
+SVar:Y:Count$TimesKicked

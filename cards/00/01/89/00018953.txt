@@ -1,8 +1,14 @@
 Id:18953
-ColorIdentity:R
-OriginSet:G0b51a0aecbe39efe
-ManaCost:1 R
-Types:Enchantment
-T:Mode$ Attacks | ValidCard$ Creature.powerLE1+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigDamage
-SVar:TrigDamage:DB$ DealDamage | Defined$ TriggeredDefender.Opponent & Valid Planeswalker.TriggeredDefender | NumDmg$ 1
-SVar:PlayMain1:TRUE
+ColorIdentity:U
+OriginSet:G586a4ae96288ce18
+ManaCost:2 U U
+Types:Creature Sphinx
+PT:4/4
+K:MayEffectFromOpeningHand:RevealCard
+SVar:RevealCard:DB$ Reveal | RevealDefined$ Self | SubAbility$ ScryOnUpkeep
+SVar:ScryOnUpkeep:DB$ Effect | Triggers$ TrigOpenScry | Duration$ Permanent
+SVar:TrigOpenScry:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | OneOff$ True | Execute$ DBScry
+SVar:DBScry:DB$ Scry | ScryNum$ 3
+K:Flying
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigScry
+SVar:TrigScry:DB$ Scry | ScryNum$ 1

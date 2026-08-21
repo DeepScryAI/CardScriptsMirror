@@ -1,12 +1,13 @@
 Id:27909
 ColorIdentity:
-OriginSet:G06c78c29bfb28e3d
-ManaCost:3
-Types:Artifact Equipment
-K:Equip:2:::ReduceCost$ Y
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddToughness$ 2 | AddKeyword$ Menace
-SVar:X:Count$ValidHand Card.YouOwn
-SVar:Y:Count$Compare X LE1.2.0
-T:Mode$ DamageDone | ValidSource$ Creature.AttachedBy | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigLoot | TriggerZones$ Battlefield
-SVar:TrigLoot:DB$ Draw | NumCards$ 2 | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | Defined$ You | Mode$ TgtChoose | NumCards$ 2 | UnlessType$ Pirate
+OriginSet:G30e8a5e111cffb44
+ManaCost:no cost
+Types:Plane Earth
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigDrawCard | TriggerZones$ Command
+SVar:TrigDrawCard:DB$ Draw | ValidTgts$ Opponent | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 3851718391 | TokenOwner$ ParentTarget
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 3042363704 | TokenOwner$ You | SubAbility$ DBImmediateTrig
+SVar:DBImmediateTrig:DB$ ImmediateTrigger | Execute$ TrigTap
+SVar:TrigTap:DB$ Tap | ValidTgts$ Creature.!token+OppCtrl | SubAbility$ DBCounter
+SVar:DBCounter:DB$ PutCounter | Defined$ Targeted | CounterType$ Stun | CounterNum$ 1

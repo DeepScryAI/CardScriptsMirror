@@ -1,10 +1,12 @@
 Id:29476
-ColorIdentity:U
-OriginSet:Gac6359c222afbd4f
-ManaCost:2 U
-Types:Enchantment
-K:Devoid
-T:Mode$ SpellCast | ValidCard$ Creature.cmcEQ4,Creature.cmcEQ5,Creature.cmcEQ6 | ValidActivatingPlayer$ You | Execute$ TrigToken | TriggerZones$ Battlefield
-SVar:TrigToken:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 3873110322 | TokenOwner$ You
-T:Mode$ SpellCast | ValidCard$ Creature.cmcGE7 | ValidActivatingPlayer$ You | Execute$ TrigDraw | TriggerZones$ Battlefield
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 3
+ColorIdentity:R
+OriginSet:G2ce881cc55bb9f18
+ManaCost:2 R
+Types:Creature Lizard Wizard
+PT:2/2
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:AB$ PutCounter | Cost$ PayEnergy<3> | CounterType$ P1P1
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ TriggeredAttackerLKICopy | NumAtt$ Double
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Creature.wasDealtExcessDamageThisTurn | Execute$ TrigEnergy
+SVar:TrigEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ CardTriggeredTarget$ExcessDamageReceivedThisTurn

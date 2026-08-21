@@ -1,11 +1,12 @@
 Id:19755
-ColorIdentity:B
-OriginSet:Ga539dc09c09c4538
-ManaCost:5 B B
-Types:Creature Demon
-PT:6/6
-K:Flying
-T:Mode$ DamageDone | ValidSource$ Card.OppCtrl,Emblem.OppCtrl | ValidTarget$ Card.Self | TriggerZones$ Battlefield | Execute$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | Defined$ TriggeredSourceController | LifeAmount$ X | UnlessCost$ Sac<X/Permanent> | UnlessPayer$ TriggeredSourceController
-SVar:X:TriggerCount$DamageAmount
-K:Madness:3 B B
+ColorIdentity:UB
+OriginSet:G7c61dc677f00d087
+ManaCost:1 U B
+Types:Creature Zombie Wizard
+PT:1/3
+K:Deathtouch
+K:Lifelink
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDraw | TriggerZones$ Battlefield | Secondary$ True
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1 | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ TgtChoose

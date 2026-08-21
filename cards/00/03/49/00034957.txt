@@ -1,0 +1,15 @@
+Id:34957
+ColorIdentity:R
+OriginSet:Gf8f2990d7136c11d
+ManaCost:2 R
+Types:Legendary Creature Dwarf Warrior
+PT:1/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigFood
+SVar:TrigFood:DB$ Token | TokenScriptIds$ 39064275 | TokenOwner$ You | RememberOriginalTokens$ True | SubAbility$ DBImmediateTrig
+SVar:DBImmediateTrig:DB$ ImmediateTrigger | TriggerAmount$ Remembered$Amount | RememberObjects$ Remembered | RememberEach$ True | Execute$ TrigAttach | SubAbility$ DBCleanup
+SVar:TrigAttach:DB$ Attach | Object$ DelayTriggerRememberedLKI | ValidTgts$ Creature.YouCtrl
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPumpAll
+SVar:TrigPumpAll:DB$ PumpAll | ValidCards$ Creature.equipped+attacking | KW$ DoubleStrike
+SVar:PlayMain1:TRUE
+SVar:HasAttackEffect:TRUE

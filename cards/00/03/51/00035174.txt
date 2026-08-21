@@ -1,0 +1,13 @@
+Id:35174
+ColorIdentity:WBG
+OriginSet:G21d8f666c5c6b81d
+ManaCost:W B G
+Types:Legendary Creature Zombie Cat
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Zombie.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounterCat
+SVar:TrigPutCounterCat:DB$ PutCounter | ValidTgts$ Cat.YouCtrl | CounterType$ P1P1 | CounterNum$ 1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Cat.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounterZombie
+SVar:TrigPutCounterZombie:DB$ PutCounter | ValidTgts$ Zombie.YouCtrl | CounterType$ P1P1 | CounterNum$ 1
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | LifeAmount$ X | Defined$ Player.Opponent
+SVar:X:Count$Valid Cat.YouCtrl+tapped,Zombie.YouCtrl+tapped

@@ -1,8 +1,9 @@
 Id:26063
-ColorIdentity:U
-OriginSet:G2192e8955d5e1ad1
-ManaCost:U
-Types:Creature Phyrexian Advisor
-PT:0/3
-K:etbCounter:OIL:3
-A:AB$ Scry | Cost$ T SubCounter<1/OIL/CARDNAME> | ScryNum$ 1
+ColorIdentity:RG
+OriginSet:G880fc7f6ed36df4d
+ManaCost:R G
+Types:Sorcery
+A:SP$ Seek | Types$ Card.YouOwn+cmcLE2,Card.YouOwn+cmcGE3 | RememberFound$ True | SubAbility$ DBDelay
+SVar:DBDelay:DB$ DelayedTrigger | DelayedTriggerDefinedPlayer$ You | Mode$ Phase | Phase$ End of Turn | Execute$ TrigDiscard | RememberObjects$ Remembered
+SVar:TrigDiscard:DB$ Discard | Mode$ Defined | DefinedCards$ DelayTriggerRemembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

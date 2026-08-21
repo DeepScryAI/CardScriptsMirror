@@ -1,9 +1,11 @@
 Id:31678
-ColorIdentity:B
-OriginSet:G7ab4f62d323b0ca7
-ManaCost:2 B
-Types:Creature Eye Horror
-PT:2/2
-K:Flying
-K:Deathtouch
-A:AB$ Draw | Cost$ 3 Sac<1/Creature.Other;Artifact.Other/another creature or artifact>
+ColorIdentity:G
+OriginSet:Gf2b808f4f642ac62
+ManaCost:1 G
+Types:Creature Dog Scout
+PT:2/3
+T:Mode$ Taps | ValidCard$ Card.Self | Execute$ TrigDig
+SVar:TrigDig:DB$ PeekAndReveal | PeekAmount$ 1 | RevealValid$ Land | RevealOptional$ True | RememberRevealed$ True | SubAbility$ DBToHand
+SVar:DBToHand:DB$ ChangeZone | Defined$ Remembered | Origin$ Library | Destination$ Hand | SubAbility$ DBToGrave
+SVar:DBToGrave:DB$ ChangeZone | Defined$ TopOfLibrary | Origin$ Library | Destination$ Graveyard | Optional$ True | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ0 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

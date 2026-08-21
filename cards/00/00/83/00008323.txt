@@ -1,9 +1,10 @@
 Id:8323
-ColorIdentity:UG
+ColorIdentity:B
 OriginSet:Gde6d8130c178f566
-ManaCost:3
-Types:Artifact
-A:AB$ Tap | Cost$ 3 T | ValidTgts$ Creature | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | Defined$ Targeted | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBAnimate
-SVar:DBAnimate:DB$ Animate | Defined$ Targeted | Abilities$ ABPutCounter
-SVar:ABPutCounter:AB$ MultiplyCounter | Cost$ 2 G U | Defined$ Self | CounterType$ P1P1
+ManaCost:3 B
+Types:Creature Spirit
+PT:2/2
+A:AB$ LoseLife | Cost$ B Sac<1/CARDNAME> | ValidTgts$ Player | LifeAmount$ 1 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
+T:Mode$ SpellCast | ValidCard$ Card.MultiColor | ValidActivatingPlayer$ You | TriggerZones$ Graveyard | OptionalDecider$ You | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | Defined$ Self

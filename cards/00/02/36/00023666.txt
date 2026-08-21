@@ -1,11 +1,19 @@
 Id:23666
-ColorIdentity:W
+ColorIdentity:B
 OriginSet:G1a259dba25660062
-ManaCost:2 W
-Types:Enchantment
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Destination$ Battlefield | Execute$ TrigChangeZone
-SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Creature,Artifact | TargetMin$ 0 | TargetMax$ 1 | Duration$ UntilHostLeavesPlay
-A:AB$ ChangeZone | Cost$ 1 W Discard<1/CARDNAME> | ActivationZone$ Hand | ValidTgts$ Creature,Artifact | Origin$ Battlefield | Destination$ Exile | SubAbility$ DelTrig | RememberChanged$ True
-SVar:DelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ TrigReturn | RememberObjects$ RememberedLKI | SubAbility$ DBCleanup
-SVar:TrigReturn:DB$ ChangeZone | Origin$ Exile | Destination$ Battlefield | Defined$ DelayTriggerRememberedLKI
+ManaCost:B
+Types:Enchantment Saga
+K:Chapter:3:DBDrain,DBDrain,DBTransform
+SVar:DBDrain:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 1 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
+SVar:DBTransform:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | Transformed$ True | GainControl$ True | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:black
+Types:Enchantment Creature Rat Rogue
+PT:2/2
+K:Menace
+S:Mode$ Continuous | Affected$ Vehicle.YouCtrl | AddKeyword$ Menace

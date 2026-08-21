@@ -1,10 +1,10 @@
 Id:8210
-ColorIdentity:UR
+ColorIdentity:B
 OriginSet:G2c4e6f6c46954cd6
-ManaCost:2 U U R R
-Types:Legendary Creature Dragon Wizard
-PT:4/4
-K:Flying
-A:AB$ Draw | Cost$ T | NumCards$ 1 | AILogic$ AtOppEOT
-T:Mode$ Drawn | ValidCard$ Card.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigDealDamage
-SVar:TrigDealDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 1
+ManaCost:2 B
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.enchanted+YouCtrl | AddPower$ 1 | AddToughness$ 1
+R:Event$ Moved | ActiveZones$ Battlefield | Origin$ Battlefield | Destination$ Graveyard | ValidLKI$ Creature.enchanted+YouCtrl | ReplaceWith$ ReturnToHand
+SVar:ReturnToHand:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Defined$ ReplacedCard

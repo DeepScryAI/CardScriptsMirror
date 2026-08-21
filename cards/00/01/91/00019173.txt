@@ -1,13 +1,13 @@
 Id:19173
-ColorIdentity:R
+ColorIdentity:U
 OriginSet:Gf56613712ce2ae1f
-ManaCost:2 R R
-Types:Legendary Creature Zombie Minotaur Warrior
-PT:5/4
-K:Trample
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player,Planeswalker | Execute$ TrigDiscard | CombatDamage$ True | OptionalDecider$ You
-SVar:TrigDiscard:DB$ Discard | AnyNumber$ True | Optional$ True | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ X | SubAbility$ DBMana
-SVar:DBMana:DB$ Mana | Produced$ R | Amount$ X | PersistentMana$ True | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Remembered$Amount
+ManaCost:1 U
+Types:Legendary Creature Homunculus
+PT:1/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ DrawNum
+SVar:DrawNum:SVar$LibNum1/LimitMax.2
+SVar:LibNum1:Count$wasCastFromYourLibrary.2.1/Plus.LibNum2
+SVar:LibNum2:TriggeredCardLKI$Valid Card.inZoneLibrary
+T:Mode$ BecomesTarget | ValidTarget$ Card.Self | ValidSource$ Spell | TriggerZones$ Battlefield | Execute$ TrigShuffle
+SVar:TrigShuffle:DB$ ChangeZone | Origin$ Battlefield | Destination$ Library | Shuffle$ True | Defined$ Self

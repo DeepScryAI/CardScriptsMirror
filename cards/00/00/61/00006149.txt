@@ -3,6 +3,12 @@ ColorIdentity:
 OriginSet:Gda59deaeee465b93
 ManaCost:no cost
 Types:Vanguard
-HandLifeModifier:+2/-7
-A:AB$ Pump | Cost$ tapXType<1/Creature> Discard<1/Card> | ActivationZone$ Command | ValidTgts$ Creature | NumAtt$ +X | NumDef$ +X
-SVar:X:Count$ValidHand Card.YouOwn
+HandLifeModifier:+0/-3
+T:Mode$ NewGame | Execute$ TrigPayLife | TriggerZones$ Command
+SVar:TrigPayLife:AB$ StoreSVar | Cost$ PayLife<X> | SVar$ LifePaidOnNewGame | Type$ CountSVar | Expression$ X
+SVar:X:Count$xPaid
+SVar:LifePaidOnNewGame:Number$0
+S:Mode$ CantDraw | ValidPlayer$ You | EffectZone$ Command
+T:Mode$ Phase | Phase$ Draw | ValidPlayer$ You | TriggerZones$ Command | Execute$ TrigDig
+SVar:TrigDig:DB$ Dig | DigNum$ LifePaidOnNewGame | ChangeNum$ 1 | LibraryPosition$ 0 | SubAbility$ DBShuffle
+SVar:DBShuffle:DB$ Shuffle | Defined$ You

@@ -1,9 +1,11 @@
 Id:26996
-ColorIdentity:B
-OriginSet:G6ce0035cfb774934
-ManaCost:3 B
-Types:Legendary Creature Human Soldier
-PT:3/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigAmass
-SVar:TrigAmass:DB$ Amass | Type$ Orc | Num$ 1
-S:Mode$ Continuous | Affected$ Creature.token+YouCtrl | AddKeyword$ Deathtouch
+ColorIdentity:W
+OriginSet:G3601f5e223de6c7f
+ManaCost:2 W
+Types:Legendary Creature Human Noble
+PT:2/3
+A:AB$ ChangeZone | Cost$ 2 T | ValidTgts$ Creature.Other+YouCtrl | RememberChanged$ True | Origin$ Battlefield | Destination$ Exile | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ All | Optional$ True | ForgetChanged$ True | Destination$ Battlefield | SubAbility$ DBDelayedTrigger
+SVar:DBDelayedTrigger:DB$ DelayedTrigger | RememberObjects$ Remembered | ConditionDefined$ Remembered | ConditionPresent$ Card | Mode$ Phase | Phase$ End Of Turn | Execute$ TrigReturn | SubAbility$ DBCleanup
+SVar:TrigReturn:DB$ ChangeZone | Defined$ DelayTriggerRemembered | Origin$ Exile | Destination$ Battlefield | WithCountersType$ Vigilance,Lifelink
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

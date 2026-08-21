@@ -1,11 +1,9 @@
 Id:23617
-ColorIdentity:WG
+ColorIdentity:B
 OriginSet:G1a259dba25660062
-ManaCost:G W
-Types:Legendary Creature Human Druid
-PT:1/3
-A:AB$ PutCounterAll | Cost$ T | ValidCards$ Saga.YouCtrl | CounterType$ LORE | CounterNum$ 1 | SorcerySpeed$ True
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigCharm
-SVar:TrigCharm:DB$ Charm | Choices$ BounceSaga,GraveSaga | MinCharmNum$ 0
-SVar:BounceSaga:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | ValidTgts$ Saga.YouCtrl,Creature.Enchantment+YouCtrl | ChangeNum$ 1
-SVar:GraveSaga:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Saga | ChangeNum$ 1
+ManaCost:3 B
+Types:Creature Spirit
+PT:3/4
+T:Mode$ ChangesZone | Destination$ Battlefield | ValidCard$ Card.Self | IsPresent$ Artifact.YouCtrl | IsPresent2$ Enchantment.YouCtrl | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1

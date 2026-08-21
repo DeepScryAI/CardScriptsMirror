@@ -1,11 +1,10 @@
 Id:29875
-ColorIdentity:U
-OriginSet:Gf09b85bbcc27770c
-ManaCost:1 U
-Types:Legendary Creature Otter Wizard
-PT:1/3
-K:Vigilance
-K:Prowess
-A:AB$ Draw | Cost$ T | NumCards$ 1 | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | Defined$ You | Mode$ TgtChoose | NumCards$ 1
-A:AB$ CopySpellAbility | Cost$ 2 T | ValidTgts$ Instant.YouCtrl,Sorcery.YouCtrl | TargetType$ Spell | AILogic$ Once | MayChooseTarget$ True | IsPresent$ Card.powerGE3+Self
+ColorIdentity:B
+OriginSet:G01a610e823cce3ca
+ManaCost:4 B
+Types:Artifact Equipment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigAttach
+SVar:TrigAttach:DB$ Attach | ValidTgts$ Creature.YouCtrl | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBDestroy
+SVar:DBDestroy:DB$ Destroy | ValidTgts$ Creature | TargetUnique$ True | TargetMin$ 0 | TargetMax$ 1
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1 | AddToughness$ 1 | AddKeyword$ Menace
+K:Equip:2

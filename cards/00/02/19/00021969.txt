@@ -1,7 +1,9 @@
 Id:21969
-ColorIdentity:
-OriginSet:Gd784248bfdf9e1d7
-ManaCost:3
-Types:Sorcery Lesson
-A:SP$ PutCounter | CounterNum$ 2 | CounterType$ P1P1 | ValidTgts$ Creature | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | Defined$ Targeted | KW$ Vigilance
+ColorIdentity:BG
+OriginSet:G6fa60d857e930f32
+ManaCost:B G
+Types:Instant
+A:SP$ ChooseCard | ValidTgts$ Creature | SubAbility$ DBDelayedTrigger
+SVar:DBDelayedTrigger:DB$ DelayedTrigger | Mode$ ChangesZone | RememberObjects$ Targeted | ValidCard$ Card.IsTriggerRemembered | Origin$ Battlefield | Destination$ Graveyard | ThisTurn$ True | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Creature.cmcLTX | ChangeNum$ 1 | Tapped$ True
+SVar:X:TriggerRemembered$CardManaCost

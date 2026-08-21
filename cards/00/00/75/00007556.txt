@@ -1,12 +1,11 @@
 Id:7556
-ColorIdentity:B
+ColorIdentity:G
 OriginSet:G4747f23d5c5760bc
-ManaCost:2 B
+ManaCost:1 G
 Types:Enchantment Aura
 K:Enchant:Creature
-SVar:AttachAILogic:GainControl
-S:Mode$ Continuous | Affected$ Card.EnchantedBy | GainControl$ You
-T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | IsPresent$ Demon.YouCtrl | PresentCompare$ EQ0 | Execute$ TrigSac
-SVar:TrigSac:DB$ Sacrifice
-SVar:PlayMain1:TRUE
-SVar:NeedsToPlay:Demon.YouCtrl
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddTrigger$ SakikoTrig | AddSVar$ SakuraManaSingle & SakuraX
+SVar:SakikoTrig:Mode$ DamageDone | ValidSource$ Creature.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ SakuraManaSingle | TriggerZones$ Battlefield
+SVar:SakuraManaSingle:DB$ Mana | Produced$ G | Amount$ SakuraX | PersistentMana$ True
+SVar:SakuraX:TriggerCount$DamageAmount

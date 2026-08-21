@@ -1,10 +1,12 @@
 Id:8946
-ColorIdentity:B
+ColorIdentity:R
 OriginSet:Gce1d73449bd71b54
-ManaCost:3 B B
-Types:Creature Beast
-PT:3/3
-K:Flash
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange
-SVar:TrigChange:DB$ ChangeTargets | TargetType$ Spell.numTargets EQ1 | TargetValidTargeting$ Creature.inRealZoneBattlefield | ValidTgts$ Card | DefinedMagnet$ Self
-K:Madness:2 B
+ManaCost:4 R
+Types:Creature Phoenix
+PT:2/2
+K:Flying
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigSkipDraw
+SVar:TrigSkipDraw:DB$ SkipPhase | Defined$ TriggeredCardController | Step$ Draw | SubAbility$ TrigDelay
+SVar:TrigDelay:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ TrigReturn | RememberObjects$ TriggeredNewCardLKICopy
+SVar:TrigReturn:DB$ ChangeZone | Defined$ DelayTriggerRememberedLKI | Origin$ Graveyard | Destination$ Battlefield
+A:AB$ ChangeZone | Cost$ 4 R | Origin$ Battlefield | Destination$ Exile

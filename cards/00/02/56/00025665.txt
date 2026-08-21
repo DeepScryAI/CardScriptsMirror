@@ -1,8 +1,12 @@
 Id:25665
-ColorIdentity:R
-OriginSet:G06ccef4324c14725
-ManaCost:2 R
-Types:Creature Dinosaur Beast
-PT:4/3
-K:Trample
-S:Mode$ CantGainLife | ValidPlayer$ Player
+ColorIdentity:W
+OriginSet:Gce0c33e5115830a3
+ManaCost:4 W
+Types:Creature Human Wizard
+PT:3/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigRepeatEach
+SVar:TrigRepeatEach:DB$ RepeatEach | RepeatPlayers$ Player | StartingWith$ You | RepeatSubAbility$ DBChoosePermanent | SubAbility$ DBPhaseOut
+SVar:DBChoosePermanent:DB$ ChooseCard | MinAmount$ 0 | Amount$ 5 | Defined$ Remembered | Choices$ Permanent.RememberedPlayerCtrl | RememberChosen$ True | AILogic$ NotSelf
+SVar:DBPhaseOut:DB$ Phases | AllValid$ Permanent.Other+!IsRemembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True | ClearRemembered$ True
+S:Mode$ CantPhaseIn | ValidCard$ Card.phasedOutPermanent

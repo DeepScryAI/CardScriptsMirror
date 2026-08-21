@@ -1,16 +1,8 @@
 Id:28921
-ColorIdentity:UR
-OriginSet:Gaf7c94f364052cdd
-ManaCost:2 U R
-Types:Enchantment Saga
-K:Chapter:3:DBTap,DBTap,DBChooseNumber
-SVar:DBTap:DB$ Tap | ValidTgts$ Creature | SubAbility$ DBCounter | TargetMin$ 0 | TargetMax$ 1
-SVar:DBCounter:DB$ PutCounter | Defined$ Targeted | CounterType$ Stun | CounterNum$ 1 | SubAbility$ DBEnergy
-SVar:DBEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ 2
-SVar:DBChooseNumber:DB$ ChooseNumber | Max$ Max | SubAbility$ DBShuffle
-SVar:DBShuffle:DB$ Shuffle | SubAbility$ DBExile | ConditionCheckSVar$ X
-SVar:DBExile:DB$ Dig | UnlessCost$ Mandatory PayEnergy<X> | UnlessPayer$ You | UnlessSwitched$ True | Defined$ You | DigNum$ X | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBPlay
-SVar:DBPlay:DB$ Play | Valid$ Card.IsRemembered | ValidSA$ Spell | ValidZone$ Exile | WithoutManaCost$ True | Controller$ You | Optional$ True | Amount$ 1 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:Max:Count$YourCountersEnergy
-SVar:X:Count$ChosenNumber
+ColorIdentity:R
+OriginSet:Gfe262f6450b3d189
+ManaCost:R
+Types:Sorcery
+S:Mode$ CastWithFlash | ValidCard$ Card.Self | ValidSA$ Spell | Caster$ You | CheckSVar$ X | EffectZone$ All
+A:SP$ DealDamage | ValidTgts$ Creature,Planeswalker | NumDmg$ 3
+SVar:X:Count$StartingPlayer.0.1

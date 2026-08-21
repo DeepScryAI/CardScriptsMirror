@@ -1,12 +1,9 @@
 Id:24158
-ColorIdentity:U
-OriginSet:G51fcb7ec0cb81c29
-ManaCost:6 U U
-Types:Creature Elder Dragon
-PT:8/8
-K:Flying
-T:Mode$ DamageDone | ValidSource$ Card.Self | Execute$ TrigRoll | CombatDamage$ True | ValidTarget$ Player | TriggerZones$ Battlefield
-SVar:TrigRoll:DB$ RollDice | ResultSVar$ Result | Sides$ 20 | SubAbility$ TrigDraw
-SVar:TrigDraw:DB$ Draw | NumCards$ Result | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | StaticAbilities$ STHandSize | Duration$ Permanent
-SVar:STHandSize:Mode$ Continuous | Affected$ You | SetMaxHandSize$ Unlimited
+ColorIdentity:WU
+OriginSet:G9afc9838c5e994df
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ Combo W U
+A:AB$ Draw | Cost$ 2 W U T Sac<1/CARDNAME>

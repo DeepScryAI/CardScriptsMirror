@@ -1,10 +1,11 @@
 Id:16865
 ColorIdentity:UB
 OriginSet:Gd31f94cf3a5f78e4
-ManaCost:4 U B
-Types:Legendary Planeswalker Tezzeret
-Loyalty:5
-A:AB$ DigUntil | Cost$ AddCounter<1/LOYALTY> | Valid$ Card.Artifact | RevealedDestination$ Library | RevealedLibraryPosition$ -1 | RevealRandomOrder$ True | FoundDestination$ Hand | Planeswalker$ True
-A:AB$ LoseLife | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | ValidTgts$ Opponent | LifeAmount$ X
-SVar:X:Count$Valid Artifact.YouCtrl
-A:AB$ GainControl | Cost$ SubCounter<8/LOYALTY> | Planeswalker$ True | Ultimate$ True | ValidTgts$ Opponent | AllValid$ Artifact.ControlledBy Targeted,Creature.ControlledBy Targeted | NewController$ You
+ManaCost:1 U B
+Types:Enchantment Aura
+K:Enchant:Artifact
+SVar:AttachAITgts:Card.nonCreature
+SVar:AttachAILogic:Animate
+S:Mode$ Continuous | Affected$ Card.AttachedBy | SetPower$ 5 | SetToughness$ 5 | AddType$ Creature
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.AttachedBy | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Hand

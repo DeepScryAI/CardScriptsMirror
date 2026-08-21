@@ -1,14 +1,9 @@
 Id:29596
-ColorIdentity:W
+ColorIdentity:B
 OriginSet:Gac6359c222afbd4f
-ManaCost:3 W W
-Types:Creature Angel
-PT:4/4
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigEnergy
-SVar:TrigEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ 3
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigImmediateTrig
-SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ PayEnergy<2> | Execute$ TrigCharm
-SVar:TrigCharm:DB$ Charm | Choices$ DBSelf,DBOthers
-SVar:DBSelf:DB$ Pump | Defined$ Self | KW$ Vigilance & Lifelink
-SVar:DBOthers:DB$ Pump | Defined$ Valid Creature.StrictlyOther+YouCtrl | NumAtt$ +1 | NumDef$ +1
+ManaCost:1 B
+Types:Sorcery
+A:SP$ Charm | Choices$ DBToken,DBChangeZone | Defined$ You
+SVar:DBToken:DB$ Token | ValidTgts$ Player | TokenScriptIds$ 353162950 | TokenOwner$ TargetedPlayer
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Creature.YouCtrl
+K:Entwine:2

@@ -1,10 +1,10 @@
 Id:31424
 ColorIdentity:G
-OriginSet:Gf2b808f4f642ac62
+OriginSet:Ge1676a27173c0866
 ManaCost:1 G
-Types:Instant
-A:SP$ Charm | Choices$ DBDestroyArtifact,DBDestroyEnchantment,DBExile
-SVar:DBDestroyArtifact:DB$ Destroy | ValidTgts$ Artifact
-SVar:DBDestroyEnchantment:DB$ Destroy | ValidTgts$ Enchantment
-SVar:DBExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw
+Types:Artifact
+A:AB$ Mana | Cost$ T | Produced$ Any | RestrictValid$ Spell.Creature
+A:AB$ Pump | Cost$ T | ValidTgts$ Creature.YouCtrl+powerGE4 | KW$ Trample | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Targeted | Triggers$ DamageDraw
+SVar:DamageDraw:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw

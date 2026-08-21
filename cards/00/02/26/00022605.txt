@@ -1,10 +1,11 @@
 Id:22605
-ColorIdentity:B
+ColorIdentity:R
 OriginSet:G9f95a41d532c0550
-ManaCost:B
-Types:Creature Zombie
-PT:1/1
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigCharm
-SVar:TrigCharm:DB$ Charm | Choices$ BraveTheStench,SearchTheBody
-SVar:BraveTheStench:DB$ Pump | ValidTgts$ Creature.OppCtrl | NumAtt$ -1 | NumDef$ -1 | IsCurse$ True
-SVar:SearchTheBody:DB$ Token | TokenScriptIds$ 3851718391 | TokenOwner$ You
+ManaCost:3 R
+Types:Creature Ogre
+PT:3/3
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigRollDice
+SVar:TrigRollDice:DB$ RollDice | Sides$ 20 | ResultSubAbilities$ 1-9:Token1,10-19:Token2,20:Token3
+SVar:Token1:DB$ Token | TokenScriptIds$ 3851718391 | TokenOwner$ You
+SVar:Token2:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 3851718391 | TokenOwner$ You
+SVar:Token3:DB$ Token | TokenAmount$ 3 | TokenScriptIds$ 3851718391 | TokenOwner$ You

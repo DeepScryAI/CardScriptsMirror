@@ -1,12 +1,10 @@
 Id:11526
-ColorIdentity:
+ColorIdentity:R
 OriginSet:Gc046eafa1d269dd1
-ManaCost:X
-Types:Artifact
-K:etbCounter:CHARGE:X
-SVar:X:Count$xPaid
-A:AB$ Animate | Cost$ 1 | Defined$ Self | Types$ Artifact,Creature,Construct | RemoveCreatureTypes$ True | staticAbilities$ Static
-SVar:Static:Mode$ Continuous | Affected$ Card.Self | EffectZone$ Battlefield | SetPower$ Y | SetToughness$ Y
-SVar:Y:Count$CardCounters.CHARGE
-SVar:NeedsToPlayVar:Z GE4
-SVar:Z:Count$Valid Land.YouCtrl+untapped
+ManaCost:2 R R
+Types:Sorcery
+A:SP$ PeekAndReveal | ValidTgts$ Opponent | NoPeek$ True | RememberRevealed$ True | SubAbility$ DBDamage
+SVar:DBDamage:DB$ DamageAll | ValidCards$ Creature.TargetedPlayerCtrl | ValidPlayers$ Targeted | NumDmg$ X | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Parent | Origin$ Stack | Destination$ Hand | ConditionDefined$ Remembered | ConditionPresent$ Land | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$CardManaCost

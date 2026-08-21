@@ -1,9 +1,10 @@
 Id:14549
-ColorIdentity:W
+ColorIdentity:WG
 OriginSet:G0a578e83854cf093
-ManaCost:1 W
-Types:Enchantment
-S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddKeyword$ Vigilance
-S:Mode$ Continuous | Affected$ Creature.YouCtrl | CanBlockAmount$ 1
-SVar:NonStackingEffect:True
-SVar:PlayMain1:TRUE
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGainLife
+SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 1
+A:AB$ Mana | Cost$ T | Produced$ Combo G W

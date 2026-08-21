@@ -1,9 +1,9 @@
 Id:16847
-ColorIdentity:
+ColorIdentity:B
 OriginSet:Gd31f94cf3a5f78e4
-ManaCost:2
-Types:Artifact
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigToken | Secondary$ True
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 825621291 | TokenOwner$ You
-SVar:SacMe:5
+ManaCost:3 B B
+Types:Sorcery
+A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card.nonLand+YouOwn | RememberTargets$ True | ForgetOtherTargets$ True | SubAbility$ DBChange
+SVar:DBChange:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Remembered.sameName | ChangeNum$ X | SubAbility$ DBCleanup
+SVar:X:Count$ValidLibrary Card.YouOwn+sharesNameWith Remembered
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

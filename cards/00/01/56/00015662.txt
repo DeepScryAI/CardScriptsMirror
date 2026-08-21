@@ -1,12 +1,10 @@
 Id:15662
-ColorIdentity:G
+ColorIdentity:W
 OriginSet:Gc1f5e527f9d411df
-ManaCost:2 G
-Types:Creature Snake
-PT:1/3
-K:Deathtouch
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
-SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Card.YouCtrl | SubAbility$ ChooseP
-SVar:ChooseP:DB$ ChoosePlayer | Defined$ You | Choices$ Player.Opponent | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | Hidden$ True | Mandatory$ True | ChangeType$ Card.ChosenCtrl | DefinedPlayer$ ChosenPlayer | Chooser$ ChosenPlayer | ChangeNum$ 1 | Origin$ Graveyard | Destination$ Hand | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearChosenPlayer$ True
+ManaCost:1 W W
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddKeyword$ Indestructible
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature | TriggerZones$ Battlefield | Execute$ TrigAttach | OptionalDecider$ You
+SVar:TrigAttach:DB$ Attach | Defined$ TriggeredCardLKICopy

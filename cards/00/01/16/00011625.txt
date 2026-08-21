@@ -1,13 +1,11 @@
 Id:11625
-ColorIdentity:R
+ColorIdentity:
 OriginSet:Gc046eafa1d269dd1
-ManaCost:4 R R
-Types:Creature Ogre Warrior
-PT:4/4
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigGainControl
-SVar:TrigGainControl:DB$ GainControl | ValidTgts$ Equipment.OppCtrl | LoseControl$ EOT | SubAbility$ DBAttach
-SVar:DBAttach:DB$ Attach | Object$ ParentTarget | Defined$ Self | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | RememberObjects$ ParentTarget | Triggers$ TrigChangeController | Duration$ Permanent
-SVar:TrigChangeController:Mode$ ChangesController | ValidCard$ Card.IsRemembered | ValidOriginalController$ You | TriggerZones$ Command | Execute$ TrigUnattach
-SVar:TrigUnattach:DB$ Unattach | Defined$ Remembered | SubAbility$ ExileSelf
-SVar:ExileSelf:DB$ ChangeZone | Origin$ Command | Destination$ Exile
+ManaCost:2
+Types:Artifact Equipment
+K:Equip:4
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddToughness$ 2 | AddKeyword$ Intimidate | AddType$ Zombie | RemoveCreatureTypes$ True | SetColor$ Black
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.!token+YouOwn | Execute$ TrigReturn | TriggerZones$ Battlefield
+SVar:TrigReturn:AB$ ChangeZone | Cost$ 4 | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Battlefield | RememberChanged$ True | SubAbility$ DBAttach
+SVar:DBAttach:DB$ Attach | Defined$ Remembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

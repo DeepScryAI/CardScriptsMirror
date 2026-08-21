@@ -1,9 +1,10 @@
 Id:29199
-ColorIdentity:WB
+ColorIdentity:G
 OriginSet:G27146c70b74a1e72
-ManaCost:1 W B
-Types:Creature Vampire Assassin
-PT:3/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSac
-SVar:TrigSac:AB$ ImmediateTrigger | Cost$ Sac<1/Creature.Other/another creature> | Execute$ TrigDestroy
-SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Permanent.nonLand
+ManaCost:1 G
+Types:Sorcery
+K:Spree
+A:SP$ Charm | Choices$ DBRamp,DBToken | MinCharmNum$ 1 | CharmNum$ 2
+SVar:DBRamp:DB$ ChangeZone | ModeCost$ 1 | Origin$ Library | Destination$ Battlefield | ChangeType$ Land.Basic,Desert | ChangeNum$ 1
+SVar:DBToken:DB$ Token | ModeCost$ 3 | TokenScriptIds$ 1573311632 | TokenPower$ X | TokenToughness$ X | TokenOwner$ You
+SVar:X:Count$Valid Land.YouCtrl

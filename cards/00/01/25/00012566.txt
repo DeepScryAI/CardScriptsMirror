@@ -1,8 +1,11 @@
 Id:12566
 ColorIdentity:W
 OriginSet:Gef29fd7e12c456ce
-ManaCost:1 W W
-Types:Creature Human Knight
-PT:2/2
-K:Soulbond
-S:Mode$ Continuous | Affected$ Creature.PairedWith,Creature.Self+Paired | AddKeyword$ DoubleStrike
+ManaCost:3 W
+Types:Creature Angel
+PT:3/4
+K:Flash
+K:Flying
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ RestorationExile | OptionalDecider$ You
+SVar:RestorationExile:DB$ ChangeZone | ValidTgts$ Creature.nonAngel+YouCtrl | Origin$ Battlefield | Destination$ Exile | RememberTargets$ True | ForgetOtherTargets$ True | SubAbility$ RestorationReturn
+SVar:RestorationReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | GainControl$ True

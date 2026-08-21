@@ -1,8 +1,13 @@
 Id:15845
-ColorIdentity:R
+ColorIdentity:G
 OriginSet:G5b1ad34969911ca7
-ManaCost:1 R
-Types:Creature Goblin Archer Ally
-PT:2/1
-K:FirstStrike
-A:AB$ DealDamage | Cost$ T tapXType<1/Ally> | ValidTgts$ Opponent,Planeswalker | NumDmg$ 1
+ManaCost:6 G
+Types:Creature Eldrazi
+PT:5/7
+K:Devoid
+T:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZone | ValidTgts$ Artifact,Enchantment,Land | Origin$ Battlefield | Destination$ Exile
+K:Reach
+A:AB$ ChangeZone | Cost$ 2 C Sac<1/Land> | Origin$ Graveyard | Destination$ Hand | ActivationZone$ Graveyard
+SVar:DiscardMe:1
+SVar:PlayMain1:TRUE

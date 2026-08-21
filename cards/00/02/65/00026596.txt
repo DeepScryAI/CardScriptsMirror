@@ -1,15 +1,16 @@
 Id:26596
-ColorIdentity:WUBRG
+ColorIdentity:BG
 OriginSet:G06757f68e16377c2
-ManaCost:W U BP R G
-Types:Legendary Creature Phyrexian Elemental
-PT:4/4
-R:Event$ LoseMana | ValidPlayer$ You | ReplacementResult$ Replaced | ReplaceWith$ ConvertMana | ActiveZones$ Battlefield
-SVar:ConvertMana:DB$ ReplaceMana | ReplaceType$ Black
-T:Mode$ Phase | ValidPlayer$ You | Phase$ Main1 | TriggerZones$ Battlefield | Execute$ TrigPeek
-SVar:TrigPeek:DB$ PeekAndReveal | Defined$ You | NoReveal$ True | RememberPeeked$ True | SubAbility$ DBReveal
-SVar:DBReveal:DB$ PeekAndReveal | Defined$ You | NoPeek$ True | RevealOptional$ True | ImprintRevealed$ True | ConditionCheckSVar$ ColorAmount | ConditionSVarCompare$ GE3 | SubAbility$ DBMana
-SVar:DBMana:DB$ ManaReflected | Produced$ Combo | ReflectProperty$ Is | ColorOrType$ Color | Amount$ 3 | Valid$ Defined.Imprinted | ConditionDefined$ Imprinted | ConditionPresent$ Card | SubAbility$ DBMove
-SVar:DBMove:DB$ ChangeZone | Origin$ Library | Destination$ Hand | Defined$ Remembered | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True
-SVar:ColorAmount:Remembered$ChromaSource
+ManaCost:1 B
+Types:Creature Fungus
+PT:2/2
+A:AB$ SetState | Cost$ 3 GP | Defined$ Self | Mode$ Transform | SorcerySpeed$ True | AILogic$ Always
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:black,green
+Types:Creature Phyrexian Fungus
+PT:3/3
+T:Mode$ Transformed | ValidCard$ Card.Self | Execute$ TrigToken
+T:Mode$ ChangesZone | Destination$ Graveyard | Origin$ Battlefield | ValidCard$ Card.Self | TriggerZones$ Battlefield | Secondary$ True | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 1909102685

@@ -1,14 +1,13 @@
 Id:21422
-ColorIdentity:B
+ColorIdentity:R
 OriginSet:G51d431785c8b33e5
-ManaCost:4 B
-Types:Legendary Planeswalker Szat
-Loyalty:4
-K:Partner
-A:AB$ Token | Cost$ AddCounter<2/LOYALTY> | Planeswalker$ True | TokenScriptIds$ 199271829 | TokenAmount$ 2
-A:AB$ Sacrifice | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | SacValid$ Creature.Other,Planeswalker.Other | Optional$ True | RememberSacrificed$ True | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 2 | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ GE1 | SubAbility$ DBDraw2
-SVar:DBDraw2:DB$ Draw | Defined$ You | NumCards$ 1 | ConditionDefined$ Remembered | ConditionPresent$ Card.IsCommander | ConditionCompare$ GE1
-A:AB$ GainControl | Cost$ SubCounter<10/LOYALTY> | Planeswalker$ True | Ultimate$ True | AllValid$ Card.IsCommander | NewController$ You | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZoneAll | ChangeType$ Card.IsCommander | Origin$ Command | Destination$ Battlefield | GainControl$ True
-SVar:AIPreference:SacCost$Creature.token+powerLE2+toughnessLE2
+ManaCost:4 R R
+Types:Creature Dragon
+PT:6/5
+K:Flying
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigChangeZone | OptionalDecider$ You
+SVar:TrigChangeZone:DB$ ChangeZone | ChangeType$ Card.IsCommander+YouOwn | ChangeNum$ 1 | Mandatory$ True | Origin$ Command | Destination$ Battlefield | Hidden$ True | RememberChanged$ True | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Keywords$ Haste | Defined$ Remembered | Duration$ Permanent | SubAbility$ DBDelTrig
+SVar:DBDelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ TrigReturn | RememberObjects$ RememberedLKI | SubAbility$ DBCleanup
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Battlefield | Destination$ Command | Defined$ DelayTriggerRememberedLKI
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

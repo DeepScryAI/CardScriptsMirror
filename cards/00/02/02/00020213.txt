@@ -1,12 +1,11 @@
 Id:20213
 ColorIdentity:U
-OriginSet:G42eb6bda83007836
-ManaCost:2 U U
-Types:Enchantment
-K:Flash
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
-S:Mode$ CantBeCast | ValidCard$ Card.nonLand+sharesNameWith Remembered.ExiledWithSource | Caster$ Opponent
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigBounce
-SVar:TrigExile:DB$ ChangeZone | TargetType$ Spell | ValidTgts$ Card | TgtZone$ Stack | Origin$ Stack | Destination$ Exile | IsCurse$ True | RememberChanged$ True
-SVar:TrigBounce:DB$ ChangeZone | Origin$ Exile | Destination$ Hand | Defined$ Remembered | SubAbility$ DBCleanup
+OriginSet:G00aff909a83a7400
+ManaCost:1 U
+Types:Instant
+A:SP$ ChangeZone | ValidTgts$ Permanent.!token | Origin$ Battlefield | Destination$ Exile | RememberTargets$ True | SubAbility$ DBHand
+SVar:DBHand:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Hand | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Mode$ Defined | Defined$ RememberedOwner | DefinedCards$ Remembered | SubAbility$ DBLibrary
+SVar:DBLibrary:DB$ ChangeZone | Origin$ Graveyard | Destination$ Library | LibraryPosition$ 0 | Defined$ Remembered | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Library | Destination$ Battlefield | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

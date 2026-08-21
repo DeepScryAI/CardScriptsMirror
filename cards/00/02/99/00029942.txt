@@ -1,11 +1,11 @@
 Id:29942
-ColorIdentity:G
+ColorIdentity:B
 OriginSet:Gf09b85bbcc27770c
-ManaCost:1 G G
-Types:Creature Raccoon Archer
-PT:4/4
+ManaCost:3 B B
+Types:Sorcery
 K:Gift
 SVar:GiftAbility:DB$ Draw | Defined$ Promised
-K:Reach
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self+PromisedGift | Execute$ TrigDestroy
-SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Artifact.OppCtrl,Enchantment.OppCtrl
+A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouCtrl | SubAbility$ DBCopy | RememberChanged$ True
+SVar:DBCopy:DB$ CopyPermanent | ConditionCheckSVar$ X | ConditionDefined$ Remembered | ConditionPresent$ Card.nonLegendary | Defined$ Remembered | SetPower$ 1 | SetToughness$ 1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$PromisedGift.1.0

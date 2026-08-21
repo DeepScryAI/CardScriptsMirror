@@ -1,12 +1,10 @@
 Id:33027
-ColorIdentity:WUBRG
-OriginSet:G821b410e312d7e12
-ManaCost:2 R
-Types:Legendary Creature Elemental Sorcerer
-PT:2/3
-S:Mode$ Continuous | Affected$ Permanent.Elemental+YouOwn | AffectedZone$ Hand | AddKeyword$ Evoke:4
-T:Mode$ Sacrificed | ValidCard$ Elemental.!token | ValidPlayer$ You | Execute$ TrigCopy | TriggerZones$ Battlefield
-SVar:TrigCopy:DB$ CopyPermanent | Defined$ TriggeredCardLKICopy | PumpKeywords$ Haste | PumpDuration$ EOT | RememberTokens$ True | SubAbility$ DelTrig
-SVar:DelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | Execute$ TrigSac | RememberObjects$ Remembered | SubAbility$ DBCleanup
-SVar:TrigSac:DB$ SacrificeAll | Defined$ DelayTriggerRememberedLKI | UnlessCost$ W U B R G | UnlessPayer$ You
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:
+OriginSet:G22ed5d6f3707b461
+ManaCost:no cost
+Types:Land
+K:Vigilance
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigScry
+SVar:TrigScry:DB$ Scry | ScryNum$ 1
+A:AB$ Mana | Cost$ T | Produced$ C
+A:AB$ Mana | Cost$ 1 T | Produced$ Any

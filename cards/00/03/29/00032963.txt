@@ -1,7 +1,12 @@
 Id:32963
-ColorIdentity:W
-OriginSet:G731e0066916b7465
-ManaCost:1 W
-Types:Instant Lesson
-A:SP$ Pump | ValidTgts$ Creature | NumAtt$ +2 | NumDef$ +2 | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenScriptIds$ 2822783804 | TokenOwner$ You
+ColorIdentity:UB
+OriginSet:G22ed5d6f3707b461
+ManaCost:2 UB UB UB
+Types:Legendary Creature Human Warlock
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill
+SVar:TrigMill:DB$ Mill | NumCards$ 3 | ValidTgts$ Opponent | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Optional$ True | Origin$ Graveyard | Destination$ Exile | DefinedPlayer$ Targeted | Chooser$ You | ChangeType$ Card.nonCreature+nonLand | Hidden$ True | ChangeNum$ 1 | IsCurse$ True | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | RememberObjects$ Remembered | Duration$ AsLongAsControl | ExileOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | Condition$ PlayerTurn | Affected$ Card.IsRemembered | AffectedZone$ Exile | MayPlayAltManaCost$ Waterbend<ConvertedManaCost>
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

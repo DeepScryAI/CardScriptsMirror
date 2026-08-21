@@ -1,0 +1,12 @@
+Id:35123
+ColorIdentity:W
+OriginSet:G9a4c1754c2b7c355
+ManaCost:1 W
+Types:Creature Kor Cleric
+PT:2/1
+K:Lifelink
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ X | Execute$ TrigSurveil
+SVar:TrigSurveil:DB$ Surveil | Amount$ 1 | RememberMoved$ True | SubAbility$ DBChangeZoneAll
+SVar:DBChangeZoneAll:DB$ ChangeZoneAll | Origin$ Graveyard | Destination$ Hand | ChangeType$ Card.cmcLEX+IsRemembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$LifeYouGainedThisTurn

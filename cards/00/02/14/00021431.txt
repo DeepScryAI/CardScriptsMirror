@@ -1,9 +1,15 @@
 Id:21431
-ColorIdentity:U
+ColorIdentity:R
 OriginSet:G51d431785c8b33e5
-ManaCost:2 U
-Types:Creature Human Pirate
-PT:2/2
-K:Encore:5 U U
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+ManaCost:2 R
+Types:Legendary Planeswalker Jeska
+Loyalty:0
+K:etbCounter:LOYALTY:Y:no Condition
+SVar:Y:Count$TotalCommanderCastFromCommandZone
+A:AB$ Effect | Cost$ AddCounter<0/LOYALTY> | Planeswalker$ True | Duration$ UntilYourNextTurn | ValidTgts$ Creature | AILogic$ Pump | RememberObjects$ Targeted | ReplacementEffects$ TripleCombatDamage
+SVar:TripleCombatDamage:Event$ DamageDone | ValidSource$ Creature.IsRemembered | IsCombat$ True | ValidTarget$ Player.Opponent | ReplaceWith$ DmgTriple
+SVar:DmgTriple:DB$ ReplaceEffect | VarName$ DamageAmount | VarValue$ Z
+SVar:Z:ReplaceCount$DamageAmount/Thrice
+A:AB$ DealDamage | Cost$ SubCounter<X/LOYALTY> | Planeswalker$ True | Ultimate$ True | ValidTgts$ Any | TargetMin$ 0 | TargetMax$ 3 | NumDmg$ X
+SVar:X:Count$xPaid
+K:Partner

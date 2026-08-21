@@ -1,10 +1,10 @@
 Id:8319
-ColorIdentity:G
+ColorIdentity:B
 OriginSet:Gde6d8130c178f566
-ManaCost:2 G G
-Types:Enchantment Aura
-K:Enchant:Permanent
-SVar:AttachAILogic:Pump
-SVar:AttachAITgts:Card.cmcGE1
-T:Mode$ Phase | Phase$ Main1 | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigMana
-SVar:TrigMana:DB$ Mana | Produced$ Special EnchantedManaCost
+ManaCost:1 B
+Types:Creature Beast
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ DBSacSelf
+SVar:DBSacSelf:DB$ Sacrifice | UnlessCost$ Discard<1/Card.nonCreature> | UnlessPayer$ You
+SVar:NeedsToPlayVar:Y GE1
+SVar:Y:Count$ValidHand Card.nonCreature+YouCtrl

@@ -1,11 +1,11 @@
 Id:23587
-ColorIdentity:R
+ColorIdentity:
 OriginSet:G1a259dba25660062
-ManaCost:1 R
-Types:Artifact Creature Equipment Ogre
+ManaCost:2
+Types:Artifact Vehicle
 PT:2/2
-K:Reconfigure:3
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddToughness$ 2
-T:Mode$ DamageDone | ValidSource$ Card.Self,Creature.EquippedBy | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDiscard
-SVar:TrigDiscard:AB$ Discard | Cost$ Sac<1/Card.TriggeredSource> | Mode$ Hand | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | NumCards$ 3
+K:Flash
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigTap
+SVar:TrigTap:DB$ Tap | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1
+K:Crew:1

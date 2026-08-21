@@ -1,10 +1,11 @@
 Id:25905
-ColorIdentity:G
-OriginSet:G880fc7f6ed36df4d
-ManaCost:X G
-Types:Sorcery
-A:SP$ PutCounter | TargetMin$ X | TargetMax$ X | ValidTgts$ Land.YouCtrl | CounterType$ P1P1 | CounterNum$ 2 | SubAbility$ DBAnimate
-SVar:DBAnimate:DB$ Animate | Defined$ ParentTarget | Power$ 0 | Toughness$ 0 | Types$ Creature,Elemental | Keywords$ Haste & Reach | Duration$ Permanent | Triggers$ DiesTrig
-SVar:DiesTrig:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigConjure
-SVar:TrigConjure:DB$ MakeCard | Conjure$ True | CatalogId$ 91 | Zone$ Battlefield | Tapped$ True
-SVar:X:Count$xPaid
+ColorIdentity:
+OriginSet:G06ccef4324c14725
+ManaCost:2
+Types:Artifact Equipment
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddToughness$ X | AddPower$ X | AddKeyword$ Ward:2 | AddSVar$ EqMe & EnMe
+SVar:EqMe:SVar:EquipMe:Multiple
+SVar:EnMe:SVar:EnchantMe:Multiple
+K:Equip:2
+SVar:X:Count$Valid Aura.AttachedTo Creature.EquippedBy/Plus.Y
+SVar:Y:Count$Valid Equipment.AttachedTo Creature.EquippedBy

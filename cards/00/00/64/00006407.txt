@@ -1,7 +1,11 @@
 Id:6407
 ColorIdentity:U
 OriginSet:Gd11012ee98ee8d76
-ManaCost:1 U
-Types:Instant
-A:SP$ ChangeZone | ValidTgts$ Permanent | Origin$ Battlefield | Destination$ Library | LibraryPosition$ 0 | SubAbility$ DBChange
-SVar:DBChange:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | ChangeType$ Artifact,Creature,Enchantment,Land | DefinedPlayer$ TargetedController | ChangeNum$ 1
+ManaCost:3 U
+Types:Creature Bird
+PT:2/2
+K:Flying
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Creature | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigTap
+SVar:TrigTap:DB$ Tap | Defined$ TriggeredTargetLKICopy | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ TriggeredTargetLKICopy | KW$ HIDDEN This card doesn't untap during your next untap step. | Duration$ Permanent | IsCurse$ True
+SVar:HasCombatEffect:TRUE

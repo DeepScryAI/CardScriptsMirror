@@ -1,12 +1,13 @@
 Id:17425
-ColorIdentity:U
+ColorIdentity:WR
 OriginSet:G5475e2be497fd272
-ManaCost:1 U U
-Types:Legendary Planeswalker Jace
+ManaCost:3 R W
+Types:Legendary Planeswalker Huatli
 Loyalty:3
-A:AB$ Effect | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | Triggers$ TrigDrawDiscard | Duration$ EndOfTurn | AILogic$ Main1
-SVar:TrigDrawDiscard:Mode$ DamageDoneOnce | CombatDamage$ True | ValidSource$ Creature.YouCtrl | TriggerZones$ Command | ValidTarget$ Player | Execute$ DBDraw
-SVar:DBDraw:DB$ Draw | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ TgtChoose
-A:AB$ Token | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | TokenScriptIds$ 1414801945 | TokenOwner$ You
-A:AB$ CopyPermanent | Cost$ SubCounter<5/LOYALTY> | Planeswalker$ True | Ultimate$ True | Defined$ Self | NumCopies$ 2 | NonLegendary$ True
+A:AB$ GainLife | Cost$ AddCounter<2/LOYALTY> | Planeswalker$ True | LifeAmount$ GreatestPow
+SVar:GreatestPow:Count$Valid Creature.YouCtrl$GreatestCardPower
+A:AB$ Token | Cost$ AddCounter<0/LOYALTY> | Planeswalker$ True | TokenScriptIds$ 1788530226 | TokenOwner$ You
+A:AB$ DealDamage | Cost$ SubCounter<X/LOYALTY> | NumDmg$ X | Planeswalker$ True | Ultimate$ True | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ X | DividedAsYouChoose$ X | RememberDamaged$ True | SubAbility$ DBNoBlock
+SVar:DBNoBlock:DB$ Pump | KW$ HIDDEN CARDNAME can't block. | Defined$ Remembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$xPaid

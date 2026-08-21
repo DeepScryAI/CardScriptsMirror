@@ -1,12 +1,10 @@
 Id:6779
-ColorIdentity:
+ColorIdentity:B
 OriginSet:G8b552b617d13301f
-ManaCost:7
-Types:Artifact Creature Shapeshifter
-PT:5/5
-A:AB$ ChangeZone | Cost$ 1 | Imprint$ True | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Creature.YouOwn
-S:Mode$ Continuous | EffectZone$ Battlefield | Affected$ Card.Self | AddKeyword$ Flying & Fear & FirstStrike & DoubleStrike & Haste & Landwalk & Protection & Trample | SharedKeywordsZone$ Exile | SharedRestrictions$ Card.IsImprinted+ExiledWithSource
-T:Mode$ ChangesZone | Origin$ Exile | Destination$ Any | Static$ True | ValidCard$ Card.IsImprinted+ExiledWithSource | Execute$ DBForget
-SVar:DBForget:DB$ Pump | ForgetImprinted$ TriggeredCard
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Battlefield | Destination$ Any | Execute$ TrigForget | Static$ True
-SVar:TrigForget:DB$ Cleanup | ClearImprinted$ True
+ManaCost:X B B B
+Types:Sorcery
+A:SP$ LoseLife | Defined$ Player | LifeAmount$ X | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | NumCards$ X | Mode$ TgtChoose | Defined$ Player | SubAbility$ DBSacCreature
+SVar:DBSacCreature:DB$ Sacrifice | Amount$ X | SacValid$ Creature | Defined$ Player | SubAbility$ DBSacLand
+SVar:DBSacLand:DB$ Sacrifice | Amount$ X | SacValid$ Land | Defined$ Player
+SVar:X:Count$xPaid

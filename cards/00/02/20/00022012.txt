@@ -1,8 +1,10 @@
 Id:22012
-ColorIdentity:R
+ColorIdentity:B
 OriginSet:Gd784248bfdf9e1d7
-ManaCost:3 R
-Types:Sorcery
-S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ 3 | ValidTarget$ Creature.token | EffectZone$ All
-A:SP$ GainControl | ValidTgts$ Creature | Untap$ True | LoseControl$ EOT | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | Defined$ Targeted | NumAtt$ +2 | KW$ Haste
+ManaCost:2 B
+Types:Creature Fungus Beast
+PT:4/2
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ ChangeZone | Cost$ 1 B | Origin$ Graveyard | Destination$ Hand | ActivationZone$ Graveyard | CheckSVar$ X
+SVar:X:Count$LifeYouGainedThisTurn

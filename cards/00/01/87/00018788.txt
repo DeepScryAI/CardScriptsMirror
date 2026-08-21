@@ -1,8 +1,12 @@
 Id:18788
-ColorIdentity:U
+ColorIdentity:WG
 OriginSet:G1ecb361a0a117393
-ManaCost:1 U
-Types:Creature Human Wizard
-PT:1/3
-A:AB$ Effect | Cost$ 2 U | ValidTgts$ Creature | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable | AILogic$ MakeUnblockable
-SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+ManaCost:1 G W
+Types:Creature Elf Knight
+PT:2/2
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigTap | TriggerZones$ Battlefield
+SVar:TrigTap:DB$ Tap | CardChoices$ Creature.YouCtrl+untapped | AnyNumber$ True | ChoiceAmount$ Count$Valid Creature.YouCtrl+untapped | RememberTapped$ True | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | NumAtt$ +Y | NumDef$ +Y | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:Y:Remembered$Amount
+A:AB$ Token | Cost$ 3 G W | TokenScriptIds$ 2151135643

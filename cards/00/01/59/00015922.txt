@@ -1,19 +1,12 @@
 Id:15922
-ColorIdentity:U
+ColorIdentity:BG
 OriginSet:G92026fbb3573fda5
-ManaCost:1 U
-Types:Creature Horror
-PT:0/4
-K:Defender
-K:etbCounter:ICE:4
-T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigRemoveCounter
-SVar:TrigRemoveCounter:DB$ RemoveCounter | Defined$ Self | CounterType$ ICE | CounterNum$ 1 | SubAbility$ DBTransform
-SVar:DBTransform:DB$ SetState | Defined$ Self | ConditionPresent$ Card.Self+counters_EQ0_ICE | Mode$ Transform
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:blue
-Types:Creature Kraken Horror
-PT:7/8
-T:Mode$ Transformed | ValidCard$ Card.Self | Execute$ TrigChange
-SVar:TrigChange:DB$ ChangeZoneAll | ChangeType$ Creature.nonHorror | Origin$ Battlefield | Destination$ Hand
+ManaCost:3 B G
+Types:Legendary Creature Frog Horror
+PT:6/6
+K:Deathtouch
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigUpkeep
+SVar:TrigUpkeep:DB$ Sacrifice | UnlessPayer$ You | UnlessCost$ Sac<1/Land>
+S:Mode$ Continuous | Affected$ You | AdjustLandPlays$ 1
+T:Mode$ ChangesZoneAll | ValidCards$ Land.YouOwn+!token | Origin$ Any | Destination$ Graveyard | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1

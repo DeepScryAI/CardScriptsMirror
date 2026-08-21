@@ -3,12 +3,9 @@ ColorIdentity:
 OriginSet:G5fc5076129f6ad6a
 ManaCost:no cost
 Types:Scheme
-T:Mode$ SetInMotion | ValidCard$ Card.Self | Execute$ TrigEffect1 | TriggerZones$ Command
-SVar:TrigEffect1:DB$ Effect | Name$ 2076744574380461741 | IsCurse$ True | StaticAbilities$ CantAttack | ValidTgts$ Opponent | RememberObjects$ ThisTargetedPlayer | TargetUnique$ True | TargetMin$ 0 | TargetMax$ 1 | Duration$ UntilYourNextTurn | SubAbility$ TrigEffect2
-SVar:CantAttack:Mode$ CantAttack | ValidCard$ Creature.RememberedPlayerCtrl | CheckSVar$ HasTarget | SVarCompare$ EQ1
-SVar:HasTarget:Count$RememberedSize
-SVar:TrigEffect2:DB$ Effect | Name$ 11696410032208222843 | IsCurse$ True | StaticAbilities$ CantBeCastCreats | ValidTgts$ Opponent | RememberObjects$ ThisTargetedPlayer | TargetUnique$ True | TargetMin$ 0 | TargetMax$ 1 | Duration$ UntilYourNextTurn | SubAbility$ TrigEffect3
-SVar:CantBeCastCreats:Mode$ CantBeCast | ValidCard$ Card.Creature | Caster$ Player.IsRemembered
-SVar:TrigEffect3:DB$ Effect | Name$ 3439543227788862613 | IsCurse$ True | StaticAbilities$ CantBeCastNonCreats | ValidTgts$ Opponent | RememberObjects$ ThisTargetedPlayer | TargetUnique$ True | TargetMin$ 0 | TargetMax$ 1 | Duration$ UntilYourNextTurn | SubAbility$ DBCleanup
-SVar:CantBeCastNonCreats:Mode$ CantBeCast | ValidCard$ Card.nonCreature | Caster$ Player.IsRemembered
+T:Mode$ SetInMotion | ValidCard$ Card.Self | Execute$ TrigRepeat | TriggerZones$ Command
+SVar:TrigRepeat:DB$ RepeatEach | RepeatPlayers$ Player.Opponent | RepeatSubAbility$ DBToken | ChangeZoneTable$ True
+SVar:DBToken:DB$ Token | TokenScriptIds$ 4037281011 | TokenOwner$ You | RememberTokens$ True | SubAbility$ DBEff
+SVar:DBEff:DB$ Effect | RememberObjects$ Remembered | ExileOnMoved$ Battlefield | Duration$ Permanent | StaticAbilities$ MustAttack | SubAbility$ DBCleanup
+SVar:MustAttack:Mode$ MustAttack | ValidCreature$ Card.IsRemembered | MustAttack$ RememberedPlayer
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

@@ -1,9 +1,11 @@
 Id:15126
-ColorIdentity:UB
+ColorIdentity:B
 OriginSet:Gdb18f239871b8cef
-ManaCost:4 U B
-Types:Creature Dragon
-PT:4/4
-K:Flying
-T:Mode$ Sacrificed | ValidPlayer$ You | ValidCard$ Creature | TriggerZones$ Battlefield | Execute$ TrigSacrifice
-SVar:TrigSacrifice:DB$ Sacrifice | ValidTgts$ Opponent | SacValid$ Creature
+ManaCost:2 B B
+Types:Creature Zombie Warrior
+PT:4/3
+S:Mode$ CantBlock | ValidCard$ Card.Self
+S:Mode$ Continuous | Affected$ Creature.Zombie+Other+YouCtrl | AddPower$ 1 | AddToughness$ 1
+S:Mode$ Continuous | Affected$ Card.Self | MayPlay$ True | AffectedZone$ Graveyard | EffectZone$ Graveyard | RaiseCost$ X
+SVar:X:Count$ValidGraveyard Creature.Other+YouOwn
+SVar:PlayMain1:TRUE

@@ -1,8 +1,12 @@
 Id:33877
-ColorIdentity:WR
-OriginSet:Gf8df2bea26dc6b68
-ManaCost:R W
-Types:Creature Spirit Ox
-PT:2/2
-T:Mode$ ChangesZoneAll | Origin$ Graveyard | Destination$ Any | ValidCards$ Card.YouOwn | Execute$ TrigPutCounter | TriggerZones$ Battlefield
-SVar:TrigPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ 1
+ColorIdentity:
+OriginSet:Gf04404de3fa1525e
+ManaCost:10
+Types:Legendary Creature Avatar
+PT:7/7
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ X | EffectZone$ All
+K:Reach
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPlay
+SVar:TrigPlay:DB$ Play | TgtZone$ Graveyard | ValidTgts$ Instant.YouOwn,Sorcery.YouOwn | ValidSA$ Spell | WithoutManaCost$ True | Optional$ True | ReplaceGraveyard$ Exile | AILogic$ ReplaySpell
+SVar:X:Count$ValidGraveyard Instant.YouOwn,Sorcery.YouOwn
+SVar:HasAttackEffect:TRUE

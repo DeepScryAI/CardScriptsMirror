@@ -1,7 +1,10 @@
 Id:14864
-ColorIdentity:U
+ColorIdentity:W
 OriginSet:G25ee1eefb1a14f05
-ManaCost:4 U
-Types:Instant
-A:SP$ Draw | NumCards$ 3 | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ TgtChoose
+ManaCost:4 W
+Types:Creature Human Soldier
+PT:2/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigBolster
+SVar:TrigBolster:DB$ PutCounter | Bolster$ 2
+T:Mode$ Attacks | ValidCard$ Creature.YouCtrl+counters_GE1_P1P1 | Execute$ TrigTap | TriggerZones$ Battlefield
+SVar:TrigTap:DB$ Tap | ValidTgts$ Creature | TargetsWithDefinedController$ TriggeredDefendingPlayer

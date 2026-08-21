@@ -1,7 +1,9 @@
 Id:12605
-ColorIdentity:B
+ColorIdentity:
 OriginSet:Gfd7b72e0eb9d2cf5
-ManaCost:3 B
-Types:Creature Human Rogue
-PT:3/3
-A:AB$ Discard | Cost$ 2 B Sac<1/Creature> | ValidTgts$ Player | Mode$ RevealYouChoose | NumCards$ 1 | SorcerySpeed$ True
+ManaCost:5
+Types:Artifact
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ ConjurerExile | OptionalDecider$ You
+SVar:ConjurerExile:DB$ ChangeZone | ValidTgts$ Creature.YouCtrl | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ ConjurerReturn
+SVar:ConjurerReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ All | Destination$ Battlefield | GainControl$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

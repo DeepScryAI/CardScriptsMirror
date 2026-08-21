@@ -1,16 +1,18 @@
 Id:28346
-ColorIdentity:G
-OriginSet:G94329e6b3f93276f
-ManaCost:3 G
-Types:Creature Centaur Detective
-PT:3/4
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPeek | TriggerZones$ Battlefield
-SVar:TrigPeek:DB$ PeekAndReveal | Defined$ Player | RememberRevealed$ True | SubAbility$ DBInvestigate
-SVar:DBInvestigate:DB$ Investigate | Num$ X | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | Defined$ Player | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Remembered$Valid Card.nonLand
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | OptionalDecider$ You | TriggerZones$ Battlefield | Execute$ TrigUntap
-SVar:TrigUntap:DB$ UntapAll | ValidCards$ Land.YouCtrl | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | StaticAbilities$ STCantBeCast | Duration$ UntilYourNextTurn
-SVar:STCantBeCast:Mode$ CantBeCast | ValidCard$ Card | Caster$ You
+ColorIdentity:U
+OriginSet:Gfd50577710a6ab09
+ManaCost:2 U
+Types:Legendary Artifact
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigMill
+SVar:TrigMill:DB$ Mill | NumCards$ 2 | Defined$ You | SubAbility$ TrigDraw
+SVar:TrigDraw:DB$ Draw | NumCards$ 2 | Defined$ You
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ X | SVarCompare$ GE8 | Execute$ TrigTransform
+SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform
+SVar:X:Count$ValidGraveyard Permanent.YouOwn
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Types:Legendary Artifact Land
+A:AB$ Mana | Cost$ T | Produced$ U
+T:Mode$ SpellCast | ValidCard$ Permanent | ValidSA$ Spell.ManaFromCard.StrictlySelf | ValidActivatingPlayer$ You | Execute$ TrigCopy
+SVar:TrigCopy:DB$ Clone | Defined$ TriggeredCardLKICopy | CloneTarget$ Targeted | ValidTgts$ Permanent.YouCtrl+Other | TargetMin$ 0 | TargetMax$ 1 | Duration$ UntilEndOfTurn

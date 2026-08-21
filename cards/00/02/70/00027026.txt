@@ -1,12 +1,14 @@
 Id:27026
-ColorIdentity:G
-OriginSet:G6ce0035cfb774934
-ManaCost:G
-Types:Enchantment Saga
-K:Chapter:6:DBNoteType,DBNoteType,DBNoteType,DBNoteType,DBNoteType,DBNoteType
-SVar:DBNoteType:DB$ ChooseType | Type$ Creature | Note$ True | ChooseNoted$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | Triggers$ SpellCast
-SVar:SpellCast:Mode$ SpellCast | ValidCard$ Creature.ChosenType | ValidActivatingPlayer$ You | OneOff$ True | Execute$ TrigEffect
-SVar:TrigEffect:DB$ Effect | RememberObjects$ TriggeredCard | ReplacementEffects$ ETBCreat | ExileOnMoved$ Stack
-SVar:ETBCreat:Event$ Moved | ValidCard$ Card.IsRemembered | Destination$ Battlefield | ReplaceWith$ DBPutP1P1 | ReplacementResult$ Updated
-SVar:DBPutP1P1:DB$ PutCounter | Defined$ ReplacedCard | CounterType$ P1P1 | ETB$ True | CounterNum$ 1
+ColorIdentity:B
+OriginSet:G3601f5e223de6c7f
+ManaCost:2 B
+Types:Creature Halfling Citizen
+PT:2/2
+K:Menace
+T:Mode$ DamageDoneOnce | CombatDamage$ True | ValidSource$ Creature.YouCtrl | TriggerZones$ Battlefield | ValidTarget$ Player | Execute$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 134855612
+T:Mode$ Sacrificed | ValidCard$ Food | Execute$ TrigPutCounter | TriggerZones$ Battlefield | ValidPlayer$ You
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Battlefield | Destination$ Any | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | ValidTgts$ Opponent | LifeAmount$ X
+SVar:X:TriggeredCard$CardPower

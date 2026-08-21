@@ -1,16 +1,15 @@
 Id:21081
-ColorIdentity:R
+ColorIdentity:B
 OriginSet:G7b2607750b451c25
-ManaCost:2 R
-Types:Enchantment
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigExile
-SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | StaticAbilities$ MayPlay | Duration$ Permanent | ForgetOnMoved$ Exile | RememberObjects$ Remembered | SubAbility$ DBCleanup
-SVar:MayPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | Execute$ TrigGraveyard | CheckSVar$ Y | SVarCompare$ GT0 | TriggerZones$ Battlefield
-SVar:TrigGraveyard:DB$ ChangeZoneAll | ChangeType$ Card.ExiledWithSource | Origin$ Exile | Destination$ Graveyard | RememberChanged$ True | SubAbility$ DBDamageAll
-SVar:DBDamageAll:DB$ DamageAll | ValidPlayers$ Player.Opponent | NumDmg$ X | SubAbility$ DBCleanup
-SVar:X:Remembered$Amount
-SVar:Y:Count$ValidExile Card.ExiledWithSource
-SVar:BuffedBy:Land
+ManaCost:X B B B
+Types:Sorcery
+A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | TargetMin$ 0 | TargetMax$ Y | ValidTgts$ Creature.YouOwn+cmcLEX | TargetsWithDifferentCMC$ True
+SVar:X:Count$xPaid
+SVar:Y:Count$ValidGraveyard Creature.YouOwn
+AlternateMode:Modal
+ALTERNATE
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ DBTap | ReplacementResult$ Updated
+SVar:DBTap:DB$ Tap | ETB$ True | Defined$ Self | UnlessCost$ PayLife<3> | UnlessPayer$ You
+A:AB$ Mana | Cost$ T | Produced$ B

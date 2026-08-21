@@ -1,11 +1,16 @@
 Id:29608
-ColorIdentity:W
+ColorIdentity:U
 OriginSet:Gac6359c222afbd4f
-ManaCost:X W W
-Types:Sorcery
-A:SP$ PutCounter | Defined$ You | AILogic$ PayEnergy | CounterType$ ENERGY | CounterNum$ X | SubAbility$ DBChooseNumber
-SVar:DBChooseNumber:DB$ ChooseNumber | Max$ Max | SubAbility$ DBDestroyAll
-SVar:DBDestroyAll:DB$ DestroyAll | ValidCards$ Artifact.cmcLEY,Creature.cmcLEY,Enchantment.cmcLEY | UnlessCost$ PayEnergy<Y> | UnlessPayer$ You | UnlessSwitched$ True
-SVar:X:Count$xPaid
-SVar:Max:Count$YourCountersEnergy
-SVar:Y:Count$ChosenNumber
+ManaCost:2 U
+Types:Creature Weird
+PT:1/4
+K:Flash
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange | OptionalDecider$ You
+SVar:TrigChange:DB$ ChangeTargets | TargetType$ Instant.singleTarget,Sorcery.singleTarget | ValidTgts$ Card | DefinedMagnet$ Self | ChangeSingleTarget$ True
+AlternateMode:Modal
+ALTERNATE
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ DBTap | ReplacementResult$ Updated
+SVar:DBTap:DB$ Tap | ETB$ True | Defined$ Self | UnlessCost$ PayLife<3> | UnlessPayer$ You
+A:AB$ Mana | Cost$ T | Produced$ U

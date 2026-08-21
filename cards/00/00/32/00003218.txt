@@ -1,9 +1,10 @@
 Id:3218
-ColorIdentity:B
+ColorIdentity:G
 OriginSet:G24ae8187eacbba52
-ManaCost:4 B B
-Types:Creature Horror
-PT:2/2
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDiscard
-SVar:TrigDiscard:DB$ Discard | ValidTgts$ Player | NumCards$ 2 | Mode$ TgtChoose
+ManaCost:2 G G
+Types:Enchantment
+R:Event$ Draw | ActiveZones$ Battlefield | ValidPlayer$ You | ReplaceWith$ AbundantChoice | Optional$ True
+SVar:AbundantChoice:DB$ GenericChoice | Choices$ DigLand,DigNonland | Defined$ You
+SVar:DigLand:DB$ DigUntil | Valid$ Card.Land | FoundDestination$ Hand | RevealedDestination$ Library | RevealedLibraryPosition$ -1
+SVar:DigNonland:DB$ DigUntil | Valid$ Card.nonLand | FoundDestination$ Hand | RevealedDestination$ Library | RevealedLibraryPosition$ -1
+SVar:NonStackingEffect:True

@@ -1,7 +1,15 @@
 Id:26568
-ColorIdentity:G
-OriginSet:G06757f68e16377c2
-ManaCost:1 G
-Types:Creature Elf Warrior
-PT:2/2
-A:AB$ Pump | Cost$ 3 G | NumAtt$ +2 | NumDef$ +2
+ColorIdentity:
+OriginSet:Gd5f5e54fa26ae40d
+ManaCost:no cost
+Types:Plane Zhalfir
+T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Command | ValidPlayer$ You | CheckSVar$ X | Execute$ TrigUntapAll
+SVar:TrigUntapAll:DB$ UntapAll | ValidCards$ Creature | SubAbility$ DBPhaseOut
+SVar:DBPhaseOut:DB$ Phases | AllValid$ Creature | WontPhaseInNormal$ True | RememberAffected$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | Triggers$ PlaneswalkTrig | OneOff$ True | RememberObjects$ Remembered | Duration$ Permanent | ForgetOnPhasedIn$ True | SubAbility$ DBCleanup
+SVar:PlaneswalkTrig:Mode$ PlaneswalkedTo | Execute$ TrigPhaseIn | TriggerZones$ Command | Static$ True
+SVar:TrigPhaseIn:DB$ Phases | Defined$ Remembered | PhaseInOrOut$ True
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:PlayerCountPropertyYou$PlaneswalkedToThisTurn Unyaro
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 2420340552

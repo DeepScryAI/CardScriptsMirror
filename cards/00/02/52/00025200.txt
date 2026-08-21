@@ -1,11 +1,11 @@
 Id:25200
 ColorIdentity:
 OriginSet:Gf591a76e7a37cf73
-ManaCost:7
-Types:Artifact Vehicle
-PT:10/10
-K:Protection:Card.cmcLE3:mana value 3 or less
-T:Mode$ Attacks | ValidCard$ Creature.Self | TriggerZones$ Battlefield | Execute$ TrigDamage
-SVar:TrigDamage:DB$ DealDamage | Defined$ Player.Opponent | NumDmg$ 5
-K:Crew:4
-SVar:HasAttackEffect:TRUE
+ManaCost:3
+Types:Artifact Creature Wraith
+PT:2/1
+S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigSearch | TriggerZones$ Battlefield
+SVar:TrigSearch:AB$ ChooseCard | Cost$ 3 Sac<1/CARDNAME> | Choices$ Land.YouCtrl | Mandatory$ True | SubAbility$ DBChange
+SVar:DBChange:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Land.Basic+sharesNameWith ChosenCard | ChangeNum$ 2 | Tapped$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True

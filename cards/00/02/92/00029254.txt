@@ -1,9 +1,10 @@
 Id:29254
 ColorIdentity:B
 OriginSet:G27146c70b74a1e72
-ManaCost:2 B
-Types:Creature Human Rogue
-PT:3/1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | ValidTgts$ Player | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | Defined$ Targeted | LifeAmount$ 1
+ManaCost:B
+Types:Sorcery
+K:Spree
+A:SP$ Charm | Choices$ DBTutor,DBDraw | MinCharmNum$ 1 | CharmNum$ 2
+SVar:DBTutor:DB$ ChangeZone | ModeCost$ 2 | Origin$ Library | Destination$ Library | LibraryPosition$ 0 | ChangeType$ Card | ChangeNum$ 1 | Mandatory$ True
+SVar:DBDraw:DB$ Draw | ModeCost$ B B | NumCards$ 3 | ValidTgts$ Player | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 3 | Defined$ Targeted

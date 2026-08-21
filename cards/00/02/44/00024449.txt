@@ -1,10 +1,9 @@
 Id:24449
-ColorIdentity:
+ColorIdentity:G
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:4
-Types:Artifact Equipment
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigInitiative
-SVar:TrigInitiative:DB$ TakeInitiative
-T:Mode$ AttackerBlocked | ValidCard$ Creature.EquippedBy | Execute$ TrigDamage
-SVar:TrigDamage:DB$ DamageAll | NumDmg$ 2 | ValidCards$ Creature.blockingEquipped | DamageSource$ TriggeredAttackerLKICopy
-K:Equip:1
+ManaCost:2 G
+Types:Creature Goblin Druid
+PT:1/4
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | Execute$ TrigDraw | TriggerZones$ Battlefield | CheckSVar$ X | SVarCompare$ GE8
+SVar:X:Count$Valid Creature.YouCtrl$CardPower
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1

@@ -1,9 +1,13 @@
 Id:21114
-ColorIdentity:W
-OriginSet:G72c9c624ceb92bff
-ManaCost:2 W
-Types:Creature Mouse
-PT:1/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ DBPumpAll
-SVar:DBPumpAll:DB$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +1 | NumDef$ +1
-SVar:BuffedBy:Land
+ColorIdentity:WU
+OriginSet:G7b2607750b451c25
+ManaCost:1 W U
+Types:Legendary Creature Angel Wizard
+PT:3/3
+K:Flying
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ X | SVarCompare$ EQ4 | Execute$ TrigPump
+SVar:TrigPump:DB$ Effect | ValidTgts$ Permanent.nonLand+OppCtrl | RememberObjects$ Targeted | StaticAbilities$ DBCantStatic | ForgetOnMoved$ Battlefield | IsCurse$ True | Duration$ UntilYourNextTurn
+SVar:DBCantStatic:Mode$ CantAttack,CantBlock,CantBeActivated | ValidCard$ Card.IsRemembered
+A:AB$ Pump | Cost$ Sac<1/NICKNAME> | Defined$ Valid Creature.YouCtrl | KWChoice$ Hexproof,Indestructible
+SVar:X:Count$Party
+SVar:BuffedBy:Rogue,Warrior,Wizard

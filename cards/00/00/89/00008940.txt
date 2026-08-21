@@ -1,7 +1,11 @@
 Id:8940
-ColorIdentity:U
+ColorIdentity:B
 OriginSet:Gce1d73449bd71b54
-ManaCost:2 U
-Types:Creature Merfolk Wizard
-PT:1/2
-A:AB$ Pump | Cost$ T | ValidTgts$ Creature | KW$ HIDDEN CARDNAME's power and toughness are switched
+ManaCost:2 B
+Types:Enchantment Aura
+K:Enchant:Creature
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigTap
+SVar:TrigTap:DB$ Tap | Defined$ Enchanted
+R:Event$ Untap | ActiveZones$ Battlefield | ValidCard$ Creature.EnchantedBy | ValidStepTurnToController$ You | Layer$ CantHappen
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigUpkeep
+SVar:TrigUpkeep:DB$ Sacrifice | UnlessPayer$ You | UnlessCost$ B

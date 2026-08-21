@@ -1,9 +1,15 @@
 Id:29751
-ColorIdentity:
-OriginSet:G01a610e823cce3ca
-ManaCost:2
-Types:Legendary Artifact
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZone | ValidTgts$ Creature.Legendary | TargetMin$ 0 | TargetMax$ 1 | Origin$ Graveyard | Destination$ Exile | WithCountersType$ MEMORY
-A:AB$ Pump | Cost$ T | ValidTgts$ Creature.Legendary+counters_GE1_MEMORY | TgtZone$ Exile | SorcerySpeed$ True | SubAbility$ DBClone
-SVar:DBClone:DB$ Clone | Defined$ ParentTarget | ValidTgts$ Creature.Legendary+YouCtrl | CloneTarget$ ThisTargetedCard | Duration$ UntilYourNextTurn
+ColorIdentity:W
+OriginSet:Gac6359c222afbd4f
+ManaCost:3 W
+Types:Creature Human Warlock
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Artifact.OppCtrl,Enchantment.OppCtrl
+AlternateMode:Modal
+ALTERNATE
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ DBTap | ReplacementResult$ Updated
+SVar:DBTap:DB$ Tap | ETB$ True | Defined$ Self | UnlessCost$ PayLife<3> | UnlessPayer$ You
+A:AB$ Mana | Cost$ T | Produced$ W

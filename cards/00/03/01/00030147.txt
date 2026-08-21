@@ -1,13 +1,12 @@
 Id:30147
 ColorIdentity:UB
-OriginSet:Ge949f7cc91575fe7
-ManaCost:3 U B
-Types:Creature Drake
-PT:4/4
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm
-SVar:TrigCharm:DB$ Charm | Choices$ DBDistract,DBEnthrall
-SVar:DBDistract:DB$ Tap | ValidTgts$ Land | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1
-SVar:DBEnthrall:DB$ Discard | ValidTgts$ Player | NumCards$ X | Mode$ TgtChoose
-SVar:X:Count$ThisTurnCast_Card.YouCtrl
+OriginSet:Gf09b85bbcc27770c
+ManaCost:2 U B
+Types:Legendary Creature Rat Rogue
+PT:3/4
+K:Ward:2
+R:Event$ Moved | ActiveZones$ Battlefield | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.OppCtrl | ReplaceWith$ DBExile
+SVar:DBExile:DB$ ChangeZone | Hidden$ True | Origin$ All | Destination$ Exile | Defined$ ReplacedCard
+T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ X | TokenScriptIds$ 1595333169 | TokenOwner$ You
+SVar:X:Count$ThisTurnEntered_Exile_from_Battlefield_Creature.OppCtrl

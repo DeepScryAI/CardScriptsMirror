@@ -1,8 +1,14 @@
 Id:26982
-ColorIdentity:R
-OriginSet:G6ce0035cfb774934
-ManaCost:2 R
-Types:Artifact Equipment
-K:Equip:2
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 3
-S:Mode$ Continuous | Affected$ Card.EquippedBy+Legendary | AddKeyword$ Menace
+ColorIdentity:UG
+OriginSet:G3601f5e223de6c7f
+ManaCost:3 G U
+Types:Legendary Creature Elf Noble
+PT:3/4
+K:Vigilance
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigVote
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigVote | Secondary$ True | TriggerZones$ Battlefield
+SVar:TrigVote:DB$ Vote | Defined$ Player | Secretly$ True | VotePlayer$ Player | StoreVoteNum$ True | SubAbility$ DBRepeatDraw
+SVar:DBRepeatDraw:DB$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBDraw | AmountFromVotes$ True | SubAbility$ DBRepeatPut
+SVar:DBDraw:DB$ Draw | Defined$ Remembered | NumCards$ Votes
+SVar:DBRepeatPut:DB$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBChangeZone | AmountFromVotes$ True | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | DefinedPlayer$ Remembered | ConditionCheckSVar$ Votes | ConditionSVarCompare$ EQ0 | ChangeType$ Permanent | Origin$ Hand | Destination$ Battlefield

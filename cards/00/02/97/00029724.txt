@@ -1,14 +1,11 @@
 Id:29724
-ColorIdentity:
-OriginSet:G01a610e823cce3ca
-ManaCost:4
-Types:Legendary Artifact Equipment
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigAttach
-SVar:TrigAttach:DB$ Attach | ValidTgts$ Creature.Legendary+YouCtrl
-T:Mode$ Attacks | ValidCard$ Card.AttachedBy | Execute$ TrigTap
-SVar:TrigTap:DB$ Tap | ValidTgts$ Creature.ControlledBy TriggeredDefendingPlayer | SubAbility$ DBCounter
-SVar:DBCounter:DB$ PutCounter | Defined$ Targeted | CounterType$ Stun | CounterNum$ 1 | SubAbility$ DBRepeat
-SVar:DBRepeat:DB$ RepeatEach | RepeatPlayers$ Player.Opponent | RepeatSubAbility$ DBDmg | DamageMap$ True
-SVar:DBDmg:DB$ DealDamage | Defined$ Player.IsRemembered | NumDmg$ X
-SVar:X:Count$Valid Creature.RememberedPlayerCtrl+tapped
-K:Equip:4
+ColorIdentity:RG
+OriginSet:Gac6359c222afbd4f
+ManaCost:3 R G
+Types:Creature Eldrazi
+PT:5/5
+K:Devoid
+T:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigPutCounters
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPutCounters | TriggerZones$ Battlefield | Secondary$ True
+SVar:TrigPutCounters:DB$ PutCounterAll | ValidCards$ Creature.Colorless+YouCtrl | CounterType$ P1P1 | CounterNum$ 1
+K:Trample

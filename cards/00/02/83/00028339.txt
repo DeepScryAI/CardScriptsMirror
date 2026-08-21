@@ -1,13 +1,9 @@
 Id:28339
-ColorIdentity:WR
-OriginSet:G94329e6b3f93276f
-ManaCost:R W W
-Types:Legendary Creature Angel
-PT:4/3
-K:Flying
-K:Lifelink
-T:Mode$ SpellAbilityCast | ValidSA$ Spell.nonCreature | ValidActivatingPlayer$ You | IsSingleTarget$ True | TargetsValid$ Card.Self | Execute$ TrigChoose | TriggerZones$ Battlefield
-SVar:TrigChoose:DB$ ChooseCard | Choices$ Creature.Other+CanBeTargetedByTriggeredSpellAbility | MinAmount$ 0 | Amount$ Count$Valid Creature.Other+CanBeTargetedByTriggeredSpellAbility | SubAbility$ CopySpell
-SVar:CopySpell:DB$ CopySpellAbility | DefinedTarget$ ChosenCard | UnlessCost$ CopyCost | UnlessPayer$ You | UnlessSwitched$ True | Defined$ TriggeredSpellAbility | Controller$ You | SubAbility$ DBCleanup
-SVar:CopyCost:Count$ChosenSize/Times.2
-SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+ColorIdentity:
+OriginSet:Gfd50577710a6ab09
+ManaCost:1
+Types:Legendary Artifact Equipment
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddKeyword$ Vigilance
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.Other,Artifact.Other | TriggerZones$ Battlefield | Execute$ TrigGainCounter
+SVar:TrigGainCounter:DB$ PutCounter | Defined$ Equipped | CounterType$ P1P1 | CounterNum$ 1
+K:Equip:2

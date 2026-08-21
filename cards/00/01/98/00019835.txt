@@ -1,12 +1,11 @@
 Id:19835
-ColorIdentity:R
-OriginSet:G23be9f486a22d38a
-ManaCost:2 R
-Types:Artifact Creature Wall
-PT:1/3
-K:Defender
-K:Reach
-A:AB$ DealDamage | Cost$ T | NumDmg$ 1 | Defined$ Player.Opponent
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Knight+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigUntap
-SVar:TrigUntap:DB$ Untap | Defined$ Self
-SVar:BuffedBy:Knight
+ColorIdentity:B
+OriginSet:Ga539dc09c09c4538
+ManaCost:5 B B
+Types:Creature Ape Snake
+PT:6/7
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Player.Opponent | TriggerZones$ Battlefield | Execute$ TrigManifest
+SVar:TrigManifest:DB$ Manifest | Amount$ 1 | Defined$ ValidLibrary Card.TopLibrary+ActivePlayerCtrl
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouDontOwn+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigDrain
+SVar:TrigDrain:DB$ LoseLife | Defined$ TriggeredCardOwner | LifeAmount$ 2 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2

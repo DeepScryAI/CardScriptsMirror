@@ -1,9 +1,14 @@
 Id:7761
-ColorIdentity:B
+ColorIdentity:R
 OriginSet:G3fddc6426f419054
-ManaCost:1 B
-Types:Creature Ogre Warrior
-PT:3/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigLoseLife
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigLoseLife | Secondary$ True
-SVar:TrigLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ 3 | ConditionPresent$ Demon.YouCtrl | ConditionCompare$ EQ0
+ManaCost:5 R
+Types:Sorcery
+A:SP$ Repeat | RepeatSubAbility$ DBExileThree | RepeatCheckSVar$ X | RepeatSVarCompare$ EQ0 | SubAbility$ DBToken
+SVar:DBExileThree:DB$ Cleanup | ClearImprinted$ True | SubAbility$ DBExile1
+SVar:DBExile1:DB$ Dig | RememberChanged$ True | DestinationZone$ Exile | DigNum$ 1 | ChangeNum$ All | SubAbility$ DBExile2
+SVar:DBExile2:DB$ Dig | RememberChanged$ True | DestinationZone$ Exile | DigNum$ 1 | ChangeNum$ All | SubAbility$ DBExile3
+SVar:DBExile3:DB$ Dig | RememberChanged$ True | DestinationZone$ Exile | DigNum$ 1 | ChangeNum$ All | Imprint$ True
+SVar:X:Count$ValidExile Land.IsImprinted
+SVar:DBToken:DB$ Token | TokenAmount$ Y | TokenScriptIds$ 2516159455 | TokenOwner$ You | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True
+SVar:Y:Count$ValidExile Card.IsRemembered+nonLand

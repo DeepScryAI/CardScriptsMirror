@@ -1,8 +1,9 @@
 Id:8618
-ColorIdentity:U
+ColorIdentity:
 OriginSet:G70f74088c47d66bd
-ManaCost:2 U U
-Types:Instant
-A:SP$ Draw | NumCards$ 4 | ValidTgts$ Player | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | NumCards$ X | Mode$ TgtChoose | Defined$ Targeted
-SVar:X:Count$IfCastInOwnMainPhase.2.3
+ManaCost:2
+Types:Artifact
+A:AB$ PeekAndReveal | Cost$ 4 T | NoPeek$ True | RememberRevealed$ True | SubAbility$ DBCandlesChangeZone
+SVar:DBCandlesChangeZone:DB$ ChangeZone | Defined$ Remembered | Origin$ Library | Destination$ Graveyard | ConditionDefined$ Remembered | ConditionPresent$ Card.sharesNameWith YourGraveyard | SubAbility$ DBCandlesDraw
+SVar:DBCandlesDraw:DB$ Draw | ConditionDefined$ Remembered | ConditionPresent$ Card.sharesNameWith YourGraveyard | ConditionCompare$ EQ0 | SubAbility$ DBCandlesCleanup
+SVar:DBCandlesCleanup:DB$ Cleanup | ClearRemembered$ True

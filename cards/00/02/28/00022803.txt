@@ -1,9 +1,10 @@
 Id:22803
-ColorIdentity:
-OriginSet:Gf78628ad511eefec
-ManaCost:4
-Types:Artifact Creature Scarecrow
-PT:3/4
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
-SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card | TargetMin$ 0 | TargetMax$ 1
-A:AB$ Mana | Cost$ 2 | Produced$ Any
+ColorIdentity:U
+OriginSet:G66f2eb694ffd614a
+ManaCost:X U U
+Types:Sorcery
+A:SP$ Sacrifice | Defined$ You | Amount$ X | SacValid$ Zombie | RememberSacrificed$ True | SubAbility$ DBDigUntil
+SVar:DBDigUntil:DB$ DigUntil | Amount$ Y | Valid$ Creature.Zombie | FoundDestination$ Battlefield | RevealedDestination$ Library | RevealedLibraryPosition$ -1 | RevealRandomOrder$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$xPaid
+SVar:Y:Remembered$Amount

@@ -1,10 +1,18 @@
 Id:16107
 ColorIdentity:R
 OriginSet:Gc276c26a85a70470
-ManaCost:3 R
-Types:Creature Vampire Warrior
-PT:3/2
+ManaCost:R
+Types:Creature Human Werewolf
+PT:1/1
 K:Haste
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCanNotBlock
-SVar:TrigCanNotBlock:DB$ Pump | ValidTgts$ Creature | KW$ HIDDEN CARDNAME can't block. | IsCurse$ True
-SVar:PlayMain1:TRUE
+T:Mode$ Phase | Phase$ Upkeep | WerewolfTransformCondition$ True | TriggerZones$ Battlefield | Execute$ TrigTransform
+SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:red
+Types:Creature Werewolf
+PT:2/2
+K:Menace
+T:Mode$ Phase | Phase$ Upkeep | WerewolfUntransformCondition$ True | TriggerZones$ Battlefield | Execute$ TrigTransform
+SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform

@@ -1,9 +1,10 @@
 Id:10931
-ColorIdentity:W
+ColorIdentity:U
 OriginSet:G4398040c23c94f0e
-ManaCost:W
-Types:Creature Cat
-PT:0/1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +2 | NumDef$ +2
-SVar:BuffedBy:Land
+ManaCost:1 U
+Types:Enchantment Aura
+K:Enchant:Land
+SVar:AttachAILogic:ChangeType
+S:Mode$ Continuous | Affected$ Card.EnchantedBy | AddType$ Island | RemoveLandTypes$ True
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1

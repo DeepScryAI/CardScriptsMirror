@@ -1,11 +1,13 @@
 Id:14377
-ColorIdentity:U
-OriginSet:Gd10cbd11b89035b7
-ManaCost:2 U
-Types:Creature Squid Horror
-PT:1/1
-T:Mode$ Drawn | ValidCard$ Card.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenAmount$ X | TokenScriptIds$ 1394778451 | TokenOwner$ You
-SVar:X:TriggeredCard$CardCounters.P1P1
+ColorIdentity:BG
+OriginSet:Gfedec1ffe6383a18
+ManaCost:no cost
+Colors:black,green
+Types:Legendary Planeswalker Garruk
+Loyalty:20
+A:AB$ Token | Cost$ AddCounter<0/LOYALTY> | Planeswalker$ True | TokenScriptIds$ 4257275070
+A:AB$ Pump | Cost$ AddCounter<4/LOYALTY> | Planeswalker$ True | NumAtt$ +1 | KW$ Deathtouch | ValidTgts$ Creature.Wolf
+A:AB$ Destroy | Cost$ SubCounter<10/LOYALTY> | Planeswalker$ True | ValidTgts$ Creature | SubAbility$ DBAddLoyalty
+SVar:DBAddLoyalty:DB$ PutCounter | Defined$ Self | CounterType$ LOYALTY | CounterNum$ X
+SVar:X:Targeted$CardToughness
+A:AB$ DestroyAll | Cost$ SubCounter<25/LOYALTY> | Planeswalker$ True | Ultimate$ True | ValidCards$ Creature.YouDontCtrl

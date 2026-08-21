@@ -1,7 +1,11 @@
 Id:26951
-ColorIdentity:W
-OriginSet:G6ce0035cfb774934
-ManaCost:W
-Types:Instant
-A:SP$ Pump | ValidTgts$ Creature | NumAtt$ +1 | NumDef$ +3 | KW$ Flying | SubAbility$ DBUntap
-SVar:DBUntap:DB$ Untap | Defined$ Targeted
+ColorIdentity:WUBRG
+OriginSet:G321081e278de53f0
+ManaCost:2 W
+Types:Legendary Creature Human Warrior
+PT:3/3
+S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddAbility$ Mana
+SVar:Mana:AB$ ManaReflected | Cost$ T | Valid$ Defined.Self | ColorOrType$ Color | ReflectProperty$ Is | RestrictValid$ Activated.Creature+inZoneBattlefield | IsPresent$ Card.Self+hasAbility Activated.otherAbility
+A:AB$ Mill | Cost$ W U B R G T | NumCards$ 5 | RememberMilled$ True | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZoneAll | ChangeType$ Creature.IsRemembered+hasNonManaActivatedAbility | Origin$ Graveyard,Exile | Destination$ Hand | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

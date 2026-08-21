@@ -1,8 +1,12 @@
 Id:10190
-ColorIdentity:R
+ColorIdentity:
 OriginSet:G8f5d5a0744ac5b98
-ManaCost:2 R
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:Pump
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 3 | AddKeyword$ FirstStrike
+ManaCost:5
+Types:Artifact
+R:Event$ GameLoss | ActiveZones$ Battlefield | ValidPlayer$ You | ReplaceWith$ ShuffleDrawSetLife
+SVar:ShuffleDrawSetLife:DB$ ChangeZoneAll | ChangeType$ Card.YouOwn | Origin$ Battlefield | Destination$ Library | Shuffle$ True | SubAbility$ Shuffle2
+SVar:Shuffle2:DB$ ChangeZoneAll | ChangeType$ Card.YouOwn | Origin$ Hand | Destination$ Library | Shuffle$ True | SubAbility$ Shuffle3
+SVar:Shuffle3:DB$ ChangeZoneAll | ChangeType$ Card.YouOwn | Origin$ Graveyard | Destination$ Library | Shuffle$ True | SubAbility$ Draw
+SVar:Draw:DB$ Draw | Defined$ You | NumCards$ 7 | SubAbility$ SetLife
+SVar:SetLife:DB$ SetLife | Defined$ You | LifeAmount$ 20
+SVar:NonStackingEffect:True

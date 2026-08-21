@@ -1,12 +1,10 @@
 Id:9531
 ColorIdentity:U
 OriginSet:G49bcc8b9b86b628d
-ManaCost:3 U
-Types:Creature Faerie Wizard
-PT:2/2
-K:Flash
-K:Flying
-T:Mode$ SpellCast | ValidCard$ Wizard | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigUntap
-A:AB$ Draw | Cost$ T | NumCards$ 1 | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ TgtChoose
-SVar:TrigUntap:DB$ Untap | Defined$ Self
+ManaCost:1 U
+Types:Creature Merfolk Wizard
+PT:2/1
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigKinship | TriggerZones$ Battlefield | OptionalDecider$ You
+SVar:TrigKinship:DB$ PeekAndReveal | PeekAmount$ 1 | RevealValid$ Card.sharesCreatureTypeWith | RevealOptional$ True | RememberRevealed$ True | SubAbility$ DBMill
+SVar:DBMill:DB$ Mill | NumCards$ 3 | Defined$ Player.Opponent | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

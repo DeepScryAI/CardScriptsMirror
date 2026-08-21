@@ -1,11 +1,10 @@
 Id:30192
-ColorIdentity:BG
-OriginSet:G9ff9681e1fe8713a
-ManaCost:2 B G
-Types:Legendary Creature Squirrel Soldier
-PT:3/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigImmediateTrig
-SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ Forage | Execute$ TrigConjure
-SVar:TrigConjure:DB$ MakeCard | CatalogId$ 22113 | Conjure$ True | Zone$ Battlefield
-T:Mode$ DamageDoneOnce | ValidSource$ Squirrel.YouCtrl | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigPutCounterAll | TriggerZones$ Battlefield
-SVar:TrigPutCounterAll:AB$ PutCounterAll | Cost$ Sac<1/Permanent.token/token> | ValidCards$ Permanent.YouCtrl+catalogId22113 | CounterType$ ACORN | CounterNum$ 1
+ColorIdentity:G
+OriginSet:G30e4cc621dfc3a2e
+ManaCost:3 G
+Types:Sorcery
+A:SP$ Charm | Choices$ DBPutCounter,DBCopy,DBToken,DBSacrifice | CharmNum$ 3 | CanRepeatModes$ True
+SVar:DBPutCounter:DB$ PutCounter | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ 2
+SVar:DBCopy:DB$ CopyPermanent | ValidTgts$ Permanent.token+YouCtrl
+SVar:DBToken:DB$ Token | ValidTgts$ Player | TokenScriptIds$ 798446951
+SVar:DBSacrifice:DB$ Sacrifice | ValidTgts$ Opponent | SacValid$ Artifact.!token

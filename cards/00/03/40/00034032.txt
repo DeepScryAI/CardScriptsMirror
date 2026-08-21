@@ -1,11 +1,9 @@
 Id:34032
-ColorIdentity:W
-OriginSet:Gcb93bbfc68a40806
-ManaCost:3 W W
-Types:Legendary Creature Human Soldier Hero
-PT:3/5
-K:Flying
-K:Vigilance
-T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPutCounterAll | IsPresent$ Creature.attacking+Other | NoResolvingCheck$ True | PresentCompare$ GE2
-SVar:TrigPutCounterAll:DB$ PutCounterAll | ValidCards$ Creature.attacking | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBPumpAll
-SVar:DBPumpAll:DB$ PumpAll | ValidCards$ Creature.attacking | KW$ Indestructible
+ColorIdentity:G
+OriginSet:Gf8df2bea26dc6b68
+ManaCost:1 G
+Types:Instant
+T:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigCopy
+SVar:TrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | Amount$ 1 | MayChooseTarget$ True | ConditionCheckSVar$ X
+A:SP$ Pump | ValidTgts$ Creature | NumAtt$ +2 | NumDef$ +4
+SVar:X:Count$LifeYouGainedThisTurn

@@ -1,9 +1,8 @@
 Id:3413
-ColorIdentity:R
+ColorIdentity:G
 OriginSet:G24ae8187eacbba52
-ManaCost:2 R R
-Types:Creature Lizard Shaman
-PT:3/3
-T:Mode$ BecomesTarget | ValidTarget$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigDamage
-SVar:TrigDamage:DB$ DealDamage | Defined$ TriggeredSourceController | NumDmg$ 3
-SVar:Targeting:Counter
+ManaCost:2 G
+Types:Enchantment
+S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddTrigger$ TrigBlocked | AddSVar$ RetaliationTrigPump
+SVar:TrigBlocked:Mode$ AttackerBlockedByCreature | ValidCard$ Card.Self | ValidBlocker$ Creature | Execute$ RetaliationTrigPump | TriggerZones$ Battlefield
+SVar:RetaliationTrigPump:DB$ Pump | NumAtt$ +1 | NumDef$ +1

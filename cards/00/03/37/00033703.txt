@@ -1,16 +1,7 @@
 Id:33703
-ColorIdentity:WR
-OriginSet:G14da29c4716bedc3
-ManaCost:1 R W
-Types:Creature Dwarf Artificer
-PT:3/2
-K:FirstStrike
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | IsPresent$ Artifact.YouOwn,Creature.YouOwn | PresentZone$ Graveyard | PresentCompare$ GE3 | Execute$ TrigPrepare
-SVar:TrigPrepare:DB$ AlterAttribute | Attributes$ Prepared
-AlternateMode:Prepare
-ALTERNATE
-ManaCost:2 R W
+ColorIdentity:UG
+OriginSet:G23d1f017cc66962f
+ManaCost:2 G U
 Types:Sorcery
-A:SP$ ChangeZone | RememberLKI$ True | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Artifact.YouOwn,Creature.YouOwn | ChangeNum$ 1 | SubAbility$ DBCopy
-SVar:DBCopy:DB$ CopyPermanent | Defined$ Remembered | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+A:SP$ Draw | Defined$ You | NumCards$ 3 | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | Tapped$ True | ChangeType$ Land.YouOwn

@@ -1,8 +1,12 @@
 Id:27900
 ColorIdentity:U
-OriginSet:G3601f5e223de6c7f
-ManaCost:6 U U U
-Types:Sorcery
-K:Delve
-A:SP$ Mill | NumCards$ 9 | ValidTgts$ Opponent | SubAbility$ FishyCast
-SVar:FishyCast:DB$ Play | ValidZone$ Graveyard | Valid$ Instant.TargetedPlayerCtrl,Sorcery.TargetedPlayerCtrl | Controller$ You | WithoutManaCost$ True | ValidSA$ Spell | Optional$ True | Amount$ 1 | ReplaceGraveyard$ Exile
+OriginSet:G30e8a5e111cffb44
+ManaCost:2 U
+Types:Legendary Creature Human Cleric
+PT:3/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigInvestigate
+SVar:TrigInvestigate:DB$ Investigate
+T:Mode$ Sacrificed | ValidPlayer$ You | ValidCard$ Clue | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Effect | RememberObjects$ Self & Targeted | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | StaticAbilities$ Unblockable
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Creature.IsRemembered
+K:Doctor's companion

@@ -1,13 +1,15 @@
 Id:29520
-ColorIdentity:R
+ColorIdentity:B
 OriginSet:Gac6359c222afbd4f
-ManaCost:3 R R
-Types:Enchantment Saga
-K:Chapter:3:DBDamageAll,DBImpulseDraw,DBToken
-SVar:DBDamageAll:DB$ DamageAll | ValidCards$ Creature.OppCtrl,Planeswalker.OppCtrl | NumDmg$ 2
-SVar:DBImpulseDraw:AB$ Dig | Cost$ Discard<1/Card> | Defined$ You | DigNum$ 2 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ STPlay | SubAbility$ DBCleanup | ForgetOnMoved$ Exile | Duration$ UntilTheEndOfYourNextTurn
-SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:DBToken:DB$ CopyPermanent | DefinedCatalogId$ 19334
-SVar:BuffedBy:Card.nonCreature
+ManaCost:2 B
+Types:Creature Goblin
+PT:3/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZoneAll | ValidTgts$ Player | Origin$ Graveyard | Destination$ Exile | ChangeType$ Card | IsCurse$ True
+AlternateMode:Modal
+ALTERNATE
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ DBTap | ReplacementResult$ Updated
+SVar:DBTap:DB$ Tap | ETB$ True | Defined$ Self | UnlessCost$ PayLife<3> | UnlessPayer$ You
+A:AB$ Mana | Cost$ T | Produced$ B

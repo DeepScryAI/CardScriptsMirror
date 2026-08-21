@@ -2,7 +2,8 @@ Id:34358
 ColorIdentity:G
 OriginSet:Gcb93bbfc68a40806
 ManaCost:1 G
-Types:Legendary Creature Human Hero
-PT:3/1
-A:AB$ Draw | Cost$ 3 G ExileFromGrave<1/CARDNAME> | ActivationZone$ Graveyard | Defined$ You | NumCards$ 1 | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | Optional$ True | ChangeType$ Land | ChangeNum$ 1
+Types:Instant
+A:SP$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1 | AILogic$ Fight | SubAbility$ DBFight
+SVar:DBFight:DB$ Fight | Defined$ ParentTarget | ValidTgts$ Creature.OppCtrl | AILogic$ Always | SubAbility$ DBDelayedTrigger
+SVar:DBDelayedTrigger:DB$ DelayedTrigger | Mode$ ChangesZone | RememberObjects$ ParentTarget | ValidCard$ Card.IsTriggerRemembered | Origin$ Battlefield | Destination$ Graveyard | ThisTurn$ True | IsPresent$ Card.IsCommander+YouOwn+YouCtrl | Execute$ TrigMonarch
+SVar:TrigMonarch:DB$ BecomeMonarch

@@ -1,7 +1,12 @@
 Id:13693
-ColorIdentity:R
+ColorIdentity:
 OriginSet:G97e9a20e5a5d5822
-ManaCost:1 R R
-Types:Sorcery
-A:SP$ DamageAll | ValidCards$ Creature | NumDmg$ 3 | RememberDamaged$ True | ReplaceDyingDefined$ Remembered | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:4
+Types:Artifact Creature Horse
+PT:0/4
+K:Defender
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChoose
+SVar:TrigChoose:DB$ ChoosePlayer | Defined$ You | Choices$ Player.Opponent | AILogic$ Curse | SubAbility$ DBDonate
+SVar:DBDonate:DB$ GainControl | Defined$ Self | NewController$ Player.Chosen
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 1214250791 | TokenOwner$ Player.Opponent

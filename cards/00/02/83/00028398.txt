@@ -1,14 +1,20 @@
 Id:28398
-ColorIdentity:BR
-OriginSet:G7ee0e82a2424d636
-ManaCost:B R
-Types:Enchantment
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDamage
-SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Creature.OppCtrl | NumDmg$ 3
-T:Mode$ ChangesZoneAll | TriggerZones$ Battlefield | ValidCards$ Creature | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigMill
-SVar:TrigMill:DB$ Mill | NumCards$ 1 | Defined$ You | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | CounterType$ BLOODSTAIN | SubAbility$ DBSac
-SVar:DBSac:DB$ Sacrifice | SacValid$ Self | ConditionPresent$ Card.Self+counters_GE5_BLOODSTAIN | RememberSacrificed$ True | SubAbility$ DBTrigger
-SVar:DBTrigger:DB$ ImmediateTrigger | Execute$ TrigChange | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBCleanup
-SVar:TrigChange:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Creature.YouOwn
+ColorIdentity:G
+OriginSet:G4f78ded7b58f78f8
+ManaCost:1 G G
+Types:Enchantment Saga
+K:Chapter:3:DBAnimateAll,DBToken,DBWrath
+SVar:DBAnimateAll:DB$ Animate | ValidTgts$ Artifact.nonCreature+OppCtrl | TargetMin$ 0 | TargetMax$ OneEach | TargetsForEachPlayer$ True | Defined$ Targeted | Power$ 0 | Toughness$ 4 | Types$ Creature,Artifact,Wall | Keywords$ Defender | Duration$ AsLongAsControl
+SVar:OneEach:PlayerCountOpponents$Amount
+SVar:DBToken:DB$ Token | TokenOwner$ You | TokenScriptIds$ 1788530226 | PumpKeywords$ Haste
+SVar:DBWrath:DB$ DestroyAll | ValidCards$ Creature.Wall | SubAbility$ DBTransform
+SVar:DBTransform:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | Transformed$ True | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Types:Legendary Land
+S:Mode$ Continuous | Affected$ Dinosaur.YouOwn | AffectedZone$ Graveyard | AddKeyword$ Escape:CardManaCost ExileFromGrave<3/Card.Other/other>
+A:AB$ Mana | Cost$ T | Produced$ G | Amount$ X
+SVar:X:Count$Valid Dinosaur.YouCtrl

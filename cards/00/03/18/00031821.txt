@@ -1,12 +1,12 @@
 Id:31821
-ColorIdentity:B
-OriginSet:G7ab4f62d323b0ca7
-ManaCost:3 B
-Types:Creature Fish Citizen
-PT:3/4
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigLoseLife
-SVar:TrigLoseLife:DB$ LoseLife | LifeAmount$ 1 | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenScriptIds$ 3851718391 | TokenOwner$ You
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigSurveil | TriggerZones$ Battlefield
-SVar:TrigSurveil:AB$ Surveil | Cost$ Sac<1/Creature.Other;Artifact.Other/another creature or artifact> | Amount$ 2
-SVar:HasAttackEffect:TRUE
+ColorIdentity:R
+OriginSet:G530ea9d733a13e9d
+ManaCost:5 R
+Types:Sorcery
+K:Foretell:5 R
+A:SP$ DamageAll | ValidCards$ Creature | NumDmg$ 7 | SubAbility$ DBRepeat
+SVar:DBRepeat:DB$ RepeatEach | RepeatPlayers$ Player.Opponent | RepeatSubAbility$ DBChooseCard | ConditionCheckSVar$ X | SubAbility$ DBDestroy
+SVar:DBChooseCard:DB$ ChooseCard | Defined$ You | Choices$ Artifact.ControlledBy Remembered,Land.ControlledBy Remembered | Mandatory$ True | RememberChosen$ True
+SVar:DBDestroy:DB$ DestroyAll | ValidCards$ Permanent.IsRemembered | ConditionCheckSVar$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearChosenCard$ True
+SVar:X:Count$wasCastFromExile.1.0

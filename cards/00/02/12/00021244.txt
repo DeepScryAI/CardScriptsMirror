@@ -1,7 +1,13 @@
 Id:21244
-ColorIdentity:G
+ColorIdentity:B
 OriginSet:G72c9c624ceb92bff
-ManaCost:2 G
-Types:Creature Elf Rogue
-PT:1/4
-K:Reach
+ManaCost:1 B
+Types:Enchantment Aura
+K:Enchant:Land
+SVar:AttachAITgts:Land.nonBasic
+SVar:AttachAILogic:Curse
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+S:Mode$ Continuous | Affected$ Land.EnchantedBy | RemoveLandTypes$ True | RemoveAllAbilities$ True | AddAbility$ ABManaC & ABManaAny
+SVar:ABManaC:AB$ Mana | Cost$ T | Produced$ C
+SVar:ABManaAny:AB$ Mana | Cost$ T PayLife<1> | Produced$ Any

@@ -1,10 +1,11 @@
 Id:14713
-ColorIdentity:UG
+ColorIdentity:URG
 OriginSet:G0a578e83854cf093
-ManaCost:no cost
-Types:Land
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGainLife
-SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 1
-A:AB$ Mana | Cost$ T | Produced$ Combo G U
+ManaCost:G U R
+Types:Instant
+A:SP$ Charm | Choices$ Pump,Counter,Effect
+SVar:Pump:DB$ Pump | ValidTgts$ Creature.YouCtrl | AILogic$ Fight | NumAtt$ +1 | NumDef$ +1 | SubAbility$ DBFight
+SVar:DBFight:DB$ Fight | Defined$ ParentTarget | ValidTgts$ Creature.YouDontCtrl | AILogic$ FightSub
+SVar:Counter:DB$ Counter | TargetType$ Spell | ValidTgts$ Card | UnlessCost$ 3
+SVar:Effect:DB$ Effect | StaticAbilities$ KWPump
+SVar:KWPump:Mode$ Continuous | Affected$ Creature.powerLE3 | AddHiddenKeyword$ CARDNAME can't block.

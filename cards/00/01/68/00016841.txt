@@ -1,9 +1,10 @@
 Id:16841
-ColorIdentity:UG
+ColorIdentity:G
 OriginSet:Gd31f94cf3a5f78e4
-ManaCost:1 G U
-Types:Creature Human Rogue
-PT:3/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1 | SubAbility$ DBEnergy
-SVar:DBEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ 2
+ManaCost:2 G
+Types:Legendary Creature Elf Druid
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPut
+SVar:TrigPut:DB$ PutCounter | TargetMin$ 0 | TargetMax$ 2 | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ 1
+S:Mode$ Continuous | Affected$ Creature.YouCtrl+HasCounters | AddAbility$ Mana
+SVar:Mana:AB$ Mana | Cost$ T | Produced$ G

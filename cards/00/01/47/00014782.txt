@@ -1,15 +1,10 @@
 Id:14782
 ColorIdentity:B
 OriginSet:Gfafc221218d3b700
-ManaCost:3 B B
-Types:Legendary Planeswalker Nixilis
-Loyalty:3
-A:AB$ LoseLife | Cost$ AddCounter<2/LOYALTY> | Planeswalker$ True | Defined$ Player.Opponent | LifeAmount$ 1 | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ AFLifeLost
-SVar:AFLifeLost:Number$0
-A:AB$ Token | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | TokenScriptIds$ 3641967757 | TokenOwner$ You | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 2
-A:AB$ Effect | Cost$ SubCounter<8/LOYALTY> | Planeswalker$ True | Ultimate$ True | Name$ 9868594110941302604 | Stackable$ False | Abilities$ ObGainLife | Duration$ Permanent
-SVar:ObGainLife:AB$ GainLife | Cost$ 1 B Sac<1/Creature> | ActivationZone$ Command | LifeAmount$ X | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | NumCards$ X
-SVar:X:Sacrificed$CardPower
+ManaCost:4 B B B
+Types:Sorcery
+A:SP$ DestroyAll | ValidCards$ Creature | RememberDestroyed$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | ChangeType$ Creature.!token+IsRemembered | ChangeNum$ 1 | Hidden$ True | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True | StaticEffect$ Animate | SubAbility$ DBCleanup
+SVar:Animate:Mode$ Continuous | Affected$ Card.IsRemembered | AddType$ Zombie | AddColor$ Black
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | SubAbility$ DBChange
+SVar:DBChange:DB$ ChangeZone | Origin$ Stack | Destination$ Exile

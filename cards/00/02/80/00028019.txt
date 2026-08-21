@@ -1,12 +1,15 @@
 Id:28019
 ColorIdentity:B
-OriginSet:Gfd50577710a6ab09
-ManaCost:1 B
-Types:Creature Bat
-PT:1/1
-K:Flying
-K:Lifelink
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigReveal
-SVar:TrigReveal:DB$ RevealHand | Defined$ Targeted | Look$ True | ValidTgts$ Opponent | SubAbility$ ExileCard
-SVar:ExileCard:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | DefinedPlayer$ Targeted | Chooser$ You | ChangeType$ Card.nonLand | ChangeNum$ 1 | IsCurse$ True | Duration$ UntilHostLeavesPlay
-SVar:PlayMain1:TRUE
+OriginSet:G30e8a5e111cffb44
+ManaCost:3 B
+Types:Legendary Creature Rogue
+PT:2/5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChoose | OptionalDecider$ You
+SVar:TrigChoose:DB$ ChoosePlayer | Defined$ You | Choices$ Opponent | AILogic$ Curse | SubAbility$ DBDonate
+SVar:DBDonate:DB$ GainControl | Defined$ Self | NewController$ ChosenPlayer | SubAbility$ DBGoad
+SVar:DBGoad:DB$ Goad | Defined$ Self | Duration$ AsLongAsControl
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1 | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ X
+SVar:X:Count$CardsInYourHand
+K:Doctor's companion

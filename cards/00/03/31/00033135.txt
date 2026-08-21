@@ -1,9 +1,11 @@
 Id:33135
-ColorIdentity:R
-OriginSet:G7ab1fe96128a1641
-ManaCost:3 R
-Types:Creature Elemental Sorcerer
-PT:4/3
-K:Trample
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ DBToken
-SVar:DBToken:DB$ Token | TokenScriptIds$ 3851718391 | TokenOwner$ You
+ColorIdentity:WR
+OriginSet:G731e0066916b7465
+ManaCost:2 RW
+Types:Artifact Equipment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 2356312553 | TokenOwner$ You | RememberTokens$ True | SubAbility$ DBAttach
+SVar:DBAttach:DB$ Attach | Defined$ Remembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1 | AddToughness$ 1 | AddKeyword$ FirstStrike | Condition$ PlayerTurn
+K:Equip:3

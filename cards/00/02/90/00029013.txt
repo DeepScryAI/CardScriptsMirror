@@ -1,11 +1,9 @@
 Id:29013
 ColorIdentity:U
-OriginSet:G27146c70b74a1e72
-ManaCost:1 U
-Types:Creature Salamander Mount
+OriginSet:Gaf7c94f364052cdd
+ManaCost:2 U
+Types:Legendary Artifact Creature Synth Detective
 PT:2/2
-K:Saddle:3
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigBranch
-SVar:TrigBranch:DB$ Branch | ValidTgts$ Instant.YouCtrl,Sorcery.YouCtrl | TgtZone$ Graveyard | BranchConditionSVar$ Count$Valid Card.Self+IsSaddled | TrueSubAbility$ TrigFlashbackSaddled | FalseSubAbility$ TrigFlashbackUnsaddled
-SVar:TrigFlashbackSaddled:DB$ Pump | Defined$ Targeted | KW$ Flashback:0 | PumpZone$ Graveyard | AILogic$ ReplaySpell
-SVar:TrigFlashbackUnsaddled:DB$ Pump | Defined$ Targeted | KW$ Flashback | PumpZone$ Graveyard | AILogic$ ReplaySpell
+S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self | ValidBlocker$ Creature.nonArtifact
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self,Creature.Artifact+YouCtrl+Other | TriggerZones$ Battlefield | Execute$ TrigInvestigate
+SVar:TrigInvestigate:DB$ Investigate | Optional$ True

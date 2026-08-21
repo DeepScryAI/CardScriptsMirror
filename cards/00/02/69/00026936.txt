@@ -1,8 +1,15 @@
 Id:26936
-ColorIdentity:B
-OriginSet:G6ce0035cfb774934
-ManaCost:1 B
-Types:Creature Human Warrior
-PT:2/1
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigAmass
-SVar:TrigAmass:DB$ Amass | Type$ Orc | Num$ 1
+ColorIdentity:WUR
+OriginSet:G321081e278de53f0
+ManaCost:1 U R W
+Types:Legendary Creature Human Monk
+PT:3/4
+S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddKeyword$ Prowess
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card.nonCreature+nonLand+cmcLTX | RememberChanged$ True | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | Defined$ Remembered | CopyCard$ True | Controller$ You | WithoutManaCost$ True | Optional$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$CardPower
+SVar:HasAttackEffect:TRUE
+SVar:EquipMe:Multiple
+SVar:EnchantMe:Multiple

@@ -1,8 +1,11 @@
 Id:27036
-ColorIdentity:G
-OriginSet:G6ce0035cfb774934
-ManaCost:1 G
-Types:Legendary Creature Halfling Citizen
-PT:2/2
-T:Mode$ AttackersDeclaredOneTarget | ValidAttackers$ Halfling.YouCtrl | AttackedTarget$ Opponent | Execute$ TrigFood | TriggerZones$ Battlefield
-SVar:TrigFood:DB$ Token | TokenScriptIds$ 134855612 | TokenOwner$ You
+ColorIdentity:UR
+OriginSet:G3601f5e223de6c7f
+ManaCost:X U R
+Types:Sorcery
+A:SP$ Amass | Type$ Orc | Num$ X | SubAbility$ DBMill
+SVar:DBMill:DB$ Mill | NumCards$ X | RememberMilled$ True | SubAbility$ DBCast
+SVar:DBCast:DB$ Play | ValidZone$ Graveyard | Valid$ Card.IsRemembered | Controller$ You | WithoutManaCost$ True | ValidSA$ Spell.Instant+cmcLEX,Spell.Sorcery+cmcLEX | Optional$ True | Amount$ 1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+K:Flashback:3 U R ExileFromGrave<X/Card>
+SVar:X:Count$xPaid

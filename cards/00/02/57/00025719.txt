@@ -1,14 +1,8 @@
 Id:25719
-ColorIdentity:R
+ColorIdentity:G
 OriginSet:G06ccef4324c14725
-ManaCost:X R
-Types:Sorcery
-A:SP$ Charm | Choices$ DBDiscard,DBDamageCreature,DBDamagePW,DBPump | CharmNum$ 2
-SVar:DBDiscard:DB$ Discard | Optional$ True | ValidTgts$ Player | NumCards$ X | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | NumCards$ Y | Defined$ Targeted | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:DBDamageCreature:DB$ DealDamage | ValidTgts$ Creature | NumDmg$ X
-SVar:DBDamagePW:DB$ DealDamage | ValidTgts$ Planeswalker | NumDmg$ X
-SVar:DBPump:DB$ Pump | KW$ Haste | ValidTgts$ Creature | NumAtt$ +X
-SVar:X:Count$xPaid
-SVar:Y:Count$RememberedSize
+ManaCost:2 G
+Types:Creature Beast
+PT:4/2
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigMill
+SVar:TrigMill:DB$ Mill | NumCards$ 4

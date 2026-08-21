@@ -1,14 +1,12 @@
 Id:27803
-ColorIdentity:BR
+ColorIdentity:WUG
 OriginSet:G30e8a5e111cffb44
-ManaCost:2 B R
-Types:Legendary Creature Demon
-PT:6/6
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ ETBTapped | ReplacementResult$ Updated
-SVar:ETBTapped:DB$ Tap | Defined$ Self | SubAbility$ DBAddCounter | ETB$ True
-SVar:DBAddCounter:DB$ PutCounter | Defined$ Self | ETB$ True | CounterType$ STUN | CounterNum$ 6
-T:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigGainControl
-SVar:TrigGainControl:DB$ GainControl | ValidTgts$ Creature | LoseControl$ EOT | Untap$ True | AddKWs$ Haste & Menace
-T:Mode$ DamageDone | ValidSource$ Creature | TargetRelativeToSource$ Player.CardOwner | ValidTarget$ Player | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigUntap
-SVar:TrigUntap:DB$ Untap | Defined$ Self | SubAbility$ TrigDraw
-SVar:TrigDraw:DB$ Draw
+ManaCost:1 G W U
+Types:Legendary Creature Human Soldier
+PT:3/3
+T:Mode$ SpellCast | ValidCard$ Card.Historic | ValidActivatingPlayer$ You | Execute$ TrigToken | TriggerZones$ Battlefield
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 1214250791
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPumpAll
+SVar:TrigPumpAll:AB$ PumpAll | Cost$ 8 | ValidCards$ Creature.YouCtrl | NumAtt$ +X | NumDef$ +X
+SVar:X:Count$Valid Permanent.YouCtrl+Historic
+SVar:HasAttackEffect:TRUE

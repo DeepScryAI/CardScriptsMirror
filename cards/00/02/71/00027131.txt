@@ -1,12 +1,11 @@
 Id:27131
-ColorIdentity:BR
+ColorIdentity:G
 OriginSet:G6ce0035cfb774934
-ManaCost:5 B R
-Types:Legendary Creature Avatar Demon
-PT:7/5
-S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ X | EffectZone$ All
-SVar:X:PlayerCount$SacrificedThisTurn Permanent
-K:Haste
-S:Mode$ CantBlockBy | ValidAttacker$ Card.Self | ValidBlocker$ Creature.nonLegendary
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigDestroy
-SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Artifact.OppCtrl,Creature.OppCtrl
+ManaCost:2 G
+Types:Artifact Equipment
+K:Flash
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigAttach
+SVar:TrigAttach:DB$ Attach | ValidTgts$ Creature.YouCtrl | SubAbility$ DBUntap
+SVar:DBUntap:DB$ Untap | Defined$ Targeted
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1 | AddToughness$ 2 | AddKeyword$ Reach
+K:Equip:2

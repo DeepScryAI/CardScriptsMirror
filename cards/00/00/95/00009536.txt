@@ -1,10 +1,10 @@
 Id:9536
-ColorIdentity:U
+ColorIdentity:W
 OriginSet:G49bcc8b9b86b628d
-ManaCost:5 U U
-Types:Kindred Sorcery Rogue
-K:Prowl:3 U
-A:SP$ ChangeZone | ValidTgts$ Opponent | Origin$ Library | Destination$ Library | ChangeType$ Instant,Sorcery | RememberChanged$ True | Reveal$ True | Shuffle$ False | DefinedPlayer$ Targeted | Chooser$ You | SubAbility$ DBPlay
-SVar:DBPlay:DB$ Play | Defined$ Remembered | Controller$ You | WithoutManaCost$ True | ValidSA$ Spell | Optional$ True | SubAbility$ DBShuffle
-SVar:DBShuffle:DB$ Shuffle | Defined$ RememberedController | SubAbility$ DBCleanup
+ManaCost:2 W
+Types:Creature Kithkin Soldier
+PT:2/2
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigKinship | TriggerZones$ Battlefield | OptionalDecider$ You
+SVar:TrigKinship:DB$ PeekAndReveal | PeekAmount$ 1 | RevealValid$ Card.sharesCreatureTypeWith | RevealOptional$ True | RememberRevealed$ True | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Self | NumAtt$ +2 | NumDef$ +2 | KW$ Flying & Vigilance | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ1 | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

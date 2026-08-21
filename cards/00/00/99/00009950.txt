@@ -1,14 +1,7 @@
 Id:9950
-ColorIdentity:WB
+ColorIdentity:W
 OriginSet:G6a049984467eca45
-ManaCost:3 WB WB
-Types:Creature Elemental Spirit
-PT:2/2
-K:Flying
-S:Mode$ Continuous | Affected$ Card.Self | AddPower$ Y | AddToughness$ Y
-SVar:Y:Count$Valid Aura.Attached/Times.2
-A:AB$ ChangeZone | Cost$ X WB WB | Origin$ Graveyard | Destination$ Battlefield | ActivationZone$ Graveyard | SubAbility$ AttachAura
-SVar:AttachAura:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | ChangeType$ Aura.CanEnchantSource+YouCtrl+cmcLEX | AttachedTo$ Self | RememberChanged$ True | SubAbility$ DBExile
-SVar:DBExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | Defined$ Self | ConditionDefined$ Remembered | ConditionPresent$ Aura | ConditionCompare$ EQ0 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$xPaid
+ManaCost:3 W W
+Types:Instant
+A:SP$ Effect | ReplacementEffects$ RPrevent | AILogic$ Fog
+SVar:RPrevent:Event$ DamageDone | Prevent$ True | ActiveZones$ Command | ValidTarget$ You,Permanent.YouCtrl

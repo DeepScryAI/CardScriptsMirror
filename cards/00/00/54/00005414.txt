@@ -1,10 +1,12 @@
 Id:5414
-ColorIdentity:U
+ColorIdentity:R
 OriginSet:Gfdac7ecc1e8a7d21
-ManaCost:1 U
+ManaCost:R
 Types:Instant
-A:SP$ Discard | AnyNumber$ True | Optional$ True | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBCounter
-SVar:DBCounter:DB$ Counter | TargetType$ Spell | ValidTgts$ Card | UnlessCost$ Y | UnlessPayer$ TargetedController | SubAbility$ DBCleanup
-SVar:X:Remembered$Amount
-SVar:Y:SVar$X/Times.3
+A:SP$ ChooseNumber | Defined$ You | Min$ 0 | Max$ MaxChoice | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ ChosenInitiation | Mode$ Random | RememberDiscarded$ True | SubAbility$ DBPumpAll
+SVar:DBPumpAll:DB$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +Y | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:MaxChoice:Count$ValidHand Card.YouOwn
+SVar:ChosenInitiation:Count$ChosenNumber
+SVar:Y:Remembered$Amount

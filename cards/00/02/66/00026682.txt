@@ -1,8 +1,22 @@
 Id:26682
-ColorIdentity:G
+ColorIdentity:WUBRG
 OriginSet:G06757f68e16377c2
-ManaCost:2 G
-Types:Creature Human Monk
-PT:3/3
-K:Reach
-S:Mode$ Continuous | Affected$ Card.Self+attackedBattleThisTurn | AddKeyword$ Indestructible
+ManaCost:W U B R G
+Types:Battle Siege
+Defense:7
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDig
+SVar:TrigDig:DB$ DigUntil | Defined$ You | Valid$ Card.nonLand+cmcLE4 | Amount$ 2 | FoundDestination$ Exile | RevealedDestination$ Exile | RememberRevealed$ True | ImprintFound$ True | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | Valid$ Card.IsImprinted | ValidSA$ Spell | ValidZone$ Exile | WithoutManaCost$ True | Controller$ You | Optional$ True | Amount$ 1 | SubAbility$ DBPutHand
+SVar:DBPutHand:DB$ ChangeZone | ChangeType$ Card.IsImprinted | Mandatory$ True | Hidden$ True | Chooser$ You | ChangeNum$ 1 | Origin$ Exile | Destination$ Hand | SubAbility$ DBRestRandomOrder
+SVar:DBRestRandomOrder:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered | Origin$ Exile | Destination$ Library | LibraryPosition$ -1 | RandomOrder$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Types:Sorcery
+S:Mode$ Continuous | Affected$ Card.Self | CharacteristicDefining$ True | SetColor$ All
+A:SP$ Draw | NumCards$ 2 | ValidTgts$ Player | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | SubAbility$ DBCopy | ChangeType$ Artifact | ChangeNum$ 1
+SVar:DBCopy:DB$ CopyPermanent | Choices$ Permanent.YouCtrl | SubAbility$ DBCounter
+SVar:DBCounter:DB$ PutCounter | Choices$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 3 | ChoiceAmount$ 3 | MinChoiceAmount$ 1 | DividedAsYouChoose$ 3 | SubAbility$ DBDestroy
+SVar:DBDestroy:DB$ Destroy | ValidTgts$ Permanent.OppCtrl

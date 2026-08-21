@@ -1,12 +1,11 @@
 Id:28195
-ColorIdentity:UR
+ColorIdentity:B
 OriginSet:Gfd50577710a6ab09
-ManaCost:2 U R
-Types:Legendary Artifact Vehicle
-PT:5/5
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 3851718391 | TokenOwner$ You | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | StaticAbilities$ StaticMayLookAndPlay
-SVar:StaticMayLookAndPlay:Mode$ Continuous | Affected$ Card.TopLibrary+YouCtrl | AffectedZone$ Library | MayLookAt$ Player | MayPlay$ True
-K:Crew:3
-SVar:HasAttackEffect:TRUE
+ManaCost:1 B
+Types:Enchantment Aura
+K:Flash
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 2
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.EnchantedBy | Execute$ TrigReturn | TriggerController$ TriggeredCardController
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | Tapped$ True | Defined$ TriggeredNewCardLKICopy

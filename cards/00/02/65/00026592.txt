@@ -1,8 +1,13 @@
 Id:26592
-ColorIdentity:B
+ColorIdentity:UR
 OriginSet:G06757f68e16377c2
-ManaCost:1 B
-Types:Creature Rat Rogue
-PT:1/1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDiscard
-SVar:TrigDiscard:DB$ Discard | Defined$ Opponent | Mode$ TgtChoose
+ManaCost:1 U R
+Types:Legendary Creature Human
+PT:2/4
+K:FirstStrike
+K:Menace
+T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | ActivatorThisTurnCast$ EQ1 | Execute$ TrigMayCast | TriggerZones$ Battlefield
+SVar:TrigMayCast:DB$ Play | Valid$ Card.nonLand+YouOwn+sharesCardTypeWith TriggeredCard | ValidSA$ Spell.cmcLTX | ValidZone$ Hand | WithoutManaCost$ True | Optional$ True | RememberPlayed$ True | SubAbility$ DBTokenIfNotPlayed
+SVar:DBTokenIfNotPlayed:DB$ Token | TokenScriptIds$ 2407794927 | TokenOwner$ You | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ0 | PumpKeywords$ Haste | PumpDuration$ EOT | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:TriggeredCard$CardManaCost

@@ -1,13 +1,14 @@
 Id:30028
 ColorIdentity:G
-OriginSet:G30e4cc621dfc3a2e
-ManaCost:4 G
-Types:Creature Elemental Bear
-PT:6/5
-K:Trample
-K:Hideaway:3
-K:Hideaway:3
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CheckSVar$ X | SVarCompare$ GT0 | CombatDamage$ True | Execute$ TrigPlay
-SVar:TrigPlay:DB$ Play | Defined$ ExiledWith | Amount$ 1 | Controller$ You | WithoutManaCost$ True | Optional$ True
-SVar:X:Count$ValidExile Card.ExiledWithSource
-SVar:DBReturn:DB$ ChangeZone | Defined$ ExiledWith | Origin$ Exile | Destination$ Hand
+OriginSet:Gf09b85bbcc27770c
+ManaCost:4 G G
+Types:Legendary Creature Elemental Bear
+PT:*/*
+K:Vigilance
+K:Reach
+S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X | SetToughness$ X
+SVar:X:Count$Valid Land.YouCtrl
+SVar:BuffedBy:Land
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill
+SVar:TrigMill:DB$ Mill | NumCards$ 4 | Defined$ You | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZoneAll | ChangeType$ Land.YouCtrl | Origin$ Graveyard | Destination$ Battlefield | Tapped$ True

@@ -1,9 +1,10 @@
 Id:28635
-ColorIdentity:WR
+ColorIdentity:UR
 OriginSet:G7ee0e82a2424d636
-ManaCost:1 R W
-Types:Enchantment
-S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddPower$ 1 | AddToughness$ 1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigDmg
-SVar:TrigDmg:DB$ DealDamage | Defined$ Opponent | NumDmg$ 1
-SVar:PlayMain1:TRUE
+ManaCost:2 U R
+Types:Sorcery
+A:SP$ Draw | NumCards$ 2 | SubAbility$ DBImmediateTrig
+SVar:DBImmediateTrig:DB$ ImmediateTrigger | UnlessCost$ Discard<2/Card> | UnlessPayer$ You | RememberDiscarded$ True | RememberObjects$ Remembered | SubAbility$ DBCleanup | UnlessSwitched$ True | Execute$ TrigDamageAll
+SVar:TrigDamageAll:DB$ DamageAll | ValidCards$ Creature | NumDmg$ X
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:TriggerRemembered$GreatestCardManaCost

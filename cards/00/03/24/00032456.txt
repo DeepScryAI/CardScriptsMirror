@@ -1,13 +1,7 @@
 Id:32456
-ColorIdentity:R
-OriginSet:G66b3a7eeabd9000e
-ManaCost:1 R
-Types:Enchantment
-T:Mode$ Phase | Phase$ Main1 | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDiscard
-SVar:TrigDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ GE1 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-T:Mode$ LandPlayed | ValidCard$ Land.YouCtrl | Origin$ Ante,Command,Exile,Graveyard,Library | Execute$ TrigDamage | TriggerZones$ Battlefield
-T:Mode$ LandPlayed | ValidCard$ Land.YouCtrl+YouDontOwn | Origin$ Hand | Execute$ TrigDamage | TriggerZones$ Battlefield | Secondary$ True
-T:Mode$ SpellCast | ValidCard$ Card.!wasCastFromYourHand | ValidActivatingPlayer$ You | Execute$ TrigDamage | TriggerZones$ Battlefield | Secondary$ True
-SVar:TrigDamage:DB$ DealDamage | Defined$ Player.Opponent | NumDmg$ 1
+ColorIdentity:W
+OriginSet:G9946f072b5556073
+ManaCost:2 W
+Types:Instant
+A:SP$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +2 | SubAbility$ DBUntapAll
+SVar:DBUntapAll:DB$ UntapAll | ValidCards$ Creature.YouCtrl | ConditionPlayerTurn$ False

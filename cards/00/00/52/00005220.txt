@@ -1,15 +1,9 @@
 Id:5220
-ColorIdentity:R
+ColorIdentity:B
 OriginSet:Gfdac7ecc1e8a7d21
-ManaCost:3 R
-Types:Creature Dwarf
-PT:1/1
-A:AB$ PutCounter | Cost$ T | ValidTgts$ Creature | CounterType$ FUSE | CounterNum$ 1 | IsCurse$ True
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigCounters
-SVar:TrigCounters:DB$ PutCounterAll | ValidCards$ Creature.counters_GE1_FUSE | CounterType$ FUSE | CounterNum$ 1
-T:Mode$ Always | TriggerZones$ Battlefield | IsPresent$ Creature.counters_GE4_FUSE | Execute$ TrigRepeatEach
-SVar:TrigRepeatEach:DB$ RepeatEach | RepeatCards$ Creature.counters_GE4_FUSE | RepeatSubAbility$ DBRemove
-SVar:DBRemove:DB$ RemoveCounter | Defined$ Remembered | CounterType$ FUSE | CounterNum$ All | SubAbility$ DBDestroy
-SVar:DBDestroy:DB$ Destroy | Defined$ Remembered | SubAbility$ DBDmg
-SVar:DBDmg:DB$ DealDamage | Defined$ RememberedController | NumDmg$ 4 | DamageSource$ Remembered
-SVar:NonCombatPriority:4
+ManaCost:no cost
+Types:Land
+A:AB$ Mana | Cost$ T | Produced$ B
+A:AB$ Mana | Cost$ T Sac<1/CARDNAME> | Produced$ Any
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True

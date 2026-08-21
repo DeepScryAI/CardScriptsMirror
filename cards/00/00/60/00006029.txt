@@ -1,7 +1,10 @@
 Id:6029
 ColorIdentity:W
 OriginSet:G0eb5e52d26fe1c23
-ManaCost:3 W
-Types:Enchantment
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouOwn | TriggerZones$ Battlefield | Execute$ TrigReturn
-SVar:TrigReturn:AB$ ChangeZone | Cost$ 1 W | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Hand
+ManaCost:5 W
+Types:Creature Human Cleric Wizard
+PT:2/3
+A:AB$ Pump | Cost$ tapXType<2/Cleric> | ValidTgts$ Creature | KW$ Prevent all damage that would be dealt by CARDNAME. | IsCurse$ True
+A:AB$ Effect | Cost$ tapXType<2/Wizard> | ValidTgts$ Card | TargetType$ Spell | TgtZone$ Stack | IsCurse$ True | RememberObjects$ TargetedSource | StaticAbilities$ STNoDmg | SubAbility$ DBCleanup
+SVar:STNoDmg:Mode$ Continuous | AffectedZone$ Battlefield,Stack | Affected$ Card.IsRemembered | AddKeyword$ Prevent all damage that would be dealt by CARDNAME.
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

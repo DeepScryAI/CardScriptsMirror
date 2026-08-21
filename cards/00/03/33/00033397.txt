@@ -1,15 +1,11 @@
 Id:33397
-ColorIdentity:B
-OriginSet:Gff0a4227ae9f1a4b
-ManaCost:3 B B
-Types:Legendary Creature Human Ninja
-PT:5/5
-T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Attacked$ Player | Execute$ TrigCopy
-SVar:TrigCopy:DB$ RepeatEach | RepeatPlayers$ OppNonTriggeredDefender | RepeatSubAbility$ DBCopy | ChangeZoneTable$ True | SubAbility$ DelTrig
-SVar:DBCopy:DB$ CopyPermanent | Defined$ TriggeredAttackerLKICopy | TokenAttacking$ Remembered | TokenTapped$ True | ImprintTokens$ True | NonLegendary$ True
-SVar:DelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ EndCombat | Execute$ TrigSac | RememberObjects$ ImprintedLKI | SubAbility$ DBCleanup
-SVar:TrigSac:DB$ SacrificeAll | Defined$ DelayTriggerRememberedLKI
-SVar:DBCleanup:DB$ Cleanup | ClearImprinted$ True
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigLoseLifeOpp
-SVar:TrigLoseLifeOpp:DB$ LoseLife | Defined$ TriggeredTarget | LifeAmount$ X
-SVar:X:TriggeredTarget$LifeTotal/HalfUp
+ColorIdentity:U
+OriginSet:G7ab1fe96128a1641
+ManaCost:3 U U
+Types:Enchantment Aura
+K:Convoke
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 2 | AddToughness$ 2 | AddKeyword$ Flying

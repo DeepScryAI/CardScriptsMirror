@@ -1,9 +1,10 @@
 Id:27862
-ColorIdentity:U
+ColorIdentity:
 OriginSet:G30e8a5e111cffb44
 ManaCost:no cost
-Types:Legendary Land
-A:AB$ Mana | Cost$ T | Produced$ U | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ TIME
-A:AB$ ChangeZoneAll | Cost$ 1 U T SubCounter<12/TIME> Exile<1/CARDNAME> | IsPresent$ Time Lord.YouCtrl | Origin$ Graveyard,Hand | Destination$ Library | ChangeType$ Card.YouOwn | Shuffle$ True | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 7
+Types:Phenomenon
+T:Mode$ PlaneswalkedTo | ValidCard$ Card.Self | Execute$ TrigEffect
+SVar:TrigEffect:DB$ Effect | ReplacementEffects$ ReplacePlaneswalk | Duration$ UntilYourNextTurn | SubAbility$ PWAway
+SVar:ReplacePlaneswalk:Event$ Planeswalk | ValidCause$ PlanarDie | ReplaceWith$ Chaos
+SVar:Chaos:DB$ ChaosEnsues
+SVar:PWAway:DB$ Planeswalk

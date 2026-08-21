@@ -1,0 +1,15 @@
+Id:26746
+ColorIdentity:WUBRG
+OriginSet:G06757f68e16377c2
+ManaCost:W U BP R G
+Types:Legendary Creature Phyrexian Elemental
+PT:4/4
+R:Event$ LoseMana | ValidPlayer$ You | ReplacementResult$ Replaced | ReplaceWith$ ConvertMana | ActiveZones$ Battlefield
+SVar:ConvertMana:DB$ ReplaceMana | ReplaceType$ Black
+T:Mode$ Phase | ValidPlayer$ You | Phase$ Main1 | TriggerZones$ Battlefield | Execute$ TrigPeek
+SVar:TrigPeek:DB$ PeekAndReveal | Defined$ You | NoReveal$ True | RememberPeeked$ True | SubAbility$ DBReveal
+SVar:DBReveal:DB$ PeekAndReveal | Defined$ You | NoPeek$ True | RevealOptional$ True | ImprintRevealed$ True | ConditionCheckSVar$ ColorAmount | ConditionSVarCompare$ GE3 | SubAbility$ DBMana
+SVar:DBMana:DB$ ManaReflected | Produced$ Combo | ReflectProperty$ Is | ColorOrType$ Color | Amount$ 3 | Valid$ Defined.Imprinted | ConditionDefined$ Imprinted | ConditionPresent$ Card | SubAbility$ DBMove
+SVar:DBMove:DB$ ChangeZone | Origin$ Library | Destination$ Hand | Defined$ Remembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True
+SVar:ColorAmount:Remembered$ChromaSource

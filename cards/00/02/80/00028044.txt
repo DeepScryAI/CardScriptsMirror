@@ -1,8 +1,10 @@
 Id:28044
 ColorIdentity:
-OriginSet:Gfd50577710a6ab09
-ManaCost:no cost
-Types:Land Cave
-S:Mode$ Continuous | Affected$ Cave.YouCtrl+Other | AddAbility$ AnyMana
-SVar:AnyMana:AB$ Mana | Cost$ T PayLife<1> | Produced$ Any | Amount$ 1
-A:AB$ Mana | Cost$ T | Produced$ C
+OriginSet:G3601f5e223de6c7f
+ManaCost:5
+Types:Artifact Equipment
+K:Equip:3
+S:Mode$ Continuous | AddTrigger$ SacrificeStatic | Affected$ Creature.EquippedBy | AddKeyword$ Menace & Deathtouch & Annihilator:1
+SVar:SacrificeStatic:Mode$ Sacrificed | ValidCard$ Permanent.!token+OppCtrl | Execute$ TrigReturn | TriggerZones$ Battlefield
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True | Defined$ TriggeredCard | UnlessCost$ PayLife<3> | UnlessPayer$ TriggeredCardController
+SVar:PlayMain1:TRUE

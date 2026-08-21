@@ -1,11 +1,9 @@
 Id:9005
 ColorIdentity:R
 OriginSet:Gce1d73449bd71b54
-ManaCost:3 R R
-Types:Creature Shapeshifter
-PT:3/3
-A:AB$ Untap | Cost$ R
-A:AB$ MustBlock | Cost$ R | ValidTgts$ Creature
-A:AB$ ChangeTargets | Cost$ R | TargetType$ Spell.numTargets EQ1+IsTargeting Self | ValidTgts$ Card
-A:AB$ Pump | Cost$ 1 | NumAtt$ +1 | NumDef$ -1
-A:AB$ Pump | Cost$ 1 | NumAtt$ -1 | NumDef$ +1
+ManaCost:X R
+Types:Instant
+A:SP$ Charm | Choices$ LoseTime,GainTime
+SVar:LoseTime:DB$ RemoveCounter | ValidTgts$ Permanent.inZoneBattlefield,Card.suspended | AITgts$ Permanent.counters_GE1_TIME+inZoneBattlefield+YouDontCtrl,Card.suspended+YouCtrl | CounterType$ TIME | CounterNum$ X | TgtZone$ Battlefield,Exile
+SVar:GainTime:DB$ PutCounter | ValidTgts$ Permanent.counters_GE1_TIME+inZoneBattlefield,Card.suspended | AITgts$ Permanent.counters_GE1_TIME+inZoneBattlefield+YouCtrl,Card.suspended+YouDontCtrl | CounterType$ TIME | CounterNum$ X | TgtZone$ Battlefield,Exile
+SVar:X:Count$xPaid

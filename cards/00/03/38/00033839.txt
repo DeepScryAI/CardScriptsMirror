@@ -1,9 +1,12 @@
 Id:33839
 ColorIdentity:B
-OriginSet:Gf8df2bea26dc6b68
+OriginSet:Gf04404de3fa1525e
 ManaCost:2 B
-Types:Creature Orc Warlock
-PT:2/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.OppCtrl | NumAtt$ -4 | NumDef$ -4 | IsCurse$ True | ConditionCheckSVar$ X
-SVar:X:Count$LifeYouGainedThisTurn
+Types:Creature Troll Warlock
+PT:3/3
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigSurveil
+SVar:TrigSurveil:DB$ Surveil | Amount$ 1 | SubAbility$ DBPrepare
+SVar:DBPrepare:DB$ AlterAttribute | Attributes$ Prepared | ConditionPresent$ Creature.YouOwn | ConditionCompare$ GE3 | ConditionZone$ Graveyard
+AlternateMode:Prepare
+ALTERNATE
+CopyFaceFromId:2637

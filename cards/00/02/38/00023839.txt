@@ -1,11 +1,11 @@
 Id:23839
 ColorIdentity:U
-OriginSet:G5f5d8cfb206e2fac
-ManaCost:1 U
-Types:Creature Human Wizard
-PT:2/1
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigExile | OptionalDecider$ TriggeredCardController
-SVar:TrigExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | Defined$ TriggeredNewCardLKICopy | WithCountersType$ TIME | WithCountersAmount$ 3 | RememberChanged$ True | SubAbility$ DBExile
-SVar:DBExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | WithCountersType$ TIME | WithCountersAmount$ 3 | RememberChanged$ True | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ GiveSuspend
-SVar:GiveSuspend:DB$ PumpAll | ValidCards$ Card.IsRemembered+withoutSuspend | KW$ Suspend | PumpZone$ Exile | Duration$ Permanent | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+OriginSet:G8ac2aa36572f9550
+ManaCost:2
+Types:Artifact Creature Construct
+PT:3/2
+K:Defender
+A:AB$ Animate | Cost$ U | staticAbilities$ Unblockable | RemoveKeywords$ Defender | Duration$ Permanent
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Creature.Self
+A:AB$ Animate | Cost$ 2 U | IsPresent$ Card.Self+!withDefender | Duration$ Permanent | Colors$ Blue | OverwriteColors$ True | Power$ 5 | Toughness$ 4
+A:AB$ Draw | Cost$ 4 U U | NumCards$ 3 | IsPresent$ Card.Self+Blue | GameActivationLimit$ 1

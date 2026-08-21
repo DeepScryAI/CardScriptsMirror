@@ -1,13 +1,11 @@
 Id:26841
-ColorIdentity:W
-OriginSet:G3601f5e223de6c7f
-ManaCost:4 W
-Types:Legendary Creature Bird Noble
-PT:5/5
+ColorIdentity:U
+OriginSet:G06757f68e16377c2
+ManaCost:2 U U
+Types:Creature Siren Pirate
+PT:3/4
+K:Convoke
 K:Flying
-T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.attacking | KW$ Flying
-T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | CheckSVar$ LifeGained | SVarCompare$ GE3 | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 3242759488
-SVar:LifeGained:Count$LifeYouGainedThisTurn
-SVar:HasAttackEffect:TRUE
+K:Vigilance
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPutCounterAll
+SVar:TrigPutCounterAll:DB$ PutCounter | Defined$ Convoked | CounterType$ Flying | CounterNum$ 1 | AILogic$ Always

@@ -1,16 +1,15 @@
 Id:31502
 ColorIdentity:R
-OriginSet:Gf2b808f4f642ac62
-ManaCost:4 R
+OriginSet:G93ac57511923c3dd
+ManaCost:2 R R
 Types:Creature Dragon
-PT:3/3
+PT:4/3
 K:Flying
-K:Haste
-A:AB$ Pump | Cost$ 1 R | Defined$ Self | NumAtt$ +1
-AlternateMode:Omen
-ALTERNATE
-ManaCost:1 R
-Types:Sorcery Omen
-A:SP$ Discard | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | NumCards$ 2 | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ GE1 | SubAbility$ DBCleanup
+T:Mode$ DamageDoneOnce | CombatDamage$ True | ValidSource$ Dragon.YouCtrl | ValidTarget$ Opponent | TriggerZones$ Battlefield | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | Choices$ DBSmash,DBStrafe,DBSwoop | ChoiceRestriction$ ThisTurn
+SVar:DBSmash:DB$ Destroy | ValidTgts$ Artifact.ControlledBy TriggeredTarget
+SVar:DBStrafe:DB$ DamageAll | ValidPlayers$ OppNonTriggeredTarget | NumDmg$ 4
+SVar:DBSwoop:DB$ Dig | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | ExileOnMoved$ Exile | RememberObjects$ Remembered | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

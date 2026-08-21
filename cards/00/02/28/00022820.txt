@@ -1,11 +1,10 @@
 Id:22820
-ColorIdentity:B
-OriginSet:Gf78628ad511eefec
-ManaCost:4 B B
-Types:Creature Demon Dog
-PT:6/6
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill
-SVar:TrigMill:DB$ Mill | NumCards$ 3 | Defined$ You
-T:Mode$ ChangesZone | Origin$ Battlefield | ValidCard$ Creature | Destination$ Graveyard | TriggerZones$ Battlefield | Execute$ TrigLoseLife
-T:Mode$ ChangesZone | Origin$ Library | ValidCard$ Creature | Destination$ Graveyard | TriggerZones$ Battlefield | Execute$ TrigLoseLife | Secondary$ True
-SVar:TrigLoseLife:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 1
+ColorIdentity:W
+OriginSet:G66f2eb694ffd614a
+ManaCost:2 W
+Types:Creature Human Soldier
+PT:3/1
+K:Vigilance
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ X | SVarCompare$ GE3 | Execute$ TrigPumpAll
+SVar:TrigPumpAll:DB$ PumpAll | ValidCards$ Creature.YouCtrl | KW$ Indestructible
+SVar:X:Count$Valid Creature.YouCtrl$DifferentCardPower

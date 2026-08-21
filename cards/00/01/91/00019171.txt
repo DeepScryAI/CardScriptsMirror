@@ -1,7 +1,10 @@
 Id:19171
-ColorIdentity:U
+ColorIdentity:B
 OriginSet:Gf56613712ce2ae1f
-ManaCost:U U
-Types:Instant
-A:SP$ CopySpellAbility | ValidTgts$ Instant,Sorcery | TargetType$ Spell | SubAbility$ DBReturn | MayChooseTarget$ True
-SVar:DBReturn:DB$ ChangeZone | Defined$ Targeted | Origin$ Stack | Destination$ Hand
+ManaCost:1 B
+Types:Enchantment
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ DBLife
+SVar:DBLife:DB$ LoseLife | LifeAmount$ 1 | SubAbility$ DBAmass
+SVar:DBAmass:DB$ Amass | Type$ Zombie | Num$ 1
+T:Mode$ Attacks | ValidCard$ Creature.Zombie+token+YouCtrl+powerGE6 | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ TriggeredAttackerLKICopy | KW$ Lifelink

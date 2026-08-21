@@ -1,9 +1,11 @@
 Id:5738
-ColorIdentity:W
+ColorIdentity:R
 OriginSet:G7327b0fa163b48eb
-ManaCost:2 W
-Types:Instant
-K:Flashback:tapXType<1/Creature.White/white creature>
-A:SP$ ChooseColor | Defined$ You | AILogic$ MostProminentInHumanDeck | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | ReplacementEffects$ RPrevent
-SVar:RPrevent:Event$ DamageDone | Prevent$ True | ActiveZones$ Command | ValidSource$ Card.ChosenColor
+ManaCost:2 R
+Types:Enchantment
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigFlipUpkeep | TriggerZones$ Battlefield
+SVar:TrigFlipUpkeep:DB$ FlipCoin | LoseSubAbility$ DBSacrifice
+SVar:DBSacrifice:DB$ Sacrifice
+T:Mode$ SpellCast | ValidCard$ Card | TriggerZones$ Battlefield | Execute$ TrigFlipYouCast
+SVar:TrigFlipYouCast:DB$ FlipCoin | LoseSubAbility$ DBCounter | Flipper$ TriggeredActivator
+SVar:DBCounter:DB$ Counter | Defined$ TriggeredSpellAbility

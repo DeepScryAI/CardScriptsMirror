@@ -1,7 +1,12 @@
 Id:21519
-ColorIdentity:R
-OriginSet:G18bf722b221724f8
-ManaCost:2 R
-Types:Instant
-A:SP$ DealDamage | ValidTgts$ Creature,Planeswalker | NumDmg$ 4
-K:Foretell:R
+ColorIdentity:UR
+OriginSet:G51d431785c8b33e5
+ManaCost:3 U R
+Types:Legendary Creature Human Pirate
+PT:4/3
+K:Flying
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigBorrow
+SVar:TrigBorrow:DB$ ChangeZone | ChangeNum$ 1 | DefinedPlayer$ TriggeredDefendingPlayer | Chooser$ You | ChangeType$ Creature | Origin$ Hand | Destination$ Battlefield | GainControl$ True | Tapped$ True | Attacking$ DefendingPlayer & Valid Planeswalker.ControlledBy DefendingPlayer | RememberChanged$ True | SubAbility$ DBDelayTrig
+SVar:DBDelayTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | ValidPlayer$ Player | RememberObjects$ RememberedLKI | Execute$ DBChange | SubAbility$ DBCleanup
+SVar:DBChange:DB$ ChangeZone | Defined$ DelayTriggerRememberedLKI | Origin$ Battlefield | Destination$ Hand
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

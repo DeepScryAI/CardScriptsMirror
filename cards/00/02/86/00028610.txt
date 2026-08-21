@@ -1,9 +1,14 @@
 Id:28610
-ColorIdentity:
+ColorIdentity:R
 OriginSet:G7ee0e82a2424d636
-ManaCost:no cost
-Types:Land Island Mountain
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSurveil
-SVar:TrigSurveil:DB$ Surveil | Amount$ 1
+ManaCost:R
+Types:Creature Goat
+PT:1/1
+K:Haste
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSuspect
+SVar:TrigSuspect:DB$ AlterAttribute | Defined$ Self | Attributes$ Suspected
+T:Mode$ ChangesZoneAll | CheckSVar$ Count$ValidSelf Card.IsSuspected | ValidCards$ Creature.Other+YouCtrl | Destination$ Battlefield | TriggerZones$ Battlefield | Execute$ TrigChoose
+SVar:TrigChoose:DB$ ChooseCard | DefinedCards$ TriggeredCards | SubAbility$ SuspectOther
+SVar:SuspectOther:DB$ AlterAttribute | Defined$ ChosenCard | Attributes$ Suspected | RememberAltered$ True | SubAbility$ DBAbsolve
+SVar:DBAbsolve:DB$ AlterAttribute | Defined$ Self | Attributes$ Suspected | Activate$ False | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearChosenCard$ True

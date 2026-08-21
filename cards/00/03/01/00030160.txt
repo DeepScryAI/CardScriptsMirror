@@ -1,12 +1,10 @@
 Id:30160
-ColorIdentity:WBG
-OriginSet:Ge949f7cc91575fe7
-ManaCost:no cost
-Types:Land
-K:LevelUp:1
-A:AB$ Mana | Cost$ T | Produced$ C
-S:Mode$ Continuous | Affected$ Card.Self | AddAbility$ ABManaAbzan | IsPresent$ Card.Self+counters_GE1_LEVEL+counters_LE7_LEVEL
-SVar:ABManaAbzan:AB$ Mana | Cost$ T | Produced$ Combo W B G C
-S:Mode$ Continuous | Affected$ Card.Self | AddAbility$ ABManaScry | IsPresent$ Card.Self+counters_GE8_LEVEL
-SVar:ABManaScry:AB$ Mana | Cost$ T | Produced$ Combo W B G C | SubAbility$ DBScry
-SVar:DBScry:DB$ Scry | ScryNum$ 1
+ColorIdentity:U
+OriginSet:Gf09b85bbcc27770c
+ManaCost:3 U
+Types:Artifact
+A:AB$ PutCounter | Cost$ T | Defined$ Self | SorcerySpeed$ True | CounterType$ COIN | CounterNum$ 1 | RememberAmount$ True | SubAbility$ DBImmediateTrig
+SVar:DBImmediateTrig:DB$ ImmediateTrigger | Execute$ TrigPlay | TriggerAmount$ Count$RememberedNumber | SubAbility$ DBCleanup
+SVar:TrigPlay:DB$ Play | TgtZone$ Graveyard | ValidTgts$ Instant.YouCtrl+cmcEQX,Sorcery.YouCtrl+cmcEQX | ValidSA$ Spell | WithoutManaCost$ True | Optional$ True | ReplaceGraveyard$ Exile | AILogic$ ReplaySpell
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$CardCounters.COIN

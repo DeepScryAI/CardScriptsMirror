@@ -1,12 +1,11 @@
 Id:23728
-ColorIdentity:G
-OriginSet:Gd970889168b5769f
-ManaCost:3 G
-Types:Enchantment Aura
-K:Starting intensity:1
-K:Enchant:Land
-SVar:AttachAILogic:Pump
-T:Mode$ TapsForMana | ValidCard$ Card.EnchantedBy | TriggerZones$ Battlefield | Execute$ TrigMana
-SVar:TrigMana:DB$ Mana | Produced$ G | Amount$ X | Defined$ TriggeredCardController | SubAbility$ DBIntensify
-SVar:DBIntensify:DB$ Intensify
-SVar:X:Count$Intensity
+ColorIdentity:UBG
+OriginSet:G1a259dba25660062
+ManaCost:2 B
+Types:Legendary Creature Human Ninja
+PT:3/3
+T:Mode$ SpellCast | ValidCard$ Enchantment | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigToken | IsPresent$ Creature.YouCtrl+tokenId850482443 | PresentCompare$ EQ0
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 850482443
+A:AB$ Effect | Cost$ 1 GU | ValidTgts$ Frog.YouCtrl | RememberObjects$ Targeted | StaticAbilities$ STCantBlockBy,STCantBlockByFrog
+SVar:STCantBlockBy:Mode$ CantBlockBy | ValidAttacker$ Creature.EffectSource | ValidBlocker$ Creature.withoutFlying+withoutReach
+SVar:STCantBlockByFrog:Mode$ CantBlockBy | ValidAttacker$ Creature.IsRemembered | ValidBlocker$ Creature.withoutFlying+withoutReach | Secondary$ True

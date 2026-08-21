@@ -1,7 +1,11 @@
 Id:8713
-ColorIdentity:G
+ColorIdentity:W
 OriginSet:G70f74088c47d66bd
-ManaCost:2 G
-Types:Instant
-K:Split second
-A:SP$ Destroy | ValidTgts$ Artifact,Enchantment
+ManaCost:W W
+Types:Creature Human Rebel Knight
+PT:2/2
+K:Flanking
+R:Event$ Destroy | ActiveZones$ Battlefield | ValidCard$ Card.Self | Regeneration$ True | ReplaceWith$ DBRegeneration
+SVar:DBRegeneration:DB$ Regeneration | Defined$ ReplacedCard
+A:AB$ Effect | Cost$ 2 | Activator$ Player.Opponent | RememberObjects$ Self | ForgetOnMoved$ Battlefield | StaticAbilities$ NoRegen | IsCurse$ True | AILogic$ CantRegenerate
+SVar:NoRegen:Mode$ CantRegenerate | ValidCard$ Card.IsRemembered

@@ -1,7 +1,11 @@
 Id:12121
-ColorIdentity:G
+ColorIdentity:U
 OriginSet:Gcf233112e9f1fe8c
-ManaCost:1 G
-Types:Creature Human Shaman
-PT:2/1
-A:AB$ Token | Cost$ 2 G | TokenScriptIds$ 3815350479 | TokenOwner$ You
+ManaCost:3 U U
+Types:Legendary Planeswalker Jace
+Loyalty:4
+A:AB$ Draw | Cost$ AddCounter<1/LOYALTY> | Defined$ You | SubAbility$ DBMill | Planeswalker$ True
+SVar:DBMill:DB$ Mill | ValidTgts$ Player | NumCards$ 1
+A:AB$ Mill | Cost$ AddCounter<0/LOYALTY> | ValidTgts$ Player | NumCards$ 10 | Planeswalker$ True
+A:AB$ Draw | Cost$ SubCounter<7/LOYALTY> | ValidTgts$ Player | TargetMin$ 0 | TargetMax$ MaxTgt | NumCards$ 20 | Planeswalker$ True | Ultimate$ True
+SVar:MaxTgt:PlayerCountPlayers$Amount

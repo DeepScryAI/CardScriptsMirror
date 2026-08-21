@@ -1,6 +1,8 @@
 Id:20706
-ColorIdentity:WBR
+ColorIdentity:WUR
 OriginSet:Gf8d4de878d0536c5
-ManaCost:R R W W W B B
+ManaCost:2 R R
 Types:Sorcery
-A:SP$ DestroyAll | ValidCards$ Permanent.nonLand+OppCtrl
+A:SP$ DealDamage | ValidTgts$ Creature,Planeswalker | NumDmg$ 5 | TargetMin$ 0 | TargetMax$ 5 | DividedAsYouChoose$ 5 | SubAbility$ DBPump
+SVar:DBPump:DB$ Effect | RememberObjects$ Targeted | StaticAbilities$ DBCantStatic | ForgetOnMoved$ Battlefield | IsCurse$ True | Duration$ UntilYourNextTurn | ConditionManaSpent$ W U
+SVar:DBCantStatic:Mode$ CantAttack,CantBlock,CantBeActivated | ValidCard$ Card.IsRemembered

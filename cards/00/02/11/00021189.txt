@@ -1,10 +1,10 @@
 Id:21189
-ColorIdentity:B
+ColorIdentity:U
 OriginSet:G72c9c624ceb92bff
-ManaCost:2 B
-Types:Creature Human Rogue
-PT:2/1
-K:Flash
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill
-SVar:TrigMill:DB$ Mill | NumCards$ 2 | ValidTgts$ Opponent
+ManaCost:U
+Types:Enchantment Aura
+K:Kicker:2 U
+K:Enchant:Creature
+T:Mode$ ChangesZone | ValidCard$ Card.Self+kicked | Origin$ Any | Destination$ Battlefield | Execute$ TrigTap
+SVar:TrigTap:DB$ Tap | Defined$ Enchanted
+R:Event$ Untap | ActiveZones$ Battlefield | ValidCard$ Creature.AttachedBy | ValidStepTurnToController$ You | Layer$ CantHappen

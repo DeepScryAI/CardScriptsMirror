@@ -1,11 +1,12 @@
 Id:23927
-ColorIdentity:U
-OriginSet:Gfdfe2ebef04be34e
-ManaCost:2 U U
-Types:Creature Shapeshifter Rogue
-PT:0/0
-K:ETBReplacement:Copy:DBCopy:Optional
-SVar:DBCopy:DB$ Clone | Choices$ Creature.Other | SubAbility$ DBAddCounter | RememberCloneOrigin$ True
-SVar:DBAddCounter:DB$ PutCounter | Defined$ Self | CounterType$ SHIELD | ETB$ True | ConditionDefined$ Remembered | ConditionPresent$ Creature.YouCtrl | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$xPaid
+ColorIdentity:BRG
+OriginSet:G5f5d8cfb206e2fac
+ManaCost:2 B R G
+Types:Legendary Creature Human Advisor
+PT:3/3
+K:Haste
+A:AB$ Token | Cost$ T | ValidTgts$ Opponent | TokenAmount$ X | TokenScriptIds$ 3851718391 | TokenOwner$ Targeted
+SVar:X:Count$ThisTurnEntered_Battlefield_Card.tokenCreated+Treasure+YouOwn
+T:Mode$ SpellAbilityCast | ValidCard$ Card | ValidActivatingPlayer$ Opponent | TriggerZones$ Battlefield | ValidSA$ SpellAbility.ManaFromTreasure | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature | CounterType$ P1P1 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw

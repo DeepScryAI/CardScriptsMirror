@@ -1,12 +1,7 @@
 Id:13620
-ColorIdentity:W
+ColorIdentity:G
 OriginSet:G4773f4feb3f15a2b
-ManaCost:2 W
+ManaCost:2 G
 Types:Enchantment
-S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddPower$ 1 | AddToughness$ 1 | CheckSVar$ X | SVarCompare$ GEY
-SVar:X:Count$YourLifeTotal
-SVar:Y:Count$YourStartingLife
-SVar:Z:Count$Valid Creature.attacking+YouCtrl
-T:Mode$ AttackersDeclared | AttackingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigGainLife
-SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ Z
-SVar:PlayMain1:TRUE
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self,Enchantment.Other+YouCtrl | Execute$ TrigPutCounter | OptionalDecider$ You
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ 1

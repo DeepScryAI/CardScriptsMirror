@@ -1,11 +1,9 @@
 Id:13175
 ColorIdentity:G
 OriginSet:G5449dea2d54987a1
-ManaCost:8 G G G
-Types:Creature Wurm
-PT:15/15
-K:Trample
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigToken
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigShuffle
-SVar:TrigShuffle:DB$ ChangeZone | Origin$ Graveyard | Destination$ Library | Shuffle$ True | Defined$ TriggeredCardLKICopy
-SVar:TrigToken:DB$ Token | TokenAmount$ 3 | TokenScriptIds$ 3691981209 | TokenOwner$ TriggeredCardController
+ManaCost:2 G
+Types:Creature Human Shaman
+PT:1/1
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ PumpAll | ValidCards$ Creature.YouCtrl+StrictlyOther | NumAtt$ +X | NumDef$ +X
+SVar:X:Count$CardPower

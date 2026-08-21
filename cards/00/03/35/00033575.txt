@@ -1,10 +1,14 @@
 Id:33575
-ColorIdentity:W
-OriginSet:G23d1f017cc66962f
-ManaCost:3 W
+ColorIdentity:UR
+OriginSet:Gff0a4227ae9f1a4b
+ManaCost:1 U
 Types:Instant
-K:Sneak:1 W
-A:SP$ Branch | BranchConditionSVar$ X | BranchConditionSVarCompare$ GE1 | TrueSubAbility$ AttackingTokens | FalseSubAbility$ NormalTokens
-SVar:NormalTokens:DB$ Token | TokenAmount$ 3 | TokenScriptIds$ 1741070894 | TokenOwner$ You
-SVar:AttackingTokens:DB$ Token | TokenAmount$ 3 | TokenScriptIds$ 1741070894 | TokenOwner$ You | TokenTapped$ True | TokenAttacking$ True
-SVar:X:Count$ValidStack Card.Self+sneaked
+K:Fuse
+A:SP$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ Flying | CounterNum$ 1 | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ ParentTarget | Power$ 5 | Toughness$ 5
+AlternateMode:Split
+ALTERNATE
+ManaCost:1 R
+Types:Instant
+A:SP$ Pump | ValidTgts$ Creature.YouCtrl | AILogic$ PowerDmg | SubAbility$ DBDamage
+SVar:DBDamage:DB$ DealDamage | ValidTgts$ Creature.OppCtrl | AILogic$ PowerDmg | NumDmg$ ParentTargeted$CardPower | DamageSource$ ParentTarget

@@ -1,8 +1,14 @@
 Id:32057
-ColorIdentity:B
-OriginSet:G9946f072b5556073
-ManaCost:1 B
-Types:Creature Human Artificer
+ColorIdentity:R
+OriginSet:G7ab4f62d323b0ca7
+ManaCost:1 R
+Types:Enchantment Creature Saga Knight
 PT:2/1
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 2258507865
+K:Chapter:3:DBChain,DBGestaltMode,DBGestaltMode
+SVar:DBChain:DB$ Dig | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ MayPlay | RememberObjects$ Remembered | ForgetOnMoved$ Exile | Duration$ Permanent | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:MayPlay:Mode$ Continuous | Affected$ Card.IsRemembered | CheckSVar$ X | AffectedZone$ Exile | MayPlay$ True
+SVar:DBGestaltMode:DB$ DelayedTrigger | Mode$ SpellCast | ValidCard$ Creature | ValidActivatingPlayer$ You | ThisTurn$ True | Execute$ GrantHaste
+SVar:GrantHaste:DB$ Animate | Defined$ TriggeredCardLKICopy | Keywords$ Haste
+SVar:X:Count$CountersAddedThisTurn LORE You Card.EffectSource

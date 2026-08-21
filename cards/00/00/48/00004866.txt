@@ -1,8 +1,11 @@
 Id:4866
-ColorIdentity:UB
+ColorIdentity:WG
 OriginSet:Gfb91362c2efb868e
-ManaCost:1 U B
-Types:Enchantment
-S:Mode$ Continuous | Affected$ Creature | AddTrigger$ UpkeepCostTrigger
-SVar:UpkeepCostTrigger:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigUpkeep
-SVar:TrigUpkeep:DB$ Sacrifice | UnlessPayer$ You | UnlessCost$ PayLife<1>
+ManaCost:G
+Types:Instant
+K:Kicker:W
+A:SP$ Pump | ValidTgts$ Creature | KW$ Trample | SubAbility$ VigorousPumping
+SVar:VigorousPumping:DB$ Effect | Triggers$ TrigDamage | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | Condition$ Kicked
+SVar:TrigDamage:Mode$ DamageDealtOnce | CombatDamage$ True | ValidSource$ Creature.IsRemembered | Execute$ VigorousLife
+SVar:VigorousLife:DB$ GainLife | Defined$ You | LifeAmount$ X
+SVar:X:TriggerCount$DamageAmount

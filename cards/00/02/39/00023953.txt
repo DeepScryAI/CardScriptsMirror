@@ -1,11 +1,9 @@
 Id:23953
-ColorIdentity:
-OriginSet:G9afc9838c5e994df
-ManaCost:4
-Types:Artifact Equipment
-T:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigCopy
-SVar:TrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddKeyword$ DoubleStrike | IsPresent$ Equipment.AttachedTo Creature.EquippedBy | PresentCompare$ GE2
-K:Equip:1
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddSVar$ EqMe | Secondary$ True
-SVar:EqMe:SVar:EquipMe:Multiple
+ColorIdentity:G
+OriginSet:Gfdfe2ebef04be34e
+ManaCost:2 G
+Types:Artifact
+A:AB$ ChangeZone | Cost$ 1 T Sac<1/Creature> | Origin$ Library | Destination$ Exile | ChangeType$ Creature.numColorsEQX | SorcerySpeed$ True | RememberChanged$ True | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | Defined$ Remembered | ValidSA$ Spell | Amount$ All | Controller$ You | Optional$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Sacrificed$CardNumColors/Plus.1

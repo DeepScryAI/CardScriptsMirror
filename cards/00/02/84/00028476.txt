@@ -1,14 +1,15 @@
 Id:28476
-ColorIdentity:R
-OriginSet:G7ee0e82a2424d636
-ManaCost:R
-Types:Creature Goat
-PT:1/1
-K:Haste
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSuspect
-SVar:TrigSuspect:DB$ AlterAttribute | Defined$ Self | Attributes$ Suspected
-T:Mode$ ChangesZoneAll | CheckSVar$ Count$ValidSelf Card.IsSuspected | ValidCards$ Creature.Other+YouCtrl | Destination$ Battlefield | TriggerZones$ Battlefield | Execute$ TrigChoose
-SVar:TrigChoose:DB$ ChooseCard | DefinedCards$ TriggeredCards | SubAbility$ SuspectOther
-SVar:SuspectOther:DB$ AlterAttribute | Defined$ ChosenCard | Attributes$ Suspected | RememberAltered$ True | SubAbility$ DBAbsolve
-SVar:DBAbsolve:DB$ AlterAttribute | Defined$ Self | Attributes$ Suspected | Activate$ False | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearChosenCard$ True
+ColorIdentity:B
+OriginSet:G94329e6b3f93276f
+ManaCost:3 B B
+Types:Artifact Vehicle
+PT:5/7
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCataclysm
+SVar:TrigCataclysm:DB$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ ChooseArtf | SubAbility$ ExileChosen
+SVar:ChooseArtf:DB$ ChooseCard | Defined$ Remembered | Amount$ 2 | ImprintChosen$ True | Choices$ Creature.!token+nonVehicle+RememberedPlayerCtrl
+SVar:ExileChosen:DB$ ChangeZone | Defined$ Imprinted | Origin$ Battlefield | Destination$ Exile | Duration$ UntilHostLeavesPlay | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearImprinted$ True
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigInvestigate
+SVar:TrigInvestigate:AB$ Investigate | Cost$ ExiledMoveToGrave<1/Card.ExiledWithSource/card exiled with CARDNAME>
+K:Crew:2
+SVar:HasAttackEffect:TRUE

@@ -1,11 +1,8 @@
 Id:10815
 ColorIdentity:B
 OriginSet:G4398040c23c94f0e
-ManaCost:2 B B
-Types:Creature Specter
-PT:2/2
-K:Flying
-S:Mode$ Continuous | Affected$ Card.Self | AddPower$ 3 | AddToughness$ 3 | CheckSVar$ X | SVarCompare$ EQ0
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigDiscard | CombatDamage$ True
-SVar:TrigDiscard:DB$ Discard | Defined$ TriggeredTarget | NumCards$ 1 | Mode$ TgtChoose
-SVar:X:PlayerCountOpponents$LowestCardsInHand
+ManaCost:1 B
+Types:Sorcery
+A:SP$ Charm | MinCharmNum$ 1 | CharmNum$ 2 | Choices$ ChangeCreature,ChangeLand
+SVar:ChangeCreature:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Creature.YouCtrl
+SVar:ChangeLand:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Land.YouCtrl

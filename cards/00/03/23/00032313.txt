@@ -1,12 +1,12 @@
 Id:32313
-ColorIdentity:UG
-OriginSet:G324b911e0e372b1b
-ManaCost:G U
-Types:Creature Insect Advisor
-PT:1/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigRandom
-SVar:TrigRandom:DB$ ChooseCard | Choices$ Land.YouOwn | ChoiceZone$ Library | AtRandom$ True | Amount$ 1 | SubAbility$ DBAnimate
-SVar:DBAnimate:DB$ Animate | Defined$ ChosenCard | Triggers$ LandTapDraw | Duration$ Perpetual | SubAbility$ DBCleanup
-SVar:LandTapDraw:Mode$ Taps | ValidCard$ Card.Self | Execute$ TrigDraw | TriggerZones$ Battlefield
-SVar:TrigDraw:DB$ Draw
-SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+ColorIdentity:R
+OriginSet:G9946f072b5556073
+ManaCost:3 R
+Types:Creature Kavu Soldier
+PT:4/3
+K:Menace
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 2258507865 | TokenOwner$ You | RememberTokens$ True | SubAbility$ DelTrig
+SVar:DelTrig:DB$ DelayedTrigger | ConditionDefined$ Remembered | ConditionPresent$ Card | DelayedTriggerDefinedPlayer$ You | RememberObjects$ RememberedLKI | ThisTurn$ True | Mode$ Phase | Phase$ End of Turn | Execute$ TrigSac | SubAbility$ DBCleanup
+SVar:TrigSac:DB$ SacrificeAll | Defined$ DelayTriggerRememberedLKI
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

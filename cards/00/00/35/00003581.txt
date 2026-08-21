@@ -1,11 +1,7 @@
 Id:3581
-ColorIdentity:W
+ColorIdentity:B
 OriginSet:Gf01f1543bdb61bd2
-ManaCost:2 W
+ManaCost:1 B
 Types:Enchantment
-A:AB$ ChooseSource | Cost$ Sac<1/Creature> | Choices$ Card,Emblem | AILogic$ NeedsPrevention | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | ValidTgts$ Any | ExileOnMoved$ Battlefield | ReplacementEffects$ RPreventNextFromSource | RememberObjects$ Targeted | SubAbility$ DBCleanup | ConditionDefined$ ChosenCard | ConditionPresent$ Card,Emblem | ConditionCompare$ GE1
-SVar:RPreventNextFromSource:Event$ DamageDone | ValidSource$ Card.ChosenCardStrict,Emblem.ChosenCard | ValidTarget$ Card.IsRemembered,Player.IsRemembered | ReplaceWith$ ExileEffect | PreventionEffect$ True
-SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
-SVar:ExileEffect:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile
-SVar:NonStackingEffect:True
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | TriggerZones$ Battlefield | ValidCard$ Creature.OppOwn | IsPresent$ Card.Self+Enchantment | Execute$ TrigAnimate
+SVar:TrigAnimate:DB$ Animate | Defined$ Self | Power$ 3 | Toughness$ 2 | Types$ Creature,Phyrexian,Imp | Keywords$ Flying | RemoveCardTypes$ True | RemoveCreatureTypes$ True | Duration$ Permanent

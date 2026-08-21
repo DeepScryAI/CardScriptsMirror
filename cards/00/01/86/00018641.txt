@@ -1,9 +1,11 @@
 Id:18641
-ColorIdentity:B
-OriginSet:G1ecb361a0a117393
-ManaCost:B
-Types:Creature Skeleton Wall
-PT:0/3
-K:Defender
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSurveil
-SVar:TrigSurveil:DB$ Surveil | Amount$ 1
+ColorIdentity:G
+OriginSet:Gd7cbb6e7dea72fb5
+ManaCost:2 G
+Types:Creature Ooze
+PT:1/1
+S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self | ValidBlocker$ Creature.powerLE2
+R:Event$ Moved | ActiveZones$ Battlefield | Origin$ Battlefield | Destination$ Graveyard | ValidLKI$ Creature.OppCtrl | ReplaceWith$ Exile
+SVar:Exile:DB$ ChangeZone | Defined$ ReplacedCard | Origin$ Battlefield | Destination$ Exile | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ X | Defined$ Self
+SVar:X:ReplacedCardLKI$CardPower

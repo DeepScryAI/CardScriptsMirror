@@ -3,5 +3,7 @@ ColorIdentity:
 OriginSet:Gd94e3db4ef71ffd2
 ManaCost:no cost
 Types:Conspiracy
-K:Before drawing your opening hand, choose 1, 2, or 3.
-S:Mode$ ManaConvert | EffectZone$ Command | ValidPlayer$ You | ValidCard$ Creature.YouCtrl+cmcEQChosen | ValidSA$ Spell | ManaConversion$ AnyType->AnyColor
+K:Hidden agenda
+T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Command | TargetsValid$ Creature.NamedCard+YouCtrl+inZoneBattlefield | Execute$ TrigCopySpell | OptionalDecider$ You
+SVar:TrigCopySpell:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | MayChooseTarget$ True
+SVar:AgendaLogic:BestCreatureInComputerDeck

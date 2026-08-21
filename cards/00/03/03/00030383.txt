@@ -1,8 +1,10 @@
 Id:30383
-ColorIdentity:R
-OriginSet:G8b2ed00ac2a0ff47
-ManaCost:1 R
-Types:Sorcery
-A:SP$ Draw | Cost$ 1 R Discard<1/Card> | NumCards$ 2 | SubAbility$ DBDealDamage
-SVar:DBDealDamage:DB$ DamageAll | ValidPlayers$ Player.Opponent | NumDmg$ X
-SVar:X:Discarded$Valid Card.nonLand/Times.2
+ColorIdentity:
+OriginSet:G7b2137df486dc752
+ManaCost:no cost
+Types:Ongoing Scheme
+T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ Player | TriggerZones$ Command | Execute$ TrigDrawCard
+SVar:TrigDrawCard:DB$ Draw | Defined$ You | NumCards$ 1
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Command | CheckSVar$ DrewLastTurn | Execute$ DBAbandon
+SVar:DBAbandon:DB$ Abandon
+SVar:DrewLastTurn:Count$YouDrewLastTurn

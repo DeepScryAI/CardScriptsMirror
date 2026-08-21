@@ -1,8 +1,12 @@
 Id:12758
-ColorIdentity:G
+ColorIdentity:R
 OriginSet:Gfd7b72e0eb9d2cf5
-ManaCost:G
-Types:Creature Human Shaman
-PT:1/1
-A:AB$ Pump | Cost$ 1 G T | ValidTgts$ Creature.YouCtrl | SubAbility$ TrackerFight | AILogic$ Fight
-SVar:TrackerFight:DB$ Fight | Defined$ ParentTarget | ValidTgts$ Creature | TargetUnique$ True
+ManaCost:4 R R R
+Types:Creature Elemental
+PT:7/7
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigRepeat
+SVar:TrigRepeat:DB$ Repeat | ValidTgts$ Opponent | RepeatSubAbility$ DBClear | RepeatDefined$ Remembered | RepeatPresent$ Permanent.nonLand | RepeatCompare$ EQ1 | SubAbility$ DBCleanup
+SVar:DBClear:DB$ Cleanup | ClearRemembered$ True | SubAbility$ DBSac
+SVar:DBSac:DB$ Sacrifice | Defined$ Targeted | SacValid$ Permanent | Amount$ 1 | RememberSacrificed$ True | Random$ True
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:PlayMain1:TRUE

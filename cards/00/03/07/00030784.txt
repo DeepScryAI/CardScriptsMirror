@@ -1,12 +1,10 @@
 Id:30784
-ColorIdentity:BG
-OriginSet:Gc5a2f0ff902c0621
-ManaCost:1 B G G
-Types:Creature Elf Warlock
-PT:3/4
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | CheckSVar$ Morbid | TriggerZones$ Battlefield | Execute$ TrigCharm
-SVar:TrigCharm:DB$ Charm | Choices$ DBGainLife,DBDraw
-SVar:DBGainLife:DB$ GainLife | LifeAmount$ 2 | Defined$ You
-SVar:DBDraw:DB$ Draw | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 1
-SVar:Morbid:Count$Morbid.1.0
+ColorIdentity:WUR
+OriginSet:G8a59924df6623252
+ManaCost:R W U
+Types:Legendary Creature Human Soldier Hero
+PT:4/4
+A:AB$ DealDamage | Cost$ 3 Unattach<Equipment.Attached+cmcEQX/an Equipment attached to NICKNAME> | Announce$ X | ValidTgts$ Any | NumDmg$ X | TargetMin$ 1 | TargetMax$ 3 | DividedAsYouChoose$ X
+SVar:X:Count$xPaid
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ DBAttach
+SVar:DBAttach:DB$ Attach | ValidTgts$ Equipment.YouCtrl | TargetMin$ 0 | TargetMax$ 1 | Object$ Targeted | Defined$ Self

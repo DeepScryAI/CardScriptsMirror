@@ -1,15 +1,12 @@
 Id:22740
-ColorIdentity:W
-OriginSet:G66f2eb694ffd614a
-ManaCost:4 W
-Types:Creature Angel
-PT:3/3
-K:Flash
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChoose
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigChoose | Secondary$ True
-SVar:TrigChoose:DB$ ChooseCard | MinAmount$ 0 | Amount$ Max | Choices$ Creature | WithDifferentPowers$ True | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | Defined$ ChosenCard | KW$ DoubleStrike | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
-SVar:Max:Count$Valid Creature$DifferentCardPower
-SVar:HasAttackEffect:TRUE
+ColorIdentity:R
+OriginSet:G9f95a41d532c0550
+ManaCost:1 R
+Types:Instant
+A:SP$ Charm | Choices$ BreakTheirChains,InterrogateThem
+SVar:BreakTheirChains:DB$ Destroy | ValidTgts$ Artifact
+SVar:InterrogateThem:DB$ Dig | ValidTgts$ Opponent | DigNum$ 3 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBChoose
+SVar:DBChoose:DB$ ChooseCard | Choices$ Card.IsRemembered | ChoiceZone$ Exile | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STMayPlay | Duration$ UntilTheEndOfYourNextTurn | RememberObjects$ ChosenCard | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearChosenCard$ True
+SVar:STMayPlay:Mode$ Continuous | Affected$ Card.IsRemembered | AffectedZone$ Exile | MayPlay$ True | MayPlayIgnoreColor$ True

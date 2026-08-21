@@ -1,25 +1,12 @@
 Id:15908
-ColorIdentity:G
+ColorIdentity:B
 OriginSet:G92026fbb3573fda5
-ManaCost:4 G
-Types:Creature Human Shaman Werewolf
-PT:*/*
-S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X | SetToughness$ X
-SVar:X:Count$ValidHand Card.YouOwn
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
-T:Mode$ Phase | Phase$ Upkeep | WerewolfTransformCondition$ True | TriggerZones$ Battlefield | Execute$ TrigTransform
-SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform
-SVar:NeedsToPlayVar:X GE3
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:green
-Types:Creature Werewolf
-PT:*/*
-K:Vigilance
-K:Trample
-S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ Y | SetToughness$ Y
-SVar:Y:Count$NumInAllHands
-T:Mode$ Phase | Phase$ Upkeep | WerewolfUntransformCondition$ True | TriggerZones$ Battlefield | Execute$ TrigTransform
-SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform
+ManaCost:B B
+Types:Creature Zombie
+PT:2/2
+K:Menace
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigReturn
+SVar:TrigReturn:AB$ ChangeZone | Cost$ B | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Hand
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | OptionalDecider$ You | ValidCard$ Card.Self | Execute$ TrigChange
+SVar:TrigChange:AB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.Zombie+Other | TargetsWithDefinedController$ TriggeredCardController | Cost$ X
+SVar:X:Targeted$CardManaCost

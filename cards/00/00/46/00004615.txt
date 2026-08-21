@@ -1,8 +1,9 @@
 Id:4615
-ColorIdentity:R
+ColorIdentity:U
 OriginSet:Gfb91362c2efb868e
-ManaCost:1 R
+ManaCost:2 U U
 Types:Sorcery
-K:Kicker:2
-A:SP$ DamageAll | ValidCards$ Creature.withoutFlying | ValidPlayers$ Player | NumDmg$ WasKicked
-SVar:WasKicked:Count$Kicked.4.1
+K:MayFlashCost:2
+A:SP$ UntapAll | ValidCards$ Creature.tapped | RememberUntapped$ True | SubAbility$ DBTap
+SVar:DBTap:DB$ TapAll | ValidCards$ Creature.untapped+!IsRemembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

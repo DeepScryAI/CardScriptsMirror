@@ -1,9 +1,12 @@
 Id:17426
-ColorIdentity:W
+ColorIdentity:U
 OriginSet:G5475e2be497fd272
-ManaCost:2 W
-Types:Creature Dinosaur
-PT:2/3
-K:Flying
-R:Event$ Moved | ValidCard$ Creature.OppCtrl | Destination$ Battlefield | ReplaceWith$ ETBTapped | ReplacementResult$ Updated | ActiveZones$ Battlefield
-SVar:ETBTapped:DB$ Tap | ETB$ True | Defined$ ReplacedCard
+ManaCost:1 U U
+Types:Legendary Planeswalker Jace
+Loyalty:3
+A:AB$ Effect | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | Triggers$ TrigDrawDiscard | Duration$ EndOfTurn | AILogic$ Main1
+SVar:TrigDrawDiscard:Mode$ DamageDoneOnce | CombatDamage$ True | ValidSource$ Creature.YouCtrl | TriggerZones$ Command | ValidTarget$ Player | Execute$ DBDraw
+SVar:DBDraw:DB$ Draw | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ TgtChoose
+A:AB$ Token | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | TokenScriptIds$ 1414801945 | TokenOwner$ You
+A:AB$ CopyPermanent | Cost$ SubCounter<5/LOYALTY> | Planeswalker$ True | Ultimate$ True | Defined$ Self | NumCopies$ 2 | NonLegendary$ True

@@ -1,9 +1,10 @@
 Id:31523
-ColorIdentity:B
-OriginSet:Gf2b808f4f642ac62
-ManaCost:2 B
-Types:Creature Spirit Cleric
-PT:3/2
-K:Flash
-A:AB$ Pump | Cost$ 1 Sac<1/Creature.Other/another creature> | Defined$ Self | KW$ Indestructible | SubAbility$ DBTap
-SVar:DBTap:DB$ Tap | Defined$ Self
+ColorIdentity:U
+OriginSet:G93ac57511923c3dd
+ManaCost:5 U
+Types:Sorcery
+A:SP$ Charm | MinCharmNum$ 1 | CharmNum$ Count$Compare Y GE1.2.1 | Choices$ DBProjection,DBFruition
+SVar:DBProjection:DB$ CopyPermanent | ValidTgts$ Permanent | SetPower$ 4 | SetToughness$ 4 | AddTypes$ Dragon & Creature | AddKeywords$ Flying
+SVar:DBFruition:DB$ Draw | ValidTgts$ Player | NumCards$ X
+SVar:X:Count$Valid Permanent.YouCtrl$GreatestCardManaCost
+SVar:Y:Count$Valid Card.IsCommander+YouCtrl

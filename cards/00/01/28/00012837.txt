@@ -1,8 +1,10 @@
 Id:12837
-ColorIdentity:RG
+ColorIdentity:UB
 OriginSet:G25b006cce171d826
-ManaCost:3 R G
-Types:Legendary Creature Hellion
-PT:0/0
-K:Devour:X::, where X is the number of creatures devoured this way
-SVar:X:Count$RememberedSize
+ManaCost:3 U U B B
+Types:Creature Demon Ninja
+PT:6/5
+K:Ninjutsu:4 U B
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigReveal | TriggerZones$ Battlefield
+SVar:TrigReveal:DB$ RevealHand | Defined$ TriggeredTarget | Look$ True | SubAbility$ TrigPlay
+SVar:TrigPlay:DB$ Play | Valid$ Card.nonLand+OwnedBy TriggeredTarget | ValidZone$ Hand | ValidSA$ Spell | WithoutManaCost$ True | Optional$ True

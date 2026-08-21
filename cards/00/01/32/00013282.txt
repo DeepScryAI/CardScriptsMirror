@@ -1,10 +1,12 @@
 Id:13282
 ColorIdentity:R
 OriginSet:Gfdc478e04211a499
-ManaCost:2 R
-Types:Creature Goblin Berserker
-PT:2/2
-S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddKeyword$ Haste
-S:Mode$ MustAttack | ValidCreature$ Creature.YouCtrl | Secondary$ True
-SVar:PlayMain1:TRUE
-SVar:BuffedBy:Creature
+ManaCost:4 R R
+Types:Creature Dragon
+PT:6/5
+K:Flying
+K:Trample
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigGainControl
+SVar:TrigGainControl:DB$ GainControl | AllValid$ Artifact.ControlledBy TriggeredTarget | NewController$ You
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | PresentCompare$ GE20 | IsPresent$ Artifact.YouCtrl | Execute$ WinGame
+SVar:WinGame:DB$ WinsGame | Defined$ You

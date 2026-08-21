@@ -1,9 +1,10 @@
 Id:5755
-ColorIdentity:U
+ColorIdentity:R
 OriginSet:G7327b0fa163b48eb
-ManaCost:3 U U U
-Types:Instant
-A:SP$ Counter | TargetType$ Spell | ValidTgts$ Card | RememberCountered$ True | Destination$ Exile | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | RememberObjects$ Remembered | StaticAbilities$ Play | Duration$ Permanent | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
-SVar:Play:Mode$ Continuous | MayPlay$ True | MayPlayWithoutManaCost$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:3 R
+Types:Creature Human Nightmare Barbarian
+PT:3/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDiscard
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ Random
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1

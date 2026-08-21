@@ -1,8 +1,12 @@
 Id:12375
-ColorIdentity:UR
+ColorIdentity:U
 OriginSet:G14de52802b0b467c
-ManaCost:no cost
-Types:Land
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ LandTapped | ReplacementResult$ Updated
-SVar:LandTapped:DB$ Tap | Defined$ Self | ETB$ True | ConditionPresent$ Island.YouCtrl,Mountain.YouCtrl | ConditionCompare$ EQ0
-A:AB$ Mana | Cost$ T | Produced$ Combo U R
+ManaCost:3 U U
+Types:Creature Spirit
+PT:*/*
+K:Flying
+S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X | SetToughness$ X
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDraw | TriggerZones$ Battlefield
+SVar:TrigDraw:DB$ Draw | Defined$ You
+SVar:X:Count$ValidHand Card.YouOwn
+SVar:NeedsToPlayVar:X GE2

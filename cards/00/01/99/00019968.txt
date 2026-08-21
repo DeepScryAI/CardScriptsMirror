@@ -1,10 +1,13 @@
 Id:19968
-ColorIdentity:UG
+ColorIdentity:UB
 OriginSet:G23be9f486a22d38a
-ManaCost:4 G U
-Types:Legendary Planeswalker Oko
-Loyalty:4
-A:AB$ PutCounter | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | TargetMin$ 0 | TargetMax$ 1 | CounterType$ P1P1 | CounterNum$ 2 | ValidTgts$ Creature.YouCtrl
-A:AB$ Clone | Cost$ AddCounter<0/LOYALTY> | ValidTgts$ Creature.YouCtrl | Planeswalker$ True | Duration$ UntilEndOfTurn | SubAbility$ DBPrevent
-SVar:DBPrevent:DB$ Pump | Defined$ Self | KW$ Prevent all damage that would be dealt to CARDNAME.
-A:AB$ AnimateAll | Cost$ SubCounter<7/LOYALTY> | Planeswalker$ True | Ultimate$ True | ValidCards$ Creature.YouCtrl | Power$ 10 | Toughness$ 10 | Keywords$ Trample | AILogic$ CreatureAdvantage
+ManaCost:4 U B
+Types:Creature Serpent
+PT:7/7
+K:Flash
+A:AB$ Effect | Cost$ U Sac<1/Island> | RememberObjects$ Self | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+A:AB$ GainLife | Cost$ B Sac<1/Swamp> | Defined$ You | LifeAmount$ 1 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw
+A:AB$ ChangeZone | Cost$ U B | TargetMin$ 5 | TargetMax$ 5 | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card.OppOwn | SorcerySpeed$ True | SubAbility$ DBReturn | ActivationZone$ Graveyard
+SVar:DBReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | Defined$ Self

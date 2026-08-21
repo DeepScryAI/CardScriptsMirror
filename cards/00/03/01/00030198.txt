@@ -1,11 +1,14 @@
 Id:30198
-ColorIdentity:B
-OriginSet:G9ff9681e1fe8713a
-ManaCost:2 B B
-Types:Creature Elemental Boar
-PT:4/5
-K:Lifelink
-T:Mode$ Attacks | ValidCard$ Boar.YouCtrl | Execute$ TrigAnimateAll | TriggerZones$ Battlefield
-SVar:TrigAnimateAll:DB$ AnimateAll | Duration$ Perpetual | ValidCards$ Card.nonLand+OwnedBy TriggeredDefendingPlayer | Zone$ Hand | Triggers$ CastSpellLoseLife
-SVar:CastSpellLoseLife:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigDrain
-SVar:TrigDrain:DB$ LoseLife | LifeAmount$ 1
+ColorIdentity:BG
+OriginSet:G30e4cc621dfc3a2e
+ManaCost:3 B G
+Types:Legendary Creature Squirrel Warrior
+PT:5/5
+K:Menace
+K:Trample
+K:Reach
+S:Mode$ Continuous | Affected$ Squirrel.YouCtrl | AddAbility$ Pump
+SVar:Pump:AB$ Pump | Cost$ T | ValidTgts$ Squirrel | NumAtt$ +2 | NumDef$ +2 | KW$ Trample | SorcerySpeed$ True
+T:Mode$ DamageDoneOnce | CombatDamage$ True | ValidSource$ Squirrel.YouCtrl | TriggerZones$ Battlefield | ValidTarget$ Player | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw
+SVar:PlayMain1:TRUE

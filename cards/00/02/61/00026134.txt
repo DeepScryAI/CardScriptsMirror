@@ -1,12 +1,13 @@
 Id:26134
-ColorIdentity:UR
+ColorIdentity:B
 OriginSet:G2192e8955d5e1ad1
-ManaCost:5 U R
-Types:Legendary Creature Phyrexian Nightmare
+ManaCost:2 B B
+Types:Creature Phyrexian Demon
 PT:6/6
 K:Flying
-K:Ward:3 PayLife<3>
-T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenAmount$ X | TokenScriptIds$ 3382511931 | TokenOwner$ You | PumpKeywords$ Haste | PumpDuration$ EOT
-SVar:X:TriggeredSpellAbility$CardManaCostLKI
-SVar:BuffedBy:Card.nonCreature
+K:etbCounter:OIL:4
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigRemoveCtr
+SVar:TrigRemoveCtr:DB$ RemoveCounter | Defined$ Self | CounterType$ OIL | CounterNum$ 1 | SubAbility$ LoseGame
+SVar:LoseGame:DB$ LosesGame | Defined$ You | ConditionDefined$ Self | ConditionPresent$ Card.counters_EQ0_OIL
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.OppCtrl | TriggerZones$ Battlefield | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | LifeAmount$ 2 | Defined$ TriggeredCardController

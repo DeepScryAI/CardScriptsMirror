@@ -1,7 +1,12 @@
 Id:34529
-ColorIdentity:G
-OriginSet:G11c0621ce29fa608
-ManaCost:2 G
-Types:Creature Human Villain
-PT:3/3
-A:AB$ PutCounter | Cost$ T | ValidTgts$ Permanent,Player | CounterType$ ExistingCounter | EachExistingCounter$ True | CounterNum$ 1 | SorcerySpeed$ True
+ColorIdentity:WU
+OriginSet:Gcb93bbfc68a40806
+ManaCost:1 W U
+Types:Legendary Creature Human Warrior Hero
+PT:2/2
+K:FirstStrike
+T:Mode$ Drawn | ValidCard$ Card.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+T:Mode$ CounterAdded | ValidCard$ Card.Self | TriggerZones$ Battlefield | CounterType$ P1P1 | CounterAmount$ EQ10 | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | NumCards$ 5 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 5

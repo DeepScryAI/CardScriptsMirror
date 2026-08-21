@@ -1,6 +1,14 @@
 Id:18556
 ColorIdentity:W
-OriginSet:Gc354b25d14d5b906
-ManaCost:4 W
-Types:Instant
-A:SP$ Token | IsPresent$ Creature.attackingYou | TokenAmount$ 3 | TokenScriptIds$ 273812182 | TokenOwner$ You
+OriginSet:G3b823183c96b2df3
+ManaCost:1 W
+Types:Creature Human Cleric
+PT:1/4
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | Choices$ CreatureDBRemoveCounter,OpponentDBRemoveCounter
+SVar:CreatureDBRemoveCounter:DB$ RemoveCounter | ValidTgts$ Creature | CounterType$ All | CounterNum$ All | SubAbility$ DBPumpCreature
+SVar:OpponentDBRemoveCounter:DB$ RemoveCounter | ValidTgts$ Opponent | CounterType$ All | SubAbility$ DBPumpOpponent
+SVar:DBPumpCreature:DB$ Effect | StaticAbilities$ DBCantPutCounterCreature | RememberObjects$ Targeted | Duration$ AsLongAsInPlay
+SVar:DBCantPutCounterCreature:Mode$ CantPutCounter | ValidCard$ Card.IsRemembered
+SVar:DBPumpOpponent:DB$ Effect | StaticAbilities$ DBCantPutCounterPlayer | RememberObjects$ Targeted | Duration$ AsLongAsInPlay
+SVar:DBCantPutCounterPlayer:Mode$ CantPutCounter | ValidPlayer$ Player.IsRemembered

@@ -1,14 +1,12 @@
 Id:27524
-ColorIdentity:UB
-OriginSet:G7579344e30f8be85
-ManaCost:3 B
-Types:Creature Faerie Warlock
-PT:2/3
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDiscard
-SVar:TrigDiscard:DB$ Discard | Defined$ Opponent | Mode$ TgtChoose
-AlternateMode:Adventure
-ALTERNATE
-ManaCost:2 U
-Types:Instant Adventure
-A:SP$ ChangeZone | ValidTgts$ Card.inZoneStack | TgtZone$ Stack | Origin$ Stack | Destination$ Hand
+ColorIdentity:R
+OriginSet:Ge16da27db30ac32e
+ManaCost:2 R R
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMonarch
+SVar:TrigMonarch:DB$ BecomeMonarch
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 3952924620 | SubAbility$ TrigDealDamage
+SVar:TrigDealDamage:DB$ DealDamage | Defined$ Opponent | NumDmg$ X | ConditionCheckSVar$ Y | ConditionSVarCompare$ GE1
+SVar:X:Count$Valid Creature.YouCtrl
+SVar:Y:Count$Monarch.1.0

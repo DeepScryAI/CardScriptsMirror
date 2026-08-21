@@ -1,10 +1,14 @@
 Id:24134
-ColorIdentity:WG
-OriginSet:Gcf5d9b1e2ed6c496
-ManaCost:G W
-Types:Creature Cat Citizen
-PT:2/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigAnimate
-SVar:TrigAnimate:DB$ AnimateAll | Zone$ Hand | ValidCards$ Creature.YouOwn | Triggers$ ETBToken | Duration$ Perpetual
-SVar:ETBToken:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+ColorIdentity:WRG
+OriginSet:G9afc9838c5e994df
+ManaCost:2 R G W
+Types:Creature Elf Druid Rogue
+PT:5/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
 SVar:TrigToken:DB$ Token | TokenScriptIds$ 1092778731
+A:AB$ Effect | Cost$ 2 ExileFromHand<1/CARDNAME> | ActivationZone$ Hand | ValidTgts$ Land | RememberObjects$ Targeted & Self | StaticAbilities$ Land,MayPlay | Triggers$ Cast | ImprintCards$ Self | Duration$ Permanent | ForgetOnMoved$ Exile
+SVar:Land:Mode$ Continuous | AffectedZone$ Battlefield | Affected$ Card.IsRemembered+!IsImprinted | AddAbility$ Mana
+SVar:Mana:AB$ Mana | Cost$ T | Produced$ Combo R G W | Amount$ 1
+SVar:MayPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsImprinted+IsRemembered | AffectedZone$ Exile | Secondary$ True
+SVar:Cast:Mode$ SpellCast | ValidCard$ Card.IsImprinted+IsRemembered+wasCastFromExile | Execute$ ExileSelf | Static$ True
+SVar:ExileSelf:DB$ ChangeZone | Origin$ Command | Destination$ Exile | Defined$ Self

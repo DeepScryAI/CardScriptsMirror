@@ -1,7 +1,16 @@
 Id:24425
-ColorIdentity:W
+ColorIdentity:U
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:W
-Types:Creature Unicorn
-PT:1/2
-A:AB$ PumpAll | Cost$ 3 W | ValidCards$ Creature.YouCtrl | NumAtt$ +1 | NumDef$ +1 | KW$ Vigilance | PlayerTurn$ True
+ManaCost:3 U
+Types:Creature Faerie
+PT:2/2
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | NumCards$ X
+SVar:X:PlayerCountOpponents$HasPropertywasDealtCombatDamageThisTurn
+AlternateMode:Adventure
+ALTERNATE
+ManaCost:1 U
+Types:Instant Adventure
+A:SP$ Pump | TargetMin$ 0 | TargetMax$ 3 | KW$ Flying | ValidTgts$ Creature
+SVar:PlayMain1:TRUE

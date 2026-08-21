@@ -1,10 +1,14 @@
 Id:25817
-ColorIdentity:WUG
+ColorIdentity:R
 OriginSet:G06ccef4324c14725
-ManaCost:1 G W U
-Types:Legendary Creature Human Artificer
-PT:4/3
-S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddAbility$ Surveil | AddKeyword$ Vigilance
-SVar:Surveil:AB$ Surveil | Cost$ T | Amount$ 1
-A:AB$ ChangeZone | Cost$ 2 G G W W U U ExileFromGrave<1/CARDNAME> | Origin$ Graveyard | Destination$ Battlefield | TargetMin$ 0 | TargetMax$ X | ValidTgts$ Artifact.YouOwn | MaxTotalTargetCMC$ 10 | ActivationZone$ Graveyard | SorcerySpeed$ True
-SVar:X:Count$ValidGraveyard Artifact.YouOwn
+ManaCost:X R
+Types:Sorcery
+A:SP$ Charm | Choices$ DBDiscard,DBDamageCreature,DBDamagePW,DBPump | CharmNum$ 2
+SVar:DBDiscard:DB$ Discard | Optional$ True | ValidTgts$ Player | NumCards$ X | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ Y | Defined$ Targeted | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:DBDamageCreature:DB$ DealDamage | ValidTgts$ Creature | NumDmg$ X
+SVar:DBDamagePW:DB$ DealDamage | ValidTgts$ Planeswalker | NumDmg$ X
+SVar:DBPump:DB$ Pump | KW$ Haste | ValidTgts$ Creature | NumAtt$ +X
+SVar:X:Count$xPaid
+SVar:Y:Count$RememberedSize

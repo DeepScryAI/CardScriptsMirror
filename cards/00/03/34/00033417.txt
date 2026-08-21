@@ -1,9 +1,10 @@
 Id:33417
-ColorIdentity:W
-OriginSet:G23d1f017cc66962f
-ManaCost:1 W
-Types:Legendary Creature Human Ninja
-PT:2/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigScry
-SVar:TrigScry:DB$ Scry | ScryNum$ 2
-S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self | ValidBlocker$ Creature.powerGE3
+ColorIdentity:B
+OriginSet:G7ab1fe96128a1641
+ManaCost:1 B B
+Types:Legendary Enchantment
+S:Mode$ CantDraw
+S:Mode$ CantGainLife | Secondary$ True
+T:Mode$ Phase | Phase$ Draw | TriggerZones$ Battlefield | Execute$ TrigDrain
+SVar:TrigDrain:DB$ LoseLife | Defined$ TriggeredPlayer | LifeAmount$ 3 | SubAbility$ DBTutor
+SVar:DBTutor:DB$ ChangeZone | DefinedPlayer$ TriggeredPlayer | Origin$ Library | Destination$ Hand | ChangeType$ Card | ChangeNum$ 1 | Mandatory$ True

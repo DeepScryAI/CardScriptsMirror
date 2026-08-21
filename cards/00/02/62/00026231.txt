@@ -1,10 +1,13 @@
 Id:26231
-ColorIdentity:G
+ColorIdentity:UB
 OriginSet:G2192e8955d5e1ad1
-ManaCost:5 G G
-Types:Legendary Creature Phyrexian Horror
-PT:4/6
-K:Reach
-T:Mode$ Phase | Phase$ BeginCombat | TriggerZones$ Battlefield | Execute$ TrigDouble
-SVar:TrigDouble:DB$ Pump | Defined$ Valid Creature.YouCtrl | NumAtt$ Double | NumDef$ Double
-A:AB$ PutCounter | Cost$ GP GP Sac<2/Creature.Other/Other creature> | Defined$ Self | CounterType$ Indestructible | CounterNum$ 1
+ManaCost:2 U B
+Types:Legendary Planeswalker Kaito
+Loyalty:3
+T:Mode$ DamageDoneOnce | CombatDamage$ True | ValidSource$ Creature.YouCtrl | TriggerZones$ Battlefield | ValidTarget$ Player | Execute$ TrigLoyalty
+SVar:TrigLoyalty:AB$ Effect | Cost$ Return<1/Card.TriggeredSources> | StaticAbilities$ PWTwice
+SVar:PWTwice:Mode$ NumLoyaltyAct | ValidCard$ Card.EffectSource | Twice$ True
+A:AB$ Effect | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Creature | RememberObjects$ Targeted | StaticAbilities$ DBCantAttackBlock | ForgetOnMoved$ Battlefield | IsCurse$ True | Duration$ UntilYourNextTurn
+SVar:DBCantAttackBlock:Mode$ CantAttack,CantBlock | ValidCard$ Card.IsRemembered
+A:AB$ Draw | Cost$ AddCounter<0/LOYALTY> | NumCards$ 1 | Planeswalker$ True
+A:AB$ Token | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | TokenScriptIds$ 34370100

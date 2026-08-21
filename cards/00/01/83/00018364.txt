@@ -1,11 +1,10 @@
 Id:18364
-ColorIdentity:U
-OriginSet:G7d70f513279b26b6
-ManaCost:4 U U
-Types:Legendary Planeswalker Yanling
-Loyalty:5
-A:AB$ Effect | Cost$ AddCounter<2/LOYALTY> | Planeswalker$ True | ValidTgts$ Creature | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable | AILogic$ MakeUnblockable
-SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
-A:AB$ Draw | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | NumCards$ 2
-A:AB$ TapAll | Cost$ SubCounter<10/LOYALTY> | Planeswalker$ True | Ultimate$ True | ValidCards$ Creature.OppCtrl | SubAbility$ DBAddTurn | AILogic$ AtLeast3
-SVar:DBAddTurn:DB$ AddTurn | NumTurns$ 1
+ColorIdentity:B
+OriginSet:G7d4bd61c81d44275
+ManaCost:3 B
+Types:Creature Orc Warrior
+PT:4/3
+T:Mode$ ChangesZone | ValidCard$ Card.Self,Warrior.Other+YourTeamCtrl | Origin$ Any | Destination$ Battlefield | Execute$ TrigDrain | TriggerZones$ Battlefield
+SVar:TrigDrain:DB$ LoseLife | ValidTgts$ Opponent | LifeAmount$ 1 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
+SVar:BuffedBy:Warrior

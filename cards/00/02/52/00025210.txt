@@ -1,12 +1,9 @@
 Id:25210
 ColorIdentity:B
 OriginSet:Gf591a76e7a37cf73
-ManaCost:5 B B B
-Types:Creature C'tan
-PT:8/8
-K:Flying
-T:Mode$ ChangesZone | ValidCard$ Card.Self+wasCastByYou | Destination$ Battlefield | Execute$ TrigLoseLife
-SVar:TrigLoseLife:DB$ LoseLife | ValidTgts$ Opponent | LifeAmount$ X | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ AFLifeLost
-SVar:X:TargetedPlayer$LifeTotal/HalfUp
-SVar:AFLifeLost:Number$0
+ManaCost:3 B
+Types:Artifact Creature Necron Wizard
+PT:3/3
+A:AB$ ChooseCard | Cost$ 1 B T | ValidTgts$ Artifact.Creature+YouCtrl+Other | SubAbility$ DBDelayedTrigger
+SVar:DBDelayedTrigger:DB$ DelayedTrigger | Mode$ ChangesZone | RememberObjects$ Targeted | ValidCard$ Card.IsTriggerRemembered | Origin$ Battlefield | Destination$ Graveyard | ThisTurn$ True | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | Defined$ TriggeredCard | Tapped$ True | GainControl$ True

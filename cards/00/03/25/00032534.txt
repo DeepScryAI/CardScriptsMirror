@@ -1,10 +1,22 @@
 Id:32534
-ColorIdentity:W
-OriginSet:G1f5998b5f01949b9
-ManaCost:1 W W
-Types:Enchantment
-S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddPower$ 1 | AddToughness$ 1
-T:Mode$ AttackersDeclared | ValidAttackers$ Creature.Legendary+YouCtrl | Execute$ TrigGainLife | TriggerZones$ Battlefield
-SVar:TrigGainLife:DB$ GainLife | LifeAmount$ X
-SVar:X:TriggerObjectsAttackers$Amount
+ColorIdentity:BRG
+OriginSet:G66b3a7eeabd9000e
+ManaCost:2 B
+Types:Legendary Creature Human Hero Villain
+PT:3/3
+AlternateMode:Modal
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.cmcLE1+YouOwn
+A:AB$ SetState | Cost$ 3 B R G | Defined$ Self | Mode$ Transform | SorcerySpeed$ True | AILogic$ Always
 SVar:PlayMain1:TRUE
+ALTERNATE
+ManaCost:3 B R G
+Types:Legendary Creature Symbiote Hero Villain
+PT:5/5
+K:Menace
+K:Trample
+K:Haste
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:AB$ Draw | Cost$ Sac<1/Creature.Other/another creature> | NumCards$ X | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | ChangeType$ Permanent.YouCtrl+cmcLEX | Origin$ Hand | Destination$ Battlefield
+SVar:X:Sacrificed$CardManaCost

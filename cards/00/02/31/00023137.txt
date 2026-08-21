@@ -1,11 +1,9 @@
 Id:23137
-ColorIdentity:B
-OriginSet:G6e75ff4f143a3dc3
-ManaCost:2 B
-Types:Creature Zombie Cleric
-PT:3/2
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self,Zombie.Other+YouCtrl | Execute$ TrigPeek
-SVar:TrigPeek:DB$ PeekAndReveal | PeekAmount$ 1 | RevealValid$ Zombie | RevealOptional$ True | RememberRevealed$ True | SubAbility$ DBToHand
-SVar:DBToHand:DB$ ChangeZone | Defined$ Remembered | Origin$ Library | Destination$ Hand | SubAbility$ DBToGrave
-SVar:DBToGrave:DB$ ChangeZone | Defined$ TopOfLibrary | Origin$ Library | Destination$ Graveyard | Optional$ True | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ0 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:
+OriginSet:G7a76c1974b0a33a6
+ManaCost:2
+Types:Artifact Book Clue
+K:etbCounter:SUSPECT:X:no Condition
+SVar:X:PlayerCountPlayers$HighestValid Creature.YouCtrl
+A:AB$ Draw | Cost$ 2 T SubCounter<1/SUSPECT> | NumCards$ 1
+A:AB$ Draw | Cost$ 2 Sac<1/CARDNAME> | NumCards$ 1

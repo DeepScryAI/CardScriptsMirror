@@ -1,8 +1,9 @@
 Id:13863
-ColorIdentity:R
+ColorIdentity:G
 OriginSet:G97e9a20e5a5d5822
-ManaCost:5 R
-Types:Creature Giant
-PT:5/6
-S:Mode$ Continuous | Affected$ Creature.Human+YouCtrl | AddAbility$ Damage
-SVar:Damage:AB$ DealDamage | Cost$ R T | ValidTgts$ Any | NumDmg$ 1
+ManaCost:2 G
+Types:Sorcery
+A:SP$ Pump | ValidTgts$ Creature.OppCtrl | AILogic$ Fight | SubAbility$ DBDelayedTrigger
+SVar:DBDelayedTrigger:DB$ DelayedTrigger | Mode$ ChangesZone | RememberObjects$ ParentTarget | ValidCard$ Card.IsTriggerRemembered | Origin$ Battlefield | Destination$ Graveyard | ThisTurn$ True | Execute$ TrigGainLife | SubAbility$ DBFight
+SVar:DBFight:DB$ Fight | Defined$ ParentTarget | ValidTgts$ Creature.YouCtrl
+SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 3

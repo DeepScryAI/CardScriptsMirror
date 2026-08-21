@@ -1,11 +1,10 @@
 Id:16276
-ColorIdentity:
+ColorIdentity:R
 OriginSet:G70d19654882197c9
-ManaCost:1
-Types:Artifact Equipment
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 3 | AddToughness$ 3
-T:Mode$ Attacks | ValidCard$ Card.EquippedBy | Execute$ StayTapped
-SVar:StayTapped:DB$ Pump | KW$ HIDDEN This card doesn't untap during your next untap step. | Defined$ TriggeredAttackerLKICopy | Duration$ Permanent
-T:Mode$ Unattached | ValidAttachment$ Card.Self | ValidObject$ Permanent | Execute$ TrigSac
-SVar:TrigSac:DB$ SacrificeAll | Defined$ TriggeredObjectLKICopy | Controller$ You
-K:Equip:2
+ManaCost:3 R
+Types:Creature Vampire
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigTap
+SVar:TrigTap:DB$ Tap | ValidTgts$ Land.OppCtrl | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Targeted | KW$ HIDDEN This card doesn't untap during your next untap step. | Duration$ Permanent
+SVar:PlayMain1:TRUE

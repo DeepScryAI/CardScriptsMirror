@@ -1,10 +1,12 @@
 Id:29571
-ColorIdentity:U
+ColorIdentity:W
 OriginSet:Gac6359c222afbd4f
-ManaCost:1 U
-Types:Creature Merfolk Wizard
-PT:2/1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigEnergy
-SVar:TrigEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ 2
-A:AB$ Draw | Cost$ T PayEnergy<1> | NumCards$ 1 | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | Defined$ You | Mode$ TgtChoose | NumCards$ 1
+ManaCost:1 W
+Types:Sorcery
+K:Kicker:2 W
+A:SP$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Creature.cmcLE3 | TargetMin$ X | TargetMax$ X | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | TargetMin$ Y | TargetMax$ Y | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Creature | Condition$ Kicked | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ TargetedController | LifeAmount$ Z
+SVar:X:Count$Kicked.0.1
+SVar:Y:Count$Kicked.1.0
+SVar:Z:Targeted$CardManaCost

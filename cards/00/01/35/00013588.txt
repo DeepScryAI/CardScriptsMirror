@@ -1,14 +1,10 @@
 Id:13588
-ColorIdentity:U
+ColorIdentity:R
 OriginSet:G4773f4feb3f15a2b
-ManaCost:3 U
-Types:Creature Human Wizard
-PT:1/1
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | OptionalDecider$ You | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZone | RememberChanged$ True | Origin$ Hand | Destination$ Exile | ChangeType$ Instant | ChangeNum$ 1
-A:AB$ Play | Cost$ X T | Valid$ Card.IsRemembered+ExiledWithSource | ValidSA$ Spell | ValidZone$ Exile | Amount$ All | WithoutManaCost$ True | Optional$ True | CopyCard$ True
-SVar:X:Remembered$CardManaCost
-T:Mode$ ChangesZone | ValidCard$ Card.IsRemembered+ExiledWithSource | Origin$ Exile | Destination$ Any | Execute$ ForgetCard | Static$ True
-SVar:ForgetCard:DB$ Cleanup | ForgetDefined$ TriggeredCard
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | Static$ True | ValidCard$ Card.Self | Execute$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:2 R
+Types:Creature Dragon Egg
+PT:0/2
+K:Defender
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenOwner$ You | TokenScriptIds$ 4168343303
+SVar:SacMe:4

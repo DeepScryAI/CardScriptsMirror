@@ -1,12 +1,9 @@
 Id:23172
-ColorIdentity:B
-OriginSet:G6e75ff4f143a3dc3
-ManaCost:3 B
-Types:Creature Zombie Bear
-PT:2/3
-K:Deathtouch
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Card | AITgts$ Creature.OppOwn | RememberChanged$ True | SubAbility$ DBDrain
-SVar:DBDrain:DB$ LoseLife | ConditionDefined$ Remembered | ConditionPresent$ Creature | Defined$ Player.Opponent | LifeAmount$ 2 | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | ConditionDefined$ Remembered | ConditionPresent$ Creature | Defined$ You | LifeAmount$ 2 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:U
+OriginSet:G3aa323ca47c740b1
+ManaCost:3 U
+Types:Enchantment
+S:Mode$ CastWithFlash | ValidCard$ Spirit | ValidSA$ Spell | EffectZone$ Battlefield | Caster$ You
+T:Mode$ SpellCast | ValidCard$ Creature | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | OpponentTurn$ True | Execute$ TrigTap
+SVar:TrigTap:DB$ Tap | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Creature
+SVar:BuffedBy:Creature.withFlash

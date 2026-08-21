@@ -1,10 +1,23 @@
 Id:33373
-ColorIdentity:U
-OriginSet:Gff0a4227ae9f1a4b
-ManaCost:2 U
-Types:Legendary Creature Human Mutant Shapeshifter
-PT:1/1
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ IrmaCopy
-SVar:IrmaCopy:DB$ Clone | ValidTgts$ Creature.Other+YouCtrl | TargetMin$ 0 | TargetMax$ 1 | NewName$ 2329342343144800519 | GainThisAbility$ True | AddSVars$ IrmaCopy,IrmaPutCounter | SubAbility$ IrmaPutCounter | AILogic$ CloneBestCreature
-SVar:IrmaPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
-SVar:PlayMain1:TRUE
+ColorIdentity:BR
+OriginSet:G7ab1fe96128a1641
+ManaCost:2 B
+Types:Legendary Creature Goblin Warlock
+PT:2/1
+K:Menace
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
+T:Mode$ Transformed | ValidCard$ Card.Self | Execute$ TrigChangeZone | Secondary$ True
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Goblin.YouOwn | TargetMin$ 0 | TargetMax$ 1
+T:Mode$ Phase | Phase$ Main1 | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigTransform
+SVar:TrigTransform:AB$ SetState | Cost$ R | Defined$ Self | Mode$ Transform
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:red
+Types:Legendary Creature Goblin Warrior
+PT:2/1
+K:Menace
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigCopy | TriggerZones$ Battlefield
+SVar:TrigCopy:AB$ CopyPermanent | Cost$ Blight<1> | TokenTapped$ True | TokenAttacking$ True | Defined$ CounterPutCards | AtEOTTrig$ Sacrifice
+T:Mode$ Phase | Phase$ Main1 | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigTransform
+SVar:TrigTransform:AB$ SetState | Cost$ B | Defined$ Self | Mode$ Transform

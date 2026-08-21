@@ -1,8 +1,10 @@
 Id:5398
-ColorIdentity:R
+ColorIdentity:U
 OriginSet:Gfdac7ecc1e8a7d21
-ManaCost:2 R
-Types:Enchantment
-T:Mode$ TapsForMana | ValidCard$ Land | Execute$ TrigDestroy | TriggerZones$ Battlefield | Activator$ Player.NonActive
-SVar:TrigDestroy:DB$ Destroy | Defined$ TriggeredCardLKICopy
-SVar:AICurseEffect:NonActive
+ManaCost:1 U
+Types:Instant
+A:SP$ NameCard | Defined$ You | SubAbility$ DBMill
+SVar:DBMill:DB$ Mill | ValidTgts$ Player | NumCards$ 1 | RememberMilled$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ X
+SVar:X:Count$Compare Y GE1.2.1
+SVar:Y:Remembered$Valid Card.NamedCard

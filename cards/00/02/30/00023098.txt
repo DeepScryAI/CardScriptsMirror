@@ -1,11 +1,14 @@
 Id:23098
-ColorIdentity:WU
-OriginSet:G3aa323ca47c740b1
-ManaCost:X W U
-Types:Instant
-A:SP$ ChangeZone | ValidTgts$ Creature | TargetMin$ X | TargetMax$ X | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBInvestigate
-SVar:DBInvestigate:DB$ Investigate | Num$ X | SubAbility$ DBDelTrig
-SVar:DBDelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ TrigReturn | RememberObjects$ RememberedLKI | SubAbility$ DBCleanup
-SVar:TrigReturn:DB$ ChangeZone | Origin$ Exile | Destination$ Battlefield | Defined$ DelayTriggerRememberedLKI | Tapped$ True
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$xPaid
+ColorIdentity:W
+OriginSet:G7a76c1974b0a33a6
+ManaCost:2 W W
+Types:Creature Human Soldier
+PT:3/4
+K:Flash
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ChangeType$ Card | ChangeNum$ 1 | Mandatory$ True | Hidden$ True | Imprint$ True | AILogic$ ExilePreference:Land
+T:Mode$ LandPlayed | ValidCard$ Land.YouOwn+sharesCardTypeWith Imprinted.ExiledWithSource | Execute$ TrigToken | TriggerZones$ Battlefield
+T:Mode$ SpellCast | ValidCard$ Card.sharesCardTypeWith Imprinted.ExiledWithSource | ValidActivatingPlayer$ You | Execute$ TrigToken | TriggerZones$ Battlefield | Secondary$ True
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 638238902
+T:Mode$ ChangesZone | Origin$ Battlefield | ValidCard$ Card.Self | Destination$ Any | Execute$ DBCleanup | Static$ True
+SVar:DBCleanup:DB$ Cleanup | ClearImprinted$ True

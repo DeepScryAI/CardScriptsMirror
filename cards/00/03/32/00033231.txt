@@ -1,10 +1,13 @@
 Id:33231
-ColorIdentity:U
-OriginSet:G7ab1fe96128a1641
-ManaCost:6 U
-Types:Instant
-S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ X | EffectZone$ All
-A:SP$ Tap | TargetMin$ 0 | TargetMax$ 2 | ValidTgts$ Creature | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | Defined$ Targeted | CounterType$ STUN | CounterNum$ 1 | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw
-SVar:X:Count$Valid Permanent.YouCtrl$Colors
+ColorIdentity:WBR
+OriginSet:G530ea9d733a13e9d
+ManaCost:R W B
+Types:Legendary Creature Human Mercenary
+PT:3/2
+K:FirstStrike
+K:ETBReplacement:Other:ChooseNumber
+SVar:ChooseNumber:DB$ ChooseNumber | Defined$ You
+T:Mode$ AttackersDeclaredOneTarget | AttackedTarget$ Opponent | ValidAttackers$ Creature.powerEQChosen,Creature.toughnessEQChosen | TriggerZones$ Battlefield | Execute$ TrigDealDamage
+SVar:TrigDealDamage:DB$ DealDamage | Defined$ TriggeredAttackedTarget | NumDmg$ X | ConditionCheckSVar$ Y | ConditionSVarCompare$ GE1
+SVar:X:Count$CardPower
+SVar:Y:Count$Valid Creature.TriggeredAttackers+powerEQChosen,Creature.TriggeredAttackers+toughnessEQChosen

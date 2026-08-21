@@ -1,6 +1,10 @@
 Id:16023
-ColorIdentity:B
+ColorIdentity:U
 OriginSet:Gc276c26a85a70470
-ManaCost:2 B
-Types:Instant
-A:SP$ Draw | Cost$ 2 B Sac<1/Creature;Land/creature or land> | NumCards$ 2
+ManaCost:1 U
+Types:Creature Human Wizard
+PT:0/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill1
+SVar:TrigMill1:DB$ Mill | Defined$ Player.Opponent | NumCards$ 3
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Opponent | Delirium$ True | Execute$ TrigMill2 | TriggerZones$ Battlefield
+SVar:TrigMill2:DB$ Mill | Defined$ TriggeredPlayer | NumCards$ 3

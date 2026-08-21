@@ -1,11 +1,13 @@
 Id:29497
-ColorIdentity:U
-OriginSet:Gac6359c222afbd4f
+ColorIdentity:
+OriginSet:G2ce881cc55bb9f18
 ManaCost:7
-Types:Creature Eldrazi Elemental
-PT:4/4
-T:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 2
-K:Flying
-K:Annihilator:1
-K:Evoke:2 U
+Types:Creature Eldrazi
+PT:8/6
+T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigGenericChoice | TriggerZones$ Battlefield
+SVar:TrigGenericChoice:DB$ GenericChoice | Choices$ Odd,Even | Defined$ You
+SVar:Odd:DB$ Effect | StaticAbilities$ CantBlockOdd
+SVar:CantBlockOdd:Mode$ Continuous | AffectedZone$ Battlefield | Affected$ Creature.cmcOdd | AddHiddenKeyword$ CARDNAME can't block.
+SVar:Even:DB$ Effect | StaticAbilities$ CantBlockEven
+SVar:CantBlockEven:Mode$ Continuous | AffectedZone$ Battlefield | Affected$ Creature.cmcEven | AddHiddenKeyword$ CARDNAME can't block.
+S:Mode$ Continuous | Affected$ Creature.Other+YouCtrl+Colorless | AddKeyword$ Bloodthirst:2

@@ -1,11 +1,17 @@
 Id:15998
-ColorIdentity:W
+ColorIdentity:G
 OriginSet:Gc276c26a85a70470
-ManaCost:2 W
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:Pump
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ X | AddToughness$ X
-SVar:X:Count$Valid Creature.YouCtrl
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy+Human | AddKeyword$ FirstStrike
-SVar:BuffedBy:Creature
+ManaCost:1 G
+Types:Creature Human Werewolf
+PT:2/1
+T:Mode$ Phase | Phase$ Upkeep | WerewolfTransformCondition$ True | TriggerZones$ Battlefield | Execute$ TrigTransform
+SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:green
+Types:Creature Werewolf
+PT:4/2
+K:Trample
+T:Mode$ Phase | Phase$ Upkeep | WerewolfUntransformCondition$ True | TriggerZones$ Battlefield | Execute$ TrigTransform
+SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform

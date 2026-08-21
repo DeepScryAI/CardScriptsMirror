@@ -1,20 +1,13 @@
 Id:16163
-ColorIdentity:U
+ColorIdentity:B
 OriginSet:G70d19654882197c9
-ManaCost:3 U U
-Types:Creature Insect Horror
-PT:5/4
-K:Flying
-T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 1827778350 | TokenOwner$ You | SubAbility$ DBTransform
-SVar:DBTransform:DB$ SetState | Defined$ Self | ConditionPresent$ Card.Wizard+YouCtrl | ConditionCompare$ GE3 | Mode$ Transform
-SVar:BuffedBy:Instant,Sorcery
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
+ManaCost:8
 Types:Creature Eldrazi Insect
-PT:6/5
-K:Flying
-S:Mode$ Continuous | Affected$ Card.Wizard+YouCtrl | AddPower$ 2 | AddToughness$ 1 | AddKeyword$ Flying
-T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 1827778350 | TokenOwner$ You
+PT:5/5
+K:Emerge:5 B B
+T:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigReveal
+SVar:TrigReveal:DB$ RevealHand | ValidTgts$ Opponent | RememberRevealed$ True | SubAbility$ DBChoose
+SVar:DBChoose:DB$ ChooseCard | Defined$ You | Choices$ Card.IsRemembered+cmcLE3+nonLand | ChoiceZone$ Hand | Amount$ 1 | Mandatory$ True | ForgetChosen$ True | SubAbility$ DBChoose2
+SVar:DBChoose2:DB$ ChooseCard | Defined$ You | Choices$ Card.IsRemembered+cmcGE4 | ChoiceZone$ Hand | Amount$ 1 | Mandatory$ True | ForgetChosen$ True | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Mode$ Defined | DefinedCards$ ValidHand Card.!IsRemembered+OwnedBy Targeted | Defined$ Targeted | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

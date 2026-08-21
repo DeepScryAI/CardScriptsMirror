@@ -1,8 +1,8 @@
 Id:23935
-ColorIdentity:
+ColorIdentity:R
 OriginSet:Gfdfe2ebef04be34e
-ManaCost:no cost
-Types:Land Island Swamp Mountain
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
-K:Cycling:3
+ManaCost:4 R R
+Types:Enchantment
+T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | ActivatorThisTurnCast$ EQ1 | Execute$ TrigExile | TriggerZones$ Battlefield | OrderDuplicates$ True
+SVar:TrigExile:DB$ ChangeZone | DefinedPlayer$ You | Destination$ Exile | ChangeNum$ 1 | ChangeType$ Instant.YouOwn,Sorcery.YouOwn | AtRandom$ True | Origin$ Graveyard | Hidden$ True | Mandatory$ True | SubAbility$ DBCast
+SVar:DBCast:DB$ Play | Valid$ Card.ExiledWithSource | ValidSA$ Spell | ValidZone$ Exile | Amount$ All | CopyCard$ True | Optional$ True | WithoutManaCost$ True

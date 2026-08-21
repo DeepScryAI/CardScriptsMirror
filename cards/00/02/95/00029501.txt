@@ -1,13 +1,11 @@
 Id:29501
-ColorIdentity:W
+ColorIdentity:WB
 OriginSet:Gac6359c222afbd4f
-ManaCost:W
-Types:Creature Cat
-PT:1/1
-K:FirstStrike
-K:Lifelink
-K:Ascend
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | CheckSVar$ YouLifeGained | Execute$ TrigToken | TriggerZones$ Battlefield
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 2467913596 | TokenOwner$ You | SubAbility$ DBMassTokens
-SVar:DBMassTokens:DB$ CopyPermanent | Condition$ Blessing | Defined$ Valid Card.token+YouCtrl+ThisTurnEntered
-SVar:YouLifeGained:Count$LifeYouGainedThisTurn
+ManaCost:2 W B
+Types:Instant
+K:Devoid
+A:SP$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Permanent.nonLand | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ Remembered | StaticAbilities$ MayPlay,ManaConvert | SubAbility$ DBCleanup | Duration$ Permanent | ForgetOnMoved$ Exile
+SVar:MayPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered+nonLand | AffectedZone$ Exile
+SVar:ManaConvert:Mode$ ManaConvert | ValidPlayer$ You | ValidCard$ Card.IsRemembered | ValidSA$ Spell.MayPlaySource | ManaConversion$ C->AnyColor | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

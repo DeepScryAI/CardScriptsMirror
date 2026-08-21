@@ -1,9 +1,11 @@
 Id:27703
-ColorIdentity:U
-OriginSet:G30e8a5e111cffb44
-ManaCost:1 U
-Types:Instant
-A:SP$ Effect | ReplacementEffects$ ReplaceETB
-SVar:ReplaceETB:Event$ Moved | Destination$ Battlefield | Origin$ Stack,Exile | ValidCard$ Creature.wasCastFromExile,Creature.!wasCast | ReplaceWith$ DBShuffle
-SVar:DBShuffle:DB$ ChangeZone | Hidden$ True | Origin$ All | Destination$ Library | Defined$ ReplacedCard | Shuffle$ True
-K:Cycling:2
+ColorIdentity:G
+OriginSet:G7579344e30f8be85
+ManaCost:1 G
+Types:Creature Wolf
+PT:2/3
+K:Defender
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump | IsPresent$ Creature.YouCtrl+powerGE4
+SVar:TrigPump:DB$ Pump | NumAtt$ +1 | Defined$ Self | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ CanAttack | ExileOnMoved$ Battlefield
+SVar:CanAttack:Mode$ CanAttackDefender | ValidCard$ Card.EffectSource

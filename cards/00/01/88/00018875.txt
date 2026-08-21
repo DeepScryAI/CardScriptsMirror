@@ -1,11 +1,14 @@
 Id:18875
-ColorIdentity:RG
-OriginSet:G0852bdaf94eef605
-ManaCost:2 R G
-Types:Legendary Planeswalker Domri
-Loyalty:5
-A:AB$ Mana | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | Produced$ Combo R G | Amount$ 1 | AddsKeywords$ Riot | AddsKeywordsValid$ Spell.Creature
-A:AB$ Dig | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | ForceRevealToController$ True | DigNum$ 4 | ChangeNum$ 2 | Optional$ True | ChangeValid$ Creature | RestRandomOrder$ True
-A:AB$ Effect | Cost$ SubCounter<8/LOYALTY> | Planeswalker$ True | Ultimate$ True | Name$ 17771217092950256774 | Triggers$ EffPhase | Duration$ Permanent
-SVar:EffPhase:Mode$ Phase | Phase$ End of Turn | Execute$ EmblemTrigToken
-SVar:EmblemTrigToken:DB$ Token | TokenOwner$ You | TokenScriptIds$ 722662269
+ColorIdentity:UB
+OriginSet:G1ecb361a0a117393
+ManaCost:1 U B
+Types:Sorcery
+A:SP$ NameCard | Defined$ You | SubAbility$ ExileYard
+SVar:ExileYard:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Player.Opponent | ChangeType$ Card.NamedCard | Chooser$ You | ChangeNum$ 4 | Hidden$ True | RememberChanged$ True | SubAbility$ ExileHand
+SVar:ExileHand:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | DefinedPlayer$ Targeted | ChangeType$ Card.NamedCard | ChangeNum$ Y | Chooser$ You | RememberChanged$ True | Imprint$ True | SubAbility$ ExileLib
+SVar:ExileLib:DB$ ChangeZone | Origin$ Library | Destination$ Exile | DefinedPlayer$ Targeted | ChangeType$ Card.NamedCard | ChangeNum$ Y | Chooser$ You | RememberChanged$ True | Shuffle$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ Targeted | NumCards$ Z | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True
+SVar:X:Remembered$Amount
+SVar:Y:SVar$X/NMinus.4
+SVar:Z:Imprinted$Amount

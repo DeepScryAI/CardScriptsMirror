@@ -1,10 +1,13 @@
 Id:28397
-ColorIdentity:G
-OriginSet:G7ee0e82a2424d636
-ManaCost:3 G
-Types:Sorcery
-S:Mode$ OptionalCost | EffectZone$ All | ValidCard$ Card.Self | ValidSA$ Spell | Cost$ CollectEvidence<6>
-S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ Z | EffectZone$ All | Relative$ True
-SVar:Z:Count$OptionalGenericCostPaid.2.0
-A:SP$ Pump | AILogic$ Fight | NumAtt$ +2 | ValidTgts$ Creature.YouCtrl | SubAbility$ DBFight
-SVar:DBFight:DB$ DealDamage | AILogic$ PowerDmg | NumDmg$ ParentTargeted$CardPower | ValidTgts$ Creature.YouDontCtrl | DamageSource$ ParentTarget
+ColorIdentity:WR
+OriginSet:G4f78ded7b58f78f8
+ManaCost:3 R W
+Types:Creature Dinosaur
+PT:3/3
+K:Flying
+K:Haste
+T:Mode$ ChangesZone | ValidCard$ Card.Self,Dinosaur.withFlying+Other+YouCtrl | Origin$ Any | Destination$ Battlefield | Execute$ TrigGainControl
+SVar:TrigGainControl:DB$ GainControl | ValidTgts$ Creature.OppCtrl | LoseControl$ EOT | Untap$ True | AddKWs$ Haste & Flying | SubAbility$ DBDelayTrig
+SVar:DBDelayTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ TrigChooseLand | RememberObjects$ Targeted
+SVar:TrigChooseLand:DB$ Pump | ValidTgts$ Land | SubAbility$ DBDamage
+SVar:DBDamage:DB$ DealDamage | Defined$ DelayTriggerRemembered | DamageSource$ Targeted | NumDmg$ 3

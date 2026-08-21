@@ -1,10 +1,10 @@
 Id:14802
-ColorIdentity:U
+ColorIdentity:G
 OriginSet:Gfafc221218d3b700
-ManaCost:5 U
-Types:Enchantment
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw1
-SVar:TrigDraw1:DB$ Draw | Defined$ You | NumCards$ 2
-T:Mode$ Phase | Phase$ Draw | ValidPlayer$ Player.Other | TriggerZones$ Battlefield | Execute$ TrigDraw2
-SVar:TrigDraw2:DB$ Draw | Defined$ TriggeredPlayer
-T:Mode$ Phase | Phase$ Draw | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraw1
+ManaCost:5 G G
+Types:Sorcery
+A:SP$ SacrificeAll | ValidCards$ Artifact,Enchantment,Land.nonBasic | RememberSacrificed$ True | SubAbility$ DBRepeat
+SVar:DBRepeat:DB$ RepeatEach | DefinedCards$ DirectRemembered.Land | UseImprinted$ True | RepeatSubAbility$ DBSearch | ClearRemembered$ True | SubAbility$ DBShuffle
+SVar:DBSearch:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Land.Basic | Tapped$ True | RememberSearched$ True | DefinedPlayer$ ImprintedController | Chooser$ ImprintedController | NoShuffle$ True | Optional$ True
+SVar:DBShuffle:DB$ Shuffle | Defined$ Player.IsRemembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

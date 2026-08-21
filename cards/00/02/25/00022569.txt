@@ -1,7 +1,9 @@
 Id:22569
-ColorIdentity:G
+ColorIdentity:R
 OriginSet:G9f95a41d532c0550
-ManaCost:G
-Types:Creature Dryad
-PT:1/1
-A:AB$ ChangeZone | Cost$ 2 Sac<1/CARDNAME> | Origin$ Library | Destination$ Battlefield | Tapped$ True | ChangeType$ Land.Forest+Basic | ChangeNum$ 1
+ManaCost:3 R R
+Types:Instant
+A:SP$ DealDamage | ValidTgts$ Creature,Planeswalker | NumDmg$ 5 | SubAbility$ DBRollDice
+SVar:DBRollDice:DB$ RollDice | Sides$ 20 | ResultSubAbilities$ 1-9:DamageAll,10-20:DamageOpp
+SVar:DamageAll:DB$ DealDamage | Defined$ Player | NumDmg$ 2
+SVar:DamageOpp:DB$ DealDamage | Defined$ Player.Opponent | NumDmg$ 2

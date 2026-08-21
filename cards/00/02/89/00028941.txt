@@ -1,14 +1,8 @@
 Id:28941
-ColorIdentity:G
-OriginSet:G343cd0ac847a92b7
-ManaCost:2 G G
-Types:Creature Plant Druid
-PT:5/5
-K:Trample
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigFood
-SVar:TrigFood:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 134855612 | TokenOwner$ You
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigMill
-SVar:TrigMill:AB$ Mill | Cost$ Sac<1/Food> | NumCards$ 3 | Defined$ You | RememberMilled$ True | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | Hidden$ True | Origin$ Graveyard,Exile | Destination$ Hand | ChangeType$ Card.Permanent+YouOwn+IsRemembered | Optional$ True | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:HasAttackEffect:TRUE
+ColorIdentity:W
+OriginSet:Gaf7c94f364052cdd
+ManaCost:1 W
+Types:Artifact
+T:Mode$ DamageDoneOnce | ValidSource$ Creature.Artifact+YouCtrl | TriggerZones$ Battlefield | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigEnergy
+SVar:TrigEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ 1
+A:AB$ Token | Cost$ PayEnergy<3> | TokenScriptIds$ 1043372835 | TokenTapped$ True

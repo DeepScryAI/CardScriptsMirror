@@ -1,0 +1,13 @@
+Id:30845
+ColorIdentity:
+OriginSet:Gc5a2f0ff902c0621
+ManaCost:1
+Types:Artifact Equipment
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddAbility$ FishingPoleBaiting
+SVar:FishingPoleBaiting:AB$ PutCounter | Cost$ 1 T tapXType<1/OriginalHost/catalogId30845> | CounterType$ BAIT | CounterNum$ 1 | Defined$ OriginalHost
+T:Mode$ Untaps | ValidCard$ Creature.EquippedBy | TriggerZones$ Battlefield | Execute$ TrigRemoveCounter
+SVar:TrigRemoveCounter:DB$ RemoveCounter | Defined$ Self | CounterType$ BAIT | CounterNum$ 1 | RememberRemoved$ True | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | ConditionCheckSVar$ X | TokenScriptIds$ 2753563426 | TokenOwner$ You | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$RememberedSize
+K:Equip:2

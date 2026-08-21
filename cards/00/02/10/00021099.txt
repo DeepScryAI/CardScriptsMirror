@@ -1,9 +1,14 @@
 Id:21099
 ColorIdentity:W
-OriginSet:G72c9c624ceb92bff
-ManaCost:2 W
-Types:Creature Human Cleric
-PT:3/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.YouCtrl | KW$ Indestructible
-SVar:PlayMain1:TRUE
+OriginSet:G7b2607750b451c25
+ManaCost:4 W W W
+Types:Sorcery
+A:SP$ Token | TokenAmount$ 2 | TokenScriptIds$ 2746429624 | SubAbility$ DBPumpAll
+SVar:DBPumpAll:DB$ PumpAll | ValidCards$ Creature.nonAngel+YouCtrl | KW$ Indestructible | Duration$ UntilYourNextTurn
+AlternateMode:Modal
+ALTERNATE
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ DBTap | ReplacementResult$ Updated
+SVar:DBTap:DB$ Tap | ETB$ True | Defined$ Self | UnlessCost$ PayLife<3> | UnlessPayer$ You
+A:AB$ Mana | Cost$ T | Produced$ W

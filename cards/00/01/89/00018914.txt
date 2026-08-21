@@ -1,9 +1,11 @@
 Id:18914
-ColorIdentity:G
+ColorIdentity:UG
 OriginSet:G586a4ae96288ce18
-ManaCost:3 G
-Types:Instant
-A:SP$ DestroyAll | ValidCards$ Artifact,Enchantment | RememberDestroyed$ True | SubAbility$ DBRepeat
-SVar:DBRepeat:DB$ RepeatEach | UseImprinted$ True | DefinedCards$ DirectRemembered | RepeatSubAbility$ DBToken | SubAbility$ DBCleanup | ChangeZoneTable$ True
-SVar:DBToken:DB$ Token | TokenOwner$ ImprintedController | TokenScriptIds$ 3467253395
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ true
+ManaCost:G U
+Types:Creature Mutant
+PT:2/2
+S:Mode$ ReduceCost | ValidCard$ Creature.YouCtrl | Type$ Ability | Amount$ 2 | MinMana$ 1 | AffectedZone$ Battlefield
+A:AB$ Effect | Cost$ T | ValidTgts$ Creature | RememberObjects$ ThisTargetedCard | StaticAbilities$ StaticAllowAdapt | Triggers$ TriggerClearAdapt
+SVar:StaticAllowAdapt:Mode$ CanAdapt | ValidCard$ Card.IsRemembered
+SVar:TriggerClearAdapt:Mode$ Adapt | ValidCard$ Card.IsRemembered | Execute$ ExileSelf | Static$ True
+SVar:ExileSelf:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile

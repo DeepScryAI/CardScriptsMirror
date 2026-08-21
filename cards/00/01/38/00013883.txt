@@ -1,11 +1,9 @@
 Id:13883
-ColorIdentity:B
+ColorIdentity:U
 OriginSet:G97e9a20e5a5d5822
-ManaCost:2 B B
-Types:Legendary Enchantment Artifact
-S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddKeyword$ Lifelink
-A:AB$ ChangeZone | Cost$ 2 B B T | ValidTgts$ Creature.YouOwn | Origin$ Graveyard | Destination$ Battlefield | SorcerySpeed$ True | RememberChanged$ True | SubAbility$ DBUnearthed | AILogic$ BeforeCombat
-SVar:DBUnearthed:DB$ Animate | Defined$ Remembered | Keywords$ Haste | LeaveBattlefield$ Exile | sVars$ WhipMustAttack | Duration$ Permanent | AtEOT$ Exile | SubAbility$ DBCleanup
-SVar:WhipMustAttack:SVar:MustAttack:True
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:PlayMain1:TRUE
+ManaCost:2 U
+Types:Creature Merfolk Wizard
+PT:1/4
+T:Mode$ SpellCast | ValidActivatingPlayer$ You | TargetsValid$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigTap
+SVar:TrigTap:DB$ Tap | ValidTgts$ Creature.OppCtrl | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Targeted | KW$ HIDDEN This card doesn't untap during your next untap step. | Duration$ Permanent

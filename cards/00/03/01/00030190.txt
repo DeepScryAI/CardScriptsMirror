@@ -1,12 +1,13 @@
 Id:30190
-ColorIdentity:WB
-OriginSet:G9ff9681e1fe8713a
-ManaCost:1 W B
-Types:Creature Bat Cleric
-PT:2/2
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Permanent.nonLand+OppCtrl+cmcLE4 | RememberChanged$ True
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigSeek
-SVar:TrigSeek:DB$ Seek | Defined$ RememberedOwner | Type$ Card.sharesCardTypeWith Remembered | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:UR
+OriginSet:G30e4cc621dfc3a2e
+ManaCost:1 U R
+Types:Creature Otter Artificer
+PT:1/3
+K:Haste
+T:Mode$ ChangesZone | ValidCard$ Creature.Other+YouCtrl+basePowerEQ1 | Origin$ Any | Destination$ Battlefield | Execute$ TrigPump | TriggerZones$ Battlefield
+SVar:TrigPump:DB$ Pump | Defined$ TriggeredCard | KW$ Haste
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.Other+!wasCast+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | CounterNum$ 1 | CounterType$ P1P1 | SubAbility$ DBUnblockable
+SVar:DBUnblockable:DB$ Effect | RememberObjects$ Self | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered

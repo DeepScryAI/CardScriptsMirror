@@ -1,9 +1,10 @@
 Id:18106
-ColorIdentity:G
+ColorIdentity:W
 OriginSet:G5033d54b23b37629
-ManaCost:1 G
-Types:Instant
-K:Kicker:2
-A:SP$ Untap | ValidTgts$ Creature | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | Defined$ Targeted | NumAtt$ +X | NumDef$ +X
-SVar:X:Count$Kicked.4.2
+ManaCost:W
+Types:Creature Human Knight
+PT:2/1
+K:ETBReplacement:Other:ChooseC
+SVar:ChooseC:DB$ ChooseCard | Defined$ You | Choices$ Creature.YouCtrl+Other | AILogic$ AtLeast1 | Mandatory$ True
+A:AB$ Pump | Cost$ Sac<1/CARDNAME> | Defined$ Valid Card.ChosenCardStrict | KW$ Indestructible | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True

@@ -1,8 +1,16 @@
 Id:23970
-ColorIdentity:WG
-OriginSet:G9afc9838c5e994df
-ManaCost:1 G W
-Types:Artifact Equipment
-K:Equip:1:Creature.YouCtrl+Citizen:citizen
-K:Equip:3
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddToughness$ 1 | AddKeyword$ Trample
+ColorIdentity:UBR
+OriginSet:Gfdfe2ebef04be34e
+ManaCost:4 U B R
+Types:Legendary Creature Vampire Demon Noble
+PT:6/6
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigDiscard
+SVar:TrigDiscard:DB$ Discard | ValidTgts$ Opponent | NumCards$ X | Mode$ TgtChoose
+SVar:X:TargetedPlayer$CardsInHand/HalfDown
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigMill
+SVar:TrigMill:DB$ Mill | Defined$ TriggeredDefendingPlayer | NumCards$ Y
+SVar:Y:TriggeredDefendingPlayer$CardsInLibrary/HalfDown
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigSacrifice
+SVar:TrigSacrifice:DB$ Sacrifice | ValidTgts$ Opponent | Amount$ Z | SacValid$ Permanent.nonLand | Mode$ TgtChoose
+SVar:Z:Count$Valid Permanent.nonLand+TargetedPlayerCtrl/HalfDown
+SVar:HasAttackEffect:TRUE

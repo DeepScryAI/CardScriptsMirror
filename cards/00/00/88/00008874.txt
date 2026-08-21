@@ -1,8 +1,13 @@
 Id:8874
-ColorIdentity:U
+ColorIdentity:R
 OriginSet:Gce1d73449bd71b54
-ManaCost:2 U U
-Types:Legendary Creature Human Wizard
-PT:2/2
-T:Mode$ Phase | Phase$ Upkeep | TriggerZones$ Battlefield | Execute$ TrigChangeZone
-SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | ChangeType$ Creature,Artifact,Land | DefinedPlayer$ TriggeredPlayer | ChangeNum$ 1
+ManaCost:1 R
+Types:Sorcery
+A:SP$ Pump | ValidTgts$ Land.YouCtrl | AILogic$ Destroy | IsCurse$ True | SubAbility$ DestroyOpp
+SVar:DestroyOpp:DB$ Pump | ValidTgts$ Land.YouDontCtrl | AILogic$ Destroy | IsCurse$ True | SubAbility$ DBDestroy
+SVar:DBDestroy:DB$ Destroy | Defined$ Targeted
+AlternateMode:Split
+ALTERNATE
+ManaCost:5 R
+Types:Sorcery
+A:SP$ DestroyAll | ValidCards$ Land

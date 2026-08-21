@@ -1,7 +1,10 @@
 Id:5188
-ColorIdentity:U
+ColorIdentity:W
 OriginSet:Gfdac7ecc1e8a7d21
-ManaCost:1 U
-Types:Instant
-A:SP$ ChangeZone | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ X | Origin$ Battlefield | Destination$ Hand
-SVar:X:Count$LastStateGraveyardWithFallback Card.catalogId5188/Plus.1
+ManaCost:W
+Types:Enchantment
+A:AB$ Effect | Cost$ 1 | ReplacementEffects$ SelflessDamage | AILogic$ RedirectSpellDamageFromPlayer | Stackable$ False
+SVar:SelflessDamage:Event$ DamageDone | ValidTarget$ You | ValidSource$ Instant,Sorcery | ReplaceWith$ SelflessDmg | DamageTarget$ ReplacedSourceController
+SVar:SelflessDmg:DB$ ReplaceEffect | VarName$ Affected | VarValue$ ReplacedSourceController | VarType$ Player | SubAbility$ ExileEffect
+SVar:ExileEffect:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile
+SVar:NonStackingEffect:True

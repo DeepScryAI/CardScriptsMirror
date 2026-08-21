@@ -1,9 +1,12 @@
 Id:28003
-ColorIdentity:G
-OriginSet:Gfd50577710a6ab09
-ManaCost:2 G
-Types:Creature Raccoon
-PT:3/2
-T:Mode$ ChangesZone | Origin$ Any | CheckSVar$ X | SVarCompare$ GE4 | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigReturn
-SVar:X:Count$ValidGraveyard Permanent.YouOwn
-SVar:TrigReturn:DB$ ChangeZone | ValidTgts$ Permanent.YouOwn | Origin$ Graveyard | Destination$ Hand
+ColorIdentity:W
+OriginSet:G30e8a5e111cffb44
+ManaCost:2 W W
+Types:Enchantment Saga
+K:Chapter:4:DBTokens,DBPutCounterAll,DBPutCounterAll,DBMayExile
+SVar:DBTokens:DB$ Token | TokenAmount$ 3 | TokenTapped$ True | TokenScriptIds$ 277292334 | TokenOwner$ Player | RememberTokens$ True | SubAbility$ DBGoad
+SVar:DBGoad:DB$ Goad | Defined$ Remembered | Duration$ AsLongAsInPlay | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:DBPutCounterAll:DB$ PutCounterAll | ValidCards$ Creature.Warrior | CounterType$ P1P1 | CounterNum$ 1
+SVar:DBMayExile:DB$ ImmediateTrigger | Execute$ TrigExileAll | UnlessCost$ Exile<1/Creature.!token> | UnlessPayer$ You | UnlessSwitched$ True
+SVar:TrigExileAll:DB$ ChangeZoneAll | ChangeType$ Warrior | Origin$ Battlefield | Destination$ Exile

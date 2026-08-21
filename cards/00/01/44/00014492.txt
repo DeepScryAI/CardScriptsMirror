@@ -1,13 +1,9 @@
 Id:14492
-ColorIdentity:B
+ColorIdentity:W
 OriginSet:Gd3737676789056fe
-ManaCost:4 B
-Types:Sorcery
-K:Convoke
-A:SP$ NameCard | Defined$ You | ValidCards$ Card.nonLand | SubAbility$ ExileYard
-SVar:ExileYard:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Player | ChangeType$ Card.NamedCard | Chooser$ You | ChangeNum$ NumInYard | Hidden$ True | SubAbility$ ExileHand
-SVar:ExileHand:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | DefinedPlayer$ Targeted | ChangeType$ Card.NamedCard | ChangeNum$ NumInHand | Chooser$ You | SubAbility$ ExileLib
-SVar:ExileLib:DB$ ChangeZone | Origin$ Library | Destination$ Exile | DefinedPlayer$ Targeted | ChangeType$ Card.NamedCard | ChangeNum$ NumInLib | Chooser$ You | Shuffle$ True
-SVar:NumInLib:TargetedPlayer$CardsInLibrary
-SVar:NumInHand:TargetedPlayer$CardsInHand
-SVar:NumInYard:TargetedPlayer$CardsInGraveyard
+ManaCost:1 W
+Types:Enchantment
+T:Mode$ ChangesZone | ValidCard$ Creature.!token+YouCtrl | Origin$ Any | Destination$ Battlefield | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:AB$ Token | Cost$ W | TokenScriptIds$ 273812182 | TokenOwner$ You
+A:AB$ Pump | Cost$ 1 W Sac<1/Spirit> | ValidTgts$ Creature.nonSpirit+YouCtrl | KW$ Indestructible
+SVar:BuffedBy:Creature

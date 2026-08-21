@@ -1,9 +1,13 @@
 Id:23448
-ColorIdentity:R
-OriginSet:G1a259dba25660062
-ManaCost:2 R
-Types:Artifact Creature Equipment Boar
-PT:3/2
-K:Trample
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 3 | AddToughness$ 2 | AddKeyword$ Trample
-K:Reconfigure:5
+ColorIdentity:B
+OriginSet:G9f95a41d532c0550
+ManaCost:2 B
+Types:Legendary Creature Zombie Wizard
+PT:5/5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | CheckSVar$ X | SVarCompare$ LT1 | Execute$ TrigBounce
+SVar:TrigBounce:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | SubAbility$ DBVenture
+SVar:DBVenture:DB$ Venture
+SVar:X:DungeonsCompleted$Valid Card.catalogId22756
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ Y | TokenScriptIds$ 353162950 | TokenOwner$ You
+SVar:Y:PlayerCountOpponents$Amount

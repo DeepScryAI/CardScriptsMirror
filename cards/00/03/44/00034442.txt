@@ -1,9 +1,15 @@
 Id:34442
-ColorIdentity:U
-OriginSet:G11c0621ce29fa608
-ManaCost:1 U
-Types:Artifact Equipment
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigAttach
-SVar:TrigAttach:DB$ Attach | ValidTgts$ Creature.YouCtrl
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1 | AddToughness$ 1 | AddKeyword$ Flying & Ward:1
-K:Equip:2 U
+ColorIdentity:B
+OriginSet:Gcb93bbfc68a40806
+ManaCost:2 B
+Types:Legendary Creature Elemental Rogue Villain
+PT:3/3
+K:Deathtouch
+T:Mode$ SpellCast | ValidCard$ Card.wasCastFromExile+!token | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump
+T:Mode$ LandPlayed | Origin$ Exile | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPump | Secondary$ True
+SVar:TrigPump:DB$ Pump | KW$ Indestructible | Defined$ Self
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDig
+SVar:TrigDig:DB$ Dig | DigNum$ 1 | Defined$ TriggeredTarget | ChangeNum$ All | DestinationZone$ Exile | ExileFaceDown$ True | WithMayLook$ True | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ STPlay | SubAbility$ DBCleanup | ForgetOnMoved$ Exile | Duration$ Permanent
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile | MayPlayIgnoreType$ True
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

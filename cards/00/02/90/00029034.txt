@@ -1,8 +1,15 @@
 Id:29034
-ColorIdentity:R
-OriginSet:G27146c70b74a1e72
-ManaCost:1 R
-Types:Enchantment
-T:Mode$ SpellCast | ValidCard$ Card.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigToken | ValidActivatingPlayer$ You | ActivatorThisTurnCast$ EQ2
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 472008509 | TokenOwner$ You
-K:Plot:2 R
+ColorIdentity:
+OriginSet:Gaf7c94f364052cdd
+ManaCost:4
+Types:Artifact Vehicle
+PT:4/4
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 640304374 | SubAbility$ DBPutCounter | RememberTokens$ True
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Remembered | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigProliferate
+SVar:TrigProliferate:DB$ Proliferate
+K:Crew:2
+SVar:HasAttackEffect:TRUE

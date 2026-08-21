@@ -1,8 +1,12 @@
 Id:3922
-ColorIdentity:W
+ColorIdentity:
 OriginSet:G3da30095b68d8df0
-ManaCost:3 W
-Types:Creature Angel
-PT:2/2
-K:Flying
-A:AB$ Pump | Cost$ T | ValidTgts$ Creature.attacking,Creature.blocking | NumAtt$ +2 | NumDef$ +2
+ManaCost:2
+Types:Artifact
+A:AB$ ChooseNumber | Cost$ 3 T | Min$ 1 | SubAbility$ DBScryingGlassChooseColor
+SVar:DBScryingGlassChooseColor:DB$ ChooseColor | SubAbility$ DBScryingGlassRevealHand
+SVar:DBScryingGlassRevealHand:DB$ RevealHand | RememberRevealed$ True | ValidTgts$ Opponent | SubAbility$ DBScryingGlassDraw
+SVar:DBScryingGlassDraw:DB$ Draw | ConditionCheckSVar$ ScryingGlassX | ConditionSVarCompare$ EQScryingGlassY | SubAbility$ DBScryingGlassCleanup
+SVar:DBScryingGlassCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:ScryingGlassX:Remembered$Valid Card.ChosenColor
+SVar:ScryingGlassY:Count$ChosenNumber

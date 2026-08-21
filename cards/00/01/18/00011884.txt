@@ -1,8 +1,13 @@
 Id:11884
-ColorIdentity:
+ColorIdentity:G
 OriginSet:G43171707a7efd07b
-ManaCost:3
-Types:Artifact
-A:AB$ ChangeZone | Cost$ 2 T | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Artifact | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ CHARGE | CounterNum$ 1
-A:AB$ Token | Cost$ 2 T SubCounter<1/CHARGE> | TokenScriptIds$ 3084144023 | TokenOwner$ You
+ManaCost:4 G G G
+Types:Creature Phyrexian Beast
+PT:6/7
+K:MayEffectFromOpeningHand:ManaOnMain
+K:Vigilance
+K:Reach
+SVar:RevealCard:DB$ Reveal | RevealDefined$ Self | SubAbility$ ManaOnMain
+SVar:ManaOnMain:DB$ Effect | Triggers$ TrigMana | Duration$ Permanent
+SVar:TrigMana:Mode$ Phase | Phase$ Main1 | ValidPlayer$ You | OneOff$ True | Execute$ EffMana
+SVar:EffMana:DB$ Mana | Produced$ G

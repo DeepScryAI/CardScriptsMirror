@@ -1,11 +1,14 @@
 Id:30792
-ColorIdentity:U
-OriginSet:G2c8286a6f234d4b9
-ManaCost:3 U
-Types:Legendary Creature Human Wizard
+ColorIdentity:BR
+OriginSet:Gc5a2f0ff902c0621
+ManaCost:1 B R
+Types:Legendary Creature Human Warrior
 PT:2/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigToken | Secondary$ True
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 555052921 | TokenOwner$ You
-S:Mode$ Continuous | Affected$ Creature.withFlying+YouCtrl | AddPower$ 1 | AddToughness$ 1
-SVar:PlayMain1:TRUE
+K:FirstStrike
+T:Mode$ Attacks | ValidCard$ Creature.Self | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ RaidTest | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouOwn+cmcLEX
+SVar:RaidTest:Count$AttackersDeclared
+SVar:X:Count$CardPower
+SVar:HasAttackEffect:TRUE

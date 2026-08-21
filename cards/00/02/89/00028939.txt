@@ -1,11 +1,10 @@
 Id:28939
-ColorIdentity:
-OriginSet:Ge316fa8fca4dad64
-ManaCost:5
-Types:Artifact
-A:AB$ GenericChoice | Cost$ T | Defined$ You | Choices$ Blood,Clue,Food
-SVar:Blood:DB$ Token | TokenScriptIds$ 2179622914 | TokenOwner$ You
-SVar:Clue:DB$ Token | TokenScriptIds$ 2822783804 | TokenOwner$ You
-SVar:Food:DB$ Token | TokenScriptIds$ 134855612 | TokenOwner$ You
-A:AB$ ChangeZone | Cost$ 3 T Sac<3/Artifact.token+WithDifferentNames/artifact tokens with different names> | Origin$ Library | Destination$ Battlefield | ChangeType$ Artifact | ChangeNum$ 1 | SorcerySpeed$ True
-SVar:AIPreference:SacCost$Artifact.token
+ColorIdentity:R
+OriginSet:Gaf7c94f364052cdd
+ManaCost:1 R
+Types:Artifact Creature Robot
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigEnergy
+SVar:TrigEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ 2
+T:Mode$ Attacks | ValidCard$ Creature.Artifact+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:AB$ PutCounter | Cost$ PayEnergy<1> | CounterType$ P1P1,FirstStrike,Trample | CounterNum$ 1 | Defined$ TriggeredAttackerLKICopy

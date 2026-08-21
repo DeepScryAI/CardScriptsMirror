@@ -1,11 +1,12 @@
 Id:20868
-ColorIdentity:W
+ColorIdentity:R
 OriginSet:Gfd5e6da37c69dc53
-ManaCost:3 W
-Types:Legendary Creature Human Cleric
-PT:2/4
-K:Lifelink
-T:Mode$ AttackersDeclared | AttackingPlayer$ Player.Opponent | CheckSVar$ X | SVarCompare$ GE2 | Execute$ TrigDraw | TriggerZones$ Battlefield
-SVar:X:Count$ValidAll Creature.attackingYouOrYourPWLKI
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
-T:Mode$ SpellCast | ValidActivatingPlayer$ Opponent | ActivatorThisTurnCast$ EQ2 | TriggerZones$ Battlefield | Execute$ TrigDraw
+ManaCost:4 R
+Types:Creature Goblin
+PT:1/1
+K:Indestructible
+T:Mode$ DamageDoneOnce | Execute$ TrigDamage | ValidTarget$ Card.Self | TriggerZones$ Battlefield
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Opponent | NumDmg$ X
+SVar:X:TriggerCount$DamageAmount
+SVar:HasCombatEffect:TRUE
+A:AB$ Fight | Cost$ 2 R T | Defined$ Self | ValidTgts$ Creature.Other

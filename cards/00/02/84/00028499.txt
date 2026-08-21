@@ -1,12 +1,10 @@
 Id:28499
-ColorIdentity:B
-OriginSet:G7ee0e82a2424d636
-ManaCost:2 B
-Types:Creature Skeleton Beast
-PT:6/2
-K:Menace
-K:Disguise:1 B
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 858060049 | ValidTgts$ Opponent | TokenOwner$ Targeted
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigLoseLife
-SVar:TrigLoseLife:DB$ LoseLife | Defined$ Opponent | LifeAmount$ 3
+ColorIdentity:WR
+OriginSet:G94329e6b3f93276f
+ManaCost:2 R W
+Types:Instant
+A:SP$ Effect | ReplacementEffects$ RPrevent | OpponentTurn$ True | ActivationPhases$ BeginCombat->EndCombat | SubAbility$ DBUnTapAll
+SVar:RPrevent:Event$ DamageDone | Prevent$ True | IsCombat$ True | ValidTarget$ You,Planeswalker.YouCtrl
+SVar:DBUnTapAll:DB$ UntapAll | ValidCards$ Creature.attacking | SubAbility$ DBGoad
+SVar:DBGoad:DB$ Goad | Defined$ Valid Creature.attacking | SubAbility$ DBAddCombat
+SVar:DBAddCombat:DB$ AddPhase | ExtraPhase$ Combat | AfterPhase$ EndCombat

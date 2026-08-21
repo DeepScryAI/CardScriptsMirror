@@ -1,10 +1,11 @@
 Id:8725
-ColorIdentity:B
+ColorIdentity:R
 OriginSet:G70f74088c47d66bd
-ManaCost:3 B
-Types:Creature Leech
-PT:2/2
-K:Flying
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TapTarget | TriggerZones$ Battlefield
-SVar:TapTarget:DB$ Tap | ValidTgts$ Land | TargetsWithDefinedController$ TriggeredTarget | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | Defined$ Targeted | KW$ HIDDEN This card doesn't untap during your next untap step. | Duration$ Permanent
+ManaCost:R
+Types:Creature Human Wizard
+PT:1/1
+A:AB$ NameCard | Cost$ 3 T | Defined$ You | SubAbility$ DBReveal | AILogic$ CursedScroll
+SVar:DBReveal:DB$ Reveal | Random$ True | RememberRevealed$ True | Defined$ You | SubAbility$ DBDamage
+SVar:DBDamage:DB$ DealDamage | NumDmg$ 2 | ValidTgts$ Any | ConditionDefined$ Remembered | ConditionPresent$ Card.NamedCard | ConditionCompare$ EQ1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:PreferredHandSize:1

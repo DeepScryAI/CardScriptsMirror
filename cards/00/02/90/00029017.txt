@@ -1,8 +1,11 @@
 Id:29017
-ColorIdentity:BR
-OriginSet:G27146c70b74a1e72
-ManaCost:1 B R
-Types:Enchantment
-S:Mode$ Continuous | Affected$ Creature.Outlaw+YouCtrl | AddKeyword$ FirstStrike | Condition$ PlayerTurn
-T:Mode$ CommitCrime | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigToken | ActivationLimit$ 1
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 472008509 | TokenOwner$ You
+ColorIdentity:
+OriginSet:Gaf7c94f364052cdd
+ManaCost:2
+Types:Artifact Equipment
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 3 | AddKeyword$ Intimidate
+T:Mode$ Attacks | ValidCard$ Card.EquippedBy | Execute$ TrigEffect
+SVar:TrigEffect:DB$ Effect | Duration$ UntilTheEndOfYourNextTurn | Triggers$ CastTrig | EffectOwner$ TriggeredDefendingPlayer
+SVar:CastTrig:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ You | Execute$ TrigRadiation
+SVar:TrigRadiation:DB$ Radiation | Defined$ You | Num$ 2
+K:Equip:3

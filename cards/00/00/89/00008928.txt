@@ -1,12 +1,10 @@
 Id:8928
-ColorIdentity:B
+ColorIdentity:R
 OriginSet:Gce1d73449bd71b54
-ManaCost:2 B
-Types:Instant
-A:SP$ Pump | ValidTgts$ Creature.YouCtrl | SubAbility$ DBChooseSource
-SVar:DBChooseSource:DB$ ChooseSource | Choices$ Card,Emblem | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | ValidTgts$ Creature | TargetUnique$ True | ReplacementEffects$ SelflessDamage | Triggers$ OutOfSight | ImprintCards$ ParentTarget | RememberObjects$ ThisTargetedCard | ConditionDefined$ ParentTarget | ConditionPresent$ Card,Emblem | ConditionCompare$ GE1
-SVar:SelflessDamage:Event$ DamageDone | ValidTarget$ Creature.IsImprinted | ValidSource$ Card.ChosenCardStrict,Emblem.ChosenCard | ReplaceWith$ SelflessDmg | DamageTarget$ Remembered
-SVar:SelflessDmg:DB$ ReplaceEffect | VarName$ Affected | VarValue$ Remembered | VarType$ Card
-SVar:OutOfSight:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.IsImprinted,Card.IsRemembered | Execute$ ExileEffect | Static$ True
-SVar:ExileEffect:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile
+ManaCost:1 R
+Types:Creature Human Warrior
+PT:3/3
+K:Vanishing:2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDealDamage
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigDealDamage
+SVar:TrigDealDamage:DB$ DealDamage | ValidTgts$ Player,Planeswalker | NumDmg$ 1

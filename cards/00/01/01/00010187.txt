@@ -1,9 +1,11 @@
 Id:10187
 ColorIdentity:W
 OriginSet:G8f5d5a0744ac5b98
-ManaCost:4 W
+ManaCost:W W
 Types:Creature Human Knight
 PT:2/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 1214250791 | TokenOwner$ You
-A:AB$ Fog | Cost$ W Sac<1/Soldier>
+K:FirstStrike
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange | CheckSVar$ Y | SVarCompare$ GTX | OptionalDecider$ You
+SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Card.Plains | ChangeNum$ 1 | ShuffleNonMandatory$ True
+SVar:X:Count$Valid Land.YouCtrl
+SVar:Y:PlayerCountOpponents$HighestValid Land.YouCtrl

@@ -1,15 +1,10 @@
 Id:28817
-ColorIdentity:WR
-OriginSet:Gaf7c94f364052cdd
-ManaCost:1 R W
-Types:Legendary Creature Human Soldier
-PT:3/3
-K:Reach
-K:Lifelink
-T:Mode$ AttackersDeclared | Execute$ TrigPutCounter | ValidAttackers$ Creature | ValidAttackersAmount$ GE2 | TriggerZones$ Battlefield | AttackingPlayer$ You
-SVar:TrigPutCounter:DB$ PutCounter | CounterType$ QUEST | CounterNum$ 2 | RememberPut$ True | SubAbility$ DBImmediateTrigger
-SVar:DBImmediateTrigger:DB$ ImmediateTrigger | ConditionDefined$ Remembered | ConditionPresent$ Card | Execute$ TrigDealDamage | SubAbility$ DBCleanup
-SVar:TrigDealDamage:DB$ DealDamage | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | NumDmg$ X | UnlessCost$ DamageYou<X> | UnlessPayer$ TargetedController
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$CardCounters.QUEST
-SVar:AICounterOverrideQUEST:Positive
+ColorIdentity:WU
+OriginSet:Ge329d8d60ca65422
+ManaCost:2 W U
+Types:Creature Human Knight
+PT:2/4
+K:Flying
+T:Mode$ AttackersDeclared | AttackingPlayer$ Player | AttackedTarget$ You | Condition$ AttackerHasUnattackedOpp | TriggerZones$ Battlefield | Execute$ TrigSuppression
+SVar:TrigSuppression:DB$ Effect | ReplacementEffects$ RPrevent | Duration$ UntilEndOfCombat | AILogic$ Fog
+SVar:RPrevent:Event$ DamageDone | Prevent$ True | IsCombat$ True | ActiveZones$ Command | ValidTarget$ You

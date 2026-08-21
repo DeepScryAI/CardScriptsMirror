@@ -1,9 +1,13 @@
 Id:21714
-ColorIdentity:UG
+ColorIdentity:G
 OriginSet:G18bf722b221724f8
-ManaCost:G U
-Types:Enchantment Saga
-K:Chapter:3:DBMill,DBChangeZone1,DBChangeZone2
-SVar:DBMill:DB$ Mill | NumCards$ 3 | Defined$ You
-SVar:DBChangeZone1:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | TargetMin$ 0 | TargetMax$ 2 | ValidTgts$ Permanent.Snow+YouOwn
-SVar:DBChangeZone2:DB$ ChangeZone | Origin$ Graveyard | Destination$ Library | DefinedPlayer$ Player | Chooser$ You | ChangeNum$ 3 | Hidden$ True | Shuffle$ True | Mandatory$ True
+ManaCost:G G G
+Types:Creature Troll Warrior
+PT:4/4
+K:Trample
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self+Creature | Execute$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True | StaticEffect$ Animate
+SVar:Animate:Mode$ Continuous | Affected$ Card.IsRemembered | AddType$ Enchantment & Aura | RemoveCardTypes$ True | AddKeyword$ Enchant:Forest.YouCtrl:Forest you control | AddStaticAbility$ STAura
+SVar:STAura:Mode$ Continuous | Affected$ Land.EnchantedBy | AddAbility$ ABMana & ABToken
+SVar:ABMana:AB$ Mana | Cost$ T | Produced$ G | Amount$ 2
+SVar:ABToken:AB$ Token | Cost$ 1 T Sac<1/CARDNAME> | TokenScriptIds$ 441179036 | TokenOwner$ You | TokenTapped$ True

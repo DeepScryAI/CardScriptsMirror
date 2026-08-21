@@ -1,8 +1,11 @@
 Id:21957
-ColorIdentity:R
-OriginSet:Gd784248bfdf9e1d7
-ManaCost:2 R
+ColorIdentity:U
+OriginSet:G6fa60d857e930f32
+ManaCost:X U
 Types:Sorcery
-K:A deck can have any number of cards named CARDNAME.
-A:SP$ DealDamage | Defined$ Player.Opponent | NumDmg$ 3 | SubAbility$ DBSearch
-SVar:DBSearch:DB$ ChangeZone | UnlessCost$ ExileFromGrave<4/Card.catalogId21957> ExileFromStack<1/Card.Self> | UnlessSwitched$ True | UnlessPayer$ You | Origin$ Library | Destination$ Battlefield | ChangeType$ Creature.Dragon | ChangeNum$ 1
+A:SP$ Scry | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ1 | OrOtherConditionSVarCompare$ GE4 | SubAbility$ DBDraw | AILogic$ MultipleChoice
+SVar:DBDraw:DB$ Draw | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ1 | OrOtherConditionSVarCompare$ GE4 | SubAbility$ DBChoosePlayer
+SVar:DBChoosePlayer:DB$ ChoosePlayer | Defined$ You | Choices$ Player | Optional$ True | AILogic$ Curse | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ2 | OrOtherConditionSVarCompare$ GE4 | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | DefinedPlayer$ ChosenPlayer | Chooser$ ChosenPlayer | Origin$ Battlefield | Destination$ Hand | Hidden$ True | Mandatory$ True | ChangeType$ Creature.ChosenCtrl | ChangeNum$ 1 | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ2 | OrOtherConditionSVarCompare$ GE4 | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 2606685679 | ConditionCheckSVar$ X | ConditionSVarCompare$ GE3
+SVar:X:Count$xPaid

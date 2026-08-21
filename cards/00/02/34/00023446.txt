@@ -1,6 +1,14 @@
 Id:23446
-ColorIdentity:W
-OriginSet:G1a259dba25660062
-ManaCost:3 W W W W
-Types:Sorcery
-A:SP$ ChangeZoneAll | ChangeType$ Artifact.YouOwn,Enchantment.YouOwn | Origin$ Graveyard | Destination$ Battlefield
+ColorIdentity:RG
+OriginSet:G72c9c624ceb92bff
+ManaCost:4 R G
+Types:Legendary Creature Elemental
+PT:5/5
+K:Trample
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ X | TokenScriptIds$ 3097960584 | TokenOwner$ You
+SVar:X:Count$Valid Land.Basic+YouCtrl
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Plant.YouCtrl | CounterType$ P1P1 | CounterNum$ 4 | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Targeted | KW$ Trample
+SVar:BuffedBy:Land,Land.Basic

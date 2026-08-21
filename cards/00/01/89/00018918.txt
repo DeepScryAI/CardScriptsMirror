@@ -1,11 +1,9 @@
 Id:18918
-ColorIdentity:UG
+ColorIdentity:WU
 OriginSet:G586a4ae96288ce18
-ManaCost:G U
-Types:Enchantment
-A:AB$ PutCounter | Cost$ 1 G U | CounterType$ P1P1 | CounterNum$ 1 | ValidTgts$ Creature.YouCtrl
-T:Mode$ CounterAddedOnce | ValidCard$ Creature.YouCtrl+inZoneBattlefield | TriggerZones$ Battlefield | CounterType$ P1P1 | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | CounterType$ GROWTH | CounterNum$ X
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | IsPresent$ Card.Self+counters_GE20_GROWTH | Execute$ TrigWinGame
-SVar:TrigWinGame:DB$ WinsGame | Defined$ You
-SVar:X:TriggerCount$Amount
+ManaCost:5 W U
+Types:Instant
+A:SP$ ChangeZoneAll | ChangeType$ Card | Origin$ Hand,Graveyard | Destination$ Library | Shuffle$ True | SubAbility$ DBDraw | UseAllOriginZones$ True | AILogic$ Timetwister
+SVar:DBDraw:DB$ Draw | NumCards$ 7 | Defined$ Player | SubAbility$ DBAddendum
+SVar:DBAddendum:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | ChoiceZone$ Hand | Amount$ 1 | ChangeType$ Permanent.cmcLE7+YouCtrl | ChangeNum$ 1 | AILogic$ BestCard | ConditionPlayerTurn$ True | ConditionPhases$ Main1,Main2 | ConditionDefined$ Self | ConditionPresent$ Card.wasCast | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | Origin$ Stack | Destination$ Exile

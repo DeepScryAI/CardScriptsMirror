@@ -1,8 +1,10 @@
 Id:6339
-ColorIdentity:R
+ColorIdentity:B
 OriginSet:Gd11012ee98ee8d76
-ManaCost:4 R
-Types:Creature Beast
-PT:4/2
-T:Mode$ TurnFaceUp | ValidCard$ Permanent | TriggerZones$ Battlefield | Execute$ TrigDamage
-SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 1
+ManaCost:2 B B
+Types:Creature Zombie
+PT:3/3
+S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ Flying | IsPresent$ Dragon.YouCtrl
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Dragon | TriggerZones$ Graveyard | OptionalDecider$ You | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Defined$ Self | Origin$ Graveyard | Destination$ Battlefield
+SVar:BuffedBy:Dragon

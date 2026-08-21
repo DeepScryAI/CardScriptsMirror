@@ -1,12 +1,10 @@
 Id:9250
-ColorIdentity:G
+ColorIdentity:U
 OriginSet:G1ddd2c86a9ea60e3
-ManaCost:3 G
-Types:Creature Treefolk Warrior
-PT:*/*
-S:Mode$ Continuous | Affected$ Card.Self | CharacteristicDefining$ True | SetPower$ X | SetToughness$ X
-S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ Trample | IsPresent$ Treefolk.YouCtrl+Other
-SVar:X:Count$Valid Treefolk.YouCtrl/Plus.FOREST
-SVar:FOREST:Count$Valid Forest.YouCtrl
-SVar:BuffedBy:Forest,Treefolk
-SVar:NoZeroToughnessAI:True
+ManaCost:1 U U U
+Types:Instant
+A:SP$ Charm | Choices$ DBCounter,DBReturn,DBTapAll,DBDraw | CharmNum$ 2
+SVar:DBCounter:DB$ Counter | TargetType$ Spell | ValidTgts$ Card
+SVar:DBReturn:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | ValidTgts$ Permanent | AILogic$ Good
+SVar:DBTapAll:DB$ TapAll | ValidCards$ Creature.OppCtrl | AILogic$ AtLeast3
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1

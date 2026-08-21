@@ -1,9 +1,12 @@
 Id:23884
 ColorIdentity:WRG
-OriginSet:Gfdfe2ebef04be34e
+OriginSet:G5f5d8cfb206e2fac
 ManaCost:1 R G W
-Types:Creature Elf Druid
-PT:4/4
-K:Trample
-K:Lifelink
-K:Haste
+Types:Legendary Creature Cat Bard Druid
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 1092778731
+T:Mode$ Phase | Phase$ BeginCombat | Execute$ TrigImmediateTrig | TriggerZones$ Battlefield
+SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ tapXType<2/Creature> | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.ActivePlayerCtrl | NumAtt$ +2 | NumDef$ +2 | KW$ Trample | SubAbility$ DBGoad
+SVar:DBGoad:DB$ Goad | Defined$ Targeted

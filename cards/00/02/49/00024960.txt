@@ -1,13 +1,11 @@
 Id:24960
-ColorIdentity:WU
+ColorIdentity:W
 OriginSet:G3a8b4b9d4649b357
-ManaCost:W U
-Types:Legendary Creature Human Wizard
-PT:2/2
-K:ETBReplacement:Other:ChooseCT
-SVar:ChooseCT:DB$ ChooseType | Defined$ You | Type$ Card | InvalidTypes$ Creature,Land
-S:Mode$ ReduceCost | ValidCard$ Card.ChosenType | Type$ Spell | Activator$ You | Amount$ 1
-A:AB$ ChangeZone | Cost$ 1 W U | Origin$ Battlefield | Destination$ Exile | SubAbility$ DelTrig | RememberChanged$ True
-SVar:DelTrig:DB$ DelayedTrigger | Mode$ Phase | RememberObjects$ Remembered | Phase$ End of Turn | Execute$ TrigReturn | SubAbility$ DBCleanup
-SVar:TrigReturn:DB$ ChangeZone | Defined$ DelayTriggerRememberedLKI | Origin$ Exile | Destination$ Battlefield
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:5 W
+Types:Enchantment
+K:Flash
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ X | EffectZone$ All
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | TargetMin$ 1 | IsCurse$ True | Duration$ UntilHostLeavesPlay | ValidTgts$ Permanent.nonLand+OppCtrl | Origin$ Battlefield | Destination$ Exile
+SVar:X:Count$Domain
+SVar:OblivionRing:TRUE

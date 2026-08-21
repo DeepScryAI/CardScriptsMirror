@@ -1,9 +1,11 @@
 Id:28596
-ColorIdentity:B
+ColorIdentity:R
 OriginSet:G7ee0e82a2424d636
-ManaCost:B
-Types:Creature Dog
-PT:1/1
-K:Menace
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.powerLE2+YouCtrl+Other | TriggerZones$ Battlefield | Execute$ TrigSurveil
-SVar:TrigSurveil:DB$ Surveil | Amount$ 1
+ManaCost:R R
+Types:Enchantment
+T:Mode$ DamageDoneOnce | Execute$ TrigExile | ValidTarget$ Creature | TriggerZones$ Battlefield
+SVar:TrigExile:DB$ Dig | Defined$ TriggeredTargetController | Optional$ True | PromptToSkipOptionalAbility$ True | DigNum$ X | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | EffectOwner$ RememberedController | Duration$ UntilTheEndOfYourNextTurn | ForgetOnMoved$ Exile | RememberObjects$ RememberedCard | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | Affected$ Card.IsRemembered | MayPlay$ True | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:TriggerCount$DamageAmount

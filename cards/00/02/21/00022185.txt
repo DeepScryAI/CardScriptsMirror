@@ -1,8 +1,14 @@
 Id:22185
 ColorIdentity:R
-OriginSet:Geb2cf181996ee3b2
-ManaCost:4 R
-Types:Artifact Creature Cat
-PT:0/0
-K:Modular:4
-K:Riot
+OriginSet:Ga575fa2f4f5cded4
+ManaCost:2 R
+Types:Artifact Creature Human Artificer
+PT:2/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 3939935181 | TokenOwner$ You
+A:AB$ Charm | Cost$ T Sac<1/Artifact> | Choices$ DBImpulse,DBPump | Defined$ You
+SVar:DBImpulse:DB$ Dig | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ StaticMayPlay | Duration$ UntilTheEndOfYourNextTurn | RememberObjects$ Remembered | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:StaticMayPlay:Mode$ Continuous | Affected$ Card.IsRemembered | AffectedZone$ Exile | MayPlay$ True
+SVar:DBPump:DB$ Pump | ValidTgts$ Creature | NumAtt$ +2

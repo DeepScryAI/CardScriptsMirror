@@ -1,14 +1,13 @@
 Id:12050
 ColorIdentity:B
 OriginSet:G28b959a4da853005
-ManaCost:3 B
-Types:Creature Horror
-PT:*/*
-K:ETBReplacement:Other:ChooseP
-SVar:ChooseP:DB$ ChoosePlayer | Defined$ You | Choices$ Player | AILogic$ Curse
-S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X | SetToughness$ X
-SVar:X:Count$ValidGraveyard Card.ChosenCtrl
-T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ Player.Chosen | Execute$ TrigMill | TriggerZones$ Battlefield
-SVar:TrigMill:DB$ Mill | Defined$ TriggeredActivator | NumCards$ 1
-SVar:NeedsToPlayVar:Y GE1
-SVar:Y:Count$ValidGraveyard Card.OppCtrl
+ManaCost:4 B B
+Types:Creature Specter
+PT:4/4
+K:Flying
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDiscard | TriggerZones$ Battlefield
+SVar:TrigDiscard:DB$ Discard | Mode$ TgtChoose | NumCards$ 1 | Defined$ Player.Opponent | RememberDiscarded$ True | SubAbility$ DBRepeatLoseLife
+SVar:DBRepeatLoseLife:DB$ RepeatEach | UseImprinted$ True | RepeatCards$ Card.greatestRememberedCMC | Zone$ Battlefield,Graveyard,Exile,Library,Hand | RepeatSubAbility$ DBLoseLife | SubAbility$ DBCleanup
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ X | Defined$ ImprintedController
+SVar:X:Imprinted$CardManaCost
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

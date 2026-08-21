@@ -1,7 +1,9 @@
 Id:5894
-ColorIdentity:U
+ColorIdentity:R
 OriginSet:G0eb5e52d26fe1c23
-ManaCost:3 U U
+ManaCost:2 R
 Types:Sorcery
-A:SP$ ChangeZone | TargetMin$ 2 | TargetMax$ 2 | ValidTgts$ Creature | Origin$ Battlefield | Destination$ Hand
-K:Cycling:2 U
+A:SP$ DigUntil | Valid$ Card.nonLand | RevealedDestination$ Library | RevealedLibraryPosition$ -1 | RememberFound$ True | SubAbility$ Damage
+SVar:Damage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$CardManaCost

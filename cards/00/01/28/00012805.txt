@@ -2,10 +2,7 @@ Id:12805
 ColorIdentity:
 OriginSet:G4801bb28ce9773ed
 ManaCost:no cost
-Types:Plane Ravnica
-S:Mode$ CantAttack | EffectZone$ Command | ValidCard$ Creature.ControlledBy You.castSpellThisTurn
-S:Mode$ CantBeCast | EffectZone$ Command | ValidCard$ Card | Caster$ You.attackedWithCreaturesThisTurn
-T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos
-SVar:RolledChaos:DB$ GainLife | LifeAmount$ PrahvX | Defined$ You
-SVar:PrahvX:Count$ValidHand Card.YouOwn
-SVar:AIRollPlanarDieParams:Mode$ Always | CardsInHandGE$ 2
+Types:Phenomenon
+T:Mode$ PlaneswalkedTo | ValidCard$ Card.Self | Execute$ Disaster
+SVar:Disaster:DB$ DestroyAll | ValidCards$ Creature | SubAbility$ PWAway
+SVar:PWAway:DB$ Planeswalk

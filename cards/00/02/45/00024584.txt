@@ -1,12 +1,13 @@
 Id:24584
-ColorIdentity:WR
+ColorIdentity:R
 OriginSet:G58bfeff4fb121c8e
-ManaCost:R W
-Types:Legendary Creature Human Soldier
-PT:2/2
-T:Mode$ Phase | Phase$ BeginCombat | TriggerZones$ Battlefield | Execute$ TrigRepeatEach
-SVar:TrigRepeatEach:DB$ RepeatEach | RepeatCards$ Creature.YouCtrl | RepeatSubAbility$ DBPump
-SVar:DBPump:DB$ Pump | Defined$ Remembered | NumAtt$ +1 | NumDef$ +1 | ConditionCheckSVar$ X
-SVar:X:Count$Valid Creature.!IsRemembered+YouCtrl+sharesNameWith Remembered/Plus.Y
-SVar:Y:Count$ValidGraveyard Creature.YouOwn+sharesNameWith Remembered
-A:AB$ Pump | Cost$ 1 R W | ValidTgts$ Creature.Other+!token+YouCtrl | KW$ FirstStrike & Double team | SorcerySpeed$ True | GameActivationLimit$ 1
+ManaCost:2 R
+Types:Enchantment Aura
+K:Enchant:Creature.YouCtrl:creature you control
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 3 | AddToughness$ 2 | AddKeyword$ Haste
+S:Mode$ MustAttack | ValidCreature$ Creature.EnchantedBy
+A:AB$ Pump | Cost$ R | ActivationZone$ Graveyard | ValidTgts$ Creature.YouCtrl | SorcerySpeed$ True | SubAbility$ DBChange
+SVar:DBChange:DB$ ChangeZone | Defined$ Self | Origin$ Graveyard | Destination$ Battlefield | AttachedTo$ ParentTarget | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | staticAbilities$ Hunger | Defined$ Self | Duration$ Perpetual
+SVar:Hunger:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ -1 | AddToughness$ -1

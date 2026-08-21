@@ -1,7 +1,10 @@
 Id:4907
-ColorIdentity:R
+ColorIdentity:B
 OriginSet:G9e6cd9ac1f7f4832
-ManaCost:2 R
+ManaCost:2 B B
 Types:Enchantment
-A:AB$ DealDamage | Cost$ R Sac<1/Zombie> | ValidTgts$ Any | NumDmg$ 2
-SVar:NonStackingEffect:True
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Opponent | Execute$ TrigLoseLife | TriggerZones$ Battlefield
+SVar:TrigLoseLife:DB$ LoseLife | LifeAmount$ X | Defined$ TriggeredPlayer
+SVar:A:Count$ValidHand Card.YouOwn
+SVar:B:TriggeredPlayer$CardsInHand
+SVar:X:SVar$B/Minus.A

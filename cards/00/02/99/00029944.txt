@@ -1,11 +1,10 @@
 Id:29944
 ColorIdentity:B
 OriginSet:Gf09b85bbcc27770c
-ManaCost:3 B B
-Types:Sorcery
-A:SP$ Charm | Choices$ DBSacrifice,DBDraw,DBLoseLife | CharmNum$ 5 | MinCharmNum$ 0 | CanRepeatModes$ True | Pawprint$ 5
-SVar:DBSacrifice:DB$ Sacrifice | Pawprint$ 1 | Defined$ Player | SacValid$ Creature
-SVar:DBDraw:DB$ Draw | Pawprint$ 2 | Defined$ You | NumCards$ Y
-SVar:Y:Count$ThisTurnEntered_Graveyard_from_Battlefield_Creature.YouCtrl
-SVar:DBLoseLife:DB$ LoseLife | Pawprint$ 3 | Defined$ Player.Opponent | LifeAmount$ X
-SVar:X:Count$ValidGraveyard Creature.YouOwn
+ManaCost:1 B B
+Types:Instant
+K:Gift
+SVar:GiftAbility:DB$ Draw | Defined$ Promised
+A:SP$ Sacrifice | ValidTgts$ Opponent | SacValid$ Creature.greatestPowerControlledByTargeted | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | TargetMin$ X | TargetMax$ X | ValidTgts$ Creature.YouOwn
+SVar:X:Count$PromisedGift.1.0

@@ -1,15 +1,13 @@
 Id:28389
-ColorIdentity:W
-OriginSet:G7ee0e82a2424d636
-ManaCost:2 W W
-Types:Creature Angel
-PT:4/2
-K:Flying
-K:Lifelink
-K:Ward:2
-K:Disguise:X 3 W
-T:Mode$ TurnFaceUp | ValidCard$ Card.Self | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZone | TargetMin$ 0 | TargetMax$ X | IsCurse$ True | ValidTgts$ Creature.Other | Origin$ Battlefield,Graveyard | Destination$ Exile
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZoneAll | ChangeType$ Card.ExiledWithSource | Origin$ Exile | Destination$ Hand
-SVar:X:Count$xPaid
+ColorIdentity:UBG
+OriginSet:G4f78ded7b58f78f8
+ManaCost:1 UB UB G G
+Types:Legendary Creature Dinosaur Mutant
+PT:6/6
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ Discard | ReplacementResult$ Updated
+SVar:Discard:DB$ Discard | DiscardValid$ Creature | AnyNumber$ True | Optional$ True | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBPutCounters
+SVar:DBPutCounters:DB$ PutCounter | SharedKeywords$ Flying & FirstStrike & DoubleStrike & Deathtouch & Hexproof & Haste & Indestructible & Lifelink & Menace & Reach & Trample & Vigilance | SharedKeywordsDefined$ Remembered | CounterNum$ 1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | NumCards$ X
+SVar:X:TriggeredCard$CardCounters.ALL

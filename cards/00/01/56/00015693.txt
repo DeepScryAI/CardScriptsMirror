@@ -1,7 +1,14 @@
 Id:15693
-ColorIdentity:
+ColorIdentity:R
 OriginSet:G5b1ad34969911ca7
-ManaCost:3
-Types:Artifact Equipment
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddToughness$ 2 | AddKeyword$ Menace
-K:Equip:3
+ManaCost:4 R R
+Types:Legendary Planeswalker Chandra
+Loyalty:4
+A:AB$ Token | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | TokenAmount$ 2 | TokenScriptIds$ 777167908 | AtEOT$ Exile
+A:AB$ Discard | Cost$ AddCounter<0/LOYALTY> | Planeswalker$ True | Defined$ You | Mode$ Hand | RememberDiscarded$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ Y | Defined$ You | SubAbility$ DBCleanup
+SVar:Y:Remembered$Amount/Plus.1
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+A:AB$ DamageAll | Cost$ SubCounter<X/LOYALTY> | NumDmg$ X | ValidCards$ Creature | Planeswalker$ True | Ultimate$ True
+SVar:X:Count$xPaid
+SVar:PlayMain1:ALWAYS

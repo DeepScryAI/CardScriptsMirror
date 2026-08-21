@@ -1,8 +1,9 @@
 Id:17019
-ColorIdentity:BR
+ColorIdentity:R
 OriginSet:Gbcdce58dfbbf1bad
-ManaCost:2 B R
-Types:Creature Minotaur Warrior
-PT:4/2
-A:AB$ PutCounter | Cost$ 2 Discard<1/Card> | ValidTgts$ Creature | IsCurse$ True | CounterType$ M1M1 | CounterNum$ 1 | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | Defined$ Targeted | IsCurse$ True | KW$ HIDDEN CARDNAME can't block.
+ManaCost:4 R
+Types:Creature Manticore
+PT:5/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ M1M1 | IsCurse$ True | SubAbility$ DBDealDamage | CounterNum$ 1
+SVar:DBDealDamage:DB$ DealDamage | ValidTgts$ Opponent,Planeswalker | NumDmg$ 3

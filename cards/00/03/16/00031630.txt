@@ -1,10 +1,11 @@
 Id:31630
 ColorIdentity:W
-OriginSet:G530ea9d733a13e9d
-ManaCost:2 W
-Types:Enchantment
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | Execute$ TrigCharm | TriggerZones$ Battlefield
-SVar:TrigCharm:DB$ Charm | Choices$ DBToken,DBPutCounters | MinCharmNum$ 1 | CharmNum$ Count$Compare Y GE1.2.1
-SVar:DBToken:DB$ Token | TokenOwner$ You | TokenScriptIds$ 1214250791
-SVar:DBPutCounters:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ 1 | ChoiceAmount$ 2 | MinChoiceAmount$ 0 | Choices$ Soldier.YouCtrl
-SVar:Y:Count$Valid Card.IsCommander+YouCtrl
+OriginSet:Gf2b808f4f642ac62
+ManaCost:3 W
+Types:Instant
+S:Mode$ ReduceCost | ValidCard$ Card.Self | EffectZone$ All | Type$ Spell | Amount$ 2 | CheckSVar$ X
+A:SP$ Charm | Choices$ DBToken,DBPump,DBDestroy | Defined$ You
+SVar:DBToken:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 1221548164 | TokenOwner$ You
+SVar:DBPump:DB$ Pump | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 2 | NumAtt$ +2 | NumDef$ +2
+SVar:DBDestroy:DB$ Destroy | ValidTgts$ Creature.powerGE4
+SVar:X:Count$ThisTurnCast_Card.YouCtrl

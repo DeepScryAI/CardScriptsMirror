@@ -1,11 +1,10 @@
 Id:21267
-ColorIdentity:B
-OriginSet:G8a59924df6623252
-ManaCost:1 B
-Types:Legendary Artifact Equipment
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddKeyword$ Menace
-T:Mode$ Attacks | ValidCard$ Card.EquippedBy | Execute$ TrigSac
-SVar:TrigSac:DB$ Sacrifice | Defined$ TriggeredDefendingPlayer | SacValid$ Creature | Amount$ 1 | RememberSacrificed$ True | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ GE1 | TokenScriptIds$ 3635419940 | TokenOwner$ You | LockTokenScript$ True | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-K:Equip:4
+ColorIdentity:G
+OriginSet:G72c9c624ceb92bff
+ManaCost:3 G
+Types:Enchantment Aura
+K:Enchant:Land
+SVar:AttachAILogic:Animate
+S:Mode$ Continuous | Affected$ Land.AttachedBy | SetPower$ 4 | SetToughness$ 4 | AddType$ Creature & Elemental | AddKeyword$ Reach & Haste
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.AttachedBy | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Hand

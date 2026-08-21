@@ -1,10 +1,11 @@
 Id:29856
-ColorIdentity:R
-OriginSet:Gf09b85bbcc27770c
-ManaCost:R
-Types:Creature Lizard Mercenary
-PT:1/2
-T:Mode$ AttackersDeclared | ValidAttackers$ Lizard.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigDealDamage
-SVar:TrigDealDamage:DB$ DealDamage | ValidTgts$ Opponent | NumDmg$ 1
-A:AB$ PutCounter | Cost$ 1 R | CounterType$ P1P1 | CounterNum$ 1 | CheckSVar$ X | ActivationLimit$ 1
-SVar:X:Count$LifeOppsLostThisTurn
+ColorIdentity:G
+OriginSet:G01a610e823cce3ca
+ManaCost:1 G
+Types:Artifact Equipment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigAttach
+SVar:TrigAttach:DB$ Attach | ValidTgts$ Creature.YouCtrl | AILogic$ PowerDmg | SubAbility$ DBDamage
+SVar:DBDamage:DB$ DealDamage | ValidTgts$ Creature.YouDontCtrl | TargetMin$ 0 | TargetMax$ 1 | NumDmg$ X | DamageSource$ ParentTarget
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddKeyword$ Reach & Ward:2
+K:Equip:1
+SVar:X:ParentTargeted$CardPower

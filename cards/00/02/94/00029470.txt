@@ -1,9 +1,12 @@
 Id:29470
-ColorIdentity:UR
-OriginSet:Gac6359c222afbd4f
-ManaCost:U U R
-Types:Instant
-A:SP$ FlipCoin | TargetType$ Spell | TgtZone$ Stack | WinSubAbility$ GainControl | LoseSubAbility$ CounterIt | ValidTgts$ Card
-SVar:GainControl:DB$ ControlSpell | Defined$ Targeted | Mode$ Gain | SubAbility$ DBChooseTargets
-SVar:DBChooseTargets:DB$ ChangeTargets | Defined$ Targeted | Optional$ True
-SVar:CounterIt:DB$ Counter | Defined$ Targeted
+ColorIdentity:UG
+OriginSet:G2ce881cc55bb9f18
+ManaCost:2 G U
+Types:Legendary Creature Elemental
+PT:2/4
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ X | TokenScriptIds$ 1963355076 | TokenOwner$ You
+SVar:X:Count$TotalCommanderCastFromCommandZone
+T:Mode$ Phase | Phase$ BeginCombat | TriggerZones$ Battlefield | Execute$ TrigPumpAll
+SVar:TrigPumpAll:DB$ PumpAll | ValidCards$ Creature.Land+YouCtrl | NumAtt$ +Y | NumDef$ +Y
+SVar:Y:Count$CardPower

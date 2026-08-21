@@ -1,8 +1,18 @@
 Id:26693
-ColorIdentity:W
+ColorIdentity:B
 OriginSet:G06757f68e16377c2
-ManaCost:2 W
-Types:Creature Human Knight
-PT:3/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Knight.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +1 | NumDef$ +1 | KW$ Vigilance
+ManaCost:2 B B
+Types:Battle Siege
+Defense:5
+K:Flash
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.OppCtrl | NumAtt$ -13 | NumDef$ -13
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:black
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 353162950
+A:AB$ ChangeZone | Cost$ 2 B | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 353162950 | TokenOwner$ You | ConditionDefined$ Targeted | ConditionPresent$ Creature | ConditionCompare$ EQ1

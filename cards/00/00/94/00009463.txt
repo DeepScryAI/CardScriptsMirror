@@ -1,7 +1,11 @@
 Id:9463
-ColorIdentity:G
+ColorIdentity:B
 OriginSet:G1ddd2c86a9ea60e3
-ManaCost:1 G
-Types:Creature Elf Warrior
-PT:1/1
-K:Protection:Goblin
+ManaCost:4 B
+Types:Creature Goblin Rogue
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMove
+SVar:TrigMove:DB$ ChangeZone | Mandatory$ True | ValidTgts$ Card.Creature+YouCtrl | Origin$ Graveyard | Destination$ Hand | RememberChanged$ True | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Self | KW$ Haste | SubAbility$ DBCleanUp | ConditionPresent$ Card.Goblin+IsRemembered | ConditionDefined$ Remembered | ConditionCompare$ EQ1
+SVar:DBCleanUp:DB$ Cleanup | ClearRemembered$ True
+SVar:PlayMain1:ALWAYS

@@ -1,9 +1,12 @@
 Id:17887
-ColorIdentity:R
+ColorIdentity:W
 OriginSet:G84be946b27d900a1
-ManaCost:2 R R
-Types:Creature Phoenix
-PT:4/3
-K:Flying
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 3111087192
+ManaCost:3 W
+Types:Creature Vampire Cleric
+PT:1/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Creature.OppCtrl | Duration$ UntilHostLeavesPlay
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | ValidTgts$ Vampire | NumAtt$ +X | NumDef$ +X
+SVar:X:Count$ValidExile Card.ExiledWithSource$CardPower
+SVar:PlayMain1:TRUE

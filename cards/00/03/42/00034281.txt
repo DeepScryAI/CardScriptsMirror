@@ -1,12 +1,8 @@
 Id:34281
-ColorIdentity:R
+ColorIdentity:G
 OriginSet:Gcb93bbfc68a40806
-ManaCost:1 R
-Types:Legendary Creature Human Monk Hero
-PT:2/1
-K:FirstStrike
-T:Mode$ DamageDone | ValidSource$ Card.YouCtrl,Emblem.YouCtrl | ValidTarget$ You | TriggerZones$ Battlefield | Execute$ TrigExile | ActivationLimit$ 1
-SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ STPlay | SubAbility$ DBCleanup | ForgetOnMoved$ Exile | Duration$ UntilTheEndOfYourNextTurn
-SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:1 G
+Types:Instant
+K:Teamwork:1
+A:SP$ Pump | ValidTgts$ Creature | NumAtt$ +2 | NumDef$ +2 | KW$ Trample | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Targeted | CounterType$ P1P1 | CounterNum$ 1 | ConditionZone$ Stack | ConditionPresent$ Card.Self+Teamwork

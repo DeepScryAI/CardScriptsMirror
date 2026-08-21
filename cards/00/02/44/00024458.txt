@@ -1,9 +1,8 @@
 Id:24458
-ColorIdentity:W
+ColorIdentity:R
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:1 W
+ManaCost:1 R
 Types:Legendary Enchantment Background
-S:Mode$ Continuous | Affected$ Creature.IsCommander+YouOwn | AddTrigger$ AttacksPlayer
-SVar:AttacksPlayer:Mode$ Attacks | ValidCard$ Card.Self | Attacked$ Player | Condition$ NoOpponentHasMoreLifeThanAttacked | Execute$ TrigRepeat
-SVar:TrigRepeat:DB$ RepeatEach | RepeatPlayers$ Opponent | ChangeZoneTable$ True | RepeatSubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenScriptIds$ 1214250791 | TokenTapped$ True | TokenAttacking$ Remembered
+S:Mode$ Continuous | Affected$ Creature.IsCommander+YouOwn | AddTrigger$ DamageDealt
+SVar:DamageDealt:Mode$ DamageDoneOnce | CombatDamage$ True | ValidSource$ Creature.YouCtrl | TriggerZones$ Battlefield | ValidTarget$ Player | Execute$ TrigGoad
+SVar:TrigGoad:DB$ Goad | ValidTgts$ Creature | TargetsWithDefinedController$ TriggeredTarget

@@ -1,8 +1,9 @@
 Id:25735
-ColorIdentity:B
+ColorIdentity:
 OriginSet:G06ccef4324c14725
-ManaCost:4 B
-Types:Instant
-S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ X | EffectZone$ All
-SVar:X:Count$ValidGraveyard Creature.YouOwn
-A:SP$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Creature,Planeswalker
+ManaCost:no cost
+Types:Land
+A:AB$ Mana | Cost$ T | Produced$ C
+A:AB$ Destroy | Cost$ 2 T Sac<1/CARDNAME> | ValidTgts$ Land.nonBasic+OppCtrl | SubAbility$ DBSearch | AILogic$ GhostQuarter
+SVar:DBSearch:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | DefinedPlayer$ TargetedController | ChangeType$ Land.Basic | SubAbility$ DBSearchBis
+SVar:DBSearchBis:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | DefinedPlayer$ You | ChangeType$ Land.Basic

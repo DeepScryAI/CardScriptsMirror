@@ -1,9 +1,12 @@
 Id:28347
-ColorIdentity:WRG
-OriginSet:G94329e6b3f93276f
-ManaCost:RW G
-Types:Legendary Creature Dryad Detective
-PT:2/2
-T:Mode$ DamageDone | ValidSource$ Creature.YouCtrl+turnedFaceUpThisTurn | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDraw | TriggerZones$ Battlefield
-SVar:TrigDraw:DB$ Draw
-A:AB$ SetState | Cost$ T | ValidTgts$ Creature.faceDown+attacking+YouCtrl | Mode$ TurnFaceUp
+ColorIdentity:
+OriginSet:Gfd50577710a6ab09
+ManaCost:1
+Types:Legendary Artifact
+T:Mode$ UntapAll | TriggerZones$ Battlefield | ValidCards$ Permanent | ValidPlayer$ You | Phase$ Untap | PlayerTurn$ True | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | CounterType$ TIME | CounterNum$ X
+SVar:X:TriggerCount$Amount
+A:AB$ MultiplyCounter | Cost$ 2 T | CounterType$ TIME
+T:Mode$ Always | TriggerZones$ Battlefield | IsPresent$ Card.Self+counters_GE1000_TIME | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ Opponent | LifeAmount$ 1000

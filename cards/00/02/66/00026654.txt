@@ -1,8 +1,9 @@
 Id:26654
-ColorIdentity:W
+ColorIdentity:R
 OriginSet:G06757f68e16377c2
-ManaCost:3 W W
+ManaCost:2 R
 Types:Sorcery
-A:SP$ ChangeZoneAll | ChangeType$ Creature | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBIncubate
-SVar:DBIncubate:DB$ Incubate | Amount$ X
-SVar:X:Remembered$Amount
+A:SP$ GainControl | ValidTgts$ Creature | LoseControl$ EOT | Untap$ True | AddKWs$ Haste | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ ParentTarget | Triggers$ DamageTrig
+SVar:DamageTrig:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player,Battle | Execute$ TrigTreasure | CombatDamage$ True
+SVar:TrigTreasure:DB$ Token | TokenScriptIds$ 3851718391

@@ -1,9 +1,14 @@
 Id:23162
-ColorIdentity:G
-OriginSet:G6e75ff4f143a3dc3
-ManaCost:4 G
-Types:Creature Human Ranger
-PT:2/4
-K:Training
-T:Mode$ CounterAddedAll | CounterType$ P1P1 | Valid$ Human.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigDraw | ActivationLimit$ 1
-SVar:TrigDraw:DB$ Draw
+ColorIdentity:UB
+OriginSet:G7a76c1974b0a33a6
+ManaCost:5 B B
+Types:Legendary Creature Slug Horror
+PT:7/7
+T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | Execute$ TrigCounters
+SVar:TrigCounters:DB$ PutCounterAll | ValidCards$ Creature.YouDontCtrl | CounterType$ SLIME | CounterNum$ 1
+S:Mode$ Continuous | Affected$ Creature.YouDontCtrl | AffectedZone$ Battlefield | AddPower$ -AffectedX | AddToughness$ -AffectedX
+SVar:AffectedX:Count$CardCounters.SLIME
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouDontCtrl+counters_GE1_SLIME | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 934522760
+A:AB$ Draw | Cost$ U B Sac<1/Slug> | NumCards$ 1
+SVar:AIPreference:SacCost$Slug.token

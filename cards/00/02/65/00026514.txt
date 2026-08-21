@@ -1,10 +1,12 @@
 Id:26514
-ColorIdentity:B
-OriginSet:G06757f68e16377c2
-ManaCost:1 B
-Types:Creature Phyrexian Samurai
-PT:2/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPump
-SVar:TrigPump:DB$ PumpAll | ValidCards$ Phyrexian.YouCtrl | KW$ Menace
-S:Mode$ Continuous | Affected$ Phyrexian.Other+YouCtrl | AddPower$ 1 | AddToughness$ 1
-A:AB$ ChangeZone | Cost$ 3 B Sac<1/Artifact;Creature/artifact or creature> | Origin$ Graveyard | Destination$ Battlefield | ActivationZone$ Graveyard | SorcerySpeed$ True
+ColorIdentity:W
+OriginSet:Gd5f5e54fa26ae40d
+ManaCost:3 W
+Types:Creature Angel Soldier
+PT:4/3
+K:Flying
+T:Mode$ AttackersDeclared | Execute$ TrigDraw | ValidAttackers$ Creature | ValidAttackersAmount$ GE2 | TriggerZones$ Battlefield | AttackingPlayer$ You
+SVar:TrigDraw:DB$ Draw
+T:Mode$ AttackersDeclared | Execute$ TrigTheyDraw | ValidAttackers$ Creature | ValidAttackersAmount$ GE2 | TriggerZones$ Battlefield | AttackingPlayer$ Player.Other
+SVar:TrigTheyDraw:DB$ Draw | Defined$ TriggeredAttackingPlayer | ConditionPresent$ Creature.attackingYou | ConditionCompare$ EQ0
+SVar:PlayMain1:TRUE

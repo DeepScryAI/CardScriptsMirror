@@ -1,13 +1,11 @@
 Id:15927
-ColorIdentity:G
+ColorIdentity:B
 OriginSet:G92026fbb3573fda5
-ManaCost:4 G G
-Types:Creature Hydra
-PT:*/*
-K:Reach
-S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X | SetToughness$ X
-SVar:X:Count$Valid Land.YouCtrl
-SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | Tapped$ True | ChangeType$ Land | ChangeNum$ 1 | ShuffleNonMandatory$ True
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange | OptionalDecider$ You
-SVar:BuffedBy:Land
-SVar:NeedsToPlayVar:X GE3
+ManaCost:3 B
+Types:Enchantment
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigCharm | TriggerZones$ Battlefield
+SVar:TrigCharm:DB$ Charm | Choices$ DBLoseGame1,DBLoseGame2
+SVar:DBLoseGame1:DB$ LosesGame | Defined$ Player.lifeEQ13 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ Player | LifeAmount$ 1
+SVar:DBLoseGame2:DB$ LosesGame | Defined$ Player.lifeEQ13 | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ Player | LifeAmount$ 1

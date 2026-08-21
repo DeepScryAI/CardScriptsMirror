@@ -1,8 +1,10 @@
 Id:31339
-ColorIdentity:W
-OriginSet:G93ac57511923c3dd
-ManaCost:5 W W
-Types:Sorcery
-A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | TargetMin$ 0 | TargetMax$ X | ValidTgts$ Creature.YouOwn | MaxTotalTargetPower$ 10 | SubAbility$ DBExile
-SVar:DBExile:DB$ ChangeZone | Origin$ Stack | Destination$ Exile
-SVar:X:Count$ValidGraveyard Creature.YouOwn
+ColorIdentity:
+OriginSet:G997e3b19a1e94e85
+ManaCost:2
+Types:Artifact
+A:AB$ PutCounter | Cost$ T | CounterType$ ACQUIREDTASTE
+A:AB$ Draw | Cost$ T Sac<1/CARDNAME/this artifact> | NumCards$ 2 | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 4 | Defined$ You | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ X
+SVar:X:Count$CardCounters.ACQUIREDTASTE

@@ -1,11 +1,16 @@
 Id:6868
 ColorIdentity:
 OriginSet:G8b552b617d13301f
-ManaCost:2
-Types:Artifact Creature Construct
-PT:0/2
-T:Mode$ Blocks | ValidCard$ Card.Self | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | CounterType$ P1P1
-A:AB$ Effect | Cost$ SubCounter<1/P1P1> | RememberObjects$ Self | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable
-SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
-SVar:HasBlockEffect:TRUE
+ManaCost:3
+Types:Artifact Equipment
+K:Equip:4
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | OptionalDecider$ You | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Imprint$ True | Origin$ Hand | Destination$ Exile | ChangeType$ Instant | ChangeNum$ 1
+T:Mode$ DamageDone | ValidSource$ Creature.EquippedBy | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigSpell | TriggerZones$ Battlefield
+SVar:TrigSpell:DB$ Play | Defined$ Imprinted | Amount$ All | WithoutManaCost$ True | ValidSA$ Spell | Optional$ True | CopyCard$ True
+T:Mode$ ChangesZone | Origin$ Battlefield | ValidCard$ Card.Self | Destination$ Any | Execute$ DBCleanup | Static$ True
+SVar:DBCleanup:DB$ Cleanup | ClearImprinted$ True
+T:Mode$ ChangesZone | ValidCard$ Card.IsImprinted+ExiledWithSourceLKI | Origin$ Exile | Execute$ DBForget | Static$ True
+SVar:DBForget:DB$ Pump | ForgetImprinted$ TriggeredCard
+SVar:NeedsToPlayVar:Z GE1
+SVar:Z:Count$ValidHand Card.Instant+YouOwn

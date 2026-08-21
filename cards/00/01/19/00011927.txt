@@ -1,8 +1,10 @@
 Id:11927
 ColorIdentity:
 OriginSet:G43171707a7efd07b
-ManaCost:3
-Types:Artifact Creature Phyrexian Construct
-PT:0/3
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +3
+ManaCost:7
+Types:Legendary Planeswalker Karn
+Loyalty:6
+A:AB$ ChangeZone | Cost$ AddCounter<4/LOYALTY> | Planeswalker$ True | ValidTgts$ Player | Origin$ Hand | Destination$ Exile | ChangeType$ Card | ChangeNum$ 1 | Chooser$ Targeted | Hidden$ True | IsCurse$ True | Mandatory$ True
+A:AB$ ChangeZone | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | ValidTgts$ Permanent | Origin$ Battlefield | Destination$ Exile
+A:AB$ RestartGame | Cost$ SubCounter<14/LOYALTY> | Planeswalker$ True | Ultimate$ True | RestrictFromZone$ Exile | RestrictFromValid$ Card.!ExiledWithSource,Spell,Card.Aura | SubAbility$ ReturnFromExile
+SVar:ReturnFromExile:DB$ ChangeZoneAll | ChangeType$ Permanent.nonAura+ExiledWithSource | Origin$ Exile | Destination$ Battlefield | GainControl$ True

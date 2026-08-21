@@ -1,12 +1,9 @@
 Id:15954
-ColorIdentity:B
+ColorIdentity:G
 OriginSet:Gc276c26a85a70470
-ManaCost:3 B
+ManaCost:2 G
 Types:Enchantment
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDiscard
-SVar:TrigDiscard:DB$ Discard | Defined$ Player | NumCards$ 1 | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBImprint
-SVar:DBImprint:DB$ Pump | ImprintCards$ ValidAll Card.IsRemembered+YouCtrl | SubAbility$ DBForget
-SVar:DBForget:DB$ Pump | ForgetObjects$ Imprinted | SubAbility$ DBRepeat
-SVar:DBRepeat:DB$ RepeatEach | DefinedCards$ Remembered | ClearRemembered$ True | RepeatSubAbility$ DBDmg | SubAbility$ DBCleanup
-SVar:DBDmg:DB$ LoseLife | Defined$ RememberedController | LifeAmount$ 3 | ConditionDefined$ Remembered | ConditionPresent$ Card.sharesCardTypeWith Imprinted+OppOwn
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigMill | TriggerZones$ Battlefield
+SVar:TrigMill:DB$ Mill | NumCards$ 2 | Defined$ You | Optional$ True
+T:Mode$ ChangesZoneAll | ValidCards$ Land.YouOwn+!token | Origin$ Any | Destination$ Graveyard | TriggerZones$ Battlefield | FirstTime$ True | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 704294417 | TokenOwner$ You

@@ -1,9 +1,13 @@
 Id:28448
-ColorIdentity:UR
-OriginSet:G7ee0e82a2424d636
-ManaCost:2 U R
-Types:Artifact
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigInvestigate
-SVar:TrigInvestigate:DB$ Investigate | Num$ 2
-A:AB$ Token | Cost$ T | TokenScriptIds$ 3939935181 | CheckSVar$ ArtifactSacrificed
-SVar:ArtifactSacrificed:PlayerCountPropertyYou$SacrificedThisTurn Artifact
+ColorIdentity:
+OriginSet:G3a8b4b9d4649b357
+ManaCost:4
+Types:Legendary Planeswalker Karn
+Loyalty:4
+A:AB$ Token | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | TokenTapped$ True | TokenScriptIds$ 2975106104 | TokenOwner$ You
+A:AB$ ChooseNumber | Cost$ AddCounter<0/LOYALTY> | Planeswalker$ True | Defined$ You | ChooseAnyNumber$ True | SubAbility$ DBDig
+SVar:DBDig:DB$ Dig | DigNum$ X | ChangeNum$ 1 | RestRandomOrder$ True | UnlessCost$ X | UnlessPayer$ You | UnlessSwitched$ True
+A:AB$ Effect | Cost$ SubCounter<6/LOYALTY> | Planeswalker$ True | Ultimate$ True | AILogic$ Always | Stackable$ False | Name$ 13096563287727060240 | Duration$ Permanent | Abilities$ KarnPing
+SVar:KarnPing:AB$ DealDamage | Cost$ tapXType<1/Artifact> | ActivationZone$ Command | ValidTgts$ Any | NumDmg$ 1
+SVar:PlayMain1:TRUE
+SVar:X:Count$ChosenNumber

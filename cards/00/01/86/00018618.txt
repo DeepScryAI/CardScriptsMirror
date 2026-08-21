@@ -1,11 +1,13 @@
 Id:18618
-ColorIdentity:BRG
+ColorIdentity:WUG
 OriginSet:Gd7cbb6e7dea72fb5
-ManaCost:3 B R G
-Types:Legendary Creature Spider
-PT:5/5
-K:Vigilance
-K:Reach
-S:Mode$ MustAttack | ValidCreature$ Creature
-T:Mode$ Attacks | ValidCard$ Creature | Attacked$ You,Planeswalker.YouCtrl | TriggerZones$ Battlefield | Execute$ DragonWake
-SVar:DragonWake:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+ManaCost:1 G W U
+Types:Legendary Planeswalker Estrid
+Loyalty:3
+A:AB$ UntapAll | Cost$ AddCounter<2/LOYALTY> | Planeswalker$ True | ValidCards$ Permanent.enchanted+YouCtrl
+SVar:BuffedBy:Permanent.enchanted
+A:AB$ Token | Cost$ SubCounter<1/LOYALTY> | Planeswalker$ True | TokenScriptIds$ 1220516687 | TokenOwner$ You | AttachedTo$ Targeted | ValidTgts$ Permanent.Other
+A:AB$ Mill | Cost$ SubCounter<7/LOYALTY> | Planeswalker$ True | Ultimate$ True | NumCards$ 7 | Defined$ You | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZoneAll | ChangeType$ Enchantment.nonAura+YouCtrl | Origin$ Graveyard | Destination$ Battlefield | SubAbility$ DBChangeZone2
+SVar:DBChangeZone2:DB$ ChangeZoneAll | ChangeType$ Enchantment.Aura+YouCtrl | Origin$ Graveyard | Destination$ Battlefield
+K:CARDNAME can be your commander.

@@ -1,9 +1,13 @@
 Id:25759
-ColorIdentity:G
+ColorIdentity:WU
 OriginSet:G06ccef4324c14725
-ManaCost:5
-Types:Artifact Creature Golem
-PT:5/5
-K:Prototype:1 G:2:3
-A:AB$ Token | Cost$ 3 G G Sac<1/CARDNAME> | TokenScriptIds$ 2545082592 | TokenPower$ X | TokenToughness$ X | PumpDuration$ EOT | TokenOwner$ You | PumpKeywords$ Haste | SorcerySpeed$ True
-SVar:X:Sacrificed$CardPower/Times.3
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ DBReveal | ReplacementResult$ Updated
+SVar:DBReveal:DB$ Reveal | RevealValid$ Soldier | Optional$ True | RememberRevealed$ True | SubAbility$ DBTap
+SVar:DBTap:DB$ Tap | ETB$ True | Defined$ Self | ConditionCheckSVar$ SoldierPresence | ConditionSVarCompare$ EQ0 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:SoldierPresence:Count$RememberedSize/Plus.SoldierControlled
+SVar:SoldierControlled:Count$Valid Soldier.inZoneBattlefield+YouCtrl
+A:AB$ Mana | Cost$ T | Produced$ Combo W U
+A:AB$ PumpAll | Cost$ 5 T | ValidCards$ Soldier.YouCtrl | NumAtt$ +1 | NumDef$ +1

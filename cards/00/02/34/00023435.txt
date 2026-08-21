@@ -1,8 +1,10 @@
 Id:23435
-ColorIdentity:G
-OriginSet:G1a259dba25660062
-ManaCost:2 G
-Types:Enchantment Creature Human Monk
-PT:3/2
-A:AB$ PutCounter | Cost$ 5 G | ValidTgts$ Enchantment.Creature | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | Defined$ Targeted | KW$ Trample
+ColorIdentity:W
+OriginSet:Gbe3783f336562357
+ManaCost:W
+Types:Legendary Artifact Clue
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPeek
+SVar:TrigPeek:DB$ RevealHand | ValidTgts$ Opponent | Look$ True | RevealType$ Creature
+T:Mode$ Sacrificed | ValidCard$ Card.Self,Clue.Other+YouCtrl | Execute$ TrigDraft | TriggerZones$ Battlefield
+SVar:TrigDraft:DB$ Draft | SpellbookCatalogIds$ 18682,20004,21575,18977,19939,19522,18696,16926,22047,16478,21682,17999,6640,18217,19119
+A:AB$ Draw | Cost$ 2 Sac<1/CARDNAME> | NumCards$ 1

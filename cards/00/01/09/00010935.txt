@@ -1,9 +1,12 @@
 Id:10935
-ColorIdentity:W
+ColorIdentity:G
 OriginSet:G4398040c23c94f0e
-ManaCost:W
-Types:Enchantment
-A:AB$ GainLife | Cost$ SubCounter<3/QUEST> Sac<1/CARDNAME> | Defined$ You | LifeAmount$ 8
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ QUEST | CounterNum$ 1
-SVar:MaxQuestEffect:3
+ManaCost:4 G G
+Types:Instant Trap
+T:Mode$ Countered | ValidCause$ SpellAbility.OppCtrl | ValidSA$ Spell.Creature+wasCastByYou | Execute$ TrackValidCounters | Static$ True
+SVar:TrackValidCounters:DB$ StoreSVar | SVar$ SetTrap | Type$ CountSVar | Expression$ SetTrap/Plus.1
+T:Mode$ Phase | Phase$ Cleanup | Execute$ TrigReset | Static$ True
+SVar:TrigReset:DB$ StoreSVar | SVar$ SetTrap | Type$ Number | Expression$ 0
+SVar:SetTrap:Number$0
+S:Mode$ AlternativeCost | ValidSA$ Spell.Self | EffectZone$ All | Cost$ 0 | CheckSVar$ SetTrap
+A:SP$ Dig | DigNum$ 7 | ChangeNum$ 1 | Optional$ True | ChangeValid$ Creature | DestinationZone$ Battlefield

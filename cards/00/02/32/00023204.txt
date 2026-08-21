@@ -1,15 +1,13 @@
 Id:23204
-ColorIdentity:G
-OriginSet:G6e75ff4f143a3dc3
-ManaCost:3 G
-Types:Creature Human Werewolf
+ColorIdentity:B
+OriginSet:G3aa323ca47c740b1
+ManaCost:4 B B
+Types:Legendary Creature Vampire Noble
 PT:4/4
-K:Daybound
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:green
-Types:Creature Werewolf
-PT:6/4
-K:Nightbound
-S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self | ValidBlocker$ Creature.powerLE2
+K:Ward:Discard<1/Card>
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Vampire.Other+!token+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:AB$ Token | Cost$ 1 ExileAnyGrave<1/Card.TriggeredNewCard> | TokenRemembered$ ExiledCards | TokenScriptIds$ 3356756006 | ImprintTokens$ True | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Imprinted | Duration$ Permanent | Triggers$ CDTrigger
+SVar:CDTrigger:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigSac | TriggerZones$ Battlefield
+SVar:TrigSac:DB$ Sacrifice | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | Tapped$ True | GainControl$ True

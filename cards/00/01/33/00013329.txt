@@ -1,10 +1,9 @@
 Id:13329
-ColorIdentity:WB
+ColorIdentity:B
 OriginSet:Gfdc478e04211a499
-ManaCost:2 W B
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:Curse
-S:Mode$ CantAttack,CantBlock,CantBeActivated | ValidCard$ Creature.EnchantedBy
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Player.EnchantedController | TriggerZones$ Battlefield | Execute$ TrigLoseLife
-SVar:TrigLoseLife:DB$ LoseLife | Defined$ TriggeredPlayer | LifeAmount$ 1
+ManaCost:3 B B
+Types:Creature Ogre Rogue
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.!token+Other | OptionalDecider$ You | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 2440351532 | TokenOwner$ You
+S:Mode$ Continuous | Affected$ Creature.Rat+YouCtrl | AddKeyword$ Deathtouch

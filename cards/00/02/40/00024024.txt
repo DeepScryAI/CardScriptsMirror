@@ -1,10 +1,9 @@
 Id:24024
-ColorIdentity:WUG
+ColorIdentity:WG
 OriginSet:G9afc9838c5e994df
-ManaCost:G W U
-Types:Legendary Creature Human Soldier
-PT:2/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Creature.Other | TargetMin$ 0 | TargetMax$ MaxTgt | TargetsWithDifferentControllers$ True | Duration$ UntilHostLeavesPlay | ReturnAbility$ DBReturn | ReturnValid$ Card.IsTriggerRemembered+YouCtrl
-SVar:DBReturn:DB$ PutCounter | Defined$ TriggeredCardLKICopy | CounterType$ P1P1 | CounterNum$ 2
-SVar:MaxTgt:PlayerCountPlayers$Amount
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ Combo G W
+A:AB$ Draw | Cost$ 2 G W T Sac<1/CARDNAME>

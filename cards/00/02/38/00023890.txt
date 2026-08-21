@@ -1,8 +1,9 @@
 Id:23890
-ColorIdentity:UBR
-OriginSet:Gfdfe2ebef04be34e
-ManaCost:2 U B R
+ColorIdentity:B
+OriginSet:G5f5d8cfb206e2fac
+ManaCost:3 B
 Types:Sorcery
-A:SP$ Animate | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | Power$ 1 | Toughness$ 1 | IsCurse$ True | SubAbility$ DBGrow
-SVar:DBGrow:DB$ Animate | TargetUnique$ True | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | Power$ 4 | Toughness$ 4 | SubAbility$ DBDamageAll
-SVar:DBDamageAll:DB$ DamageAll | NumDmg$ 3 | ValidCards$ Creature
+A:SP$ RepeatEach | RepeatPlayers$ Opponent | RepeatSubAbility$ DBTwoPiles | SubAbility$ DBSac
+SVar:DBTwoPiles:DB$ TwoPiles | Defined$ Remembered | Separator$ Remembered | Chooser$ You | RememberChosen$ True | ValidCards$ Creature.RememberedPlayerCtrl | Zone$ Battlefield
+SVar:DBSac:DB$ SacrificeAll | Defined$ Remembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

@@ -1,7 +1,13 @@
 Id:21740
 ColorIdentity:W
 OriginSet:G18bf722b221724f8
-ManaCost:4 W
-Types:Instant
-A:SP$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +2 | NumDef$ +1
-K:Foretell:2 W
+ManaCost:2 W
+Types:Creature Angel Cleric
+PT:2/4
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Cleric.Other+YouCtrl,Angel.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigGainLife
+SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ X
+SVar:X:TriggeredCard$CardToughness
+S:Mode$ Continuous | CheckSVar$ Z | SVarCompare$ GEY | Affected$ Creature.YouCtrl | AddPower$ 2 | AddToughness$ 2
+SVar:Z:Count$YourLifeTotal
+SVar:Y:Count$YourStartingLife/Plus.7

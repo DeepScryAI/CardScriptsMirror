@@ -1,8 +1,12 @@
 Id:21843
-ColorIdentity:R
-OriginSet:G6fa60d857e930f32
-ManaCost:X X X R R
-Types:Sorcery
-A:SP$ DealDamage | ValidTgts$ Any | TargetMin$ 0 | TargetMax$ X | NumDmg$ Y
-SVar:X:Count$xPaid
-SVar:Y:SVar$X/Times.5
+ColorIdentity:U
+OriginSet:Gabb23d0d25cdc46d
+ManaCost:4 U
+Types:Legendary Creature Human Wizard
+PT:3/3
+T:Mode$ SpellCastOrCopy | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 1802199211 | RememberTokens$ True | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Remembered | CounterType$ P1P1 | CounterNum$ TriggeredSpellAbility$CardManaCostLKI | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+A:AB$ Effect | Cost$ 3 U | ValidTgts$ Creature.token | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable | AILogic$ MakeUnblockable
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered

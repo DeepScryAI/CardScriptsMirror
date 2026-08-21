@@ -1,13 +1,10 @@
 Id:7658
-ColorIdentity:B
+ColorIdentity:W
 OriginSet:G3fddc6426f419054
-ManaCost:5 B
-Types:Sorcery Arcane
-A:SP$ ChooseNumber | ValidTgts$ Opponent | AILogic$ Damnation | Notify$ True | SubAbility$ DBChoice
-SVar:DBChoice:DB$ GenericChoice | Choices$ DBLoseLife,DBSac
-SVar:DBLoseLife:DB$ LoseLife | Defined$ ParentTarget | LifeAmount$ X
-SVar:DBSac:DB$ Sacrifice | Defined$ ParentTarget | SacValid$ Permanent | Amount$ Y
-SVar:X:Count$ChosenNumber
-SVar:Y:SVar$W/LimitMin.0
-SVar:W:SVar$Z/Minus.X
-SVar:Z:Count$Valid Permanent.TargetedPlayerCtrl
+ManaCost:4 W
+Types:Instant Arcane
+A:SP$ ChangeZone | Origin$ Battlefield | Destination$ Hand | ChangeType$ Plains.YouCtrl | ChangeNum$ X | Hidden$ True | RememberChanged$ True | SubAbility$ DBPump
+SVar:DBPump:DB$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +Y | NumDef$ +Y | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$Valid Plains.YouCtrl
+SVar:Y:Remembered$Amount

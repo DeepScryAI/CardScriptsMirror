@@ -1,9 +1,13 @@
 Id:16344
-ColorIdentity:U
+ColorIdentity:R
 OriginSet:Gd94e3db4ef71ffd2
-ManaCost:no cost
-Types:Conspiracy
-K:Hidden agenda
-T:Mode$ DamageDone | ValidSource$ Creature.NamedCard+YouCtrl | ValidTarget$ Player | CombatDamage$ True | TriggerZones$ Command | Execute$ TrigDraw
-SVar:TrigDraw:AB$ Draw | Cost$ U | NumCards$ 1
-SVar:AgendaLogic:BestCreatureInComputerDeck
+ManaCost:R R
+Types:Legendary Creature Goblin Rogue
+PT:2/2
+T:Mode$ DamageDone | ValidSource$ Creature.YouCtrl | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigCharm | TriggerZones$ Battlefield
+SVar:TrigCharm:DB$ Charm | Choices$ DBGoad,DBExile
+SVar:DBGoad:DB$ Goad | ValidTgts$ Creature | TargetsWithDefinedController$ TriggeredTarget
+SVar:DBExile:DB$ Dig | Defined$ TriggeredTarget | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | ExileOnMoved$ Exile | RememberObjects$ Remembered | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | MayPlayIgnoreColor$ True | Affected$ Card.IsRemembered+nonLand | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

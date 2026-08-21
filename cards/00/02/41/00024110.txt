@@ -1,9 +1,11 @@
 Id:24110
-ColorIdentity:R
+ColorIdentity:G
 OriginSet:G9afc9838c5e994df
-ManaCost:2 R
-Types:Creature Devil Citizen
-PT:3/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigDmg
-SVar:TrigDmg:DB$ DealDamage | Defined$ Player.Opponent | NumDmg$ 1
-SVar:BuffedBy:Creature
+ManaCost:2 G
+Types:Enchantment Aura
+K:Flash
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Card.EnchantedBy | AddPower$ 2 | AddToughness$ 1
+T:Mode$ ChangesZone | ValidCard$ Card.AttachedBy | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 3851718391

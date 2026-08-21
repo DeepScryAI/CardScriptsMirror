@@ -1,6 +1,11 @@
 Id:22895
-ColorIdentity:
+ColorIdentity:B
 OriginSet:Gf78628ad511eefec
-ManaCost:2
-Types:Artifact
-A:AB$ ChangeZone | Cost$ 1 T Sac<1/CARDNAME> | Origin$ Library | Destination$ Hand | ChangeType$ Artifact.hasManaAbility,Land.Basic | ChangeNum$ 1 | ShuffleNonMandatory$ True
+ManaCost:4 B
+Types:Creature Zombie
+PT:3/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 1806131316 | RememberOriginalTokens$ True | SubAbility$ DBImmediateTrigger
+SVar:DBImmediateTrigger:DB$ ImmediateTrigger | TriggerAmount$ Remembered$Amount/DivideEvenlyDown.2 | Execute$ TrigExile | SubAbility$ DBCleanup
+SVar:TrigExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | TargetMin$ 0 | TargetMax$ 2 | ValidTgts$ Card
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

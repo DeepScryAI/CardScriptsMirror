@@ -1,10 +1,14 @@
 Id:26978
-ColorIdentity:U
-OriginSet:G6ce0035cfb774934
-ManaCost:3 U
-Types:Legendary Creature Avatar Wizard
-PT:2/4
-K:Flash
-S:Mode$ CastWithFlash | ValidCard$ Sorcery | ValidSA$ Spell | Caster$ You
-T:Mode$ RingTemptsYou | ValidCard$ Creature.YouCtrl+Other | TriggerZones$ Battlefield | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw
+ColorIdentity:R
+OriginSet:G3601f5e223de6c7f
+ManaCost:7 R R
+Types:Creature Dragon
+PT:6/6
+K:Flying
+K:Trample
+K:Haste
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ X | EffectZone$ All
+SVar:X:PlayerCountOpponents$HighestValid Artifact.YouCtrl
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigTreasure
+SVar:TrigTreasure:DB$ Token | TokenScriptIds$ 3851718391 | TokenAmount$ Y
+SVar:Y:Count$Valid Artifact.ControlledBy TriggeredTarget

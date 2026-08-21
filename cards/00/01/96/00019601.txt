@@ -1,13 +1,10 @@
 Id:19601
-ColorIdentity:U
-OriginSet:G7c61dc677f00d087
-ManaCost:2 U U U
-Types:Creature Elemental Knight
-PT:5/5
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 3 | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | Origin$ Hand | Destination$ Library | ChangeNum$ 2 | Mandatory$ True
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigChange
-SVar:TrigChange:DB$ ChangeZone | Destination$ Library | Shuffle$ True | Defined$ TriggeredNewCardLKICopy | SubAbility$ DBScry
-SVar:DBScry:DB$ Scry | ScryNum$ 2
+ColorIdentity:RG
+OriginSet:G9d37112ca6693432
+ManaCost:R G
+Types:Legendary Planeswalker Wrenn
+Loyalty:3
+A:AB$ ChangeZone | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | Origin$ Graveyard | Destination$ Hand | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Land.YouOwn | AILogic$ BestCard
+A:AB$ DealDamage | Cost$ SubCounter<1/LOYALTY> | Planeswalker$ True | NumDmg$ 1 | ValidTgts$ Any
+A:AB$ Effect | Cost$ SubCounter<7/LOYALTY> | Name$ 9620084169378623911 | StaticAbilities$ STWrenn | Planeswalker$ True | Ultimate$ True | Stackable$ False | Duration$ Permanent | AILogic$ Always
+SVar:STWrenn:Mode$ Continuous | AffectedZone$ Graveyard | Affected$ Instant.YouOwn,Sorcery.YouOwn | AddKeyword$ Retrace

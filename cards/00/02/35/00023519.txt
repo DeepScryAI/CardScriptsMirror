@@ -1,10 +1,11 @@
 Id:23519
-ColorIdentity:RG
+ColorIdentity:G
 OriginSet:G1a259dba25660062
-ManaCost:1 R G
-Types:Enchantment
-K:etbCounter:P1P1:4
-S:Mode$ Continuous | Affected$ Creature.modified+YouCtrl | AddKeyword$ Haste
-A:AB$ PutCounter | Cost$ SubCounter<1/P1P1> | ValidTgts$ Creature.YouCtrl | SorcerySpeed$ True | ActivationLimit$ 1 | CounterType$ P1P1 | CounterNum$ 1
-SVar:BuffedBy:Creature
-SVar:PlayMain1:TRUE
+ManaCost:3 G G
+Types:Creature Spirit
+PT:4/4
+K:Reach
+T:Mode$ ChangesZone | Destination$ Battlefield | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ DBDig
+SVar:DBDig:DB$ Dig | DigNum$ 5 | ChangeNum$ 1 | Optional$ True | ForceRevealToController$ True | ChangeValid$ Creature,Enchantment | RestRandomOrder$ True | RememberChanged$ True | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ0 | Defined$ You | LifeAmount$ 4 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

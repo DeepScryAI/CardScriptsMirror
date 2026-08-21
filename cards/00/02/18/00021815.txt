@@ -1,12 +1,12 @@
 Id:21815
-ColorIdentity:R
-OriginSet:Gabb23d0d25cdc46d
-ManaCost:4 R R
-Types:Sorcery
-A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Instant.YouCtrl,Sorcery.YouCtrl | RememberChanged$ True | SubAbility$ DBPump
-SVar:DBPump:DB$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +X | SubAbility$ DBEffect
-SVar:X:Remembered$CardManaCost
-SVar:DBEffect:DB$ Effect | RememberObjects$ Remembered | Triggers$ TrigDamage | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:TrigDamage:Mode$ DamageDone | ValidSource$ Creature.YouCtrl | ValidTarget$ Player | CombatDamage$ True | Execute$ DBCopy
-SVar:DBCopy:DB$ Play | Defined$ Remembered | Amount$ All | CopyCard$ True | WithoutManaCost$ True | ValidSA$ Spell
+ColorIdentity:RG
+OriginSet:G18bf722b221724f8
+ManaCost:4 R G
+Types:Enchantment Saga
+K:Chapter:3:DBDestroy,DBChangeZone,DBPump
+SVar:DBDestroy:DB$ Destroy | ValidTgts$ Land
+SVar:DBChangeZone:DB$ ChangeZone | ValidTgts$ Land | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True
+SVar:DBPump:DB$ Pump | ValidTgts$ Opponent | IsCurse$ True | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenAmount$ X | TokenScriptIds$ 441179036 | TokenOwner$ You
+SVar:X:Count$Valid Land.YouCtrl/Minus.Y
+SVar:Y:Count$Valid Land.TargetedPlayerCtrl

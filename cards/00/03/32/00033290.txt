@@ -1,9 +1,12 @@
 Id:33290
-ColorIdentity:G
+ColorIdentity:WR
 OriginSet:G7ab1fe96128a1641
-ManaCost:2 G
-Types:Instant
-A:SP$ Charm | Choices$ DBDestroy1,DBDestroy2,DBToken
-SVar:DBDestroy1:DB$ Destroy | ValidTgts$ Creature.withFlying
-SVar:DBDestroy2:DB$ Destroy | ValidTgts$ Enchantment
-SVar:DBToken:DB$ Token | TokenScriptIds$ 976246394
+ManaCost:2 R W
+Types:Legendary Creature Giant Warrior
+PT:4/4
+A:AB$ Pump | Cost$ 1 W T | ValidTgts$ Creature.Other+YouCtrl | KW$ Flying & Lifelink
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ X | Execute$ TrigDigUntil
+SVar:TrigDigUntil:DB$ DigUntil | Valid$ Card.nonLand | FoundDestination$ Exile | RevealedDestination$ Exile | RememberFound$ True | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | Defined$ Remembered | ValidSA$ Spell.cmcLEX | WithoutManaCost$ True | Optional$ True | ForgetPlayed$ True | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Exile | Destination$ Hand | Defined$ Remembered | ForgetChanged$ True
+SVar:X:Count$LifeYouGainedThisTurn

@@ -1,10 +1,12 @@
 Id:10825
 ColorIdentity:R
 OriginSet:G4398040c23c94f0e
-ManaCost:1 R
-Types:Creature Human Berserker Ally
-PT:2/1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self,Ally.Other+YouCtrl | OptionalDecider$ You | Execute$ TrigPump
-SVar:TrigPump:DB$ PumpAll | ValidCards$ Ally.YouCtrl | KW$ FirstStrike
+ManaCost:4 R R
+Types:Creature Dragon
+PT:5/5
+K:Flying
+K:Haste
+T:Mode$ Attacks | ValidCard$ Creature.Self | TriggerZones$ Battlefield | Execute$ TrigUntap
+SVar:TrigUntap:AB$ UntapAll | Cost$ 5 R R | ValidCards$ Creature.attacking | SubAbility$ DBAddCombat
+SVar:DBAddCombat:DB$ AddPhase | ExtraPhase$ Combat | AfterPhase$ EndCombat
 SVar:PlayMain1:TRUE
-SVar:BuffedBy:Ally

@@ -1,8 +1,12 @@
 Id:34285
-ColorIdentity:W
+ColorIdentity:WU
 OriginSet:Gcb93bbfc68a40806
-ManaCost:1 W
-Types:Enchantment
-T:Mode$ Attacks | ValidCard$ Creature.YouCtrl | Alone$ True | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | Defined$ TriggeredAttackerLKICopy | NumAtt$ +1 | NumDef$ +1 | SubAbility$ DBTap
-SVar:DBTap:DB$ Tap | ValidTgts$ Creature.ControlledBy TriggeredDefendingPlayer | TargetMin$ 0 | TargetMax$ 1
+ManaCost:2 W U
+Types:Legendary Creature Inhuman Noble Hero
+PT:3/3
+K:Flying
+T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | Execute$ TrigPump | TriggerZones$ Battlefield
+SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +2 | NumDef$ +2
+T:Mode$ BecomesTarget | ValidTarget$ Card.Self | ValidSource$ SpellAbility.OppCtrl | TriggerZones$ Battlefield | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Permanent.nonLand+ControlledBy TriggeredSourceSAController
+SVar:BuffedBy:Card.nonLand+nonCreature

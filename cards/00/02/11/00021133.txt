@@ -1,8 +1,11 @@
 Id:21133
-ColorIdentity:R
-OriginSet:G72c9c624ceb92bff
-ManaCost:2 R
-Types:Creature Human Warrior
-PT:2/3
-S:Mode$ Continuous | Affected$ Card.Self | AddPower$ 2 | IsPresent$ Warrior.YouCtrl+Other
-SVar:BuffedBy:Warrior
+ColorIdentity:G
+OriginSet:G7b2607750b451c25
+ManaCost:2 G
+Types:Creature Ooze
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1
+T:Mode$ Attacks | ValidCard$ Creature.Self | Execute$ TrigPutCounterAll
+SVar:TrigPutCounterAll:DB$ PutCounterAll | ValidCards$ Creature.attacking+counters_GE1_P1P1 | CounterType$ P1P1 | CounterNum$ 1
+SVar:HasAttackEffect:TRUE

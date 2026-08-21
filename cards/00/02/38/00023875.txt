@@ -1,9 +1,15 @@
 Id:23875
-ColorIdentity:W
-OriginSet:Gfdfe2ebef04be34e
-ManaCost:3 W W
-Types:Legendary Planeswalker Elspeth
-Loyalty:5
-A:AB$ PutCounter | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | CounterTypes$ P1P1,ChosenFromList | TypeList$ Flying,FirstStrike,Lifelink,Vigilance
-A:AB$ Dig | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | DigNum$ 7 | ChangeNum$ 1 | Optional$ True | ForceRevealToController$ True | ChangeValid$ Permanent.cmcLE3 | DestinationZone$ Battlefield | WithCounters$ Shield | RestRandomOrder$ True
-A:AB$ Token | Cost$ SubCounter<7/LOYALTY> | Planeswalker$ True | Ultimate$ True | TokenAmount$ 5 | TokenScriptIds$ 1162405091
+ColorIdentity:BG
+OriginSet:G5f5d8cfb206e2fac
+ManaCost:2 B G
+Types:Creature Horror
+PT:3/3
+K:Menace
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigRepeatTypes | TriggerZones$ Battlefield
+SVar:TrigRepeatTypes:DB$ RepeatEach | RepeatTypesFrom$ ValidGraveyard Card.OwnedBy TriggeredDefendingPlayer | RepeatSubAbility$ ChooseCard | SubAbility$ DBExile
+SVar:ChooseCard:DB$ ChooseCard | ChoiceZone$ Graveyard | Choices$ Card.ChosenType+OwnedBy TriggeredDefendingPlayer | ChoiceTitleAppend$ ChosenType | RememberChosen$ True
+SVar:DBExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | Defined$ Remembered | RememberChanged$ True | ForgetOtherRemembered$ True | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearChosenCard$ True
+SVar:X:Remembered$Amount
+SVar:HasAttackEffect:TRUE

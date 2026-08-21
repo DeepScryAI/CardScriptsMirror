@@ -1,10 +1,10 @@
 Id:10923
-ColorIdentity:B
+ColorIdentity:U
 OriginSet:G4398040c23c94f0e
-ManaCost:3 B B B
-Types:Legendary Planeswalker Sorin
-Loyalty:4
-A:AB$ DealDamage | Cost$ AddCounter<2/LOYALTY> | Planeswalker$ True | ValidTgts$ Any | NumDmg$ 2 | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | LifeAmount$ 2
-A:AB$ SetLife | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | ValidTgts$ Opponent | LifeAmount$ 10
-A:AB$ ControlPlayer | Cost$ SubCounter<7/LOYALTY> | Planeswalker$ True | Ultimate$ True | ValidTgts$ Player
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ U
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature | KW$ Flying

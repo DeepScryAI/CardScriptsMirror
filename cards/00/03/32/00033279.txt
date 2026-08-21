@@ -1,9 +1,11 @@
 Id:33279
-ColorIdentity:W
+ColorIdentity:B
 OriginSet:G7ab1fe96128a1641
-ManaCost:3 W
-Types:Creature Kithkin Advisor
-PT:0/5
-T:Mode$ Attacks | ValidCard$ Creature.YouCtrl | Alone$ True | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | Defined$ TriggeredAttackerLKICopy | NumAtt$ +X | NumDef$ +X
-SVar:X:Count$Valid Kithkin.YouCtrl
+ManaCost:4 B
+Types:Creature Treefolk Warlock
+PT:3/7
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDraw | TriggerZones$ Battlefield | Secondary$ True
+SVar:TrigDraw:AB$ Draw | Cost$ Blight<2> | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 1
+SVar:HasAttackEffect:TRUE

@@ -1,9 +1,15 @@
 Id:33456
-ColorIdentity:U
-OriginSet:G23d1f017cc66962f
-ManaCost:U
-Types:Artifact Creature Robot Scientist
-PT:1/1
-S:Mode$ CantBlockBy | ValidAttacker$ Card.Self | CheckSVar$ X
-A:AB$ Counter | Cost$ U Sac<1/CARDNAME> | TargetType$ Spell | ValidTgts$ Card | TargetValidTargeting$ Artifact.YouCtrl+inRealZoneBattlefield,Creature.YouCtrl+inRealZoneBattlefield
-SVar:X:Count$ThisTurnEntered_Battlefield_Artifact.YouCtrl
+ColorIdentity:BR
+OriginSet:G7ab1fe96128a1641
+ManaCost:2 BR
+Types:Creature Ouphe
+PT:3/4
+T:Mode$ Attacks | TriggerZones$ Battlefield | ValidCard$ Card.Self | Execute$ DBBlight
+SVar:DBBlight:DB$ Blight | Defined$ You | Num$ 1
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl+HasCounters | Execute$ TrigExile | TriggerZones$ Battlefield
+SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ X | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ STPlay | SubAbility$ DBCleanup | ForgetOnMoved$ Exile | Duration$ UntilYourNextEndStep
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:TriggeredCard$CardCounters.ALL
+SVar:HasAttackEffect:TRUE

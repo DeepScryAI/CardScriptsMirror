@@ -1,8 +1,10 @@
 Id:34320
-ColorIdentity:W
+ColorIdentity:B
 OriginSet:Gcb93bbfc68a40806
-ManaCost:4 W
-Types:Sorcery
-A:SP$ ChangeZoneAll | Cost$ 4 W Sac<1/Creature.Legendary/legendary creature> | ChangeType$ Creature | Origin$ Battlefield | Destination$ Exile | SubAbility$ ExileAllGraveyards
-SVar:ExileAllGraveyards:DB$ ChangeZoneAll | ChangeType$ Card | Origin$ Graveyard | Destination$ Exile | SubAbility$ DBPut
-SVar:DBPut:DB$ ChangeZone | Defined$ Parent | Origin$ Stack | Destination$ Library | LibraryPosition$ -1
+ManaCost:2 B
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 1084490654
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Villain.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigDealDamage
+SVar:TrigDealDamage:DB$ DamageAll | ValidPlayers$ Player.Opponent | NumDmg$ 1 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1

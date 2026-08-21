@@ -1,9 +1,12 @@
 Id:19011
-ColorIdentity:BR
+ColorIdentity:WU
 OriginSet:G0b51a0aecbe39efe
-ManaCost:1 B R
-Types:Creature Human Rogue
-PT:2/3
-K:Spectacle:B R
-A:AB$ Pump | Cost$ B | Defined$ Self | KW$ Deathtouch
-A:AB$ Pump | Cost$ R | Defined$ Self | NumAtt$ +2 | NumDef$ -2
+ManaCost:1 W U
+Types:Legendary Planeswalker Dovin
+Loyalty:3
+A:AB$ Effect | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | Triggers$ TrigDamage | RememberObjects$ Self
+SVar:TrigDamage:Mode$ DamageDone | ValidSource$ Creature.YouCtrl | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Remembered | CounterType$ LOYALTY | CounterNum$ 1
+A:AB$ Token | Cost$ SubCounter<1/LOYALTY> | Planeswalker$ True | TokenScriptIds$ 3939935181 | TokenOwner$ You | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
+A:AB$ Dig | Cost$ SubCounter<7/LOYALTY> | Planeswalker$ True | Ultimate$ True | DigNum$ 10 | ChangeNum$ 3 | DestinationZone$ Hand | DestinationZone2$ Library | LibraryPosition$ -1 | RestRandomOrder$ True

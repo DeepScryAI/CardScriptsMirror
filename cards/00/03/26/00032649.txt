@@ -1,22 +1,13 @@
 Id:32649
-ColorIdentity:G
-OriginSet:G36e97d2da170e675
-ManaCost:4 G G
-Types:Enchantment Saga
-K:Chapter:3:DBDraw,DBEarthbend,DBTransform
-SVar:DBDraw:DB$ Draw | NumCards$ X
-SVar:DBEarthbend:DB$ Earthbend | Num$ Y | SubAbility$ DBAnimate
-SVar:DBAnimate:DB$ Animate | Defined$ Targeted | Types$ Island | Duration$ Permanent
-SVar:DBTransform:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn
-SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | Transformed$ True | GainControl$ True | SubAbility$ DBCleanup
+ColorIdentity:R
+OriginSet:G66b3a7eeabd9000e
+ManaCost:R
+Types:Legendary Creature Spider Human Hero
+PT:1/2
+T:Mode$ AttackersDeclared | Execute$ TrigPutCounter | ValidAttackers$ Spider | ValidAttackersAmount$ GE2 | TriggerZones$ Battlefield | AttackingPlayer$ You
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+T:Mode$ DamageDoneOnce | ValidSource$ Card.Self | DamageAmount$ GE4 | Execute$ TrigExile | TriggerZones$ Battlefield
+SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | Duration$ UntilTheEndOfYourNextTurn | StaticAbilities$ Play | SubAbility$ DBCleanup | ForgetOnMoved$ Exile
+SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$Valid Creature.YouCtrl$GreatestCardPower
-SVar:Y:Count$ValidHand Card.YouOwn
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Types:Legendary Creature Avatar
-PT:5/4
-S:Mode$ Continuous | Affected$ Land.YouCtrl | AddKeyword$ Trample & Hexproof
-A:AB$ Mana | Cost$ T | Produced$ Any | Amount$ X
-SVar:X:Count$Valid Creature.YouCtrl$GreatestCardPower

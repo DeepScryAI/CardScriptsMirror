@@ -1,10 +1,11 @@
 Id:9010
-ColorIdentity:B
+ColorIdentity:G
 OriginSet:Gce1d73449bd71b54
-ManaCost:B
+ManaCost:1 G
 Types:Enchantment Aura
 K:Enchant:Creature
-SVar:AttachAILogic:Pump
-T:Mode$ DamageDealtOnce | ValidSource$ Card.AttachedBy | Execute$ TrigGain | TriggerZones$ Battlefield
-SVar:TrigGain:DB$ GainLife | Defined$ You | LifeAmount$ X
-SVar:X:TriggerCount$DamageAmount
+SVar:AttachAILogic:Curse
+S:Mode$ CantAttack,CantBlock | ValidCard$ Creature.EnchantedBy
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddAbility$ AnyMana
+SVar:AnyMana:AB$ Mana | Cost$ T | Produced$ Any
+SVar:NonStackingAttachEffect:True

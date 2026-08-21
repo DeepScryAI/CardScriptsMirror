@@ -1,0 +1,15 @@
+Id:30066
+ColorIdentity:U
+OriginSet:Gf09b85bbcc27770c
+ManaCost:X U
+Types:Sorcery
+A:SP$ PeekAndReveal | PeekAmount$ X | Reveal$ True | ImprintRevealed$ True | SubAbility$ DBRepeatTypes
+SVar:DBRepeatTypes:DB$ RepeatEach | RepeatTypesFrom$ ValidLibrary Card.IsImprinted | RepeatSubAbility$ ChooseCard | SubAbility$ DBChangeZone
+SVar:ChooseCard:DB$ ChooseCard | Choices$ Card.ChosenType+YouOwn+IsImprinted | ChoiceZone$ Library | RememberChosen$ True
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Library | Destination$ Exile | Defined$ Remembered | SubAbility$ DBGraveyard
+SVar:DBGraveyard:DB$ ChangeZoneAll | Origin$ Library | Destination$ Graveyard | ChangeType$ Card.IsImprinted+!IsRemembered | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | Valid$ Card.IsRemembered | ValidZone$ Exile | ValidSA$ Spell | ConditionCheckSVar$ Y | ConditionSVarCompare$ GE4 | Controller$ You | WithoutManaCost$ True | Optional$ True | Amount$ 1 | SubAbility$ DBChangeZone2
+SVar:DBChangeZone2:DB$ ChangeZone | Origin$ Exile | Destination$ Hand | Defined$ Remembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True
+SVar:X:Count$xPaid
+SVar:Y:Count$ValidExile Card.IsRemembered

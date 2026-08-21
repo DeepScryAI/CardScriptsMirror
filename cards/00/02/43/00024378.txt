@@ -1,14 +1,16 @@
 Id:24378
-ColorIdentity:B
+ColorIdentity:U
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:3 B
-Types:Artifact Equipment
-K:Equip:Discard<1/Card>
-R:Event$ GameLoss | ActiveZones$ Battlefield | ValidPlayer$ You | ValidLoseReason$ LifeReachedZero | Layer$ CantHappen | IsPresent$ Card.Self+AttachedTo Creature
-T:Mode$ Attacks | ValidCard$ Creature.EquippedBy | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Reveal$ True | RememberDrawn$ True | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | Defined$ TriggeredAttackerLKICopy | NumAtt$ +X | NumDef$ +X | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ X | Defined$ You | SubAbility$ DBClean
-SVar:DBClean:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Remembered$CardManaCost
-SVar:AIPreference:DiscardCost$Card
+ManaCost:4 U
+Types:Creature Horror
+PT:4/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigTurnFaceDown
+SVar:TrigTurnFaceDown:DB$ SetState | ValidTgts$ Creature.tapped+!token | TargetMin$ 0 | TargetMax$ X | Mode$ TurnFaceDown | FaceDownPower$ 2 | FaceDownToughness$ 2 | FaceDownSetType$ Horror & Creature
+SVar:X:Count$Valid Creature.tapped+!token
+AlternateMode:Adventure
+ALTERNATE
+ManaCost:X U U
+Types:Sorcery Adventure
+A:SP$ Tap | ValidTgts$ Creature | TargetMin$ X | TargetMax$ X | AlwaysRemember$ True | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Targeted | KW$ HIDDEN This card doesn't untap during your next untap step. | Duration$ Permanent
+SVar:X:Count$xPaid

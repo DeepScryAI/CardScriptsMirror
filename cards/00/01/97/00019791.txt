@@ -1,9 +1,10 @@
 Id:19791
-ColorIdentity:G
+ColorIdentity:BR
 OriginSet:Ga539dc09c09c4538
-ManaCost:G G
-Types:Sorcery
-A:SP$ Charm | Choices$ DBReturn,DBChangeZone
-SVar:DBReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Permanent.YouCtrl
-SVar:DBChangeZone:DB$ ChangeZone | ChangeType$ Card.IsCommander+YouOwn | ChangeNum$ 1 | Mandatory$ True | Origin$ Command | Destination$ Hand | Hidden$ True
-K:Entwine:2
+ManaCost:2 B R
+Types:Legendary Creature Human Minion
+PT:3/2
+A:AB$ Effect | Cost$ Discard<1/Card> | StaticAbilities$ STYardCast | ActivationLimit$ 1
+SVar:STYardCast:Mode$ Continuous | Affected$ Creature.nonLand+YouCtrl | MayPlay$ True | MayPlayLimit$ 1 | AffectedZone$ Graveyard
+T:Mode$ ChangesZone | ValidCard$ Creature.!token+YouCtrl+!wasCastFromYourHandByYou | Origin$ Any | Destination$ Battlefield | Execute$ TrigPump | TriggerZones$ Battlefield
+SVar:TrigPump:DB$ Pump | Defined$ TriggeredCard | KW$ Haste | Duration$ UntilYourNextTurn

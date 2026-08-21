@@ -1,9 +1,12 @@
 Id:7479
-ColorIdentity:G
+ColorIdentity:R
 OriginSet:G7f4b8be1765d99f6
-ManaCost:4 G
-Types:Creature Human Monk
-PT:4/3
-S:Mode$ Continuous | Affected$ Card.Self | AddPower$ 3 | AddToughness$ 3 | CheckSVar$ X | SVarCompare$ GTY
-SVar:X:Count$ValidHand Card.YouOwn
-SVar:Y:PlayerCountOpponents$HighestCardsInHand
+ManaCost:R
+Types:Enchantment Aura
+K:Enchant:Mountain
+SVar:AttachAILogic:Pump
+A:AB$ Animate | Cost$ 2 | Defined$ Enchanted | Power$ 6 | Toughness$ 1 | Types$ Creature,Spirit | Colors$ Red
+T:Mode$ ChangesZone | ValidCard$ Card.EnchantedBy | Origin$ Battlefield | Destination$ Graveyard | TriggerZones$ Battlefield | Execute$ TrigReturnOwner | OptionalDecider$ You
+SVar:TrigReturnOwner:DB$ ChangeZone | Hidden$ True | ChangeType$ Card.StrictlySelf | DefinedPlayer$ You | Origin$ Graveyard | Destination$ Hand | Mandatory$ True
+SVar:NonStackingAttachEffect:True
+SVar:AIPaymentPreference:AvoidPayingWithAttachTarget

@@ -1,12 +1,12 @@
 Id:27957
-ColorIdentity:WU
-OriginSet:Gfd50577710a6ab09
-ManaCost:1 W U
-Types:Legendary Creature Spirit
-PT:2/2
-K:Flying
-K:Ward:2
-A:AB$ ChangeZone | Cost$ 1 W U | ValidTgts$ Creature.Other+YouCtrl,Artifact.Other+YouCtrl | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DelTrig
-SVar:DelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ TrigBounce | RememberObjects$ RememberedLKI | SubAbility$ DBCleanup
-SVar:TrigBounce:DB$ ChangeZone | Origin$ Exile | Destination$ Battlefield | Defined$ DelayTriggerRememberedLKI
+ColorIdentity:UB
+OriginSet:G30e8a5e111cffb44
+ManaCost:X U U B
+Types:Legendary Artifact Creature Cyberman
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill1
+SVar:TrigMill1:DB$ Mill | Defined$ Opponent | NumCards$ X | RememberMilled$ True | SubAbility$ DBChangeZoneAll
+SVar:DBChangeZoneAll:DB$ ChangeZone | Origin$ Graveyard,Exile | GainControl$ True | Destination$ Battlefield | Defined$ Remembered.Creature | FaceDown$ True | FaceDownPower$ 2 | FaceDownToughness$ 2 | FaceDownSetType$ Artifact & Creature & Cyberman | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+S:Mode$ Continuous | Affected$ Creature.Artifact+YouCtrl+Other | AddToughness$ 1 | AddPower$ 1
+SVar:X:Count$xPaid

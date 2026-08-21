@@ -1,17 +1,25 @@
 Id:23061
-ColorIdentity:U
-OriginSet:G7a76c1974b0a33a6
-ManaCost:1 U
-Types:Legendary Creature Human Advisor
-PT:0/2
-A:AB$ Draw | Cost$ T | NumCards$ 1 | SubAbility$ DBExile
-SVar:DBExile:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | ChangeType$ Card | ChangeNum$ 1 | ExileFaceDown$ True | WithMayLook$ True | Mandatory$ True | SubAbility$ DBTransform
-SVar:DBTransform:DB$ SetState | UnlessCost$ 4 U U | UnlessSwitched$ True | UnlessPayer$ You | Defined$ Self | Mode$ Transform
+ColorIdentity:RG
+OriginSet:Gf78628ad511eefec
+ManaCost:1 R G
+Types:Legendary Creature Human Werewolf
+PT:3/3
+T:Mode$ DamageDone | ValidSource$ Wolf.YouCtrl,Werewolf.YouCtrl | ValidTarget$ Player | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigDrawD
+SVar:TrigDrawD:DB$ Draw | Defined$ You | NumCards$ 1
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ X | SVarCompare$ GE3 | Execute$ TrigNight
+SVar:TrigNight:DB$ DayTime | Value$ Night | SubAbility$ DBTransform
+SVar:DBTransform:DB$ SetState | MinAmount$ 0 | Amount$ NumHumanWerewolves | Choices$ Human.Werewolf+YouCtrl+CanTransform | Mode$ Transform
+K:Daybound
+SVar:NumHumanWerewolves:Count$Valid Human.Werewolf+YouCtrl+CanTransform
+SVar:X:Count$Valid Wolf.YouCtrl,Werewolf.YouCtrl
 AlternateMode:DoubleFaced
 ALTERNATE
 ManaCost:no cost
-Colors:blue
-Types:Legendary Enchantment
-T:Mode$ Phase | Phase$ Upkeep | TriggerZones$ Battlefield | ValidPlayer$ You | Execute$ TrigExile
-SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | ExileFaceDown$ True | WithMayLook$ True
-S:Mode$ Continuous | EffectZone$ Battlefield | Affected$ Card.ExiledWithSource | AffectedZone$ Exile | Condition$ PlayerTurn | MayPlay$ True | MayPlayLimit$ 1 | MayPlayWithoutManaCost$ True
+Colors:red,green
+Types:Legendary Creature Werewolf
+PT:4/4
+T:Mode$ DamageDone | ValidSource$ Wolf.YouCtrl,Werewolf.YouCtrl | ValidTarget$ Player | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigDrawN
+SVar:TrigDrawN:DB$ Draw | Defined$ You | NumCards$ 1
+A:AB$ Pump | Cost$ X R G | ValidTgts$ Wolf.YouCtrl,Werewolf.YouCtrl | NumAtt$ +X | KW$ Trample
+K:Nightbound
+SVar:X:Count$xPaid

@@ -1,9 +1,11 @@
 Id:5094
-ColorIdentity:UG
+ColorIdentity:UR
 OriginSet:Ga43915481c3b48d8
-ManaCost:2 G U
-Types:Creature Plant Wall
-PT:2/6
-K:Defender
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+ManaCost:1 U
+Types:Instant
+K:Kicker:1 R
+A:SP$ ChangeZone | ValidTgts$ Creature | TargetUnique$ True | Origin$ Battlefield | Destination$ Hand | SubAbility$ DBDamage
+SVar:DBDamage:DB$ DealDamage | Condition$ Kicked | ValidTgts$ Creature | TargetUnique$ True | NumDmg$ 2 | TargetMin$ X | TargetMax$ X
+SVar:X:Count$Kicked.1.0
+SVar:NeedsToPlayKickedVar:Z GE2
+SVar:Z:Count$Valid Creature.OppCtrl

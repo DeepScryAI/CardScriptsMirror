@@ -1,9 +1,8 @@
 Id:29170
-ColorIdentity:U
+ColorIdentity:B
 OriginSet:G27146c70b74a1e72
-ManaCost:2 U U
+ManaCost:1 B
 Types:Sorcery
-A:SP$ Surveil | Amount$ 3 | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ0 | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 3
-SVar:X:Count$CardsInYourHand
-K:Plot:3 U
+A:SP$ Discard | ValidTgts$ Opponent | Mode$ RevealYouChoose | Optional$ True | DiscardValid$ Card.nonLand | RememberDiscarded$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Origin$ Exile | Destination$ Graveyard | ChangeType$ Card.faceUp+TargetedPlayerOwn | Hidden$ True | Optional$ True | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ0 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

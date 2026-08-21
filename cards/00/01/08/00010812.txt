@@ -1,8 +1,10 @@
 Id:10812
-ColorIdentity:G
+ColorIdentity:WG
 OriginSet:G4398040c23c94f0e
-ManaCost:2 G
-Types:Creature Antelope
-PT:2/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | TriggerZones$ Battlefield | ValidCard$ Land.YouCtrl | OptionalDecider$ You | Execute$ TrigGainLife
-SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2
+ManaCost:no cost
+Types:Land
+A:AB$ Mana | Cost$ T | Produced$ Combo G W
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGainLife
+SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 1

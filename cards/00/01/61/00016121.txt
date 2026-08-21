@@ -1,10 +1,12 @@
 Id:16121
-ColorIdentity:W
+ColorIdentity:R
 OriginSet:G70d19654882197c9
-ManaCost:1 W
-Types:Instant
-K:Escalate:2
-A:SP$ Charm | MinCharmNum$ 1 | CharmNum$ 3 | Choices$ DBGainLife,DBUntap,DBSacrifice
-SVar:DBGainLife:DB$ GainLife | ValidTgts$ Player | LifeAmount$ 4
-SVar:DBUntap:DB$ Untap | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 2
-SVar:DBSacrifice:DB$ Sacrifice | ValidTgts$ Opponent | SacValid$ Creature.attacking
+ManaCost:6 R R
+Types:Creature Devil Horror
+PT:3/4
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ X | EffectZone$ All
+K:Prowess
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigDiscard
+SVar:TrigDiscard:DB$ Discard | Mode$ Hand | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 3
+SVar:X:Count$ValidGraveyard Instant.YouOwn,Sorcery.YouOwn

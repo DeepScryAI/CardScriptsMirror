@@ -1,9 +1,12 @@
 Id:3645
 ColorIdentity:G
 OriginSet:Gf01f1543bdb61bd2
-ManaCost:no cost
-Types:Land
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
-A:AB$ Mana | Cost$ T | Produced$ G
-A:AB$ Animate | Cost$ 1 G | Defined$ Self | Power$ 3 | Toughness$ 3 | Types$ Creature,Ape | Colors$ Green | OverwriteColors$ True | Keywords$ Trample
+ManaCost:3 G
+Types:Creature Treefolk
+PT:2/4
+T:Mode$ AttackerBlockedByCreature | ValidCard$ Creature | ValidBlocker$ Card.Self | Execute$ TrigDestroyBlocked
+T:Mode$ AttackerBlockedByCreature | ValidCard$ Card.Self | ValidBlocker$ Creature | Execute$ TrigDestroyBlocker | Secondary$ True
+SVar:TrigDestroyBlocked:DB$ Pump | Defined$ TriggeredAttacker | RememberObjects$ TriggeredAttacker | SubAbility$ DBDestroy
+SVar:TrigDestroyBlocker:DB$ Pump | Defined$ TriggeredBlocker | RememberObjects$ TriggeredBlocker | SubAbility$ DBDestroy
+SVar:DBDestroy:DB$ DestroyAll | ValidCards$ Aura.AttachedTo Card.IsRemembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

@@ -1,8 +1,14 @@
 Id:24525
-ColorIdentity:U
-OriginSet:G58bfeff4fb121c8e
-ManaCost:no cost
-Types:Land Island Gate
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
-A:AB$ Seek | Cost$ 3 U T | Type$ Card.nonLand | GameActivationLimit$ 1
+ColorIdentity:B
+OriginSet:G51fcb7ec0cb81c29
+ManaCost:3 B
+Types:Creature Crab Ooze Horror
+PT:*/4
+S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Creature.OppOwn | TargetMin$ 0 | TargetMax$ 1 | RememberChanged$ True | SubAbility$ DBCopy
+SVar:DBCopy:DB$ CopyPermanent | Defined$ Self | NumCopies$ Y | SubAbility$ DBCleanup
+SVar:X:Count$Valid Crab.YouCtrl,Ooze.YouCtrl,Horror.YouCtrl
+SVar:Y:Remembered$Amount
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:BuffedBy:Crab,Ooze,Horror

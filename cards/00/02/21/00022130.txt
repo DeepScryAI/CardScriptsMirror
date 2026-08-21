@@ -1,18 +1,8 @@
 Id:22130
-ColorIdentity:BG
-OriginSet:Ga575fa2f4f5cded4
-ManaCost:1 B G
-Types:Legendary Planeswalker Grist
-Loyalty:3
-S:Mode$ Continuous | Affected$ Card.Self | ExcludeZone$ Battlefield | SetPower$ 1 | SetToughness$ 1 | AddType$ Creature & Insect | CharacteristicDefining$ True
-A:AB$ Repeat | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | RepeatSubAbility$ CleanupBegin | RepeatCheckSVar$ MilledInsect | RepeatSVarCompare$ EQ1 | SubAbility$ DBCleanup
-SVar:CleanupBegin:DB$ Cleanup | ClearRemembered$ True | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenScriptIds$ 2380780906 | TokenOwner$ You | Planeswalker$ True | SubAbility$ DBMill
-SVar:DBMill:DB$ Mill | Defined$ You | NumCards$ 1 | RememberMilled$ True | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ LOYALTY | CounterNum$ 1 | ConditionDefined$ Remembered | ConditionPresent$ Card.Insect | ConditionCompare$ EQ1
-SVar:MilledInsect:Remembered$Valid Card.Insect
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-A:AB$ ImmediateTrigger | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | Execute$ TrigDestroy | UnlessCost$ Sac<1/Creature> | UnlessPayer$ You | UnlessSwitched$ True | AILogic$ WeakerCreature
-SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Creature,Planeswalker
-A:AB$ LoseLife | Cost$ SubCounter<5/LOYALTY> | LifeAmount$ X | Defined$ Player.Opponent | Planeswalker$ True | Ultimate$ True
-SVar:X:Count$ValidGraveyard Creature.YouOwn
+ColorIdentity:WB
+OriginSet:Gd784248bfdf9e1d7
+ManaCost:4 WB WB
+Types:Sorcery
+A:SP$ ChangeZone | ValidTgts$ Creature | Origin$ Battlefield | Destination$ Exile | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | TargetMin$ 0 | ValidTgts$ Instant,Sorcery | SubAbility$ DBLearn
+SVar:DBLearn:DB$ Learn

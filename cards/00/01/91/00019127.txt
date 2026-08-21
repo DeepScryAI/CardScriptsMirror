@@ -1,11 +1,13 @@
 Id:19127
-ColorIdentity:
-OriginSet:Gf56613712ce2ae1f
-ManaCost:no cost
-Types:Land
-K:etbCounter:CHARGE:1
-A:AB$ Mana | Cost$ T | Produced$ C
-A:AB$ PutCounter | Cost$ X X T | CounterType$ CHARGE | CounterNum$ X
-SVar:X:Count$xPaid
-A:AB$ DestroyAll | Cost$ 3 T Sac<1/CARDNAME> | ValidCards$ Permanent.nonLand+cmcEQY
-SVar:Y:Count$CardCounters.CHARGE
+ColorIdentity:B
+OriginSet:G0b51a0aecbe39efe
+ManaCost:4 B B
+Types:Legendary Creature Vampire
+PT:3/3
+K:Flying
+K:Lifelink
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDiscard
+SVar:TrigDiscard:DB$ Discard | Defined$ TriggeredDefendingPlayer | NumCards$ 1 | Mode$ TgtChoose
+SVar:HasAttackEffect:TRUE
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Graveyard | ValidCard$ Card.!token+OppOwn | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1

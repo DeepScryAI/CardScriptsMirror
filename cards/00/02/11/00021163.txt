@@ -1,14 +1,10 @@
 Id:21163
-ColorIdentity:G
-OriginSet:G72c9c624ceb92bff
-ManaCost:2 G
-Types:Instant
-A:SP$ Pump | ValidTgts$ Creature.YouCtrl | AILogic$ Fight | SubAbility$ DBFight
-SVar:DBFight:DB$ Fight | Defined$ ParentTarget | ValidTgts$ Creature.YouDontCtrl
-AlternateMode:Modal
-ALTERNATE
-ManaCost:no cost
-Types:Land
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
-A:AB$ Mana | Cost$ T | Produced$ G
+ColorIdentity:UB
+OriginSet:G7b2607750b451c25
+ManaCost:3 U B
+Types:Legendary Creature Merfolk Rogue
+PT:4/4
+K:Flash
+A:AB$ ChangeZone | Cost$ 2 U B Return<1/Rogue.unblocked+attacking+YouCtrl/unblocked attacking Rogue you control> | ActivationZone$ Hand | Defined$ Self | Origin$ Hand | Destination$ Battlefield | Tapped$ True | Attacking$ True
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigGainControl | OptionalDecider$ You
+SVar:TrigGainControl:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True | ValidTgts$ Permanent | TargetsWithDefinedController$ TriggeredTarget

@@ -1,8 +1,12 @@
 Id:26284
-ColorIdentity:
-OriginSet:G997e3b19a1e94e85
-ManaCost:no cost
-Types:Land Locus Sphere
-A:AB$ Mana | Cost$ T | Produced$ C
-A:AB$ Draw | Cost$ 2 T Sac<1/CARDNAME> | NumCards$ X
-SVar:X:Count$ValidGraveyard Locus.YouOwn,Sphere.YouOwn
+ColorIdentity:W
+OriginSet:G2192e8955d5e1ad1
+ManaCost:W W W W
+Types:Creature Phyrexian Horror
+PT:5/5
+K:Flying
+R:Event$ DamageDone | ActiveZones$ Battlefield | ValidTarget$ Card.Self | ReplaceWith$ DBImmediateTrigger | PreventionEffect$ True
+SVar:DBImmediateTrigger:DB$ ImmediateTrigger | Execute$ TrigDamage | RememberSVarAmount$ X
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Creature.Other,Player,Planeswalker.Other,Battle.Other | NumDmg$ Y
+SVar:X:ReplaceCount$DamageAmount
+SVar:Y:Count$TriggerRememberAmount

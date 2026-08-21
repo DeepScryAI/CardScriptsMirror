@@ -1,15 +1,7 @@
 Id:25085
-ColorIdentity:R
-OriginSet:G9afc9838c5e994df
-ManaCost:3 R
-Types:Creature Human Citizen
-PT:4/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigCantBlock
-SVar:TrigCantBlock:DB$ Pump | ValidTgts$ Creature.OppCtrl | KW$ HIDDEN CARDNAME can't block. | IsCurse$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ2 | RememberObjects$ Targeted | Triggers$ MustAttackTrig | Duration$ Permanent | ExileOnMoved$ Battlefield
-SVar:MustAttackTrig:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ Player.controlsCreature.IsRemembered_GE1 | Execute$ TrigAttacks | Static$ True
-SVar:TrigAttacks:DB$ Animate | Defined$ Remembered | staticAbilities$ MustAttack | Duration$ UntilEndOfCombat | SubAbility$ ExileSelf
-SVar:MustAttack:Mode$ MustAttack | ValidCreature$ Card.Self
-SVar:ExileSelf:DB$ ChangeZone | Origin$ Command | Destination$ Exile | Defined$ Self
-SVar:X:Count$ResolvedThisTurn
-SVar:BuffedBy:Creature
+ColorIdentity:
+OriginSet:G3a8b4b9d4649b357
+ManaCost:no cost
+Types:Land Mountain Forest
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True

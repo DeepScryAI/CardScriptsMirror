@@ -1,12 +1,14 @@
 Id:18607
-ColorIdentity:B
+ColorIdentity:W
 OriginSet:Gd7cbb6e7dea72fb5
-ManaCost:4 B
-Types:Creature Elemental
-PT:3/4
-K:Deathtouch
-K:Evoke:3 B
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigPumpAll
-SVar:TrigPumpAll:DB$ PumpAll | ValidCards$ Creature | NumAtt$ -3 | NumDef$ -3 | IsCurse$ True
-SVar:NeedsToPlayEvokedVar:Z GE2
-SVar:Z:Count$Valid Creature.OppCtrl+toughnessLE3
+ManaCost:2 W
+Types:Creature Pegasus
+PT:2/1
+K:Flying
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigChooseOpp
+SVar:TrigChooseOpp:DB$ ChoosePlayer | Defined$ You | Choices$ Player.Opponent+withMoreLandsThanYou | SubAbility$ TrigSearchHand
+SVar:TrigSearchHand:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Plains.YouCtrl | ChangeNum$ Z | NoShuffle$ True | ConditionCheckSVar$ X | ConditionSVarCompare$ GE2 | SubAbility$ TrigSearchPlay
+SVar:TrigSearchPlay:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Plains.YouCtrl | ChangeNum$ 1 | NoLooking$ True | Tapped$ True | ConditionCheckSVar$ X
+SVar:X:Count$Valid Land.ChosenCtrl/Minus.Y
+SVar:Y:Count$Valid Land.YouCtrl
+SVar:Z:SVar$X/Minus.1

@@ -1,13 +1,11 @@
 Id:22211
-ColorIdentity:B
-OriginSet:Geb2cf181996ee3b2
-ManaCost:1 B
-Types:Creature Skeleton Shaman
-PT:1/1
-S:Mode$ CantBlock | ValidCard$ Card.Self
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Destination$ Battlefield | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 1
-A:AB$ ChangeZone | Cost$ 2 B B | ActivationZone$ Graveyard | Origin$ Graveyard | Destination$ Hand
-SVar:SacMe:2
-SVar:DiscardMe:2
+ColorIdentity:
+OriginSet:Ga575fa2f4f5cded4
+ManaCost:7
+Types:Legendary Artifact Equipment
+K:Living Weapon
+K:Indestructible
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 5 | AddToughness$ 5 | AddKeyword$ FirstStrike & Trample & Indestructible & Haste | AddTrigger$ TrigDamageDone
+SVar:TrigDamageDone:Mode$ DamageDone | CombatDamage$ True | ValidSource$ Card.Self | ValidTarget$ Creature | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Defined$ TriggeredTarget | Origin$ Battlefield | Destination$ Exile
+K:Equip:7

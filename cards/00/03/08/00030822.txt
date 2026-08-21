@@ -1,11 +1,13 @@
 Id:30822
-ColorIdentity:R
-OriginSet:G2c8286a6f234d4b9
-ManaCost:3 R
-Types:Creature Human Wizard
-PT:3/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
-SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Instant.YouOwn,Sorcery.YouOwn | TargetMin$ 0 | TargetMax$ 1 | RememberChanged$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ Play | ForgetOnMoved$ Exile | Duration$ UntilTheEndOfYourNextTurn | SubAbility$ DBCleanup
-SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered+nonLand | AffectedZone$ Exile
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:U
+OriginSet:Gc5a2f0ff902c0621
+ManaCost:4 U U
+Types:Creature Sphinx
+PT:5/5
+R:Event$ Counter | ValidCard$ Card.Self | ValidSA$ Spell | Layer$ CantHappen
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPeekAndReveal
+SVar:TrigPeekAndReveal:DB$ PeekAndReveal | Defined$ You | PeekAmount$ 5 | NoReveal$ True | RememberPeeked$ True | SubAbility$ Separate
+SVar:Separate:DB$ TwoPiles | Defined$ You | Separator$ You | Chooser$ Opponent | DefinedCards$ Remembered | ChosenPile$ DBHand | UnchosenPile$ DBGraveyard | Zone$ Library | FaceDown$ One
+SVar:DBHand:DB$ ChangeZone | Defined$ Remembered | Origin$ Library | Destination$ Hand
+SVar:DBGraveyard:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered | Origin$ Library | Destination$ Graveyard

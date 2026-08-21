@@ -1,8 +1,13 @@
 Id:30401
-ColorIdentity:WU
-OriginSet:G8b2ed00ac2a0ff47
-ManaCost:W U
-Types:Enchantment Creature Fox Glimmer
-PT:2/3
-S:Mode$ ReduceCost | ValidCard$ Enchantment | Type$ Spell | Activator$ You | Amount$ 1
-S:Mode$ ReduceCost | ValidSpell$ Static.Unlock | Activator$ You | Amount$ 1
+ColorIdentity:W
+OriginSet:G7b2137df486dc752
+ManaCost:4 W
+Types:Enchantment Room
+S:Mode$ Continuous | Affected$ Permanent.nonLand+YouCtrl | AffectedZone$ Battlefield,Stack | AddType$ Enchantment
+AlternateMode:Split
+ALTERNATE
+ManaCost:2 W
+Types:Enchantment Room
+T:Mode$ SpellCast | ValidCard$ Enchantment | ValidActivatingPlayer$ You | Execute$ TrigPutCounter | TriggerZones$ Battlefield
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | CounterType$ P1P1 | CounterNum$ X
+SVar:X:TriggeredSpellAbility$CardManaCostLKI

@@ -1,9 +1,10 @@
 Id:3148
-ColorIdentity:U
+ColorIdentity:R
 OriginSet:Gf1d09a490b0c0641
-ManaCost:1 U U
-Types:Creature Bird Noble
-PT:2/2
-T:Mode$ RolledDie | TriggerZones$ Battlefield | Execute$ TrigCounters | ValidResult$ 6 | ValidSides$ 6
-SVar:TrigCounters:DB$ PutCounterAll | ValidCards$ Bird | CounterType$ P1P1 | CounterNum$ 1
-A:AB$ RollDice | Cost$ tapXType<1/Bird> | AILogic$ AtOppEOT
+ManaCost:1 R
+Types:Creature Egg
+PT:0/1
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigRoll
+SVar:TrigRoll:DB$ RollDice | ResultSubAbilities$ 6:DBSac
+SVar:DBSac:DB$ Sacrifice | Defined$ Self | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 3532942888

@@ -1,9 +1,18 @@
 Id:31501
-ColorIdentity:W
-OriginSet:Gf2b808f4f642ac62
-ManaCost:2 W
-Types:Enchantment
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Permanent.nonLand+OppCtrl | Duration$ UntilHostLeavesPlay
-SVar:PlayMain1:TRUE
-SVar:OblivionRing:TRUE
+ColorIdentity:WBR
+OriginSet:G93ac57511923c3dd
+ManaCost:2 R W B
+Types:Legendary Creature Spirit Dragon
+PT:4/4
+K:Flying
+K:Deathtouch
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 1112542976 | TokenOwner$ You
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigExile | TriggerZones$ Battlefield
+SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ X | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffectYou
+SVar:DBEffectYou:DB$ Effect | RememberObjects$ Remembered | StaticAbilities$ STPlay | SubAbility$ DBCleanup | ForgetOnMoved$ Exile | Duration$ Permanent
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile | CheckSVar$ Y
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$Valid Permanent.YouCtrl+token$DifferentCardNames
+SVar:Y:Count$CreaturesAttackedThisTurn Creature.IsCommander+YouCtrl
+SVar:HasAttackEffect:TRUE

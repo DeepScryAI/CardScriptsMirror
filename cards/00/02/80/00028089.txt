@@ -1,14 +1,8 @@
 Id:28089
-ColorIdentity:W
-OriginSet:Gfd50577710a6ab09
-ManaCost:2 W
-Types:Creature Cat Warrior
-PT:3/1
-K:Flash
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm
-SVar:TrigCharm:DB$ Charm | Choices$ DBPutCounter,DBGainLife,DBExile
-SVar:DBPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ X
-SVar:X:Count$LeftBattlefieldThisTurn Creature.YouCtrl
-SVar:DBGainLife:DB$ GainLife | LifeAmount$ 3 | SubAbility$ DBScry
-SVar:DBScry:DB$ Scry | ScryNum$ 2
-SVar:DBExile:DB$ ChangeZoneAll | ValidTgts$ Player | Origin$ Graveyard | Destination$ Exile | ChangeType$ Card | IsCurse$ True
+ColorIdentity:U
+OriginSet:G06c78c29bfb28e3d
+ManaCost:1 U
+Types:Instant
+A:SP$ Proliferate | SubAbility$ DBPhaseOut | RememberPut$ True
+SVar:DBPhaseOut:DB$ Phases | Defined$ Valid Permanent.IsRemembered+YouCtrl | AnyNumber$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

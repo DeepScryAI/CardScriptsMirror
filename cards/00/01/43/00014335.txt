@@ -1,12 +1,8 @@
 Id:14335
-ColorIdentity:BR
+ColorIdentity:R
 OriginSet:G2192ecccbc32f5ad
-ManaCost:X B R
-Types:Legendary Creature Goblin Rogue
-PT:2/2
-K:etbCounter:P1P1:X
-SVar:X:Count$xPaid
-A:AB$ ChangeZone | Cost$ 2 | Defined$ BottomOfLibrary | Origin$ Library | Destination$ Graveyard | RememberChanged$ True | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | Defined$ Remembered | Origin$ All | Destination$ Battlefield | Hidden$ True | ConditionDefined$ Remembered | ConditionPresent$ Card.Creature+powerLEY | ConditionCompare$ GE1 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:Y:Count$CardPower
+ManaCost:4 R R
+Types:Sorcery
+A:SP$ Token | TokenScriptIds$ 804018428 | SubAbility$ DBChoose
+SVar:DBChoose:DB$ ChooseCard | Defined$ Player | ChooseEach$ Artifact & Creature & Land | ControlledByPlayer$ Left | Mandatory$ True | SubAbility$ DBDestroy
+SVar:DBDestroy:DB$ Destroy | Defined$ ChosenCard

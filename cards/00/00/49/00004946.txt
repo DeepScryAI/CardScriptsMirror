@@ -1,10 +1,11 @@
 Id:4946
-ColorIdentity:BR
+ColorIdentity:W
 OriginSet:G9e6cd9ac1f7f4832
-ManaCost:1 B R
-Types:Creature Zombie
-PT:4/3
-A:AB$ Pump | Cost$ 2 | Defined$ Self | NumAtt$ +1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange
-SVar:TrigChange:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Hidden$ True | Mandatory$ True | ChangeType$ Creature.Black+YouCtrl,Creature.Red+YouCtrl | AILogic$ NeverBounceItself
-SVar:NeedsToPlay:Creature.Black+cmcLE3+YouCtrl,Creature.Red+cmcLE3+YouCtrl
+ManaCost:2 W
+Types:Enchantment
+R:Event$ DamageDone | ActiveZones$ Battlefield | ValidTarget$ Creature.YouCtrl | ReplaceWith$ DmgMinus1
+SVar:DmgMinus1:DB$ ReplaceEffect | VarName$ DamageAmount | VarValue$ X
+SVar:X:ReplaceCount$DamageAmount/Minus.1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+SVar:PlayMain1:TRUE

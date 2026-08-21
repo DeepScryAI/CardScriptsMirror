@@ -1,13 +1,8 @@
 Id:10170
-ColorIdentity:B
+ColorIdentity:R
 OriginSet:G8f5d5a0744ac5b98
-ManaCost:2 B B
-Types:Artifact
-A:AB$ Draw | Cost$ T ExileFromGrave<2/Card> | NumCards$ 1
-R:Event$ DamageDone | ActiveZones$ Battlefield | ValidTarget$ You | ReplaceWith$ ChangeZone | PreventionEffect$ True
-SVar:ChangeZone:DB$ ChangeZone | Hidden$ True | Mandatory$ True | ChangeType$ Card | ChangeNum$ X | DefinedPlayer$ ReplacedTarget | Origin$ Graveyard | Destination$ Exile
-T:Mode$ Always | TriggerZones$ Battlefield | IsPresent$ Card.YouCtrl | PresentZone$ Graveyard | PresentCompare$ EQ0 | Execute$ TrigLoseGame
-SVar:TrigLoseGame:DB$ LosesGame | Defined$ You
-SVar:X:ReplaceCount$DamageAmount
-SVar:Y:Count$ValidGraveyard Card.YouCtrl
-SVar:NeedsToPlayVar:Y GE1
+ManaCost:2 R
+Types:Creature Lizard
+PT:3/1
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.Other | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigDealDamage
+SVar:TrigDealDamage:DB$ DealDamage | ValidTgts$ Player,Planeswalker | NumDmg$ 1

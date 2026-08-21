@@ -1,8 +1,21 @@
 Id:22964
-ColorIdentity:R
+ColorIdentity:UB
 OriginSet:Gf78628ad511eefec
-ManaCost:1 R
-Types:Instant
-A:SP$ Pump | ValidTgts$ Creature | NumAtt$ +3 | NumDef$ +1 | SubAbility$ DBPump1
-SVar:DBPump1:DB$ Pump | Defined$ Targeted | KW$ Trample | SubAbility$ DBPump2 | ConditionPlayerTurn$ True
-SVar:DBPump2:DB$ Pump | Defined$ Targeted | KW$ FirstStrike | ConditionPlayerTurn$ False
+ManaCost:U B
+Types:Legendary Creature Human Wizard
+PT:2/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigMill | Secondary$ True
+SVar:TrigMill:DB$ Mill | NumCards$ 1 | Defined$ You
+A:AB$ SetState | Cost$ XMin1 X U U B B ExileFromGrave<X/Creature/creature cards> | Defined$ Self | Mode$ Transform | SorcerySpeed$ True
+SVar:X:Count$xPaid
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:blue,black
+Types:Legendary Creature Zombie
+PT:4/4
+R:Event$ Transform | ValidCard$ Card.Self | ReplaceWith$ Copy
+SVar:Copy:DB$ Clone | Choices$ Creature.ExiledWithSource | ChoiceZone$ Exile | NewName$ 17237007875102655340 | SetPower$ 4 | SetToughness$ 4 | AddTypes$ Legendary & Zombie | AddColors$ Blue & Black | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | CounterNum$ Y | CounterType$ P1P1
+SVar:Y:Count$ValidExile Creature.ExiledWithSource

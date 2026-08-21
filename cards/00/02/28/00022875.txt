@@ -1,24 +1,9 @@
 Id:22875
-ColorIdentity:B
+ColorIdentity:UB
 OriginSet:Gf78628ad511eefec
-ManaCost:2 B
-Types:Legendary Creature Human Cleric
-PT:2/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigLoseLife
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Human.Other+!token+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigLoseLife | Secondary$ True
-SVar:TrigLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ 1 | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenScriptIds$ 638238902
-A:AB$ Pump | Cost$ 2 | ValidTgts$ Human.YouCtrl | KW$ Lifelink
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ X | SVarCompare$ EQ13 | Execute$ TrigTransform
-SVar:TrigTransform:AB$ SetState | Cost$ 4 B B | Defined$ Self | Mode$ Transform
-SVar:X:Count$YourLifeTotal
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:black
-Types:Legendary Creature Demon
-PT:6/6
-K:Flying
-K:Trample
-K:Lifelink
-A:AB$ Draw | Cost$ Sac<1/Creature.Other/another creature> | NumCards$ 1
+ManaCost:U B
+Types:Instant
+A:SP$ Token | Cost$ U B Sac<X/Creature/creature> | TokenScriptIds$ 130791574 | TokenPower$ Y | TokenToughness$ Y
+K:Flashback:3 U B
+SVar:X:Count$xPaid
+SVar:Y:Sacrificed$CardPower

@@ -1,8 +1,12 @@
 Id:9316
-ColorIdentity:W
+ColorIdentity:B
 OriginSet:G1ddd2c86a9ea60e3
-ManaCost:1 W
-Types:Kindred Enchantment Elemental
-T:Mode$ Drawn | ValidCard$ Card.YouCtrl | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ HOOFPRINT | CounterNum$ 1
-A:AB$ Token | Cost$ 2 W SubCounter<4/HOOFPRINT> | TokenScriptIds$ 1049968 | TokenOwner$ You | PlayerTurn$ True
+ManaCost:3 B
+Types:Sorcery
+A:SP$ Repeat | RepeatCheckSVar$ CheckRepeat | RepeatSVarCompare$ GT0 | RepeatSubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ 2 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 2 | SubAbility$ DBClash
+SVar:DBClash:DB$ Clash | WinSubAbility$ DBStoreSVar | OtherwiseSubAbility$ DBReset
+SVar:DBStoreSVar:DB$ StoreSVar | SVar$ CheckRepeat | Type$ Number | Expression$ 1
+SVar:DBReset:DB$ StoreSVar | SVar$ CheckRepeat | Type$ Number | Expression$ 0
+SVar:CheckRepeat:Number$0

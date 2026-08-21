@@ -1,11 +1,12 @@
 Id:22699
-ColorIdentity:B
-OriginSet:G268a0d6ee06912c2
-ManaCost:1 B
-Types:Creature Rat
-PT:1/1
-K:Deathtouch
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChoose
-SVar:TrigChoose:DB$ ChooseCard | ChoiceZone$ Hand | Choices$ Card.Creature+YouOwn | Mandatory$ True | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | PumpZone$ Hand | Defined$ ChosenCard | KW$ Deathtouch | Duration$ Perpetual | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+ColorIdentity:G
+OriginSet:G9f95a41d532c0550
+ManaCost:2 G
+Types:Creature Human Druid
+PT:2/3
+K:Vigilance
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigRollDice
+SVar:TrigRollDice:DB$ RollDice | Sides$ 20 | ResultSubAbilities$ 1-9:Gain1,10-19:Gain2,20:Gain5
+SVar:Gain1:DB$ GainLife | Defined$ You | LifeAmount$ 1
+SVar:Gain2:DB$ GainLife | Defined$ You | LifeAmount$ 2
+SVar:Gain5:DB$ GainLife | Defined$ You | LifeAmount$ 5

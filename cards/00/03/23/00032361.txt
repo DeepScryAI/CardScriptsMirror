@@ -1,9 +1,13 @@
 Id:32361
-ColorIdentity:RG
-OriginSet:G66b3a7eeabd9000e
-ManaCost:1 RG
-Types:Creature Human Citizen
-PT:2/2
-T:Mode$ Phase | Phase$ Main1 | ValidPlayer$ Player | TriggerZones$ Battlefield | Execute$ TrigMana
-SVar:TrigMana:DB$ Mana | UnlessCost$ AddCounter<1/P1P1/CARDNAME> | UnlessPayer$ TriggeredPlayer | UnlessSwitched$ True | Produced$ C | Amount$ X | Defined$ TriggeredPlayer
-SVar:X:Count$CardCounters.ALL
+ColorIdentity:R
+OriginSet:G9946f072b5556073
+ManaCost:2 R
+Types:Creature Kavu Artificer
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self,Kavu.Other+YouCtrl | Execute$ TrigExile
+SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ Remembered | StaticAbilities$ STPlay | Duration$ Permanent | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | CheckSVar$ X | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$Valid Kavu.YouCtrl
+K:Warp:1 R

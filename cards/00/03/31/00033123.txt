@@ -1,11 +1,10 @@
 Id:33123
-ColorIdentity:WB
-OriginSet:G7ab1fe96128a1641
-ManaCost:4 WB WB
-Types:Creature Elemental Incarnation
-PT:3/5
-K:Evoke:WB WB
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | CheckSVar$ CastSA>Count$Adamant_2.White.2.0 | ValidCard$ Card.Self | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouCtrl+cmcLE3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | CheckSVar$ CastSA>Count$Adamant_2.Black.2.0 | ValidCard$ Card.Self | Execute$ TrigPutCounters
-SVar:TrigPutCounters:DB$ PutCounter | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | CounterNum$ 3 | CounterType$ M1M1
+ColorIdentity:R
+OriginSet:G731e0066916b7465
+ManaCost:2 R
+Types:Artifact
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | NumAtt$ +2 | KW$ Firebending:2
+A:AB$ PutCounter | Cost$ R | Defined$ Self | CounterType$ CHARGE | CounterNum$ 1
+A:AB$ DealDamage | Cost$ SubCounter<50/CHARGE> | ValidTgts$ Any | NumDmg$ 50
+SVar:PlayMain1:TRUE

@@ -1,8 +1,17 @@
 Id:34540
-ColorIdentity:B
-OriginSet:G11c0621ce29fa608
-ManaCost:1 B
-Types:Creature Human Spy Villain
-PT:1/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigConnive
-SVar:TrigConnive:DB$ Connive
+ColorIdentity:U
+OriginSet:Gcb93bbfc68a40806
+ManaCost:4 U U
+Types:Legendary Creature Alien Hero
+PT:5/5
+K:Flash
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | ValidTgts$ Permanent.Other+YouCtrl | TargetMin$ 0 | TargetMax$ X | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DelTrig
+SVar:DelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ TrigEffect | RememberObjects$ RememberedLKI | SubAbility$ DBCleanup
+SVar:TrigEffect:DB$ Effect | RememberObjects$ DelayTriggerRemembered | ReplacementEffects$ ETBLand | ForgetOnMoved$ Exile | SubAbility$ DBReturn
+SVar:ETBLand:Event$ Moved | ValidCard$ Land.IsRemembered | Destination$ Battlefield | ReplaceWith$ DBTapped | ReplacementResult$ Updated
+SVar:DBTapped:DB$ Tap | Defined$ ReplacedCard | ETB$ True
+SVar:DBReturn:DB$ ChangeZone | Origin$ Exile | Destination$ Battlefield | Defined$ DelayTriggerRememberedLKI
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$Valid Permanent.Other+YouCtrl

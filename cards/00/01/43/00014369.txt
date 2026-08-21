@@ -1,11 +1,13 @@
 Id:14369
-ColorIdentity:
+ColorIdentity:WG
 OriginSet:G2192ecccbc32f5ad
-ManaCost:no cost
-Types:Conspiracy
-T:Mode$ NewGame | TriggerZones$ Command | Execute$ TrigWorldknit | Static$ True
-SVar:TrigWorldknit:DB$ StoreSVar | SVar$ X | Type$ Number | Expression$ 1 | ConditionCheckSVar$ Y | ConditionSVarCompare$ EQ0
-S:Mode$ Continuous | Affected$ Land.YouCtrl | EffectZone$ Command | CheckSVar$ X | AddAbility$ AnyMana
-SVar:AnyMana:AB$ Mana | Cost$ T | Produced$ Any | Amount$ 1
-SVar:X:Number$0
-SVar:Y:Count$ValidSideboard Card.YouOwn
+ManaCost:4 G W
+Types:Creature Elemental
+PT:4/4
+K:Trample
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigReveal
+SVar:TrigReveal:DB$ PeekAndReveal | Defined$ Player | RememberRevealed$ True | SubAbility$ DBPump
+SVar:DBPump:DB$ PumpAll | ValidCards$ Creature.attacking+YouCtrl | NumAtt$ +X | NumDef$ +X | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ Player | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Valid Card.nonLand

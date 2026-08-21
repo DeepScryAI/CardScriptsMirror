@@ -1,13 +1,19 @@
 Id:31848
-ColorIdentity:B
+ColorIdentity:UG
 OriginSet:G7ab4f62d323b0ca7
-ManaCost:1 B
-Types:Legendary Creature Human Assassin
-PT:2/1
-K:Menace
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigExile
-SVar:TrigExile:DB$ Dig | Defined$ TriggeredTarget | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | Imprint$ True | SubAbility$ DBSacrifice
-SVar:DBSacrifice:DB$ Sacrifice | SacValid$ Artifact.Other,Creature.Other | Optional$ True | RememberSacrificed$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | ConditionDefined$ Remembered | ConditionPresent$ Card | StaticAbilities$ STPlay | ForgetOnMoved$ Exile | RememberObjects$ Imprinted | ForgetOtherRemembered$ True | SubAbility$ DBCleanup
-SVar:STPlay:Mode$ Continuous | MayPlay$ True | MayPlayIgnoreType$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True
+ManaCost:no cost
+Types:Land Town
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ Combo G U
+A:AB$ SetState | Cost$ 5 G U T | ReduceCost$ X | Defined$ Self | Mode$ Transform | AILogic$ Always
+SVar:X:Count$Valid Town.YouCtrl+Other
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Types:Legendary Artifact Vehicle
+PT:5/4
+K:Flying
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw
+K:Crew:1

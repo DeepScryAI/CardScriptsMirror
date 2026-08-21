@@ -1,10 +1,10 @@
 Id:19760
-ColorIdentity:BR
-OriginSet:Ga539dc09c09c4538
-ManaCost:2 B R
-Types:Legendary Creature Human Minion
-PT:3/2
-A:AB$ Effect | Cost$ Discard<1/Card> | StaticAbilities$ STYardCast | ActivationLimit$ 1
-SVar:STYardCast:Mode$ Continuous | Affected$ Creature.nonLand+YouCtrl | MayPlay$ True | MayPlayLimit$ 1 | AffectedZone$ Graveyard
-T:Mode$ ChangesZone | ValidCard$ Creature.!token+YouCtrl+!wasCastFromYourHandByYou | Origin$ Any | Destination$ Battlefield | Execute$ TrigPump | TriggerZones$ Battlefield
-SVar:TrigPump:DB$ Pump | Defined$ TriggeredCard | KW$ Haste | Duration$ UntilYourNextTurn
+ColorIdentity:G
+OriginSet:G7c61dc677f00d087
+ManaCost:G
+Types:Instant
+A:SP$ Draw | Defined$ You | ConditionCheckSVar$ X | SubAbility$ DBEffect | AILogic$ VeilOfSummer
+SVar:DBEffect:DB$ Effect | ReplacementEffects$ AntiMagic | SubAbility$ DBPump
+SVar:AntiMagic:Event$ Counter | ValidSA$ Spell.YouCtrl | Layer$ CantHappen
+SVar:DBPump:DB$ Pump | Defined$ You & Valid Permanent.YouCtrl | KW$ Hexproof:Black & Hexproof:Blue
+SVar:X:Count$ThisTurnCast_Card.OppCtrl+Blue,Card.OppCtrl+Black

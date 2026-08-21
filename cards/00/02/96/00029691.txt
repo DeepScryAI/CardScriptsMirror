@@ -1,14 +1,7 @@
 Id:29691
-ColorIdentity:UBR
-OriginSet:G01a610e823cce3ca
-ManaCost:2 U B R
-Types:Legendary Creature Human Assassin Pirate
-PT:5/5
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenAmount$ X | TokenScriptIds$ 3851718391 | TokenOwner$ You
-T:Mode$ DamageDone | ValidSource$ Vehicle.YouCtrl | ValidTarget$ Player | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigDig
-SVar:TrigDig:DB$ Dig | DigNum$ 1 | Defined$ TriggeredTarget | ChangeNum$ All | DestinationZone$ Exile | ExileFaceDown$ True | WithMayLook$ True | RememberChanged$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ STPlay | SubAbility$ DBCleanup | ForgetOnMoved$ Exile | Duration$ Permanent
-SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$Valid Assassin.tapped+YouCtrl,Pirate.tapped+YouCtrl,Vehicle.tapped+YouCtrl
+ColorIdentity:G
+OriginSet:Gac6359c222afbd4f
+ManaCost:2 G
+Types:Instant
+A:SP$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | SubAbility$ DBEachDamage
+SVar:DBEachDamage:DB$ EachDamage | DefinedDamagers$ Valid Creature.modified+YouCtrl | ValidTgts$ Creature.YouDontCtrl | NumDmg$ Count$CardPower

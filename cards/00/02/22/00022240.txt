@@ -1,9 +1,13 @@
 Id:22240
-ColorIdentity:G
-OriginSet:Geb2cf181996ee3b2
-ManaCost:3 G
-Types:Creature Elemental
-PT:2/2
-K:Evoke:1 G
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Destination$ Battlefield | Execute$ TrigDestroy | OptionalDecider$ You
-SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Artifact,Enchantment
+ColorIdentity:
+OriginSet:Ga575fa2f4f5cded4
+ManaCost:3
+Types:Artifact Equipment
+K:Equip:2
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddToughness$ 2 | AddSVar$ SwordOfHearthAndHomeCE | AddKeyword$ Protection:Green & Protection:White
+T:Mode$ DamageDone | ValidSource$ Creature.EquippedBy | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigBlink | TriggerZones$ Battlefield
+SVar:TrigBlink:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | ValidTgts$ Creature.YouOwn | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBLand
+SVar:DBLand:DB$ ChangeZone | Origin$ Library | Destination$ Library | ChangeType$ Land.Basic | RememberChanged$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ All | Destination$ Battlefield | GainControl$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:SwordOfHearthAndHomeCE:SVar:MustBeBlocked:AttackingPlayerConservative

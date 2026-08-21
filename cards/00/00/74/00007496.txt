@@ -1,7 +1,17 @@
 Id:7496
-ColorIdentity:G
+ColorIdentity:U
 OriginSet:G4747f23d5c5760bc
-ManaCost:G
-Types:Creature Spirit
-PT:1/1
-A:AB$ Pump | Cost$ Sac<1/CARDNAME> | ValidTgts$ Creature | NumAtt$ +1 | NumDef$ +1
+ManaCost:1 U U
+Types:Creature Human Wizard
+PT:2/2
+T:Mode$ SpellCast | ValidCard$ Spirit,Arcane | ValidActivatingPlayer$ You | Execute$ TrigPutCounter | OptionalDecider$ You | TriggerZones$ Battlefield
+T:Mode$ Phase | Phase$ End of Turn | IsPresent$ Card.Self+counters_GE2_KI | Execute$ TrigFlip | OptionalDecider$ You | TriggerZones$ Battlefield
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ KI | CounterNum$ 1
+SVar:TrigFlip:DB$ SetState | Defined$ Self | Mode$ Flip
+AlternateMode:Flip
+ALTERNATE
+ManaCost:1 U U
+Colors:blue
+Types:Legendary Creature Spirit
+PT:3/4
+A:AB$ Counter | Cost$ SubCounter<1/KI> | TargetType$ Spell | ValidTgts$ Card | Destination$ Graveyard | UnlessCost$ 2 | UnlessPayer$ TargetedController

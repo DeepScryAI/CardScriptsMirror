@@ -1,9 +1,11 @@
 Id:31022
 ColorIdentity:R
-OriginSet:G4524bbf7a3db9dc0
-ManaCost:3 R
-Types:Creature Minotaur Pilot
-PT:3/3
-T:Mode$ Saddled | ValidCrew$ Card.Self | Execute$ TrigPump | TriggerZones$ Battlefield | PlayerTurn$ True | Phase$ Main1,Main2
-T:Mode$ Crewed | ValidCrew$ Card.Self | Execute$ TrigPump | TriggerZones$ Battlefield | Secondary$ True | PlayerTurn$ True | Phase$ Main1,Main2
-SVar:TrigPump:DB$ Pump | Defined$ TriggeredCardLKICopy | NumAtt$ +2 | KW$ Trample
+OriginSet:Gcb2af91f529350e8
+ManaCost:2 R
+Types:Legendary Creature Human Citizen
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSuspect
+SVar:TrigSuspect:DB$ AlterAttribute | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Creature | Defined$ Targeted | Attributes$ Suspected
+T:Mode$ Attacks | ValidCard$ Creature.YouCtrl+withMenace | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 3851718391 | TokenOwner$ You
+SVar:PlayMain1:TRUE

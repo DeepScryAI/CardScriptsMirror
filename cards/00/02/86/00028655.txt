@@ -1,9 +1,16 @@
 Id:28655
-ColorIdentity:RG
-OriginSet:Ge329d8d60ca65422
-ManaCost:no cost
-Types:Land
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
-A:AB$ Mana | Cost$ T | Produced$ Combo R G
-A:AB$ Investigate | Cost$ 4 T
+ColorIdentity:UR
+OriginSet:G7ee0e82a2424d636
+ManaCost:5 U R
+Types:Legendary Creature Lizard Artificer
+PT:4/4
+K:Menace
+K:Ward:2
+K:Haste
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigSac | TriggerZones$ Battlefield
+SVar:TrigSac:DB$ Sacrifice | Defined$ You | Amount$ SacX | SacValid$ Creature.Other | RememberSacrificed$ True | Optional$ True | SubAbility$ DBDig
+SVar:DBDig:DB$ Dig | Defined$ You | DigNum$ X | ChangeNum$ All | DestinationZone$ Exile | Imprint$ True | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | Valid$ Card.IsImprinted+YouOwn | ValidZone$ Exile | ValidSA$ Instant,Sorcery | Controller$ You | WithoutManaCost$ True | Optional$ True | Amount$ All | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True
+SVar:X:RememberedLKI$CardPower
+SVar:SacX:Count$Valid Creature.Other

@@ -1,7 +1,12 @@
 Id:8499
-ColorIdentity:U
+ColorIdentity:B
 OriginSet:Gf7b8c9355081f53b
-ManaCost:4 U
-Types:Legendary Creature Human Wizard
+ManaCost:1 B B
+Types:Legendary Creature Zombie Knight
 PT:3/3
-A:AB$ ChangeZone | Cost$ 2 T | ValidTgts$ Permanent | Origin$ Battlefield | Destination$ Hand | IsPresent$ Permanent.Snow+YouCtrl | PresentCompare$ GE4
+S:Mode$ Continuous | Affected$ Card.Self | MayPlay$ True | AffectedZone$ Graveyard | EffectZone$ Graveyard
+S:Mode$ CantBeCast | ValidCard$ Card.Self | Origin$ Exile,Hand,Library,Command | EffectZone$ Graveyard,Hand,Library,Command,Stack
+S:Mode$ Continuous | Affected$ Knight.YouCtrl | ValidAfterStack$ Spell.Knight | MayPlay$ True | EffectZone$ Battlefield | AffectedZone$ Graveyard
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigLose
+SVar:TrigLose:DB$ LoseLife | Defined$ You | LifeAmount$ 2
+SVar:DiscardMe:5

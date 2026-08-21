@@ -1,9 +1,12 @@
 Id:11098
 ColorIdentity:U
 OriginSet:Gd09f2fd86b2e8dd0
-ManaCost:2 U
-Types:Creature Elemental
-PT:2/1
-A:AB$ TapOrUntap | Cost$ U T | ValidTgts$ Creature.Other
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | OptionalDecider$ You | TriggerZones$ Battlefield | Execute$ TrigUntap
-SVar:TrigUntap:DB$ Untap | Defined$ Self
+ManaCost:1 U U
+Types:Legendary Creature Merfolk Rogue
+PT:2/2
+K:Landwalk:Island
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigChangeZone | TriggerZones$ Battlefield
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Library | Destination$ Exile | DefinedPlayer$ TriggeredTarget | Chooser$ You | ChangeType$ Artifact | ChangeNum$ 1 | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | ExileOnMoved$ Exile | RememberObjects$ Remembered | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

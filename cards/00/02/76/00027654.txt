@@ -1,12 +1,15 @@
 Id:27654
-ColorIdentity:WUG
-OriginSet:G30e8a5e111cffb44
-ManaCost:1 G W U
-Types:Legendary Creature Human Soldier
-PT:3/3
-T:Mode$ SpellCast | ValidCard$ Card.Historic | ValidActivatingPlayer$ You | Execute$ TrigToken | TriggerZones$ Battlefield
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 1214250791
-T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPumpAll
-SVar:TrigPumpAll:AB$ PumpAll | Cost$ 8 | ValidCards$ Creature.YouCtrl | NumAtt$ +X | NumDef$ +X
-SVar:X:Count$Valid Permanent.YouCtrl+Historic
+ColorIdentity:RG
+OriginSet:G7579344e30f8be85
+ManaCost:1 R
+Types:Creature Goblin Rogue
+PT:2/2
+T:Mode$ Attacks | ValidCard$ Card.Self | IsPresent$ Creature.YouCtrl+powerGE4 | NoResolvingCheck$ True | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | KW$ DoubleStrike
 SVar:HasAttackEffect:TRUE
+AlternateMode:Adventure
+ALTERNATE
+ManaCost:3 G
+Types:Sorcery Adventure
+A:SP$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 3 | TargetMin$ 0 | TargetMax$ 3 | DividedAsYouChoose$ 3
+SVar:PlayMain1:TRUE

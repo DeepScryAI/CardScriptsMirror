@@ -1,9 +1,9 @@
 Id:16716
-ColorIdentity:W
+ColorIdentity:G
 OriginSet:Gd31f94cf3a5f78e4
-ManaCost:3 W W
-Types:Creature Dwarf Scout
-PT:4/3
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGainLife | Revolt$ True
-SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 5
+ManaCost:3 G G
+Types:Enchantment
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | Revolt$ True | TriggerZones$ Battlefield | Execute$ TrigDig
+SVar:TrigDig:DB$ Dig | DigNum$ 1 | Reveal$ True | Optional$ True | ChangeNum$ 1 | ChangeValid$ Permanent | DestinationZone$ Battlefield | DestinationZone2$ Library | LibraryPosition2$ 0 | RememberChanged$ True | SubAbility$ DBMoveToBottom
+SVar:DBMoveToBottom:DB$ Dig | DigNum$ 1 | DestinationZone$ Library | Optional$ True | LibraryPosition$ -1 | LibraryPosition2$ 0 | ConditionPresent$ Card | ConditionDefined$ Remembered | ConditionCompare$ EQ0 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

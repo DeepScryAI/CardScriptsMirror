@@ -1,10 +1,12 @@
 Id:22455
-ColorIdentity:W
-OriginSet:G9f95a41d532c0550
-ManaCost:2 W
-Types:Artifact Creature Gargoyle
-PT:0/4
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ DBVenture
-SVar:DBVenture:DB$ Venture | Defined$ You
-S:Mode$ Continuous | Affected$ Card.Self | AddPower$ 3 | AddKeyword$ Flying | CheckSVar$ X
-SVar:X:DungeonsCompleted$Amount
+ColorIdentity:R
+OriginSet:G92f7f9489fec5865
+ManaCost:1 R
+Types:Artifact Equipment
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddKeyword$ Reach | AddPower$ 2
+T:Mode$ DamageDoneOnce | Execute$ TrigPump | ValidTarget$ Creature.EquippedBy | TriggerZones$ Battlefield
+SVar:TrigPump:DB$ Pump | RememberObjects$ TriggeredTargetLKICopy | SubAbility$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Player,Planeswalker | DamageSource$ TriggeredTargetLKICopy | NumDmg$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:RememberedLKI$CardPower
+K:Equip:2 R

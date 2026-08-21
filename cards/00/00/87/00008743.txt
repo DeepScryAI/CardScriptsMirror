@@ -1,7 +1,12 @@
 Id:8743
-ColorIdentity:W
+ColorIdentity:R
 OriginSet:G70f74088c47d66bd
-ManaCost:W W W
-Types:Enchantment
-T:Mode$ SpellCast | ValidCard$ Creature | ValidActivatingPlayer$ Opponent | TriggerZones$ Battlefield | IsPresent$ Card.Self+Enchantment | Execute$ TrigAnimate
-SVar:TrigAnimate:DB$ Animate | Defined$ Self | Power$ 3 | Toughness$ 4 | Types$ Creature,Gargoyle | Keywords$ Flying & Protection:Red | RemoveCardTypes$ True | RemoveCreatureTypes$ True | Duration$ Permanent
+ManaCost:R
+Types:Legendary Creature Human Warrior
+PT:2/1
+T:Mode$ SpellCast | ValidCard$ Card | Execute$ TrigExile | TriggerZones$ Battlefield
+T:Mode$ Attacks | ValidCard$ Creature | Execute$ TrigExile | TriggerZones$ Battlefield | Secondary$ True
+SVar:TrigExile:DB$ ChangeZone | Defined$ Self | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DelTrig
+SVar:DelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ TrigReturn | ConditionDefined$ Remembered | ConditionPresent$ Card | RememberObjects$ Remembered
+SVar:TrigReturn:DB$ ChangeZone | Defined$ DelayTriggerRememberedLKI | Origin$ Exile,Command | Destination$ Battlefield
+SVar:MustAttack:True

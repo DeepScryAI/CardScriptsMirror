@@ -1,11 +1,10 @@
 Id:13106
-ColorIdentity:WU
+ColorIdentity:W
 OriginSet:G5449dea2d54987a1
-ManaCost:3 W U
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:Pump
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ X | AddToughness$ X
-SVar:X:Count$ValidHand Card.OwnedBy EnchantedController
-T:Mode$ Phase | Phase$ Draw | ValidPlayer$ Player.EnchantedController | TriggerZones$ Battlefield | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ TriggeredPlayer
+ManaCost:1 W
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZoneAll
+SVar:TrigChangeZoneAll:DB$ ChangeZoneAll | ChangeType$ Card | Origin$ Graveyard | Destination$ Exile
+R:Event$ Moved | ActiveZones$ Battlefield | Destination$ Graveyard | ValidCard$ Card | ReplaceWith$ Exile
+SVar:Exile:DB$ ChangeZone | Hidden$ True | Origin$ All | Destination$ Exile | Defined$ ReplacedCard
+SVar:NonStackingEffect:True

@@ -1,10 +1,11 @@
 Id:5558
 ColorIdentity:B
 OriginSet:Ge4af4f9459d5dadd
-ManaCost:2 B
-Types:Creature Nightmare Horror
+ManaCost:3 B
+Types:Creature Zombie Minion
 PT:2/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigReturn
-SVar:TrigExile:DB$ ChangeZone | TargetMin$ 0 | TargetMax$ 2 | TargetsWithSameController$ True | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card | RememberTargets$ True | ForgetOtherTargets$ True
-SVar:TrigReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Graveyard
+K:Flying
+S:Mode$ Continuous | Affected$ Card.Self | AddTrigger$ TrigETB | Condition$ Threshold
+SVar:TrigETB:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPumpAll
+SVar:TrigPumpAll:DB$ PumpAll | ValidCards$ Creature.nonBlack | NumAtt$ -2 | NumDef$ -2 | IsCurse$ True
+SVar:PlayMain1:TRUE

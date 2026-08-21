@@ -1,26 +1,8 @@
 Id:15200
 ColorIdentity:R
-OriginSet:Ge4fd41522a714e94
-ManaCost:1 R R
-Types:Legendary Creature Human Shaman
+OriginSet:Gdb18f239871b8cef
+ManaCost:R
+Types:Legendary Creature Orc Warrior
 PT:2/2
-T:Mode$ SpellCast | ValidCard$ Card.Red | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigUntap
-SVar:TrigUntap:DB$ Untap | Defined$ Self
-A:AB$ DealDamage | Cost$ T | ValidTgts$ Player,Planeswalker | NumDmg$ 1 | SubAbility$ DBTransform | AILogic$ PingAfterAttack
-SVar:DBTransform:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn | ConditionCheckSVar$ X | ConditionSVarCompare$ GE3
-SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | Transformed$ True | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$TotalDamageDoneByThisTurn
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:red
-Types:Legendary Planeswalker Chandra
-Loyalty:4
-A:AB$ DealDamage | Cost$ AddCounter<1/LOYALTY> | ValidTgts$ Player,Planeswalker | Planeswalker$ True | NumDmg$ 2
-A:AB$ DealDamage | Cost$ SubCounter<2/LOYALTY> | ValidTgts$ Creature | Planeswalker$ True | NumDmg$ 2
-A:AB$ DealDamage | Cost$ SubCounter<7/LOYALTY> | Defined$ Player.Opponent | Planeswalker$ True | Ultimate$ True | NumDmg$ 6 | RememberDamaged$ True | SubAbility$ DBUltimateEmblem
-SVar:DBUltimateEmblem:DB$ Effect | Name$ 17829596200461837446 | Triggers$ FlameTrigger | Duration$ Permanent | AILogic$ Always | EffectOwner$ Player.IsRemembered | SubAbility$ DBCleanup
-SVar:FlameTrigger:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Command | Execute$ TrigDealDamage
-SVar:TrigDealDamage:DB$ DealDamage | Defined$ You | NumDmg$ 3
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+S:Mode$ CantBlockBy | ValidAttacker$ Creature.powerGE2 | ValidBlocker$ Creature.Self
+K:Dash:1 R

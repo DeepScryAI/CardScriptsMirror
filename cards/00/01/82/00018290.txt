@@ -1,10 +1,14 @@
 Id:18290
-ColorIdentity:R
+ColorIdentity:U
 OriginSet:G7d4bd61c81d44275
-ManaCost:2 R
-Types:Creature Human Warrior
-PT:0/4
-K:PartnerWithId:18312
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +X
-SVar:X:Count$Valid Creature.tapped+OppCtrl$GreatestCardPower
+ManaCost:2 U
+Types:Creature Human Wizard
+PT:0/3
+A:AB$ Draw | Cost$ 2 U T | ValidTgts$ Player | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | ChangeType$ Card | Mandatory$ True | Imprint$ True | DefinedPlayer$ Targeted | SubAbility$ DBToken
+SVar:DBToken:DB$ CopyPermanent | Defined$ Imprinted | Controller$ Targeted | ConditionDefined$ Imprinted | ConditionPresent$ Creature | RememberTokens$ True | SubAbility$ ClearImprinted
+SVar:ClearImprinted:DB$ Cleanup | ClearImprinted$ True
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ DelTrigLeaves
+SVar:DelTrigLeaves:DB$ DelayedTrigger | RememberObjects$ Remembered | Mode$ Phase | Phase$ End of Turn | Execute$ TrigExileAll | SubAbility$ DBCleanup
+SVar:TrigExileAll:DB$ ChangeZone | Defined$ DelayTriggerRememberedLKI | Origin$ Battlefield | Destination$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

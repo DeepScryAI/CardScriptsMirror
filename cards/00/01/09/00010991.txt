@@ -1,10 +1,10 @@
 Id:10991
 ColorIdentity:B
 OriginSet:Gd09f2fd86b2e8dd0
-ManaCost:2 B B
-Types:Enchantment Aura
-K:Enchant:Creature,Land:creature or land
-SVar:AttachAILogic:Curse
-T:Mode$ Taps | ValidCard$ Card.AttachedBy | Execute$ TrigDestroy
-SVar:TrigDestroy:DB$ Destroy | Defined$ TriggeredCardLKICopy
-SVar:NonStackingAttachEffect:True
+ManaCost:1 B
+Types:Creature Human Warrior Ally
+PT:1/1
+S:Mode$ CantBlock | ValidCard$ Card.Self
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self,Ally.Other+YouCtrl | OptionalDecider$ You | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+SVar:BuffedBy:Ally

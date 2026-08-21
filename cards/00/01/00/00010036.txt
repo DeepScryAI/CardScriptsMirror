@@ -1,10 +1,11 @@
 Id:10036
-ColorIdentity:UG
+ColorIdentity:WR
 OriginSet:G6a049984467eca45
-ManaCost:2 GU
-Types:Creature Merfolk Wizard
-PT:2/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | IsPresent$ Forest.YouCtrl | PresentCompare$ GE2 | Execute$ TrigGainLife | OptionalDecider$ You
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | IsPresent$ Island.YouCtrl | PresentCompare$ GE2 | Execute$ TrigBounce | OptionalDecider$ You
-SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 3
-SVar:TrigBounce:DB$ ChangeZone | ValidTgts$ Creature.tapped | Origin$ Battlefield | Destination$ Hand
+ManaCost:2 RW
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAITgts:Card.White,Card.Red
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy+Red | AddPower$ 1 | AddToughness$ 1 | AddAbility$ Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy+White | AddPower$ 1 | AddToughness$ 1 | AddKeyword$ Lifelink
+SVar:Pump:AB$ Pump | Cost$ RW | NumAtt$ +1

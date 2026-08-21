@@ -1,9 +1,11 @@
 Id:7675
-ColorIdentity:G
+ColorIdentity:W
 OriginSet:G3fddc6426f419054
-ManaCost:2 G
-Types:Creature Spirit
-PT:2/1
-T:Mode$ SpellCast | ValidCard$ Spirit,Arcane | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDig
-SVar:TrigDig:DB$ Dig | DigNum$ 3 | Reveal$ True | ChangeNum$ All | ChangeValid$ Land
-K:Soulshift:2
+ManaCost:3 W
+Types:Creature Human Soldier
+PT:3/4
+K:Flying
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | IsPresent$ Creature.White | PresentZone$ Battlefield | PresentPlayer$ You | Execute$ TrigBounce | TriggerZones$ Battlefield
+SVar:TrigBounce:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Mandatory$ True | Hidden$ True | ChangeType$ Creature.White+YouCtrl
+SVar:NeedsToPlayVar:Z GE2
+SVar:Z:Count$Valid Creature.White+YouCtrl+cmcLE4

@@ -1,14 +1,11 @@
 Id:18259
-ColorIdentity:U
-OriginSet:G7d4bd61c81d44275
-ManaCost:2 U
-Types:Creature Human Wizard
-PT:0/3
-A:AB$ Draw | Cost$ 2 U T | ValidTgts$ Player | SubAbility$ DBExile
-SVar:DBExile:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | ChangeType$ Card | Mandatory$ True | Imprint$ True | DefinedPlayer$ Targeted | SubAbility$ DBToken
-SVar:DBToken:DB$ CopyPermanent | Defined$ Imprinted | Controller$ Targeted | ConditionDefined$ Imprinted | ConditionPresent$ Creature | RememberTokens$ True | SubAbility$ ClearImprinted
-SVar:ClearImprinted:DB$ Cleanup | ClearImprinted$ True
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ DelTrigLeaves
-SVar:DelTrigLeaves:DB$ DelayedTrigger | RememberObjects$ Remembered | Mode$ Phase | Phase$ End of Turn | Execute$ TrigExileAll | SubAbility$ DBCleanup
-SVar:TrigExileAll:DB$ ChangeZone | Defined$ DelayTriggerRememberedLKI | Origin$ Battlefield | Destination$ Exile
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:WR
+OriginSet:G5033d54b23b37629
+ManaCost:3 R W
+Types:Legendary Creature Angel Artificer
+PT:3/3
+K:Flying
+K:FirstStrike
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Equipment.YouCtrl,Aura.YouCtrl | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ DelayedTrig
+SVar:DelayedTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ TrigBounce | RememberObjects$ TriggeredNewCardLKICopy
+SVar:TrigBounce:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | Defined$ DelayTriggerRememberedLKI

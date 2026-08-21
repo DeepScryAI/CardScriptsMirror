@@ -1,8 +1,13 @@
 Id:23862
-ColorIdentity:R
-OriginSet:Gfdfe2ebef04be34e
-ManaCost:4 R R
-Types:Enchantment
-T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | ActivatorThisTurnCast$ EQ1 | Execute$ TrigExile | TriggerZones$ Battlefield | OrderDuplicates$ True
-SVar:TrigExile:DB$ ChangeZone | DefinedPlayer$ You | Destination$ Exile | ChangeNum$ 1 | ChangeType$ Instant.YouOwn,Sorcery.YouOwn | AtRandom$ True | Origin$ Graveyard | Hidden$ True | Mandatory$ True | SubAbility$ DBCast
-SVar:DBCast:DB$ Play | Valid$ Card.ExiledWithSource | ValidSA$ Spell | ValidZone$ Exile | Amount$ All | CopyCard$ True | Optional$ True | WithoutManaCost$ True
+ColorIdentity:
+OriginSet:G5f5d8cfb206e2fac
+ManaCost:1
+Types:Artifact
+T:Mode$ Discarded | ValidCard$ Card.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigExile | OptionalDecider$ You
+SVar:TrigExile:DB$ ChangeZone | Defined$ TriggeredCard | Origin$ Graveyard | Destination$ Exile
+A:AB$ Draw | Cost$ 2 T | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Mode$ TgtChoose
+A:AB$ ChangeZone | Cost$ T | Mandatory$ True | Hidden$ True | Origin$ Exile | Destination$ Graveyard | ChangeType$ Card.ExiledWithSource | ChangeNum$ 1 | Imprint$ True | SubAbility$ DBTreasure
+SVar:DBTreasure:DB$ Token | TokenScriptIds$ 3851718391 | ConditionDefined$ Imprinted | ConditionPresent$ Land | SubAbility$ DBRogue
+SVar:DBRogue:DB$ Token | TokenScriptIds$ 463201318 | ConditionDefined$ Imprinted | ConditionPresent$ Card.nonLand | SubAbility$ DBUnimprint
+SVar:DBUnimprint:DB$ Cleanup | ClearImprinted$ True

@@ -1,8 +1,11 @@
 Id:23993
-ColorIdentity:WU
-OriginSet:G9afc9838c5e994df
-ManaCost:1 W U
-Types:Instant
-A:SP$ Token | TokenScriptIds$ 1584294927 | TokenAmount$ 2 | RememberTokens$ True | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | CounterTypes$ EachType_Creature.YouCtrl | Choices$ Creature.IsRemembered | SpecifyCounter$ True | SubAbility$ DBCleanup
+ColorIdentity:WUG
+OriginSet:Gfdfe2ebef04be34e
+ManaCost:4 G W U
+Types:Creature Avatar
+PT:5/7
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ Destroy | TargetMin$ 0 | TargetMax$ 3 | ValidTgts$ Permanent.nonLand | RememberTargets$ True | SubAbility$ MakeTokens
+SVar:MakeTokens:DB$ RepeatEach | RepeatSubAbility$ DBToken | DefinedCards$ Remembered | UseImprinted$ True | ChangeZoneTable$ True | SubAbility$ DBCleanup
+SVar:DBToken:DB$ Token | TokenScriptIds$ 1162405091 | TokenOwner$ ImprintedController
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

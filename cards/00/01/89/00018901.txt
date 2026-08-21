@@ -1,10 +1,13 @@
 Id:18901
-ColorIdentity:BR
-OriginSet:G586a4ae96288ce18
-ManaCost:1 B R
-Types:Legendary Creature Human Shaman
-PT:2/2
-S:Mode$ Continuous | Affected$ Creature.Other+YouCtrl | AddPower$ 1
-SVar:PlayMain1:TRUE
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl+!token | TriggerZones$ Battlefield | Execute$ TrigDamage
-SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 1
+ColorIdentity:R
+OriginSet:G71e8f4e4ffe64448
+ManaCost:4 R R
+Types:Creature Goblin Mutant
+PT:5/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenOwner$ You | TokenAmount$ X | TokenScriptIds$ 1112542976
+A:AB$ Effect | Cost$ 3 R T | ReplacementEffects$ RDoubleDamage
+SVar:RDoubleDamage:Event$ DamageDone | ActiveZones$ Command | ValidSource$ Card.YouCtrl,Emblem.YouCtrl | ValidTarget$ Opponent | ReplaceWith$ DmgTwice
+SVar:DmgTwice:DB$ ReplaceEffect | VarName$ DamageAmount | VarValue$ Y
+SVar:X:PlayerCountOpponents$Amount
+SVar:Y:ReplaceCount$DamageAmount/Twice

@@ -1,8 +1,12 @@
 Id:13915
-ColorIdentity:WRG
+ColorIdentity:R
 OriginSet:G6645ca87da6316d5
-ManaCost:2 R G W
-Types:Legendary Creature Beast
-PT:4/4
-T:Mode$ Attacks | ValidCard$ Creature | Attacked$ Player.Opponent,Planeswalker.OppCtrl | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | Defined$ TriggeredAttackerLKICopy | NumAtt$ +2
+ManaCost:3 R
+Types:Sorcery
+A:SP$ DestroyAll | ValidCards$ Land.nonBasic | RememberDestroyed$ True | SubAbility$ DBRepeat
+SVar:DBRepeat:DB$ RepeatEach | UseImprinted$ True | DefinedCards$ DirectRemembered | RepeatSubAbility$ DBSearch | SubAbility$ DBShuffle
+SVar:DBSearch:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Land.Basic | RememberChanged$ True | DefinedPlayer$ ImprintedController | Chooser$ ImprintedController | NoShuffle$ True | Optional$ True
+SVar:DBShuffle:DB$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ ShuffleSearched | SubAbility$ DBCleanup
+SVar:ShuffleSearched:DB$ Shuffle | Defined$ Player.IsRemembered | ConditionCheckSVar$ X | ConditionSVarCompare$ GE1
+SVar:X:Count$Valid Card.IsRemembered+RememberedPlayerCtrl
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

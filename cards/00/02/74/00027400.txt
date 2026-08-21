@@ -1,11 +1,12 @@
 Id:27400
-ColorIdentity:U
-OriginSet:G7579344e30f8be85
-ManaCost:5 U
-Types:Creature Giant Soldier
-PT:6/5
-AlternateMode:Adventure
-ALTERNATE
-ManaCost:1 U
-Types:Sorcery Adventure
-A:SP$ ChangeZone | ValidTgts$ Creature.cmcLE3+YouDontCtrl | Origin$ Battlefield | Destination$ Hand
+ColorIdentity:WUR
+OriginSet:G8636ad1cfd514d83
+ManaCost:1 U R W
+Types:Legendary Planeswalker Guff
+Loyalty:5
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigCounter
+SVar:TrigCounter:DB$ PutCounter | ValidTgts$ Planeswalker.Other+YouCtrl | CounterType$ LOYALTY | CounterNum$ 1
+A:AB$ Token | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | TokenScriptIds$ 1175676089 | TokenOwner$ You
+A:AB$ Draw | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | NumCards$ X | SubAbility$ DBDamage
+SVar:DBDamage:DB$ DealDamage | Defined$ Opponent | NumDmg$ X
+SVar:X:Count$Valid Planeswalker.YouCtrl

@@ -1,9 +1,15 @@
 Id:17454
-ColorIdentity:R
+ColorIdentity:
 OriginSet:G5475e2be497fd272
-ManaCost:2 R
-Types:Creature Human Shaman
-PT:0/1
-K:Haste
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ DBClone | TriggerZones$ Battlefield | Mandatory$ True
-SVar:DBClone:DB$ Clone | CloneTarget$ Self | ValidTgts$ Creature.nonLegendary+Other+attacking | Duration$ UntilEndOfTurn
+ManaCost:2
+Types:Artifact
+A:AB$ ChangeZone | Cost$ 3 T | Origin$ Library | Destination$ Hand | ChangeType$ Land.Basic
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | IsPresent$ Land.YouCtrl | PresentCompare$ GE7 | Execute$ DBTransform
+SVar:DBTransform:DB$ SetState | Defined$ Self | Mode$ Transform
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Types:Land
+A:AB$ Mana | Cost$ T | Produced$ C | Amount$ 1
+A:AB$ Untap | Cost$ T | ValidTgts$ Creature.attacking+OppCtrl | IsCurse$ True | SubAbility$ RemCombat
+SVar:RemCombat:DB$ RemoveFromCombat | Defined$ Targeted | AILogic$ RemoveBestAttacker

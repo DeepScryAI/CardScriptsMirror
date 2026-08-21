@@ -1,10 +1,10 @@
 Id:6388
-ColorIdentity:W
+ColorIdentity:R
 OriginSet:Gd11012ee98ee8d76
-ManaCost:W
-Types:Creature Human Soldier
-PT:1/1
-K:Morph:W
-T:Mode$ TurnFaceUp | ValidCard$ Card.Self | Execute$ TrigCurseNonSoldiers | TriggerZones$ Battlefield
-SVar:TrigCurseNonSoldiers:DB$ Effect | ReplacementEffects$ RPrevent
-SVar:RPrevent:Event$ DamageDone | Prevent$ True | IsCombat$ True | ActiveZones$ Command | ValidSource$ Creature.nonSoldier
+ManaCost:4 R R R
+Types:Enchantment
+S:Mode$ CantAttack | ValidCard$ Creature.withoutFlying | Target$ You
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 5
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ Player | TriggerZones$ Battlefield | Execute$ TrigLife
+SVar:TrigLife:DB$ SetLife | Defined$ You | LifeAmount$ 5

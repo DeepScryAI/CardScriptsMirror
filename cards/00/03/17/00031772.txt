@@ -1,7 +1,16 @@
 Id:31772
-ColorIdentity:G
-OriginSet:G7ab4f62d323b0ca7
-ManaCost:1 G
-Types:Sorcery
-K:Flashback:6 G
-A:SP$ Token | TokenScriptIds$ 490609126 | TokenOwner$ You
+ColorIdentity:BR
+OriginSet:G530ea9d733a13e9d
+ManaCost:5 B R
+Types:Legendary Creature Human Wizard
+PT:6/6
+S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ Indestructible | Condition$ PlayerTurn
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | Execute$ TrigRepeat | TriggerZones$ Battlefield
+SVar:TrigRepeat:DB$ RepeatEach | RepeatPlayers$ Player.Opponent | RepeatSubAbility$ DBChooseCard | SubAbility$ DBExile
+SVar:DBChooseCard:DB$ ChooseCard | Defined$ You | Choices$ Card.ControlledBy Remembered | ChoiceZone$ Graveyard | Mandatory$ True | AtRandom$ True | RememberChosen$ True
+SVar:DBExile:DB$ ChangeZoneAll | Origin$ Graveyard | Destination$ Exile | ChangeType$ Card.IsRemembered | RememberChanged$ True | SubAbility$ DBPlayThem
+SVar:DBPlayThem:DB$ Play | Valid$ Card.IsRemembered+nonLand | ValidZone$ Exile | ValidSA$ Spell | Controller$ You | WithoutManaCost$ True | Amount$ All | ImprintPlayed$ True | Optional$ True | SubAbility$ DBRepeatTwo
+SVar:DBRepeatTwo:DB$ RepeatEach | RepeatPlayers$ ImprintedOwner | RepeatSubAbility$ DBLoseLife | SubAbility$ DBCleanup
+SVar:DBLoseLife:DB$ LoseLife | Defined$ Remembered | LifeAmount$ X
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearChosenCard$ True | ClearImprinted$ True
+SVar:X:Count$ValidAll Card.IsImprinted+OwnedBy Remembered$CardManaCost

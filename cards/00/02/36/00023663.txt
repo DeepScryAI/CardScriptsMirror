@@ -1,10 +1,9 @@
 Id:23663
-ColorIdentity:U
+ColorIdentity:
 OriginSet:G1a259dba25660062
-ManaCost:U
-Types:Creature Human Ninja
-PT:1/1
-K:Ninjutsu:2 U U
-K:Flying
-T:Mode$ ChangesZone | ValidCard$ Card.Self+attacking | Origin$ Hand | Destination$ Battlefield | Execute$ TrigCopy
-SVar:TrigCopy:DB$ CopyPermanent | ValidTgts$ Creature.Other+attacking | TokenTapped$ True | TokenAttacking$ True
+ManaCost:1
+Types:Artifact Equipment
+K:Equip:1
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddAbility$ MakeYourPoint
+SVar:MakeYourPoint:AB$ DealDamage | Cost$ 1 T Sac<1/OriginalHost/catalogId23663> | ValidTgts$ Any | NumDmg$ 3 | DamageSource$ OriginalHost
+SVar:NonStackingAttachEffect:True

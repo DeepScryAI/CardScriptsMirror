@@ -1,8 +1,12 @@
 Id:20345
-ColorIdentity:G
+ColorIdentity:B
 OriginSet:Gfa87e7bbc5a709eb
-ManaCost:3 G
-Types:Instant
-A:SP$ Effect | ReplacementEffects$ Curse | SubAbility$ DBScry
-SVar:Curse:Event$ DamageDone | Prevent$ True | IsCombat$ True | ActiveZones$ Command | ValidSource$ Creature.!enchanted+nonEnchantment
-SVar:DBScry:DB$ Scry | ScryNum$ 2
+ManaCost:5 B
+Types:Enchantment Creature Demon
+PT:5/5
+K:Flying
+S:Mode$ Continuous | Affected$ Card.Self | AddPower$ -X | AddToughness$ -X
+SVar:X:PlayerCountOpponents$CardsInHand
+SVar:NeedsToPlayVar:X LE3
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDiscard
+SVar:TrigDiscard:DB$ Discard | Defined$ Player | NumCards$ 1 | Mode$ TgtChoose

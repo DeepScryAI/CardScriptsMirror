@@ -1,10 +1,12 @@
 Id:31669
-ColorIdentity:G
-OriginSet:G530ea9d733a13e9d
-ManaCost:1 G G
-Types:Instant
-A:SP$ DigUntil | Valid$ Card.Creature | RevealedDestination$ Library | RevealedLibraryPosition$ -1 | RevealRandomOrder$ True | FoundDestination$ Hand | RememberFound$ True | SubAbility$ DBImmediateTrigger
-SVar:DBImmediateTrigger:DB$ ImmediateTrigger | ConditionDefined$ Remembered | ConditionPresent$ Card.Creature | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | CounterNum$ X | CounterType$ P1P1 | ValidTgts$ Creature.YouCtrl | SubAbility$ DBCleanup
+ColorIdentity:W
+OriginSet:Gf2b808f4f642ac62
+ManaCost:1 W
+Types:Creature Kirin
+PT:2/1
+K:Flash
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Permanent.nonLand+YouCtrl+Other | RememberChanged$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | ConditionDefined$ Remembered | ConditionPresent$ Card.token | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Remembered$CardManaCost

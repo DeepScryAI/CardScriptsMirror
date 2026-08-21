@@ -1,13 +1,10 @@
 Id:24149
-ColorIdentity:U
-OriginSet:G51fcb7ec0cb81c29
-ManaCost:2 U
-Types:Legendary Creature Halfling Rogue
-PT:3/2
-T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigUnblockable | TriggerZones$ Battlefield
-SVar:TrigUnblockable:DB$ Effect | ValidTgts$ Creature.attacking | TargetMin$ 0 | TargetMax$ 1 | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable | AILogic$ Pump | SubAbility$ DBDelTrig
-SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
-SVar:DBDelTrig:DB$ DelayedTrigger | ConditionDefined$ Targeted | ConditionPresent$ Card | Mode$ Phase | Phase$ End of Turn | RememberObjects$ Targeted | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZone | Defined$ DelayTriggerRememberedLKI | Origin$ Battlefield | Destination$ Hand
-K:Choose a Background
-SVar:PlayMain1:TRUE
+ColorIdentity:W
+OriginSet:G9afc9838c5e994df
+ManaCost:1 W W
+Types:Creature Elf Wizard
+PT:2/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigScry
+SVar:TrigScry:DB$ Scry | ScryNum$ 1 | ConditionCheckSVar$ CreatureETBAmount | ConditionSVarCompare$ NE2 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1 | ConditionCheckSVar$ CreatureETBAmount | ConditionSVarCompare$ EQ2
+SVar:CreatureETBAmount:Count$ResolvedThisTurn

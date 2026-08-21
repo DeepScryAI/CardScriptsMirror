@@ -1,12 +1,10 @@
 Id:28479
-ColorIdentity:WUR
-OriginSet:G7ee0e82a2424d636
-ManaCost:2 RW
+ColorIdentity:W
+OriginSet:G94329e6b3f93276f
+ManaCost:1 W
 Types:Instant
-A:SP$ PutCounterAll | ValidCards$ Creature.attacking+YouCtrl | CounterType$ P1P1 | CounterNum$ 1
-AlternateMode:Split
-ALTERNATE
-ManaCost:4 WU WU
-Types:Sorcery
-A:SP$ Token | TokenAmount$ 3 | TokenOwner$ You | TokenScriptIds$ 3939935181 | SubAbility$ DBSurveil
-SVar:DBSurveil:DB$ Surveil | Amount$ 2
+A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | RememberChanged$ True | ValidTgts$ Creature.OppOwn | SubAbility$ DBEffect | WithCountersType$ DUTY
+SVar:DBEffect:DB$ Effect | RememberObjects$ Remembered | StaticAbilities$ Static,StaticTwo,StaticThree | ForgetOnMoved$ Battlefield | ForgetCounter$ DUTY | Duration$ Permanent
+SVar:Static:Mode$ Continuous | Affected$ Creature.IsRemembered | Goad$ True
+SVar:StaticTwo:Mode$ CantBlockBy | ValidAttacker$ Creature.YouCtrl | ValidBlocker$ Creature.IsRemembered | Secondary$ True
+SVar:StaticThree:Mode$ CantAttack | ValidCard$ Card.IsRemembered | Target$ You,Permanent.YouCtrl | Secondary$ True

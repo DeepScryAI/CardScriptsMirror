@@ -1,10 +1,10 @@
 Id:28519
-ColorIdentity:W
+ColorIdentity:RG
 OriginSet:G7ee0e82a2424d636
-ManaCost:W
-Types:Artifact Food Equipment
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2
-A:AB$ GainLife | Cost$ 2 T Sac<1/CARDNAME> | LifeAmount$ 3
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | OptionalDecider$ TriggeredCardController | Execute$ TrigToken
-SVar:TrigToken:AB$ Token | Cost$ 1 W | TokenAmount$ 2 | TokenScriptIds$ 858060049 | TokenOwner$ You
-K:Equip:2
+ManaCost:2 R G
+Types:Legendary Creature Mole God
+PT:8/4
+T:Mode$ AttackerBlocked | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigUntapAll
+SVar:TrigUntapAll:DB$ UntapAll | ValidCards$ Creature.YouCtrl | SubAbility$ DBAddCombat
+SVar:DBAddCombat:DB$ AddPhase | ExtraPhase$ Combat | AfterPhase$ EndCombat
+A:AB$ Pump | Cost$ 3 R R G G | Defined$ Self | KW$ HIDDEN CARDNAME must be blocked if able. | AILogic$ Pump

@@ -1,14 +1,11 @@
 Id:29046
-ColorIdentity:W
-OriginSet:G27146c70b74a1e72
-ManaCost:2 W
-Types:Creature Rabbit Mercenary
-PT:3/3
-K:Vigilance
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | CheckSVar$ X | SVarCompare$ GTY | OptionalDecider$ You | ValidCard$ Card.Self | Execute$ TrigChange
-SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Land.Plains | ChangeNum$ 1 | RememberChanged$ True | Tapped$ True | NoShuffle$ True | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | Optional$ True | Origin$ Library | Destination$ Battlefield | ConditionCheckSVar$ X | ConditionSVarCompare$ GTY | ChangeType$ Land.Plains | ChangeNum$ 1 | RememberChanged$ True | Tapped$ True | NoShuffle$ True | SubAbility$ DBShuffle
-SVar:DBShuffle:DB$ Shuffle | Defined$ You | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ GE1 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:PlayerCountOpponents$HighestValid Land.YouCtrl
-SVar:Y:Count$Valid Land.YouCtrl
+ColorIdentity:
+OriginSet:Gaf7c94f364052cdd
+ManaCost:2
+Types:Artifact Equipment
+K:Flash
+K:Equip:3
+S:Mode$ CantBlockBy | ValidAttacker$ Creature.EquippedBy
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigAttach
+SVar:TrigAttach:DB$ Attach | ValidTgts$ Creature.YouCtrl | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Targeted | KW$ Shroud

@@ -1,10 +1,18 @@
 Id:7236
 ColorIdentity:B
 OriginSet:G332b6b8a53f3d107
-ManaCost:2 B B
-Types:Enchantment
-T:Mode$ DamageDone | ValidSource$ Card.YouCtrl,Emblem.YouCtrl | ValidTarget$ Player.Other | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | CounterType$ THEFT | CounterNum$ Y
-A:AB$ ChangeZone | Cost$ 2 B B SubCounter<X/THEFT> | Origin$ Library | Destination$ Hand | ChangeType$ Card.nonLand+YouCtrl+cmcEQX | ChangeNum$ 1 | Reveal$ True | Shuffle$ True
-SVar:X:Count$xPaid
-SVar:Y:TriggerCount$DamageAmount
+ManaCost:1 B
+Types:Creature Rat Rogue
+PT:1/1
+A:AB$ Discard | Cost$ 1 B T | ValidTgts$ Opponent | NumCards$ 1 | Mode$ TgtChoose | SubAbility$ DBFlip
+SVar:DBFlip:DB$ SetState | Defined$ Self | ConditionCheckSVar$ A | ConditionSVarCompare$ EQ0 | Mode$ Flip
+SVar:A:TargetedPlayer$CardsInHand
+AlternateMode:Flip
+ALTERNATE
+ManaCost:1 B
+Colors:black
+Types:Legendary Creature Rat Shaman
+PT:3/3
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Opponent | TriggerZones$ Battlefield | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ TriggeredPlayer | LifeAmount$ DiffX
+SVar:DiffX:TriggeredPlayer$CardsInHand/NMinus.3

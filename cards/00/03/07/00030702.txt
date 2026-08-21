@@ -1,13 +1,13 @@
 Id:30702
-ColorIdentity:
-OriginSet:Gc5a2f0ff902c0621
-ManaCost:1
-Types:Artifact Equipment
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddAbility$ FishingPoleBaiting
-SVar:FishingPoleBaiting:AB$ PutCounter | Cost$ 1 T tapXType<1/OriginalHost/catalogId30702> | CounterType$ BAIT | CounterNum$ 1 | Defined$ OriginalHost
-T:Mode$ Untaps | ValidCard$ Creature.EquippedBy | TriggerZones$ Battlefield | Execute$ TrigRemoveCounter
-SVar:TrigRemoveCounter:DB$ RemoveCounter | Defined$ Self | CounterType$ BAIT | CounterNum$ 1 | RememberRemoved$ True | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | ConditionCheckSVar$ X | TokenScriptIds$ 2753563426 | TokenOwner$ You | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$RememberedSize
-K:Equip:2
+ColorIdentity:WB
+OriginSet:G2a4addc042b7552f
+ManaCost:W B
+Types:Enchantment Creature Bat Glimmer
+PT:1/3
+K:Flying
+K:Lifelink
+T:Mode$ LifeGained | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigChoose
+SVar:TrigChoose:DB$ ChooseCard | ChoiceZone$ Hand | Choices$ Creature.YouOwn | AtRandom$ True | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ ChosenCard | PumpZone$ Hand | NumAtt$ +X | NumDef$ +X | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+SVar:X:TriggerCount$LifeAmount

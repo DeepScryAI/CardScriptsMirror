@@ -1,8 +1,11 @@
 Id:31063
-ColorIdentity:U
+ColorIdentity:WG
 OriginSet:G4524bbf7a3db9dc0
-ManaCost:1 U
-Types:Sorcery
-A:SP$ Tap | ValidTgts$ Creature,Vehicle | SubAbility$ DBCounter
-SVar:DBCounter:DB$ PutCounter | Defined$ Targeted | CounterType$ Stun | CounterNum$ 3
-K:Cycling:2
+ManaCost:2 G W
+Types:Legendary Creature Human Knight
+PT:4/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange | OptionalDecider$ You
+SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Mount,Vehicle | ShuffleNonMandatory$ True
+R:Event$ AddCounter | ActiveZones$ Battlefield | ValidCard$ Creature.YouCtrl+inZoneBattlefield,Vehicle.YouCtrl+inZoneBattlefield | ValidCounterType$ P1P1 | ReplaceWith$ AddOneMoreCounters
+SVar:AddOneMoreCounters:DB$ ReplaceCounter | ValidCounterType$ P1P1 | ChooseCounter$ True | Amount$ X
+SVar:X:ReplaceCount$CounterNum/Plus.1

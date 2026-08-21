@@ -1,8 +1,11 @@
 Id:4969
-ColorIdentity:B
+ColorIdentity:W
 OriginSet:G9e6cd9ac1f7f4832
-ManaCost:4 B
-Types:Creature Phyrexian Zombie
-PT:3/3
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigDestroy
-SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Creature.White | NoRegen$ True
+ManaCost:W
+Types:Instant
+K:Kicker:W
+A:SP$ Effect | Name$ 17652023763634015980 | IsCurse$ True | StaticAbilities$ CantBeCast | ValidTgts$ Player | RememberObjects$ Targeted | SubAbility$ CantAttackWhenKicked | AILogic$ BeginningOfOppTurn
+SVar:CantAttackWhenKicked:DB$ Effect | Name$ 7770756216270694251 | IsCurse$ True | StaticAbilities$ CantAttack | Condition$ Kicked
+SVar:CantBeCast:Mode$ CantBeCast | ValidCard$ Card | Caster$ Player.IsRemembered
+SVar:CantAttack:Mode$ CantAttack | ValidCard$ Creature
+SVar:NeedsToPlayKicked:Creature.OppCtrl

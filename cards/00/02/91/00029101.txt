@@ -1,8 +1,11 @@
 Id:29101
-ColorIdentity:R
-OriginSet:G27146c70b74a1e72
-ManaCost:4 R
-Types:Creature Minotaur Mercenary
-PT:5/4
-K:Affinity:Outlaw
-K:Trample
+ColorIdentity:
+OriginSet:G343cd0ac847a92b7
+ManaCost:6
+Types:Artifact
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | Hidden$ True | RememberChanged$ True | Origin$ Hand | Destination$ Exile | ChangeType$ Creature.YouCtrl,Artifact.YouCtrl | ChangeNum$ 1 | SubAbility$ DBCopy
+SVar:DBCopy:DB$ CopyPermanent | Defined$ Remembered | SetPower$ 3 | SetToughness$ 3 | AddTypes$ Golem & Artifact & Creature | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:PlayMain1:TRUE

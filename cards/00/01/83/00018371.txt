@@ -1,8 +1,12 @@
 Id:18371
-ColorIdentity:R
-OriginSet:G7d70f513279b26b6
-ManaCost:4 R R
-Types:Creature Phoenix
-PT:4/4
-K:Flying
-A:AB$ PumpAll | Cost$ 2 R | ValidCards$ Creature.YouCtrl | NumAtt$ +1
+ColorIdentity:B
+OriginSet:G7d4bd61c81d44275
+ManaCost:2 B
+Types:Sorcery
+A:SP$ AssignGroup | Defined$ Player | Choices$ DBToHand,DBSacrifice | AILogic$ FriendOrFoe
+SVar:DBToHand:DB$ ChangeZone | DefinedPlayer$ Remembered | ChangeType$ Creature | Hidden$ True | Mandatory$ True | Origin$ Graveyard | Destination$ Hand
+SVar:DBSacrifice:DB$ Sacrifice | Defined$ Remembered | SacValid$ Creature
+SVar:NeedsToPlayVar:Z GE2
+SVar:Z:SVar$Z1/Plus.Z2
+SVar:Z1:Count$ValidGraveyard Creature.YourTeamCtrl
+SVar:Z2:Count$Valid Creature.OppCtrl

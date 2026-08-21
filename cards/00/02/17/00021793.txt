@@ -1,10 +1,12 @@
 Id:21793
-ColorIdentity:U
-OriginSet:Gabb23d0d25cdc46d
-ManaCost:8 U U
-Types:Legendary Creature Elemental Octopus
-PT:8/8
-K:Ward:8
-S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ 8 | EffectZone$ All | IsPresent$ Instant.YouOwn,Sorcery.YouOwn | PresentZone$ Graveyard | PresentCompare$ GE8
-T:Mode$ SpellCastOrCopy | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigOctify
-SVar:TrigOctify:DB$ Animate | ValidTgts$ Creature | Power$ 8 | Toughness$ 8
+ColorIdentity:WUBRG
+OriginSet:G18bf722b221724f8
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ G
+S:Mode$ Continuous | Affected$ Land.YouCtrl | AddAbility$ AnyMana | IsPresent$ Land.YouCtrl | PresentCompare$ GE6
+SVar:AnyMana:AB$ Mana | Cost$ T | Produced$ Any | Amount$ 1
+A:AB$ ChangeZone | Cost$ W W U U B B R R G G T Sac<1/CARDNAME> | Origin$ Library | Destination$ Battlefield | ChangeType$ God | ChangeNum$ XFetch
+SVar:XFetch:Count$ValidLibrary God.YouCtrl

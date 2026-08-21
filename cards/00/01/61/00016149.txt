@@ -2,6 +2,8 @@ Id:16149
 ColorIdentity:G
 OriginSet:G70d19654882197c9
 ManaCost:G
-Types:Creature Human Cleric
-PT:1/2
-A:AB$ Pump | Cost$ G T | NumAtt$ +1 | NumDef$ +1 | ValidTgts$ Creature.Human+attacking
+Types:Enchantment
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigMill | TriggerZones$ Battlefield
+SVar:TrigMill:DB$ Mill | NumCards$ 1 | Defined$ You | Optional$ True
+A:AB$ ChangeZone | Cost$ 2 G Sac<1/CARDNAME> | Origin$ Graveyard | Destination$ Hand | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Creature.YouOwn | SubAbility$ DBReturn | Activation$ Delirium
+SVar:DBReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Land.YouOwn

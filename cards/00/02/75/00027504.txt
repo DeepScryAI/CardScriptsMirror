@@ -1,7 +1,12 @@
 Id:27504
-ColorIdentity:W
-OriginSet:G7579344e30f8be85
-ManaCost:1 W
+ColorIdentity:G
+OriginSet:G4e034c55e7afd8b4
+ManaCost:6 G G
 Types:Sorcery
-A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouOwn+cmcLE3 | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenScriptIds$ 2082369100 | TokenOwner$ You | AttachedTo$ Targeted
+K:Bargain
+A:SP$ PeekAndReveal | PeekAmount$ 20 | SubAbility$ DBChoose | NoReveal$ True | RememberPeeked$ True
+SVar:DBChoose:DB$ ChooseCard | SubAbility$ DBPutBattlefield | Choices$ Creature.IsRemembered | Amount$ 2 | ChoiceZone$ Library
+SVar:DBPutBattlefield:DB$ ChangeZoneAll | Condition$ Bargain | Origin$ Library | Destination$ Battlefield | ChangeType$ Card.ChosenCard | SubAbility$ DBHand
+SVar:DBHand:DB$ ChangeZoneAll | Origin$ Library | Destination$ Hand | ChangeType$ Card.ChosenCard | SubAbility$ DBShuffle
+SVar:DBShuffle:DB$ Shuffle | Defined$ You | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

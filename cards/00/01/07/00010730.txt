@@ -1,10 +1,16 @@
 Id:10730
-ColorIdentity:R
+ColorIdentity:
 OriginSet:Gc860c737f2a60f83
 ManaCost:no cost
-Types:Plane Dominaria
-S:Mode$ Continuous | Affected$ Creature | EffectZone$ Command | AddAbility$ Pump
-SVar:Pump:AB$ Pump | Cost$ R | NumAtt$ +1
+Types:Plane Rabiah
+R:Event$ Draw | ActiveZones$ Command | ValidPlayer$ Player | ReplaceWith$ RevealedDraw
+SVar:RevealedDraw:DB$ Draw | Defined$ ReplacedPlayer | NumCards$ 1 | SubAbility$ TrigReveal | RememberDrawn$ True
+SVar:TrigReveal:DB$ Reveal | Defined$ ReplacedPlayer | RevealValid$ Card.IsRemembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+T:Mode$ Drawn | ValidCard$ Card.Land | TriggerZones$ Command | Execute$ TrigGain
+SVar:TrigGain:DB$ GainLife | Defined$ TriggeredCardController | LifeAmount$ 3
+T:Mode$ Drawn | ValidCard$ Card.nonLand | TriggerZones$ Command | Execute$ TrigLose
+SVar:TrigLose:DB$ LoseLife | Defined$ TriggeredCardController | LifeAmount$ 3
 T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos
-SVar:RolledChaos:DB$ Token | TokenScriptIds$ 4249416919
-SVar:AIRollPlanarDieParams:Mode$ Always | LowPriority$ True | MaxRollsPerTurn$ 9
+SVar:RolledChaos:DB$ ChangeZone | ValidTgts$ Permanent | Origin$ Battlefield | Destination$ Library | LibraryPosition$ 0
+SVar:AIRollPlanarDieParams:Mode$ Always

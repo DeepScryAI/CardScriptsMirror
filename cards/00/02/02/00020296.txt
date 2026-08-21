@@ -1,12 +1,11 @@
 Id:20296
-ColorIdentity:W
-OriginSet:Gfa87e7bbc5a709eb
-ManaCost:W W
-Types:Legendary Enchantment Creature Demigod
-PT:2/*
-S:Mode$ Continuous | CharacteristicDefining$ True | SetToughness$ X
-SVar:X:Count$Devotion.White
-SVar:BuffedBy:Permanent.White
-T:Mode$ ChangesZone | TriggerZones$ Battlefield | ValidCard$ Creature.YouCtrl+Other | Origin$ Any | Destination$ Battlefield | Execute$ TrigGainLife
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl+Other | TriggerZones$ Battlefield | Execute$ TrigGainLife | Secondary$ True
-SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
+ColorIdentity:B
+OriginSet:G42eb6bda83007836
+ManaCost:2 B
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 3
+T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ 1
+T:Mode$ BecomesTarget | ValidTarget$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice | SacValid$ Self

@@ -1,8 +1,16 @@
 Id:31403
-ColorIdentity:
-OriginSet:Gf2b808f4f642ac62
-ManaCost:3
-Types:Artifact
-K:ETBReplacement:Other:AddExtraCounter:Mandatory:Battlefield:Creature.Dragon+YouCtrl
-SVar:AddExtraCounter:DB$ PutCounter | ETB$ True | Defined$ ReplacedCard | CounterType$ P1P1 | CounterNum$ 1
-A:AB$ Mana | Cost$ T | Produced$ Any
+ColorIdentity:WB
+OriginSet:Ge1676a27173c0866
+ManaCost:2 W B
+Types:Enchantment
+K:ETBReplacement:Other:SiegeChoice
+SVar:SiegeChoice:DB$ GenericChoice | Choices$ Abzan,Mardu | Defined$ You | SetChosenMode$ True | ShowChoice$ ExceptSelf
+SVar:Abzan:DB$ Pump
+SVar:Mardu:DB$ Pump
+S:Mode$ Continuous | Affected$ Card.Self+ChosenModeAbzan | AddTrigger$ AbzanTrigger
+SVar:AbzanTrigger:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounterAll
+SVar:TrigPutCounterAll:DB$ PutCounterAll | ValidCards$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1
+S:Mode$ Continuous | Affected$ Card.Self+ChosenModeMardu | AddTrigger$ MarduTrigger
+SVar:MarduTrigger:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ X | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice | SacValid$ Creature | Defined$ Player.Opponent
+SVar:X:Count$ThisTurnEntered_Graveyard_from_Battlefield_Creature.YouCtrl

@@ -1,8 +1,11 @@
 Id:28574
-ColorIdentity:U
+ColorIdentity:UB
 OriginSet:G7ee0e82a2424d636
-ManaCost:1 U U U
-Types:Instant
-A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card.nonLand+ThisTurnEntered | RememberChanged$ True | SubAbility$ DBPlay
-SVar:DBPlay:DB$ Play | Valid$ Card.IsRemembered | ValidZone$ Exile | Controller$ You | CopyCard$ True | WithoutManaCost$ True | ValidSA$ Spell | Optional$ True | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:2 U B
+Types:Creature Zombie Detective
+PT:3/1
+K:Flying
+T:Mode$ Sacrificed | ValidCard$ Clue.YouCtrl | Execute$ TrigReturn | TriggerZones$ Graveyard
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | Defined$ Self
+SVar:SacMe:3
+SVar:DiscardMe:3

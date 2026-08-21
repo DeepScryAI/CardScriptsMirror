@@ -1,10 +1,11 @@
 Id:14871
 ColorIdentity:R
 OriginSet:G25ee1eefb1a14f05
-ManaCost:3 R
-Types:Instant
-A:SP$ Pump | ValidTgts$ Creature | IsCurse$ True | SubAbility$ DBReveal
-SVar:DBReveal:DB$ Reveal | Defined$ TargetedController | Random$ True | RememberRevealed$ True | SubAbility$ DBDmg
-SVar:DBDmg:DB$ DamageAll | NumDmg$ X | ValidPlayers$ TargetedController | ValidCards$ Targeted.Self | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Remembered$CardManaCost
+ManaCost:1 R R
+Types:Creature Phoenix
+PT:2/2
+K:Flying
+K:Haste
+S:Mode$ MustAttack | ValidCreature$ Card.Self
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Graveyard | IsPresent$ Creature.YouCtrl+powerGE4 | Execute$ TrigReturn
+SVar:TrigReturn:AB$ ChangeZone | Cost$ R | Defined$ Self | Origin$ Graveyard | Destination$ Battlefield

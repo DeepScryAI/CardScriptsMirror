@@ -1,9 +1,11 @@
 Id:28490
 ColorIdentity:W
-OriginSet:G7ee0e82a2424d636
+OriginSet:G94329e6b3f93276f
 ManaCost:3 W
 Types:Creature Human Detective
-PT:3/2
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange
-SVar:TrigChange:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | TargetMin$ 0 | TargetMax$ 2 | TargetsWithSameController$ True | ValidTgts$ Card
+PT:4/3
+K:Flash
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self+nonSpirit | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Battlefield | WithCountersType$ CHARGE | WithCountersAmount$ 4 | StaticEffect$ Animate
+SVar:Animate:Mode$ Continuous | Affected$ Card.IsRemembered | AddType$ Spirit & Detective | RemoveCreatureTypes$ True
+A:AB$ Destroy | Cost$ 1 W T SubCounter<1/CHARGE> | ValidTgts$ Creature.dealtDamageToYouThisTurn

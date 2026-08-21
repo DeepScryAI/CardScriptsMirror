@@ -1,12 +1,12 @@
 Id:21842
-ColorIdentity:R
-OriginSet:G6fa60d857e930f32
-ManaCost:1 R
-Types:Creature Human Shaman
-PT:2/2
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDraw
-SVar:TrigDraw:AB$ Draw | Cost$ 1 Discard<1/Card>
-T:Mode$ DiscardedAll | ValidPlayer$ You | ValidCard$ Card.nonLand | TriggerZones$ Battlefield | Execute$ TrigEffect
-SVar:TrigEffect:AB$ Effect | Cost$ ExileFromGrave<1/Card.TriggeredCards> | RememberObjects$ ExiledCards | StaticAbilities$ MayCast | ExileOnMoved$ Stack
-SVar:MayCast:Mode$ Continuous | Affected$ Card.IsRemembered+nonLand | MayPlay$ True | AffectedZone$ Exile
-SVar:HasAttackEffect:TRUE
+ColorIdentity:U
+OriginSet:Gabb23d0d25cdc46d
+ManaCost:3 U U
+Types:Creature Sphinx
+PT:4/5
+K:Flying
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDigUntil | TriggerZones$ Battlefield
+SVar:TrigDigUntil:DB$ DigUntil | Defined$ TriggeredTarget | Valid$ Instant,Sorcery | FoundDestination$ Exile | RevealedDestination$ Exile | RememberFound$ True | RememberRevealed$ True | IsCurse$ True | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | Defined$ Remembered | ValidZone$ Exile | Valid$ Instant.IsRemembered,Sorcery.IsRemembered | ValidSA$ Spell | WithoutManaCost$ True | RememberObjects$ Remembered | Optional$ True | ForgetPlayed$ True | SubAbility$ DBRestRandomOrder
+SVar:DBRestRandomOrder:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered | Origin$ Exile | Destination$ Library | LibraryPosition$ -1 | RandomOrder$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

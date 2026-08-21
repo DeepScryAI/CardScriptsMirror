@@ -1,9 +1,12 @@
 Id:21571
-ColorIdentity:U
+ColorIdentity:B
 OriginSet:G18bf722b221724f8
-ManaCost:1 U
-Types:Sorcery
-A:SP$ Dig | DigNum$ 3 | ChangeNum$ 1 | NoReveal$ True
-S:Mode$ Continuous | Affected$ Card.Self | EffectZone$ Graveyard | AffectedZone$ Graveyard | MayPlay$ True | MayPlayAltManaCost$ U | IsPresent$ Giant.YouCtrl
-R:Event$ Moved | ValidLKI$ Card.CastSa Spell.MayPlaySource | Origin$ Stack | Destination$ Graveyard | ReplaceWith$ MoveExile
-SVar:MoveExile:DB$ ChangeZone | Defined$ ReplacedCard | Origin$ Stack | Destination$ Exile
+ManaCost:4 B B
+Types:Snow Sorcery
+A:SP$ Charm | Choices$ DestroyCtrs,DestroyPWs | SubAbility$ NoopDesc
+SVar:DestroyCtrs:DB$ DestroyAll | ValidCards$ Creature | SubAbility$ DBReturn
+SVar:DestroyPWs:DB$ DestroyAll | ValidCards$ Planeswalker | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | Hidden$ True | Mandatory$ True | ChangeType$ Creature.YouOwn+cmcLEX,Planeswalker.YouOwn+cmcLEX
+SVar:NoopDesc:DB$ Cleanup
+SVar:X:Count$CastTotalManaSpent Snow
+SVar:AIPreference:ManaFrom$Snow

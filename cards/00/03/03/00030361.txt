@@ -1,12 +1,12 @@
 Id:30361
-ColorIdentity:R
-OriginSet:G8b2ed00ac2a0ff47
-ManaCost:1 R
-Types:Enchantment Creature Nightmare
-PT:2/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDiscard
-SVar:TrigDiscard:DB$ Discard | Mode$ TgtChoose | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1
-T:Mode$ Attacks | ValidCard$ Creature.Self | TriggerZones$ Battlefield | Execute$ TrigUntap | FirstAttack$ True | Delirium$ True
-SVar:TrigUntap:DB$ Untap | ValidTgts$ Creature | SubAbility$ DBAddCombat
-SVar:DBAddCombat:DB$ AddPhase | ExtraPhase$ Combat | AfterPhase$ EndCombat
+ColorIdentity:G
+OriginSet:G7b2137df486dc752
+ManaCost:4 G G
+Types:Creature Beast
+PT:6/6
+K:Reach
+K:ETBReplacement:Other:AddExtraCounter:Mandatory:Battlefield:Creature.Colorless+YouCtrl
+SVar:AddExtraCounter:DB$ PutCounter | ETB$ True | Defined$ ReplacedCard | CounterType$ P1P1 | CounterNum$ 2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDread
+T:Mode$ Attacks | ValidCard$ Card.Self | Secondary$ True | Execute$ TrigDread
+SVar:TrigDread:DB$ ManifestDread

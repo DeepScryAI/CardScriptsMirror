@@ -1,13 +1,9 @@
 Id:29503
-ColorIdentity:R
+ColorIdentity:W
 OriginSet:Gac6359c222afbd4f
-ManaCost:1 R
-Types:Creature Lizard Wizard
-PT:1/4
-S:Mode$ Continuous | Affected$ Card.YouCtrl+nonCreature+wasCastFromExile | AffectedZone$ Stack | AddKeyword$ Convoke
-T:Mode$ Phase | Phase$ Main1 | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigExile
-SVar:TrigExile:AB$ Dig | Cost$ Discard<1/Card> | DigNum$ 2 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBChoose
-SVar:DBChoose:DB$ ChooseCard | Amount$ 1 | Mandatory$ True | Choices$ Card.IsRemembered | ChoiceZone$ Exile | SubAbility$ DBPlayEffect
-SVar:DBPlayEffect:DB$ Effect | StaticAbilities$ STPlay | ExileOnMoved$ Exile | SubAbility$ DBClearChosen
-SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.ChosenCard | AffectedZone$ Exile
-SVar:DBClearChosen:DB$ Cleanup | ClearChosenCard$ True | ClearRemembered$ True
+ManaCost:3 W
+Types:Creature Bird Soldier
+PT:3/3
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPut
+SVar:TrigPut:DB$ PutCounter | Support$ 2

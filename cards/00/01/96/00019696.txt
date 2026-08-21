@@ -1,11 +1,8 @@
 Id:19696
-ColorIdentity:UG
+ColorIdentity:B
 OriginSet:G7c61dc677f00d087
-ManaCost:1 G U
-Types:Creature Elemental
-PT:1/1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self,Elemental.Other+YouCtrl | Execute$ TrigPeek
-SVar:TrigPeek:DB$ PeekAndReveal | PeekAmount$ 1 | NoReveal$ True | RememberPeeked$ True | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | Optional$ True | ForgetChanged$ True | Origin$ Library | Destination$ Battlefield | Defined$ Remembered | ConditionDefined$ Remembered | ConditionPresent$ Land | ConditionCompare$ GE1 | Tapped$ True | SubAbility$ DBHand
-SVar:DBHand:DB$ ChangeZone | Origin$ Library | Destination$ Hand | Defined$ Remembered | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:1 B
+Types:Sorcery
+A:SP$ Pump | ValidTgts$ Creature.OppCtrl+cmcLE2 | SubAbility$ DBExileAll
+SVar:DBExileAll:DB$ ChangeZoneAll | Defined$ TargetedController | ChangeType$ TargetedCard.Self,Creature.NotDefinedTargeted+sharesNameWith Targeted | Origin$ Battlefield | Destination$ Exile | SubAbility$ DBChangeZoneAll
+SVar:DBChangeZoneAll:DB$ ChangeZoneAll | Defined$ TargetedController | ChangeType$ Targeted.sameName | Origin$ Graveyard,Hand | Destination$ Exile

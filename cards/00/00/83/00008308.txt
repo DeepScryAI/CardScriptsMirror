@@ -1,12 +1,12 @@
 Id:8308
-ColorIdentity:BR
+ColorIdentity:WBG
 OriginSet:Gde6d8130c178f566
-ManaCost:3 B
-Types:Creature Zombie
-PT:2/2
-K:DoubleStrike
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSac | ManaNotSpent$ R
-SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ChangeType$ Creature.cmcLE3 | ChangeNum$ 1 | Hidden$ True | DefinedPlayer$ Player | Mandatory$ True
-SVar:TrigSac:DB$ Sacrifice
-SVar:ManaNeededToAvoidNegativeEffect:red
+ManaCost:3 W B
+Types:Sorcery
+A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True | ValidTgts$ Creature.OppCtrl,Enchantment.OppCtrl
+AlternateMode:Split
+ALTERNATE
+ManaCost:X B G
+Types:Sorcery
+A:SP$ DestroyAll | ValidCards$ Artifact.cmcEQX,Creature.cmcEQX,Enchantment.cmcEQX
+SVar:X:Count$xPaid

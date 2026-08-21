@@ -1,7 +1,11 @@
 Id:13435
 ColorIdentity:WR
 OriginSet:G9b1658d4f3a50109
-ManaCost:3
-Types:Artifact
-A:AB$ Mana | Cost$ T | Produced$ Combo R W
-A:AB$ Draw | Cost$ R W T Sac<1/CARDNAME> | NumCards$ 1
+ManaCost:5 R W
+Types:Creature Minotaur Soldier
+PT:5/5
+T:Mode$ Phase | Phase$ BeginCombat | TriggerZones$ Battlefield | Execute$ TrigMustAttackBlock
+SVar:TrigMustAttackBlock:DB$ Effect | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | RememberObjects$ ThisTargetedCard | ExileOnMoved$ Battlefield | StaticAbilities$ MustAttack,MustBlock | IsCurse$ True | Duration$ UntilEndOfCombat | SubAbility$ DBCantAttackBlock
+SVar:MustAttack:Mode$ MustAttack | ValidCreature$ Card.IsRemembered
+SVar:MustBlock:Mode$ MustBlock | ValidCreature$ Card.IsRemembered
+SVar:DBCantAttackBlock:DB$ Pump | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | KW$ HIDDEN CARDNAME can't attack or block. | IsCurse$ True | Duration$ UntilEndOfCombat

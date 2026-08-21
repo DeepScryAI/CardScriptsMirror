@@ -1,9 +1,12 @@
 Id:26047
-ColorIdentity:U
-OriginSet:G2192e8955d5e1ad1
-ManaCost:2 U
-Types:Artifact
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigScry
-SVar:TrigScry:DB$ Scry | ScryNum$ 2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Artifact.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigAnimate
-SVar:TrigAnimate:DB$ Animate | Defined$ Self | Power$ 4 | Toughness$ 4 | Types$ Artifact,Creature,Phyrexian,Eye | RemoveCreatureTypes$ True
+ColorIdentity:W
+OriginSet:G880fc7f6ed36df4d
+ManaCost:2 W
+Types:Enchantment
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | Execute$ TrigCharm | TriggerZones$ Battlefield
+SVar:TrigCharm:DB$ Charm | Choices$ PumpField,PumpHand,Token | ChoiceRestriction$ YourLastCombat
+SVar:PumpField:DB$ Pump | ValidTgts$ Soldier | TargetMin$ 0 | TargetMax$ 1 | KW$ Flying | NumAtt$ +1 | NumDef$ +1 | Duration$ Perpetual
+SVar:PumpHand:DB$ ChooseCard | ChoiceZone$ Hand | Choices$ Soldier.YouOwn | Mandatory$ True | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ ChosenCard | PumpZone$ Hand | KW$ Vigilance | NumAtt$ +1 | NumDef$ +1 | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+SVar:Token:DB$ Token | TokenScriptIds$ 1912559273

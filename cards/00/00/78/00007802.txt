@@ -1,10 +1,9 @@
 Id:7802
-ColorIdentity:R
+ColorIdentity:
 OriginSet:G3fddc6426f419054
-ManaCost:3 R
-Types:Creature Spirit
-PT:3/1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDestroy
-SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Artifact
-T:Mode$ SpellCast | ValidCard$ Spirit,Arcane | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Defined$ Self
+ManaCost:3
+Types:Artifact
+A:AB$ Pump | Cost$ 4 | ValidTgts$ Creature | NumAtt$ +X | SubAbility$ DBDelay | AILogic$ Berserk
+SVar:DBDelay:DB$ DelayedTrigger | Mode$ Phase | Phase$ End Of Turn | Execute$ TrigSac
+SVar:TrigSac:DB$ SacrificeAll | Defined$ Self | Controller$ You
+SVar:X:Targeted$CardPower

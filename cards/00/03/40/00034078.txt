@@ -1,7 +1,11 @@
 Id:34078
-ColorIdentity:R
-OriginSet:Gcb93bbfc68a40806
-ManaCost:2 R
-Types:Artifact Equipment
-K:Equip:2
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1 | AddToughness$ 1 | AddKeyword$ Flying & Haste
+ColorIdentity:WB
+OriginSet:Gf8df2bea26dc6b68
+ManaCost:W B
+Types:Creature Dwarf Cleric
+PT:2/2
+K:Menace
+T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | Execute$ TrigPutCounter1 | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | TargetsValid$ Creature.inZoneBattlefield
+SVar:TrigPutCounter1:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self+HasCounters | Execute$ TrigPutCounter2
+SVar:TrigPutCounter2:DB$ PutCounter | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | CounterType$ EachFromSource | EachFromSource$ TriggeredCardLKICopy

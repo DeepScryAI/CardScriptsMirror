@@ -1,9 +1,11 @@
 Id:20333
-ColorIdentity:R
+ColorIdentity:UB
 OriginSet:Gfa87e7bbc5a709eb
-ManaCost:2 R
-Types:Creature Human Soldier
-PT:3/2
-T:Mode$ SpellCast | TargetsValid$ Card.Self | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPumpAll
-SVar:TrigPumpAll:DB$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +1
-SVar:BuffedBy:Card
+ManaCost:U B
+Types:Creature Nightmare
+PT:2/1
+T:Mode$ ChangesZoneAll | ValidCards$ Card.YouOwn | Origin$ Library | Destination$ Graveyard | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | NumAtt$ +1 | NumDef$ +1 | SubAbility$ DBUnblockable
+SVar:DBUnblockable:DB$ Effect | RememberObjects$ Self | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+A:AB$ Mill | Cost$ 1 U B

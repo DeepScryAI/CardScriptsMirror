@@ -1,7 +1,13 @@
 Id:13670
-ColorIdentity:RG
+ColorIdentity:G
 OriginSet:G95da96f2551eb4c0
-ManaCost:1 G
-Types:Creature Satyr
-PT:2/1
-A:AB$ Mana | Cost$ R Sac<1/CARDNAME> | Produced$ R | Amount$ 3 | AILogic$ ManaRitual | AINoRecursiveCheck$ True
+ManaCost:2 G G
+Types:Legendary Creature Hydra
+PT:5/5
+A:AB$ PutCounter | Cost$ X X G | Monstrosity$ X | AILogic$ Polukranos
+T:Mode$ BecomeMonstrous | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigDmg
+SVar:TrigDmg:DB$ DealDamage | ValidTgts$ Creature.OppCtrl | AILogic$ Polukranos | NumDmg$ MonstrosityX | TargetMin$ 0 | TargetMax$ MaxTgts | DividedAsYouChoose$ MonstrosityX | SubAbility$ DBDmg
+SVar:DBDmg:DB$ EachDamage | DefinedDamagers$ ParentTarget | NumDmg$ Count$CardPower | Defined$ Self
+SVar:X:Count$xPaid
+SVar:MonstrosityX:TriggerCount$Amount
+SVar:MaxTgts:Count$Valid Creature.OppCtrl

@@ -1,9 +1,13 @@
 Id:26176
 ColorIdentity:B
 OriginSet:G2192e8955d5e1ad1
-ManaCost:2 B
-Types:Creature Phyrexian Warlock
-PT:3/2
-K:Toxic:1
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Battlefield | Destination$ Graveyard | TriggerZones$ Battlefield | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 2259993196
+ManaCost:5 B
+Types:Creature Phyrexian Cleric
+PT:5/5
+K:Deathtouch
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDiscard
+SVar:TrigDiscard:DB$ Discard | Mode$ TgtChoose | Defined$ Opponent | RememberDiscarded$ True | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:SVar$Y/Times.4
+SVar:Y:PlayerCountOpponents$Amount/Minus.Remembered$Amount

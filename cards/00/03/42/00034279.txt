@@ -1,13 +1,13 @@
 Id:34279
-ColorIdentity:U
+ColorIdentity:WG
 OriginSet:Gcb93bbfc68a40806
-ManaCost:2 U
-Types:Enchantment Aura
-K:Enchant:Creature.YouCtrl:creature you control
-SVar:AttachAILogic:Pump
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigDraw
-SVar:TrigDraw:AB$ Draw | Cost$ X | NumCards$ X
-T:Mode$ Drawn | ValidCard$ Card.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Enchanted | CounterType$ P1P1 | CounterNum$ 1
-SVar:X:Count$xPaid
-SVar:PlayMain1:TRUE
+ManaCost:2 G W
+Types:Legendary Creature Cat God
+PT:4/4
+K:Reach
+K:Trample
+K:Indestructible
+S:Mode$ CantAttack,CantBlock | ValidCard$ Card.Self | IsPresent$ Creature.YouCtrl | PresentCompare$ LE2
+T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigPump | TriggerZones$ Battlefield
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.attacking | NumAtt$ +X | NumDef$ +X
+SVar:X:Count$Valid Creature.YouCtrl

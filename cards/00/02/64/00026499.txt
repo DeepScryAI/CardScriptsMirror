@@ -1,8 +1,15 @@
 Id:26499
-ColorIdentity:B
-OriginSet:G06757f68e16377c2
-ManaCost:1 B
-Types:Instant
-K:Kicker:Sac<1/Creature;Artifact/artifact or creature>
-A:SP$ Pump | ValidTgts$ Creature | NumAtt$ -X | NumDef$ -X | IsCurse$ True
-SVar:X:Count$Kicked.6.2
+ColorIdentity:G
+OriginSet:Gd5f5e54fa26ae40d
+ManaCost:5 G
+Types:Creature Elephant Soldier
+PT:4/4
+K:Backup:1:BackupAbilities
+K:Backup:1:BackupAbilities
+K:Backup:1:BackupAbilities
+SVar:BackupAbilities:DB$ Animate | Keywords$ Trample | Triggers$ DamageTrig
+SVar:DamageTrig:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | TriggerZones$ Battlefield | CombatDamage$ True | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ TriggeredSourceLKICopy | CounterType$ P1P1 | CounterNum$ X
+SVar:X:TriggerCount$DamageAmount
+K:Trample
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | TriggerZones$ Battlefield | CombatDamage$ True | Execute$ TrigPutCounter

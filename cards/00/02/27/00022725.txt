@@ -1,10 +1,12 @@
 Id:22725
-ColorIdentity:UB
-OriginSet:G66f2eb694ffd614a
-ManaCost:3 U B
-Types:Legendary Creature Human Rogue
-PT:4/4
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl+Other | TriggerZones$ Battlefield | Execute$ TrigInvestigate
-SVar:TrigInvestigate:DB$ Investigate
-T:Mode$ Sacrificed | ValidPlayer$ You | ValidCard$ Permanent.token+YouCtrl | Origin$ Any | Destination$ Battlefield | Execute$ DBSurveil | TriggerZones$ Battlefield
-SVar:DBSurveil:DB$ Surveil | Amount$ 1
+ColorIdentity:B
+OriginSet:G9f95a41d532c0550
+ManaCost:B
+Types:Artifact Equipment
+K:Equip:B B
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddKeyword$ Deathtouch
+A:AB$ Animate | Cost$ 5 B B B | Defined$ Self | Triggers$ TrigDamageDone | SubAbility$ DBAddSVar
+SVar:DBAddSVar:DB$ Animate | Defined$ Equipped | sVars$ MustBeBlocked
+SVar:MustBeBlocked:True
+SVar:TrigDamageDone:Mode$ DamageDone | ValidSource$ Creature.EquippedBy | ValidTarget$ Player | CombatDamage$ True | Execute$ DBLose
+SVar:DBLose:DB$ LosesGame | Defined$ TriggeredTarget

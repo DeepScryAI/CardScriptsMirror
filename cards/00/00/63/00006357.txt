@@ -1,9 +1,13 @@
 Id:6357
-ColorIdentity:B
+ColorIdentity:U
 OriginSet:Gd11012ee98ee8d76
-ManaCost:1 B B
-Types:Creature Bird
-PT:2/1
-K:Flying
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigPumpAll
-SVar:TrigPumpAll:DB$ PumpAll | ValidCards$ Creature | NumAtt$ -1 | NumDef$ -1
+ManaCost:4 U U U
+Types:Enchantment
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigExile
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Battlefield | Destination$ Any | Execute$ TrigSacrifice
+SVar:TrigExile:DB$ ChangeZoneAll | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | ChangeType$ Creature.YouCtrl | SubAbility$ DBToken
+SVar:TrigSacrifice:DB$ SacrificeAll | ValidCards$ Dragon.YouCtrl | SubAbility$ DBReturn
+SVar:DBToken:DB$ Token | TokenAmount$ X | TokenScriptIds$ 4249416919 | TokenOwner$ You | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:DBReturn:DB$ ChangeZoneAll | Origin$ Exile | Destination$ Battlefield | ChangeType$ Card.ExiledWithSource
+SVar:X:Remembered$Amount

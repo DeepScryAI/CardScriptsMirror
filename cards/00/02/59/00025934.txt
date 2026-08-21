@@ -1,20 +1,8 @@
 Id:25934
-ColorIdentity:WU
-OriginSet:Gf78628ad511eefec
-ManaCost:W U
-Types:Creature Human Peasant
-PT:2/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill
-SVar:TrigMill:DB$ Mill | NumCards$ 4 | Defined$ You
-T:Mode$ SpellCast | ValidCard$ Card.wasCastFromYourGraveyardByYou | ValidActivatingPlayer$ You | Execute$ TrigTap | TriggerZones$ Battlefield
-SVar:TrigTap:DB$ Tap | ValidTgts$ Creature.YouDontCtrl
-K:Disturb:1 W U
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:white,blue
-Types:Creature Spirit
-PT:3/1
-K:Flying
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Graveyard | ReplaceWith$ Exile
-SVar:Exile:DB$ ChangeZone | Hidden$ True | Origin$ All | Destination$ Exile | Defined$ ReplacedCard
+ColorIdentity:G
+OriginSet:G06ccef4324c14725
+ManaCost:2 G
+Types:Instant
+A:SP$ Mill | NumCards$ 5 | RememberMilled$ True | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Graveyard,Exile | Destination$ Hand | Hidden$ True | ChangeType$ Permanent.IsRemembered | ChangeNum$ 1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

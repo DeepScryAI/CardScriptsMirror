@@ -1,6 +1,12 @@
 Id:3460
-ColorIdentity:R
+ColorIdentity:G
 OriginSet:G24ae8187eacbba52
-ManaCost:2 R
-Types:Sorcery
-A:SP$ DamageAll | NumDmg$ 2 | ValidCards$ Creature | ValidPlayers$ Player
+ManaCost:G
+Types:Enchantment Aura
+K:Enchant:Swamp
+SVar:AttachAILogic:Curse
+T:Mode$ Taps | ValidCard$ Card.AttachedBy | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ Destroy | Defined$ TriggeredCardLKICopy
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | Defined$ TriggeredNewCardLKICopy
+SVar:SacMe:2

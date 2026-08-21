@@ -1,6 +1,12 @@
 Id:18947
-ColorIdentity:R
-OriginSet:G0b51a0aecbe39efe
-ManaCost:2 R
-Types:Instant
-A:SP$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +2
+ColorIdentity:BR
+OriginSet:G586a4ae96288ce18
+ManaCost:1 R
+Types:Creature Human Shaman
+PT:2/2
+K:Spectacle:2 B R
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDiscard
+SVar:TrigDiscard:DB$ Discard | Mode$ TgtChoose | SubAbility$ DBDrawOne | ConditionDefined$ TriggeredCard | ConditionPresent$ Card.spectacle | ConditionCompare$ EQ0
+SVar:DBDrawOne:DB$ Draw | Defined$ You | NumCards$ 1 | ConditionDefined$ TriggeredCard | ConditionPresent$ Card.spectacle | ConditionCompare$ EQ0 | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Mode$ Hand | Defined$ You | SubAbility$ DBDrawThree | ConditionDefined$ TriggeredCard | ConditionPresent$ Card.spectacle
+SVar:DBDrawThree:DB$ Draw | Defined$ You | NumCards$ 3 | ConditionDefined$ TriggeredCard | ConditionPresent$ Card.spectacle

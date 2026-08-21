@@ -1,10 +1,10 @@
 Id:33539
-ColorIdentity:R
-OriginSet:G23d1f017cc66962f
-ManaCost:2 R R
-Types:Legendary Creature Mutant Ninja Turtle
-PT:4/4
-K:CARDNAME must be blocked if able.
-T:Mode$ DamageDoneOnce | Execute$ TrigMana | ValidTarget$ Card.Self | TriggerZones$ Battlefield
-SVar:TrigMana:DB$ Mana | Produced$ R | Amount$ X | PersistentMana$ True
-SVar:X:TriggerCount$DamageAmount
+ColorIdentity:U
+OriginSet:G40dbb28fb92f9206
+ManaCost:2 U
+Types:Creature Elemental Wizard
+PT:3/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigBoon
+SVar:TrigBoon:DB$ Effect | Boon$ True | Duration$ Permanent | Triggers$ CastTrig
+SVar:CastTrig:Mode$ SpellCast | ValidCard$ Instant.cmcLE3,Sorcery.cmcLE3 | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigCopy
+SVar:TrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | MayChooseTarget$ True

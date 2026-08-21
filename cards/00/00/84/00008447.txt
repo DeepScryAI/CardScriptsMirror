@@ -1,9 +1,15 @@
 Id:8447
-ColorIdentity:G
-OriginSet:G906f06c9dc58356d
-ManaCost:5 G G
-Types:Creature Elf Warrior
-PT:1+*/1+*
-S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X | SetToughness$ X
-SVar:X:Count$Valid Land.YouCtrl/Plus.1
-S:Mode$ AlternativeCost | ValidSA$ Spell.Self | EffectZone$ All | Cost$ ExileFromHand<2/Card.Green>
+ColorIdentity:U
+OriginSet:Gde6d8130c178f566
+ManaCost:U
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAITgts:Creature.powerLE2
+SVar:AttachAILogic:Pump
+T:Mode$ Attacks | ValidCard$ Card.AttachedBy+powerLE2 | Execute$ TrigUnblockable | TriggerZones$ Battlefield
+SVar:TrigUnblockable:DB$ Effect | RememberObjects$ TriggeredAttackerLKICopy | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable | ConditionCheckSVar$ TriggeredAttacker$Valid Card.powerLE2
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+A:AB$ Effect | Cost$ 1 U Reveal<1/CARDNAME> | ValidTgts$ Creature.powerLE2 | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable | Forecast$ True
+SVar:NonStackingAttachEffect:True
+S:Mode$ Continuous | Affected$ Creature.AttachedBy | AddSVar$ AE
+SVar:AE:SVar:HasAttackEffect:TRUE

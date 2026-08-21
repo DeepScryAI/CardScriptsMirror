@@ -1,8 +1,10 @@
 Id:4150
-ColorIdentity:
+ColorIdentity:R
 OriginSet:Gdd40b2fbd2aa3c03
-ManaCost:2
-Types:Artifact
-A:AB$ PutCounter | Cost$ 1 T | CounterType$ WINCH | CounterNum$ 1
-A:AB$ ChangeZone | Cost$ T SubCounter<X/WINCH> | ChangeNum$ 1 | ChangeType$ Creature.cmcEQX | Origin$ Hand | Destination$ Battlefield | Optional$ True
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ PutCounter | Cost$ T | Defined$ Self | CounterType$ STORAGE | CounterNum$ 1
+A:AB$ Mana | Cost$ T SubCounter<X/STORAGE> | Produced$ R | Amount$ X | AILogic$ ManaRitualBattery | AINoRecursiveCheck$ True
 SVar:X:Count$xPaid

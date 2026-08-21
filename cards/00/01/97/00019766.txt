@@ -1,9 +1,14 @@
 Id:19766
-ColorIdentity:WUR
-OriginSet:Ga539dc09c09c4538
-ManaCost:2 U R W
-Types:Legendary Creature Djinn Monk
-PT:3/3
-K:Prowess
-S:Mode$ Continuous | Affected$ Card.TopLibrary+YouCtrl | AffectedZone$ Library | MayLookAt$ You
-S:Mode$ Continuous | Affected$ Card.TopLibrary+YouCtrl+nonLand+nonCreature | AffectedZone$ Library | MayPlay$ True | MayPlayWithFlash$ True
+ColorIdentity:G
+OriginSet:G7c61dc677f00d087
+ManaCost:X G G
+Types:Creature Hydra
+PT:0/1
+K:Trample
+K:etbCounter:P1P1:X
+SVar:X:Count$xPaid
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | Choices$ DBCounter,DBFight
+SVar:DBCounter:DB$ MultiplyCounter | Defined$ Self | CounterType$ P1P1
+SVar:DBFight:DB$ Fight | Defined$ Self | ValidTgts$ Creature.YouDontCtrl
+SVar:PlayMain1:TRUE

@@ -1,9 +1,12 @@
 Id:19658
-ColorIdentity:WG
+ColorIdentity:B
 OriginSet:G7c61dc677f00d087
-ManaCost:1 G W
-Types:Creature Treefolk Soldier
-PT:*/5
-S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X
-SVar:X:Count$Valid Creature.YouCtrl
-A:AB$ Token | Cost$ 3 G W | TokenScriptIds$ 1214250791 | TokenOwner$ You
+ManaCost:3 B
+Types:Creature Nightmare
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Swamp.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | Choices$ DBDraw,DBDmg
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1 | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ 1
+SVar:DBDmg:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 2 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ 2

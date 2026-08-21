@@ -1,11 +1,8 @@
 Id:24459
 ColorIdentity:
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:3
+ManaCost:2
 Types:Artifact
-T:Mode$ RolledDieOnce | TriggerZones$ Battlefield | ValidPlayer$ You | Execute$ TrigPutCounter
-SVar:DiceResult:TriggerCount$Result
-SVar:TrigPutCounter:DB$ PutCounter | CounterType$ CHARGE | CounterNum$ DiceResult
-A:AB$ Mana | Cost$ T | Produced$ Any | SubAbility$ DBRollDice
-SVar:DBRollDice:DB$ RollDice | Sides$ 20
-A:AB$ ChangeZone | Cost$ T SubCounter<100/CHARGE> | Origin$ Library | Destination$ Battlefield | ChangeType$ Artifact | ChangeNum$ 1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigToken | Secondary$ True
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 3851718391

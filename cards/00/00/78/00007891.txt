@@ -1,7 +1,8 @@
 Id:7891
-ColorIdentity:BG
+ColorIdentity:B
 OriginSet:Gc563c209d627c4c5
-ManaCost:2 B G
+ManaCost:1 B
 Types:Enchantment
-T:Mode$ SpellCast | ValidCard$ Creature | TriggerZones$ Battlefield | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZoneAll | ChangeType$ Triggered.sameName | Origin$ Graveyard | Destination$ Battlefield
+S:Mode$ ReduceCost | ValidCard$ Card.nonCreature | Type$ Spell | Activator$ You | Amount$ 2
+T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | Execute$ TrigCounter | TriggerZones$ Battlefield
+SVar:TrigCounter:DB$ Counter | Defined$ TriggeredSpellAbility | UnlessCost$ Sac<1/Creature> | UnlessPayer$ You

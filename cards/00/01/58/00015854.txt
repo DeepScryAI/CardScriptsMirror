@@ -1,11 +1,12 @@
 Id:15854
-ColorIdentity:UG
-OriginSet:G92026fbb3573fda5
-ManaCost:X 2 G U
-Types:Creature Shapeshifter
-PT:0/0
-R:Event$ Counter | ValidCard$ Card.Self | ValidSA$ Spell | Layer$ CantHappen
-K:ETBReplacement:Copy:DBCopy:Optional
-SVar:DBCopy:DB$ Clone | Choices$ Creature.Other | SubAbility$ DBAddCounter
-SVar:DBAddCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | ETB$ True | CounterNum$ X
-SVar:X:Count$xPaid
+ColorIdentity:W
+OriginSet:Gbfcf4b36579d751e
+ManaCost:W
+Types:Creature Spirit
+PT:1/1
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigTap
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Opponent | Delirium$ True | Execute$ TripTapOpp | TriggerZones$ Battlefield
+SVar:TrigTap:DB$ Tap | ValidTgts$ Creature.OppCtrl
+SVar:TripTapOpp:DB$ Tap | ValidTgts$ Creature.ActivePlayerCtrl
+SVar:PlayMain1:TRUE

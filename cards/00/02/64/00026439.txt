@@ -1,9 +1,12 @@
 Id:26439
-ColorIdentity:W
-OriginSet:G06757f68e16377c2
-ManaCost:2 W
-Types:Creature Phyrexian Kor
+ColorIdentity:WB
+OriginSet:G74a73d701e7801b3
+ManaCost:W B
+Types:Legendary Creature Human Cleric
 PT:2/2
-K:Flying
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player,Battle | Execute$ TrigTransform | CombatDamage$ True
-SVar:TrigTransform:DB$ SetState | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Incubator.token+YouCtrl | Mode$ Transform
+K:Starting intensity:0
+T:Mode$ ChangesZone | ValidCard$ Creature.YouCtrl+Other | Origin$ Any | Destination$ Battlefield | TriggerZones$ Battlefield | Execute$ TrigIntensify
+SVar:TrigIntensify:DB$ Intensify | AllDefined$ Card.Self,Card.inZoneGraveyard+catalogId26439+YouOwn,Card.inZoneHand+catalogId26439+YouOwn,Card.inZoneLibrary+catalogId26439+YouOwn
+A:AB$ LoseLife | Cost$ 3 W B T Sac<1/NICKNAME> | ValidTgts$ Opponent | LifeAmount$ X | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ X
+SVar:X:Count$Intensity

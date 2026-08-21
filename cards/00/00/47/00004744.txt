@@ -1,9 +1,11 @@
 Id:4744
-ColorIdentity:U
+ColorIdentity:UB
 OriginSet:Gfb91362c2efb868e
-ManaCost:1 U
-Types:Instant
-K:Kicker:2
-A:SP$ Counter | TargetType$ Spell | ValidTgts$ Card | ConditionCheckSVar$ Y | ConditionSVarCompare$ LEX
-SVar:X:Count$Kicked.4.2
-SVar:Y:Targeted$CardManaCost
+ManaCost:2 U
+Types:Sorcery
+K:Kicker:1 B
+A:SP$ Draw | NumCards$ 3 | SubAbility$ DBDiscardYou
+SVar:DBDiscardYou:DB$ Discard | Defined$ You | NumCards$ 2 | SubAbility$ DBDiscardTarget | Mode$ TgtChoose
+SVar:DBDiscardTarget:DB$ Discard | Condition$ Kicked | ValidTgts$ Player | NumCards$ 2 | Mode$ TgtChoose
+SVar:NeedsToPlayKickedVar:Z GE1
+SVar:Z:Count$ValidHand Card.OppOwn

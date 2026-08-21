@@ -1,7 +1,14 @@
 Id:11456
-ColorIdentity:U
+ColorIdentity:B
 OriginSet:Gf6792163b580976b
-ManaCost:U
-Types:Sorcery
-A:SP$ Scry | ScryNum$ 2 | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw
+ManaCost:B B B
+Types:Creature Zombie
+PT:5/5
+K:Indestructible
+K:ETBReplacement:Other:TrigChooseArtifact
+SVar:TrigChooseArtifact:DB$ ChooseCard | Choices$ Artifact.YouCtrl | Mandatory$ True | SubAbility$ DBPutCounter | AILogic$ Phylactery
+SVar:DBPutCounter:DB$ PutCounter | CounterType$ PHYLACTERY | CounterNum$ 1 | Defined$ ChosenCard | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+T:Mode$ Always | TriggerZones$ Battlefield | IsPresent$ Permanent.counters_GE1_PHYLACTERY+YouCtrl | PresentCompare$ EQ0 | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice
+SVar:NeedsToPlay:Artifact.YouCtrl

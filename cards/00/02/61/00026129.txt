@@ -1,9 +1,9 @@
 Id:26129
-ColorIdentity:G
+ColorIdentity:B
 OriginSet:G2192e8955d5e1ad1
-ManaCost:3 G G
-Types:Sorcery
-A:SP$ PumpAll | NumAtt$ +2 | NumDef$ +2 | ValidCards$ Creature.YouCtrl | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | Triggers$ TrigBlock
-SVar:TrigBlock:Mode$ Blocks | ValidCard$ Creature | Execute$ TrigPoison
-SVar:TrigPoison:DB$ Poison | Defined$ TriggeredBlockerController | Num$ 1
+ManaCost:2 B
+Types:Artifact Creature Phyrexian Construct
+PT:3/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ DBTrigger
+SVar:DBTrigger:AB$ ImmediateTrigger | Cost$ PayLife<2> | Execute$ TrigDebuff
+SVar:TrigDebuff:DB$ Pump | ValidTgts$ Creature | NumAtt$ -1 | NumDef$ -1 | IsCurse$ True

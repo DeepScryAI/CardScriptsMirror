@@ -1,10 +1,12 @@
 Id:8695
-ColorIdentity:WG
+ColorIdentity:W
 OriginSet:G70f74088c47d66bd
-ManaCost:1 G W
-Types:Creature Sliver
-PT:1/1
-S:Mode$ Continuous | Affected$ Sliver | AddTrigger$ HarmonicETB
-SVar:HarmonicETB:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ HarmonicDestroy
-SVar:HarmonicDestroy:DB$ Destroy | ValidTgts$ Artifact,Enchantment
-SVar:BuffedBy:Sliver
+ManaCost:3 W W
+Types:Creature Human Knight
+PT:2/2
+K:Flanking
+T:Mode$ Attacks | ValidCard$ Card.Self | OptionalDecider$ You | Execute$ TrigTap
+SVar:TrigTap:DB$ Tap | ValidTgts$ Creature
+T:Mode$ AttackerBlocked | ValidCard$ Card.Self | OptionalDecider$ You | Execute$ TrigUntap
+SVar:TrigUntap:DB$ Untap | Defined$ Self | SubAbility$ RemCombat
+SVar:RemCombat:DB$ RemoveFromCombat | Defined$ Self

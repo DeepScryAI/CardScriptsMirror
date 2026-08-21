@@ -1,10 +1,9 @@
 Id:22006
-ColorIdentity:WR
+ColorIdentity:
 OriginSet:Gd784248bfdf9e1d7
-ManaCost:1 RW RW
-Types:Creature Kor Shaman
-PT:2/2
-K:FirstStrike
-T:Mode$ SpellCastOrCopy | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +1
-SVar:BuffedBy:Instant,Sorcery
+ManaCost:4
+Types:Artifact Creature Gargoyle
+PT:2/1
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Library | ValidTgts$ Instant.YouCtrl,Sorcery.YouCtrl | TargetMin$ 0 | TargetMax$ 1

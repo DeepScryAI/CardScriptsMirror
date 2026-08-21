@@ -1,13 +1,13 @@
 Id:13205
 ColorIdentity:WR
 OriginSet:Gfdc478e04211a499
-ManaCost:2 R R W W
-Types:Legendary Creature Angel
-PT:3/4
-K:Flying
-K:Vigilance
-K:Haste
-T:Mode$ Attacks | ValidCard$ Creature.Self | TriggerZones$ Battlefield | Execute$ TrigUntap | FirstAttack$ True
-SVar:TrigUntap:DB$ UntapAll | ValidCards$ Creature.YouCtrl | SubAbility$ DBAddCombat
-SVar:DBAddCombat:DB$ AddPhase | ExtraPhase$ Combat | AfterPhase$ EndCombat
-SVar:PlayMain1:TRUE
+ManaCost:X R W
+Types:Instant
+A:SP$ DealDamage | ValidTgts$ Any | NumDmg$ X | TargetMin$ 0 | TargetMax$ MaxTgts | DividedAsYouChoose$ X | RememberDamaged$ True | SubAbility$ CowedByAurelia
+SVar:CowedByAurelia:DB$ TapAll | ValidCards$ Creature.IsRemembered | SubAbility$ SpellLimitations
+SVar:SpellLimitations:DB$ Effect | StaticAbilities$ STCantBeCast | RememberObjects$ Player.IsRemembered | SubAbility$ DBCleanup
+SVar:STCantBeCast:Mode$ CantBeCast | ValidCard$ Card.nonCreature | Caster$ Player.IsRemembered
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:MaxTgts:PlayerCountPlayers$Amount/Plus.MaxPermanents
+SVar:MaxPermanents:Count$Valid Any
+SVar:X:Count$xPaid

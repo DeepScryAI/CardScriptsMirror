@@ -1,10 +1,12 @@
 Id:34533
-ColorIdentity:UG
-OriginSet:G11c0621ce29fa608
-ManaCost:no cost
-Types:Land
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGainLife
-SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 1
-A:AB$ Mana | Cost$ T | Produced$ Combo G U
+ColorIdentity:R
+OriginSet:Gcb93bbfc68a40806
+ManaCost:5 R
+Types:Legendary Creature Gamma Hero
+PT:5/5
+K:Trample
+S:Mode$ Continuous | Affected$ Hero.Other+YouCtrl | AddKeyword$ Trample
+T:Mode$ AttackerBlocked | ValidCard$ Hero.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ TriggeredAttackerLKICopy | CounterType$ P1P1 | CounterNum$ X
+SVar:X:Count$Valid Creature.blockingTriggeredAttacker
+SVar:PlayMain1:TRUE

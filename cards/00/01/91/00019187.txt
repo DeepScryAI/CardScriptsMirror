@@ -1,10 +1,13 @@
 Id:19187
-ColorIdentity:R
+ColorIdentity:U
 OriginSet:Gf56613712ce2ae1f
-ManaCost:3 R R
-Types:Legendary Planeswalker Sarkhan
-Loyalty:5
-T:Mode$ Attacks | ValidCard$ Creature | Attacked$ You,Planeswalker.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigDamage
-SVar:TrigDamage:DB$ EachDamage | ValidCards$ Dragon.YouCtrl | NumDmg$ 1 | Defined$ TriggeredAttackerLKICopy
-A:AB$ AnimateAll | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | Power$ 4 | Toughness$ 4 | Types$ Creature,Dragon | RemoveCreatureTypes$ True | Colors$ Red | OverwriteColors$ True | RemoveCardTypes$ True | Keywords$ Flying | ValidCards$ Planeswalker.YouCtrl | AILogic$ Always
-A:AB$ Token | Cost$ SubCounter<3/LOYALTY> | TokenScriptIds$ 2858880039 | TokenOwner$ You | Planeswalker$ True
+ManaCost:1 U U U
+Types:Legendary Planeswalker Jace
+Loyalty:4
+R:Event$ Draw | ActiveZones$ Battlefield | ValidPlayer$ You | IsPresent$ Card.YouOwn | PresentZone$ Library | PresentCompare$ EQ0 | ReplaceWith$ Win
+SVar:Win:DB$ WinsGame | Defined$ You
+A:AB$ Mill | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | NumCards$ 2 | ValidTgts$ Player | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw
+A:AB$ Draw | Cost$ SubCounter<8/LOYALTY> | Planeswalker$ True | Ultimate$ True | NumCards$ 7 | SubAbility$ WinGame
+SVar:WinGame:DB$ WinsGame | Defined$ You | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ0
+SVar:X:Count$ValidLibrary Card.YouOwn

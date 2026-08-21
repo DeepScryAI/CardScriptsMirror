@@ -1,11 +1,13 @@
 Id:28935
-ColorIdentity:R
+ColorIdentity:G
 OriginSet:Gaf7c94f364052cdd
-ManaCost:2 R
-Types:Enchantment
-R:Event$ BeginPhase | ActiveZones$ Battlefield | ValidPlayer$ You | Phase$ Draw | Skip$ True
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ ExileTwo | TriggerZones$ Battlefield
-SVar:ExileTwo:DB$ Dig | Defined$ You | DigNum$ 2 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ STPlay | SubAbility$ DBCleanup | ForgetOnMoved$ Exile | Duration$ EndOfTurn
-SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+ManaCost:1 G
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddTrigger$ AttackTrig
+SVar:AttackTrig:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 798446951 | RememberTokens$ True | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Remembered | CounterType$ P1P1 | CounterNum$ X | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$Valid Equipment.Attached,Aura.Attached+NotDefinedOriginalHost

@@ -1,7 +1,12 @@
 Id:24190
-ColorIdentity:B
-OriginSet:G51fcb7ec0cb81c29
-ManaCost:1 B
-Types:Creature Human Cleric
-PT:2/1
-A:AB$ ChangeZone | Cost$ 3 B Sac<1/CARDNAME> | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouOwn | SorcerySpeed$ True
+ColorIdentity:UB
+OriginSet:Gcf5d9b1e2ed6c496
+ManaCost:U B
+Types:Instant
+A:SP$ Charm | Choices$ CounterNonCreature,DBConjure | SubAbility$ DBDraft
+SVar:CounterNonCreature:DB$ Counter | TargetType$ Spell | ValidTgts$ Card.nonCreature | SubAbility$ DBDraft
+SVar:DBConjure:DB$ MakeCard | Conjure$ True | ValidTgts$ Creature.OppOwn+inZoneGraveyard | TgtZone$ Graveyard | DefinedName$ Targeted | Zone$ Hand | RememberMade$ True | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Remembered | staticAbilities$ SpendAnyMana | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:SpendAnyMana:Mode$ ManaConvert | EffectZone$ Stack | ValidPlayer$ You | ValidCard$ Card.Self | ValidSA$ Spell | ManaConversion$ AnyType->AnyColor
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | SubAbility$ DBDraft
+SVar:DBDraft:DB$ Draft | ConditionCheckSVar$ Count$ValidGraveyard Card.YouOwn$DifferentCardManaCost | ConditionSVarCompare$ GE5 | SpellbookCatalogIds$ 15701,13581,23241,20618,23260,19678,22961,17024,18807,20954,11336,3757,22248,5779

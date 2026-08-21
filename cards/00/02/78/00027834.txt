@@ -1,16 +1,13 @@
 Id:27834
-ColorIdentity:
+ColorIdentity:UBR
 OriginSet:G30e8a5e111cffb44
-ManaCost:2
-Types:Legendary Artifact
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ TIME | CounterNum$ 1
-A:AB$ Untap | Cost$ 2 T | ValidTgts$ Creature.YouCtrl | SubAbility$ DBPhase
-SVar:DBPhase:DB$ Phases | Defined$ Targeted | RememberAffected$ True | WontPhaseInNormal$ True | ConditionPresent$ Card.Self | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | Triggers$ TrigComeBack | RememberObjects$ Remembered | ImprintCards$ Self | ConditionPresent$ Card.Self | Duration$ Permanent | ForgetOnPhasedIn$ True
-SVar:TrigComeBack:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.IsImprinted | Execute$ DBPhaseIn | TriggerZones$ Command | TriggerController$ TriggeredCardController | Static$ True
-SVar:DBPhaseIn:DB$ Phases | Defined$ Remembered | PhaseInOrOut$ True | SubAbility$ DBExileSelf
-SVar:DBExileSelf:DB$ ChangeZone | Origin$ Command | Destination$ Exile | Defined$ Self
-A:AB$ DestroyAll | Cost$ 3 T | ValidCards$ Permanent.nonLand+cmcLEX | SorcerySpeed$ True | SubAbility$ DBSacrifice
-SVar:DBSacrifice:DB$ Sacrifice | ConditionDefined$ Self
-SVar:X:Count$CardCounters.TIME
+ManaCost:1 U B R
+Types:Legendary Artifact Creature Dalek
+PT:4/4
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigCharm | TriggerZones$ Battlefield
+SVar:TrigCharm:DB$ Charm | Choices$ DBPutCounterAll,DBDraw,DBToken,DBLoseLife | Random$ True
+SVar:DBPutCounterAll:DB$ PutCounterAll | ValidCards$ Creature.Artifact+YouCtrl | CounterType$ P1P1 | CounterNum$ 1
+SVar:DBDraw:DB$ Draw | NumCards$ 2
+SVar:DBToken:DB$ Token | TokenScriptIds$ 809974435
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 4 | Defined$ Opponent
+SVar:HasAttackEffect:TRUE

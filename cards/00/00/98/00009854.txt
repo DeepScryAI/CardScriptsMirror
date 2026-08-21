@@ -1,8 +1,9 @@
 Id:9854
-ColorIdentity:B
+ColorIdentity:BR
 OriginSet:G0388e25893b1e049
-ManaCost:3 B
-Types:Sorcery
-A:SP$ Charm | Choices$ SplitDiscard,FocusDiscard
-SVar:SplitDiscard:DB$ Discard | ValidTgts$ Player | NumCards$ 2 | Mode$ TgtChoose
-SVar:FocusDiscard:DB$ Discard | ValidTgts$ Player | Mode$ RevealYouChoose
+ManaCost:2 BR BR
+Types:Enchantment
+T:Mode$ Phase | Phase$ Draw | ValidPlayer$ Player | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ TriggeredPlayer
+T:Mode$ Drawn | ValidCard$ Card | TriggerZones$ Battlefield | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | Defined$ TriggeredCardOwner | NumDmg$ 1

@@ -1,11 +1,13 @@
 Id:27044
-ColorIdentity:
-OriginSet:G6ce0035cfb774934
-ManaCost:3
-Types:Legendary Artifact Equipment
-K:Flash
-K:Indestructible
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigAttach
-SVar:TrigAttach:DB$ Attach | ValidTgts$ Creature.YouCtrl+Legendary
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddKeyword$ Indestructible
-K:Equip:3
+ColorIdentity:WG
+OriginSet:G3601f5e223de6c7f
+ManaCost:2 G W
+Types:Legendary Creature Treefolk
+PT:0/5
+K:Trample
+K:Ward:2
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Destination$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 134855612 | TokenAmount$ 2
+T:Mode$ LifeGained | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.Halfling,Creature.Treefolk | CounterType$ P1P1 | CounterNum$ X
+SVar:X:TriggerCount$LifeAmount

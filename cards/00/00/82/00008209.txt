@@ -1,10 +1,11 @@
 Id:8209
-ColorIdentity:B
+ColorIdentity:WB
 OriginSet:G2c4e6f6c46954cd6
-ManaCost:2 B
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:Pump
-S:Mode$ Continuous | Affected$ Creature.enchanted+YouCtrl | AddPower$ 1 | AddToughness$ 1
-R:Event$ Moved | ActiveZones$ Battlefield | Origin$ Battlefield | Destination$ Graveyard | ValidLKI$ Creature.enchanted+YouCtrl | ReplaceWith$ ReturnToHand
-SVar:ReturnToHand:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Defined$ ReplacedCard
+ManaCost:1 WB
+Types:Creature Thrull
+PT:1/1
+K:Flying
+T:Mode$ DamageDealtOnce | ValidSource$ Card.Self | Execute$ TrigGain | TriggerZones$ Battlefield
+SVar:TrigGain:DB$ GainLife | Defined$ You | LifeAmount$ X
+SVar:X:TriggerCount$DamageAmount
+SVar:HasCombatEffect:TRUE

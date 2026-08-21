@@ -1,8 +1,11 @@
 Id:11291
-ColorIdentity:W
+ColorIdentity:G
 OriginSet:G9fb0a9a59b6a9580
-ManaCost:W
-Types:Creature Human Cleric
-PT:1/1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.Other | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigGainLife
-SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
+ManaCost:2 G
+Types:Enchantment Aura
+K:Enchant:Creature
+K:Umbra armor
+SVar:AttachAILogic:Curiosity
+S:Mode$ Continuous | Affected$ Creature.AttachedBy | AddPower$ 1 | AddToughness$ 1 | AddTrigger$ TriggerDamageDone | AddSVar$ SnakeUmbraDraw
+SVar:TriggerDamageDone:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Opponent | OptionalDecider$ You | Execute$ SnakeUmbraDraw
+SVar:SnakeUmbraDraw:DB$ Draw | Defined$ You | NumCards$ 1

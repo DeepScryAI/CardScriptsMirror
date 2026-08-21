@@ -1,9 +1,15 @@
 Id:29142
-ColorIdentity:U
-OriginSet:G27146c70b74a1e72
-ManaCost:U
-Types:Instant
-K:Spree
-A:SP$ Charm | Choices$ DBAnimate,DBDraw | MinCharmNum$ 1 | CharmNum$ 2
-SVar:DBAnimate:DB$ Animate | ModeCost$ 1 | ValidTgts$ Creature | Power$ 0 | Toughness$ 1 | Colors$ White | OverwriteColors$ True | Types$ Rabbit | RemoveCreatureTypes$ True
-SVar:DBDraw:DB$ Draw | ModeCost$ 3 | NumCards$ 2 | ValidTgts$ Player
+ColorIdentity:R
+OriginSet:Gc7beb665b378d90a
+ManaCost:3 R
+Types:Artifact Vehicle
+PT:*/5
+S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X
+SVar:X:Count$ValidGraveyard Instant.YouOwn,Sorcery.YouOwn
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigInstantEffect
+SVar:TrigInstantEffect:DB$ Effect | StaticAbilities$ CascadeInstant | ForgetOnCast$ Instant.YouCtrl | SubAbility$ DBSorceryEffect
+SVar:DBSorceryEffect:DB$ Effect | StaticAbilities$ CascadeSorcery | ForgetOnCast$ Sorcery.YouCtrl
+SVar:CascadeInstant:Mode$ Continuous | Affected$ Card.Instant+YouCtrl | AffectedZone$ Stack | AddKeyword$ Cascade
+SVar:CascadeSorcery:Mode$ Continuous | Affected$ Card.Sorcery+YouCtrl | AffectedZone$ Stack | AddKeyword$ Cascade
+SVar:HasAttackEffect:TRUE
+K:Crew:2

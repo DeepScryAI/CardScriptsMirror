@@ -1,7 +1,12 @@
 Id:7732
-ColorIdentity:U
+ColorIdentity:B
 OriginSet:G3fddc6426f419054
-ManaCost:4 U U U
-Types:Legendary Enchantment
-S:Mode$ Continuous | Affected$ Creature | AddPower$ -X
-SVar:X:Count$ValidHand Card.YouOwn
+ManaCost:3 B
+Types:Enchantment
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ 8
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Graveyard | ValidCard$ Card.!token+YouOwn+Other | TriggerZones$ Battlefield | Execute$ TrigGainControl
+SVar:TrigGainControl:DB$ GainControl | Defined$ Self | ValidTgts$ Opponent
+S:Mode$ Continuous | Affected$ Permanent.YouCtrl | AddSVar$ Sac
+SVar:Sac:SVar:SacMe:3

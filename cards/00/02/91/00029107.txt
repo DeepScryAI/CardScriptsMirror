@@ -1,9 +1,11 @@
 Id:29107
-ColorIdentity:BG
-OriginSet:G27146c70b74a1e72
-ManaCost:1 B G
-Types:Legendary Creature Human Warlock
-PT:3/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Creature.YouCtrl
-S:Mode$ ReduceCost | ValidCard$ Creature | Type$ Spell | Activator$ You | Amount$ 1
+ColorIdentity:
+OriginSet:G343cd0ac847a92b7
+ManaCost:no cost
+Types:Land Cave
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ ETBTapped | ReplacementResult$ Updated
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+K:ETBReplacement:Other:ChooseColor
+SVar:ChooseColor:DB$ ChooseColor | Defined$ You | AILogic$ MostProminentInComputerDeck
+A:AB$ Mana | Cost$ T | Produced$ Chosen
+A:AB$ Mana | Cost$ 1 T | Produced$ Special EachColorAmong_Valid Permanent.YouCtrl+MonoColor

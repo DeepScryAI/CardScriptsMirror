@@ -1,13 +1,15 @@
 Id:13669
-ColorIdentity:G
+ColorIdentity:R
 OriginSet:G95da96f2551eb4c0
-ManaCost:2 G G
-Types:Legendary Creature Hydra
-PT:5/5
-A:AB$ PutCounter | Cost$ X X G | Monstrosity$ X | AILogic$ Polukranos
-T:Mode$ BecomeMonstrous | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigDmg
-SVar:TrigDmg:DB$ DealDamage | ValidTgts$ Creature.OppCtrl | AILogic$ Polukranos | NumDmg$ MonstrosityX | TargetMin$ 0 | TargetMax$ MaxTgts | DividedAsYouChoose$ MonstrosityX | SubAbility$ DBDmg
-SVar:DBDmg:DB$ EachDamage | DefinedDamagers$ ParentTarget | NumDmg$ Count$CardPower | Defined$ Self
-SVar:X:Count$xPaid
-SVar:MonstrosityX:TriggerCount$Amount
-SVar:MaxTgts:Count$Valid Creature.OppCtrl
+ManaCost:1 R
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+T:Mode$ Attacks | ValidCard$ Card.AttachedBy | Execute$ TrigPutCounter | TriggerZones$ Battlefield
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ TriggeredAttackerLKICopy | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBSac
+SVar:DBSac:DB$ Sacrifice | ConditionDefined$ TriggeredAttackerLKICopy | ConditionPresent$ Card.counters_GE3_P1P1
+T:Mode$ Sacrificed | ValidPlayer$ You | ValidCard$ Card.Self | Execute$ TrigDmg | TriggerZones$ Battlefield
+SVar:TrigDmg:DB$ DealDamage | NumDmg$ 3 | ValidTgts$ Any
+S:Mode$ Continuous | Affected$ Creature.AttachedBy | AddSVar$ AE
+SVar:AE:SVar:HasAttackEffect:TRUE
+SVar:SacMe:4

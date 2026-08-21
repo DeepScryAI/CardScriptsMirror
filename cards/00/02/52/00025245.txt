@@ -1,9 +1,15 @@
 Id:25245
-ColorIdentity:B
+ColorIdentity:R
 OriginSet:Gf591a76e7a37cf73
-ManaCost:3 B B
-Types:Artifact Creature Necron
-PT:4/5
-S:Mode$ Continuous | Affected$ Creature.attacking ChosenPlayer | AddKeyword$ Menace
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | Execute$ TrigChoose | TriggerZones$ Battlefield
-SVar:TrigChoose:DB$ ChoosePlayer | Defined$ You | Choices$ Player.Opponent
+ManaCost:3 R
+Types:Legendary Creature Astartes Berserker
+PT:5/1
+S:Mode$ MustAttack | ValidCreature$ Card.Self
+S:Mode$ MustBlock | ValidCreature$ Card.Self
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigDraw
+T:Mode$ ChangesController | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigDraw | Secondary$ True | TriggerController$ TriggeredOriginalController
+SVar:TrigDraw:DB$ Draw | NumCards$ 2
+R:Event$ DamageDone | ActiveZones$ Battlefield | ValidTarget$ Card.Self | ReplaceWith$ ChoosePlayer | PreventionEffect$ True | AlwaysReplace$ True
+SVar:ChoosePlayer:DB$ ChoosePlayer | Choices$ Opponent | SubAbility$ DBGainControl
+SVar:DBGainControl:DB$ GainControl | NewController$ ChosenPlayer | SubAbility$ DBClearChosen
+SVar:DBClearChosen:DB$ Cleanup | ClearChosenPlayer$ True

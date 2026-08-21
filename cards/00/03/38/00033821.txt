@@ -1,9 +1,13 @@
 Id:33821
-ColorIdentity:B
-OriginSet:Gf8df2bea26dc6b68
-ManaCost:1 B
-Types:Creature Elf Bard
-PT:2/2
-T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | Execute$ TrigLoseLife | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | TargetsValid$ Creature.inZoneBattlefield
-SVar:TrigLoseLife:DB$ LoseLife | Defined$ Opponent | LifeAmount$ 1 | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | LifeAmount$ 1
+ColorIdentity:R
+OriginSet:Gf04404de3fa1525e
+ManaCost:R R
+Types:Instant
+S:Mode$ CantBeCopied | ValidCard$ Card.Self | EffectZone$ Stack
+A:SP$ Charm | Choices$ DBCopySpell,DBCopyCreature | MinCharmNum$ 1 | CharmNum$ 2 | Defined$ You
+SVar:DBCopySpell:DB$ CopySpellAbility | ValidTgts$ Instant.YouCtrl,Sorcery.YouCtrl | TargetType$ Spell | MayChooseTarget$ True
+SVar:DBCopyCreature:DB$ CopySpellAbility | ValidTgts$ Creature.YouCtrl | TargetType$ Spell | RememberNewCard$ True | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Remembered | Keywords$ Haste | Triggers$ EOTSac | Duration$ Permanent | SubAbility$ DBCleanup
+SVar:EOTSac:Mode$ Phase | Phase$ End of Turn | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

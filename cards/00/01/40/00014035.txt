@@ -1,12 +1,12 @@
 Id:14035
-ColorIdentity:WG
+ColorIdentity:G
 OriginSet:Gdaee41baa388b0e7
-ManaCost:3 G W
-Types:Legendary Enchantment Creature God
-PT:6/7
-K:Indestructible
-S:Mode$ Continuous | Affected$ Card.Self | RemoveType$ Creature | CheckSVar$ X | SVarCompare$ LT7
-SVar:X:Count$DevotionDual.Green.White
-T:Mode$ SpellCast | ValidCard$ Creature | ValidActivatingPlayer$ You | Execute$ TrigSearch | TriggerZones$ Battlefield | OptionalDecider$ You
-SVar:TrigSearch:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Forest,Plains | ChangeNum$ 1 | Tapped$ True | ShuffleNonMandatory$ True
-SVar:BuffedBy:Permanent.White,Permanent.Green
+ManaCost:1 G
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddAbility$ AnyMana
+SVar:AnyMana:AB$ Mana | Cost$ T | Produced$ Any
+SVar:NonStackingAttachEffect:True

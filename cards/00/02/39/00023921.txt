@@ -1,8 +1,15 @@
 Id:23921
-ColorIdentity:
-OriginSet:Gfdfe2ebef04be34e
-ManaCost:no cost
-Types:Land Forest Plains Island
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
-K:Cycling:3
+ColorIdentity:BR
+OriginSet:G5f5d8cfb206e2fac
+ManaCost:2 B R
+Types:Legendary Creature Phoenix
+PT:3/3
+K:Flying
+K:Haste
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ Player | TriggerZones$ Battlefield | Execute$ TrigPhoenix | CheckSVar$ X
+SVar:TrigPhoenix:DB$ Pump | ValidTgts$ Phoenix.YouCtrl | AILogic$ PowerDmg | SubAbility$ DBDamage
+SVar:DBDamage:DB$ DealDamage | ValidTgts$ Any | AILogic$ PowerDmg | NumDmg$ Y | DamageSource$ ParentTarget
+SVar:X:Count$LeftGraveyardThisTurn Card.Creature+YouOwn
+SVar:Y:ParentTargeted$CardPower
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Phoenix.Other+YouCtrl | TriggerZones$ Graveyard | Execute$ TrigPlay | OptionalDecider$ You
+SVar:TrigPlay:DB$ Play | Optional$ True

@@ -1,7 +1,19 @@
 Id:29917
-ColorIdentity:R
+ColorIdentity:W
 OriginSet:Gf09b85bbcc27770c
-ManaCost:1 R
-Types:Sorcery
-A:SP$ DealDamage | ValidTgts$ Any | NumDmg$ 1 | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw
+ManaCost:2 W W
+Types:Legendary Creature Elemental Elk
+PT:4/5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | ConditionCheckSVar$ XLands | ConditionSVarCompare$ GTYLands | TokenScriptIds$ 3851718391 | TokenOwner$ You | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | ConditionCheckSVar$ XLife | ConditionSVarCompare$ GTYLife | Defined$ You | LifeAmount$ 4 | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | ConditionCheckSVar$ XCreatures | ConditionSVarCompare$ GTYCreatures | TokenAmount$ 2 | TokenScriptIds$ 2753563426 | TokenOwner$ You | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | ConditionCheckSVar$ XCards | ConditionSVarCompare$ GTYCards
+SVar:XLands:PlayerCountOpponents$HighestValid Land.YouCtrl
+SVar:YLands:Count$Valid Land.YouCtrl
+SVar:XLife:PlayerCountOpponents$HighestLifeTotal
+SVar:YLife:Count$YourLifeTotal
+SVar:XCreatures:PlayerCountOpponents$HighestValid Creature.YouCtrl
+SVar:YCreatures:Count$Valid Creature.YouCtrl
+SVar:XCards:PlayerCountOpponents$HighestCardsInHand
+SVar:YCards:Count$CardsInYourHand

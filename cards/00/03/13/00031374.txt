@@ -1,7 +1,14 @@
 Id:31374
-ColorIdentity:U
-OriginSet:Gf2b808f4f642ac62
-ManaCost:4 U U
-Types:Instant
-A:SP$ Draw | NumCards$ 3 | SubAbility$ DBPumpAll
-SVar:DBPumpAll:DB$ PumpAll | NumAtt$ -3 | ValidCards$ Creature.OppCtrl | IsCurse$ True
+ColorIdentity:BR
+OriginSet:G9de1432c543d1aef
+ManaCost:2 B R
+Types:Creature Scorpion Dragon
+PT:4/4
+K:Flying
+K:StartYourEngines
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPump
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump | TriggerZones$ Battlefield | Secondary$ True
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.YouCtrl+withoutUnearth | TgtZone$ Graveyard | PumpZone$ Graveyard | KW$ Unearth:CardManaCost | Duration$ Perpetual
+S:Mode$ Continuous | Affected$ Card.Self | Condition$ MaxSpeed | AddStaticAbility$ FreebieReaving | AddSVar$ ReavingX
+SVar:FreebieReaving:Mode$ AlternativeCost | ValidSA$ Activated.Unearth | ValidPlayer$ You | Cost$ 0 | CheckSVar$ ReavingX | SVarCompare$ LT1 | AffectedZone$ Graveyard | EffectZone$ Graveyard | Secondary$ True
+SVar:ReavingX:Count$ThisTurnActivated_Activated.Unearth+YouCtrl

@@ -1,8 +1,14 @@
 Id:30344
-ColorIdentity:U
-OriginSet:G8b2ed00ac2a0ff47
-ManaCost:U
-Types:Sorcery
-A:SP$ Effect | ValidTgts$ Creature | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable | AILogic$ Pump | SubAbility$ DBDraw
-SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
-SVar:DBDraw:DB$ Draw
+ColorIdentity:RG
+OriginSet:G9ff9681e1fe8713a
+ManaCost:1 R G
+Types:Creature Raccoon Druid
+PT:3/3
+K:Haste
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigRandom
+SVar:TrigRandom:DB$ ChooseCard | Choices$ Permanent.nonFood+YouOwn | ChoiceZone$ Graveyard | AtRandom$ True | Amount$ 1 | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Types$ Food,Artifact | Defined$ ChosenCard | Duration$ Perpetual | Abilities$ FoodSac | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ MayPlay | ForgetOnMoved$ Graveyard | RememberObjects$ ChosenCard | Duration$ Permanent | SubAbility$ DBCleanup
+SVar:MayPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Graveyard
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:FoodSac:AB$ GainLife | Cost$ 2 T Sac<1/CARDNAME/this creature> | LifeAmount$ 3

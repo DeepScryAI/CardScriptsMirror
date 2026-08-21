@@ -1,6 +1,10 @@
 Id:6471
-ColorIdentity:W
+ColorIdentity:B
 OriginSet:G983da6aa108b8f13
-ManaCost:2 W W
-Types:Instant
-A:SP$ ChangeZone | ValidTgts$ Artifact,Enchantment | Origin$ Battlefield | Destination$ Exile
+ManaCost:7
+Types:Artifact
+T:Mode$ Phase | Phase$ Main1 | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigGetMana
+SVar:TrigGetMana:DB$ Mana | Produced$ B | Amount$ X
+A:AB$ Destroy | Cost$ 7 T | ValidTgts$ Creature | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ CHARGE | CounterNum$ 1
+SVar:X:Count$CardCounters.CHARGE

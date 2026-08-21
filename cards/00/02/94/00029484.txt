@@ -1,9 +1,15 @@
 Id:29484
-ColorIdentity:B
-OriginSet:Gac6359c222afbd4f
-ManaCost:1 B
-Types:Creature Human Artificer
-PT:1/2
-K:Fabricate:1
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Artifact.YouCtrl+Other,Creature.YouCtrl+Other | TriggerZones$ Battlefield | Execute$ TrigLoseLife
-SVar:TrigLoseLife:DB$ LoseLife | Defined$ Opponent | LifeAmount$ 1
+ColorIdentity:WUR
+OriginSet:G2ce881cc55bb9f18
+ManaCost:1 U R W
+Types:Legendary Creature Human Artificer
+PT:3/5
+K:Menace
+K:Haste
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigCopy | TriggerZones$ Battlefield
+SVar:TrigCopy:DB$ CopyPermanent | RememberTokens$ True | ValidTgts$ Creature.!token+YouCtrl+Other | TargetMin$ 0 | TargetMax$ 1 | TokenTapped$ True | TokenAttacking$ True | SubAbility$ DBEnergy
+SVar:DBEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ 2 | SubAbility$ DBDelayTrig
+SVar:DBDelayTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End Of Turn | Execute$ TrigSac | RememberObjects$ Remembered | SubAbility$ DBCleanup
+SVar:TrigSac:DB$ SacrificeAll | Defined$ DelayTriggerRememberedLKI | Controller$ You | UnlessCost$ PayEnergy<X> | UnlessPayer$ You
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:TriggerRemembered$CardManaCost

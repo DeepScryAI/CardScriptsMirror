@@ -1,10 +1,11 @@
 Id:21893
-ColorIdentity:B
-OriginSet:G6fa60d857e930f32
-ManaCost:2 B
-Types:Creature Human Warlock
-PT:3/2
-K:Menace
-K:Ward:PayLife<3>
-T:Mode$ SpellCastOrCopy | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 272656594 | TokenOwner$ You
+ColorIdentity:
+OriginSet:Gabb23d0d25cdc46d
+ManaCost:4
+Types:Artifact
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ DBRepeat
+SVar:DBRepeat:DB$ RepeatEach | RepeatSubAbility$ DBOppToken | RepeatPlayers$ Opponent | RepeatOptionalForEachPlayer$ True | ChangeZoneTable$ True | SubAbility$ DBToken
+SVar:DBOppToken:DB$ Token | TokenScriptIds$ 3851718391 | TokenOwner$ Player.IsRemembered | RememberTokens$ True
+SVar:DBToken:DB$ Token | TokenAmount$ X | TokenScriptIds$ 3851718391 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:PlayerCountRememberedOwner$Amount

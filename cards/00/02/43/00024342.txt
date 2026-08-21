@@ -1,13 +1,7 @@
 Id:24342
-ColorIdentity:WRG
+ColorIdentity:U
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:1 R G W
-Types:Legendary Creature Halfling Knight
-PT:3/4
-T:Mode$ Attacks | ValidCard$ Creature.enchanted | Attacked$ Player.Opponent | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | Defined$ TriggeredAttackerLKICopy | NumAtt$ +2 | KW$ Trample
-T:Mode$ ChangesZone | TriggerZones$ Battlefield | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Aura.YouCtrl+YouOwn | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Exile | RememberChanged$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | RememberObjects$ Remembered | ForgetOnMoved$ Exile | Duration$ UntilTheEndOfYourNextTurn | SubAbility$ DBCleanup
-SVar:STPlay:Mode$ Continuous | Affected$ Card.nonLand+IsRemembered | AffectedZone$ Exile | MayPlay$ True
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:3 U
+Types:Enchantment
+S:Mode$ ReduceCost | ValidCard$ Instant,Sorcery | Type$ Spell | Activator$ You | Amount$ X
+SVar:X:Count$TotalCommanderCastFromCommandZone

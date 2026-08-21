@@ -1,12 +1,9 @@
 Id:15015
-ColorIdentity:G
+ColorIdentity:B
 OriginSet:Gdb18f239871b8cef
-ManaCost:1 G G
-Types:Creature Dinosaur Beast
-PT:3/3
-K:Deathtouch
-K:Megamorph:4 G
-T:Mode$ TurnFaceUp | ValidCard$ Permanent.YouCtrl | Execute$ TrigChange | TriggerZones$ Graveyard | OptionalDecider$ You
-SVar:TrigChange:DB$ GenericChoice | Choices$ DBTop,DBBottom
-SVar:DBTop:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield
-SVar:DBBottom:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | FaceDown$ True
+ManaCost:5 B B
+Types:Creature Dragon
+PT:5/6
+K:Flying
+T:Mode$ ChangesZone | ValidCard$ Card.wasCastFromYourHandByYou+Self | IsPresent$ Creature.Other | PresentCompare$ GE5 | Destination$ Battlefield | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ DestroyAll | ValidCards$ Creature.StrictlyOther

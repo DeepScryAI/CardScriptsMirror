@@ -1,22 +1,11 @@
 Id:27935
-ColorIdentity:
-OriginSet:G06c78c29bfb28e3d
-ManaCost:2
-Types:Artifact Equipment
-T:Mode$ Attacks | ValidCard$ Creature.EquippedBy | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | Mode$ TgtChoose
-K:Equip:1
-K:Craft:5 XMin1 ExileCtrlOrGrave<X/Creature.Other>
-SVar:X:Count$xPaid
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Types:Artifact Equipment
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigAttach
-SVar:TrigAttach:DB$ Attach | ValidTgts$ Creature.YouCtrl
-R:Event$ Attached | ValidCard$ Card.Self | ValidTarget$ Creature | ReplaceWith$ ChooseCard | ActiveZones$ Battlefield
-SVar:ChooseCard:DB$ ChooseCard | Mandatory$ True | DefinedCards$ ExiledWith | ChoiceZone$ Exile
-T:Mode$ Attached | ValidSource$ Card.Self | Static$ True | Execute$ DBClone
-SVar:DBClone:DB$ Clone | Defined$ ChosenCard | CloneTarget$ Equipped | Duration$ UntilUnattached
-K:Equip:2
+ColorIdentity:WG
+OriginSet:G30e8a5e111cffb44
+ManaCost:1 G W
+Types:Legendary Creature Human Soldier
+PT:2/4
+K:Trample
+K:Haste
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigDraw | CombatDamage$ True
+SVar:TrigDraw:DB$ Draw | Defined$ You & TriggeredTarget | NumCards$ X
+SVar:X:TriggerCount$DamageAmount

@@ -1,10 +1,8 @@
 Id:7120
 ColorIdentity:G
 OriginSet:G332b6b8a53f3d107
-ManaCost:3 G
-Types:Creature Spirit
-PT:3/2
-A:AB$ PeekAndReveal | Cost$ 1 | NoReveal$ True
-A:AB$ PeekAndReveal | Cost$ 2 | ActivationLimit$ 1 | NoPeek$ True | RememberRevealed$ True | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | Defined$ Self | NumAtt$ +2 | NumDef$ +2 | KW$ Trample | ConditionDefined$ Remembered | ConditionPresent$ Card.Land | SubAbility$ DBCleanup
+ManaCost:3 G G
+Types:Sorcery Arcane
+A:SP$ Destroy | ValidTgts$ Land | SubAbility$ DBSacrifice | AlwaysRemember$ True | RememberLKI$ True
+SVar:DBSacrifice:DB$ Sacrifice | Defined$ RememberedController | SacValid$ Land | ConditionDefined$ RememberedLKI | ConditionPresent$ Land.Legendary | ConditionCompare$ EQ1 | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

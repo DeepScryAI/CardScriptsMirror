@@ -1,10 +1,18 @@
 Id:21935
-ColorIdentity:B
-OriginSet:Gd784248bfdf9e1d7
-ManaCost:2 B
-Types:Creature Fungus Beast
-PT:4/2
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
-A:AB$ ChangeZone | Cost$ 1 B | Origin$ Graveyard | Destination$ Hand | ActivationZone$ Graveyard | CheckSVar$ X
-SVar:X:Count$LifeYouGainedThisTurn
+ColorIdentity:WBR
+OriginSet:G6fa60d857e930f32
+ManaCost:1 W B B
+Types:Legendary Creature Human Warlock
+PT:2/4
+K:DoubleStrike
+T:Mode$ SpellCastOrCopy | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Creature.YouOwn+nonLegendary
+AlternateMode:Modal
+ALTERNATE
+ManaCost:6 B R
+Types:Sorcery
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ Y | EffectZone$ All | Relative$ True
+SVar:X:Count$xPaid
+SVar:Y:SVar$X/Times.2
+A:SP$ Sacrifice | Cost$ 6 B R Sac<X/Creature/any number of creatures> | AILogic$ SacToReduceCost | SacValid$ Creature | Defined$ Player.Opponent | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 1210755336

@@ -1,8 +1,14 @@
 Id:15432
-ColorIdentity:U
+ColorIdentity:R
 OriginSet:Gec9609c94c5b1cdf
-ManaCost:3 U
-Types:Creature Eldrazi Processor
-PT:3/3
+ManaCost:3 R
+Types:Sorcery
 K:Devoid
-A:AB$ Tap | Cost$ 2 U ExiledMoveToGrave<1/Card.OppOwn/card an opponent owns> | ValidTgts$ Creature
+A:SP$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Land.nonBasic | RememberChanged$ True | SubAbility$ ExileYard
+SVar:ExileYard:DB$ ChangeZone | ChangeType$ Remembered.sameName | Origin$ Graveyard | DefinedPlayer$ TargetedController | Chooser$ You | Destination$ Exile | ChangeNum$ NumInYard | Hidden$ True | SubAbility$ ExileHand
+SVar:ExileHand:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | DefinedPlayer$ TargetedController | ChangeType$ Remembered.sameName | ChangeNum$ NumInHand | Chooser$ You | SubAbility$ ExileLib
+SVar:ExileLib:DB$ ChangeZone | Origin$ Library | Destination$ Exile | DefinedPlayer$ TargetedController | ChangeType$ Remembered.sameName | ChangeNum$ NumInLib | Chooser$ You | Shuffle$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:NumInLib:TargetedController$CardsInLibrary
+SVar:NumInHand:TargetedController$CardsInHand
+SVar:NumInYard:TargetedController$CardsInGraveyard

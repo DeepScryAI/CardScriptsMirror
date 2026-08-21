@@ -1,0 +1,15 @@
+Id:30162
+ColorIdentity:WB
+OriginSet:Gf09b85bbcc27770c
+ManaCost:1 W B
+Types:Legendary Creature Bat Cleric
+PT:3/3
+K:Flying
+K:Vigilance
+T:Mode$ Attacks | ValidCard$ Bat.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigGainLife
+SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 1 | Defined$ You
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigImmediateTrig
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigImmediateTrig | TriggerZones$ Battlefield | Secondary$ True
+SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ W B PayLife<2> | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Permanent.nonLand+YouOwn+cmcLE3 | WithCountersType$ FINALITY
+SVar:HasAttackEffect:TRUE

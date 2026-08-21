@@ -1,11 +1,12 @@
 Id:26995
-ColorIdentity:B
-OriginSet:G6ce0035cfb774934
-ManaCost:1 B
-Types:Legendary Creature Orc Soldier
-PT:2/2
-T:Mode$ DamageDone | ValidSource$ Goblin.YouCtrl,Orc.YouCtrl | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigImmediateTrig | TriggerZones$ Battlefield
-SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ Sac<1/Card.TriggeredSource/that creature> | Execute$ TrigCharm
-SVar:TrigCharm:DB$ Charm | Choices$ DBDraw,DBTreasure
-SVar:DBDraw:DB$ Draw
-SVar:DBTreasure:DB$ Token | TokenScriptIds$ 3851718391
+ColorIdentity:UG
+OriginSet:G3601f5e223de6c7f
+ManaCost:3 G U
+Types:Legendary Creature Avatar Wizard
+PT:5/5
+T:Mode$ SpellCast | ValidCard$ Card.cmcGE5 | ValidActivatingPlayer$ You | Execute$ TrigReveal | TriggerZones$ Battlefield
+SVar:TrigReveal:DB$ PeekAndReveal | Defined$ Opponent | NoPeek$ True | ImprintRevealed$ True | SubAbility$ DBCopyCast
+SVar:DBCopyCast:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | ConditionDefined$ Imprinted | ConditionPresent$ Card.sharesCardTypeWith TriggeredCardLKICopy | MayChooseTarget$ True | RememberNewCard$ True | SubAbility$ DBDrawAll
+SVar:DBDrawAll:DB$ Draw | Defined$ Opponent | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ1 | SubAbility$ DBDrawYou
+SVar:DBDrawYou:DB$ Draw | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ0 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearImprinted$ True | ClearRemembered$ True

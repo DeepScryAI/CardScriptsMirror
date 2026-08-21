@@ -1,8 +1,10 @@
 Id:10227
-ColorIdentity:
+ColorIdentity:WRG
 OriginSet:G8f5d5a0744ac5b98
-ManaCost:1
-Types:Artifact
-A:AB$ ChangeZone | Cost$ T | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Player | DefinedPlayer$ Targeted | Mandatory$ True | ChangeType$ Card | ChangeNum$ 1 | Hidden$ True | IsCurse$ True | Chooser$ Targeted
-A:AB$ ChangeZoneAll | Cost$ 1 Exile<1/CARDNAME> | Origin$ Graveyard | Destination$ Exile | ChangeType$ Card | AILogic$ ExileGraveyards | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw
+ManaCost:3 R G W
+Types:Creature Beast
+PT:4/2
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZoneAll | ChangeType$ Land | Origin$ Battlefield | Destination$ Exile
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Battlefield | Destination$ Any | Execute$ TrigRecall
+SVar:TrigRecall:DB$ ChangeZoneAll | ChangeType$ Card.ExiledWithSource | Origin$ Exile | Destination$ Battlefield | Tapped$ True

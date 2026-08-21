@@ -1,9 +1,12 @@
 Id:8426
-ColorIdentity:UG
+ColorIdentity:WUB
 OriginSet:Gde6d8130c178f566
-ManaCost:1 G U
-Types:Creature Beast
-PT:2/3
-K:Flying
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | OptionalDecider$ You | CombatDamage$ True | Execute$ TrigDestroy | TriggerZones$ Battlefield
-SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Artifact.ControlledBy TriggeredTarget,Enchantment.ControlledBy TriggeredTarget
+ManaCost:W U
+Types:Instant
+A:SP$ ChangeZoneAll | ValidTgts$ Creature | RememberTargets$ True | ChangeType$ Creature.blockingRemembered,Creature.isBlockedByRemembered | Origin$ Battlefield | Destination$ Hand | SubAbility$ DBCleanup | UseAllOriginZones$ True
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+AlternateMode:Split
+ALTERNATE
+ManaCost:U B
+Types:Instant
+A:SP$ Counter | TargetType$ Spell | ValidTgts$ Card.MultiColor

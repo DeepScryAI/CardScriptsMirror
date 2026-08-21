@@ -1,16 +1,7 @@
 Id:8051
 ColorIdentity:WR
 OriginSet:Gc563c209d627c4c5
-ManaCost:4 R R W W
-Types:Legendary Creature Angel
-PT:6/3
-K:Flying
-K:Vigilance
-K:Haste
-A:AB$ Pump | Cost$ T | ValidTgts$ Creature.YouCtrl | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | ValidTgts$ Creature | TargetUnique$ True | ReplacementEffects$ RaziaDamage | Triggers$ OutOfSight | RememberObjects$ ParentTarget | ImprintCards$ ThisTargetedCard | ConditionDefined$ ParentTarget | ConditionPresent$ Creature | ConditionCompare$ GE1
-SVar:RaziaDamage:Event$ DamageDone | ValidTarget$ Creature.IsRemembered | ReplaceWith$ RaziaDmg | DamageTarget$ Imprinted
-SVar:RaziaDmg:DB$ ReplaceSplitDamage | DamageTarget$ Imprinted | VarName$ X
-SVar:OutOfSight:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.IsImprinted,Card.IsRemembered | Execute$ ExileEffect | Static$ True
-SVar:ExileEffect:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile
-SVar:X:Number$3
+ManaCost:4 R W
+Types:Sorcery
+A:SP$ ChooseCard | Defined$ Player | Choices$ Permanent | ControlledByPlayer$ Chooser | Amount$ 3 | Mandatory$ True | Reveal$ True | SubAbility$ DBSac
+SVar:DBSac:DB$ SacrificeAll | ValidCards$ Permanent.nonChosenCard

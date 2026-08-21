@@ -1,6 +1,12 @@
 Id:12030
-ColorIdentity:R
+ColorIdentity:UBG
 OriginSet:G28b959a4da853005
-ManaCost:4 R R
-Types:Sorcery
-A:SP$ Token | ValidTgts$ Player | AITgts$ Opponent | TokenScriptIds$ 4249416919 | TokenOwner$ NonTargeted
+ManaCost:4 B G U
+Types:Legendary Creature Gorgon Wizard
+PT:4/4
+K:Deathtouch
+R:Event$ BeginPhase | ActiveZones$ Battlefield | ValidPlayer$ You | Phase$ Draw | Skip$ True
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ X | SVarCompare$ LT7 | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ Difference
+SVar:X:Count$ValidHand Card.YouOwn
+SVar:Difference:Number$7/Minus.X

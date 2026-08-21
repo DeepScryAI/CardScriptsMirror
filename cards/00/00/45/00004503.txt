@@ -1,7 +1,11 @@
 Id:4503
-ColorIdentity:G
+ColorIdentity:U
 OriginSet:G239b3b7a46d83e8e
-ManaCost:G
-Types:Creature Snake
-PT:1/1
-K:Landwalk:Swamp
+ManaCost:1 U
+Types:Sorcery
+A:SP$ Effect | ValidTgts$ Player | StaticAbilities$ DontUntap | Triggers$ RemoveEffect | Duration$ Permanent | RememberObjects$ Targeted | SubAbility$ DBCleanup
+SVar:DontUntap:Mode$ Continuous | AffectedZone$ Battlefield | Affected$ Land.RememberedPlayerCtrl | AddHiddenKeyword$ This card doesn't untap during your next untap step.
+SVar:RemoveEffect:Mode$ Phase | Phase$ Untap | ValidPlayer$ Player.IsRemembered | TriggerZones$ Command | Static$ True | Execute$ ExileEffect
+SVar:ExileEffect:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:NeedsToPlay:Land.OppCtrl+tapped

@@ -1,12 +1,15 @@
 Id:24155
-ColorIdentity:G
-OriginSet:G51fcb7ec0cb81c29
-ManaCost:5 G G
-Types:Creature Elder Dragon
-PT:7/7
+ColorIdentity:WUB
+OriginSet:G9afc9838c5e994df
+ManaCost:4 W U B
+Types:Creature Angel Rogue
+PT:4/4
 K:Flying
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigRoll
-SVar:TrigRoll:DB$ RollDice | ResultSVar$ Result | Sides$ 20 | SubAbility$ DBImmediateTrigPutCounter
-SVar:DBImmediateTrigPutCounter:DB$ ImmediateTrigger | Execute$ TrigPutCounter | RememberSVarAmount$ Result
-SVar:TrigPutCounter:DB$ PutCounter | TargetMin$ 0 | TargetMax$ 2 | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ X
-SVar:X:Count$TriggerRememberAmount
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGainLife
+SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 3
+A:AB$ Effect | Cost$ 2 ExileFromHand<1/CARDNAME> | ActivationZone$ Hand | ValidTgts$ Land | RememberObjects$ Targeted & Self | StaticAbilities$ Land,MayPlay | Triggers$ Cast | ImprintCards$ Self | Duration$ Permanent | ForgetOnMoved$ Exile
+SVar:Land:Mode$ Continuous | AffectedZone$ Battlefield | Affected$ Card.IsRemembered+!IsImprinted | AddAbility$ Mana
+SVar:Mana:AB$ Mana | Cost$ T | Produced$ Combo W U B | Amount$ 1
+SVar:MayPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsImprinted+IsRemembered | AffectedZone$ Exile | Secondary$ True
+SVar:Cast:Mode$ SpellCast | ValidCard$ Card.IsImprinted+IsRemembered+wasCastFromExile | Execute$ ExileSelf | Static$ True
+SVar:ExileSelf:DB$ ChangeZone | Origin$ Command | Destination$ Exile | Defined$ Self

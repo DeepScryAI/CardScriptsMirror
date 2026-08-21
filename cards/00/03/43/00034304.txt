@@ -1,16 +1,11 @@
 Id:34304
-ColorIdentity:WURG
+ColorIdentity:W
 OriginSet:Gcb93bbfc68a40806
-ManaCost:5 G
-Types:Legendary Creature Human Hero
-PT:5/5
-K:Trample
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ X | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 4
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigImmediateTrig
-SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ R G W U | Execute$ TrigMultiplyCounter
-SVar:TrigMultiplyCounter:DB$ MultiplyCounter | ValidTgts$ Permanent.YouCtrl | TargetMin$ 0 | TargetMax$ MaxTargets
-SVar:X:Count$ThisTurnCast_Card.nonCreature+YouCtrl
-SVar:MaxTargets:Count$Valid Permanent.YouCtrl
+ManaCost:3 W W
+Types:Legendary Creature Human Soldier Hero
+PT:4/4
+K:Lifelink
+T:Mode$ Attacks | ValidCard$ Creature.Self | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.Other+YouCtrl | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | KW$ Indestructible | Defined$ Targeted
 SVar:HasAttackEffect:TRUE
-SVar:PlayMain1:TRUE

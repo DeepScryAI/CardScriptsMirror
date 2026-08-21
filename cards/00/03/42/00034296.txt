@@ -1,11 +1,11 @@
 Id:34296
-ColorIdentity:
+ColorIdentity:B
 OriginSet:Gcb93bbfc68a40806
-ManaCost:3
-Types:Legendary Artifact Vehicle
-PT:4/4
-K:Flying
-T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigAnimate | OptionalDecider$ You
-SVar:TrigAnimate:DB$ Animate | Defined$ Self | Types$ Creature,Artifact
-T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | ActivatorThisTurnCast$ EQ4 | TriggerZones$ Battlefield | Execute$ TrigToken
-SVar:TrigToken:AB$ Token | Cost$ Sac<1/CARDNAME> | TokenOwner$ You | TokenScriptIds$ 1361696421 | TokenAmount$ 4
+ManaCost:1 B
+Types:Legendary Creature Human Coward Villain
+PT:2/2
+T:Mode$ Attacks | ValidCard$ Card.Self | Alone$ True | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | RememberChanged$ True | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 2 | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2 | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

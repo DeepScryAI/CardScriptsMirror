@@ -1,9 +1,13 @@
 Id:8754
-ColorIdentity:G
+ColorIdentity:W
 OriginSet:G70f74088c47d66bd
-ManaCost:2 G G
-Types:Creature Spider
-PT:2/4
-K:Reach
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 792753329 | TokenOwner$ TriggeredCardController
+ManaCost:2 W
+Types:Enchantment Aura
+K:Enchant:Creature
+K:ETBReplacement:Other:ChooseColor
+SVar:ChooseColor:DB$ ChooseColor | Defined$ You | AILogic$ MostProminentInHumanDeck
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddKeyword$ Protection:Card.ChosenColor:chosenColor:Card.CardUID_HostCardUID
+SVar:ChosenProtection:True

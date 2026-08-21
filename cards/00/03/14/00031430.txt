@@ -1,9 +1,11 @@
 Id:31430
 ColorIdentity:G
-OriginSet:Gf2b808f4f642ac62
-ManaCost:4 G
-Types:Creature Human Soldier
-PT:3/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigEndure
-T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigEndure | Secondary$ True
-SVar:TrigEndure:DB$ Endure | Num$ 2
+OriginSet:Ge1676a27173c0866
+ManaCost:2 G G
+Types:Creature Snake Ranger
+PT:5/5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill
+SVar:TrigMill:DB$ Mill | NumCards$ X | Defined$ You | Optional$ True
+SVar:X:Count$Valid Land.YouCtrl
+A:AB$ PutCounter | Cost$ 1 G ExileFromGrave<1/CARDNAME/this card> | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ Y | ActivationZone$ Graveyard | SorcerySpeed$ True
+SVar:Y:Count$ValidGraveyard Land.YouOwn

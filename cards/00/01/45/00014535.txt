@@ -1,13 +1,8 @@
 Id:14535
 ColorIdentity:R
 OriginSet:G0a578e83854cf093
-ManaCost:2 R R
-Types:Creature Phoenix
-PT:4/1
-K:Flying
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Battlefield | FaceDown$ True | GainControl$ True
-K:Morph:4 R R
-T:Mode$ TurnFaceUp | ValidCard$ Card.Self | Execute$ TrigDmg | TriggerZones$ Battlefield
-SVar:TrigDmg:DB$ DealDamage | Defined$ Player | NumDmg$ 2
-SVar:SacMe:1
+ManaCost:3 R R
+Types:Sorcery
+A:SP$ DealDamage | ValidTgts$ Any | NumDmg$ 4 | ConditionCheckSVar$ RaidTest | ConditionSVarCompare$ EQ0 | SubAbility$ DBDmg
+SVar:DBDmg:DB$ DealDamage | Defined$ Targeted | NumDmg$ 5 | NoPrevention$ True | ConditionCheckSVar$ RaidTest
+SVar:RaidTest:Count$AttackersDeclared

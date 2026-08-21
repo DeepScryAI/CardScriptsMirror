@@ -1,13 +1,8 @@
 Id:6728
-ColorIdentity:R
+ColorIdentity:U
 OriginSet:G983da6aa108b8f13
-ManaCost:R R R
-Types:Creature Elemental
-PT:1/1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSac
-SVar:TrigSac:DB$ Sacrifice | ConditionCheckSVar$ WarElementalX | ConditionSVarCompare$ EQ0
-SVar:WarElementalX:PlayerCountRegisteredOpponents$HasPropertywasDealtDamageThisTurn
-T:Mode$ DamageDoneOnce | ValidSource$ Card | ValidTarget$ Opponent | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ WarElementalY
-SVar:WarElementalY:TriggerCount$DamageAmount
-SVar:NeedsToPlayVar:WarElementalX GE1
+ManaCost:4 U
+Types:Creature Drone
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPeek
+SVar:TrigPeek:DB$ RevealHand | ValidTgts$ Opponent | Look$ True

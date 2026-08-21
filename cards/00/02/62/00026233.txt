@@ -1,7 +1,14 @@
 Id:26233
-ColorIdentity:
-OriginSet:G997e3b19a1e94e85
-ManaCost:no cost
-Types:Artifact Land
-A:AB$ Mana | Cost$ T | Produced$ C
-A:AB$ Mana | Cost$ 1 T | Produced$ Any
+ColorIdentity:WB
+OriginSet:G2192e8955d5e1ad1
+ManaCost:3 W W B B
+Types:Legendary Planeswalker Kaya
+Loyalty:6
+K:Hexproof
+A:AB$ LoseLife | Cost$ AddCounter<2/LOYALTY> | Planeswalker$ True | Defined$ Opponent | LifeAmount$ 3 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ 3
+A:AB$ Draw | Cost$ AddCounter<0/LOYALTY> | Planeswalker$ True | NumCards$ 2 | SubAbility$ DBScry
+SVar:DBScry:DB$ Scry | Defined$ Opponent | Optional$ True
+A:AB$ ChangeZone | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | ValidTgts$ Creature,Enchantment | Origin$ Battlefield | Destination$ Exile | RememberLKI$ True | SubAbility$ DBCopy
+SVar:DBCopy:DB$ CopyPermanent | ConditionDefined$ RememberedLKI | ConditionPresent$ Card.nonAura | Defined$ RememberedLKI | SetPower$ 1 | SetToughness$ 1 | AddTypes$ Creature & Spirit | AddKeywords$ Flying | SetColor$ White | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

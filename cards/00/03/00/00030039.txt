@@ -1,13 +1,12 @@
 Id:30039
-ColorIdentity:WUG
-OriginSet:G30e4cc621dfc3a2e
-ManaCost:1 G W U
-Types:Legendary Creature Rabbit Citizen
-PT:1/5
-K:Vigilance
-T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ You | Execute$ TrigDraw | TriggerZones$ Battlefield
-SVar:TrigDraw:DB$ Draw | ValidTgts$ Opponent | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | Defined$ Targeted.Creature | KW$ Flying | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | NumCards$ 2 | ConditionCheckSVar$ Resolved | ConditionSVarCompare$ EQ2
-SVar:Resolved:Count$ResolvedThisTurn
+ColorIdentity:G
+OriginSet:Gf09b85bbcc27770c
+ManaCost:G
+Types:Creature Frog Warrior
+PT:2/2
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigBounce
+SVar:TrigBounce:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | ChangeType$ Creature.StrictlyOther+YouCtrl | ChangeNum$ 1 | Mandatory$ True | Hidden$ True | RememberChanged$ True | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | ConditionCheckSVar$ X | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Optional$ True | ConditionCheckSVar$ X | ConditionSVarCompare$ LE0 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Amount

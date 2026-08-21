@@ -1,10 +1,11 @@
 Id:34612
 ColorIdentity:
-OriginSet:G11c0621ce29fa608
-ManaCost:3
-Types:Legendary Artifact Creature Robot Villain
-PT:2/4
-T:Mode$ ChangesZone | ValidCard$ Artifact.!token+Other+YouCtrl | Origin$ Any | Destination$ Battlefield | TriggerZones$ Battlefield | Execute$ TrigCopy
-SVar:TrigCopy:AB$ CopyPermanent | Cost$ 2 | Defined$ TriggeredCardLKICopy | RememberTokens$ True | SubAbility$ DBAnimateAll
-SVar:DBAnimateAll:DB$ AnimateAll | ValidCards$ Card.IsRemembered+nonCreature | Types$ Robot,Villain,Creature | Duration$ Permanent | Power$ 2 | Toughness$ 2 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+OriginSet:Gcb93bbfc68a40806
+ManaCost:4
+Types:Legendary Artifact Creature Robot Hero
+PT:3/3
+K:Flying
+T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ Player.NonActive | Execute$ TrigCharm | TriggerZones$ Battlefield
+SVar:TrigCharm:DB$ Charm | Choices$ DBPutCounter,DBPhaseOut
+SVar:DBPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ 1
+SVar:DBPhaseOut:DB$ Phases | Defined$ Self

@@ -1,10 +1,10 @@
 Id:9178
-ColorIdentity:U
+ColorIdentity:
 OriginSet:Gdf2f562751f0d037
-ManaCost:5 U U
-Types:Enchantment Aura
-K:Split second
-K:Enchant:Permanent
-SVar:AttachAILogic:GainControl
-S:Mode$ Continuous | Affected$ Permanent.EnchantedBy | GainControl$ You
-SVar:PlayMain1:TRUE
+ManaCost:2
+Types:Artifact Equipment
+K:Equip:2
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1 | AddToughness$ 2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.powerEQ1+toughnessEQ1+YouCtrl | Execute$ TrigReturn | TriggerZones$ Graveyard | OptionalDecider$ You
+SVar:TrigReturn:DB$ ChangeZone | Defined$ Self | Origin$ Graveyard | Destination$ Battlefield | SubAbility$ DBAttach
+SVar:DBAttach:DB$ Attach | Defined$ TriggeredCardLKICopy

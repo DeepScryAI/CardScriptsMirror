@@ -1,9 +1,12 @@
 Id:30385
-ColorIdentity:G
-OriginSet:G8b2ed00ac2a0ff47
-ManaCost:2 G
-Types:Enchantment Creature Horror
-PT:4/2
-K:Reach
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigSac
-SVar:TrigSac:DB$ GainLife | Defined$ TriggeredCardController | LifeAmount$ 2
+ColorIdentity:
+OriginSet:G7b2137df486dc752
+ManaCost:no cost
+Types:Scheme
+T:Mode$ SetInMotion | ValidCard$ Card.Self | Execute$ TrigBranch | TriggerZones$ Command
+SVar:TrigBranch:DB$ Branch | BranchConditionSVar$ X | BranchConditionSVarCompare$ EQ0 | TrueSubAbility$ DBToken | FalseSubAbility$ DBPutCounter
+SVar:DBToken:DB$ Token | TokenScriptIds$ 1816639363 | TokenOwner$ You
+SVar:DBPutCounter:DB$ PutCounter | Choices$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 5 | RememberChosen$ True | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Remembered | KW$ Flying & Vigilance | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$Valid Creature.YouCtrl

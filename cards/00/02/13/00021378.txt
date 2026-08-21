@@ -1,8 +1,14 @@
 Id:21378
-ColorIdentity:R
+ColorIdentity:U
 OriginSet:G51d431785c8b33e5
-ManaCost:4 R R
-Types:Artifact Equipment
-K:Equip:4
-K:Cascade
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 4 | AddKeyword$ Trample
+ManaCost:3 U U
+Types:Creature Avatar
+PT:*/*
+S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X | SetToughness$ X
+S:Mode$ Continuous | Affected$ You | SetMaxHandSize$ Unlimited
+T:Mode$ DamageDoneOnce | ValidTarget$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ Y
+SVar:X:Count$ValidHand Card.YouOwn
+SVar:Y:TriggerCount$DamageAmount
+SVar:HasCombatEffect:TRUE
+SVar:NeedsToPlayVar:X GE2

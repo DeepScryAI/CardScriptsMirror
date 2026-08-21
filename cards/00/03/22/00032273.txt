@@ -1,11 +1,10 @@
 Id:32273
-ColorIdentity:W
+ColorIdentity:B
 OriginSet:G9946f072b5556073
-ManaCost:1 W W
-Types:Legendary Artifact Spacecraft
-PT:5/5
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSearch
-SVar:TrigSearch:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Creature.Legendary | ChangeNum$ 1
-K:Station:7
-S:Mode$ Continuous | Affected$ Card.Self+counters_GE7_CHARGE | AddType$ Creature | AddKeyword$ Flying | AddStaticAbility$ DBStatic
-SVar:DBStatic:Mode$ Continuous | Affected$ Creature.Legendary+YouCtrl+Other+tapped | AddKeyword$ Indestructible | Secondary$ True
+ManaCost:2 B
+Types:Creature Human Wizard
+PT:3/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Creature.Other | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ 2 | Defined$ TargetedController | ConditionDefined$ Targeted | ConditionPresent$ Card.!wasDealtDamageThisTurn
+SVar:PlayMain1:TRUE

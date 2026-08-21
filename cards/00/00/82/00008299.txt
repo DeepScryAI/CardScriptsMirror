@@ -1,10 +1,9 @@
 Id:8299
-ColorIdentity:B
+ColorIdentity:W
 OriginSet:Gde6d8130c178f566
-ManaCost:1 B
-Types:Sorcery
-A:SP$ NameCard | Defined$ You | ValidCards$ Card.nonLand | SubAbility$ RevealHand
-SVar:RevealHand:DB$ RevealHand | RememberRevealed$ True | ValidTgts$ Player | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | Defined$ Targeted | NumCards$ 1 | Mode$ TgtChoose | DiscardValid$ Card.NamedCard | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1 | ConditionDefined$ Remembered | ConditionPresent$ Card.NamedCard | ConditionCompare$ EQ0 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearNamedCard$ True
+ManaCost:4 W
+Types:Instant
+A:SP$ Effect | ValidTgts$ Creature.MultiColor | ExileOnMoved$ Battlefield | ReplacementEffects$ BraceReplace | RememberObjects$ Targeted
+SVar:BraceReplace:Event$ DamageDone | ValidTarget$ Card.IsRemembered | ReplaceWith$ ImpactCounters | PreventionEffect$ True
+SVar:ImpactCounters:DB$ PutCounter | Defined$ ReplacedTarget | CounterType$ P1P1 | CounterNum$ X
+SVar:X:ReplaceCount$DamageAmount

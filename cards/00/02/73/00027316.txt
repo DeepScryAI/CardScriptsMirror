@@ -1,9 +1,12 @@
 Id:27316
 ColorIdentity:B
-OriginSet:G4e034c55e7afd8b4
-ManaCost:2 B B
-Types:Sorcery
-A:SP$ Charm | Choices$ DBDiscard,DBLoseLife,DBSac | MinCharmNum$ 1 | CharmNum$ 3
-SVar:DBDiscard:DB$ Discard | NumCards$ 2 | Mode$ TgtChoose | Defined$ Player | AILogic$ AnyPhaseIfFavored
-SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 4 | Defined$ Player | AILogic$ AnyPhase
-SVar:DBSac:DB$ Sacrifice | SacValid$ Creature | Defined$ Player | Amount$ 2
+OriginSet:G6ce0035cfb774934
+ManaCost:3 B B
+Types:Legendary Creature Wraith Noble
+PT:5/3
+K:Flying
+T:Mode$ DamageDoneOnce | ValidSource$ Creature | TriggerZones$ Battlefield | ValidTarget$ You | CombatDamage$ True | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice | SacValid$ Creature.dealtCombatDamageThisTurn You | Defined$ Player.Opponent | SubAbility$ TrigTempt
+SVar:TrigTempt:DB$ RingTemptsYou
+A:AB$ Pump | Cost$ Discard<1/Card> | Defined$ Self | KW$ Indestructible | SubAbility$ DBTap
+SVar:DBTap:DB$ Tap | Defined$ Self

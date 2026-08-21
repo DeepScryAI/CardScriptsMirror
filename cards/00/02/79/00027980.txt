@@ -1,15 +1,12 @@
 Id:27980
-ColorIdentity:R
-OriginSet:Gfd50577710a6ab09
-ManaCost:3 R R
-Types:Creature Dinosaur Dragon
-PT:5/5
-K:Flying
-K:FirstStrike
-T:Mode$ Phase | Phase$ Upkeep | TriggerZones$ Battlefield | ValidPlayer$ You | Execute$ TrigExile
-SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ 2 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffectYou
-SVar:DBEffectYou:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ Play | SubAbility$ DBToken | ForgetOnMoved$ Exile
-SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
-SVar:DBToken:DB$ Token | ConditionDefined$ Remembered | ConditionPresent$ Land | TokenScriptIds$ 9818191 | SubAbility$ DBTreasure
-SVar:DBTreasure:DB$ Token | ConditionDefined$ Remembered | ConditionPresent$ Card.nonLand | TokenScriptIds$ 3851718391 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:UB
+OriginSet:G30e8a5e111cffb44
+ManaCost:2 U B
+Types:Legendary Creature Time Lord Rogue
+PT:3/3
+A:AB$ Pump | Cost$ T | ValidTgts$ Creature.OppCtrl+powerLEX | KW$ Skulk | SubAbility$ DBGoad
+SVar:DBGoad:DB$ Goad | Defined$ Targeted
+T:Mode$ DamageDone | ValidSource$ Creature.withSkulk | ValidTarget$ Opponent | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ TrigDraw
+SVar:TrigDraw:DB$ Draw
+SVar:X:Count$CardPower

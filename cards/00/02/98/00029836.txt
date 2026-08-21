@@ -1,9 +1,14 @@
 Id:29836
-ColorIdentity:
-OriginSet:Gf09b85bbcc27770c
-ManaCost:no cost
-Types:Land
-A:AB$ Mana | Cost$ T | Produced$ C
-A:AB$ Draw | Cost$ 2 T Sac<1/Permanent.token/token>
-A:AB$ Token | Cost$ 3 T PayLife<1> | TokenScriptIds$ 2753563426
-A:AB$ Token | Cost$ 4 T | TokenScriptIds$ 3851718391
+ColorIdentity:UBR
+OriginSet:G01a610e823cce3ca
+ManaCost:2 U B R
+Types:Legendary Creature Human Assassin Pirate
+PT:5/5
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ X | TokenScriptIds$ 3851718391 | TokenOwner$ You
+T:Mode$ DamageDone | ValidSource$ Vehicle.YouCtrl | ValidTarget$ Player | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigDig
+SVar:TrigDig:DB$ Dig | DigNum$ 1 | Defined$ TriggeredTarget | ChangeNum$ All | DestinationZone$ Exile | ExileFaceDown$ True | WithMayLook$ True | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ STPlay | SubAbility$ DBCleanup | ForgetOnMoved$ Exile | Duration$ Permanent
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$Valid Assassin.tapped+YouCtrl,Pirate.tapped+YouCtrl,Vehicle.tapped+YouCtrl

@@ -1,13 +1,14 @@
 Id:32504
-ColorIdentity:U
-OriginSet:G66b3a7eeabd9000e
-ManaCost:3 U
-Types:Enchantment Saga
-K:Chapter:3:DBSurveil,DBCopyEffect,DBDrawEffect
-SVar:DBSurveil:DB$ Surveil | Amount$ 3
-SVar:DBCopyEffect:DB$ DelayedTrigger | Mode$ SpellCast | ValidCard$ Creature | ValidActivatingPlayer$ You | ThisTurn$ True | Execute$ EffTrigCopy
-SVar:EffTrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | NonLegendary$ True
-SVar:DBDrawEffect:DB$ NameCard | Defined$ You | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | Triggers$ TrigDamage
-SVar:TrigDamage:Mode$ DamageDone | ValidSource$ Creature.NamedCard | ValidTarget$ Player | Execute$ TrigDraw | CombatDamage$ True
-SVar:TrigDraw:DB$ Draw
+ColorIdentity:R
+OriginSet:G8354bc5128c4829b
+ManaCost:3 R
+Types:Legendary Planeswalker Monopoly
+Loyalty:5
+A:AB$ RollDice | Cost$ AddCounter<0/LOYALTY> | Planeswalker$ True | ResultSVar$ Result | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ LOYALTY | CounterNum$ Result
+A:AB$ Dig | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | ValidTgts$ Opponent | DigNum$ 2 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ EffPlay | EffectOwner$ You | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:EffPlay:Mode$ Continuous | MayPlay$ True | MayPlayIgnoreType$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+A:AB$ Destroy | Cost$ SubCounter<4/LOYALTY> | Planeswalker$ True | ValidTgts$ Artifact
+A:AB$ Token | Cost$ SubCounter<40/LOYALTY> | Planeswalker$ True | TokenAmount$ 200 | TokenScriptIds$ 3851718391 | TokenOwner$ You | Ultimate$ True

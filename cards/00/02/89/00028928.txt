@@ -1,12 +1,11 @@
 Id:28928
-ColorIdentity:R
-OriginSet:Gaf7c94f364052cdd
-ManaCost:2 R
-Types:Legendary Creature Human Artificer Rogue
-PT:3/3
-K:Menace
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDraw
-SVar:TrigDraw:AB$ Draw | Cost$ Discard<1/Card>
-T:Mode$ DiscardedAll | ValidPlayer$ You | FirstTime$ True | ValidCard$ Card.nonLand | TriggerZones$ Battlefield | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 4185589785
-SVar:HasAttackEffect:TRUE
+ColorIdentity:WB
+OriginSet:Gfe262f6450b3d189
+ManaCost:W B
+Types:Legendary Creature Spirit Cleric
+PT:1/3
+K:Extort
+A:AB$ ChangeZone | Cost$ T Sac<1/Creature.nonSpirit/nonspirit creature> | RememberChanged$ True | ValidTgts$ Creature.YouOwn | Origin$ Graveyard | Destination$ Hand | SorcerySpeed$ True | SubAbility$ DBAnimate | AILogic$ SacAndRetFromGrave
+SVar:DBAnimate:DB$ Animate | Types$ Spirit | Defined$ Remembered | Power$ 1 | staticAbilities$ PerpAltCost | Toughness$ 1 | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:PerpAltCost:Mode$ Continuous | EffectZone$ All | MayPlay$ True | MayPlayAltManaCost$ WB | MayPlayDontGrantZonePermissions$ True | Affected$ Card.Self | AffectedZone$ Hand,Graveyard,Library,Exile,Command
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

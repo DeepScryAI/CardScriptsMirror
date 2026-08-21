@@ -1,12 +1,12 @@
 Id:33391
 ColorIdentity:R
-OriginSet:Gff0a4227ae9f1a4b
-ManaCost:4 R
-Types:Legendary Creature Mutant Ninja Turtle
-PT:4/4
-R:Event$ DamageDone | ActiveZones$ Battlefield | ValidSource$ Creature.YouCtrl+HasCounters | ValidTarget$ Permanent,Player | ReplaceWith$ DmgTwice
-SVar:DmgTwice:DB$ ReplaceEffect | VarName$ DamageAmount | VarValue$ X
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 2178077173 | TokenOwner$ You
-K:Partner:Character select
-SVar:X:ReplaceCount$DamageAmount/Twice
+OriginSet:G7ab1fe96128a1641
+ManaCost:5 R
+Types:Creature Elemental Warrior
+PT:6/5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | Duration$ UntilTheEndOfYourNextTurn | StaticAbilities$ Play | SubAbility$ DBCleanup | ForgetOnMoved$ Exile
+SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+K:TypeCycling:Basic:1 R

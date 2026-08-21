@@ -1,11 +1,12 @@
 Id:21141
-ColorIdentity:R
-OriginSet:G72c9c624ceb92bff
-ManaCost:R
-Types:Creature Goblin Warrior
-PT:1/1
-S:Mode$ Continuous | Affected$ Card.Self+equipped | AddKeyword$ Haste
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigDamage
-SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ X
-SVar:X:TriggeredCard$CardPower
-SVar:EquipMe:Once
+ColorIdentity:U
+OriginSet:G7b2607750b451c25
+ManaCost:1 U
+Types:Creature Human Wizard
+PT:2/1
+K:Kicker:4 U
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigEffect
+SVar:TrigEffect:DB$ DelayedTrigger | AILogic$ SpellCopy | Mode$ SpellCast | ValidCard$ Instant.cmcLE2,Sorcery.cmcLE2 | ValidActivatingPlayer$ You | ThisTurn$ True | Execute$ TrigCopy
+SVar:TrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | AILogic$ Always | Amount$ X | MayChooseTarget$ True
+SVar:X:Count$Kicked.2.1
+SVar:PlayMain1:TRUE

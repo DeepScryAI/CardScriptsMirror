@@ -1,11 +1,11 @@
 Id:9130
-ColorIdentity:U
+ColorIdentity:W
 OriginSet:Gdf2f562751f0d037
-ManaCost:0
-Colors:blue
-Types:Instant
-A:SP$ Counter | TargetType$ Spell | ValidTgts$ Card | SubAbility$ DBDelTrig
-SVar:DBDelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigLoseGame
-SVar:TrigLoseGame:DB$ LosesGame | UnlessCost$ 3 U U | UnlessPayer$ You | Defined$ You
-SVar:NeedsToPlayVar:NumLands GE5
-SVar:NumLands:Count$Valid Land.YouCtrl
+ManaCost:1 W W
+Types:Legendary Creature Human Cleric
+PT:1/3
+A:AB$ Pump | Cost$ T | KW$ Prevent all damage that would be dealt to CARDNAME. | ValidTgts$ Creature
+A:AB$ Effect | Cost$ Discard<1/Card.catalogId9130> | IsCurse$ True | StaticAbilities$ CantBeCast,CantAttack | ValidTgts$ Player | RememberObjects$ Targeted | AILogic$ BeginningOfOppTurn
+SVar:CantBeCast:Mode$ CantBeCast | ValidCard$ Card | Caster$ Player.IsRemembered
+SVar:CantAttack:Mode$ CantAttack | ValidCard$ Creature.RememberedPlayerCtrl
+SVar:NonCombatPriority:2

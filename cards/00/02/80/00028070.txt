@@ -1,23 +1,10 @@
 Id:28070
-ColorIdentity:WRG
-OriginSet:Gfd50577710a6ab09
-ManaCost:2 G
-Types:Legendary Creature Human Warrior Bard
-PT:2/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange
-SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Land.Basic
-A:AB$ ChangeZone | Cost$ 3 RW RW | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn | SorcerySpeed$ True
-SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | Transformed$ True | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:white,red,green
-Types:Enchantment Saga
-K:Chapter:4:DBToken,DBMana,DBSearch,DBPumpAll
-SVar:DBToken:DB$ Token | TokenOwner$ You | TokenScriptIds$ 3045909140 | TokenAmount$ 2
-SVar:DBMana:DB$ Animate | Defined$ Self | staticAbilities$ Static | Duration$ Permanent
-SVar:Static:Mode$ Continuous | EffectZone$ Battlefield | Affected$ Creature.YouCtrl | AddAbility$ Mana
-SVar:Mana:AB$ Mana | Cost$ T | Produced$ Combo R G W | Amount$ 1
-SVar:DBSearch:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Card.Dinosaur | ChangeNum$ 1
-SVar:DBPumpAll:DB$ PumpAll | ValidCards$ Dinosaur.YouCtrl | KW$ Trample & DoubleStrike
+ColorIdentity:UBR
+OriginSet:G06c78c29bfb28e3d
+ManaCost:1 U B R
+Types:Legendary Creature Vampire Pirate
+PT:4/3
+S:Mode$ Continuous | Affected$ Creature.YouDontOwn+YouCtrl | AddPower$ 2 | AddToughness$ 2 | AddType$ Pirate | AddKeyword$ Menace & Deathtouch
+T:Mode$ SpellCast | ValidCard$ Card.YouDontOwn+nonCreature | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 3851718391 | TokenOwner$ You | TokenTapped$ True
+SVar:PlayMain1:TRUE

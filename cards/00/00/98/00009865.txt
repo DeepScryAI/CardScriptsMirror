@@ -1,10 +1,11 @@
 Id:9865
 ColorIdentity:WU
 OriginSet:G0388e25893b1e049
-ManaCost:1 WU WU WU
-Types:Creature Kithkin Knight
-PT:1/3
-K:Flash
-S:Mode$ Continuous | Affected$ Creature.White+Other+YouCtrl | AddPower$ 1 | AddToughness$ 1
-S:Mode$ Continuous | Affected$ Creature.Blue+Other+YouCtrl | AddPower$ 1 | AddToughness$ 1
-SVar:PlayMain1:TRUE
+ManaCost:2 WU
+Types:Creature Kithkin Soldier Wizard
+PT:2/2
+T:Mode$ SpellCast | ValidCard$ Card.White | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump11
+T:Mode$ SpellCast | ValidCard$ Card.Blue | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPumpKW
+SVar:TrigPump11:DB$ Pump | NumAtt$ +1 | NumDef$ +1 | Defined$ Self
+SVar:TrigPumpKW:DB$ Pump | KW$ Flying | Defined$ Self
+SVar:BuffedBy:Card.White,Card.Blue

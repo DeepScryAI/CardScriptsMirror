@@ -1,9 +1,11 @@
 Id:21438
 ColorIdentity:R
 OriginSet:G51d431785c8b33e5
-ManaCost:2 R
-Types:Sorcery
-A:SP$ ChooseNumber | Defined$ Player | Secretly$ True | Highest$ DBLoseLife | NotLowest$ DBDiscard | AILogic$ HighestLoseLife
-SVar:DBLoseLife:DB$ DealDamage | Defined$ Remembered | NumDmg$ Count$ChosenNumber
-SVar:DBDiscard:DB$ Discard | Defined$ Remembered | Mode$ Hand | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | Defined$ Remembered | NumCards$ 7
+ManaCost:1 R
+Types:Legendary Creature Elemental Lizard
+PT:1/1
+T:Mode$ DamageDone | ValidSource$ Creature.IsCommander+YouCtrl | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigSlug | TriggerZones$ Battlefield
+SVar:TrigSlug:DB$ DamageAll | ValidPlayers$ OppNonTriggeredTarget | NumDmg$ X | DamageSource$ TriggeredSource
+SVar:X:TriggerCount$DamageAmount
+K:Partner
+SVar:BuffedBy:Card.IsCommander

@@ -1,7 +1,9 @@
 Id:4109
-ColorIdentity:G
+ColorIdentity:
 OriginSet:Gdd40b2fbd2aa3c03
-ManaCost:3
+ManaCost:6
 Types:Artifact
-A:AB$ Mana | Cost$ T | Produced$ G
-A:AB$ Mana | Cost$ Sac<1/CARDNAME> | Produced$ G
+T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ Player | TriggerZones$ Battlefield | Execute$ DelayedTrigEff
+SVar:DelayedTrigEff:DB$ Effect | Duration$ Permanent | Triggers$ EOTTrig | RememberObjects$ TriggeredActivator | UnlessCost$ 1 | UnlessPayer$ TriggeredActivator | UnlessSwitched$ True
+SVar:EOTTrig:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Command | Execute$ TrigDraw | OneOff$ True
+SVar:TrigDraw:DB$ Draw | Defined$ Player.IsRemembered | NumCards$ 1

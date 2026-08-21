@@ -1,11 +1,14 @@
 Id:19804
-ColorIdentity:B
+ColorIdentity:BR
 OriginSet:Ga539dc09c09c4538
-ManaCost:5 B B
-Types:Creature Ape Snake
-PT:6/7
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Player.Opponent | TriggerZones$ Battlefield | Execute$ TrigManifest
-SVar:TrigManifest:DB$ Manifest | Amount$ 1 | Defined$ ValidLibrary Card.TopLibrary+ActivePlayerCtrl
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouDontOwn+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigDrain
-SVar:TrigDrain:DB$ LoseLife | Defined$ TriggeredCardOwner | LifeAmount$ 2 | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2
+ManaCost:3 B R
+Types:Legendary Creature Phyrexian Human Warrior
+PT:5/5
+K:Menace
+S:Mode$ Continuous | Affected$ Card.Self | AddPower$ X
+SVar:X:Count$LifeYouLostThisTurn
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:AB$ Draw | Cost$ Sac<1/Creature.Other/another creature> | Defined$ You | NumCards$ Y | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ Z
+SVar:Y:Sacrificed$CardPower
+SVar:Z:Sacrificed$CardToughness

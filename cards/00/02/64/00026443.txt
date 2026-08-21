@@ -1,9 +1,13 @@
 Id:26443
-ColorIdentity:R
-OriginSet:G06757f68e16377c2
-ManaCost:R
-Types:Artifact Equipment
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddKeyword$ Menace | AddPower$ 1
-T:Mode$ DamageDone | ValidSource$ Creature.EquippedBy | ValidTarget$ Player,Battle | CombatDamage$ True | Execute$ TrigTreasure
-SVar:TrigTreasure:DB$ Token | TokenScriptIds$ 3851718391
-K:Equip:2
+ColorIdentity:WBG
+OriginSet:G74a73d701e7801b3
+ManaCost:X W B G
+Types:Artifact Creature Phyrexian Hydra
+PT:*/*
+K:Indestructible
+K:etbCounter:OIL:X
+S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ Y | SetToughness$ Y
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigConjure
+SVar:TrigConjure:DB$ MakeCard | Conjure$ True | CatalogIds$ 6738,11742 | Zone$ Hand
+SVar:X:Count$xPaid
+SVar:Y:Count$CardCounters.OIL/Twice

@@ -1,11 +1,10 @@
 Id:32419
-ColorIdentity:U
-OriginSet:G66b3a7eeabd9000e
-ManaCost:1 U
-Types:Creature Illusion Villain
-PT:1/3
-K:Flying
-K:Vigilance
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigMill
-SVar:TrigMill:DB$ Mill | NumCards$ 1
-SVar:HasAttackEffect:TRUE
+ColorIdentity:R
+OriginSet:G9946f072b5556073
+ManaCost:2 R
+Types:Sorcery
+A:SP$ GainControl | ValidTgts$ Artifact,Creature | LoseControl$ EOT | Untap$ True | AddKWs$ Haste | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Targeted.Spacecraft | CounterType$ CHARGE | CounterNum$ 10 | RememberPut$ True | SubAbility$ DBDelTrig
+SVar:DBDelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ TrigRemoveCounter | RememberObjects$ RememberedLKI | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBCleanup
+SVar:TrigRemoveCounter:DB$ RemoveCounter | Defined$ DelayTriggerRememberedLKI | CounterType$ CHARGE | CounterNum$ 10
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

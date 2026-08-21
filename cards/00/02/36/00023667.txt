@@ -1,10 +1,7 @@
 Id:23667
-ColorIdentity:
+ColorIdentity:B
 OriginSet:G1a259dba25660062
-ManaCost:4
-Types:Artifact Creature Construct
-PT:2/1
-T:Mode$ ChangesZone | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1
-A:AB$ Draw | Cost$ 4 T | NumCards$ 1 | ReduceCost$ X
-SVar:X:Count$Valid Creature.modified+YouCtrl
+ManaCost:4 B
+Types:Sorcery
+A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouOwn,Vehicle.YouOwn | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | ConditionPresent$ Artifact.YouCtrl | ConditionPresent2$ Enchantment.YouCtrl | Defined$ Targeted | CounterType$ P1P1 | CounterNum$ 2

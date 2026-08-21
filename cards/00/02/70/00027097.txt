@@ -1,13 +1,14 @@
 Id:27097
-ColorIdentity:UBR
+ColorIdentity:W
 OriginSet:G6ce0035cfb774934
-ManaCost:3 U B R
-Types:Legendary Creature Avatar Horror
-PT:7/6
-K:Ward:Sac<1/Artifact.Legendary;Creature.Legendary/legendary artifact or legendary creature>
-T:Mode$ SpellCast | ValidActivatingPlayer$ Opponent | TriggerZones$ Battlefield | Execute$ TrigAmass
-SVar:TrigAmass:DB$ Amass | Type$ Orc | Num$ 1
-T:Mode$ DamageDone | ValidSource$ Army.YouCtrl | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigTempt | TriggerZones$ Battlefield
-SVar:TrigTempt:DB$ RingTemptsYou
-T:Mode$ RingTemptsYou | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraw
-SVar:TrigDraw:AB$ Draw | Cost$ Discard<1/Hand> | NumCards$ 4
+ManaCost:2 W
+Types:Creature Halfling Peasant
+PT:2/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigFood
+SVar:TrigFood:DB$ Token | TokenScriptIds$ 134855612 | TokenOwner$ You | RememberOriginalTokens$ True | SubAbility$ DBImmediateTrig
+SVar:DBImmediateTrig:DB$ ImmediateTrigger | TriggerAmount$ Remembered$Amount | Execute$ TrigPump | SubAbility$ DBCleanup
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.YouCtrl | NumAtt$ +X | NumDef$ +X
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$Valid Food.YouCtrl
+SVar:PlayMain1:TRUE
+SVar:BuffedBy:Food

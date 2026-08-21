@@ -1,11 +1,10 @@
 Id:34571
 ColorIdentity:R
-OriginSet:G11c0621ce29fa608
-ManaCost:R
-Types:Enchantment Aura
-K:Flash
-K:Enchant:Creature
-SVar:AttachAILogic:Pump
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | Defined$ Enchanted | KW$ FirstStrike
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 1 | AddKeyword$ Haste
+OriginSet:Gcb93bbfc68a40806
+ManaCost:4 R
+Types:Legendary Creature Human Warrior Hero
+PT:4/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Instant.YouCtrl,Sorcery.YouCtrl
+T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | Execute$ TrigPump | TriggerZones$ Battlefield
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature | NumAtt$ +2 | KW$ Menace

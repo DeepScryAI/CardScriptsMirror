@@ -1,7 +1,16 @@
 Id:17422
-ColorIdentity:U
+ColorIdentity:G
 OriginSet:G5475e2be497fd272
-ManaCost:3 U
-Types:Creature Merfolk Warrior
-PT:2/3
-S:Mode$ CantBlockBy | ValidAttacker$ Creature.YouCtrl+counters_GE1_P1P1
+ManaCost:2 G
+Types:Legendary Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDig
+SVar:TrigDig:DB$ Dig | DigNum$ 4 | ChangeNum$ 1 | Optional$ True | ChangeValid$ Creature
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ DBTransform | IsPresent$ Creature.YouCtrl | PresentCompare$ GE4
+SVar:DBTransform:DB$ SetState | Mode$ Transform
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Types:Legendary Land
+A:AB$ Mana | Cost$ T | Produced$ G | Amount$ 1
+A:AB$ Mana | Cost$ T | Produced$ G | Amount$ X
+SVar:X:Count$Valid Creature.YouCtrl

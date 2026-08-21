@@ -1,10 +1,16 @@
 Id:22842
-ColorIdentity:WB
+ColorIdentity:W
 OriginSet:Gf78628ad511eefec
-ManaCost:W B
-Types:Creature Human Assassin
-PT:2/2
-T:Mode$ Sacrificed | ValidCard$ Creature.Other | Execute$ TrigGainLife | TriggerZones$ Battlefield | ValidPlayer$ You
-SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1 | SubAbility$ DBScry
-SVar:DBScry:DB$ Scry | ScryNum$ 1
-A:AB$ Pump | Cost$ 1 Sac<1/Creature.Other/another creature> | Defined$ Self | NumAtt$ +2 | NumDef$ +2
+ManaCost:2 W
+Types:Creature Human Peasant
+PT:2/1
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigTransform
+SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:white
+Types:Creature Human Soldier
+PT:3/2
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigChangeZone | TriggerZones$ Battlefield
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouCtrl+cmcLE2 | Tapped$ True | Attacking$ True

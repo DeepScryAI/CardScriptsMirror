@@ -1,14 +1,11 @@
 Id:28908
-ColorIdentity:R
-OriginSet:Gaf7c94f364052cdd
-ManaCost:2 R
-Types:Artifact Creature Synth Soldier
-PT:3/3
-K:Haste
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigExile
-SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | Imprint$ True | SubAbility$ DBEnergy
-SVar:DBEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ 2 | RememberPut$ True | Optional$ True | SubAbility$ DBPlay
-SVar:DBPlay:DB$ Effect | StaticAbilities$ STPlay | RememberObjects$ Imprinted | ConditionDefined$ Remembered | ConditionPresent$ Player | ConditionCompare$ EQ0 | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
-SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True
-A:AB$ DealDamage | Cost$ T PayEnergy<3> | ValidTgts$ Any | NumDmg$ 3
+ColorIdentity:BG
+OriginSet:Gfe262f6450b3d189
+ManaCost:2 B G
+Types:Legendary Creature Elf Shaman
+PT:2/4
+T:Mode$ Phase | Phase$ End of Turn | Execute$ TrigBranch | ValidPlayer$ You | TriggerZones$ Battlefield
+SVar:TrigBranch:DB$ Branch | BranchConditionSVar$ Count$Valid Leech.YouCtrl | BranchConditionSVarCompare$ EQ0 | TrueSubAbility$ DBConjure | FalseSubAbility$ DBPutCounter
+SVar:DBConjure:DB$ MakeCard | Conjure$ True | CatalogId$ 28731 | Zone$ Battlefield
+SVar:DBPutCounter:DB$ PutCounterAll | ValidCards$ Leech.YouCtrl | CounterType$ P1P1
+A:AB$ Mana | Cost$ T Sac<1/Creature> | Produced$ G | Amount$ Sacrificed$CardPower

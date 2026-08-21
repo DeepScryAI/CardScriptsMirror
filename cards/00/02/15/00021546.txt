@@ -1,11 +1,12 @@
 Id:21546
-ColorIdentity:G
+ColorIdentity:RG
 OriginSet:G18bf722b221724f8
-ManaCost:3 G
-Types:Legendary Artifact Vehicle
-PT:4/4
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 1891902977
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigCopy
-SVar:TrigCopy:DB$ CopyPermanent | ValidTgts$ Permanent.token+YouCtrl
-K:Crew:4
+ManaCost:R G
+Types:Enchantment Saga
+K:Chapter:3:DBPump,DBMana,DBGainLife
+SVar:DBPump:DB$ Pump | ValidTgts$ Creature.YouCtrl | SubAbility$ DBFight
+SVar:DBFight:DB$ Fight | Defined$ ParentTarget | ValidTgts$ Creature.YouDontCtrl | TargetMin$ 0 | TargetMax$ 1
+SVar:DBMana:DB$ Mana | Produced$ R | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 2 | TargetMin$ 0 | TargetMax$ 1
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ X
+SVar:X:Count$Valid Creature.YouCtrl$GreatestCardPower

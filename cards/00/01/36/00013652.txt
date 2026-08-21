@@ -1,9 +1,11 @@
 Id:13652
 ColorIdentity:U
 OriginSet:G4773f4feb3f15a2b
-ManaCost:2 U
-Types:Creature Bird
-PT:2/1
-K:Flying
-T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.YouCtrl+Other | KW$ Flying
+ManaCost:U U
+Types:Creature Merfolk Wizard
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigTap
+SVar:TrigTap:DB$ Tap | ValidTgts$ Creature.Red+OppCtrl,Creature.Green+OppCtrl | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ Targeted | ForgetOnMoved$ Battlefield | ReplacementEffects$ DontUntap | Duration$ AsLongAsInPlay
+SVar:DontUntap:Event$ Untap | ValidCard$ Card.IsRemembered | ValidStepTurnToController$ You | Layer$ CantHappen
+SVar:PlayMain1:TRUE

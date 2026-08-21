@@ -1,12 +1,8 @@
 Id:32664
-ColorIdentity:U
-OriginSet:G36e97d2da170e675
-ManaCost:1 U
-Types:Enchantment
-T:Mode$ DamageDone | ValidSource$ Creature.YouCtrl | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigPutCounter | TriggerZones$ Battlefield
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ QUEST | CounterNum$ 1 | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | ConditionCheckSVar$ X | ConditionSVarCompare$ GE4
-A:AB$ Effect | Cost$ Waterbend<4> | ValidTgts$ Creature | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable | AILogic$ MakeUnblockable
-SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
-SVar:X:Count$CardCounters.QUEST
-SVar:MaxQuestEffect:4
+ColorIdentity:G
+OriginSet:G66b3a7eeabd9000e
+ManaCost:3 G
+Types:Instant
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ 2 | EffectZone$ All | IsPresent$ Permanent.cmcGE4+YouCtrl
+A:SP$ Pump | TargetMin$ 1 | TargetMax$ 2 | ValidTgts$ Creature.YouCtrl | NumAtt$ +1 | AILogic$ PowerDmg | SubAbility$ DBEachDamage
+SVar:DBEachDamage:DB$ EachDamage | ValidTgts$ Creature.OppCtrl | DefinedDamagers$ ParentTarget | NumDmg$ Count$CardPower

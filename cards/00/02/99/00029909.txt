@@ -1,11 +1,13 @@
 Id:29909
-ColorIdentity:W
+ColorIdentity:R
 OriginSet:Gf09b85bbcc27770c
-ManaCost:W W
-Types:Instant
-K:Gift
-SVar:GiftAbility:DB$ Token | TokenScriptIds$ 2753563426 | TokenTapped$ True | TokenOwner$ Promised | LockTokenScript$ True
-A:SP$ ChangeZone | ValidTgts$ Creature.!token | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DelTrig
-SVar:DelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ TrigReturn | RememberObjects$ RememberedLKI | ConditionZone$ Stack | ConditionPresent$ Card.Self+PromisedGift | ConditionCompare$ EQ0 | SubAbility$ DBCleanup
-SVar:TrigReturn:DB$ ChangeZone | Defined$ DelayTriggerRememberedLKI | Origin$ Exile | Destination$ Battlefield | WithCountersType$ P1P1
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:1 R
+Types:Enchantment Class
+T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDiscard
+SVar:TrigDiscard:AB$ Draw | Cost$ Discard<1/Card>
+K:Class:2:2 R:AddStaticAbility$ SReduceCost
+SVar:SReduceCost:Mode$ ReduceCost | ValidCard$ Card.nonCreature | Type$ Spell | Activator$ You | Amount$ 1 | Secondary$ True
+K:Class:3:2 R:AddReplacementEffect$ DoubleDamage
+SVar:DoubleDamage:Event$ DamageDone | ActiveZones$ Battlefield | ValidSource$ Card.YouCtrl,Emblem.YouCtrl | ValidTarget$ Permanent.OppCtrl,Opponent | IsCombat$ False | ReplaceWith$ DmgPlus2
+SVar:DmgPlus2:DB$ ReplaceEffect | VarName$ DamageAmount | VarValue$ X
+SVar:X:ReplaceCount$DamageAmount/Plus.2

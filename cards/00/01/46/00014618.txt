@@ -1,12 +1,11 @@
 Id:14618
-ColorIdentity:U
+ColorIdentity:UBG
 OriginSet:G0a578e83854cf093
-ManaCost:3 U
-Types:Creature Snake Wizard
-PT:3/3
-K:Morph:4 U U
-T:Mode$ TurnFaceUp | ValidCard$ Card.Self | Execute$ TrigCounter | TriggerZones$ Battlefield
-SVar:TrigCounter:DB$ Counter | TargetType$ Spell | ValidTgts$ Card | RememberCountered$ True | Destination$ Exile | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | RememberObjects$ Remembered | StaticAbilities$ STPlay | Duration$ Permanent | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
-SVar:STPlay:Mode$ Continuous | MayPlay$ True | MayPlayWithoutManaCost$ True | Affected$ Card.IsRemembered+nonLand | AffectedZone$ Exile
+ManaCost:3 B G U
+Types:Creature Zombie Wizard
+PT:4/4
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigChangZone
+SVar:TrigChangZone:AB$ ChangeZone | Cost$ 2 B | ChangeType$ Creature.YouCtrl | Origin$ Graveyard | Destination$ Battlefield | Hidden$ True | Mandatory$ True | AtRandom$ True | RememberChanged$ True | SubAbility$ DBUnearthed
+SVar:DBUnearthed:DB$ Animate | Defined$ Remembered | Keywords$ Flying & Trample & Haste | LeaveBattlefield$ Exile | sVars$ KheruMustAttack | Duration$ Permanent | SubAbility$ DBCleanup | AtEOT$ YourExile
+SVar:KheruMustAttack:SVar:MustAttack:True
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

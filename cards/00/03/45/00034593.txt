@@ -1,10 +1,14 @@
 Id:34593
-ColorIdentity:WR
-OriginSet:G11c0621ce29fa608
-ManaCost:3 R W
-Types:Enchantment Saga
-K:Chapter:3:DBControl,DBPump,DBFight
-SVar:DBControl:DB$ GainControl | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 2 | MaxTotalTargetCMC$ 6 | LoseControl$ LeavesPlay
-SVar:DBPump:DB$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +1 | NumDef$ +1 | KW$ Vigilance
-SVar:DBFight:DB$ Pump | ValidTgts$ Creature.YouCtrl | SubAbility$ DBFight2
-SVar:DBFight2:DB$ Fight | Defined$ ParentTarget | ValidTgts$ Creature | TargetUnique$ True | TargetMin$ 0 | TargetMax$ 1
+ColorIdentity:B
+OriginSet:Gcb93bbfc68a40806
+ManaCost:3 B B
+Types:Legendary Artifact Creature Robot Villain
+PT:3/4
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigToken | Secondary$ True | TriggerZones$ Battlefield
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 2564522677 | TokenOwner$ You
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Artifact.Other+YouOwn | TriggerZones$ Battlefield | Execute$ TrigLoseLife
+T:Mode$ ChangesZone | ValidCard$ Artifact.!token+YouOwn | Origin$ Library,Hand,Exile,Command,Stack | Destination$ Graveyard | TriggerZones$ Battlefield | Execute$ TrigLoseLife | Secondary$ True
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ Opponent | LifeAmount$ 1
+SVar:HasAttackEffect:TRUE

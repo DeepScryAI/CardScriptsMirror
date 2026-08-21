@@ -1,7 +1,14 @@
 Id:32045
-ColorIdentity:
-OriginSet:G7856e27bce45729f
-ManaCost:no cost
-Types:Land Swamp Forest
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ LandTapped | ReplacementResult$ Updated
-SVar:LandTapped:DB$ Tap | Defined$ Self | ETB$ True | ConditionPresent$ Land.Basic+YouCtrl | ConditionCompare$ LE1
+ColorIdentity:UBG
+OriginSet:G7ab4f62d323b0ca7
+ManaCost:4 B G U
+Types:Legendary Creature Leviathan Avatar
+PT:7/7
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigRepeat
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigRepeat | TriggerZones$ Battlefield | Secondary$ True
+SVar:TrigRepeat:DB$ Repeat | RepeatSubAbility$ DBChange | RepeatDefined$ Remembered | RepeatPresent$ Land | RepeatSVarCompare$ EQ1 | SubAbility$ DBCleanup
+SVar:DBChange:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | AtRandom$ True | ChangeType$ Permanent.YouOwn | ChangeNum$ 1 | RememberChanged$ True | ForgetOtherRemembered$ True | Hidden$ True | SubAbility$ DBCopy
+SVar:DBCopy:DB$ CopyPermanent | Defined$ Remembered | TokenTapped$ True
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:HasAttackEffect:TRUE

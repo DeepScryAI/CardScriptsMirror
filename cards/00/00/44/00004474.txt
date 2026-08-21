@@ -2,6 +2,10 @@ Id:4474
 ColorIdentity:R
 OriginSet:G239b3b7a46d83e8e
 ManaCost:3 R
-Types:Sorcery
-S:Mode$ AlternativeCost | ValidSA$ Spell.Self | EffectZone$ All | Cost$ Discard<1/Mountain>
-A:SP$ DealDamage | ValidTgts$ Creature | NumDmg$ 3 | TargetMin$ 1 | TargetMax$ 3 | DividedAsYouChoose$ 3
+Types:Creature Efreet
+PT:5/2
+T:Mode$ Blocks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ DelayTrig
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ DelayTrig | Secondary$ True
+SVar:DelayTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ EndCombat | Execute$ TrigFlip
+SVar:TrigFlip:DB$ FlipCoin | LoseSubAbility$ DBGiveControl
+SVar:DBGiveControl:DB$ GainControl | Defined$ CorrectedSelf | NewController$ Opponent

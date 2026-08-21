@@ -1,12 +1,9 @@
 Id:29701
 ColorIdentity:W
-OriginSet:G01a610e823cce3ca
+OriginSet:Gac6359c222afbd4f
 ManaCost:2 W
-Types:Enchantment Saga
-K:Chapter:3:DBDraw,DBExile,DBCalamity
-SVar:DBDraw:DB$ Draw | ValidTgts$ Opponent | Defined$ TargetedAndYou | NumCards$ 2
-SVar:DBExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Artifact.OppCtrl
-SVar:DBCalamity:DB$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ ChooseThreePermanents | SubAbility$ DestroyAll
-SVar:ChooseThreePermanents:DB$ ChooseCard | Defined$ Remembered | Choices$ Permanent.nonLand+RememberedPlayerCtrl | Amount$ 3 | Mandatory$ True | RememberChosen$ True
-SVar:DestroyAll:DB$ DestroyAll | ValidCards$ Permanent.nonLand+!IsRemembered | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+Types:Creature Rhino Cleric
+PT:2/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigEnergy
+SVar:TrigEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ 2
+A:AB$ Tap | Cost$ T PayEnergy<1> | ValidTgts$ Creature

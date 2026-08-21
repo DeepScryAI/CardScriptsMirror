@@ -1,12 +1,11 @@
 Id:34456
-ColorIdentity:R
-OriginSet:G11c0621ce29fa608
-ManaCost:1 R
-Types:Instant
-K:Teamwork:4
-A:SP$ Charm | CharmNum$ X | Choices$ DBDestroy,DBPump
-SVar:DBDestroy:DB$ Destroy | ValidTgts$ Artifact.nonCreature
-SVar:DBPump:DB$ Pump | ValidTgts$ Creature.YouCtrl | AILogic$ PowerDmg | SubAbility$ DBDamage
-SVar:DBDamage:DB$ DealDamage | ValidTgts$ Creature.OppCtrl | AILogic$ PowerDmg | NumDmg$ Y | DamageSource$ ParentTarget
-SVar:X:Count$Teamwork.2.1
-SVar:Y:ParentTargeted$CardPower
+ColorIdentity:G
+OriginSet:Gcb93bbfc68a40806
+ManaCost:1 G G
+Types:Legendary Creature Human Noble Warrior
+PT:4/3
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | Execute$ TrigMonarch | TriggerZones$ Battlefield | CheckSVar$ NoMonarch | SVarCompare$ EQ0
+SVar:TrigMonarch:DB$ BecomeMonarch | ValidTgts$ Opponent
+SVar:NoMonarch:PlayerCountPlayers$HasPropertyisMonarch
+T:Mode$ Attacks | ValidCard$ Creature | Attacked$ Player.Opponent+isMonarch | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ TriggeredAttackerLKICopy | ConditionPlayerDefined$ TriggeredDefendingPlayer | ConditionPlayerContains$ Player.isMonarch | NumAtt$ +1 | NumDef$ +1 | KW$ Trample

@@ -1,9 +1,11 @@
 Id:10717
-ColorIdentity:WUBRG
+ColorIdentity:
 OriginSet:Gc860c737f2a60f83
 ManaCost:no cost
-Types:Plane Dominaria
-S:Mode$ Continuous | EffectZone$ Command | Affected$ Creature | AddPower$ 2 | AddToughness$ 2
-T:Mode$ ChaosEnsues | TriggerZones$ Command | OptionalDecider$ You | Execute$ RolledChaos
-SVar:RolledChaos:DB$ Mana | Produced$ W U B R G
+Types:Plane Ravnica
+T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ Player | Execute$ TrigCopy | TriggerZones$ Command
+SVar:TrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | Controller$ TriggeredActivator | MayChooseTarget$ True
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos
+SVar:RolledChaos:DB$ Effect | StaticAbilities$ ReduceSPCost
+SVar:ReduceSPCost:Mode$ ReduceCost | ValidCard$ Instant,Sorcery | Type$ Spell | Activator$ You | Amount$ 3
 SVar:AIRollPlanarDieParams:Mode$ Always | RollInMain1$ True

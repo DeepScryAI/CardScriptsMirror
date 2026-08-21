@@ -1,7 +1,11 @@
 Id:8302
-ColorIdentity:R
+ColorIdentity:
 OriginSet:Gde6d8130c178f566
-ManaCost:3 R
-Types:Instant
-A:SP$ DealDamage | ValidTgts$ Any | NumDmg$ X
-SVar:X:Count$Hellbent.5.3
+ManaCost:4
+Types:Artifact Creature Construct
+PT:4/1
+T:Mode$ Always | TriggerZones$ Battlefield | IsPresent$ Card.Self+OwnerDoesntControl | Execute$ TrigSac
+SVar:TrigSac:DB$ SacrificeAll | Defined$ Self | RememberSacrificed$ True | SubAbility$ DBDmg
+SVar:DBDmg:DB$ DealDamage | Defined$ RememberedController | NumDmg$ 7 | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:DonateMe:5

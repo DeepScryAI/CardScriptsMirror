@@ -1,9 +1,13 @@
 Id:29582
-ColorIdentity:U
+ColorIdentity:B
 OriginSet:Gac6359c222afbd4f
-ManaCost:U
-Types:Enchantment Creature Merfolk Wizard
-PT:1/1
-K:Bestow:1 U
-S:Mode$ Continuous | Affected$ Creature.Self | AddKeyword$ Prowess
-S:Mode$ Continuous | Affected$ Card.EnchantedBy | AddPower$ 1 | AddToughness$ 1 | AddKeyword$ Prowess
+ManaCost:2 B B
+Types:Instant
+S:Mode$ AlternativeCost | ValidSA$ Spell.Self | EffectZone$ All | Cost$ Sac<1/Creature.Black+!token/a nontoken black creature>
+A:SP$ RepeatEach | RepeatPlayers$ Player.Opponent | RepeatSubAbility$ DBChooseCard | SubAbility$ DBSacAll
+SVar:DBChooseCard:DB$ ChooseCard | Defined$ Player.IsRemembered | Choices$ Creature.RememberedPlayerCtrl+cmcEQX,Planeswalker.RememberedPlayerCtrl+cmcEQX | Mandatory$ True | Reveal$ True | RememberChosen$ True
+SVar:X:Count$Valid Creature.RememberedPlayerCtrl,Planeswalker.RememberedPlayerCtrl$GreatestCardManaCost
+SVar:DBSacAll:DB$ SacrificeAll | ValidCards$ Card.IsRemembered | SubAbility$ DBCleanup
+SVar:DBCleanupChosen:DB$ Cleanup | ClearChosenPlayer$ True
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:NeedsToPlay:Creature.OppCtrl

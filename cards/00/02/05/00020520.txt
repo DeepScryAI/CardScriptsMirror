@@ -1,11 +1,10 @@
 Id:20520
-ColorIdentity:G
+ColorIdentity:W
 OriginSet:Gc9c1dd0d52c99ca4
-ManaCost:5 G G
-Types:Creature Beast
-PT:3/3
-K:Devour:3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDmg
-SVar:TrigDmg:DB$ DealDamage | ValidTgts$ Creature | NumDmg$ FirePower | TargetMin$ 0 | TargetMax$ FirePower | DividedAsYouChoose$ FirePower | SubAbility$ GigantotheriumFight
-SVar:GigantotheriumFight:DB$ EachDamage | DefinedDamagers$ Targeted | NumDmg$ Count$CardPower | Defined$ Self
-SVar:FirePower:Count$CardPower
+ManaCost:2 W
+Types:Sorcery
+A:SP$ Destroy | ValidTgts$ Artifact.OppCtrl,Enchantment.OppCtrl | TargetMin$ 0 | TargetMax$ OneEach | TargetsForEachPlayer$ True
+SVar:OneEach:PlayerCountOpponents$Amount
+K:Cycling:6 W W
+T:Mode$ Cycled | ValidCard$ Card.Self | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ DestroyAll | ValidCards$ Artifact,Enchantment

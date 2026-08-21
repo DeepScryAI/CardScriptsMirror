@@ -1,12 +1,9 @@
 Id:26783
 ColorIdentity:W
-OriginSet:G321081e278de53f0
+OriginSet:G06757f68e16377c2
 ManaCost:2 W
-Types:Creature Angel Cleric
-PT:2/3
-K:Flying
-K:Vigilance
-S:Mode$ Continuous | Affected$ You | AddKeyword$ Hexproof
-T:Mode$ DamageDoneOnce | ValidTarget$ Card.Self | Execute$ TrigGain | TriggerZones$ Battlefield
-SVar:TrigGain:DB$ GainLife | Defined$ You | LifeAmount$ X
-SVar:X:TriggerCount$DamageAmount
+Types:Instant
+A:SP$ ChangeZone | ValidTgts$ Artifact.YouCtrl,Creature.YouCtrl,Enchantment.YouCtrl | Origin$ Battlefield | Destination$ Exile | TargetMin$ 0 | TargetMax$ 1 | RememberTargets$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

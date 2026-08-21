@@ -1,10 +1,9 @@
 Id:13241
-ColorIdentity:U
+ColorIdentity:B
 OriginSet:Gfdc478e04211a499
-ManaCost:5 U U
-Types:Creature Avatar
-PT:5/5
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ CastEach
-SVar:CastEach:DB$ Play | ValidTgts$ Instant.OppCtrl,Sorcery.OppCtrl | TgtZone$ Graveyard | TargetMin$ 0 | TargetMax$ OneEach | TargetsForEachPlayer$ True | Amount$ All | ValidSA$ Spell | WithoutManaCost$ True | Optional$ True | ReplaceGraveyard$ Exile | AILogic$ ReplaySpell
-SVar:OneEach:PlayerCountOpponents$Amount
+ManaCost:1 B
+Types:Instant
+A:SP$ Sacrifice | ValidTgts$ Player | SacValid$ Creature | RememberSacrificed$ True | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ Targeted | LifeAmount$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:RememberedLKI$CardToughness

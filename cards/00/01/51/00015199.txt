@@ -1,8 +1,11 @@
 Id:15199
-ColorIdentity:R
+ColorIdentity:U
 OriginSet:Gdb18f239871b8cef
-ManaCost:R
-Types:Legendary Creature Orc Warrior
-PT:2/2
-S:Mode$ CantBlockBy | ValidAttacker$ Creature.powerGE2 | ValidBlocker$ Creature.Self
-K:Dash:1 R
+ManaCost:2 U
+Types:Creature Human Monk
+PT:2/1
+A:AB$ Draw | Cost$ U T | NumCards$ 1 | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | Mode$ TgtChoose | NumCards$ 1
+T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigUntap
+SVar:TrigUntap:DB$ Untap | Defined$ Self
+SVar:BuffedBy:Card.nonLand+nonCreature

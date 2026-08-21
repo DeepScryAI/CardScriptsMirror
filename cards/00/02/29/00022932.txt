@@ -1,9 +1,12 @@
 Id:22932
-ColorIdentity:WG
+ColorIdentity:B
 OriginSet:Gf78628ad511eefec
-ManaCost:G W
-Types:Instant
-K:Flashback:2 G W
-A:SP$ Effect | Triggers$ CreatureEnchantmentETB
-SVar:CreatureEnchantmentETB:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.YouCtrl,Enchantment.YouCtrl | TriggerZones$ Command | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+ManaCost:2 B B
+Types:Legendary Creature Human Wizard
+PT:4/4
+R:Event$ Moved | ActiveZones$ Battlefield | Origin$ Battlefield | Destination$ Graveyard | ValidLKI$ Creature.OppCtrl | ReplaceWith$ Exile
+SVar:Exile:DB$ ChangeZone | Hidden$ True | Origin$ All | Destination$ Exile | Defined$ ReplacedCard
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZoneAll | ChangeType$ Creature.ExiledWithSource | Origin$ Exile | Destination$ Battlefield | GainControl$ True | RememberChanged$ True | SubAbility$ DBPump
+SVar:DBPump:DB$ PumpAll | ValidCards$ Card.IsRemembered | KW$ Decayed | Duration$ Permanent | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

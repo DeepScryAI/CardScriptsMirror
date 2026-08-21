@@ -3,9 +3,8 @@ ColorIdentity:
 OriginSet:G84adc137b751e29e
 ManaCost:no cost
 Types:Scheme
-T:Mode$ SetInMotion | ValidCard$ Card.Self | Execute$ LibraryDance | TriggerZones$ Command
-SVar:LibraryDance:DB$ DigUntil | Defined$ Player.Opponent | Valid$ Creature | RememberRevealed$ True | ImprintFound$ True | NoMoveRevealed$ True | SubAbility$ MakeItChoose
-SVar:MakeItChoose:DB$ ChooseCard | Choices$ Card.IsImprinted | ChoiceZone$ Library | Mandatory$ True | Amount$ 1 | SubAbility$ MakeItDance
-SVar:MakeItDance:DB$ ChangeZone | Defined$ ChosenCard | Origin$ Library | Destination$ Battlefield | Mandatory$ True | GainControl$ True | ForgetChanged$ True | SubAbility$ TakeOutTheTrash
-SVar:TakeOutTheTrash:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered | Origin$ Library | Destination$ Graveyard | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True
+T:Mode$ SetInMotion | ValidCard$ Card.Self | Execute$ ChooseChampion | TriggerZones$ Command
+SVar:ChooseChampion:DB$ ChoosePlayer | ValidTgts$ Opponent | Choices$ Player | AILogic$ BestAllyBoardPosition | SubAbility$ PrepChamps
+SVar:PrepChamps:DB$ Effect | RememberObjects$ ChosenPlayer & You | Duration$ UntilYourNextTurn | StaticAbilities$ RestrictAttackers,RestrictCasting
+SVar:RestrictAttackers:Mode$ CantAttack | ValidCard$ Creature.!RememberedPlayerCtrl
+SVar:RestrictCasting:Mode$ CantBeCast | ValidCard$ Card | Caster$ Player.!IsRemembered

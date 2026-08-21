@@ -1,12 +1,13 @@
 Id:23438
-ColorIdentity:B
-OriginSet:G1a259dba25660062
-ManaCost:2 B
-Types:Creature Human Ninja
-PT:3/3
-K:Ninjutsu:2 B
-K:etbCounter:Menace:1
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigImmediateTrig | CombatDamage$ True
-SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ SubCounter<1/Menace> | Execute$ TrigReveal
-SVar:TrigReveal:DB$ RevealHand | Defined$ Spawner>TriggeredTarget | SubAbility$ DBExile
-SVar:DBExile:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | DefinedPlayer$ Spawner>TriggeredTarget | Chooser$ You | ChangeType$ Card.nonLand | ChangeNum$ 1 | IsCurse$ True
+ColorIdentity:G
+OriginSet:Gbe3783f336562357
+ManaCost:G
+Types:Creature Wolf
+PT:1/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGainLife
+SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 1 | SubAbility$ DBDelayedTrigger
+SVar:DBDelayedTrigger:DB$ DelayedTrigger | Execute$ TrigAddAPI | Mode$ SpellCast | ValidCard$ Creature | ValidActivatingPlayer$ You
+SVar:TrigAddAPI:DB$ Effect | RememberObjects$ TriggeredCard | ForgetOnMoved$ Stack | ReplacementEffects$ ReplaceEnter
+SVar:ReplaceEnter:Event$ Moved | ValidCard$ Card.IsRemembered | Destination$ Battlefield | ReplaceWith$ AddExtraCounter | ReplacementResult$ Updated
+SVar:AddExtraCounter:DB$ PutCounter | ETB$ True | Defined$ ReplacedCard | CounterTypes$ P1P1,Trample,Vigilance | CounterNum$ 1 | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile

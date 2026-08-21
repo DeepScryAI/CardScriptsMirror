@@ -1,11 +1,10 @@
 Id:13517
-ColorIdentity:RG
+ColorIdentity:U
 OriginSet:G9b1658d4f3a50109
-ManaCost:4 R G
-Types:Legendary Creature Ogre Warrior
-PT:6/6
-K:Vigilance
-K:Reach
-S:Mode$ MustAttack | ValidCreature$ Card.Self
-T:Mode$ SpellCast | TriggerZones$ Battlefield | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ Player | Execute$ TrigDmg
-SVar:TrigDmg:DB$ DealDamage | Defined$ TriggeredActivator | NumDmg$ 6
+ManaCost:1 U
+Types:Enchantment Aura
+K:Enchant:Creature.powerLE3:creature with power 3 or less
+SVar:AttachAILogic:Curse
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigTap
+SVar:TrigTap:DB$ Tap | Defined$ Enchanted
+R:Event$ Untap | ActiveZones$ Battlefield | ValidCard$ Creature.AttachedBy | ValidStepTurnToController$ You | Layer$ CantHappen

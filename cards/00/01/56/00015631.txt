@@ -1,10 +1,10 @@
 Id:15631
 ColorIdentity:B
 OriginSet:Gc1f5e527f9d411df
-ManaCost:X B B
+ManaCost:4 B B
 Types:Sorcery
-A:SP$ Mill | NumCards$ X | Defined$ Player | RememberMilled$ True | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenAmount$ Y | TokenScriptIds$ 353162950 | TokenOwner$ You | TokenTapped$ True | SubAbility$ DBCleanup
+A:SP$ DestroyAll | ValidCards$ Creature | RememberDestroyed$ True | SubAbility$ DBRepeat
+SVar:DBRepeat:DB$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBLoseLife | SubAbility$ DBCleanup
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ X | Defined$ Player.IsRemembered
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$xPaid
-SVar:Y:Remembered$Valid Creature.inZoneGraveyard
+SVar:X:RememberedLKI$Valid Card.RememberedPlayerCtrl

@@ -1,12 +1,12 @@
 Id:33693
-ColorIdentity:R
-OriginSet:G14da29c4716bedc3
-ManaCost:8 R R
-Types:Sorcery
-S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ X | EffectZone$ All
-A:SP$ RepeatEach | RepeatPlayers$ Player.Opponent | RepeatSubAbility$ DBToken | ChangeZoneTable$ True
-SVar:DBToken:DB$ Token | TokenScriptIds$ 4293801453 | TokenAmount$ 2 | TokenOwner$ You | RememberTokens$ True | PumpKeywords$ Haste | PumpDuration$ EOT | SubAbility$ DBEff
-SVar:DBEff:DB$ Effect | RememberObjects$ Remembered | ExileOnMoved$ Battlefield | StaticAbilities$ MustAttack | SubAbility$ DBCleanup
-SVar:MustAttack:Mode$ MustAttack | ValidCreature$ Card.IsRemembered | MustAttack$ RememberedPlayer
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$ValidGraveyard Instant.YouOwn,Sorcery.YouOwn
+ColorIdentity:UB
+OriginSet:G23d1f017cc66962f
+ManaCost:4 UB UB
+Types:Legendary Creature Utrom Human Ninja
+PT:6/7
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDigUntil
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDigUntil | Secondary$ True
+SVar:TrigDigUntil:DB$ DigUntil | Defined$ Opponent | Valid$ Card.nonLand | FoundDestination$ Exile | RevealedDestination$ Exile
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | Revolt$ True | TriggerZones$ Battlefield | Execute$ TrigPlay
+SVar:TrigPlay:DB$ Play | Optional$ True | Valid$ Card.nonLand+ExiledWithSource | ValidZone$ Exile | WithoutManaCost$ True | Amount$ 1
+SVar:HasAttackEffect:TRUE

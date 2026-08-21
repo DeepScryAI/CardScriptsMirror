@@ -1,14 +1,9 @@
 Id:23687
-ColorIdentity:WUR
-OriginSet:G8a59924df6623252
-ManaCost:1 U R W
-Types:Legendary Creature Human Soldier
-PT:4/4
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharge
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigCharge | Secondary$ True
-SVar:TrigCharge:DB$ AddOrRemoveCounter | Defined$ Self | CounterType$ CHARGE | CounterNum$ 1 | RememberRemovedCards$ True | SubAbility$ DBImmediateTrigger
-SVar:DBImmediateTrigger:DB$ ImmediateTrigger | ConditionDefined$ Remembered | ConditionPresent$ Card.Self | ConditionCompare$ GE1 | Execute$ TrigCharm | SubAbility$ DBCleanup
-SVar:TrigCharm:DB$ Charm | Choices$ DBDamage,DBPump
-SVar:DBDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 4
-SVar:DBPump:DB$ Pump | KW$ Lifelink & Indestructible
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:U
+OriginSet:G1a259dba25660062
+ManaCost:4 U
+Types:Creature Moonfolk Artificer
+PT:3/4
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Artifact.!token+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigCopy
+SVar:TrigCopy:AB$ CopyPermanent | Cost$ 1 U | Defined$ TriggeredCardLKICopy

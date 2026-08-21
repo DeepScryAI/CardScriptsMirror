@@ -1,10 +1,9 @@
 Id:14955
 ColorIdentity:G
 OriginSet:G25ee1eefb1a14f05
-ManaCost:4 G G
-Types:Creature Human Shaman
-PT:4/5
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigManifest
-SVar:TrigManifest:DB$ Manifest
-T:Mode$ TurnFaceUp | ValidCard$ Permanent.Creature+YouCtrl | Execute$ TrigFight | TriggerZones$ Battlefield | OptionalDecider$ You
-SVar:TrigFight:DB$ Fight | Defined$ TriggeredCardLKICopy | ValidTgts$ Creature.YouDontCtrl
+ManaCost:2 G G
+Types:Creature Cat
+PT:4/3
+A:AB$ ChangeZone | Cost$ 1 G | Origin$ Battlefield | Destination$ Hand | Hidden$ True | ChangeType$ Creature.YouCtrl+Other | ChangeNum$ 1 | RememberChanged$ True | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ1 | Defined$ Self | KW$ Indestructible | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

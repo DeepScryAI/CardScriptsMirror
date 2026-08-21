@@ -1,8 +1,13 @@
 Id:19700
-ColorIdentity:W
+ColorIdentity:
 OriginSet:G7c61dc677f00d087
-ManaCost:1 W
-Types:Creature Cat Cleric
-PT:2/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGainLife
-SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 2
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+K:Hexproof
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice | Amount$ 2 | Defined$ You | SacValid$ Land | AILogic$ ExceptSelf
+A:AB$ Mana | Cost$ T | Produced$ Any | Amount$ 3
+SVar:NeedsToPlayVar:X GT2
+SVar:X:Count$Valid Land.Basic+YouCtrl

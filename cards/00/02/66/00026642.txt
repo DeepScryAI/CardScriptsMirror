@@ -1,9 +1,11 @@
 Id:26642
-ColorIdentity:G
+ColorIdentity:B
 OriginSet:G06757f68e16377c2
-ManaCost:2 G
-Types:Creature Elf Warrior
-PT:2/1
-K:Backup:1:BackupAbility
-SVar:BackupAbility:DB$ Pump | KW$ Deathtouch
-K:Deathtouch
+ManaCost:4 B
+Types:Creature Phyrexian Demon
+PT:3/5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | Choices$ Drain,Battle
+SVar:Drain:DB$ LoseLife | ValidTgts$ Opponent | LifeAmount$ 2 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ 2
+SVar:Battle:DB$ AddOrRemoveCounter | ValidTgts$ Battle | RemoveConditionSVar$ Targeted$Valid Battle.OppProtect | CounterType$ DEFENSE | CounterNum$ 3

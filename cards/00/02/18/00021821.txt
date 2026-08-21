@@ -1,9 +1,10 @@
 Id:21821
 ColorIdentity:B
-OriginSet:Gabb23d0d25cdc46d
-ManaCost:2 B
-Types:Creature Vampire Warlock
-PT:3/3
-K:Menace
-T:Mode$ LifeGained | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigReturn
-SVar:TrigReturn:AB$ ChangeZone | Cost$ B | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Creature.YouOwn
+OriginSet:G18bf722b221724f8
+ManaCost:1 B
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Curse
+S:Mode$ Continuous | Affected$ Card.EnchantedBy | SetPower$ 0 | AddTrigger$ WitherTrig | AddSVar$ TrigLoseLife
+SVar:WitherTrig:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | LifeAmount$ 1 | UnlessCost$ Sac<1/CARDNAME> | UnlessPayer$ You

@@ -1,8 +1,12 @@
 Id:14152
-ColorIdentity:G
+ColorIdentity:WB
 OriginSet:Gc18355312510df89
-ManaCost:G G
-Types:Creature Human Archer
-PT:2/1
-K:Hexproof
-K:Reach
+ManaCost:1 W B
+Types:Legendary Enchantment Creature God
+PT:5/4
+K:Indestructible
+S:Mode$ Continuous | Affected$ Card.Self | RemoveType$ Creature | CheckSVar$ X | SVarCompare$ LT7
+SVar:X:Count$DevotionDual.White.Black
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouOwn+Other | TriggerZones$ Battlefield | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Hand | UnlessCost$ PayLife<3> | UnlessPayer$ Targeted | ValidTgts$ Opponent | IsCurse$ True | Hidden$ True | DefinedPlayer$ You
+SVar:BuffedBy:Permanent.White,Permanent.Black

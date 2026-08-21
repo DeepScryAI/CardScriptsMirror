@@ -1,9 +1,12 @@
 Id:26071
-ColorIdentity:W
-OriginSet:G2192e8955d5e1ad1
-ManaCost:3 W
-Types:Artifact Equipment
-K:For Mirrodin
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddKeyword$ Flying
-S:Mode$ Continuous | Affected$ Creature.YouCtrl+equipped | AddPower$ 1
-K:Equip:2 W
+ColorIdentity:
+OriginSet:G880fc7f6ed36df4d
+ManaCost:3
+Types:Artifact Creature Construct
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigConjure
+SVar:TrigConjure:DB$ MakeCard | Conjure$ True | CatalogIds$ 447,450,449 | Zone$ Library
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigSeek
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigSeek | Secondary$ True | Execute$ TrigSeek
+SVar:TrigSeek:DB$ Seek | Type$ Card.Land+Urza's
+SVar:HasAttackEffect:TRUE

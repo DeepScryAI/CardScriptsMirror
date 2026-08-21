@@ -1,11 +1,8 @@
 Id:23198
-ColorIdentity:W
-OriginSet:G6e75ff4f143a3dc3
-ManaCost:3 W
-Types:Creature Human Knight
-PT:2/2
-K:Flying
-K:Training
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump
-SVar:TrigPump:AB$ Pump | Cost$ 1 W | ValidTgts$ Creature.Other+attacking+withoutFlying | KW$ Flying
-SVar:HasAttackEffect:TRUE
+ColorIdentity:BR
+OriginSet:G3aa323ca47c740b1
+ManaCost:3 B R
+Types:Sorcery
+A:SP$ Pump | TargetMin$ 3 | TargetMax$ 3 | ValidTgts$ Creature.YouOwn | TgtZone$ Graveyard | RememberObjects$ Targeted | SubAbility$ ReturnTwo
+SVar:ReturnTwo:DB$ ChangeZone | ChangeType$ Card.IsRemembered | ChangeNum$ 2 | Origin$ Graveyard | Destination$ Battlefield | AtRandom$ True | Hidden$ True | ForgetChanged$ True | SubAbility$ Wallflower
+SVar:Wallflower:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered | Origin$ Graveyard | Destination$ Library | LibraryPosition$ -1 | ForgetChanged$ True

@@ -1,11 +1,11 @@
 Id:12307
 ColorIdentity:U
 OriginSet:G14de52802b0b467c
-ManaCost:3 U U
-Types:Creature Spirit
-PT:5/1
+ManaCost:1 U
+Types:Creature Spirit Bird
+PT:1/1
 K:Flying
-A:AB$ ChangeZone | Cost$ 1 U | Defined$ Self | Origin$ Battlefield | Destination$ Library | Shuffle$ True | RememberChanged$ True | SubAbility$ DBDig
-SVar:DBDig:DB$ DigUntil | ConditionCheckSVar$ X | Valid$ Card.catalogId12307 | FoundDestination$ Battlefield | RevealedDestination$ Graveyard | SubAbility$ DBCleanup
+A:AB$ Mill | Cost$ 2 | ValidTgts$ Player | NumCards$ 1 | SubAbility$ DBPump | RememberMilled$ True
+SVar:DBPump:DB$ Pump | Defined$ Self | NumAtt$ +X | NumDef$ +X | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Remembered$Amount
+SVar:X:Remembered$CardManaCost

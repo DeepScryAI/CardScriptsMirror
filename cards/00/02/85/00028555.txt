@@ -1,9 +1,13 @@
 Id:28555
-ColorIdentity:U
+ColorIdentity:WBG
 OriginSet:G7ee0e82a2424d636
-ManaCost:3 U
+ManaCost:1 BG
 Types:Instant
-R:Event$ Counter | ValidCard$ Card.Self | ValidSA$ Spell | Layer$ CantHappen
-A:SP$ Tap | ValidTgts$ Creature | SubAbility$ DBCounter | TargetMin$ 0 | TargetMax$ 2
-SVar:DBCounter:DB$ PutCounter | Defined$ Targeted | CounterType$ Stun | CounterNum$ 1 | SubAbility$ DBInvestigate
-SVar:DBInvestigate:DB$ Investigate
+A:SP$ ChangeZone | TargetMin$ 0 | TargetMax$ 2 | TargetsWithSameController$ True | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | ValidTgts$ Player | LifeAmount$ 2 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ TargetedPlayer
+AlternateMode:Split
+ALTERNATE
+ManaCost:4 GW GW
+Types:Sorcery
+A:SP$ DestroyAll | ValidCards$ Artifact,Enchantment

@@ -1,8 +1,9 @@
 Id:5443
-ColorIdentity:R
+ColorIdentity:W
 OriginSet:Gfdac7ecc1e8a7d21
-ManaCost:R
-Types:Creature Dwarf Wizard
+ManaCost:1 W
+Types:Creature Bird Soldier
 PT:1/1
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigDamage | CombatDamage$ True | TriggerZones$ Battlefield
-SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Creature.ControlledBy TriggeredTarget | NumDmg$ 1 | OptionalDecider$ You
+K:Flying
+T:Mode$ ChangesZone | ValidCard$ Creature.withFlying | Origin$ Battlefield | Destination$ Graveyard | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1

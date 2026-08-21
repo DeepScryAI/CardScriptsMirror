@@ -1,10 +1,11 @@
 Id:20850
-ColorIdentity:G
+ColorIdentity:WR
 OriginSet:Gfd5e6da37c69dc53
-ManaCost:1 G
-Types:Legendary Creature Human Druid
-PT:1/2
-T:Mode$ Drawn | ValidCard$ Card.YouCtrl | Number$ 2 | TriggerZones$ Battlefield | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenOwner$ You | TokenScriptIds$ 1891902977
-A:AB$ AnimateAll | Cost$ 4 G G | ValidCards$ Creature.YouCtrl | Power$ X | Toughness$ X
-SVar:X:Count$ValidHand Card.YouOwn
+ManaCost:R W
+Types:Creature Human Warrior
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSearch | OptionalDecider$ You
+SVar:TrigSearch:DB$ ChangeZone | Origin$ Library | Destination$ Hand | DifferentNames$ True | ChangeType$ Card.catalogId20851,Card.catalogId20924 | ChangeNum$ 2 | ShuffleNonMandatory$ True
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +X
+SVar:X:Count$Valid Creature.attacking+Other

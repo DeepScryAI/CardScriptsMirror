@@ -1,9 +1,20 @@
 Id:15930
-ColorIdentity:R
+ColorIdentity:B
 OriginSet:G92026fbb3573fda5
-ManaCost:3 R R
-Types:Creature Elemental Wolf
-PT:5/5
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDamage
-SVar:TrigDamage:AB$ DealDamage | Cost$ 1 R Discard<1/Card> | ValidTgts$ Creature,Planeswalker | NumDmg$ X
-SVar:X:Discarded$CardManaCost
+ManaCost:no cost
+Types:Land
+A:AB$ Mana | Cost$ T | Produced$ C
+A:AB$ Token | Cost$ 5 T PayLife<1> | TokenScriptIds$ 1163824624 | TokenOwner$ You
+A:AB$ SetState | Cost$ 5 T Sac<5/Creature> | Defined$ Self | Mode$ Transform | SubAbility$ DBUntap
+SVar:DBUntap:DB$ Untap | Defined$ Self
+SVar:AIPreference:SacCost$Creature.token,Creature.cmcLE2
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:black
+Types:Legendary Creature Demon
+PT:9/7
+K:Flying
+K:Lifelink
+K:Indestructible
+K:Haste

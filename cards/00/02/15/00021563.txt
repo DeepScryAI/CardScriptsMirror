@@ -1,9 +1,11 @@
 Id:21563
-ColorIdentity:G
+ColorIdentity:U
 OriginSet:G18bf722b221724f8
-ManaCost:1 G
-Types:Legendary Creature Human Warrior
-PT:1/3
-K:Deathtouch
-T:Mode$ DamageDone | ValidSource$ Creature.YouCtrl+withDeathtouch | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigPoison | TriggerZones$ Battlefield
-SVar:TrigPoison:DB$ Poison | Defined$ TriggeredTarget | Num$ 2
+ManaCost:4 U
+Types:Snow Creature Giant Wizard
+PT:4/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigTap
+SVar:TrigTap:DB$ Tap | ValidTgts$ Artifact.OppCtrl,Creature.OppCtrl | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Targeted | ConditionCheckSVar$ S | KW$ HIDDEN This card doesn't untap during your next untap step. | Duration$ Permanent
+SVar:S:Count$CastTotalManaSpent Snow
+SVar:AIPreference:ManaFrom$Snow

@@ -1,12 +1,8 @@
 Id:8840
-ColorIdentity:U
+ColorIdentity:
 OriginSet:G70f74088c47d66bd
-ManaCost:3 U U
-Types:Creature Shapeshifter
-PT:0/0
-K:Morph:1 U
+ManaCost:no cost
+Types:Land
 K:ETBReplacement:Copy:DBCopy:Optional
-SVar:DBCopy:DB$ Clone | Choices$ Creature.Other | AddTriggers$ VesShapeUpkeepTrig | AddSVars$ VesShapeTurn,VesShapeUpkeepTrig | Duration$ UntilFacedown
-SVar:VesShapeUpkeepTrig:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ VesShapeTurn | OptionalDecider$ You
-SVar:VesShapeTurn:DB$ SetState | Defined$ Self | Mode$ TurnFaceDown
-R:Event$ TurnFaceUp | ValidCard$ Card.Self | Optional$ True | ReplaceWith$ DBCopy | ActiveZones$ Battlefield | Secondary$ True | ReplacementResult$ Updated
+SVar:DBCopy:DB$ Clone | Choices$ Land.Other | IntoPlayTapped$ True
+SVar:NeedsToPlay:Land.YouDontCtrl+!catalogId8840,Land.YouCtrl+nonLegendary+!catalogId8840

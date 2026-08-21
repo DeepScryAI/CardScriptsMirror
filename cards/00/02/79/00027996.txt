@@ -1,8 +1,12 @@
 Id:27996
-ColorIdentity:
-OriginSet:Gfd50577710a6ab09
-ManaCost:3
-Types:Artifact Creature Gnome
-PT:2/1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 2277053863
+ColorIdentity:UR
+OriginSet:G30e8a5e111cffb44
+ManaCost:3 U R
+Types:Legendary Creature Time Lord Doctor
+PT:3/5
+T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigExile | TriggerZones$ Battlefield
+SVar:TrigExile:DB$ DigUntil | Valid$ Card.nonLand | FoundDestination$ Exile | RevealedDestination$ Exile | RememberFound$ True | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Remembered | CounterType$ TIME | CounterNum$ 3 | SubAbility$ GiveSuspend
+SVar:GiveSuspend:DB$ Pump | Defined$ Remembered.withoutSuspend | KW$ Suspend | PumpZone$ Exile | Duration$ Permanent | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+A:AB$ TimeTravel | Cost$ 7 | SorcerySpeed$ True | Amount$ 3

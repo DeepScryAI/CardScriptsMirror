@@ -1,11 +1,10 @@
 Id:21177
 ColorIdentity:U
 OriginSet:G72c9c624ceb92bff
-ManaCost:U
-Types:Creature Merfolk Rogue
-PT:1/1
-K:Flying
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigMill
-SVar:TrigMill:DB$ Mill | Defined$ TriggeredTarget | NumCards$ 1
-A:AB$ Draw | Cost$ Sac<1/CARDNAME> | NumCards$ 1 | CheckSVar$ X | SVarCompare$ GE8
+ManaCost:1 U
+Types:Instant
+A:SP$ Branch | BranchConditionSVar$ X | TargetType$ Spell | TgtZone$ Stack | ValidTgts$ Creature,Planeswalker | BranchConditionSVarCompare$ GE8 | TrueSubAbility$ CounterScry | FalseSubAbility$ CounterUnless | AILogic$ BranchCounter
+SVar:CounterUnless:DB$ Counter | Defined$ Targeted | UnlessCost$ 2
+SVar:CounterScry:DB$ Counter | Defined$ Targeted | SubAbility$ DBScry
+SVar:DBScry:DB$ Scry | ScryNum$ 2
 SVar:X:PlayerCountOpponents$HighestCardsInGraveyard

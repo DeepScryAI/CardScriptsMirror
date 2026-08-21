@@ -1,10 +1,10 @@
 Id:10940
-ColorIdentity:U
+ColorIdentity:R
 OriginSet:G4398040c23c94f0e
-ManaCost:1 U
-Types:Creature Bird
-PT:1/2
-K:Flying
-K:Kicker:4 U
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self+kicked | Execute$ TrigTap
-SVar:TrigTap:DB$ Tap | TargetMin$ 0 | TargetMax$ 3 | ValidTgts$ Permanent
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ R
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature | NumAtt$ +2

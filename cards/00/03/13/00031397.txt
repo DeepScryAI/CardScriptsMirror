@@ -1,9 +1,12 @@
 Id:31397
-ColorIdentity:G
-OriginSet:Gf2b808f4f642ac62
-ManaCost:G
-Types:Creature Human Archer
-PT:1/1
-K:Vigilance
-K:Reach
-K:Deathtouch
+ColorIdentity:BR
+OriginSet:G8a59924df6623252
+ManaCost:2 B R
+Types:Legendary Creature Mutant Mercenary Hero
+PT:5/3
+K:ETBReplacement:Other:DBChooseExchange:Optional
+SVar:DBChooseExchange:DB$ ChooseCard | Defined$ You | Choices$ Creature.Other | SubAbility$ DBExchangeText
+SVar:DBExchangeText:DB$ ExchangeTextBox | Defined$ Self & ChosenCard
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ Lose3
+SVar:Lose3:DB$ LoseLife | Defined$ TriggeredPlayer | LifeAmount$ 3
+A:AB$ Draw | Cost$ 3 Sac<1/CARDNAME> | Defined$ Player.Other | NumCards$ 1

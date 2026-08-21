@@ -1,9 +1,9 @@
 Id:33326
-ColorIdentity:U
-OriginSet:G40dbb28fb92f9206
-ManaCost:U
-Types:Kindred Artifact Merfolk
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigConjure1
-SVar:TrigConjure1:DB$ MakeCard | CatalogId$ 9390 | Zone$ Hand | Conjure$ True
-T:Mode$ DamageDoneOnce | CombatDamage$ True | ValidSource$ Merfolk.YouCtrl | ValidTarget$ Player | TriggerZones$ Battlefield | Execute$ TrigConjure2
-SVar:TrigConjure2:AB$ MakeCard | Cost$ Mandatory Sac<1/CARDNAME/this artifact> | CatalogId$ 5906 | Zone$ Hand | Conjure$ True
+ColorIdentity:UB
+OriginSet:G7ab1fe96128a1641
+ManaCost:5 UB UB
+Types:Sorcery
+A:SP$ DigUntil | Defined$ Opponent | Valid$ Card | FoundDestination$ Exile | RevealedDestination$ Exile | MinTotalCMC$ 5 | RememberRevealed$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | ForgetOnMoved$ Exile | RememberObjects$ Remembered | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | MayPlayWithoutManaCost$ True | Affected$ Card.IsRemembered+nonLand | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

@@ -1,8 +1,11 @@
 Id:16522
-ColorIdentity:B
+ColorIdentity:R
 OriginSet:G4bddbf7cb4f2475e
-ManaCost:2 B
-Types:Creature Aetherborn Rogue
-PT:3/2
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1
+ManaCost:2 R
+Types:Creature Hellion
+PT:4/4
+K:Haste
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigEnergy
+SVar:TrigEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ 2
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice | UnlessCost$ PayEnergy<2> | UnlessPayer$ You | SacValid$ Self

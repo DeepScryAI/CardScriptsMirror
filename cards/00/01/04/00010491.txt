@@ -1,8 +1,12 @@
 Id:10491
-ColorIdentity:WR
+ColorIdentity:WU
 OriginSet:G9445ff04667ca5ba
-ManaCost:2 R W
-Types:Enchantment
-S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddPower$ 2 | Condition$ PlayerTurn
-S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddToughness$ 2 | Condition$ NotPlayerTurn
-SVar:PlayMain1:TRUE
+ManaCost:3 W U
+Types:Artifact Creature Golem
+PT:3/4
+K:Cycling:WU
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Artifact.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | NumAtt$ +1 | NumDef$ +1 | SubAbility$ DBUnblockable
+SVar:DBUnblockable:DB$ Effect | RememberObjects$ Self | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+SVar:BuffedBy:Artifact

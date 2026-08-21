@@ -1,14 +1,10 @@
 Id:25577
 ColorIdentity:R
-OriginSet:Gce0c33e5115830a3
+OriginSet:G2e872aaf9b98489e
 ManaCost:1 R
-Types:Creature Goblin Warrior
-PT:1/1
-K:FirstStrike
-K:Trample
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +X
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Artifact.OppCtrl | TriggerZones$ Battlefield | Execute$ TrigDamage
-SVar:TrigDamage:DB$ DealDamage | Defined$ TriggeredCardController | NumDmg$ 1
-SVar:X:Count$Valid Artifact.OppCtrl
-SVar:HasAttackEffect:TRUE
+Types:Sorcery
+A:SP$ Charm | Choices$ DBDestroyArtifact,DBRoll
+SVar:DBDestroyArtifact:DB$ Destroy | ValidTgts$ Artifact
+SVar:DBRoll:DB$ RollDice | ResultSVar$ X | SubAbility$ DBImmediateTrig
+SVar:DBImmediateTrig:DB$ ImmediateTrigger | ConditionCheckSVar$ X | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | TargetMin$ 0 | TargetMax$ X | ValidTgts$ Creature | NumDmg$ 1

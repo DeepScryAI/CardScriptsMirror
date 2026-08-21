@@ -1,7 +1,12 @@
 Id:22830
-ColorIdentity:U
+ColorIdentity:W
 OriginSet:Gf78628ad511eefec
-ManaCost:U
-Types:Instant
-A:SP$ ChangeZone | ValidTgts$ Creature | Origin$ Battlefield | Destination$ Hand | SubAbility$ DBScry
-SVar:DBScry:DB$ Scry | ConditionDefined$ Targeted | ConditionPresent$ Card.cmcLE3 | ConditionCompare$ EQ1 | ScryNum$ 1
+ManaCost:1 W W
+Types:Legendary Creature Human Knight
+PT:*/4
+K:Vigilance
+S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X
+SVar:X:Count$Valid Creature.YouCtrl
+T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ DBRepeat | TriggerZones$ Battlefield
+SVar:DBRepeat:DB$ RepeatEach | RepeatPlayers$ Opponent | ChangeZoneTable$ True | RepeatSubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 638238902 | TokenTapped$ True | TokenAttacking$ RememberedPlayer & Valid Planeswalker.ControlledBy Remembered | TokenOwner$ You

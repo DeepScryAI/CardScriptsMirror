@@ -1,7 +1,10 @@
 Id:16771
 ColorIdentity:G
 OriginSet:Gd31f94cf3a5f78e4
-ManaCost:1 G
-Types:Creature Elf Warrior
-PT:2/1
-K:etbCounter:P1P1:2:Revolt$ True
+ManaCost:G
+Types:Creature Elephant
+PT:3/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ PaymentCheck
+SVar:PaymentCheck:DB$ Pump | UnlessCost$ Mandatory PayEnergy<2> | UnlessPayer$ You | UnlessResolveSubs$ WhenNotPaid | SubAbility$ DBReturnToHand
+SVar:DBReturnToHand:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Defined$ Self | SubAbility$ GetEnergy
+SVar:GetEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ 1

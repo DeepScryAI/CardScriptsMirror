@@ -1,10 +1,9 @@
 Id:12119
-ColorIdentity:U
+ColorIdentity:G
 OriginSet:Gcf233112e9f1fe8c
-ManaCost:1 U U
-Types:Creature Vedalken Wizard
-PT:2/2
-A:AB$ Discard | Cost$ U T | Defined$ Player | RememberDiscarded$ True | Mode$ Hand | SubAbility$ WindfallDraw
-SVar:WindfallDraw:DB$ Draw | Defined$ Player | NumCards$ X | SubAbility$ WindfallCleanup
-SVar:WindfallCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:PlayerCountPlayers$HighestValidGraveyard,Library,Exile Card.IsRemembered+YouOwn
+ManaCost:2 G
+Types:Instant
+A:SP$ Effect | ValidTgts$ Creature.YouCtrl | Triggers$ TrigDamage | RememberObjects$ Targeted
+SVar:TrigDamage:Mode$ DamageDone | ValidSource$ Creature.IsRemembered | ValidTarget$ Player,Planeswalker | Execute$ TrigDraw | CombatDamage$ True
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ X
+SVar:X:TriggerCount$DamageAmount

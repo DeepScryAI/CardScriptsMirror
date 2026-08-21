@@ -1,9 +1,12 @@
 Id:27857
-ColorIdentity:B
+ColorIdentity:R
 OriginSet:G30e8a5e111cffb44
-ManaCost:3 B
-Types:Instant
-A:SP$ ChangeZone | ValidTgts$ Creature | Origin$ Battlefield | Destination$ Library | Shuffle$ True | SubAbility$ DBChoice
-SVar:DBChoice:DB$ VillainousChoice | Defined$ TargetedOwner | Choices$ DBLoseLife,DBShuffleAnother
-SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 5 | Defined$ Remembered
-SVar:DBShuffleAnother:DB$ ChangeZone | ChangeType$ Creature.OwnedBy Remembered | DefinedPlayer$ Remembered | Chooser$ Remembered | ChangeNum$ 1 | Mandatory$ True | Origin$ Battlefield | Destination$ Library | Shuffle$ True | Hidden$ True
+ManaCost:2 R R
+Types:Sorcery
+A:SP$ VillainousChoice | Defined$ Opponent | Choices$ DBDig,DBDamage
+SVar:DBDig:DB$ DigUntil | Defined$ Remembered | Valid$ Card.nonLand | FoundDestination$ Exile | RevealedDestination$ Exile | RememberFound$ True | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | Controller$ You | Defined$ Remembered | WithoutManaCost$ True | ValidSA$ Spell | Optional$ True | Amount$ All | SubAbility$ DBCleanup
+SVar:DBDamage:DB$ Dig | RememberChanged$ True | DestinationZone$ Exile | Defined$ Remembered | DigNum$ 4 | ChangeNum$ All | SubAbility$ DamageOpponent
+SVar:DamageOpponent:DB$ DealDamage | Defined$ Remembered | NumDmg$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$CardManaCost

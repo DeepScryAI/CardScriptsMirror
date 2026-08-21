@@ -1,11 +1,15 @@
 Id:14849
-ColorIdentity:U
+ColorIdentity:W
 OriginSet:G25ee1eefb1a14f05
-ManaCost:1 U U
+ManaCost:2 W W
 Types:Enchantment
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigManifest
-SVar:TrigManifest:DB$ Manifest | RememberManifested$ True | SubAbility$ Aurify
-SVar:Aurify:DB$ Animate | Types$ Aura | Keywords$ Enchant:Creature | Duration$ Permanent | SubAbility$ RageformAttach
-SVar:RageformAttach:DB$ Attach | Defined$ Remembered | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddKeyword$ Flying & Hexproof
+K:ETBReplacement:Other:SiegeChoice
+SVar:SiegeChoice:DB$ GenericChoice | Choices$ Khans,Dragons | Defined$ You | SetChosenMode$ True | AILogic$ Dragons | ShowChoice$ ExceptSelf
+SVar:Khans:DB$ Pump
+SVar:Dragons:DB$ Pump
+S:Mode$ Continuous | Affected$ Card.Self+ChosenModeKhans | AddTrigger$ KhansTrigger
+S:Mode$ Continuous | Affected$ Card.Self+ChosenModeDragons | AddTrigger$ DragonsTrigger
+SVar:KhansTrigger:Mode$ Phase | Phase$ BeginCombat | TriggerZones$ Battlefield | ValidPlayer$ You | Execute$ Boost | Secondary$ True
+SVar:Boost:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 2
+SVar:DragonsTrigger:Mode$ Phase | Phase$ BeginCombat | TriggerZones$ Battlefield | ValidPlayer$ Opponent | Execute$ TapCreature | Secondary$ True
+SVar:TapCreature:DB$ Tap | ValidTgts$ Creature.ActivePlayerCtrl

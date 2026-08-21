@@ -1,10 +1,12 @@
 Id:3386
 ColorIdentity:U
 OriginSet:G24ae8187eacbba52
-ManaCost:4 U
-Types:Creature Drake
-PT:2/3
-K:Flying
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigUntap
-SVar:TrigUntap:DB$ Untap | UntapUpTo$ True | UntapType$ Land | Amount$ 5
-SVar:FreeSpellAI:True
+ManaCost:1 U
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAITgts:Card.cmcGE1
+SVar:AttachAILogic:Curse
+S:Mode$ Continuous | Affected$ Creature.AttachedBy | AddTrigger$ TrigPhase | AddSVar$ TrigPendrellFlux
+SVar:TrigPhase:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigPendrellFlux | TriggerZones$ Battlefield
+SVar:TrigPendrellFlux:DB$ Sacrifice | UnlessCost$ DefinedCost_Self | UnlessPayer$ You
+SVar:NonStackingAttachEffect:True

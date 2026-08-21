@@ -1,11 +1,8 @@
 Id:22659
-ColorIdentity:UB
+ColorIdentity:W
 OriginSet:G9f95a41d532c0550
-ManaCost:4 U B
-Types:Legendary Creature Beholder
-PT:5/6
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ XanEffect | TriggerZones$ Battlefield
-SVar:XanEffect:DB$ Effect | ValidTgts$ Opponent | StaticAbilities$ STCantBeCast,STCanPeek,STCanPlay | RememberObjects$ Targeted | AILogic$ Always
-SVar:STCantBeCast:Mode$ CantBeCast | ValidCard$ Card | Caster$ Player.IsRemembered
-SVar:STCanPeek:Mode$ Continuous | Affected$ Card.TopLibrary+RememberedPlayerCtrl | AffectedZone$ Library | MayLookAt$ You
-SVar:STCanPlay:Mode$ Continuous | Affected$ Card.TopLibrary+RememberedPlayerCtrl | AffectedZone$ Library | MayPlay$ True | MayPlayIgnoreType$ True
+ManaCost:1 W
+Types:Artifact
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+A:AB$ GainLife | Cost$ W T Sac<1/CARDNAME> | LifeAmount$ 3

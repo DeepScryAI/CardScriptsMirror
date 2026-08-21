@@ -1,11 +1,18 @@
 Id:23376
 ColorIdentity:G
-OriginSet:G9f95a41d532c0550
-ManaCost:2 G
-Types:Enchantment Aura
-K:Enchant:Land
-SVar:AttachAILogic:Pump
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ DBVenture
-SVar:DBVenture:DB$ Venture | Defined$ You
-S:Mode$ Continuous | Affected$ Land.EnchantedBy | AddAbility$ ABMana
-SVar:ABMana:AB$ Mana | Cost$ T | Produced$ Any | Amount$ 2
+OriginSet:G6e75ff4f143a3dc3
+ManaCost:5 G
+Types:Creature Human Werewolf
+PT:5/4
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ 2 | EffectZone$ All | IsPresent$ Wolf.YouCtrl,Werewolf.YouCtrl
+K:Daybound
+SVar:BuffedBy:Wolf,Werewolf
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:green
+Types:Creature Werewolf
+PT:6/5
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self,Wolf.Other+YouCtrl,Werewolf.Other+YouCtrl | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw
+K:Nightbound

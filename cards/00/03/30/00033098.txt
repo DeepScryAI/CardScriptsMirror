@@ -1,10 +1,11 @@
 Id:33098
-ColorIdentity:B
-OriginSet:G7ab1fe96128a1641
-ManaCost:1 B
-Types:Creature Elf Warrior
-PT:5/5
-K:etbCounter:M1M1:3
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | Execute$ TrigRemoveCounter | TriggerZones$ Battlefield | IsPresent$ Card.Self+counters_GE1_M1M1 | CheckSVar$ X | SVarCompare$ GE1
-SVar:TrigRemoveCounter:DB$ RemoveCounter | Defined$ Self | CounterType$ M1M1 | CounterNum$ 1
-SVar:X:Count$ValidGraveyard Elf.YouOwn
+ColorIdentity:U
+OriginSet:G731e0066916b7465
+ManaCost:2 U
+Types:Enchantment
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Destination$ Battlefield | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | ValidTgts$ Instant.YouOwn,Sorcery.YouOwn | Origin$ Graveyard | TargetMin$ 0 | TargetMax$ 1 | Destination$ Hand
+T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | Execute$ TrigDraw | TriggerZones$ Battlefield
+SVar:TrigDraw:DB$ Draw | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | Mode$ TgtChoose | NumCards$ 1 | ConditionCheckSVar$ X | ConditionSVarCompare$ LT3
+SVar:X:Count$ValidGraveyard Lesson.YouOwn

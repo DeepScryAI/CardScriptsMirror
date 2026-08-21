@@ -1,10 +1,11 @@
 Id:24532
-ColorIdentity:B
-OriginSet:G58bfeff4fb121c8e
-ManaCost:2 B
-Types:Instant
-A:SP$ Sacrifice | ValidTgts$ Opponent | SacValid$ Creature.!token | RememberSacrificed$ True | SubAbility$ TrigConjure
-SVar:TrigConjure:DB$ MakeCard | Conjure$ True | ConditionDefined$ Remembered | ConditionPresent$ Creature.cmcLE2 | DefinedName$ Remembered | Zone$ Hand | RememberMade$ True | SubAbility$ DBAnimate
-SVar:DBAnimate:DB$ Animate | Defined$ Remembered | staticAbilities$ SpendAnyMana | Duration$ Perpetual | SubAbility$ DBCleanup
-SVar:SpendAnyMana:Mode$ ManaConvert | EffectZone$ Stack | ValidPlayer$ You | ValidCard$ Card.Self | ValidSA$ Spell | ManaConversion$ AnyType->AnyColor
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:
+OriginSet:G51fcb7ec0cb81c29
+ManaCost:3
+Types:Artifact
+T:Mode$ RolledDieOnce | TriggerZones$ Battlefield | ValidPlayer$ You | Execute$ TrigPutCounter
+SVar:DiceResult:TriggerCount$Result
+SVar:TrigPutCounter:DB$ PutCounter | CounterType$ CHARGE | CounterNum$ DiceResult
+A:AB$ Mana | Cost$ T | Produced$ Any | SubAbility$ DBRollDice
+SVar:DBRollDice:DB$ RollDice | Sides$ 20
+A:AB$ ChangeZone | Cost$ T SubCounter<100/CHARGE> | Origin$ Library | Destination$ Battlefield | ChangeType$ Artifact | ChangeNum$ 1

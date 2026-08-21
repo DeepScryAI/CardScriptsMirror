@@ -1,7 +1,12 @@
 Id:21467
-ColorIdentity:W
-OriginSet:G18bf722b221724f8
-ManaCost:1 W
-Types:Instant
-A:SP$ AnimateAll | Types$ Creature,Artifact | ValidCards$ Vehicle.YouCtrl | SubAbility$ ArmDwarf
-SVar:ArmDwarf:DB$ Attach | Object$ Valid Equipment.YouCtrl | Defined$ Valid Dwarf.YouCtrl | Optional$ True
+ColorIdentity:B
+OriginSet:G51d431785c8b33e5
+ManaCost:2 B
+Types:Creature Human Rogue
+PT:3/2
+K:Flash
+S:Mode$ Continuous | Affected$ Opponent | ControlOpponentsSearchingLibrary$ You
+R:Event$ Moved | ValidCard$ Card.OppOwn | FoundSearchingLibrary$ True | Origin$ Library | ReplaceWith$ RepExile | ActiveZones$ Battlefield
+SVar:RepExile:DB$ ChangeZone | Hidden$ True | Origin$ All | Destination$ Exile | Defined$ ReplacedCard | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | Duration$ Permanent | StaticAbilities$ MayPlay | RememberObjects$ ReplacedCard | ForgetOnMoved$ Exile
+SVar:MayPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile | MayPlayIgnoreColor$ True

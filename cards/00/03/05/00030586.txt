@@ -1,0 +1,12 @@
+Id:30586
+ColorIdentity:B
+OriginSet:G8b2ed00ac2a0ff47
+ManaCost:1 B
+Types:Artifact Creature Scarecrow
+PT:2/2
+K:Lifelink
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | Delirium$ True | TriggerZones$ Battlefield | Execute$ TrigMaySacorDiscard
+SVar:TrigMaySacorDiscard:DB$ GenericChoice | Choices$ PaySac,PayDiscard | TempRemember$ Chooser | Defined$ Opponent | AILogic$ PayUnlessCost | DamageMap$ True
+SVar:PaySac:DB$ DealDamage | NumDmg$ X | Defined$ Remembered | UnlessCost$ Sac<1/Permanent.nonLand> | UnlessPayer$ Remembered
+SVar:PayDiscard:DB$ DealDamage | NumDmg$ X | Defined$ Remembered | UnlessCost$ Discard<1/Card> | UnlessPayer$ Remembered
+SVar:X:Count$CardPower

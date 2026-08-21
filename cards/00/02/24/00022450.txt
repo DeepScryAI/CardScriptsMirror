@@ -1,8 +1,10 @@
 Id:22450
 ColorIdentity:G
-OriginSet:G9f95a41d532c0550
-ManaCost:G G G
-Types:Creature Elf Druid
-PT:2/1
-A:AB$ Mana | Cost$ T | Produced$ G | Amount$ X
-SVar:X:Count$Valid Creature.YouCtrl
+OriginSet:G92f7f9489fec5865
+ManaCost:3 G
+Types:Creature Human Druid
+PT:2/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChoice
+SVar:TrigChoice:DB$ ChooseCard | Defined$ Player | StartingWith$ You | Choices$ Artifact.YouDontCtrl,Enchantment.YouDontCtrl | Optional$ True | SubAbility$ DBDestroy
+SVar:DBDestroy:DB$ Destroy | Defined$ ChosenCard | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True

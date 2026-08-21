@@ -1,11 +1,10 @@
 Id:14519
-ColorIdentity:WBG
+ColorIdentity:UBG
 OriginSet:G0a578e83854cf093
-ManaCost:W B G
-Types:Enchantment
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPutCounters
-SVar:TrigPutCounters:DB$ PutCounterAll | ValidCards$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl+!token | TriggerZones$ Battlefield | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 273812182 | TokenOwner$ You
-SVar:PlayMain1:TRUE
-SVar:NeedsToPlay:Creature.YouCtrl
+ManaCost:3 B G U
+Types:Creature Horror
+PT:3/4
+K:Flying
+K:Morph:2 B G U
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigLoot
+SVar:TrigLoot:AB$ Discard | Defined$ You | Mode$ TgtChoose | Cost$ Draw<1/You>

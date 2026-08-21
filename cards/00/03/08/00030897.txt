@@ -1,9 +1,10 @@
 Id:30897
-ColorIdentity:W
-OriginSet:G4524bbf7a3db9dc0
-ManaCost:1 W
-Types:Sorcery
-A:SP$ Charm | Choices$ DBDmg,DBDestroy
-SVar:DBDmg:DB$ DealDamage | ValidTgts$ Creature | NumDmg$ X
-SVar:DBDestroy:DB$ Destroy | ValidTgts$ Artifact
-SVar:X:Count$Valid Creature.YouCtrl,Vehicle.YouCtrl
+ColorIdentity:
+OriginSet:Gc5a2f0ff902c0621
+ManaCost:3
+Types:Artifact Creature Phyrexian Construct
+PT:3/2
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ Player | NumCards$ 1
+T:Mode$ Drawn | ValidCard$ Card.OppOwn | TriggerZones$ Battlefield | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ TriggeredCardController | LifeAmount$ 1

@@ -1,10 +1,14 @@
 Id:26107
-ColorIdentity:U
-OriginSet:G2192e8955d5e1ad1
-ManaCost:1 U U
-Types:Enchantment Aura
-K:Enchant:Creature
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigTap
-SVar:TrigTap:DB$ Tap | Defined$ Enchanted | SubAbility$ DBProliferate
-SVar:DBProliferate:DB$ Proliferate
-R:Event$ Untap | ActiveZones$ Battlefield | ValidCard$ Creature.EnchantedBy | ValidStepTurnToController$ You | Layer$ CantHappen
+ColorIdentity:WBG
+OriginSet:G903d26fe51c6a362
+ManaCost:1 W B G
+Types:Legendary Creature Phyrexian Angel
+PT:2/5
+K:Flying
+K:Vigilance
+K:Toxic:2
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigExile
+SVar:TrigExile:DB$ Dig | DigNum$ 1 | ChangeNum$ All | Defined$ Opponent.IsCorrupted | DestinationZone$ Exile | ExileFaceDown$ True | WithMayLook$ True | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ Remembered | StaticAbilities$ STLookPlay | Duration$ Permanent | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:STLookPlay:Mode$ Continuous | MayPlay$ True | MayPlayIgnoreColor$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

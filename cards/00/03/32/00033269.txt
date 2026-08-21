@@ -1,8 +1,10 @@
 Id:33269
-ColorIdentity:U
+ColorIdentity:UR
 OriginSet:G7ab1fe96128a1641
-ManaCost:2 U U
-Types:Instant
-S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ 2 | EffectZone$ All | CheckSVar$ X | SVarCompare$ GE1
-A:SP$ ChangeZone | ValidTgts$ Creature,Card.inZoneStack | AlternativeDecider$ TargetedOwner | Origin$ Battlefield,Stack | Destination$ Library | DestinationAlternative$ Library | LibraryPositionAlternative$ -1
-SVar:X:Count$Valid Creature.attackingYou
+ManaCost:3 U R
+Types:Kindred Instant Elemental
+A:SP$ Charm | Choices$ DBToken,DBDraw,DBDamage,DBTreasure | CharmNum$ 2
+SVar:DBToken:DB$ CopyPermanent | ValidTgts$ Card.Elemental+YouCtrl
+SVar:DBDraw:DB$ Draw | NumCards$ 2 | ValidTgts$ Player
+SVar:DBDamage:DB$ DamageAll | ValidTgts$ Player | NumDmg$ 2 | ValidCards$ Creature
+SVar:DBTreasure:DB$ Token | ValidTgts$ Player | TokenOwner$ ThisTargetedPlayer | TokenAmount$ 2 | TokenScriptIds$ 3851718391

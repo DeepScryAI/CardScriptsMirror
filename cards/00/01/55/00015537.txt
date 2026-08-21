@@ -1,9 +1,10 @@
 Id:15537
-ColorIdentity:R
+ColorIdentity:B
 OriginSet:Gec9609c94c5b1cdf
-ManaCost:2 R
+ManaCost:2 B
 Types:Enchantment
 T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | TriggerZones$ Battlefield | ValidCard$ Land.YouCtrl | Execute$ TrigCharm
-SVar:TrigCharm:DB$ Charm | Choices$ DBPump1,DBPump2
-SVar:DBPump1:DB$ Pump | ValidTgts$ Creature | NumAtt$ +2
-SVar:DBPump2:DB$ Pump | ValidTgts$ Creature | KW$ HIDDEN CARDNAME can't block. | IsCurse$ True
+SVar:TrigCharm:DB$ Charm | Choices$ DBPump,DBLoseLife
+SVar:DBPump:DB$ Pump | ValidTgts$ Creature | NumAtt$ +1 | KW$ Deathtouch
+SVar:DBLoseLife:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 1 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1

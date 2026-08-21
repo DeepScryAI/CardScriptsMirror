@@ -1,9 +1,22 @@
 Id:23747
 ColorIdentity:B
-OriginSet:G18bf722b221724f8
+OriginSet:G1a259dba25660062
 ManaCost:1 B
-Types:Creature Elf Berserker
-PT:3/1
-T:Mode$ ChangesZone | ValidCard$ Elf.Other+YouCtrl,Berserker.Other+YouCtrl | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigDraw | TriggerZones$ Battlefield
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1 | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ 1
+Types:Enchantment Saga
+K:Chapter:3:DBToken,DBToken,DBExile
+SVar:DBToken:DB$ Token | TokenScriptIds$ 2052645447 | TokenOwner$ Opponent
+SVar:DBExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | Transformed$ True | GainControl$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:black
+Types:Enchantment Creature Spirit
+PT:3/3
+K:Flying
+K:Haste
+T:Mode$ ChangesZone | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGainControl
+SVar:TrigGainControl:DB$ GainControl | AllValid$ Rat.token | NewController$ You
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:AB$ Draw | Cost$ Sac<1/Creature.Other/another creature> | NumCards$ 1

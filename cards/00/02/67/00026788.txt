@@ -1,10 +1,9 @@
 Id:26788
 ColorIdentity:G
-OriginSet:G321081e278de53f0
-ManaCost:2 G
-Types:Legendary Creature Elf Scout
-PT:3/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigMana
-SVar:TrigMana:DB$ Mana | Produced$ Any | SubAbility$ RevealUntil
-SVar:RevealUntil:DB$ DigUntil | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ2 | Valid$ Elf,Elemental | FoundDestination$ Hand | RevealedDestination$ Library | RevealedLibraryPosition$ -1 | RevealRandomOrder$ True
-SVar:X:Count$ResolvedThisTurn
+OriginSet:G06757f68e16377c2
+ManaCost:G
+Types:Instant
+A:SP$ Mill | NumCards$ 2 | RememberMilled$ True | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Hidden$ True | Origin$ Graveyard,Exile | Destination$ Hand | ChangeType$ Card.IsRemembered+Permanent | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ 2 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

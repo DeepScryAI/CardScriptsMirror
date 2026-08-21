@@ -1,10 +1,11 @@
 Id:17898
-ColorIdentity:B
+ColorIdentity:R
 OriginSet:G84be946b27d900a1
-ManaCost:4 B B
+ManaCost:4 R R
 Types:Legendary Creature Elder Dinosaur
 PT:6/6
-K:Deathtouch
-A:AB$ PutCounter | Cost$ B | ActivationZone$ Hand | PlayerTurn$ True | ValidTgts$ Creature | CounterType$ PREY | CounterNum$ 1 | IsCurse$ True | AILogic$ MarkOppCreature
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDestroyAll
-SVar:TrigDestroyAll:DB$ DestroyAll | ValidCards$ Creature.OppCtrl+counters_GE1_PREY | AILogic$ Always
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigExile | TriggerZones$ Battlefield
+SVar:TrigExile:DB$ Dig | DigNum$ 1 | ChangeNum$ All | Defined$ Player | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | Valid$ Card.IsRemembered | ValidSA$ Spell | ValidZone$ Exile | Controller$ You | WithoutManaCost$ True | Optional$ True | Amount$ All | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:HasAttackEffect:TRUE

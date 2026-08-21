@@ -1,13 +1,11 @@
 Id:22390
-ColorIdentity:B
-OriginSet:G92f7f9489fec5865
-ManaCost:5 B B
-Types:Legendary Creature Devil
-PT:6/6
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Graveyard | ValidCard$ Creature.!token+OppOwn | TriggerZones$ Battlefield | Execute$ TrigReanimate
-SVar:TrigReanimate:AB$ ChangeZone | Cost$ PayLife<X> | Defined$ TriggeredCard | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True | ChangeNum$ 1 | StaticEffect$ Animate
-SVar:Animate:Mode$ Continuous | Affected$ Card.IsRemembered | AddType$ Warlock
-SVar:X:TriggeredCard$CardManaCost
-R:Event$ Moved | ActiveZones$ Battlefield | Origin$ Battlefield | Destination$ Graveyard | ValidLKI$ Warlock.YouCtrl | ReplaceWith$ Exile
-SVar:Exile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | Defined$ ReplacedCard
+ColorIdentity:W
+OriginSet:Geb2cf181996ee3b2
+ManaCost:1 W
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 1 | AddToughness$ 1 | AddKeyword$ Flying
+A:AB$ ChangeZone | Cost$ 2 W | Origin$ Battlefield | Destination$ Hand | ActivationZone$ Battlefield
+A:AB$ ChangeZone | Cost$ 2 W | Origin$ Graveyard | Destination$ Hand | ActivationZone$ Graveyard | Secondary$ True
+SVar:DiscardMe:1

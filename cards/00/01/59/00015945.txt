@@ -1,7 +1,11 @@
 Id:15945
-ColorIdentity:U
+ColorIdentity:G
 OriginSet:Gc276c26a85a70470
-ManaCost:1 U U
-Types:Instant
-A:SP$ Counter | TargetType$ Spell | ValidTgts$ Card
-K:Madness:3 U
+ManaCost:3 G
+Types:Creature Human Warrior
+PT:3/3
+T:Mode$ DamageDealtOnce | ValidSource$ Card.Self | ValidTarget$ Creature | TriggerZones$ Battlefield | Execute$ TrigInvestigate
+SVar:TrigInvestigate:DB$ Investigate
+T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | CheckSVar$ ClueResearch | SVarCompare$ GE3 | Execute$ TrigCheatCreature
+SVar:TrigCheatCreature:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | ChangeType$ Creature | ChangeNum$ 1
+SVar:ClueResearch:PlayerCountPropertyYou$SacrificedThisTurn Clue

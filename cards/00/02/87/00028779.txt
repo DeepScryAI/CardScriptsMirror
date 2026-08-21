@@ -1,8 +1,14 @@
 Id:28779
-ColorIdentity:G
-OriginSet:Gfe262f6450b3d189
-ManaCost:1 G G
-Types:Creature Dryad
-PT:2/3
-T:Mode$ Phase | Phase$ BeginCombat | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ PumpAll | ValidCards$ Card.Self | KW$ FirstStrike & Flying & Deathtouch & DoubleStrike & Haste & Hexproof & Indestructible & Lifelink & Menace & Reach & Trample & Vigilance | SharedKeywordsZone$ Hand,Battlefield | SharedRestrictions$ Creature.YouCtrl
+ColorIdentity:BG
+OriginSet:Ge329d8d60ca65422
+ManaCost:3 B G
+Types:Legendary Creature Insect Shaman
+PT:3/3
+K:Flying
+K:Menace
+S:Mode$ Continuous | Affected$ Insect.YouCtrl+Other | AddKeyword$ Menace
+T:Mode$ ChangesZoneAll | ValidCards$ Card.YouOwn | Origin$ Graveyard | ResolvedLimit$ 1 | OptionalDecider$ You | Destination$ Any | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 2380780906 | RememberTokens$ True | TokenOwner$ You | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Remembered | CounterNum$ X | CounterType$ P1P1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:TriggerObjectsCards$GreatestCardManaCost

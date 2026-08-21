@@ -1,8 +1,12 @@
 Id:27452
-ColorIdentity:R
-OriginSet:G7579344e30f8be85
-ManaCost:1 R
-Types:Creature Human Peasant
-PT:2/2
-S:Mode$ Continuous | Affected$ Card.Self | AddToughness$ 1 | AddPower$ 1 | AddKeyword$ Trample | CheckSVar$ Celebration | SVarCompare$ GE2
-SVar:Celebration:Count$ThisTurnEntered_Battlefield_Permanent.nonLand+YouCtrl
+ColorIdentity:U
+OriginSet:G4e034c55e7afd8b4
+ManaCost:X X U U
+Types:Enchantment
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Destination$ Battlefield | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ X | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | Duration$ Permanent | StaticAbilities$ MayPlay | RememberObjects$ Targeted | ForgetOnMoved$ Exile
+SVar:MayPlay:Mode$ Continuous | Affected$ Card.IsRemembered | AffectedZone$ Exile | MayPlay$ True | MayPlayPlayer$ CardOwner
+T:Mode$ ChangesZoneAll | ValidCards$ Creature.!token+wasCastFromExile,Creature.!token+ThisTurnEnteredFrom_Exile | Destination$ Battlefield | TriggerZones$ Battlefield | ActivationLimit$ 1 | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw
+SVar:X:Count$xPaid

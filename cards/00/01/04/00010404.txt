@@ -1,7 +1,11 @@
 Id:10404
-ColorIdentity:WRG
+ColorIdentity:
 OriginSet:Ga3dbc4b644a9a2c5
-ManaCost:2 G
-Types:Creature Elf Archer
-PT:2/3
-A:AB$ DealDamage | Cost$ R W T | ValidTgts$ Creature.attacking,Creature.blocking | NumDmg$ 2
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice | UnlessCost$ 1 | UnlessPayer$ You
+A:AB$ Mana | Cost$ T | Produced$ Any
+SVar:NeedsToPlay:Land.untapped+YouCtrl

@@ -1,16 +1,11 @@
 Id:21067
 ColorIdentity:R
-OriginSet:G7b2607750b451c25
-ManaCost:X R R
-Types:Sorcery
-A:SP$ DealDamage | NumDmg$ Y | ValidTgts$ Creature,Planeswalker | TargetMin$ 0 | TargetMax$ 2 | DividedAsYouChoose$ Y
-SVar:X:Count$xPaid
-SVar:Y:Count$Compare X LT6.X.Z
-SVar:Z:Count$xPaid/Twice
-AlternateMode:Modal
-ALTERNATE
-ManaCost:no cost
-Types:Land
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ DBTap | ReplacementResult$ Updated
-SVar:DBTap:DB$ Tap | ETB$ True | Defined$ Self | UnlessCost$ PayLife<3> | UnlessPayer$ You
-A:AB$ Mana | Cost$ T | Produced$ R
+OriginSet:G2f853d6139309fb0
+ManaCost:2 R
+Types:Legendary Creature Devil
+PT:2/3
+T:Mode$ Drawn | ValidPlayer$ Player.Opponent+NonActive | Number$ 1 | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 1965070986 | TokenOwner$ You
+T:Mode$ AttackersDeclared | ValidAttackers$ Devil.YouCtrl | AttackedTarget$ Player | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ TriggeredAttackedTarget & You | NumCards$ 1 | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ TriggeredAttackedTarget & You | NumCards$ 1 | Mode$ Random

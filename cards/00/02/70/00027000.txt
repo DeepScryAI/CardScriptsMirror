@@ -1,9 +1,12 @@
 Id:27000
-ColorIdentity:B
-OriginSet:G6ce0035cfb774934
-ManaCost:3 B
-Types:Legendary Artifact Vehicle
-PT:5/5
-K:Trample
-S:Mode$ Continuous | Affected$ Card.Self | IsPresent$ Army.YouCtrl | Condition$ PlayerTurn | AddType$ Artifact & Creature
-K:Crew:3
+ColorIdentity:UB
+OriginSet:G3601f5e223de6c7f
+ManaCost:2 U B
+Types:Legendary Creature Human Advisor
+PT:1/4
+S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDigUntil | TriggerZones$ Battlefield
+SVar:TrigDigUntil:DB$ DigUntil | Defined$ TriggeredTarget | Valid$ Instant,Sorcery | FoundDestination$ Exile | RevealedDestination$ Exile | RememberFound$ True | ImprintRevealed$ True | IsCurse$ True | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | ValidZone$ Exile | Valid$ Instant.IsRemembered,Sorcery.IsRemembered | ValidSA$ Spell | WithoutManaCost$ True | Optional$ True | SubAbility$ DBRestRandomOrder
+SVar:DBRestRandomOrder:DB$ ChangeZoneAll | ChangeType$ Card.IsImprinted,Card.IsRemembered | Origin$ Exile | Destination$ Library | LibraryPosition$ -1 | RandomOrder$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True

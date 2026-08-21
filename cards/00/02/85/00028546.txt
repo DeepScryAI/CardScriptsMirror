@@ -1,10 +1,10 @@
 Id:28546
 ColorIdentity:B
 OriginSet:G7ee0e82a2424d636
-ManaCost:3 B
-Types:Creature Vampire
-PT:4/2
-K:Flying
-K:Disguise:B B
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigLoseLife
-SVar:TrigLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ 3
+ManaCost:B
+Types:Enchantment Case
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ Destroy | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Creature.wasDealtDamageThisTurn
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ Count$ThisTurnEntered_Graveyard_Creature.!token | SVarCompare$ GE3 | IsPresent$ Card.Self+!IsSolved | Execute$ Solved
+SVar:Solved:DB$ AlterAttribute | Defined$ Self | Attributes$ Solved
+S:Mode$ Continuous | Affected$ Card.Self+IsSolved | AddType$ Creature & Gorgon | SetPower$ 4 | SetToughness$ 4 | AddKeyword$ Deathtouch & Lifelink

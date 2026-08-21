@@ -1,10 +1,15 @@
 Id:8341
-ColorIdentity:R
+ColorIdentity:BRG
 OriginSet:Gde6d8130c178f566
-ManaCost:1 R
+ManaCost:1 B R
 Types:Instant
-A:SP$ ChangeZoneAll | ChangeType$ Card.YouCtrl | Origin$ Hand | Destination$ Exile | ExileFaceDown$ True | RememberChanged$ True | SubAbility$ DelayedReturn
-SVar:DelayedReturn:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ ReturnAll | RememberObjects$ RememberedLKI | SubAbility$ DBCleanup
-SVar:ReturnAll:DB$ ChangeZone | Origin$ Exile | Destination$ Hand | Defined$ DelayTriggerRememberedLKI | SubAbility$ YouDraw
-SVar:YouDraw:DB$ Draw | Defined$ You | NumCards$ 1
+A:SP$ Sacrifice | ValidTgts$ Player | SacValid$ Creature,Artifact | RememberSacrificed$ True | SubAbility$ DBDmg
+SVar:DBDmg:DB$ DealDamage | NumDmg$ X | Defined$ Targeted | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$CardManaCost
+AlternateMode:Split
+ALTERNATE
+ManaCost:3 R G
+Types:Instant
+A:SP$ PumpAll | ValidCards$ Creature.attacking+YouCtrl | NumAtt$ +Y
+SVar:Y:Count$Valid Creature.attacking/Minus.1

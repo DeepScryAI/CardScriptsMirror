@@ -1,6 +1,11 @@
 Id:7499
 ColorIdentity:R
 OriginSet:G4747f23d5c5760bc
-ManaCost:R
-Types:Sorcery Arcane
-A:SP$ Sacrifice | SacValid$ Permanent | Defined$ Player
+ManaCost:3 R
+Types:Enchantment
+S:Mode$ Continuous | Affected$ Creature.Spirit | EffectZone$ Battlefield | AddTrigger$ CoRSpiritETB | AddSVar$ CoRSpiritDmg
+S:Mode$ Continuous | Affected$ Creature.nonSpirit | EffectZone$ Battlefield | AddTrigger$ CoRNonETB | AddSVar$ CoRNonDmg
+SVar:CoRSpiritETB:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | OptionalDecider$ TriggeredCardController | TriggerZones$ Battlefield | Execute$ CoRSpiritDmg
+SVar:CoRSpiritDmg:DB$ DealDamage | ValidTgts$ Creature.nonSpirit | NumDmg$ 3
+SVar:CoRNonETB:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | OptionalDecider$ TriggeredCardController | TriggerZones$ Battlefield | Execute$ CoRNonDmg
+SVar:CoRNonDmg:DB$ DealDamage | ValidTgts$ Creature.Spirit | NumDmg$ 3

@@ -1,11 +1,13 @@
 Id:29721
-ColorIdentity:UR
-OriginSet:G01a610e823cce3ca
-ManaCost:1 U R
-Types:Legendary Creature Human Assassin Pirate
-PT:3/3
-K:Haste
-A:AB$ Draw | Cost$ T | NumCards$ 1 | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | Defined$ You | Mode$ TgtChoose | NumCards$ 1
-T:Mode$ Discarded | ValidCard$ Island.YouCtrl,Pirate.YouCtrl,Vehicle.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 3851718391 | TokenOwner$ You | TokenTapped$ True
+ColorIdentity:G
+OriginSet:Gac6359c222afbd4f
+ManaCost:1 C G
+Types:Creature Eldrazi
+PT:3/4
+K:Devoid
+T:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Permanent.nonCreature+nonLand+OppCtrl+cmcLE4 | TargetMin$ 0 | TargetMax$ 1 | RememberChanged$ True | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Triggers$ LeavesTrig | Duration$ Permanent | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBCleanup
+SVar:LeavesTrig:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | ValidTgts$ Opponent
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

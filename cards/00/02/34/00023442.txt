@@ -1,8 +1,11 @@
 Id:23442
-ColorIdentity:G
-OriginSet:G1a259dba25660062
-ManaCost:1 G
-Types:Instant
-A:SP$ Pump | ValidTgts$ Creature | NumAtt$ +X | NumDef$ +X | SubAbility$ DBUntap
-SVar:DBUntap:DB$ Untap | Defined$ Targeted
-SVar:X:Count$Valid Permanent.YouCtrl$GreatestCardManaCost
+ColorIdentity:R
+OriginSet:Gbe3783f336562357
+ManaCost:2 R R
+Types:Creature Dragon
+PT:4/4
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigAnimate
+SVar:TrigAnimate:DB$ Animate | ValidTgts$ Land.nonBasic+YouDontCtrl | RemoveNonManaAbilities$ True | Triggers$ EndofTurnShock | Duration$ Permanent
+SVar:EndofTurnShock:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | Defined$ You | NumDmg$ 2 | UnlessCost$ Sac<1/CARDNAME> | UnlessPayer$ TriggeredPlayer

@@ -1,13 +1,8 @@
 Id:29370
-ColorIdentity:R
-OriginSet:Gac6359c222afbd4f
-ManaCost:2 R R
-Types:Legendary Creature Elemental Shaman
-PT:4/4
-S:Mode$ UnspentMana | ValidPlayer$ You | ManaType$ Red
-T:Mode$ SpellCastOrCopy | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDiscard
-SVar:TrigDiscard:DB$ Discard | Mode$ TgtChoose | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1 | SubAbility$ DBDamage
-SVar:DBDamage:DB$ DamageAll | NumDmg$ 2 | ValidPlayers$ Player.Opponent | ConditionCheckSVar$ Resolved | ConditionSVarCompare$ EQ2 | ValidCards$ Creature.OppCtrl | SubAbility$ DBAddMana
-SVar:DBAddMana:DB$ Mana | Produced$ R | Amount$ 4 | ConditionCheckSVar$ Resolved | ConditionSVarCompare$ EQ3
-SVar:Resolved:Count$ResolvedThisTurn
+ColorIdentity:W
+OriginSet:G27146c70b74a1e72
+ManaCost:W
+Types:Instant
+A:SP$ DealDamage | ValidTgts$ Creature.attacking,Creature.blocking | NumDmg$ X
+SVar:X:Count$Compare Y GE1.4.2
+SVar:Y:Count$LastStateBattlefieldWithFallback Permanent.Mount+YouCtrl

@@ -1,17 +1,12 @@
 Id:14209
-ColorIdentity:UR
+ColorIdentity:WR
 OriginSet:Gc18355312510df89
-ManaCost:3 U R
+ManaCost:2 R W
 Types:Legendary Enchantment Creature God
-PT:6/5
+PT:7/4
 K:Indestructible
 S:Mode$ Continuous | Affected$ Card.Self | RemoveType$ Creature | CheckSVar$ X | SVarCompare$ LT7
-SVar:X:Count$DevotionDual.Blue.Red
-T:Mode$ Drawn | ValidCard$ Card.YouOwn | Number$ 1 | Static$ True | Execute$ DBReveal | ForReveal$ True | TriggerZones$ Battlefield | PlayerTurn$ True
-SVar:DBReveal:DB$ Reveal | Defined$ You | RevealDefined$ TriggeredCard | RememberRevealed$ True | SubAbility$ DBTriggerLand
-SVar:DBTriggerLand:DB$ ImmediateTrigger | ConditionDefined$ Remembered | ConditionPresent$ Card.Land+YouCtrl | SubAbility$ DBTriggerNonLand | Execute$ TrigDraw
-SVar:DBTriggerNonLand:DB$ ImmediateTrigger | ConditionDefined$ Remembered | ConditionPresent$ Card.nonLand+YouCtrl | SubAbility$ DBCleanup | Execute$ TrigDmg
-SVar:TrigDraw:DB$ Draw
-SVar:TrigDmg:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 3
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:BuffedBy:Permanent.Blue,Permanent.Red
+SVar:X:Count$DevotionDual.Red.White
+S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddKeyword$ Menace
+R:Event$ DamageDone | ActiveZones$ Battlefield | Prevent$ True | ValidTarget$ Creature.attacking+YouCtrl
+SVar:BuffedBy:Permanent.White,Permanent.Red

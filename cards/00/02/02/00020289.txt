@@ -1,9 +1,15 @@
 Id:20289
-ColorIdentity:W
-OriginSet:Gfa87e7bbc5a709eb
-ManaCost:4 W
-Types:Creature Unicorn
-PT:4/4
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Enchantment.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigTap
-SVar:TrigTap:DB$ Tap | ValidTgts$ Creature.OppCtrl
-SVar:BuffedBy:Enchantment
+ColorIdentity:R
+OriginSet:G42eb6bda83007836
+ManaCost:2 R R
+Types:Creature Elemental Giant
+PT:3/4
+T:Mode$ Attacks | ValidCard$ Card.Self | ValidSource$ Card.OppCtrl | Execute$ TrigChoose | TriggerZones$ Battlefield
+T:Mode$ BecomesTarget | ValidTarget$ Card.Self | ValidSource$ Spell.OppCtrl | TriggerZones$ Battlefield | Execute$ TrigChoose | Secondary$ True
+SVar:TrigChoose:DB$ Charm | Choices$ DBDamage,DBExilePlay
+SVar:DBDamage:DB$ DamageAll | ValidPlayers$ Player.Opponent | NumDmg$ 3
+SVar:DBExilePlay:DB$ Dig | Defined$ You | DigNum$ 2 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBChoose
+SVar:DBChoose:DB$ ChooseCard | Choices$ Card.IsRemembered | ChoiceZone$ Exile | Defined$ You | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ ChosenCard | ForgetOnMoved$ Exile | StaticAbilities$ Play | Duration$ UntilTheEndOfYourNextTurn | SubAbility$ DBCleanup
+SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearChosenCard$ True

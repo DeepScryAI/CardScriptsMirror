@@ -1,16 +1,10 @@
 Id:23018
-ColorIdentity:B
-OriginSet:G7a76c1974b0a33a6
-ManaCost:4 B B
-Types:Creature Zombie
-PT:4/4
-K:Menace
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigExile | Secondary$ True
-SVar:TrigExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | Hidden$ True | RememberChanged$ True | ChangeType$ Card.Other | ChangeNum$ 1 | Mandatory$ True | AILogic$ ExilePreference:HighestCMC | SubAbility$ DBImmediateTrigger
-SVar:DBImmediateTrigger:DB$ ImmediateTrigger | ConditionDefined$ Remembered | ConditionPresent$ Card | RememberObjects$ Remembered | SubAbility$ DBCleanup | Execute$ TrigCharm
-SVar:TrigCharm:DB$ Charm | Choices$ DBRemoveCounter,DBPump
-SVar:DBRemoveCounter:DB$ RemoveCounter | ValidTgts$ Permanent | CounterType$ Any | CounterNum$ X
-SVar:DBPump:DB$ Pump | ValidTgts$ Creature.OppCtrl | IsCurse$ True | NumAtt$ -X | NumDef$ -X
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:TriggerRemembered$CardManaCost
+ColorIdentity:W
+OriginSet:Gf78628ad511eefec
+ManaCost:3 W
+Types:Creature Human Soldier
+PT:2/2
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ X | EffectZone$ All
+T:Mode$ ChangesZone | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You
+SVar:X:Count$AttackersDeclared

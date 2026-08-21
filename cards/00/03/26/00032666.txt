@@ -1,9 +1,16 @@
 Id:32666
-ColorIdentity:U
-OriginSet:G36e97d2da170e675
-ManaCost:3 U
-Types:Legendary Creature Spirit Ally
-PT:3/3
-K:Flying
-K:Vigilance
-A:AB$ Play | Cost$ Waterbend<5> T | Valid$ Card | ValidZone$ Hand | ValidSA$ Spell.nonCreature+YouOwn | WithoutManaCost$ True | Amount$ 1 | Controller$ You | Optional$ True
+ColorIdentity:B
+OriginSet:G66b3a7eeabd9000e
+ManaCost:2 B
+Types:Enchantment Saga
+K:Chapter:3:DBDestroy,DBChoose,DBExile
+SVar:DBDestroy:DB$ Destroy | ValidTgts$ Creature
+SVar:DBChoose:DB$ GenericChoice | TempRemember$ Chooser | ShowChoice$ ExceptSelf | Defined$ Player | Choices$ Discard,No | SubAbility$ DBDiscard
+SVar:Discard:DB$ Pump | Defined$ Remembered | NoteCards$ Self | NoteCardsFor$ Discard
+SVar:No:DB$ Pump
+SVar:DBDiscard:DB$ Discard | Defined$ Player.NotedForDiscard | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ NonRememberedOwner | LifeAmount$ 3 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | SubAbility$ DBClearNotes
+SVar:DBClearNotes:DB$ Pump | Defined$ Player | ClearNotedCardsFor$ Discard
+SVar:DBExile:DB$ ChangeZoneAll | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Player | TargetMin$ 0 | TargetMax$ MaxTgt | ChangeType$ Card
+SVar:MaxTgt:PlayerCountPlayers$Amount

@@ -1,12 +1,10 @@
 Id:33956
-ColorIdentity:UG
-OriginSet:Gaf3c6d0810185c00
-ManaCost:1 G U
-Types:Legendary Creature Human Wizard
-PT:1/3
-T:Mode$ SpellCast | ValidCard$ Card.hasXCost | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ DBNameCard
-SVar:DBNameCard:DB$ NameCard | AtRandom$ True | ValidCards$ Creature.cmcEQX | SubAbility$ DBConjure
-SVar:DBConjure:DB$ MakeCard | Name$ ChosenName | Conjure$ True | Zone$ Battlefield | SubAbility$ DBClearNamed
-SVar:DBClearNamed:DB$ Cleanup | ClearNamedCard$ True
-SVar:X:Count$xPaid
-A:AB$ Mana | Cost$ T | Produced$ G U | RestrictValid$ Spell.hasXCost
+ColorIdentity:B
+OriginSet:Gf8df2bea26dc6b68
+ManaCost:2 B
+Types:Legendary Creature Vampire Druid
+PT:2/2
+K:Deathtouch
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl+powerLE1,Creature.YouCtrl+toughnessLE1 | TriggerZones$ Battlefield | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | ValidTgts$ Opponent | LifeAmount$ 2 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2

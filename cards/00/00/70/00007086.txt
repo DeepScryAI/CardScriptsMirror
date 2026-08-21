@@ -1,8 +1,16 @@
 Id:7086
 ColorIdentity:G
 OriginSet:G332b6b8a53f3d107
-ManaCost:3 G
-Types:Creature Spirit
-PT:2/2
-A:AB$ Pump | Cost$ Sac<1/CARDNAME> | ValidTgts$ Creature | NumAtt$ +2 | NumDef$ +2
-K:Soulshift:3
+ManaCost:1 G
+Types:Creature Human Monk
+PT:2/1
+A:AB$ ChangeZone | Cost$ T | Origin$ Hand | Destination$ Battlefield | ChangeType$ Land | ChangeNum$ 1 | Optional$ You | SubAbility$ DBFlip
+SVar:DBFlip:DB$ SetState | Defined$ Self | ConditionPresent$ Land.YouCtrl | ConditionCompare$ GE10 | Mode$ Flip
+AlternateMode:Flip
+ALTERNATE
+ManaCost:1 G
+Colors:green
+Types:Legendary Creature Human Monk
+PT:3/3
+A:AB$ Token | Cost$ 4 G G T | TokenScriptIds$ 1573311632 | TokenPower$ X | TokenToughness$ X | TokenOwner$ You
+SVar:X:Count$Valid Land.YouCtrl

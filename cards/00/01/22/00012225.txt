@@ -1,7 +1,17 @@
 Id:12225
-ColorIdentity:
+ColorIdentity:U
 OriginSet:G14de52802b0b467c
-ManaCost:4
-Types:Artifact Equipment
-K:Equip:Sac<1/Creature>
-S:Mode$ Continuous | Affected$ Card.EquippedBy | AddPower$ 4 | AddToughness$ 2
+ManaCost:U
+Types:Creature Human Wizard
+PT:1/1
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPeek
+SVar:TrigPeek:DB$ PeekAndReveal | PeekAmount$ 1 | RevealOptional$ True | RememberRevealed$ True | AILogic$ InstantOrSorcery | SubAbility$ DBTransform
+SVar:DBTransform:DB$ SetState | Defined$ Self | Mode$ Transform | ConditionDefined$ Remembered | ConditionPresent$ Card.Instant,Card.Sorcery | ConditionCompare$ EQ1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:blue
+Types:Creature Human Insect
+PT:3/2
+K:Flying

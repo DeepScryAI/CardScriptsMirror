@@ -1,8 +1,9 @@
 Id:14564
-ColorIdentity:B
+ColorIdentity:BG
 OriginSet:G0a578e83854cf093
-ManaCost:1 B
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:Curse
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ -2 | AddToughness$ -2
+ManaCost:3 B G
+Types:Sorcery
+A:SP$ PumpAll | ValidCards$ Creature | NumAtt$ -2 | NumDef$ -2 | IsCurse$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | Triggers$ TrigDies
+SVar:TrigDies:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature | Execute$ TrigGainLife
+SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 1

@@ -1,10 +1,12 @@
 Id:26981
-ColorIdentity:G
-OriginSet:G6ce0035cfb774934
-ManaCost:3 G
-Types:Enchantment Aura
-K:Flash
-K:Enchant:Creature
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigScry
-SVar:TrigScry:DB$ Scry | ScryNum$ 2
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 3 | AddToughness$ 3
+ColorIdentity:
+OriginSet:G3601f5e223de6c7f
+ManaCost:3
+Types:Legendary Artifact Equipment
+K:Equip:4:::ReduceCost$ Monarch
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ X | AddToughness$ X
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.Legendary+YouCtrl | TriggerZones$ Battlefield | CheckSVar$ NoMonarch | SVarCompare$ EQ0 | Execute$ TrigMonarch
+SVar:TrigMonarch:DB$ BecomeMonarch
+SVar:X:Count$Valid Creature.YouCtrl
+SVar:Monarch:Count$Monarch.3.0
+SVar:NoMonarch:PlayerCountPlayers$HasPropertyisMonarch

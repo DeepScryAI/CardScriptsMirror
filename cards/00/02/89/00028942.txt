@@ -1,9 +1,15 @@
 Id:28942
 ColorIdentity:W
-OriginSet:G343cd0ac847a92b7
-ManaCost:1 W
-Types:Artifact
-K:Hideaway:5
-A:AB$ PutCounter | Cost$ 1 T | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBPlay
-SVar:DBPlay:DB$ Play | Defined$ ExiledWith | Amount$ All | Controller$ You | ConditionCheckSVar$ X | ConditionSVarCompare$ GE3 | WithoutManaCost$ True | Optional$ True
-SVar:X:Count$Valid Creature.YouCtrl$DifferentCardPower
+OriginSet:Gaf7c94f364052cdd
+ManaCost:3 W
+Types:Enchantment
+K:ETBReplacement:Other:SiegeChoice
+SVar:SiegeChoice:DB$ GenericChoice | Choices$ NCR,Legion | Defined$ You | SetChosenMode$ True | AILogic$ Legion | ShowChoice$ ExceptSelf
+SVar:NCR:DB$ Pump
+SVar:Legion:DB$ Pump
+S:Mode$ Continuous | Affected$ Card.Self+ChosenModeNCR | AddTrigger$ NCRTrigger
+S:Mode$ Continuous | Affected$ Card.Self+ChosenModeLegion | AddTrigger$ LegionTrigger
+SVar:NCRTrigger:Mode$ Phase | Phase$ End of Turn | Secondary$ True | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | WithCountersType$ FINALITY | ValidTgts$ Creature.cmcLE3+YouCtrl
+SVar:LegionTrigger:Mode$ ChangesZone | Secondary$ True | ValidCard$ Creature.YouCtrl | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigPutCounter | TriggerZones$ Battlefield
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 2

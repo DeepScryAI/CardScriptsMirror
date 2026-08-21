@@ -1,11 +1,14 @@
 Id:8345
 ColorIdentity:BR
 OriginSet:Gde6d8130c178f566
-ManaCost:R
-Types:Creature Goblin Berserker
-PT:1/1
-S:Mode$ MustAttack | ValidCreature$ Card.Self
-A:AB$ Effect | Cost$ B Sac<1/CARDNAME> | ValidTgts$ Creature | ReplacementEffects$ SelfDamage | RememberObjects$ Targeted | ExileOnMoved$ Battlefield
-SVar:SelfDamage:Event$ DamageDone | ValidTarget$ Creature.IsRemembered | ReplaceWith$ CultistDestroy
-SVar:CultistDestroy:DB$ Destroy | Defined$ ReplacedTarget | SubAbility$ ExileEffect
-SVar:ExileEffect:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile
+ManaCost:1 B R
+Types:Creature Ogre Warrior
+PT:3/4
+T:Mode$ DamageDoneOnce | ValidTarget$ Card.Self | Execute$ TrigYouDiscard
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Hellbent$ True | Execute$ TrigOppDiscard
+SVar:TrigYouDiscard:DB$ Discard | Defined$ You | NumCards$ X | Mode$ TgtChoose
+SVar:TrigOppDiscard:DB$ Discard | Defined$ TriggeredTarget | NumCards$ X | Mode$ TgtChoose
+SVar:X:TriggerCount$DamageAmount
+SVar:NeedsToPlayVar:Y LE2
+SVar:Y:Count$CardsInYourHand
+SVar:BuffedBy:Card

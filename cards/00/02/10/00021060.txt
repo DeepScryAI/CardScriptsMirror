@@ -1,11 +1,10 @@
 Id:21060
-ColorIdentity:R
-OriginSet:G7b2607750b451c25
-ManaCost:1 R
-Types:Enchantment
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Player | Execute$ Trig1Damage | TriggerZones$ Battlefield
-SVar:Trig1Damage:DB$ DealDamage | Defined$ TriggeredPlayer | NumDmg$ 1
-T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ Player | TriggerZones$ Battlefield | Execute$ Trig5Damage | ValidSA$ Spell.ManaSpent EQ0
-SVar:Trig5Damage:DB$ DealDamage | Defined$ TriggeredActivator | NumDmg$ 5
-A:AB$ Effect | Cost$ R | StaticAbilities$ STCantGain | AILogic$ NoGain
-SVar:STCantGain:Mode$ CantGainLife | ValidPlayer$ Player.Opponent
+ColorIdentity:W
+OriginSet:G2f853d6139309fb0
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+K:ETBReplacement:Other:ChooseColor
+SVar:ChooseColor:DB$ ChooseColor | Defined$ You | Exclude$ white | AILogic$ MostProminentInComputerDeck
+A:AB$ Mana | Cost$ T | Produced$ Combo W Chosen

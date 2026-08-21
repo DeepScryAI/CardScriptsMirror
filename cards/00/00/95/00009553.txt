@@ -1,9 +1,10 @@
 Id:9553
-ColorIdentity:WB
+ColorIdentity:R
 OriginSet:G49bcc8b9b86b628d
-ManaCost:no cost
-Types:Land Forest
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ DBTap | ReplacementResult$ Updated
-SVar:DBTap:DB$ Tap | ETB$ True | Defined$ Self | UnlessCost$ Reveal<1/Treefolk> | UnlessPayer$ You
-A:AB$ Mana | Cost$ T | Produced$ Combo W B | SubAbility$ DBPain
-SVar:DBPain:DB$ DealDamage | NumDmg$ 1 | Defined$ You
+ManaCost:R
+Types:Creature Goblin Warrior
+PT:1/1
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigKinship | TriggerZones$ Battlefield | OptionalDecider$ You
+SVar:TrigKinship:DB$ PeekAndReveal | PeekAmount$ 1 | RevealValid$ Card.sharesCreatureTypeWith | RevealOptional$ True | RememberRevealed$ True | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | NumAtt$ +1 | NumDef$ +1 | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

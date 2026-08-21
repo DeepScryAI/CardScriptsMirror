@@ -1,11 +1,14 @@
 Id:30182
-ColorIdentity:W
-OriginSet:G9ff9681e1fe8713a
-ManaCost:W
-Types:Creature Bird Scout
-PT:2/1
-K:Starting intensity:0
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.YouCtrl+Other+withFlying | IsPresent$ Card.Self+catalogId30182 | TriggerZones$ Battlefield | Execute$ TrigIntensify
-SVar:TrigIntensify:DB$ Intensify | AllDefined$ Card.catalogId30182+YouOwn
-S:Mode$ Continuous | Affected$ Card.Self | SetPower$ 4 | CheckSVar$ X | SetName$ 14084403572614081816 | SVarCompare$ GE3 | AddKeyword$ Flying & Vigilance | SetToughness$ 4
-SVar:X:Count$Intensity
+ColorIdentity:WUG
+OriginSet:G30e4cc621dfc3a2e
+ManaCost:2 G W U
+Types:Legendary Creature Fox Rogue
+PT:3/5
+K:Lifelink
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ X | RememberDrawn$ AllReplaced | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | ChangeType$ Creature | ChangeNum$ 1 | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ0 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:TriggeredDefendingPlayer$CardsInHand/Minus.Y
+SVar:Y:Count$ValidHand Card.YouOwn
+SVar:HasAttackEffect:TRUE

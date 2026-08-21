@@ -1,14 +1,12 @@
 Id:33649
-ColorIdentity:BG
-OriginSet:Gf04404de3fa1525e
-ManaCost:2 B G
-Types:Legendary Planeswalker Dellian
-Loyalty:5
-A:AB$ GainLife | Cost$ AddCounter<2/LOYALTY> | LifeAmount$ 3 | Planeswalker$ True
-A:AB$ Draw | Cost$ AddCounter<0/LOYALTY> | NumCards$ 1 | SubAbility$ DBLoseLife1 | Planeswalker$ True
-SVar:DBLoseLife1:DB$ LoseLife | LifeAmount$ 1
-A:AB$ Destroy | Cost$ SubCounter<3/LOYALTY> | ValidTgts$ Creature | Planeswalker$ True
-A:AB$ Effect | Cost$ SubCounter<6/LOYALTY> | Planeswalker$ True | Ultimate$ True | Name$ 11868224029409695186 | Triggers$ LifeGainTrigger | Duration$ Permanent | AILogic$ Always
-SVar:LifeGainTrigger:Mode$ LifeGained | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigLoseLife
-SVar:TrigLoseLife:DB$ LoseLife | ValidTgts$ Opponent | LifeAmount$ X
-SVar:X:TriggerCount$LifeAmount
+ColorIdentity:WB
+OriginSet:G23d1f017cc66962f
+ManaCost:W B
+Types:Legendary Creature Mutant Ninja Turtle Human
+PT:1/3
+K:Sneak:W B
+S:Mode$ Continuous | Affected$ Ninja.attacking+YouCtrl | AddKeyword$ Deathtouch
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 259313527 | SubAbility$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ TriggeredTarget | LifeAmount$ X | ConditionPresent$ Ninja.YouCtrl | ConditionCompare$ GE5
+SVar:X:TriggeredTarget$LifeTotal/HalfUp

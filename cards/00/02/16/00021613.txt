@@ -1,15 +1,11 @@
 Id:21613
-ColorIdentity:WB
+ColorIdentity:R
 OriginSet:G18bf722b221724f8
-ManaCost:3 W B
-Types:Legendary Planeswalker Kaya
-Loyalty:5
-A:AB$ PutCounter | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Creature.!token | AITgts$ Creature.!token+YouCtrl | TargetMin$ 0 | TargetMax$ 1 | CounterType$ GHOSTFORM | CounterNum$ 1 | SubAbility$ DBAnimate
-SVar:DBAnimate:DB$ Animate | Defined$ Targeted | Duration$ Permanent | Triggers$ TrigDieExile
-SVar:TrigDieExile:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard,Exile | ValidCard$ Card.Self | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard,Exile | Destination$ Hand | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenScriptIds$ 273812182 | TokenOwner$ TriggeredCardController
-A:AB$ ChangeZone | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Permanent.nonLand
-A:AB$ Effect | Cost$ SubCounter<7/LOYALTY> | Planeswalker$ True | Ultimate$ True | Name$ 13972250880603459779 | Duration$ Permanent | Triggers$ Upkeep
-SVar:Upkeep:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Command | OptionalDecider$ You | Execute$ TrigCast
-SVar:TrigCast:DB$ Play | Valid$ Card.Legendary+YouOwn | ValidSA$ Spell | ValidZone$ Hand,Graveyard,Exile | WithoutManaCost$ True
+ManaCost:2 R
+Types:Artifact Equipment
+K:Equip:3
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 3 | AddKeyword$ Trample
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken | TriggerZones$ Battlefield
+SVar:TrigToken:AB$ Token | Cost$ 2 | TokenScriptIds$ 3836085774 | RememberTokens$ True | SubAbility$ DBAttach
+SVar:DBAttach:DB$ Attach | Object$ TriggeredCardLKICopy | Defined$ Remembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

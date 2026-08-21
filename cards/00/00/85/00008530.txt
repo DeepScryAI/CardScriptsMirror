@@ -1,11 +1,8 @@
 Id:8530
 ColorIdentity:G
 OriginSet:Gf7b8c9355081f53b
-ManaCost:1 G G
-Types:Snow Creature Snake
-PT:1/3
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Creature | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ DelTrig
-SVar:DelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ EndCombat | ValidPlayer$ Player | Execute$ TrigDestroy | RememberObjects$ TriggeredTargetLKICopy
-SVar:TrigDestroy:DB$ Destroy | Defined$ DelayTriggerRememberedLKI
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | OptionalDecider$ You | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+ManaCost:3 G
+Types:Instant
+A:SP$ Destroy | ValidTgts$ Artifact,Enchantment | SubAbility$ DelTrigSlowtrip
+SVar:DelTrigSlowtrip:DB$ DelayedTrigger | NextTurn$ True | Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Player | Execute$ DrawSlowtrip
+SVar:DrawSlowtrip:DB$ Draw | Defined$ You

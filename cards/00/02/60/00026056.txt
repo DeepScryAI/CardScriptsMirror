@@ -1,8 +1,13 @@
 Id:26056
 ColorIdentity:R
-OriginSet:G2192e8955d5e1ad1
-ManaCost:1
-Types:Artifact
-A:AB$ Draw | Cost$ 1 Sac<1/CARDNAME>
-A:AB$ PutCounter | Cost$ 1 R Sac<1/CARDNAME> | ValidTgts$ Artifact.YouCtrl,Creature.YouCtrl | CounterType$ OIL | CounterNum$ 2 | SorcerySpeed$ True | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw
+OriginSet:G880fc7f6ed36df4d
+ManaCost:3 R R
+Types:Enchantment
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 2
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraft
+SVar:TrigDraft:DB$ Draft | SpellbookCatalogIds$ 17150,21195,21009,23558,13052,19535,22719,10315,145,14761,18917,21920,10438,13664,6435 | RememberDrafted$ True | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | Defined$ Remembered | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ Play | ExileOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

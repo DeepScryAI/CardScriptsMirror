@@ -1,12 +1,15 @@
 Id:26815
 ColorIdentity:WBG
-OriginSet:G3601f5e223de6c7f
-ManaCost:W B G
-Types:Legendary Creature Halfling Rogue
-PT:2/3
-R:Event$ GainLife | ActiveZones$ Battlefield | ValidPlayer$ You | ReplaceWith$ GainLife | AILogic$ DoubleLife
-SVar:GainLife:DB$ ReplaceEffect | VarName$ LifeGained | VarValue$ X
-SVar:X:ReplaceCount$LifeGained/Plus.1
-A:AB$ ChangeZone | Cost$ 2 W B G T Exile<1/CARDNAME> | Origin$ Library | Destination$ Battlefield | ChangeType$ Creature | ChangeNum$ Y | Shuffle$ True | CheckSVar$ Z | SVarCompare$ GE111
-SVar:Y:Count$ValidLibrary Creature.YouOwn
-SVar:Z:Count$YourLifeTotal
+OriginSet:G06757f68e16377c2
+ManaCost:1 W B G
+Types:Legendary Creature Human Frog Horror
+PT:4/4
+K:FirstStrike
+K:Deathtouch
+S:Mode$ Continuous | Affected$ You | AdjustLandPlays$ 1
+R:Event$ Moved | ValidCard$ Creature.OppCtrl,Land.nonBasic+OppCtrl | Destination$ Battlefield | ReplaceWith$ ETBTapped | ReplacementResult$ Updated | ActiveZones$ Battlefield
+SVar:ETBTapped:DB$ Tap | ETB$ True | Defined$ ReplacedCard
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice | Defined$ You | SacValid$ Land,Creature | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw
+SVar:HasAttackEffect:TRUE

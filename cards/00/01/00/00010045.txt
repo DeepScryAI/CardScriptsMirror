@@ -1,8 +1,8 @@
 Id:10045
 ColorIdentity:B
 OriginSet:G6a049984467eca45
-ManaCost:2 B B
-Types:Creature Elemental Shaman
-PT:3/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPutCounterAll
-SVar:TrigPutCounterAll:DB$ PutCounterAll | ValidCards$ Creature | CounterType$ M1M1 | CounterNum$ 1 | IsCurse$ True
+ManaCost:1 B
+Types:Sorcery
+A:SP$ Destroy | ValidTgts$ Creature.nonGreen | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ TargetedController | LifeAmount$ 3 | ConditionCheckSVar$ X
+SVar:X:Count$ThisTurnCast_Card.Black+!CastSaSource+YouCtrl

@@ -1,11 +1,14 @@
 Id:17333
-ColorIdentity:W
+ColorIdentity:WG
 OriginSet:Gaa482ed186eee527
-ManaCost:2 W W
-Types:Legendary Creature Cat Knight
-PT:3/3
-K:FirstStrike
-S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ DoubleStrike | IsPresent$ Equipment.Attached | PresentCompare$ GE2
-A:AB$ RepeatEach | Cost$ 1 W | RepeatSubAbility$ DBAttach | RepeatCards$ Equipment.YouCtrl | AILogic$ EquipAll
-SVar:DBAttach:DB$ Attach | Object$ Remembered | Defined$ Self
-SVar:EquipMe:Multiple
+ManaCost:3 G W
+Types:Legendary Creature Cat Avatar
+PT:5/5
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | IsPresent$ Card.StrictlySelf | PresentZone$ Battlefield | Execute$ TrigPump1
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Command | IsPresent$ Card.StrictlySelf | PresentZone$ Command | Execute$ TrigPump1 | Secondary$ True
+SVar:TrigPump1:DB$ Pump | ValidTgts$ Creature.Cat+YouCtrl+Other | NumAtt$ +3 | NumDef$ +3
+T:Mode$ Attacks | ValidCard$ Creature.Cat+Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPump2
+SVar:TrigPump2:AB$ Pump | Cost$ 1 G W | Defined$ TriggeredAttackerLKICopy | KW$ Trample | NumAtt$ +X | NumDef$ +X
+SVar:X:TriggeredAttacker$CardPower
+SVar:BuffedBy:Cat
+SVar:PlayMain1:TRUE

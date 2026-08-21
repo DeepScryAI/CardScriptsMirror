@@ -1,14 +1,10 @@
 Id:22728
-ColorIdentity:B
-OriginSet:G66f2eb694ffd614a
-ManaCost:6 B B
-Types:Legendary Creature Zombie Turtle
-PT:4/4
-A:SP$ PermanentCreature | Cost$ 6 B B ExileFromGrave<X/Creature/creature cards>
-S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ Y | EffectZone$ All | Relative$ True
-SVar:X:Count$xPaid
-SVar:Y:SVar$X/Times.2
-K:Deathtouch
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigChoose
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigChoose | Secondary$ True
-SVar:TrigChoose:DB$ ChangeZone | AtRandom$ True | ChangeType$ Card.ExiledWithSource | Origin$ Exile | Destination$ Hand | Hidden$ True
+ColorIdentity:G
+OriginSet:G9f95a41d532c0550
+ManaCost:G G
+Types:Creature Human Werewolf
+PT:3/3
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDraw | TriggerZones$ Battlefield | CheckSVar$ PackTactics | SVarCompare$ GE6 | NoResolvingCheck$ True
+A:AB$ Animate | Cost$ 3 G | Defined$ Self | Power$ 5 | Toughness$ 3 | Keywords$ Trample | RemoveTypes$ Human
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+SVar:PackTactics:Count$Valid Creature.attacking$CardPower

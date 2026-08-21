@@ -1,9 +1,11 @@
 Id:14427
-ColorIdentity:U
+ColorIdentity:G
 OriginSet:Gd3737676789056fe
-ManaCost:4 U U
-Types:Creature Elemental
-PT:5/5
-K:Trample
-S:Mode$ CantAttack | ValidCard$ Card.Self | IsPresent$ Mountain | PresentCompare$ EQ0
-SVar:BuffedBy:Mountain
+ManaCost:X G G
+Types:Creature Plant Hydra
+PT:0/0
+K:etbCounter:P1P1:X
+SVar:X:Count$xPaid
+T:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigDig
+SVar:TrigDig:DB$ Dig | DigNum$ X | Reveal$ True | ChangeNum$ 1 | ChangeValid$ Permanent.nonLand+cmcLEX | DestinationZone$ Battlefield | LibraryPosition2$ 0 | SubAbility$ DBShuffle | Optional$ True | RestRandomOrder$ True
+SVar:DBShuffle:DB$ Shuffle | Defined$ You

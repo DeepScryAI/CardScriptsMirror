@@ -1,9 +1,11 @@
 Id:23532
-ColorIdentity:G
+ColorIdentity:W
 OriginSet:G1a259dba25660062
-ManaCost:1 G
-Types:Creature Human Samurai
-PT:2/2
-T:Mode$ Blocks | ValidCard$ Card.Self | Execute$ TrigPump
-T:Mode$ AttackerBlocked | ValidCard$ Card.Self | Execute$ TrigPump | Secondary$ True
-SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +1 | NumDef$ +1
+ManaCost:2 W
+Types:Artifact Creature Equipment Kirin
+PT:3/2
+K:Flying
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddKeyword$ Flying | AddReplacementEffect$ YouCantLose & OppCantWin
+SVar:YouCantLose:Event$ GameLoss | ValidPlayer$ You | Layer$ CantHappen
+SVar:OppCantWin:Event$ GameWin | ValidPlayer$ Opponent | Layer$ CantHappen
+K:Reconfigure:5

@@ -1,9 +1,14 @@
 Id:23390
-ColorIdentity:WUBRG
-OriginSet:Ga4d5d94d587eb185
-ManaCost:3 G
-Types:Legendary Enchantment Creature Shrine
-PT:3/4
-A:AB$ ChangeZone | Cost$ W U B R G T | ValidTgts$ Enchantment.YouOwn | Origin$ Graveyard | Destination$ Battlefield
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | TriggerZones$ Battlefield | ValidCard$ Card.Self,Shrine.!token+Other+YouCtrl | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 232526705
+ColorIdentity:R
+OriginSet:Gbe3783f336562357
+ManaCost:3 R
+Types:Creature Wolf
+PT:4/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | Choices$ DBTarget,DBDelayTrig
+SVar:DBTarget:DB$ Pump | ValidTgts$ Wolf.Other+YouCtrl,Werewolf.Other+YouCtrl | AILogic$ Fight | SubAbility$ DBFight
+SVar:DBFight:DB$ Fight | Defined$ ParentTarget | ValidTgts$ Creature.YouDontCtrl
+SVar:DBDelayTrig:DB$ DelayedTrigger | Mode$ SpellCast | ValidCard$ Wolf,Werewolf | ValidActivatingPlayer$ You | Execute$ TrigAnimate
+SVar:TrigAnimate:DB$ Animate | Defined$ TriggeredCardLKICopy | Duration$ Permanent | Triggers$ ETBFight
+SVar:ETBFight:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigFight
+SVar:TrigFight:DB$ Fight | Defined$ TriggeredCardLKICopy | ValidTgts$ Creature.YouDontCtrl | TargetMin$ 0 | TargetMax$ 1

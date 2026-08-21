@@ -1,7 +1,12 @@
 Id:5534
-ColorIdentity:U
+ColorIdentity:B
 OriginSet:Ge4af4f9459d5dadd
-ManaCost:3 U
-Types:Sorcery
-A:SP$ ChangeZone | Origin$ Battlefield | Destination$ Hand | ValidTgts$ Creature | SubAbility$ DBBounce
-SVar:DBBounce:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | ValidTgts$ Land
+ManaCost:3 B B
+Types:Legendary Creature Human Minion
+PT:3/3
+S:Mode$ Continuous | Affected$ Creature.Nightmare | AddPower$ 1 | AddToughness$ 1
+A:AB$ ChangeZone | Cost$ B B B PayLife<3> | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True | ValidTgts$ Creature | ChangeNum$ 1 | StaticEffect$ Animate
+SVar:Animate:Mode$ Continuous | Affected$ Card.IsRemembered | AddType$ Nightmare | SetColor$ Black
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZoneAll | Origin$ Battlefield | Destination$ Exile | ChangeType$ Nightmare
+SVar:PlayMain1:TRUE

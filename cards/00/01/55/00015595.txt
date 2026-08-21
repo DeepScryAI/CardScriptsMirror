@@ -1,10 +1,13 @@
 Id:15595
-ColorIdentity:G
+ColorIdentity:
 OriginSet:Gec9609c94c5b1cdf
-ManaCost:1 G G
-Types:Creature Elemental
-PT:2/2
-R:Event$ DamageDone | ActiveZones$ Battlefield | ValidTarget$ Card.Self+counters_GE1_P1P1 | ReplaceWith$ DBRemoveCounters | PreventionEffect$ True | AlwaysReplace$ True
-SVar:DBRemoveCounters:DB$ RemoveCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ 1
+ManaCost:10
+Types:Legendary Creature Eldrazi
+PT:10/10
+T:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZone | ValidTgts$ Permanent | TargetMin$ 2 | TargetMax$ 2 | Origin$ Battlefield | Destination$ Exile
+K:Indestructible
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigExile
+SVar:TrigExile:DB$ Dig | Defined$ TriggeredDefendingPlayer | DestinationZone$ Exile | DigNum$ 20 | ChangeNum$ All
+SVar:PlayMain1:TRUE
+SVar:HasAttackEffect:TRUE

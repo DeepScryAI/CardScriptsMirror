@@ -1,7 +1,13 @@
 Id:6573
-ColorIdentity:G
+ColorIdentity:
 OriginSet:G983da6aa108b8f13
 ManaCost:1
 Types:Artifact
-A:AB$ Animate | Cost$ G Sac<1/CARDNAME> | ValidTgts$ Land | Power$ 3 | Toughness$ 3 | Types$ Creature
-A:AB$ Draw | Cost$ 1 Sac<1/CARDNAME> | NumCards$ 1
+A:AB$ NameCard | Cost$ 2 T | Defined$ You | SubAbility$ DBGuess
+SVar:DBGuess:DB$ GenericChoice | ValidTgts$ Opponent | Choices$ GuessInHand,GuessNotInHand | AILogic$ Random | ShowChoice$ True | Guess$ True
+SVar:GuessInHand:DB$ RevealHand | Defined$ You | Optional$ True | RememberRevealedPlayer$ True | SubAbility$ DBInHandDraw
+SVar:GuessNotInHand:DB$ RevealHand | Defined$ You | Optional$ True | RememberRevealedPlayer$ True | SubAbility$ DBNotInHandDraw
+SVar:DBInHandDraw:DB$ Draw | Defined$ You | ConditionPlayerDefined$ Remembered | ConditionPlayerContains$ You | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ0 | SubAbility$ DBCleanup
+SVar:DBNotInHandDraw:DB$ Draw | Defined$ You | ConditionPlayerDefined$ Remembered | ConditionPlayerContains$ You | ConditionCheckSVar$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$ValidHand Card.NamedCard

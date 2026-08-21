@@ -1,9 +1,14 @@
 Id:24311
-ColorIdentity:B
+ColorIdentity:G
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:3 B
-Types:Creature Horror
-PT:2/4
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | ChangeType$ Card | DefinedPlayer$ Opponent | Mandatory$ True | Hidden$ True | Duration$ UntilHostLeavesPlay | IsCurse$ True
-S:Mode$ Continuous | MayPlay$ True | MayPlayIgnoreColor$ True | Affected$ Card.ExiledWithSource | AffectedZone$ Exile
+ManaCost:3 G
+Types:Creature Dwarf Druid
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Library | Hidden$ True | ChangeNum$ 2 | ChangeType$ Land.Basic | Destination$ Library | RememberChanged$ True | Reveal$ True | Shuffle$ False | SubAbility$ DBRollDice
+SVar:DBRollDice:DB$ RollDice | Sides$ 20 | ResultSubAbilities$ 1-9:TutuDaDome,10-19:WonTwoField,Else:ToFourField
+SVar:TutuDaDome:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Card.IsRemembered | ChangeNum$ 2 | SubAbility$ DBCleanup
+SVar:WonTwoField:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | Tapped$ True | ChangeType$ Card.IsRemembered | ChangeNum$ 1 | ForgetChanged$ True | NoShuffle$ True | SubAbility$ WonTwoDome
+SVar:WonTwoDome:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Card.IsRemembered | ChangeNum$ 1 | SubAbility$ DBCleanup
+SVar:ToFourField:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | Tapped$ True | ChangeType$ Card.IsRemembered | ChangeNum$ 2 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

@@ -1,11 +1,15 @@
 Id:27876
-ColorIdentity:R
+ColorIdentity:UR
 OriginSet:G30e8a5e111cffb44
-ManaCost:3 R
-Types:Legendary Creature Human Detective
-PT:3/3
-A:AB$ Dig | Cost$ T | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | RememberObjects$ Remembered | Duration$ UntilYourNextEndStep | SubAbility$ DBCleanup | ForgetOnMoved$ Exile
-SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+ManaCost:U R
+Types:Enchantment Saga
+K:Chapter:3:DBInvestigate,DBInvestigate,DBDamage
+SVar:DBInvestigate:DB$ Investigate
+SVar:DBDamage:DB$ DealDamage | Defined$ Opponent | NumDmg$ 1 | SubAbility$ DBBranch
+SVar:DBBranch:DB$ Branch | BranchConditionSVar$ X | BranchConditionSVarCompare$ LE0 | TrueSubAbility$ DBDraw | FalseSubAbility$ DBCastAgain
+SVar:X:PlayerCountOpponents$LowestLifeTotal
+SVar:DBDraw:DB$ Draw | NumCards$ 7
+SVar:DBCastAgain:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | Defined$ Self | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ Self | StaticAbilities$ Play | SubAbility$ DBCleanup
+SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-K:Doctor's companion

@@ -1,7 +1,14 @@
 Id:5035
-ColorIdentity:WR
+ColorIdentity:UBG
 OriginSet:Ga43915481c3b48d8
-ManaCost:3 W
-Types:Creature Human Soldier Knight
-PT:2/3
-A:AB$ Pump | Cost$ R | Defined$ Self | NumAtt$ +1
+ManaCost:3 G
+Types:Creature Volver
+PT:3/3
+K:Kicker:1 U:B
+K:ETBReplacement:Other:VolverStrength:Mandatory::Card.Self+kicked 1
+K:ETBReplacement:Other:VolverPumped:Mandatory::Card.Self+kicked 2
+SVar:VolverStrength:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 2 | ETB$ True | SubAbility$ VolverLaunch
+SVar:VolverLaunch:DB$ Animate | Defined$ Self | Keywords$ Flying | Duration$ Permanent
+SVar:VolverPumped:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | ETB$ True | SubAbility$ VolverResilience
+SVar:VolverResilience:DB$ Animate | Defined$ Self | Abilities$ ABRegen | Duration$ Permanent
+SVar:ABRegen:AB$ Regenerate | Cost$ PayLife<3>

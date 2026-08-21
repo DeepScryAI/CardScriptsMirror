@@ -1,9 +1,10 @@
 Id:33228
-ColorIdentity:B
-OriginSet:G7ab1fe96128a1641
-ManaCost:B
-Types:Instant
-S:Mode$ OptionalCost | EffectZone$ All | ValidCard$ Card.Self | ValidSA$ Spell | Cost$ Blight<1>
-A:SP$ Destroy | ValidTgts$ Creature.cmcLE2 | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | LifeAmount$ 2 | ConditionCheckSVar$ X
-SVar:X:Count$OptionalGenericCostPaid.1.0
+ColorIdentity:W
+OriginSet:G530ea9d733a13e9d
+ManaCost:2 W
+Types:Legendary Creature Human Rebel Warlock
+PT:2/4
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPumpAll
+SVar:TrigPumpAll:DB$ PumpAll | ValidCards$ Creature.YouCtrl+withFlying | NumAtt$ +1 | NumDef$ +1 | KW$ Vigilance
+T:Mode$ ChangesZoneAll | ValidCards$ Creature.attacking+YouCtrl | Origin$ Battlefield | Destination$ Graveyard | TriggerZones$ Battlefield | OptionalDecider$ You | ResolvedLimit$ 1 | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | ChangeNum$ 1 | Destination$ Battlefield | Hidden$ True | Tapped$ True | ChooseFromDefined$ TriggeredCards | Mandatory$ True | WithCountersType$ Flying

@@ -1,9 +1,13 @@
 Id:18907
-ColorIdentity:R
-OriginSet:G586a4ae96288ce18
-ManaCost:5 R
-Types:Enchantment
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.!token+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigFlipCoin
-SVar:TrigFlipCoin:DB$ FlipCoin | FlipUntilYouLose$ True | WinSubAbility$ DBCopies
-SVar:DBCopies:DB$ CopyPermanent | PumpKeywords$ Haste | AtEOT$ Exile | Defined$ TriggeredCardLKICopy | NumCopies$ Wins
-SVar:MirrorAmount:Number$0
+ColorIdentity:WB
+OriginSet:G0852bdaf94eef605
+ManaCost:1 W B
+Types:Legendary Planeswalker Kaya
+Loyalty:3
+A:AB$ ChangeZone | Cost$ AddCounter<1/LOYALTY> | Origin$ Graveyard | Destination$ Exile | TargetMin$ 0 | TargetMax$ 2 | TargetsWithSameController$ True | ValidTgts$ Card | Planeswalker$ True | SubAbility$ DBGainLife | RememberChanged$ True
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2 | ConditionDefined$ Remembered | ConditionPresent$ Creature | ConditionCompare$ GE1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+A:AB$ ChangeZone | Cost$ SubCounter<1/LOYALTY> | Planeswalker$ True | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Permanent.nonLand+cmcLE1
+A:AB$ DealDamage | Cost$ SubCounter<5/LOYALTY> | Planeswalker$ True | Ultimate$ True | ValidTgts$ Player | RememberTargets$ True | NumDmg$ X | SubAbility$ DBYouGainLife
+SVar:DBYouGainLife:DB$ GainLife | Defined$ You | LifeAmount$ X
+SVar:X:Count$ValidExile Card.RememberedPlayerOwn

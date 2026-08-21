@@ -1,9 +1,11 @@
 Id:7292
-ColorIdentity:W
+ColorIdentity:U
 OriginSet:G332b6b8a53f3d107
-ManaCost:1 W
-Types:Creature Zubera Spirit
-PT:1/2
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigGainLife
-SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ X
-SVar:X:Count$ThisTurnEntered_Graveyard_from_Battlefield_Card.Zubera/Twice
+ManaCost:1 U U
+Types:Instant Arcane
+A:SP$ Draw | Defined$ You | NumCards$ 2 | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ TgtChoose | SubAbility$ DBUnspeakable
+SVar:DBUnspeakable:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Card.catalogId7319 | ChangeNum$ 1 | ConditionCheckSVar$ PeerReachTotal | ConditionSVarCompare$ EQ2 | ShuffleNonMandatory$ True
+SVar:PeerReachTotal:SVar$Peer/Plus.Reach
+SVar:Peer:Count$ThisTurnCast_Card.YouCtrl+catalogId7257/LimitMax.1
+SVar:Reach:Count$ThisTurnCast_Card.YouCtrl+catalogId7266/LimitMax.1

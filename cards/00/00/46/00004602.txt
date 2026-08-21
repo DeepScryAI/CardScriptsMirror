@@ -1,7 +1,9 @@
 Id:4602
-ColorIdentity:U
+ColorIdentity:UB
 OriginSet:Gfb91362c2efb868e
-ManaCost:1 U
-Types:Instant
-A:SP$ ChangeZone | ValidTgts$ Permanent | Origin$ Battlefield | Destination$ Hand | AITgts$ Card.SharesColorWith MostProminentColor | ConditionCheckSVar$ X
-SVar:X:Targeted$Valid Card.SharesColorWith MostProminentColor
+ManaCost:2 U B
+Types:Sorcery
+A:SP$ Pump | ValidTgts$ Creature | TargetMin$ 2 | TargetMax$ 2 | TargetUnique$ True | TargetsWithSameController$ True | IsCurse$ True | SubAbility$ DBChooseSac
+SVar:DBChooseSac:DB$ ChooseCard | DefinedCards$ Targeted | Defined$ TargetedController | SubAbility$ DBSac | AILogic$ WorstCard
+SVar:DBSac:DB$ SacrificeAll | Defined$ ChosenCard | SubAbility$ DBBounce
+SVar:DBBounce:DB$ ChangeZone | Defined$ Targeted.!ChosenCard | Origin$ Battlefield | Destination$ Hand

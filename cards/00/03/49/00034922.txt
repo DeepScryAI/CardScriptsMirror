@@ -1,0 +1,12 @@
+Id:34922
+ColorIdentity:G
+OriginSet:Gf8f2990d7136c11d
+ManaCost:3 G G
+Types:Legendary Creature Bear Shapeshifter Warrior
+PT:6/6
+K:Trample
+S:Mode$ Continuous | Affected$ Bear.Other+YouCtrl | AddPower$ 2 | AddToughness$ 2
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | Execute$ TrigPutCounter | TriggerZones$ Battlefield
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | TargetMin$ 0 | TargetMax$ 1 | CounterType$ Trample | CounterNum$ 1 | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Targeted | Types$ Bear | Duration$ Permanent | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ 2 | ConditionPresent$ Bear.YouCtrl | ConditionCompare$ GE3

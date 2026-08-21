@@ -1,18 +1,10 @@
 Id:17382
-ColorIdentity:R
+ColorIdentity:W
 OriginSet:Gaa482ed186eee527
-ManaCost:2 R R
-Types:Creature Dragon
-PT:6/5
-K:Flying
-K:Haste
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | Execute$ TrigChoose | TriggerZones$ Battlefield
-SVar:TrigChoose:DB$ ChoosePlayer | Defined$ You | Choices$ Player.Opponent+!IsRemembered | Random$ True | ChooseSubAbility$ DBPump | CantChooseSubAbility$ DBTap
-SVar:DBPump:DB$ Effect | Defined$ Self | StaticAbilities$ AttackChosen | Duration$ UntilEndOfCombat
-SVar:AttackChosen:Mode$ MustAttack | ValidCreature$ Card.EffectSource | MustAttack$ ChosenPlayer
-SVar:DBTap:DB$ Tap | Defined$ Self | SubAbility$ DBCleanup
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigClearRem | Static$ True
-SVar:TrigClearRem:DB$ Cleanup | ClearRemembered$ True | SubAbility$ TrigRemember
-SVar:TrigRemember:DB$ Pump | RememberObjects$ TriggeredDefendingPlayer
-T:Mode$ Phase | Phase$ EndCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ DBCleanup | IsPresent$ Card.!attackedThisTurn+Self | Static$ True
-SVar:DBCleanup:DB$ Cleanup | ClearChosenPlayer$ True | ClearRemembered$ True
+ManaCost:2 W
+Types:Instant
+A:SP$ Effect | Duration$ UntilYourNextTurn | StaticAbilities$ STCantChange | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ You | Duration$ UntilYourNextTurn | KW$ Protection:Everything | SubAbility$ DBPhases
+SVar:STCantChange:Mode$ CantChangeLife | ValidPlayer$ You
+SVar:DBPhases:DB$ Phases | Defined$ Valid Permanent.YouCtrl | SubAbility$ DBChange
+SVar:DBChange:DB$ ChangeZone | Origin$ Stack | Destination$ Exile

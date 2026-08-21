@@ -1,0 +1,13 @@
+Id:35065
+ColorIdentity:BR
+OriginSet:Gf8f2990d7136c11d
+ManaCost:1 BR BR
+Types:Legendary Creature Goblin Noble
+PT:3/2
+T:Mode$ CounterPlayerAddedAll | ValidObject$ Goblin.YouCtrl+inRealZoneBattlefield,Orc.YouCtrl+inRealZoneBattlefield,Army.YouCtrl+inRealZoneBattlefield | ValidSource$ You | TriggerZones$ Battlefield | Execute$ TrigDealDamage
+SVar:TrigDealDamage:DB$ DealDamage | ValidTgts$ Opponent | NumDmg$ 2
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Goblin.Other+YouCtrl,Orc.Other+YouCtrl,Army.Other+YouCtrl | Execute$ TrigExile
+SVar:TrigExile:DB$ Dig | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ Play | ForgetOnMoved$ Exile | Duration$ UntilTheEndOfYourNextTurn | SubAbility$ DBCleanup
+SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

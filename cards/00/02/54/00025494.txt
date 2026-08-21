@@ -1,13 +1,8 @@
 Id:25494
-ColorIdentity:WU
+ColorIdentity:
 OriginSet:G2e872aaf9b98489e
-ManaCost:2 W U
-Types:Legendary Planeswalker Jace
-Loyalty:3
-K:Space sculptor
-A:AB$ Effect | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | StaticAbilities$ SectorBlock
-SVar:SectorBlock:Mode$ CantBlockBy | ValidAttacker$ Creature | ValidBlockerRelative$ Creature.DifferentSector
-A:AB$ ChooseSector | Cost$ SubCounter<1/LOYALTY> | Planeswalker$ True | SubAbility$ DBPutCounterAll | AILogic$ Pump
-SVar:DBPutCounterAll:DB$ PutCounterAll | ValidCards$ Creature.ChosenSector | CounterType$ P1P1
-A:AB$ ChooseSector | Cost$ SubCounter<5/LOYALTY> | Planeswalker$ True | Ultimate$ True | SubAbility$ DBDestroyAll | AILogic$ Destroy
-SVar:DBDestroyAll:DB$ DestroyAll | ValidCards$ Creature.ChosenSector
+ManaCost:no cost
+Types:Artifact Attraction
+K:Visit:TrigRes
+SVar:TrigRes:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouOwn | SubAbility$ DBHaste
+SVar:DBHaste:DB$ Animate | Defined$ Targeted | Keywords$ Haste | Duration$ Permanent | AtEOT$ YourExile

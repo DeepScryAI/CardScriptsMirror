@@ -1,9 +1,15 @@
 Id:22442
-ColorIdentity:G
-OriginSet:G9f95a41d532c0550
-ManaCost:3 G
-Types:Creature Beast
-PT:3/3
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ Morbid | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
-SVar:Morbid:Count$Morbid.1.0
+ColorIdentity:WG
+OriginSet:G92f7f9489fec5865
+ManaCost:G W
+Types:Legendary Creature Human Archer
+PT:2/2
+K:FirstStrike
+K:Reach
+T:Mode$ Attacks | ValidCard$ Creature.Self | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ Y
+SVar:Y:Count$Valid Equipment.Attached
+A:AB$ DealDamage | Cost$ 1 SubCounter<All/P1P1/NICKNAME> | NumDmg$ X | ValidTgts$ Creature.attacking+OppCtrl,Creature.blocking+OppCtrl
+SVar:X:SVar$CostCountersRemoved
+SVar:HasAttackEffect:TRUE
+SVar:EquipMe:Multiple

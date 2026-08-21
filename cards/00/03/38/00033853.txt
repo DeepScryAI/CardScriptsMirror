@@ -1,8 +1,12 @@
 Id:33853
-ColorIdentity:W
-OriginSet:Gf8df2bea26dc6b68
-ManaCost:1 W
-Types:Instant
-A:SP$ Tap | ValidTgts$ Creature | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | Defined$ Targeted | CounterType$ Stun | CounterNum$ 1 | ConditionPlayerTurn$ True | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw
+ColorIdentity:R
+OriginSet:Gf04404de3fa1525e
+ManaCost:1 R
+Types:Creature Goblin Bard
+PT:2/2
+K:Menace
+T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBMana
+SVar:DBMana:DB$ Mana | Produced$ R | Amount$ Y | ConditionCheckSVar$ X | ConditionSVarCompare$ GE5
+SVar:X:TriggeredCard$CastTotalManaSpent
+SVar:Y:Count$CardPower

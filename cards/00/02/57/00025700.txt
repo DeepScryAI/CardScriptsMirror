@@ -1,10 +1,12 @@
 Id:25700
-ColorIdentity:B
+ColorIdentity:G
 OriginSet:G06ccef4324c14725
-ManaCost:2 B
-Types:Creature Human Soldier
-PT:3/2
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump
-SVar:TrigPump:AB$ Pump | Cost$ Sac<1/Creature.Other;Artifact.Other/another creature or artifact> | Defined$ Self | KW$ Flying
-SVar:AIPreference:SacCost$Artifact.token,Creature.Other+cmcLE2+withoutFlying,Artifact.cmcEQ1
-SVar:HasAttackEffect:TRUE
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ LandTapped | ReplacementResult$ Updated
+SVar:LandTapped:DB$ Tap | Defined$ Self | ETB$ True | ConditionPresent$ Creature.Legendary+YouCtrl+Green | ConditionCompare$ EQ0
+A:AB$ Mana | Cost$ T | Produced$ G
+A:AB$ Token | Cost$ 2 G G T | TokenScriptIds$ 3783868715 | SorcerySpeed$ True | SubAbility$ DBMill
+SVar:DBMill:DB$ Mill | NumCards$ 3 | Defined$ You
+MeldPairId:25911
+AlternateMode:Meld

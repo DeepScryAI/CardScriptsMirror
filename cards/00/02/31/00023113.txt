@@ -1,11 +1,11 @@
 Id:23113
-ColorIdentity:R
-OriginSet:G3aa323ca47c740b1
-ManaCost:4 R R
-Types:Creature Human Soldier
-PT:4/4
-K:Soulbond
-S:Mode$ Continuous | Affected$ Creature.PairedWith,Creature.Self+Paired | AddTrigger$ PhaseTrigger
-SVar:PhaseTrigger:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigCopy
-SVar:TrigCopy:DB$ CopyPermanent | Defined$ Self | RemoveKeywords$ Soulbond | AddKeywords$ Haste | AtEOT$ ExileCombat
-SVar:BuffedBy:Creature
+ColorIdentity:B
+OriginSet:G7a76c1974b0a33a6
+ManaCost:5 B B
+Types:Creature Demon
+PT:6/6
+K:Flying
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | Execute$ TrigSac | TriggerZones$ Battlefield
+SVar:TrigSac:DB$ Sacrifice | SacValid$ Creature.nonDemon | RememberSacrificed$ True | SubAbility$ DBCopy
+SVar:DBCopy:DB$ CopyPermanent | Defined$ Self | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

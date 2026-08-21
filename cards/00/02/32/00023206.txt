@@ -1,22 +1,12 @@
 Id:23206
-ColorIdentity:G
-OriginSet:G6e75ff4f143a3dc3
-ManaCost:4 G
-Types:Creature Human Werewolf
-PT:3/4
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigToken | Secondary$ True
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 704294417
-K:Daybound
-SVar:HasAttackEffect:TRUE
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:green
-Types:Creature Werewolf
-PT:4/5
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigToken | Secondary$ True
-SVar:TrigToken:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 704294417
-K:Nightbound
-SVar:HasAttackEffect:TRUE
+ColorIdentity:W
+OriginSet:G3aa323ca47c740b1
+ManaCost:2 W W
+Types:Artifact
+T:Mode$ ChangesZone | ValidCard$ Card.Self+wasCast | Origin$ Any | Destination$ Battlefield | Execute$ TrigCopy
+SVar:TrigCopy:DB$ CopyPermanent | ValidTgts$ Opponent | Defined$ Self | Controller$ TargetedPlayer
+T:Mode$ Drawn | ValidCard$ Card.OppOwn | ValidPlayer$ Player.Opponent+Active+controlsArtifact.catalogId23206 | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+T:Mode$ LifeGained | ValidPlayer$ Player.Opponent+Active+controlsArtifact.catalogId23206 | TriggerZones$ Battlefield | Execute$ TrigGainLife
+SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ X
+SVar:X:TriggerCount$LifeAmount

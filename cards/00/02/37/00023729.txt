@@ -1,12 +1,28 @@
 Id:23729
-ColorIdentity:U
-OriginSet:Gd970889168b5769f
-ManaCost:2 U U
-Types:Creature Human Ninja
-PT:2/2
-K:Flash
-S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ 2 | EffectZone$ All | IsPresent$ Instant.YouOwn,Sorcery.YouOwn | PresentZone$ Hand | PresentCompare$ EQ0
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
-SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Instant.YouOwn,Sorcery.YouOwn
-R:Event$ Moved | ValidCard$ Card.Self | Origin$ Battlefield | Destination$ Graveyard | ReplaceWith$ Exile
-SVar:Exile:DB$ ChangeZone | Destination$ Library | Shuffle$ True | Defined$ ReplacedCard
+ColorIdentity:G
+OriginSet:G1a259dba25660062
+ManaCost:1 G
+Types:Enchantment Saga
+K:Chapter:3:DBMill,DBPutCounter,DBTransform
+SVar:DBMill:DB$ Mill | NumCards$ 3 | Defined$ You | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 3432565933
+SVar:DBPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1
+SVar:DBTransform:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | Transformed$ True | GainControl$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:green
+Types:Enchantment Creature Snake Monk
+PT:1/1
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | Choices$ DBExileC,DBExileNonC
+SVar:DBExileC:DB$ ChangeZone | ValidTgts$ Creature | Origin$ Graveyard | Destination$ Exile | RememberChanged$ True | SubAbility$ DBImmediateTrig1
+SVar:DBImmediateTrig1:DB$ ImmediateTrigger | Execute$ TrigToken | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBCleanup
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 3432565933
+SVar:DBExileNonC:DB$ ChangeZone | ValidTgts$ Card.nonCreature | Origin$ Graveyard | Destination$ Exile | RememberChanged$ True | SubAbility$ DBImmediateTrig2
+SVar:DBImmediateTrig2:DB$ ImmediateTrigger | Execute$ TrigPutCounter | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBCleanup
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:HasAttackEffect:TRUE

@@ -2,7 +2,8 @@ Id:12756
 ColorIdentity:G
 OriginSet:Gfd7b72e0eb9d2cf5
 ManaCost:2 G
-Types:Creature Human Shaman
-PT:2/2
-K:Soulbond
-S:Mode$ Continuous | Affected$ Creature.PairedWith,Creature.Self+Paired | AddPower$ 1 | AddToughness$ 1
+Types:Enchantment
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigFerociousDraw
+SVar:TrigFerociousDraw:DB$ Draw | Defined$ You | NumCards$ 1 | ConditionPresent$ Creature.YouCtrl | ConditionCompare$ GE1 | ConditionCheckSVar$ YourFerocity | ConditionSVarCompare$ GEOppsFerocity
+SVar:YourFerocity:Count$Valid Creature.YouCtrl$GreatestCardPower
+SVar:OppsFerocity:Count$Valid Creature.YouDontCtrl$GreatestCardPower

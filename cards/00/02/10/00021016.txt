@@ -1,11 +1,7 @@
 Id:21016
-ColorIdentity:U
-OriginSet:G7b2607750b451c25
-ManaCost:2 U
-Types:Creature Merfolk Wizard
-PT:2/2
-T:Mode$ SpellCast | ValidCard$ Card.YouCtrl+kicked | TriggerZones$ Battlefield | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | Defined$ You | Mode$ TgtChoose | NumCards$ 1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDig
-SVar:TrigDig:DB$ Dig | DigNum$ 5 | ChangeNum$ 1 | Optional$ True | ForceRevealToController$ True | ChangeValid$ Card.withKicker,Card.withMultikicker | RestRandomOrder$ True
+ColorIdentity:R
+OriginSet:Gfd5e6da37c69dc53
+ManaCost:3 R
+Types:Sorcery
+A:SP$ ChangeZone | Origin$ Battlefield | Destination$ Exile | NoRegen$ True | ValidTgts$ Creature | SubAbility$ DBDig
+SVar:DBDig:DB$ DigUntil | Defined$ TargetedController | Valid$ Creature | FoundDestination$ Battlefield | RevealedDestination$ Library | Shuffle$ True

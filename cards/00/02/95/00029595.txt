@@ -1,15 +1,10 @@
 Id:29595
-ColorIdentity:U
+ColorIdentity:WG
 OriginSet:Gac6359c222afbd4f
-ManaCost:1 U
-Types:Creature Drake
-PT:3/2
-K:Flying
-K:Hexproof:Activated:activated abilities
-K:Hexproof:Triggered:triggered abilities
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExchange
-SVar:TrigExchange:DB$ ExchangeControl | Defined$ Self | ValidTgts$ Creature.OppCtrl | RememberExchanged$ True | SubAbility$ Energy
-SVar:Energy:DB$ PutCounter | ConditionDefined$ Remembered | ConditionPresent$ Card | Defined$ You | CounterType$ ENERGY | CounterNum$ 4 | SubAbility$ Sacrifice
-SVar:Sacrifice:DB$ SacrificeAll | ConditionDefined$ Remembered | ConditionPresent$ Card | Defined$ Targeted | UnlessCost$ PayEnergy<N> | UnlessPayer$ You | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:N:Targeted$CardManaCost
+ManaCost:1 G W
+Types:Creature Fox Samurai
+PT:1/3
+S:Mode$ ReduceCost | ValidCard$ Aura,Equipment | Type$ Spell | Activator$ You | Amount$ X
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPumpAttack
+SVar:TrigPumpAttack:DB$ PumpAll | ValidCards$ Creature.modified+YouCtrl+StrictlyOther | NumAtt$ +X | NumDef$ +X
+SVar:X:Count$CardPower

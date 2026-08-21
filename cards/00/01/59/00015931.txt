@@ -1,18 +1,9 @@
 Id:15931
-ColorIdentity:U
-OriginSet:Gc276c26a85a70470
-ManaCost:3 U
-Types:Creature Human Insect
-PT:3/2
-K:Flying
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigMill
-SVar:TrigMill:DB$ Mill | Defined$ You | RememberMilled$ True | SubAbility$ DBTransform
-SVar:DBTransform:DB$ SetState | Defined$ Self | ConditionDefined$ Remembered | ConditionPresent$ Card.Instant,Card.Sorcery | SubAbility$ DBCleanup | Mode$ Transform
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:blue
-Types:Creature Insect Horror
-PT:5/4
-K:Flying
+ColorIdentity:R
+OriginSet:G92026fbb3573fda5
+ManaCost:3 R R
+Types:Creature Elemental Wolf
+PT:5/5
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDamage
+SVar:TrigDamage:AB$ DealDamage | Cost$ 1 R Discard<1/Card> | ValidTgts$ Creature,Planeswalker | NumDmg$ X
+SVar:X:Discarded$CardManaCost

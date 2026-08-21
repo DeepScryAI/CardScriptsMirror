@@ -1,9 +1,11 @@
 Id:13561
-ColorIdentity:R
-OriginSet:G4773f4feb3f15a2b
-ManaCost:2 R
-Types:Creature Human Warrior
-PT:1/1
-K:Intimidate
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigDiscard | CombatDamage$ True | OptionalDecider$ You
-SVar:TrigDiscard:AB$ Draw | Cost$ Discard<1/Card>
+ColorIdentity:G
+OriginSet:G489334d05947807e
+ManaCost:4 G G
+Types:Legendary Planeswalker Garruk
+Loyalty:4
+A:AB$ Dig | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | DigNum$ 5 | Reveal$ True | ChangeNum$ All | ChangeValid$ Creature
+A:AB$ ChangeZone | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | Origin$ Hand | Destination$ Battlefield | ChangeType$ Creature.Green+YouCtrl | Optional$ True
+A:AB$ Effect | Cost$ SubCounter<7/LOYALTY> | Planeswalker$ True | Ultimate$ True | Name$ 10284692630135603066 | Triggers$ TrigSearch | Duration$ Permanent | AILogic$ Always
+SVar:TrigSearch:Mode$ SpellCast | ValidCard$ Card.Creature | ValidActivatingPlayer$ You | TriggerZones$ Command | OptionalDecider$ You | Execute$ DBSearch
+SVar:DBSearch:DB$ ChangeZone | ChangeType$ Creature | Origin$ Library | Destination$ Battlefield | ShuffleNonMandatory$ True

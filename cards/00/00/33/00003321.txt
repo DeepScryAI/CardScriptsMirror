@@ -3,6 +3,9 @@ ColorIdentity:R
 OriginSet:G24ae8187eacbba52
 ManaCost:R
 Types:Creature Goblin
-PT:1/1
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigChange
-SVar:TrigChange:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | ChangeType$ Permanent.Goblin | ChangeNum$ 1
+PT:2/1
+T:Mode$ Blocks | ValidCard$ Card.Self | ValidBlocked$ Creature | Execute$ ChangeControl
+T:Mode$ Blocks | ValidCard$ Creature | ValidBlocked$ Card.Self | Execute$ ChangeControl | Secondary$ True
+SVar:ChangeControl:DB$ GainControl | Defined$ Self | ValidTgts$ Opponent | SubAbility$ RemCombat
+SVar:RemCombat:DB$ RemoveFromCombat | Defined$ Self
+SVar:SacMe:1

@@ -1,9 +1,12 @@
 Id:24713
 ColorIdentity:U
 OriginSet:G58bfeff4fb121c8e
-ManaCost:1 U
-Types:Artifact Equipment
-T:Mode$ DamageDone | ValidSource$ Creature.EquippedBy | ValidTarget$ Player | CombatDamage$ True | Execute$ DBScry | TriggerZones$ Battlefield
-SVar:DBScry:DB$ Scry | ScryNum$ 1 | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1
-K:Equip:1
+ManaCost:2 U
+Types:Creature Human Wizard
+PT:1/1
+K:Double team
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigConjure
+SVar:TrigConjure:DB$ MakeCard | CatalogId$ 145 | Zone$ Hand | Conjure$ True | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Mode$ TgtChoose
+T:Mode$ ConjureAll | ValidPlayer$ You | ValidCard$ Card | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | CounterType$ P1P1

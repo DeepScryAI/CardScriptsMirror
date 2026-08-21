@@ -1,13 +1,10 @@
 Id:29162
-ColorIdentity:U
+ColorIdentity:WU
 OriginSet:G27146c70b74a1e72
-ManaCost:3 U
-Types:Creature Human Warlock
-PT:1/4
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 432481531 | TokenOwner$ You | RememberTokens$ True | SubAbility$ DBPutCounters
-SVar:DBPutCounters:DB$ PutCounter | Defined$ Remembered | CounterType$ P1P1 | CounterNum$ X | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:SVar$Y/Twice
-SVar:Y:Count$ThisTurnCast_Card.YouCtrl/Minus.1
-K:Plot:4 U
+ManaCost:1 W U
+Types:Artifact Equipment
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Destination$ Battlefield | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | Duration$ UntilHostLeavesPlay
+T:Mode$ Attached | ValidSource$ Card.Self | TriggerZones$ Battlefield | ValidTarget$ Creature | Execute$ TrigClone
+SVar:TrigClone:DB$ Clone | Choices$ Creature.ExiledWithSource | CloneTarget$ TriggeredTargetLKICopy | Duration$ UntilUnattached | ChoiceZone$ Exile
+K:Equip:2

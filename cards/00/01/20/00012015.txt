@@ -1,9 +1,11 @@
 Id:12015
-ColorIdentity:U
+ColorIdentity:B
 OriginSet:G43171707a7efd07b
-ManaCost:3 U
-Types:Creature Phyrexian Human Artificer
+ManaCost:1 B B
+Types:Creature Phyrexian Specter
 PT:1/1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 3084144023 | TokenOwner$ You
-S:Mode$ Continuous | Affected$ Creature.Golem+YouCtrl | AddKeyword$ Flying
+K:Flying
+K:Infect
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | OptionalDecider$ You | Execute$ TrigDiscard | TriggerZones$ Battlefield
+SVar:TrigDiscard:AB$ Discard | Defined$ TriggeredTarget | NumCards$ X | Mode$ TgtChoose | Cost$ Sac<1/CARDNAME>
+SVar:X:TriggeredTarget$Counters.Poison

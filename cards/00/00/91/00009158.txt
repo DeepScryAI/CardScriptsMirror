@@ -1,7 +1,11 @@
 Id:9158
-ColorIdentity:B
+ColorIdentity:R
 OriginSet:Gdf2f562751f0d037
-ManaCost:1 B
-Types:Creature Zombie Spellshaper
-PT:1/1
-A:AB$ Token | Cost$ B T Discard<1/Card> | TokenScriptIds$ 1313484178 | TokenOwner$ You
+ManaCost:2 R R
+Types:Creature Lizard Shaman
+PT:3/2
+K:Suspend:4:R
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChoose
+SVar:TrigChoose:DB$ Charm | Choices$ LoseTime,GainTime
+SVar:LoseTime:DB$ RemoveCounter | ValidTgts$ Permanent.inZoneBattlefield,Card.suspended | AITgts$ Card.counters_GE1_TIME+inZoneBattlefield+YouDontCtrl,Card.suspended+YouCtrl | CounterType$ TIME | CounterNum$ 2 | TgtZone$ Battlefield,Exile
+SVar:GainTime:DB$ PutCounter | ValidTgts$ Permanent.counters_GE1_TIME+inZoneBattlefield,Card.suspended | AITgts$ Card.inZoneBattlefield+YouCtrl,Card.suspended+YouDontCtrl | CounterType$ TIME | CounterNum$ 2 | TgtZone$ Battlefield,Exile

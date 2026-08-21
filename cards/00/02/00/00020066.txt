@@ -1,12 +1,12 @@
 Id:20066
-ColorIdentity:G
+ColorIdentity:WBR
 OriginSet:G23be9f486a22d38a
-ManaCost:1 G
-Types:Creature Elf Archer
-PT:2/2
-K:Flash
-K:Reach
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.nonHuman+Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigImmediateTrig
-SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ X | Execute$ TrigPutCounter
-SVar:X:Count$xPaid
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ X
+ManaCost:3 R W B
+Types:Legendary Creature Human Knight
+PT:5/5
+K:Vigilance
+K:Menace
+T:Mode$ Attacks | ValidCard$ Creature.YouCtrl+equipped | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 1
+S:Mode$ Continuous | Affected$ Equipment.YouCtrl | AddKeyword$ Equip:0:Creature.YouCtrl+Knight:Knight

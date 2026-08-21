@@ -1,15 +1,24 @@
 Id:16015
-ColorIdentity:B
+ColorIdentity:R
 OriginSet:Gc276c26a85a70470
-ManaCost:2 B
-Types:Creature Human
-PT:2/3
-A:AB$ SetState | Cost$ 2 B | Defined$ Self | Mode$ Transform | Activation$ Delirium
+ManaCost:1 R
+Types:Creature Human Shaman Werewolf
+PT:2/1
+T:Mode$ AttackerBlockedByCreature | ValidCard$ Creature | ValidBlocker$ Card.Self | Execute$ TrigDamageAttacker
+T:Mode$ AttackerBlockedByCreature | ValidCard$ Card.Self | ValidBlocker$ Creature | Execute$ TrigDamageBlocker | Secondary$ True
+SVar:TrigDamageAttacker:DB$ DealDamage | Defined$ TriggeredAttackerLKICopy | NumDmg$ 1
+SVar:TrigDamageBlocker:DB$ DealDamage | Defined$ TriggeredBlockerLKICopy | NumDmg$ 1
+T:Mode$ Phase | Phase$ Upkeep | WerewolfTransformCondition$ True | TriggerZones$ Battlefield | Execute$ TrigTransform
+SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform
 AlternateMode:DoubleFaced
 ALTERNATE
 ManaCost:no cost
-Colors:black
-Types:Creature Human Shaman
-PT:4/3
-T:Mode$ Transformed | ValidCard$ Card.Self | Execute$ TrigDestroy | OptionalDecider$ You
-SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Creature
+Colors:red
+Types:Creature Werewolf
+PT:3/2
+T:Mode$ AttackerBlockedByCreature | ValidCard$ Creature | ValidBlocker$ Card.Self | Execute$ TrigDamageAttacker
+T:Mode$ AttackerBlockedByCreature | ValidCard$ Card.Self | ValidBlocker$ Creature | Execute$ TrigDamageBlocker | Secondary$ True
+SVar:TrigDamageAttacker:DB$ DealDamage | Defined$ TriggeredAttackerLKICopy | NumDmg$ 2
+SVar:TrigDamageBlocker:DB$ DealDamage | Defined$ TriggeredBlockerLKICopy | NumDmg$ 2
+T:Mode$ Phase | Phase$ Upkeep | WerewolfUntransformCondition$ True | TriggerZones$ Battlefield | Execute$ TrigTransform
+SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform

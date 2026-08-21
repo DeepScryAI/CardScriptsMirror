@@ -1,8 +1,16 @@
 Id:21140
 ColorIdentity:U
-OriginSet:G72c9c624ceb92bff
-ManaCost:2 U
+OriginSet:G7b2607750b451c25
+ManaCost:4 U U U
 Types:Sorcery
-K:Kicker:2 U
-A:SP$ Draw | NumCards$ X
-SVar:X:Count$Kicked.3.2
+A:SP$ Draw | NumCards$ X | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STHandSize | Duration$ Permanent
+SVar:STHandSize:Mode$ Continuous | Affected$ You | SetMaxHandSize$ Unlimited
+SVar:X:Count$ValidHand Card.YouOwn/Plus.1
+AlternateMode:Modal
+ALTERNATE
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ DBTap | ReplacementResult$ Updated
+SVar:DBTap:DB$ Tap | ETB$ True | Defined$ Self | UnlessCost$ PayLife<3> | UnlessPayer$ You
+A:AB$ Mana | Cost$ T | Produced$ U

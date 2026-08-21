@@ -1,10 +1,12 @@
 Id:16243
 ColorIdentity:B
 OriginSet:G70d19654882197c9
-ManaCost:2 B
-Types:Legendary Enchantment
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSac
-SVar:TrigSac:DB$ Sacrifice | Defined$ Opponent | SacValid$ Creature
-T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | CheckSVar$ X | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 353162950 | TokenOwner$ You
-SVar:X:Count$ThisTurnEntered_Battlefield_Planeswalker.YouCtrl
+ManaCost:4 B B
+Types:Creature Zombie
+PT:0/0
+K:etbCounter:P1P1:5
+T:Mode$ SpellCast | TriggerZones$ Battlefield | Execute$ TrigRemoveCounter
+SVar:TrigRemoveCounter:DB$ RemoveCounter | CounterType$ P1P1 | CounterNum$ 1 | RememberRemoved$ True | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 353162950 | TokenOwner$ You | ConditionCheckSVar$ CounterX | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:CounterX:Count$RememberedSize

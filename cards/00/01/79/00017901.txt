@@ -1,8 +1,16 @@
 Id:17901
-ColorIdentity:U
+ColorIdentity:
 OriginSet:G84be946b27d900a1
-ManaCost:1 U
-Types:Creature Human Pirate Wizard
-PT:1/1
-K:Ascend
-A:AB$ AddTurn | Cost$ 2 U U T PutCardToLibFromBattlefield<1/-1/CARDNAME> | NumTurns$ 1 | Activation$ Blessing
+ManaCost:4
+Types:Artifact Creature Golem
+PT:4/4
+K:Defender
+A:AB$ Fight | Cost$ 2 | Defined$ Self | ValidTgts$ Creature.YouCtrl+Other | SubAbility$ DBDelayedTrigger
+SVar:DBDelayedTrigger:DB$ DelayedTrigger | Mode$ ChangesZone | RememberObjects$ Self | ValidCard$ Card.IsTriggerRemembered | Origin$ Battlefield | Destination$ Graveyard | ThisTurn$ True | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Defined$ DelayTriggerRemembered | Origin$ Graveyard | Destination$ Battlefield | Transformed$ True | GainControl$ True
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Types:Land
+A:AB$ Mana | Cost$ T | Produced$ Any | Amount$ 2
+A:AB$ Token | Cost$ 4 T | TokenScriptIds$ 1249346449

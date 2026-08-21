@@ -1,10 +1,27 @@
 Id:26831
-ColorIdentity:WR
-OriginSet:G3601f5e223de6c7f
-ManaCost:X R W
-Types:Sorcery
-A:SP$ Token | TokenAmount$ X | TokenScriptIds$ 912495912 | TokenOwner$ You | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | Triggers$ TrigDamage
-SVar:TrigDamage:Mode$ DamageAll | ValidSource$ Creature.YouCtrl | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigMonarch
-SVar:TrigMonarch:DB$ BecomeMonarch
-SVar:X:Count$xPaid
+ColorIdentity:G
+OriginSet:G06757f68e16377c2
+ManaCost:3 G G
+Types:Legendary Creature Phyrexian Praetor
+PT:6/6
+K:Trample
+K:Reach
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Forest | ChangeNum$ 2
+A:AB$ ChangeZone | Cost$ 6 G G | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn | SorcerySpeed$ True
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | Transformed$ True | ForgetOtherRemembered$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:green
+Types:Enchantment Saga
+K:Chapter:3:DBMill,DBPutCounter,DBFight
+SVar:DBMill:DB$ Mill | NumCards$ 10 | RememberMilled$ True | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Graveyard | Hidden$ True | Destination$ Battlefield | ChangeType$ Creature.IsRemembered | ChangeNum$ 2 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:DBPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 7 | TargetMin$ 0 | TargetMax$ 7 | DividedAsYouChoose$ 7
+SVar:DBFight:DB$ AnimateAll | ValidCards$ Creature.YouCtrl | Abilities$ Fight | Duration$ UntilEndOfTurn | SubAbility$ DBExileSelf | Ultimate$ True
+SVar:Fight:AB$ Fight | Cost$ 1 | Defined$ Self | ValidTgts$ Creature.YouDontCtrl
+SVar:DBExileSelf:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | SubAbility$ DBReturnSelf | RememberChanged$ True
+SVar:DBReturnSelf:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | SubAbility$ DBCleanup

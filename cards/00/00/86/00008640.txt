@@ -1,10 +1,10 @@
 Id:8640
-ColorIdentity:U
+ColorIdentity:B
 OriginSet:G70f74088c47d66bd
-ManaCost:7 U U U
-Types:Creature Kraken
-PT:6/6
-S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self
-K:Suspend:9:2 U
-T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ Opponent | Execute$ TrigRemoveCounter | TriggerZones$ Exile | IsPresent$ Card.Self+suspended | PresentZone$ Exile
-SVar:TrigRemoveCounter:DB$ RemoveCounter | Defined$ Self | CounterType$ TIME | CounterNum$ 1
+ManaCost:1 B
+Types:Creature Zombie Fungus
+PT:1/1
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ SPORE | CounterNum$ 1
+A:AB$ Token | Cost$ SubCounter<3/SPORE> | TokenScriptIds$ 3815350479 | TokenOwner$ You
+A:AB$ Pump | Cost$ Sac<1/Saproling> | ValidTgts$ Creature | NumAtt$ -1 | NumDef$ -1 | IsCurse$ True

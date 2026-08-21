@@ -1,9 +1,17 @@
 Id:23138
-ColorIdentity:W
-OriginSet:G6e75ff4f143a3dc3
-ManaCost:1 W W
-Types:Sorcery
-A:SP$ Pump | ValidTgts$ Creature | NumAtt$ +3 | NumDef$ +3 | KW$ Vigilance | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | NumAtt$ +2 | NumDef$ +2 | KW$ Vigilance | TargetUnique$ True | SubAbility$ DBPump2
-SVar:DBPump2:DB$ Pump | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | NumAtt$ +1 | NumDef$ +1 | KW$ Vigilance | TargetUnique$ True | SubAbility$ DBPump3
-SVar:DBPump3:DB$ Pump | Defined$ Targeted | KW$ Vigilance
+ColorIdentity:U
+OriginSet:G7a76c1974b0a33a6
+ManaCost:1 U
+Types:Legendary Creature Human Advisor
+PT:0/2
+A:AB$ Draw | Cost$ T | NumCards$ 1 | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | ChangeType$ Card | ChangeNum$ 1 | ExileFaceDown$ True | WithMayLook$ True | Mandatory$ True | SubAbility$ DBTransform
+SVar:DBTransform:DB$ SetState | UnlessCost$ 4 U U | UnlessSwitched$ True | UnlessPayer$ You | Defined$ Self | Mode$ Transform
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:blue
+Types:Legendary Enchantment
+T:Mode$ Phase | Phase$ Upkeep | TriggerZones$ Battlefield | ValidPlayer$ You | Execute$ TrigExile
+SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | ExileFaceDown$ True | WithMayLook$ True
+S:Mode$ Continuous | EffectZone$ Battlefield | Affected$ Card.ExiledWithSource | AffectedZone$ Exile | MayPlay$ True | MayPlayLimit$ 1 | MayPlayWithoutManaCost$ True

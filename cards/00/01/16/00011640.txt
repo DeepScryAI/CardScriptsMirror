@@ -1,13 +1,8 @@
 Id:11640
-ColorIdentity:G
+ColorIdentity:B
 OriginSet:Gc046eafa1d269dd1
-ManaCost:3 G G
-Types:Creature Phyrexian Horror
-PT:5/3
-K:Trample
-K:Haste
-K:Infect
-T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | Execute$ TrigSac
-SVar:TrigSac:DB$ Sacrifice | SacValid$ Self
-SVar:EndOfTurnLeavePlay:True
-SVar:PlayMain1:TRUE
+ManaCost:1 B
+Types:Sorcery
+A:SP$ Discard | ValidTgts$ Player | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Defined$ Parent | Origin$ Stack | Destination$ Hand | ConditionDefined$ Remembered | ConditionPresent$ Land | ConditionCompare$ EQ1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

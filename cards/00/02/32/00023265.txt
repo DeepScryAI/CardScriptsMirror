@@ -1,20 +1,10 @@
 Id:23265
-ColorIdentity:U
+ColorIdentity:W
 OriginSet:G6e75ff4f143a3dc3
-ManaCost:1 U
-Types:Artifact
-K:etbCounter:OMEN:3
-A:AB$ Dig | Cost$ 1 U T | DigNum$ 2 | DestinationZone$ Graveyard | NoReveal$ True | LibraryPosition2$ 0
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Graveyard | ValidCard$ Card.Creature+!token+YouOwn | TriggerZones$ Battlefield | Execute$ TrigRemoveCounter
-SVar:TrigRemoveCounter:DB$ RemoveCounter | Defined$ Self | CounterType$ OMEN | CounterNum$ 1 | SubAbility$ DBTransform
-SVar:DBTransform:DB$ SetState | ConditionPresent$ Card.Self+counters_EQ0_OMEN | Defined$ Self | Mode$ Transform
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:blue
+ManaCost:1 W
 Types:Creature Spirit
-PT:3/2
-K:Flying
-S:Mode$ CantBlockBy | ValidAttacker$ Creature.withoutFlying | ValidBlocker$ Creature.Self
-A:AB$ Draw | Cost$ 3 U | NumCards$ 2 | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ TgtChoose
+PT:3/1
+A:AB$ Pump | Cost$ W ExileFromGrave<3/Card> | Defined$ Self | KW$ FirstStrike
+A:AB$ ChangeZone | Cost$ Discard<1/Card> | Defined$ Self | Origin$ Battlefield | Destination$ Exile | SubAbility$ DelTrig | RememberChanged$ True
+SVar:DelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ TrigReturn | ConditionDefined$ Remembered | ConditionPresent$ Card | RememberObjects$ Remembered
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Exile | Destination$ Battlefield | Defined$ DelayTriggerRememberedLKI

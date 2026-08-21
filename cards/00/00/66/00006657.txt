@@ -1,9 +1,8 @@
 Id:6657
-ColorIdentity:U
+ColorIdentity:
 OriginSet:G983da6aa108b8f13
-ManaCost:4 U
-Types:Enchantment
-R:Event$ Draw | ReplaceWith$ DBChooseOpp | ActiveZones$ Battlefield
-SVar:DBChooseOpp:DB$ ChoosePlayer | Defined$ ReplacedPlayer | Choices$ Player.OpponentOf ReplacedPlayer | AILogic$ Curse | SubAbility$ DBExile | DontNotify$ True
-SVar:DBExile:DB$ Dig | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | ExileFaceDown$ True | Defined$ Player.Chosen | DefinedExiler$ ReplacedPlayer
-S:Mode$ Continuous | MayPlayPlayer$ Exiler | MayLookAt$ True | MayPlay$ True | Affected$ Card.ExiledWithSource | AffectedZone$ Exile
+ManaCost:3
+Types:Artifact
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self,Artifact.Other | Execute$ TrigPutCounter
+A:AB$ Draw | Cost$ 3 T SubCounter<1/CHARGE> | NumCards$ 1
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ CHARGE | CounterNum$ 1

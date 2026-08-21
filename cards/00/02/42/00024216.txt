@@ -1,17 +1,13 @@
 Id:24216
-ColorIdentity:G
+ColorIdentity:W
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:5 G
-Types:Creature Badger
-PT:6/5
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGainLife
-SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 3
-AlternateMode:Adventure
-ALTERNATE
-ManaCost:1 G
-Types:Sorcery Adventure
-A:SP$ Mill | NumCards$ 4 | RememberMilled$ True | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ X | SubAbility$ DBCleanup
+ManaCost:4 W
+Types:Legendary Creature Human Warrior
+PT:4/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | Hidden$ True | ChangeType$ Permanent.Other+nonLand+YouCtrl | ChangeNum$ MaxTgts | RememberLKI$ True | Duration$ UntilHostLeavesPlay | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenAmount$ X | TokenScriptIds$ 1214250791 | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Remembered$Valid Creature
-SVar:PlayMain1:TRUE
+SVar:X:Remembered$Amount
+SVar:MaxTgts:Count$Valid Permanent.Other+nonLand+YouCtrl
+K:Choose a Background

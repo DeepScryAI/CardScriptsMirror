@@ -1,11 +1,11 @@
 Id:4002
 ColorIdentity:R
 OriginSet:Gdd40b2fbd2aa3c03
-ManaCost:3 R
-Types:Instant
-A:SP$ ChooseType | Defined$ You | Type$ Card | SubAbility$ DBReveal
-SVar:DBReveal:DB$ RevealHand | RememberRevealed$ True | ValidTgts$ Opponent | SubAbility$ DBDamage
-SVar:DBDamage:DB$ DealDamage | Defined$ Targeted | NumDmg$ X | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:SVar$Y/Times.3
-SVar:Y:Remembered$Valid Card.ChosenType
+ManaCost:2 R
+Types:Creature Dog
+PT:1/1
+T:Mode$ DamageDoneOnce | ValidTarget$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter | OptionalDecider$ You
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ X
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigRemove
+SVar:TrigRemove:DB$ RemoveCounterAll | ValidCards$ Card.Self | CounterType$ P1P1 | AllCounters$ True
+SVar:X:TriggerCount$DamageAmount

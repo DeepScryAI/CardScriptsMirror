@@ -1,10 +1,17 @@
 Id:32260
-ColorIdentity:R
+ColorIdentity:WG
 OriginSet:G9946f072b5556073
-ManaCost:2 R R
-Types:Legendary Creature Kavu Pilot
-PT:3/5
-S:Mode$ Continuous | Affected$ Creature.YouCtrl+Other | AddKeyword$ Haste
-S:Mode$ Continuous | Affected$ Artifact.YouOwn,Creature.Red+YouOwn | EffectZone$ Battlefield | AffectedZone$ Hand | AddKeyword$ Warp:2 R
+ManaCost:X G W
+Types:Legendary Artifact Creature Construct
+PT:0/1
+K:Trample
+K:etbCounter:P1P1:Y:no Condition
+SVar:X:Count$xPaid
+SVar:Y:Count$CastTotalManaSpent
+SVar:Z:Count$RememberedNumber
+T:Mode$ AttackersDeclared | AttackingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigCounters | OptionalDecider$ You
+SVar:TrigCounters:DB$ RemoveCounter | CounterType$ P1P1 | Choices$ Creature.YouCtrl+counters_GE1_P1P1 | ChoiceNum$ 2 | RememberAmount$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | ConditionCheckSVar$ Z | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | ConditionCheckSVar$ Z | TokenScriptIds$ 1668469659 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
 SVar:PlayMain1:TRUE
-SVar:BuffedBy:Creature

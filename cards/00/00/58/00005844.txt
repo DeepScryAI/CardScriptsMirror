@@ -1,9 +1,11 @@
 Id:5844
-ColorIdentity:R
+ColorIdentity:W
 OriginSet:G0eb5e52d26fe1c23
-ManaCost:2 R
-Types:Instant
-A:SP$ Animate | ValidTgts$ Creature.YouCtrl | Triggers$ TrigDamage
-SVar:TrigDamage:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ Damage | OptionalDecider$ You
-SVar:Damage:DB$ DealDamage | ValidTgts$ Creature.ControlledBy TriggeredTarget | NumDmg$ CommandoRaidX
-SVar:CommandoRaidX:Count$CardPower
+ManaCost:3 W
+Types:Enchantment
+K:ETBReplacement:Other:ChooseCT
+SVar:ChooseCT:DB$ ChooseType | Defined$ You | Type$ Creature | AILogic$ MostProminentOppControls
+A:AB$ Effect | Cost$ 1 W | ReplacementEffects$ RPreventNextFromCreature
+SVar:RPreventNextFromCreature:Event$ DamageDone | ValidSource$ Card.ChosenType+inZoneBattlefield | ValidTarget$ You | ReplaceWith$ ExileEffect | PreventionEffect$ True
+SVar:ExileEffect:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile
+SVar:NonStackingEffect:True

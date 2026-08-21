@@ -1,8 +1,10 @@
 Id:29847
-ColorIdentity:B
-OriginSet:Gf09b85bbcc27770c
-ManaCost:3 B
-Types:Instant
-A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Hand | TargetMin$ 0 | TargetMax$ 2 | ValidTgts$ Creature.YouOwn | SubAbility$ DBDrain
-SVar:DBDrain:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 2 | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2
+ColorIdentity:WRG
+OriginSet:G01a610e823cce3ca
+ManaCost:3 R G W
+Types:Legendary Creature God Warrior
+PT:6/6
+S:Mode$ Continuous | Affected$ Card.Self | IsPresent$ Card.Historic+YouOwn | PresentZone$ Graveyard | PresentCompare$ GE4 | AddKeyword$ Indestructible
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self,Creature.Legendary+YouCtrl+Other | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | ValidTgts$ Creature.Legendary+cmcLTX+YouOwn | Origin$ Graveyard | Destination$ Battlefield | Tapped$ True
+SVar:X:TriggeredCard$CardManaCost

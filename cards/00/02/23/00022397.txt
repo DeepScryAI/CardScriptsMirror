@@ -1,17 +1,10 @@
 Id:22397
-ColorIdentity:WUB
-OriginSet:G92f7f9489fec5865
-ManaCost:2 W U B
-Types:Legendary Creature Horror
-PT:3/5
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ DBRepeat
-SVar:DBRepeat:DB$ RepeatEach | RepeatPlayers$ Player.Opponent | RepeatSubAbility$ DBChoose | SubAbility$ DBCleanup
-SVar:DBChoose:DB$ ChooseCard | Defined$ You | MinAmount$ 0 | Amount$ 1 | Choices$ Creature.untapped+YouCtrl | ChoiceTitleAppend$ Defined Player.IsRemembered | ChoiceZone$ Battlefield | SubAbility$ DBTap
-SVar:DBTap:DB$ Tap | Defined$ ChosenCard | SubAbility$ DBImmediateTrigger
-SVar:DBImmediateTrigger:DB$ ImmediateTrigger | RememberObjects$ ChosenCard & Player.IsRemembered | ConditionDefined$ ChosenCard | ConditionPresent$ Card | ConditionCompare$ GE1 | Execute$ TrigGainControl | TrigDescReminderDefined$ Player.IsRemembered
-SVar:TrigGainControl:DB$ GainControl | ValidTgts$ Creature.powerLEX+ControlledBy DelayTriggerRemembered | LoseControl$ LeavesPlay,LoseControl
-SVar:X:TriggerRemembered$CardPower
-SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
-T:Mode$ Attacks | ValidCard$ Creature.YouCtrl+OppOwn | TriggerZones$ Battlefield | Execute$ TrigGain
-SVar:TrigGain:DB$ GainLife | LifeAmount$ 2 | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 2 | Defined$ TriggeredAttackerOwner
+ColorIdentity:U
+OriginSet:Geb2cf181996ee3b2
+ManaCost:4 U
+Types:Creature Vedalken Wizard
+PT:2/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 798446951,4234112114 | TokenOwner$ You
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigCopy
+SVar:TrigCopy:DB$ CopyPermanent | ValidTgts$ Permanent.token+YouCtrl

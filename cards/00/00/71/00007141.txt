@@ -1,10 +1,11 @@
 Id:7141
-ColorIdentity:B
+ColorIdentity:W
 OriginSet:G332b6b8a53f3d107
-ManaCost:4 B
-Types:Legendary Creature Spirit
-PT:3/2
-K:Flying
-A:AB$ Discard | Cost$ 1 Sac<1/Spirit> | ValidTgts$ Opponent | SorcerySpeed$ True | NumCards$ 1 | Mode$ RevealYouChoose
-K:Soulshift:4
-SVar:AIPreference:SacCost$Creature.Spirit+token,Creature.Spirit+cmcLE2
+ManaCost:3 W
+Types:Creature Spirit
+PT:1/4
+A:AB$ PeekAndReveal | Cost$ 1 | NoReveal$ True
+A:AB$ PeekAndReveal | Cost$ 2 | ActivationLimit$ 1 | NoPeek$ True | RememberRevealed$ True | SubAbility$ DBUntap
+SVar:DBUntap:DB$ Untap | Defined$ Self | SubAbility$ DBPump | ConditionDefined$ Remembered | ConditionPresent$ Card.Land
+SVar:DBPump:DB$ Pump | Defined$ Self | NumAtt$ +1 | NumDef$ +1 | SubAbility$ DBCleanup | ConditionDefined$ Remembered | ConditionPresent$ Card.Land
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

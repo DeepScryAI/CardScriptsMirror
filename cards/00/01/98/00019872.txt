@@ -1,13 +1,9 @@
 Id:19872
-ColorIdentity:RG
+ColorIdentity:U
 OriginSet:G23be9f486a22d38a
-ManaCost:3 R G
-Types:Sorcery
-A:SP$ Dig | DestinationZone$ Exile | DigNum$ 5 | ChangeNum$ All | RememberChanged$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | Name$ 9155503163015387821 | RememberObjects$ RememberedCard | ForgetOnMoved$ Exile | StaticAbilities$ Play | Duration$ UntilTheEndOfYourNextTurn | SubAbility$ DBEffect2
-SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
-SVar:DBEffect2:DB$ Effect | Name$ 8266691884525685346 | StaticAbilities$ Exploration | AILogic$ Always | SubAbility$ DBCleanup
-SVar:Exploration:Mode$ Continuous | Affected$ You | AdjustLandPlays$ 1
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:NeedsToPlayVar:ZZ GE1
-SVar:ZZ:Count$ValidHand Land.YouOwn
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ LandTapped | ReplacementResult$ Updated
+SVar:LandTapped:DB$ Tap | Defined$ Self | ETB$ True | ConditionPresent$ Island.YouCtrl | ConditionCompare$ EQ0
+A:AB$ Mana | Cost$ T | Produced$ U
+A:AB$ Scry | Cost$ 2 U U T | ScryNum$ 2

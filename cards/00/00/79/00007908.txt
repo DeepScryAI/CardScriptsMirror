@@ -1,8 +1,10 @@
 Id:7908
-ColorIdentity:R
+ColorIdentity:W
 OriginSet:Gc563c209d627c4c5
-ManaCost:2 R
+ManaCost:6 W W
 Types:Instant
-A:SP$ DealDamage | ValidTgts$ Any | NumDmg$ 4 | DamageMap$ True | SubAbility$ DBDealDamage
-SVar:DBDealDamage:DB$ DealDamage | Defined$ You | NumDmg$ 2 | SubAbility$ DBDamageResolve
-SVar:DBDamageResolve:DB$ DamageResolve
+K:Convoke
+A:SP$ Effect | ReplacementEffects$ RepDmg
+SVar:RepDmg:Event$ DamageDone | ValidSource$ Creature.inZoneBattlefield | ReplaceWith$ GainLifeYou | PreventionEffect$ True
+SVar:GainLifeYou:DB$ GainLife | Defined$ You | LifeAmount$ X
+SVar:X:ReplaceCount$DamageAmount

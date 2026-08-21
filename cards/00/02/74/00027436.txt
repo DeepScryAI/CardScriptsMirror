@@ -1,7 +1,11 @@
 Id:27436
-ColorIdentity:B
-OriginSet:G7579344e30f8be85
-ManaCost:2 B
-Types:Instant
-A:SP$ Destroy | ValidTgts$ Creature.cmcLE3 | SubAbility$ DBFood
-SVar:DBFood:DB$ Token | TokenScriptIds$ 134855612 | ConditionPlayerTurn$ True
+ColorIdentity:
+OriginSet:G4e034c55e7afd8b4
+ManaCost:2
+Types:Legendary Artifact
+S:Mode$ ManaConvert | ValidPlayer$ You | ValidCard$ Creature.YouCtrl+inZoneBattlefield | ValidSA$ Activated | ManaConversion$ AnyType->AnyColor
+S:Mode$ Continuous | Affected$ Creature.YouCtrl+counters_GE1_P1P1 | EffectZone$ Battlefield | GainsAbilitiesOf$ Creature.ExiledWithSource | GainsAbilitiesOfZones$ Exile
+A:AB$ ChangeZone | Cost$ T | Origin$ Graveyard | Destination$ Exile | RememberChanged$ True | ValidTgts$ Card | SubAbility$ TrigImmediateTrig
+SVar:TrigImmediateTrig:DB$ ImmediateTrigger | ConditionDefined$ Remembered | ConditionPresent$ Creature | ConditionCompare$ GE1 | Execute$ TrigPutCounter | SubAbility$ DBCleanup
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

@@ -1,8 +1,10 @@
 Id:4073
-ColorIdentity:G
+ColorIdentity:B
 OriginSet:Gdd40b2fbd2aa3c03
-ManaCost:2 G G
-Types:Creature Beast
+ManaCost:3 B
+Types:Creature Horror
 PT:4/4
-T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ 1 | TargetingPlayer$ TriggeredDefendingPlayer
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ChangeType$ Creature | DefinedPlayer$ Player.Other | ChangeNum$ 1 | Hidden$ True | Optional$ True
+SVar:NeedsToPlayVar:Z EQ0
+SVar:Z:Count$ValidGraveyard Creature.OppOwn+powerGT4+toughnessGT4

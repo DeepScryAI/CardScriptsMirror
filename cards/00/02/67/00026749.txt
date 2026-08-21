@@ -1,9 +1,15 @@
 Id:26749
-ColorIdentity:R
-OriginSet:G997e3b19a1e94e85
-ManaCost:3 R
-Types:Sorcery
-A:SP$ Charm | Choices$ BatheInDragonfire,HordelingOutburst,SarkhansTriumph | Defined$ You
-SVar:BatheInDragonfire:DB$ DealDamage | ValidTgts$ Creature | NumDmg$ 4
-SVar:HordelingOutburst:DB$ Token | TokenAmount$ 3 | TokenScriptIds$ 1112542976 | TokenOwner$ You
-SVar:SarkhansTriumph:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Creature.Dragon | ChangeNum$ 1
+ColorIdentity:WU
+OriginSet:G06757f68e16377c2
+ManaCost:1 U
+Types:Creature Human Knight
+PT:2/1
+A:AB$ SetState | Cost$ 3 WP | Defined$ Self | Mode$ Transform | SorcerySpeed$ True | AILogic$ Always
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:white,blue
+Types:Creature Phyrexian Knight
+PT:3/3
+T:Mode$ AttackerBlockedByCreature | ValidCard$ Card.Self | ValidBlocker$ Creature | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ TriggeredBlockerLKICopy | NumAtt$ -1 | NumDef$ -1

@@ -1,9 +1,10 @@
 Id:16719
-ColorIdentity:G
+ColorIdentity:WG
 OriginSet:Gd31f94cf3a5f78e4
-ManaCost:1 G
-Types:Creature Elf Soldier
-PT:2/2
-K:Trample
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | IsPresent$ Planeswalker.Ajani+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ 1
+ManaCost:2 G W
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSearch | OptionalDecider$ You
+SVar:TrigSearch:DB$ ChangeZone | Origin$ Library | OriginAlternative$ Graveyard | Destination$ Hand | ChangeType$ Card.YouOwn+catalogId16721 | Optional$ True
+A:AB$ ChooseCard | Cost$ Sac<1/CARDNAME> | Choices$ Creature | Mandatory$ True | AILogic$ NeedsPrevention | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | ReplacementEffects$ RPreventNextFromSource | RememberObjects$ ChosenCard | ExileOnMoved$ Battlefield
+SVar:RPreventNextFromSource:Event$ DamageDone | IsCombat$ True | ValidSource$ Card.IsRemembered | Prevent$ True

@@ -1,11 +1,10 @@
 Id:12120
 ColorIdentity:U
 OriginSet:Gcf233112e9f1fe8c
-ManaCost:3 U U
-Types:Legendary Planeswalker Jace
-Loyalty:4
-A:AB$ Draw | Cost$ AddCounter<1/LOYALTY> | Defined$ You | SubAbility$ DBMill | Planeswalker$ True
-SVar:DBMill:DB$ Mill | ValidTgts$ Player | NumCards$ 1
-A:AB$ Mill | Cost$ AddCounter<0/LOYALTY> | ValidTgts$ Player | NumCards$ 10 | Planeswalker$ True
-A:AB$ Draw | Cost$ SubCounter<7/LOYALTY> | ValidTgts$ Player | TargetMin$ 0 | TargetMax$ MaxTgt | NumCards$ 20 | Planeswalker$ True | Ultimate$ True
-SVar:MaxTgt:PlayerCountPlayers$Amount
+ManaCost:1 U U
+Types:Creature Vedalken Wizard
+PT:2/2
+A:AB$ Discard | Cost$ U T | Defined$ Player | RememberDiscarded$ True | Mode$ Hand | SubAbility$ WindfallDraw
+SVar:WindfallDraw:DB$ Draw | Defined$ Player | NumCards$ X | SubAbility$ WindfallCleanup
+SVar:WindfallCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:PlayerCountPlayers$HighestValidGraveyard,Library,Exile Card.IsRemembered+YouOwn

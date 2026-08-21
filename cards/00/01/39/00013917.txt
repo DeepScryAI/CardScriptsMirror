@@ -1,13 +1,9 @@
 Id:13917
-ColorIdentity:U
+ColorIdentity:B
 OriginSet:G6645ca87da6316d5
-ManaCost:2 U U
-Types:Instant
-A:SP$ RemoveFromCombat | Defined$ Valid Creature.attacking | ActivationPhases$ Declare Blockers | OpponentTurn$ True | RememberRemovedFromCombat$ True | SubAbility$ DBUntap
-SVar:DBUntap:DB$ Untap | Defined$ Remembered | SubAbility$ DBAddPhase
-SVar:DBAddPhase:DB$ AddPhase | ExtraPhase$ Combat | AfterPhase$ EndCombat | SubAbility$ DBDelayedEffect
-SVar:DBDelayedEffect:DB$ DelayedTrigger | Mode$ Phase | Phase$ BeginCombat | Execute$ DBEffect | Static$ True
-SVar:DBEffect:DB$ Effect | RememberObjects$ Remembered | StaticAbilities$ STCantAttack,STMustAttack | SubAbility$ DBCleanup | Duration$ UntilEndOfCombat
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:STCantAttack:Mode$ CantAttack | ValidCard$ Creature.IsRemembered | Target$ You,Planeswalker.YouCtrl
-SVar:STMustAttack:Mode$ MustAttack | ValidCreature$ Creature.IsRemembered
+ManaCost:4 B
+Types:Creature Horror
+PT:4/4
+S:Mode$ CantBlockBy | ValidAttacker$ Card.Self+attacking | CheckSVar$ X | SVarCompare$ EQY
+SVar:X:Count$Valid Creature.DefenderCtrl
+SVar:Y:PlayerCountPlayers$HighestValid Creature.YouCtrl

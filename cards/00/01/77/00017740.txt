@@ -1,8 +1,12 @@
 Id:17740
 ColorIdentity:G
 OriginSet:G1b9a73841edd3e32
-ManaCost:3 G
-Types:Creature Goblin Rigger
-PT:3/3
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigAssemble
-SVar:TrigAssemble:DB$ AssembleContraption
+ManaCost:X X G G
+Types:Creature Hydra Dog
+PT:0/0
+K:ETBReplacement:Other:RollCounters
+SVar:X:Count$xPaid
+SVar:RollCounters:DB$ RollDice | Amount$ X | ETB$ True | ResultSVar$ Result | SubAbility$ DBCounters
+SVar:DBCounters:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ Result | ETB$ True
+K:Reach
+K:Trample

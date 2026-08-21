@@ -1,14 +1,12 @@
 Id:8344
-ColorIdentity:BR
+ColorIdentity:WU
 OriginSet:Gde6d8130c178f566
-ManaCost:1 B R
-Types:Creature Ogre Warrior
-PT:3/4
-T:Mode$ DamageDoneOnce | ValidTarget$ Card.Self | Execute$ TrigYouDiscard
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Hellbent$ True | Execute$ TrigOppDiscard
-SVar:TrigYouDiscard:DB$ Discard | Defined$ You | NumCards$ X | Mode$ TgtChoose
-SVar:TrigOppDiscard:DB$ Discard | Defined$ TriggeredTarget | NumCards$ X | Mode$ TgtChoose
-SVar:X:TriggerCount$DamageAmount
-SVar:NeedsToPlayVar:Y LE2
-SVar:Y:Count$CardsInYourHand
-SVar:BuffedBy:Card
+ManaCost:1 W W U U
+Types:Legendary Creature Sphinx
+PT:3/6
+K:Flying
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigNameCard | TriggerZones$ Battlefield
+SVar:TrigNameCard:DB$ NameCard | Defined$ You | AILogic$ MostProminentInHumanDeck | SubAbility$ DBRevealHand
+SVar:DBRevealHand:DB$ RevealHand | Defined$ TriggeredTarget | RememberRevealed$ True | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Creature.withFlying+YouCtrl | ChangeNum$ 1 | Shuffle$ True | ConditionDefined$ Remembered | ConditionPresent$ Card.NamedCard | ConditionCompare$ GE1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

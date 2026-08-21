@@ -1,10 +1,19 @@
 Id:12535
-ColorIdentity:B
+ColorIdentity:U
 OriginSet:G12585413ffc93ad8
-ManaCost:1 B
+ManaCost:3 U U
+Types:Creature Spirit
+PT:1/3
+K:Flying
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | OptionalDecider$ You | Execute$ TrigTransform | TriggerZones$ Battlefield
+SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform | RememberChanged$ True | SubAbility$ DBAttach
+SVar:DBAttach:DB$ Attach | ValidTgts$ Creature.ControlledBy TriggeredTarget | AILogic$ GainControl | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:blue
 Types:Enchantment Aura
 K:Enchant:Creature
-SVar:AttachAILogic:Curse
-T:Mode$ DamageDoneOnce | ValidTarget$ Card.AttachedBy | TriggerZones$ Battlefield | Execute$ TrigDealDamage
-SVar:TrigDealDamage:DB$ DealDamage | Defined$ TriggeredTargetController | NumDmg$ X | DamageSource$ TriggeredTarget
-SVar:X:TriggerCount$DamageAmount
+SVar:AttachAILogic:GainControl
+S:Mode$ Continuous | Affected$ Card.EnchantedBy | GainControl$ You

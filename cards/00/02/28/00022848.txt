@@ -1,11 +1,14 @@
 Id:22848
-ColorIdentity:W
+ColorIdentity:R
 OriginSet:Gf78628ad511eefec
-ManaCost:1 W W
-Types:Creature Human Soldier
-PT:3/3
-K:Ward:1
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | DayTime$ Neither | ReplaceWith$ DoDay | ReplacementResult$ Updated
-SVar:DoDay:DB$ DayTime | Value$ Day
-T:Mode$ DayTimeChanges | Execute$ TrigDig | TriggerZones$ Battlefield
-SVar:TrigDig:DB$ Dig | ForceRevealToController$ True | DigNum$ 4 | ChangeNum$ 1 | Optional$ True | ChangeValid$ Creature.cmcLE3
+ManaCost:1 R
+Types:Creature Vampire
+PT:2/2
+K:Haste
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPay
+SVar:TrigPay:AB$ ImmediateTrigger | Cost$ Mana<2 R\NumTimes> | Announce$ NumTimes | ConditionCheckSVar$ NumTimes | RememberSVarAmount$ NumTimes | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ X | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | TargetMin$ 0 | TargetMax$ X | ValidTgts$ Instant.cmcLE3+YouOwn,Sorcery.cmcLE3+YouOwn | RememberChanged$ True | SubAbility$ DBCopyCast
+SVar:DBCopyCast:DB$ Play | Valid$ Card.IsRemembered | ValidZone$ Exile | Controller$ You | CopyCard$ True | WithoutManaCost$ True | ValidSA$ Spell | Optional$ True | Amount$ All | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$TriggerRememberAmount

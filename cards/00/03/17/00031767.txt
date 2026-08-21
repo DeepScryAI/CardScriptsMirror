@@ -1,13 +1,10 @@
 Id:31767
-ColorIdentity:UB
-OriginSet:G7ab4f62d323b0ca7
-ManaCost:U B
-Types:Legendary Creature Human Wizard
-PT:1/4
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Artifact.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigSurveil
-SVar:TrigSurveil:DB$ Surveil | Amount$ 1
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ X | SVarCompare$ GE4 | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Creature.YouOwn | RememberChanged$ True | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | Defined$ Player.Opponent | ConditionCheckSVar$ X | ConditionSVarCompare$ GE8 | LifeAmount$ Remembered$CardPower | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$Valid Artifact.YouCtrl
+ColorIdentity:W
+OriginSet:G530ea9d733a13e9d
+ManaCost:1 W
+Types:Creature Human Soldier
+PT:1/2
+K:Flying
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.Other+attacking | KW$ Flying
+S:Mode$ ReduceCost | ValidTarget$ Card.Self | ValidSpell$ Activated.Equip | Activator$ You | Amount$ 2

@@ -1,15 +1,12 @@
 Id:26748
-ColorIdentity:
-OriginSet:G997e3b19a1e94e85
-ManaCost:6
-Types:Artifact Equipment
-K:Equip:4
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 4 | AddToughness$ 4 | AddSVar$ SwordOfFireAndIceCE | AddKeyword$ Protection:White & Protection:Blue & Protection:Red
-T:Mode$ DamageDone | ValidSource$ Creature.EquippedBy | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDealDamage | TriggerZones$ Battlefield
-SVar:TrigDealDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 2 | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1 | SubAbility$ DBWar
-SVar:DBWar:DB$ DealDamage | Defined$ TriggeredTarget | NumDmg$ X | SubAbility$ DBGain
-SVar:X:TriggeredTarget$CardsInHand
-SVar:DBGain:DB$ GainLife | Defined$ You | LifeAmount$ Y
-SVar:Y:Count$CardsInYourHand
-SVar:SwordOfFireAndIceCE:SVar:MustBeBlocked:AttackingPlayerConservative
+ColorIdentity:U
+OriginSet:G06757f68e16377c2
+ManaCost:1 U
+Types:Creature Human Wizard
+PT:1/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigCharm | Secondary$ True
+SVar:TrigCharm:DB$ Charm | Choices$ DBLoot,DBShuffle
+SVar:DBLoot:DB$ Draw | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ TgtChoose
+SVar:DBShuffle:DB$ ChangeZone | Origin$ Graveyard | Destination$ Library | ValidTgts$ Card.YouOwn+cmcGE3 | TargetMin$ 0 | TargetMax$ 4 | Shuffle$ True

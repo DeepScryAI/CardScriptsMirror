@@ -1,8 +1,9 @@
 Id:12419
-ColorIdentity:
+ColorIdentity:R
 OriginSet:G12585413ffc93ad8
-ManaCost:3
-Types:Artifact
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
-A:AB$ Mana | Cost$ T | Produced$ Combo Any | Amount$ 2 | RestrictValid$ Spell.wasCastFromGraveyard+withFlashback
+ManaCost:6 R R
+Types:Sorcery
+A:SP$ Pump | ValidTgts$ Creature.OppCtrl | RememberTargets$ True | SubAbility$ AlphaAttack
+SVar:AlphaAttack:DB$ DamageAll | ValidCards$ Creature.!IsRemembered+ControlledBy TargetedController | DamageSource$ Targeted | NumDmg$ Remembered$CardPower | SubAbility$ SucksToBeAlpha
+SVar:SucksToBeAlpha:DB$ EachDamage | ValidCards$ Creature.!IsRemembered+ControlledBy TargetedController | NumDmg$ Count$CardPower | Defined$ Remembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

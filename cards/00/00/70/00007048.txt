@@ -1,11 +1,9 @@
 Id:7048
-ColorIdentity:G
+ColorIdentity:
 OriginSet:Gbbed67f0d6a15b16
-ManaCost:1 G
-Types:Creature Snake
-PT:1/2
-T:Mode$ AttackerBlockedByCreature | ValidCard$ Creature | ValidBlocker$ Card.Self | Execute$ DelTrigBlocked
-T:Mode$ AttackerBlockedByCreature | ValidCard$ Card.Self | ValidBlocker$ Creature | Execute$ DelTrigBlocker | Secondary$ True
-SVar:DelTrigBlocked:DB$ DelayedTrigger | Mode$ Phase | Phase$ EndCombat | ValidPlayer$ Player | Execute$ TrigDestroy | RememberObjects$ TriggeredAttackerLKICopy
-SVar:DelTrigBlocker:DB$ DelayedTrigger | Mode$ Phase | Phase$ EndCombat | ValidPlayer$ Player | Execute$ TrigDestroy | RememberObjects$ TriggeredBlockerLKICopy
-SVar:TrigDestroy:DB$ Destroy | Defined$ DelayTriggerRememberedLKI
+ManaCost:4
+Types:Artifact Creature Construct
+PT:4/4
+T:Mode$ Always | TriggerZones$ Battlefield | IsPresent$ Artifact.Other+YouCtrl | PresentCompare$ EQ0 | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice
+SVar:NeedsToPlay:Artifact.YouCtrl

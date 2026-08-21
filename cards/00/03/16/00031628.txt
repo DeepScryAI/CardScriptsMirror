@@ -1,10 +1,10 @@
 Id:31628
-ColorIdentity:B
-OriginSet:G530ea9d733a13e9d
-ManaCost:5 B
-Types:Sorcery
-A:SP$ Mill | NumCards$ 3 | SubAbility$ DBRepeatEach
-SVar:DBRepeatEach:DB$ RepeatEach | RepeatPlayers$ Player.Opponent | StartingWith$ Opponent | RepeatSubAbility$ OpponentsChoose | SubAbility$ DBChangeZoneAll
-SVar:OpponentsChoose:DB$ ChooseCard | ChoiceZone$ Graveyard | Choices$ Creature.YouOwn+!IsRemembered | Defined$ Player.IsRemembered | RememberChosen$ True
-SVar:DBChangeZoneAll:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered | Origin$ Graveyard | Destination$ Battlefield | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearChosenCard$ True
+ColorIdentity:G
+OriginSet:Gf2b808f4f642ac62
+ManaCost:3 G
+Types:Creature Elephant Druid
+PT:2/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill
+SVar:TrigMill:DB$ Mill | NumCards$ 3 | Defined$ You | Optional$ True
+A:AB$ Mana | Cost$ T | Produced$ G | Amount$ X
+SVar:X:Count$CardPower

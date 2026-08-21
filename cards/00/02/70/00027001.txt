@@ -1,9 +1,13 @@
 Id:27001
-ColorIdentity:B
-OriginSet:G6ce0035cfb774934
-ManaCost:2 B
-Types:Legendary Creature Human Advisor
-PT:1/4
-S:Mode$ CantGainLife | ValidPlayer$ Player.Opponent
-A:AB$ LoseLife | Cost$ T Sac<1/Creature.Other/another creature> | ValidTgts$ Player | LifeAmount$ 1 | SubAbility$ DBAmass
-SVar:DBAmass:DB$ Amass | Type$ Orc | Num$ 2 | ConditionDefined$ Sacrificed | ConditionPresent$ Creature.Legendary
+ColorIdentity:W
+OriginSet:G3601f5e223de6c7f
+ManaCost:4 W
+Types:Legendary Creature Bird Noble
+PT:5/5
+K:Flying
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.attacking | KW$ Flying
+T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | CheckSVar$ LifeGained | SVarCompare$ GE3 | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 3242759488
+SVar:LifeGained:Count$LifeYouGainedThisTurn
+SVar:HasAttackEffect:TRUE

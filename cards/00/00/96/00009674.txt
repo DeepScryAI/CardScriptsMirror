@@ -1,8 +1,11 @@
 Id:9674
-ColorIdentity:U
+ColorIdentity:R
 OriginSet:G0388e25893b1e049
-ManaCost:5 U
-Types:Creature Merfolk Rogue
-PT:2/2
-S:Mode$ CantBlockBy | ValidAttacker$ Creature.Blue+YouCtrl
-SVar:PlayMain1:TRUE
+ManaCost:2 R R
+Types:Creature Giant Warrior
+PT:7/7
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+R:Event$ Untap | ValidCard$ Card.Self | ValidStepTurnToController$ You | Layer$ CantHappen
+T:Mode$ DamageDoneOnce | ValidTarget$ Card.Self | Execute$ TrigUntap
+SVar:TrigUntap:DB$ Untap | Defined$ Self

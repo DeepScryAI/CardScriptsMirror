@@ -1,11 +1,8 @@
 Id:34288
-ColorIdentity:WG
+ColorIdentity:G
 OriginSet:Gcb93bbfc68a40806
-ManaCost:G W
-Types:Legendary Creature Human Noble Hero
-PT:2/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill
-SVar:TrigMill:DB$ Mill | NumCards$ 3 | RememberMilled$ True | SubAbility$ DBChangeZone | Defined$ You
-SVar:DBChangeZone:DB$ ChangeZone | Hidden$ True | Origin$ Graveyard,Exile | Destination$ Hand | ChangeType$ Artifact.IsRemembered,Land.IsRemembered | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-A:AB$ BecomeMonarch | Cost$ 3 ExileFromGrave<1/CARDNAME> | ActivationZone$ Graveyard | IsPresent$ Card.IsCommander+YouOwn+YouCtrl | Defined$ You
+ManaCost:1 G
+Types:Legendary Creature Mutant Villain
+PT:1/3
+A:AB$ Mana | Cost$ T | Produced$ G | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | ConditionPresent$ Mutant.Other+YouCtrl | ConditionCompare$ GE1 | LifeAmount$ 1

@@ -1,12 +1,12 @@
 Id:29885
-ColorIdentity:WB
-OriginSet:Gf09b85bbcc27770c
-ManaCost:W B
-Types:Enchantment
-T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | ValidPlayer$ You | CheckSVar$ X | Execute$ TrigLoseLife
-SVar:TrigLoseLife:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 1
-T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | ValidPlayer$ You | CheckSVar$ Y | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 3356756006 | TokenOwner$ You
-A:AB$ Draw | Cost$ 1 B PayLife<2> | NumCards$ 1
-SVar:X:Count$LifeYouGainedThisTurn
-SVar:Y:PlayerCountPropertyYou$LifeLostThisTurn/Times.X
+ColorIdentity:WUG
+OriginSet:G01a610e823cce3ca
+ManaCost:1 G W U
+Types:Legendary Creature Human Assassin Scientist
+PT:4/4
+K:Vigilance
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSearch
+SVar:TrigSearch:DB$ ChangeZone | OriginAlternative$ Graveyard,Hand | Hidden$ True | Origin$ Library | Destination$ Battlefield | ChangeType$ Card.catalogId29896 | ChangeNum$ 1 | ShuffleNonMandatory$ True
+A:AB$ Mana | Cost$ T | Produced$ C | SubAbility$ DBImmediateTrig
+SVar:DBImmediateTrig:DB$ ImmediateTrigger | Execute$ TrigMill
+SVar:TrigMill:DB$ Mill | NumCards$ 2

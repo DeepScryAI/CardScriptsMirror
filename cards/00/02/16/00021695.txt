@@ -1,9 +1,15 @@
 Id:21695
-ColorIdentity:W
+ColorIdentity:G
 OriginSet:G18bf722b221724f8
-ManaCost:1 W
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:Pump
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 2 | AddToughness$ 2
-A:AB$ ChangeZone | Cost$ 1 W ExileFromGrave<1/CARDNAME> | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Aura.Other.YouOwn,Equipment.YouOwn | ActivationZone$ Graveyard
+ManaCost:2 G G
+Types:Legendary Creature God
+PT:2/4
+S:Mode$ Continuous | Affected$ Card.Self | AddPower$ 4 | AddToughness$ 2 | AddKeyword$ Vigilance | IsPresent$ Creature.Legendary+YouCtrl | PresentCompare$ GE3
+A:AB$ Dig | Cost$ 1 G T | DigNum$ 6 | ChangeNum$ 1 | ChangeValid$ Creature.Legendary | Optional$ True | RestRandomOrder$ True
+AlternateMode:Modal
+ALTERNATE
+ManaCost:1 G
+Types:Legendary Artifact
+K:ETBReplacement:Other:ChooseCT
+SVar:ChooseCT:DB$ ChooseType | Defined$ You | Type$ Creature | AILogic$ MostProminentInComputerDeckNonToken
+A:AB$ Mana | Cost$ T | Produced$ G | RestrictValid$ Spell.Creature+ChosenType,Spell.Creature+Legendary

@@ -1,8 +1,10 @@
 Id:20448
-ColorIdentity:G
+ColorIdentity:WU
 OriginSet:Gfa87e7bbc5a709eb
-ManaCost:2 G G
-Types:Creature Snake Beast
-PT:4/4
-K:Escape:5 G G ExileFromGrave<4/Card.Other/other>
-K:etbCounter:P1P1:3:ValidCard$ Card.Self+escaped
+ManaCost:W U
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 1 | AddToughness$ 1 | AddKeyword$ Lifelink | AddTrigger$ TriggerDamageDone
+SVar:TriggerDamageDone:Mode$ DamageDone | ValidSource$ Card.Self | CombatDamage$ True | ValidTarget$ Player | Execute$ DBDraw
+SVar:DBDraw:DB$ Draw

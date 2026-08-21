@@ -1,9 +1,16 @@
 Id:31729
-ColorIdentity:W
-OriginSet:G7ab4f62d323b0ca7
-ManaCost:3 W
-Types:Creature Moogle
-PT:3/2
+ColorIdentity:WUR
+OriginSet:Gfac9eb8c75f25726
+ManaCost:U R W
+Types:Legendary Creature Bird Monk
+PT:2/4
 K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSearch
-SVar:TrigSearch:DB$ ChangeZone | Origin$ Library | OriginAlternative$ Graveyard | Destination$ Hand | ChangeType$ Artifact.YouOwn+cmcLE2
+K:Vigilance
+K:Haste
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigEffect
+SVar:TrigEffect:DB$ Effect | StaticAbilities$ ReduceCost | ForgetOnCast$ Card.nonCreature+YouCtrl | Duration$ Permanent
+SVar:ReduceCost:Mode$ ReduceCost | Type$ Spell | ValidCard$ Card.nonCreature | Activator$ You | Amount$ 1
+T:Mode$ SpellCast | ValidCard$ Card.YouCtrl | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigExile | ActivatorThisTurnCast$ EQ2
+SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | ValidTgts$ Creature.YouCtrl | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ All | Destination$ Battlefield | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

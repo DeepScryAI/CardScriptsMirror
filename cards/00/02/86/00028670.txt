@@ -1,13 +1,8 @@
 Id:28670
-ColorIdentity:UB
-OriginSet:Ge329d8d60ca65422
-ManaCost:4 U B
-Types:Creature Vampire Detective
-PT:4/4
-K:Flying
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigMill | TriggerZones$ Battlefield
-SVar:TrigMill:DB$ Mill | ValidTgts$ Player | TargetMin$ 0 | TargetMax$ MaxTgt | NumCards$ X | SubAbility$ TrigImmediateTrig
-SVar:TrigImmediateTrig:DB$ ImmediateTrigger | UnlessCost$ CollectEvidence<9> | UnlessPayer$ You | UnlessSwitched$ True | Execute$ TrigCast
-SVar:TrigCast:DB$ Play | ValidTgts$ Card.nonLand+OwnedBy Spawner>TriggeredDefendingPlayer | TgtZone$ Graveyard | ValidSA$ Spell | WithoutManaCost$ True | Optional$ True | AILogic$ ReplaySpell
-SVar:MaxTgt:PlayerCountPlayers$Amount
-SVar:X:TriggerCount$DamageAmount
+ColorIdentity:W
+OriginSet:G7ee0e82a2424d636
+ManaCost:2 W
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Creature.OppCtrl | Duration$ UntilHostLeavesPlay | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ 2

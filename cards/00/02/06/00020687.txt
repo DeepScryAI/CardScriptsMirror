@@ -1,8 +1,9 @@
 Id:20687
 ColorIdentity:W
 OriginSet:Gf8d4de878d0536c5
-ManaCost:2 W
-Types:Creature Human Soldier
-PT:3/2
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPumpAll
-SVar:TrigPumpAll:DB$ PumpAll | ValidCards$ Human.StrictlyOther+YouCtrl | NumAtt$ +1
+ManaCost:2 W W
+Types:Creature Insect
+PT:3/4
+K:Flying
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl+withoutFlying | Execute$ TrigReturn | TriggerZones$ Battlefield
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | Defined$ TriggeredNewCardLKICopy | WithCountersType$ Flying

@@ -1,11 +1,10 @@
 Id:10880
-ColorIdentity:R
+ColorIdentity:B
 OriginSet:G4398040c23c94f0e
-ManaCost:1 R R R
-Types:Creature Elemental
-PT:4/4
-A:AB$ PutCounter | Cost$ 1 R R | IsCurse$ True | ValidTgts$ Land.counters_EQ0_BLAZE | CounterType$ BLAZE | CounterNum$ 1 | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | RememberObjects$ Targeted | StaticAbilities$ ObsidianStatic | ForgetOnMoved$ Battlefield | ForgetCounter$ BLAZE | Duration$ Permanent
-SVar:ObsidianStatic:Mode$ Continuous | Affected$ Card.IsRemembered | AddTrigger$ ObsidianBlazeTrig
-SVar:ObsidianBlazeTrig:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ ObsidianBlazeDmg
-SVar:ObsidianBlazeDmg:DB$ DealDamage | Defined$ You | NumDmg$ 1
+ManaCost:3 B B
+Types:Legendary Creature Demon
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigLose | OptionalDecider$ You
+SVar:TrigLose:DB$ LoseLife | ValidTgts$ Player | LifeAmount$ 3 | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 3
+SVar:BuffedBy:Land

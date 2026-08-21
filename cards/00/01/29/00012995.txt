@@ -1,7 +1,10 @@
 Id:12995
-ColorIdentity:G
+ColorIdentity:UR
 OriginSet:G5449dea2d54987a1
-ManaCost:3 G
+ManaCost:U R
 Types:Instant
-A:SP$ Pump | ValidTgts$ Creature | NumAtt$ +X | NumDef$ +X | KW$ Trample
-SVar:X:Count$Valid Creature.YouCtrl
+A:SP$ Pump | ValidTgts$ Creature.YouDontCtrl | NumAtt$ -2 | RememberPumped$ True | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Effect | StaticAbilities$ MustAttack | RememberObjects$ Remembered | ForgetOnMoved$ Battlefield | SubAbility$ DBCleanup
+SVar:MustAttack:Mode$ MustAttack | ValidCreature$ Card.IsRemembered
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+K:Overload:3 U R

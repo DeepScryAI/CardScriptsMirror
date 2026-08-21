@@ -1,13 +1,13 @@
 Id:8995
 ColorIdentity:W
 OriginSet:Gce1d73449bd71b54
-ManaCost:4 W
-Types:Creature Human Soldier
-PT:4/3
+ManaCost:2 W
+Types:Creature Gargoyle
+PT:3/2
+K:Flash
 K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Hand | ValidCard$ Card.Self,Creature.YouOwn+Other | TriggerZones$ Battlefield | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 1214250791 | TokenOwner$ You
-SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Hidden$ True | ChangeType$ Creature.YouCtrl | ChangeNum$ 2 | Mandatory$ True
-SVar:NeedsToPlayVar:Z GE2
-SVar:Z:Count$Valid Creature.YouCtrl+cmcLE4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Hidden$ True | Mandatory$ True | ChangeType$ Creature.YouCtrl | ChangeNum$ 1 | AILogic$ NeverBounceItself
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange2
+SVar:TrigChange2:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card
+SVar:NeedsToPlay:Creature.YouCtrl+!token

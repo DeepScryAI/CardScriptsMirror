@@ -1,10 +1,16 @@
 Id:31425
-ColorIdentity:U
-OriginSet:Gf2b808f4f642ac62
-ManaCost:2 U
-Types:Creature Djinn Monk
-PT:1/4
-K:Flying
-S:Mode$ ReduceCost | ValidCard$ Card | Type$ Spell | Activator$ You | Amount$ 1 | CheckSVar$ YouCastThisTurn | SVarCompare$ EQ1
-SVar:YouCastThisTurn:Count$ThisTurnCast_Card.YouCtrl
-SVar:PlayMain1:TRUE
+ColorIdentity:BG
+OriginSet:Ge1676a27173c0866
+ManaCost:B G
+Types:Enchantment
+K:ETBReplacement:Other:SiegeChoice
+SVar:SiegeChoice:DB$ GenericChoice | Choices$ Sultai,Abzan | Defined$ You | SetChosenMode$ True | ShowChoice$ ExceptSelf
+SVar:Sultai:DB$ Pump
+SVar:Abzan:DB$ Pump
+S:Mode$ Continuous | Affected$ Card.Self+ChosenModeSultai | AddTrigger$ SultaiTrigger
+SVar:SultaiTrigger:Mode$ CounterAdded | ValidCard$ Creature.YouCtrl | TriggerZones$ Battlefield | Execute$ DBDraw | ActivationLimit$ 1
+SVar:DBDraw:DB$ Draw
+S:Mode$ Continuous | Affected$ Card.Self+ChosenModeAbzan | AddTrigger$ AbzanTrigger
+SVar:AbzanTrigger:Mode$ AttackersDeclared | AttackingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigCounterAttacker
+SVar:TrigCounterAttacker:DB$ PutCounter | ValidTgts$ Creature.attacking | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Targeted | KW$ Menace

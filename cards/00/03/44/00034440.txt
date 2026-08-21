@@ -1,9 +1,12 @@
 Id:34440
-ColorIdentity:G
-OriginSet:G11c0621ce29fa608
-ManaCost:2 G
-Types:Sorcery
-A:SP$ Charm | MinCharmNum$ 1 | CharmNum$ 2 | Choices$ DBPump,DBFight
-SVar:DBPump:DB$ Pump | ValidTgts$ Creature.YouCtrl | NumAtt$ Double | NumDef$ Double
-SVar:DBFight:DB$ Pump | AILogic$ Fight | ValidTgts$ Creature.YouCtrl | SubAbility$ DBFight2
-SVar:DBFight2:DB$ Fight | Defined$ ParentTarget | ValidTgts$ Creature.OppCtrl
+ColorIdentity:W
+OriginSet:Gcb93bbfc68a40806
+ManaCost:3 W
+Types:Legendary Artifact
+K:Flash
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self+wasCastByYou | Execute$ ExileOneEach
+SVar:ExileOneEach:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Permanent.OppCtrl+cmcGE3 | TargetMin$ 0 | TargetMax$ OneEach | TargetsForEachPlayer$ True | RememberLKI$ True | SubAbility$ DrawEach
+SVar:DrawEach:DB$ Draw | Defined$ RememberedController | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:OneEach:PlayerCountOpponents$Amount
+A:AB$ BecomeMonarch | Cost$ 3 T Exile<1/CARDNAME> | Defined$ You

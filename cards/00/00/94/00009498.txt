@@ -1,13 +1,8 @@
 Id:9498
-ColorIdentity:R
+ColorIdentity:W
 OriginSet:G49bcc8b9b86b628d
-ManaCost:1 R R
-Types:Creature Giant Warrior
-PT:3/3
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigRepeat
-SVar:TrigRepeat:DB$ Repeat | RepeatSubAbility$ DBReset | RepeatDefined$ Remembered | RepeatPresent$ Card | RepeatSVarCompare$ EQ1 | SubAbility$ DBCleanup
-SVar:DBReset:DB$ Cleanup | ClearRemembered$ True | SubAbility$ DBReveal
-SVar:DBReveal:DB$ Dig | DigNum$ 1 | ChangeValid$ Land | ChangeNum$ All | Reveal$ True | DestinationZone$ Graveyard | LibraryPosition2$ 0 | RememberChanged$ True
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Graveyard | ValidCard$ Land.!token+YouOwn | TriggerZones$ Battlefield | Execute$ TrigAddCounter
-SVar:TrigAddCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ 1
+ManaCost:W
+Types:Instant
+A:SP$ ChooseType | Defined$ You | Type$ Creature | SubAbility$ DBDealDamage
+SVar:DBDealDamage:DB$ DealDamage | ValidTgts$ Creature.attacking,Creature.blocking | NumDmg$ X
+SVar:X:Count$Valid Permanent.ChosenType+YouCtrl

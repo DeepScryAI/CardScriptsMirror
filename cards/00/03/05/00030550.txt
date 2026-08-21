@@ -1,15 +1,14 @@
 Id:30550
-ColorIdentity:R
-OriginSet:G2a4addc042b7552f
-ManaCost:R
-Types:Enchantment Room
-T:Mode$ UnlockDoor | ValidPlayer$ You | ValidCard$ Card.Self | ThisDoor$ True | Execute$ DBDealDamage
-SVar:DBDealDamage:DB$ DealDamage | ValidTgts$ Creature | NumDmg$ 2
-AlternateMode:Split
-ALTERNATE
-ManaCost:2 R
-Types:Enchantment Room
-T:Mode$ DamageDone | ValidSource$ Card.YouCtrl,Emblem.YouCtrl | ValidTarget$ Creature | CombatDamage$ False | TriggerZones$ Battlefield | Execute$ TrigChooseCard
-SVar:TrigChooseCard:DB$ ChooseCard | Choices$ Creature.YouOwn | ChoiceZone$ Hand | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | PumpZone$ Hand | Defined$ ChosenCard | NumAtt$ +2 | KW$ Haste | Duration$ Perpetual | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+ColorIdentity:UB
+OriginSet:G8b2ed00ac2a0ff47
+ManaCost:2 U B
+Types:Legendary Planeswalker Kaito
+Loyalty:4
+K:Ninjutsu:1 U B
+S:Mode$ Continuous | Affected$ Permanent.Self+counters_GE1_LOYALTY | Condition$ PlayerTurn | AddType$ Creature & Ninja | RemoveCardTypes$ True | SetPower$ 3 | SetToughness$ 4 | AddKeyword$ Hexproof
+A:AB$ Effect | Cost$ AddCounter<1/LOYALTY> | Name$ 12164098124325126708 | StaticAbilities$ STNinjaBoost | Planeswalker$ True | Duration$ Permanent
+SVar:STNinjaBoost:Mode$ Continuous | Affected$ Ninja.YouCtrl | AffectedZone$ Battlefield | AddPower$ 1 | AddToughness$ 1
+A:AB$ Surveil | Cost$ AddCounter<0/LOYALTY> | Amount$ 2 | Planeswalker$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ PlayerCountRegisteredOpponents$HasPropertyLostLifeThisTurn
+A:AB$ Tap | Cost$ SubCounter<2/LOYALTY> | ValidTgts$ Creature | Planeswalker$ True | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Targeted | CounterType$ Stun | CounterNum$ 2

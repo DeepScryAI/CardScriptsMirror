@@ -1,8 +1,11 @@
 Id:22873
-ColorIdentity:
+ColorIdentity:G
 OriginSet:Gf78628ad511eefec
-ManaCost:1
-Types:Artifact
-A:AB$ ChangeZone | Cost$ 1 T Sac<1/CARDNAME> | Origin$ Graveyard | Destination$ Exile | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Card | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1
-A:AB$ Mana | Cost$ 1 ExileFromGrave<1/CARDNAME> | ActivationZone$ Graveyard | Produced$ Any
+ManaCost:3 G G
+Types:Creature Ooze
+PT:*/*+1
+S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X | SetToughness$ Y
+SVar:X:Count$ValidGraveyard Card.YouOwn$CardTypes
+SVar:Y:SVar$X/Plus.1
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 3409444067

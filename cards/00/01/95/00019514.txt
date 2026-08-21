@@ -1,8 +1,12 @@
 Id:19514
-ColorIdentity:WBR
+ColorIdentity:R
 OriginSet:G9d37112ca6693432
-ManaCost:3 B
-Types:Sorcery
-A:SP$ DealDamage | ValidTgts$ Any | NumDmg$ 3 | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | LifeAmount$ 3
-K:Flashback:R W
+ManaCost:4 R
+Types:Creature Cyclops
+PT:4/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | TargetMin$ 0 | TargetMax$ 2 | KW$ HIDDEN CARDNAME can't block. | IsCurse$ True | ValidTgts$ Creature
+K:Cycling:1 R
+T:Mode$ Cycled | ValidCard$ Card.Self | Execute$ TrigCanNotBlock
+SVar:TrigCanNotBlock:DB$ Pump | ValidTgts$ Creature | KW$ HIDDEN CARDNAME can't block. | IsCurse$ True
+SVar:PlayMain1:TRUE

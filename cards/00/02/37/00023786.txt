@@ -1,7 +1,13 @@
 Id:23786
-ColorIdentity:W
-OriginSet:G5f5d8cfb206e2fac
-ManaCost:2 W
-Types:Instant
-A:SP$ PutCounter | Choices$ Creature.YouCtrl | CounterType$ SHIELD | ConditionPlayerTurn$ True | ConditionPhases$ Main1,Main2 | ConditionDefined$ Self | ConditionPresent$ Card.wasCast | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | CounterType$ ExistingCounter | Choices$ Creature.YouCtrl+HasCounters | PutOnEachOther$ Creature.YouCtrl
+ColorIdentity:G
+OriginSet:Gd970889168b5769f
+ManaCost:1 G
+Types:Creature Human Monk
+PT:1/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDigShrine
+SVar:TrigDigShrine:DB$ Dig | Defined$ You | DigNum$ 7 | ChangeNum$ 1 | ChangeValid$ Card.Shrine | RememberChanged$ True | RandomChange$ True | DestinationZone$ Hand | Mandatory$ True | NoLooking$ True | DestinationZone2$ Library | LibraryPosition2$ 0 | SkipReorder$ True | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Remembered | staticAbilities$ PerpetualReduce | Duration$ Perpetual | SubAbility$ DBShuffle
+SVar:PerpetualReduce:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ 1 | EffectZone$ All
+SVar:DBShuffle:DB$ Shuffle | Defined$ You | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+A:AB$ Mana | Cost$ T | Produced$ Any

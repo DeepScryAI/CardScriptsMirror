@@ -1,12 +1,10 @@
 Id:24417
-ColorIdentity:G
+ColorIdentity:URG
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:2 G
-Types:Creature Elf Ranger
-PT:*/2
-K:Reach
-S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X
-SVar:X:Count$Valid Creature.YouCtrl
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDamage
-SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Creature.OppCtrl+withFlying | NumDmg$ Y
-SVar:Y:Count$CardPower
+ManaCost:3 G U R
+Types:Legendary Creature Dragon Spirit
+PT:6/6
+K:Flying
+K:Ward:2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Dragon.YouCtrl+!token+Other | TriggerZones$ Battlefield | Execute$ TrigCopy
+SVar:TrigCopy:DB$ CopyPermanent | Defined$ TriggeredCardLKICopy | NonLegendary$ True

@@ -1,14 +1,10 @@
 Id:26318
-ColorIdentity:B
-OriginSet:G74a73d701e7801b3
-ManaCost:1 B
-Types:Creature Phyrexian Horror
-PT:3/1
-K:Menace
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigExile | Secondary$ True
-SVar:TrigExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Card | RememberChanged$ True | SubAbility$ DBConjure
-SVar:DBConjure:DB$ MakeCard | Conjure$ True | Optional$ True | DefinedName$ Remembered | Zone$ Library | LibraryPosition$ Z | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:Z:Count$Random.0.4
-SVar:HasAttackEffect:TRUE
+ColorIdentity:R
+OriginSet:G2192e8955d5e1ad1
+ManaCost:2 R R
+Types:Legendary Creature Phyrexian Horror
+PT:5/4
+R:Event$ DamageDone | ActiveZones$ Battlefield | ValidSource$ Card.YouCtrl,Emblem.YouCtrl | ValidTarget$ Permanent.OppCtrl,Opponent | IsCombat$ False | ReplaceWith$ DmgTwice
+SVar:DmgTwice:DB$ ReplaceEffect | VarName$ DamageAmount | VarValue$ X
+SVar:X:ReplaceCount$DamageAmount/Twice
+A:AB$ PutCounter | Cost$ 1 RP RP Discard<2/Card> | Defined$ Self | CounterType$ Indestructible | CounterNum$ 1

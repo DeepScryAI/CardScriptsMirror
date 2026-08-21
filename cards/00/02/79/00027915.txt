@@ -1,8 +1,15 @@
 Id:27915
 ColorIdentity:
-OriginSet:G06c78c29bfb28e3d
-ManaCost:6
-Types:Legendary Artifact
-R:Event$ Counter | ValidSA$ Spell.YouCtrl | Layer$ CantHappen | ActiveZones$ Battlefield
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDiscover
-SVar:TrigDiscover:DB$ Discover | Num$ 5
+OriginSet:G30e8a5e111cffb44
+ManaCost:no cost
+Types:Plane Earth
+T:Mode$ PlaneswalkedTo | ValidCard$ Card.Self | Execute$ TrigPutCounter
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigPutCounter | TriggerZones$ Command | Secondary$ True
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ ERUPTION | CounterNum$ 1
+T:Mode$ PlanarDice | Result$ Blank | Execute$ TrigScry | TriggerZones$ Command
+SVar:TrigScry:DB$ Scry | ScryNum$ 2 | SubAbility$ TrigPutCounter
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ TrigDamageAll
+SVar:TrigDamageAll:DB$ DamageAll | ValidCards$ Creature | ValidPlayers$ Player | NumDmg$ X | SubAbility$ DBSacLand
+SVar:DBSacLand:DB$ Sacrifice | SacValid$ Land | Defined$ Player | SubAbility$ DBPlaneswalk
+SVar:DBPlaneswalk:DB$ Planeswalk
+SVar:X:Count$CardCounters.ERUPTION

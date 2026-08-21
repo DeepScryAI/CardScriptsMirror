@@ -1,11 +1,9 @@
 Id:32271
-ColorIdentity:
+ColorIdentity:W
 OriginSet:G9946f072b5556073
-ManaCost:7
-Types:Legendary Artifact
-T:Mode$ LandPlayed | ValidCard$ Land.YouCtrl | Execute$ TrigDraw | TriggerZones$ Battlefield
-T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ You | Execute$ TrigDraw | TriggerZones$ Battlefield | Secondary$ True
-SVar:TrigDraw:DB$ Draw
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigSetLife
-SVar:TrigSetLife:DB$ SetLife | Defined$ You | LifeAmount$ X
-SVar:X:Count$YourStartingLife/HalfUp
+ManaCost:2 W
+Types:Creature Human Soldier
+PT:2/2
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | ValidTgts$ Permanent.Other+YouCtrl | TargetMin$ 0 | TargetMax$ 1 | Origin$ Battlefield | Destination$ Hand

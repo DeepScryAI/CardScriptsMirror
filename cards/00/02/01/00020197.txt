@@ -1,11 +1,8 @@
 Id:20197
 ColorIdentity:W
 OriginSet:G00aff909a83a7400
-ManaCost:W W
-Types:Creature Human Soldier Wizard
-PT:2/1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ DBChooseSb
-SVar:DBChooseSb:DB$ ChooseCard | Defined$ You | Amount$ 1 | Choices$ Card.White+YouOwn | ChoiceZone$ Sideboard | SubAbility$ DBMoveHand
-SVar:DBMoveHand:DB$ ChangeZone | Origin$ Hand | Destination$ Sideboard | ChangeType$ Card.YouOwn | Mandatory$ True | ChangeNum$ 1 | SubAbility$ DBMoveSb | NoReveal$ True | RememberChanged$ True | ConditionDefined$ ChosenCard | ConditionPresent$ Card | ConditionCompare$ GE1
-SVar:DBMoveSb:DB$ ChangeZone | Origin$ Sideboard | Destination$ Hand | Defined$ ChosenCard | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ GE1 | Reveal$ True | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:W
+Types:Kindred Instant Angel
+A:SP$ Pump | ValidTgts$ Creature,Player | KW$ Flying | SubAbility$ NoDamage
+SVar:NoDamage:DB$ Effect | ReplacementEffects$ RPrevent | EffectOwner$ TargetedPlayer | ConditionPlayerDefined$ Targeted | ConditionPlayerContains$ Targeted
+SVar:RPrevent:Event$ DamageDone | Prevent$ True | ActiveZones$ Command | ValidTarget$ You | ValidSource$ Creature.withoutFlying

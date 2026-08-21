@@ -1,8 +1,14 @@
 Id:14740
-ColorIdentity:UR
+ColorIdentity:W
 OriginSet:G0a578e83854cf093
-ManaCost:1 U R
-Types:Instant
-A:SP$ Charm | MinCharmNum$ 1 | CharmNum$ 2 | Choices$ DBTap,DBDmg
-SVar:DBTap:DB$ Tap | ValidTgts$ Creature
-SVar:DBDmg:DB$ DealDamage | ValidTgts$ Creature | NumDmg$ 2
+ManaCost:3 W W
+Types:Creature Bird
+PT:3/4
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | CheckSVar$ RaidTest | Execute$ TrigToken
+SVar:RaidTest:Count$AttackersDeclared
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 1714690103 | TokenOwner$ You
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigGainLife
+SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ X
+SVar:X:Count$Valid Creature.attacking
+SVar:HasAttackEffect:TRUE

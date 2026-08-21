@@ -1,9 +1,11 @@
 Id:18119
-ColorIdentity:
+ColorIdentity:W
 OriginSet:G5033d54b23b37629
-ManaCost:3
-Types:Artifact Creature Golem
-PT:2/3
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDraw | TriggerZones$ Battlefield
-T:Mode$ Blocks | ValidCard$ Card.Self | Execute$ TrigDraw | Secondary$ True | TriggerZones$ Battlefield
-SVar:TrigDraw:DB$ Draw | Defined$ Player | NumCards$ 1
+ManaCost:4 W
+Types:Creature Elephant
+PT:3/5
+K:Kicker:1 W
+T:Mode$ ChangesZone | ValidCard$ Card.Self+kicked | Origin$ Any | Destination$ Battlefield | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Artifact.YouOwn
+SVar:NeedsToPlayKickedVar:Z GE1
+SVar:Z:Count$ValidGraveyard Artifact.YouOwn

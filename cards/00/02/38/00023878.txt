@@ -1,10 +1,17 @@
 Id:23878
-ColorIdentity:UBR
-OriginSet:Gfdfe2ebef04be34e
-ManaCost:2 UB B BR
-Types:Legendary Creature Vampire Rogue
-PT:2/5
-K:Flash
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self,Vampire.Other+YouCtrl | Execute$ TrigExile
-SVar:TrigExile:DB$ Dig | DigNum$ 1 | ChangeNum$ All | Defined$ Player | DestinationZone$ Exile | ExileWithCounters$ COLLECTION
-S:Mode$ Continuous | MayPlayLimit$ 1 | Affected$ Card.ExiledByYou+counters_GE1_COLLECTION | AffectedZone$ Exile | MayPlay$ True | MayPlayIgnoreColor$ True
+ColorIdentity:R
+OriginSet:G5f5d8cfb206e2fac
+ManaCost:2 R
+Types:Sorcery
+A:SP$ Effect | CounterType$ P1P1 | CounterNum$ 3 | Triggers$ TriggerAttacks | AddSVar$ AE
+SVar:TriggerAttacks:Mode$ Attacks | ValidCard$ Creature.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 1092778731 | TokenTapped$ True | TokenAttacking$ True
+SVar:AE:SVar:HasAttackEffect:TRUE
+AlternateMode:Split
+ALTERNATE
+ManaCost:1 R
+Types:Sorcery
+K:Aftermath
+A:SP$ Token | TokenAmount$ X | TokenScriptIds$ 3851718391
+SVar:X:Count$NumCombatDamageThisTurn Creature.YouCtrl Player
+SVar:NeedsToPlayVar:X GE3

@@ -1,10 +1,15 @@
 Id:20794
-ColorIdentity:G
-OriginSet:Gfd5e6da37c69dc53
-ManaCost:3 G
-Types:Creature Cat
-PT:4/2
-K:CARDNAME must be blocked if able.
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigGainLife
-SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ X
-SVar:X:Count$ThisTurnEntered_Graveyard_from_Battlefield_Creature
+ColorIdentity:R
+OriginSet:Gf8d4de878d0536c5
+ManaCost:5 R R
+Types:Legendary Creature Dinosaur Turtle
+PT:8/8
+K:Haste
+K:Trample
+K:Cycling:1 R
+T:Mode$ Cycled | ValidCard$ Card.Self | Execute$ DBEffect
+SVar:DBEffect:DB$ Effect | Duration$ Permanent | Name$ 16236475388265374545 | SubAbility$ DBBranch
+SVar:DBBranch:DB$ Branch | BranchConditionSVar$ X | BranchConditionSVarCompare$ GE4 | TrueSubAbility$ DBChangeZone1 | FalseSubAbility$ DBChangeZone2
+SVar:DBChangeZone1:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | Defined$ TriggeredCardLKICopy
+SVar:DBChangeZone2:DB$ ChangeZone | Origin$ Graveyard | Destination$ Library | Shuffle$ True | Defined$ TriggeredCardLKICopy
+SVar:X:Count$ValidCommand Effect.YouCtrl+named16236475388265374545

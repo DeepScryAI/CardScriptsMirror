@@ -1,10 +1,13 @@
 Id:29918
-ColorIdentity:U
+ColorIdentity:R
 OriginSet:Gf09b85bbcc27770c
-ManaCost:1 U
-Types:Creature Bird Scout
-PT:2/1
-K:Flash
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.YouCtrl | KW$ Hexproof
+ManaCost:R
+Types:Enchantment Class
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 2756462513 | TokenOwner$ You
+K:Class:2:2 R:AddTrigger$ TriggerCombat
+SVar:TriggerCombat:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | ValidTgts$ Equipment.YouCtrl | SubAbility$ DBAttach
+SVar:DBAttach:DB$ Attach | Object$ ParentTarget | ValidTgts$ Creature.YouCtrl | TargetMin$ 0 | TargetMax$ 1
+K:Class:3:3 R:AddStaticAbility$ SBoost
+SVar:SBoost:Mode$ Continuous | EffectZone$ Battlefield | Condition$ PlayerTurn | Affected$ Creature.YouCtrl+equipped | AddKeyword$ DoubleStrike & Haste

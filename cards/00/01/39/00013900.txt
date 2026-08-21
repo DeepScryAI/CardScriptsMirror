@@ -1,9 +1,12 @@
 Id:13900
 ColorIdentity:W
 OriginSet:G6645ca87da6316d5
-ManaCost:3 W
-Types:Creature Angel
-PT:3/4
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZoneAll | ValidTgts$ Player | Origin$ Graveyard | Destination$ Exile | ChangeType$ Card | IsCurse$ True
+ManaCost:1 W W
+Types:Enchantment
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ AuthorityExile | OptionalDecider$ You
+SVar:AuthorityExile:DB$ ChangeZone | ValidTgts$ Artifact,Enchantment | Origin$ Battlefield | Destination$ Exile
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigExile | TriggerZones$ Battlefield | OptionalDecider$ You
+SVar:TrigExile:DB$ ChangeZone | ValidTgts$ Artifact,Enchantment | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBGainControl
+SVar:DBGainControl:DB$ GainControl | Defined$ Self | NewController$ RememberedController | ConditionCheckSVar$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Amount

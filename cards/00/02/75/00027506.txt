@@ -1,8 +1,16 @@
 Id:27506
-ColorIdentity:W
-OriginSet:G7579344e30f8be85
-ManaCost:3 W
-Types:Creature Elk
-PT:3/4
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Enchantment.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigTap
-SVar:TrigTap:DB$ Tap | ValidTgts$ Creature.OppCtrl
+ColorIdentity:R
+OriginSet:G4e034c55e7afd8b4
+ManaCost:3 R R
+Types:Enchantment
+T:Mode$ DamageDone | ValidSource$ Card.YouCtrl,Emblem.YouCtrl | OptionalDecider$ You | ValidTarget$ Opponent | CombatDamage$ False | TriggerZones$ Battlefield | Execute$ TrigExile
+SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ X | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | ForgetOnMoved$ Exile | RememberObjects$ RememberedCard | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | Affected$ Card.IsRemembered | MayPlay$ True | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:TriggerCount$DamageAmount
+AlternateMode:Adventure
+ALTERNATE
+ManaCost:1 R
+Types:Instant Adventure
+A:SP$ DealDamage | ValidTgts$ Any | NumDmg$ 2

@@ -1,12 +1,10 @@
 Id:17103
-ColorIdentity:W
+ColorIdentity:U
 OriginSet:Gbcdce58dfbbf1bad
-ManaCost:2 W
+ManaCost:3 U
 Types:Enchantment
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPumpAll
-SVar:TrigPumpAll:DB$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +2 | NumDef$ +1 | KW$ Vigilance
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 3 | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ TgtChoose
 T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | TriggerZones$ Battlefield | ValidCard$ Cartouche.YouCtrl | Execute$ TrigReturn
 SVar:TrigReturn:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Defined$ Self
-SVar:PlayMain1:TRUE
-SVar:NeedsToPlayVar:X GE2
-SVar:X:Count$Valid Creature.YouCtrl

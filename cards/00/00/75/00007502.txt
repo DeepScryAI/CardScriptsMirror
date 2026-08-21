@@ -1,7 +1,17 @@
 Id:7502
-ColorIdentity:W
+ColorIdentity:R
 OriginSet:G4747f23d5c5760bc
-ManaCost:3 W
-Types:Legendary Enchantment
-S:Mode$ Continuous | Affected$ Creature.Legendary+YouCtrl | AddPower$ 2 | AddToughness$ 2
-SVar:PlayMain1:TRUE
+ManaCost:1 R R
+Types:Creature Human Warrior
+PT:2/2
+T:Mode$ SpellCast | ValidCard$ Spirit,Arcane | ValidActivatingPlayer$ You | Execute$ TrigPutCounter | OptionalDecider$ You | TriggerZones$ Battlefield
+T:Mode$ Phase | Phase$ End of Turn | IsPresent$ Card.Self+counters_GE2_KI | Execute$ TrigFlip | OptionalDecider$ You | TriggerZones$ Battlefield
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ KI | CounterNum$ 1
+SVar:TrigFlip:DB$ SetState | Defined$ Self | Mode$ Flip
+AlternateMode:Flip
+ALTERNATE
+ManaCost:1 R R
+Colors:red
+Types:Legendary Creature Spirit
+PT:5/2
+A:AB$ GainControl | Cost$ SubCounter<1/KI> | ValidTgts$ Creature | LoseControl$ EOT

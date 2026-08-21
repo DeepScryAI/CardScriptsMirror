@@ -1,26 +1,9 @@
 Id:29557
-ColorIdentity:WB
+ColorIdentity:
 OriginSet:Gac6359c222afbd4f
-ManaCost:1 B
-Types:Legendary Creature Human Noble
-PT:1/4
-K:Lifelink
-K:Extort
-T:Mode$ Phase | Phase$ Main2 | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ LifeGained | SVarCompare$ GE3 | Execute$ TrigTransform
-SVar:TrigTransform:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn
-SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | Transformed$ True | ForgetOtherRemembered$ True | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:LifeGained:Count$LifeYouGainedThisTurn
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:white,black
-Types:Legendary Planeswalker Sorin
-Loyalty:3
-K:Extort
-A:AB$ Token | Cost$ AddCounter<2/LOYALTY> | Planeswalker$ True | TokenScriptIds$ 134855612 | TokenOwner$ You
-A:AB$ DealDamage | Cost$ SubCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Any | NumDmg$ X
-A:AB$ GainControl | Cost$ SubCounter<6/LOYALTY> | Planeswalker$ True | Ultimate$ True | ValidTgts$ Creature | SubAbility$ DBAnimate
-SVar:DBAnimate:DB$ Animate | Defined$ Targeted | Types$ Vampire | Duration$ Permanent | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | Defined$ Targeted | CounterType$ Lifelink | CounterNum$ 1 | ConditionPresent$ Permanent.White+YouCtrl+Other+NotDefinedTargeted
-SVar:X:Count$LifeYouGainedThisTurn
+ManaCost:5 C
+Types:Creature Eldrazi
+PT:6/6
+K:Annihilator:1
+A:AB$ ChangeZone | Cost$ Sac<2/Eldrazi> | Origin$ Graveyard | Destination$ Hand | ActivationZone$ Graveyard
+K:Cycling:2

@@ -1,9 +1,12 @@
 Id:29143
-ColorIdentity:R
-OriginSet:G27146c70b74a1e72
-ManaCost:2 R
-Types:Creature Human Rogue
-PT:3/2
-K:Trample
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | IsPresent$ Card.Outlaw+StrictlyOther+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigTreasure
-SVar:TrigTreasure:DB$ Token | TokenScriptIds$ 3851718391
+ColorIdentity:UR
+OriginSet:Gc7beb665b378d90a
+ManaCost:1 U R
+Types:Legendary Creature Human Rogue
+PT:2/4
+T:Mode$ SpellCast | ValidCard$ Card.YouCtrl | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigExile | ActivatorThisTurnCast$ EQ2
+SVar:TrigExile:DB$ Dig | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | Duration$ UntilTheEndOfYourNextTurn | StaticAbilities$ Play | SubAbility$ DBCleanup | ForgetOnMoved$ Exile
+SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+A:AB$ CopySpellAbility | Cost$ T | ValidTgts$ Instant.YouCtrl,Sorcery.YouCtrl | TargetType$ Spell | MayChooseTarget$ True | CheckSVar$ Count$ThisTurnCast_Card.YouCtrl | SVarCompare$ GE3

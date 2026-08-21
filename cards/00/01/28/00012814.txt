@@ -2,7 +2,9 @@ Id:12814
 ColorIdentity:
 OriginSet:G4801bb28ce9773ed
 ManaCost:no cost
-Types:Phenomenon
-T:Mode$ PlaneswalkedTo | ValidCard$ Card.Self | Execute$ TrigReverse
-SVar:TrigReverse:DB$ ReverseTurnOrder | SubAbility$ PWAway
-SVar:PWAway:DB$ Planeswalk
+Types:Plane Kyneth
+S:Mode$ Continuous | EffectZone$ Command | Affected$ Creature.withFlying | AddPower$ 2
+S:Mode$ Continuous | EffectZone$ Command | Affected$ Creature.withoutFlying | AddPower$ -2
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos
+SVar:RolledChaos:DB$ Pump | ValidTgts$ Creature | KW$ Flying
+SVar:AIRollPlanarDieParams:Mode$ Always | HasCreatureInPlay$ True

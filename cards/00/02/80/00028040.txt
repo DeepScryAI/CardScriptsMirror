@@ -1,9 +1,12 @@
 Id:28040
 ColorIdentity:G
-OriginSet:Gfd50577710a6ab09
-ManaCost:1 G
-Types:Artifact
-K:etbCounter:P1P1:2
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl+counters_GE1_P1P1 | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
-A:AB$ MoveCounter | Cost$ T | ValidTgts$ Creature | Source$ Self | CounterType$ P1P1 | CounterNum$ 1 | SorcerySpeed$ True
+OriginSet:G3601f5e223de6c7f
+ManaCost:G
+Types:Instant
+K:Split second
+A:SP$ Untap | ValidTgts$ Creature | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ Targeted | StaticAbilities$ PumpStatic
+SVar:PumpStatic:Mode$ Continuous | AddKeyword$ Hexproof & Reach | AddTrigger$ BecomesTapped | Affected$ Card.IsRemembered
+SVar:BecomesTapped:Mode$ Taps | ValidCard$ Card.Self | Execute$ TrigFight
+SVar:TrigFight:DB$ DealDamage | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | AILogic$ PowerDmg | NumDmg$ X | DamageSource$ Self
+SVar:X:Count$CardPower

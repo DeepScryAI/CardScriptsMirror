@@ -2,10 +2,12 @@ Id:10715
 ColorIdentity:
 OriginSet:Gc860c737f2a60f83
 ManaCost:no cost
-Types:Plane Dominaria
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.!token | TriggerZones$ Command | Execute$ TrigVesuvaCopy
-SVar:TrigVesuvaCopy:DB$ CopyPermanent | Defined$ TriggeredCardLKICopy | Controller$ TriggeredCardController
+Types:Plane Valla
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature | TriggerZones$ Command | Execute$ TrigDamage | OptionalDecider$ TriggeredCardController
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ Y | DamageSource$ TriggeredCardLKICopy | TargetingPlayer$ TriggeredCardController
+SVar:Y:TriggeredCard$CardPower
 T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos
-SVar:RolledChaos:DB$ Destroy | ValidTgts$ Creature | SubAbility$ DestroyOtherAll
-SVar:DestroyOtherAll:DB$ DestroyAll | ValidCards$ Targeted.sameName+Other
-SVar:AIRollPlanarDieParams:Mode$ Always | OppHasCreatureInPlay$ True
+SVar:RolledChaos:DB$ ChangeZone | ValidTgts$ Creature | Origin$ Battlefield | Destination$ Exile | RememberTargets$ True | SubAbility$ RestorationReturn
+SVar:RestorationReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:AIRollPlanarDieParams:Mode$ Always | HasCreatureInPlay$ True

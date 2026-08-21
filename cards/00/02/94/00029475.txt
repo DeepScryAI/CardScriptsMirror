@@ -1,12 +1,13 @@
 Id:29475
-ColorIdentity:
-OriginSet:Gac6359c222afbd4f
-ManaCost:X C C
-Types:Kindred Instant Eldrazi
-A:SP$ Charm | Choices$ DBToken,DBScry,DBExile,DBExileGraveyard | CharmNum$ 2 | Announce$ X
-SVar:DBToken:DB$ Token | ValidTgts$ Player | TokenAmount$ X | TokenScriptIds$ 3873110322 | TokenOwner$ TargetedPlayer
-SVar:DBScry:DB$ Scry | ScryNum$ X | ValidTgts$ Player | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | Defined$ ParentTarget
-SVar:DBExile:DB$ ChangeZone | ValidTgts$ Creature.cmcLEX | Origin$ Battlefield | Destination$ Exile
-SVar:DBExileGraveyard:DB$ ChangeZone | TargetMin$ 0 | TargetMax$ X | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card
-SVar:X:Count$xPaid
+ColorIdentity:UG
+OriginSet:G2ce881cc55bb9f18
+ManaCost:2 GU
+Types:Legendary Creature Shapeshifter Noble
+PT:1/5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPutCounter
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPutCounter | Secondary$ True
+SVar:TrigPutCounter:DB$ PutCounter | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Land | CounterType$ EVERYTHING | CounterNum$ 1 | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Creature | CounterType$ EVERYTHING | CounterNum$ 1
+S:Mode$ Continuous | Affected$ Land.counters_GE1_EVERYTHING | AddType$ AllBasicLandType & AllNonBasicLandType
+S:Mode$ Continuous | Affected$ Creature.nonLand+counters_GE1_EVERYTHING | AddAllCreatureTypes$ True
+SVar:HasAttackEffect:TRUE

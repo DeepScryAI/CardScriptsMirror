@@ -1,10 +1,11 @@
 Id:27937
 ColorIdentity:
-OriginSet:G06c78c29bfb28e3d
-ManaCost:3
-Types:Artifact
-K:ETBReplacement:Other:ChooseCT
-SVar:ChooseCT:DB$ ChooseType | Type$ Creature | AILogic$ MostProminentInComputerDeck
-A:AB$ Mana | Cost$ T | Produced$ Any
-A:AB$ Effect | Cost$ T | StaticAbilities$ QuickenStA | ForgetOnCast$ Card.ChosenType+YouCtrl
-SVar:QuickenStA:Mode$ CastWithFlash | ValidCard$ Card.ChosenType | ValidSA$ Spell | Caster$ You
+OriginSet:G30e8a5e111cffb44
+ManaCost:no cost
+Types:Plane Darillium
+S:Mode$ Continuous | Affected$ Card.nonLand+YouOwn+withoutForetell | EffectZone$ Command | AffectedZone$ Hand | AddKeyword$ Foretell
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ TrigEffect
+SVar:TrigEffect:DB$ Effect | StaticAbilities$ MayCastForetell | Triggers$ SpellCast
+SVar:MayCastForetell:Mode$ Continuous | Affected$ Card.foretold+YouOwn+nonLand | MayPlayWithoutManaCost$ True | MayPlay$ True | MayPlayLimit$ 1 | AffectedZone$ Exile
+SVar:SpellCast:Mode$ SpellCast | Static$ True | ValidSA$ Spell.MayPlaySource | ValidActivatingPlayer$ You | OneOff$ True | TriggerZones$ Command | Execute$ ExileSelf
+SVar:ExileSelf:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile

@@ -1,10 +1,13 @@
 Id:23409
 ColorIdentity:U
-OriginSet:Ga4d5d94d587eb185
-ManaCost:4 U
-Types:Artifact Creature Moonfolk Wizard
-PT:3/3
-K:Flash
-K:Flying
-T:Mode$ DamageDone | ValidSource$ Artifact.Creature+YouCtrl | ValidTarget$ Player | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw
+OriginSet:Gbe3783f336562357
+ManaCost:1 U
+Types:Creature Human Wizard
+PT:1/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChoose
+SVar:TrigChoose:DB$ ChooseCard | ChoiceZone$ Hand | Choices$ Instant.YouOwn+cmcGE3,Sorcery.YouOwn+cmcGE3 | Mandatory$ True | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ ChosenCard | staticAbilities$ ReduceCost | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:ReduceCost:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ 2 | EffectZone$ All
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+SVar:NeedsToPlayVar:X GE1
+SVar:X:Count$ValidHand Instant.YouOwn+cmcGE3,Sorcery.YouOwn+cmcGE3

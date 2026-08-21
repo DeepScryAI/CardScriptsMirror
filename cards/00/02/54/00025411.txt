@@ -1,8 +1,10 @@
 Id:25411
-ColorIdentity:
+ColorIdentity:B
 OriginSet:G2e872aaf9b98489e
-ManaCost:no cost
-Types:Artifact Attraction
-K:Visit:TrigRes
-SVar:TrigRes:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouOwn | SubAbility$ DBHaste
-SVar:DBHaste:DB$ Animate | Defined$ Targeted | Keywords$ Haste | Duration$ Permanent | AtEOT$ YourExile
+ManaCost:X B B
+Types:Sorcery
+A:SP$ RollDice | Amount$ X | Sides$ 6 | EvenOddResults$ True | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | ValidTgts$ Creature | IsCurse$ True | CounterType$ M1M1 | CounterNum$ Y | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenAmount$ OddResults | TokenScriptIds$ 2325200837
+SVar:X:Count$xPaid
+SVar:Y:SVar$EvenResults/Twice

@@ -1,11 +1,17 @@
 Id:17366
-ColorIdentity:WG
+ColorIdentity:WBR
 OriginSet:Gaa482ed186eee527
-ManaCost:1 G W
-Types:Legendary Creature Cat Warrior
-PT:3/2
-K:FirstStrike
-S:Mode$ AttackRestrict | IsPresent$ Card.Self+tapped | MaxAttackers$ 1 | ValidDefender$ You
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigLimitBlock | TriggerZones$ Battlefield
-SVar:TrigLimitBlock:DB$ Effect | StaticAbilities$ STLimitBlock | Duration$ UntilEndOfCombat
-SVar:STLimitBlock:Mode$ BlockRestrict | MaxBlockers$ 1 | ValidDefender$ Opponent
+ManaCost:R W B
+Types:Legendary Creature Vampire
+PT:3/3
+K:Menace
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.OppCtrl | CounterType$ BOUNTY | CounterNum$ 1 | IsCurse$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ Targeted | StaticAbilities$ MathasStatic | Triggers$ TrigForget | ForgetCounter$ BOUNTY | Duration$ Permanent
+SVar:MathasStatic:Mode$ Continuous | Affected$ Card.IsRemembered | AddTrigger$ MathasDeath
+SVar:MathasDeath:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ MathasPayoffDraw
+SVar:MathasPayoffDraw:DB$ Draw | Defined$ Player.Opponent | NumCards$ 1 | SubAbility$ MathasPayoffLife
+SVar:MathasPayoffLife:DB$ GainLife | Defined$ Player.Opponent | LifeAmount$ 2 | SubAbility$ ExileEff
+SVar:TrigForget:Mode$ ChangesZone | ValidCard$ Card.IsRemembered | Origin$ Battlefield | ExcludedDestinations$ Graveyard | Destination$ Any | TriggerZones$ Command | Static$ True | Execute$ ExileSelf
+SVar:ExileSelf:DB$ ChangeZone | Origin$ Command | Destination$ Exile | Defined$ Self
+SVar:ExileEff:DB$ ChangeZone | Origin$ Command | Destination$ Exile | Defined$ OriginalHost

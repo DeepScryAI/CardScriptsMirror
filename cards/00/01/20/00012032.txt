@@ -1,9 +1,9 @@
 Id:12032
-ColorIdentity:UG
+ColorIdentity:B
 OriginSet:G28b959a4da853005
-ManaCost:1 G U
-Types:Legendary Creature Elf Rogue
-PT:2/2
-T:Mode$ DamageDone | ValidSource$ Creature | ValidTarget$ Opponent | CombatDamage$ True | OptionalDecider$ TriggeredSourceController | TriggerZones$ Battlefield | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ TriggeredSourceController
-SVar:PlayMain1:TRUE
+ManaCost:7 B B B
+Types:Creature Demon
+PT:8/8
+T:Mode$ ChangesZone | ValidCard$ Card.wasCastFromYourHandByYou+Self | Destination$ Battlefield | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ DestroyAll | ValidCards$ Creature.OppCtrl | SubAbility$ DBTapAll
+SVar:DBTapAll:DB$ TapAll | ValidCards$ Creature.YouCtrl+StrictlyOther

@@ -1,8 +1,15 @@
 Id:32128
-ColorIdentity:B
-OriginSet:G9946f072b5556073
-ManaCost:3 B
-Types:Creature Human Soldier
-PT:3/4
-S:Mode$ Continuous | Affected$ Card.Self | AddPower$ 1 | AddKeyword$ Deathtouch | IsPresent$ Artifact.YouCtrl
-SVar:BuffedBy:Artifact
+ColorIdentity:G
+OriginSet:G7ab4f62d323b0ca7
+ManaCost:no cost
+Types:Land Town
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ G
+AlternateMode:Adventure
+ALTERNATE
+ManaCost:4 G G
+Types:Sorcery Adventure
+A:SP$ Token | TokenScriptIds$ 3709958967 | TokenOwner$ You | RememberTokens$ True | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Remembered | CounterType$ P1P1 | CounterNum$ Count$Valid Land.YouCtrl | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

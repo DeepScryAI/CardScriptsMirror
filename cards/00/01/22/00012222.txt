@@ -1,8 +1,18 @@
 Id:12222
-ColorIdentity:B
+ColorIdentity:RG
 OriginSet:G14de52802b0b467c
-ManaCost:B
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:Curse
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ -2 | AddToughness$ -2
+ManaCost:2 G
+Types:Creature Human Archer Ranger Werewolf
+PT:2/2
+A:AB$ DealDamage | Cost$ T | ValidTgts$ Creature.withFlying | NumDmg$ 2
+T:Mode$ Phase | Phase$ Upkeep | WerewolfTransformCondition$ True | TriggerZones$ Battlefield | Execute$ TrigTransform
+SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:green
+Types:Creature Werewolf
+PT:4/4
+A:AB$ Fight | Cost$ R T | Defined$ Self | ValidTgts$ Creature
+T:Mode$ Phase | Phase$ Upkeep | WerewolfUntransformCondition$ True | TriggerZones$ Battlefield | Execute$ TrigTransform
+SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform

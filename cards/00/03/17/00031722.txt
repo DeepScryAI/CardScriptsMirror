@@ -1,6 +1,17 @@
 Id:31722
-ColorIdentity:G
-OriginSet:G7ab4f62d323b0ca7
-ManaCost:G
-Types:Sorcery
-A:SP$ Dig | DigNum$ 3 | ChangeNum$ 1 | ChangeValid$ Artifact,Creature,Land | Optional$ True
+ColorIdentity:URG
+OriginSet:Gfac9eb8c75f25726
+ManaCost:3 G U R
+Types:Creature Dragon
+PT:6/6
+K:Flying
+K:Vigilance
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZoneAll | ChangeType$ Creature.nonDragon | Origin$ Battlefield | Destination$ Hand
+AlternateMode:Omen
+ALTERNATE
+ManaCost:2 R
+Types:Sorcery Omen
+A:SP$ DealDamage | ValidTgts$ Any | NumDmg$ 2 | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ ReduceCost | ForgetOnCast$ Dragon.YouCtrl | Duration$ Permanent
+SVar:ReduceCost:Mode$ ReduceCost | Type$ Spell | Activator$ You | ValidCard$ Dragon | Amount$ 2

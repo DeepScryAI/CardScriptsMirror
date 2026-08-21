@@ -1,10 +1,8 @@
 Id:3623
-ColorIdentity:R
+ColorIdentity:U
 OriginSet:Gf01f1543bdb61bd2
-ManaCost:4 R R
-Types:Creature Phoenix
-PT:3/4
-K:Flying
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigChangeZone
-SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | Defined$ TriggeredNewCardLKICopy
-SVar:SacMe:2
+ManaCost:2 U
+Types:Enchantment
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | LifeTotal$ You | LifeAmount$ LE5 | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice | SubAbility$ DBAddTurn
+SVar:DBAddTurn:DB$ AddTurn | Defined$ You | NumTurns$ 1

@@ -1,6 +1,16 @@
 Id:33224
-ColorIdentity:RG
-OriginSet:G7ab1fe96128a1641
-ManaCost:3 R G
-Types:Enchantment
-S:Mode$ Continuous | AddKeyword$ Conspire | Affected$ Card.nonCreature+YouCtrl+wasCast | AffectedZone$ Stack | EffectZone$ Battlefield
+ColorIdentity:UB
+OriginSet:G530ea9d733a13e9d
+ManaCost:2 U B
+Types:Legendary Creature Human Knight
+PT:3/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMonarch
+SVar:TrigMonarch:DB$ BecomeMonarch | ValidTgts$ Opponent
+T:Mode$ BecomeMonarch | ValidPlayer$ Opponent | TriggerZones$ Battlefield | Execute$ TrigEffect
+SVar:TrigEffect:DB$ Effect | ImprintCards$ Targeted | ValidTgts$ Creature.ControlledBy TriggeredPlayer | RememberObjects$ TriggeredPlayer | Triggers$ ExileMe | StaticAbilities$ GainControl | Duration$ Permanent
+SVar:GainControl:Mode$ Continuous | Affected$ Card.IsImprinted | CheckSVar$ X | SVarCompare$ EQ1 | GainControl$ You
+SVar:ExileMe:Mode$ Always | Static$ True | Execute$ ExileEffect | CheckSVar$ X | SVarCompare$ EQ0
+SVar:ExileEffect:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile
+SVar:X:PlayerCountRememberedPlayer$HasPropertyisMonarch
+S:Mode$ Continuous | Affected$ Creature.YouCtrl+YouDontOwn | AddPower$ 2 | AddToughness$ 2
+S:Mode$ CantSacrifice | ValidCard$ Creature.YouCtrl+YouDontOwn | Secondary$ True

@@ -1,9 +1,10 @@
 Id:16488
-ColorIdentity:W
+ColorIdentity:B
 OriginSet:G4bddbf7cb4f2475e
-ManaCost:3 W W
-Types:Sorcery
-A:SP$ DestroyAll | ValidCards$ Creature | RememberDestroyed$ True | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | Defined$ You | SubAbility$ DBCleanup | LifeAmount$ X
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Remembered$Amount
+ManaCost:1 B
+Types:Creature Insect
+PT:1/1
+S:Mode$ CantBlock | ValidCard$ Card.Self
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ 1

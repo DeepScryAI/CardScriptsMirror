@@ -1,8 +1,10 @@
 Id:24527
 ColorIdentity:W
-OriginSet:G58bfeff4fb121c8e
-ManaCost:no cost
-Types:Land Plains Gate
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
-A:AB$ Seek | Cost$ 3 W T | Type$ Card.nonLand | GameActivationLimit$ 1
+OriginSet:G51fcb7ec0cb81c29
+ManaCost:4 W
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigInitiative
+SVar:TrigInitiative:DB$ TakeInitiative
+T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigToken | CheckSVar$ X | TriggerZones$ Battlefield
+SVar:TrigToken:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 1214250791 | TokenTapped$ True | TokenAttacking$ True
+SVar:X:PlayerCountDefinedTriggeredAttackedTargetAndYou$HasPropertyhasInitiative

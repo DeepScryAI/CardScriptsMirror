@@ -1,9 +1,14 @@
 Id:17357
-ColorIdentity:W
+ColorIdentity:B
 OriginSet:Gaa482ed186eee527
-ManaCost:2 W W
-Types:Enchantment
-K:ETBReplacement:Other:ChooseCT
-SVar:ChooseCT:DB$ ChooseType | Type$ Creature | AILogic$ MostProminentInComputerDeck
-S:Mode$ Continuous | Affected$ Creature.YouCtrl+counters_GE1_DIVINITY | AddKeyword$ Indestructible
-A:AB$ PutCounter | Cost$ 1 W | ValidTgts$ Creature.ChosenType+YouCtrl | CounterType$ DIVINITY | CounterNum$ 1
+ManaCost:2 B
+Types:Creature Vampire
+PT:1/3
+K:Menace
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigExile | TriggerZones$ Battlefield
+SVar:TrigExile:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | ChangeType$ Card | DefinedPlayer$ TriggeredTarget | Chooser$ TriggeredTarget | ExileFaceDown$ True | Mandatory$ True | ChangeNum$ 1 | RememberChanged$ True
+S:Mode$ Continuous | MayPlay$ True | MayLookAt$ You | Affected$ Card.IsRemembered | AffectedZone$ Exile
+T:Mode$ ChangesZone | Origin$ Exile | Destination$ Any | Static$ True | ValidCard$ Card.IsRemembered | Execute$ DBForget
+SVar:DBForget:DB$ Pump | ForgetObjects$ TriggeredCard
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | Static$ True | ValidCard$ Card.Self | Execute$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

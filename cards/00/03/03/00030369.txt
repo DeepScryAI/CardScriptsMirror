@@ -1,9 +1,12 @@
 Id:30369
-ColorIdentity:G
-OriginSet:G8b2ed00ac2a0ff47
-ManaCost:2 G
-Types:Enchantment Aura
-K:Flash
-K:Enchant:Creature
-SVar:AttachAILogic:Pump
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 2 | AddToughness$ 2 | AddKeyword$ Trample
+ColorIdentity:U
+OriginSet:G7b2137df486dc752
+ManaCost:5 U
+Types:Enchantment Creature Nightmare
+PT:6/6
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self,Enchantment.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigTap
+T:Mode$ FullyUnlock | ValidCard$ Card.Room | ValidPlayer$ You | Secondary$ True | Execute$ TrigTap | TriggerZones$ Battlefield
+SVar:TrigTap:DB$ Tap | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBStun
+SVar:DBStun:DB$ PutCounter | Defined$ Targeted | CounterType$ Stun | CounterNum$ 1
+R:Event$ RemoveCounter | ActiveZones$ Battlefield | ValidCard$ Permanent.OppCtrl | ValidCounterType$ STUN | Layer$ CantHappen

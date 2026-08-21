@@ -1,9 +1,11 @@
 Id:21978
-ColorIdentity:UG
-OriginSet:Gd784248bfdf9e1d7
-ManaCost:X GU GU
-Types:Sorcery Lesson
-A:SP$ Token | TokenScriptIds$ 1802199211 | RememberTokens$ True | SubAbility$ DBCounters
-SVar:DBCounters:DB$ PutCounter | Defined$ Remembered | CounterType$ P1P1 | CounterNum$ X | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$xPaid
+ColorIdentity:W
+OriginSet:G6fa60d857e930f32
+ManaCost:2 W
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigLearn
+SVar:TrigLearn:DB$ Learn
+T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigPutCounter | TriggerZones$ Battlefield
+SVar:TrigPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ 1 | ValidTgts$ Creature.attacking | SubAbility$ DBUntap
+SVar:DBUntap:DB$ Untap | Defined$ Targeted
+SVar:PlayMain1:TRUE

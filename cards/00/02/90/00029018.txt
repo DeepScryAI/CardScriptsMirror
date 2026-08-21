@@ -1,13 +1,13 @@
 Id:29018
 ColorIdentity:W
-OriginSet:G27146c70b74a1e72
-ManaCost:1 W W
-Types:Creature Bird Rogue
-PT:2/2
-K:Flash
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZone | TargetType$ Spell | ValidTgts$ Card | TgtZone$ Stack | Origin$ Stack | Destination$ Exile | IsCurse$ True | RememberChanged$ True | SubAbility$ DBPlot
-SVar:DBPlot:DB$ AlterAttribute | Defined$ Remembered | Attributes$ Plotted | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-S:Mode$ RaiseCost | Activator$ Opponent | ValidCard$ Card.wasCastFromGraveyard,Card.wasCastFromExile | Type$ Spell | Amount$ 2
+OriginSet:Gaf7c94f364052cdd
+ManaCost:1 W
+Types:Enchantment Aura
+K:Enchant:Opponent
+SVar:AttachAILogic:Curse
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 2822783804,134855612,4185589785 | TokenOwner$ EnchantedPlayer
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ Opponent.EnchantedBy | TriggerZones$ Battlefield | Execute$ TrigEffect
+SVar:TrigEffect:DB$ Effect | UnlessCost$ Y | UnlessPayer$ EnchantedPlayer | Duration$ UntilEndOfCombat | StaticAbilities$ StaticCantAttack
+SVar:StaticCantAttack:Mode$ CantAttack | ValidCard$ Creature
+SVar:Y:Count$Valid Artifact.EnchantedPlayerCtrl

@@ -1,11 +1,16 @@
 Id:26969
-ColorIdentity:W
-OriginSet:G6ce0035cfb774934
-ManaCost:1 W
-Types:Legendary Creature Halfling Warrior
-PT:2/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ DBAttach | OptionalDecider$ You
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ DBAttach | TriggerZones$ Battlefield | OptionalDecider$ You | Secondary$ True
-SVar:DBAttach:DB$ Attach | ValidTgts$ Equipment.cmcEQ2+YouCtrl,Equipment.cmcEQ3+YouCtrl | Object$ Targeted | Defined$ Self
-R:Event$ DamageDone | ActiveZones$ Battlefield | Prevent$ True | ValidTarget$ Card.Self | PlayerTurn$ True
+ColorIdentity:WUR
+OriginSet:G3601f5e223de6c7f
+ManaCost:1 U R W
+Types:Legendary Creature Human Noble
+PT:4/4
+K:Vigilance
+K:Lifelink
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMonarch
+SVar:TrigMonarch:DB$ BecomeMonarch
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TgtNoBlock
+SVar:TgtNoBlock:DB$ Pump | SubAbility$ AllNoBlock | ValidTgts$ Creature | KW$ HIDDEN CARDNAME can't block. | TargetMin$ 0 | TargetMax$ 1
+SVar:AllNoBlock:DB$ Effect | StaticAbilities$ KWPump | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ1 | AILogic$ Evasion
+SVar:KWPump:Mode$ Continuous | AffectedZone$ Battlefield | Affected$ Creature | AddHiddenKeyword$ CARDNAME can't block.
+SVar:X:Count$Monarch.1.0
 SVar:HasAttackEffect:TRUE

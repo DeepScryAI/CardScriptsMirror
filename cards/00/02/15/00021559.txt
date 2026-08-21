@@ -1,8 +1,12 @@
 Id:21559
-ColorIdentity:R
+ColorIdentity:UR
 OriginSet:G18bf722b221724f8
-ManaCost:R
-Types:Snow Instant
-A:SP$ DealDamage | ValidTgts$ Creature,Planeswalker | NumDmg$ X
-SVar:X:Count$Compare Y GE3.3.2
-SVar:Y:Count$Valid Permanent.Snow+YouCtrl
+ManaCost:3 U R
+Types:Enchantment Saga
+K:Chapter:3:DBDamageAll,DBScry,DBEffect
+SVar:DBDamageAll:DB$ DamageAll | NumDmg$ 4 | ValidCards$ Creature.nonGiant,Planeswalker
+SVar:DBScry:DB$ Scry | ScryNum$ 3
+SVar:DBEffect:DB$ Effect | Triggers$ CastSpell
+SVar:CastSpell:Mode$ SpellCast | ValidCard$ Card.cmcGE5 | ValidActivatingPlayer$ You | TriggerZones$ Command | Execute$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 2 | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ TgtChoose

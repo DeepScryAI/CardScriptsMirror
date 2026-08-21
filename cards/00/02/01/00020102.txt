@@ -1,8 +1,9 @@
 Id:20102
-ColorIdentity:B
-OriginSet:G00aff909a83a7400
-ManaCost:B
-Types:Artifact Key
-S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddKeyword$ Menace & Deathtouch | IsPresent$ Card.Self+tapped
-SVar:NonStackingEffect:True
-SVar:PlayMain1:TRUE
+ColorIdentity:
+OriginSet:G23be9f486a22d38a
+ManaCost:no cost
+Types:Land Swamp
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ LandTapped | ReplacementResult$ Updated
+SVar:LandTapped:DB$ Tap | Defined$ Self | ETB$ True | ConditionPresent$ Swamp.YouCtrl+Other | ConditionCompare$ LT3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self+untapped | Execute$ TrigChange | OptionalDecider$ You
+SVar:TrigChange:DB$ ChangeZone | ValidTgts$ Creature.YouOwn | Origin$ Graveyard | Destination$ Library

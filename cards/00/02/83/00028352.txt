@@ -1,10 +1,16 @@
 Id:28352
-ColorIdentity:R
-OriginSet:G94329e6b3f93276f
-ManaCost:2 R R
-Types:Sorcery
-A:SP$ Vote | Defined$ Player | Secret$ True | VotePlayer$ Other | StoreVoteNum$ True | SubAbility$ DBRepeatOpp
-SVar:DBRepeatOpp:DB$ RepeatEach | RepeatPlayers$ Opponent | RepeatSubAbility$ DBDamage | AmountFromVotes$ True | SubAbility$ DBRepeatYou
-SVar:DBDamage:DB$ DamageAll | NumDmg$ SVar$Votes/Times.2 | ValidCards$ Creature.RememberedPlayerCtrl | ValidPlayers$ Remembered
-SVar:DBRepeatYou:DB$ RepeatEach | RepeatPlayers$ You | RepeatSubAbility$ DBDraw | AmountFromVotes$ True
-SVar:DBDraw:DB$ Draw | Defined$ Remembered | NumCards$ Votes
+ColorIdentity:W
+OriginSet:Gfd50577710a6ab09
+ManaCost:2 W W
+Types:Legendary Artifact
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 1406396585
+T:Mode$ Phase | Phase$ Main1 | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigTransform
+SVar:TrigTransform:AB$ SetState | Cost$ tapXType<5/Artifact;Creature/artifact or creature> | Defined$ Self | Mode$ Transform
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Types:Legendary Artifact Land
+A:AB$ Mana | Cost$ T | Produced$ W
+T:Mode$ SpellCast | ValidCard$ Artifact,Creature | ValidSA$ Spell.ManaFromCard.StrictlySelf | ValidActivatingPlayer$ You | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 1406396585

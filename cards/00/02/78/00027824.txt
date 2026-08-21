@@ -1,11 +1,9 @@
 Id:27824
-ColorIdentity:G
+ColorIdentity:
 OriginSet:G30e8a5e111cffb44
-ManaCost:2 G G
-Types:Creature Alien Zombie Soldier
-PT:6/6
-K:Foretell:1 G
-K:CARDNAME must be blocked if able.
-S:Mode$ MinMaxBlocker | ValidCard$ Card.Self | Max$ 1
-T:Mode$ DamageDealtOnce | ValidSource$ Card.Self | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | Defined$ Self | ExileFaceDown$ True | Mandatory$ True | Foretold$ True
+ManaCost:no cost
+Types:Phenomenon
+T:Mode$ PlaneswalkedTo | ValidCard$ Card.Self | Execute$ TrigChooseCard
+SVar:TrigChooseCard:DB$ ChooseCard | Defined$ Player | Choices$ Creature | ControlledByPlayer$ Left | Reveal$ True | Mandatory$ True | ChosenMap$ True | SubAbility$ DBClone
+SVar:DBClone:DB$ CopyPermanent | Defined$ ChosenMap | AddKeywords$ Menace | SubAbility$ DBPlaneswalk
+SVar:DBPlaneswalk:DB$ Planeswalk

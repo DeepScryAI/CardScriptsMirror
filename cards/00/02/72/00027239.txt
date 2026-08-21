@@ -1,16 +1,7 @@
 Id:27239
-ColorIdentity:R
-OriginSet:G8636ad1cfd514d83
-ManaCost:4 R
-Types:Legendary Planeswalker Chandra
-Loyalty:3
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDealDamage
-SVar:TrigDealDamage:DB$ DealDamage | Defined$ Opponent | NumDmg$ X
-SVar:X:Count$Valid Planeswalker.YouCtrl
-A:AB$ Mana | Cost$ AddCounter<1/LOYALTY> | Produced$ R | Amount$ X | Planeswalker$ True
-A:AB$ RemoveCounter | Cost$ AddCounter<0/LOYALTY> | Choices$ Permanent.YouCtrl | CounterType$ LOYALTY | CounterNum$ 1 | ChoiceOptional$ True | Planeswalker$ True | SubAbility$ DBExile | RememberAmount$ True
-SVar:DBExile:DB$ Dig | Defined$ You | DigNum$ Z | ChangeNum$ All | DestinationZone$ Exile | Imprint$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | ForgetOnMoved$ Exile | RememberObjects$ Imprinted | SubAbility$ DBCleanup
-SVar:STPlay:Mode$ Continuous | Affected$ Card.IsRemembered | MayPlay$ True | AffectedZone$ Exile
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True
-SVar:Z:Count$RememberedNumber
+ColorIdentity:W
+OriginSet:G6ce0035cfb774934
+ManaCost:1 W
+Types:Instant
+A:SP$ ChangeZone | ValidTgts$ Card.inZoneStack | TgtZone$ Stack | Origin$ Stack | Destination$ Hand | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw

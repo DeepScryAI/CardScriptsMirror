@@ -1,11 +1,8 @@
 Id:15920
-ColorIdentity:W
+ColorIdentity:
 OriginSet:G92026fbb3573fda5
-ManaCost:1 W
-Types:Creature Human Soldier
-PT:1/1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPutCounterAll
-SVar:TrigPutCounterAll:DB$ PutCounterAll | ValidCards$ Human.YouCtrl+StrictlyOther | CounterType$ P1P1 | CounterNum$ 1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Human.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ 1
-SVar:BuffedBy:Human
+ManaCost:5
+Types:Legendary Artifact Book
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigInvestigate
+SVar:TrigInvestigate:DB$ Investigate
+A:AB$ ChangeZone | Cost$ T Sac<3/Clue> | Origin$ Library | Destination$ Hand | ChangeType$ Card | ChangeNum$ 1 | Mandatory$ True

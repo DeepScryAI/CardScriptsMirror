@@ -1,10 +1,13 @@
 Id:29040
-ColorIdentity:G
-OriginSet:G27146c70b74a1e72
-ManaCost:4 G G
-Types:Creature Plant Spider
-PT:6/5
-S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ 1 | EffectZone$ All | IsPresent$ Desert.YouCtrl
-K:Reach
-T:Mode$ BecomesTarget | ValidSource$ SpellAbility.OppCtrl | ValidTarget$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1 | OptionalDecider$ You
+ColorIdentity:B
+OriginSet:Gaf7c94f364052cdd
+ManaCost:4 B B
+Types:Creature Bat Mutant
+PT:5/5
+K:Flying
+K:Menace
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigRadiation
+SVar:TrigRadiation:DB$ Radiation | Defined$ Player | Num$ 2
+T:Mode$ MilledAll | ValidPlayer$ Player | ValidCard$ Card.nonLand | TriggerZones$ Battlefield | Execute$ TrigToken | ResolvedLimit$ 1 | OptionalDecider$ You
+SVar:TrigToken:DB$ Token | TokenAmount$ TriggerCount$Amount | TokenScriptIds$ 3931175551 | TokenOwner$ You
+SVar:HasAttackEffect:TRUE

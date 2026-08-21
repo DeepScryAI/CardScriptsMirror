@@ -1,18 +1,13 @@
 Id:28433
-ColorIdentity:U
-OriginSet:G7ee0e82a2424d636
-ManaCost:1 U U
-Types:Artifact Creature Bird
-PT:1/4
-K:Flying
-K:Disguise:1 U
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigSteal | TriggerZones$ Battlefield
-SVar:TrigSteal:DB$ GainControl | ValidTgts$ Permanent.YouOwn+YouDontCtrl
-T:Mode$ TurnFaceUp | ValidCard$ Card.Self | Execute$ TrigDonate | TriggerZones$ Battlefield
-SVar:TrigDonate:DB$ Pump | ValidTgts$ Opponent | SubAbility$ DBGainControl
-SVar:DBGainControl:DB$ GainControl | ValidTgts$ Permanent.YouCtrl | TargetMin$ 0 | TargetMax$ X | NewController$ ParentTarget | RememberControlled$ True | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | NumCards$ Y | SubAbility$ DBCleanup
+ColorIdentity:UR
+OriginSet:G8a59924df6623252
+ManaCost:2 U R
+Types:Legendary Creature Time Lord Doctor
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigMill | TriggerZones$ Battlefield | Secondary$ True
+SVar:TrigMill:DB$ Mill | NumCards$ 3 | RememberMilled$ True | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Hidden$ True | Optional$ True | Origin$ Graveyard,Exile | Destination$ Hand | ChangeType$ Artifact.IsRemembered+cmcEQ2,Artifact.IsRemembered+cmcEQ3 | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$Valid Permanent.YouCtrl
-SVar:Y:Remembered$Amount
-SVar:HasAttackEffect:TRUE
+S:Mode$ Continuous | Affected$ Card.nonArtifact+YouCtrl | EffectZone$ Battlefield | AffectedZone$ Stack | CheckSVar$ X | SVarCompare$ EQ0 | AddKeyword$ Improvise
+SVar:X:Count$ThisTurnCast_Card.nonArtifact+YouCtrl

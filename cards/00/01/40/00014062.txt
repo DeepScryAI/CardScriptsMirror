@@ -1,10 +1,10 @@
 Id:14062
-ColorIdentity:U
+ColorIdentity:G
 OriginSet:Gdaee41baa388b0e7
-ManaCost:4 U
-Types:Enchantment Creature Chimera
-PT:3/3
-T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ Opponent | OptionalDecider$ You | Execute$ ExchangeControlSpell | TriggerZones$ Battlefield
-SVar:ExchangeControlSpell:DB$ ControlSpell | Defined$ TriggeredSpellAbility | Mode$ Exchange | Remember$ True | SubAbility$ DBChooseTargets
-SVar:DBChooseTargets:DB$ ChangeTargets | Defined$ TriggeredSpellAbility | Optional$ True | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ GE2 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:3 G
+Types:Sorcery
+A:SP$ ChangeZone | Origin$ Library | Destination$ Library | ChangeType$ Land.Basic | ChangeNum$ 2 | RememberChanged$ True | Reveal$ True | Shuffle$ False | SubAbility$ DBChangeZone1
+SVar:DBChangeZone1:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Land.IsRemembered | ChangeNum$ 1 | Mandatory$ True | NoLooking$ True | Tapped$ True | Shuffle$ False | SubAbility$ DBChangeZone2
+SVar:DBChangeZone2:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Land.IsRemembered | Mandatory$ True | NoLooking$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | SubAbility$ DBScry
+SVar:DBScry:DB$ Scry | ScryNum$ 1

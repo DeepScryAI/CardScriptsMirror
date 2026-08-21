@@ -1,9 +1,10 @@
 Id:28061
-ColorIdentity:U
-OriginSet:Gfd50577710a6ab09
-ManaCost:no cost
-Types:Land Cave
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
-A:AB$ Mana | Cost$ T | Produced$ U
-A:AB$ Discover | Cost$ 4 U T Sac<1/CARDNAME> | Num$ 4 | SorcerySpeed$ True
+ColorIdentity:G
+OriginSet:G06c78c29bfb28e3d
+ManaCost:G G
+Types:Sorcery
+T:Mode$ SpellCast | CheckSVar$ X | SVarCompare$ GE8 | ValidCard$ Card.Self | Execute$ TrigCopy
+SVar:TrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | Amount$ 2 | MayChooseTarget$ True
+SVar:X:Count$ValidGraveyard Permanent.YouOwn
+A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Permanent.YouCtrl | SubAbility$ ExileSelf
+SVar:ExileSelf:DB$ ChangeZone | Origin$ Stack | Destination$ Exile

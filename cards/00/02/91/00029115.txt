@@ -1,10 +1,10 @@
 Id:29115
-ColorIdentity:BR
-OriginSet:G27146c70b74a1e72
-ManaCost:no cost
-Types:Land Desert
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDealDamage
-SVar:TrigDealDamage:DB$ DealDamage | ValidTgts$ Opponent | NumDmg$ 1
-A:AB$ Mana | Cost$ T | Produced$ Combo B R
+ColorIdentity:
+OriginSet:Gc7beb665b378d90a
+ManaCost:3
+Types:Artifact
+A:AB$ Mana | Cost$ T | Produced$ Any
+A:AB$ PutCounter | Cost$ 1 T | ValidTgts$ Creature | CounterType$ BOUNTY | CounterNum$ 1 | IsCurse$ True | SorcerySpeed$ True
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.counters_GE1_BOUNTY | TriggerZones$ Battlefield | Execute$ TrigGainLife
+SVar:TrigGainLife:DB$ GainLife | Defined$ Player.OpponentOf TriggeredCardController | LifeAmount$ 2 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ Player.OpponentOf TriggeredCardController | NumCards$ 1

@@ -1,13 +1,17 @@
 Id:24246
-ColorIdentity:G
+ColorIdentity:R
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:14 G
-Types:Creature Elemental Dragon
-PT:10/10
+ManaCost:3 R R
+Types:Creature Demon
+PT:5/5
 K:Flying
-K:Trample
-S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ X | EffectZone$ All
-A:AB$ ChangeZone | Cost$ 2 G Sac<1/Land> | Origin$ Graveyard | Destination$ Hand | ActivationZone$ Graveyard
-SVar:DiscardMe:1
-SVar:PlayMain1:TRUE
-SVar:X:Count$Valid Creature.Dragon+YouCtrl$CardManaCost
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigChoose
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigChoose | Secondary$ True
+SVar:TrigChoose:DB$ Charm | MinCharmNum$ 1 | CharmNum$ MaxUniqueOpponents | Choices$ TrigDrawDiscard,TrigSacrifice,TrigDmg
+SVar:TrigDrawDiscard:DB$ Draw | ValidTgts$ Opponent | TargetUnique$ True | NumCards$ 3 | SubAbility$ Discard3
+SVar:Discard3:DB$ Discard | Defined$ ParentTarget | Mode$ Random | NumCards$ 3
+SVar:TrigSacrifice:DB$ Sacrifice | ValidTgts$ Opponent | TargetUnique$ True | SacValid$ Artifact.!token
+SVar:TrigDmg:DB$ DealDamage | ValidTgts$ Opponent | TargetUnique$ True | NumDmg$ X
+SVar:X:TargetedPlayer$CardsInHand
+SVar:MaxUniqueOpponents:PlayerCountOpponents$Amount
+SVar:NeedsToPlay:Artifact.OppCtrl

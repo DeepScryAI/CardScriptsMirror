@@ -1,9 +1,11 @@
 Id:22587
 ColorIdentity:W
 OriginSet:G9f95a41d532c0550
-ManaCost:2 W
-Types:Creature Dwarf Cleric
-PT:2/1
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Destination$ Battlefield | Execute$ TrigLife
-SVar:TrigLife:DB$ GainLife | LifeAmount$ 1 | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw
+ManaCost:2 W W
+Types:Legendary Planeswalker Bahamut
+Loyalty:3
+S:Mode$ Continuous | Affected$ Card.Self | IsPresent$ Card.Self+counters_GE7_LOYALTY | AddKeyword$ Flying & Indestructible | AddType$ Creature & Dragon & God | SetPower$ 7 | SetToughness$ 7 | RemoveCardTypes$ True | CharacteristicDefining$ True
+A:AB$ Effect | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Creature.withoutFirstStrike+withoutDoubleStrike+withoutVigilance | RememberObjects$ Targeted | StaticAbilities$ DBCantAttack,DBCantBlockBy | ForgetOnMoved$ Battlefield | IsCurse$ True | Duration$ UntilYourNextTurn
+SVar:DBCantAttack:Mode$ CantAttack | ValidCard$ Card.IsRemembered
+SVar:DBCantBlockBy:Mode$ CantBlockBy | ValidBlocker$ Card.IsRemembered | Secondary$ True
+A:AB$ ChangeZone | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | Origin$ Library | OriginAlternative$ Graveyard | Destination$ Hand | ChangeType$ Card.YouOwn+catalogId22641 | ChangeNum$ 1 | Optional$ True | ShuffleNonMandatory$ True

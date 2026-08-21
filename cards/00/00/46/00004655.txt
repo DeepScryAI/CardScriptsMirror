@@ -1,9 +1,8 @@
 Id:4655
 ColorIdentity:G
 OriginSet:Gfb91362c2efb868e
-ManaCost:1 G G
-Types:Creature Elf
-PT:2/2
-S:Mode$ Continuous | Affected$ Creature.Elf+Other | AddPower$ 1 | AddToughness$ 1 | AddKeyword$ Landwalk:Forest
-SVar:PlayMain1:TRUE
-SVar:BuffedBy:Elf
+ManaCost:1 G
+Types:Enchantment
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Land.Basic | SubAbility$ DBSkipDraw | ShuffleNonMandatory$ True
+SVar:DBSkipDraw:DB$ SkipPhase | Defined$ You | Step$ Draw | Duration$ EndOfTurn

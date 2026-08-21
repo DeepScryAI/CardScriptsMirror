@@ -1,10 +1,10 @@
 Id:14605
-ColorIdentity:UG
+ColorIdentity:R
 OriginSet:G0a578e83854cf093
-ManaCost:G U
-Types:Creature Bird Shaman
-PT:2/2
-K:Flying
-K:Morph:1 G U
-T:Mode$ TurnFaceUp | ValidCard$ Card.Self | Execute$ TrigBounce | TriggerZones$ Battlefield | OptionalDecider$ You
-SVar:TrigBounce:DB$ ChangeZone | ValidTgts$ Creature.Other | Origin$ Battlefield | Destination$ Hand
+ManaCost:2 R
+Types:Sorcery
+A:SP$ DelayedTrigger | AILogic$ SpellCopy | Execute$ EffTrigCopy | ThisTurn$ True | Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | SubAbility$ DBEffect
+SVar:DBEffect:DB$ DelayedTrigger | AILogic$ SpellCopy | Execute$ EffTrigCopy | ThisTurn$ True | Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | ConditionCheckSVar$ RaidTest
+SVar:RaidTest:Count$AttackersDeclared
+SVar:EffTrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | MayChooseTarget$ True
+SVar:AIPriorityModifier:9

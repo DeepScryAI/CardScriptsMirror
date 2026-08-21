@@ -1,11 +1,10 @@
 Id:15638
-ColorIdentity:G
+ColorIdentity:W
 OriginSet:Gc1f5e527f9d411df
-ManaCost:5 G
-Types:Creature Treefolk
-PT:4/5
-K:Flash
-K:Reach
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPumpAll
-SVar:TrigPumpAll:DB$ PumpAll | ValidTgts$ Player | ValidCards$ Creature | NumAtt$ +2 | NumDef$ +2 | SubAbility$ DBUntapAll
-SVar:DBUntapAll:DB$ UntapAll | ValidCards$ Creature.TargetedPlayerCtrl
+ManaCost:1 W W
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Permanent.nonLand+OppCtrl | TargetMin$ 0 | TargetMax$ OneEach | TargetsForEachPlayer$ True | Duration$ UntilHostLeavesPlay
+SVar:OneEach:PlayerCountOpponents$Amount
+SVar:PlayMain1:TRUE
+SVar:OblivionRing:TRUE

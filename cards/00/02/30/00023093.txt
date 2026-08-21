@@ -1,9 +1,14 @@
 Id:23093
-ColorIdentity:UG
+ColorIdentity:B
 OriginSet:G7a76c1974b0a33a6
-ManaCost:1 U U
-Types:Instant
-A:SP$ Draw | NumCards$ X
-A:SP$ Draw | Cost$ 4 G U | NumCards$ Y | NonBasicSpell$ True
-SVar:X:Count$Valid Creature.withFlying+YouCtrl
-SVar:Y:Count$Valid Creature.YouCtrl
+ManaCost:2 B B
+Types:Creature Vampire
+PT:5/6
+K:Flying
+K:Trample
+T:Mode$ SpellCast | ValidActivatingPlayer$ Opponent | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 2179622914 | TokenOwner$ TriggeredActivator
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +X
+SVar:X:Count$Valid Blood.token+DefenderCtrl
+SVar:HasAttackEffect:TRUE

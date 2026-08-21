@@ -1,7 +1,18 @@
 Id:16198
-ColorIdentity:G
+ColorIdentity:B
 OriginSet:G70d19654882197c9
-ManaCost:1 G
-Types:Instant
-A:SP$ Mill | NumCards$ 3 | Defined$ You | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ChangeType$ Creature.YouCtrl,Land.YouCtrl | ChangeNum$ 1 | Hidden$ True
+ManaCost:1 B
+Types:Creature Rat
+PT:2/1
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | IsPresent$ Card.Self+YouCtrl+YouOwn | IsPresent2$ Creature.YouCtrl+YouOwn+catalogId16233 | Execute$ Meld
+SVar:Meld:DB$ Meld | CatalogId$ 16139 | PrimaryCatalogId$ 16198 | SecondaryCatalogId$ 16233
+MeldPairId:16233
+AlternateMode:Meld
+ALTERNATE
+ManaCost:no cost
+Types:Creature Eldrazi Horror
+PT:5/6
+K:Haste
+K:Menace
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPumpAll
+SVar:TrigPumpAll:DB$ PumpAll | ValidCards$ Creature.YouCtrl+StrictlyOther | NumAtt$ +1 | KW$ Menace

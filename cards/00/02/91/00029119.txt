@@ -1,11 +1,10 @@
 Id:29119
-ColorIdentity:B
-OriginSet:G27146c70b74a1e72
-ManaCost:1 B B
-Types:Legendary Creature Human Warlock
-PT:3/3
-T:Mode$ CommitCrime | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZone | ValidTgts$ Card.Black+YouOwn | Origin$ Graveyard | Destination$ Exile | Imprint$ True | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBCast
-SVar:DBCast:DB$ Play | Valid$ Card.IsImprinted | ValidZone$ Exile | CopyCard$ True | ValidSA$ Spell | Optional$ True | RememberPlayed$ True | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 2 | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True
+ColorIdentity:R
+OriginSet:Gc7beb665b378d90a
+ManaCost:3 R R
+Types:Creature Human Wizard
+PT:2/2
+K:Flash
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.wasCast+Self | Execute$ TrigEffect
+SVar:TrigEffect:DB$ Effect | StaticAbilities$ GrantStorm | ForgetOnCast$ Instant.YouCtrl,Sorcery.YouCtrl
+SVar:GrantStorm:Mode$ Continuous | Affected$ Instant.YouCtrl,Sorcery.YouCtrl | AffectedZone$ Stack | AddKeyword$ Storm

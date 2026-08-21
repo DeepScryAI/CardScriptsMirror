@@ -1,9 +1,9 @@
 Id:29253
-ColorIdentity:B
+ColorIdentity:BG
 OriginSet:G27146c70b74a1e72
-ManaCost:1 B
-Types:Legendary Creature Vampire Rogue
-PT:2/2
-T:Mode$ CommitCrime | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter | ActivationLimit$ 1
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
-S:Mode$ Continuous | Affected$ Card.Self+counters_GE4_P1P1 | AddKeyword$ Menace & Lifelink
+ManaCost:1 B G
+Types:Legendary Creature Human Warlock
+PT:3/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Creature.YouCtrl
+S:Mode$ ReduceCost | ValidCard$ Creature | Type$ Spell | Activator$ You | Amount$ 1

@@ -1,25 +1,27 @@
 Id:15202
-ColorIdentity:W
+ColorIdentity:U
 OriginSet:Ge4fd41522a714e94
-ManaCost:W
-Types:Legendary Creature Human Soldier
-PT:2/1
-T:Mode$ Phase | Phase$ EndCombat | IsPresent$ Card.Self+attackedThisCombat GE3 | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn
+ManaCost:1 U
+Types:Legendary Creature Human Wizard
+PT:0/2
+A:AB$ Draw | Cost$ T | NumCards$ 1 | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ TgtChoose | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | ConditionCheckSVar$ X | ConditionSVarCompare$ GE5 | SubAbility$ DBReturn
 SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | Transformed$ True | ForgetOtherRemembered$ True | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-A:AB$ Pump | Cost$ 2 W | Defined$ Self | KW$ Indestructible
+SVar:X:Count$ValidGraveyard Card.YouOwn
 AlternateMode:DoubleFaced
 ALTERNATE
 ManaCost:no cost
-Colors:white
-Types:Legendary Planeswalker Gideon
-Loyalty:3
-A:AB$ DelayedTrigger | Cost$ AddCounter<2/LOYALTY> | Planeswalker$ True | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Creature.OppCtrl | Mode$ Phase | Phase$ Upkeep-> | ValidPlayer$ Player.controlsCard.IsTriggerRemembered | UpcomingTurn$ True | RememberObjects$ Targeted | Execute$ TrigEffect | Static$ True
-SVar:TrigEffect:DB$ Effect | RememberObjects$ DelayTriggerRemembered | StaticAbilities$ MustAttack
-SVar:MustAttack:Mode$ MustAttack | ValidCreature$ Creature.IsRemembered | MustAttack$ EffectSource
-A:AB$ Pump | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Creature | KW$ Indestructible | Duration$ UntilYourNextTurn | SubAbility$ DBUntap
-SVar:DBUntap:DB$ Untap | Defined$ Targeted
-A:AB$ Animate | Cost$ AddCounter<0/LOYALTY> | Defined$ Self | Power$ 4 | Toughness$ 4 | Types$ Creature,Human,Soldier | Keywords$ Indestructible | SubAbility$ DBPrevent | Planeswalker$ True | Ultimate$ True
-SVar:DBPrevent:DB$ Effect | ReplacementEffects$ RPrevent | Duration$ UntilHostLeavesPlayOrEOT
-SVar:RPrevent:Event$ DamageDone | Prevent$ True | ValidTarget$ Card.EffectSource
+Colors:blue
+Types:Legendary Planeswalker Jace
+Loyalty:5
+A:AB$ Pump | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | NumAtt$ -2 | IsCurse$ True | Duration$ UntilYourNextTurn | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Creature
+A:AB$ Effect | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | ValidTgts$ Instant.YouCtrl,Sorcery.YouCtrl | TgtZone$ Graveyard | RememberObjects$ Targeted | StaticAbilities$ Play | ExileOnMoved$ Graveyard | SubAbility$ DBEffect
+SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered+nonLand | AffectedZone$ Graveyard
+SVar:DBEffect:DB$ Effect | RememberObjects$ Targeted | ExileOnMoved$ Stack | ReplacementEffects$ ReplaceGraveyard
+SVar:ReplaceGraveyard:Event$ Moved | ValidCard$ Card.IsRemembered | Origin$ Stack | Destination$ Graveyard | ReplaceWith$ MoveExile
+SVar:MoveExile:DB$ ChangeZone | Defined$ ReplacedCard | Origin$ Stack | Destination$ Exile
+A:AB$ Effect | Cost$ SubCounter<9/LOYALTY> | Planeswalker$ True | Ultimate$ True | Name$ 13058065118685031262 | Triggers$ TrigSpellCast | Duration$ Permanent | AILogic$ Always
+SVar:TrigSpellCast:Mode$ SpellCast | ValidActivatingPlayer$ You | Execute$ EffSpellCast
+SVar:EffSpellCast:DB$ Mill | NumCards$ 5 | ValidTgts$ Opponent

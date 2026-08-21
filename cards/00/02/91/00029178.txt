@@ -1,16 +1,14 @@
 Id:29178
-ColorIdentity:BR
+ColorIdentity:UR
 OriginSet:G27146c70b74a1e72
-ManaCost:2 B B R
-Types:Legendary Creature Demon Mercenary
-PT:6/5
-K:Flying
-K:Trample
-T:Mode$ Sacrificed | ValidPlayer$ You | ValidCard$ Creature.Other | TriggerZones$ Battlefield | Execute$ TrigExile
-SVar:TrigExile:DB$ Dig | DigNum$ X | ChangeNum$ All | ValidTgts$ Player | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ STPlay | SubAbility$ DBCleanup | ForgetOnMoved$ Exile | Duration$ UntilYourNextEndStep
-SVar:STPlay:Mode$ Continuous | MayPlay$ True | MayPlayIgnoreType$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
-A:AB$ Pump | Cost$ Sac<1/Creature.Other/another creature> | Defined$ Self | KW$ Indestructible | ActivationLimit$ 1 | SubAbility$ DBTap
-SVar:DBTap:DB$ Tap | Defined$ Self
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:TriggeredCard$CardManaCost
+ManaCost:1 U R
+Types:Legendary Creature Goblin Pirate
+PT:3/3
+K:Menace
+T:Mode$ SpellCast | ValidCard$ Card.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigFlip | ValidActivatingPlayer$ You | ActivatorThisTurnCast$ EQ2
+SVar:TrigFlip:AB$ FlipCoin | Cost$ Sac<1/Artifact> | WinSubAbility$ DBImmediateTrigDamageCopy | LoseSubAbility$ DBImmediateTrigDamage
+SVar:DBImmediateTrigDamageCopy:DB$ ImmediateTrigger | Execute$ TrigCopy
+SVar:TrigCopy:DB$ CopySpellAbility | Defined$ Spawner>TriggeredSpellAbility | MayChooseTarget$ True
+SVar:DBImmediateTrigDamage:DB$ ImmediateTrigger | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ X
+SVar:X:Spawner>TriggeredSpellAbility$CardManaCost

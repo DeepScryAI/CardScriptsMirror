@@ -1,7 +1,13 @@
 Id:28616
-ColorIdentity:B
+ColorIdentity:R
 OriginSet:G7ee0e82a2424d636
-ManaCost:B
-Types:Instant
-A:SP$ Pump | ValidTgts$ Creature | KW$ Deathtouch & Lifelink | SubAbility$ DBInvestigate
-SVar:DBInvestigate:DB$ Investigate
+ManaCost:2 R
+Types:Creature Ape
+PT:2/2
+K:Reach
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | Choices$ DBDestroy,DBSacrifice
+SVar:DBDestroy:DB$ Destroy | ValidTgts$ Artifact | TargetMin$ 0 | TargetMax$ 1
+SVar:DBSacrifice:DB$ Sacrifice | SacValid$ Artifact | RememberSacrificed$ True | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | ConditionDefined$ Remembered | ConditionPresent$ Card | CounterType$ P1P1 | CounterNum$ 2 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

@@ -1,10 +1,9 @@
 Id:31757
-ColorIdentity:G
-OriginSet:G7ab4f62d323b0ca7
-ManaCost:1 G
+ColorIdentity:B
+OriginSet:G530ea9d733a13e9d
+ManaCost:3 B
 Types:Instant
-A:SP$ Pump | ValidTgts$ Creature | NumAtt$ +1 | SubAbility$ DBAnimate
-SVar:DBAnimate:DB$ Animate | Triggers$ GalufDeath | Defined$ ParentTarget
-SVar:GalufDeath:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ GalufPutCounter | TriggerController$ TriggeredCardController
-SVar:GalufPutCounter:DB$ PutCounter | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | CounterType$ P1P1 | CounterNum$ X
-SVar:X:TriggeredCard$CardPower
+A:SP$ ChangeZoneAll | ChangeType$ Card.OppOwn | Origin$ Graveyard | Destination$ Exile | RememberChanged$ True | SubAbility$ DBImmediateTrigger
+SVar:DBImmediateTrigger:DB$ ImmediateTrigger | RememberObjects$ Remembered | Execute$ TrigCopy | SubAbility$ DBCleanup
+SVar:TrigCopy:DB$ CopyPermanent | ValidTgts$ Creature.IsTriggerRemembered | TgtZone$ Exile | TargetMin$ 0 | TargetMax$ 1 | AddTypes$ Artifact | RemoveCardTypes$ True
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

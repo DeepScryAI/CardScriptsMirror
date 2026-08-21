@@ -1,6 +1,12 @@
 Id:14072
-ColorIdentity:WG
+ColorIdentity:G
 OriginSet:Gdaee41baa388b0e7
-ManaCost:1 G W
-Types:Instant
-A:SP$ PutCounter | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 3 | CounterType$ P1P1 | CounterNum$ 1
+ManaCost:3 G G
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 4257275070 | TokenOwner$ You | TokenAmount$ 2
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ X | AddToughness$ X
+SVar:X:Count$Valid Card.Wolf+YouCtrl
+SVar:BuffedBy:Wolf

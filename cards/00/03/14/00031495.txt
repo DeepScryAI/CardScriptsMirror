@@ -1,12 +1,10 @@
 Id:31495
-ColorIdentity:WBR
-OriginSet:Gf2b808f4f642ac62
-ManaCost:2 R W B
+ColorIdentity:R
+OriginSet:G93ac57511923c3dd
+ManaCost:4 R
 Types:Creature Dragon
-PT:4/4
+PT:4/3
 K:Flying
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigDealDamage
-SVar:TrigDealDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 2 | RememberDamaged$ True | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | LifeAmount$ 2 | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | Defined$ Player.IsRemembered | Mode$ TgtChoose | NumCards$ 1 | ConditionDefined$ Remembered | ConditionPresent$ Player | ConditionCompare$ GE1 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+K:Myriad
+T:Mode$ DamageDone | ValidSource$ Card.Self | CombatDamage$ True | ValidTarget$ Player | Execute$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 3851718391

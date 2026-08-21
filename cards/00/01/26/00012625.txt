@@ -1,9 +1,13 @@
 Id:12625
-ColorIdentity:B
+ColorIdentity:W
 OriginSet:Gfd7b72e0eb9d2cf5
-ManaCost:3 B B
-Types:Creature Zombie Horror
-PT:3/5
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.DamagedBy | Execute$ TrigChange
-SVar:TrigChange:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True | Defined$ TriggeredNewCardLKICopy | StaticEffect$ Animate
-SVar:Animate:Mode$ Continuous | Affected$ Card.IsRemembered | AddType$ Zombie | AddColor$ Black
+ManaCost:X W
+Types:Instant
+A:SP$ StoreSVar | SVar$ ShieldAmount | Type$ Calculate | Expression$ X | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | ValidTgts$ Any | ReplacementEffects$ ReDamage | RememberObjects$ Targeted
+SVar:ReDamage:Event$ DamageDone | ActiveZones$ Command | ValidTarget$ You,Permanent.YouCtrl | ReplaceWith$ PreventDamage | PreventionEffect$ NextN
+SVar:PreventDamage:DB$ ReplaceDamage | Amount$ ShieldAmount | DivideShield$ True | SubAbility$ DBDealDamage
+SVar:DBDealDamage:DB$ DealDamage | NumDmg$ Y | Defined$ Remembered | DamageSource$ EffectSource
+SVar:X:Count$xPaid
+SVar:ShieldAmount:Number$0
+SVar:Y:ReplaceCount$DamageAmount

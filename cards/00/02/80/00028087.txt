@@ -1,9 +1,14 @@
 Id:28087
-ColorIdentity:W
-OriginSet:Gfd50577710a6ab09
-ManaCost:2 W
-Types:Creature Human Scout
-PT:1/1
-K:DoubleStrike
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExplore
-SVar:TrigExplore:DB$ Explore
+ColorIdentity:B
+OriginSet:G06c78c29bfb28e3d
+ManaCost:1 B
+Types:Enchantment
+T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | ValidPlayer$ You | Execute$ TrigPopulate
+SVar:TrigPopulate:AB$ CopyPermanent | Cost$ Sac<1/Creature.nonDemon/non-Demon creature> | Populate$ True
+AlternateMode:Adventure
+ALTERNATE
+ManaCost:2 B
+Types:Sorcery Adventure
+A:SP$ Sacrifice | SacValid$ Creature.nonDemon | Defined$ You | RememberSacrificed$ True | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 3875630332 | TokenOwner$ You | ConditionDefined$ RememberedLKI | ConditionPresent$ Card | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

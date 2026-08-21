@@ -1,9 +1,12 @@
 Id:33822
-ColorIdentity:R
-OriginSet:Gf8df2bea26dc6b68
-ManaCost:3 R
-Types:Legendary Creature Human Artificer
-PT:4/4
-K:Ward:PayLife<3>
-T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigCopy
-SVar:TrigCopy:AB$ CopySpellAbility | Cost$ Sac<1/Artifact> | Defined$ TriggeredSpellAbility | MayChooseTarget$ True
+ColorIdentity:UR
+OriginSet:Gf04404de3fa1525e
+ManaCost:1 U R
+Types:Creature Elemental Horse
+PT:3/3
+K:Ward:1
+K:Haste
+T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +1 | NumDef$ +1 | SubAbility$ DBCopy
+SVar:DBCopy:DB$ CopyPermanent | ConditionCheckSVar$ X | ConditionSVarCompare$ GE5 | Defined$ Self
+SVar:X:TriggeredCard$CastTotalManaSpent

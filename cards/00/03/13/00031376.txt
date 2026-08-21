@@ -1,8 +1,11 @@
 Id:31376
-ColorIdentity:WBR
-OriginSet:Gf2b808f4f642ac62
-ManaCost:1 R W B
-Types:Creature Demon
-PT:4/4
-K:Mobilize:2
-S:Mode$ Continuous | Affected$ Creature.token+attacking+YouCtrl | AddKeyword$ Deathtouch
+ColorIdentity:
+OriginSet:G9de1432c543d1aef
+ManaCost:3
+Types:Artifact
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigDraft
+SVar:TrigDraft:DB$ Draft | SpellbookCatalogIds$ 12025,6576,11488,11836,6876,6877,11993 | RememberDrafted$ True | SubAbility$ DBPut
+SVar:DBPut:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | Defined$ Remembered | SubAbility$ DBTrigger
+SVar:DBTrigger:DB$ ImmediateTrigger | Execute$ TrigAttach | ConditionDefined$ Remembered | RememberObjects$ Remembered | ConditionPresent$ Card.Equipment
+SVar:TrigAttach:DB$ Attach | ValidTgts$ Creature.YouCtrl | Object$ DelayTriggerRememberedLKI | TargetMin$ 0 | TargetMax$ 1
+A:AB$ Sacrifice | Cost$ 5

@@ -1,8 +1,9 @@
 Id:29089
 ColorIdentity:U
-OriginSet:G27146c70b74a1e72
+OriginSet:G343cd0ac847a92b7
 ManaCost:2 U
-Types:Creature Drake
-PT:2/3
-K:Flying
-S:Mode$ ReduceCost | Type$ Spell | Activator$ You | Amount$ 1 | Condition$ NotPlayerTurn
+Types:Artifact Clue
+T:Mode$ Sacrificed | ValidPlayer$ You | ValidCard$ Card.Self,Artifact.Other | TriggerZones$ Battlefield | Execute$ TrigDelayedTrig
+SVar:TrigDelayedTrig:AB$ DelayedTrigger | Cost$ 2 | Mode$ Phase | Phase$ End of Turn | ValidPlayer$ Player | RememberObjects$ TriggeredCardLKICopy | Execute$ TrigCopy
+SVar:TrigCopy:DB$ CopyPermanent | Defined$ DelayTriggerRememberedLKI
+A:AB$ Draw | Cost$ 2 Sac<1/CARDNAME>

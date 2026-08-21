@@ -1,9 +1,12 @@
 Id:24919
-ColorIdentity:RG
+ColorIdentity:U
 OriginSet:G3a8b4b9d4649b357
-ManaCost:2 R G
-Types:Legendary Creature Elf Warrior
-PT:3/3
-T:Mode$ Taps | ValidCard$ Card.Self | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.Other+YouCtrl | NumAtt$ +X | NumDef$ +X
-SVar:X:Count$Domain
+ManaCost:1 U
+Types:Enchantment Saga
+K:Read ahead
+K:Chapter:3:DBPlayFree,DBMill,DBCopy
+SVar:DBPlayFree:DB$ Play | Valid$ Card.YouOwn | ValidSA$ Instant.cmcEQ1,Instant.cmcEQ2,Sorcery.cmcEQ1,Sorcery.cmcEQ2 | ValidZone$ Hand | WithoutManaCost$ True | Amount$ 1 | Controller$ You | Optional$ True
+SVar:DBMill:DB$ Mill | NumCards$ 4 | ValidTgts$ Player
+SVar:DBCopy:DB$ ChangeZone | TargetMax$ 1 | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Instant.YouCtrl,Sorcery.YouCtrl | RememberChanged$ True | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | Defined$ Remembered | ValidSA$ Spell | Optional$ True | CopyCard$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

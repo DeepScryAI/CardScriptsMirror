@@ -1,14 +1,10 @@
 Id:19150
-ColorIdentity:U
-OriginSet:Gf56613712ce2ae1f
-ManaCost:2 U U
-Types:Legendary Creature Zombie God
-PT:4/5
-K:Flying
-T:Mode$ Drawn | ValidCard$ Card.YouOwn | Number$ 1 | OptionalDecider$ You | Static$ True | ForReveal$ True | Execute$ DBReveal | TriggerZones$ Battlefield
-SVar:DBReveal:DB$ Reveal | Defined$ You | RevealDefined$ TriggeredCard | RememberRevealed$ True | SubAbility$ DBTrigger | AILogic$ Kefnet
-SVar:DBTrigger:DB$ ImmediateTrigger | RememberObjects$ RememberedCard | ConditionDefined$ RememberedCard | ConditionPresent$ Instant,Sorcery | SubAbility$ DBCleanup | Execute$ DBPlay
-SVar:DBPlay:DB$ Play | Defined$ DelayTriggerRemembered | ValidSA$ Spell | PlayReduceCost$ 2 | Optional$ True | CopyCard$ True
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard,Exile | ValidCard$ Card.Self | Execute$ TriReturn | OptionalDecider$ You
-SVar:TriReturn:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Destination$ Library | LibraryPosition$ 2
+ColorIdentity:W
+OriginSet:G0852bdaf94eef605
+ManaCost:1 W W
+Types:Legendary Planeswalker Gideon
+Loyalty:4
+S:Mode$ Continuous | Affected$ Card.Self | EffectZone$ Battlefield | Condition$ PlayerTurn | SetPower$ 4 | SetToughness$ 4 | AddType$ Creature & Human & Soldier | AddKeyword$ Indestructible
+R:Event$ DamageDone | Prevent$ True | ValidTarget$ Card.Self | PlayerTurn$ True
+A:AB$ Pump | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Creature.YouCtrl+Other | KWChoice$ Vigilance,Lifelink,Indestructible | ConditionDefined$ Targeted | ConditionPresent$ Card | ConditionCompare$ GE1 | AILogic$ GideonBlackblade
+A:AB$ ChangeZone | Cost$ SubCounter<6/LOYALTY> | Planeswalker$ True | Ultimate$ True | ValidTgts$ Permanent.nonLand | Origin$ Battlefield | Destination$ Exile

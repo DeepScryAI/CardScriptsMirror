@@ -1,8 +1,12 @@
 Id:22582
-ColorIdentity:W
+ColorIdentity:B
 OriginSet:G9f95a41d532c0550
-ManaCost:1 W
-Types:Artifact
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
-A:AB$ GainLife | Cost$ W T Sac<1/CARDNAME> | LifeAmount$ 3
+ManaCost:2 B B
+Types:Creature Ooze
+PT:4/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Creature.nonOoze+OppCtrl | Duration$ UntilHostLeavesPlay | RememberChanged$ True
+A:AB$ ChangeZone | Cost$ X B | Origin$ Exile | Destination$ Graveyard | ValidTgts$ Creature.IsRemembered+ExiledWithSource+cmcEQX
+SVar:X:Count$xPaid
+SVar:PlayMain1:TRUE
+SVar:NeedsToPlay:Creature.nonOoze+OppCtrl

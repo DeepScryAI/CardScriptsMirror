@@ -1,9 +1,14 @@
 Id:24073
-ColorIdentity:WRG
+ColorIdentity:G
 OriginSet:G9afc9838c5e994df
-ManaCost:X R G W
-Types:Legendary Creature Elf Druid
-PT:3/1
-T:Mode$ ChangesZone | ValidCard$ Card.Self+wasCastByYou | Destination$ Battlefield | Execute$ TrigChangeZone | OptionalDecider$ You
-SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Creature.cmcLEX
-SVar:X:Count$xPaid
+ManaCost:4 G
+Types:Creature Rhino Warrior
+PT:4/4
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump | TriggerZones$ Battlefield
+T:Mode$ Blocks | ValidCard$ Card.Self | Execute$ TrigPump | Secondary$ True | TriggerZones$ Battlefield
+SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +X | NumDef$ +X
+SVar:X:SVar$Y/LimitMin.Z
+SVar:Y:Count$Valid Creature.Other+YouCtrl$GreatestCardPower
+SVar:Z:Count$Valid Creature.Other+YouCtrl$GreatestCardToughness
+SVar:HasAttackEffect:TRUE
+SVar:HasBlockEffect:TRUE

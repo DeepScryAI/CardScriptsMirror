@@ -1,7 +1,10 @@
 Id:9359
-ColorIdentity:U
+ColorIdentity:G
 OriginSet:G1ddd2c86a9ea60e3
-ManaCost:1 U
-Types:Kindred Enchantment Merfolk
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ UntapMerfolk
-SVar:UntapMerfolk:DB$ UntapAll | ValidCards$ Merfolk.YouCtrl
+ManaCost:2 G G
+Types:Creature Elf Shaman
+PT:3/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+T:Mode$ SpellCast | ValidCard$ Creature | ValidActivatingPlayer$ You | TriggerZones$ Graveyard | OptionalDecider$ You | Execute$ TrigReturn
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+SVar:TrigReturn:AB$ ChangeZone | Cost$ G G | Defined$ Self | Origin$ Graveyard | Destination$ Hand

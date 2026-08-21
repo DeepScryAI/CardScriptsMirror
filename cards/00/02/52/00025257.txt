@@ -1,10 +1,12 @@
 Id:25257
-ColorIdentity:W
+ColorIdentity:UG
 OriginSet:Gf591a76e7a37cf73
-ManaCost:3 W
-Types:Creature Custodes Warrior
-PT:3/4
-K:Flash
-K:Vigilance
-S:Mode$ Continuous | Affected$ Card.IsCommander+YouCtrl | AddKeyword$ Protection:Everything
-SVar:PlayMain1:TRUE
+ManaCost:1 G U
+Types:Creature Tyranid
+PT:2/2
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZoneAll | ValidTgts$ Player | Origin$ Graveyard | Destination$ Exile | ChangeType$ Card | SubAbility$ DBCounter | RememberChanged$ True
+SVar:DBCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Valid Creature

@@ -1,13 +1,12 @@
 Id:29304
-ColorIdentity:R
-OriginSet:G2ce881cc55bb9f18
-ManaCost:6 R R
-Types:Artifact Creature Pirate
-PT:8/8
-S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ Count$CountersRemovedThisTurn ENERGY You | EffectZone$ All
-K:Haste
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigEnergy
-SVar:TrigEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ 2 | SubAbility$ DBTrigger
-SVar:DBTrigger:DB$ ImmediateTrigger | UnlessCost$ PayEnergy<8> | UnlessPayer$ You | UnlessSwitched$ True | Execute$ TrigDamage
-SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 8 | TargetMin$ 0 | TargetMax$ 8 | DividedAsYouChoose$ 8
+ColorIdentity:G
+OriginSet:G27146c70b74a1e72
+ManaCost:2 G
+Types:Creature Brushwagg Mount
+PT:2/2
+K:Saddle:2
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ 1
+T:Mode$ Attacks | ValidCard$ Card.Self+IsSaddled | TriggerZones$ Battlefield | Execute$ TrigDoubleCounters
+SVar:TrigDoubleCounters:DB$ MultiplyCounter | ValidTgts$ Creature | CounterType$ P1P1
 SVar:HasAttackEffect:TRUE

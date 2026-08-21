@@ -1,14 +1,9 @@
 Id:25024
-ColorIdentity:BR
-OriginSet:G2aca7ffc9201ba1c
-ManaCost:1 B
-Types:Creature Dragon
-PT:2/1
-K:Kicker:1 R
-K:Flying
-T:Mode$ Drawn | ValidCard$ Card.YouOwn+Dragon | TriggerZones$ Battlefield | Execute$ DBPump
-SVar:DBPump:DB$ Pump | PumpZone$ Hand | Defined$ TriggeredCard | NumAtt$ +1 | NumDef$ +1 | Duration$ Perpetual
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self+kicked | Execute$ TrigSeek
-SVar:TrigSeek:DB$ Seek | RememberFound$ True | Type$ Card.Dragon | SubAbility$ DBPump2
-SVar:DBPump2:DB$ Pump | PumpZone$ Hand,Battlefield | Defined$ Remembered & Self | NumAtt$ +1 | NumDef$ +1 | Duration$ Perpetual | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:R
+OriginSet:G3a8b4b9d4649b357
+ManaCost:1 R
+Types:Sorcery
+A:SP$ Charm | Choices$ DBDestroyArtifact,DBDestroyDefender,DBDamage
+SVar:DBDestroyArtifact:DB$ Destroy | ValidTgts$ Artifact
+SVar:DBDestroyDefender:DB$ Destroy | ValidTgts$ Creature.withDefender
+SVar:DBDamage:DB$ DamageAll | NumDmg$ 1 | ValidCards$ Creature.OppCtrl

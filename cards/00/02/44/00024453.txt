@@ -1,10 +1,9 @@
 Id:24453
-ColorIdentity:G
+ColorIdentity:R
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:2 G
-Types:Creature Fungus
-PT:1/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigToken | Secondary$ True
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 3815350479 | TokenOwner$ TriggeredCardController
-A:AB$ Mana | Cost$ T | Produced$ Any
+ManaCost:1 R
+Types:Legendary Enchantment Background
+S:Mode$ Continuous | Affected$ Creature.IsCommander+YouOwn | AddTrigger$ CastFromExile
+SVar:CastFromExile:Mode$ SpellCast | ValidCard$ Card.wasCastFromExile | ValidActivatingPlayer$ You | Execute$ TrigDealDamage | TriggerZones$ Battlefield
+SVar:TrigDealDamage:DB$ DealDamage | ValidTgts$ Opponent | NumDmg$ X
+SVar:X:TriggeredSpellAbility$CardManaCostLKI

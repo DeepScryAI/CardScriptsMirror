@@ -1,11 +1,10 @@
 Id:28672
-ColorIdentity:WU
-OriginSet:Ge329d8d60ca65422
-ManaCost:2 WU WU
-Types:Creature Human Wizard
-PT:3/2
-K:Flash
-T:Mode$ ChangesZone | Phase$ Declare Attackers | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChoosePlayer
-SVar:TrigChoosePlayer:DB$ Pump | ValidTgts$ Player | SubAbility$ DBChooseAttackers
-SVar:DBChooseAttackers:DB$ ChangeCombatants | ValidTgts$ Creature.attacking | TargetsWithDefinedController$ Player.OpponentOf ParentTarget | TargetMin$ 0 | TargetMax$ MaxTargets | Attacking$ TargetedPlayer
-SVar:MaxTargets:Count$Valid Creature.attacking+ControlledBy Player.OpponentOf ParentTarget
+ColorIdentity:B
+OriginSet:G7ee0e82a2424d636
+ManaCost:2 B B
+Types:Legendary Creature Human Assassin
+PT:4/4
+K:Menace
+S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddKeyword$ Wither
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.OppCtrl+toughnessLT1 | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1

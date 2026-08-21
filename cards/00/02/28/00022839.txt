@@ -1,10 +1,20 @@
 Id:22839
-ColorIdentity:U
+ColorIdentity:B
 OriginSet:Gf78628ad511eefec
-ManaCost:3 U
-Types:Creature Human Wizard
-PT:2/3
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | DayTime$ Neither | ReplaceWith$ DoDay | ReplacementResult$ Updated
-SVar:DoDay:DB$ DayTime | Value$ Day
-T:Mode$ DayTimeChanges | Execute$ DBDraw | TriggerZones$ Battlefield
-SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1
+ManaCost:3 B
+Types:Creature Human Rogue Werewolf
+PT:4/3
+T:Mode$ AttackerBlocked | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ PumpAll | ValidCards$ Creature.blockingSource | NumAtt$ -1 | NumDef$ -1
+K:Daybound
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:black
+Types:Creature Werewolf
+PT:5/4
+T:Mode$ AttackerBlocked | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ PumpAll | ValidCards$ Creature.blockingSource | NumAtt$ -1 | NumDef$ -1
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.blockingSource | Execute$ TrigLoseLife | TriggerZones$ Battlefield
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ TriggeredCardController | LifeAmount$ 1
+K:Nightbound

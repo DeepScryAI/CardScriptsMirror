@@ -1,8 +1,11 @@
 Id:22946
-ColorIdentity:UB
+ColorIdentity:G
 OriginSet:Gf78628ad511eefec
-ManaCost:no cost
-Types:Land
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ LandTapped | ReplacementResult$ Updated
-SVar:LandTapped:DB$ Tap | Defined$ Self | ETB$ True | ConditionPresent$ Land.YouCtrl | ConditionCompare$ LT2
-A:AB$ Mana | Cost$ T | Produced$ Combo U B
+ManaCost:2 G
+Types:Enchantment Aura
+K:Flash
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | IsPresent$ Creature.EnchantedBy+Wolf,Creature.EnchantedBy+Werewolf | PresentCompare$ EQ1 | Execute$ TrigUntap
+SVar:TrigUntap:DB$ Untap | Defined$ Enchanted
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 2 | AddToughness$ 2 | AddKeyword$ Vigilance

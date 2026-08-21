@@ -1,8 +1,13 @@
 Id:29164
-ColorIdentity:B
+ColorIdentity:W
 OriginSet:G27146c70b74a1e72
-ManaCost:4 B
-Types:Creature Ogre Mercenary
-PT:5/4
-T:Mode$ CommitCrime | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump | PlayerTurn$ True
-SVar:TrigPump:DB$ Pump | Defined$ Self | KW$ Indestructible
+ManaCost:1 W W
+Types:Creature Bird Rogue
+PT:2/2
+K:Flash
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | TargetType$ Spell | ValidTgts$ Card | TgtZone$ Stack | Origin$ Stack | Destination$ Exile | IsCurse$ True | RememberChanged$ True | SubAbility$ DBPlot
+SVar:DBPlot:DB$ AlterAttribute | Defined$ Remembered | Attributes$ Plotted | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+S:Mode$ RaiseCost | Activator$ Opponent | ValidCard$ Card.wasCastFromGraveyard,Card.wasCastFromExile | Type$ Spell | Amount$ 2

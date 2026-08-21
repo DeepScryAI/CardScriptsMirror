@@ -1,7 +1,14 @@
 Id:30397
-ColorIdentity:WG
-OriginSet:G8b2ed00ac2a0ff47
-ManaCost:no cost
-Types:Land
-A:AB$ Mana | Cost$ T | Produced$ G
-A:AB$ Mana | Cost$ T | Produced$ W | IsPresent$ Forest.YouCtrl,Plains.YouCtrl
+ColorIdentity:BG
+OriginSet:G7b2137df486dc752
+ManaCost:3 B G
+Types:Legendary Artifact Creature Scarecrow
+PT:5/5
+K:Menace
+K:Reach
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ DBTokens
+T:Mode$ SpellCast | ValidCard$ Card.numTypesGE2 | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ DBTokens | Secondary$ True
+T:Mode$ LandPlayed | ValidCard$ Land.numTypesGE2+YouCtrl | TriggerZones$ Battlefield | Execute$ DBTokens | Secondary$ True
+SVar:DBTokens:DB$ Token | TokenScriptIds$ 957767336 | TokenTapped$ True | TokenOwner$ Player | RememberTokens$ True | SubAbility$ DBGoad
+SVar:DBGoad:DB$ Goad | Defined$ Remembered | Duration$ Permanent | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

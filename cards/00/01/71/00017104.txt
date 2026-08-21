@@ -1,9 +1,12 @@
 Id:17104
-ColorIdentity:G
+ColorIdentity:W
 OriginSet:Gbcdce58dfbbf1bad
-ManaCost:2 G
+ManaCost:2 W
 Types:Enchantment
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 2415848405 | TokenOwner$ You
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPumpAll
+SVar:TrigPumpAll:DB$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +2 | NumDef$ +1 | KW$ Vigilance
 T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | TriggerZones$ Battlefield | ValidCard$ Cartouche.YouCtrl | Execute$ TrigReturn
 SVar:TrigReturn:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Defined$ Self
+SVar:PlayMain1:TRUE
+SVar:NeedsToPlayVar:X GE2
+SVar:X:Count$Valid Creature.YouCtrl

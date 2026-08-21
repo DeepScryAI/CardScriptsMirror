@@ -1,10 +1,10 @@
 Id:6389
-ColorIdentity:U
+ColorIdentity:W
 OriginSet:Gd11012ee98ee8d76
-ManaCost:1 U U
-Types:Enchantment Aura
-K:Enchant:Creature
-R:Event$ Untap | ActiveZones$ Battlefield | ValidCard$ Creature.EnchantedBy | ValidStepTurnToController$ You | Layer$ CantHappen | AddSVar$ FrozenSolidDestroy
-SVar:FrozenSolidDestroy:SVar:DestroyWhenDamaged:True
-T:Mode$ DamageDoneOnce | ValidTarget$ Creature.EnchantedBy | Execute$ TrigDestroy | TriggerZones$ Battlefield
-SVar:TrigDestroy:DB$ Destroy | Defined$ TriggeredTargetLKICopy
+ManaCost:W
+Types:Creature Human Soldier
+PT:1/1
+K:Morph:W
+T:Mode$ TurnFaceUp | ValidCard$ Card.Self | Execute$ TrigCurseNonSoldiers | TriggerZones$ Battlefield
+SVar:TrigCurseNonSoldiers:DB$ Effect | ReplacementEffects$ RPrevent
+SVar:RPrevent:Event$ DamageDone | Prevent$ True | IsCombat$ True | ActiveZones$ Command | ValidSource$ Creature.nonSoldier

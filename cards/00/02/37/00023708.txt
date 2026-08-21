@@ -1,13 +1,10 @@
 Id:23708
-ColorIdentity:G
-OriginSet:Gd970889168b5769f
-ManaCost:1 G
-Types:Creature Human Monk
+ColorIdentity:R
+OriginSet:G1a259dba25660062
+ManaCost:R
+Types:Artifact Creature Equipment Monkey
 PT:1/1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDigShrine
-SVar:TrigDigShrine:DB$ Dig | Defined$ You | DigNum$ 7 | ChangeNum$ 1 | ChangeValid$ Card.Shrine | RememberChanged$ True | RandomChange$ True | DestinationZone$ Hand | Mandatory$ True | NoLooking$ True | DestinationZone2$ Library | LibraryPosition2$ 0 | SkipReorder$ True | SubAbility$ DBAnimate
-SVar:DBAnimate:DB$ Animate | Defined$ Remembered | staticAbilities$ PerpetualReduce | Duration$ Perpetual | SubAbility$ DBShuffle
-SVar:PerpetualReduce:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ 1 | EffectZone$ All
-SVar:DBShuffle:DB$ Shuffle | Defined$ You | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-A:AB$ Mana | Cost$ T | Produced$ Any
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1 | AddToughness$ 1
+T:Mode$ AttackerBlocked | ValidCard$ Card.Self,Creature.EquippedBy | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | Defined$ TriggeredDefendingPlayer | NumDmg$ 1
+K:Reconfigure:2

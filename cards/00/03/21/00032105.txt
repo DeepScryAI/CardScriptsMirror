@@ -1,16 +1,11 @@
 Id:32105
-ColorIdentity:B
-OriginSet:G9946f072b5556073
-ManaCost:3 B
-Types:Artifact Spacecraft
-PT:3/10
-K:Station:8
-S:Mode$ Continuous | Affected$ Card.Self+counters_GE1_CHARGE | AddTrigger$ DiscardTrig
-SVar:DiscardTrig:Mode$ Discarded | ValidCard$ Card.OppOwn | TriggerZones$ Battlefield | Execute$ TrigLoseLife
-SVar:TrigLoseLife:DB$ LoseLife | Defined$ TriggeredCardController | LifeAmount$ 3
-S:Mode$ Continuous | Affected$ Card.Self+counters_GE8_CHARGE | AddType$ Creature | AddKeyword$ Flying & Deathtouch | AddTrigger$ AttackTrig
-SVar:AttackTrig:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDiscard
-SVar:TrigDiscard:DB$ Discard | Mode$ TgtChoose | Defined$ Opponent | NumCards$ 1 | RememberDiscarded$ True | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | Defined$ OppNonRememberedController | LifeAmount$ 3 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:HasAttackEffect:TRUE
+ColorIdentity:U
+OriginSet:G7ab4f62d323b0ca7
+ManaCost:1 U
+Types:Legendary Creature Octopus
+PT:2/1
+T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | ValidSAonCard$ Spell.ManaSpent GE4 | TriggerZones$ Battlefield | Execute$ TrigTap
+SVar:TrigTap:DB$ Tap | ValidTgts$ Creature.OppCtrl | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Targeted | CounterType$ Stun | CounterNum$ 1
+T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | ValidSAonCard$ Spell.ManaSpent GE8 | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 8

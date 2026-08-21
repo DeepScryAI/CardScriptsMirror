@@ -1,0 +1,22 @@
+Id:34846
+ColorIdentity:
+OriginSet:G11c0621ce29fa608
+ManaCost:2
+Types:Legendary Artifact Creature Robot Villain
+PT:*/2
+S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPump
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump | Secondary$ True | TriggerZones$ Battlefield
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.Other | SubAbility$ DBPutCounterHaste
+SVar:DBPutCounterHaste:DB$ PutCounter | Defined$ Self | CounterType$ Haste | CounterNum$ 1 | ConditionPresent$ Creature.targetedBy+withHaste | ConditionPresent2$ Card.Self+withoutHaste | SubAbility$ DBPutCounterFlying
+SVar:DBPutCounterFlying:DB$ PutCounter | Defined$ Self | CounterType$ Flying | CounterNum$ 1 | ConditionPresent$ Creature.targetedBy+withFlying | ConditionPresent2$ Card.Self+withoutFlying | SubAbility$ DBPutCounterFirstStrike
+SVar:DBPutCounterFirstStrike:DB$ PutCounter | Defined$ Self | CounterType$ FirstStrike | CounterNum$ 1 | ConditionPresent$ Creature.targetedBy+withFirstStrike | ConditionPresent2$ Card.Self+withoutFirstStrike | SubAbility$ DBPutCounterDoubleStrike
+SVar:DBPutCounterDoubleStrike:DB$ PutCounter | Defined$ Self | CounterType$ DoubleStrike | CounterNum$ 1 | ConditionPresent$ Creature.targetedBy+withDoubleStrike | ConditionPresent2$ Card.Self+withoutDoubleStrike | SubAbility$ DBPutCounterDeathtouch
+SVar:DBPutCounterDeathtouch:DB$ PutCounter | Defined$ Self | CounterType$ Deathtouch | CounterNum$ 1 | ConditionPresent$ Creature.targetedBy+withDeathtouch | ConditionPresent2$ Card.Self+withoutDeathtouch | SubAbility$ DBPutCounterIndestructible
+SVar:DBPutCounterIndestructible:DB$ PutCounter | Defined$ Self | CounterType$ Indestructible | CounterNum$ 1 | ConditionPresent$ Creature.targetedBy+withIndestructible | ConditionPresent2$ Card.Self+withoutIndestructible | SubAbility$ DBPutCounterLifelink
+SVar:DBPutCounterLifelink:DB$ PutCounter | Defined$ Self | CounterType$ Lifelink | CounterNum$ 1 | ConditionPresent$ Creature.targetedBy+withLifelink | ConditionPresent2$ Card.Self+withoutLifelink | SubAbility$ DBPutCounterMenace
+SVar:DBPutCounterMenace:DB$ PutCounter | Defined$ Self | CounterType$ Menace | CounterNum$ 1 | ConditionPresent$ Creature.targetedBy+withMenace | ConditionPresent2$ Card.Self+withoutMenace | SubAbility$ DBPutCounterReach
+SVar:DBPutCounterReach:DB$ PutCounter | Defined$ Self | CounterType$ Reach | CounterNum$ 1 | ConditionPresent$ Creature.targetedBy+withReach | ConditionPresent2$ Card.Self+withoutReach | SubAbility$ DBPutCounterTrample
+SVar:DBPutCounterTrample:DB$ PutCounter | Defined$ Self | CounterType$ Trample | CounterNum$ 1 | ConditionPresent$ Creature.targetedBy+withTrample | ConditionPresent2$ Card.Self+withoutTrample | SubAbility$ DBPutCounterVigilance
+SVar:DBPutCounterVigilance:DB$ PutCounter | Defined$ Self | CounterType$ Vigilance | CounterNum$ 1 | ConditionPresent$ Creature.targetedBy+withVigilance | ConditionPresent2$ Card.Self+withoutVigilance
+SVar:X:Count$Valid Creature.Legendary+YouCtrl

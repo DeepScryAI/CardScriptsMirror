@@ -1,10 +1,12 @@
 Id:25938
-ColorIdentity:R
-OriginSet:G1a259dba25660062
-ManaCost:R
-Types:Creature Goblin Samurai
-PT:1/2
-T:Mode$ Attacks | ValidCard$ Samurai.YouCtrl,Warrior.YouCtrl | Alone$ True | Execute$ TrigChangeZone | TriggerZones$ Battlefield
-SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Hand | Destination$ Library | LibraryPosition$ -1 | ChangeNum$ 1 | RememberChanged$ True | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ GE1 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:G
+OriginSet:G06ccef4324c14725
+ManaCost:10
+Types:Artifact Creature Construct
+PT:8/8
+K:Prototype:2 G G:3:3
+T:Mode$ ChangesZone | ValidCard$ Card.Self+wasCastByYou | Destination$ Battlefield | Execute$ TrigUntap
+SVar:TrigUntap:DB$ Untap | ValidTgts$ Land.YouCtrl | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Power$ X | Toughness$ Y | Defined$ Targeted | Types$ Creature,Treefolk | Keywords$ Haste | Duration$ Permanent
+SVar:X:Count$CardPower
+SVar:Y:Count$CardToughness

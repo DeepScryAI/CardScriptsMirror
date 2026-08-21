@@ -1,11 +1,12 @@
 Id:28934
-ColorIdentity:WB
+ColorIdentity:BG
 OriginSet:Gaf7c94f364052cdd
-ManaCost:2 W B
-Types:Creature Human Noble
-PT:2/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigHumanToken
-SVar:TrigHumanToken:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 1647422943 | TokenOwner$ You
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ X | Execute$ TrigFoodToken
-SVar:TrigFoodToken:DB$ Token | TokenScriptIds$ 134855612 | TokenOwner$ You
-SVar:X:Count$ThisTurnEntered_Graveyard_from_Battlefield_Human.Other+YouCtrl
+ManaCost:4 B G
+Types:Creature Lizard Mutant
+PT:6/6
+K:Menace
+K:Trample
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDestroy
+T:Mode$ BecomeMonstrous | Secondary$ True | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Permanent
+A:AB$ PutCounter | Cost$ 5 B G | Monstrosity$ 4

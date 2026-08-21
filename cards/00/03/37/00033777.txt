@@ -1,11 +1,12 @@
 Id:33777
-ColorIdentity:BG
-OriginSet:Gf8df2bea26dc6b68
-ManaCost:B BG G
-Types:Creature Dryad Warlock
-PT:3/1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 3473329731 | TokenOwner$ You
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ X | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw
-SVar:X:Count$ThisTurnEntered_Graveyard_from_Battlefield_Creature.YouCtrl
+ColorIdentity:B
+OriginSet:G23d1f017cc66962f
+ManaCost:3 B
+Types:Creature Snake Spirit Avatar
+PT:3/4
+K:Deathtouch
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigGainLife
+SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ X
+T:Mode$ LifeGained | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 1
+SVar:X:TriggeredCard$CardToughness

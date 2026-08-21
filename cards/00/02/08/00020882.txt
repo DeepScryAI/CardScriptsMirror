@@ -1,8 +1,12 @@
 Id:20882
-ColorIdentity:G
+ColorIdentity:WG
 OriginSet:Gfd5e6da37c69dc53
-ManaCost:3 G
-Types:Creature Wurm
-PT:4/4
-K:Vigilance
-S:Mode$ Continuous | Affected$ Card.Self | AddPower$ 2 | AddToughness$ 2 | IsPresent$ Planeswalker.Garruk+YouCtrl
+ManaCost:G W
+Types:Creature Centaur Cleric
+PT:2/2
+R:Event$ AddCounter | ActiveZones$ Battlefield | ValidCard$ Creature.YouCtrl+inZoneBattlefield | ValidCounterType$ P1P1 | ReplaceWith$ AddOneMoreCounters
+SVar:AddOneMoreCounters:DB$ ReplaceCounter | ValidCounterType$ P1P1 | ChooseCounter$ True | Amount$ X
+SVar:X:ReplaceCount$CounterNum/Plus.1
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigSac
+SVar:TrigSac:DB$ GainLife | Defined$ TriggeredCardController | LifeAmount$ XPower
+SVar:XPower:TriggeredCard$CardPower

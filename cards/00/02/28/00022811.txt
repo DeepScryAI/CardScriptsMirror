@@ -1,19 +1,15 @@
 Id:22811
-ColorIdentity:G
-OriginSet:Gf78628ad511eefec
-ManaCost:G
-Types:Creature Fungus
-PT:1/1
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigMill
-SVar:TrigMill:DB$ Mill | Defined$ You | NumCards$ 1 | SubAbility$ DBTransform
-SVar:DBTransform:DB$ SetState | Defined$ Self | ConditionPresent$ Creature.YouOwn | ConditionZone$ Graveyard | ConditionCompare$ GE3 | Mode$ Transform
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:green
-Types:Creature Fungus Horror
-PT:3/3
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigExile | OptionalDecider$ You
-SVar:TrigExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ChangeType$ Card | ChangeNum$ 1 | Hidden$ True | RememberChanged$ True | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | ConditionDefined$ Remembered | ConditionPresent$ Card.Creature | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:UBR
+OriginSet:G66f2eb694ffd614a
+ManaCost:1 U B R
+Types:Legendary Creature Human Warlock
+PT:2/4
+K:Deathtouch
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Curse.YouOwn | Execute$ TrigDelayedTrig
+SVar:TrigDelayedTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End Of Turn | Execute$ TrigReturn | RememberObjects$ TriggeredNewCardLKICopy
+SVar:TrigReturn:DB$ ChangeZone | Defined$ DelayTriggerRememberedLKI | Origin$ Graveyard | Destination$ Battlefield | AttachedToPlayer$ You
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigChooseCurse | TriggerZones$ Battlefield | OptionalDecider$ You
+SVar:TrigChooseCurse:DB$ ChooseCard | Choices$ Curse.AttachedTo You | SubAbility$ DBAttach
+SVar:DBAttach:DB$ Attach | Object$ ChosenCard | PlayerChoices$ Opponent | RememberAttached$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | ConditionDefined$ Remembered | ConditionPresent$ Card | Defined$ You | NumCards$ 2 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True | ClearRemembered$ True

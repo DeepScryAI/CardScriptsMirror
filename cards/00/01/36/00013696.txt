@@ -1,10 +1,12 @@
 Id:13696
-ColorIdentity:G
+ColorIdentity:U
 OriginSet:G97e9a20e5a5d5822
-ManaCost:2 G G G
-Types:Creature Giant
-PT:6/6
-K:Reach
-A:AB$ PutCounter | Cost$ 3 G G G | Monstrosity$ 3
-T:Mode$ BecomeMonstrous | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigDestroy
-SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Creature.OppCtrl+withFlying
+ManaCost:U
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ CantBlockBy | ValidAttacker$ Creature.EnchantedBy
+T:Mode$ Attacks | ValidCard$ Card.AttachedBy | Execute$ DBScry | TriggerZones$ Battlefield
+SVar:DBScry:DB$ Scry | ScryNum$ 1
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddSVar$ AE
+SVar:AE:SVar:HasAttackEffect:TRUE

@@ -1,10 +1,12 @@
 Id:12135
-ColorIdentity:W
+ColorIdentity:U
 OriginSet:Gcf233112e9f1fe8c
-ManaCost:W
-Types:Creature Cat Monk
-PT:0/3
-K:Defender
-T:Mode$ Blocks | ValidCard$ Card.Self | Execute$ TrigGainLife
-SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 3
-SVar:HasBlockEffect:TRUE
+ManaCost:1 U
+Types:Creature Illusion
+PT:0/0
+K:ETBReplacement:Copy:DBCopy:Optional
+SVar:DBCopy:DB$ Clone | Choices$ Creature.Other | AddTypes$ Illusion | AddTriggers$ PhantasmalImageTgtTrig | AddSVars$ PhantasmalImageSac,Targeting
+SVar:PhantasmalImageTgtTrig:Mode$ BecomesTarget | ValidTarget$ Card.Self | Execute$ PhantasmalImageSac
+SVar:PhantasmalImageSac:DB$ Sacrifice
+SVar:Targeting:Dies
+SVar:NeedsToPlay:Creature

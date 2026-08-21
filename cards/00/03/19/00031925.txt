@@ -1,12 +1,10 @@
 Id:31925
-ColorIdentity:WUBRG
+ColorIdentity:RG
 OriginSet:G7ab4f62d323b0ca7
-ManaCost:G U
-Types:Legendary Creature Human Bard
-PT:1/3
-R:Event$ Moved | ValidCard$ Land.YouCtrl | Destination$ Battlefield | ReplaceWith$ ETBUntapped | ReplacementResult$ Updated | ActiveZones$ Battlefield
-SVar:ETBUntapped:DB$ Untap | ETB$ True | Defined$ ReplacedCard
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | IsPresent$ Town.YouCtrl | PresentCompare$ GE5 | TriggerZones$ Battlefield | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 1386444648 | TokenOwner$ You
-A:AB$ PumpAll | Cost$ 3 W U B R G | ValidCards$ Creature.YouCtrl+StrictlyOther | NumAtt$ +X | NumDef$ +X
-SVar:X:Count$Valid Town.YouCtrl
+ManaCost:4 R G
+Types:Legendary Creature Human Warrior
+PT:6/6
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | Tapped$ True | ChangeType$ Land | ChangeNum$ 1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.Other+YouCtrl | NumAtt$ +2 | NumDef$ +2 | KW$ Trample

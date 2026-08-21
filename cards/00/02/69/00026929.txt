@@ -1,11 +1,14 @@
 Id:26929
-ColorIdentity:RG
-OriginSet:G6ce0035cfb774934
-ManaCost:3 R G
-Types:Legendary Artifact
-T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigScry | TriggerZones$ Battlefield
-SVar:TrigScry:DB$ Scry | ScryNum$ 2 | SubAbility$ DBDig
-SVar:DBDig:DB$ Dig | DigNum$ 1 | ChangeNum$ All | RevealOptional$ True | RememberRevealed$ True | ChangeValid$ Creature.IsRemembered | DestinationZone$ Battlefield | Tapped$ True | Attacking$ True | SubAbility$ DBPumpTrample
-SVar:DBPumpTrample:DB$ Pump | Defined$ Remembered | KW$ Trample | Duration$ UntilYourNextTurn | ConditionPresent$ Dwarf.YouCtrl | SubAbility$ DBPumpHexproof
-SVar:DBPumpHexproof:DB$ Pump | Defined$ Remembered | KW$ Hexproof | Duration$ UntilYourNextTurn | ConditionPresent$ Elf.YouCtrl | SubAbility$ DBCleanup
+ColorIdentity:UG
+OriginSet:G321081e278de53f0
+ManaCost:3 G U
+Types:Legendary Creature Merfolk Noble
+PT:4/5
+K:Vigilance
+K:Ward:3
+T:Mode$ SpellCast | ValidCard$ Card.Kraken+wasCastFromYourHandByYou,Card.Leviathan+wasCastFromYourHandByYou,Card.Octopus+wasCastFromYourHandByYou,Card.Serpent+wasCastFromYourHandByYou | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDig
+SVar:TrigDig:DB$ PeekAndReveal | Defined$ You | PeekAmount$ X | NoReveal$ True | RememberPeeked$ True | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | ValidZone$ Library | Valid$ Card.IsRemembered | ValidSA$ Spell.cmcLTX | Controller$ You | WithoutManaCost$ True | Optional$ True | Amount$ 1 | ForgetPlayed$ True | SubAbility$ DBRestRandomOrder
+SVar:DBRestRandomOrder:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered | Origin$ Library | Destination$ Library | LibraryPosition$ -1 | RandomOrder$ True | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:TriggeredCard$CardManaCost

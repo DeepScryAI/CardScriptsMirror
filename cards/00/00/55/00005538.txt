@@ -1,13 +1,8 @@
 Id:5538
 ColorIdentity:U
 OriginSet:Ge4af4f9459d5dadd
-ManaCost:U
-Types:Enchantment Aura
-K:Enchant:Creature.Green,Creature.White:green or white creature
-SVar:AttachAILogic:Curse
-S:Mode$ Continuous | Affected$ Creature.AttachedBy | AddTrigger$ TrigCoralPhase | AddSVar$ TrigCoralDiscard & DBCoralSacrifice & DBCoralCleanup
-SVar:TrigCoralPhase:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigCoralDiscard | TriggerZones$ Battlefield
-SVar:TrigCoralDiscard:DB$ Discard | Defined$ You | Mode$ TgtChoose | NumCards$ 1 | Optional$ True | RememberDiscarded$ True | SubAbility$ DBCoralSacrifice
-SVar:DBCoralSacrifice:DB$ Sacrifice | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ0 | SubAbility$ DBCoralCleanup
-SVar:DBCoralCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:NonStackingAttachEffect:True
+ManaCost:1 U
+Types:Enchantment
+A:AB$ Draw | Cost$ 1 U Discard<1/Card> | NumCards$ 1
+A:AB$ Draw | Cost$ 1 U Sac<1/CARDNAME> | NumCards$ 1
+SVar:NonStackingEffect:True

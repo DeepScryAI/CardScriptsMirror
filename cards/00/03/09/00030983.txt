@@ -1,11 +1,14 @@
 Id:30983
-ColorIdentity:WUBRG
-OriginSet:G4524bbf7a3db9dc0
-ManaCost:3
-Types:Artifact Vehicle
-PT:6/5
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange
-SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Land.Basic
-A:AB$ Animate | Cost$ W U B R G | Defined$ Self | Types$ Artifact,Creature | Exhaust$ True | Duration$ Permanent | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 2
-K:Crew:5
+ColorIdentity:B
+OriginSet:G2c8286a6f234d4b9
+ManaCost:3 B
+Types:Legendary Creature Vampire Insect
+PT:2/2
+K:Flying
+K:Deathtouch
+T:Mode$ Sacrificed | ValidCard$ Creature.!token | Execute$ TrigToken | TriggerZones$ Battlefield
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 414510107 | TokenOwner$ You
+T:Mode$ Attacks | ValidCard$ Insect.YouCtrl,Leech.YouCtrl,Slug.YouCtrl,Worm.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ TriggeredDefendingPlayer | LifeAmount$ 1 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
+SVar:PlayMain1:TRUE

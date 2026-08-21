@@ -1,13 +1,13 @@
 Id:22475
-ColorIdentity:W
-OriginSet:G9f95a41d532c0550
-ManaCost:1 W
-Types:Creature Human Monk
-PT:1/3
-K:ETBReplacement:Other:DBReveal
-SVar:DBReveal:DB$ Reveal | RevealValid$ Dragon | RememberRevealed$ True | Optional$ True | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ 1 | ETB$ True | Defined$ Self | ConditionCheckSVar$ DragonPresence | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:DragonPresence:Count$RememberedSize/Plus.DragonControlled
-SVar:DragonControlled:Count$Valid Dragon.inZoneBattlefield+YouCtrl
-S:Mode$ Continuous | Affected$ Dragon.YouCtrl | AddKeyword$ Ward:1
+ColorIdentity:U
+OriginSet:G92f7f9489fec5865
+ManaCost:3 U
+Types:Creature Horse Illusion
+PT:4/3
+K:Flash
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Creature.YouCtrl+Other | Duration$ UntilHostLeavesPlay
+SVar:PlayMain1:TRUE
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigCopy | TriggerZones$ Battlefield
+SVar:TrigCopy:DB$ CopyPermanent | Defined$ ValidExile Card.ExiledWithSource | TokenTapped$ True | TokenAttacking$ True | AddTypes$ Illusion | AtEOT$ SacrificeCombat
+SVar:HasAttackEffect:TRUE

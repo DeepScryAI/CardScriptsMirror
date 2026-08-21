@@ -1,11 +1,13 @@
 Id:29043
-ColorIdentity:U
-OriginSet:G27146c70b74a1e72
-ManaCost:1 U
-Types:Creature Crab
-PT:0/5
-A:AB$ Pump | Cost$ 1 U | Defined$ Self | NumAtt$ +2 | NumDef$ -2
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ X | SVarCompare$ LT1 | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | Mode$ TgtChoose
-SVar:X:Count$ThisTurnCast_Card.wasCastFromYourHandByYou
+ColorIdentity:W
+OriginSet:Gaf7c94f364052cdd
+ManaCost:4 W
+Types:Artifact Creature Robot
+PT:2/5
+K:Flash
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ X | EffectZone$ All
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigEnergy
+SVar:TrigEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ X
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ PutCounterAll
+SVar:PutCounterAll:AB$ PutCounterAll | Cost$ PayEnergy<3> | ValidCards$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1
+SVar:X:Count$Valid Creature.attackingYou

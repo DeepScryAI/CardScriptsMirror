@@ -1,6 +1,12 @@
 Id:22491
-ColorIdentity:B
-OriginSet:G9f95a41d532c0550
-ManaCost:4 B B
-Types:Instant
-A:SP$ Pump | ValidTgts$ Creature | NumAtt$ -11 | NumDef$ -11 | IsCurse$ True
+ColorIdentity:R
+OriginSet:G92f7f9489fec5865
+ManaCost:2 R R
+Types:Creature Spirit Dragon
+PT:3/4
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGoad
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigGoad | Secondary$ True
+SVar:TrigGoad:DB$ Goad | ValidTgts$ Creature
+T:Mode$ Attacks | ValidCard$ Creature.IsGoaded | Execute$ TrigDamage | TriggerZones$ Battlefield
+SVar:TrigDamage:DB$ DealDamage | Defined$ TriggeredAttackerController | DamageSource$ TriggeredAttackerLKICopy | NumDmg$ 1

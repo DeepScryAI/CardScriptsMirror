@@ -1,9 +1,13 @@
 Id:24227
-ColorIdentity:W
+ColorIdentity:B
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:1 W
-Types:Creature Gnome Wizard
-PT:2/2
-K:Flash
-T:Mode$ ChangesZoneAll | ValidCards$ Land.OppCtrl | ValidCause$ LandAbility | InvertValidCause$ True | Destination$ Battlefield | TriggerZones$ Battlefield | ResolvedLimit$ 1 | Execute$ TrigSearch | OptionalDecider$ You
-SVar:TrigSearch:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | Tapped$ True | ChangeType$ Card.Plains | ChangeNum$ 1 | ShuffleNonMandatory$ True
+ManaCost:5 B B
+Types:Creature Elder Dragon
+PT:7/6
+K:Flying
+T:Mode$ DamageDone | ValidSource$ Card.Self | Execute$ TrigRoll | CombatDamage$ True | ValidTarget$ Player | TriggerZones$ Battlefield
+SVar:TrigRoll:DB$ RollDice | ResultSVar$ Result | Sides$ 20 | SubAbility$ DBImmediateTrigger
+SVar:DBImmediateTrigger:DB$ ImmediateTrigger | Execute$ TrigChangeZone | RememberSVarAmount$ Result
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | TargetMin$ 0 | TargetMax$ Y | ValidTgts$ Creature | MaxTotalTargetCMC$ X | GainControl$ True
+SVar:X:Count$TriggerRememberAmount
+SVar:Y:Count$ValidGraveyard Creature

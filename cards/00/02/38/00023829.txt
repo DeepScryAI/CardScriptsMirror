@@ -1,16 +1,9 @@
 Id:23829
-ColorIdentity:WRG
-OriginSet:G5f5d8cfb206e2fac
-ManaCost:3 R G W
-Types:Legendary Creature Cat Advisor
-PT:3/6
-S:Mode$ Continuous | Affected$ Creature.token+YouCtrl | AddKeyword$ Haste
-SVar:PlayMain1:TRUE
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigReveal
-SVar:TrigReveal:DB$ PeekAndReveal | Defined$ Player | RememberRevealed$ True | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenScriptIds$ 1092778731 | TokenAmount$ X | SubAbility$ DBPump
-SVar:DBPump:DB$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +Y | NumDef$ +Y | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | Defined$ Player | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Remembered$Valid Land
-SVar:Y:Remembered$Valid Card.nonLand
+ColorIdentity:
+OriginSet:Gd784248bfdf9e1d7
+ManaCost:2
+Types:Artifact
+T:Mode$ SpellCastOrCopy | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+A:AB$ Mana | Cost$ T SubCounter<1/BOOK> | Produced$ C
+A:AB$ Draw | Cost$ 2 T SubCounter<2/BOOK> | NumCards$ 1
+SVar:TrigPutCounter:DB$ PutCounter | CounterType$ BOOK | CounterNum$ 1 | Defined$ Self

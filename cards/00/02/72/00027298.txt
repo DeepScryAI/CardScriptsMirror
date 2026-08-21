@@ -1,12 +1,13 @@
 Id:27298
-ColorIdentity:G
-OriginSet:G4e034c55e7afd8b4
-ManaCost:3 G G G
-Types:Creature Satyr Warrior
-PT:3/3
-K:Trample
-T:Mode$ ChangesZone | Destination$ Battlefield | ValidCard$ Card.Self+!token | Execute$ TrigToken | TriggerZones$ Battlefield
-SVar:TrigToken:DB$ CopyPermanent | Defined$ TriggeredCardLKICopy | NumCopies$ 2
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigCounters
-SVar:TrigCounters:DB$ PutCounterAll | ValidCards$ Creature.YouCtrl+catalogId27298 | CounterType$ P1P1 | CounterNum$ X
-SVar:X:TriggeredCard$CardPower
+ColorIdentity:
+OriginSet:G6ce0035cfb774934
+ManaCost:4
+Types:Legendary Artifact
+K:Indestructible
+T:Mode$ ChangesZone | ValidCard$ Card.wasCastByYou+Self | Destination$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ You | Duration$ UntilYourNextTurn | KW$ Protection:Everything
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigLoseLife | TriggerZones$ Battlefield
+SVar:TrigLoseLife:DB$ LoseLife | LifeAmount$ X
+A:AB$ PutCounter | Cost$ T | Defined$ Self | CounterType$ BURDEN | CounterNum$ 1 | SubAbility$ DBDraw | AILogic$ TheOneRing
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ X
+SVar:X:Count$CardCounters.BURDEN

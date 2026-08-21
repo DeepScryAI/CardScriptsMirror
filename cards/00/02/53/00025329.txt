@@ -1,0 +1,14 @@
+Id:25329
+ColorIdentity:W
+OriginSet:Gf591a76e7a37cf73
+ManaCost:4 W
+Types:Creature Human Warrior
+PT:5/5
+K:Lifelink
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self+YouOwn | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Exile | RememberChanged$ True | ExileFaceDown$ True | SubAbility$ DBExileTopCard
+SVar:DBExileTopCard:DB$ Dig | Defined$ You | DigNum$ 6 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | ExileFaceDown$ True | SubAbility$ DBChangeLibrary
+SVar:DBChangeLibrary:DB$ ChangeZoneAll | ConditionCheckSVar$ RememberedSize | ConditionSVarCompare$ GE7 | ChangeType$ Card.IsRemembered | Origin$ Exile | Destination$ Library | LibraryPosition$ 0 | RandomOrder$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:RememberedSize:Count$RememberedSize
+K:Miracle:1 W

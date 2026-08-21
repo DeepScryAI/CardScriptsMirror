@@ -1,8 +1,9 @@
 Id:33524
-ColorIdentity:B
-OriginSet:G23d1f017cc66962f
-ManaCost:1 B
-Types:Instant
-A:SP$ Animate | Keywords$ Deathtouch | Triggers$ DiesTrigger | ValidTgts$ Creature
-SVar:DiesTrigger:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigChangeZone
-SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | Tapped$ True | Defined$ TriggeredNewCardLKICopy
+ColorIdentity:R
+OriginSet:G40dbb28fb92f9206
+ManaCost:1 R
+Types:Kindred Instant Giant
+A:SP$ DealDamage | ValidTgts$ Creature.OppCtrl | RememberTargets$ True | NumDmg$ 3 | SubAbility$ DBAnimateAll
+SVar:DBAnimateAll:DB$ AnimateAll | ValidCards$ Creature.ControlledBy RememberedController+!IsRemembered | Types$ Coward | staticAbilities$ Cowardly | Duration$ Permanent | SubAbility$ DBCleanup
+SVar:Cowardly:Mode$ CantBlockBy | ValidAttacker$ Giant,Warrior | ValidBlocker$ Creature.Self
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

@@ -1,10 +1,12 @@
 Id:23002
-ColorIdentity:UR
-OriginSet:G8a59924df6623252
-ManaCost:U R
-Types:Legendary Creature Human
-PT:1/3
-A:AB$ DealDamage | Cost$ T Sac<1/Artifact> | ValidTgts$ Creature | NumDmg$ 1 | SubAbility$ DBGoad
-SVar:DBGoad:DB$ Goad | Defined$ Targeted
-K:Partner:Friends forever
-SVar:AIPreference:SacCost$Artifact.token,Artifact.cmcLE1
+ColorIdentity:G
+OriginSet:Gf78628ad511eefec
+ManaCost:2 G
+Types:Creature Wolf
+PT:4/3
+K:Trample
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPay
+SVar:TrigPay:AB$ ImmediateTrigger | Cost$ Mana<1 G\NumTimes> | Announce$ NumTimes | ConditionCheckSVar$ NumTimes | RememberSVarAmount$ NumTimes | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ X | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | TargetMin$ 0 | TargetMax$ X | ValidTgts$ Land.YouCtrl | Power$ 3 | Toughness$ 3 | Types$ Wolf,Creature | Keywords$ Haste | Duration$ Permanent
+SVar:X:Count$TriggerRememberAmount

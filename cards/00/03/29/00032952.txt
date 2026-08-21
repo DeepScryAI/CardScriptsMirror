@@ -1,13 +1,9 @@
 Id:32952
-ColorIdentity:U
-OriginSet:G731e0066916b7465
-ManaCost:2 U
-Types:Legendary Creature Human Noble Ally
-PT:3/2
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self+Creature+nonLand | Execute$ DBReturn
-SVar:DBReturn:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True | Tapped$ True | RememberChanged$ True | StaticEffect$ Animate | SubAbility$ DBAnimate
-SVar:Animate:Mode$ Continuous | Affected$ Card.IsRemembered | AddType$ Land | RemoveCardTypes$ True | SetName$ 6899907315027116411
-SVar:DBAnimate:DB$ Animate | Defined$ Remembered | Duration$ Permanent | Abilities$ ABMana | SubAbility$ DBCleanup
-SVar:ABMana:AB$ Mana | Cost$ T | Produced$ C
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-A:AB$ Scry | Cost$ T | ScryNum$ 2
+ColorIdentity:BG
+OriginSet:G22ed5d6f3707b461
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ Combo B G
+A:AB$ Draw | Cost$ 4 T Sac<1/CARDNAME>

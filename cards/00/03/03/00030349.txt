@@ -1,11 +1,12 @@
 Id:30349
-ColorIdentity:B
-OriginSet:G8b2ed00ac2a0ff47
-ManaCost:3 B
-Types:Creature Human Cleric
-PT:2/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDiscard
-SVar:TrigDiscard:DB$ Discard | Defined$ Player | NumCards$ 1 | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | Defined$ You | ConditionDefined$ Remembered | ConditionPresent$ Card.YouOwn | SubAbility$ DBCleanup
+ColorIdentity:U
+OriginSet:G9ff9681e1fe8713a
+ManaCost:2 U
+Types:Creature Otter Wizard
+PT:2/4
+A:AB$ Mana | Cost$ T | Produced$ Combo Any | Amount$ 2 | RestrictValid$ Spell.Instant,Spell.Sorcery
+T:Mode$ SpellCast | ValidCard$ Card.YouCtrl | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigExile | ActivatorThisTurnCast$ EQ3
+SVar:TrigExile:DB$ ChangeZone | DefinedPlayer$ You | ChangeType$ Card | ChangeNum$ 1 | Origin$ Library | Destination$ Exile | AtRandom$ True | Hidden$ True | NoLooking$ True | NoShuffle$ True | Mandatory$ True | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ STPlay | SubAbility$ DBCleanup | ForgetOnMoved$ Exile
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | MayPlayWithoutManaCost$ True | AffectedZone$ Exile
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:AIPreference:DiscardCost$Card.cmcLE1

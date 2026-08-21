@@ -1,12 +1,9 @@
 Id:18060
-ColorIdentity:B
+ColorIdentity:U
 OriginSet:G5033d54b23b37629
-ManaCost:3 B
-Types:Enchantment Saga
-K:Chapter:3:DBDealDamage,DBDealDamage,DBToken
-SVar:DBDealDamage:DB$ DealDamage | Defined$ Player.Opponent | NumDmg$ 2 | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2
-SVar:DBToken:DB$ Token | TokenScriptIds$ 3152831892 | TokenOwner$ You | TokenPower$ X | TokenToughness$ X | RememberTokens$ True | SubAbility$ DBDamageYou
-SVar:DBDamageYou:DB$ DealDamage | Defined$ You | NumDmg$ X | DamageSource$ Remembered | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$YourLifeTotal/HalfUp
+ManaCost:4 U
+Types:Creature Human Wizard
+PT:3/2
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ 1 | EffectZone$ All | IsPresent$ Wizard.YouCtrl
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | ValidTgts$ Creature.OppCtrl | Origin$ Battlefield | Destination$ Hand

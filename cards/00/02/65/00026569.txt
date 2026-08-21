@@ -1,29 +1,10 @@
 Id:26569
-ColorIdentity:U
-OriginSet:G06757f68e16377c2
-ManaCost:3 U U
-Types:Legendary Creature Phyrexian Praetor
-PT:5/5
-K:Ward:2
-T:Mode$ SpellCast | ValidCard$ Card.nonCreature+cmcGE3 | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ DBDraw
-SVar:DBDraw:DB$ Draw
-A:AB$ ChangeZone | Cost$ 3 U | CheckSVar$ X | SVarCompare$ GE7 | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn | SorcerySpeed$ True
-SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | Transformed$ True | ForgetOtherRemembered$ True | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$ValidHand Card.YouOwn
-SVar:BuffedBy:Card.nonCreature+cmcGE3
-AlternateMode:DoubleFaced
-ALTERNATE
+ColorIdentity:
+OriginSet:Gd5f5e54fa26ae40d
 ManaCost:no cost
-Colors:blue
-Types:Enchantment Saga
-K:Chapter:3:DBDraw,DBBounceAll,DBCastAll
-SVar:DBDraw:DB$ Draw | NumCards$ Y | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | StaticAbilities$ STHandSize | Duration$ AsLongAsControl
-SVar:STHandSize:Mode$ Continuous | Affected$ You | SetMaxHandSize$ Unlimited
-SVar:DBBounceAll:DB$ ChangeZoneAll | ChangeType$ Creature.nonPhyrexian | Origin$ Battlefield | Destination$ Hand
-SVar:DBCastAll:DB$ Play | Valid$ Card.nonLand+YouOwn | ValidSA$ Spell | ValidZone$ Hand | WithoutManaCost$ True | Amount$ All | Controller$ You | Optional$ True | SubAbility$ DBExileSelf | Ultimate$ True
-SVar:DBExileSelf:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | SubAbility$ DBReturnSelf | RememberChanged$ True
-SVar:DBReturnSelf:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:Y:Count$ValidHand Card.YouOwn
+Types:Plane Kylem
+T:Mode$ AttackersDeclared | ValidAttackers$ Creature.YourTeamCtrl | Execute$ TrigPumpAll | IsPresent$ Creature.attacking | PresentCompare$ EQ2 | NoResolvingCheck$ True | TriggerZones$ Command | AttackingPlayer$ You
+SVar:TrigPumpAll:DB$ PumpAll | ValidCards$ Creature.YourTeamCtrl+attacking | KW$ DoubleStrike
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos
+SVar:RolledChaos:DB$ Untap | ValidTgts$ Creature.YourTeamCtrl | TargetMin$ 0 | TargetMax$ 2 | SubAbility$ DBAddCombat
+SVar:DBAddCombat:DB$ AddPhase | ExtraPhase$ Combat | FollowedBy$ Main2 | ConditionPhases$ Main1,Main2

@@ -1,10 +1,13 @@
 Id:15356
-ColorIdentity:R
+ColorIdentity:G
 OriginSet:G70acd28f254172ff
-ManaCost:2 R
-Types:Creature Human Artificer
-PT:1/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 3939935181 | TokenOwner$ You
-S:Mode$ Continuous | Affected$ Creature.Artifact+YouCtrl | AddKeyword$ Haste
-SVar:PlayMain1:TRUE
+ManaCost:6 G G G
+Types:Sorcery
+A:SP$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBShuffle | SubAbility$ RepeatLands
+SVar:DBShuffle:DB$ ChangeZoneAll | ChangeType$ Card.RememberedPlayerOwn | Origin$ Hand,Battlefield | Destination$ Library | Shuffle$ True | RememberChanged$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ Remembered | NumCards$ Remembered$Amount | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:RepeatLands:DB$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBAurora | SubAbility$ ExileAurora
+SVar:DBAurora:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | DefinedPlayer$ Remembered | Chooser$ Remembered | ChangeType$ Land | ChangeNum$ HandSize
+SVar:HandSize:Count$ValidHand Land.RememberedPlayerCtrl
+SVar:ExileAurora:DB$ ChangeZone | Origin$ Stack | Destination$ Exile | Defined$ Self

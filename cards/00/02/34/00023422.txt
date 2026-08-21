@@ -1,7 +1,12 @@
 Id:23422
-ColorIdentity:R
-OriginSet:G1a259dba25660062
-ManaCost:2 R
-Types:Instant
-A:SP$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +2 | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | ConditionPresent$ Creature.YouCtrl+modified | ConditionCompare$ GE1
+ColorIdentity:U
+OriginSet:Gbe3783f336562357
+ManaCost:1 U
+Types:Legendary Creature Homunculus
+PT:1/1
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ DBDig | TriggerZones$ Battlefield
+SVar:DBDig:DB$ Dig | ValidTgts$ You | DigNum$ 2 | ChangeNum$ 1 | DestinationZone$ Graveyard | LibraryPosition2$ 0
+T:Mode$ ChangesZone | ValidCard$ Creature.YouOwn | Origin$ Library,Hand | Destination$ Graveyard | TriggerZones$ Battlefield | Execute$ TrigAnimate
+SVar:TrigAnimate:DB$ Animate | Defined$ TriggeredCard | Triggers$ LeavesGrave | Duration$ Perpetual
+SVar:LeavesGrave:Mode$ ChangesZone | Origin$ Graveyard | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 353162950 | TokenTapped$ True

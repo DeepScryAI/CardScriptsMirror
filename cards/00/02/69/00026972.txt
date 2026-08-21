@@ -1,8 +1,11 @@
 Id:26972
 ColorIdentity:G
-OriginSet:G6ce0035cfb774934
+OriginSet:G3601f5e223de6c7f
 ManaCost:3 G
-Types:Creature Elf Scout
-PT:3/4
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigScry
-SVar:TrigScry:DB$ Scry | ScryNum$ 2
+Types:Enchantment
+S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddKeyword$ Reach
+A:AB$ Token | Cost$ Sac<1/CARDNAME> | TokenAmount$ 3 | TokenScriptIds$ 3952064732 | TokenPower$ X | TokenToughness$ X | RememberTokens$ True | TokenTapped$ True | SubAbility$ DBReach
+SVar:DBReach:DB$ PutCounter | Defined$ Remembered | CounterType$ Reach | CounterNum$ 1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:PlayMain1:TRUE
+SVar:X:Count$LifeYouGainedThisTurn

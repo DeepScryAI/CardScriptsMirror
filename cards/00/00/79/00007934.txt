@@ -2,7 +2,8 @@ Id:7934
 ColorIdentity:UB
 OriginSet:Gc563c209d627c4c5
 ManaCost:1 U B
-Types:Creature Shapeshifter
-PT:0/2
-A:AB$ ChangeZone | Cost$ 1 U B | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Creature | RememberTargets$ True | ForgetOtherTargets$ True | SubAbility$ DDCopy
-SVar:DDCopy:DB$ Clone | Defined$ Remembered | GainThisAbility$ True
+Types:Creature Spirit
+PT:2/2
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDrawDiscard
+SVar:TrigDrawDiscard:DB$ Draw | Defined$ You | NumCards$ 1 | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ TriggeredTarget | NumCards$ 1 | Mode$ TgtChoose

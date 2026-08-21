@@ -1,8 +1,10 @@
 Id:16824
-ColorIdentity:R
+ColorIdentity:B
 OriginSet:Gd31f94cf3a5f78e4
-ManaCost:2 R
-Types:Enchantment
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Artifact.YouOwn+!token | TriggerZones$ Battlefield | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Hand | UnlessCost$ DamageYou<3> | UnlessPayer$ Targeted | ValidTgts$ Opponent | IsCurse$ True | Hidden$ True | DefinedPlayer$ You
-SVar:BuffedBy:Permanent.White,Permanent.Black
+ManaCost:4 B
+Types:Instant
+A:SP$ Sacrifice | Defined$ Opponent | SacValid$ Creature.Artifact & Creature.nonArtifact | AILogic$ WorstCard | Mandatory$ True | SacEachValid$ True
+SVar:NeedsToPlayVar:Z GE2
+SVar:Z:SVar$Z1/Plus.Z2
+SVar:Z1:Count$Valid Creature.nonArtifact+OppCtrl/LimitMax.1
+SVar:Z2:Count$Valid Creature.Artifact+OppCtrl/LimitMax.1

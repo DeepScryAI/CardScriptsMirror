@@ -1,20 +1,12 @@
 Id:12452
-ColorIdentity:B
+ColorIdentity:U
 OriginSet:G12585413ffc93ad8
-ManaCost:7
-Types:Legendary Artifact Equipment
-K:Equip:1
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1
-T:Mode$ DamageDone | ValidSource$ Creature.AttachedBy | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigTransform | TriggerZones$ Battlefield
-SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:black
-Types:Legendary Creature Demon
-PT:13/13
+ManaCost:2 U U
+Types:Creature Spirit
+PT:3/3
 K:Flying
-K:Trample
-K:Intimidate
-T:Mode$ LosesGame | Execute$ TrigCounter
-SVar:TrigCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 13
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigTap
+SVar:TrigTap:DB$ Tap | ValidTgts$ Creature.OppCtrl | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ Targeted | ForgetOnMoved$ Battlefield | ReplacementEffects$ DontUntap | Duration$ AsLongAsControl
+SVar:DontUntap:Event$ Untap | ValidCard$ Card.IsRemembered | ValidStepTurnToController$ You | Layer$ CantHappen
+SVar:PlayMain1:TRUE

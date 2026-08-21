@@ -1,12 +1,11 @@
 Id:34382
-ColorIdentity:RG
-OriginSet:G11c0621ce29fa608
-ManaCost:1 R R G
-Types:Enchantment
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | Execute$ TrigToken | TriggerZones$ Battlefield
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 2410230197 | RememberTokens$ True | SubAbility$ DBPutCounter1
-SVar:DBPutCounter1:DB$ PutCounter | Defined$ Remembered | CounterType$ P1P1 | CounterNum$ X | SubAbility$ DBPutCounter2
-SVar:DBPutCounter2:DB$ PutCounter | Defined$ Self | CounterType$ INVASION | CounterNum$ 1 | SubAbility$ DBCleanup
+ColorIdentity:B
+OriginSet:Gcb93bbfc68a40806
+ManaCost:4 B
+Types:Artifact Equipment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 1084490654 | TokenOwner$ You | RememberTokens$ True | SubAbility$ DBAttach
+SVar:DBAttach:DB$ Attach | Defined$ Remembered | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$CardCounters.INVASION
-SVar:PlayMain1:TRUE
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 3 | AddToughness$ 3
+K:Equip:4

@@ -1,14 +1,12 @@
 Id:26450
-ColorIdentity:RG
-OriginSet:G06757f68e16377c2
-ManaCost:4 G
-Types:Creature Beast
-PT:4/5
-A:AB$ SetState | Cost$ 4 RP | Defined$ Self | Mode$ Transform | SorcerySpeed$ True | AILogic$ Always
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:red,green
-Types:Creature Phyrexian Beast
-PT:7/5
-K:Menace
+ColorIdentity:W
+OriginSet:G74a73d701e7801b3
+ManaCost:W
+Types:Creature Cat Artificer
+PT:2/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | Choices$ ReduceHand,ReduceBattlefield
+SVar:ReduceHand:DB$ ChooseCard | Mandatory$ True | ChoiceZone$ Hand | Choices$ Equipment.YouOwn | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | PumpZone$ Hand | Defined$ ChosenCard | KW$ Equip:1 | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+SVar:ReduceBattlefield:DB$ Pump | ValidTgts$ Equipment.YouCtrl | Duration$ Perpetual | KW$ Equip:1

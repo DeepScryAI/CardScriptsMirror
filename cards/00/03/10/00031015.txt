@@ -1,9 +1,12 @@
 Id:31015
-ColorIdentity:R
-OriginSet:G4524bbf7a3db9dc0
-ManaCost:5 R R
-Types:Sorcery
-A:SP$ ChangeZoneAll | Origin$ Graveyard | Destination$ Battlefield | ChangeType$ Mount.YouOwn,Vehicle.YouOwn | AtEOT$ Sacrifice | SubAbility$ DBAnimateAll
-SVar:DBAnimateAll:DB$ AnimateAll | Types$ Artifact,Creature | ValidCards$ Vehicle.YouCtrl | SubAbility$ DBPumpAll
-SVar:DBPumpAll:DB$ PumpAll | ValidCards$ Creature.YouCtrl | KW$ Haste
-SVar:PlayMain1:TRUE
+ColorIdentity:G
+OriginSet:G2c8286a6f234d4b9
+ManaCost:2 G
+Types:Legendary Creature Elf Scout
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | Tapped$ True | ChangeType$ Land.Basic
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigImmediateTrig
+SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ Return<1/Land> | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ 1
+SVar:HasAttackEffect:TRUE

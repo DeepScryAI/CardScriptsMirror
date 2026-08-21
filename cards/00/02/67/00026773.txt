@@ -1,6 +1,13 @@
 Id:26773
-ColorIdentity:U
-OriginSet:G321081e278de53f0
-ManaCost:1 U U
-Types:Instant
-A:SP$ ChangeZoneAll | ChangeType$ Permanent.nonLand+nonCreature | Origin$ Battlefield | Destination$ Hand
+ColorIdentity:
+OriginSet:G06757f68e16377c2
+ManaCost:3
+Types:Legendary Artifact
+A:AB$ Mill | Cost$ 2 T | NumCards$ 3 | ValidTgts$ Opponent | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True | Hidden$ True | ChangeType$ Land.TargetedPlayerCtrl | Tapped$ True | RememberChanged$ True | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Replacements$ ReplaceLeaves | Defined$ Remembered | Duration$ Permanent | SubAbility$ DBCleanup
+SVar:ReplaceLeaves:Event$ Moved | ActiveZones$ Battlefield | Origin$ Battlefield | ValidCard$ Card.Self | ReplaceWith$ Exile
+SVar:Exile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | Defined$ ReplacedCard
+A:AB$ ChangeZone | Cost$ 10 T Sac<1/CARDNAME> | Origin$ Library | Destination$ Battlefield | ChangeType$ Praetor | ChangeNum$ FetchCount
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:FetchCount:Count$ValidLibrary Praetor.YouCtrl

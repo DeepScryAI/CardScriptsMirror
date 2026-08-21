@@ -1,9 +1,10 @@
 Id:32816
-ColorIdentity:U
-OriginSet:G22ed5d6f3707b461
-ManaCost:5 U U
-Types:Creature Serpent
-PT:6/5
-S:Mode$ CastWithFlash | ValidCard$ Card.Self | ValidSA$ Spell | EffectZone$ All | Caster$ You | IsPresent$ Lesson.YouOwn | PresentZone$ Graveyard | PresentCompare$ GE3
-S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ X | EffectZone$ All
-SVar:X:Count$ValidGraveyard Card.nonCreature+nonLand+YouOwn
+ColorIdentity:W
+OriginSet:G36e97d2da170e675
+ManaCost:2 W W
+Types:Sorcery
+A:SP$ Pump | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBAirbend
+SVar:DBAirbend:DB$ Airbend | Defined$ Valid Creature.NotDefinedTargeted | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ CantCast | Duration$ UntilYourNextTurn | SubAbility$ DBExile
+SVar:CantCast:Mode$ CantBeCast | ValidCard$ Card.!wasCastFromTheirHand | Caster$ Opponent
+SVar:DBExile:DB$ ChangeZone | Origin$ Stack | Destination$ Exile

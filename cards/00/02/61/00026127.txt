@@ -1,12 +1,10 @@
 Id:26127
-ColorIdentity:G
+ColorIdentity:W
 OriginSet:G2192e8955d5e1ad1
-ManaCost:3 G G GP GP
-Types:Legendary Planeswalker Nissa
-Loyalty:7
-K:Compleated
-A:AB$ Token | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | TokenScriptIds$ 1273999014 | TokenPower$ L | TokenToughness$ L
-SVar:L:Count$CardCounters.LOYALTY
-A:AB$ Destroy | Cost$ SubCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Artifact,Enchantment
-A:AB$ PumpAll | Cost$ SubCounter<7/LOYALTY> | Planeswalker$ True | Ultimate$ True | ValidCards$ Creature.YouCtrl | NumAtt$ +X | NumDef$ +X | KW$ Trample
-SVar:X:Count$Valid Forest.YouCtrl
+ManaCost:3 W
+Types:Sorcery
+A:SP$ Charm | MinCharmNum$ 1 | CharmNum$ 2 | Choices$ DBFlicker,DBReturnArtifact
+SVar:DBFlicker:DB$ ChangeZone | ValidTgts$ Creature.YouCtrl,Artifact.YouCtrl | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ All | Destination$ Battlefield | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:DBReturnArtifact:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Artifact.YouCtrl+cmcLE3,Creature.YouCtrl+cmcLE3

@@ -1,0 +1,15 @@
+Id:34858
+ColorIdentity:WU
+OriginSet:G11c0621ce29fa608
+ManaCost:1 W U
+Types:Legendary Creature Human God Hero
+PT:3/3
+K:Flying
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | ValidTgts$ Artifact.!token,Creature.!token | TargetMin$ 0 | TargetMax$ 1 | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ All | Destination$ Battlefield | Tapped$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | TriggerZones$ Battlefield | ValidCard$ Equipment.YouCtrl | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw
+SVar:BuffedBy:Equipment
+SVar:HasAttackEffect:TRUE

@@ -1,18 +1,10 @@
 Id:26538
-ColorIdentity:B
-OriginSet:G06757f68e16377c2
-ManaCost:3 B
-Types:Battle Siege
-Defense:4
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDiscard
-SVar:TrigDiscard:DB$ Discard | ValidTgts$ Opponent | NumCards$ 2 | Mode$ TgtChoose
-AlternateMode:DoubleFaced
-ALTERNATE
+ColorIdentity:
+OriginSet:Gd5f5e54fa26ae40d
 ManaCost:no cost
-Colors:black
-Types:Creature Faerie
-PT:2/2
-K:Flying
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Opponent | CheckSVar$ TrigCount | SVarCompare$ LE2 | TriggerZones$ Battlefield | Execute$ TrigDmg
-SVar:TrigDmg:DB$ DealDamage | NumDmg$ 2 | Defined$ TriggeredPlayer
-SVar:TrigCount:Count$ValidHand Card.ActivePlayerCtrl
+Types:Plane New Phyrexia
+T:Mode$ PlaneswalkedTo | ValidCard$ Plane.Self | Execute$ TrigChaos
+SVar:TrigChaos:DB$ ChaosEnsues
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ TrigDigUntil
+SVar:TrigDigUntil:DB$ DigUntil | Valid$ Plane | DigZone$ PlanarDeck | RememberFound$ True | FoundDestination$ PlanarDeck | RevealedDestination$ PlanarDeck | RevealedLibraryPosition$ -1 | SubAbility$ DBPlaneswalk
+SVar:DBPlaneswalk:DB$ Planeswalk | Defined$ Remembered | DontPlaneswalkAway$ True

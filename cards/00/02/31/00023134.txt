@@ -1,7 +1,12 @@
 Id:23134
-ColorIdentity:BG
-OriginSet:G6e75ff4f143a3dc3
-ManaCost:2 B G
-Types:Creature Treefolk
-PT:1/4
-S:Mode$ CombatDamageToughness | ValidCard$ Creature.powerLTtoughness+YouCtrl
+ColorIdentity:U
+OriginSet:G7a76c1974b0a33a6
+ManaCost:5 U U
+Types:Creature Kraken Horror
+PT:7/8
+K:Flash
+R:Event$ Counter | ValidCard$ Card.Self | ValidSA$ Spell | Layer$ CantHappen
+T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ You | Execute$ TrigCharm | TriggerZones$ Battlefield
+SVar:TrigCharm:DB$ Charm | Choices$ ControlReturn,ControlBounce | MinCharmNum$ 0
+SVar:ControlReturn:DB$ ChangeZone | ValidTgts$ Card.YouDontCtrl | TargetType$ Spell | TgtZone$ Stack | Origin$ Stack | Destination$ Hand
+SVar:ControlBounce:DB$ ChangeZone | ValidTgts$ Permanent.nonLand | TgtZone$ Battlefield | Origin$ Battlefield | Destination$ Hand

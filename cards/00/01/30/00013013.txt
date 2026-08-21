@@ -1,12 +1,8 @@
 Id:13013
-ColorIdentity:BG
+ColorIdentity:G
 OriginSet:G5449dea2d54987a1
-ManaCost:BG
-Types:Creature Elf Shaman
-PT:1/2
-A:AB$ ChangeZone | Cost$ T | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Land | SubAbility$ DBMana
-SVar:DBMana:DB$ Mana | Produced$ Any | Amount$ 1
-A:AB$ ChangeZone | Cost$ B T | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Instant,Sorcery | SubAbility$ DBLoseLife | AITgtOwnCards$ True
-SVar:DBLoseLife:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 2
-A:AB$ ChangeZone | Cost$ G T | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Creature | SubAbility$ DBGainLife | AITgtOwnCards$ True
-SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2
+ManaCost:5 G
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl | Execute$ TrigPutCounter | TriggerZones$ Battlefield
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ X
+SVar:X:TriggeredCard$CardPower

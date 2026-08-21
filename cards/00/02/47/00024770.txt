@@ -1,13 +1,11 @@
 Id:24770
-ColorIdentity:BR
-OriginSet:G3c9db52fa0bcee92
-ManaCost:3 B R
-Types:Legendary Creature Human Archer
-PT:3/3
-K:Reach
-K:Lifelink
-R:Event$ DamageDone | ActiveZones$ Battlefield | ValidSource$ Card.Other+YouCtrl,Emblem.YouCtrl | ValidTarget$ Permanent,Player | ReplaceWith$ DmgPlus1 | IsCombat$ False
-T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDamage
-SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 2
-SVar:DmgPlus1:DB$ ReplaceEffect | VarName$ DamageAmount | VarValue$ X
-SVar:X:ReplaceCount$DamageAmount/Plus.1
+ColorIdentity:G
+OriginSet:G72c9c624ceb92bff
+ManaCost:2 G
+Types:Creature Ooze
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1
+T:Mode$ Attacks | ValidCard$ Creature.Self | Execute$ TrigPutCounterAll
+SVar:TrigPutCounterAll:DB$ PutCounterAll | ValidCards$ Creature.YouCtrl+counters_GE1_P1P1 | CounterType$ P1P1 | CounterNum$ 1
+SVar:HasAttackEffect:TRUE

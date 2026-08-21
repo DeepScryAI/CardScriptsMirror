@@ -1,8 +1,10 @@
 Id:10398
-ColorIdentity:R
+ColorIdentity:UR
 OriginSet:Ga3dbc4b644a9a2c5
-ManaCost:2 R R
-Types:Legendary Creature Human Shaman
-PT:2/2
-K:Haste
-A:AB$ Token | Cost$ R T | TokenScriptIds$ 777167908 | TokenOwner$ You
+ManaCost:3 R
+Types:Sorcery
+A:SP$ DealDamage | ValidTgts$ Player,Planeswalker | NumDmg$ 3 | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | OneOff$ True | Duration$ Permanent | Abilities$ PayUp | Triggers$ DamageTrig | RememberObjects$ Targeted
+SVar:PayUp:ST$ ChangeZone | Activator$ Player.IsRememberedOrController | ActivationZone$ Command | Cost$ U | Defined$ Self | Origin$ Command | Destination$ Exile | ActivationZone$ Command | AILogic$ Always
+SVar:DamageTrig:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigDamage | OneOff$ True
+SVar:TrigDamage:DB$ DealDamage | Defined$ Remembered | NumDmg$ 3

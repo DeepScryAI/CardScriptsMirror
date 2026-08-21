@@ -1,13 +1,26 @@
 Id:21352
-ColorIdentity:WRG
+ColorIdentity:W
 OriginSet:G51d431785c8b33e5
-ManaCost:R G W
-Types:Legendary Creature Human Warrior
-PT:3/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMonarch
-SVar:TrigMonarch:DB$ BecomeMonarch | ValidTgts$ Opponent | SubAbility$ DBNoMonarch
-SVar:DBNoMonarch:DB$ Effect | StaticAbilities$ STCantMonarch
-SVar:STCantMonarch:Mode$ CantBecomeMonarch | ValidPlayer$ You
-R:Event$ DamageDone | ActiveZones$ Battlefield | ValidTarget$ Card.Self | CheckDefinedPlayer$ You.isMonarch | ReplaceWith$ Counters | PreventionEffect$ True | AlwaysReplace$ True
-SVar:Counters:DB$ PutCounter | Defined$ ReplacedTarget | CounterType$ P1P1 | CounterNum$ Y
-SVar:Y:ReplaceCount$DamageAmount
+ManaCost:5 W W
+Types:Legendary Creature Angel
+PT:6/6
+K:Flying
+K:FirstStrike
+K:Vigilance
+K:Trample
+T:Mode$ Phase | Phase$ BeginCombat | TriggerZones$ Battlefield | Execute$ TrigFlying
+SVar:TrigFlying:DB$ PumpAll | ValidCards$ Creature.Other+YouCtrl+withFlying | NumAtt$ +1 | NumDef$ +1 | SubAbility$ DBFirstStrike
+SVar:DBFirstStrike:DB$ PumpAll | ValidCards$ Creature.Other+YouCtrl+withFirstStrike | NumAtt$ +1 | NumDef$ +1 | SubAbility$ DBDoubleStrike
+SVar:DBDoubleStrike:DB$ PumpAll | ValidCards$ Creature.Other+YouCtrl+withDoubleStrike | NumAtt$ +1 | NumDef$ +1 | SubAbility$ DBDeathtouch
+SVar:DBDeathtouch:DB$ PumpAll | ValidCards$ Creature.Other+YouCtrl+withDeathtouch | NumAtt$ +1 | NumDef$ +1 | SubAbility$ DBHaste
+SVar:DBHaste:DB$ PumpAll | ValidCards$ Creature.Other+YouCtrl+withHaste | NumAtt$ +1 | NumDef$ +1 | SubAbility$ DBHexproof
+SVar:DBHexproof:DB$ PumpAll | ValidCards$ Creature.Other+YouCtrl+withHexproof | NumAtt$ +1 | NumDef$ +1 | SubAbility$ DBIndestructible
+SVar:DBIndestructible:DB$ PumpAll | ValidCards$ Creature.Other+YouCtrl+withIndestructible | NumAtt$ +1 | NumDef$ +1 | SubAbility$ DBLifelink
+SVar:DBLifelink:DB$ PumpAll | ValidCards$ Creature.Other+YouCtrl+withLifelink | NumAtt$ +1 | NumDef$ +1 | SubAbility$ DBMenace
+SVar:DBMenace:DB$ PumpAll | ValidCards$ Creature.Other+YouCtrl+withMenace | NumAtt$ +1 | NumDef$ +1 | SubAbility$ DBProtection
+SVar:DBProtection:DB$ PumpAll | ValidCards$ Creature.Other+YouCtrl+withProtection | NumAtt$ +1 | NumDef$ +1 | SubAbility$ DBReach
+SVar:DBReach:DB$ PumpAll | ValidCards$ Creature.Other+YouCtrl+withReach | NumAtt$ +1 | NumDef$ +1 | SubAbility$ DBTrample
+SVar:DBTrample:DB$ PumpAll | ValidCards$ Creature.Other+YouCtrl+withTrample | NumAtt$ +1 | NumDef$ +1 | SubAbility$ DBVigilance
+SVar:DBVigilance:DB$ PumpAll | ValidCards$ Creature.Other+YouCtrl+withVigilance | NumAtt$ +1 | NumDef$ +1 | SubAbility$ DBPartner
+SVar:DBPartner:DB$ PumpAll | ValidCards$ Creature.Other+YouCtrl+withPartner | NumAtt$ +1 | NumDef$ +1
+K:Partner

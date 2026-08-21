@@ -1,8 +1,20 @@
 Id:23644
-ColorIdentity:B
+ColorIdentity:W
 OriginSet:G1a259dba25660062
+ManaCost:1 W
+Types:Enchantment Saga
+K:Chapter:3:DBPump,DBPump,DBTransform
+SVar:DBPump:DB$ Pump | ValidTgts$ Creature | NumAtt$ +X | NumDef$ +X | AILogic$ Pump
+SVar:X:Count$Valid Artifact.YouCtrl,Enchantment.YouCtrl
+SVar:DBTransform:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | Transformed$ True | GainControl$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:NeedsToPlay:Creature.YouCtrl
+AlternateMode:DoubleFaced
+ALTERNATE
 ManaCost:no cost
-Types:Legendary Land
-A:AB$ Mana | Cost$ T | Produced$ B
-A:AB$ Mill | Cost$ 3 B Discard<1/CARDNAME> | ActivationZone$ Hand | NumCards$ 3 | Defined$ You | SubAbility$ DBChangeZone | ReduceCost$ Count$Valid Creature.Legendary+YouCtrl
-SVar:DBChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ChangeType$ Creature.YouOwn,Planeswalker.YouOwn | ChangeNum$ 1 | Mandatory$ True | Hidden$ True
+Colors:white
+Types:Enchantment Creature Human Noble
+PT:0/0
+S:Mode$ Continuous | Affected$ Card.Self | AddPower$ X | AddToughness$ X
+SVar:X:Count$Valid Artifact.YouCtrl,Enchantment.YouCtrl

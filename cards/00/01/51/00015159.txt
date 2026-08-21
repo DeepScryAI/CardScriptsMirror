@@ -1,9 +1,11 @@
 Id:15159
 ColorIdentity:B
 OriginSet:Gdb18f239871b8cef
-ManaCost:4 B
-Types:Creature Zombie Djinn
-PT:3/3
-K:Exploit
-T:Mode$ Exploited | ValidCard$ Creature | ValidSource$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature | NumAtt$ -3 | NumDef$ -3 | IsCurse$ True
+ManaCost:1 B
+Types:Creature Human Assassin
+PT:2/1
+K:Megamorph:2 B
+S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self | ValidBlocker$ Creature.powerGTX
+SVar:X:Count$CardPower
+T:Mode$ TurnFaceUp | ValidCard$ Card.Self | Execute$ TrigDestroy | TriggerZones$ Battlefield
+SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Creature.powerLE3+OppCtrl

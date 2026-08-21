@@ -1,9 +1,11 @@
 Id:10002
-ColorIdentity:G
+ColorIdentity:B
 OriginSet:G6a049984467eca45
-ManaCost:G
-Types:Creature Elf Warrior
-PT:2/2
-R:Event$ Untap | ValidCard$ Card.Self | ValidStepTurnToController$ You | Layer$ CantHappen
-T:Mode$ SpellCast | ValidCard$ Card.Green | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigUntap
-SVar:TrigUntap:DB$ Untap | Defined$ Self
+ManaCost:1 B B
+Types:Creature Specter
+PT:1/1
+K:Flying
+K:Wither
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDiscard
+SVar:TrigDiscard:DB$ Discard | Defined$ TriggeredTarget | NumCards$ X | Mode$ TgtChoose
+SVar:X:TriggerCount$DamageAmount

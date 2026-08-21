@@ -1,9 +1,10 @@
 Id:21391
-ColorIdentity:
+ColorIdentity:R
 OriginSet:G51d431785c8b33e5
-ManaCost:9
-Types:Artifact Creature Phyrexian Golem
-PT:9/9
-K:Encore:12
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 3084144023 | TokenAmount$ 3
+ManaCost:3 R R
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMonarch
+SVar:TrigMonarch:DB$ BecomeMonarch
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigDamage | TriggerZones$ Battlefield
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ X
+SVar:X:Count$Monarch.7.2

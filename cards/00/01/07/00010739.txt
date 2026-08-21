@@ -2,9 +2,8 @@ Id:10739
 ColorIdentity:
 OriginSet:Gc860c737f2a60f83
 ManaCost:no cost
-Types:Plane Segovia
-S:Mode$ Continuous | EffectZone$ Command | Affected$ Creature | AddPower$ -5
-T:Mode$ ChaosEnsues | OptionalDecider$ You | TriggerZones$ Command | Execute$ RolledChaos
-SVar:RolledChaos:DB$ Destroy | ValidTgts$ Creature | ConditionCheckSVar$ TgtPow | ConditionSVarCompare$ EQ1 | AITgts$ Creature.OppCtrl+powerLE0
-SVar:TgtPow:Targeted$Valid Creature.powerLE0
-SVar:AIRollPlanarDieParams:Mode$ Always
+Types:Plane Lorwyn
+S:Mode$ CombatDamageToughness | ValidCard$ Creature
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos
+SVar:RolledChaos:DB$ PumpAll | ValidCards$ Creature.ActivePlayerCtrl | NumDef$ +2 | KW$ Trample
+SVar:AIRollPlanarDieParams:Mode$ Always | MinTurn$ 3 | RollInMain1$ True

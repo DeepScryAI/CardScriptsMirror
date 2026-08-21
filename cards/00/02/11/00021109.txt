@@ -1,10 +1,12 @@
 Id:21109
-ColorIdentity:B
-OriginSet:G72c9c624ceb92bff
-ManaCost:B
-Types:Sorcery
-K:Kicker:2 B
-A:SP$ Destroy | ValidTgts$ Creature.cmcLE2,Planeswalker.cmcLE2 | TargetMin$ X | TargetMax$ X | SubAbility$ DBDestroy | AILogic$ AssumeAtLeastOneTarget
-SVar:DBDestroy:DB$ Destroy | TargetMin$ Y | TargetMax$ Y | ValidTgts$ Creature,Planeswalker
-SVar:X:Count$Kicked.0.1
-SVar:Y:Count$Kicked.1.0
+ColorIdentity:R
+OriginSet:G7b2607750b451c25
+ManaCost:1 R
+Types:Creature Human Warrior
+PT:3/1
+S:Mode$ CantBlockBy | ValidAttacker$ Creature.Warrior | ValidBlocker$ Creature.Coward
+A:AB$ Charm | Cost$ 1 | Choices$ Pump,Coward,Trample | ChoiceRestriction$ ThisTurn
+SVar:Pump:DB$ Pump | Defined$ Self | NumAtt$ +1 | NumDef$ +1
+SVar:Coward:DB$ Animate | ValidTgts$ Creature | Types$ Coward | RemoveCreatureTypes$ True
+SVar:Trample:DB$ Pump | ValidTgts$ Warrior | KW$ Trample
+SVar:PlayMain1:TRUE

@@ -1,8 +1,16 @@
 Id:32061
 ColorIdentity:G
-OriginSet:G9946f072b5556073
-ManaCost:1 G
-Types:Instant
-A:SP$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | Defined$ Targeted | KW$ Reach & Trample & Indestructible | SubAbility$ DBUntap
-SVar:DBUntap:DB$ Untap | Defined$ Targeted
+OriginSet:G7ab4f62d323b0ca7
+ManaCost:2 G
+Types:Enchantment Creature Saga Wolf
+PT:3/2
+K:Chapter:3:DBFetch,DBCast,DBDraw
+SVar:DBFetch:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Land.Basic | Tapped$ True | ChangeNum$ 1
+SVar:DBCast:DB$ Effect | Triggers$ SpellCast
+SVar:SpellCast:Mode$ SpellCast | ValidCard$ Creature | ValidActivatingPlayer$ You | OneOff$ True | Execute$ TrigEffect
+SVar:TrigEffect:DB$ Effect | RememberObjects$ TriggeredCard | ReplacementEffects$ ETBCreat | ExileOnMoved$ Stack
+SVar:ETBCreat:Event$ Moved | ValidCard$ Card.IsRemembered | Destination$ Battlefield | ReplaceWith$ DBPutP1P1 | ReplacementResult$ Updated
+SVar:DBPutP1P1:DB$ PutCounter | Defined$ ReplacedCard | CounterType$ P1P1 | ETB$ True | CounterNum$ 1
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1 | ConditionPresent$ Creature.YouCtrl | ConditionCompare$ GE1 | ConditionCheckSVar$ YourFerocity | ConditionSVarCompare$ GEOppsFerocity
+SVar:YourFerocity:Count$Valid Creature.YouCtrl$GreatestCardPower
+SVar:OppsFerocity:Count$Valid Creature.YouDontCtrl$GreatestCardPower

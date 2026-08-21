@@ -1,7 +1,9 @@
 Id:22461
-ColorIdentity:B
-OriginSet:G9f95a41d532c0550
-ManaCost:1 B
+ColorIdentity:BR
+OriginSet:G92f7f9489fec5865
+ManaCost:2 B R
 Types:Instant
-A:SP$ Draw | Cost$ 1 B Sac<1/Artifact;Creature/artifact or creature> | NumCards$ 2 | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenScriptIds$ 3851718391 | TokenOwner$ You
+A:SP$ ChangeZone | ValidTgts$ Creature | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | RememberObjects$ Remembered | ForgetOnMoved$ Exile | Duration$ UntilTheEndOfYourNextTurn | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:STPlay:Mode$ Continuous | Affected$ Card.nonLand+IsRemembered | AffectedZone$ Exile | MayPlay$ True | MayPlayIgnoreColor$ True

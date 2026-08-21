@@ -1,7 +1,12 @@
 Id:5566
-ColorIdentity:W
+ColorIdentity:B
 OriginSet:Ge4af4f9459d5dadd
-ManaCost:1 W
-Types:Enchantment
-A:AB$ PreventDamage | Cost$ W Discard<1/Card> | ValidTgts$ Any | Amount$ 3
-A:AB$ PreventDamage | Cost$ W Sac<1/CARDNAME> | ValidTgts$ Any | Amount$ 3
+ManaCost:8 B B B
+Types:Creature Nightmare Horror
+PT:8/8
+K:Flying
+T:Mode$ ChangesZone | ValidCard$ Card.wasCastFromYourHandByYou+Self | Destination$ Battlefield | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZoneAll | ValidTgts$ Opponent | ChangeType$ Card.TargetedPlayerCtrl | Origin$ Hand | Destination$ Exile | RememberChanged$ True
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Battlefield | Destination$ Any | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Hand | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

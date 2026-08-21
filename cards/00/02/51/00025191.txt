@@ -1,10 +1,13 @@
 Id:25191
-ColorIdentity:UR
+ColorIdentity:BR
 OriginSet:Gf591a76e7a37cf73
-ManaCost:3 U R
-Types:Creature Demon Horror
-PT:4/4
-T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDamage
-SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 2
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 3626923535 | TokenOwner$ You
+ManaCost:8 B B R
+Types:Instant
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ X | EffectZone$ All
+A:SP$ Discard | Mode$ Hand | Defined$ You | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 8 | SubAbility$ DBKhorne
+SVar:DBKhorne:DB$ DealDamage | Defined$ Player.Opponent | NumDmg$ 8 | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Stack | Destination$ Exile
+SVar:X:Count$ThisTurnEntered_Graveyard_from_Battlefield_Creature
+SVar:NeedsToPlayVar:Y LE3
+SVar:Y:Count$ValidHand Card.YouOwn

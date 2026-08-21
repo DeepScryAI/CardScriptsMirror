@@ -1,8 +1,13 @@
 Id:17157
 ColorIdentity:W
 OriginSet:G4b92e66c84393de5
-ManaCost:4 W W
+ManaCost:2 W W
 Types:Creature Angel
-PT:4/4
+PT:3/3
 K:Flying
-K:Cycling:2
+K:Vigilance
+A:AB$ ChangeZone | Cost$ 2 W T | ValidTgts$ Creature.Other | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DelTrig
+SVar:DelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ TrigBounce | RememberObjects$ RememberedLKI | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:TrigBounce:DB$ ChangeZone | Origin$ Exile | Destination$ Battlefield | Defined$ DelayTriggerRememberedLKI
+A:AB$ ChangeZone | Cost$ 2 W T Exert<1/CARDNAME> | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Creature.Other | Duration$ UntilHostLeavesPlay

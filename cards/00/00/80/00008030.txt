@@ -1,7 +1,11 @@
 Id:8030
 ColorIdentity:B
 OriginSet:Gc563c209d627c4c5
-ManaCost:3 B
-Types:Sorcery
-K:Dredge:2
-A:SP$ Discard | ValidTgts$ Player | Mode$ RevealYouChoose | NumCards$ 1
+ManaCost:5 B
+Types:Creature Horror
+PT:2/4
+K:Transmute:1 B B
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigEachOpp
+SVar:TrigEachOpp:DB$ RepeatEach | RepeatPlayers$ Player.Opponent | RepeatSubAbility$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ Player.IsRemembered | LifeAmount$ X
+SVar:X:Count$Valid Creature.RememberedPlayerCtrl

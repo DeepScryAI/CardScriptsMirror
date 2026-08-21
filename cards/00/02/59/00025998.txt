@@ -1,8 +1,12 @@
 Id:25998
 ColorIdentity:R
-OriginSet:G2192e8955d5e1ad1
-ManaCost:1 R
-Types:Artifact Equipment
-K:For Mirrodin
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1 | AddToughness$ -1
-K:Equip:1
+OriginSet:Gb879a1706584aeee
+ManaCost:2 R
+Types:Legendary Creature Devil Advisor
+PT:2/2
+K:Flying
+T:Mode$ DamageDone | Execute$ TrigCounter | ValidTarget$ You | ValidSource$ Card.YouCtrl,Emblem.YouCtrl | TriggerZones$ Battlefield
+SVar:TrigCounter:DB$ PutCounter | Defined$ Self | CounterNum$ Y | CounterType$ P1P1
+SVar:Y:TriggerCount$DamageAmount
+A:AB$ DealDamage | Cost$ 1 R T SubCounter<X/P1P1/NICKNAME> | ValidTgts$ Any | NumDmg$ X
+SVar:X:Count$xPaid

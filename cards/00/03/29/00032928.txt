@@ -1,12 +1,11 @@
 Id:32928
-ColorIdentity:U
-OriginSet:G731e0066916b7465
-ManaCost:1 U
-Types:Legendary Creature Human Warrior Ally
-PT:1/3
-T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | OpponentTurn$ True | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ You | CounterType$ Experience | CounterNum$ 1
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDraw
-SVar:TrigDraw:AB$ Discard | Cost$ Draw<X/You> | Defined$ You | Mode$ TgtChoose | NumCards$ 1
-SVar:X:Count$YourCountersExperience
-SVar:HasAttackEffect:TRUE
+ColorIdentity:G
+OriginSet:G22ed5d6f3707b461
+ManaCost:3 G
+Types:Creature Human Soldier Ally
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigEarthbend
+SVar:TrigEarthbend:DB$ Earthbend | Num$ 2
+T:Mode$ CounterAddedOnce | CounterType$ P1P1 | Valid$ Creature | TriggerZones$ Battlefield | Execute$ TrigGainLife | ResolvedLimit$ 1 | OptionalDecider$ You | ValidSource$ You
+SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ X
+SVar:X:TriggerCount$Amount

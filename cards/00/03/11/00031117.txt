@@ -1,12 +1,13 @@
 Id:31117
-ColorIdentity:URG
-OriginSet:Gef9d0d0c16b2fcf7
-ManaCost:G U R
-Types:Legendary Creature Human Artificer
-PT:2/4
-T:Mode$ DamageDoneOnce | CombatDamage$ True | ValidSource$ Creature.Artifact+YouCtrl | ValidTarget$ Player | TriggerZones$ Battlefield | Execute$ TrigEnergy
-SVar:TrigEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ 2
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigChooseNumber
-SVar:TrigChooseNumber:DB$ ChooseNumber | Max$ Count$YourCountersEnergy | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | ConditionCheckSVar$ X | UnlessCost$ Mandatory PayEnergy<X> | UnlessPayer$ You | UnlessSwitched$ True | TokenScriptIds$ 3838368454 | TokenPower$ X | TokenToughness$ X
-SVar:X:Count$ChosenNumber
+ColorIdentity:B
+OriginSet:G4524bbf7a3db9dc0
+ManaCost:2 B B
+Types:Legendary Creature Aetherborn Rogue
+PT:3/4
+T:Mode$ SpellCast | ValidCard$ Card | ValidSAonCard$ Spell.YouDontOwn | ValidActivatingPlayer$ Player | TriggerZones$ Battlefield | Execute$ TrigTreasure
+SVar:TrigTreasure:DB$ Token | TokenScriptIds$ 3851718391 | TokenOwner$ TriggeredActivator
+T:Mode$ DamageDone | ValidSource$ Creature | ValidTarget$ Opponent | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigDig
+SVar:TrigDig:DB$ Dig | DigNum$ 1 | Defined$ TriggeredTarget | ForceReveal$ TriggeredSourceController | DefinedExiler$ TriggeredSourceController | ChangeNum$ All | DestinationZone$ Exile | ExileFaceDown$ True | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ STPlay | SubAbility$ DBCleanup | ForgetOnMoved$ Exile | EffectOwner$ TriggeredSourceController | Duration$ Permanent
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:STPlay:Mode$ Continuous | MayLookAt$ You | MayPlay$ True | MayPlayIgnoreType$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile

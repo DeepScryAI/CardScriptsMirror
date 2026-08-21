@@ -1,10 +1,13 @@
 Id:15928
-ColorIdentity:U
+ColorIdentity:G
 OriginSet:G92026fbb3573fda5
-ManaCost:2 U U
-Types:Sorcery
-K:Madness:X U U
-A:SP$ GainControl | ValidTgts$ Creature | ConditionCheckSVar$ Z | ConditionSVarCompare$ EQ1
-SVar:Y:Count$Madness.X.2
-SVar:X:Count$xPaid
-SVar:Z:Targeted$Valid Creature.toughnessLEY
+ManaCost:4 G G
+Types:Creature Hydra
+PT:*/*
+K:Reach
+S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X | SetToughness$ X
+SVar:X:Count$Valid Land.YouCtrl
+SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | Tapped$ True | ChangeType$ Land | ChangeNum$ 1 | ShuffleNonMandatory$ True
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange | OptionalDecider$ You
+SVar:BuffedBy:Land
+SVar:NeedsToPlayVar:X GE3

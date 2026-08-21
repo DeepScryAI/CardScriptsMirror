@@ -1,9 +1,12 @@
 Id:22193
-ColorIdentity:R
-OriginSet:Geb2cf181996ee3b2
-ManaCost:3 R
-Types:Enchantment
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.YouCtrl | NumAtt$ +2
-SVar:PlayMain1:TRUE
-K:TypeCycling:Basic:1 R
+ColorIdentity:B
+OriginSet:Ga575fa2f4f5cded4
+ManaCost:B B
+Types:Creature Dauthi Rogue
+PT:3/2
+K:Shadow
+R:Event$ Moved | ActiveZones$ Battlefield | Destination$ Graveyard | ValidCard$ Card.!token+OppOwn | ReplaceWith$ Exile
+SVar:Exile:DB$ ChangeZone | Hidden$ True | Origin$ All | Destination$ Exile | Defined$ ReplacedCard | WithCountersType$ VOID
+A:AB$ ChooseCard | Cost$ T Sac<1/CARDNAME> | Defined$ You | AILogic$ AtLeast1 | Amount$ 1 | Mandatory$ True | Choices$ Card.OppOwn+counters_GE1_VOID | ChoiceZone$ Exile | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ MayPlay | RememberObjects$ ChosenCard | ForgetOnMoved$ Exile
+SVar:MayPlay:Mode$ Continuous | MayPlay$ True | MayPlayWithoutManaCost$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile

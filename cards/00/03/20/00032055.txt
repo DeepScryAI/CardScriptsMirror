@@ -1,11 +1,12 @@
 Id:32055
-ColorIdentity:U
-OriginSet:G9946f072b5556073
-ManaCost:U
-Types:Artifact Equipment
-K:Equip:2
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1
-T:Mode$ Attacks | ValidCard$ Creature.EquippedBy | Execute$ TrigUnblockable
-SVar:TrigUnblockable:DB$ Effect | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable | AILogic$ Pump | SubAbility$ DBAnimate
-SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
-SVar:DBAnimate:DB$ Animate | Defined$ Targeted | Power$ 1 | Toughness$ 1
+ColorIdentity:B
+OriginSet:G7ab4f62d323b0ca7
+ManaCost:4 B B
+Types:Enchantment Creature Saga Horror
+PT:4/4
+K:Chapter:4:DBPain,DBPain,DBPain,DBOblivion
+SVar:DBPain:DB$ Draw | SubAbility$ DBLoseLife1
+SVar:DBLoseLife1:DB$ LoseLife | Defined$ You | LifeAmount$ 1
+SVar:DBOblivion:DB$ Sacrifice | SacValid$ Creature | Defined$ Player.Opponent | SubAbility$ DBLoseLife2
+SVar:DBLoseLife2:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 3
+K:Menace

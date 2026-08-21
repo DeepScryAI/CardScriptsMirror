@@ -1,10 +1,21 @@
 Id:17434
-ColorIdentity:R
+ColorIdentity:
 OriginSet:G5475e2be497fd272
-ManaCost:2 R
-Types:Creature Dinosaur
-PT:3/3
-K:Menace
-S:Mode$ CantGainLife | ValidPlayer$ Player
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.Other | TriggerZones$ Battlefield | Execute$ TrigDamage
-SVar:TrigDamage:DB$ DealDamage | Defined$ TriggeredCardController | NumDmg$ 1
+ManaCost:4
+Types:Artifact
+S:Mode$ ReduceCost | ValidCard$ Instant,Sorcery | Type$ Spell | Activator$ You | Amount$ 1
+T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigCharge
+SVar:TrigCharge:DB$ PutCounter | Defined$ Self | CounterType$ CHARGE | CounterNum$ 1 | SubAbility$ DBBranch
+SVar:DBBranch:DB$ Branch | BranchConditionSVar$ FullyCharged | TrueSubAbility$ DBRemoveCtrs
+SVar:DBRemoveCtrs:DB$ RemoveCounter | Defined$ Self | CounterType$ CHARGE | CounterNum$ All | Optional$ True | RememberAmount$ True | SubAbility$ DBTransform
+SVar:DBTransform:DB$ SetState | Defined$ Self | Mode$ Transform | ConditionCheckSVar$ Discharged | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:FullyCharged:Count$Valid Card.Self+counters_GE4_CHARGE
+SVar:Discharged:Count$RememberedSize
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Types:Land
+A:AB$ Mana | Cost$ T | Produced$ Any | TriggersWhenSpent$ TrigCopy
+SVar:TrigCopy:Mode$ SpellCast | ValidCard$ Instant,Sorcery | Execute$ TrigCopyMain
+SVar:TrigCopyMain:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | MayChooseTarget$ True

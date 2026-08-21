@@ -1,8 +1,12 @@
 Id:21107
 ColorIdentity:B
-OriginSet:G72c9c624ceb92bff
-ManaCost:B
+OriginSet:G7b2607750b451c25
+ManaCost:2 B
 Types:Sorcery
-K:Kicker:3
-A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Creature.YouOwn | TargetMin$ X | TargetMax$ X
-SVar:X:Count$Kicked.2.1
+K:Kicker:2 B B
+A:SP$ Charm | MinCharmNum$ X | CharmNum$ Y | Choices$ DBDiscard,DBReturn,DBDestroy
+SVar:DBDiscard:DB$ Discard | ValidTgts$ Opponent | NumCards$ 2 | Mode$ TgtChoose
+SVar:DBReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Card.Creature+cmcLE2+YouOwn
+SVar:DBDestroy:DB$ Destroy | ValidTgts$ Creature.cmcLE3
+SVar:X:Count$Kicked.0.1
+SVar:Y:Count$Kicked.3.1

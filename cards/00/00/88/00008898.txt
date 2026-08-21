@@ -1,13 +1,9 @@
 Id:8898
-ColorIdentity:W
+ColorIdentity:R
 OriginSet:Gce1d73449bd71b54
-ManaCost:2 W W
-Types:Creature Elemental
-PT:6/6
-K:Flash
-K:Flying
-K:Fear
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
-SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Hidden$ True | Mandatory$ True | ChangeType$ Creature.YouCtrl | ChangeNum$ 3
-SVar:NeedsToPlayVar:Z GE3
-SVar:Z:Count$Valid Creature.cmcLE4+YouCtrl
+ManaCost:R
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 2
+S:Mode$ CantBlockBy | ValidAttacker$ Creature.EnchantedBy | ValidBlocker$ Creature.withFlying | Secondary$ True

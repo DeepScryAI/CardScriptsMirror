@@ -1,12 +1,9 @@
 Id:18916
-ColorIdentity:BR
+ColorIdentity:WU
 OriginSet:G586a4ae96288ce18
-ManaCost:1 R
-Types:Creature Human Shaman
-PT:2/2
-K:Spectacle:2 B R
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDiscard
-SVar:TrigDiscard:DB$ Discard | Mode$ TgtChoose | SubAbility$ DBDrawOne | ConditionDefined$ TriggeredCard | ConditionPresent$ Card.spectacle | ConditionCompare$ EQ0
-SVar:DBDrawOne:DB$ Draw | Defined$ You | NumCards$ 1 | ConditionDefined$ TriggeredCard | ConditionPresent$ Card.spectacle | ConditionCompare$ EQ0 | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | Mode$ Hand | Defined$ You | SubAbility$ DBDrawThree | ConditionDefined$ TriggeredCard | ConditionPresent$ Card.spectacle
-SVar:DBDrawThree:DB$ Draw | Defined$ You | NumCards$ 3 | ConditionDefined$ TriggeredCard | ConditionPresent$ Card.spectacle
+ManaCost:1 W U
+Types:Creature Vedalken Wizard
+PT:1/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ Pump | ValidTgts$ Permanent.nonLand+OppCtrl | SubAbility$ DBChangeZoneAll
+SVar:DBChangeZoneAll:DB$ ChangeZoneAll | Origin$ Battlefield | Destination$ Exile | ChangeType$ TargetedCard.Self,Permanent.nonLand+NotDefinedTargeted+sharesNameWith Targeted+ControlledBy TargetedController | Duration$ UntilHostLeavesPlay

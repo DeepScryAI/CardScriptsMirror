@@ -1,8 +1,12 @@
 Id:6549
-ColorIdentity:G
+ColorIdentity:B
 OriginSet:G983da6aa108b8f13
-ManaCost:5 G
-Types:Creature Beast
-PT:3/3
-T:Mode$ AttackerBlocked | ValidCard$ Card.Self | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Card.catalogId6549 | ChangeNum$ 1
+ManaCost:2 B
+Types:Instant
+A:SP$ ChangeZone | Origin$ Library | Destination$ Library | ChangeType$ Card.nonLand | ChangeNum$ 1 | Imprint$ True | Reveal$ True | Shuffle$ False | SubAbility$ DBRepeat
+SVar:DBRepeat:DB$ RepeatEach | RepeatPlayers$ Opponent | RepeatSubAbility$ DBLoseLife | SubAbility$ DBShuffle
+SVar:DBLoseLife:DB$ LoseLife | Defined$ Player.IsRemembered | LifeAmount$ 6 | ConditionCheckSVar$ LoseLifeCheck | ConditionSVarCompare$ GE1
+SVar:DBShuffle:DB$ Shuffle | Defined$ You | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearImprinted$ True
+SVar:LoseLifeCheck:Count$ThisTurnCast_Card.RememberedPlayerCtrl+sharesNameWith Imprinted
+A:AB$ ChangeZone | Cost$ B B | Origin$ Graveyard | Destination$ Hand | ActivationZone$ Graveyard | ActivationPhases$ Upkeep | PlayerTurn$ True

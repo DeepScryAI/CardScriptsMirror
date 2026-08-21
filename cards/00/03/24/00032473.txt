@@ -1,10 +1,11 @@
 Id:32473
-ColorIdentity:WG
-OriginSet:G66b3a7eeabd9000e
-ManaCost:3 G W
-Types:Legendary Creature Spider Human Hero
-PT:4/4
-K:WebSlinging:1 G W
-T:Mode$ SpellCast | ValidCard$ Card.Creature | ValidActivatingPlayer$ You | Execute$ TrigPutCounter | TriggerZones$ Battlefield
-SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | Defined$ Targeted | KW$ Flying
+ColorIdentity:R
+OriginSet:Gf2b808f4f642ac62
+ManaCost:1 R
+Types:Artifact Equipment
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddKeyword$ Haste
+T:Mode$ SpellCast | ValidCard$ Card.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigToken | ValidActivatingPlayer$ You | ActivatorThisTurnCast$ EQ2
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 1221548164 | TokenOwner$ You | RememberTokens$ True | SubAbility$ DBAttach
+SVar:DBAttach:DB$ Attach | Defined$ Remembered | Optional$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+K:Equip:1 R

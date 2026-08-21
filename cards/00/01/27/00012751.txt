@@ -1,8 +1,11 @@
 Id:12751
-ColorIdentity:G
+ColorIdentity:R
 OriginSet:Gfd7b72e0eb9d2cf5
-ManaCost:1 G
-Types:Creature Human Scout
-PT:1/1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ GoodWood
-SVar:GoodWood:DB$ PutCounter | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ 1
+ManaCost:R R
+Types:Legendary Planeswalker Tibalt
+Loyalty:2
+A:AB$ Draw | Cost$ AddCounter<1/LOYALTY> | NumCards$ 1 | Planeswalker$ True | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ Random
+A:AB$ DealDamage | Cost$ SubCounter<4/LOYALTY> | ValidTgts$ Player | NumDmg$ X | Planeswalker$ True
+SVar:X:TargetedPlayer$CardsInHand
+A:AB$ GainControl | Cost$ SubCounter<6/LOYALTY> | AllValid$ Creature | Untap$ True | AddKWs$ Haste | LoseControl$ EOT | Planeswalker$ True | Ultimate$ True

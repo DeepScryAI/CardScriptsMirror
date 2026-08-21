@@ -1,10 +1,13 @@
 Id:29603
-ColorIdentity:BG
+ColorIdentity:W
 OriginSet:Gac6359c222afbd4f
-ManaCost:B G
-Types:Creature Zombie Knight
-PT:2/2
-K:Vigilance
-S:Mode$ Continuous | Affected$ Card.Self | AddPower$ X | AddToughness$ X
-A:AB$ ChangeZone | Cost$ T Sac<1/Creature.Other/another creature> | Origin$ Library | Destination$ Battlefield | Tapped$ True | ChangeType$ Land | ChangeNum$ 1
-SVar:X:Count$ValidGraveyard Creature.YouOwn
+ManaCost:1 W
+Types:Creature Slith
+PT:2/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigEnergy
+SVar:TrigEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ 2
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump
+SVar:TrigPump:AB$ Pump | Cost$ PayEnergy<2> | Defined$ Self | KW$ FirstStrike
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigPutCounter | TriggerZones$ Battlefield
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+SVar:HasAttackEffect:TRUE

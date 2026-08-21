@@ -1,13 +1,12 @@
 Id:30191
-ColorIdentity:BR
-OriginSet:G9ff9681e1fe8713a
-ManaCost:1 B R
-Types:Creature Lizard Warlock
-PT:3/3
-K:Menace
-K:Ward:PayLife<3>
-T:Mode$ DamageDoneOnce | ValidSource$ Creature.YouCtrl | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigConjure | TriggerZones$ Battlefield
-SVar:TrigConjure:DB$ MakeCard | Conjure$ True | AtRandom$ True | SpellbookCatalogIds$ 18942,23777,18970,18981,19011,18904,19039,18916,19073,18921,19082 | RememberMade$ True | SubAbility$ DBEffect | Zone$ Exile
-SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ STPlay | SubAbility$ DBCleanup | ForgetOnMoved$ Exile | Duration$ UntilTheEndOfYourNextTurn
-SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:
+OriginSet:G30e4cc621dfc3a2e
+ManaCost:7
+Types:Artifact Vehicle
+PT:4/4
+S:Mode$ Continuous | Affected$ Card.Self | AddPower$ X | AddToughness$ X
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ 3 | TokenScriptIds$ 3700352527 | SubAbility$ DBDealDamage
+SVar:DBDealDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ X
+K:Crew:3
+SVar:X:Count$Valid Hamster.YouCtrl

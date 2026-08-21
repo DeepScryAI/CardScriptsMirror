@@ -1,8 +1,11 @@
 Id:10877
 ColorIdentity:G
 OriginSet:G4398040c23c94f0e
-ManaCost:G G
-Types:Creature Elf Warrior
-PT:2/3
-R:Event$ Moved | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | ReplaceWith$ NissaChosenRep
-SVar:NissaChosenRep:DB$ ChangeZone | Hidden$ True | Origin$ All | Destination$ Library | LibraryPosition$ -1 | Defined$ ReplacedCard
+ManaCost:2 G G
+Types:Legendary Planeswalker Nissa
+Loyalty:2
+A:AB$ ChangeZone | Cost$ AddCounter<1/LOYALTY> | Origin$ Library | Destination$ Battlefield | ChangeType$ Permanent.catalogId10878 | ChangeNum$ 1 | Planeswalker$ True
+A:AB$ GainLife | Cost$ AddCounter<1/LOYALTY> | LifeAmount$ XLife | Planeswalker$ True
+A:AB$ ChangeZone | Cost$ SubCounter<7/LOYALTY> | Origin$ Library | Destination$ Battlefield | ChangeType$ Creature.Elf | ChangeNum$ XFetch | Planeswalker$ True | Ultimate$ True
+SVar:XLife:Count$Valid Elf.YouCtrl/Times.2
+SVar:XFetch:Count$ValidLibrary Creature.Elf+YouCtrl

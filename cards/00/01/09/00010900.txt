@@ -1,8 +1,9 @@
 Id:10900
-ColorIdentity:B
+ColorIdentity:W
 OriginSet:G4398040c23c94f0e
-ManaCost:2 B B
-Types:Instant Trap
-S:Mode$ AlternativeCost | ValidSA$ Spell.Self | EffectZone$ All | Cost$ 0 | CheckSVar$ CardsToGraveyard
-A:SP$ ChangeZoneAll | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Player | ChangeType$ Card
-SVar:CardsToGraveyard:PlayerCountOpponents$ConditionGE3 ThisTurnEntered_Graveyard_Card.YouOwn+!token
+ManaCost:W
+Types:Enchantment
+T:Mode$ SpellCast | ValidCard$ Creature | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ QUEST | CounterNum$ 1
+A:AB$ ChangeZone | Cost$ SubCounter<5/QUEST> Sac<1/CARDNAME> | Origin$ Library | Destination$ Battlefield | ChangeType$ Equipment | ChangeNum$ 1 | AttachAfter$ Creature.YouCtrl
+SVar:MaxQuestEffect:5

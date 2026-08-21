@@ -1,8 +1,15 @@
 Id:33984
-ColorIdentity:U
-OriginSet:G8932289779cba1f1
-ManaCost:1 U
-Types:Legendary Creature God Sorcerer Villain
-PT:2/1
-T:Mode$ BecomesTarget | ValidTarget$ Player,Permanent | ValidSource$ Ability.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigDraw | ActivationLimit$ 1
-SVar:TrigDraw:DB$ Draw
+ColorIdentity:UR
+OriginSet:Gf8df2bea26dc6b68
+ManaCost:1 U R
+Types:Creature Elemental Bird
+PT:1/4
+K:Flying
+K:Vigilance
+T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +1 | SubAbility$ DBDig
+SVar:DBDig:DB$ Dig | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | ConditionCheckSVar$ X | ConditionSVarCompare$ GE5 | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ STPlay | SubAbility$ DBCleanup | ForgetOnMoved$ Exile | Duration$ UntilTheEndOfYourNextTurn
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:TriggeredCard$CastTotalManaSpent

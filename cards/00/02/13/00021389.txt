@@ -1,7 +1,11 @@
 Id:21389
-ColorIdentity:UBR
+ColorIdentity:U
 OriginSet:G51d431785c8b33e5
-ManaCost:1 U B R
-Types:Legendary Creature Ogre Wizard
-PT:3/4
-A:AB$ EndTurn | Cost$ T | Defined$ ActivePlayer | Optional$ True
+ManaCost:1 U U
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMonarch
+SVar:TrigMonarch:DB$ BecomeMonarch
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigMill
+SVar:TrigMill:DB$ Mill | ValidTgts$ Player | TargetMin$ 0 | TargetMax$ MaxTgt | NumCards$ X
+SVar:X:Count$Monarch.10.2
+SVar:MaxTgt:PlayerCountPlayers$Amount

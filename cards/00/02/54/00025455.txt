@@ -1,0 +1,12 @@
+Id:25455
+ColorIdentity:B
+OriginSet:G2e872aaf9b98489e
+ManaCost:3 B
+Types:Creature Vampire Employee
+PT:3/2
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigOpenAttraction
+SVar:TrigOpenAttraction:DB$ OpenAttraction
+SVar:X:Count$Valid Attraction.YouCtrl
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ X | SVarCompare$ GE3 | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1 | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ 1

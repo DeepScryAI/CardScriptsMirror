@@ -1,10 +1,14 @@
 Id:33963
-ColorIdentity:UG
-OriginSet:Gaf3c6d0810185c00
-ManaCost:X G U
-Types:Instant
-A:SP$ Counter | Cost$ XMin1 X G U | TargetType$ Spell | ValidTgts$ Card | SubAbility$ DBNameCard
-SVar:DBNameCard:DB$ NameCard | AtRandom$ True | ValidCards$ Creature.cmcEQX | SubAbility$ DBConjure
-SVar:DBConjure:DB$ MakeCard | Name$ ChosenName | Conjure$ True | Zone$ Battlefield | SubAbility$ DBClearNamed
-SVar:DBClearNamed:DB$ Cleanup | ClearNamedCard$ True
-SVar:X:Count$xPaid
+ColorIdentity:WR
+OriginSet:Gf8df2bea26dc6b68
+ManaCost:2 R W
+Types:Sorcery
+A:SP$ Charm | Choices$ DBDiscard1,DBDiscard2
+SVar:DBDiscard1:DB$ Discard | Mode$ Hand | Defined$ You | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | ValidTgts$ Opponent | SubAbility$ DBDraw1
+SVar:DBDraw1:DB$ Draw | NumCards$ X
+SVar:DBDiscard2:DB$ Discard | Mode$ Hand | Defined$ You | SubAbility$ DBDraw2 | RememberDiscarded$ True
+SVar:DBDraw2:DB$ Draw | NumCards$ Y | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:TargetedPlayer$CardsInHand
+SVar:Y:Remembered$Amount

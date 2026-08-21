@@ -1,10 +1,12 @@
 Id:31948
-ColorIdentity:U
+ColorIdentity:BG
 OriginSet:G7ab4f62d323b0ca7
-ManaCost:5 U U
-Types:Artifact Creature Construct
-PT:5/4
-K:Affinity:Artifact
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSurveil
-SVar:TrigSurveil:DB$ Surveil | Amount$ 2
+ManaCost:2 B G
+Types:Legendary Creature Alien
+PT:1/5
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | ValidTgts$ Creature.Other | TargetMin$ 0 | TargetMax$ 1 | CounterType$ P1P1 | CounterNum$ Count$CardPower | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Targeted | Types$ Mutant | Duration$ Permanent
+T:Mode$ ChangesZone | ValidCard$ Mutant.YouCtrl | Origin$ Battlefield | Destination$ Graveyard | TriggerZones$ Battlefield | Execute$ TrigDraw | PlayerTurn$ True
+SVar:TrigDraw:DB$ Draw | NumCards$ X
+SVar:X:TriggeredCard$CardPower

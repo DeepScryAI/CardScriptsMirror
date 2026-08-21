@@ -1,8 +1,13 @@
 Id:24258
-ColorIdentity:
+ColorIdentity:B
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:5
-Types:Legendary Enchantment Creature Background
-PT:3/3
-S:Mode$ Continuous | CharacteristicDefining$ True | Affected$ Card.Self | SetColor$ ChosenColor
-K:Choose a Background
+ManaCost:2 B
+Types:Enchantment
+T:Mode$ Phase | Phase$ Main1 | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | Choices$ DBTreasureLose1,DBDrawLose2,DBTokenLose3 | MinCharmNum$ 1 | CharmNum$ 3
+SVar:DBTreasureLose1:DB$ Token | TokenScriptIds$ 3851718391 | SubAbility$ DBLoseLife1
+SVar:DBDrawLose2:DB$ Draw | SubAbility$ DBLoseLife2
+SVar:DBTokenLose3:DB$ Token | TokenScriptIds$ 1995231540 | SubAbility$ DBLoseLife3
+SVar:DBLoseLife1:DB$ LoseLife | LifeAmount$ 1 | Defined$ You
+SVar:DBLoseLife2:DB$ LoseLife | LifeAmount$ 2 | Defined$ You
+SVar:DBLoseLife3:DB$ LoseLife | LifeAmount$ 3 | Defined$ You

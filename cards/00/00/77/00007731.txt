@@ -1,12 +1,11 @@
 Id:7731
-ColorIdentity:B
+ColorIdentity:G
 OriginSet:G3fddc6426f419054
-ManaCost:3 B
-Types:Enchantment
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigSac
-SVar:TrigSac:DB$ Sacrifice | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ 8
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Graveyard | ValidCard$ Card.!token+YouOwn+Other | TriggerZones$ Battlefield | Execute$ TrigGainControl
-SVar:TrigGainControl:DB$ GainControl | Defined$ Self | ValidTgts$ Opponent
-S:Mode$ Continuous | Affected$ Permanent.YouCtrl | AddSVar$ Sac
-SVar:Sac:SVar:SacMe:3
+ManaCost:2 G G
+Types:Creature Snake Warrior Archer
+PT:2/2
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Creature | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigTap
+SVar:TrigTap:DB$ Tap | Defined$ TriggeredTargetLKICopy | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ TriggeredTargetLKICopy | KW$ HIDDEN This card doesn't untap during your next untap step. | Duration$ Permanent | IsCurse$ True
+A:AB$ Pump | Cost$ G | KW$ Reach | Defined$ Self
+SVar:HasCombatEffect:TRUE

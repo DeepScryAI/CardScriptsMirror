@@ -1,13 +1,13 @@
 Id:5956
-ColorIdentity:G
+ColorIdentity:R
 OriginSet:G0eb5e52d26fe1c23
-ManaCost:3 G
+ManaCost:4 R
 Types:Sorcery
-A:SP$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBChoose | SubAbility$ DBRepeatToken
-SVar:DBChoose:DB$ Reveal | Defined$ Player.IsRemembered | AnyNumber$ True | RevealValid$ Creature | RememberRevealed$ True
-SVar:DBRepeatToken:DB$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBToken | SubAbility$ DBCleanup | ChangeZoneTable$ True
-SVar:DBToken:DB$ Token | TokenAmount$ X | TokenScriptIds$ 3783868715 | TokenOwner$ Player.IsRemembered
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$ValidHand Card.IsRemembered+RememberedPlayerCtrl
-SVar:NeedsToPlayVar:Y GE3
-SVar:Y:Count$ValidHand Creature.YouCtrl
+A:SP$ RepeatEach | ValidTgts$ Player,Planeswalker | TargetMin$ 0 | TargetMax$ MaxTgt | RepeatTargeted$ Targeted | RepeatSubAbility$ DBDigUntil
+SVar:DBDigUntil:DB$ DigUntil | Defined$ You | Valid$ Card.nonLand | RevealedDestination$ Library | RevealedLibraryPosition$ -1 | ImprintFound$ True | SubAbility$ DBDmg
+SVar:DBDmg:DB$ DealDamage | Defined$ Remembered | NumDmg$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearImprinted$ True
+SVar:X:Imprinted$CardManaCost
+SVar:MaxTgt:SVar$MaxPlayers/Plus.MaxPW
+SVar:MaxPlayers:PlayerCountPlayers$Amount
+SVar:MaxPW:Count$Valid Planeswalker

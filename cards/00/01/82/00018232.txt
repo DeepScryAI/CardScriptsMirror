@@ -1,13 +1,9 @@
 Id:18232
 ColorIdentity:
 OriginSet:G5033d54b23b37629
-ManaCost:4
-Types:Legendary Artifact Creature Construct
-PT:7/7
-K:Trample
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
-R:Event$ Untap | ValidCard$ Card.Self | ValidStepTurnToController$ You | Layer$ CantHappen
-T:Mode$ SpellCast | ValidCard$ Card.Historic | ValidActivatingPlayer$ You | Execute$ TrigUntap | TriggerZones$ Battlefield
-SVar:TrigUntap:DB$ Untap | Defined$ Self
-SVar:BuffedBy:Card.Historic
+ManaCost:1
+Types:Artifact Equipment
+K:Equip:3
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddAbility$ WandDamage | AddSVar$ DBWandDmg
+SVar:WandDamage:AB$ DealDamage | Cost$ T | ValidTgts$ Planeswalker,Player | NumDmg$ 1 | ConditionDefined$ Self | ConditionPresent$ Creature.nonWizard | SubAbility$ DBWandDmg
+SVar:DBWandDmg:DB$ DealDamage | Defined$ Targeted | NumDmg$ 2 | ConditionDefined$ Self | ConditionPresent$ Creature.Wizard

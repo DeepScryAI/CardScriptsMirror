@@ -1,7 +1,10 @@
 Id:5451
-ColorIdentity:G
+ColorIdentity:W
 OriginSet:Gfdac7ecc1e8a7d21
-ManaCost:3 G
-Types:Creature Cat
-PT:3/3
-S:Mode$ Continuous | Affected$ Card.Self | AddPower$ 2 | AddToughness$ 2 | Condition$ Threshold
+ManaCost:2 W
+Types:Instant
+A:SP$ Effect | ValidTgts$ Creature | Triggers$ TrigDamage | RememberObjects$ Targeted | SubAbility$ DBDraw
+SVar:TrigDamage:Mode$ DamageDoneOnce | ValidSource$ Creature.IsRemembered | Execute$ TrigGainLife
+SVar:TrigGainLife:DB$ GainLife | LifeAmount$ X | Defined$ You
+SVar:DBDraw:DB$ Draw
+SVar:X:TriggerCount$DamageAmount

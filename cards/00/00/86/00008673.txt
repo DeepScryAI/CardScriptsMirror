@@ -1,9 +1,12 @@
 Id:8673
-ColorIdentity:W
+ColorIdentity:U
 OriginSet:G70f74088c47d66bd
-ManaCost:3 W
-Types:Creature Human Soldier
-PT:0/5
-K:Flash
-K:Defender
-S:Mode$ Continuous | Affected$ Card.Self | CanBlockAmount$ 1
+ManaCost:4 U
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAITgts:Card.!token
+SVar:AttachAILogic:Pump
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.AttachedBy | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True | Defined$ TriggeredNewCardLKICopy
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | Defined$ TriggeredNewCardLKICopy

@@ -1,12 +1,14 @@
 Id:19196
-ColorIdentity:WU
+ColorIdentity:B
 OriginSet:Gf56613712ce2ae1f
-ManaCost:1 W U
-Types:Legendary Planeswalker Teferi
-Loyalty:4
-S:Mode$ CantBeCast | ValidCard$ Card | Caster$ Opponent | OnlySorcerySpeed$ True
-A:AB$ Effect | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | StaticAbilities$ STPlay | Duration$ UntilYourNextTurn | AILogic$ Main2
-SVar:STPlay:Mode$ CastWithFlash | ValidCard$ Sorcery | ValidSA$ Spell | Caster$ You
+ManaCost:4 B B
+Types:Legendary Planeswalker Liliana
+Loyalty:6
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw
+A:AB$ Token | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | TokenScriptIds$ 353162950
+A:AB$ Sacrifice | Cost$ SubCounter<4/LOYALTY> | Planeswalker$ True | Amount$ 2 | SacValid$ Creature | Defined$ Player
+A:AB$ ChooseCard | Cost$ SubCounter<9/LOYALTY> | Planeswalker$ True | Ultimate$ True | Defined$ Opponent | Choices$ Permanent | ChooseEach$ Artifact & Battle & Creature & Enchantment & Land & Planeswalker | ControlledByPlayer$ Chooser | Mandatory$ True | Reveal$ True | SubAbility$ SacAllOthers
+SVar:SacAllOthers:DB$ SacrificeAll | ValidCards$ Permanent.nonChosenCard+OppCtrl | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
 SVar:PlayMain1:TRUE
-A:AB$ ChangeZone | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | Origin$ Battlefield | Destination$ Hand | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Artifact,Creature,Enchantment | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw

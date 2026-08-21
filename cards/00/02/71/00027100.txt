@@ -1,12 +1,11 @@
 Id:27100
-ColorIdentity:U
+ColorIdentity:UG
 OriginSet:G6ce0035cfb774934
-ManaCost:2 U
-Types:Enchantment Saga
-K:Chapter:3:DBGainControl,DBTap,DBDraw
-SVar:DBGainControl:DB$ GainControl | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Artifact | SubAbility$ TrigTempt | LoseControl$ LeavesPlay,LoseControl
-SVar:TrigTempt:DB$ RingTemptsYou
-SVar:DBTap:DB$ Tap | ValidTgts$ Creature | SubAbility$ DBCounter | TargetMin$ 0 | TargetMax$ 2
-SVar:DBCounter:DB$ PutCounter | Defined$ Targeted | CounterType$ Stun | CounterNum$ 1
-SVar:DBDraw:DB$ Draw | ValidTgts$ Opponent | Defined$ You | NumCards$ X
-SVar:X:Count$Valid Creature.tapped+TargetedPlayerCtrl
+ManaCost:2 G U
+Types:Legendary Creature Elf Noble
+PT:4/4
+T:Mode$ Scry | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | CounterNum$ 1 | CounterType$ P1P1 | TargetMin$ 0 | TargetMax$ X | ValidTgts$ Creature
+SVar:X:TriggerCount$ScryNum
+T:Mode$ BecomesTarget | ValidTarget$ Creature.YouCtrl+counters_GE1_P1P1+inZoneBattlefield | ValidSource$ SpellAbility.OppCtrl | TriggerZones$ Battlefield | Execute$ TrigDraw | OptionalDecider$ You
+SVar:TrigDraw:DB$ Draw

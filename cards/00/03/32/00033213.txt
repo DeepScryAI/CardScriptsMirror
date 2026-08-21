@@ -1,8 +1,11 @@
 Id:33213
-ColorIdentity:B
-OriginSet:G7ab1fe96128a1641
-ManaCost:3 B
-Types:Sorcery
-A:SP$ Charm | Choices$ DBChangeZone,DBRemoveCounter | MinCharmNum$ 1 | CharmNum$ 2 | Defined$ You
-SVar:DBChangeZone:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | DefinedPlayer$ Targeted | ValidTgts$ Opponent | Chooser$ Targeted | ChangeType$ Card | ChangeNum$ 2 | IsCurse$ True | Mandatory$ True
-SVar:DBRemoveCounter:DB$ RemoveCounter | ValidTgts$ Creature | CounterType$ All | CounterNum$ All
+ColorIdentity:BR
+OriginSet:G731e0066916b7465
+ManaCost:2 BR
+Types:Legendary Creature Human Noble
+PT:2/2
+K:Firebending:1
+T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ Self | KW$ FirstStrike
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigPutCounter | TriggerZones$ Battlefield
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1

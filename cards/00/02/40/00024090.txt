@@ -1,14 +1,10 @@
 Id:24090
-ColorIdentity:WUG
+ColorIdentity:W
 OriginSet:G9afc9838c5e994df
-ManaCost:2 G W U
-Types:Creature Cat Citizen
-PT:4/4
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.OppCtrl | KW$ HIDDEN CARDNAME can't attack or block. | IsCurse$ True | Duration$ UntilYourNextTurn
-A:AB$ Effect | Cost$ 2 ExileFromHand<1/CARDNAME> | ActivationZone$ Hand | ValidTgts$ Land | RememberObjects$ Targeted & Self | StaticAbilities$ Land,MayPlay | Triggers$ Cast | ImprintCards$ Self | Duration$ Permanent | ForgetOnMoved$ Exile
-SVar:Land:Mode$ Continuous | AffectedZone$ Battlefield | Affected$ Card.IsRemembered+!IsImprinted | AddAbility$ Mana
-SVar:Mana:AB$ Mana | Cost$ T | Produced$ Combo G W U | Amount$ 1
-SVar:MayPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsImprinted+IsRemembered | AffectedZone$ Exile | Secondary$ True
-SVar:Cast:Mode$ SpellCast | ValidCard$ Card.IsImprinted+IsRemembered+wasCastFromExile | Execute$ ExileSelf | Static$ True
-SVar:ExileSelf:DB$ ChangeZone | Origin$ Command | Destination$ Exile | Defined$ Self
+ManaCost:2 W
+Types:Creature Angel Cleric
+PT:2/1
+K:Flying
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Destination$ Battlefield | Execute$ TrigLife
+SVar:TrigLife:DB$ GainLife | LifeAmount$ 1 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw

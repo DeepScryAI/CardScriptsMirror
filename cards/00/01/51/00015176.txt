@@ -1,7 +1,10 @@
 Id:15176
 ColorIdentity:W
 OriginSet:Gdb18f239871b8cef
-ManaCost:1 W
-Types:Instant
-A:SP$ Destroy | ValidTgts$ Creature.Black+attacking,Creature.Black+blocking,Creature.Red+attacking,Creature.Red+blocking | SubAbility$ NaturalLife
-SVar:NaturalLife:DB$ GainLife | Defined$ You | LifeAmount$ 2
+ManaCost:3 W W
+Types:Creature Dragon
+PT:4/3
+K:Flying
+T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ Opponent | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1

@@ -1,6 +1,11 @@
 Id:28600
 ColorIdentity:U
 OriginSet:G7ee0e82a2424d636
-ManaCost:2 U U
-Types:Instant
-A:SP$ ChangeZone | ValidTgts$ Permanent.nonLand,Card.inZoneStack | AlternativeDecider$ TargetedOwner | Origin$ Battlefield,Stack | Destination$ Library | DestinationAlternative$ Library | LibraryPositionAlternative$ -1
+ManaCost:1 U
+Types:Enchantment Aura
+K:Flash
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ Enchanted | KW$ Hexproof
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 1 | AddKeyword$ Flying

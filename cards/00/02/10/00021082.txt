@@ -1,11 +1,14 @@
 Id:21082
-ColorIdentity:UG
+ColorIdentity:WR
 OriginSet:G7b2607750b451c25
-ManaCost:X G U
-Types:Legendary Creature Serpent
-PT:0/0
-K:etbCounter:P1P1:Y:no Condition
-SVar:X:Count$xPaid
-SVar:Y:Count$CastTotalManaSpent
-T:Mode$ SpellCast | ValidSA$ Spell.Kicked | ValidActivatingPlayer$ You | Execute$ TrigCopy | TriggerZones$ Battlefield
-SVar:TrigCopy:AB$ CopySpellAbility | Cost$ SubCounter<2/P1P1> | Defined$ TriggeredSpellAbility | AILogic$ Always | MayChooseTarget$ True
+ManaCost:1 R W
+Types:Legendary Creature Kor Warrior
+PT:3/3
+T:Mode$ AttackersDeclaredOneTarget | ValidAttackers$ Creature.YouCtrl+equipped | AttackedTarget$ Player | Execute$ TrigDraw | TriggerZones$ Battlefield
+SVar:TrigDraw:DB$ Draw
+A:AB$ ChooseCard | Cost$ W | Defined$ You | Choices$ Creature.YouCtrl+equipped | RememberChosen$ True | SubAbility$ DBChooseEquip
+SVar:DBChooseEquip:DB$ ChooseCard | Defined$ You | Choices$ Equipment.AttachedTo Creature.IsRemembered | SubAbility$ DBUnattach
+SVar:DBUnattach:DB$ Unattach | Defined$ ChosenCard | SubAbility$ DBTap
+SVar:DBTap:DB$ Tap | Defined$ Remembered | ConditionDefined$ ChosenCard | ConditionPresent$ Equipment | ConditionCompare$ GE1 | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Remembered | KW$ Indestructible | ConditionDefined$ ChosenCard | ConditionPresent$ Equipment | ConditionCompare$ GE1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearChosenCard$ True

@@ -1,7 +1,11 @@
 Id:19559
-ColorIdentity:R
+ColorIdentity:
 OriginSet:G9d37112ca6693432
-ManaCost:2 R
-Types:Instant
-A:SP$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +2 | SubAbility$ DBAnimate
-SVar:DBAnimate:DB$ AnimateAll | ValidCards$ Creature.YouCtrl | AddAllCreatureTypes$ True
+ManaCost:3
+Types:Artifact Equipment
+K:Equip:2
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddToughness$ 2 | AddSVar$ SwordOfTruthAndJusticeCE | AddKeyword$ Protection:White & Protection:Blue
+T:Mode$ DamageDone | ValidSource$ Creature.EquippedBy | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigPutCounter | TriggerZones$ Battlefield
+SVar:TrigPutCounter:DB$ PutCounter | Choices$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBProliferate
+SVar:DBProliferate:DB$ Proliferate
+SVar:SwordOfTruthAndJusticeCE:SVar:MustBeBlocked:AttackingPlayerConservative

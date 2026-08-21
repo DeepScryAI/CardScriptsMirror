@@ -1,11 +1,9 @@
 Id:12565
-ColorIdentity:W
+ColorIdentity:
 OriginSet:Gef29fd7e12c456ce
-ManaCost:3 W
-Types:Creature Angel
-PT:3/4
-K:Flash
-K:Flying
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ RestorationExile | OptionalDecider$ You
-SVar:RestorationExile:DB$ ChangeZone | ValidTgts$ Creature.nonAngel+YouCtrl | Origin$ Battlefield | Destination$ Exile | RememberTargets$ True | ForgetOtherTargets$ True | SubAbility$ RestorationReturn
-SVar:RestorationReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | GainControl$ True
+ManaCost:4
+Types:Artifact Equipment
+K:Equip:4
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddKeyword$ FirstStrike | AddSVar$ AE
+T:Mode$ Attacks | ValidCard$ Card.AttachedBy | Execute$ TrigAngelToken
+SVar:TrigAngelToken:DB$ Token | TokenScriptIds$ 2375228291 | TokenOwner$ You

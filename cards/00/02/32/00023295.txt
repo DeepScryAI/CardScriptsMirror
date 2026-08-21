@@ -1,9 +1,15 @@
 Id:23295
-ColorIdentity:U
+ColorIdentity:R
 OriginSet:G6e75ff4f143a3dc3
-ManaCost:3 U
-Types:Creature Human Wizard
-PT:3/2
-T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | ActivationLimit$ 1 | TriggerZones$ Battlefield | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 273812182
-SVar:BuffedBy:Card.nonLand+nonCreature
+ManaCost:X R R
+Types:Creature Elemental
+PT:0/0
+K:etbCounter:P1P1:X
+SVar:X:Count$xPaid
+R:Event$ DamageDone | ActiveZones$ Battlefield | ValidTarget$ Card.Self+counters_GE1_P1P1 | ReplaceWith$ Counters | PreventionEffect$ True | AlwaysReplace$ True
+SVar:Counters:DB$ RemoveCounter | Defined$ ReplacedTarget | CounterType$ P1P1 | CounterNum$ Y | RememberRemoved$ True | SubAbility$ DBImmediateTrigger
+SVar:Y:ReplaceCount$DamageAmount
+SVar:DBImmediateTrigger:DB$ ImmediateTrigger | Execute$ TrigDamage | RememberSVarAmount$ Z | SubAbility$ DBCleanup
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ Count$TriggerRememberAmount
+SVar:Z:Count$RememberedSize
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

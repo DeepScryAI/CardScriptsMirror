@@ -1,8 +1,13 @@
 Id:27442
-ColorIdentity:U
-OriginSet:G7579344e30f8be85
-ManaCost:1 U
-Types:Sorcery
-A:SP$ Tap | ValidTgts$ Creature.OppCtrl | SubAbility$ DBCounter
-SVar:DBCounter:DB$ PutCounter | Defined$ Targeted | CounterType$ Stun | CounterNum$ 3 | SubAbility$ DBScry
-SVar:DBScry:DB$ Scry | ScryNum$ 2
+ColorIdentity:G
+OriginSet:G4e034c55e7afd8b4
+ManaCost:2 G G
+Types:Creature Turtle
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigMill | Secondary$ True | TriggerZones$ Battlefield
+SVar:TrigMill:DB$ Mill | Defined$ You | NumCards$ 3 | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | ChangeType$ Land.YouOwn | Mandatory$ True | Origin$ Graveyard | Destination$ Battlefield | Hidden$ True | ChangeNum$ 1 | Tapped$ True
+S:Mode$ ReduceCost | ValidCard$ Land.YouCtrl | Type$ Ability | Amount$ 1 | AffectedZone$ Battlefield
+S:Mode$ Continuous | Affected$ Creature.Land+YouCtrl | AddPower$ 1 | AddToughness$ 1
+SVar:HasAttackEffect:TRUE

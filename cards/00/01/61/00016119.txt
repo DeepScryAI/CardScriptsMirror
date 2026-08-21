@@ -1,7 +1,14 @@
 Id:16119
-ColorIdentity:G
+ColorIdentity:R
 OriginSet:G70d19654882197c9
-ManaCost:3 G
-Types:Creature Human Warrior
-PT:4/3
-S:Mode$ Continuous | Affected$ Card.Self | AddPower$ 1 | AddToughness$ 1 | AddKeyword$ Trample | Condition$ Delirium
+ManaCost:5 R
+Types:Creature Wolf
+PT:5/5
+T:Mode$ AttackerBlockedByCreature | ValidCard$ Creature | ValidBlocker$ Card.Self | Execute$ TrigDamageAttacker
+T:Mode$ AttackerBlockedByCreature | ValidCard$ Card.Self | ValidBlocker$ Creature | Execute$ TrigDamageBlocker | Secondary$ True
+SVar:TrigDamageAttacker:DB$ DealDamage | Defined$ TriggeredAttackerLKICopy | NumDmg$ 3 | DamageMap$ True | SubAbility$ DBDamageAtk
+SVar:TrigDamageBlocker:DB$ DealDamage | Defined$ TriggeredBlockerLKICopy | NumDmg$ 3 | DamageMap$ True | SubAbility$ DBDamageBlk
+SVar:DBDamageAtk:DB$ DealDamage | Defined$ TriggeredAttackerController | NumDmg$ 3 | SubAbility$ DBDamageResolve
+SVar:DBDamageBlk:DB$ DealDamage | Defined$ TriggeredBlockerController | NumDmg$ 3 | SubAbility$ DBDamageResolve
+SVar:DBDamageResolve:DB$ DamageResolve
+SVar:HasCombatEffect:TRUE

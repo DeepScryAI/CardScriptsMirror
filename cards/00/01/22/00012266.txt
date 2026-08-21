@@ -1,9 +1,15 @@
 Id:12266
-ColorIdentity:
+ColorIdentity:UB
 OriginSet:G14de52802b0b467c
-ManaCost:4
-Types:Legendary Artifact Book
-A:AB$ PutCounter | Cost$ 1 T Discard<1/Card> | Defined$ Self | CounterType$ STUDY | CounterNum$ 1
-A:AB$ ChangeZoneAll | Cost$ T SubCounter<3/STUDY> Sac<1/CARDNAME> | ChangeType$ Creature | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True | StaticEffect$ Animate
-SVar:Animate:Mode$ Continuous | Affected$ Card.IsRemembered | AddType$ Zombie | AddColor$ Black
-SVar:IsReanimatorCard:TRUE
+ManaCost:3 U B
+Types:Legendary Creature Zombie Warrior
+PT:5/5
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+R:Event$ Untap | ValidCard$ Card.Self | ValidStepTurnToController$ You | Layer$ CantHappen
+A:AB$ Untap | Cost$ Sac<1/Creature.Other/another creature> | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ 1
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Creature.ControlledBy TriggeredDefendingPlayer | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ 1
+SVar:HasAttackEffect:TRUE

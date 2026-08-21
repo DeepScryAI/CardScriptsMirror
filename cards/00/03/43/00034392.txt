@@ -1,10 +1,11 @@
 Id:34392
-ColorIdentity:U
-OriginSet:G11c0621ce29fa608
-ManaCost:2 U U
-Types:Legendary Creature Merfolk Warrior Villain
-PT:3/4
-S:Mode$ Continuous | Affected$ Merfolk.Other+YouCtrl | AddPower$ 1 | AddToughness$ 1
-T:Mode$ AttackersDeclaredOneTarget | AttackedTarget$ Player | ValidAttackers$ Creature.Merfolk+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw
-SVar:PlayMain1:TRUE
+ColorIdentity:
+OriginSet:Gcb93bbfc68a40806
+ManaCost:4
+Types:Artifact
+R:Event$ DamageDone | ActiveZones$ Battlefield | ValidSource$ Card.OppCtrl,Emblem.OppCtrl | ValidTarget$ You | ReplaceWith$ DBReplace | PreventionEffect$ True
+SVar:DBReplace:DB$ ReplaceDamage | Amount$ 1
+A:AB$ Sacrifice | Cost$ 2 T Sac<1/CARDNAME/this artifact> | SacValid$ Creature | Optional$ True | RememberSacrificed$ True | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Graveyard,Exile | Destination$ Battlefield | GainControl$ True | Defined$ Remembered | WithCountersType$ P1P1 | WithCountersAmount$ 3 | SubAbility$ DBMonarch
+SVar:DBMonarch:DB$ BecomeMonarch | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

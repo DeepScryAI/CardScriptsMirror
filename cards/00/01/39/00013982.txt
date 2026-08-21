@@ -1,10 +1,13 @@
 Id:13982
-ColorIdentity:B
+ColorIdentity:W
 OriginSet:Gdaee41baa388b0e7
-ManaCost:4 B B
-Types:Creature Skeleton Warrior
-PT:4/4
-A:AB$ ChangeZone | Cost$ 3 B B T Sac<X/Creature.Other/other creature(s)> | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouOwn | TargetMin$ X | TargetMax$ X | AIMinTgts$ 3
-A:AB$ ChangeZone | Cost$ 5 B B | Origin$ Graveyard | Destination$ Library | ActivationZone$ Graveyard | Defined$ Self
-SVar:X:Count$xPaid
-SVar:AIPreference:SacCost$Creature.token,Creature.cmcLE3
+ManaCost:1 W W
+Types:Legendary Creature Cat Soldier
+PT:3/4
+K:Vigilance
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigTokenAttacking | TriggerZones$ Battlefield
+SVar:TrigTokenAttacking:DB$ Token | TokenScriptIds$ 2531354916 | TokenOwner$ You | TokenAttacking$ True
+T:Mode$ AttackerBlocked | ValidCard$ Creature | ValidBlocker$ Card.Self | Execute$ TrigTokenBlocking
+SVar:TrigTokenBlocking:DB$ Token | TokenScriptIds$ 2531354916 | TokenOwner$ You | TokenBlocking$ TriggeredAttacker
+SVar:HasAttackEffect:TRUE
+SVar:HasBlockEffect:TRUE

@@ -1,10 +1,11 @@
 Id:23034
-ColorIdentity:R
-OriginSet:G7a76c1974b0a33a6
-ManaCost:1 R R
-Types:Creature Vampire
-PT:3/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGainControl
-SVar:TrigGainControl:DB$ GainControl | ValidTgts$ Creature.cmcLEX | LoseControl$ EOT | Untap$ True | AddKWs$ Haste
-SVar:X:Count$Valid Vampire.YouCtrl
-SVar:PlayMain1:OPPONENTCREATURES
+ColorIdentity:U
+OriginSet:Gf78628ad511eefec
+ManaCost:3 U U
+Types:Creature Horror
+PT:5/5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPutCounter
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPutCounter | TriggerZones$ Battlefield | Secondary$ True
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.Other | TargetMin$ 0 | TargetMax$ 1 | AITgts$ Creature.nonHorror+OppCtrl+counters_LT1_SLIME | IsCurse$ True | CounterType$ SLIME | CounterNum$ 1
+S:Mode$ Continuous | Affected$ Creature.nonHorror+counters_GE1_SLIME | RemoveAllAbilities$ True | SetPower$ 2 | SetToughness$ 2
+SVar:HasAttackEffect:TRUE

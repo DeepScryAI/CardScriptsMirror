@@ -1,8 +1,13 @@
 Id:5957
 ColorIdentity:G
 OriginSet:G0eb5e52d26fe1c23
-ManaCost:4 G G
-Types:Legendary Creature Human Druid
-PT:4/3
-A:AB$ Animate | Cost$ G | ValidTgts$ Land | Power$ 1 | Toughness$ 1 | Types$ Creature
-A:AB$ PumpAll | Cost$ 2 G G G | ValidCards$ Creature.YouCtrl | NumAtt$ +3 | NumDef$ +3 | KW$ Trample
+ManaCost:3 G
+Types:Sorcery
+A:SP$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBChoose | SubAbility$ DBRepeatToken
+SVar:DBChoose:DB$ Reveal | Defined$ Player.IsRemembered | AnyNumber$ True | RevealValid$ Creature | RememberRevealed$ True
+SVar:DBRepeatToken:DB$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBToken | SubAbility$ DBCleanup | ChangeZoneTable$ True
+SVar:DBToken:DB$ Token | TokenAmount$ X | TokenScriptIds$ 3783868715 | TokenOwner$ Player.IsRemembered
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$ValidHand Card.IsRemembered+RememberedPlayerCtrl
+SVar:NeedsToPlayVar:Y GE3
+SVar:Y:Count$ValidHand Creature.YouCtrl

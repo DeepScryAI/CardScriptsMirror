@@ -2,10 +2,11 @@ Id:12800
 ColorIdentity:
 OriginSet:G4801bb28ce9773ed
 ManaCost:no cost
-Types:Plane New Phyrexia
-T:Mode$ PlaneswalkedFrom | ValidCard$ Plane.Self | Execute$ TrigDestroy
-SVar:TrigDestroy:DB$ DestroyAll | ValidCards$ Permanent.nonLand+counters_LT1_FATE | SubAbility$ DBRemove
-SVar:DBRemove:DB$ RemoveCounterAll | ValidCards$ Permanent | CounterType$ FATE | AllCounters$ True
-T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos | OptionalDecider$ You
-SVar:RolledChaos:DB$ PutCounter | ValidTgts$ Permanent | CounterType$ FATE | CounterNum$ 1
-SVar:AIRollPlanarDieParams:Mode$ Always
+Types:Plane Innistrad
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Command | Execute$ TrigMill
+SVar:TrigMill:DB$ Mill | NumCards$ 7 | SubAbility$ DBRandom
+SVar:DBRandom:DB$ ChooseCard | Choices$ Card.YouOwn | ChoiceZone$ Graveyard | AtRandom$ True | Amount$ 1 | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | Defined$ ChosenCard
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos
+SVar:RolledChaos:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Card.YouOwn
+SVar:AIRollPlanarDieParams:Mode$ Always | CardsInGraveyardGE$ 1

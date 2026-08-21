@@ -1,15 +1,13 @@
 Id:19174
-ColorIdentity:G
+ColorIdentity:WR
 OriginSet:Gf56613712ce2ae1f
-ManaCost:3 G G
-Types:Legendary Planeswalker Nissa
-Loyalty:5
-T:Mode$ TapsForMana | ValidCard$ Forest | Activator$ You | Execute$ TrigMana | TriggerZones$ Battlefield | Static$ True
-SVar:TrigMana:DB$ Mana | Produced$ G | Amount$ 1
-A:AB$ PutCounter | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | CounterType$ P1P1 | CounterNum$ 3 | ValidTgts$ Land.nonCreature+YouCtrl | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBUntap
-SVar:DBUntap:DB$ Untap | Defined$ Targeted | SubAbility$ DBAnimate
-SVar:DBAnimate:DB$ Animate | Defined$ Targeted | Power$ 0 | Toughness$ 0 | Types$ Creature,Elemental | Keywords$ Vigilance & Haste | Duration$ Permanent
-A:AB$ Effect | Cost$ SubCounter<8/LOYALTY> | Name$ 5422349558253247819 | Duration$ Permanent | Stackable$ False | Planeswalker$ True | Ultimate$ True | StaticAbilities$ STIndestructible | SubAbility$ DBChangeZone
-SVar:STIndestructible:Mode$ Continuous | Affected$ Land.YouCtrl | AffectedZone$ Battlefield | AddKeyword$ Indestructible
-SVar:DBChangeZone:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Forest | ChangeNum$ XFetch | Tapped$ True
-SVar:XFetch:Count$ValidLibrary Forest.YouCtrl
+ManaCost:R W W
+Types:Legendary Creature Angel
+PT:3/4
+K:Flying
+T:Mode$ SpellCast | ValidCard$ Instant.YouCtrl,Sorcery.YouCtrl | ValidActivatingPlayer$ You | TargetsValid$ Creature.YouCtrl+inZoneBattlefield | Execute$ DelayedBuyback | TriggerZones$ Battlefield
+SVar:DelayedBuyback:DB$ Effect | ReplacementEffects$ MoveToExileReplace | RememberObjects$ TriggeredCard | ConditionDefined$ TriggeredCard | ConditionPresent$ Card.inZoneStack | ExileOnMoved$ Stack
+SVar:MoveToExileReplace:Event$ Moved | ValidCard$ Card.IsRemembered+YouOwn | Origin$ Stack | Destination$ Graveyard | Fizzle$ False | ReplaceWith$ ReplaceExile
+SVar:ReplaceExile:DB$ ChangeZone | Defined$ ReplacedCard | Origin$ Stack | Destination$ Exile | RememberChanged$ True | SubAbility$ DelTrig
+SVar:DelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ TrigReturn | RememberObjects$ Remembered
+SVar:TrigReturn:DB$ ChangeZone | Defined$ DelayTriggerRememberedLKI | Origin$ Exile | Destination$ Hand

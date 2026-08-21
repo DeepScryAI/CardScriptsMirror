@@ -1,11 +1,9 @@
 Id:24949
-ColorIdentity:G
+ColorIdentity:UG
 OriginSet:G3a8b4b9d4649b357
-ManaCost:2 G G G
-Types:Creature Ape Shaman
-PT:5/7
-T:Mode$ SpellCast | ValidCard$ Creature | ValidActivatingPlayer$ You | Execute$ TrigCharm | TriggerZones$ Battlefield
-SVar:TrigCharm:DB$ Charm | Choices$ Destroy,DigLand,GainLife
-SVar:Destroy:DB$ Destroy | ValidTgts$ Artifact,Enchantment
-SVar:DigLand:DB$ Dig | DigNum$ 5 | ChangeNum$ 1 | ChangeValid$ Card.Land | Optional$ True | DestinationZone$ Battlefield | RestRandomOrder$ True | Tapped$ True
-SVar:GainLife:DB$ GainLife | LifeAmount$ 4
+ManaCost:1 U
+Types:Instant
+K:Kicker:G
+A:SP$ Scry | ScryNum$ 2 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Condition$ Kicked | Origin$ Hand | Destination$ Battlefield | Optional$ You | ChangeType$ Land | ChangeNum$ 1

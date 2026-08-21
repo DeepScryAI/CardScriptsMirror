@@ -1,9 +1,13 @@
 Id:21630
-ColorIdentity:U
+ColorIdentity:R
 OriginSet:G18bf722b221724f8
-ManaCost:1 U
-Types:Enchantment Aura
-K:Flash
-K:Enchant:Creature,Vehicle:creature or Vehicle
-SVar:AttachAILogic:Curse
-S:Mode$ Continuous | Affected$ Permanent.EnchantedBy | AddPower$ -3
+ManaCost:1 R
+Types:Sorcery
+A:SP$ Pump | ValidTgts$ Giant.YouCtrl | NumAtt$ +2 | NumDef$ +2 | KW$ Trample | SubAbility$ DBCombatDamageEffect
+SVar:DBCombatDamageEffect:DB$ Effect | ImprintCards$ Targeted | Triggers$ DealCombatDamagePlayer | SubAbility$ DBCleanup
+SVar:DealCombatDamagePlayer:Mode$ DamageDone | ValidSource$ Card.IsImprinted | ValidTarget$ Player | Execute$ TrigExile | CombatDamage$ True
+SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ X | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | ForgetOnMoved$ Exile | RememberObjects$ RememberedCard | Duration$ UntilTheEndOfYourNextTurn | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | Affected$ Card.IsRemembered | MayPlay$ True | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True
+SVar:X:TriggerCount$DamageAmount

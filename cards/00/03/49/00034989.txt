@@ -1,0 +1,14 @@
+Id:34989
+ColorIdentity:B
+OriginSet:Gf8f2990d7136c11d
+ManaCost:1 B
+Types:Legendary Creature Halfling Horror
+PT:3/1
+K:ETBReplacement:Other:ChooseEvenOdd
+SVar:ChooseEvenOdd:DB$ ChooseEvenOdd | Defined$ You
+T:Mode$ SpellCast | ValidCard$ Card.cmcChosenEvenOdd | ValidActivatingPlayer$ Opponent | TriggerZones$ Battlefield | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | Choices$ DBPutCounter,DBLoseLife,DBDraw | ChoiceRestriction$ ThisGame
+SVar:DBPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ 1
+SVar:DBLoseLife:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 2 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2
+SVar:DBDraw:DB$ Draw

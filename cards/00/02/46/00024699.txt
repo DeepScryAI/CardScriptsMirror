@@ -1,10 +1,58 @@
 Id:24699
 ColorIdentity:B
-OriginSet:G72c9c624ceb92bff
-ManaCost:2 B
-Types:Creature Cat Horror
-PT:3/3
-A:AB$ PutCounter | Cost$ B Sac<1/Creature.Other/another creature> | CounterType$ P1P1 | CounterNum$ 1
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl+counters_GE1_P1P1 | TriggerZones$ Battlefield | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
-SVar:PlayMain1:TRUE
+OriginSet:G58bfeff4fb121c8e
+ManaCost:1 B
+Types:Legendary Creature Human Elf Cleric
+PT:2/2
+K:Deathtouch
+K:Specialize:2:::CheckSVar$ X | SVarCompare$ LE13
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDealDamage
+SVar:TrigDealDamage:DB$ DealDamage | Defined$ Player | NumDmg$ 1
+SVar:X:PlayerCountPlayers$LowestLifeTotal
+AlternateMode:Specialize
+SPECIALIZE:WHITE
+ManaCost:1 W B
+Types:Legendary Creature Human Elf Cleric
+PT:4/4
+K:Deathtouch
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDealDamage
+SVar:TrigDealDamage:DB$ DealDamage | Defined$ Player | NumDmg$ 1
+T:Mode$ LifeLost | ValidPlayer$ You | TriggerZones$ Battlefield | PlayerTurn$ True | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 2186494377
+SPECIALIZE:BLUE
+ManaCost:1 U B
+Types:Legendary Creature Human Elf Cleric
+PT:4/4
+K:Deathtouch
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDealDamage
+SVar:TrigDealDamage:DB$ DealDamage | Defined$ Player | NumDmg$ 1
+T:Mode$ LifeLost | ValidPlayer$ You | TriggerZones$ Battlefield | PlayerTurn$ True | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw
+SPECIALIZE:BLACK
+ManaCost:1 B B
+Types:Legendary Creature Human Elf Cleric
+PT:4/4
+K:Deathtouch
+K:Lifelink
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDealDamage
+SVar:TrigDealDamage:DB$ DealDamage | Defined$ Player | NumDmg$ 1
+SPECIALIZE:RED
+ManaCost:1 B R
+Types:Legendary Creature Human Elf Cleric
+PT:4/4
+K:Deathtouch
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDamageAll
+SVar:TrigDamageAll:DB$ DealDamage | Defined$ Player | NumDmg$ 1
+T:Mode$ LifeLost | ValidPlayer$ You | TriggerZones$ Battlefield | PlayerTurn$ True | Execute$ TrigDamageOpp
+SVar:TrigDamageOpp:DB$ DealDamage | NumDmg$ X | Defined$ Opponent
+SVar:X:TriggerCount$LifeAmount
+SPECIALIZE:GREEN
+ManaCost:1 B G
+Types:Legendary Creature Human Elf Cleric
+PT:4/4
+K:Deathtouch
+S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self | ValidBlocker$ Creature.powerLE2
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDealDamage
+SVar:TrigDealDamage:DB$ DealDamage | Defined$ Player | NumDmg$ 1
+T:Mode$ LifeLost | ValidPlayer$ You | TriggerZones$ Battlefield | PlayerTurn$ True | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | CounterType$ P1P1

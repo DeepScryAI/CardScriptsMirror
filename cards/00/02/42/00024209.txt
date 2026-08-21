@@ -1,9 +1,12 @@
 Id:24209
-ColorIdentity:U
-OriginSet:G51fcb7ec0cb81c29
-ManaCost:1 U
-Types:Legendary Enchantment Background
-S:Mode$ Continuous | Affected$ Creature.IsCommander+YouOwn | AddAbility$ SacArt
-SVar:SacArt:AB$ PutCounter | Cost$ 2 Sac<1/Artifact> | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1
-SVar:BuffedBy:Artifact
+ColorIdentity:W
+OriginSet:Gcf5d9b1e2ed6c496
+ManaCost:1 W W
+Types:Creature Angel
+PT:3/4
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Hidden$ True | Mandatory$ True | ChangeType$ Permanent.YouCtrl | RememberChanged$ True | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | ConditionDefined$ Remembered | ConditionPresent$ Creature.nonAngel | PumpZone$ Hand | Defined$ Remembered | NumAtt$ +1 | NumDef$ +1 | KW$ Flying | Duration$ Perpetual | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Remembered | Duration$ Perpetual | ConditionDefined$ Remembered | ConditionPresent$ Creature.nonAngel | Types$ Angel | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

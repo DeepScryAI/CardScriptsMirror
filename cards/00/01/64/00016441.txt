@@ -1,8 +1,11 @@
 Id:16441
-ColorIdentity:
+ColorIdentity:W
 OriginSet:G4bddbf7cb4f2475e
-ManaCost:2
-Types:Artifact Creature Wall
-PT:0/4
-K:Defender
-K:Reach
+ManaCost:3 W
+Types:Creature Dwarf Soldier
+PT:3/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigEnergy
+SVar:TrigEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ 2
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump
+SVar:TrigPump:AB$ Pump | Cost$ PayEnergy<1> | ValidTgts$ Creature.attacking+Other | KW$ Indestructible
+SVar:HasAttackEffect:TRUE

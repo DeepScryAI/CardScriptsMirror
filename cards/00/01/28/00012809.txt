@@ -2,8 +2,14 @@ Id:12809
 ColorIdentity:
 OriginSet:G4801bb28ce9773ed
 ManaCost:no cost
-Types:Phenomenon
-T:Mode$ PlaneswalkedTo | ValidCard$ Card.Self | Execute$ TrigDig
-SVar:TrigDig:DB$ DigUntil | Amount$ 2 | Valid$ Plane | DigZone$ PlanarDeck | RememberFound$ True | FoundDestination$ PlanarDeck | RevealedDestination$ PlanarDeck | RevealedLibraryPosition$ -1 | SubAbility$ DBPWTo
-SVar:DBPWTo:DB$ Planeswalk | Defined$ Remembered | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+Types:Plane Ravnica
+R:Event$ CreateToken | ActiveZones$ Command | ReplaceWith$ DoubleToken | EffectOnly$ True
+SVar:DoubleToken:DB$ ReplaceToken | Type$ Amount
+R:Event$ AddCounter | ActiveZones$ Command | ValidCard$ Permanent.inZoneBattlefield | EffectOnly$ True | ReplaceWith$ DoubleCounters
+SVar:DoubleCounters:DB$ ReplaceCounter | Amount$ Z
+SVar:Z:ReplaceCount$CounterNum/Twice
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos
+SVar:RolledChaos:DB$ Effect | AILogic$ Always | Triggers$ TrigTapForMana
+SVar:TrigTapForMana:Mode$ TapsForMana | TriggerZones$ Command | ValidCard$ Land | Activator$ You | Execute$ TrigMana | Static$ True
+SVar:TrigMana:DB$ ManaReflected | ColorOrType$ Type | ReflectProperty$ Produced | Defined$ You
+SVar:AIRollPlanarDieParams:Mode$ Always | MinTurn$ 1 | RollInMain1$ True

@@ -1,10 +1,14 @@
 Id:22805
-ColorIdentity:R
-OriginSet:Gf78628ad511eefec
-ManaCost:1 R
-Types:Enchantment Aura Curse
-K:Enchant:Player
-SVar:AttachAILogic:Curse
-T:Mode$ SpellCast | ValidActivatingPlayer$ Player.EnchantedBy | ActivatorThisTurnCast$ GT1 | TriggerZones$ Battlefield | Execute$ TrigDamage
-T:Mode$ SpellCopy | ValidActivatingPlayer$ Player.EnchantedBy | TriggerZones$ Battlefield | Execute$ TrigDamage | Secondary$ True
-SVar:TrigDamage:DB$ DealDamage | Defined$ TriggeredPlayer | NumDmg$ 2
+ColorIdentity:B
+OriginSet:G66f2eb694ffd614a
+ManaCost:6 B B
+Types:Legendary Creature Zombie Turtle
+PT:4/4
+A:SP$ PermanentCreature | Cost$ 6 B B ExileFromGrave<X/Creature/creature cards>
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ Y | EffectZone$ All | Relative$ True
+SVar:X:Count$xPaid
+SVar:Y:SVar$X/Times.2
+K:Deathtouch
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigChoose
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigChoose | Secondary$ True
+SVar:TrigChoose:DB$ ChangeZone | AtRandom$ True | ChangeType$ Card.ExiledWithSource | Origin$ Exile | Destination$ Hand | Hidden$ True

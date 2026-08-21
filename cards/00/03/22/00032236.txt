@@ -1,14 +1,11 @@
 Id:32236
-ColorIdentity:U
+ColorIdentity:
 OriginSet:G9946f072b5556073
-ManaCost:5 U
-Types:Artifact Spacecraft
-PT:4/7
-K:Station:9
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
-SVar:TrigChangeZone:DB$ ChangeZone | ValidTgts$ Creature.nonSpacecraft | TargetMin$ 0 | TargetMax$ 2 | Origin$ Battlefield | Destination$ Hand
-S:Mode$ Continuous | Affected$ Card.Self+counters_GE9_CHARGE | AddType$ Creature | AddKeyword$ Flying | AddTrigger$ AttackTrig
-SVar:AttackTrig:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigMill
-SVar:TrigMill:DB$ Mill | Defined$ TriggeredDefendingPlayer | NumCards$ 4
-SVar:PlayMain1:TRUE
-SVar:HasAttackEffect:TRUE
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice | UnlessCost$ tapXType<1/Permanent> | UnlessPayer$ You
+A:AB$ Mana | Cost$ T | Produced$ Any
+SVar:NeedsToPlay:Permanent.untapped+YouCtrl

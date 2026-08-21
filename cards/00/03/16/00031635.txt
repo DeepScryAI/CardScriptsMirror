@@ -1,13 +1,9 @@
 Id:31635
-ColorIdentity:WG
-OriginSet:G530ea9d733a13e9d
-ManaCost:G W
-Types:Legendary Creature Human Cleric
-PT:2/2
-K:Lifelink
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigBranch
-SVar:TrigBranch:DB$ Branch | BranchConditionSVar$ X | BranchConditionSVarCompare$ LTY | TrueSubAbility$ PutCounterOne | FalseSubAbility$ PutCounterTwo
-SVar:PutCounterOne:DB$ PutCounter | Defined$ TriggeredCard | CounterType$ P1P1
-SVar:PutCounterTwo:DB$ PutCounter | Defined$ Self | CounterType$ P1P1
-SVar:X:TriggeredCard$CardPower
-SVar:Y:Count$CardPower
+ColorIdentity:R
+OriginSet:Gf2b808f4f642ac62
+ManaCost:1 R
+Types:Enchantment
+T:Mode$ Phase | Phase$ BeginCombat | TriggerZones$ Battlefield | Execute$ DBAnimate | CheckSVar$ X | SVarCompare$ GE2
+SVar:DBAnimate:DB$ Animate | Defined$ Self | Power$ 3 | Toughness$ 3 | Types$ Creature,Monk | Keywords$ Haste
+SVar:X:Count$ThisTurnCast_Card.YouCtrl
+A:AB$ Draw | NumCards$ 2 | Cost$ 1 R Discard<1/Hand> Sac<1/CARDNAME/this enchantment>

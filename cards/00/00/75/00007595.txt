@@ -1,13 +1,10 @@
 Id:7595
-ColorIdentity:W
+ColorIdentity:U
 OriginSet:G4747f23d5c5760bc
-ManaCost:X W W
-Types:Instant Arcane
-S:Mode$ AlternativeCost | ValidSA$ Spell.Self | EffectZone$ All | Cost$ ExileFromHand<1/Card.White+Other+cmcEQX/white card> | Announce$ X
-A:SP$ ChooseSource | Choices$ Card,Emblem | AILogic$ NeedsPrevention | SubAbility$ DBStoreSVar
-SVar:DBStoreSVar:DB$ StoreSVar | SVar$ ShieldAmount | Type$ Calculate | Expression$ X | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | ValidTgts$ Any | ReplacementEffects$ ReDamage | RememberObjects$ Targeted
-SVar:ReDamage:Event$ DamageDone | ActiveZones$ Command | ValidTarget$ You,Creature.YouCtrl | ValidSource$ Card.ChosenCardStrict,Emblem.ChosenCard | ReplaceWith$ SplitDamage | DamageTarget$ Remembered
-SVar:SplitDamage:DB$ ReplaceSplitDamage | DamageTarget$ Remembered | VarName$ ShieldAmount | DivideShield$ True
-SVar:X:Count$xPaid
-SVar:ShieldAmount:Number$0
+ManaCost:3 U
+Types:Creature Spirit
+PT:2/3
+K:Flying
+T:Mode$ BecomesTarget | ValidTarget$ Card.Self | TriggerZones$ Battlefield | FirstTime$ True | Execute$ GlasskiteCounter
+SVar:GlasskiteCounter:DB$ Counter | Defined$ TriggeredSourceSA
+SVar:Targeting:Counter

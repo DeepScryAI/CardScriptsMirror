@@ -1,23 +1,23 @@
 Id:15859
-ColorIdentity:RG
+ColorIdentity:WR
 OriginSet:G92026fbb3573fda5
-ManaCost:2 R G
-Types:Legendary Planeswalker Arlinn
-Loyalty:3
-A:AB$ Pump | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | NumAtt$ +2 | NumDef$ +2 | KW$ Vigilance & Haste | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Creature
-A:AB$ Token | Cost$ AddCounter<0/LOYALTY> | TokenScriptIds$ 4257275070 | TokenOwner$ You | Planeswalker$ True | SubAbility$ DBTransform
-SVar:DBTransform:DB$ SetState | Defined$ Self | Mode$ Transform
-SVar:PlayMain1:TRUE
+ManaCost:3 W W
+Types:Legendary Creature Angel
+PT:4/4
+K:Flash
+K:Flying
+K:Vigilance
+T:Mode$ ChangesZone | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPumpAll
+SVar:TrigPumpAll:DB$ PumpAll | ValidCards$ Creature.YouCtrl | KW$ Indestructible
+T:Mode$ ChangesZone | ValidCard$ Creature.nonAngel+YouCtrl | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigDelayTransform | TriggerZones$ Battlefield
+SVar:TrigDelayTransform:DB$ DelayedTrigger | Mode$ Phase | Phase$ Upkeep | Execute$ TrigTransform
+SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform
 AlternateMode:DoubleFaced
 ALTERNATE
 ManaCost:no cost
-Colors:red,green
-Types:Legendary Planeswalker Arlinn
-Loyalty:0
-A:AB$ PumpAll | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | ValidCards$ Creature.YouCtrl | NumAtt$ +1 | NumDef$ +1 | KW$ Trample
-A:AB$ DealDamage | Cost$ SubCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Any | NumDmg$ 3 | SubAbility$ DBTransform
-SVar:DBTransform:DB$ SetState | Defined$ Self | Mode$ Transform
-A:AB$ Effect | Cost$ SubCounter<6/LOYALTY> | Name$ 16264212156910574021 | StaticAbilities$ STArlinn | Planeswalker$ True | Ultimate$ True | Stackable$ False | Duration$ Permanent | AILogic$ Always
-SVar:STArlinn:Mode$ Continuous | Affected$ Creature.YouCtrl | AffectedZone$ Battlefield | AddKeyword$ Haste | AddAbility$ ArlinnDealDamage | AddSVar$ ArlinnX
-SVar:ArlinnDealDamage:AB$ DealDamage | Cost$ T | ValidTgts$ Any | NumDmg$ ArlinnX
-SVar:ArlinnX:Count$CardPower
+Colors:red
+Types:Legendary Creature Angel
+PT:6/5
+K:Flying
+T:Mode$ Transformed | ValidCard$ Card.Self | Execute$ TrigDamageAll
+SVar:TrigDamageAll:DB$ DamageAll | NumDmg$ 3 | ValidCards$ Creature.StrictlyOther | ValidPlayers$ Player.Opponent

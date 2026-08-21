@@ -1,7 +1,12 @@
 Id:31522
-ColorIdentity:U
-OriginSet:Gf2b808f4f642ac62
-ManaCost:U
+ColorIdentity:G
+OriginSet:G93ac57511923c3dd
+ManaCost:4 G
 Types:Sorcery
-A:SP$ Draw
-K:Harmonize:5 U
+A:SP$ Charm | MinCharmNum$ 1 | CharmNum$ Count$Compare Y GE1.2.1 | Choices$ DBLandscaping,DBLeyline
+SVar:DBLandscaping:DB$ Mill | NumCards$ 3 | ValidTgts$ Player | SubAbility$ DBChangeZoneAll
+SVar:DBChangeZoneAll:DB$ ChangeZoneAll | ChangeType$ Land.YouCtrl | Origin$ Graveyard | Destination$ Battlefield | Tapped$ True
+SVar:DBLeyline:DB$ PutCounter | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ X | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ TargetedCard | KW$ Trample
+SVar:X:Count$Valid Land.YouCtrl
+SVar:Y:Count$Valid Card.IsCommander+YouCtrl

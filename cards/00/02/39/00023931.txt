@@ -1,14 +1,14 @@
 Id:23931
-ColorIdentity:G
-OriginSet:Gfdfe2ebef04be34e
-ManaCost:4 G G
-Types:Legendary Planeswalker Vivien
-Loyalty:4
-A:AB$ Sacrifice | Cost$ AddCounter<2/LOYALTY> | Planeswalker$ True | Optional$ True | SacValid$ Creature | RememberSacrificed$ True | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | ConditionDefined$ Remembered | ConditionPresent$ Card | Origin$ Library | Destination$ Battlefield | ChangeType$ Creature.cmcEQX | ChangeNum$ 1 | SubAbility$ DBCleanup
-SVar:X:Remembered$CardManaCost/Plus.1
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-A:AB$ Mill | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | Defined$ You | NumCards$ 5 | RememberMilled$ True | SubAbility$ DBChangeZone2
-SVar:DBChangeZone2:DB$ ChangeZone | Origin$ Graveyard,Exile | Destination$ Hand | Hidden$ True | ChangeType$ Creature.IsRemembered | ChangeNum$ Z | SubAbility$ DBCleanup
-SVar:Z:Remembered$Valid Creature
-A:AB$ Token | Cost$ SubCounter<1/LOYALTY> | Planeswalker$ True | TokenScriptIds$ 2099946125
+ColorIdentity:
+OriginSet:G5f5d8cfb206e2fac
+ManaCost:3
+Types:Artifact Creature Wall
+PT:2/5
+K:Defender
+K:Vigilance
+K:Reach
+K:Trample
+S:Mode$ CanAttackDefender | ValidCard$ Card.Self | ValidAttacked$ Player.attackedYouTheirLastTurn
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | NumAtt$ +3 | NumDef$ +3 | KW$ Indestructible
+SVar:HasAttackEffect:TRUE

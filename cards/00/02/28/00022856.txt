@@ -1,10 +1,21 @@
 Id:22856
-ColorIdentity:U
+ColorIdentity:WR
 OriginSet:Gf78628ad511eefec
-ManaCost:2 U U
-Types:Enchantment Aura
-K:Enchant:Creature
-S:Mode$ RaiseCost | ValidCard$ Card.Self | Activator$ You | Type$ Spell | Cost$ Sac<1/Creature/creature> | EffectZone$ All
-S:Mode$ Continuous | Affected$ Card.EnchantedBy | GainControl$ You
-S:Mode$ Continuous | Affected$ Card.EnchantedBy | AddPower$ 1 | AddToughness$ 1
-SVar:AttachAILogic:GainControl
+ManaCost:2 W
+Types:Creature Human Soldier Werewolf
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+T:Mode$ Transformed | ValidCard$ Card.Self | Execute$ TrigExile | Secondary$ True
+SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Creature.OppCtrl | Duration$ UntilHostLeavesPlay
+K:Daybound
+SVar:PlayMain1:TRUE
+SVar:OblivionRing:TRUE
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:red
+Types:Creature Werewolf
+PT:3/3
+K:FirstStrike
+K:Ward:PayLife<3>
+K:Nightbound

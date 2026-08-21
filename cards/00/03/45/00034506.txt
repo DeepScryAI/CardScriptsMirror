@@ -1,9 +1,14 @@
 Id:34506
-ColorIdentity:U
-OriginSet:G11c0621ce29fa608
-ManaCost:3 U
-Types:Legendary Creature Human Scientist Hero
-PT:2/4
-K:Reach
-T:Mode$ ChangesZoneAll | ValidCards$ Card.token+YouCtrl | Destination$ Battlefield | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw
+ColorIdentity:WURG
+OriginSet:Gcb93bbfc68a40806
+ManaCost:1 R G W U
+Types:Legendary Creature Human Hero
+PT:4/4
+K:Flying
+K:Vigilance
+K:Trample
+K:Haste
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Instant.YouOwn,Sorcery.YouOwn | TargetsAtRandom$ True | SubAbility$ DBDelTrig
+SVar:DBDelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | RememberObjects$ Targeted | Execute$ TrigPlay
+SVar:TrigPlay:DB$ Play | Defined$ DelayTriggerRemembered | ValidSA$ Spell | WithoutManaCost$ True | Optional$ True | ReplaceGraveyard$ Exile

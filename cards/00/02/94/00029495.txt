@@ -1,9 +1,10 @@
 Id:29495
-ColorIdentity:G
-OriginSet:Gac6359c222afbd4f
-ManaCost:1 G
-Types:Creature Dryad
-PT:1/2
-K:Deathtouch
-A:AB$ Mana | Cost$ T | Produced$ C
-A:AB$ Mana | Cost$ T | Produced$ Any
+ColorIdentity:R
+OriginSet:G2ce881cc55bb9f18
+ManaCost:1 R R
+Types:Instant
+A:SP$ RepeatEach | ValidTgts$ Instant,Sorcery | TgtZone$ Stack | RepeatSubAbility$ DBCopy | RepeatPlayers$ Player.Opponent | SubAbility$ DBCopySelf | RepeatOptionalForEachPlayer$ True
+SVar:DBCopy:DB$ CopySpellAbility | Defined$ Targeted | Controller$ Remembered | MayChooseTarget$ True | RememberCopies$ True
+SVar:DBCopySelf:DB$ CopySpellAbility | Defined$ Targeted | Amount$ X | MayChooseTarget$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:PlayerCountRememberedController$Amount/Plus.1

@@ -1,10 +1,12 @@
 Id:18291
 ColorIdentity:B
 OriginSet:G7d4bd61c81d44275
-ManaCost:2 B B
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:Pump
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 2 | AddToughness$ 2 | AddKeyword$ Flying | AddType$ Demon
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPumpAll
-SVar:TrigPumpAll:DB$ PumpAll | NumAtt$ -2 | NumDef$ -2 | ValidCards$ Creature.nonDemon | IsCurse$ True
+ManaCost:6 B B
+Types:Creature Demon
+PT:6/6
+K:Flying
+S:Mode$ CantGainLife | ValidPlayer$ Player.Opponent
+T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | Execute$ RepeatOpps
+SVar:RepeatOpps:DB$ RepeatEach | RepeatPlayers$ Player.Opponent | RepeatSubAbility$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ Remembered | LifeAmount$ X
+SVar:X:PlayerCountRemembered$LifeLostThisTurn

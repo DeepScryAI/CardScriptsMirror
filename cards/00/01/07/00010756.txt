@@ -1,11 +1,8 @@
 Id:10756
 ColorIdentity:U
 OriginSet:G4398040c23c94f0e
-ManaCost:2 U
-Types:Enchantment
-T:Mode$ Phase | Phase$ End of Turn | CheckSVar$ X | SVarCompare$ GE2 | TriggerZones$ Battlefield | Execute$ TrigPutCounter | OptionalDecider$ You
-R:Event$ Draw | ActiveZones$ Battlefield | ValidPlayer$ You | ReplaceWith$ Tutor | IsPresent$ Card.Self+counters_GE6_QUEST | Optional$ True
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ QUEST | CounterNum$ 1
-SVar:Tutor:DB$ ChangeZone | Origin$ Library | Destination$ Hand
-SVar:X:Count$YouDrewThisTurn
-SVar:MaxQuestEffect:6
+ManaCost:3 U U
+Types:Instant Trap
+S:Mode$ AlternativeCost | ValidSA$ Spell.Self | EffectZone$ All | Cost$ 0 | CheckSVar$ TrapTrigger
+A:SP$ Mill | NumCards$ 13 | ValidTgts$ Opponent
+SVar:TrapTrigger:Count$SearchedLibrary.Opponent

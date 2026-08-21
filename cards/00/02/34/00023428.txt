@@ -1,8 +1,10 @@
 Id:23428
-ColorIdentity:B
-OriginSet:G1a259dba25660062
-ManaCost:2 B B
-Types:Instant
-S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ 1 | EffectZone$ All | IsPresent$ Artifact.YouCtrl
-S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ 1 | EffectZone$ All | IsPresent$ Enchantment.YouCtrl | Secondary$ True
-A:SP$ Destroy | ValidTgts$ Creature,Planeswalker
+ColorIdentity:G
+OriginSet:Gbe3783f336562357
+ManaCost:1 G
+Types:Sorcery
+A:SP$ Pump | ValidTgts$ Creature.YouCtrl | AILogic$ PowerDmg | SubAbility$ DBDamage
+SVar:DBDamage:DB$ DealDamage | ValidTgts$ Creature.YouDontCtrl | AILogic$ PowerDmg | NumDmg$ ParentTargeted$CardPower | ExcessSVar$ Excess | DamageSource$ ParentTarget | SubAbility$ DBChooseCard
+SVar:DBChooseCard:DB$ ChooseCard | ChoiceZone$ Hand | Choices$ Creature.YouOwn | Mandatory$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Pump | Defined$ ChosenCard | PumpZone$ Hand | NumAtt$ +Excess | NumDef$ +Excess | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True

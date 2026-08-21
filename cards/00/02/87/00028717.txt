@@ -1,12 +1,9 @@
 Id:28717
-ColorIdentity:G
-OriginSet:G997e3b19a1e94e85
-ManaCost:1 G
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:Pump
-T:Mode$ Attacks | ValidCard$ Card.AttachedBy | Execute$ TrigChange | TriggerZones$ Battlefield | OptionalDecider$ You
-SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | Tapped$ True | ChangeType$ Land | ChangeNum$ X | ShuffleNonMandatory$ True
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddSVar$ AE
-SVar:X:Count$Valid Creature.EnchantedBy+IsSuspected/Plus.1
-SVar:AE:SVar:HasAttackEffect:TRUE
+ColorIdentity:R
+OriginSet:G7ee0e82a2424d636
+ManaCost:4 R
+Types:Creature Lizard Warrior
+PT:5/5
+T:Mode$ Attacks | ValidCard$ Card.Self | IsPresent$ Card.Self+IsSuspected | PresentCompare$ EQ0 | TriggerZones$ Battlefield | Execute$ TrigSuspect
+SVar:TrigSuspect:DB$ AlterAttribute | Defined$ Self | Attributes$ Suspected | Optional$ True
+SVar:HasAttackEffect:TRUE

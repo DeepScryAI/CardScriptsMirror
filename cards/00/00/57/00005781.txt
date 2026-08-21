@@ -1,16 +1,11 @@
 Id:5781
 ColorIdentity:U
 OriginSet:G7327b0fa163b48eb
-ManaCost:3 U
-Types:Creature Nightmare Crab
-PT:3/6
-S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ ChooseP
-SVar:ChooseP:DB$ ChoosePlayer | Defined$ You | Choices$ Player.Opponent | AILogic$ Curse | SubAbility$ TrigChoice
-SVar:TrigChoice:DB$ ChooseCard | Defined$ ChosenPlayer | Amount$ 1 | Choices$ Permanent.YouCtrl+Other | RememberChosen$ True | Mandatory$ True | SubAbility$ ExileChoice
-SVar:ExileChoice:DB$ ChangeZone | IsCurse$ True | Defined$ Remembered | Origin$ Battlefield | Destination$ Exile
-T:Mode$ ChangesZone | Origin$ Exile | Destination$ Any | Static$ True | ValidCard$ Card.IsRemembered+ExiledWithSource | Execute$ DBForget
-SVar:DBForget:DB$ Pump | ForgetObjects$ TriggeredCard
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZone | Defined$ Remembered.ExiledWithSource | Origin$ Exile | Destination$ Battlefield | SubAbility$ DBCleanup
+ManaCost:3 U U
+Types:Creature Nightmare Fish Beast
+PT:5/5
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZoneAll | ChangeType$ Card.YouCtrl | Origin$ Hand | Destination$ Exile | RememberChanged$ True
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Battlefield | Destination$ Any | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Hand | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

@@ -1,10 +1,10 @@
 Id:13529
-ColorIdentity:UG
+ColorIdentity:R
 OriginSet:G9b1658d4f3a50109
-ManaCost:3 G U
-Types:Creature Frog Beast
-PT:6/6
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigBounce | TriggerZones$ Battlefield
-SVar:TrigBounce:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Mandatory$ True | Hidden$ True | ChangeType$ Creature.YouCtrl
-SVar:NeedsToPlayVar:Z GE2
-SVar:Z:Count$Valid Creature.YouCtrl
+ManaCost:3 R
+Types:Creature Human Warrior
+PT:2/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | IsPresent$ Gate.YouCtrl | PresentCompare$ GE2 | Execute$ TrigGainControl
+SVar:TrigGainControl:DB$ GainControl | ValidTgts$ Creature.OppCtrl | Untap$ True | LoseControl$ EOT | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Targeted | KW$ Haste
+SVar:PlayMain1:OPPONENTCREATURES

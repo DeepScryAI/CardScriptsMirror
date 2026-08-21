@@ -1,8 +1,10 @@
 Id:12100
-ColorIdentity:B
+ColorIdentity:G
 OriginSet:Gcf233112e9f1fe8c
-ManaCost:3 B
-Types:Creature Shade
-PT:1/1
-K:Flying
-A:AB$ Pump | Cost$ B | Defined$ Self | NumAtt$ +1 | NumDef$ +1
+ManaCost:5 G
+Types:Sorcery
+A:SP$ RepeatEach | RepeatSubAbility$ DBSearch | RepeatCards$ Creature.YouCtrl | SubAbility$ DBChangeZone
+SVar:DBSearch:DB$ ChooseCard | ChoiceZone$ Library | QuasiLibrarySearch$ You | Choices$ Card.YouOwn+!IsImprinted+sharesNameWith Remembered | ImprintChosen$ True
+SVar:DBChangeZone:DB$ ChangeZone | Defined$ Imprinted | Origin$ Library | Destination$ Battlefield | Searched$ True | Shuffle$ True
+SVar:NeedsToPlayVar:Z GE2
+SVar:Z:Count$Valid Creature.YouCtrl

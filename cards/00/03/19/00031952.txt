@@ -1,21 +1,9 @@
 Id:31952
-ColorIdentity:W
+ColorIdentity:WB
 OriginSet:G7ab4f62d323b0ca7
-ManaCost:1 W W
-Types:Legendary Creature Elder Wizard
-PT:3/3
-T:Mode$ SpellCast | ValidCard$ Legendary | ValidActivatingPlayer$ You | Execute$ TrigDraw | TriggerZones$ Battlefield | ActivationLimit$ 1
-SVar:TrigDraw:DB$ Draw
-A:AB$ ChangeZone | Cost$ 7 T | ValidTgts$ Permanent.nonLand | SorcerySpeed$ True | Origin$ Battlefield | Destination$ Exile | SubAbility$ DBTransform
-SVar:DBTransform:DB$ SetState | Defined$ Self | Mode$ Transform
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:white
-Types:Legendary Creature God
-PT:4/4
-K:Indestructible
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.Other+YouCtrl | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | Defined$ Targeted | KW$ Indestructible | Duration$ UntilYourNextTurn | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | ConditionDefined$ Targeted | ConditionPresent$ Legendary
+ManaCost:W B
+Types:Legendary Creature Human Advisor Knight
+PT:2/2
+K:Menace
+T:Mode$ ChangesZone | ValidCard$ Artifact.Other+YouCtrl,Creature.Other+YouCtrl | Origin$ Battlefield | Destination$ Graveyard | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1

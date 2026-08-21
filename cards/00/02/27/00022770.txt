@@ -1,8 +1,11 @@
 Id:22770
-ColorIdentity:B
-OriginSet:Gf78628ad511eefec
-ManaCost:1 B B
-Types:Instant
-A:SP$ Charm | Choices$ CharmCreature,CharmToken | Defined$ You
-SVar:CharmCreature:DB$ Pump | ValidTgts$ Creature | NumAtt$ -5 | NumDef$ -5 | IsCurse$ True
-SVar:CharmToken:DB$ PumpAll | ValidCards$ Creature.token | NumAtt$ -2 | NumDef$ -2 | IsCurse$ True
+ColorIdentity:W
+OriginSet:G268a0d6ee06912c2
+ManaCost:1 W
+Types:Creature Cat Cleric
+PT:2/1
+K:Lifelink
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChoose
+SVar:TrigChoose:DB$ ChooseCard | ChoiceZone$ Hand | Choices$ Card.Creature+YouOwn | Mandatory$ True | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | PumpZone$ Hand | Defined$ ChosenCard | KW$ Lifelink | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True

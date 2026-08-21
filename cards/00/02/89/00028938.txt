@@ -1,10 +1,12 @@
 Id:28938
-ColorIdentity:W
-OriginSet:Ge316fa8fca4dad64
-ManaCost:2 W
-Types:Creature Human Artificer
-PT:2/4
-T:Mode$ SpellCast | ValidCard$ Creature | ValidActivatingPlayer$ You | Execute$ TrigCharm | TriggerZones$ Battlefield
-SVar:TrigCharm:DB$ Charm | Choices$ DBToken,DBCopy
-SVar:DBToken:DB$ Token | TokenScriptIds$ 2883502801 | TokenOwner$ You
-SVar:DBCopy:DB$ CopyPermanent | ValidTgts$ Artifact.token+YouCtrl
+ColorIdentity:WR
+OriginSet:Gaf7c94f364052cdd
+ManaCost:1 R W
+Types:Creature Human Knight
+PT:3/3
+K:Trample
+T:Mode$ SpellCast | ValidCard$ Aura,Equipment | ValidActivatingPlayer$ You | Execute$ TrigDig | TriggerZones$ Battlefield
+SVar:TrigDig:DB$ Dig | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ STPlay | SubAbility$ DBCleanup | ForgetOnMoved$ Exile | Duration$ UntilTheEndOfYourNextTurn
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

@@ -1,12 +1,13 @@
 Id:25795
-ColorIdentity:U
+ColorIdentity:W
 OriginSet:G06ccef4324c14725
-ManaCost:3 U U
-Types:Legendary Planeswalker Teferi
-Loyalty:4
-T:Mode$ Drawn | ValidCard$ Card.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | CounterType$ LOYALTY
-A:AB$ Draw | Cost$ AddCounter<0/LOYALTY> | Planeswalker$ True
-A:AB$ Token | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | TokenScriptIds$ 3528444341
-A:AB$ ChangeZone | Cost$ SubCounter<12/LOYALTY> | Planeswalker$ True | Ultimate$ True | ValidTgts$ Opponent | Origin$ Battlefield | Destination$ Hand | Hidden$ True | Mandatory$ True | ChangeType$ Permanent.TargetedPlayerCtrl | Chooser$ Targeted | SubAbility$ DBShuffleAll
-SVar:DBShuffleAll:DB$ ChangeZoneAll | ChangeType$ Permanent.nonLand+TargetedPlayerCtrl | Origin$ Battlefield | Destination$ Library | Shuffle$ True
+ManaCost:1 W W
+Types:Sorcery
+A:SP$ Charm | Choices$ DBToken,DBCounter,DBChangeZone,DBGainLife | CharmNum$ 2
+SVar:DBToken:DB$ Token | TokenScriptIds$ 3566909899 | TokenOwner$ You
+SVar:DBCounter:DB$ PutCounter | Choices$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1 | RememberCards$ True | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Remembered | KW$ DoubleStrike | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Plains.Basic | ChangeNum$ 1
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ 2 | SubAbility$ DBScry
+SVar:DBScry:DB$ Scry | ScryNum$ 2

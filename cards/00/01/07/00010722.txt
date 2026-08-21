@@ -2,11 +2,9 @@ Id:10722
 ColorIdentity:
 OriginSet:Gc860c737f2a60f83
 ManaCost:no cost
-Types:Plane Wildfire
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Command | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | CounterType$ FLAME | CounterNum$ 1 | SubAbility$ DBDmg
-SVar:DBDmg:DB$ DealDamage | Defined$ You | NumDmg$ Y
-SVar:Y:Count$CardCounters.FLAME
+Types:Plane Zendikar
+T:Mode$ ChangesZone | ValidCard$ Creature.!token | Origin$ Any | Destination$ Battlefield | TriggerZones$ Command | Execute$ TrigRamp | OptionalDecider$ TriggeredCardController
+SVar:TrigRamp:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | Tapped$ True | ChangeType$ Land.Basic | DefinedPlayer$ TriggeredCardController | ShuffleNonMandatory$ True
 T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos
-SVar:RolledChaos:DB$ DealDamage | ValidTgts$ Player,Planeswalker | NumDmg$ 3
+SVar:RolledChaos:DB$ Animate | ValidTgts$ Land | Power$ 4 | Toughness$ 4 | Types$ Creature | Duration$ Permanent
 SVar:AIRollPlanarDieParams:Mode$ Always

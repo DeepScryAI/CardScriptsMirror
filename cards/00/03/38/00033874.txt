@@ -1,9 +1,12 @@
 Id:33874
-ColorIdentity:UR
-OriginSet:Gf8df2bea26dc6b68
-ManaCost:no cost
-Types:Land
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
-A:AB$ Mana | Cost$ T | Produced$ Combo U R
-A:AB$ Surveil | Cost$ 2 U R T | Amount$ 1
+ColorIdentity:R
+OriginSet:Gf04404de3fa1525e
+ManaCost:2 R
+Types:Sorcery
+A:SP$ Charm | MinCharmNum$ 1 | CharmNum$ 2 | Choices$ DBDiscard,DBDamage
+SVar:DBDiscard:DB$ Discard | ValidTgts$ Player | AnyNumber$ True | Optional$ True | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ ParentTarget | NumCards$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:DBDamage:DB$ DealDamage | ValidTgts$ Creature,Planeswalker | NumDmg$ Y
+SVar:X:Remembered$Amount
+SVar:Y:Count$ValidGraveyard Instant.YouOwn,Sorcery.YouOwn

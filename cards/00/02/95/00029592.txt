@@ -1,10 +1,15 @@
 Id:29592
-ColorIdentity:U
+ColorIdentity:WB
 OriginSet:Gac6359c222afbd4f
-ManaCost:1 U
+ManaCost:3 WB WB
 Types:Enchantment Aura
-K:Flash
 K:Enchant:Creature
-SVar:AttachAILogic:Curse
-S:Mode$ Continuous | Affected$ Card.EnchantedBy | SetPower$ 1 | SetToughness$ 1 | RemoveAllAbilities$ True
-A:AB$ ChangeZone | Cost$ 2 C | Defined$ Enchanted | Origin$ Battlefield | Destination$ Exile
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 2 | AddToughness$ 2 | AddKeyword$ Lifelink & Flying
+AlternateMode:Modal
+ALTERNATE
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ Combo W B

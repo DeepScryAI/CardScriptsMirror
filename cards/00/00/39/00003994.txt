@@ -1,7 +1,11 @@
 Id:3994
 ColorIdentity:
 OriginSet:Gdd40b2fbd2aa3c03
-ManaCost:5
+ManaCost:3
 Types:Artifact
-A:AB$ Draw | Cost$ X T | NumCards$ 1 | AnnounceType$ Opponent
-SVar:X:Count$ValidHand Card.ChosenCtrl
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Player | TriggerZones$ Battlefield | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | Defined$ TriggeredPlayer | NumDmg$ 1
+A:AB$ Effect | Cost$ 2 | RememberObjects$ Self | ReplacementEffects$ DBPrevent | ForgetOnMoved$ Battlefield
+SVar:DBPrevent:Event$ DamageDone | ActiveZones$ Command | ValidSource$ Card.IsRemembered | ReplaceWith$ DBReplace | PreventionEffect$ True
+SVar:DBReplace:DB$ ReplaceDamage | Amount$ ShieldAmount
+SVar:ShieldAmount:Number$1

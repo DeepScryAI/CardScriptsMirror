@@ -1,7 +1,12 @@
 Id:33563
-ColorIdentity:B
-OriginSet:G23d1f017cc66962f
-ManaCost:3 B
-Types:Sorcery
-K:Sneak:1 B
-A:SP$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Card | ChangeNum$ 1 | Mandatory$ True
+ColorIdentity:R
+OriginSet:Gff0a4227ae9f1a4b
+ManaCost:4 R
+Types:Legendary Creature Mutant Ninja Human Turtle
+PT:4/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | MinCharmNum$ 1 | CharmNum$ 2 | Choices$ DBExile,DBToken
+SVar:DBExile:DB$ Dig | ValidTgts$ Player | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ CRPlay | EffectOwner$ RememberedOwner | Duration$ UntilYourNextEndStep | ExileOnMoved$ Exile | RememberObjects$ Remembered | SubAbility$ DBCleanup
+SVar:CRPlay:Mode$ Continuous | Affected$ Card.IsRemembered | MayPlay$ True | MayPlayWithoutManaCost$ True | AffectedZone$ Exile
+SVar:DBToken:DB$ Token | ValidTgts$ Player | TargetUnique$ True | TokenOwner$ ThisTargetedPlayer | TokenAmount$ 2 | TokenScriptIds$ 3851718391

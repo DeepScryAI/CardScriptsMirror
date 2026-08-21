@@ -1,8 +1,12 @@
 Id:16369
-ColorIdentity:W
+ColorIdentity:WBR
 OriginSet:Gd94e3db4ef71ffd2
-ManaCost:2 W
-Types:Creature Human Soldier
-PT:1/1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | OptionalDecider$ You | Execute$ TrigChange
-SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Creature.toughnessLE2 | ChangeNum$ 1
+ManaCost:1 R W B
+Types:Legendary Creature Human Assassin
+PT:3/3
+K:Deathtouch
+K:Haste
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMonarch
+SVar:TrigMonarch:DB$ BecomeMonarch
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | CheckDefinedPlayer$ Opponent.isMonarch | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 3443540260 | TokenOwner$ You

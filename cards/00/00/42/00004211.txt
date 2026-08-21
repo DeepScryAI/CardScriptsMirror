@@ -1,10 +1,11 @@
 Id:4211
-ColorIdentity:R
+ColorIdentity:U
 OriginSet:Gdd40b2fbd2aa3c03
-ManaCost:no cost
-Types:Land
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ LandTapped | ReplacementResult$ Updated
-SVar:LandTapped:DB$ Tap | Defined$ Self | ETB$ True | SubAbility$ DBAddCounter
-SVar:DBAddCounter:DB$ PutCounter | Defined$ Self | ETB$ True | CounterType$ DEPLETION | CounterNum$ 2
-A:AB$ Mana | Cost$ T SubCounter<1/DEPLETION> | Produced$ R | SubAbility$ DBSac | Amount$ 2
-SVar:DBSac:DB$ Sacrifice | SacValid$ Self | ConditionPresent$ Card.Self+counters_EQ0_DEPLETION
+ManaCost:3 U
+Types:Creature Squid Beast
+PT:2/2
+K:Landwalk:Island
+K:You may choose not to untap CARDNAME during your untap step.
+A:AB$ Tap | Cost$ T | ValidTgts$ Creature | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | IsCurse$ True | ReplacementEffects$ DontUntap | Duration$ UntilUntaps | RememberObjects$ Targeted | ExileOnMoved$ Battlefield
+SVar:DontUntap:Event$ Untap | ValidCard$ Card.IsRemembered | ValidStepTurnToController$ You | Layer$ CantHappen

@@ -1,8 +1,11 @@
 Id:8287
 ColorIdentity:WU
 OriginSet:Gde6d8130c178f566
-ManaCost:W U
-Types:Creature Griffin
-PT:2/2
-K:Flying
-K:Protection:Enchantment
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ W U
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Hidden$ True | Mandatory$ True | ChangeType$ Land.YouCtrl | AILogic$ NeverBounceItself
+SVar:NeedsToPlay:Land.Basic+YouCtrl

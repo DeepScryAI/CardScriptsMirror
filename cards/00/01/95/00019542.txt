@@ -1,10 +1,11 @@
 Id:19542
-ColorIdentity:G
+ColorIdentity:B
 OriginSet:G9d37112ca6693432
-ManaCost:1 G
-Types:Creature Elf Berserker
-PT:2/1
-K:Dash:1 G
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.YouCtrl | NumAtt$ +1 | NumDef$ +1
-SVar:HasAttackEffect:TRUE
+ManaCost:4 B
+Types:Creature Zombie Bird
+PT:2/3
+K:Flying
+K:Exploit
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl+Other | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Self | KW$ Haste | ConditionDefined$ TriggeredCard | ConditionPresent$ Card.exploited

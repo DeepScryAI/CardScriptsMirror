@@ -1,12 +1,8 @@
 Id:32501
-ColorIdentity:UB
-OriginSet:G66b3a7eeabd9000e
-ManaCost:2 UB
-Types:Legendary Creature Symbiote Spider Hero
-PT:2/4
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigDig | CombatDamage$ True
-SVar:TrigDig:DB$ Dig | DigNum$ X | ChangeNum$ 1 | ChangeValid$ Card | DestinationZone$ Hand | DestinationZone2$ Graveyard
-SVar:X:TriggerCount$DamageAmount
-A:AB$ PutCounter | Cost$ 2 UB ExileFromGrave<1/CARDNAME/this card> | ActivationZone$ Graveyard | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1 | SorcerySpeed$ True | SubAbility$ DBAnimate
-SVar:DBAnimate:DB$ Animate | Defined$ Targeted | Triggers$ SymbioteTrig | Duration$ Permanent
-SVar:SymbioteTrig:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigDig | CombatDamage$ True
+ColorIdentity:RG
+OriginSet:G324b911e0e372b1b
+ManaCost:R G
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDamage | IsPresent$ Planet.YouCtrl
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 4
+A:AB$ MakeCard | Cost$ 1 R G Sac<1/CARDNAME/this enchantment> | Conjure$ True | SorcerySpeed$ True | SpellbookCatalogIds$ 32207,32269,32317,32412,32443 | Zone$ Battlefield | Tapped$ True | WithCounter$ CHARGE | WithCounterNum$ 8

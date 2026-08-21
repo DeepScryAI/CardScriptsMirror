@@ -1,10 +1,11 @@
 Id:24788
-ColorIdentity:WR
-OriginSet:G3a8b4b9d4649b357
-ManaCost:2 R W
-Types:Legendary Creature Human Warrior
-PT:4/4
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDig
-SVar:TrigDig:DB$ Dig | DigNum$ 7 | ChangeNum$ 1 | Optional$ True | ChangeValid$ Equipment,Vehicle | RestRandomOrder$ True | Reveal$ True
-S:Mode$ Continuous | Affected$ Equipment.YouCtrl | AddKeyword$ Equip:1
-S:Mode$ Continuous | Affected$ Vehicle.YouCtrl | AddKeyword$ Crew:1
+ColorIdentity:G
+OriginSet:G58bfeff4fb121c8e
+ManaCost:2 G
+Types:Artifact
+A:AB$ Mana | Cost$ T | Produced$ Any | TriggersWhenSpent$ TrigSpent
+SVar:TrigSpent:Mode$ SpellCast | ValidCard$ Creature.Dragon | ValidActivatingPlayer$ You | Execute$ TrigEffect
+SVar:TrigEffect:DB$ Effect | RememberObjects$ TriggeredCard | ForgetOnMoved$ Stack | ReplacementEffects$ ETBCreat
+SVar:ETBCreat:Event$ Moved | ValidCard$ Card.IsRemembered | Destination$ Battlefield | ReplaceWith$ DBPutP1P1 | ReplacementResult$ Updated
+SVar:DBPutP1P1:DB$ PutCounter | Defined$ ReplacedCard | CounterType$ P1P1 | ETB$ True | CounterNum$ 1 | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ ReplacedCard | Duration$ UntilYourNextTurn | KW$ Hexproof | PumpZone$ Stack

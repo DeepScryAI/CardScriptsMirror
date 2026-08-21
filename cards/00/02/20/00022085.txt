@@ -1,8 +1,9 @@
 Id:22085
-ColorIdentity:
+ColorIdentity:G
 OriginSet:Gd784248bfdf9e1d7
-ManaCost:1
-Types:Artifact Equipment
-K:Equip:1:Creature.YouCtrl+token:token creature
-K:Equip:3
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1 | AddToughness$ 1 | AddKeyword$ Vigilance & Trample
+ManaCost:2 G
+Types:Sorcery
+A:SP$ Pump | ValidTgts$ Creature.YouCtrl | AILogic$ Fight | SubAbility$ DBFight | NumAtt$ +1 | NumDef$ +2
+SVar:DBFight:DB$ Fight | Defined$ ParentTarget | ValidTgts$ Creature.YouDontCtrl
+S:Mode$ ReduceCost | ValidCard$ Card.Self | EffectZone$ All | Type$ Spell | Amount$ 2 | CheckSVar$ X
+SVar:X:Count$ThisTurnCast_Instant.YouCtrl,Sorcery.YouCtrl

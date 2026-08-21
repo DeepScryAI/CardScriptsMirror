@@ -1,10 +1,12 @@
 Id:22201
-ColorIdentity:W
-OriginSet:Geb2cf181996ee3b2
-ManaCost:2 W
-Types:Instant
-K:Reinforce:1:W
-A:SP$ Charm | Choices$ DBDestroyArtifact,DBDestroyEnchantment,DBExile
-SVar:DBDestroyArtifact:DB$ Destroy | ValidTgts$ Artifact
-SVar:DBDestroyEnchantment:DB$ Destroy | ValidTgts$ Enchantment
-SVar:DBExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card
+ColorIdentity:G
+OriginSet:Ga575fa2f4f5cded4
+ManaCost:no cost
+Colors:green
+Types:Sorcery
+K:Suspend:4:G
+A:SP$ Effect | ReplacementEffects$ GraveToExile | StaticAbilities$ STPlay | AILogic$ YawgmothsWill | AINoRecursiveCheck$ True
+SVar:STPlay:Mode$ Continuous | Affected$ Card.YouCtrl | AffectedZone$ Graveyard | MayPlay$ True
+SVar:GraveToExile:Event$ Moved | ActiveZones$ Command | Destination$ Graveyard | ValidCard$ Card.!token+YouOwn | ReplaceWith$ Exile
+SVar:Exile:DB$ ChangeZone | Hidden$ True | Origin$ All | Destination$ Exile | Defined$ ReplacedCard
+SVar:PlayMain1:ALWAYS

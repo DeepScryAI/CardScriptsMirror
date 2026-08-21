@@ -1,12 +1,13 @@
 Id:31507
-ColorIdentity:W
-OriginSet:Gf2b808f4f642ac62
-ManaCost:1 W
-Types:Creature Kirin
-PT:2/1
-K:Flash
+ColorIdentity:WUR
+OriginSet:G93ac57511923c3dd
+ManaCost:1 U R W
+Types:Legendary Creature Human Spirit Dragon
+PT:4/4
 K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange
-SVar:TrigChange:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Permanent.nonLand+YouCtrl+Other | RememberChanged$ True | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | ConditionDefined$ Remembered | ConditionPresent$ Card.token | SubAbility$ DBCleanup
+K:Vigilance
+T:Mode$ SpellCast | ValidCard$ Card.YouCtrl | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigCopy | ActivatorThisTurnCast$ EQ2
+SVar:TrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | ConditionDefined$ TriggeredSpellAbility | ConditionPresent$ Spell.IsTargeting Valid Permanent,Spell.IsTargeting Player | RememberCopies$ True | MayChooseTarget$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | ConditionDefined$ Remembered | ConditionPresent$ Spell | ConditionCompare$ EQ0 | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:BuffedBy:Card

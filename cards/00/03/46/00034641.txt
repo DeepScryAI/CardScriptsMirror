@@ -1,9 +1,10 @@
 Id:34641
-ColorIdentity:U
-OriginSet:Gf8f2990d7136c11d
-ManaCost:1 U
-Types:Legendary Creature Halfling Rogue
-PT:2/2
-S:Mode$ ReduceCost | ValidCard$ Card.!wasCastFromYourHand | Activator$ You | Type$ Spell | Amount$ 1
-T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigCast | OptionalDecider$ You
-SVar:TrigCast:DB$ Play | ValidZone$ Graveyard | Valid$ Artifact.YouOwn,Instant.YouOwn,Sorcery.YouOwn | ValidSA$ Spell | Controller$ You | Optional$ True | ReplaceGraveyard$ Exile | ReplaceGraveyardValid$ Instant,Sorcery
+ColorIdentity:UB
+OriginSet:G11c0621ce29fa608
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGainLife
+SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 1
+A:AB$ Mana | Cost$ T | Produced$ Combo U B

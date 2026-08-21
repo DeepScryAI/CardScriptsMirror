@@ -1,7 +1,11 @@
 Id:5833
-ColorIdentity:W
+ColorIdentity:U
 OriginSet:G0eb5e52d26fe1c23
-ManaCost:3 W W
-Types:Creature Human Soldier
-PT:3/3
-A:AB$ ChangeZone | Cost$ tapXType<5/Soldier> | ValidTgts$ Creature | Origin$ Battlefield | Destination$ Exile
+ManaCost:1 U U
+Types:Creature Octopus
+PT:1/2
+K:You may choose not to untap CARDNAME during your untap step.
+K:ETBReplacement:Other:DBChooseOpp
+SVar:DBChooseOpp:DB$ ChoosePlayer | Choices$ Player.Opponent | AILogic$ Curse | SubAbility$ DBChooseType
+SVar:DBChooseType:DB$ ChooseType | Defined$ Player.Chosen | Type$ Creature | AILogic$ MostProminentComputerControls
+A:AB$ GainControl | Cost$ T | ValidTgts$ Creature.IsNotChosenType | LoseControl$ Untap,LeavesPlay

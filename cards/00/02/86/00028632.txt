@@ -1,8 +1,10 @@
 Id:28632
-ColorIdentity:R
+ColorIdentity:U
 OriginSet:G7ee0e82a2424d636
-ManaCost:1 R
-Types:Creature Human Detective
-PT:2/2
-T:Mode$ Sacrificed | ValidCard$ Artifact.OppCtrl | Execute$ TrigDamage | TriggerZones$ Battlefield
-SVar:TrigDamage:DB$ DealDamage | Defined$ TriggeredCardController | NumDmg$ 2
+ManaCost:5 U
+Types:Creature Vedalken Detective
+PT:4/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | ValidTgts$ Creature.Other | TargetMin$ 0 | TargetMax$ 1 | RememberLKI$ True | Origin$ Battlefield | Destination$ Hand | SubAbility$ DBInvestigate
+SVar:DBInvestigate:DB$ Investigate | ConditionDefined$ RememberedLKI | ConditionPresent$ Card.YouCtrl | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

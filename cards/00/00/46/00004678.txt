@@ -1,7 +1,9 @@
 Id:4678
-ColorIdentity:B
+ColorIdentity:W
 OriginSet:Gfb91362c2efb868e
-ManaCost:1 B
-Types:Creature Zombie Wizard
-PT:2/1
-A:AB$ Pump | Cost$ 2 | ValidTgts$ Creature.Blue,Creature.Red | NumAtt$ +1
+ManaCost:2 W W
+Types:Enchantment
+K:ETBReplacement:Other:ChooseColor
+SVar:ChooseColor:DB$ ChooseColor | Defined$ You | AILogic$ MostProminentInHumanDeck
+R:Event$ DamageDone | ValidTarget$ You | ActiveZones$ Battlefield | ValidSource$ Instant.ChosenColor,Sorcery.ChosenColor | DamageTarget$ ReplacedSourceController | ReplaceWith$ HarshDmg
+SVar:HarshDmg:DB$ ReplaceEffect | VarName$ Affected | VarValue$ ReplacedSourceController | VarType$ Player

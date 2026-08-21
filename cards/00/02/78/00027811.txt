@@ -1,13 +1,11 @@
 Id:27811
-ColorIdentity:
+ColorIdentity:W
 OriginSet:G30e8a5e111cffb44
-ManaCost:no cost
-Types:Plane Spacecraft
-T:Mode$ PlaneswalkedTo | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 134855612 | TokenOwner$ Player
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigChoose | TriggerZones$ Command
-SVar:TrigChoose:DB$ Sacrifice | SacValid$ Creature.leastToughnessControlledByTriggeredPlayer | Defined$ TriggeredPlayer | SubAbility$ DBInvestigate
-SVar:DBInvestigate:DB$ Investigate
-T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ TrigEffect
-SVar:TrigEffect:DB$ Effect | StaticAbilities$ STaticReduce
-SVar:STaticReduce:Mode$ ReduceCost | ValidCard$ Artifact.token+YouCtrl | Type$ Ability | Amount$ 2 | AffectedZone$ Battlefield
+ManaCost:1 W
+Types:Legendary Creature Human
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigToken | Secondary$ True
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 134855612 | TokenOwner$ You
+T:Mode$ Sacrificed | ValidPlayer$ You | ValidCard$ Food.YouCtrl,Clue.YouCtrl | Execute$ TrigExplore | TriggerZones$ Battlefield
+SVar:TrigExplore:DB$ Explore

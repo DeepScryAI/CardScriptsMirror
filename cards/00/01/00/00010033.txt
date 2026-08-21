@@ -1,7 +1,14 @@
 Id:10033
-ColorIdentity:G
+ColorIdentity:BG
 OriginSet:G6a049984467eca45
-ManaCost:3 G G
-Types:Sorcery
-K:Retrace
-A:SP$ Token | TokenScriptIds$ 273416837 | TokenOwner$ You
+ManaCost:3 BG BG
+Types:Legendary Creature Treefolk Shaman
+PT:2/5
+K:Indestructible
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDig
+SVar:TrigDig:DB$ Dig | DigNum$ 1 | Reveal$ True | ChangeNum$ All | ChangeValid$ Creature | DestinationZone$ Hand | RememberChanged$ True | DestinationZone2$ Library | LibraryPosition2$ 0 | SubAbility$ DBGain
+SVar:DBGain:DB$ GainLife | LifeAmount$ Y | SubAbility$ DBLose
+SVar:DBLose:DB$ LoseLife | LifeAmount$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:Y:Remembered$CardToughness
+SVar:X:Remembered$CardPower

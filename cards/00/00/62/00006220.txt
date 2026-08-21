@@ -1,12 +1,10 @@
 Id:6220
-ColorIdentity:U
+ColorIdentity:W
 OriginSet:G0085c354434a9ecc
-ManaCost:2 U
-Types:Creature Shapeshifter
+ManaCost:W
+Types:Creature Human Soldier
 PT:1/1
-K:Flying
-K:Morph:2 U U
-T:Mode$ TurnFaceUp | ValidCard$ Card.Self | Execute$ TrigDermoplasmChangeZone | TriggerZones$ Battlefield
-SVar:TrigDermoplasmChangeZone:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | ChangeType$ Creature.withMorph,Creature.withMegamorph | RememberChanged$ True | SubAbility$ DBDermoplasmBounce
-SVar:DBDermoplasmBounce:DB$ ChangeZone | Defined$ Self | Origin$ Battlefield | Destination$ Hand | ConditionDefined$ Remembered | ConditionPresent$ Creature.withMorph,Creature.withMegamorph | ConditionCompare$ GE1 | SubAbility$ DBDermoplasmCleanup
-SVar:DBDermoplasmCleanup:DB$ Cleanup | ClearRemembered$ True
+K:Provoke
+A:AB$ Effect | Cost$ 1 W | ReplacementEffects$ RPrevent1,RPrevent2 | RememberObjects$ Self | ExileOnMoved$ Battlefield
+SVar:RPrevent1:Event$ DamageDone | Prevent$ True | IsCombat$ True | ValidSource$ Card.IsRemembered
+SVar:RPrevent2:Event$ DamageDone | Prevent$ True | IsCombat$ True | ValidTarget$ Card.IsRemembered | Secondary$ True

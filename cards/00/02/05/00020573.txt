@@ -1,10 +1,13 @@
 Id:20573
-ColorIdentity:G
-OriginSet:Gf8d4de878d0536c5
-ManaCost:5 G G
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:Pump
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigTap
-SVar:TrigTap:DB$ Tap | Defined$ Enchanted
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 20 | AddToughness$ 20
+ColorIdentity:UBG
+OriginSet:Gc9c1dd0d52c99ca4
+ManaCost:1 B G U
+Types:Legendary Creature Nightmare Hydra
+PT:2/3
+K:Deathtouch
+A:AB$ Mana | Cost$ T | Produced$ Any | Amount$ 2
+T:Mode$ SpellCast | ValidCard$ Card.hasXCost | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 922380680 | TokenOwner$ You | RememberTokens$ True | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Remembered | CounterType$ P1P1 | CounterNum$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$xPaid

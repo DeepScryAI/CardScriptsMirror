@@ -1,11 +1,9 @@
 Id:5914
-ColorIdentity:W
+ColorIdentity:G
 OriginSet:G0eb5e52d26fe1c23
-ManaCost:4 W W
-Types:Creature Bird Cleric
-PT:3/3
-K:Flying
-A:AB$ Effect | Cost$ 5 W | ValidTgts$ Any | ReplacementEffects$ SelflessDamage | RememberObjects$ Targeted | ExileOnMoved$ Battlefield
-SVar:SelflessDamage:Event$ DamageDone | ValidTarget$ Creature.EffectSource,You | ReplaceWith$ SelflessDmg | DamageTarget$ Remembered
-SVar:SelflessDmg:DB$ ReplaceEffect | VarName$ Affected | VarValue$ Remembered | VarType$ GameEntity | SubAbility$ ExileEffect
-SVar:ExileEffect:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile
+ManaCost:3 G G
+Types:Creature Insect
+PT:6/1
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Graveyard | IsPresent$ Card.StrictlySelf | PresentZone$ Graveyard | PresentPlayer$ You | OptionalDecider$ You | Execute$ TrigChange
+SVar:TrigChange:AB$ ChangeZone | Cost$ Discard<1/Card> | Origin$ Graveyard | Destination$ Hand | Defined$ Self
+K:Shroud

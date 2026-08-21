@@ -1,12 +1,8 @@
 Id:8003
-ColorIdentity:R
+ColorIdentity:B
 OriginSet:Gc563c209d627c4c5
-ManaCost:1 R
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:Curse
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddTrigger$ EOTTrigger | AddSVar$ InstillTrigSac & MustAttack
-SVar:EOTTrigger:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ InstillTrigSac
-SVar:InstillTrigSac:DB$ Sacrifice | ConditionPresent$ Card.Self+!attackedThisTurn | ConditionCompare$ GE1
-SVar:MustAttack:True
-SVar:NonStackingAttachEffect:True
+ManaCost:2 B
+Types:Creature Zombie
+PT:1/1
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | ValidTgts$ Player | LifeAmount$ 2

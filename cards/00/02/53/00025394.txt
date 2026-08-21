@@ -1,0 +1,12 @@
+Id:25394
+ColorIdentity:B
+OriginSet:G2e872aaf9b98489e
+ManaCost:B
+Types:Creature Zombie Guest
+PT:2/1
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigOpenAttraction
+SVar:TrigOpenAttraction:DB$ OpenAttraction
+T:Mode$ RolledDie | TriggerZones$ Graveyard | Execute$ TrigReturn | ValidResult$ 6 | RolledToVisitAttractions$ True | ValidPlayer$ You
+SVar:TrigReturn:DB$ ChangeZone | Defined$ Self | Origin$ Graveyard | Destination$ Battlefield

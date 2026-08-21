@@ -1,8 +1,11 @@
 Id:11876
-ColorIdentity:B
+ColorIdentity:
 OriginSet:G43171707a7efd07b
-ManaCost:3 B B
-Types:Sorcery
-A:SP$ Draw | NumCards$ 3 | ValidTgts$ Player | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 3 | Defined$ Targeted | SubAbility$ DBPoison
-SVar:DBPoison:DB$ Poison | Num$ 3 | Defined$ Targeted
+ManaCost:6
+Types:Artifact
+K:ETBReplacement:Other:ChooseColor
+SVar:ChooseColor:DB$ ChooseColor | Defined$ You | AILogic$ MostProminentInComputerDeck
+S:Mode$ Continuous | Affected$ Creature.ChosenColor+YouCtrl | AddPower$ 1 | AddToughness$ 1
+T:Mode$ ManaAdded | ValidSource$ Land | ValidSA$ SpellAbility.ManaAbility | Produced$ ChosenColor | Player$ You | Execute$ TrigMana | TriggerZones$ Battlefield | Static$ True
+T:Mode$ ManaAdded | ValidSource$ Land | ValidSA$ SpellAbility.!ManaAbility | Produced$ ChosenColor | Player$ You | Execute$ TrigMana | TriggerZones$ Battlefield | Secondary$ True
+SVar:TrigMana:DB$ Mana | Produced$ Chosen | Amount$ 1

@@ -1,9 +1,14 @@
 Id:32355
-ColorIdentity:U
-OriginSet:G66b3a7eeabd9000e
-ManaCost:3 U
-Types:Legendary Creature Human Rogue Villain
-PT:3/3
-K:Flying
-A:AB$ PutCounter | Cost$ 1 U ExileFromGrave<1/CARDNAME> | ActivationZone$ Graveyard | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ 1 | SorcerySpeed$ True | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | Defined$ Targeted | KW$ Flying
+ColorIdentity:R
+OriginSet:G9946f072b5556073
+ManaCost:2 R
+Types:Enchantment Aura
+K:Enchant:Creature.YouCtrl:creature you control
+SVar:AttachAILogic:Pump
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | DamageSource$ Enchanted | ValidTgts$ Creature.!EnchantedBy,Player,Planeswalker.!EnchantedBy,Battle.!EnchantedBy | NumDmg$ X
+T:Mode$ DamageDoneOnce | ValidTarget$ Card.AttachedBy | Execute$ TrigDamageAll | TriggerZones$ Battlefield
+SVar:TrigDamageAll:DB$ DamageAll | ValidPlayers$ Opponent | NumDmg$ Y | DamageSource$ TriggeredTargetLKICopy
+SVar:X:Enchanted$CardPower
+SVar:Y:TriggerCount$DamageAmount
+SVar:PlayMain1:TRUE

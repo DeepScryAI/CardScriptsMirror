@@ -1,15 +1,16 @@
 Id:11880
-ColorIdentity:B
+ColorIdentity:W
 OriginSet:G43171707a7efd07b
-ManaCost:4 B B B
-Types:Creature Phyrexian Vampire
-PT:6/6
-K:MayEffectFromOpeningHand:RevealCard
+ManaCost:4 W W W
+Types:Creature Phyrexian Angel
+PT:5/6
 K:Flying
-K:Lifelink
-SVar:RevealCard:DB$ Reveal | RevealDefined$ Self | SubAbility$ DrainOnUpkeep
-SVar:DrainOnUpkeep:DB$ Effect | Triggers$ TrigDrain
-SVar:TrigDrain:Mode$ Phase | Phase$ Upkeep | Execute$ DrainLife | OneOff$ True
-SVar:DrainLife:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 3 | SubAbility$ GainLife
-SVar:GainLife:DB$ GainLife | Defined$ You | LifeAmount$ AFLifeLost
-SVar:AFLifeLost:Number$0
+K:MayEffectFromOpeningHand:RevealCard
+SVar:RevealCard:DB$ Reveal | RevealDefined$ Self | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | Triggers$ TrigCounter | EffectOwner$ Opponent | Duration$ Permanent
+SVar:TrigCounter:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ You | Execute$ TrigCounterSpell | OneOff$ True | TriggerZones$ Command
+SVar:TrigCounterSpell:DB$ Counter | Defined$ TriggeredSpellAbility | UnlessCost$ 1 | UnlessPayer$ You
+SVar:SpellsNeedExtraManaEffect:1
+T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ Opponent | Execute$ CounterSpellOpp | TriggerZones$ Battlefield
+SVar:CounterSpellOpp:DB$ Counter | Defined$ TriggeredSpellAbility | UnlessCost$ 1 | UnlessPayer$ TriggeredActivator
+SVar:AI_SpellsNeedExtraMana:1 Opponent

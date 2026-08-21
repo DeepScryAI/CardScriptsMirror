@@ -1,16 +1,9 @@
 Id:21635
-ColorIdentity:WU
+ColorIdentity:U
 OriginSet:G18bf722b221724f8
-ManaCost:X W U U
-Types:Legendary Planeswalker Niko
-Loyalty:3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenAmount$ X | TokenScriptIds$ 2040330482 | TokenOwner$ You
-SVar:X:Count$xPaid
-A:AB$ Effect | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | StaticAbilities$ Unblockable | Triggers$ Trig | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Creature.YouCtrl | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | AILogic$ MakeUnblockable
-SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
-SVar:Trig:Mode$ DamageDealtOnce | ValidSource$ Creature.IsRemembered | Execute$ Eff
-SVar:Eff:DB$ ChangeZone | Defined$ Remembered | Origin$ Battlefield | Destination$ Hand
-A:AB$ DealDamage | Cost$ SubCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Creature.tapped | NumDmg$ Y
-SVar:Y:Count$YouDrewThisTurn/Twice
-A:AB$ Token | Cost$ SubCounter<1/LOYALTY> | Planeswalker$ True | TokenScriptIds$ 2040330482 | TokenOwner$ You
+ManaCost:U
+Types:Snow Creature Human Wizard
+PT:1/2
+A:AB$ PeekAndReveal | Cost$ S T | PeekAmount$ 1 | RevealValid$ Snow | RevealOptional$ True | RememberRevealed$ True | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Defined$ TopOfLibrary | Origin$ Library | Destination$ Hand | ConditionDefined$ Remembered | ConditionPresent$ Snow | ConditionCompare$ EQ1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

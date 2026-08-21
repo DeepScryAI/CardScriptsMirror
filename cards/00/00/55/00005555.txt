@@ -2,6 +2,11 @@ Id:5555
 ColorIdentity:W
 OriginSet:Ge4af4f9459d5dadd
 ManaCost:2 W
-Types:Instant
-A:SP$ Destroy | ValidTgts$ Enchantment
-K:Madness:W
+Types:Enchantment Aura
+K:Enchant:Creature
+K:ETBReplacement:Other:ChooseColor
+SVar:ChooseColor:DB$ ChooseColor | Defined$ You | AILogic$ MostProminentInHumanDeck
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddKeyword$ Protection:Card.ChosenColor:chosenColor:Card.CardUID_HostCardUID
+A:AB$ Protection | Cost$ Sac<1/CARDNAME> | ValidTgts$ Creature | Gains$ ChosenColor
+SVar:ChosenProtection:True

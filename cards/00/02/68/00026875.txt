@@ -1,6 +1,13 @@
 Id:26875
-ColorIdentity:U
-OriginSet:G3601f5e223de6c7f
-ManaCost:5 U U
+ColorIdentity:G
+OriginSet:G997e3b19a1e94e85
+ManaCost:1 G G
 Types:Sorcery
-A:SP$ GainControl | AllValid$ Creature.!IsCommander+cmcLE3 | NewController$ You
+A:SP$ Charm | Choices$ DosansOldestChant,KodamasReach,TimeOfNeed | Defined$ You
+SVar:DosansOldestChant:DB$ GainLife | LifeAmount$ 6 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw
+SVar:KodamasReach:DB$ ChangeZone | Origin$ Library | Destination$ Library | ChangeType$ Land.Basic | ChangeNum$ 2 | RememberChanged$ True | Reveal$ True | Shuffle$ False | SubAbility$ DBChangeZone1
+SVar:DBChangeZone1:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Land.IsRemembered | ChangeNum$ 1 | Mandatory$ True | NoLooking$ True | Tapped$ True | Shuffle$ False | SubAbility$ DBChangeZone2
+SVar:DBChangeZone2:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Land.IsRemembered | Mandatory$ True | NoLooking$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:TimeOfNeed:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Creature.Legendary | ChangeNum$ 1

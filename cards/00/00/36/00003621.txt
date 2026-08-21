@@ -1,7 +1,9 @@
 Id:3621
-ColorIdentity:
+ColorIdentity:R
 OriginSet:Gf01f1543bdb61bd2
-ManaCost:3
-Types:Artifact
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Artifact.YouCtrl,Enchantment.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigGainLife
-SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
+ManaCost:2 R
+Types:Enchantment
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Player | Execute$ RivalDamage | CheckSVar$ ActiveLands | SVarCompare$ GTRivalLands | TriggerZones$ Battlefield
+SVar:RivalDamage:DB$ DealDamage | NumDmg$ 2 | Defined$ TriggeredPlayer
+SVar:ActiveLands:Count$Valid Land.ActivePlayerCtrl
+SVar:RivalLands:PlayerCountNonActive$HighestValid Land.YouCtrl

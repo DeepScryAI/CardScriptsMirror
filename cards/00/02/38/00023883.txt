@@ -1,9 +1,11 @@
 Id:23883
 ColorIdentity:G
-OriginSet:Gfdfe2ebef04be34e
+OriginSet:G5f5d8cfb206e2fac
 ManaCost:2 G
 Types:Enchantment
-K:Hideaway:5
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBPlay
-SVar:DBPlay:DB$ Play | ConditionPresent$ Creature.YouCtrl+powerGE7 | Defined$ ExiledWith | Amount$ All | Controller$ You | WithoutManaCost$ True | Optional$ True
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigFood
+SVar:TrigFood:DB$ Token | TokenAmount$ X | TokenScriptIds$ 134855612
+SVar:X:PlayerCountOpponents$Amount
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:AB$ Token | Cost$ 2 Sac<1/Permanent.token/token> | TokenScriptIds$ 2099946125
+SVar:AIPreference:SacCost$Card.token+Food,Card.token+Treasure,Card.token+Artifact,Card.token+powerLE2+toughnessLE2

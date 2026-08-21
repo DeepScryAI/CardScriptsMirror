@@ -1,11 +1,14 @@
 Id:26508
-ColorIdentity:BG
-OriginSet:G06757f68e16377c2
-ManaCost:3 B G
-Types:Legendary Creature Phyrexian Zombie Elf
-PT:3/5
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | Execute$ TrigCharm | TriggerZones$ Battlefield
-SVar:TrigCharm:DB$ Charm | Choices$ Incubate,Transform,PumpAll
-SVar:Incubate:DB$ Incubate | Amount$ 2 | Times$ 2
-SVar:Transform:DB$ SetState | Defined$ Valid Incubator.token+YouCtrl | Mode$ Transform
-SVar:PumpAll:DB$ PumpAll | ValidCards$ Phyrexian.YouCtrl | KW$ FirstStrike & Deathtouch
+ColorIdentity:G
+OriginSet:Gd5f5e54fa26ae40d
+ManaCost:6 G
+Types:Creature Wurm
+PT:4/4
+K:Backup:3:BackupAbility
+SVar:BackupAbility:DB$ Animate | Triggers$ AttackTrig | sVars$ AE
+SVar:AttackTrig:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDig
+SVar:TrigDig:DB$ Dig | DigNum$ X | ChangeNum$ 1 | Optional$ True | ChangeValid$ Permanent.cmcLEX | DestinationZone$ Battlefield | DestinationZone2$ Library | LibraryPosition$ -1 | RestRandomOrder$ True
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDig
+SVar:X:TriggeredAttacker$CardPower
+SVar:HasAttackEffect:TRUE
+SVar:AE:SVar:HasAttackEffect:TRUE

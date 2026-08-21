@@ -1,6 +1,13 @@
 Id:24712
-ColorIdentity:B
+ColorIdentity:UB
 OriginSet:G58bfeff4fb121c8e
-ManaCost:3 B B
-Types:Instant
-A:SP$ Pump | ValidTgts$ Creature | NumAtt$ -11 | NumDef$ -11 | IsCurse$ True
+ManaCost:2 U B
+Types:Legendary Planeswalker Tasha
+Loyalty:4
+A:AB$ Effect | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | Triggers$ AttackTrigger | Duration$ UntilYourNextTurn | AILogic$ Main2
+SVar:AttackTrigger:Mode$ Attacks | ValidCard$ Creature | Attacked$ You,Card.EffectSource | TriggerZones$ Command | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ TriggeredAttackerLKICopy | CounterType$ M1M1 | CounterNum$ 1
+A:AB$ ChangeZone | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Opponent | Hidden$ True | ChangeType$ Creature.TargetedPlayerCtrl | ChangeNum$ 1 | GainControl$ True | IsCurse$ True | Chooser$ Targeted | Mandatory$ True | RememberChanged$ True | SubAbility$ DBPump
+SVar:DBPump:DB$ Animate | Keywords$ Ward:2 | Defined$ Remembered | Duration$ Permanent | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+A:AB$ DigUntil | Cost$ SubCounter<6/LOYALTY> | Planeswalker$ True | ValidTgts$ Opponent | Amount$ 3 | Valid$ Creature | FoundDestination$ Battlefield | RevealedDestination$ Graveyard | GainControl$ True | IsCurse$ True

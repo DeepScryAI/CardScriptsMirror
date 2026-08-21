@@ -1,9 +1,11 @@
 Id:29145
-ColorIdentity:WG
-OriginSet:G27146c70b74a1e72
-ManaCost:G W
-Types:Legendary Creature Human Druid
-PT:3/2
-S:Mode$ Continuous | Affected$ Mount.YouCtrl,Vehicle.YouCtrl | AddKeyword$ Hexproof | Condition$ PlayerTurn
-T:Mode$ Attacks | ValidCard$ Mount.YouCtrl,Vehicle.YouCtrl | Execute$ TrigPutCounter | TriggerZones$ Battlefield
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ TriggeredAttackerLKICopy | CounterType$ P1P1 | CounterNum$ 1
+ColorIdentity:U
+OriginSet:Gc7beb665b378d90a
+ManaCost:1 U
+Types:Creature Drake
+PT:2/1
+K:Flying
+S:Mode$ ReduceCost | ValidCard$ Instant,Sorcery | Type$ Spell | Activator$ You | Amount$ 1
+A:AB$ DelayedTrigger | Cost$ 2 U Sac<1/CARDNAME> | AILogic$ SpellCopy | Execute$ EffTrigCopy | ThisTurn$ True | Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You
+SVar:EffTrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | Amount$ X | MayChooseTarget$ True
+SVar:X:Count$TotalCommanderCastFromCommandZone

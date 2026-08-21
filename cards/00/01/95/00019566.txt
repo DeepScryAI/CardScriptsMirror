@@ -1,10 +1,11 @@
 Id:19566
-ColorIdentity:U
+ColorIdentity:G
 OriginSet:G9d37112ca6693432
-ManaCost:4 U U
-Types:Creature Bird Wizard
-PT:4/3
-K:Flying
-K:Cycling:U
-T:Mode$ Cycled | ValidCard$ Card.Self | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature | KW$ Flying
+ManaCost:2 G
+Types:Creature Sliver
+PT:2/2
+S:Mode$ Continuous | Affected$ Creature.Sliver+YouCtrl | AddTrigger$ TemperedDmgTrig
+SVar:TemperedDmgTrig:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TemperedCounters | TriggerZones$ Battlefield
+SVar:TemperedCounters:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+SVar:PlayMain1:TRUE
+SVar:BuffedBy:Sliver

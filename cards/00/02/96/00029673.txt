@@ -1,9 +1,12 @@
 Id:29673
-ColorIdentity:WR
-OriginSet:G01a610e823cce3ca
-ManaCost:3 R W
-Types:Legendary Creature Human Assassin
-PT:3/4
-K:DoubleStrike
-S:Mode$ Continuous | Affected$ Creature.Historic+Other+YouCtrl | AddKeyword$ DoubleStrike | Condition$ PlayerTurn
-K:Disguise:1 R W
+ColorIdentity:WU
+OriginSet:Gac6359c222afbd4f
+ManaCost:W U
+Types:Artifact Creature Gargoyle
+PT:2/2
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigEnergy
+SVar:TrigEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ 3
+T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigImmediateTrig | TriggerZones$ Battlefield
+SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ PayEnergy<2> | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.YouCtrl | KW$ Lifelink

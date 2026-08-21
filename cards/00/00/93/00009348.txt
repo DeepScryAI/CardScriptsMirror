@@ -1,8 +1,12 @@
 Id:9348
-ColorIdentity:R
+ColorIdentity:G
 OriginSet:G1ddd2c86a9ea60e3
-ManaCost:1 R
+ManaCost:1 G
 Types:Instant
-A:SP$ DealDamage | ValidTgts$ Creature | NumDmg$ 3 | SubAbility$ DBClash
-SVar:DBClash:DB$ Clash | WinSubAbility$ DBDamageController
-SVar:DBDamageController:DB$ DealDamage | Defined$ TargetedController | NumDmg$ 3
+A:SP$ NameCard | Defined$ You | SubAbility$ DBMill
+SVar:DBMill:DB$ Mill | NumCards$ 1 | ValidTgts$ Player | RememberMilled$ True | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ X | ConditionCheckSVar$ Y | ConditionSVarCompare$ EQ1 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$CardManaCost
+SVar:Y:Remembered$Valid Card.NamedCard

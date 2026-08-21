@@ -1,12 +1,9 @@
 Id:23788
-ColorIdentity:UR
-OriginSet:G5f5d8cfb206e2fac
-ManaCost:2 U R
-Types:Enchantment
-T:Mode$ SpellCast | ValidCard$ Instant.wasCastFromYourHandByYou,Sorcery.wasCastFromYourHandByYou | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigManifest
-SVar:TrigManifest:DB$ Manifest
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.faceDown+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | Defined$ TriggeredCard | ConditionDefined$ TriggeredCard | ConditionPresent$ Instant,Sorcery | RememberChanged$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ Play | ForgetOnMoved$ Exile | Duration$ UntilTheEndOfYourNextTurn | SubAbility$ DBCleanup
-SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered+nonLand | AffectedZone$ Exile
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:W
+OriginSet:Gd970889168b5769f
+ManaCost:W
+Types:Creature Fox Pilot
+PT:1/1
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigConjure
+SVar:TrigConjure:DB$ MakeCard | Conjure$ True | CatalogId$ 23545 | Zone$ Hand
+S:Mode$ TapPowerValue | ValidSA$ Activated.Crew+Vehicle | ValidCard$ Card.Self | Value$ 2

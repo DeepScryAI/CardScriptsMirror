@@ -2,11 +2,11 @@ Id:8662
 ColorIdentity:B
 OriginSet:G70f74088c47d66bd
 ManaCost:2 B
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:Pump
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddKeyword$ Flying | AddAbility$ ABPump
-SVar:ABPump:AB$ Pump | Cost$ Sac<1/Creature> | Defined$ Self | NumAtt$ +2 | NumDef$ +1
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigChangeZone
-SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | Defined$ TriggeredNewCardLKICopy
-SVar:SacMe:2
+Types:Creature Nightmare Horror
+PT:2/1
+K:Shadow
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigReturn
+SVar:TrigExile:DB$ ChangeZone | TargetMin$ 1 | IsCurse$ True | ValidTgts$ Creature.withShadow+Other | RememberTargets$ True | ForgetOtherTargets$ True | Origin$ Battlefield | Destination$ Exile
+SVar:TrigReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield
+SVar:PlayMain1:TRUE

@@ -1,18 +1,13 @@
 Id:21294
-ColorIdentity:WR
-OriginSet:G51d431785c8b33e5
-ManaCost:2 R W
-Types:Legendary Creature Spirit Soldier
-PT:*/5
-T:Mode$ ChangesZone | Destination$ Exile | ValidCard$ Card.!token | TriggerZones$ Battlefield | Execute$ TrigNoteNum | Static$ True
-SVar:TrigNoteNum:DB$ StoreSVar | SVar$ ExiledCMC | Type$ Triggered | Expression$ CardManaCost | ConditionCheckSVar$ X | ConditionSVarCompare$ GTExiledCMC
-SVar:ExiledCMC:Number$0
-SVar:X:TriggeredCard$CardManaCost
-T:Mode$ TurnBegin | Execute$ TrigReset | Static$ True
-SVar:TrigReset:DB$ StoreSVar | SVar$ ExiledCMC | Type$ Number | Expression$ 0
-S:Mode$ Continuous | EffectZone$ Battlefield | Affected$ Card.Self | SetPower$ ExiledCMC
-T:Mode$ Phase | Phase$ Upkeep | TriggerZones$ Battlefield | ValidPlayer$ You | Execute$ PseudoDraw
-SVar:PseudoDraw:DB$ Dig | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ MayPlay | SubAbility$ DBCleanup | ExileOnMoved$ Exile
-SVar:MayPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:W
+OriginSet:G72c9c624ceb92bff
+ManaCost:1 W
+Types:Instant
+A:SP$ Protection | ValidTgts$ Creature.YouCtrl | Gains$ Choice | Choices$ AnyColor
+AlternateMode:Modal
+ALTERNATE
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ W

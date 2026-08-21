@@ -1,9 +1,16 @@
 Id:6905
-ColorIdentity:W
-OriginSet:Gbbed67f0d6a15b16
-ManaCost:3 W
-Types:Instant
-K:Entwine:2
-A:SP$ Charm | Choices$ DBGainLife,DBPreventDmg
-SVar:DBGainLife:DB$ GainLife | LifeAmount$ 5
-SVar:DBPreventDmg:DB$ PreventDamage | ValidTgts$ Creature | Amount$ 5
+ColorIdentity:
+OriginSet:G9808c598e991d257
+ManaCost:3
+Types:Legendary Artifact Equipment
+K:Equip:2
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddKeyword$ FirstStrike & Trample & Haste
+A:AB$ Token | Cost$ 1 | TokenScriptIds$ 2439295913 | SubAbility$ DBAttachEach | RememberTokens$ True | ConditionCheckSVar$ AllThree | ConditionSVarCompare$ EQ3 | AILogic$ Never
+SVar:DBAttachEach:DB$ RepeatEach | UseImprinted$ True | RepeatCards$ Equipment.YouCtrl+catalogId6905,Equipment.YouCtrl+catalogId6468,Equipment.YouCtrl+catalogId6744 | ConditionDefined$ Remembered | ConditionPresent$ Card | RepeatSubAbility$ DBAttach | SubAbility$ DBCleanup
+SVar:DBAttach:DB$ Attach | Object$ Imprinted | Defined$ Remembered
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:AllThree:SVar$Sum/Plus.Shield
+SVar:Helm:Count$Valid Equipment.YouCtrl+catalogId6905/LimitMax.1
+SVar:Sword:Count$Valid Equipment.YouCtrl+catalogId6468/LimitMax.1
+SVar:Shield:Count$Valid Equipment.YouCtrl+catalogId6744/LimitMax.1
+SVar:Sum:SVar$Helm/Plus.Sword

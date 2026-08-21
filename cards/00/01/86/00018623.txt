@@ -1,12 +1,9 @@
 Id:18623
-ColorIdentity:WUB
+ColorIdentity:
 OriginSet:Gd7cbb6e7dea72fb5
-ManaCost:1 W U B
-Types:Legendary Creature Zombie Wizard
-PT:4/4
-T:Mode$ AttackersDeclared | ValidAttackers$ Zombie.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigLoot
-SVar:TrigLoot:DB$ Draw | NumCards$ X | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | Defined$ You | Mode$ TgtChoose | NumCards$ X | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ X
-SVar:X:TriggerObjectsAttackers$Amount
-A:AB$ Token | Cost$ 2 ExileFromGrave<2/Card> | TokenScriptIds$ 353162950 | TokenOwner$ You | TokenTapped$ True
+ManaCost:5
+Types:Artifact Creature Golem
+PT:5/3
+K:Trample
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigPlay | TriggerZones$ Battlefield | OptionalDecider$ You
+SVar:TrigPlay:DB$ Play | Valid$ Card.IsCommander+YouOwn | ValidZone$ Command | WithoutManaCost$ True | Optional$ True

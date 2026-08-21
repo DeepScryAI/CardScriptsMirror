@@ -1,9 +1,12 @@
 Id:24224
-ColorIdentity:W
+ColorIdentity:R
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:2 W
-Types:Sorcery
-A:SP$ Draw | Defined$ Opponent | RememberDrawn$ AllReplaced | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | NumCards$ X | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:PlayerCountOpponents$HasPropertyIsRememberedOrController
+ManaCost:3 R
+Types:Legendary Creature Dwarf Cleric
+PT:3/3
+K:Haste
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:AB$ Draw | Cost$ Discard<1/Hand> | NumCards$ X
+SVar:X:PlayerCountPropertyYou$OpponentsAttackedThisCombat
+K:Choose a Background
+SVar:HasAttackEffect:TRUE

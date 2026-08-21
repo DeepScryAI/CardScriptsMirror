@@ -1,12 +1,11 @@
 Id:28478
-ColorIdentity:U
-OriginSet:G7ee0e82a2424d636
-ManaCost:2 U
-Types:Creature Merfolk Advisor
-PT:3/2
-S:Mode$ CantBlockBy | ValidAttacker$ Card.Self+attacking | CheckSVar$ SaccedThisTurn
-SVar:SaccedThisTurn:PlayerCountPropertyYou$SacrificedThisTurn Artifact
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1 | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ TgtChoose
-SVar:HasAttackEffect:TRUE
+ColorIdentity:R
+OriginSet:G94329e6b3f93276f
+ManaCost:1 R
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSuspect
+SVar:TrigSuspect:DB$ AlterAttribute | ValidTgts$ Creature.OppCtrl | Attributes$ Suspected | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ IsGoaded | RememberObjects$ Targeted | ForgetOnMoved$ Battlefield | Duration$ UntilHostLeavesPlay
+SVar:IsGoaded:Mode$ Continuous | Affected$ Creature.IsRemembered | Goad$ True
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | CheckSVar$ PlayerCountHasLost$Amount | SVarCompare$ GE2 | TriggerZones$ Battlefield | Execute$ TrigGainControl
+SVar:TrigGainControl:DB$ GainControl | AllValid$ Creature.IsGoaded,Creature.IsSuspected | LoseControl$ EOT | Untap$ True | AddKWs$ Haste

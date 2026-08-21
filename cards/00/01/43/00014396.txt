@@ -1,7 +1,11 @@
 Id:14396
-ColorIdentity:R
+ColorIdentity:
 OriginSet:Gd3737676789056fe
-ManaCost:2 R
-Types:Creature Sliver
-PT:2/2
-S:Mode$ Continuous | Affected$ Creature.Sliver+YouCtrl | AddKeyword$ Menace
+ManaCost:4
+Types:Artifact Equipment
+K:Equip:2
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddKeyword$ Vigilance | AddTrigger$ AvariceUpkeepTrig | AddSVar$ AvariceUpkeepSVar
+SVar:AvariceUpkeepTrig:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ AvariceUpkeepSVar
+SVar:AvariceUpkeepSVar:DB$ Draw | Defined$ You
+T:Mode$ ChangesZone | ValidCard$ Card.AttachedBy | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigGainControl
+SVar:TrigGainControl:DB$ GainControl | ValidTgts$ Opponent | Defined$ Self

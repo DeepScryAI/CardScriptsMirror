@@ -1,8 +1,10 @@
 Id:5393
-ColorIdentity:W
+ColorIdentity:U
 OriginSet:Gfdac7ecc1e8a7d21
-ManaCost:1 W W
-Types:Legendary Creature Human Nomad
+ManaCost:1 U
+Types:Creature Illusion Dog
 PT:2/2
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPumpAll
-SVar:TrigPumpAll:DB$ PumpAll | ValidCards$ Creature.attacking | NumAtt$ +1 | NumDef$ +1
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ DelTrig
+T:Mode$ Blocks | ValidCard$ Card.Self | Execute$ DelTrig | Secondary$ True
+SVar:DelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ EndCombat | ValidPlayer$ Player | Execute$ TrigBounce
+SVar:TrigBounce:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Defined$ Self

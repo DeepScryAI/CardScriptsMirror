@@ -1,8 +1,11 @@
 Id:21188
-ColorIdentity:B
+ColorIdentity:RG
 OriginSet:G72c9c624ceb92bff
-ManaCost:3 B
-Types:Creature Human Rogue
-PT:3/4
-S:Mode$ Continuous | Affected$ Card.Self | AddPower$ 1 | AddKeyword$ Menace | CheckSVar$ X | SVarCompare$ GE8
-SVar:X:PlayerCountOpponents$HighestCardsInGraveyard
+ManaCost:R G
+Types:Creature Elemental
+PT:1/1
+K:Haste
+S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self | ValidBlocker$ Creature.powerLE2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +2 | NumDef$ +2
+SVar:BuffedBy:Land

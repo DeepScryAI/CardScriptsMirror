@@ -1,10 +1,13 @@
 Id:15633
-ColorIdentity:G
+ColorIdentity:R
 OriginSet:Gc1f5e527f9d411df
-ManaCost:5 G G G
-Types:Sorcery
-A:SP$ RepeatEach | RepeatCards$ Creature.OppCtrl | ChooseOrder$ True | UseImprinted$ True | RepeatSubAbility$ DBToken | ChangeZoneTable$ True
-SVar:DBToken:DB$ Token | TokenScriptIds$ 219598889 | TokenOwner$ You | RememberTokens$ True | SubAbility$ DBFight
-SVar:DBFight:DB$ Fight | Defined$ Imprinted & Remembered | SubAbility$ DBCleanup
+ManaCost:5 R R
+Types:Creature Dragon
+PT:4/4
+K:Flying
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigExile
+SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ X | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | ForgetOnMoved$ Exile | RememberObjects$ RememberedCard | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | Affected$ Card.nonLand+IsRemembered | MayPlay$ True | AffectedZone$ Exile
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:NeedsToPlay:Creature.OppCtrl+powerLE3
+SVar:X:TriggerCount$DamageAmount

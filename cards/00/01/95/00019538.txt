@@ -1,8 +1,10 @@
 Id:19538
-ColorIdentity:B
+ColorIdentity:W
 OriginSet:G9d37112ca6693432
-ManaCost:2 B
-Types:Creature Vampire Ninja
-PT:3/2
-S:Mode$ Continuous | Affected$ Ninja.attacking+unblocked+YouCtrl | AddKeyword$ Lifelink
-SVar:PlayMain1:TRUE
+ManaCost:4 W
+Types:Sorcery
+A:SP$ Charm | MinCharmNum$ 1 | CharmNum$ 2 | Choices$ DBExile,DBFlicker
+SVar:DBExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Creature.YouDontCtrl
+SVar:DBFlicker:DB$ ChangeZone | ValidTgts$ Creature.YouCtrl | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

@@ -1,7 +1,12 @@
 Id:14314
-ColorIdentity:
+ColorIdentity:WU
 OriginSet:G2192ecccbc32f5ad
-ManaCost:4
-Types:Artifact Creature Construct
-PT:1/5
-A:AB$ ChangeZone | Cost$ T | ValidTgts$ Card.YouOwn | Origin$ Graveyard | Destination$ Library | LibraryPosition$ -1
+ManaCost:2 W U
+Types:Legendary Creature Spirit Noble
+PT:2/4
+K:Flying
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | ValidTgts$ Permanent.YouCtrl+nonLand | TargetMin$ 0 | TargetMax$ X | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ All | Destination$ Battlefield | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$Valid Permanent.YouCtrl+nonLand

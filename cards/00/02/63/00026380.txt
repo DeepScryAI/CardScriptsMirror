@@ -1,10 +1,14 @@
 Id:26380
-ColorIdentity:B
-OriginSet:Gd5f5e54fa26ae40d
-ManaCost:4 B
-Types:Creature Human Knight
-PT:5/5
-K:Menace
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Knight.!token+YouCtrl | Execute$ TrigLoseLife
-SVar:TrigLoseLife:DB$ LoseLife | Defined$ Opponent | LifeAmount$ 1 | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1
+ColorIdentity:WUBRG
+OriginSet:G997e3b19a1e94e85
+ManaCost:X G G
+Types:Creature Phyrexian Bringer
+PT:2/2
+S:Mode$ AlternativeCost | ValidSA$ Spell.Self | EffectZone$ All | Cost$ W U B R G
+K:etbCounter:P1P1:Y:no condition
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZone | Destination$ Library | Shuffle$ True | Defined$ TriggeredNewCardLKICopy
+SVar:X:Count$xPaid
+SVar:AltCostPaid:Count$AltCost.5.X
+SVar:Y:Count$Compare AltCostPaid LT5.AltCostPaid.Z
+SVar:Z:SVar$AltCostPaid/Twice

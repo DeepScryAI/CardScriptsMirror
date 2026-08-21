@@ -1,10 +1,12 @@
 Id:24317
-ColorIdentity:WBR
+ColorIdentity:WUR
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:R W B
-Types:Legendary Creature Gnome Artificer
-PT:3/3
+ManaCost:1 U R W
+Types:Legendary Creature Human Wizard
+PT:4/4
 K:Haste
-A:AB$ Token | Cost$ T Sac<1/Creature.Artifact/artifact creature> | TokenAmount$ 2 | TokenScriptIds$ 3851718391
-A:AB$ Token | Cost$ T Sac<1/Artifact.nonCreature/noncreature artifact> | TokenAmount$ 2 | TokenScriptIds$ 2066756521
-SVar:AIPreference:SacCost$Artifact.nonCreature+token+powerLE1+toughnessEQ1
+S:Mode$ ActivateAbilityAsIfHaste | ValidCard$ Creature.Other+YouCtrl+inZoneBattlefield
+A:AB$ Effect | Cost$ T | Triggers$ ActivateTrig
+SVar:ActivateTrig:Mode$ AbilityCast | ValidSA$ SpellAbility.!ManaAbility+ManaSpent GE4 | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigCopy | OneOff$ True
+SVar:TrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | MayChooseTarget$ True
+SVar:BuffedBy:Creature.hasAbility Activated

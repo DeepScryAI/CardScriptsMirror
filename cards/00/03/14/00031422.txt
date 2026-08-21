@@ -1,10 +1,14 @@
 Id:31422
-ColorIdentity:B
-OriginSet:Gf2b808f4f642ac62
-ManaCost:4 B B
-Types:Creature Demon
-PT:5/5
-K:Menace
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.OppCtrl | NumAtt$ -2 | NumDef$ -2 | IsCurse$ True | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | ValidTgts$ Creature.YouCtrl | NumAtt$ +2 | NumDef$ +2
+ColorIdentity:UG
+OriginSet:Ge1676a27173c0866
+ManaCost:1 G U
+Types:Enchantment
+K:ETBReplacement:Other:SiegeChoice
+SVar:SiegeChoice:DB$ GenericChoice | Choices$ Temur,Sultai | Defined$ You | SetChosenMode$ True | ShowChoice$ ExceptSelf
+SVar:Temur:DB$ Pump
+SVar:Sultai:DB$ Pump
+S:Mode$ Continuous | Affected$ Card.Self+ChosenModeTemur | AddTrigger$ TemurTrigger
+SVar:TemurTrigger:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigMill
+SVar:TrigMill:DB$ Mill | NumCards$ 4 | ValidTgts$ Player
+S:Mode$ Continuous | Affected$ Card.Self+ChosenModeSultai | AddStaticAbility$ SultaiStatic
+SVar:SultaiStatic:Mode$ Continuous | Affected$ Land.YouOwn | MayPlay$ True | AffectedZone$ Graveyard

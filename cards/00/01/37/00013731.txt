@@ -1,8 +1,14 @@
 Id:13731
-ColorIdentity:BR
+ColorIdentity:WU
 OriginSet:G97e9a20e5a5d5822
-ManaCost:1 R
-Types:Creature Minotaur Berserker
-PT:2/3
-S:Mode$ MustAttack | ValidCreature$ Card.Self
-A:AB$ Regenerate | Cost$ 2 B
+ManaCost:1 W U
+Types:Legendary Creature Human Soldier
+PT:2/2
+S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self | ValidBlocker$ Creature.powerGE3
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigExile
+SVar:TrigExile:DB$ Dig | Defined$ TriggeredTarget | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ X | SubAbility$ DBEffect
+SVar:X:Remembered$CardManaCost
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | ForgetOnMoved$ Exile | RememberObjects$ Remembered | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | MayPlayIgnoreColor$ True | Affected$ Card.IsRemembered+nonLand | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

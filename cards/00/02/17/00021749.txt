@@ -1,10 +1,12 @@
 Id:21749
-ColorIdentity:W
-OriginSet:Gabb23d0d25cdc46d
-ManaCost:5 W W
-Types:Artifact Creature Angel
-PT:5/7
-K:Flying
-K:TypeCycling:Plains:2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZone | ValidTgts$ Artifact,Enchantment | TargetMin$ 0 | TargetMax$ 2 | Origin$ Battlefield | Destination$ Exile
+ColorIdentity:R
+OriginSet:G18bf722b221724f8
+ManaCost:1 R
+Types:Enchantment Aura Rune
+K:Enchant:Permanent
+SVar:AttachAILogic:Pump
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 1 | AddKeyword$ Haste
+S:Mode$ Continuous | Affected$ Equipment.EnchantedBy | AddStaticAbility$ RuneSpeedST
+SVar:RuneSpeedST:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1 | AddKeyword$ Haste

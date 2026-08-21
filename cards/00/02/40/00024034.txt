@@ -1,11 +1,11 @@
 Id:24034
-ColorIdentity:R
+ColorIdentity:
 OriginSet:G9afc9838c5e994df
-ManaCost:1 R
-Types:Creature Devil Warrior
-PT:1/2
-K:Menace
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature | NumAtt$ +1
-K:Blitz:1 R
-SVar:HasAttackEffect:TRUE
+ManaCost:no cost
+Types:Land
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ DBSacrifice
+SVar:DBSacrifice:DB$ Sacrifice | RememberSacrificed$ True | SubAbility$ DBImmediateTrigger
+SVar:DBImmediateTrigger:DB$ ImmediateTrigger | ConditionDefined$ Remembered | ConditionPresent$ Card | Execute$ DBChangeZone | SubAbility$ DBCleanup
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | Tapped$ True | ChangeType$ Mountain.Basic,Forest.Basic,Plains.Basic | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

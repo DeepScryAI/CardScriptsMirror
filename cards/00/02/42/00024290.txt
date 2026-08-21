@@ -1,10 +1,13 @@
 Id:24290
-ColorIdentity:U
+ColorIdentity:WR
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:2 U
-Types:Creature Horror Wizard
-PT:1/4
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigEffect
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigEffect | TriggerZones$ Battlefield | Secondary$ True
-SVar:TrigEffect:DB$ Effect | ValidTgts$ Card.Artifact+OppCtrl | TgtZone$ Battlefield | StaticAbilities$ STSteal | RememberLKI$ Targeted | ImprintCards$ Valid Creature.Horror+YouCtrl | ForgetOnMoved$ Battlefield
-SVar:STSteal:Mode$ Continuous | Affected$ Card.IsImprinted | GainsAbilitiesOfDefined$ RememberedLKI | ManaConversion$ Blue->AnyColor
+ManaCost:3 R W
+Types:Legendary Creature Human Soldier
+PT:5/3
+T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigDig | TriggerZones$ Battlefield
+SVar:TrigDig:DB$ Dig | DigNum$ X | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ ReduceCost,STPlay | RememberObjects$ Remembered | SetChosenNumber$ X | SubAbility$ DBCleanup
+SVar:ReduceCost:Mode$ ReduceCost | ValidCard$ Card.wasCastFromExile | Type$ Spell | Activator$ You | Amount$ Count$ChosenNumber
+SVar:STPlay:Mode$ Continuous | Affected$ Card.IsRemembered+nonLand | AffectedZone$ Exile | MayPlay$ True
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:TriggeredPlayersAttackedTarget$Amount

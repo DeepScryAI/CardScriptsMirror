@@ -1,15 +1,10 @@
 Id:31073
-ColorIdentity:
+ColorIdentity:R
 OriginSet:G4524bbf7a3db9dc0
-ManaCost:4
-Types:Legendary Artifact Planeswalker Equipment
-Loyalty:4
-S:Mode$ CantAttack | ValidCard$ Creature | Target$ Card.Self+AttachedTo Creature
-S:Mode$ Continuous | Affected$ Card.Self+AttachedTo Creature | Secondary$ True | AddTrigger$ TrigDamageDoneOnce
-SVar:TrigDamageDoneOnce:Mode$ DamageDealtOnce | CombatDamage$ True | ValidSource$ Creature.EquippedBy | Execute$ TrigPutCounter | TriggerZones$ Battlefield | PlayerTurn$ True
-SVar:TrigPutCounter:DB$ PutCounter | CounterType$ LOYALTY | CounterNum$ X
-A:AB$ Attach | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Creature.YouCtrl | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | Defined$ Targeted | CounterType$ P1P1 | CounterNum$ 1
-A:AB$ Draw | Cost$ SubCounter<5/LOYALTY> | Planeswalker$ True | NumCards$ 2
-A:AB$ Mana | Cost$ SubCounter<10/LOYALTY> | Planeswalker$ True | Ultimate$ True | Produced$ Any | Amount$ 10
-SVar:X:TriggerCount$DamageAmount
+ManaCost:R R R
+Types:Enchantment
+T:Mode$ Phase | Phase$ Upkeep | TriggerZones$ Battlefield | ValidPlayer$ You | Execute$ TrigExile
+SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffectYou
+SVar:DBEffectYou:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ Play | SubAbility$ DBCleanup | ExileOnMoved$ Exile
+SVar:Play:Mode$ Continuous | MayPlay$ True | EffectZone$ Command | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

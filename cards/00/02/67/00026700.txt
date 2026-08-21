@@ -1,13 +1,18 @@
 Id:26700
-ColorIdentity:WURG
-OriginSet:G997e3b19a1e94e85
-ManaCost:1 W U R G
-Types:Legendary Creature Human Soldier
-PT:3/8
-K:FirstStrike
-K:Vigilance
-T:Mode$ SpellCast | ValidActivatingPlayer$ You | TargetsValid$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1 | SubAbility$ EachPlayLand
-SVar:EachPlayLand:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | ChangeType$ Land | DefinedPlayer$ Player | ChangeNum$ 1 | RememberChanged$ True | SubAbility$ DrawAbstainers
-SVar:DrawAbstainers:DB$ Draw | Defined$ OppNonRememberedOwner | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:BG
+OriginSet:G06757f68e16377c2
+ManaCost:4 B G
+Types:Battle Siege
+Defense:5
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Creature.nonElf+OppCtrl+powerLEX
+SVar:X:Count$Valid Land.YouCtrl
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:black,green
+Types:Creature Elf Warrior
+PT:*/*
+S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X | SetToughness$ X
+SVar:X:Count$Valid Land.YouCtrl
+SVar:BuffedBy:Land

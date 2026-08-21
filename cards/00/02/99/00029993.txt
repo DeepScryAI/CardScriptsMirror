@@ -1,10 +1,10 @@
 Id:29993
 ColorIdentity:G
 OriginSet:Gf09b85bbcc27770c
-ManaCost:3 G
-Types:Creature Frog Rabbit
-PT:3/4
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.YouCtrl | NumAtt$ +X | NumDef$ +X | KW$ Vigilance
-SVar:X:Count$Valid Creature.YouCtrl
-SVar:PlayMain1:TRUE
+ManaCost:2 G
+Types:Artifact Food
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange | OptionalDecider$ You
+T:Mode$ Sacrificed | ValidPlayer$ You | ValidCard$ Card.Self | Execute$ TrigChange | Secondary$ True | TriggerZones$ Battlefield | OptionalDecider$ You
+SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | Tapped$ True | ChangeType$ Land.Basic | ShuffleNonMandatory$ True
+A:AB$ GainLife | Cost$ 2 T Sac<1/CARDNAME> | Defined$ You | LifeAmount$ 3
+SVar:SacMe:5

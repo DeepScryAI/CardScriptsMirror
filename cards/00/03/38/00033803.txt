@@ -1,9 +1,13 @@
 Id:33803
-ColorIdentity:WB
-OriginSet:Gf8df2bea26dc6b68
-ManaCost:1 W B
-Types:Creature Orc Warlock
-PT:3/3
-K:Vigilance
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSurveil
-SVar:TrigSurveil:DB$ Surveil | Amount$ 2
+ColorIdentity:U
+OriginSet:G23d1f017cc66962f
+ManaCost:5 U U
+Types:Sorcery
+A:SP$ ChangeZoneAll | ChangeType$ Creature | Origin$ Battlefield | Destination$ Hand | SubAbility$ DBGenericChoice
+SVar:DBGenericChoice:DB$ GenericChoice | Defined$ Player | TempRemember$ Chooser | Choices$ Stargate,Homebody | ShowChoice$ ExceptSelf | SubAbility$ DBTimetwister | AILogic$ Timetwister
+SVar:Stargate:DB$ Pump | Defined$ Remembered | NoteCards$ Self | NoteCardsFor$ Stargate
+SVar:Homebody:DB$ Pump | Defined$ Remembered
+SVar:DBTimetwister:DB$ ChangeZoneAll | ChangeType$ Card.OwnedBy Player.NotedForStargate | Origin$ Hand,Graveyard | Destination$ Library | Shuffle$ True | UseAllOriginZones$ True | SubAbility$ DBRepeatDraw
+SVar:DBRepeatDraw:DB$ Draw | Defined$ Player.NotedForStargate | NumCards$ 7 | SubAbility$ DBClearNoted
+SVar:DBClearNoted:DB$ Pump | Defined$ Player | ClearNotedCardsFor$ Stargate | SubAbility$ DBChange
+SVar:DBChange:DB$ ChangeZone | Origin$ Stack | Destination$ Exile

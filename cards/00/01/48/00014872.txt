@@ -1,8 +1,10 @@
 Id:14872
-ColorIdentity:G
+ColorIdentity:R
 OriginSet:G25ee1eefb1a14f05
-ManaCost:2 G
-Types:Creature Elephant
-PT:3/2
-K:etbCounter:P1P1:1:CheckSVar$ Ferocious
-SVar:Ferocious:Count$Valid Creature.YouCtrl+powerGE4
+ManaCost:3 R
+Types:Instant
+A:SP$ Pump | ValidTgts$ Creature | IsCurse$ True | SubAbility$ DBReveal
+SVar:DBReveal:DB$ Reveal | Defined$ TargetedController | Random$ True | RememberRevealed$ True | SubAbility$ DBDmg
+SVar:DBDmg:DB$ DamageAll | NumDmg$ X | ValidPlayers$ TargetedController | ValidCards$ Targeted.Self | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$CardManaCost

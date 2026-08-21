@@ -1,17 +1,10 @@
 Id:22836
-ColorIdentity:R
+ColorIdentity:B
 OriginSet:Gf78628ad511eefec
-ManaCost:3 R
-Types:Creature Human Werewolf
-PT:3/4
-A:AB$ Pump | Cost$ 1 R | Defined$ Self | NumAtt$ +1 | KW$ FirstStrike
-K:Daybound
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:red
-Types:Creature Werewolf
-PT:4/5
-A:AB$ Pump | Cost$ 1 R | Defined$ Self | NumAtt$ +1 | KW$ FirstStrike
-A:AB$ PumpAll | Cost$ 4 R | ValidCards$ Creature.YouCtrl | NumAtt$ +2
-K:Nightbound
+ManaCost:2 B
+Types:Creature Vampire Noble
+PT:3/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | CheckSVar$ X | Execute$ TrigDrain
+SVar:TrigDrain:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 2 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2
+SVar:X:Count$LifeOppsLostThisTurn

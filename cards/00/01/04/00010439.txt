@@ -1,12 +1,11 @@
 Id:10439
-ColorIdentity:W
+ColorIdentity:R
 OriginSet:Ga3dbc4b644a9a2c5
-ManaCost:3 W
-Types:Creature Spirit Wall
-PT:1/6
-K:Defender
+ManaCost:3 R R
+Types:Creature Dragon
+PT:4/4
 K:Flying
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDig | OptionalDecider$ You
-SVar:TrigDig:DB$ Pump | ValidTgts$ Creature.YouCtrl | AILogic$ HighestPower | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ X
-SVar:X:Targeted$CardPower
+K:Devour:1
+T:Mode$ ChangesZone | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ X
+SVar:X:Count$Devoured Card.Goblin/Twice

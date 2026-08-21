@@ -1,9 +1,11 @@
 Id:26079
 ColorIdentity:W
-OriginSet:G2192e8955d5e1ad1
-ManaCost:3 W
-Types:Creature Phyrexian Cleric
-PT:3/4
-K:Toxic:1
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | TriggerZones$ Battlefield | Execute$ TrigToken
-SVar:TrigToken:AB$ Token | Cost$ Return<1/Permanent.Other/other permanent> | TokenScriptIds$ 2259993196
+OriginSet:G1a259dba25660062
+ManaCost:1 W
+Types:Artifact Equipment
+T:Mode$ Attacks | ValidCard$ Samurai.YouCtrl,Warrior.YouCtrl | Alone$ True | TriggerZones$ Battlefield | Execute$ TrigImmediateTrig
+SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ 1 | Execute$ TrigAttach | RememberObjects$ TriggeredAttackerLKICopy
+SVar:TrigAttach:DB$ Attach | Defined$ DelayTriggerRememberedLKI
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddToughness$ 2 | AddStaticAbility$ STFirstStrike
+SVar:STFirstStrike:Mode$ Continuous | Affected$ Card.Self+attacking | AddKeyword$ FirstStrike
+K:Equip:2

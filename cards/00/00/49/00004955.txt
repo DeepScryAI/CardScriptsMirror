@@ -1,9 +1,11 @@
 Id:4955
-ColorIdentity:WU
+ColorIdentity:UB
 OriginSet:G9e6cd9ac1f7f4832
-ManaCost:W U
-Types:Creature Human Wizard
-PT:2/2
-K:ETBReplacement:Other:DBNameCard
-SVar:DBNameCard:DB$ NameCard | Defined$ You | ValidCards$ Card.nonLand
-S:Mode$ CantBeCast | ValidCard$ Card.NamedCard
+ManaCost:2 U B
+Types:Creature Crocodile
+PT:4/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDiscard
+SVar:TrigChange:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Hidden$ True | Mandatory$ True | ChangeType$ Creature.Black+YouCtrl,Creature.Blue+YouCtrl | AILogic$ NeverBounceItself
+SVar:TrigDiscard:DB$ Discard | Defined$ Player | NumCards$ 1 | Mode$ TgtChoose
+SVar:NeedsToPlay:Creature.Black+YouCtrl+cmcLE3,Creature.Blue+YouCtrl+cmcLE3

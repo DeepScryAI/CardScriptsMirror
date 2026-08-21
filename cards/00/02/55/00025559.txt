@@ -1,26 +1,8 @@
 Id:25559
 ColorIdentity:W
-OriginSet:Gfb000cedf5e9c32e
-ManaCost:3 W
-Types:Legendary Artifact Creature Robot
-PT:3/3
-K:More Than Meets the Eye:2 W
-T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZone | ValidTgts$ Creature.Other+tapped,Vehicle.Other+tapped | TargetMin$ 0 | TargetMax$ 1 | Origin$ Battlefield | Destination$ Exile | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | RememberObjects$ Targeted | StaticAbilities$ Play | ForgetOnMoved$ Exile | EffectOwner$ TargetedOwner | Duration$ Permanent
-SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
-T:Mode$ SpellCast | ValidCard$ Card.ExiledWithSourceLKI | TriggerZones$ Battlefield | Execute$ TrigDraw
-T:Mode$ LandPlayed | ValidCard$ Card.ExiledWithSourceLKI | TriggerZones$ Battlefield | Execute$ TrigDraw | Secondary$ True
-SVar:TrigDraw:DB$ Draw | SubAbility$ DBConvert
-SVar:DBConvert:DB$ SetState | Mode$ Transform
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:white
-Types:Legendary Artifact Vehicle
-PT:2/3
-K:Living metal
-T:Mode$ ChangesZone | ValidCard$ Creature.YouCtrl+Other,Vehicle.YouCtrl+Other | Destination$ Battlefield | TriggerZones$ Battlefield | Execute$ TrigCounter
-SVar:TrigCounter:DB$ PutCounter | CounterType$ P1P1 | SubAbility$ DBConvert
-SVar:DBConvert:DB$ SetState | Mode$ Transform | ConditionCheckSVar$ TrigAmount | ConditionSVarCompare$ EQ2
-SVar:TrigAmount:Count$ResolvedThisTurn
+OriginSet:G2e872aaf9b98489e
+ManaCost:4 W
+Types:Creature Human Employee
+PT:4/4
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigOpenAttraction
+SVar:TrigOpenAttraction:DB$ OpenAttraction

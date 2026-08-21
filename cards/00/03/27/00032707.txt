@@ -1,14 +1,10 @@
 Id:32707
-ColorIdentity:BG
-OriginSet:G22ed5d6f3707b461
-ManaCost:3 B G
-Types:Creature Human Soldier
-PT:3/4
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigEarthbend
-SVar:TrigEarthbend:DB$ Earthbend | Num$ 1 | SubAbility$ DBEarthbend
-SVar:DBEarthbend:DB$ Earthbend | Num$ 1
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigLoseLife
-SVar:TrigLoseLife:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ X | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ X
-SVar:X:Count$Valid Creature.YouCtrl+counters_GE1_P1P1
-SVar:HasAttackEffect:TRUE
+ColorIdentity:R
+OriginSet:G1f5998b5f01949b9
+ManaCost:1 R
+Types:Artifact
+A:AB$ Draw | Cost$ T Discard<2/Card> | Defined$ You | NumCards$ 3 | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | CounterType$ FUSE | CounterNum$ 1 | SubAbility$ DBDealDamage
+SVar:DBDealDamage:DB$ DealDamage | ValidTgts$ Opponent | NumDmg$ X | SubAbility$ BombGainCtrl
+SVar:BombGainCtrl:DB$ GainControl | NewController$ TargetedPlayer | Defined$ Self
+SVar:X:Count$CardCounters.FUSE

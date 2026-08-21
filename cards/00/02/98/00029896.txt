@@ -1,11 +1,9 @@
 Id:29896
-ColorIdentity:U
-OriginSet:Gf09b85bbcc27770c
-ManaCost:X U
-Types:Creature Bird Bard
-PT:1/1
-K:Flying
-K:ETBReplacement:Copy:DBCopy:Optional
-SVar:DBCopy:DB$ Clone | Choices$ Creature.Other+cmcLEY | AddTypes$ Bird | AddKeywords$ Flying
-SVar:X:Count$xPaid
-SVar:Y:Count$CastTotalManaSpent
+ColorIdentity:
+OriginSet:G01a610e823cce3ca
+ManaCost:2
+Types:Legendary Artifact
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | ValidTgts$ Creature.Legendary | TargetMin$ 0 | TargetMax$ 1 | Origin$ Graveyard | Destination$ Exile | WithCountersType$ MEMORY
+A:AB$ Pump | Cost$ T | ValidTgts$ Creature.Legendary+counters_GE1_MEMORY | TgtZone$ Exile | SorcerySpeed$ True | SubAbility$ DBClone
+SVar:DBClone:DB$ Clone | Defined$ ParentTarget | ValidTgts$ Creature.Legendary+YouCtrl | CloneTarget$ ThisTargetedCard | Duration$ UntilYourNextTurn

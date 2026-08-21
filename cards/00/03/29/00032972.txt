@@ -1,8 +1,10 @@
 Id:32972
-ColorIdentity:W
-OriginSet:G731e0066916b7465
-ManaCost:2 W
-Types:Sorcery
-S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ 2 | EffectZone$ All | CheckSVar$ X
-A:SP$ ChangeZone | Optional$ True | Origin$ Library | OriginAlternative$ Graveyard | Destination$ Hand | ChangeType$ Creature.Ally+YouOwn | ChangeNum$ 1 | ShuffleNonMandatory$ True
-SVar:X:Count$LeftBattlefieldThisTurn Creature.YouCtrl
+ColorIdentity:U
+OriginSet:G22ed5d6f3707b461
+ManaCost:2 U
+Types:Artifact Vehicle
+PT:0/0
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Permanent.nonLand+Other
+A:AB$ Animate | Cost$ Waterbend<3> | Defined$ Self | Types$ Artifact,Creature | Exhaust$ True | Duration$ Permanent | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 3

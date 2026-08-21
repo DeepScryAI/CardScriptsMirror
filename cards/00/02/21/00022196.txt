@@ -1,7 +1,12 @@
 Id:22196
-ColorIdentity:G
-OriginSet:Geb2cf181996ee3b2
-ManaCost:1 G
-Types:Instant
-A:SP$ ChangeZoneAll | ValidTgts$ Player | Origin$ Graveyard | Destination$ Library | ChangeType$ Card | Shuffle$ True | SubAbility$ DBFog
-SVar:DBFog:DB$ Fog
+ColorIdentity:U
+OriginSet:Ga575fa2f4f5cded4
+ManaCost:1 U
+Types:Enchantment
+K:Flash
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+S:Mode$ Continuous | Affected$ Creature | RemoveAllAbilities$ True
+T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice | SacValid$ Self
+SVar:EndOfTurnLeavePlay:True

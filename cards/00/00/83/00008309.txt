@@ -1,8 +1,12 @@
 Id:8309
-ColorIdentity:U
+ColorIdentity:BR
 OriginSet:Gde6d8130c178f566
-ManaCost:2 U U
-Types:Creature Human Wizard Mutant
-PT:0/0
-K:Graft:2
-A:AB$ GainControl | Cost$ U T | ValidTgts$ Creature.counters_GE1_P1P1 | LoseControl$ LeavesPlay
+ManaCost:3 B
+Types:Creature Zombie
+PT:2/2
+K:DoubleStrike
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSac | ManaNotSpent$ R
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ChangeType$ Creature.cmcLE3 | ChangeNum$ 1 | Hidden$ True | DefinedPlayer$ Player | Mandatory$ True
+SVar:TrigSac:DB$ Sacrifice
+SVar:ManaNeededToAvoidNegativeEffect:red

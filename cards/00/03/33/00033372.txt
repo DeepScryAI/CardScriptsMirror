@@ -1,10 +1,12 @@
 Id:33372
-ColorIdentity:G
-OriginSet:Gff0a4227ae9f1a4b
-ManaCost:2 G
-Types:Enchantment
-R:Event$ AddCounter | ActiveZones$ Battlefield | ValidCard$ Creature.YouCtrl+inZoneBattlefield | ValidCounterType$ P1P1 | ReplaceWith$ AddOneMoreCounters
-SVar:AddOneMoreCounters:DB$ ReplaceCounter | ValidCounterType$ P1P1 | ChooseCounter$ True | Amount$ X
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | ConditionPresent$ Creature.greatestPower+YouCtrl | ConditionCompare$ GE1
-SVar:X:ReplaceCount$CounterNum/Plus.1
+ColorIdentity:BR
+OriginSet:G7ab1fe96128a1641
+ManaCost:3 B R
+Types:Kindred Sorcery Goblin
+A:SP$ Charm | Choices$ DBCopy,DBPumpAll,DBDestroy,DBMill | CharmNum$ 2
+SVar:DBCopy:DB$ CopyPermanent | ValidTgts$ Goblin.YouCtrl
+SVar:DBPumpAll:DB$ PumpAll | ValidTgts$ Player | ValidCards$ Creature | NumAtt$ +1 | NumDef$ +1 | KW$ Haste
+SVar:DBDestroy:DB$ Destroy | ValidTgts$ Artifact,Creature
+SVar:DBMill:DB$ Mill | NumCards$ 5 | ValidTgts$ Player | RememberMilled$ True | SubAbility$ DBChangeZoneAll
+SVar:DBChangeZoneAll:DB$ ChangeZoneAll | Origin$ Graveyard,Exile | Destination$ Hand | ChangeType$ Goblin.IsRemembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

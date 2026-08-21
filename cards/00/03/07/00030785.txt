@@ -1,9 +1,15 @@
 Id:30785
-ColorIdentity:UG
-OriginSet:Gc5a2f0ff902c0621
-ManaCost:2 G U
-Types:Legendary Creature Human Wizard
-PT:1/4
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | TargetMin$ 0 | TargetMax$ 2 | CounterType$ P1P1 | CounterNum$ 1
-A:AB$ MultiplyCounter | Cost$ G U T | ValidTgts$ Creature.YouCtrl,Artifact.YouCtrl | TargetMin$ 0 | TargetMax$ 2
+ColorIdentity:UR
+OriginSet:G8a59924df6623252
+ManaCost:3 U R
+Types:Legendary Artifact Creature Human Hero
+PT:4/4
+K:Flying
+K:Haste
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 3851718391 | TokenOwner$ You | SubAbility$ DBSacrifice
+SVar:DBSacrifice:DB$ Sacrifice | SacValid$ Artifact.nonCreature | Optional$ True | RememberSacrificed$ True | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | ConditionDefined$ Remembered | ConditionPresent$ Card | Origin$ Library | Destination$ Battlefield | ChangeType$ Artifact.cmcEQX | ChangeNum$ 1 | Tapped$ True | AILogic$ SacAndUpgrade | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$CardManaCost/Plus.1
+SVar:AIPreference:SacCost$Artifact

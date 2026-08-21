@@ -1,11 +1,14 @@
 Id:22469
-ColorIdentity:B
-OriginSet:G9f95a41d532c0550
-ManaCost:B
-Types:Sorcery
-A:SP$ Pump | ValidTgts$ Opponent | SubAbility$ DBBranch
-SVar:DBBranch:DB$ Branch | BranchConditionSVar$ TreasureCheck | BranchConditionSVarCompare$ GE1 | FalseSubAbility$ DBDiscard | TrueSubAbility$ DBTreasureDiscard
-SVar:DBDiscard:DB$ Discard | Defined$ Targeted | NumCards$ 1 | Mode$ TgtChoose
-SVar:DBTreasureDiscard:DB$ Discard | Defined$ Targeted | NumCards$ 1 | Mode$ RevealYouChoose | DiscardValid$ Card.nonLand
-SVar:TreasureCheck:Count$CastTotalManaSpent Treasure
-SVar:AIPreference:ManaFrom$Treasure
+ColorIdentity:W
+OriginSet:G92f7f9489fec5865
+ManaCost:3 W W
+Types:Enchantment Aura
+K:Enchant:Creature.YouCtrl:creature you control
+SVar:AttachAILogic:Pump
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMove
+SVar:TrigMove:DB$ ChangeZone | ValidTgts$ Aura.CanEnchantEquippedBy+YouOwn,Equipment.CanEnchantEquippedBy+YouOwn | TargetMin$ 0 | TargetMax$ X | TgtZone$ Graveyard | TargetUnique$ True | Origin$ Graveyard | Destination$ Battlefield | AttachedTo$ Valid Creature.EnchantedBy
+SVar:X:Count$ValidGraveyard Aura.CanEnchantEquippedBy,Equipment.CanEnchantEquippedBy
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ Y | AddToughness$ Y | AddSVar$ EqMe & EnMe
+SVar:Y:Count$Valid Aura.AttachedTo Creature.EnchantedBy,Equipment.AttachedTo Creature.EnchantedBy
+SVar:EqMe:SVar:EquipMe:Multiple
+SVar:EnMe:SVar:EnchantMe:Multiple

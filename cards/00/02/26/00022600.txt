@@ -1,8 +1,13 @@
 Id:22600
-ColorIdentity:R
+ColorIdentity:B
 OriginSet:G9f95a41d532c0550
-ManaCost:2 R
-Types:Creature Beast
-PT:2/1
-K:FirstStrike
-A:AB$ Pump | Cost$ Sac<1/Artifact> | Defined$ Self | NumAtt$ +2
+ManaCost:4 B
+Types:Creature Human Warlock
+PT:4/4
+A:AB$ RollDice | Cost$ 5 B | Sides$ 20 | ResultSubAbilities$ 1-9:LoseTwo,10-19:LoseGain,20:LoseTrea
+SVar:LoseTwo:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 2
+SVar:LoseGain:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 2 | SubAbility$ DBGain2
+SVar:DBGain2:DB$ GainLife | Defined$ You | LifeAmount$ 2
+SVar:LoseTrea:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 2 | SubAbility$ DBGainTrea
+SVar:DBGainTrea:DB$ GainLife | Defined$ You | LifeAmount$ 2 | SubAbility$ DBTreasure
+SVar:DBTreasure:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 3851718391 | TokenOwner$ You

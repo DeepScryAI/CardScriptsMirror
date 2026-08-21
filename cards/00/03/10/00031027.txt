@@ -1,7 +1,12 @@
 Id:31027
-ColorIdentity:W
+ColorIdentity:BG
 OriginSet:G4524bbf7a3db9dc0
-ManaCost:4 W
-Types:Instant
-S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ 3 | ValidTarget$ Permanent.tapped | EffectZone$ All
-A:SP$ ChangeZone | ValidTgts$ Creature,Vehicle | Origin$ Battlefield | Destination$ Exile
+ManaCost:3 B B G
+Types:Legendary Creature Insect Druid
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ X | TokenScriptIds$ 704294417
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Insect.YouCtrl+Other | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 1
+SVar:X:Count$ValidGraveyard Artifact.YouOwn,Creature.YouOwn

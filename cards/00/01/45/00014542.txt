@@ -2,6 +2,9 @@ Id:14542
 ColorIdentity:B
 OriginSet:G0a578e83854cf093
 ManaCost:3 B
-Types:Sorcery
-A:SP$ Dig | DigNum$ 4 | ChangeNum$ 2 | DestinationZone2$ Graveyard | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 2
+Types:Creature Orc Warrior
+PT:4/5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ 4 | ConditionCheckSVar$ RaidTest | ConditionSVarCompare$ EQ0
+SVar:RaidTest:Count$AttackersDeclared
+SVar:NeedsToPlayVar:RaidTest GE1

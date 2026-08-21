@@ -1,10 +1,11 @@
 Id:9137
-ColorIdentity:R
+ColorIdentity:B
 OriginSet:Gdf2f562751f0d037
-ManaCost:2 R
-Types:Enchantment
-R:Event$ DamageDone | ActiveZones$ Battlefield | ValidSource$ Instant.YouCtrl,Sorcery.YouCtrl | ValidTarget$ Permanent,Player | ReplaceWith$ DmgPlus2
-SVar:DmgPlus2:DB$ ReplaceEffect | VarName$ DamageAmount | VarValue$ X
-SVar:X:ReplaceCount$DamageAmount/Plus.2
-T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | Execute$ TrigDiscard
-SVar:TrigDiscard:DB$ Discard | Mode$ Hand
+ManaCost:2 B
+Types:Creature Zombie Cyclops
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSrcy
+SVar:TrigSrcy:DB$ Scry | ScryNum$ 1 | SubAbility$ DBReveal
+SVar:DBReveal:DB$ Dig | DigNum$ 1 | Reveal$ True | DestinationZone$ Library | LibraryPosition$ 0 | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ TriggeredCard | NumAtt$ -X | NumDef$ -X
+SVar:X:Count$TopOfLibraryCMC

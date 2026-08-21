@@ -1,9 +1,10 @@
 Id:17461
-ColorIdentity:G
+ColorIdentity:
 OriginSet:G5475e2be497fd272
-ManaCost:5 G G
-Types:Creature Dinosaur Avatar
-PT:5/5
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self,Creature.YouCtrl+Other | Execute$ TrigGainLife
-SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ Life
-SVar:Life:TriggeredCard$CardToughness
+ManaCost:5
+Types:Artifact
+K:ETBReplacement:Other:ChooseCT
+SVar:ChooseCT:DB$ ChooseType | Type$ Creature | AILogic$ MostProminentComputerControlsOrOwns
+S:Mode$ Continuous | Affected$ Creature.ChosenType+YouCtrl | AddPower$ 1 | AddToughness$ 1
+T:Mode$ SpellCast | ValidCard$ Creature.ChosenType | ValidActivatingPlayer$ You | Execute$ TrigDraw | TriggerZones$ Battlefield
+SVar:TrigDraw:DB$ Draw | Defined$ You

@@ -1,7 +1,12 @@
 Id:9140
-ColorIdentity:W
+ColorIdentity:G
 OriginSet:Gdf2f562751f0d037
-ManaCost:3 W
-Types:Creature Human Rebel Cleric
-PT:2/2
-A:AB$ ChangeZone | Cost$ 6 T | ValidTgts$ Permanent.Rebel+YouCtrl+cmcLE5 | Origin$ Graveyard | Destination$ Battlefield
+ManaCost:1 G
+Types:Enchantment Aura
+K:Enchant:Artifact,Enchantment:artifact or enchantment
+SVar:AttachAILogic:Pump
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigCharm | TriggerZones$ Battlefield
+SVar:TrigCharm:DB$ Charm | Choices$ Destroy,GainLife
+SVar:Destroy:DB$ Destroy | Defined$ Enchanted | IsCurse$ True
+SVar:GainLife:DB$ GainLife | LifeAmount$ 2
+SVar:NonStackingAttachEffect:True

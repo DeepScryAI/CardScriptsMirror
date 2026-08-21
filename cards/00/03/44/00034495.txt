@@ -1,9 +1,13 @@
 Id:34495
-ColorIdentity:G
-OriginSet:G11c0621ce29fa608
-ManaCost:1 G
-Types:Creature Cat Knight Villain
-PT:2/1
-K:Trample
-T:Mode$ CounterAdded | ValidCard$ Creature.Other | ValidSource$ You | CounterType$ P1P1 | TriggerZones$ Battlefield | Execute$ TrigPutCounter | ActivationLimit$ 1
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+ColorIdentity:R
+OriginSet:Gcb93bbfc68a40806
+ManaCost:2 R
+Types:Enchantment Saga
+K:Chapter:3:DBDraw,DBEffect,DBPump
+SVar:DBDraw:AB$ Draw | Cost$ Discard<1/Card> | NumCards$ 2
+SVar:DBEffect:DB$ Effect | Triggers$ CastTrigger
+SVar:CastTrigger:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ You | TriggerZones$ Command | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1
+SVar:DBPump:DB$ Pump | ValidTgts$ Creature.YouCtrl | AILogic$ PowerDmg | SubAbility$ DBDamage
+SVar:DBDamage:DB$ DamageAll | ValidPlayers$ Opponent | NumDmg$ X | DamageSource$ ParentTarget
+SVar:X:ParentTargeted$CardPower

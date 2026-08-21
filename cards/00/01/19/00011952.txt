@@ -1,10 +1,11 @@
 Id:11952
-ColorIdentity:B
+ColorIdentity:
 OriginSet:G43171707a7efd07b
-ManaCost:3 B
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:Curse
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigSac
-SVar:TrigSac:DB$ SacrificeAll | Defined$ Enchanted | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenScriptIds$ 2936702215 | TokenOwner$ You
+ManaCost:6
+Types:Artifact
+S:Mode$ CantDraw | ValidPlayer$ Player
+T:Mode$ Phase | Phase$ Draw | ValidPlayer$ Player | Execute$ TrigOmenExileCard | TriggerZones$ Battlefield
+SVar:TrigOmenExileCard:DB$ Dig | DigNum$ 1 | ChangeNum$ All | Defined$ TriggeredPlayer | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBOmenLand
+SVar:DBOmenLand:DB$ ChangeZone | Origin$ Exile | Destination$ Battlefield | ChangeType$ Land.IsRemembered+ActivePlayerCtrl | ChangeNum$ 1 | DefinedPlayer$ TriggeredPlayer | Chooser$ TriggeredPlayer | Hidden$ True | Mandatory$ True | SubAbility$ DBOmenPlay
+SVar:DBOmenPlay:DB$ Play | ValidZone$ Exile | Controller$ TriggeredPlayer | Valid$ Card.IsRemembered | ValidSA$ Spell | WithoutManaCost$ True | SubAbility$ DBOmenCleanup
+SVar:DBOmenCleanup:DB$ Cleanup | ClearRemembered$ True

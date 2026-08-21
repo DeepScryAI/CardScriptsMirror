@@ -1,7 +1,12 @@
 Id:22782
-ColorIdentity:R
-OriginSet:Gf78628ad511eefec
-ManaCost:4 R
-Types:Instant
-A:SP$ DealDamage | ValidTgts$ Creature | NumDmg$ 5 | ReplaceDyingDefined$ Targeted | SubAbility$ DBDealDamage
-SVar:DBDealDamage:DB$ DealDamage | NumDmg$ 2 | Defined$ TargetedController
+ColorIdentity:U
+OriginSet:G268a0d6ee06912c2
+ManaCost:U
+Types:Creature Merfolk Scout
+PT:1/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile | OptionalDecider$ You
+SVar:TrigExile:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | Hidden$ True | ChangeType$ Card.Merfolk,Card.Land | SubAbility$ DBConjure | RememberChanged$ True
+SVar:DBConjure:DB$ MakeCard | Conjure$ True | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ1 | CatalogId$ 252 | Zone$ Hand
+S:Mode$ Continuous | CheckSVar$ X | Affected$ Card.Self | AddPower$ 1
+SVar:X:Count$Valid Merfolk.Other+ThisTurnEntered+EnteredUnder You/Plus.Y
+SVar:Y:Count$Valid Island.ThisTurnEntered+EnteredUnder You

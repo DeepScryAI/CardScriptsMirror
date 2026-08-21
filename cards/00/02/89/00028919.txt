@@ -1,7 +1,11 @@
 Id:28919
-ColorIdentity:B
-OriginSet:Gaf7c94f364052cdd
-ManaCost:2 B B
-Types:Instant
-K:Split second
-A:SP$ Destroy | TargetMin$ 0 | TargetMax$ Count$Valid Creature | ValidTgts$ Creature | TargetsWithEqualToughness$ True
+ColorIdentity:WU
+OriginSet:Gfe262f6450b3d189
+ManaCost:W U
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 2644752956
+T:Mode$ Sacrificed | ValidCard$ Artifact | ValidPlayer$ You | Execute$ TrigChooseCard | TriggerZones$ Battlefield
+SVar:TrigChooseCard:DB$ ChooseCard | ChoiceZone$ Hand,Battlefield | Mandatory$ True | Choices$ Creature.YouCtrl | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | PumpZone$ Hand,Battlefield | Defined$ ChosenCard | NumAtt$ +1 | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True

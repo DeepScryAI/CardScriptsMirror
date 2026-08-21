@@ -1,11 +1,12 @@
 Id:11211
 ColorIdentity:G
 OriginSet:G9fb0a9a59b6a9580
-ManaCost:G
-Types:Creature Elf Druid
-PT:1/1
-K:LevelUp:1 G
-S:Mode$ Continuous | Affected$ Card.Self | SetPower$ 1 | SetToughness$ 2 | AddAbility$ ABMana | IsPresent$ Card.Self+counters_GE1_LEVEL+counters_LE4_LEVEL
-SVar:ABMana:AB$ Mana | Cost$ T | Produced$ G | Amount$ 2
-S:Mode$ Continuous | Affected$ Card.Self | SetPower$ 1 | SetToughness$ 4 | IsPresent$ Card.Self+counters_GE5_LEVEL
-S:Mode$ Continuous | Affected$ Elf.YouCtrl | AddAbility$ ABMana | IsPresent$ Card.Self+counters_GE5_LEVEL
+ManaCost:4 G
+Types:Creature Elemental
+PT:2/8
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigJaddiLifestriderTap
+SVar:TrigJaddiLifestriderTap:DB$ Tap | CardChoices$ Creature.YouCtrl+untapped | AnyNumber$ True | ChoiceAmount$ Count$Valid Creature.YouCtrl+untapped | RememberTapped$ True | SubAbility$ DBJaddiLifestriderGainLife
+SVar:DBJaddiLifestriderGainLife:DB$ GainLife | LifeAmount$ JaddiLifestriderZ | SubAbility$ DBJaddiLifestriderCleanup
+SVar:DBJaddiLifestriderCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:JaddiLifestriderY:Remembered$Amount
+SVar:JaddiLifestriderZ:SVar$JaddiLifestriderY/Times.2

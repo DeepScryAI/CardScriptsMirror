@@ -1,13 +1,10 @@
 Id:30055
 ColorIdentity:G
-OriginSet:G30e4cc621dfc3a2e
-ManaCost:3 G G
-Types:Enchantment
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ X
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 2 | ConditionPresent$ Creature.YouCtrl | ConditionCompare$ GE1 | ConditionCheckSVar$ Y | ConditionSVarCompare$ GEZ
-SVar:X:Targeted$CardPower
-SVar:Y:Count$Valid Creature.YouCtrl$GreatestCardPower
-SVar:Z:Count$Valid Creature.YouDontCtrl$GreatestCardPower
-SVar:PlayMain1:TRUE
+OriginSet:Gf09b85bbcc27770c
+ManaCost:1 G
+Types:Instant
+A:SP$ Charm | Choices$ DBDestroyFlier,DBDestroyEnchantment,DBDraw
+SVar:DBDestroyFlier:DB$ Destroy | ValidTgts$ Creature.withFlying
+SVar:DBDestroyEnchantment:DB$ Destroy | ValidTgts$ Enchantment
+SVar:DBDraw:DB$ Draw | Defined$ You | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 134855612 | TokenOwner$ You

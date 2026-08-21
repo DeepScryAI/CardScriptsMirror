@@ -1,14 +1,11 @@
 Id:29128
-ColorIdentity:UR
-OriginSet:G27146c70b74a1e72
-ManaCost:1 U R
-Types:Legendary Creature Human Rogue
-PT:3/3
-K:Prowess
-T:Mode$ SpellCast | ValidCard$ Instant.MultiColor+wasCastFromYourHandByYou,Sorcery.MultiColor+wasCastFromYourHandByYou | Execute$ TrigEffect | TriggerZones$ Battlefield
-SVar:TrigEffect:DB$ Effect | ReplacementEffects$ MoveToExileReplace | RememberObjects$ TriggeredCard | ConditionDefined$ TriggeredCard | ConditionPresent$ Card | ConditionZone$ Stack | ExileOnMoved$ Stack
-SVar:MoveToExileReplace:Event$ Moved | ValidCard$ Card.IsRemembered+YouOwn | Origin$ Stack | Destination$ Graveyard | Fizzle$ False | ReplaceWith$ ReplaceExile
-SVar:ReplaceExile:DB$ ChangeZone | Defined$ ReplacedCard | Origin$ Stack | Destination$ Exile | RememberChanged$ True | SubAbility$ DBPlot
-SVar:DBPlot:DB$ AlterAttribute | Defined$ Remembered | Attributes$ Plotted | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:BuffedBy:Instant.MultiColor,Sorcery.MultiColor
+ColorIdentity:U
+OriginSet:Gc7beb665b378d90a
+ManaCost:2 U
+Types:Artifact
+A:AB$ Mana | Cost$ T | Produced$ U | TriggersWhenSpent$ TrigSpent
+SVar:TrigSpent:Mode$ SpellCast | ValidCard$ Instant.cmcLE3+YouCtrl,Sorcery.cmcLE3+YouCtrl | ValidActivatingPlayer$ You | Execute$ TrigEffect
+SVar:TrigEffect:DB$ Effect | ReplacementEffects$ MoveToExileReplace | RememberObjects$ TriggeredCard | ExileOnMoved$ Stack
+SVar:MoveToExileReplace:Event$ Moved | ValidCard$ Card.IsRemembered | Origin$ Stack | Destination$ Graveyard | Fizzle$ False | ReplaceWith$ ReplaceExile | Optional$ True
+SVar:ReplaceExile:DB$ ChangeZone | Defined$ ReplacedCard | Origin$ Stack | Destination$ Exile | ExiledWithEffectSource$ True
+A:AB$ Play | Cost$ 3 U U T | Defined$ ExiledWith | ValidSA$ Spell | Amount$ All | WithoutManaCost$ True | Optional$ True | SorcerySpeed$ True

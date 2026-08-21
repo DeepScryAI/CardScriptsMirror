@@ -1,7 +1,14 @@
 Id:8908
-ColorIdentity:U
+ColorIdentity:UR
 OriginSet:Gce1d73449bd71b54
-ManaCost:3 U
-Types:Enchantment
-R:Event$ Moved | ValidCard$ Artifact.OppCtrl,Creature.OppCtrl,Land.OppCtrl | Destination$ Battlefield | ReplaceWith$ ETBTapped | ReplacementResult$ Updated | ActiveZones$ Battlefield
-SVar:ETBTapped:DB$ Tap | ETB$ True | Defined$ ReplacedCard
+ManaCost:1 U R
+Types:Creature Sliver
+PT:2/2
+S:Mode$ Continuous | Affected$ Sliver | AddAbility$ ABFrenetic
+SVar:ABFrenetic:AB$ FlipCoin | Cost$ 0 | ConditionPresent$ Card.Self | ConditionCompare$ EQ1 | WinSubAbility$ DBExile | LoseSubAbility$ DBSacSelf
+SVar:DBExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | Defined$ Self | RememberChanged$ True | SubAbility$ DelTrig
+SVar:DelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ MoveBack | RememberObjects$ RememberedLKI | SubAbility$ DBCleanup
+SVar:MoveBack:DB$ ChangeZone | Origin$ Exile | Destination$ Battlefield | Defined$ DelayTriggerRememberedLKI
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:DBSacSelf:DB$ Sacrifice
+SVar:PlayMain1:TRUE

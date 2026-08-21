@@ -1,9 +1,19 @@
 Id:27446
-ColorIdentity:W
-OriginSet:G7579344e30f8be85
-ManaCost:2 W
-Types:Creature Dwarf Knight
-PT:2/3
-K:FirstStrike
-S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ DoubleStrike | CheckSVar$ Celebration | SVarCompare$ GE2
-SVar:Celebration:Count$ThisTurnEntered_Battlefield_Permanent.nonLand+YouCtrl
+ColorIdentity:BR
+OriginSet:G4e034c55e7afd8b4
+ManaCost:2 R R
+Types:Creature Dragon
+PT:4/4
+K:Flying
+K:Trample
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 3851718391
+SVar:HasAttackEffect:TRUE
+AlternateMode:Adventure
+ALTERNATE
+ManaCost:2 B
+Types:Instant Adventure
+A:SP$ Dig | DigNum$ 2 | ChangeNum$ All | ValidTgts$ Opponent | DestinationZone$ Exile | RememberChanged$ True | ExileFaceDown$ True | WithMayLook$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ Remembered | StaticAbilities$ STPlay | Duration$ Permanent | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile

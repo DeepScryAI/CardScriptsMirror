@@ -1,9 +1,12 @@
 Id:25895
 ColorIdentity:B
-OriginSet:Gb879a1706584aeee
-ManaCost:1 B
-Types:Creature Human Assassin
-PT:1/3
-A:AB$ PutCounter | Cost$ T | ValidTgts$ Creature,Planeswalker | CounterType$ BOUNTY | IsCurse$ True | SorcerySpeed$ True
-T:Mode$ DamageDoneOnce | Execute$ TrigDestroy | ValidTarget$ Creature.OppCtrl+counters_GE1_BOUNTY,Planeswalker.OppCtrl+counters_GE1_BOUNTY | TriggerZones$ Battlefield
-SVar:TrigDestroy:DB$ Destroy | Defined$ TriggeredTargetLKICopy
+OriginSet:G06ccef4324c14725
+ManaCost:7
+Types:Artifact Creature Construct
+PT:5/3
+K:Menace
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigSac
+SVar:TrigSac:AB$ ImmediateTrigger | Cost$ Sac<1/Creature.Other/another creature> | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Creature.OppCtrl
+K:Unearth:3 B B
+SVar:HasAttackEffect:TRUE

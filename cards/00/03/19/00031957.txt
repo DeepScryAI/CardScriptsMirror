@@ -1,12 +1,18 @@
 Id:31957
-ColorIdentity:W
+ColorIdentity:BR
 OriginSet:G7ab4f62d323b0ca7
-ManaCost:3 W
-Types:Creature Human Artificer
-PT:2/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | IsPresent$ Equipment.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigImmediateTrigger
-SVar:TrigImmediateTrigger:AB$ ImmediateTrigger | Cost$ 1 | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | ValidTgts$ Equipment.YouCtrl | SubAbility$ DBAttach
-SVar:DBAttach:DB$ Attach | Object$ ParentTarget | ValidTgts$ Creature.YouCtrl
+ManaCost:2 B R
+Types:Legendary Creature Human Mutant Wizard
+PT:3/4
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenTapped$ True | TokenScriptIds$ 2848864617 | TokenOwner$ You | SubAbility$ DBTransform
+SVar:DBTransform:DB$ SetState | Defined$ Self | ConditionPresent$ Card.Wizard+YouCtrl | ConditionCompare$ GE4 | Mode$ Transform
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:black,red
+Types:Legendary Creature Avatar Wizard
+PT:4/6
+R:Event$ DamageDone | ActiveZones$ Battlefield | ValidSource$ Wizard.YouCtrl | ValidTarget$ Permanent,Player | ReplaceWith$ DmgTwice
+SVar:DmgTwice:DB$ ReplaceEffect | VarName$ DamageAmount | VarValue$ X
+SVar:X:ReplaceCount$DamageAmount/Twice

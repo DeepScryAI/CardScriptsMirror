@@ -1,8 +1,11 @@
 Id:33192
 ColorIdentity:G
-OriginSet:G7ab1fe96128a1641
-ManaCost:1 G
-Types:Instant
-A:SP$ Mill | NumCards$ 4 | Defined$ You | SubAbility$ DBChangeZone | RememberMilled$ True
-SVar:DBChangeZone:DB$ ChangeZone | Hidden$ True | Origin$ Graveyard,Exile | Destination$ Hand | ChangeType$ Permanent.IsRemembered | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+OriginSet:G731e0066916b7465
+ManaCost:2 G
+Types:Legendary Creature Human Citizen
+PT:2/2
+T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ Opponent | TriggerZones$ Battlefield | Execute$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 134855612 | TokenOwner$ You
+T:Mode$ DamageDone | ValidSource$ Creature | ValidTarget$ You | CombatDamage$ True | Execute$ TrigSac | TriggerZones$ Battlefield
+SVar:TrigSac:DB$ Sacrifice | Defined$ You | SacValid$ Food.token
+A:AB$ Mana | Cost$ tapXType<2/Food> | Produced$ Any

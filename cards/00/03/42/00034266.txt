@@ -1,11 +1,8 @@
 Id:34266
-ColorIdentity:WU
+ColorIdentity:G
 OriginSet:Gcb93bbfc68a40806
-ManaCost:2 WU
-Types:Legendary Creature Human Artificer Hero
-PT:2/2
-K:Vigilance
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm
-SVar:TrigCharm:DB$ Charm | Choices$ DBToken,DBDraw
-SVar:DBToken:DB$ Token | TokenOwner$ You | TokenScriptIds$ 111770855
-SVar:DBDraw:DB$ Draw
+ManaCost:1 G
+Types:Sorcery
+T:Mode$ SpellCast | ValidCard$ Card.Self | IsPresent$ Card.IsCommander+YouCtrl+YouOwn | NoResolvingCheck$ True | Execute$ TrigCopy
+SVar:TrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | MayChooseTarget$ True
+A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Permanent.YouCtrl

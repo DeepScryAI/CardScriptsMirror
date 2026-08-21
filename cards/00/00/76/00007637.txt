@@ -1,8 +1,10 @@
 Id:7637
 ColorIdentity:W
 OriginSet:G4747f23d5c5760bc
-ManaCost:5 W W
-Types:Legendary Creature Spirit
-PT:4/4
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Permanent.Legendary+Other | TriggerZones$ Battlefield | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Hand
+ManaCost:2 W
+Types:Creature Spirit
+PT:2/2
+T:Mode$ SpellCast | ValidCard$ Spirit,Arcane | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ KI | CounterNum$ 1
+A:AB$ Tap | Cost$ 1 SubCounter<X/KI> | TargetMin$ X | TargetMax$ X | ValidTgts$ Creature | IsCurse$ True
+SVar:X:Count$xPaid

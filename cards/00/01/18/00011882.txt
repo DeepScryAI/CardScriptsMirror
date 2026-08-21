@@ -1,14 +1,15 @@
 Id:11882
-ColorIdentity:U
+ColorIdentity:R
 OriginSet:G43171707a7efd07b
-ManaCost:4 U U U
-Types:Creature Phyrexian Sphinx
-PT:5/7
+ManaCost:4 R R R
+Types:Creature Phyrexian Giant
+PT:5/5
+T:Mode$ ChangesZone | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ EffMassToken
+SVar:EffMassToken:DB$ Token | TokenAmount$ X | TokenOwner$ You | TokenScriptIds$ 762342624
+SVar:X:Count$Valid Creature.YouCtrl
 K:MayEffectFromOpeningHand:RevealCard
-K:Flying
-SVar:RevealCard:DB$ Reveal | RevealDefined$ Self | SubAbility$ DrainOnUpkeep
-SVar:DrainOnUpkeep:DB$ Effect | Triggers$ TrigMill
-SVar:TrigMill:Mode$ Phase | Phase$ Upkeep | Execute$ Mill | OneOff$ True
-SVar:Mill:DB$ Mill | NumCards$ 7 | Defined$ Player.Opponent
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
-SVar:TrigChangeZone:DB$ Play | TgtZone$ Graveyard | WithoutManaCost$ True | ValidTgts$ Instant.OppOwn,Sorcery.OppOwn | Optional$ True
+SVar:RevealCard:DB$ Reveal | RevealDefined$ Self | SubAbility$ TokenOnUpkeep
+SVar:TokenOnUpkeep:DB$ Effect | Triggers$ TrigToken
+SVar:TrigToken:Mode$ Phase | Phase$ Upkeep | Execute$ EffToken | OneOff$ True
+SVar:EffToken:DB$ Token | TokenOwner$ You | TokenScriptIds$ 762342624
+SVar:PlayMain1:TRUE

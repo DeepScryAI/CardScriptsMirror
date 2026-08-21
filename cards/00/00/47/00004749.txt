@@ -1,11 +1,9 @@
 Id:4749
-ColorIdentity:BR
+ColorIdentity:W
 OriginSet:Gfb91362c2efb868e
-ManaCost:1 B R
-Types:Creature Zombie
-PT:2/1
-A:AB$ DealDamage | Cost$ 1 R R Sac<1/CARDNAME> | ValidTgts$ Any | NumDmg$ 2
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | IsPresent$ Card.StrictlySelf | PresentZone$ Graveyard | PresentPlayer$ You | TriggerZones$ Graveyard | OptionalDecider$ You | Execute$ TrigReturn
-SVar:TrigReturn:AB$ ChangeZone | Cost$ 1 B B | Defined$ Self | Origin$ Graveyard | Destination$ Hand
-SVar:SacMe:2
-SVar:DiscardMe:1
+ManaCost:2 W
+Types:Enchantment
+T:Mode$ SpellCast | ValidCard$ Creature | Execute$ TrigDestroy | ValidActivatingPlayer$ Player | TriggerZones$ Battlefield
+SVar:TrigDestroy:DB$ DestroyAll | ValidCards$ Reflection | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenPower$ X | TokenToughness$ X | TokenScriptIds$ 3360839699 | TokenOwner$ TriggeredActivator
+SVar:X:TriggeredSpellAbility$CardManaCostLKI

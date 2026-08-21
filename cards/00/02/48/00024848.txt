@@ -1,7 +1,13 @@
 Id:24848
-ColorIdentity:R
-OriginSet:G3a8b4b9d4649b357
-ManaCost:1 R
-Types:Instant
-A:SP$ Pump | ValidTgts$ Creature | NumAtt$ +3 | KW$ FirstStrike | SubAbility$ DBScry
-SVar:DBScry:DB$ Scry
+ColorIdentity:BRG
+OriginSet:G3c9db52fa0bcee92
+ManaCost:1 B R G
+Types:Legendary Creature Insect Assassin
+PT:3/3
+K:Flying
+K:Haste
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigEggCounter
+SVar:TrigEggCounter:DB$ PutCounter | CounterType$ EGG | CounterNum$ 1 | ValidTgts$ Creature.Other+counters_EQ0_EGG | SubAbility$ DelayedTrigger
+SVar:DelayedTrigger:DB$ DelayedTrigger | Mode$ ChangesZone | RememberObjects$ Targeted | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.IsTriggerRemembered+counters_GE1_EGG | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1 | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 414510107

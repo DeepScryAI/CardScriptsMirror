@@ -1,14 +1,13 @@
 Id:21299
-ColorIdentity:BR
-OriginSet:G51d431785c8b33e5
-ManaCost:2 B R
-Types:Legendary Creature Imp
-PT:4/3
-K:Flying
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigControl
-SVar:TrigControl:DB$ GainControl | ValidTgts$ Permanent.YouCtrl | TargetMin$ 1 | NewController$ TriggeredTarget | SubAbility$ DBRepeatEach
-SVar:DBRepeatEach:DB$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | Defined$ Player.IsRemembered | LifeAmount$ X | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | Defined$ Player.IsRemembered | NumCards$ X | Mode$ TgtChoose
-SVar:X:Count$Valid Permanent.RememberedPlayerCtrl/Minus.Y
-SVar:Y:Count$Valid Permanent.RememberedPlayerCtrl+RememberedPlayerOwn
+ColorIdentity:U
+OriginSet:G72c9c624ceb92bff
+ManaCost:2 U
+Types:Instant
+A:SP$ Dig | DigNum$ 6 | ChangeNum$ 1 | Optional$ True | ForceRevealToController$ True | ChangeValid$ Instant,Sorcery | RestRandomOrder$ True
+AlternateMode:Modal
+ALTERNATE
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ U

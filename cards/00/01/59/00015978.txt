@@ -1,9 +1,9 @@
 Id:15978
-ColorIdentity:G
+ColorIdentity:U
 OriginSet:Gc276c26a85a70470
-ManaCost:1 G
-Types:Sorcery
-A:SP$ ChangeZone | Origin$ Library | Destination$ Library | ChangeType$ Land.Basic | ChangeNum$ 2 | RememberChanged$ True | Reveal$ True | Shuffle$ False | SubAbility$ DBChangeZone1
-SVar:DBChangeZone1:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Land.Basic+IsRemembered | ChangeNum$ 1 | Mandatory$ True | NoLooking$ True | Shuffle$ False | SubAbility$ DBChangeZone2
-SVar:DBChangeZone2:DB$ ChangeZone | Origin$ Library | Destination$ Graveyard | ChangeType$ Land.Basic+IsRemembered | Mandatory$ True | NoLooking$ True | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:2 U
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigInvestigate
+SVar:TrigInvestigate:DB$ Investigate
+T:Mode$ Sacrificed | ValidCard$ Clue.YouCtrl | Execute$ TrigMill | TriggerZones$ Battlefield
+SVar:TrigMill:DB$ Mill | NumCards$ 3 | ValidTgts$ Player

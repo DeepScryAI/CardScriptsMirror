@@ -1,11 +1,8 @@
 Id:15902
-ColorIdentity:BR
+ColorIdentity:W
 OriginSet:G92026fbb3573fda5
-ManaCost:1 B R
-Types:Legendary Creature Vampire Knight
+ManaCost:3 W
+Types:Legendary Creature Human Soldier
 PT:3/3
-K:Flying
-T:Mode$ ChangesZone | ValidCard$ Creature.Other+YouCtrl | Origin$ Any | Destination$ Battlefield | Execute$ TrigDiscard | TriggerZones$ Battlefield
-SVar:TrigDiscard:AB$ PutCounter | Cost$ Discard<1/Card> | Defined$ TriggeredCardLKICopy | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | Defined$ TriggeredCardLKICopy | KW$ Haste | SubAbility$ DBAnimate
-SVar:DBAnimate:DB$ Animate | Defined$ TriggeredCardLKICopy | Types$ Vampire | Duration$ Permanent
+T:Mode$ Phase | Phase$ BeginCombat | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ PumpAll | ValidCards$ Creature.YouCtrl | KW$ FirstStrike & Flying & Deathtouch & DoubleStrike & Haste & Hexproof & Indestructible & Lifelink & Menace & Reach & Skulk & Trample & Vigilance | SharedKeywordsZone$ Battlefield | SharedRestrictions$ Creature.YouCtrl

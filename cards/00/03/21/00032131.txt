@@ -1,12 +1,11 @@
 Id:32131
-ColorIdentity:WG
-OriginSet:G9946f072b5556073
-ManaCost:2 G W W
-Types:Legendary Creature Human Soldier
+ColorIdentity:WR
+OriginSet:G7ab4f62d323b0ca7
+ManaCost:3 R W
+Types:Legendary Creature Human Mutant Scout
 PT:3/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPutCounter
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPutCounter | Secondary$ True
-SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1
-T:Mode$ DamageDoneOnce | ValidSource$ Creature.YouCtrl+counters_GE1_P1P1 | TriggerZones$ Battlefield | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw
-SVar:HasAttackEffect:TRUE
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange
+SVar:TrigChange:DB$ GainControl | ValidTgts$ Creature.OppCtrl | LoseControl$ EOT | Untap$ True | AddKWs$ Lifelink & Haste
+T:Mode$ ChangesController | ValidCard$ Card.OppCtrl | ValidOriginalController$ You | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 3851718391 | TokenOwner$ You
+SVar:PlayMain1:OPPONENTCREATURES

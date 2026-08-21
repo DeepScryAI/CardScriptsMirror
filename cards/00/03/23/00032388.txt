@@ -1,10 +1,10 @@
 Id:32388
 ColorIdentity:U
-OriginSet:G66b3a7eeabd9000e
-ManaCost:X U
-Types:Instant
-A:SP$ ChangeZone | ValidTgts$ Artifact,Creature | TargetMin$ X | TargetMax$ X | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBDelTrig
-SVar:DBDelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ TrigReturn | RememberObjects$ RememberedLKI | SubAbility$ DBCleanup
-SVar:TrigReturn:DB$ ChangeZone | Origin$ Exile | Destination$ Battlefield | Defined$ DelayTriggerRememberedLKI
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$xPaid
+OriginSet:G9946f072b5556073
+ManaCost:3 U
+Types:Artifact Creature Robot Artificer
+PT:3/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSac
+SVar:TrigSac:AB$ ImmediateTrigger | Cost$ Sac<1/Artifact/artifact> | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | CounterNum$ 1 | CounterType$ P1P1 | ValidTgts$ Creature | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw

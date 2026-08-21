@@ -1,8 +1,9 @@
 Id:16415
 ColorIdentity:W
 OriginSet:G4bddbf7cb4f2475e
-ManaCost:1 W
-Types:Creature Dwarf Artificer
-PT:2/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone | OptionalDecider$ You
-SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Hidden$ True | AILogic$ BounceOwnTrigger | Mandatory$ True | ChangeType$ Permanent.Other+YouCtrl
+ManaCost:W
+Types:Enchantment
+R:Event$ Moved | ValidCard$ Creature.OppCtrl | Destination$ Battlefield | ReplaceWith$ ETBTapped | ReplacementResult$ Updated | ActiveZones$ Battlefield
+SVar:ETBTapped:DB$ Tap | ETB$ True | Defined$ ReplacedCard
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.OppCtrl | TriggerZones$ Battlefield | Execute$ TrigGainLife
+SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1

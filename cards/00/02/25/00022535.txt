@@ -1,13 +1,8 @@
 Id:22535
 ColorIdentity:R
 OriginSet:G9f95a41d532c0550
-ManaCost:4 R R
-Types:Legendary Creature Dragon
-PT:6/6
-R:Event$ Counter | ValidCard$ Card.Self | ValidSA$ Spell | Layer$ CantHappen
-K:Flying
-K:Haste
-A:AB$ Pump | Cost$ R | Defined$ Self | NumAtt$ +1 | SubAbility$ DBImmediateTrigger | AILogic$ InfernoOfTheStarMounts
-SVar:DBImmediateTrigger:DB$ ImmediateTrigger | Execute$ TrigDealDamage | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ20
-SVar:TrigDealDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 20
-SVar:X:Count$CardPower
+ManaCost:1 R
+Types:Instant
+A:SP$ Pump | KW$ DoubleStrike | ValidTgts$ Creature
+T:Mode$ RolledDie | TriggerZones$ Graveyard | Natural$ True | ValidResult$ 20 | ValidPlayer$ You | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Defined$ Self | Origin$ Graveyard | Destination$ Hand

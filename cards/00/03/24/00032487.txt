@@ -1,10 +1,12 @@
 Id:32487
-ColorIdentity:G
-OriginSet:G66b3a7eeabd9000e
-ManaCost:1 G
-Types:Legendary Creature Spider Hero
-PT:2/3
-K:WebSlinging:4 G G
-T:Mode$ ChangesZone | Origin$ Stack | Destination$ Battlefield | ValidCard$ Card.Self+wasCast+webSlinged | Execute$ TrigGainLife
-SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 3 | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 4005227940 | TokenOwner$ You
+ColorIdentity:R
+OriginSet:G324b911e0e372b1b
+ManaCost:1 R
+Types:Creature Kavu Soldier
+PT:3/1
+K:Trample
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigConjure
+SVar:TrigConjure:DB$ MakeCard | Conjure$ True | CatalogId$ 4926 | Zone$ Library | LibraryPosition$ Count$Random.0.8 | RememberMade$ True | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Remembered | staticAbilities$ FreeCast | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:FreeCast:Mode$ Continuous | MayPlay$ True | MayPlayAltManaCost$ 0 | MayPlayDontGrantZonePermissions$ True | Affected$ Card.Self | AffectedZone$ Hand,Graveyard,Exile,Library,Command | EffectZone$ All
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

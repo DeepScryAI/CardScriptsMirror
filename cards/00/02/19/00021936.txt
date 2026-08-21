@@ -1,9 +1,15 @@
 Id:21936
-ColorIdentity:U
-OriginSet:Gd784248bfdf9e1d7
-ManaCost:1 U
-Types:Creature Frog Wizard
-PT:2/1
-K:Flash
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.OppCtrl | NumAtt$ -1 | IsCurse$ True
+ColorIdentity:R
+OriginSet:G6fa60d857e930f32
+ManaCost:3 R R
+Types:Sorcery
+S:Mode$ AlternativeCost | ValidSA$ Spell.Self | EffectZone$ All | Cost$ 2 R R
+A:SP$ Branch | BranchConditionSVar$ AltCostPaid | BranchConditionSVarCompare$ GE1 | TrueSubAbility$ OppDiscard | FalseSubAbility$ DBSearch
+SVar:OppDiscard:DB$ ChoosePlayer | Defined$ You | Choices$ Player.Opponent | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ ChosenPlayer | AILogic$ DiscardUncastableAndExcess | AnyNumber$ True | Optional$ True | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ ChosenPlayer | NumCards$ Y | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | SubAbility$ DBSearch
+SVar:DBSearch:DB$ ChangeZone | Origin$ Library | Hidden$ True | ChangeNum$ 3 | ChangeType$ Card | Destination$ Hand | SubAbility$ DBDiscard2
+SVar:DBDiscard2:DB$ Discard | Defined$ You | NumCards$ 3 | Mode$ Random
+SVar:Y:Remembered$Amount
+SVar:AltCostPaid:Count$AltCost.1.0

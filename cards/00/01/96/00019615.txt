@@ -1,8 +1,10 @@
 Id:19615
-ColorIdentity:WB
+ColorIdentity:
 OriginSet:G7c61dc677f00d087
-ManaCost:W B
-Types:Creature Zombie Knight
-PT:2/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigDrain
-SVar:TrigDrain:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 1
+ManaCost:1
+Types:Artifact
+T:Mode$ Discarded | ValidCard$ Card.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Defined$ TriggeredCard | Origin$ Graveyard | Destination$ Exile
+A:AB$ Draw | Cost$ 2 T | NumCards$ 1 | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ TgtChoose
+A:AB$ ChangeZoneAll | Cost$ 4 T Sac<1/CARDNAME> | ChangeType$ Card.ExiledWithSource | Origin$ Exile | Destination$ Hand | AILogic$ DiscardAllAndRetExiled.noDiscard.minAdv2

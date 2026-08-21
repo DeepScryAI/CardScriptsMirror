@@ -1,13 +1,10 @@
 Id:10744
 ColorIdentity:
-OriginSet:Ga6c7ef9c5deb908c
+OriginSet:Gc860c737f2a60f83
 ManaCost:no cost
-Types:Plane Luvion
-S:Mode$ CantAttack | EffectZone$ Command | ValidCard$ Creature.withoutFlying+!hasKeywordLandwalk:Island
+Types:Plane Lorwyn
+S:Mode$ Continuous | Affected$ Creature | AddPower$ AffectedX | AddToughness$ AffectedX | EffectZone$ Command
+SVar:AffectedX:Count$Valid Creature.sharesCreatureTypeWith+Other
 T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos
-SVar:RolledChaos:DB$ Effect | ReplacementEffects$ DBYouCantLose,DBOppCantWin | Triggers$ TrigPlaneswalk | Duration$ Permanent
-SVar:DBYouCantLose:Event$ GameLoss | ValidPlayer$ You | Layer$ CantHappen
-SVar:DBOppCantWin:Event$ GameWin | ValidPlayer$ Opponent | Layer$ CantHappen | Secondary$ True
-SVar:TrigPlaneswalk:Mode$ PlaneswalkedTo | Execute$ DBCleanup | Static$ True
-SVar:DBCleanup:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile
-SVar:AIRollPlanarDieParams:Mode$ Always
+SVar:RolledChaos:DB$ Animate | ValidTgts$ Creature | AddAllCreatureTypes$ True
+SVar:AIRollPlanarDieParams:Mode$ Always | HasCreatureInPlay$ True

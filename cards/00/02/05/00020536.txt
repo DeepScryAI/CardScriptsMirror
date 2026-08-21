@@ -1,9 +1,12 @@
 Id:20536
-ColorIdentity:
+ColorIdentity:R
 OriginSet:Gc9c1dd0d52c99ca4
-ManaCost:3
+ManaCost:3 R
 Types:Artifact
-R:Event$ CopySpell | ActiveZones$ Battlefield | ValidPlayer$ You | ValidSpell$ Spell | ReplaceWith$ AddOneMore
-SVar:AddOneMore:DB$ ReplaceEffect | VarName$ Amount | VarValue$ X
-SVar:X:ReplaceCount$Amount/Plus.1
-A:AB$ CopySpellAbility | Cost$ 7 T | ValidTgts$ Instant.YouCtrl,Sorcery.YouCtrl | TargetType$ Spell | MayChooseTarget$ True
+A:AB$ Mana | Cost$ T | Produced$ R R
+T:Mode$ Phase | Phase$ Upkeep | TriggerZones$ Battlefield | Execute$ TrigDoom
+SVar:TrigDoom:DB$ AddOrRemoveCounter | Defined$ Self | DefinedPlayer$ TriggeredPlayer | CounterType$ DOOM | CounterNum$ 1 | Optional$ True | SubAbility$ DBSac
+SVar:DBSac:DB$ Sacrifice | SacValid$ Self | ConditionPresent$ Card.Self+counters_GE3_DOOM | RememberSacrificed$ True | SubAbility$ DBTrigger
+SVar:DBTrigger:DB$ ImmediateTrigger | Execute$ TrigDamage | RememberObjects$ RememberedCard | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:TrigDamage:DB$ DamageAll | ValidCards$ Creature | NumDmg$ 6

@@ -1,10 +1,14 @@
 Id:33535
-ColorIdentity:WR
-OriginSet:G23d1f017cc66962f
-ManaCost:1 RW RW
-Types:Legendary Creature Mutant Ninja Turtle
-PT:2/4
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigUntap | TriggerZones$ Battlefield | FirstCombat$ True
-SVar:TrigUntap:DB$ Untap | ValidTgts$ Creature.attacking | TargetMin$ 1 | TargetMax$ 2 | SubAbility$ DBAddPhase
-SVar:DBAddPhase:DB$ AddPhase | ExtraPhase$ Combat | AfterPhase$ EndCombat
-SVar:HasAttackEffect:TRUE
+ColorIdentity:BG
+OriginSet:G40dbb28fb92f9206
+ManaCost:B G
+Types:Creature Elf Warlock
+PT:1/1
+K:Menace
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +1 | NumDef$ +1 | Duration$ Perpetual
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Graveyard | CheckSVar$ X | SVarCompare$ EQ2 | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | Tapped$ True
+SVar:X:SVar$Y/Plus.Z
+SVar:Y:Count$ThisTurnEntered_Battlefield_Creature/LimitMax.1
+SVar:Z:Count$Morbid.1.0

@@ -1,9 +1,11 @@
 Id:30871
-ColorIdentity:RG
-OriginSet:G4524bbf7a3db9dc0
-ManaCost:1 R G
-Types:Creature Goblin Advisor
-PT:3/3
-S:Mode$ ReduceCost | ValidCard$ Permanent.YouCtrl+Other | ValidSpell$ Activated.Exhaust | Amount$ 2 | AffectedZone$ Battlefield
-A:AB$ PumpAll | Cost$ 4 R G | ValidCards$ Creature.YouCtrl,Vehicle.YouCtrl | KW$ Trample | Exhaust$ True | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 2
+ColorIdentity:U
+OriginSet:Gc5a2f0ff902c0621
+ManaCost:2 U
+Types:Legendary Creature Merfolk Noble
+PT:3/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | NumCards$ 2 | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 2 | Mode$ TgtChoose
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigToken | Threshold$ True | OptionalDecider$ You
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 352983193 | TokenOwner$ You

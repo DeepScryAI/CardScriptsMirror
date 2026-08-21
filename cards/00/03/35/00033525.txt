@@ -1,11 +1,9 @@
 Id:33525
-ColorIdentity:B
-OriginSet:G23d1f017cc66962f
-ManaCost:1 B
-Types:Creature Zombie Worm
-PT:2/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill
-SVar:TrigMill:DB$ Mill | Defined$ You | NumCards$ 3
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigImmediateTrig
-SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ ExileAnyGrave<1/Card.TriggeredNewCard> | Execute$ TrigChangeZone
-SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Library | ValidTgts$ Creature.YouOwn
+ColorIdentity:W
+OriginSet:G40dbb28fb92f9206
+ManaCost:1 W
+Types:Enchantment
+S:Mode$ Continuous | Affected$ Merfolk.YouCtrl | AffectedZone$ Stack | CheckSVar$ X | SVarCompare$ EQ0 | AddKeyword$ Convoke
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | Execute$ TrigConjure | TriggerZones$ Battlefield | IsPresent$ Creature.YouCtrl+tapped | PresentCompare$ GE2
+SVar:TrigConjure:DB$ MakeCard | Conjure$ True | CatalogId$ 9604 | Zone$ Battlefield | Tapped$ True
+SVar:X:Count$ThisTurnCast_Merfolk.YouCtrl

@@ -1,8 +1,13 @@
 Id:33091
-ColorIdentity:BR
-OriginSet:G7ab1fe96128a1641
-ManaCost:2 BR
-Types:Creature Goblin Warlock
-PT:5/4
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigBlight
-SVar:TrigBlight:DB$ Blight | Defined$ You | Num$ 2 | UnlessCost$ 2 | UnlessPayer$ You
+ColorIdentity:B
+OriginSet:G731e0066916b7465
+ManaCost:2 B
+Types:Legendary Creature Human Noble
+PT:3/3
+K:Firebending:1
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDiscard
+SVar:TrigDiscard:DB$ Discard | Defined$ You | Mode$ TgtChoose | Optional$ True | NumCards$ 1 | SubAbility$ DBExperience
+SVar:DBExperience:DB$ PutCounter | Defined$ You | CounterType$ Experience | CounterNum$ X
+A:AB$ Pump | Cost$ 2 B | Defined$ Self | NumAtt$ +Y | NumDef$ +Y | KW$ Menace
+SVar:X:PlayerCountPlayers$ConditionGE1 CardsDiscardedThisTurn
+SVar:Y:Count$YourCountersExperience

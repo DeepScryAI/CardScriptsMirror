@@ -1,9 +1,11 @@
 Id:27519
-ColorIdentity:G
-OriginSet:G7579344e30f8be85
-ManaCost:3 G
-Types:Creature Giant Archer
+ColorIdentity:UB
+OriginSet:Ge16da27db30ac32e
+ManaCost:2 U B
+Types:Legendary Creature Faerie Warlock
 PT:2/4
-K:Reach
-T:Mode$ SpellCast | ValidCard$ Card.cmcGE5 | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigFood
-SVar:TrigFood:DB$ Token | TokenScriptIds$ 134855612 | TokenOwner$ You
+K:Flying
+T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | ActivatorThisTurnCast$ EQ1 | OpponentTurn$ True | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 4040417122 | TokenOwner$ You
+T:Mode$ DamageDoneOnce | CombatDamage$ True | ValidSource$ Creature.Faerie+YouCtrl | ValidTarget$ Player | TriggerZones$ Battlefield | Execute$ TrigGoad
+SVar:TrigGoad:DB$ Goad | ValidTgts$ Creature | TargetsWithDefinedController$ TriggeredTarget

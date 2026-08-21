@@ -1,14 +1,11 @@
 Id:24805
-ColorIdentity:B
-OriginSet:G3a8b4b9d4649b357
-ManaCost:1 B B
-Types:Legendary Creature Nightmare
-PT:3/3
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigSac
-SVar:TrigSac:DB$ Sacrifice | Optional$ True | SacValid$ Artifact,Creature,Enchantment,Land,Planeswalker | Amount$ 1 | RememberSacrificed$ True | SubAbility$ DBRepeatEach
-SVar:DBRepeatEach:DB$ RepeatEach | ConditionDefined$ Remembered | ConditionPresent$ Card | RepeatSubAbility$ DBMaySac | RepeatPlayers$ Player.Opponent | SubAbility$ DBCleanup
-SVar:DBMaySac:DB$ Sacrifice | Defined$ Player.IsRemembered | SacValid$ Permanent.sharesCardTypeWith RememberedCard | RememberSacrificed$ True | Optional$ True | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ0 | Defined$ Player.IsRemembered | LifeAmount$ 2 | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ0 | Defined$ You | NumCards$ 1
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Remembered$Valid Card.RememberedPlayerCtrl
+ColorIdentity:BR
+OriginSet:G3c9db52fa0bcee92
+ManaCost:5 B R
+Types:Legendary Creature Dragon Skeleton
+PT:6/6
+K:Flying
+K:Haste
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player,Planeswalker | CombatDamage$ True | Execute$ TrigToken | TriggerZones$ Battlefield
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 1803543320 | TokenAmount$ X | TokenOwner$ You
+SVar:X:Count$ValidGraveyard Creature.YouOwn

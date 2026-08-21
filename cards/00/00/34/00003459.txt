@@ -1,12 +1,12 @@
 Id:3459
 ColorIdentity:G
 OriginSet:G24ae8187eacbba52
-ManaCost:G
-Types:Enchantment Aura
-K:Enchant:Swamp
-SVar:AttachAILogic:Curse
-T:Mode$ Taps | ValidCard$ Card.AttachedBy | Execute$ TrigDestroy
-SVar:TrigDestroy:DB$ Destroy | Defined$ TriggeredCardLKICopy
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigChangeZone
-SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | Defined$ TriggeredNewCardLKICopy
-SVar:SacMe:2
+ManaCost:3 G
+Types:Enchantment
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.!token | CounterType$ FUNGUS | CounterNum$ 1
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | TriggerZones$ Battlefield | ValidCard$ Creature.counters_GE1_FUNGUS | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ X | TokenScriptIds$ 3815350479 | TokenOwner$ You
+SVar:X:TriggeredCard$CardCounters.FUNGUS
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigRemove
+SVar:TrigRemove:DB$ RemoveCounterAll | ValidCards$ Creature | CounterType$ FUNGUS | AllCounters$ True

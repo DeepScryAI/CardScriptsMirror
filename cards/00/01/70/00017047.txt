@@ -1,7 +1,14 @@
 Id:17047
-ColorIdentity:W
+ColorIdentity:WG
 OriginSet:Gbcdce58dfbbf1bad
-ManaCost:4 W
-Types:Enchantment
-R:Event$ DamageDone | ActiveZones$ Battlefield | ValidSource$ Card.OppCtrl,Emblem.OppCtrl | ValidTarget$ You | ReplaceWith$ DBReplace | PreventionEffect$ True
-SVar:DBReplace:DB$ ReplaceDamage | Amount$ 1
+ManaCost:1 W
+Types:Instant
+A:SP$ Untap | ValidTgts$ Creature | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Targeted | NumAtt$ +2 | NumDef$ +2 | KW$ Lifelink
+AlternateMode:Split
+ALTERNATE
+ManaCost:3 G
+Types:Sorcery
+K:Aftermath
+A:SP$ Pump | ValidTgts$ Creature.YouCtrl | SubAbility$ DBFight
+SVar:DBFight:DB$ Fight | Defined$ ParentTarget | ValidTgts$ Creature.OppCtrl

@@ -1,8 +1,9 @@
 Id:12275
-ColorIdentity:UG
+ColorIdentity:R
 OriginSet:G14de52802b0b467c
-ManaCost:no cost
-Types:Land
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ LandTapped | ReplacementResult$ Updated
-SVar:LandTapped:DB$ Tap | Defined$ Self | ETB$ True | ConditionPresent$ Forest.YouCtrl,Island.YouCtrl | ConditionCompare$ EQ0
-A:AB$ Mana | Cost$ T | Produced$ Combo G U
+ManaCost:4 R
+Types:Enchantment
+A:AB$ Mill | Cost$ 3 R | NumCards$ 3 | RememberMilled$ True | SubAbility$ DBHereticDamage
+SVar:DBHereticDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ HereticX | SubAbility$ DBHereticCleanup
+SVar:DBHereticCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:HereticX:Remembered$GreatestCardManaCost

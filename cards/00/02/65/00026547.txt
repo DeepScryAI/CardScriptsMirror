@@ -1,18 +1,14 @@
 Id:26547
-ColorIdentity:U
-OriginSet:G06757f68e16377c2
-ManaCost:3 U
-Types:Battle Siege
-Defense:4
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigTap
-SVar:TrigTap:DB$ Tap | ValidTgts$ Artifact.OppCtrl,Creature.OppCtrl | SubAbility$ DBCounter
-SVar:DBCounter:DB$ PutCounter | Defined$ Targeted | CounterType$ Stun | CounterNum$ 1
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:blue
-Types:Creature Moonfolk Ninja
-PT:2/3
-K:Flying
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player,Battle | CombatDamage$ True | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw
+ColorIdentity:URG
+OriginSet:Gd5f5e54fa26ae40d
+ManaCost:1 G U R
+Types:Legendary Creature Elf Monkey
+PT:2/4
+T:Mode$ SpellCast | ValidActivatingPlayer$ You | ActivatorThisTurnCast$ EQ1 | PlayerTurn$ True | ValidCard$ Card | Execute$ TrigExile | TriggerZones$ Battlefield
+SVar:TrigExile:DB$ Dig | DigNum$ 1 | ChangeNum$ All | Defined$ Targeted | ValidTgts$ Opponent | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 3851718391 | TokenOwner$ You | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | Valid$ Card.IsRemembered | ValidSA$ Spell.cmcLTX | ValidZone$ Exile | ImprintPlayed$ True | Controller$ You | WithoutManaCost$ True | Optional$ True | Amount$ All | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | ForgetOnMoved$ Exile | RememberObjects$ RememberedCard | ConditionDefined$ Imprinted | ConditionPresent$ Card | ConditionCompare$ EQ0 | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | Affected$ Card.IsRemembered+nonLand | MayPlay$ True | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True
+SVar:X:Count$Valid Artifact.YouCtrl

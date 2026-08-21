@@ -1,9 +1,18 @@
 Id:8298
-ColorIdentity:W
+ColorIdentity:UBG
 OriginSet:Gde6d8130c178f566
-ManaCost:4 W
+ManaCost:3 B G
 Types:Instant
-A:SP$ Effect | ValidTgts$ Creature.MultiColor | ExileOnMoved$ Battlefield | ReplacementEffects$ BraceReplace | RememberObjects$ Targeted
-SVar:BraceReplace:Event$ DamageDone | ValidTarget$ Card.IsRemembered | ReplaceWith$ ImpactCounters | PreventionEffect$ True
-SVar:ImpactCounters:DB$ PutCounter | Defined$ ReplacedTarget | CounterType$ P1P1 | CounterNum$ X
-SVar:X:ReplaceCount$DamageAmount
+A:SP$ Sacrifice | SacValid$ Creature | RememberSacrificed$ True | SubAbility$ DBReturnChoose
+SVar:DBReturnChoose:DB$ ChooseCard | Defined$ You | Choices$ Card.YouOwn | ChoiceZone$ Graveyard | Amount$ X | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | Defined$ ChosenCard | SubAbility$ ExileSelf
+SVar:ExileSelf:DB$ ChangeZone | Origin$ Stack | Destination$ Exile | Defined$ Self | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:RememberedLKI$CardNumColors
+AlternateMode:Split
+ALTERNATE
+ManaCost:G U
+Types:Instant
+A:SP$ Effect | ReplacementEffects$ CantBeCountered | SubAbility$ DBDraw
+SVar:CantBeCountered:Event$ Counter | ValidSA$ Spell.YouCtrl | Layer$ CantHappen
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1

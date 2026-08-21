@@ -1,11 +1,10 @@
 Id:6802
-ColorIdentity:B
+ColorIdentity:R
 OriginSet:G8b552b617d13301f
-ManaCost:2 B B B
-Types:Creature Horror
-PT:5/6
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigSacYou | TriggerZones$ Battlefield
-SVar:TrigSacYou:DB$ Sacrifice | SacValid$ Permanent | Defined$ You
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigSacOpp
-SVar:TrigSacOpp:DB$ Sacrifice | SacValid$ Permanent | Amount$ 2 | Defined$ TriggeredTarget
-SVar:MustBeBlocked:True
+ManaCost:1 R
+Types:Creature Goblin Artificer
+PT:1/2
+A:AB$ FlipCoin | Cost$ R T | ValidTgts$ Artifact | WinSubAbility$ DBDestroy | LoseSubAbility$ DBSacSelf
+SVar:DBDestroy:DB$ Destroy | Defined$ Targeted | SubAbility$ DBUntapSelf
+SVar:DBUntapSelf:DB$ Untap | Defined$ Self
+SVar:DBSacSelf:DB$ Sacrifice

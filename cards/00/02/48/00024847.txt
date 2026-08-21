@@ -1,10 +1,12 @@
 Id:24847
-ColorIdentity:U
-OriginSet:G3a8b4b9d4649b357
-ManaCost:3 U U
-Types:Creature Elemental Giant
-PT:4/4
-K:Ward:2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigTap
-SVar:TrigTap:DB$ Tap | ValidTgts$ Creature.OppCtrl | SubAbility$ DBCounter
-SVar:DBCounter:DB$ PutCounter | Defined$ Targeted | CounterType$ Stun | CounterNum$ 1
+ColorIdentity:WB
+OriginSet:G3c9db52fa0bcee92
+ManaCost:1 W B
+Types:Legendary Creature Vampire
+PT:2/2
+K:Flying
+K:Deathtouch
+K:Lifelink
+T:Mode$ AbilityCast | ValidActivatingPlayer$ You | ValidSA$ SpellAbility.!ManaAbility | Condition$ LifePaid | TriggerZones$ Battlefield | Execute$ TrigCopySpell
+SVar:TrigCopySpell:AB$ CopySpellAbility | Cost$ PayLife<X> | Defined$ TriggeredSpellAbility | MayChooseTarget$ True
+SVar:X:TriggerCount$LifeAmount

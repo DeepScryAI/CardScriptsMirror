@@ -1,11 +1,11 @@
 Id:25022
-ColorIdentity:BG
-OriginSet:G2aca7ffc9201ba1c
-ManaCost:B G
-Types:Artifact
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
-A:AB$ ChooseCard | Cost$ T PayLife<1> | Mandatory$ True | ChoiceZone$ Hand | Choices$ Card.nonLand+YouOwn | SubAbility$ DBAnimate
-SVar:DBAnimate:DB$ Animate | Duration$ Perpetual | Defined$ ChosenCard | staticAbilities$ ReduceCost | SubAbility$ DBCleanup
-SVar:ReduceCost:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ 1 | EffectZone$ All
-SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+ColorIdentity:G
+OriginSet:G3a8b4b9d4649b357
+ManaCost:2 G G G
+Types:Creature Ape Shaman
+PT:5/7
+T:Mode$ SpellCast | ValidCard$ Creature | ValidActivatingPlayer$ You | Execute$ TrigCharm | TriggerZones$ Battlefield
+SVar:TrigCharm:DB$ Charm | Choices$ Destroy,DigLand,GainLife
+SVar:Destroy:DB$ Destroy | ValidTgts$ Artifact,Enchantment
+SVar:DigLand:DB$ Dig | DigNum$ 5 | ChangeNum$ 1 | ChangeValid$ Card.Land | Optional$ True | DestinationZone$ Battlefield | RestRandomOrder$ True | Tapped$ True
+SVar:GainLife:DB$ GainLife | LifeAmount$ 4

@@ -1,16 +1,9 @@
 Id:17421
-ColorIdentity:G
+ColorIdentity:W
 OriginSet:G5475e2be497fd272
-ManaCost:2 G
-Types:Legendary Enchantment
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDig
-SVar:TrigDig:DB$ Dig | DigNum$ 4 | ChangeNum$ 1 | Optional$ True | ChangeValid$ Creature
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ DBTransform | IsPresent$ Creature.YouCtrl | PresentCompare$ GE4
-SVar:DBTransform:DB$ SetState | Mode$ Transform
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Types:Legendary Land
-A:AB$ Mana | Cost$ T | Produced$ G | Amount$ 1
-A:AB$ Mana | Cost$ T | Produced$ G | Amount$ X
-SVar:X:Count$Valid Creature.YouCtrl
+ManaCost:5 W W
+Types:Creature Dinosaur
+PT:3/3
+K:DoubleStrike
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ PumpAll | ValidCards$ Creature.YouCtrl+StrictlyOther | KW$ DoubleStrike

@@ -1,12 +1,10 @@
 Id:20505
-ColorIdentity:R
+ColorIdentity:W
 OriginSet:Gc9c1dd0d52c99ca4
-ManaCost:3 R
-Types:Artifact
-A:AB$ Mana | Cost$ T | Produced$ R R
-T:Mode$ Phase | Phase$ Upkeep | TriggerZones$ Battlefield | Execute$ TrigDoom
-SVar:TrigDoom:DB$ AddOrRemoveCounter | Defined$ Self | DefinedPlayer$ TriggeredPlayer | CounterType$ DOOM | CounterNum$ 1 | Optional$ True | SubAbility$ DBSac
-SVar:DBSac:DB$ Sacrifice | SacValid$ Self | ConditionPresent$ Card.Self+counters_GE3_DOOM | RememberSacrificed$ True | SubAbility$ DBTrigger
-SVar:DBTrigger:DB$ ImmediateTrigger | Execute$ TrigDamage | RememberObjects$ RememberedCard | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:TrigDamage:DB$ DamageAll | ValidCards$ Creature | NumDmg$ 6
+ManaCost:3 W W
+Types:Creature Human Warrior
+PT:3/3
+K:DoubleStrike
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.attacking+Other | CounterType$ DoubleStrike | CounterNum$ 1
+SVar:HasAttackEffect:TRUE

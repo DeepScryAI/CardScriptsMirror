@@ -1,10 +1,10 @@
 Id:9571
 ColorIdentity:R
 OriginSet:G49bcc8b9b86b628d
-ManaCost:2 R
+ManaCost:3 R R
 Types:Creature Elemental Shaman
-PT:2/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPutCounters
-SVar:TrigPutCounters:DB$ PutCounterAll | ValidCards$ Creature.Shaman+StrictlyOther+YouCtrl | CounterType$ P1P1 | CounterNum$ 1
-T:Mode$ Attacks | ValidCard$ Creature.YouCtrl+counters_GE1_P1P1 | TriggerZones$ Battlefield | Execute$ TrigDamage
-SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Player,Planeswalker | NumDmg$ 1 | DamageSource$ TriggeredAttacker
+PT:3/3
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigKinship | TriggerZones$ Battlefield | OptionalDecider$ You
+SVar:TrigKinship:DB$ PeekAndReveal | PeekAmount$ 1 | RevealValid$ Card.sharesCreatureTypeWith | RevealOptional$ True | RememberRevealed$ True | SubAbility$ DBDamageAll
+SVar:DBDamageAll:DB$ DamageAll | NumDmg$ 2 | ValidCards$ Creature | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

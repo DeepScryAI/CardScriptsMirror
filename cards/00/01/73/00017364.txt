@@ -1,11 +1,12 @@
 Id:17364
-ColorIdentity:UBR
+ColorIdentity:U
 OriginSet:Gaa482ed186eee527
-ManaCost:1 U B R
-Types:Legendary Creature Human Wizard
-PT:4/4
-S:Mode$ Continuous | Affected$ Card.Self | EffectZone$ Battlefield | GainsAbilitiesOf$ Card.YouOwn+counters_GE1_CAGE | GainsAbilitiesOfZones$ Exile | GainsAbilitiesLimitPerTurn$ 1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile | OptionalDecider$ You
-SVar:TrigExile:DB$ ChangeZone | Origin$ Hand,Graveyard | Destination$ Exile | ChangeType$ Artifact.YouCtrl,Creature.YouCtrl | SubAbility$ DBCounter | RememberChanged$ True | ChangeNum$ 1 | AILogic$ Mairsil
-SVar:DBCounter:DB$ PutCounter | CounterType$ CAGE | CounterNum$ 1 | Defined$ Remembered | SubAbility$ DBCleanup
+ManaCost:4 U U
+Types:Creature Human Wizard
+PT:4/5
+A:AB$ Shuffle | Cost$ U T Sac<1/CARDNAME> | SubAbility$ DBExile
+SVar:DBExile:DB$ Dig | Defined$ You | DestinationZone$ Exile | DigNum$ X | ChangeNum$ All | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ Remembered | StaticAbilities$ Play | SubAbility$ DBCleanup | ForgetOnMoved$ Exile
+SVar:Play:Mode$ Continuous | MayPlay$ True | MayPlayWithoutManaCost$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$ThisTurnCast_Card/Plus.1

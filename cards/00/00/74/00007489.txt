@@ -1,8 +1,11 @@
 Id:7489
 ColorIdentity:R
 OriginSet:G4747f23d5c5760bc
-ManaCost:X R R
-Types:Instant Arcane
-S:Mode$ AlternativeCost | ValidSA$ Spell.Self | EffectZone$ All | Cost$ ExileFromHand<1/Card.Red+Other+cmcEQX/red card> | Announce$ X
-A:SP$ Pump | ValidTgts$ Creature | NumAtt$ +X
+ManaCost:1 R
+Types:Creature Spirit
+PT:1/1
+T:Mode$ SpellCast | ValidCard$ Spirit,Arcane | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ KI | CounterNum$ 1
+A:AB$ Pump | Cost$ 1 SubCounter<X/KI> | Defined$ Self | NumAtt$ +Y
 SVar:X:Count$xPaid
+SVar:Y:SVar$X/Times.2

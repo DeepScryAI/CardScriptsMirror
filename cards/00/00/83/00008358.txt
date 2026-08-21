@@ -1,7 +1,13 @@
 Id:8358
-ColorIdentity:B
+ColorIdentity:BR
 OriginSet:Gde6d8130c178f566
-ManaCost:B B
-Types:Instant
-A:SP$ AnimateAll | ValidCards$ Creature | Colors$ Black | OverwriteColors$ True | SubAbility$ AnimateSwamp
-SVar:AnimateSwamp:DB$ AnimateAll | ValidCards$ Land | Types$ Swamp | RemoveLandTypes$ True
+ManaCost:2 B
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Curse
+A:AB$ Effect | Cost$ 1 R | IsCurse$ True | StaticAbilities$ MustAttack | ExileOnMoved$ Battlefield | RememberObjects$ Enchanted
+SVar:MustAttack:Mode$ MustAttack | ValidCreature$ Creature.IsRemembered
+T:Mode$ Attacks | ValidCard$ Card.AttachedBy | TriggerZones$ Battlefield | Execute$ TrigLoseLifeAttack
+T:Mode$ Blocks | ValidCard$ Card.AttachedBy | TriggerZones$ Battlefield | Execute$ TrigLoseLifeBlock | Secondary$ True
+SVar:TrigLoseLifeAttack:DB$ LoseLife | LifeAmount$ 3 | Defined$ TriggeredAttackerController
+SVar:TrigLoseLifeBlock:DB$ LoseLife | LifeAmount$ 3 | Defined$ TriggeredBlockerController

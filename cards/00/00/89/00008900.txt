@@ -1,9 +1,11 @@
 Id:8900
-ColorIdentity:U
+ColorIdentity:B
 OriginSet:Gce1d73449bd71b54
-ManaCost:2 U
-Types:Instant
-A:SP$ DigUntil | Valid$ Card.nonLand | RevealedDestination$ Library | RevealedLibraryPosition$ -1 | RememberFound$ True | SubAbility$ MutantPump
-SVar:MutantPump:DB$ Pump | ValidTgts$ Creature | NumAtt$ +X | NumDef$ -X | SubAbility$ JitterClean
-SVar:JitterClean:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Remembered$CardManaCost
+ManaCost:4 B B
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:GainControl
+S:Mode$ Continuous | Affected$ Card.EnchantedBy | GainControl$ You
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | Defined$ EnchantedOwner | DamageSource$ Enchanted | NumDmg$ 1
+SVar:PlayMain1:TRUE

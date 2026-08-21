@@ -1,11 +1,11 @@
 Id:22735
-ColorIdentity:W
-OriginSet:G66f2eb694ffd614a
-ManaCost:5 W
-Types:Creature Human Knight
-PT:4/4
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ChangeType$ Creature.YouOwn+Other | WithTotalPower$ Y | ChangeNum$ X | Hidden$ True | AnyNumber$ True | SubAbility$ DBExile
-SVar:DBExile:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Exile
-SVar:X:Count$ValidGraveyard Creature.YouOwn+Other
-SVar:Y:TriggeredCard$CardPower
+ColorIdentity:U
+OriginSet:G9f95a41d532c0550
+ManaCost:5 U U
+Types:Artifact Book
+A:AB$ ChangeZone | Cost$ T | SorcerySpeed$ True | Origin$ Graveyard | Destination$ Exile | Mandatory$ True | ValidTgts$ Instant,Sorcery | RememberChanged$ True | SubAbility$ DBRollDice
+SVar:DBRollDice:DB$ RollDice | Sides$ 20 | ResultSubAbilities$ 1-9:PlayCopy,10-19:PlayCost1,20:PlayAny
+SVar:PlayCopy:DB$ Play | Valid$ Card.IsRemembered | ValidSA$ Spell | ValidZone$ Exile | Amount$ All | CopyCard$ True | Optional$ True | SubAbility$ DBCleanup
+SVar:PlayCost1:DB$ Play | Valid$ Card.IsRemembered | ValidSA$ Spell | ValidZone$ Exile | Amount$ All | CopyCard$ True | Optional$ True | PlayCost$ 1 | SubAbility$ DBCleanup
+SVar:PlayAny:DB$ Play | Valid$ Card.ExiledWithSource | ValidSA$ Spell | ValidZone$ Exile | Amount$ All | CopyCard$ True | Optional$ True | WithoutManaCost$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

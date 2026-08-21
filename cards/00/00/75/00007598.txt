@@ -1,8 +1,11 @@
 Id:7598
-ColorIdentity:G
+ColorIdentity:B
 OriginSet:G4747f23d5c5760bc
-ManaCost:1 G G
-Types:Legendary Creature Snake Shaman
-PT:2/3
-T:Mode$ Phase | Phase$ Upkeep | Execute$ SakuraManaTriple | TriggerZones$ Battlefield
-SVar:SakuraManaTriple:DB$ Mana | Produced$ G | Amount$ 3 | PersistentMana$ True | Defined$ TriggeredPlayer
+ManaCost:4 B
+Types:Legendary Creature Spirit
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | TriggerZones$ Battlefield | ValidCard$ Creature.powerLE1+YouOwn | OptionalDecider$ You | Execute$ DelTrig
+SVar:DelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | ValidPlayer$ Player | Execute$ TrigReturn | IsPresent$ Card.StrictlySelf | PresentZone$ Battlefield | RememberObjects$ TriggeredNewCardLKICopy
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | Defined$ DelayTriggerRememberedLKI
+S:Mode$ Continuous | Affected$ Creature.YouCtrl+powerLE1+YouOwn | AddSVar$ Sac
+SVar:Sac:SVar:SacMe:3

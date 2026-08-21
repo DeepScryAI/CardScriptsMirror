@@ -1,7 +1,13 @@
 Id:25066
-ColorIdentity:R
-OriginSet:G9afc9838c5e994df
-ManaCost:R
-Types:Artifact Equipment
-K:Equip:2
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2
+ColorIdentity:B
+OriginSet:G3a8b4b9d4649b357
+ManaCost:4 B B
+Types:Creature Demon
+PT:6/6
+K:Flying
+K:Trample
+K:ETBReplacement:Other:DBChoose
+SVar:DBChoose:DB$ ChooseCard | Choices$ Creature.Other+YouCtrl | Mandatory$ True
+S:Mode$ Continuous | Affected$ Card.ChosenCardStrict | AddKeyword$ Flying | AddToughness$ 3 | AddPower$ 3
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Battlefield | Destination$ Any | Execute$ TrigSacrifice
+SVar:TrigSacrifice:DB$ SacrificeAll | ValidCards$ Card.ChosenCardStrict

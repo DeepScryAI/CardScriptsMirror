@@ -3,7 +3,9 @@ ColorIdentity:
 OriginSet:Gda59deaeee465b93
 ManaCost:no cost
 Types:Vanguard
-HandLifeModifier:-2/-3
-S:Mode$ Continuous | EffectZone$ Command | AffectedZone$ Battlefield | Affected$ Creature.YouCtrl | AddAbility$ MirriPump | AddSVar$ MirriPutCounter
-SVar:MirriPump:AB$ Pump | Cost$ T | ValidTgts$ Creature.Other | NumAtt$ -1 | NumDef$ -1 | SubAbility$ MirriPutCounter
-SVar:MirriPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+HandLifeModifier:+1/+5
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Command | Execute$ TrigDig
+SVar:TrigDig:DB$ Dig | DigNum$ 1 | Reveal$ True | ChangeNum$ All | ChangeValid$ Creature.powerGE5 | LibraryPosition2$ 0 | RememberChanged$ True | SubAbility$ DBDig
+SVar:DBDig:DB$ Dig | DigNum$ 1 | DestinationZone$ Library | Optional$ True | LibraryPosition$ -1 | LibraryPosition2$ 0 | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ0 | SubAbility$ DBCleanup
+SVar:X:Remembered$Amount
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

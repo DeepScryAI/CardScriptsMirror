@@ -3,6 +3,10 @@ ColorIdentity:
 OriginSet:Gda59deaeee465b93
 ManaCost:no cost
 Types:Vanguard
-HandLifeModifier:+0/+5
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Command | Execute$ TrigDig
-SVar:TrigDig:DB$ Dig | DigNum$ 1 | ChangeNum$ 1 | DestinationZone$ Graveyard | Optional$ True | LibraryPosition2$ 0
+HandLifeModifier:-1/-2
+R:Event$ GameLoss | ActiveZones$ Command | ValidPlayer$ You | Layer$ CantHappen | CheckSVar$ AvatarAX | CheckSecondSVar$ AvatarCX | CheckThirdSVar$ AvatarEX | CheckFourthSVar$ AvatarLX
+R:Event$ GameWin | ActiveZones$ Command | ValidPlayer$ Opponent | Layer$ CantHappen | CheckSVar$ AvatarAX | CheckSecondSVar$ AvatarCX | CheckThirdSVar$ AvatarEX | CheckFourthSVar$ AvatarLX | Secondary$ True
+SVar:AvatarAX:Count$Valid Artifact.YouCtrl
+SVar:AvatarCX:Count$Valid Creature.YouCtrl
+SVar:AvatarEX:Count$Valid Enchantment.YouCtrl
+SVar:AvatarLX:Count$Valid Land.YouCtrl

@@ -1,14 +1,10 @@
 Id:31550
-ColorIdentity:WBG
-OriginSet:Gfac9eb8c75f25726
-ManaCost:2 W B G
-Types:Legendary Creature Elephant Warrior
-PT:5/6
-T:Mode$ TurnFaceUp | ValidCard$ Creature.YouCtrl | Execute$ TrigEndure | TriggerZones$ Battlefield
-SVar:TrigEndure:DB$ Endure | Defined$ TriggeredCardLKICopy | Num$ X
-SVar:X:TriggeredCard$CardToughness
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigSeek
-SVar:TrigSeek:DB$ Seek | Type$ Card.Creature | RememberFound$ True | SubAbility$ DBManifest
-SVar:DBManifest:DB$ Manifest | Defined$ Remembered | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:BuffedBy:Land
+ColorIdentity:WR
+OriginSet:Gf2b808f4f642ac62
+ManaCost:1 R W
+Types:Creature Human Monk
+PT:3/3
+T:Mode$ SpellCast | ValidCard$ Card.YouCtrl | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDamage | ActivatorThisTurnCast$ EQ2
+SVar:TrigDamage:DB$ DealDamage | Defined$ Opponent | NumDmg$ 2 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ 2
+SVar:BuffedBy:Card

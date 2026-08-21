@@ -1,9 +1,19 @@
 Id:23209
 ColorIdentity:R
 OriginSet:G6e75ff4f143a3dc3
-ManaCost:1 R
-Types:Creature Human Shaman
-PT:1/3
-T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | Execute$ TrigDamage | TriggerZones$ Battlefield
-SVar:TrigDamage:DB$ DealDamage | Defined$ Player.Opponent | NumDmg$ 1
-SVar:BuffedBy:Card.nonLand+nonCreature
+ManaCost:2 R
+Types:Creature Vampire
+PT:2/3
+T:Mode$ AttackersDeclared | Execute$ TrigTransform | ValidAttackers$ Creature | ValidAttackersAmount$ EQ2 | TriggerZones$ Battlefield | AttackingPlayer$ You
+SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:red
+Types:Creature Vampire
+PT:3/3
+K:Trample
+T:Mode$ Transformed | ValidCard$ Card.Self | Execute$ TrigMana
+SVar:TrigMana:DB$ Mana | Produced$ R | Amount$ 2 | PersistentMana$ True
+A:AB$ Pump | Cost$ R R | Defined$ Self | NumAtt$ +1 | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | ValidTgts$ Creature.Other | NumAtt$ +1

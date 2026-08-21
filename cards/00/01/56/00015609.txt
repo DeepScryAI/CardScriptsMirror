@@ -1,9 +1,10 @@
 Id:15609
 ColorIdentity:U
 OriginSet:Gec9609c94c5b1cdf
-ManaCost:3 U U
-Types:Creature Merfolk Wizard
-PT:4/3
+ManaCost:5 U
+Types:Creature Elemental
+PT:3/4
 K:Flying
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigScry | TriggerZones$ Battlefield
-SVar:TrigScry:DB$ Scry | ScryNum$ 2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +2 | NumDef$ +2
+SVar:BuffedBy:Land

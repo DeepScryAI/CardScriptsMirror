@@ -1,9 +1,9 @@
 Id:13908
 ColorIdentity:W
 OriginSet:G6645ca87da6316d5
-ManaCost:1 W
-Types:Enchantment Aura
-K:Enchant:Creature
+ManaCost:2 W
+Types:Enchantment Aura Curse
+K:Enchant:Player
 SVar:AttachAILogic:Curse
-S:Mode$ Continuous | Affected$ Card.EnchantedBy | SetPower$ 0 | SetToughness$ 1 | AddType$ Artifact & Creature & Insect | RemoveCreatureTypes$ True | RemoveCardTypes$ True | RemoveAllAbilities$ True | AddKeyword$ Indestructible
-SVar:NonStackingAttachEffect:True
+T:Mode$ Attacks | ValidCard$ Creature | Attacked$ Player.EnchantedBy | Execute$ TrigGainLife | TriggerZones$ Battlefield
+SVar:TrigGainLife:DB$ GainLife | Defined$ TriggeredAttackerController | LifeAmount$ 1

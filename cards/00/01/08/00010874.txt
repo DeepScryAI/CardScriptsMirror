@@ -1,9 +1,9 @@
 Id:10874
 ColorIdentity:B
 OriginSet:G4398040c23c94f0e
-ManaCost:3 B
-Types:Creature Human Warrior Ally
-PT:2/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self,Ally.Other+YouCtrl | OptionalDecider$ You | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
-SVar:BuffedBy:Ally
+ManaCost:5 B B
+Types:Instant Trap
+S:Mode$ AlternativeCost | ValidSA$ Spell.Self | EffectZone$ All | Cost$ B | CheckSVar$ OppLifeGained
+SVar:OppLifeGained:PlayerCountOpponents$LifeGainedThisTurn
+A:SP$ LoseLife | ValidTgts$ Player | LifeAmount$ 5 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 5

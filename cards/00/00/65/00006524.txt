@@ -1,11 +1,7 @@
 Id:6524
-ColorIdentity:U
+ColorIdentity:
 OriginSet:G983da6aa108b8f13
-ManaCost:1 U U
-Types:Creature Human Wizard
-PT:1/2
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Opponent | Execute$ TrigSkipPhase | TriggerZones$ Battlefield
-SVar:TrigSkipPhase:DB$ GenericChoice | Defined$ TriggeredPlayer | Choices$ FatespinnerSkipDraw,FatespinnerSkipMain,FatespinnerSkipCombat | ShowChoice$ ExceptSelf | AILogic$ Fatespinner
-SVar:FatespinnerSkipDraw:DB$ SkipPhase | Defined$ TriggeredPlayer | Step$ Draw | Duration$ EndOfTurn
-SVar:FatespinnerSkipMain:DB$ SkipPhase | Defined$ TriggeredPlayer | Phase$ Main | Duration$ EndOfTurn
-SVar:FatespinnerSkipCombat:DB$ SkipPhase | Defined$ TriggeredPlayer | Phase$ BeginCombat | Duration$ EndOfTurn
+ManaCost:5
+Types:Artifact
+T:Mode$ DamageDone | ValidSource$ Card.OppCtrl,Emblem.OppCtrl | ValidTarget$ You | TriggerZones$ Battlefield | Execute$ TrigDraw | OptionalDecider$ You | PresentDefined$ Self | IsPresent$ Card.untapped
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1

@@ -1,7 +1,13 @@
 Id:18373
 ColorIdentity:U
-OriginSet:G7d70f513279b26b6
-ManaCost:1 U
-Types:Creature Fish Lizard
-PT:1/1
-S:Mode$ Continuous | Affected$ Card.Self+attacking | AddKeyword$ Flying
+OriginSet:G7d4bd61c81d44275
+ManaCost:4 U
+Types:Sorcery
+A:SP$ AssignGroup | Defined$ Player | Choices$ FriendRepeat,FoeBounce | AILogic$ FriendOrFoe
+SVar:FriendRepeat:DB$ RepeatEach | RepeatPlayers$ Remembered | RepeatSubAbility$ DBClone | ClearRememberedBeforeLoop$ True | ChangeZoneTable$ True
+SVar:DBClone:DB$ CopyPermanent | Choices$ Creature.RememberedPlayerCtrl | Chooser$ Remembered | Controller$ Remembered
+SVar:FoeBounce:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | ChangeType$ Creature | Mandatory$ True | Hidden$ True | DefinedPlayer$ Remembered
+SVar:NeedsToPlayVar:Z GE2
+SVar:Z:SVar$Z1/Plus.Z2
+SVar:Z1:Count$Valid Creature.YourTeamCtrl
+SVar:Z2:Count$Valid Creature.OppCtrl

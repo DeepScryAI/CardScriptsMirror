@@ -1,0 +1,13 @@
+Id:34848
+ColorIdentity:W
+OriginSet:G11c0621ce29fa608
+ManaCost:1 W
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Card.EnchantedBy | AddPower$ 2 | AddToughness$ 2 | AddKeyword$ FirstStrike & Vigilance | AddType$ Legendary,Soldier
+T:Mode$ Attacks | ValidCard$ Card.AttachedBy | TriggerZones$ Battlefield | Execute$ TrigAttachAttack
+T:Mode$ Blocks | ValidCard$ Card.AttachedBy | TriggerZones$ Battlefield | Execute$ TrigAttachBlock | Secondary$ True
+SVar:TrigAttachAttack:DB$ Attach | ValidTgts$ Equipment.YouCtrl | TargetMin$ 0 | TargetMax$ MaxTargets | Object$ Targeted | Defined$ TriggeredAttackerLKICopy
+SVar:TrigAttachBlock:DB$ Attach | ValidTgts$ Equipment.YouCtrl | TargetMin$ 0 | TargetMax$ MaxTargets | Object$ Targeted | Defined$ TriggeredBlockerLKICopy
+SVar:MaxTargets:Count$Valid Equipment

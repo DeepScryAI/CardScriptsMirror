@@ -1,8 +1,10 @@
 Id:4510
 ColorIdentity:B
 OriginSet:G239b3b7a46d83e8e
-ManaCost:3 B
-Types:Sorcery
-S:Mode$ AlternativeCost | ValidSA$ Spell.Self | EffectZone$ All | Cost$ Discard<1/Swamp>
-A:SP$ ChooseType | Defined$ You | Type$ Creature | SubAbility$ DBPumpAll
-SVar:DBPumpAll:DB$ PumpAll | ValidCards$ Creature.ChosenType | IsCurse$ True | NumAtt$ -1 | NumDef$ -1
+ManaCost:1 B B
+Types:Enchantment Aura
+K:Enchant:Land
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Card.EnchantedBy | AddAbility$ DamageAll
+SVar:DamageAll:AB$ DamageAll | Cost$ T | NumDmg$ 1 | ValidCards$ Creature | ValidPlayers$ Player
+SVar:NonStackingAttachEffect:True

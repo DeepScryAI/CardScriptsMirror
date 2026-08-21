@@ -1,9 +1,12 @@
 Id:8489
-ColorIdentity:B
+ColorIdentity:UBR
 OriginSet:Gf7b8c9355081f53b
-ManaCost:B B B
-Types:Creature Human Assassin
-PT:2/2
-K:Recover:PayLife<X/half your life, rounded up>
-A:AB$ Destroy | Cost$ Sac<1/CARDNAME> | ValidTgts$ Creature.nonBlack
-SVar:X:Count$YourLifeTotal/HalfUp
+ManaCost:4 U B R
+Types:Legendary Creature Vampire Noble
+PT:5/5
+K:Flying
+K:Haste
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.DamagedBy | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterNum$ 1 | CounterType$ P1P1
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigDraw | OptionalDecider$ You
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1

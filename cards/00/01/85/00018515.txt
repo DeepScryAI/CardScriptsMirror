@@ -1,8 +1,10 @@
 Id:18515
-ColorIdentity:B
+ColorIdentity:U
 OriginSet:G3b823183c96b2df3
-ManaCost:3 B
-Types:Creature Skeleton Archer
-PT:3/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDealDamage
-SVar:TrigDealDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 1
+ManaCost:3 U U
+Types:Enchantment
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigMill
+SVar:TrigMill:DB$ Mill | NumCards$ 3 | ValidTgts$ Opponent | RememberMilled$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$ValidGraveyard Land.IsRemembered

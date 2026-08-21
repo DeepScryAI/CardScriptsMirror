@@ -2,9 +2,9 @@ Id:9597
 ColorIdentity:B
 OriginSet:G49bcc8b9b86b628d
 ManaCost:3 B
-Types:Creature Elemental
-PT:6/5
-K:Flying
-T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | IsPresent$ Goblin.YouCtrl | PresentCompare$ EQ0 | Execute$ TrigSac
-SVar:TrigSac:DB$ Sacrifice
-SVar:NeedsToPlay:Goblin.YouCtrl
+Types:Creature Goblin Shaman
+PT:3/2
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigKinship | TriggerZones$ Battlefield | OptionalDecider$ You
+SVar:TrigKinship:DB$ PeekAndReveal | PeekAmount$ 1 | RevealValid$ Card.sharesCreatureTypeWith | RevealOptional$ True | RememberRevealed$ True | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ Opponent | NumCards$ 1 | Mode$ TgtChoose | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

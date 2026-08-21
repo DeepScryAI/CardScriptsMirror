@@ -1,13 +1,21 @@
 Id:23302
 ColorIdentity:U
-OriginSet:G9f95a41d532c0550
-ManaCost:U U U U
-Types:Creature Skeleton Wizard
-PT:4/4
-S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Color$ U | Amount$ X | EffectZone$ All
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigExile | TriggerZones$ Battlefield
-SVar:TrigExile:DB$ ChangeZone | TargetMin$ 0 | TargetMax$ 1 | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Instant.YouCtrl,Sorcery.YouCtrl | RememberChanged$ True | SubAbility$ DBPlay
-SVar:DBPlay:DB$ Play | Defined$ Remembered | ValidSA$ Spell | Optional$ True | CopyCard$ True | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-S:Mode$ Continuous | Affected$ Card.Self | MayPlay$ True | AffectedZone$ Graveyard | EffectZone$ Graveyard | MayPlayAltManaCost$ U U U U ExileFromGrave<4/Instant;Sorcery/instant or sorcery cards> | ActivationZone$ Graveyard
-SVar:X:Count$ThisTurnCast_Instant.YouCtrl,Sorcery.YouCtrl
+OriginSet:G6e75ff4f143a3dc3
+ManaCost:1 U
+Types:Creature Cat Spirit
+PT:1/1
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+K:Disturb:2 U
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:blue
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Curiosity
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddTrigger$ TrigDamageDone
+SVar:TrigDamageDone:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Graveyard | ReplaceWith$ Exile
+SVar:Exile:DB$ ChangeZone | Hidden$ True | Origin$ All | Destination$ Exile | Defined$ ReplacedCard

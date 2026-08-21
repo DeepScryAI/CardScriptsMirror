@@ -1,11 +1,29 @@
 Id:29714
-ColorIdentity:WR
-OriginSet:G01a610e823cce3ca
-ManaCost:1 R W
-Types:Legendary Creature Human Assassin Warrior
-PT:2/2
-K:Haste
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSearch
-SVar:TrigSearch:DB$ ChangeZone | OriginAlternative$ Graveyard,Hand | Hidden$ True | Origin$ Library | Destination$ Battlefield | ChangeType$ Card.catalogId29754 | ChangeNum$ 1 | ShuffleNonMandatory$ True
-T:Mode$ DamageDone | ValidSource$ Creature.YouCtrl+EquippedByValid Equipment.Legendary | ValidTarget$ Player | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw
+ColorIdentity:UG
+OriginSet:Gac6359c222afbd4f
+ManaCost:U
+Types:Legendary Creature Moonfolk Wizard
+PT:0/3
+K:Flying
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigInvestigate | TriggerZones$ Battlefield
+SVar:TrigInvestigate:DB$ Investigate
+T:Mode$ Drawn | ValidCard$ Card.YouCtrl | Number$ 3 | TriggerZones$ Battlefield | Execute$ TrigTransform
+SVar:TrigTransform:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | Transformed$ True | ForgetOtherRemembered$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:green,blue
+Types:Legendary Planeswalker Tamiyo
+Loyalty:2
+A:AB$ Effect | Cost$ AddCounter<2/LOYALTY> | Planeswalker$ True | Triggers$ TrigAttack | Duration$ UntilYourNextTurn | AILogic$ Main2
+SVar:TrigAttack:Mode$ Attacks | ValidCard$ Creature.OppCtrl | Attacked$ You,Planeswalker.YouCtrl | TriggerZones$ Command | Execute$ TamiyoPump
+SVar:TamiyoPump:DB$ Pump | Defined$ TriggeredAttackerLKICopy | NumAtt$ -1
+A:AB$ ChangeZone | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Instant.YouCtrl,Sorcery.YouCtrl | RememberTargets$ True | SubAbility$ DBAddMana
+SVar:DBAddMana:DB$ Mana | Produced$ Any | AILogic$ MostProminentInComputerHand | ConditionDefined$ Remembered | ConditionPresent$ Card.Green | ConditionCompare$ GE1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+A:AB$ Draw | Cost$ SubCounter<7/LOYALTY> | Planeswalker$ True | Ultimate$ True | NumCards$ X | SubAbility$ DBEmblem
+SVar:DBEmblem:DB$ Effect | Name$ 2526337274889826026 | StaticAbilities$ UnlimitedHand | Stackable$ False | Duration$ Permanent | AILogic$ Always
+SVar:UnlimitedHand:Mode$ Continuous | Affected$ You | SetMaxHandSize$ Unlimited
+SVar:X:Count$ValidLibrary Card.YouOwn/HalfUp

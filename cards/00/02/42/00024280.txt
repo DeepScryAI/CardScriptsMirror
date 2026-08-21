@@ -1,16 +1,10 @@
 Id:24280
-ColorIdentity:WG
+ColorIdentity:G
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:1 G W
-Types:Legendary Creature Jellyfish
-PT:0/5
-K:Flying
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigChoosePlayer1
-SVar:TrigChoosePlayer1:DB$ ChoosePlayer | Defined$ You | Choices$ Player | RememberChosen$ True | SubAbility$ Counters
-SVar:Counters:DB$ PutCounter | Defined$ ChosenPlayer | Choices$ Creature.ControlledBy ChosenPlayer | Chooser$ ChosenPlayer | Placer$ ChosenPlayer | CounterType$ P1P1 | CounterNum$ 2 | SubAbility$ TrigChoosePlayer2
-SVar:TrigChoosePlayer2:DB$ ChoosePlayer | Defined$ You | Choices$ Player.!IsRemembered | RememberChosen$ True | SubAbility$ Card
-SVar:Card:DB$ Draw | Defined$ ChosenPlayer | SubAbility$ TrigChoosePlayer3
-SVar:TrigChoosePlayer3:DB$ ChoosePlayer | ConditionCheckSVar$ X | ConditionSVarCompare$ GE3 | Defined$ You | Choices$ Player.!IsRemembered | RememberChosen$ True | SubAbility$ Tokens
-SVar:Tokens:DB$ Token | ConditionCheckSVar$ X | ConditionSVarCompare$ GE3 | TokenAmount$ 2 | TokenScriptIds$ 3851718391 | TokenOwner$ ChosenPlayer | SubAbility$ CleanupFinal
-SVar:X:PlayerCountPlayers$Amount
-SVar:CleanupFinal:DB$ Cleanup | ClearRemembered$ True
+ManaCost:1 G
+Types:Creature Gnome Druid
+PT:1/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill
+SVar:TrigMill:DB$ Mill | NumCards$ 4 | Defined$ You | Optional$ True
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Land.YouOwn

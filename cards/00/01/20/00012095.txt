@@ -1,11 +1,11 @@
 Id:12095
 ColorIdentity:
 OriginSet:Gcf233112e9f1fe8c
-ManaCost:5
-Types:Artifact Creature Golem
-PT:7/4
-K:Trample
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ DelTrig
-SVar:DelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ EndCombat | ValidPlayer$ Player | Execute$ TrigSacrifice
-SVar:TrigSacrifice:DB$ SacrificeAll | Defined$ Self | Controller$ You
-SVar:SacrificeEndCombat:True
+ManaCost:2
+Types:Artifact
+A:AB$ Tap | Cost$ 3 T | ValidTgts$ Creature | ConditionCheckSVar$ M12Complete | ConditionSVarCompare$ EQ0 | SubAbility$ DBControl
+SVar:DBControl:DB$ GainControl | Defined$ Targeted | ConditionCheckSVar$ M12Complete
+SVar:M12Complete:Count$Compare AllM12Empires GT0.1.0
+SVar:AllM12Empires:SVar$X/Times.Y
+SVar:X:Count$Valid Artifact.catalogId12140+YouCtrl
+SVar:Y:Count$Valid Artifact.catalogId12156+YouCtrl

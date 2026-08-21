@@ -1,16 +1,14 @@
 Id:33716
-ColorIdentity:R
-OriginSet:G14da29c4716bedc3
-ManaCost:4 R
-Types:Creature Ox
-PT:0/5
-K:Trample
-T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | Execute$ TrigPump | TriggerZones$ Battlefield
-SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +X
-SVar:X:TriggeredSpellAbility$CardManaCostLKI
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZone | DefinedPlayer$ You | TargetMin$ 0 | TargetMax$ 1 | Destination$ Exile | ChangeNum$ 1 | ValidTgts$ Instant.YouOwn,Sorcery.YouOwn | Origin$ Graveyard | RememberChanged$ True | SubAbility$ DBPlay
-SVar:DBPlay:DB$ Play | Defined$ Remembered | Controller$ You | CopyCard$ True | ValidSA$ Spell | Optional$ True | WithoutManaCost$ True | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:HasAttackEffect:TRUE
-SVar:BuffedBy:Instant,Sorcery
+ColorIdentity:UG
+OriginSet:G23d1f017cc66962f
+ManaCost:2 GU GU
+Types:Legendary Creature Mutant Ninja Turtle
+PT:3/3
+K:Ward:2
+S:Mode$ Continuous | Affected$ Card.TopLibrary+YouCtrl | AffectedZone$ Library | MayLookAt$ You
+S:Mode$ Continuous | Affected$ Land.TopLibrary+YouOwn,Mutant.TopLibrary+YouOwn,Ninja.TopLibrary+YouOwn,Turtle.TopLibrary+YouOwn | AffectedZone$ Library | MayPlay$ True
+T:Mode$ SpellCast | ValidCard$ Creature | ValidSA$ Spell.MayPlaySource | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigEffect | Secondary$ True | Static$ True
+SVar:TrigEffect:DB$ Effect | ReplacementEffects$ ReMoved | RememberObjects$ TriggeredCard
+SVar:ReMoved:Event$ Moved | Origin$ Stack | ValidCard$ Card.IsRemembered | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBCounter
+SVar:ETBCounter:DB$ PutCounter | ETB$ True | Defined$ ReplacedCard | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ RemoveSelf
+SVar:RemoveSelf:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile

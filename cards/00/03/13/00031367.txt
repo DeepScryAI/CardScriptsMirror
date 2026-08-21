@@ -1,8 +1,10 @@
 Id:31367
 ColorIdentity:B
-OriginSet:Gf2b808f4f642ac62
-ManaCost:1 B
-Types:Creature Monkey
-PT:2/1
-K:Lifelink
-A:AB$ PutCounter | Cost$ 1 B ExileFromGrave<1/CARDNAME> | ActivationZone$ Graveyard | ValidTgts$ Creature | CounterType$ Lifelink | CounterNum$ 1 | SorcerySpeed$ True
+OriginSet:G9de1432c543d1aef
+ManaCost:B
+Types:Instant
+A:SP$ Animate | ValidTgts$ Creature.YouCtrl | Triggers$ BailOutTrigCZ
+SVar:BailOutTrigCZ:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ BailOutChangeZone | TriggerController$ TriggeredCardController
+SVar:BailOutChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | Defined$ TriggeredNewCardLKICopy | Tapped$ True | SubAbility$ DBDamage
+SVar:DBDamage:DB$ DealDamage | Defined$ Player.Opponent | NumDmg$ 1
+K:Overload:2 B B

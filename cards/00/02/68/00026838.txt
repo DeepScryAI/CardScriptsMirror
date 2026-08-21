@@ -1,12 +1,9 @@
 Id:26838
-ColorIdentity:B
-OriginSet:G3601f5e223de6c7f
-ManaCost:1 B
-Types:Legendary Creature Halfling Horror
-PT:1/1
-K:Skulk
-T:Mode$ DamageDone | CombatDamage$ True | ValidSource$ Card.catalogId26838 | ValidTarget$ Player | Static$ True | Execute$ NoteDamaged
-SVar:NoteDamaged:DB$ Effect | Name$ 7332083415733821045 | Duration$ Permanent | EffectOwner$ TriggeredTarget | Unique$ True
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | Execute$ TrigLoseLife | TriggerZones$ Battlefield
-SVar:TrigLoseLife:DB$ LoseLife | LifeAmount$ X | Defined$ Opponent.HasCardsInCommand_Effect.named7332083415733821045_GE1
-SVar:X:Count$LifeYouGainedThisTurn
+ColorIdentity:R
+OriginSet:G06757f68e16377c2
+ManaCost:1 R
+Types:Sorcery
+A:SP$ Dig | Defined$ You | DigNum$ 2 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ STPlay | SubAbility$ DBCleanup | ForgetOnMoved$ Exile | Duration$ UntilTheEndOfYourNextTurn
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

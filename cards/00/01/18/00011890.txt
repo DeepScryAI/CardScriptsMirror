@@ -1,8 +1,11 @@
 Id:11890
 ColorIdentity:U
 OriginSet:G43171707a7efd07b
-ManaCost:U
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:Pump
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ -1 | AddToughness$ 1
+ManaCost:2 U
+Types:Creature Phyrexian Cleric
+PT:1/4
+K:Flash
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | Choices$ DBUntap,DBTap
+SVar:DBUntap:DB$ Untap | ValidTgts$ Permanent.YouCtrl
+SVar:DBTap:DB$ Tap | ValidTgts$ Permanent.OppCtrl

@@ -1,9 +1,12 @@
 Id:31920
-ColorIdentity:
+ColorIdentity:WG
 OriginSet:G7ab4f62d323b0ca7
-ManaCost:no cost
-Types:Land Town
-A:AB$ Mana | Cost$ T | Produced$ C
-A:AB$ FlipCoin | Cost$ 2 T | WinSubAbility$ DBToken | AILogic$ AtOppEOT
-SVar:DBToken:DB$ Token | TokenScriptIds$ 3851718391 | TokenOwner$ You
-A:AB$ Draw | Cost$ 3 T Sac<2/Artifact>
+ManaCost:G W
+Types:Legendary Creature Human Noble Cleric
+PT:2/2
+K:Lifelink
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigRemoveCounter
+SVar:TrigRemoveCounter:DB$ RemoveCounter | Choices$ Saga.YouCtrl | CounterType$ LORE | CounterNum$ 1 | ChoiceOptional$ True | SubAbility$ DBPutCounter | RememberAmount$ True
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$RememberedNumber

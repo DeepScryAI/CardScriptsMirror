@@ -1,12 +1,12 @@
 Id:30973
-ColorIdentity:W
-OriginSet:G4524bbf7a3db9dc0
-ManaCost:W
-Types:Enchantment Aura
-K:Enchant:Creature,Vehicle:creature or Vehicle
-SVar:AttachAILogic:Pump
-K:StartYourEngines
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 1 | AddToughness$ 1 | AddKeyword$ Vigilance
-S:Mode$ Continuous | EffectZone$ Graveyard | AffectedZone$ Graveyard | Affected$ Card.Self | Condition$ MaxSpeed | AddStaticAbility$ MaxSpeedStatic
-SVar:MaxSpeedStatic:Mode$ Continuous | Affected$ Card.Self | AffectedZone$ Graveyard | EffectZone$ Graveyard | MayPlay$ True | Secondary$ True
-SVar:DiscardMe:2
+ColorIdentity:G
+OriginSet:G2c8286a6f234d4b9
+ManaCost:3 G G
+Types:Legendary Creature Centaur Scout
+PT:*/*
+S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X | SetToughness$ X
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | ChangeType$ Land | ChangeNum$ 1 | Optional$ You
+SVar:X:Count$Valid Land.YouCtrl
+SVar:BuffedBy:Land

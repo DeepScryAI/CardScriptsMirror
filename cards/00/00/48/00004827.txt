@@ -1,10 +1,12 @@
 Id:4827
-ColorIdentity:U
+ColorIdentity:
 OriginSet:Gfb91362c2efb868e
-ManaCost:3 U U
-Types:Enchantment
-T:Mode$ Taps | ValidCard$ Creature,Land | Execute$ TrigPutCounter | TriggerZones$ Battlefield
-SVar:TrigPutCounter:DB$ PutCounter | CounterType$ HOURGLASS | CounterNum$ 1 | Defined$ TriggeredCardLKICopy
-R:Event$ Untap | ActiveZones$ Battlefield | ValidCard$ Permanent.counters_GE1_HOURGLASS | ValidStepTurnToController$ You | Layer$ CantHappen
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Player | Execute$ TrigRemoveCounter | TriggerZones$ Battlefield
-SVar:TrigRemoveCounter:DB$ RemoveCounterAll | CounterType$ HOURGLASS | AllCounters$ True | ValidCards$ Permanent.ActivePlayerCtrl
+ManaCost:5
+Types:Artifact Creature Dragon
+PT:2/2
+S:Mode$ Continuous | Affected$ Card.Self | AddToughness$ 2 | IsPresent$ Plains.YouCtrl
+S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ Flying | IsPresent$ Island.YouCtrl
+S:Mode$ Continuous | Affected$ Card.Self | AddPower$ 2 | IsPresent$ Swamp.YouCtrl
+S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ FirstStrike | IsPresent$ Mountain.YouCtrl
+S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ Trample | IsPresent$ Forest.YouCtrl
+SVar:BuffedBy:Land

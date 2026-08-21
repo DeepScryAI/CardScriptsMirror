@@ -1,9 +1,10 @@
 Id:33516
-ColorIdentity:UR
-OriginSet:G23d1f017cc66962f
-ManaCost:2 U U R
-Types:Creature Dragon Spirit Avatar
-PT:5/5
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self+wasCastByYou | Execute$ TrigChangeZone
-SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Sideboard | Destination$ Hand | ChangeType$ Card.YouOwn | ChangeNum$ 1 | Hidden$ True
+ColorIdentity:W
+OriginSet:G8a59924df6623252
+ManaCost:4 W
+Types:Legendary Creature Human Survivor
+PT:3/5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.token | TriggerZones$ Battlefield | Execute$ TrigCopy | OptionalDecider$ You | ResolvedLimit$ 1
+SVar:TrigCopy:DB$ CopyPermanent | Defined$ TriggeredCardLKICopy | ValidTgts$ Player.!TriggeredCardController | Controller$ Targeted | RememberTokens$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | ConditionDefined$ Remembered | ConditionPresent$ Card.OwnedBy Opponent | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

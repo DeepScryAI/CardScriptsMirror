@@ -1,15 +1,15 @@
 Id:24962
-ColorIdentity:WBG
+ColorIdentity:G
 OriginSet:G3a8b4b9d4649b357
-ManaCost:1 B
-Types:Enchantment
-K:Kicker:G:W
+ManaCost:2 G
+Types:Creature Spider
 PT:4/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGainLife
-SVar:TrigGainLife:DB$ GainLife | LifeAmount$ X
-T:Mode$ DamageDoneOnce | ValidSource$ Creature.YouCtrl | OptionalDecider$ You | TriggerZones$ Battlefield | ValidTarget$ Player | CombatDamage$ True | Execute$ DBReveal
-SVar:DBReveal:DB$ Dig | DigNum$ 1 | Reveal$ True | ChangeNum$ All | ChangeValid$ Card | DestinationZone$ Hand | RememberChanged$ True | SubAbility$ DBLose
-SVar:DBLose:DB$ LoseLife | LifeAmount$ Y | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:Y:Remembered$CardManaCost
-SVar:X:Count$TimesKicked/Thrice
+K:Reach
+K:Trample
+A:AB$ ChangeZone | Cost$ 7 G | ReduceCost$ X | Origin$ Graveyard | Destination$ Battlefield | Tapped$ True | ActivationZone$ Graveyard | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Replacements$ ReplaceLeaves | Defined$ Self | Duration$ Permanent
+SVar:ReplaceLeaves:Event$ Moved | ActiveZones$ Battlefield | Origin$ Battlefield | ValidCard$ Card.Self | ReplaceWith$ Exile
+SVar:Exile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | Defined$ ReplacedCard
+SVar:DiscardMe:2
+SVar:SacMe:1
+SVar:X:Count$Domain

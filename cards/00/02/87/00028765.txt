@@ -1,11 +1,10 @@
 Id:28765
-ColorIdentity:BR
-OriginSet:Gfe262f6450b3d189
-ManaCost:1 B R
-Types:Sorcery
-A:SP$ Discard | Defined$ Player | Mode$ Hand | SubAbility$ DBChooseCard
-SVar:DBChooseCard:DB$ ChooseCard | Defined$ Player | Amount$ 7 | AtRandom$ True | ChoiceZone$ Library | ControlledByPlayer$ Right | ChosenMap$ True | SubAbility$ DBConjure
-SVar:DBConjure:DB$ MakeCard | Defined$ Player | DefinedName$ ChosenMap | Zone$ Hand | RememberMade$ True | SubAbility$ DBPerpetual
-SVar:DBPerpetual:DB$ Animate | Defined$ Remembered | staticAbilities$ AnyType | Duration$ Perpetual | SubAbility$ DBCleanup
-SVar:AnyType:Mode$ ManaConvert | EffectZone$ Stack | ValidPlayer$ You | ValidCard$ Card.Self | ValidSA$ Spell | ManaConversion$ AnyType->AnyType
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:UG
+OriginSet:G7ee0e82a2424d636
+ManaCost:2 G U
+Types:Legendary Creature Elf Ooze Wizard
+PT:3/4
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | Execute$ TrigCharm | TriggerZones$ Battlefield
+SVar:TrigCharm:DB$ Charm | Choices$ DBCloak,DBPutCounters
+SVar:DBCloak:DB$ Cloak | Choices$ Card.YouCtrl
+SVar:DBPutCounters:DB$ PutCounterAll | ValidCards$ Creature.Colorless+YouCtrl | CounterType$ P1P1 | CounterNum$ 1

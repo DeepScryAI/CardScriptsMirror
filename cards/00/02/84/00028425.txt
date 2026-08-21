@@ -1,9 +1,14 @@
 Id:28425
-ColorIdentity:UB
-OriginSet:G7ee0e82a2424d636
-ManaCost:3 U B
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:GainControl
-S:Mode$ Continuous | Affected$ Card.EnchantedBy | GainControl$ You
-S:Mode$ Continuous | Affected$ Card.EnchantedBy | SetPower$ 1 | SetToughness$ 1 | AddType$ Assassin | AddKeyword$ Deathtouch
+ColorIdentity:WR
+OriginSet:G4155bbd49d5da56f
+ManaCost:3 R W
+Types:Artifact Creature Gnome
+PT:3/5
+K:Trample
+K:Haste
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDiscover | TriggerZones$ Battlefield
+SVar:TrigDiscover:DB$ Discover | Num$ X
+SVar:X:TriggerCount$DamageAmount
+T:Mode$ SpellCast | ValidCard$ Card.wasCastFromExile+!token | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigConjure
+T:Mode$ LandPlayed | Origin$ Exile | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigConjure | Secondary$ True
+SVar:TrigConjure:DB$ MakeCard | Conjure$ True | DefinedName$ TriggeredCard | Zone$ Hand

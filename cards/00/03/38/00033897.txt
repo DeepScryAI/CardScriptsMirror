@@ -1,9 +1,12 @@
 Id:33897
-ColorIdentity:G
-OriginSet:Gf8df2bea26dc6b68
-ManaCost:2 G
-Types:Creature Elf Druid
-PT:3/3
-K:Ward:1
-S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddPower$ 1 | AddKeyword$ Trample | CheckSVar$ X
+ColorIdentity:B
+OriginSet:G14da29c4716bedc3
+ManaCost:3 B B
+Types:Creature Demon
+PT:5/4
+K:Menace
+T:Mode$ DamageDone | ValidSource$ Creature.YouCtrl | ValidTarget$ Player | TriggerZones$ Battlefield | CombatDamage$ True | Execute$ TrigGainLife
+SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ X
 SVar:X:Count$LifeYouGainedThisTurn

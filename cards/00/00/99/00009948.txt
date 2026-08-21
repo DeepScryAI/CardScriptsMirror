@@ -1,10 +1,10 @@
 Id:9948
-ColorIdentity:W
+ColorIdentity:WB
 OriginSet:G6a049984467eca45
-ManaCost:3 W
-Types:Enchantment
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigChangeZone
-SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Library | Destination$ Exile | ChangeType$ Plains | ChangeNum$ X | RememberChanged$ True
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigRetrieve | TriggerZones$ Battlefield
-SVar:TrigRetrieve:DB$ ChangeZone | ChangeType$ Card.IsRemembered+YouOwn | ChangeNum$ 1 | Origin$ Exile | Destination$ Hand | Hidden$ True
-SVar:X:Count$ValidLibrary Plains.YouCtrl
+ManaCost:WB
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAITgts:Card.White,Card.Black
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy+White | AddPower$ 1 | AddToughness$ 2
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy+Black | AddPower$ 2 | AddToughness$ 1

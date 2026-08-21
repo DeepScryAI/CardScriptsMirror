@@ -1,6 +1,13 @@
 Id:14380
-ColorIdentity:B
+ColorIdentity:R
 OriginSet:Gd10cbd11b89035b7
-ManaCost:7 B B
-Types:Sorcery
-A:SP$ DestroyAll | ValidCards$ Creature.YouDontCtrl,Planeswalker.YouDontCtrl
+ManaCost:2 R
+Types:Creature Goblin Warrior
+PT:2/2
+S:Mode$ MustAttack | ValidCreature$ Creature.Goblin+Other+YouCtrl
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | Execute$ TrigToken | TriggerZones$ Battlefield
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 2974228620
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +X
+SVar:X:Count$Valid Goblin.attacking+Other
+SVar:PlayMain1:TRUE

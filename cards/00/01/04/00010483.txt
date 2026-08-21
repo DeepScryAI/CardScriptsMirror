@@ -1,9 +1,10 @@
 Id:10483
-ColorIdentity:WU
+ColorIdentity:WUB
 OriginSet:G9445ff04667ca5ba
-ManaCost:1 W U
+ManaCost:1 W U B
 Types:Artifact
-S:Mode$ AlternativeCost | ValidSA$ Spell.Self | EffectZone$ All | Cost$ 1 Return<1/Land.Basic>
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
-A:AB$ Mana | Cost$ T | Produced$ Combo W U
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigCharm | TriggerZones$ Battlefield
+SVar:TrigCharm:DB$ Charm | Choices$ DBGainLife,DBSurveil,DBLoseLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2
+SVar:DBSurveil:DB$ Surveil | Amount$ 1
+SVar:DBLoseLife:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 1

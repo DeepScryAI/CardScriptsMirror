@@ -1,7 +1,10 @@
 Id:23464
-ColorIdentity:B
-OriginSet:G1a259dba25660062
-ManaCost:B
-Types:Enchantment Creature Human Citizen
-PT:1/2
-A:AB$ Draw | Cost$ 1 B Sac<1/Artifact;Creature/artifact or creature>
+ColorIdentity:G
+OriginSet:Ga4d5d94d587eb185
+ManaCost:3 G
+Types:Enchantment
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | Choices$ DBPutCounter,DBDraw,DBToken | MinCharmNum$ 1 | CharmNum$ 3
+SVar:DBPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ 1 | ValidTgts$ Creature.HasCounters
+SVar:DBDraw:DB$ Draw | ConditionPresent$ Creature.enchanted+YouCtrl
+SVar:DBToken:DB$ Token | TokenScriptIds$ 3432565933 | ConditionPresent$ Creature.equipped+YouCtrl

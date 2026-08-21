@@ -1,11 +1,11 @@
 Id:32997
-ColorIdentity:R
-OriginSet:G731e0066916b7465
-ManaCost:1 R
-Types:Legendary Creature Human Noble Ally
-PT:2/2
-K:FirstStrike
-K:Firebending:X:, where X is the number of experience counters you have.
-T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ You | Phase$ BeginCombat->EndCombat | Execute$ TrigExperience | TriggerZones$ Battlefield
-SVar:TrigExperience:DB$ PutCounter | Defined$ You | CounterType$ Experience | CounterNum$ 1
-SVar:X:Count$YourCountersExperience
+ColorIdentity:UB
+OriginSet:G22ed5d6f3707b461
+ManaCost:2 UB
+Types:Creature Bird Scout
+PT:1/2
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 2822783804 | TokenOwner$ You
+S:Mode$ Continuous | Affected$ Card.Self | CheckSVar$ X | SVarCompare$ GE2 | AddPower$ 2
+SVar:X:Count$YouDrewThisTurn

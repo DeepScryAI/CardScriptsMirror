@@ -1,10 +1,8 @@
 Id:33023
 ColorIdentity:G
-OriginSet:Gd2fd13ccc4a412d3
+OriginSet:G22ed5d6f3707b461
 ManaCost:1 G
-Types:Creature Human Citizen
-PT:1/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange
-SVar:TrigChange:DB$ ChangeZone | Optional$ True | Origin$ Library | Destination$ Hand | ChangeType$ Food | ShuffleNonMandatory$ True | RememberChanged$ True | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenScriptIds$ 134855612 | TokenOwner$ You | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ0 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+Types:Instant
+A:SP$ Pump | ValidTgts$ Creature.YouCtrl | AILogic$ PowerDmg | SubAbility$ DBDamage
+SVar:DBDamage:DB$ DealDamage | ValidTgts$ Creature.OppCtrl | AILogic$ PowerDmg | NumDmg$ X | DamageSource$ ParentTarget
+SVar:X:ParentTargeted$CardPower

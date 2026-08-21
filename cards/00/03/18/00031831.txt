@@ -1,8 +1,16 @@
 Id:31831
-ColorIdentity:B
-OriginSet:G7ab4f62d323b0ca7
-ManaCost:1 B
-Types:Sorcery
-A:SP$ Charm | Choices$ DBPumpAll,DBDiscard
-SVar:DBPumpAll:DB$ PumpAll | ValidCards$ Creature | NumAtt$ -1 | NumDef$ -1 | IsCurse$ True
-SVar:DBDiscard:DB$ Discard | ValidTgts$ Player | Mode$ RevealYouChoose | DiscardValid$ Artifact,Creature
+ColorIdentity:WUG
+OriginSet:G530ea9d733a13e9d
+ManaCost:1 G W U
+Types:Legendary Creature Human Cleric
+PT:1/5
+A:AB$ Mana | Cost$ T | Produced$ Any | SubAbility$ DBEffectAddCounter
+SVar:DBEffectAddCounter:DB$ Effect | Triggers$ SpellCast
+SVar:SpellCast:Mode$ SpellCast | ValidCard$ Creature | ValidActivatingPlayer$ You | TriggerZones$ Command | OneOff$ True | Execute$ ReplEffAddCounter
+SVar:ReplEffAddCounter:DB$ Effect | ReplacementEffects$ ETBAddCounter | RememberObjects$ TriggeredCard
+SVar:ETBAddCounter:Event$ Moved | Origin$ Stack | Destination$ Battlefield | ValidCard$ Card.IsRemembered | ReplaceWith$ ETBAddExtraCounter | ReplacementResult$ Updated
+SVar:ETBAddExtraCounter:DB$ PutCounter | ETB$ True | Defined$ ReplacedCard | CounterType$ P1P1 | CounterNum$ 2 | SubAbility$ DBRemoveSelf
+SVar:DBRemoveSelf:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Permanent.YouCtrl+Other+HasCounters | Execute$ TrigPutCounter | OptionalDecider$ You
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ X
+SVar:X:TriggeredCard$CardCounters.ALL

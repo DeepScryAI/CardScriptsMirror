@@ -1,7 +1,10 @@
 Id:13611
 ColorIdentity:B
 OriginSet:G4773f4feb3f15a2b
-ManaCost:3 B B
-Types:Sorcery
-A:SP$ Destroy | ValidTgts$ Creature | SubAbility$ DBMana
-SVar:DBMana:DB$ Mana | Produced$ B | Amount$ 3
+ManaCost:2 B B
+Types:Creature Zombie
+PT:4/3
+K:Deathtouch
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigDiscard | CombatDamage$ True
+SVar:TrigDiscard:DB$ Discard | Defined$ TriggeredTarget | NumCards$ 1 | Mode$ TgtChoose | SubAbility$ MakeToken
+SVar:MakeToken:DB$ Token | TokenScriptIds$ 353162950 | TokenOwner$ You | TokenTapped$ True

@@ -1,10 +1,10 @@
 Id:34472
-ColorIdentity:RG
-OriginSet:G11c0621ce29fa608
-ManaCost:3 R G
-Types:Legendary Creature Gamma Berserker Hero
-PT:6/5
-K:Reach
-K:Trample
-S:Mode$ ReduceCost | ValidCard$ Creature.Other+YouCtrl | ValidSpell$ Activated.PowerUp | Amount$ 3 | AffectedZone$ Battlefield
-A:AB$ PutCounter | Cost$ 6 R G | Defined$ Self | CounterType$ P1P1 | CounterNum$ 5 | PowerUp$ True
+ColorIdentity:R
+OriginSet:Gcb93bbfc68a40806
+ManaCost:3 R
+Types:Sorcery
+A:SP$ DealDamage | ValidTgts$ Player | NumDmg$ 4 | SubAbility$ DBExile
+SVar:DBExile:DB$ Dig | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | Duration$ UntilTheEndOfYourNextTurn | StaticAbilities$ Play | SubAbility$ DBCleanup | ForgetOnMoved$ Exile
+SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

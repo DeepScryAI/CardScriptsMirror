@@ -1,9 +1,10 @@
 Id:5079
-ColorIdentity:WB
+ColorIdentity:W
 OriginSet:Ga43915481c3b48d8
-ManaCost:W B
-Types:Sorcery
-A:SP$ Discard | ValidTgts$ Player | Mode$ TgtChoose | NumCards$ 2 | RememberDiscarded$ True | SubAbility$ DBGainLife1
-SVar:DBGainLife1:DB$ GainLife | Defined$ You | LifeAmount$ X | SubAbility$ DBCleanup
-SVar:X:Remembered$Valid Land/Times.3
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:3 W W
+Types:Legendary Creature Human Soldier
+PT:3/4
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigGainLife | TriggerZones$ Battlefield
+SVar:TrigGainLife:DB$ GainLife | LifeAmount$ X | ValidTgts$ Opponent | Defined$ You
+A:AB$ Tap | Cost$ 3 W | ValidTgts$ Creature | IsPresent$ Card.Self+attacking
+SVar:X:TargetedPlayer$CardsInHand

@@ -1,6 +1,11 @@
 Id:30377
-ColorIdentity:B
-OriginSet:G8b2ed00ac2a0ff47
-ManaCost:1 B
-Types:Instant
-A:SP$ Pump | ValidTgts$ Creature | NumAtt$ +2 | NumDef$ +2 | KW$ Lifelink
+ColorIdentity:
+OriginSet:G7b2137df486dc752
+ManaCost:no cost
+Types:Scheme
+T:Mode$ SetInMotion | ValidCard$ Card.Self | Execute$ TrigToken | TriggerZones$ Command
+SVar:TrigToken:DB$ Token | TokenAmount$ 3 | TokenScriptIds$ 1965070986 | PumpKeywords$ Haste | PumpDuration$ EOT | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | ReplacementEffects$ DamageEvent
+SVar:DamageEvent:Event$ DamageDone | ValidSource$ Card.YouCtrl,Emblem.YouCtrl | ReplaceWith$ DmgPlusOne
+SVar:DmgPlusOne:DB$ ReplaceEffect | VarName$ DamageAmount | VarValue$ X
+SVar:X:ReplaceCount$DamageAmount/Plus.1

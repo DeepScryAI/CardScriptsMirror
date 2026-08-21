@@ -1,10 +1,14 @@
 Id:6417
-ColorIdentity:G
+ColorIdentity:U
 OriginSet:Gd11012ee98ee8d76
-ManaCost:2 G G
-Types:Enchantment
-T:Mode$ Drawn | ValidCard$ Card.YouOwn | Number$ 1 | Static$ True | ForReveal$ True | Execute$ DBReveal | TriggerZones$ Battlefield
-SVar:DBReveal:DB$ Reveal | Defined$ You | RevealDefined$ TriggeredCard | RememberRevealed$ True | SubAbility$ DBTrigger
-SVar:DBTrigger:DB$ ImmediateTrigger | ConditionDefined$ Remembered | ConditionPresent$ Card.Creature+YouCtrl | SubAbility$ DBCleanup | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:1 U U
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+A:AB$ Untap | Cost$ U | Defined$ Enchanted
+A:AB$ Pump | Cost$ U | Defined$ Enchanted | KW$ Flying
+A:AB$ Pump | Cost$ U | Defined$ Enchanted | KW$ Shroud
+A:AB$ GenericChoice | Cost$ 1 | Choices$ PumpAtt,PumpDef
+SVar:PumpAtt:DB$ Pump | Defined$ Enchanted | NumAtt$ +1 | NumDef$ -1
+SVar:PumpDef:DB$ Pump | Defined$ Enchanted | NumAtt$ -1 | NumDef$ +1
+SVar:NonStackingAttachEffect:True

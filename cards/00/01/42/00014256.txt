@@ -1,9 +1,10 @@
 Id:14256
-ColorIdentity:G
+ColorIdentity:U
 OriginSet:Gc18355312510df89
-ManaCost:1 G
-Types:Creature Satyr Shaman
+ManaCost:1 U
+Types:Creature Human Wizard
 PT:1/1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPut
-SVar:TrigPut:DB$ PutCounter | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ 1
-SVar:PlayMain1:TRUE
+T:Mode$ SpellCast | ValidActivatingPlayer$ You | TargetsValid$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+A:AB$ AddTurn | Cost$ SubCounter<All/P1P1> | Defined$ You | NumTurns$ X
+SVar:X:SVar$CostCountersRemoved/DivideEvenlyDown.5

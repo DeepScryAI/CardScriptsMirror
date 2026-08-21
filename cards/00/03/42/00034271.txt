@@ -1,12 +1,13 @@
 Id:34271
-ColorIdentity:R
+ColorIdentity:UB
 OriginSet:Gcb93bbfc68a40806
-ManaCost:4 R
-Types:Artifact Vehicle
-PT:4/3
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDamage
-SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | NumDmg$ X
-K:Crew:2
-SVar:X:Count$Valid Vehicle.YouCtrl/Twice
-SVar:PlayMain1:TRUE
+ManaCost:1 U B
+Types:Enchantment Aura
+K:Enchant:Opponent
+SVar:AttachAILogic:Curse
+T:Mode$ AttackersDeclaredOneTarget | AttackingPlayer$ You | AttackedTarget$ Player.EnchantedBy | Execute$ TrigLoseLife | TriggerZones$ Battlefield
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ TriggeredAttackedTarget | LifeAmount$ 2 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2
+T:Mode$ AttackersDeclared | AttackedTarget$ You | TriggerZones$ Battlefield | Execute$ TrigAttach | OptionalDecider$ You
+SVar:TrigAttach:DB$ Attach | Object$ Self | Defined$ TriggeredAttackingPlayer

@@ -1,12 +1,12 @@
 Id:23885
-ColorIdentity:G
-OriginSet:Gfdfe2ebef04be34e
-ManaCost:1 G
-Types:Creature Elf Druid
-PT:1/1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigCharm
-SVar:TrigCharm:DB$ Charm | Choices$ DBPutCounter,DBToken,DBGainLife | ChoiceRestriction$ ThisTurn
-SVar:DBPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
-SVar:DBToken:DB$ Token | TokenScriptIds$ 3851718391 | TokenTapped$ True
-SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2
-SVar:BuffedBy:Creature
+ColorIdentity:WUG
+OriginSet:G5f5d8cfb206e2fac
+ManaCost:1 G W U
+Types:Legendary Creature Cat Advisor
+PT:2/4
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.OppCtrl | CounterType$ SHIELD | AILogic$ Curse
+T:Mode$ CounterPlayerAddedAll | ValidObject$ Creature.YouDontCtrl+inRealZoneBattlefield | ValidSource$ You | TriggerZones$ Battlefield | Execute$ TrigTap
+SVar:TrigTap:DB$ Tap | Defined$ TriggeredObjectLKICopy | SubAbility$ DBGoad
+SVar:DBGoad:DB$ Goad | Defined$ TriggeredObjectLKICopy | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ TriggeredObjectLKICopy | KW$ Trample | Duration$ UntilYourNextTurn

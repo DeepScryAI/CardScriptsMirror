@@ -1,7 +1,11 @@
 Id:11622
 ColorIdentity:U
 OriginSet:Gc046eafa1d269dd1
-ManaCost:3
-Types:Artifact Creature Wizard
-PT:1/4
-A:AB$ ChangeZone | Cost$ 1 U Sac<1/CARDNAME> | ValidTgts$ Creature | Origin$ Battlefield | Destination$ Hand
+ManaCost:1 U U
+Types:Creature Human Wizard
+PT:2/1
+S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigUnblockable
+SVar:TrigUnblockable:DB$ Effect | ValidTgts$ Creature | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+SVar:PlayMain1:TRUE

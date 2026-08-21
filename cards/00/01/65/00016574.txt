@@ -1,7 +1,12 @@
 Id:16574
-ColorIdentity:R
+ColorIdentity:G
 OriginSet:G4bddbf7cb4f2475e
-ManaCost:R
-Types:Creature Gremlin
-PT:1/1
-A:AB$ Destroy | Cost$ 2 R Sac<1/CARDNAME> | ValidTgts$ Artifact
+ManaCost:3 G G
+Types:Creature Cat
+PT:4/4
+K:Trample
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigEnergy
+SVar:TrigEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ 2
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump
+SVar:TrigPump:AB$ Pump | Cost$ PayEnergy<2> | Defined$ Self | NumAtt$ +2 | NumDef$ +2
+SVar:HasAttackEffect:TRUE

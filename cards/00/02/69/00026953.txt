@@ -1,9 +1,11 @@
 Id:26953
-ColorIdentity:R
-OriginSet:G6ce0035cfb774934
-ManaCost:2 R
+ColorIdentity:U
+OriginSet:G321081e278de53f0
+ManaCost:3 U U
 Types:Enchantment
-T:Mode$ ExcessDamage | ValidTarget$ Creature.OppCtrl | CombatDamage$ False | TriggerZones$ Battlefield | Execute$ TrigAmass
-SVar:TrigAmass:DB$ Amass | Type$ Orc | Num$ X
-SVar:X:TriggerCount$DamageAmount
-A:AB$ DealDamage | Cost$ 7 R | ValidTgts$ Creature | NumDmg$ 7
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPutCounterAll
+SVar:TrigPutCounterAll:DB$ PutCounterAll | ValidCards$ Creature.OppCtrl | CounterType$ REJECTION
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigTarget
+SVar:TrigTarget:DB$ Pump | ValidTgts$ Creature.counters_GE1_REJECTION+OppCtrl | TargetMin$ 0 | TargetMax$ PlayerCountOpponents$Amount | TargetsForEachPlayer$ True | SubAbility$ DBRepeat | IsCurse$ True
+SVar:DBRepeat:DB$ RepeatEach | DefinedCards$ Targeted | RepeatSubAbility$ DBLibrary
+SVar:DBLibrary:DB$ ChangeZone | Defined$ Remembered | Origin$ Battlefield | Destination$ Library | DestinationAlternative$ Library | LibraryPositionAlternative$ -1 | AlternativeDecider$ RememberedOwner

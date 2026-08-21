@@ -1,0 +1,18 @@
+Id:24583
+ColorIdentity:R
+OriginSet:G58bfeff4fb121c8e
+ManaCost:3 R R
+Types:Creature Demon
+PT:4/5
+K:Flying
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigCharm
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigCharm | Secondary$ True
+SVar:TrigCharm:DB$ Charm | CharmNum$ 2 | Choices$ DiscardSeek,DamageTreasures,DamagePump
+SVar:DiscardSeek:DB$ Discard | ValidTgts$ Player | TargetUnique$ True | Mode$ Hand | RememberDiscarded$ True | SubAbility$ DBSeek
+SVar:DBSeek:DB$ Seek | Defined$ ParentTarget | Num$ X | Type$ Card.nonLand | SubAbility$ DBCleanup
+SVar:DamageTreasures:DB$ DealDamage | ValidTgts$ Player | TargetUnique$ True | NumDmg$ 2 | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 3851718391 | TokenAmount$ 2 | TokenOwner$ ParentTarget
+SVar:DamagePump:DB$ DamageAll | ValidTgts$ Player | TargetUnique$ True | NumDmg$ 2 | RememberDamaged$ True | ValidCards$ Creature | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Remembered | NumAtt$ +2 | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Amount

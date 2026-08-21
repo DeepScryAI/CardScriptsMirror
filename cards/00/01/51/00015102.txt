@@ -1,14 +1,7 @@
 Id:15102
-ColorIdentity:W
+ColorIdentity:G
 OriginSet:Gdb18f239871b8cef
-ManaCost:2 W W
-Types:Creature Human Monk
-PT:4/4
-T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | Execute$ TrigCharm | TriggerZones$ Battlefield
-SVar:TrigCharm:DB$ Charm | Choices$ DBTap,DBPump,DBBlink
-SVar:DBTap:DB$ Tap | ValidTgts$ Creature
-SVar:DBPump:DB$ Pump | Defined$ Self | KW$ FirstStrike & Lifelink
-SVar:DBBlink:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | SubAbility$ DBReturn | RememberChanged$ True
-SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | Tapped$ True | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:BuffedBy:Card.nonLand+nonCreature
+ManaCost:G
+Types:Enchantment
+S:Mode$ ReduceCost | ValidCard$ Creature | ValidSpell$ Spell.isCastFaceDown | Activator$ You | Amount$ 1
+A:AB$ SetState | Cost$ 1 G | Defined$ Self | Mode$ TurnFaceDown

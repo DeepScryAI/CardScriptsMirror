@@ -1,8 +1,10 @@
 Id:12187
-ColorIdentity:R
+ColorIdentity:B
 OriginSet:G14de52802b0b467c
-ManaCost:8 R
-Types:Sorcery
-A:SP$ DamageAll | NumDmg$ 13 | ValidCards$ Creature
-S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ X | EffectZone$ All
-SVar:X:Count$Valid Creature
+ManaCost:4 B
+Types:Creature Human Shaman
+PT:1/2
+K:Deathtouch
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigPump | OptionalDecider$ TriggeredCardController
+SVar:TrigPump:DB$ Pump | ValidTgts$ Player | SubAbility$ DBChange
+SVar:DBChange:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Card.Curse | ChangeNum$ 1 | ShuffleNonMandatory$ True | AttachedToPlayer$ Targeted

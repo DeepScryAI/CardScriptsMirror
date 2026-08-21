@@ -1,10 +1,12 @@
 Id:23794
-ColorIdentity:B
-OriginSet:G5f5d8cfb206e2fac
-ManaCost:1 B
-Types:Creature Human Rogue
-PT:2/1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSurveil
-SVar:TrigSurveil:DB$ Surveil | Amount$ 2
-T:Mode$ Drawn | ValidPlayer$ Player.Opponent | Number$ 2 | TriggerZones$ Graveyard | Execute$ TrigReturn | OptionalDecider$ You
-SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand
+ColorIdentity:U
+OriginSet:Gd970889168b5769f
+ManaCost:2 U
+Types:Creature Moonfolk Wizard
+PT:3/2
+K:Flash
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigConjure
+SVar:TrigConjure:DB$ MakeCard | Conjure$ True | TargetType$ Spell | ValidTgts$ Card.inZoneStack | TgtZone$ Stack | DefinedName$ TargetedSource | Zone$ Hand | RememberMade$ True | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Remembered | staticAbilities$ SpendAnyMana | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:SpendAnyMana:Mode$ ManaConvert | EffectZone$ Stack | ValidPlayer$ You | ValidCard$ Card.Self | ValidSA$ Spell | ManaConversion$ AnyType->AnyColor
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

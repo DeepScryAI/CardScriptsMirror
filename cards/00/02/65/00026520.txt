@@ -1,16 +1,12 @@
 Id:26520
-ColorIdentity:WR
-OriginSet:G06757f68e16377c2
+ColorIdentity:R
+OriginSet:Gd5f5e54fa26ae40d
 ManaCost:2 R
-Types:Creature Human Artificer
+Types:Creature Goblin Artificer
 PT:2/3
-K:Haste
-A:AB$ SetState | Cost$ 3 WP | Defined$ Self | Mode$ Transform | SorcerySpeed$ True | AILogic$ Always
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:red,white
-Types:Creature Phyrexian Artificer
-PT:3/4
-K:Flying
-K:Haste
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Artifact.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigDmg
+SVar:TrigDmg:DB$ DealDamage | ValidTgts$ Opponent | NumDmg$ 1
+A:AB$ Dig | Cost$ T Sac<2/Artifact> | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | Defined$ You | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ EffSModeContinuous | ExileOnMoved$ Exile | RememberObjects$ Remembered | SubAbility$ DBCleanup
+SVar:EffSModeContinuous:Mode$ Continuous | Affected$ Card.IsRemembered | MayPlay$ True | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

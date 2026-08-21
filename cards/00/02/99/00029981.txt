@@ -1,12 +1,8 @@
 Id:29981
-ColorIdentity:BR
+ColorIdentity:
 OriginSet:Gf09b85bbcc27770c
-ManaCost:1 B R
-Types:Legendary Creature Weasel Mercenary
-PT:3/3
-K:Menace
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDigUntil | TriggerZones$ Battlefield
-SVar:TrigDigUntil:DB$ DigUntil | Valid$ Card.nonLand | FoundDestination$ Exile | RevealedDestination$ Exile | RememberFound$ True | SubAbility$ DBPlay
-SVar:DBPlay:DB$ Play | Defined$ Remembered | ValidSA$ Spell | PlayCost$ Discard<1/Card> | Optional$ True | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:MustBeBlocked:True
+ManaCost:1
+Types:Artifact
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange | OptionalDecider$ You
+SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Library | LibraryPosition$ 0 | ChangeType$ Land.Basic | ShuffleNonMandatory$ True
+A:AB$ Draw | Cost$ 1 Sac<1/CARDNAME> | NumCards$ 1

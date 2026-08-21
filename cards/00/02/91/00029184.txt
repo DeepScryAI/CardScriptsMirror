@@ -1,10 +1,14 @@
 Id:29184
-ColorIdentity:U
+ColorIdentity:WR
 OriginSet:G27146c70b74a1e72
-ManaCost:1 U
-Types:Creature Human Wizard
-PT:1/2
-T:Mode$ SpellCast | ValidCard$ Card.YouCtrl | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter | ActivatorThisTurnCast$ EQ2
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBUnblockable
-SVar:DBUnblockable:DB$ Effect | RememberObjects$ Self | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable
-SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+ManaCost:2 R W
+Types:Legendary Creature Human Warrior
+PT:4/3
+S:Mode$ Continuous | Affected$ Ox.YouCtrl | AddKeyword$ DoubleStrike
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigExile | Secondary$ True
+SVar:TrigExile:DB$ Dig | DigNum$ 1 | DestinationZone$ Exile | RememberChanged$ True | ChangeNum$ All | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 3960924806 | TokenOwner$ You | ConditionDefined$ Remembered | ConditionPresent$ Land | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ Play | ForgetOnMoved$ Exile | Duration$ UntilTheEndOfYourNextTurn | ConditionDefined$ Remembered | ConditionPresent$ Card.nonLand | SubAbility$ DBCleanup
+SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered+nonLand | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

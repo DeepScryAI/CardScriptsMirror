@@ -1,12 +1,9 @@
 Id:31286
-ColorIdentity:WUR
-OriginSet:Ge1676a27173c0866
-ManaCost:2 U R W
-Types:Legendary Creature Spirit Dragon
-PT:4/5
-K:Flying
-K:Vigilance
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Destination$ Battlefield | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card.YouOwn+nonLand+cmcLE3 | RememberChanged$ True | SubAbility$ DBPlay
-SVar:DBPlay:DB$ Play | Valid$ Card.IsRemembered | ValidZone$ Exile | Controller$ You | CopyCard$ True | WithoutManaCost$ True | ValidSA$ Spell | Optional$ True | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:
+OriginSet:Gef9d0d0c16b2fcf7
+ManaCost:3
+Types:Artifact
+A:AB$ Mana | Cost$ T | Produced$ Any
+A:AB$ Charm | Cost$ 4 T | Choices$ DBPermanent,DBPlayer | SorcerySpeed$ True
+SVar:DBPermanent:DB$ MultiplyCounter | ValidTgts$ Permanent | Multiplier$ 2
+SVar:DBPlayer:DB$ MultiplyCounter | Defined$ You | Multiplier$ 2

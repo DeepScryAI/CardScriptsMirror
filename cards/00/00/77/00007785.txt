@@ -1,11 +1,10 @@
 Id:7785
 ColorIdentity:B
 OriginSet:G3fddc6426f419054
-ManaCost:1 B B
-Types:Creature Ogre Warrior
-PT:3/3
-A:AB$ Regenerate | Cost$ 1 B
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigBounce | TriggerZones$ Battlefield
-SVar:TrigBounce:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Mandatory$ True | Hidden$ True | ChangeType$ Creature.Black+YouCtrl
-SVar:NeedsToPlayVar:Z GE2
-SVar:Z:Count$Valid Creature.Black+YouCtrl
+ManaCost:3 B
+Types:Sorcery Arcane
+A:SP$ ChangeZone | Origin$ Battlefield | Destination$ Hand | ChangeType$ Swamp.YouCtrl | ChangeNum$ X | Hidden$ True | RememberChanged$ True | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | ValidTgts$ Player | NumCards$ Y | Mode$ TgtChoose | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$Valid Swamp.YouCtrl
+SVar:Y:Remembered$Amount

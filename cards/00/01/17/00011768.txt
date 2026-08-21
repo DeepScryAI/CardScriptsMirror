@@ -1,7 +1,15 @@
 Id:11768
-ColorIdentity:R
+ColorIdentity:
 OriginSet:Geea47b3330de77a6
-ManaCost:1 R R
-Types:Creature Human Rogue
-PT:2/3
-K:Landwalk:Forest
+ManaCost:6
+Types:Artifact
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigKnowledgeExile
+SVar:TrigKnowledgeExile:DB$ Dig | DigNum$ 3 | ChangeNum$ All | Defined$ Player | DestinationZone$ Exile | Imprint$ True
+T:Mode$ SpellCast | ValidCard$ Card.wasCastFromTheirHand | Execute$ TrigKnowledgeExileSpell | TriggerZones$ Battlefield
+SVar:TrigKnowledgeExileSpell:DB$ ChangeZone | Defined$ TriggeredCardLKICopy | Origin$ Stack | Destination$ Exile | Imprint$ True | SubAbility$ DBKnowledgePlaySpell | RememberChanged$ True
+SVar:DBKnowledgePlaySpell:DB$ Play | ValidZone$ Exile | Valid$ Card.IsImprinted+!IsRemembered+nonLand | Controller$ TriggeredCardController | WithoutManaCost$ True | Optional$ True | ConditionDefined$ TriggeredCard | ConditionPresent$ Card.IsRemembered | ConditionCompare$ EQ1 | SubAbility$ DBKnowledgeCleanup
+SVar:DBKnowledgeCleanup:DB$ Cleanup | ClearRemembered$ True
+T:Mode$ ChangesZone | Origin$ Exile | Destination$ Any | Static$ True | ValidCard$ Card.IsImprinted | Execute$ DBForget
+SVar:DBForget:DB$ Pump | Defined$ TriggeredCard | ForgetImprinted$ TriggeredCard
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | Static$ True | ValidCard$ Card.Self | Execute$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearImprinted$ True

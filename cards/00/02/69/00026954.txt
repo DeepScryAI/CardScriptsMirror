@@ -1,12 +1,12 @@
 Id:26954
 ColorIdentity:G
-OriginSet:G6ce0035cfb774934
-ManaCost:1 G
-Types:Enchantment Saga
-K:Chapter:3:DBScry,DBPutCounter,DBAnimate
-SVar:DBScry:DB$ Scry | ScryNum$ 2
-SVar:DBPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 2
-SVar:DBAnimate:DB$ Animate | SubAbility$ DBFight | ValidTgts$ Creature.YouCtrl | Triggers$ DiesTrig
-SVar:DiesTrig:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | NumCards$ 2
-SVar:DBFight:DB$ Fight | Defined$ ParentTarget | ValidTgts$ Creature | TargetUnique$ True | TargetMin$ 0 | TargetMax$ 1
+OriginSet:G321081e278de53f0
+ManaCost:2 G
+Types:Creature Dinosaur
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPay
+SVar:TrigPay:AB$ ImmediateTrigger | Cost$ Mana<G\NumTimes> | Announce$ NumTimes | AnnounceMax$ 3 | ConditionCheckSVar$ NumTimes | RememberSVarAmount$ NumTimes | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | MinCharmNum$ 0 | CharmNum$ Count$TriggerRememberAmount | Choices$ DestroyAE,ExileGrave,GainLife
+SVar:DestroyAE:DB$ Destroy | ValidTgts$ Artifact,Enchantment
+SVar:ExileGrave:DB$ ChangeZoneAll | ValidTgts$ Player | Origin$ Graveyard | Destination$ Exile | ChangeType$ Card
+SVar:GainLife:DB$ GainLife | LifeAmount$ 4

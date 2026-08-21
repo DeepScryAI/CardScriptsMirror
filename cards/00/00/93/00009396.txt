@@ -1,8 +1,12 @@
 Id:9396
-ColorIdentity:B
+ColorIdentity:W
 OriginSet:G1ddd2c86a9ea60e3
-ManaCost:3 B
-Types:Creature Goblin Warrior
-PT:3/2
-T:Mode$ SpellCast | ValidCard$ Kithkin | TriggerZones$ Battlefield | Execute$ TrigLoseLife | OptionalDecider$ You
-SVar:TrigLoseLife:DB$ LoseLife | ValidTgts$ Player | LifeAmount$ 1
+ManaCost:3 W W W
+Types:Creature Elemental Incarnation
+PT:6/6
+K:Flying
+R:Event$ DamageDone | ActiveZones$ Battlefield | ValidTarget$ You | ReplaceWith$ GainLife | PreventionEffect$ True | IsCombat$ False
+SVar:GainLife:DB$ GainLife | Defined$ ReplacedTarget | LifeAmount$ X
+SVar:X:ReplaceCount$DamageAmount
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigShuffle
+SVar:TrigShuffle:DB$ ChangeZone | Origin$ Graveyard | Destination$ Library | Shuffle$ True | Defined$ TriggeredCardLKICopy

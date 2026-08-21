@@ -1,7 +1,18 @@
 Id:21664
-ColorIdentity:
+ColorIdentity:W
 OriginSet:G18bf722b221724f8
-ManaCost:no cost
-Types:Snow Land Forest Island
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+ManaCost:2 W W
+Types:Legendary Creature God
+PT:4/4
+S:Mode$ Continuous | Affected$ Creature.YouCtrl+enchanted,Creature.YouCtrl+equipped | AddKeyword$ DoubleStrike
+T:Mode$ Phase | Phase$ BeginCombat | TriggerZones$ Battlefield | Execute$ TrigTargetAuraEquip | OptionalDecider$ You
+SVar:TrigTargetAuraEquip:DB$ Pump | ValidTgts$ Equipment.AttachedTo Creature.YouCtrl,Aura.AttachedTo Creature.YouCtrl | SubAbility$ DBAttach
+SVar:DBAttach:DB$ Attach | Object$ ParentTarget | ValidTgts$ Creature.YouCtrl
+AlternateMode:Modal
+ALTERNATE
+ManaCost:1 W
+Types:Legendary Artifact Equipment
+K:Equip:1 W
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddKeyword$ Vigilance
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.AttachedBy | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Hand

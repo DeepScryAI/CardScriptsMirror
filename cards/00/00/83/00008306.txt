@@ -1,12 +1,8 @@
 Id:8306
-ColorIdentity:WU
+ColorIdentity:W
 OriginSet:Gde6d8130c178f566
-ManaCost:2 U
-Types:Creature Vedalken Knight
-PT:1/3
-K:Vigilance
-T:Mode$ ChangesZone | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDig
-T:Mode$ ChangesZone | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSac | ManaNotSpent$ W
-SVar:TrigDig:DB$ Dig | DigNum$ 3 | Defined$ You
-SVar:TrigSac:DB$ Sacrifice
-SVar:ManaNeededToAvoidNegativeEffect:white
+ManaCost:W
+Types:Instant
+A:SP$ ChangeZone | ValidTgts$ Creature.attacking | Origin$ Battlefield | Destination$ Library | LibraryPosition$ -1 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ TargetedController | LifeAmount$ X
+SVar:X:Targeted$CardToughness

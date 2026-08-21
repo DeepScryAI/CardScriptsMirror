@@ -1,7 +1,11 @@
 Id:31710
-ColorIdentity:G
-OriginSet:G7ab4f62d323b0ca7
-ManaCost:3 G G
+ColorIdentity:
+OriginSet:Gfac9eb8c75f25726
+ManaCost:4
 Types:Artifact
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 490609126 | TokenOwner$ You
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigConjure
+SVar:TrigConjure:DB$ MakeCard | Conjure$ True | CatalogIds$ 31561,31627,31643,31679,31693 | Zone$ Library | LibraryPosition$ 0 | SubAbility$ DBConjure
+SVar:DBConjure:DB$ MakeCard | Conjure$ True | CatalogIds$ 31561,31627,31643,31679,31693 | Zone$ Library
+T:Mode$ SpellCast | ValidCard$ Dragon,Omen | ValidActivatingPlayer$ You | Execute$ TrigDraw | TriggerZones$ Battlefield
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+A:AB$ Mana | Cost$ T | Produced$ Any

@@ -1,10 +1,11 @@
 Id:20855
-ColorIdentity:RG
+ColorIdentity:B
 OriginSet:Gfd5e6da37c69dc53
-ManaCost:2 R G
-Types:Creature Elemental Druid
-PT:4/3
-A:AB$ Mana | Cost$ T | Produced$ G | Amount$ X
-SVar:X:Count$Valid Creature.YouCtrl+powerGE4
-A:AB$ DealDamage | Cost$ 7 R | ValidTgts$ Player,Planeswalker | NumDmg$ Y
-SVar:Y:Count$CardPower
+ManaCost:B
+Types:Creature Human Cleric
+PT:1/1
+K:Lifelink
+T:Mode$ ChangesZone | Origin$ Graveyard | Destination$ Battlefield | ValidCard$ Card.Self+YouOwn | Execute$ TrigExile
+T:Mode$ ChangesZone | Destination$ Battlefield | ValidCard$ Card.Self+wasCastFromYourGraveyardByYou | Execute$ TrigExile | Secondary$ True
+SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | Defined$ Self | SubAbility$ DBToken | RememberChanged$ True
+SVar:DBToken:DB$ Token | TokenScriptIds$ 3641967757 | TokenOwner$ You | ConditionDefined$ Remembered | ConditionPresent$ Card.Self | ConditionCompare$ GE1

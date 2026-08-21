@@ -1,12 +1,9 @@
 Id:33304
-ColorIdentity:W
+ColorIdentity:
 OriginSet:G7ab1fe96128a1641
-ManaCost:4 W W
-Types:Sorcery
-K:Convoke
-A:SP$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ YouChoose | SubAbility$ DBRepeatEach
-SVar:YouChoose:DB$ ChooseCard | Defined$ You | Choices$ Creature | ControlledByPlayer$ Remembered | RememberChosen$ True | Mandatory$ True | Reveal$ True
-SVar:DBRepeatEach:DB$ RepeatEach | DefinedCards$ Remembered | ClearRemembered$ True | RepeatSubAbility$ DBPump | SubAbility$ SacAllOthers
-SVar:DBPump:DB$ Pump | ImprintCards$ Valid Creature.!IsRemembered+ControlledBy RememberedController+!sharesCreatureTypeWith Remembered
-SVar:SacAllOthers:DB$ SacrificeAll | ValidCards$ Creature.IsImprinted | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True
+ManaCost:3
+Types:Creature Shapeshifter
+PT:1/2
+K:Changeling
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange | OptionalDecider$ You
+SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Land.Basic | ShuffleNonMandatory$ True

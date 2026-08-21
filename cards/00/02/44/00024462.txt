@@ -1,9 +1,14 @@
 Id:24462
-ColorIdentity:B
+ColorIdentity:RG
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:2 B
-Types:Legendary Creature Elf Cleric
-PT:2/3
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | IsPresent$ Creature.YouOwn | PresentZone$ Graveyard | PresentCompare$ GE4 | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZone | ChangeType$ Creature.YouOwn | Origin$ Graveyard | Destination$ Hand | Hidden$ True | AtRandom$ True
-K:Choose a Background
+ManaCost:2 R G
+Types:Legendary Creature Human Boar
+PT:4/4
+S:Mode$ Continuous | Affected$ Creature.YouCtrl+hasManaAbility | AddPower$ 2 | AddToughness$ 2
+T:Mode$ Attacks | ValidCard$ Creature.YouCtrl+hasManaAbility | TriggerZones$ Battlefield | Execute$ TrigUntap
+SVar:TrigUntap:DB$ Untap | Defined$ TriggeredAttacker
+T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | ValidSA$ Spell.ManaSpent GE7 | Execute$ TrigUntap2
+SVar:TrigUntap2:DB$ Untap | ValidTgts$ Creature | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Targeted | NumAtt$ +7 | NumDef$ +7 | KW$ Trample
+SVar:PlayMain1:TRUE
+SVar:BuffedBy:Creature.hasManaAbility

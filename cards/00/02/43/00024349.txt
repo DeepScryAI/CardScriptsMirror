@@ -1,8 +1,12 @@
 Id:24349
-ColorIdentity:U
+ColorIdentity:B
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:4 U
-Types:Sorcery
-A:SP$ ExchangeControl | ValidTgts$ Creature | TargetMin$ 2 | TargetMax$ 2 | TargetsWithDifferentControllers$ True | RememberExchanged$ True | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | NumCards$ 3 | ConditionDefined$ Remembered | ConditionPresent$ Creature.YouDontCtrl | ConditionCompare$ EQ2 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:4 B B
+Types:Creature Beholder Skeleton
+PT:6/5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | Choices$ DBDestroy,DBPumpAll
+SVar:DBDestroy:DB$ Destroy | ValidTgts$ Enchantment.OppCtrl | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ X
+SVar:X:Targeted$CardManaCost
+SVar:DBPumpAll:DB$ PumpAll | ValidCards$ Creature.YouCtrl | KW$ Deathtouch

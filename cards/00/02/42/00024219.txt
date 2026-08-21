@@ -1,10 +1,8 @@
 Id:24219
-ColorIdentity:W
+ColorIdentity:B
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:1 W
-Types:Instant
-A:SP$ ChangeZone | ValidTgts$ Creature | Origin$ Battlefield | Destination$ Exile | SubAbility$ DBRollDice | AILogic$ Pongify
-SVar:DBRollDice:DB$ RollDice | Sides$ 20 | ResultSubAbilities$ 1-9:GreenOx,10-19:GreenBoar,20:WhiteGoat
-SVar:GreenOx:DB$ Token | TokenScriptIds$ 2506498186 | TokenOwner$ TargetedController
-SVar:GreenBoar:DB$ Token | TokenScriptIds$ 3311172694 | TokenOwner$ TargetedController
-SVar:WhiteGoat:DB$ Token | TokenScriptIds$ 1847023127 | TokenOwner$ TargetedController
+ManaCost:2 B
+Types:Legendary Enchantment Background
+S:Mode$ Continuous | Affected$ Creature.IsCommander+YouOwn | AddTrigger$ Dies
+SVar:Dies:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Artifact.YouCtrl,Creature.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigDrain
+SVar:TrigDrain:DB$ LoseLife | Defined$ Opponent | LifeAmount$ 1

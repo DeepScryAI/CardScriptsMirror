@@ -1,6 +1,12 @@
 Id:28550
-ColorIdentity:W
+ColorIdentity:
 OriginSet:G7ee0e82a2424d636
-ManaCost:1 W
-Types:Instant
-A:SP$ ChangeZone | ValidTgts$ Creature.attacking | Origin$ Battlefield | Destination$ Exile
+ManaCost:2
+Types:Enchantment Case
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Land.Basic
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | IsPresent$ Card.Self+!IsSolved | CheckSVar$ X | SVarCompare$ GE5 | TriggerZones$ Battlefield | Execute$ TrigSolve
+SVar:TrigSolve:DB$ AlterAttribute | Defined$ Self | Attributes$ Solved
+T:Mode$ Phase | Phase$ BeginCombat | IsPresent$ Card.Self+IsSolved | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.YouCtrl | KW$ Flying & DoubleStrike & Vigilance
+SVar:X:Count$Valid Permanent.YouCtrl$Colors

@@ -1,9 +1,11 @@
 Id:21929
-ColorIdentity:
-OriginSet:Gd784248bfdf9e1d7
-ManaCost:4
-Types:Artifact Creature Gargoyle
-PT:2/1
+ColorIdentity:U
+OriginSet:G6fa60d857e930f32
+ManaCost:2 U
+Types:Creature Bird Illusion
+PT:3/2
 K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
-SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Library | ValidTgts$ Instant.YouCtrl,Sorcery.YouCtrl | TargetMin$ 0 | TargetMax$ 1
+T:Mode$ BecomesTarget | ValidTarget$ Card.Self | ValidSource$ Spell | TriggerZones$ Battlefield | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice | ValidCard$ Card.Self
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigLearn
+SVar:TrigLearn:DB$ Learn

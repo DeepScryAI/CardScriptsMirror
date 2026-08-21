@@ -1,10 +1,9 @@
 Id:16356
-ColorIdentity:W
+ColorIdentity:UBG
 OriginSet:Gd94e3db4ef71ffd2
-ManaCost:4 W
-Types:Creature Human Soldier
-PT:2/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
-SVar:TrigChangeZone:DB$ Vote | Defined$ Player | Choices$ DBVoteStrength,DBVoteNumbers | StoreVoteNum$ True | AILogic$ StrengthOrNumbers
-SVar:DBVoteStrength:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ VoteNum
-SVar:DBVoteNumbers:DB$ Token | TokenAmount$ VoteNum | TokenScriptIds$ 1214250791 | TokenOwner$ You
+ManaCost:B G U
+Types:Legendary Creature Elf Advisor
+PT:3/3
+S:Mode$ CantDraw | ValidPlayer$ Opponent | DrawLimit$ 1
+T:Mode$ BecomesTarget | ValidTarget$ You,Permanent.YouCtrl+inZoneBattlefield | ValidSource$ SpellAbility.OppCtrl | TriggerZones$ Battlefield | Execute$ TrigDraw | OptionalDecider$ You
+SVar:TrigDraw:DB$ Draw

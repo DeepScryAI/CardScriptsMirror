@@ -1,11 +1,11 @@
 Id:34605
-ColorIdentity:B
-OriginSet:G11c0621ce29fa608
-ManaCost:2 B
-Types:Sorcery
-K:Teamwork:4
-A:SP$ Pump | ValidTgts$ Creature.YouOwn+cmcLE4 | TgtZone$ Graveyard | TargetMin$ X | TargetMax$ X | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | ValidTgts$ Creature.YouOwn | TgtZone$ Graveyard | TargetMin$ Y | TargetMax$ Y | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | Defined$ Targeted
-SVar:X:Count$Teamwork.0.1
-SVar:Y:Count$Teamwork.1.0
+ColorIdentity:
+OriginSet:Gcb93bbfc68a40806
+ManaCost:5
+Types:Legendary Artifact Creature Human Hero
+PT:4/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card.YouOwn | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ Remembered | StaticAbilities$ STPlay | ForgetOnMoved$ Exile | Duration$ AsLongAsControl | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

@@ -1,12 +1,9 @@
 Id:28173
-ColorIdentity:G
+ColorIdentity:U
 OriginSet:Gfd50577710a6ab09
-ManaCost:2 G
-Types:Enchantment
+ManaCost:4 U
+Types:Creature Spirit Cleric
+PT:3/2
 T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1 | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | ChangeType$ Land | ChangeNum$ 1 | Optional$ You | RememberChanged$ True | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | LifeAmount$ 4 | ConditionDefined$ Remembered | ConditionPresent$ Card.Cave | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-R:Event$ Moved | ValidCard$ Land.YouCtrl | Destination$ Battlefield | ReplaceWith$ ETBUntapped | ReplacementResult$ Updated | ActiveZones$ Battlefield
-SVar:ETBUntapped:DB$ Untap | ETB$ True | Defined$ ReplacedCard
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+S:Mode$ Continuous | Affected$ Card.Self | IsPresent$ Permanent.YouOwn | PresentZone$ Graveyard | PresentCompare$ GE4 | AddKeyword$ Flying

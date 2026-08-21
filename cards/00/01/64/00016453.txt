@@ -1,8 +1,11 @@
 Id:16453
-ColorIdentity:B
+ColorIdentity:WR
 OriginSet:G4bddbf7cb4f2475e
-ManaCost:1 B
-Types:Creature Human Rogue
-PT:2/2
-S:Mode$ Continuous | Affected$ Card.Self | AddPower$ 1 | AddKeyword$ Deathtouch | IsPresent$ Artifact.YouCtrl
-SVar:BuffedBy:Artifact
+ManaCost:1 R W
+Types:Legendary Creature Dwarf Pilot
+PT:3/3
+S:Mode$ Continuous | Affected$ Permanent.Dwarf+Other+YouCtrl | AddPower$ 1 | AddToughness$ 1
+S:Mode$ Continuous | Affected$ Creature.Vehicle+YouCtrl | AddPower$ 1 | AddToughness$ 1
+T:Mode$ Taps | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigDig
+SVar:TrigDig:AB$ Dig | Cost$ X | DigNum$ X | Reveal$ True | ChangeNum$ All | DestinationZone$ Hand | DestinationZone2$ Library | LibraryPosition$ -1 | RestRandomOrder$ True | ChangeValid$ Dwarf,Vehicle | AILogic$ PayXButSaveMana.3
+SVar:X:Count$xPaid

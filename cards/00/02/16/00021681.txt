@@ -1,9 +1,12 @@
 Id:21681
-ColorIdentity:W
+ColorIdentity:UR
 OriginSet:G18bf722b221724f8
-ManaCost:2 W
-Types:Snow Sorcery
-A:SP$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Permanent.Snow,Legendary,Saga | ChangeNum$ 1 | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ X
-SVar:X:Count$CastTotalManaSpent Snow
-SVar:AIPreference:ManaFrom$Snow
+ManaCost:U R
+Types:Enchantment Saga
+K:Chapter:3:DBScry,DBDraw,DBEffect
+SVar:DBScry:DB$ Scry | ScryNum$ 2
+SVar:DBDraw:DB$ Draw | SubAbility$ DBReveal
+SVar:DBReveal:DB$ ImmediateTrigger | Execute$ TrigDealDamage | UnlessCost$ Reveal<1/Giant> | UnlessPayer$ You | UnlessSwitched$ True
+SVar:TrigDealDamage:DB$ DealDamage | ValidTgts$ Player.Opponent,Planeswalker | NumDmg$ 2
+SVar:DBEffect:DB$ Effect | StaticAbilities$ ReduceCost | ForgetOnCast$ Giant.YouCtrl
+SVar:ReduceCost:Mode$ ReduceCost | Type$ Spell | ValidCard$ Giant | Activator$ You | Amount$ 2

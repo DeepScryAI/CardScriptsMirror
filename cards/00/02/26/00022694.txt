@@ -1,13 +1,9 @@
 Id:22694
-ColorIdentity:G
-OriginSet:G268a0d6ee06912c2
-ManaCost:G
-Types:Creature Cat
-PT:1/1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigEnergy
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigEnergy | Secondary$ True | TriggerZones$ Battlefield
-SVar:TrigEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ 1
-A:AB$ Pump | Cost$ PayEnergy<2> | NumAtt$ +1 | Duration$ Perpetual | SubAbility$ DBChooseCard
-SVar:DBChooseCard:DB$ ChooseCard | ChoiceZone$ Hand | Choices$ Card.Creature+YouOwn | MinAmount$ 0 | Amount$ 1 | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Pump | ConditionDefined$ ChosenCard | ConditionPresent$ Card | Defined$ ChosenCard | PumpZone$ Hand | NumAtt$ +1 | Duration$ Perpetual | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+ColorIdentity:U
+OriginSet:G9f95a41d532c0550
+ManaCost:3 U U
+Types:Sorcery
+A:SP$ Pump | ValidTgts$ Player | SubAbility$ ChooseCreature | IsCurse$ True
+SVar:ChooseCreature:DB$ ChooseCard | Choices$ Creature.TargetedPlayerCtrl | Mandatory$ True | Amount$ X | SubAbility$ ReturnCreature
+SVar:ReturnCreature:DB$ ChangeZone | Defined$ ChosenCard | Origin$ Battlefield | Destination$ Hand
+SVar:X:TargetedPlayer$CreaturesInPlay/HalfUp

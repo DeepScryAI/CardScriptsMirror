@@ -1,9 +1,12 @@
 Id:11789
-ColorIdentity:B
+ColorIdentity:
 OriginSet:Geea47b3330de77a6
-ManaCost:3 B B
-Types:Creature Phyrexian Zombie Warrior
-PT:4/2
-T:Mode$ DamageDone | ValidTarget$ Creature.Self | Execute$ TrigZombie
-SVar:TrigZombie:DB$ Token | TokenScriptIds$ 807833245 | TokenOwner$ You
-SVar:HasCombatEffect:TRUE
+ManaCost:3
+Types:Artifact Creature Myr
+PT:1/4
+S:Mode$ Continuous | Affected$ Card.Self | EffectZone$ Battlefield | GainsAbilitiesOf$ Card.IsImprinted+ExiledWithSource | GainsAbilitiesOfZones$ Exile
+A:AB$ ChangeZone | Cost$ T | ValidTgts$ Artifact | Origin$ Graveyard | Destination$ Exile | Imprint$ True
+T:Mode$ ChangesZone | Origin$ Exile | Destination$ Any | Static$ True | ValidCard$ Card.IsImprinted+ExiledWithSource | Execute$ DBForget
+SVar:DBForget:DB$ Pump | ForgetImprinted$ TriggeredCard
+T:Mode$ ChangesZone | Origin$ Battlefield | ValidCard$ Card.Self | Destination$ Any | Execute$ DBCleanup | Static$ True
+SVar:DBCleanup:DB$ Cleanup | ClearImprinted$ True

@@ -1,8 +1,12 @@
 Id:15681
-ColorIdentity:BG
+ColorIdentity:WB
 OriginSet:G5b1ad34969911ca7
-ManaCost:4 B G
-Types:Creature Zombie Beast
-PT:4/5
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
-SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Creature.YouCtrl | TargetMin$ 0 | TargetMax$ 2
+ManaCost:W B
+Types:Legendary Creature Kor Cleric
+PT:2/3
+K:Deathtouch
+A:AB$ GainLife | Cost$ 1 Sac<1/Creature.Other/another creature> | Defined$ You | LifeAmount$ Toughness
+A:AB$ ChangeZone | Cost$ 1 W B Sac<1/Creature.Other/another creature> | CheckSVar$ X | SVarCompare$ GEY | ValidTgts$ Permanent.nonLand | Origin$ Battlefield | Destination$ Exile
+SVar:Toughness:Sacrificed$CardToughness
+SVar:X:Count$YourLifeTotal
+SVar:Y:Count$YourStartingLife/Plus.10

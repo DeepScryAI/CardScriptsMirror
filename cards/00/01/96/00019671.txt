@@ -1,8 +1,11 @@
 Id:19671
-ColorIdentity:
+ColorIdentity:W
 OriginSet:G7c61dc677f00d087
-ManaCost:1
-Types:Artifact
-A:AB$ Untap | Cost$ 1 T | ValidTgts$ Artifact.Other
-A:AB$ Effect | Cost$ 3 T | ValidTgts$ Creature | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable | AILogic$ MakeUnblockable
-SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+ManaCost:2 W
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddToughness$ 2
+S:Mode$ CombatDamageToughness | ValidCard$ Creature.EnchantedBy | Secondary$ True
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddAbility$ GauntletsUntap
+SVar:GauntletsUntap:AB$ Untap | Cost$ 2 W | Defined$ Self

@@ -1,10 +1,12 @@
 Id:27217
-ColorIdentity:G
-OriginSet:G997e3b19a1e94e85
-ManaCost:2 G
-Types:Legendary Creature Horse
-PT:2/2
-K:Horsemanship
-K:Partner
-S:Mode$ Continuous | Affected$ Card.YouCtrl+IsCommander | AddKeyword$ Horsemanship
-SVar:PlayMain1:TRUE
+ColorIdentity:BG
+OriginSet:G6ce0035cfb774934
+ManaCost:2 B G
+Types:Legendary Creature Treefolk
+PT:*/*
+S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X | SetToughness$ X
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigImmediate | TriggerZones$ Battlefield
+SVar:TrigImmediate:AB$ ImmediateTrigger | Cost$ Sac<1/Creature.Other;Card.token/another creature or token> | Execute$ TrigDebuff
+SVar:TrigDebuff:DB$ Pump | ValidTgts$ Creature.OppCtrl | NumAtt$ -2 | NumDef$ -2 | IsCurse$ True
+SVar:X:Count$Valid Land.YouCtrl
+SVar:HasAttackEffect:TRUE

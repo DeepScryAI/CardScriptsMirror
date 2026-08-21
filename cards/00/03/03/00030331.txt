@@ -1,9 +1,12 @@
 Id:30331
-ColorIdentity:BR
-OriginSet:G8b2ed00ac2a0ff47
-ManaCost:B R
-Types:Enchantment
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
-SVar:TrigDraw:AB$ Draw | Cost$ Sac<1/Enchantment.Other;Creature.Other/another enchantment or creature> | NumCards$ 2
-T:Mode$ Sacrificed | ValidPlayer$ You | ValidCard$ Card.Self | Execute$ TrigDread | TriggerZones$ Battlefield
-SVar:TrigDread:DB$ ManifestDread
+ColorIdentity:B
+OriginSet:G9ff9681e1fe8713a
+ManaCost:1 B
+Types:Creature Squirrel Warlock
+PT:1/1
+K:Starting intensity:0
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigIntensify
+SVar:TrigIntensify:DB$ Intensify | AllDefined$ Card.YouOwn+catalogId30331 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ X | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ X
+SVar:X:Count$Intensity

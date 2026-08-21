@@ -1,14 +1,10 @@
 Id:14739
-ColorIdentity:W
+ColorIdentity:WR
 OriginSet:G0a578e83854cf093
-ManaCost:3 W W
-Types:Creature Bird
-PT:3/4
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | CheckSVar$ RaidTest | Execute$ TrigToken
-SVar:RaidTest:Count$AttackersDeclared
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 1714690103 | TokenOwner$ You
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigGainLife
-SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ X
-SVar:X:Count$Valid Creature.attacking
-SVar:HasAttackEffect:TRUE
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGainLife
+SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 1
+A:AB$ Mana | Cost$ T | Produced$ Combo R W

@@ -1,7 +1,22 @@
 Id:15933
-ColorIdentity:G
+ColorIdentity:B
 OriginSet:Gc276c26a85a70470
-ManaCost:1 G
-Types:Instant
-A:SP$ Untap | ValidTgts$ Creature | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | Defined$ Targeted | NumAtt$ +2 | NumDef$ +2 | KW$ Reach
+ManaCost:3 B
+Types:Creature Human Shaman
+PT:4/2
+S:Mode$ ReduceCost | ValidTarget$ Card.Self | Activator$ Player.Opponent | Type$ Spell | Amount$ 1
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigChoose
+SVar:TrigChoose:DB$ Pump | ValidTgts$ Opponent | IsCurse$ True | SubAbility$ DBChange
+SVar:DBChange:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Battlefield | AttachedToPlayer$ ParentTarget | Transformed$ True | GainControl$ True | AILogic$ Curse
+SVar:SacMe:4
+SVar:MustAttack:True
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:black
+Types:Enchantment Aura Curse
+K:Enchant:Player
+S:Mode$ ReduceCost | ValidTarget$ Player.EnchantedBy | Activator$ You | Type$ Spell | Amount$ 1
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Player.EnchantedBy | TriggerZones$ Battlefield | Execute$ TrigDrain
+SVar:TrigDrain:DB$ LoseLife | Defined$ TriggeredPlayer | LifeAmount$ 1 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1

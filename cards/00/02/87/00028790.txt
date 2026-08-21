@@ -1,10 +1,14 @@
 Id:28790
-ColorIdentity:W
-OriginSet:Gaf7c94f364052cdd
-ManaCost:2 W
-Types:Legendary Creature Human Soldier
-PT:1/4
-K:Enlist
-T:Mode$ Attacks | ValidCard$ Creature.YouCtrl+enlistedThisCombat | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | Defined$ TriggeredAttackerLKICopy | KW$ DoubleStrike | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | ConditionCheckSVar$ TriggeredAttacker$CardPower | ConditionSVarCompare$ GE4
+ColorIdentity:UB
+OriginSet:Ge329d8d60ca65422
+ManaCost:2 UB UB
+Types:Creature Faerie Rogue
+PT:3/3
+K:Flying
+T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigSurveil | TriggerZones$ Battlefield
+SVar:TrigSurveil:DB$ Surveil | Amount$ X
+T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | CheckSVar$ Y | SVarCompare$ GE3 | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw
+SVar:X:PlayerCountPropertyYou$OpponentsAttackedThisCombat
+SVar:Y:Count$ThisTurnEntered_Graveyard_Card.YouOwn/Minus.Z
+SVar:Z:Count$ThisTurnEntered_Graveyard_from_Battlefield_Card.YouOwn

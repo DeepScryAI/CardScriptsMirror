@@ -1,9 +1,16 @@
 Id:16071
-ColorIdentity:U
+ColorIdentity:R
 OriginSet:Gc276c26a85a70470
-ManaCost:3 U
+ManaCost:R
 Types:Enchantment Aura
 K:Enchant:Creature
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigTap
-SVar:TrigTap:DB$ Tap | Defined$ Enchanted
-R:Event$ Untap | ActiveZones$ Battlefield | ValidCard$ Creature.AttachedBy | ValidStepTurnToController$ You | Layer$ CantHappen
+SVar:AttachAILogic:Curse
+S:Mode$ MustAttack | ValidCreature$ Creature.EnchantedBy
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.EnchantedBy | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | Transformed$ True | GainControl$ True | Defined$ Self
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:red
+Types:Creature Insect Horror
+PT:3/4

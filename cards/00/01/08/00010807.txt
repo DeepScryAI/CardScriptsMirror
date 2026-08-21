@@ -1,9 +1,11 @@
 Id:10807
 ColorIdentity:R
 OriginSet:G4398040c23c94f0e
-ManaCost:1 R
-Types:Creature Goblin Scout
+ManaCost:2 R
+Types:Creature Goblin Shaman
 PT:2/1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCanNotBlock
-SVar:TrigCanNotBlock:DB$ Pump | ValidTgts$ Creature | KW$ HIDDEN CARDNAME can't block. | IsCurse$ True
-SVar:PlayMain1:TRUE
+K:Haste
+K:Kicker:R
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self+kicked | Execute$ TrigKicker
+SVar:TrigKicker:DB$ Destroy | ValidTgts$ Land.nonBasic
+SVar:NeedsToPlayKicked:Land.nonBasic+OppCtrl

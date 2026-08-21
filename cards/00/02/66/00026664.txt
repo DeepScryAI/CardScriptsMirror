@@ -1,12 +1,10 @@
 Id:26664
 ColorIdentity:B
 OriginSet:G06757f68e16377c2
-ManaCost:2 B B
-Types:Creature Phyrexian Ogre
-PT:4/3
-K:Deathtouch
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigImmediateTrig | TriggerZones$ Battlefield
-SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ 3 B | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouOwn | StaticEffect$ Animate
-SVar:Animate:Mode$ Continuous | Affected$ Card.IsRemembered | AddType$ Phyrexian
-SVar:HasAttackEffect:TRUE
+ManaCost:1 B
+Types:Creature Phyrexian Samurai
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPump
+SVar:TrigPump:DB$ PumpAll | ValidCards$ Phyrexian.YouCtrl | KW$ Menace
+S:Mode$ Continuous | Affected$ Phyrexian.Other+YouCtrl | AddPower$ 1 | AddToughness$ 1
+A:AB$ ChangeZone | Cost$ 3 B Sac<1/Artifact;Creature/artifact or creature> | Origin$ Graveyard | Destination$ Battlefield | ActivationZone$ Graveyard | SorcerySpeed$ True

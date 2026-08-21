@@ -1,10 +1,12 @@
 Id:28498
-ColorIdentity:U
-OriginSet:G7ee0e82a2424d636
-ManaCost:5 U
-Types:Creature Vedalken Detective
-PT:4/4
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
-SVar:TrigChangeZone:DB$ ChangeZone | ValidTgts$ Creature.Other | TargetMin$ 0 | TargetMax$ 1 | RememberLKI$ True | Origin$ Battlefield | Destination$ Hand | SubAbility$ DBInvestigate
-SVar:DBInvestigate:DB$ Investigate | ConditionDefined$ RememberedLKI | ConditionPresent$ Card.YouCtrl | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:WUG
+OriginSet:G94329e6b3f93276f
+ManaCost:1 G W U
+Types:Legendary Creature Human Detective
+PT:3/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigTokenTiny
+SVar:TrigTokenTiny:DB$ Token | TokenScriptIds$ 2303765501 | TokenOwner$ You
+A:AB$ PutCounterAll | Cost$ 1 Sac<1/Artifact.token/artifact token> | ValidCards$ Dog.YouCtrl | CounterType$ P1P1 | CounterNum$ 1 | AILogic$ AtEOTOrBlock
+T:Mode$ DamageDone | ValidSource$ Dog.YouCtrl | Execute$ TrigTokenFoodClue | CombatDamage$ True | ValidTarget$ Player | TriggerZones$ Battlefield
+SVar:TrigTokenFoodClue:DB$ Token | TokenScriptIds$ 134855612 | SubAbility$ DBInvestigate
+SVar:DBInvestigate:DB$ Investigate

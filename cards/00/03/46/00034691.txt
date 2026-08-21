@@ -1,0 +1,12 @@
+Id:34691
+ColorIdentity:WB
+OriginSet:G11c0621ce29fa608
+ManaCost:1 W B
+Types:Legendary Creature Human Hero
+PT:2/2
+K:Deathtouch
+K:Lifelink
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigRevealHand
+SVar:TrigRevealHand:DB$ RevealHand | ValidTgts$ Opponent | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | ValidTgts$ Creature.ControlledBy ParentTarget | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Hand,Battlefield | Destination$ Exile | DefinedPlayer$ Targeted | Chooser$ You | ChangeNum$ 1 | ChangeType$ Card.targetedBy,Card.nonLand+inZoneHand | Hidden$ True | Duration$ UntilHostLeavesPlay

@@ -1,10 +1,14 @@
 Id:31711
-ColorIdentity:WU
-OriginSet:G7ab4f62d323b0ca7
-ManaCost:2 W U
-Types:Legendary Creature Human Artificer
-PT:4/4
-K:Cycling:W U
-K:A deck can have any number of cards named CARDNAME.
-S:Mode$ Continuous | Affected$ Creature.Artifact+YouCtrl,Creature.Hero+YouCtrl | AddPower$ X | AddToughness$ X
-SVar:X:Count$ValidBattlefield,Graveyard Artificer.YouCtrl
+ColorIdentity:WBG
+OriginSet:Gfac9eb8c75f25726
+ManaCost:2 W B G
+Types:Legendary Creature Elephant Warrior
+PT:5/6
+T:Mode$ TurnFaceUp | ValidCard$ Creature.YouCtrl | Execute$ TrigEndure | TriggerZones$ Battlefield
+SVar:TrigEndure:DB$ Endure | Defined$ TriggeredCardLKICopy | Num$ X
+SVar:X:TriggeredCard$CardToughness
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigSeek
+SVar:TrigSeek:DB$ Seek | Type$ Card.Creature | RememberFound$ True | SubAbility$ DBManifest
+SVar:DBManifest:DB$ Manifest | Defined$ Remembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:BuffedBy:Land

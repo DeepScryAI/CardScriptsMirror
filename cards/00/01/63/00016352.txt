@@ -1,11 +1,18 @@
 Id:16352
-ColorIdentity:U
+ColorIdentity:WB
 OriginSet:Gd94e3db4ef71ffd2
-ManaCost:3 U U
-Types:Creature Human Rogue Mutant
-PT:4/4
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMonarch
-SVar:TrigMonarch:DB$ BecomeMonarch
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | CheckDefinedPlayer$ You.isMonarch | Execute$ TrigUnblockable
-SVar:TrigUnblockable:DB$ Effect | StaticAbilities$ Unblockable
-SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Creature.YouCtrl
+ManaCost:2 W B
+Types:Legendary Planeswalker Kaya
+Loyalty:5
+A:AB$ Pump | Cost$ AddCounter<0/LOYALTY> | ValidTgts$ Creature | TargetMax$ 1 | TargetMin$ 0 | Planeswalker$ True | SubAbility$ DBChoose
+SVar:DBChoose:DB$ GenericChoice | Choices$ DBExileSelf,DBExileTarget | Defined$ You
+SVar:DBExileSelf:DB$ ChangeZone | Defined$ Self | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBDelTrig
+SVar:DBExileTarget:DB$ ChangeZone | Defined$ Targeted | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBDelTrig
+SVar:DBDelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ DBReturn | RememberObjects$ RememberedLKI | SubAbility$ DBCleanup
+SVar:DBReturn:DB$ ChangeZone | Origin$ Exile | Defined$ DelayTriggerRememberedLKI | Destination$ Battlefield
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 2 | Defined$ You
+A:AB$ LoseLife | Cost$ SubCounter<1/LOYALTY> | Planeswalker$ True | Defined$ Opponent | LifeAmount$ 2 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ 2
+A:AB$ Discard | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | Ultimate$ True | Defined$ Opponent | Mode$ TgtChoose | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw

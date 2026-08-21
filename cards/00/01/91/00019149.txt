@@ -1,15 +1,7 @@
 Id:19149
-ColorIdentity:B
-OriginSet:Gf56613712ce2ae1f
-ManaCost:3 B B
-Types:Legendary Creature Zombie God
-PT:5/6
-K:Menace
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSac
-SVar:TrigSac:DB$ Sacrifice | Defined$ You | Amount$ SacX | SacValid$ Permanent.Other | RememberSacrificed$ True | Optional$ True | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ DrawX | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:SacX:Count$Valid Permanent.YouCtrl+Other
-SVar:DrawX:Remembered$Amount
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard,Exile | ValidCard$ Card.Self | Execute$ TriReturn | OptionalDecider$ You
-SVar:TriReturn:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Destination$ Library | LibraryPosition$ 2
+ColorIdentity:WU
+OriginSet:Gf754105b74d860b3
+ManaCost:2 W W U
+Types:Sorcery
+A:SP$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Mandatory$ True | ChangeType$ Creature.YouCtrl | ChangeNum$ 1 | Hidden$ True | SubAbility$ DBDestroy
+SVar:DBDestroy:DB$ DestroyAll | ValidCards$ Creature

@@ -1,7 +1,10 @@
 Id:14752
-ColorIdentity:
+ColorIdentity:W
 OriginSet:Gfafc221218d3b700
-ManaCost:3
-Types:Artifact
-A:AB$ Mana | Cost$ T | Produced$ Combo ColorIdentity
-A:AB$ Draw | Cost$ Sac<1/CARDNAME> | NumCards$ 1
+ManaCost:3 W
+Types:Instant
+A:SP$ Effect | ReplacementEffects$ RPrevent
+SVar:RPrevent:Event$ DamageDone | ValidSource$ Card.YouDontCtrl,Emblem.YouDontCtrl | ValidTarget$ You,Planeswalker.YouCtrl | ReplaceWith$ DamageCreature | PreventionEffect$ True | ExecuteMode$ PerSource
+SVar:DamageCreature:DB$ DealDamage | Defined$ ReplacedSource | DamageSource$ EffectSource | NumDmg$ X | ConditionDefined$ ReplacedSource | ConditionPresent$ Card.Creature | ConditionCompare$ GE1 | SubAbility$ DamageNonCreature
+SVar:DamageNonCreature:DB$ DealDamage | Defined$ ReplacedSourceController | DamageSource$ EffectSource | NumDmg$ X | ConditionDefined$ ReplacedSource | ConditionPresent$ Card.nonCreature | ConditionCompare$ GE1
+SVar:X:ReplaceCount$DamageAmount

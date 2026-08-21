@@ -1,8 +1,13 @@
 Id:8604
-ColorIdentity:B
+ColorIdentity:R
 OriginSet:G70f74088c47d66bd
-ManaCost:2 B
-Types:Creature Sliver
+ManaCost:3 R
+Types:Creature Insect
 PT:2/2
-S:Mode$ Continuous | Affected$ Sliver | AddAbility$ Mana
-SVar:Mana:AB$ Mana | Cost$ Sac<1/CARDNAME> | Produced$ B | Amount$ 2
+K:Trample
+K:Haste
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | TriggerZones$ Battlefield | Execute$ TrigDiscard
+SVar:TrigDiscard:DB$ Discard | Defined$ TriggeredTarget | Mode$ Hand | RememberDiscarded$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ X | Defined$ TriggeredTarget | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Amount

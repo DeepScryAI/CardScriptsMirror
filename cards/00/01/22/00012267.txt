@@ -1,16 +1,9 @@
 Id:12267
-ColorIdentity:G
+ColorIdentity:
 OriginSet:G14de52802b0b467c
-ManaCost:4 G
-Types:Creature Human Werewolf
-PT:4/4
-T:Mode$ Phase | Phase$ Upkeep | WerewolfTransformCondition$ True | TriggerZones$ Battlefield | Execute$ TrigTransform
-SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:green
-Types:Creature Werewolf
-PT:7/7
-T:Mode$ Phase | Phase$ Upkeep | WerewolfUntransformCondition$ True | TriggerZones$ Battlefield | Execute$ TrigTransform
-SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform
+ManaCost:4
+Types:Legendary Artifact Book
+A:AB$ PutCounter | Cost$ 1 T Discard<1/Card> | Defined$ Self | CounterType$ STUDY | CounterNum$ 1
+A:AB$ ChangeZoneAll | Cost$ T SubCounter<3/STUDY> Sac<1/CARDNAME> | ChangeType$ Creature | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True | StaticEffect$ Animate
+SVar:Animate:Mode$ Continuous | Affected$ Card.IsRemembered | AddType$ Zombie | AddColor$ Black
+SVar:IsReanimatorCard:TRUE

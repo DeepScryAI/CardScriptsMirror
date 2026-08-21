@@ -1,7 +1,11 @@
 Id:20483
-ColorIdentity:U
-OriginSet:Gc9c1dd0d52c99ca4
-ManaCost:2 U
-Types:Enchantment
-T:Mode$ Cycled | ValidCard$ Card.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigClone | OptionalDecider$ You
-SVar:TrigClone:DB$ Clone | ValidTgts$ Permanent.Other | Duration$ UntilYourNextTurn | GainThisAbility$ True | AILogic$ CloneBestCreature
+ColorIdentity:
+OriginSet:Gfa87e7bbc5a709eb
+ManaCost:2
+Types:Artifact Equipment
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddKeyword$ Flying
+A:AB$ Effect | Cost$ Sac<1/CARDNAME> | RememberObjects$ Equipped | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable | Triggers$ Sacrifice
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+SVar:Sacrifice:Mode$ Phase | Phase$ End of Turn | Execute$ TrigSac
+SVar:TrigSac:DB$ SacrificeAll | ValidCards$ Card.IsRemembered
+K:Equip:1

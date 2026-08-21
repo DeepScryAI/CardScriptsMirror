@@ -1,8 +1,11 @@
 Id:8094
 ColorIdentity:UB
 OriginSet:Gc563c209d627c4c5
-ManaCost:4 U
-Types:Creature Zombie Drake
-PT:2/2
+ManaCost:3 U U B B
+Types:Legendary Creature Vampire
+PT:5/5
 K:Flying
-A:AB$ Regenerate | Cost$ B
+R:Event$ DamageDone | ActiveZones$ Battlefield | IsCombat$ True | ValidSource$ Card.Self | ValidTarget$ Player | ReplaceWith$ CountersAndMill | ExecuteMode$ PerTarget
+SVar:X:ReplaceCount$DamageAmount
+SVar:CountersAndMill:DB$ PutCounter | Defined$ Self | CounterNum$ X | CounterType$ P1P1 | SubAbility$ Mill
+SVar:Mill:DB$ Mill | Defined$ ReplacedTarget | NumCards$ X

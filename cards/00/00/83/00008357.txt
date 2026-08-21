@@ -1,13 +1,10 @@
 Id:8357
-ColorIdentity:BR
+ColorIdentity:
 OriginSet:Gde6d8130c178f566
-ManaCost:2 B
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:Curse
-A:AB$ Effect | Cost$ 1 R | IsCurse$ True | StaticAbilities$ MustAttack | ExileOnMoved$ Battlefield | RememberObjects$ Enchanted
-SVar:MustAttack:Mode$ MustAttack | ValidCreature$ Creature.IsRemembered
-T:Mode$ Attacks | ValidCard$ Card.AttachedBy | TriggerZones$ Battlefield | Execute$ TrigLoseLifeAttack
-T:Mode$ Blocks | ValidCard$ Card.AttachedBy | TriggerZones$ Battlefield | Execute$ TrigLoseLifeBlock | Secondary$ True
-SVar:TrigLoseLifeAttack:DB$ LoseLife | LifeAmount$ 3 | Defined$ TriggeredAttackerController
-SVar:TrigLoseLifeBlock:DB$ LoseLife | LifeAmount$ 3 | Defined$ TriggeredBlockerController
+ManaCost:4
+Types:Artifact
+A:AB$ ChangeZone | Cost$ 3 T | ValidTgts$ Player | SorcerySpeed$ True | Origin$ Hand | Destination$ Exile | ChangeType$ Card | ChangeNum$ 1 | Chooser$ Targeted | Hidden$ True | IsCurse$ True | Mandatory$ True
+A:AB$ ChooseCard | Cost$ 1 | ChoiceZone$ Exile | Choices$ Card.ExiledWithSource | Amount$ 1 | SubAbility$ DBEffect | AILogic$ Never
+SVar:DBEffect:DB$ Effect | Duration$ EndOfTurn | StaticAbilities$ STPlay | RememberObjects$ ChosenCard | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True

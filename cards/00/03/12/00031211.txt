@@ -1,14 +1,10 @@
 Id:31211
-ColorIdentity:B
-OriginSet:G9de1432c543d1aef
-ManaCost:3 B B
-Types:Creature Insect Assassin
-PT:3/4
-K:Flying
-K:Lifelink
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | ValidTgts$ Opponent | SubAbility$ DBChooseCard
-SVar:DBChooseCard:DB$ ChooseCard | Defined$ You | Choices$ Creature.ControlledBy TargetedPlayer,Planeswalker.ControlledBy TargetedPlayer | Secretly$ True | Amount$ 1 | Mandatory$ True | SubAbility$ DBSac1
-SVar:DBSac1:DB$ Sacrifice | Defined$ Targeted | SacValid$ Creature,Planeswalker | SubAbility$ DBSac2
-SVar:DBSac2:DB$ Sacrifice | Defined$ Targeted | SacValid$ Permanent.ChosenCard | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+ColorIdentity:W
+OriginSet:G4524bbf7a3db9dc0
+ManaCost:2 W
+Types:Enchantment Aura
+K:Enchant:Creature,Vehicle:creature or Vehicle
+SVar:AttachAILogic:Pump
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 307587310
+S:Mode$ Continuous | Affected$ Permanent.EnchantedBy | AddPower$ 1 | AddToughness$ 1 | AddKeyword$ Lifelink

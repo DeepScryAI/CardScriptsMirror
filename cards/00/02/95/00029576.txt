@@ -1,13 +1,13 @@
 Id:29576
-ColorIdentity:G
+ColorIdentity:B
 OriginSet:Gac6359c222afbd4f
-ManaCost:1 C G
-Types:Creature Eldrazi
-PT:3/4
-K:Devoid
-T:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Permanent.nonCreature+nonLand+OppCtrl+cmcLE4 | TargetMin$ 0 | TargetMax$ 1 | RememberChanged$ True | SubAbility$ DBAnimate
-SVar:DBAnimate:DB$ Animate | Triggers$ LeavesTrig | Duration$ Permanent | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBCleanup
-SVar:LeavesTrig:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | ValidTgts$ Opponent
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:2 B B
+Types:Instant
+A:SP$ Destroy | ValidTgts$ Creature,Planeswalker
+AlternateMode:Modal
+ALTERNATE
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ DBTap | ReplacementResult$ Updated
+SVar:DBTap:DB$ Tap | ETB$ True | Defined$ Self | UnlessCost$ PayLife<3> | UnlessPayer$ You
+A:AB$ Mana | Cost$ T | Produced$ B

@@ -1,12 +1,10 @@
 Id:12029
-ColorIdentity:UBG
+ColorIdentity:W
 OriginSet:G28b959a4da853005
-ManaCost:4 B G U
-Types:Legendary Creature Gorgon Wizard
-PT:4/4
-K:Deathtouch
-R:Event$ BeginPhase | ActiveZones$ Battlefield | ValidPlayer$ You | Phase$ Draw | Skip$ True
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ X | SVarCompare$ LT7 | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ Difference
-SVar:X:Count$ValidHand Card.YouOwn
-SVar:Difference:Number$7/Minus.X
+ManaCost:3 W
+Types:Enchantment
+T:Mode$ Phase | Phase$ Upkeep | TriggerZones$ Battlefield | Execute$ TrigStrife
+SVar:TrigStrife:DB$ PutCounter | Defined$ Self | CounterType$ STRIFE | CounterNum$ 1
+S:Mode$ Continuous | Affected$ Creature.attacking | AddPower$ X
+S:Mode$ Continuous | Affected$ Creature.blocking+YouCtrl | AddPower$ X
+SVar:X:Count$CardCounters.STRIFE

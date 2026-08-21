@@ -1,13 +1,16 @@
 Id:30045
-ColorIdentity:R
-OriginSet:G30e4cc621dfc3a2e
-ManaCost:3 R R
-Types:Creature Elemental Bird
-PT:4/4
-K:Flying
-K:Haste
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +X
-T:Mode$ ManaExpend | Amount$ 6 | Player$ You | TriggerZones$ Battlefield | Execute$ TrigGainControl
-SVar:TrigGainControl:DB$ GainControl | ValidTgts$ Artifact | TargetMin$ 0 | TargetMax$ 1 | LoseControl$ LeavesPlay,LoseControl
-SVar:X:Count$Valid Artifact.YouCtrl$GreatestCardManaCost
+ColorIdentity:RG
+OriginSet:Gf09b85bbcc27770c
+ManaCost:1 R G
+Types:Legendary Creature Raccoon Warrior
+PT:2/4
+T:Mode$ Phase | Phase$ Main1 | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigGetMana
+SVar:TrigGetMana:DB$ Mana | Produced$ Combo R G | Amount$ X
+T:Mode$ ManaExpend | Amount$ 4 | Player$ You | TriggerZones$ Battlefield | Execute$ TrigGainLife
+SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 3
+T:Mode$ ManaExpend | Amount$ 8 | Player$ You | TriggerZones$ Battlefield | Execute$ TrigExile
+SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ 2 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ STPlay | SubAbility$ DBCleanup | ForgetOnMoved$ Exile | Duration$ UntilTheEndOfYourNextTurn
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$Valid Raccoon.YouCtrl

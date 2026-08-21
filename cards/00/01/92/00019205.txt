@@ -1,12 +1,15 @@
 Id:19205
 ColorIdentity:G
 OriginSet:Gf56613712ce2ae1f
-ManaCost:2 G
-Types:Legendary Planeswalker Vivien
-Loyalty:4
-S:Mode$ CastWithFlash | ValidCard$ Creature | ValidSA$ Spell | Caster$ You
-A:AB$ Pump | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | KW$ Vigilance & Reach | Duration$ UntilYourNextTurn
-A:AB$ Dig | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | Defined$ You | DigNum$ 3 | DestinationZone$ Exile | ExileFaceDown$ True | WithMayLook$ True | RememberChanged$ True | SubAbility$ DBEffect | AILogic$ DigForCreature
-SVar:DBEffect:DB$ Effect | RememberObjects$ Remembered | StaticAbilities$ STPlay | Duration$ Permanent | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
-SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Creature.IsRemembered | AffectedZone$ Exile | Secondary$ You may look at the card and you may cast it if it's a creature.
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:3 G G
+Types:Legendary Planeswalker Nissa
+Loyalty:5
+T:Mode$ TapsForMana | ValidCard$ Forest | Activator$ You | Execute$ TrigMana | TriggerZones$ Battlefield | Static$ True
+SVar:TrigMana:DB$ Mana | Produced$ G | Amount$ 1
+A:AB$ PutCounter | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | CounterType$ P1P1 | CounterNum$ 3 | ValidTgts$ Land.nonCreature+YouCtrl | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBUntap
+SVar:DBUntap:DB$ Untap | Defined$ Targeted | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Targeted | Power$ 0 | Toughness$ 0 | Types$ Creature,Elemental | Keywords$ Vigilance & Haste | Duration$ Permanent
+A:AB$ Effect | Cost$ SubCounter<8/LOYALTY> | Name$ 5422349558253247819 | Duration$ Permanent | Stackable$ False | Planeswalker$ True | Ultimate$ True | StaticAbilities$ STIndestructible | SubAbility$ DBChangeZone
+SVar:STIndestructible:Mode$ Continuous | Affected$ Land.YouCtrl | AffectedZone$ Battlefield | AddKeyword$ Indestructible
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Forest | ChangeNum$ XFetch | Tapped$ True
+SVar:XFetch:Count$ValidLibrary Forest.YouCtrl

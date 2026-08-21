@@ -1,10 +1,12 @@
 Id:24894
-ColorIdentity:R
+ColorIdentity:B
 OriginSet:G3a8b4b9d4649b357
-ManaCost:4 R
-Types:Creature Elf Archer
-PT:4/4
-K:Reach
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDamage
-SVar:TrigDamage:DB$ DealDamage | Defined$ Opponent | NumDmg$ X
-SVar:X:Count$Domain
+ManaCost:B
+Types:Creature Skeleton Warrior
+PT:2/1
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ ChangeZone | Cost$ 1 B | Origin$ Graveyard | Destination$ Battlefield | ActivationZone$ Graveyard | CheckSVar$ X | SVarCompare$ GT0
+SVar:X:Count$ThisTurnEntered_Graveyard_from_Battlefield_Creature.YouCtrl+nonSkeleton
+SVar:DiscardMe:1
+SVar:SacMe:1

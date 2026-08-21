@@ -1,8 +1,13 @@
 Id:15851
-ColorIdentity:U
+ColorIdentity:B
 OriginSet:Gbfcf4b36579d751e
-ManaCost:3 U U
-Types:Sorcery
-A:SP$ Draw | NumCards$ 3 | SubAbility$ DBUntap
-SVar:DBUntap:DB$ Untap | UntapUpTo$ True | UntapType$ Land | Amount$ 2 | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ TgtChoose
+ManaCost:2 B B
+Types:Creature Demon
+PT:4/5
+K:Flying
+K:Trample
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill
+SVar:TrigMill:DB$ Mill | NumCards$ 4 | Defined$ You
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigLoseLife | TriggerZones$ Battlefield
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ X
+SVar:X:Count$Delirium.0.4

@@ -1,8 +1,13 @@
 Id:22936
-ColorIdentity:RG
+ColorIdentity:WU
 OriginSet:Gf78628ad511eefec
-ManaCost:no cost
-Types:Land
-A:AB$ Mana | Cost$ T | Produced$ Combo R G
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ LandTapped | ReplacementResult$ Updated
-SVar:LandTapped:DB$ Tap | Defined$ Self | ETB$ True | ConditionPresent$ Land.YouCtrl | ConditionCompare$ LT2
+ManaCost:W U
+Types:Sorcery
+A:SP$ ChangeZone | ValidTgts$ Creature.nonLegendary | Origin$ Battlefield | Destination$ Exile | RememberTargets$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ All | Destination$ Battlefield | SubAbility$ DBBranch
+SVar:DBBranch:DB$ Branch | BranchConditionSVar$ X | TrueSubAbility$ PutCounter | FalseSubAbility$ Tap
+SVar:PutCounter:DB$ PutCounter | Defined$ Remembered | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBCleanup
+SVar:Tap:DB$ Tap | Defined$ Remembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Valid Creature.YouCtrl
+K:Flashback:1 W U

@@ -1,9 +1,10 @@
 Id:4215
 ColorIdentity:U
 OriginSet:Gdd40b2fbd2aa3c03
-ManaCost:1 U
-Types:Creature Merfolk
-PT:1/1
-T:Mode$ AttackerBlocked | ValidCard$ Card.Self | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 3 | OptionalDecider$ You
-SVar:HasAttackEffect:Blocked
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ PutCounter | Cost$ T | Defined$ Self | CounterType$ STORAGE | CounterNum$ 1
+A:AB$ Mana | Cost$ T SubCounter<X/STORAGE> | Produced$ U | Amount$ X | AILogic$ ManaRitualBattery | AINoRecursiveCheck$ True
+SVar:X:Count$xPaid

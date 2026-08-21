@@ -1,9 +1,11 @@
 Id:33470
-ColorIdentity:B
-OriginSet:G23d1f017cc66962f
-ManaCost:2 B
-Types:Creature Insect Mutant
-PT:2/2
-K:Flying
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigScry | Revolt$ True
-SVar:TrigScry:DB$ Scry | ScryNum$ 1
+ColorIdentity:G
+OriginSet:G7ab1fe96128a1641
+ManaCost:4 G
+Types:Sorcery
+A:SP$ ChooseCard | Choices$ Creature.YouCtrl | ChoiceZone$ Battlefield | SubAbility$ DBDraw | Amount$ 2
+SVar:DBDraw:DB$ Draw | NumCards$ X | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ ChosenCard | NumAtt$ +X | NumDef$ +X | KW$ Trample | ConditionCheckSVar$ Z | ConditionSVarCompare$ EQ2
+SVar:X:Count$Valid Creature.ChosenCard$GreatestCardPower/Minus.Y
+SVar:Y:Count$Valid Creature.ChosenCard$LeastCardPower
+SVar:Z:ChosenCard$Amount

@@ -1,12 +1,25 @@
 Id:26777
-ColorIdentity:UG
-OriginSet:G321081e278de53f0
-ManaCost:2 G U
-Types:Legendary Creature Human Druid
-PT:3/3
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigAnimate
-SVar:TrigAnimate:DB$ Animate | ValidTgts$ Land.YouCtrl | TargetMin$ 0 | TargetMax$ 1 | Power$ X | Toughness$ X | Types$ Bird,Creature | Keywords$ Flying & Haste | Colors$ Green,Blue | OverwriteColors$ True
-T:Mode$ DamageDone | ValidSource$ Creature.YouCtrl+Land | ValidTarget$ Player | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw
-SVar:X:Count$ValidHand Card.YouOwn
-SVar:BuffedBy:Land
+ColorIdentity:UB
+OriginSet:G06757f68e16377c2
+ManaCost:1 U
+Types:Legendary Creature Human Wizard
+PT:1/3
+T:Mode$ SpellCast | ValidCard$ Card.Legendary | ValidActivatingPlayer$ You | Execute$ TrigUntap | TriggerZones$ Battlefield
+SVar:TrigUntap:DB$ Untap | Defined$ Self
+A:AB$ Draw | Cost$ T | NumCards$ 1 | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | Mode$ TgtChoose | NumCards$ 1
+A:AB$ SetState | Cost$ 5 BP | Defined$ Self | Mode$ Transform | SorcerySpeed$ True | AILogic$ Always
+SVar:BuffedBy:Card.Legendary
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:blue,black
+Types:Legendary Creature Phyrexian Wizard
+PT:5/5
+K:Trample
+T:Mode$ DamageDone | ValidTarget$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | DefinedPlayer$ TriggeredSourceController | Mandatory$ True | ChangeType$ Card | Hidden$ True | AtRandom$ True | RememberChanged$ True | SubAbility$ DBRonaLand
+SVar:DBRonaLand:DB$ ChangeZone | Origin$ Exile | Destination$ Battlefield | ChangeType$ Land.IsRemembered | Hidden$ True | Optional$ True | GainControl$ True | SubAbility$ DBRonaPlay
+SVar:DBRonaPlay:DB$ Play | ValidZone$ Exile | Controller$ You | Valid$ Card.IsRemembered | ValidSA$ Spell | WithoutManaCost$ True | Optional$ True | SubAbility$ DBRonaCleanup
+SVar:DBRonaCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:HasCombatEffect:TRUE

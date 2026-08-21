@@ -1,14 +1,9 @@
 Id:20516
-ColorIdentity:RG
+ColorIdentity:B
 OriginSet:Gc9c1dd0d52c99ca4
-ManaCost:3 R G
-Types:Legendary Creature Elemental Dog
-PT:3/3
-K:PartnerWithId:20499
+ManaCost:3 B
+Types:Creature Human Warlock
+PT:5/1
 K:Haste
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigExile | TriggerZones$ Battlefield
-SVar:TrigExile:DB$ Dig | DigNum$ 1 | ChangeNum$ All | Defined$ Player | DestinationZone$ Exile | ExileWithCounters$ FETCH | RememberChanged$ True | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ X | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$ValidExile Card.IsRemembered+nonCreature
-SVar:HasAttackEffect:TRUE
+S:Mode$ MustAttack | ValidCreature$ Card.Self
+A:AB$ PutCounter | Cost$ 1 B ExileFromGrave<1/CARDNAME> | ActivationZone$ Graveyard | ValidTgts$ Creature | CounterType$ Indestructible | CounterNum$ 1 | SorcerySpeed$ True

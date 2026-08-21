@@ -1,7 +1,11 @@
 Id:8895
-ColorIdentity:U
+ColorIdentity:UG
 OriginSet:Gce1d73449bd71b54
-ManaCost:1 U
-Types:Creature Human Spellshaper
-PT:1/1
-A:AB$ ChangeZone | Cost$ 2 U T Discard<1/Card> Sac<1/Land> | Origin$ Library | Destination$ Battlefield | ChangeType$ Land.Basic | ChangeNum$ 2
+ManaCost:2 G U
+Types:Creature Sliver
+PT:2/2
+S:Mode$ Continuous | Affected$ Creature.Sliver | AddKeyword$ Defender
+S:Mode$ Continuous | Affected$ Permanent.Sliver | AddTrigger$ TrigEnter
+SVar:TrigEnter:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw
+SVar:BuffedBy:Sliver

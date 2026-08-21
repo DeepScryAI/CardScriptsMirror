@@ -1,15 +1,8 @@
 Id:33998
-ColorIdentity:UG
-OriginSet:Gcb93bbfc68a40806
-ManaCost:2 GU
-Types:Legendary Creature Human Rogue Hero
-PT:2/3
-T:Mode$ SpellCast | ValidCard$ Card.Green | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPumpPlus
-SVar:TrigPumpPlus:DB$ Pump | NumAtt$ +1 | KW$ Trample | Defined$ Self
-T:Mode$ SpellCast | ValidCard$ Card.Blue | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPumpMinus
-SVar:TrigPumpMinus:DB$ Pump | NumAtt$ -1 | Defined$ Self | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | ExileOnMoved$ Battlefield | RememberObjects$ Self | StaticAbilities$ Unblockable
-SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
-SVar:BuffedBy:Card.Green,Card.Blue
+ColorIdentity:B
+OriginSet:Gf8df2bea26dc6b68
+ManaCost:2 B
+Types:Instant
+A:SP$ Destroy | ValidTgts$ Creature | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ TargetedController | LifeAmount$ 3 | ConditionCheckSVar$ X
+SVar:X:Count$LifeYouGainedThisTurn

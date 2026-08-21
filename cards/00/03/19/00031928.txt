@@ -1,10 +1,13 @@
 Id:31928
-ColorIdentity:U
+ColorIdentity:UB
 OriginSet:G7ab4f62d323b0ca7
-ManaCost:2 U
-Types:Artifact Equipment
-K:Job select
-K:Equip:4
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1 | AddToughness$ 1 | AddType$ Rogue | AddTrigger$ TrigDmg
-SVar:TrigDmg:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw
+ManaCost:U B
+Types:Legendary Creature Human Wizard
+PT:1/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Artifact.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigSurveil
+SVar:TrigSurveil:DB$ Surveil | Amount$ 1
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ X | SVarCompare$ GE4 | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Creature.YouOwn | RememberChanged$ True | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ Player.Opponent | ConditionCheckSVar$ X | ConditionSVarCompare$ GE8 | LifeAmount$ Remembered$CardPower | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$Valid Artifact.YouCtrl

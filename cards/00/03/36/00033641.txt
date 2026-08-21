@@ -1,15 +1,6 @@
 Id:33641
-ColorIdentity:WB
-OriginSet:Gf04404de3fa1525e
-ManaCost:1 W B
-Types:Legendary Creature Human Advisor
-PT:2/3
-T:Mode$ SpellCast | ValidCard$ Card.YouDontOwn | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounterAll
-SVar:TrigPutCounterAll:DB$ PutCounterAll | ValidCards$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1
-A:AB$ ChangeZone | Cost$ 2 Sac<1/Creature.Other/another creature> | Origin$ Graveyard | Destination$ Exile | SorcerySpeed$ True | ValidTgts$ Instant.OppOwn,Sorcery.OppOwn | RememberChanged$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | RememberObjects$ Remembered | StaticAbilities$ STPlay | ExileOnMoved$ Exile | SubAbility$ DBEffect2
-SVar:STPlay:Mode$ Continuous | MayPlay$ True | MayPlayIgnoreType$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
-SVar:DBEffect2:DB$ Effect | RememberObjects$ Remembered | ExileOnMoved$ Stack | ReplacementEffects$ ReplaceGraveyard | SubAbility$ DBCleanup
-SVar:ReplaceGraveyard:Event$ Moved | ValidCard$ Card.nonLand+IsRemembered | Origin$ Stack | Destination$ Graveyard | ReplaceWith$ MoveExile
-SVar:MoveExile:DB$ ChangeZone | Defined$ ReplacedCard | Origin$ Stack | Destination$ Exile
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:R
+OriginSet:G23d1f017cc66962f
+ManaCost:2 R R R
+Types:Sorcery
+A:SP$ GainControl | AllValid$ Artifact.OppCtrl | Untap$ True | AddKWs$ Haste | LoseControl$ EOT

@@ -1,10 +1,13 @@
 Id:30189
-ColorIdentity:W
-OriginSet:G9ff9681e1fe8713a
-ManaCost:1 W
-Types:Creature Rabbit Citizen
-PT:2/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChoose
-SVar:TrigChoose:DB$ ChooseCard | ChoiceZone$ Hand | Choices$ Card.Creature+YouOwn+White | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | Defined$ ChosenCard | PumpZone$ Hand | KW$ Offspring:1 | Duration$ Perpetual | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+ColorIdentity:R
+OriginSet:G30e4cc621dfc3a2e
+ManaCost:3 R R
+Types:Creature Elemental Bird
+PT:4/4
+K:Flying
+K:Haste
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +X
+T:Mode$ ManaExpend | Amount$ 6 | Player$ You | TriggerZones$ Battlefield | Execute$ TrigGainControl
+SVar:TrigGainControl:DB$ GainControl | ValidTgts$ Artifact | TargetMin$ 0 | TargetMax$ 1 | LoseControl$ LeavesPlay,LoseControl
+SVar:X:Count$Valid Artifact.YouCtrl$GreatestCardManaCost

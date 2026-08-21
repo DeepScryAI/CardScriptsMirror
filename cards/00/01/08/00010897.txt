@@ -1,9 +1,13 @@
 Id:10897
-ColorIdentity:G
+ColorIdentity:R
 OriginSet:G4398040c23c94f0e
-ManaCost:1 G
+ManaCost:R
 Types:Enchantment
-A:AB$ PutCounter | Cost$ SubCounter<1/QUEST> Sac<1/CARDNAME> | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ 4
-T:Mode$ DamageDone | ValidSource$ Creature.YouCtrl | ValidTarget$ Creature | TriggerZones$ Battlefield | OptionalDecider$ You | CombatDamage$ True | Execute$ TrigPutCounter
+T:Mode$ DamageDone | ValidSource$ Card.YouCtrl,Emblem.YouCtrl | ValidTarget$ Opponent | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigPutCounter
 SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ QUEST | CounterNum$ 1
-SVar:MaxQuestEffect:1
+A:AB$ Effect | Cost$ SubCounter<4/QUEST> Sac<1/CARDNAME> | ReplacementEffects$ DamageEvent
+SVar:DamageEvent:Event$ DamageDone | ValidSource$ Card.YouCtrl,Emblem.YouCtrl | ValidTarget$ Permanent,Player | ReplaceWith$ DmgTwice
+SVar:DmgTwice:DB$ ReplaceEffect | VarName$ DamageAmount | VarValue$ X
+SVar:X:ReplaceCount$DamageAmount/Twice
+SVar:PlayMain1:TRUE
+SVar:MaxQuestEffect:4

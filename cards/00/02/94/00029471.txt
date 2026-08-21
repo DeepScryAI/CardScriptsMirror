@@ -1,9 +1,11 @@
 Id:29471
 ColorIdentity:
-OriginSet:Gac6359c222afbd4f
-ManaCost:1 C
-Types:Creature Eldrazi Drone
-PT:2/2
-S:Mode$ ReduceCost | ValidCard$ Card.Colorless+cmcGE7 | Type$ Spell | Activator$ You | Amount$ 1
-S:Mode$ Continuous | Affected$ Creature.Colorless+Other+YouCtrl | AddPower$ 1 | AddToughness$ 1
-SVar:PlayMain1:TRUE
+OriginSet:G2ce881cc55bb9f18
+ManaCost:no cost
+Types:Land Desert
+A:AB$ Mana | Cost$ T | Produced$ C
+A:AB$ Mana | Cost$ T Sac<1/Creature> | Produced$ Any
+A:AB$ ChangeZone | Cost$ X 2 T Sac<1/Desert> | RememberLKI$ True | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Creature.YouOwn+cmcEQX | ChangeNum$ 1 | SubAbility$ DBCopy | AILogic$ TheScarabGod | SorcerySpeed$ True
+SVar:DBCopy:DB$ CopyPermanent | Defined$ Remembered | SetPower$ 4 | SetToughness$ 4 | SetColor$ Black | SetCreatureTypes$ Zombie | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$xPaid

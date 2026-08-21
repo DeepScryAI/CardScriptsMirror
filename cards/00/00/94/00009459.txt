@@ -1,6 +1,10 @@
 Id:9459
-ColorIdentity:
+ColorIdentity:W
 OriginSet:G1ddd2c86a9ea60e3
-ManaCost:1
-Types:Artifact
-A:AB$ ChangeZone | Cost$ 1 Sac<1/CARDNAME> | Origin$ Library | Destination$ Hand | ChangeType$ Land.Basic
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ LandTapped | ReplacementResult$ Updated
+SVar:LandTapped:DB$ Tap | Defined$ Self | ETB$ True | SubAbility$ DBAddCounter
+SVar:DBAddCounter:DB$ PutCounter | ETB$ True | Defined$ Self | CounterType$ CHARGE | CounterNum$ 2
+A:AB$ Mana | Cost$ T | Produced$ W
+A:AB$ Mana | Cost$ T SubCounter<1/CHARGE> | Produced$ Any

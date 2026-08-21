@@ -1,10 +1,14 @@
 Id:22493
-ColorIdentity:UR
-OriginSet:G9f95a41d532c0550
-ManaCost:2 U R
-Types:Legendary Creature Tiefling Warlock
-PT:3/3
-T:Mode$ RolledDieOnce | TriggerZones$ Battlefield | ValidPlayer$ You | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | Defined$ Self | KW$ Flying & Menace | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | ConditionCheckSVar$ DiceResult | ConditionSVarCompare$ GE10
-SVar:DiceResult:TriggerCountMax$Result
+ColorIdentity:B
+OriginSet:G92f7f9489fec5865
+ManaCost:2 B
+Types:Legendary Artifact Equipment
+T:Mode$ Attacks | ValidCard$ Card.EquippedBy | TriggerZones$ Battlefield | Execute$ TrigPumpA
+T:Mode$ Blocks | ValidCard$ Card.EquippedBy | TriggerZones$ Battlefield | Execute$ TrigPumpB | Secondary$ True
+SVar:TrigPumpA:DB$ Pump | Defined$ TriggeredAttackerLKICopy | KW$ Deathtouch | SubAbility$ DBPumpZ
+SVar:TrigPumpB:DB$ Pump | Defined$ TriggeredBlockerLKICopy | KW$ Deathtouch | SubAbility$ DBPumpZ
+SVar:DBPumpZ:DB$ PumpAll | ValidCards$ Zombie.YouCtrl | KW$ Deathtouch
+T:Mode$ DamageDone | ValidSource$ Card.EquippedBy | Execute$ TrigToken | CombatDamage$ True | ValidTarget$ Player | TriggerZones$ Battlefield
+SVar:TrigToken:DB$ Token | TokenAmount$ X | TokenScriptIds$ 353162950
+SVar:X:TriggerCount$DamageAmount
+K:Equip:3

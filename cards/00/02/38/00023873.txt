@@ -1,7 +1,11 @@
 Id:23873
-ColorIdentity:W
-OriginSet:Gfdfe2ebef04be34e
-ManaCost:2 W W
-Types:Sorcery
-A:SP$ Draw | Defined$ Player.controlsCreature.MultiColor | SubAbility$ DBDestroy
-SVar:DBDestroy:DB$ DestroyAll | ValidCards$ Creature
+ColorIdentity:
+OriginSet:G5f5d8cfb206e2fac
+ManaCost:2
+Types:Artifact Equipment
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | CounterType$ CHARGE
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ X | AddToughness$ X
+SVar:X:Count$CardCounters.ALL
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddKeyword$ DoubleStrike | CheckSVar$ X | SVarCompare$ GE4
+K:Equip:3:::AlternateCost$ RemoveAnyCounter<1/Any/CARDNAME/this equipment>

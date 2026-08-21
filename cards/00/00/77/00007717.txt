@@ -1,9 +1,11 @@
 Id:7717
-ColorIdentity:W
+ColorIdentity:G
 OriginSet:G3fddc6426f419054
-ManaCost:1 W
-Types:Legendary Creature Spirit
-PT:2/1
-S:Mode$ Continuous | Affected$ Artifact | AddTrigger$ UpkeepCostTrigger
-SVar:UpkeepCostTrigger:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigUpkeep
-SVar:TrigUpkeep:DB$ Sacrifice | UnlessPayer$ You | UnlessCost$ 1
+ManaCost:1 G G
+Types:Creature Snake Warrior
+PT:2/3
+S:Mode$ Continuous | Affected$ Snake.Legendary+YouCtrl | AddKeyword$ Shroud
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Creature | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigTap
+SVar:TrigTap:DB$ Tap | Defined$ TriggeredTargetLKICopy | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ TriggeredTargetLKICopy | KW$ HIDDEN This card doesn't untap during your next untap step. | Duration$ Permanent | IsCurse$ True
+SVar:HasCombatEffect:TRUE

@@ -1,13 +1,10 @@
 Id:33538
-ColorIdentity:R
-OriginSet:G23d1f017cc66962f
-ManaCost:3 R
-Types:Legendary Creature Mutant Ninja Turtle
-PT:4/3
-K:Menace
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.YouCtrl+Other | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigExile
-SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigEffect | TriggerZones$ Battlefield
-SVar:TrigEffect:DB$ Effect | StaticAbilities$ STPlay
-SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.ExiledWithEffectSource | AffectedZone$ Exile | MayPlayLimit$ 1
-SVar:HasAttackEffect:TRUE
+ColorIdentity:B
+OriginSet:G40dbb28fb92f9206
+ManaCost:1 B
+Types:Creature Goblin Warlock
+PT:0/5
+T:Mode$ CounterTypeAddedAll | ValidObject$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigAnimate
+SVar:TrigAnimate:DB$ Animate | ValidTgts$ Creature.OppCtrl | Triggers$ DieTrig | Duration$ Perpetual
+SVar:DieTrig:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigLoseLife | TriggerController$ TriggeredCardController
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ 2

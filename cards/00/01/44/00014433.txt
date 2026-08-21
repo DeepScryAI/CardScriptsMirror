@@ -1,7 +1,12 @@
 Id:14433
-ColorIdentity:G
+ColorIdentity:
 OriginSet:Gd3737676789056fe
-ManaCost:2 G
-Types:Instant
-A:SP$ Effect | StaticAbilities$ KWPump
-SVar:KWPump:Mode$ Continuous | AffectedZone$ Battlefield | Affected$ Creature.nonGreen | AddKeyword$ Prevent all combat damage that would be dealt by CARDNAME.
+ManaCost:1
+Types:Artifact Equipment
+K:Equip:3
+S:Mode$ CantBlockBy | ValidAttacker$ Creature.EquippedBy
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddSVar$ HotSoupDestroy
+SVar:HotSoupDestroy:SVar:DestroyWhenDamaged:True
+T:Mode$ DamageDoneOnce | ValidTarget$ Creature.EquippedBy | Execute$ TrigDestroy | TriggerZones$ Battlefield
+SVar:TrigDestroy:DB$ Destroy | Defined$ TriggeredTargetLKICopy
+SVar:NonStackingAttachEffect:True

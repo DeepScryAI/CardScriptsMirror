@@ -1,11 +1,14 @@
 Id:33846
-ColorIdentity:UG
-OriginSet:Gf8df2bea26dc6b68
-ManaCost:X G U
-Types:Creature Dinosaur Fractal
-PT:1/0
-K:Flying
-K:etbCounter:P1P1:X
-SVar:X:Count$xPaid
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGainLife
-SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2
+ColorIdentity:W
+OriginSet:Gf04404de3fa1525e
+ManaCost:1 W
+Types:Creature Human Cleric Wizard
+PT:2/2
+K:FirstStrike
+T:Mode$ Phase | Phase$ End of Turn | CheckSVar$ CardsThem | SVarCompare$ GTCardsYou | Execute$ TrigPrepare | TriggerZones$ Battlefield
+SVar:TrigPrepare:DB$ AlterAttribute | Attributes$ Prepared
+SVar:CardsThem:PlayerCountOpponents$HighestCardsInHand
+SVar:CardsYou:Count$CardsInYourHand
+AlternateMode:Prepare
+ALTERNATE
+CopyFaceFromId:22133

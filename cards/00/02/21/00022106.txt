@@ -1,12 +1,10 @@
 Id:22106
-ColorIdentity:BR
-OriginSet:Ga575fa2f4f5cded4
-ManaCost:no cost
-Colors:black,red
-Types:Legendary Creature Human Wizard
-PT:3/3
-S:Mode$ AlternativeCost | ValidSA$ Spell.Self | EffectZone$ All | Cost$ BR | CheckSVar$ X
-SVar:X:PlayerCountPropertyYou$CardsDiscardedThisTurn
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | OptionalDecider$ You | Execute$ TrigChange
-SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Card.catalogId22335 | ShuffleNonMandatory$ True
-A:AB$ DealDamage | Cost$ Sac<2/Food> | ValidTgts$ Creature | DamageSource$ Targeted | NumDmg$ 6
+ColorIdentity:B
+OriginSet:Gd784248bfdf9e1d7
+ManaCost:1 B
+Types:Instant
+T:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigCopy | CheckSVar$ CastSA>Count$xPaid
+SVar:TrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | Amount$ X
+A:SP$ Draw | Cost$ 1 B Sac<X/Creature> | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 1
+SVar:X:Count$xPaid

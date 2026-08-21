@@ -1,9 +1,10 @@
 Id:11298
-ColorIdentity:G
+ColorIdentity:
 OriginSet:G9fb0a9a59b6a9580
-ManaCost:G
-Types:Enchantment Aura
-K:Enchant:Creature
-K:Umbra armor
-SVar:AttachAILogic:Pump
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 1 | AddToughness$ 1 | AddKeyword$ Reach
+ManaCost:7
+Types:Artifact
+T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter | OptionalDecider$ You
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ CHARGE | CounterNum$ 1 | SubAbility$ DBDealDamage
+SVar:DBDealDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ X
+SVar:X:Count$CardCounters.CHARGE
+SVar:BuffedBy:Instant,Sorcery

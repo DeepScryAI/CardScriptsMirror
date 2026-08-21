@@ -1,11 +1,13 @@
 Id:23185
-ColorIdentity:B
-OriginSet:G6e75ff4f143a3dc3
-ManaCost:2 B
-Types:Creature Zombie Scorpion
-PT:3/2
-K:Deathtouch
-K:Exploit
-T:Mode$ Exploited | ValidCard$ Creature | ValidSource$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | NumCards$ 2 | ValidTgts$ Player | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 2 | Defined$ Targeted
+ColorIdentity:R
+OriginSet:G3aa323ca47c740b1
+ManaCost:4 R
+Types:Sorcery
+A:SP$ GenericChoice | TempRemember$ Chooser | ShowChoice$ ExceptSelf | Defined$ Player | Choices$ Discard,No | SubAbility$ DBGrandWheel
+SVar:Discard:DB$ Pump | Defined$ Remembered | NoteCards$ Self | NoteCardsFor$ Discard
+SVar:No:DB$ Pump
+SVar:DBGrandWheel:DB$ RepeatEach | RepeatPlayers$ Player.NotedForDiscard | RepeatSubAbility$ DBWheelDiscard | SubAbility$ DBClearNotes
+SVar:DBWheelDiscard:DB$ Discard | Mode$ Hand | Defined$ Player.IsRemembered | SubAbility$ DBWheelDraw
+SVar:DBWheelDraw:DB$ Draw | NumCards$ X | Defined$ Player.IsRemembered
+SVar:DBClearNotes:DB$ Pump | Defined$ Player | ClearNotedCardsFor$ Discard
+SVar:X:Count$ValidBattlefield,Command Card.IsCommander+RememberedPlayerOwn$GreatestCardManaCost

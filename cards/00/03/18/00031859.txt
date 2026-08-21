@@ -1,12 +1,10 @@
 Id:31859
-ColorIdentity:RG
+ColorIdentity:R
 OriginSet:G7ab4f62d323b0ca7
-ManaCost:R G
-Types:Legendary Creature Human Shaman
-PT:1/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigDraw
-SVar:TrigDraw:AB$ Draw | Cost$ Discard<1/Card> | NumCards$ 1
-A:AB$ ChangeZone | Cost$ X T | ValidTgts$ Saga.YouOwn+cmcEQX | Origin$ Graveyard | Destination$ Battlefield | SorcerySpeed$ True | WithCountersType$ FINALITY | WithCountersAmount$ 1 | SubAbility$ DBPump | RememberChanged$ True
-SVar:DBPump:DB$ Pump | KW$ Haste | Defined$ Remembered | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$xPaid
+ManaCost:R
+Types:Creature Elemental
+PT:1/1
+T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | ValidSAonCard$ Spell.ManaSpent GE4 | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+A:AB$ DealDamage | Cost$ T Sac<1/CARDNAME> | ValidTgts$ Creature | NumDmg$ X | SorcerySpeed$ True
+SVar:X:Sacrificed$CardPower

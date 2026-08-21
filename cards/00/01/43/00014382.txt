@@ -1,9 +1,12 @@
 Id:14382
-ColorIdentity:U
+ColorIdentity:B
 OriginSet:Gd10cbd11b89035b7
-ManaCost:4 U
-Types:Creature Shapeshifter
-PT:0/0
-K:ETBReplacement:Copy:DBCopy:Optional
-SVar:DBCopy:DB$ Clone | Choices$ Creature.YouCtrl+Other | AddAbilities$ MercurialBounce
-SVar:MercurialBounce:AB$ ChangeZone | Cost$ 2 U U | Defined$ Self | Origin$ Battlefield | Destination$ Hand
+ManaCost:3 B B
+Types:Creature Demon
+PT:5/3
+K:Flying
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigChoice
+SVar:TrigChoice:DB$ GenericChoice | ValidTgts$ Opponent | Choices$ DBPayLife,DBSacCreature | AILogic$ PayUnlessCost | FallbackAbility$ DrawFallback
+SVar:DBSacCreature:DB$ Draw | Defined$ You | UnlessCost$ Sac<1/Creature> | UnlessPayer$ Targeted | UnlessAI$ LowPriority
+SVar:DBPayLife:DB$ Draw | Defined$ You | UnlessCost$ PayLife<3> | UnlessPayer$ Targeted
+SVar:DrawFallback:DB$ Draw

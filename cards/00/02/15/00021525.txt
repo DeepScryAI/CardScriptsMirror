@@ -1,10 +1,11 @@
 Id:21525
-ColorIdentity:W
-OriginSet:G18bf722b221724f8
-ManaCost:2 W
-Types:Creature Human Cleric
-PT:3/2
-T:Mode$ SpellCast | ValidCard$ Card.YouCtrl | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigGainLife | ActivatorThisTurnCast$ EQ2
-SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2
-SVar:BuffedBy:Card
-K:Foretell:W
+ColorIdentity:WU
+OriginSet:Gc3edc7c448c17480
+ManaCost:4 U W
+Types:Creature Spirit Angel
+PT:4/4
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ DBDraw
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ DBDraw | Secondary$ True
+SVar:DBDraw:DB$ Draw | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | ChangeType$ Card | ChangeNum$ 1 | ExileFaceDown$ True | Mandatory$ True | Foretold$ True | ForetoldCost$ True

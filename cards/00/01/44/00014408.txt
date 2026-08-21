@@ -1,9 +1,10 @@
 Id:14408
-ColorIdentity:U
+ColorIdentity:W
 OriginSet:Gd3737676789056fe
-ManaCost:2 U
-Types:Creature Wall
-PT:1/3
-K:Defender
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 1394778451 | TokenOwner$ You
+ManaCost:5 W
+Types:Creature Sliver
+PT:3/3
+S:Mode$ Continuous | Affected$ Creature.Sliver+YouCtrl | AddTrigger$ ConstrictingTrig
+SVar:ConstrictingTrig:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | OptionalDecider$ You | ValidCard$ Card.Self | Execute$ ConstrictingExile
+SVar:ConstrictingExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Creature.OppCtrl | ConditionPresent$ Card.Self | Duration$ UntilHostLeavesPlay
+SVar:PlayMain1:TRUE

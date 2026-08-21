@@ -1,8 +1,14 @@
 Id:16957
-ColorIdentity:B
+ColorIdentity:WU
 OriginSet:Gbcdce58dfbbf1bad
-ManaCost:2 B
-Types:Enchantment
-T:Mode$ Discarded | ValidCard$ Card.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigDrain
-SVar:TrigDrain:AB$ LoseLife | Cost$ 1 | Defined$ Player.Opponent | LifeAmount$ 2 | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2
+ManaCost:1 U
+Types:Instant
+A:SP$ ChangeZone | ValidTgts$ Card | TargetType$ Spell | TgtZone$ Stack | Origin$ Stack | Destination$ Hand
+AlternateMode:Split
+ALTERNATE
+ManaCost:W
+Types:Sorcery
+K:Aftermath
+A:SP$ NameCard | Defined$ You | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ CantCast | Duration$ UntilYourNextTurn
+SVar:CantCast:Mode$ CantBeCast | ValidCard$ Card.nonLand+NamedCard | Caster$ Opponent

@@ -1,9 +1,11 @@
 Id:25722
-ColorIdentity:R
+ColorIdentity:B
 OriginSet:G06ccef4324c14725
-ManaCost:5
-Types:Artifact Creature Juggernaut
-PT:5/3
-K:Trample
-K:Unearth:5 R
-S:Mode$ MustAttack | ValidCreature$ Card.Self
+ManaCost:2 B
+Types:Creature Insect Horror
+PT:2/1
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card.OppOwn | RememberChanged$ True | SubAbility$ DBDrain
+SVar:DBDrain:DB$ LoseLife | ConditionDefined$ Remembered | ConditionPresent$ Creature | Defined$ TargetedOwner | LifeAmount$ 1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

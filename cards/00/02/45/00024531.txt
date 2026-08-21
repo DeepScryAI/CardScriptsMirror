@@ -1,12 +1,9 @@
 Id:24531
-ColorIdentity:R
-OriginSet:G58bfeff4fb121c8e
-ManaCost:R
-Types:Creature Goblin
-PT:1/1
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ DBSeek
-SVar:DBSeek:DB$ Seek | Type$ Creature.cmcLE3+YouOwn | RememberFound$ True | SubAbility$ DBAnimate
-SVar:DBAnimate:DB$ Animate | Defined$ Remembered | staticAbilities$ ReduceCost | Triggers$ SacTrig | Keywords$ Haste | Duration$ Perpetual
-SVar:ReduceCost:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ 1 | EffectZone$ All
-SVar:SacTrig:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | Execute$ TrigSacrifice | TriggerZones$ Battlefield
-SVar:TrigSacrifice:DB$ Sacrifice
+ColorIdentity:W
+OriginSet:G51fcb7ec0cb81c29
+ManaCost:1 W
+Types:Legendary Enchantment Background
+S:Mode$ Continuous | Affected$ Creature.IsCommander+YouOwn | AddTrigger$ AttacksPlayer
+SVar:AttacksPlayer:Mode$ Attacks | ValidCard$ Card.Self | Attacked$ Player | Condition$ NoOpponentHasMoreLifeThanAttacked | Execute$ TrigRepeat
+SVar:TrigRepeat:DB$ RepeatEach | RepeatPlayers$ Opponent | ChangeZoneTable$ True | RepeatSubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 1214250791 | TokenTapped$ True | TokenAttacking$ Remembered

@@ -1,0 +1,13 @@
+Id:27185
+ColorIdentity:B
+OriginSet:G6ce0035cfb774934
+ManaCost:2 B
+Types:Legendary Creature Halfling Citizen
+PT:2/3
+K:Flash
+K:Menace
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Destination$ Battlefield | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Creature.ThisTurnEnteredFrom_Battlefield+OppCtrl | RememberChanged$ True | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 3851718391 | TokenAmount$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$CardPower

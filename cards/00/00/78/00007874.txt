@@ -1,12 +1,9 @@
 Id:7874
-ColorIdentity:R
+ColorIdentity:W
 OriginSet:G9231f4a3f94f4472
-ManaCost:2 R
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:Pump
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 2 | AddToughness$ 2
-S:Mode$ CantBlock | ValidCard$ Creature.EnchantedBy | Secondary$ True
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigChangeZone
-SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | Defined$ TriggeredNewCardLKICopy
-SVar:SacMe:2
+ManaCost:2 W
+Types:Creature Spirit
+PT:1/1
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Creature.token | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+A:AB$ Token | Cost$ 2 W SubCounter<1/P1P1> | TokenAmount$ 2 | TokenScriptIds$ 273812182 | TokenOwner$ You
+SVar:TrigPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ 1

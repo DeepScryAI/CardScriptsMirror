@@ -1,10 +1,8 @@
 Id:14010
-ColorIdentity:R
+ColorIdentity:B
 OriginSet:Gdaee41baa388b0e7
-ManaCost:2 R
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:Pump
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 2 | AddToughness$ 2 | AddAbility$ CantBlockFT
-SVar:CantBlockFT:AB$ Effect | Cost$ 2 R | ValidTgts$ Creature | IsCurse$ True | RememberObjects$ ThisTargetedCard | ForgetOnMoved$ Battlefield | StaticAbilities$ KWPump | Duration$ UntilHostLeavesPlayOrEOT
-SVar:KWPump:Mode$ CantBlockBy | ValidAttacker$ Creature.EffectSource | ValidBlocker$ Creature.IsRemembered
+ManaCost:4 B B B
+Types:Instant
+A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True | ValidTgts$ Creature | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ ParentTarget | KW$ Indestructible | Duration$ Permanent | SubAbility$ DBScry
+SVar:DBScry:DB$ Scry | ScryNum$ 2 | ConditionPlayerTurn$ True

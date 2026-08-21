@@ -3,12 +3,8 @@ ColorIdentity:
 OriginSet:Gda59deaeee465b93
 ManaCost:no cost
 Types:Vanguard
-HandLifeModifier:+0/-3
-T:Mode$ NewGame | Execute$ TrigPayLife | TriggerZones$ Command
-SVar:TrigPayLife:AB$ StoreSVar | Cost$ PayLife<X> | SVar$ LifePaidOnNewGame | Type$ CountSVar | Expression$ X
-SVar:X:Count$xPaid
-SVar:LifePaidOnNewGame:Number$0
-S:Mode$ CantDraw | ValidPlayer$ You | EffectZone$ Command
-T:Mode$ Phase | Phase$ Draw | ValidPlayer$ You | TriggerZones$ Command | Execute$ TrigDig
-SVar:TrigDig:DB$ Dig | DigNum$ LifePaidOnNewGame | ChangeNum$ 1 | LibraryPosition$ 0 | SubAbility$ DBShuffle
-SVar:DBShuffle:DB$ Shuffle | Defined$ You
+HandLifeModifier:+2/-2
+T:Mode$ ChangesZone | ValidCard$ Creature.YouCtrl+IsUnearthed | Origin$ Any | Destination$ Battlefield | TriggerZones$ Command | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ TriggeredCard | NumAtt$ +3
+T:Mode$ ChangesZone | ValidCard$ Card.IsUnearthed | Origin$ Any | Destination$ Exile | TriggerZones$ Command | Execute$ TrigMove
+SVar:TrigMove:DB$ ChangeZone | Origin$ Exile | Destination$ Library | Defined$ TriggeredCardLKICopy | Shuffle$ True

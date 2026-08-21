@@ -1,11 +1,10 @@
 Id:26803
-ColorIdentity:U
-OriginSet:G321081e278de53f0
-ManaCost:3 U U
-Types:Enchantment
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPutCounterAll
-SVar:TrigPutCounterAll:DB$ PutCounterAll | ValidCards$ Creature.OppCtrl | CounterType$ REJECTION
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigTarget
-SVar:TrigTarget:DB$ Pump | ValidTgts$ Creature.counters_GE1_REJECTION+OppCtrl | TargetMin$ 0 | TargetMax$ PlayerCountOpponents$Amount | TargetsForEachPlayer$ True | SubAbility$ DBRepeat | IsCurse$ True
-SVar:DBRepeat:DB$ RepeatEach | DefinedCards$ Targeted | RepeatSubAbility$ DBLibrary
-SVar:DBLibrary:DB$ ChangeZone | Defined$ Remembered | Origin$ Battlefield | Destination$ Library | DestinationAlternative$ Library | LibraryPositionAlternative$ -1 | AlternativeDecider$ RememberedOwner
+ColorIdentity:W
+OriginSet:G06757f68e16377c2
+ManaCost:1 W
+Types:Sorcery
+A:SP$ Charm | Choices$ Destroy,Incubate
+SVar:Destroy:DB$ Destroy | ValidTgts$ Artifact.OppCtrl+!token,Enchantment.OppCtrl+!token | SubAbility$ DBIncubate
+SVar:DBIncubate:DB$ Incubate | Amount$ 2
+SVar:Incubate:DB$ Incubate | Amount$ 2 | SubAbility$ DBTransform
+SVar:DBTransform:DB$ SetState | Choices$ Incubator.token+YouCtrl | Mandatory$ True | Mode$ Transform

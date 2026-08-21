@@ -1,8 +1,12 @@
 Id:16930
-ColorIdentity:U
+ColorIdentity:B
 OriginSet:Gbcdce58dfbbf1bad
-ManaCost:5 U U
-Types:Creature Serpent
-PT:6/5
-S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ X | EffectZone$ All
-SVar:X:Count$ValidGraveyard Instant.YouOwn,Sorcery.YouOwn
+ManaCost:5 B B
+Types:Enchantment Aura Curse
+K:Enchant:Player
+SVar:AttachAILogic:Curse
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Player.EnchantedBy | TriggerZones$ Battlefield | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice | SacValid$ Creature,Planeswalker | Defined$ TriggeredPlayer | SubAbility$ DBLoseLife | RememberSacrificed$ True
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 5 | Defined$ TriggeredPlayer | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ0 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Amount

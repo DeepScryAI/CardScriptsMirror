@@ -1,20 +1,11 @@
 Id:12205
-ColorIdentity:UR
+ColorIdentity:R
 OriginSet:G14de52802b0b467c
-ManaCost:2 U
-Types:Creature Human Advisor
-PT:0/1
-A:AB$ Draw | Cost$ T | NumCards$ 1 | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | Defined$ You | Mode$ TgtChoose | NumCards$ 1 | RememberDiscarded$ True | SubAbility$ DBTransform
-SVar:DBTransform:DB$ SetState | Defined$ Self | ConditionDefined$ Remembered | ConditionPresent$ Card.Creature | ConditionCompare$ EQ1 | SubAbility$ DBUntap | Mode$ Transform
-SVar:DBUntap:DB$ Untap | Defined$ Self | ConditionDefined$ Remembered | ConditionPresent$ Card.Creature | ConditionCompare$ EQ1 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:red
-Types:Creature Human Mutant
-PT:5/1
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigTap | IsPresent$ Card.!attackedThisTurn+Self
-SVar:TrigTap:DB$ Tap | Defined$ Self | SubAbility$ DBTransform2
-SVar:DBTransform2:DB$ SetState | Defined$ Self | Mode$ Transform
+ManaCost:5 R
+Types:Creature Devil
+PT:4/4
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | ChangeType$ Instant.YouCtrl,Sorcery.YouCtrl | ChangeNum$ 1 | Hidden$ True | Origin$ Graveyard | AtRandom$ True | Destination$ Hand
+T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | NumAtt$ +4 | Defined$ Self
+SVar:BuffedBy:Instant,Sorcery

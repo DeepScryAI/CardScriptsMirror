@@ -1,9 +1,14 @@
 Id:27065
-ColorIdentity:G
+ColorIdentity:U
 OriginSet:G6ce0035cfb774934
-ManaCost:2 G
-Types:Legendary Creature Halfling Citizen
-PT:2/3
-R:Event$ CreateToken | ActiveZones$ Battlefield | ValidToken$ Card.YouCtrl | ReplaceWith$ DBReplace
-SVar:DBReplace:DB$ ReplaceToken | Type$ AddToken | Amount$ 1 | TokenScriptIds$ 134855612
-A:AB$ Draw | Cost$ Sac<3/Food>
+ManaCost:1 U
+Types:Legendary Creature Human Rogue
+PT:2/1
+T:Mode$ AttackerBlocked | ValidCard$ Card.Self | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | Choices$ DBTreasure,DBChoose
+SVar:DBTreasure:DB$ Token | TokenScriptIds$ 3851718391
+SVar:DBChoose:DB$ ChoosePlayer | Defined$ You | ValidTgts$ Opponent | AILogic$ Curse | SubAbility$ DBHorseDonate
+SVar:DBHorseDonate:DB$ GainControl | ValidTgts$ Horse.YouCtrl | NewController$ TargetedPlayer | RememberControlled$ True | SubAbility$ RemCombat
+SVar:RemCombat:DB$ RemoveFromCombat | Defined$ Self | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBTreasureTree
+SVar:DBTreasureTree:DB$ Token | TokenScriptIds$ 3851718391 | TokenAmount$ 3 | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

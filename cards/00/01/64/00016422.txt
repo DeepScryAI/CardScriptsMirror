@@ -1,8 +1,10 @@
 Id:16422
-ColorIdentity:UG
+ColorIdentity:R
 OriginSet:G4bddbf7cb4f2475e
-ManaCost:no cost
-Types:Land
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ LandTapped | ReplacementResult$ Updated
-SVar:LandTapped:DB$ Tap | Defined$ Self | ETB$ True | ConditionPresent$ Land.YouCtrl | ConditionCompare$ GT2
-A:AB$ Mana | Cost$ T | Produced$ Combo G U
+ManaCost:1
+Types:Artifact Creature Construct
+PT:1/1
+K:Haste
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigExile | TriggerZones$ Battlefield
+SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | ExileFaceDown$ True | NoReveal$ True
+A:AB$ ChangeZoneAll | Cost$ R Discard<0/Hand> Sac<1/CARDNAME> | ChangeType$ Card.ExiledWithSource | Origin$ Exile | Destination$ Hand | AILogic$ DiscardAllAndRetExiled.minAdv2

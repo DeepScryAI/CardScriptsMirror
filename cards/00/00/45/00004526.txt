@@ -1,7 +1,9 @@
 Id:4526
-ColorIdentity:U
+ColorIdentity:R
 OriginSet:G239b3b7a46d83e8e
-ManaCost:2 U U
-Types:Sorcery
-A:SP$ Draw | Defined$ You | NumCards$ 3 | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 3 | Mode$ TgtChoose | UnlessPayer$ Player | UnlessCost$ 2 | UnlessSwitched$ True
+ManaCost:2 R
+Types:Instant
+A:SP$ StoreSVar | SVar$ RhysticPaid | Type$ Number | Expression$ 0 | UnlessPayer$ TargetedOrController | UnlessCost$ 2 | ValidTgts$ Any | SubAbility$ DBDmg
+SVar:DBDmg:DB$ DealDamage | Defined$ Targeted | NumDmg$ X
+SVar:RhysticPaid:Number$1
+SVar:X:Count$Compare RhysticPaid EQ1.2.4

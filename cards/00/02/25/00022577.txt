@@ -1,10 +1,15 @@
 Id:22577
-ColorIdentity:U
+ColorIdentity:R
 OriginSet:G9f95a41d532c0550
-ManaCost:1 U
-Types:Creature Faerie
-PT:1/3
+ManaCost:1 R R
+Types:Creature Skeleton
+PT:3/1
 K:Flying
-R:Event$ RollDice | ActiveZones$ Battlefield | ValidPlayer$ You | ReplaceWith$ PlusRoll
-SVar:PlusRoll:DB$ ReplaceEffect | VarName$ Number | VarValue$ ReplaceCount$Number/Plus.1 | SubAbility$ IgnoreLowest
-SVar:IgnoreLowest:DB$ ReplaceEffect | VarName$ Ignore | VarValue$ ReplaceCount$Ignore/Plus.1
+S:Mode$ CantBlock | ValidCard$ Card.Self
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Exile | RememberChanged$ True | SubAbility$ DBExile
+SVar:DBExile:DB$ Dig | DigNum$ 1 | ConditionDefined$ Remembered | ConditionPresent$ Card.Self | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ MayPlay | Duration$ UntilTheEndOfYourNextTurn | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:MayPlay:Mode$ Continuous | Affected$ Card.IsRemembered | MayPlay$ True | MayPlayLimit$ 1 | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:SacMe:3

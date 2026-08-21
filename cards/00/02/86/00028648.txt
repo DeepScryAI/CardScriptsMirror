@@ -1,11 +1,19 @@
 Id:28648
-ColorIdentity:BR
-OriginSet:Ge329d8d60ca65422
-ManaCost:1 BR BR
-Types:Creature Devil Detective
-PT:3/3
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigDiscard
-SVar:TrigDiscard:DB$ Discard | Mode$ Hand | SubAbility$ DBInvestigate
-SVar:DBInvestigate:DB$ Investigate | Num$ 4
-S:Mode$ Continuous | Affected$ Card.Self | AddPower$ 2 | AddToughness$ 2 | AddKeyword$ Menace | CheckSVar$ X | SVarCompare$ LE1
-SVar:X:Count$ValidHand Card.YouOwn
+ColorIdentity:UG
+OriginSet:G7ee0e82a2424d636
+ManaCost:2 G U
+Types:Legendary Creature Human Faerie Detective
+PT:3/4
+K:Flying
+K:Vigilance
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Artifact | TargetMin$ 0 | TargetMax$ 1 | RememberLKI$ True | AlwaysRemember$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | ConditionDefined$ RememberedLKI | ConditionPresent$ Card.YouCtrl | NumCards$ 1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+AlternateMode:Adventure
+ALTERNATE
+ManaCost:G U
+Types:Sorcery Adventure
+A:SP$ Investigate | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ Exploration
+SVar:Exploration:Mode$ Continuous | Affected$ You | AdjustLandPlays$ 1

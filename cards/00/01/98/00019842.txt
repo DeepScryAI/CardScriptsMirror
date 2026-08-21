@@ -1,13 +1,14 @@
 Id:19842
-ColorIdentity:B
+ColorIdentity:WUB
 OriginSet:G23be9f486a22d38a
-ManaCost:B
-Types:Creature Cat
-PT:1/1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDrain
-SVar:TrigDrain:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 1 | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
-A:AB$ ChangeZone | Cost$ Sac<1/Food> | Origin$ Graveyard | Destination$ Battlefield | ActivationZone$ Graveyard
-SVar:DiscardMe:2
-SVar:SacMe:1
-SVar:AIPreference:SacCost$Card.Food
+ManaCost:1 W U B
+Types:Legendary Creature Faerie Warlock
+PT:2/3
+K:Flying
+K:Deathtouch
+K:Lifelink
+S:Mode$ Continuous | Affected$ Creature.withFlying+Other+YouCtrl | AddPower$ 1
+T:Mode$ SpellCast | ValidCard$ Artifact,Enchantment | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 589551966 | TokenOwner$ You
+SVar:BuffedBy:Artifact,Enchantment
+SVar:PlayMain1:TRUE

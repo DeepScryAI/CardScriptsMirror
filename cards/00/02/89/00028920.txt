@@ -1,10 +1,11 @@
 Id:28920
 ColorIdentity:W
-OriginSet:Gaf7c94f364052cdd
-ManaCost:3 W
-Types:Enchantment Saga
-K:Chapter:3:DBToken,DBChangeZone,DBChangeZone
-SVar:DBToken:DB$ Token | TokenScriptIds$ 134855612,1647422943
-SVar:DBChangeZone:DB$ ChangeZone | Origin$ Hand,Graveyard | Destination$ Battlefield | ChangeType$ Aura,Equipment | RememberChanged$ True | ChangeNum$ 1 | SubAbility$ DBAttach
-SVar:DBAttach:DB$ Attach | Optional$ True | ConditionDefined$ Remembered | ConditionPresent$ Equipment | Object$ Remembered | Choices$ Creature.YouCtrl | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+OriginSet:Gfe262f6450b3d189
+ManaCost:1 W
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChoose
+SVar:TrigChoose:DB$ ChooseCard | ChoiceZone$ Hand | Choices$ Creature.YouOwn | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ ChosenCard | Incorporate$ W | Triggers$ SpellCastTrig | Duration$ Perpetual
+SVar:SpellCastTrig:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 2644752956
+S:Mode$ Continuous | Affected$ Creature.MultiColor+Other+YouCtrl | AddPower$ 1 | AddToughness$ 1

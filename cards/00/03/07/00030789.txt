@@ -1,12 +1,9 @@
 Id:30789
-ColorIdentity:G
-OriginSet:G2c8286a6f234d4b9
-ManaCost:3 G G
-Types:Legendary Creature Centaur Scout
-PT:*/*
-S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X | SetToughness$ X
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | ChangeType$ Land | ChangeNum$ 1 | Optional$ You
-SVar:X:Count$Valid Land.YouCtrl
-SVar:BuffedBy:Land
+ColorIdentity:R
+OriginSet:G8b2ed00ac2a0ff47
+ManaCost:2 R R
+Types:Enchantment
+K:MayEffectFromOpeningHand:FromHand
+SVar:FromHand:DB$ ChangeZone | Defined$ Self | Origin$ Hand | Destination$ Battlefield
+T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | Execute$ TrigCopy | ValidActivatingPlayer$ You | IsSingleTarget$ True | TriggerZones$ Battlefield | TargetsValid$ Creature.YouCtrl+inZoneBattlefield
+SVar:TrigCopy:AB$ CopySpellAbility | Cost$ 1 | Defined$ TriggeredSpellAbility | MayChooseTarget$ True | Controller$ You

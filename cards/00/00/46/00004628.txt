@@ -1,7 +1,9 @@
 Id:4628
-ColorIdentity:U
+ColorIdentity:R
 OriginSet:Gfb91362c2efb868e
-ManaCost:3 U
+ManaCost:3 R
 Types:Enchantment
-S:Mode$ CantAttackUnless | ValidCard$ Creature | Target$ You | Cost$ X
-SVar:X:Count$Domain
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Player | Execute$ TrigGainLife | TriggerZones$ Battlefield
+SVar:TrigGainLife:DB$ GainLife | Defined$ TriggeredPlayer | LifeAmount$ DomainX | SubAbility$ DBDamage
+SVar:DBDamage:DB$ DealDamage | Defined$ TriggeredPlayer | NumDmg$ 3
+SVar:DomainX:Count$DomainActivePlayer

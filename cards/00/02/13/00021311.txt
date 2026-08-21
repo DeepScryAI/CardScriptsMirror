@@ -1,12 +1,10 @@
 Id:21311
-ColorIdentity:G
-OriginSet:G51d431785c8b33e5
-ManaCost:2 G G
-Types:Enchantment
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMonarch
-SVar:TrigMonarch:DB$ BecomeMonarch
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigBranch | OptionalDecider$ You
-SVar:TrigBranch:DB$ Branch | BranchConditionSVar$ X | BranchConditionSVarCompare$ GE1 | TrueSubAbility$ PutCreatureLand | FalseSubAbility$ PutLand
-SVar:PutLand:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | ChangeType$ Land.YouOwn
-SVar:PutCreatureLand:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | ChangeType$ Creature.YouOwn,Land.YouOwn
-SVar:X:Count$Monarch.1.0
+ColorIdentity:
+OriginSet:G72c9c624ceb92bff
+ManaCost:2
+Types:Artifact
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+A:AB$ Draw | Cost$ 2 T Sac<1/CARDNAME> | NumCards$ 1

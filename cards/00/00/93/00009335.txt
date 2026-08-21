@@ -1,8 +1,12 @@
 Id:9335
-ColorIdentity:W
+ColorIdentity:G
 OriginSet:G1ddd2c86a9ea60e3
-ManaCost:1 W
-Types:Creature Merfolk Wizard
-PT:1/1
-T:Mode$ Taps | ValidCard$ Merfolk.YouCtrl | OptionalDecider$ You | TriggerZones$ Battlefield | Execute$ TrigGainLife
-SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
+ManaCost:1 G G
+Types:Creature Elf Archer
+PT:*/*
+S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ Y | SetToughness$ Y
+SVar:Y:Count$Valid Elf.YouCtrl
+A:AB$ DealDamage | Cost$ T | ValidTgts$ Creature.withFlying | NumDmg$ X
+SVar:X:Count$CardPower
+SVar:BuffedBy:Permanent.Elf
+SVar:NoZeroToughnessAI:True

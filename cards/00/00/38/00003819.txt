@@ -1,7 +1,13 @@
 Id:3819
-ColorIdentity:B
+ColorIdentity:W
 OriginSet:G3da30095b68d8df0
-ManaCost:1 B B
-Types:Enchantment
-A:AB$ Destroy | Cost$ B Sac<1/Creature> | ValidTgts$ Creature.nonBlack
-SVar:NonStackingEffect:True
+ManaCost:W
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ ARROW | CounterNum$ 1
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddAbility$ ArcheryDamage
+SVar:ArcheryDamage:AB$ DealDamage | Cost$ T | ValidTgts$ Creature.attacking,Creature.blocking | NumDmg$ ArcheryX
+SVar:ArcheryX:OriginalHost$CardCounters.ARROW
+SVar:NonStackingAttachEffect:True

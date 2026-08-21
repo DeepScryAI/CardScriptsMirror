@@ -1,10 +1,10 @@
 Id:9245
-ColorIdentity:
+ColorIdentity:B
 OriginSet:G1ddd2c86a9ea60e3
-ManaCost:3
-Types:Artifact
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | TriggerZones$ Battlefield | ValidCard$ Creature.toughnessGE4+YouOwn | OptionalDecider$ You | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | Defined$ TriggeredNewCardLKICopy
-T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | CheckSVar$ X | SVarCompare$ GE3 | Execute$ TrigReturnAll
-SVar:TrigReturnAll:AB$ ChangeZone | Cost$ Mandatory Sac<1/CARDNAME> | Defined$ ExiledWith | Origin$ Exile | Destination$ Battlefield
-SVar:X:ExiledWith$Amount
+ManaCost:2 B B
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ 7 | ChangeNum$ All | DestinationZone$ Exile | ExileFaceDown$ True | NoReveal$ True
+S:Mode$ Continuous | Affected$ Card.ExiledWithSource | AffectedZone$ Exile | MayPlay$ True | MayLookAt$ You
+R:Event$ BeginPhase | ActiveZones$ Battlefield | ValidPlayer$ You | Phase$ Draw | Skip$ True
+S:Mode$ CantBeCast | ValidCard$ Card | Caster$ You | NumLimitEachTurn$ 1

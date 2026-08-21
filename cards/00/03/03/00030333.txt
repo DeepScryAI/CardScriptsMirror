@@ -1,13 +1,10 @@
 Id:30333
 ColorIdentity:W
-OriginSet:G8b2ed00ac2a0ff47
+OriginSet:G9ff9681e1fe8713a
 ManaCost:1 W
-Types:Enchantment Room
-T:Mode$ AttackersDeclaredOneTarget | Execute$ TrigToken | AttackedTarget$ Player | ValidAttackers$ Creature.YouCtrl+!Toy | TriggerZones$ Battlefield | AttackingPlayer$ You
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 3621842653
-AlternateMode:Split
-ALTERNATE
-ManaCost:4 W W
-Types:Enchantment Room
-S:Mode$ Continuous | Affected$ Creature.YouCtrl | AffectedZone$ Battlefield | SetPower$ X | SetToughness$ X
-SVar:X:Count$Valid Creature.YouCtrl
+Types:Creature Rabbit Citizen
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChoose
+SVar:TrigChoose:DB$ ChooseCard | ChoiceZone$ Hand | Choices$ Card.Creature+YouOwn+White | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ ChosenCard | PumpZone$ Hand | KW$ Offspring:1 | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True

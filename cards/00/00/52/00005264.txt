@@ -1,6 +1,14 @@
 Id:5264
-ColorIdentity:U
+ColorIdentity:W
 OriginSet:Gfdac7ecc1e8a7d21
-ManaCost:2 U
-Types:Instant
-A:SP$ TapAll | ValidCards$ Creature.withoutFlying
+ManaCost:3 W
+Types:Enchantment
+R:Event$ DamageDone | ActiveZones$ Battlefield | ValidTarget$ You | ReplaceWith$ Counters
+SVar:Counters:DB$ PutCounter | CounterType$ DELAY | CounterNum$ NumDamage | Defined$ Self
+SVar:NumDamage:ReplaceCount$DamageAmount
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | IsPresent$ Card.Self+counters_GE1_DELAY | Execute$ RemoveCounters | TriggerZones$ Battlefield
+SVar:RemoveCounters:DB$ RemoveCounter | CounterType$ DELAY | CounterNum$ All | RememberRemoved$ True | SubAbility$ RepeatOnUpkeep
+SVar:RepeatOnUpkeep:DB$ Repeat | MaxRepeat$ NumRemoved | RepeatSubAbility$ DBLoseLife | SubAbility$ DBCleanup
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 1 | Defined$ You | UnlessCost$ 1 W | UnlessPayer$ You
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:NumRemoved:Count$RememberedSize

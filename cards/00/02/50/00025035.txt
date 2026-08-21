@@ -1,11 +1,15 @@
 Id:25035
-ColorIdentity:W
-OriginSet:G2aca7ffc9201ba1c
-ManaCost:1 W
-Types:Creature Kor Cleric
-PT:2/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigLook
-SVar:TrigLook:DB$ PeekAndReveal | PeekAmount$ 7 | NoReveal$ True | RememberPeeked$ True | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | KW$ FirstStrike & Flying & Deathtouch & DoubleStrike & Haste & Hexproof & Indestructible & Lifelink & Menace & Protection & Reach & Trample & Vigilance | SharedKeywordsZone$ Library | SharedRestrictions$ Card.IsRemembered | Duration$ Perpetual | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | SubAbility$ DBShuffle
-SVar:DBShuffle:DB$ Shuffle
+ColorIdentity:WBG
+OriginSet:G3a8b4b9d4649b357
+ManaCost:1 B
+Types:Enchantment
+K:Kicker:G:W
+PT:4/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGainLife
+SVar:TrigGainLife:DB$ GainLife | LifeAmount$ X
+T:Mode$ DamageDoneOnce | ValidSource$ Creature.YouCtrl | OptionalDecider$ You | TriggerZones$ Battlefield | ValidTarget$ Player | CombatDamage$ True | Execute$ DBReveal
+SVar:DBReveal:DB$ Dig | DigNum$ 1 | Reveal$ True | ChangeNum$ All | ChangeValid$ Card | DestinationZone$ Hand | RememberChanged$ True | SubAbility$ DBLose
+SVar:DBLose:DB$ LoseLife | LifeAmount$ Y | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:Y:Remembered$CardManaCost
+SVar:X:Count$TimesKicked/Thrice

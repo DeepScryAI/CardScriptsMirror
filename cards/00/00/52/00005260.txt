@@ -1,6 +1,10 @@
 Id:5260
-ColorIdentity:B
+ColorIdentity:RG
 OriginSet:Gfdac7ecc1e8a7d21
-ManaCost:1 B
+ManaCost:2 R G
 Types:Sorcery
-A:SP$ ChangeZone | TargetMin$ 0 | TargetMax$ 3 | TargetsWithSameController$ True | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card
+A:SP$ Pump | ValidTgts$ Artifact | SubAbility$ DestroyCreature | AILogic$ Destroy | IsCurse$ True
+SVar:DestroyCreature:DB$ Pump | ValidTgts$ Creature | AILogic$ Destroy | IsCurse$ True | SubAbility$ DestroyEnch
+SVar:DestroyEnch:DB$ Pump | ValidTgts$ Enchantment | AILogic$ Destroy | IsCurse$ True | SubAbility$ DestroyLand
+SVar:DestroyLand:DB$ Pump | ValidTgts$ Land | AILogic$ Destroy | IsCurse$ True | SubAbility$ DBDestroy
+SVar:DBDestroy:DB$ Destroy | Defined$ Targeted

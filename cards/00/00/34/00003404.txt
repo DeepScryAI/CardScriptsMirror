@@ -1,8 +1,9 @@
 Id:3404
-ColorIdentity:B
+ColorIdentity:U
 OriginSet:G24ae8187eacbba52
-ManaCost:3 B
-Types:Creature Zombie Minion
-PT:4/4
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | IsPresent$ Permanent.nonLand+YouCtrl | PresentCompare$ GE2 | Execute$ TrigSacrifice | TriggerZones$ Battlefield
-SVar:TrigSacrifice:DB$ Sacrifice
+ManaCost:3 U U
+Types:Enchantment
+A:AB$ ChangeZone | Cost$ U Sac<1/CARDNAME> | Origin$ Battlefield | Destination$ Hand | TargetMin$ 0 | TargetMax$ X | ValidTgts$ Permanent
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ VERSE | CounterNum$ 1
+SVar:X:Count$CardCounters.VERSE

@@ -1,13 +1,9 @@
 Id:28409
-ColorIdentity:R
-OriginSet:G7ee0e82a2424d636
-ManaCost:2 R
-Types:Enchantment Case
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigLoot
-SVar:TrigLoot:DB$ Discard | Mode$ TgtChoose | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | NumCards$ 2
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | Hellbent$ True | IsPresent$ Card.Self+!IsSolved | TriggerZones$ Battlefield | Execute$ TrigSolve
-SVar:TrigSolve:DB$ AlterAttribute | Defined$ Self | Attributes$ Solved
-T:Mode$ Phase | Phase$ Upkeep | IsPresent$ Card.Self+IsSolved | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDiscard
-SVar:TrigDiscard:DB$ Discard | Mode$ Hand | Defined$ You | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 2
+ColorIdentity:U
+OriginSet:G4155bbd49d5da56f
+ManaCost:1 U
+Types:Instant Chorus
+K:Starting intensity:1
+A:SP$ Draw | Defined$ You | NumCards$ X | SubAbility$ DBIntensify
+SVar:DBIntensify:DB$ Intensify | AllDefined$ Card.YouOwn+Chorus
+SVar:X:Count$Intensity

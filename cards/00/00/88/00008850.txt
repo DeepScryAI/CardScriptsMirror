@@ -1,11 +1,9 @@
 Id:8850
-ColorIdentity:R
+ColorIdentity:G
 OriginSet:G70f74088c47d66bd
-ManaCost:no cost
-Colors:red
-Types:Sorcery
-K:Suspend:4:1 R
-A:SP$ Discard | Mode$ Hand | Defined$ Player | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | Defined$ Player | NumCards$ 7
-SVar:NeedsToPlayVar:Y LE3
-SVar:Y:Count$ValidHand Card.YouOwn
+ManaCost:3
+Types:Artifact
+A:AB$ Mana | Cost$ T | Produced$ G
+A:AB$ Animate | Cost$ 2 G G G | Defined$ Self | Power$ 5 | Toughness$ 3 | Types$ Creature,Artifact,Treefolk | RemoveCreatureTypes$ True | Colors$ Green | OverwriteColors$ True | Keywords$ Trample
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self+Creature | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | Defined$ TriggeredNewCardLKICopy

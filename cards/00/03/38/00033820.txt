@@ -1,11 +1,9 @@
 Id:33820
-ColorIdentity:U
-OriginSet:Gf8df2bea26dc6b68
-ManaCost:2 U
-Types:Creature Human Wizard
-PT:2/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZone | ValidTgts$ Creature.Other | TargetMin$ 0 | TargetMax$ 1 | Origin$ Battlefield | Destination$ Hand
-T:Mode$ SpellCast | ValidCard$ Card.hasXCost | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigUnblockable
-SVar:TrigUnblockable:DB$ Effect | RememberObjects$ Self | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable
-SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+ColorIdentity:BG
+OriginSet:Gf04404de3fa1525e
+ManaCost:1 B G
+Types:Artifact
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 1 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
+A:AB$ ChangeZone | Cost$ 1 B G T Sac<1/Creature> | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouOwn | SorcerySpeed$ True

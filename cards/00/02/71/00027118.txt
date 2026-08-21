@@ -1,11 +1,11 @@
 Id:27118
-ColorIdentity:W
+ColorIdentity:R
 OriginSet:G6ce0035cfb774934
-ManaCost:3 W
-Types:Creature Spirit Soldier
-PT:2/2
-K:Flash
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature | NumAtt$ +2
-SVar:AmbushAI:True
+ManaCost:X R
+Types:Sorcery
+A:SP$ Effect | StaticAbilities$ STCantPrevent | AILogic$ Burn | SubAbility$ DBDealDamage
+SVar:DBDealDamage:DB$ DealDamage | ValidTgts$ Creature | NumDmg$ X | DamageMap$ True | SubAbility$ DBDamageAll
+SVar:DBDamageAll:DB$ DamageAll | ValidCards$ Creature.NotDefinedTargeted+ControlledBy TargetedController | NumDmg$ 1 | SubAbility$ DBDamageResolve
+SVar:DBDamageResolve:DB$ DamageResolve
+SVar:STCantPrevent:Mode$ CantPreventDamage
+SVar:X:Count$xPaid

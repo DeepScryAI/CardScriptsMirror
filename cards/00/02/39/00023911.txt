@@ -1,11 +1,10 @@
 Id:23911
-ColorIdentity:WUB
-OriginSet:Gfdfe2ebef04be34e
-ManaCost:W U B
-Types:Legendary Creature Sphinx Demon
-PT:1/4
-K:Flying
-K:Ward:1
-T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigConnive | TriggerZones$ Battlefield
-SVar:TrigConnive:DB$ Connive | ValidTgts$ Creature.attacking | ConniveNum$ X
-SVar:X:Count$Valid Creature.attacking
+ColorIdentity:U
+OriginSet:G5f5d8cfb206e2fac
+ManaCost:3 U U
+Types:Creature Octopus Advisor
+PT:3/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.!IsCommander+YouDontCtrl | CounterType$ SHIELD | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ Targeted | StaticAbilities$ GainControl | ForgetOnMoved$ Battlefield | ForgetCounter$ SHIELD | Duration$ Permanent
+SVar:GainControl:Mode$ Continuous | Affected$ Card.IsRemembered | GainControl$ You

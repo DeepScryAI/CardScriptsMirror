@@ -1,9 +1,10 @@
 Id:29662
-ColorIdentity:WR
-OriginSet:G01a610e823cce3ca
-ManaCost:R W
-Types:Legendary Creature Human Assassin
-PT:2/2
-T:Mode$ ChangesZone | ValidCard$ Card.Self,Permanent.!token+Historic+Other+YouCtrl | Destination$ Battlefield | Execute$ TrigDealDamage
-SVar:TrigDealDamage:DB$ DamageAll | ValidPlayers$ Player.Opponent | NumDmg$ 1 | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
+ColorIdentity:UB
+OriginSet:Gac6359c222afbd4f
+ManaCost:U B
+Types:Creature Frog
+PT:1/2
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player,Planeswalker | CombatDamage$ True | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+A:AB$ PutCounter | Cost$ Discard<1/Card> | CounterType$ P1P1 | CounterNum$ 1
+A:AB$ Pump | Cost$ ExileFromGrave<3/Card> | Defined$ Self | KW$ Flying

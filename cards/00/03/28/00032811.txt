@@ -1,10 +1,10 @@
 Id:32811
-ColorIdentity:B
-OriginSet:G22ed5d6f3707b461
-ManaCost:1 B B
-Types:Sorcery Lesson
-S:Mode$ OptionalCost | EffectZone$ All | ValidCard$ Card.Self | ValidSA$ Spell | Cost$ Waterbend<4>
-A:SP$ PumpAll | ValidCards$ Creature | NumAtt$ -2 | NumDef$ -2 | IsCurse$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | Triggers$ TrigDies | Condition$ OptionalCost | ConditionOptionalPaid$ True
-SVar:TrigDies:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature | Execute$ TrigGainLife
-SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 1
+ColorIdentity:U
+OriginSet:G36e97d2da170e675
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ LandTapped | ReplacementResult$ Updated
+SVar:LandTapped:DB$ Tap | Defined$ Self | ETB$ True | ConditionPresent$ Land.Basic+YouCtrl | ConditionCompare$ EQ0
+A:AB$ Mana | Cost$ T | Produced$ U
+A:AB$ Draw | Cost$ 2 U T | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | Mode$ TgtChoose | NumCards$ 1

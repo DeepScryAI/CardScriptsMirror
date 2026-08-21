@@ -1,10 +1,9 @@
 Id:31638
-ColorIdentity:R
-OriginSet:G530ea9d733a13e9d
-ManaCost:3 R
+ColorIdentity:G
+OriginSet:Gf2b808f4f642ac62
+ManaCost:3 G
 Types:Sorcery
-A:SP$ Discard | Mode$ Hand | Defined$ Player | Optional$ True | RememberDiscardingPlayers$ True | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | Defined$ Remembered | NumCards$ 5 | SubAbility$ DBDmg
-SVar:DBDmg:DB$ DamageAll | ValidPlayers$ Opponent.IsRemembered | NumDmg$ 5 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-K:Flashback:5 R
+A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Hand | TargetMin$ 0 | TargetMax$ 2 | ValidTgts$ Permanent.YouOwn | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | ValidTgts$ Player | SubAbility$ DBChangeZone | IsCurse$ True
+SVar:DBChangeZone:DB$ ChangeZone | TargetMin$ 0 | TargetMax$ 4 | TargetsWithDefinedController$ ParentTarget | Origin$ Graveyard | Destination$ Library | Shuffle$ True | ValidTgts$ Card | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | Origin$ Stack | Destination$ Exile

@@ -1,9 +1,12 @@
 Id:11075
-ColorIdentity:R
+ColorIdentity:B
 OriginSet:Gd09f2fd86b2e8dd0
-ManaCost:R R
-Types:Instant
-A:SP$ DealDamage | ValidTgts$ Player,Planeswalker | NumDmg$ SearingX | DamageMap$ True | SubAbility$ SearingDamage | AILogic$ BurnCreatures
-SVar:SearingDamage:DB$ DealDamage | ValidTgts$ Creature.ControlledBy ParentTargetedController,Creature.ControlledBy ParentTarget | NumDmg$ SearingX | SubAbility$ DBDamageResolve
-SVar:DBDamageResolve:DB$ DamageResolve
-SVar:SearingX:Count$Landfall.3.1
+ManaCost:2 B
+Types:Creature Rat
+PT:1/1
+A:AB$ Dig | Cost$ T | DigNum$ 1 | ChangeNum$ All | ValidTgts$ Player | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBGainLife | AILogic$ AtOppEOT
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1 | ConditionDefined$ Remembered | ConditionPresent$ Land | ConditionCompare$ EQ1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | OptionalDecider$ You | TriggerZones$ Battlefield | Execute$ TrigUntap
+SVar:TrigUntap:DB$ Untap | Defined$ Self
+SVar:BuffedBy:Land

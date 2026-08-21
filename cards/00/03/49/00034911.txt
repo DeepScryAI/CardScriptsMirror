@@ -1,0 +1,12 @@
+Id:34911
+ColorIdentity:BG
+OriginSet:G107f89901a23d4e2
+ManaCost:3 B G
+Types:Legendary Creature Troll
+PT:5/5
+A:AB$ Draw | Cost$ 1 Sac<1/Creature.Other/another creature> | NumCards$ X | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | NumCards$ 1 | Mode$ TgtChoose
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self+Creature | Execute$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Battlefield | StaticEffect$ Animate
+SVar:Animate:Mode$ Continuous | Affected$ Card.IsRemembered | AddType$ Artifact | RemoveCardTypes$ True
+SVar:X:Sacrificed$CardPower

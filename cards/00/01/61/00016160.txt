@@ -1,8 +1,10 @@
 Id:16160
-ColorIdentity:U
+ColorIdentity:W
 OriginSet:G70d19654882197c9
-ManaCost:2 U
-Types:Instant
-A:SP$ ChangeZone | ValidTgts$ Creature.YouCtrl | TargetMin$ 0 | TargetMax$ 2 | Origin$ Battlefield | Destination$ Exile | RememberTargets$ True | SubAbility$ DBReturn
-SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ All | Destination$ Battlefield | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:2 W
+Types:Creature Human Soldier
+PT:1/2
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 3739367272 | TokenOwner$ You
+S:Mode$ Continuous | Affected$ Card.Self | AddPower$ 3 | Condition$ Delirium
+SVar:SacMe:2

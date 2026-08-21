@@ -1,12 +1,12 @@
 Id:26979
 ColorIdentity:W
-OriginSet:G6ce0035cfb774934
-ManaCost:3 W
-Types:Legendary Creature Avatar Wizard
-PT:3/3
-K:Vigilance
-T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPumpAll
-SVar:TrigPumpAll:DB$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +1 | SubAbility$ DBScry
-SVar:DBScry:DB$ Scry | ScryNum$ 1
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TriReturn | OptionalDecider$ You
-SVar:TriReturn:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Destination$ Library | LibraryPosition$ 4
+OriginSet:G3601f5e223de6c7f
+ManaCost:5 W
+Types:Creature Human Soldier
+PT:4/6
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMonarch
+SVar:TrigMonarch:DB$ BecomeMonarch
+T:Mode$ Phase | Phase$ BeginCombat | TriggerZones$ Battlefield | ValidPlayer$ Opponent | CheckDefinedPlayer$ You.isMonarch | Execute$ TrigCantAttack
+SVar:TrigCantAttack:DB$ Effect | StaticAbilities$ STCantAttack | UnlessCost$ X | Duration$ UntilEndOfCombat | UnlessPayer$ TriggeredPlayer | UnlessAI$ WillAttack
+SVar:STCantAttack:Mode$ CantAttack | ValidCard$ Creature | Target$ You
+SVar:X:TriggeredPlayer$CardsInHand

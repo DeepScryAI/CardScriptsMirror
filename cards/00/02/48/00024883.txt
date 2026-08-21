@@ -1,11 +1,8 @@
 Id:24883
 ColorIdentity:W
 OriginSet:G3a8b4b9d4649b357
-ManaCost:1 W
-Types:Creature Human Knight
-PT:2/2
-K:FirstStrike
-R:Event$ GainLife | ActiveZones$ Battlefield | ValidPlayer$ You | ReplaceWith$ GainLife | AILogic$ DoubleLife
-SVar:GainLife:DB$ ReplaceEffect | VarName$ LifeGained | VarValue$ X
-SVar:X:ReplaceCount$LifeGained/Plus.1
-A:AB$ Pump | Cost$ 1 W | Defined$ Self | NumAtt$ +1 | NumDef$ +1
+ManaCost:1 W W
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Creature.OppCtrl,Planeswalker.OppCtrl | Duration$ UntilHostLeavesPlay
+SVar:PlayMain1:TRUE

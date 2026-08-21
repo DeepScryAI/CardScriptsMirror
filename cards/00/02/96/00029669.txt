@@ -1,10 +1,13 @@
 Id:29669
-ColorIdentity:WR
-OriginSet:G01a610e823cce3ca
-ManaCost:2 R W
-Types:Legendary Creature Human Assassin
-PT:4/3
-K:Menace
-K:Lifelink
-T:Mode$ DamageDone | ValidSource$ Creature.Historic+YouCtrl | Execute$ TrigToken | CombatDamage$ True | ValidTarget$ Player | TriggerZones$ Battlefield
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 3789868579
+ColorIdentity:B
+OriginSet:Gac6359c222afbd4f
+ManaCost:3 B
+Types:Artifact Creature Zombie Rat
+PT:2/1
+K:Affinity:Artifact
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDiscard
+SVar:TrigDiscard:DB$ Discard | Mode$ TgtChoose | Defined$ Opponent | NumCards$ 1 | RememberDiscarded$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:PlayerCountOpponents$Amount/Minus.Remembered$Amount

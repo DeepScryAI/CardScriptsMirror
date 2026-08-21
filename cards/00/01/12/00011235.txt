@@ -1,10 +1,10 @@
 Id:11235
-ColorIdentity:R
+ColorIdentity:W
 OriginSet:G9fb0a9a59b6a9580
-ManaCost:2 R
+ManaCost:2 W
 Types:Enchantment Aura
 K:Enchant:Creature
-SVar:AttachAILogic:Curse
-S:Mode$ MustAttack | ValidCreature$ Creature.EnchantedBy
-T:Mode$ Taps | ValidCard$ Card.AttachedBy | TriggerZones$ Battlefield | Execute$ TrigDamage
-SVar:TrigDamage:DB$ DealDamage | Defined$ TriggeredCardController | NumDmg$ 3
+SVar:AttachAILogic:Pump
+T:Mode$ Attacks | ValidCard$ Card.AttachedBy | TriggerZones$ Battlefield | Execute$ TrigGainLife
+T:Mode$ Blocks | ValidCard$ Card.AttachedBy | TriggerZones$ Battlefield | Execute$ TrigGainLife | Secondary$ True
+SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 4 | Defined$ You

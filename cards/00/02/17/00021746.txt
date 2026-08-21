@@ -1,9 +1,12 @@
 Id:21746
-ColorIdentity:W
+ColorIdentity:U
 OriginSet:G18bf722b221724f8
-ManaCost:1 W
-Types:Creature Angel
-PT:1/3
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Angel.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+ManaCost:1 U
+Types:Enchantment Aura Rune
+K:Enchant:Permanent:permanent
+SVar:AttachAILogic:Pump
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddKeyword$ Flying
+S:Mode$ Continuous | Affected$ Equipment.EnchantedBy | AddStaticAbility$ RuneFlightST
+SVar:RuneFlightST:Mode$ Continuous | Affected$ Creature.EquippedBy | AddKeyword$ Flying

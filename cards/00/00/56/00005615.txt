@@ -1,7 +1,10 @@
 Id:5615
-ColorIdentity:B
+ColorIdentity:W
 OriginSet:Ge4af4f9459d5dadd
-ManaCost:B
-Types:Sorcery
-A:SP$ ChangeZone | Cost$ B Discard<X/Card/card(s)> | Origin$ Graveyard | Destination$ Hand | TargetMin$ X | TargetMax$ X | ValidTgts$ Creature.YouOwn
-SVar:X:Count$xPaid
+ManaCost:2 W
+Types:Creature Human Soldier
+PT:2/2
+K:Vigilance
+S:Mode$ Continuous | Affected$ Card.Self | AddTrigger$ TriggerBounce | Condition$ Threshold
+SVar:TriggerBounce:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Battlefield | Destination$ Graveyard | Execute$ TriggeredBounce | Secondary$ True
+SVar:TriggeredBounce:AB$ ChangeZone | Cost$ W W | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Battlefield

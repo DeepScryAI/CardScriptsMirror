@@ -1,10 +1,12 @@
 Id:21388
-ColorIdentity:UB
+ColorIdentity:G
 OriginSet:G51d431785c8b33e5
-ManaCost:3 U B
-Types:Legendary Creature Faerie Knight
-PT:1/6
-K:Flash
-K:Flying
-T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | OpponentTurn$ True | ActivatorThisTurnCast$ EQ1 | Execute$ TrigDig
-SVar:TrigDig:DB$ Dig | DigNum$ 2 | ChangeNum$ 1 | DestinationZone2$ Graveyard
+ManaCost:2 G G
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMonarch
+SVar:TrigMonarch:DB$ BecomeMonarch
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigBranch | OptionalDecider$ You
+SVar:TrigBranch:DB$ Branch | BranchConditionSVar$ X | BranchConditionSVarCompare$ GE1 | TrueSubAbility$ PutCreatureLand | FalseSubAbility$ PutLand
+SVar:PutLand:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | ChangeType$ Land.YouOwn
+SVar:PutCreatureLand:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | ChangeType$ Creature.YouOwn,Land.YouOwn
+SVar:X:Count$Monarch.1.0

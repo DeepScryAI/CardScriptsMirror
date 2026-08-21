@@ -1,12 +1,10 @@
 Id:28419
-ColorIdentity:W
-OriginSet:G7ee0e82a2424d636
-ManaCost:W
-Types:Enchantment Case
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigGainLife
-SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | IsPresent$ Card.Self+!IsSolved | CheckSVar$ X | SVarCompare$ GE5 | TriggerZones$ Battlefield | Execute$ TrigSolve
-SVar:TrigSolve:DB$ AlterAttribute | Defined$ Self | Attributes$ Solved
-SVar:X:Count$LifeYouGainedThisTurn
-A:AB$ Animate | Cost$ Sac<1/CARDNAME> | Activation$ Solved | staticAbilities$ Play | Defined$ ValidGraveyard Creature.YouOwn
-SVar:Play:Mode$ Continuous | Affected$ Card.Self+nonLand | AffectedZone$ Graveyard | EffectZone$ Graveyard | MayPlay$ True
+ColorIdentity:R
+OriginSet:G4155bbd49d5da56f
+ManaCost:R
+Types:Sorcery
+A:SP$ Branch | BranchConditionSVar$ TreasureCheck | BranchConditionSVarCompare$ GE1 | FalseSubAbility$ DBDraw | TrueSubAbility$ DBSeek
+SVar:DBDraw:DB$ Draw
+SVar:DBSeek:DB$ Seek | Type$ Pirate
+SVar:TreasureCheck:Count$CastTotalManaSpent Treasure
+SVar:AIPreference:ManaFrom$Treasure

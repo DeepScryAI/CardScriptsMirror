@@ -1,13 +1,11 @@
 Id:34318
-ColorIdentity:BR
+ColorIdentity:U
 OriginSet:Gcb93bbfc68a40806
-ManaCost:1 B R
-Types:Legendary Creature Mutant Villain
-PT:3/3
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigCharm | TriggerZones$ Battlefield
-SVar:TrigCharm:DB$ Charm | CharmNum$ 1 | Choices$ DBToken,DBDraw,DBDrain | Random$ Compare | RandomCompareSVar$ Y | RandomCompare$ LT1 | SubAbility$ DBCharm
-SVar:Y:PlayerCountPropertyYou$CardsDiscardedThisTurn
-SVar:DBToken:DB$ Token | TokenAmount$ 1 | TokenScriptIds$ 3851718391 | TokenOwner$ You
-SVar:DBDraw:DB$ Draw
-SVar:DBDrain:DB$ LoseLife | Defined$ Opponent | LifeAmount$ 2 | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2
+ManaCost:2 U
+Types:Legendary Creature Human Scientist Hero
+PT:2/2
+S:Mode$ IgnoreLegendRule | ValidCard$ Creature.YouCtrl
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ X | Execute$ TrigCopy
+SVar:TrigCopy:DB$ CopyPermanent | Defined$ Self
+SVar:X:Count$ThisTurnCast_Card.nonCreature+YouCtrl
+SVar:PlayMain1:TRUE

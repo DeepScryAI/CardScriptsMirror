@@ -1,9 +1,9 @@
 Id:32522
-ColorIdentity:W
+ColorIdentity:RG
 OriginSet:G66b3a7eeabd9000e
-ManaCost:2 W
-Types:Enchantment
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Permanent.nonLand+OppCtrl | Duration$ UntilHostLeavesPlay
-SVar:PlayMain1:TRUE
-SVar:OblivionRing:TRUE
+ManaCost:1 RG
+Types:Creature Human Citizen
+PT:2/2
+T:Mode$ Phase | Phase$ Main1 | ValidPlayer$ Player | TriggerZones$ Battlefield | Execute$ TrigMana
+SVar:TrigMana:DB$ Mana | UnlessCost$ AddCounter<1/P1P1/CARDNAME> | UnlessPayer$ TriggeredPlayer | UnlessSwitched$ True | Produced$ C | Amount$ X | Defined$ TriggeredPlayer
+SVar:X:Count$CardCounters.ALL

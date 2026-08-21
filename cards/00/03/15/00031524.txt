@@ -1,8 +1,11 @@
 Id:31524
-ColorIdentity:R
-OriginSet:Gf2b808f4f642ac62
-ManaCost:2 R
-Types:Creature Ogre Wizard
-PT:3/3
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigDealDamage
-SVar:TrigDealDamage:DB$ DealDamage | ValidTgts$ Creature.OppCtrl+wasDealtDamageThisTurn | NumDmg$ 5
+ColorIdentity:B
+OriginSet:G93ac57511923c3dd
+ManaCost:3 B
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 2516159455 | TokenOwner$ You
+T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigRepeatEach | TriggerZones$ Battlefield
+SVar:TrigRepeatEach:DB$ RepeatEach | RepeatPlayers$ Player.Opponent | RepeatSubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ Player.IsRemembered | LifeAmount$ X
+SVar:X:Count$Valid Creature.attacking RememberedPlayer

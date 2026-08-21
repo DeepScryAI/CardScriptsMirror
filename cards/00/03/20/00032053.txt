@@ -1,11 +1,11 @@
 Id:32053
-ColorIdentity:W
-OriginSet:G9946f072b5556073
-ManaCost:3 W W
-Types:Creature Angel Warrior
-PT:5/4
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange
-SVar:TrigChange:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Permanent.nonCreature+nonLand+YouOwn+cmcLEX
-K:Warp:2 W
-SVar:X:Count$CastTotalManaSpent
+ColorIdentity:U
+OriginSet:G7ab4f62d323b0ca7
+ManaCost:U
+Types:Instant
+A:SP$ Pump | ValidTgts$ Creature.YouCtrl | RememberObjects$ ThisTargetedCard | SubAbility$ DBGainControl
+SVar:DBGainControl:DB$ GainControl | ValidTgts$ Equipment | LoseControl$ EOT | SubAbility$ DBAttach
+SVar:DBAttach:DB$ Attach | Object$ ParentTarget | Defined$ Remembered | SubAbility$ DBDelayTrig
+SVar:DBDelayTrig:DB$ DelayedTrigger | Mode$ ChangesController | ValidCard$ Card.IsTriggerRemembered | IsPresent$ Card.IsTriggerRemembered+AttachedTo Creature.YouCtrl | ValidOriginalController$ You | RememberObjects$ ParentTarget | ThisTurn$ True | Execute$ TrigUnattach | SubAbility$ DBCleanup
+SVar:TrigUnattach:DB$ Unattach | Defined$ DelayTriggerRememberedLKI
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

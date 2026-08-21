@@ -1,10 +1,11 @@
 Id:17381
-ColorIdentity:W
+ColorIdentity:UB
 OriginSet:Gaa482ed186eee527
-ManaCost:2 W
-Types:Instant
-A:SP$ Effect | Duration$ UntilYourNextTurn | StaticAbilities$ STCantChange | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | Defined$ You | Duration$ UntilYourNextTurn | KW$ Protection:Everything | SubAbility$ DBPhases
-SVar:STCantChange:Mode$ CantChangeLife | ValidPlayer$ You
-SVar:DBPhases:DB$ Phases | Defined$ Valid Permanent.YouCtrl | SubAbility$ DBChange
-SVar:DBChange:DB$ ChangeZone | Origin$ Stack | Destination$ Exile
+ManaCost:3 U B
+Types:Legendary Creature Human Wizard
+PT:3/4
+R:Event$ BeginPhase | ActiveZones$ Battlefield | ValidPlayer$ You | Phase$ Draw | Skip$ True
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDig
+SVar:TrigDig:DB$ Dig | DigNum$ 3 | DestinationZone2$ Graveyard | NoReveal$ True
+A:AB$ Pump | Cost$ B T ExileFromGrave<X/Card> | ValidTgts$ Creature | NumAtt$ -X | NumDef$ -X | IsCurse$ True
+SVar:X:Count$xPaid

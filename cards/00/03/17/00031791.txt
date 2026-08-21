@@ -1,9 +1,10 @@
 Id:31791
-ColorIdentity:WB
-OriginSet:G7ab4f62d323b0ca7
-ManaCost:W B
-Types:Legendary Creature Human Advisor Knight
-PT:2/2
-K:Menace
-T:Mode$ ChangesZone | ValidCard$ Artifact.Other+YouCtrl,Creature.Other+YouCtrl | Origin$ Battlefield | Destination$ Graveyard | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+ColorIdentity:W
+OriginSet:G530ea9d733a13e9d
+ManaCost:2 W
+Types:Enchantment
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | Execute$ TrigCharm | TriggerZones$ Battlefield
+SVar:TrigCharm:DB$ Charm | Choices$ DBToken,DBPutCounters | MinCharmNum$ 1 | CharmNum$ Count$Compare Y GE1.2.1
+SVar:DBToken:DB$ Token | TokenOwner$ You | TokenScriptIds$ 1214250791
+SVar:DBPutCounters:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ 1 | ChoiceAmount$ 2 | MinChoiceAmount$ 0 | Choices$ Soldier.YouCtrl
+SVar:Y:Count$Valid Card.IsCommander+YouCtrl

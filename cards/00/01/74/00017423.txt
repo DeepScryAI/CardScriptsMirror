@@ -1,13 +1,7 @@
 Id:17423
-ColorIdentity:UB
+ColorIdentity:U
 OriginSet:G5475e2be497fd272
-ManaCost:2 U B
-Types:Creature Human Pirate
+ManaCost:3 U
+Types:Creature Merfolk Warrior
 PT:2/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Creature.Other,Artifact.Other | Duration$ UntilHostLeavesPlay | RememberChanged$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | RememberObjects$ Remembered | Duration$ Permanent | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
-SVar:STPlay:Mode$ Continuous | MayPlay$ True | MayPlayIgnoreType$ True | Affected$ Card.IsRemembered+nonLand | AffectedZone$ Exile
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:PlayMain1:TRUE
-SVar:NeedsToPlay:Artifact.OppCtrl,Creature.OppCtrl
+S:Mode$ CantBlockBy | ValidAttacker$ Creature.YouCtrl+counters_GE1_P1P1

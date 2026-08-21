@@ -1,9 +1,10 @@
 Id:28531
-ColorIdentity:
+ColorIdentity:G
 OriginSet:G7ee0e82a2424d636
-ManaCost:5
-Types:Artifact Creature Golem
-PT:4/5
-A:AB$ Effect | Cost$ 2 | StaticAbilities$ MayLookFaceDown
-SVar:MayLookFaceDown:Mode$ Continuous | Affected$ Creature.faceDown+YouDontCtrl | AffectedZone$ Battlefield | MayLookAt$ You
-K:Disguise:5
+ManaCost:3 G
+Types:Sorcery
+S:Mode$ OptionalCost | EffectZone$ All | ValidCard$ Card.Self | ValidSA$ Spell | Cost$ CollectEvidence<6>
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ Z | EffectZone$ All | Relative$ True
+SVar:Z:Count$OptionalGenericCostPaid.2.0
+A:SP$ Pump | AILogic$ Fight | NumAtt$ +2 | ValidTgts$ Creature.YouCtrl | SubAbility$ DBFight
+SVar:DBFight:DB$ DealDamage | AILogic$ PowerDmg | NumDmg$ ParentTargeted$CardPower | ValidTgts$ Creature.YouDontCtrl | DamageSource$ ParentTarget

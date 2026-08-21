@@ -1,12 +1,8 @@
 Id:17095
-ColorIdentity:WU
+ColorIdentity:B
 OriginSet:Gbcdce58dfbbf1bad
-ManaCost:W U
-Types:Legendary Creature Human Cleric
-PT:2/2
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.token+YouCtrl | NumAtt$ +1 | NumDef$ +1 | SubAbility$ DBUnblockable
-SVar:DBUnblockable:DB$ Effect | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable
-SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
-K:Embalm:3 W U
-SVar:PlayMain1:TRUE
+ManaCost:1 B
+Types:Creature Zombie Jackal
+PT:1/2
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 2

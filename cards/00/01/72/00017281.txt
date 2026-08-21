@@ -1,11 +1,14 @@
 Id:17281
-ColorIdentity:G
+ColorIdentity:UR
 OriginSet:G4b92e66c84393de5
-ManaCost:1 G
-Types:Creature Jackal Wizard
-PT:2/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPump | OptionalDecider$ You
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature | NumAtt$ +X | NumDef$ +X
-K:Eternalize:4 G G
-SVar:X:Count$CardPower
-SVar:PlayMain1:TRUE
+ManaCost:3 R
+Types:Instant
+A:SP$ Pump | ValidTgts$ Card | TargetType$ Spell | TgtZone$ Stack | PumpZone$ Stack | SubAbility$ DBDmg
+SVar:DBDmg:DB$ DealDamage | Defined$ TargetedController | NumDmg$ X
+SVar:X:Targeted$CardManaCost
+AlternateMode:Split
+ALTERNATE
+ManaCost:2 U
+Types:Instant
+K:Aftermath
+A:SP$ CopySpellAbility | ValidTgts$ Instant,Sorcery | TargetType$ Spell | MayChooseTarget$ True

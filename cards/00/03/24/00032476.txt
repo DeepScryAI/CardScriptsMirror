@@ -1,9 +1,13 @@
 Id:32476
 ColorIdentity:G
-OriginSet:G66b3a7eeabd9000e
-ManaCost:4 G
-Types:Legendary Creature Spider Human Hero
-PT:4/3
-K:WebSlinging:2 G
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange
-SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | Tapped$ True | ChangeType$ Land.Basic
+OriginSet:G324b911e0e372b1b
+ManaCost:1 G
+Types:Creature Insect Scientist
+PT:2/2
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigDraft
+SVar:TrigDraft:AB$ Draft | Cost$ Sac<1/Land> | SpellbookCatalogIds$ 32207,32269,32317,32412,32443 | RememberDrafted$ True | SubAbility$ DBPut
+SVar:DBPut:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | Defined$ Remembered | Tapped$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+A:AB$ Mana | Cost$ T | Produced$ Any | Amount$ X
+SVar:X:Count$Compare Y GE1.3.1
+SVar:Y:Count$Valid Planet.YouCtrl+counters_GE12_CHARGE

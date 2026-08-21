@@ -1,9 +1,12 @@
 Id:33903
-ColorIdentity:B
-OriginSet:Gf8df2bea26dc6b68
-ManaCost:2 B
-Types:Creature Goblin Warlock
-PT:2/3
-K:Menace
-S:Mode$ Continuous | Affected$ Card.Self | AddPower$ 2 | CheckSVar$ X
-SVar:X:Count$LifeYouGainedThisTurn
+ColorIdentity:WR
+OriginSet:G14da29c4716bedc3
+ManaCost:2 R W
+Types:Legendary Creature Spirit Horse
+PT:3/3
+K:Flying
+K:Haste
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigReanimate | TriggerZones$ Battlefield
+SVar:TrigReanimate:DB$ ChangeZone | ValidTgts$ Artifact.YouOwn+cmcLE3,Creature.YouOwn+cmcLE3,Enchantment.nonAura+YouOwn+cmcLE3 | Origin$ Graveyard | Destination$ Battlefield | TargetMin$ 0 | TargetMax$ 1 | WithCountersType$ FINALITY | StaticEffect$ Animate
+SVar:Animate:Mode$ Continuous | Affected$ Card.IsRemembered | AddType$ Creature & Spirit | SetPower$ 1 | SetToughness$ 1 | AddKeyword$ Flying
+SVar:HasAttackEffect:TRUE

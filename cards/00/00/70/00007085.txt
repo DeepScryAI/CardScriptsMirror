@@ -1,16 +1,10 @@
 Id:7085
-ColorIdentity:G
+ColorIdentity:R
 OriginSet:G332b6b8a53f3d107
-ManaCost:1 G
-Types:Creature Human Monk
-PT:2/1
-A:AB$ ChangeZone | Cost$ T | Origin$ Hand | Destination$ Battlefield | ChangeType$ Land | ChangeNum$ 1 | Optional$ You | SubAbility$ DBFlip
-SVar:DBFlip:DB$ SetState | Defined$ Self | ConditionPresent$ Land.YouCtrl | ConditionCompare$ GE10 | Mode$ Flip
-AlternateMode:Flip
-ALTERNATE
-ManaCost:1 G
-Colors:green
-Types:Legendary Creature Human Monk
-PT:3/3
-A:AB$ Token | Cost$ 4 G G T | TokenScriptIds$ 1573311632 | TokenPower$ X | TokenToughness$ X | TokenOwner$ You
-SVar:X:Count$Valid Land.YouCtrl
+ManaCost:2 R
+Types:Creature Spirit
+PT:2/2
+A:AB$ PeekAndReveal | Cost$ 1 | NoReveal$ True
+A:AB$ PeekAndReveal | Cost$ 2 | ActivationLimit$ 1 | NoPeek$ True | RememberRevealed$ True | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Self | NumAtt$ +1 | KW$ FirstStrike | ConditionDefined$ Remembered | ConditionPresent$ Card.Land | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

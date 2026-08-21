@@ -1,8 +1,11 @@
 Id:22287
-ColorIdentity:
+ColorIdentity:WU
 OriginSet:Geb2cf181996ee3b2
-ManaCost:2
+ManaCost:1 W U
 Types:Artifact Creature Thopter
-PT:0/2
+PT:1/1
 K:Flying
-A:AB$ Mana | Cost$ T | Produced$ Any
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Destination$ Battlefield | Execute$ TrigDig
+SVar:TrigDig:DB$ Dig | DigNum$ 2 | ChangeNum$ 1 | Reveal$ True | ChangeType$ Card | DestinationZone2$ Graveyard | RememberChanged$ True | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ 3 | ConditionDefined$ Remembered | ConditionPresent$ Artifact | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

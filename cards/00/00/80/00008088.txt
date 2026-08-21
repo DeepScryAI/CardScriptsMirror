@@ -1,7 +1,11 @@
 Id:8088
 ColorIdentity:WR
 OriginSet:Gc563c209d627c4c5
-ManaCost:no cost
-Types:Land
-A:AB$ Mana | Cost$ T | Produced$ C
-A:AB$ Pump | Cost$ 2 R W T | ValidTgts$ Creature | KW$ DoubleStrike
+ManaCost:2 R W
+Types:Creature Giant Soldier
+PT:2/4
+T:Mode$ DamageDealtOnce | CombatDamage$ True | ValidSource$ Card.Self | Execute$ TrigGain | TriggerZones$ Battlefield
+SVar:TrigGain:DB$ GainLife | Defined$ You | LifeAmount$ X
+SVar:X:TriggerCount$DamageAmount
+A:AB$ Pump | Cost$ 1 R | NumAtt$ +1
+SVar:HasCombatEffect:TRUE

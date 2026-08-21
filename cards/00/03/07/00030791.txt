@@ -1,12 +1,10 @@
 Id:30791
-ColorIdentity:R
-OriginSet:G2c8286a6f234d4b9
-ManaCost:2 R
-Types:Legendary Creature Human Soldier
-PT:2/2
-K:DoubleStrike
-T:Mode$ SpellCast | ValidActivatingPlayer$ You | TargetsValid$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigDig
-SVar:TrigDig:DB$ Dig | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ STPlay | SubAbility$ DBCleanup | ForgetOnMoved$ Exile | Duration$ UntilTheEndOfYourNextTurn
-SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+ColorIdentity:B
+OriginSet:Gc5a2f0ff902c0621
+ManaCost:1 B B
+Types:Creature Demon Warlock
+PT:3/2
+A:AB$ ChangeZone | Cost$ T | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Creature.ThisTurnEntered | RememberChanged$ True | SubAbility$ DBCopy
+SVar:DBCopy:DB$ CopyPermanent | Defined$ Remembered | Controller$ You | AddTypes$ Nightmare | RememberTokens$ True | SubAbility$ DBChangeZoneAll
+SVar:DBChangeZoneAll:DB$ ChangeZoneAll | ChangeType$ Nightmare.token+!IsRemembered+YouCtrl | Origin$ Battlefield | Destination$ Exile | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

@@ -1,12 +1,10 @@
 Id:21092
-ColorIdentity:W
-OriginSet:G1e059136f10fb240
-ManaCost:2 W W
-Types:Creature Cat Beast
-PT:3/4
-K:Vigilance
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZone | ValidTgts$ Permanent.YouOwn+cmcLE3 | Origin$ Graveyard | Destination$ Exile
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZoneAll | ChangeType$ Permanent.ExiledWithSource | Origin$ Exile | Destination$ Battlefield
-SVar:BuffedBy:Land
+ColorIdentity:U
+OriginSet:G7b2607750b451c25
+ManaCost:1 U
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.OppCtrl | CheckOnTriggeredCard$ X GT1 | TriggerZones$ Battlefield | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Chooser$ TriggeredCardController | Origin$ Battlefield | Destination$ Hand | Hidden$ True | Mandatory$ True | ChangeType$ Land.ControlledBy TriggeredCardController | ChangeNum$ 1
+SVar:X:Count$ThisTurnEntered_Battlefield_Land.ControlledBy CardController

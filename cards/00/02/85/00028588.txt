@@ -1,10 +1,10 @@
 Id:28588
-ColorIdentity:
+ColorIdentity:W
 OriginSet:G7ee0e82a2424d636
-ManaCost:no cost
-Types:Artifact Land Clue
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
-A:AB$ Mana | Cost$ T | Produced$ C
-A:AB$ Mana | Cost$ T tapXType<1/Creature> | Produced$ Any
-A:AB$ Draw | Cost$ 2 Sac<1/CARDNAME>
+ManaCost:2 W
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+T:Mode$ ChangesZone | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPump | TriggerZones$ Battlefield
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.YouCtrl+!EnchantedBy | KW$ Vigilance | NumAtt$ +2 | NumDef$ +2
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 2 | AddToughness$ 2 | AddKeyword$ Vigilance

@@ -1,28 +1,11 @@
 Id:31790
-ColorIdentity:WR
-OriginSet:G7ab4f62d323b0ca7
-ManaCost:1 R W
-Types:Legendary Creature Human Noble Wizard
-PT:3/4
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigDiscard
-SVar:TrigDiscard:DB$ Discard | Defined$ You | NumCards$ 2 | Optional$ True | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | NumCards$ X | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-A:AB$ ChangeZone | Cost$ 3 R W T | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn | SorcerySpeed$ True
-SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | Transformed$ True | SubAbility$ DBCleanup
-AlternateMode:DoubleFaced
-SVar:X:Remembered$Amount
-ALTERNATE
-ManaCost:no cost
-Colors:red,white
-Types:Legendary Enchantment Creature Saga Phoenix
-PT:4/4
-K:Chapter:3:DBRisingFlames,DBRisingFlames,DBFlamesOfRebirth
-SVar:DBRisingFlames:DB$ DealDamage | NumDmg$ 2 | Defined$ Player.Opponent
-SVar:DBFlamesOfRebirth:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | TargetMin$ 0 | TargetMax$ X | ValidTgts$ Creature.YouOwn | MaxTotalTargetCMC$ 6 | SubAbility$ DBExile
-SVar:DBExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | SubAbility$ DBReturn | RememberChanged$ True
-SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-K:Flying
-K:Lifelink
-SVar:X:Count$ValidGraveyard Creature.YouOwn
+ColorIdentity:U
+OriginSet:G530ea9d733a13e9d
+ManaCost:2 U
+Types:Legendary Creature Human Artificer
+PT:2/3
+T:Mode$ CounterPlayerAddedAll | ValidObject$ Creature.inRealZoneBattlefield | TriggerZones$ Battlefield | ValidSource$ You | Execute$ TrigEffect
+SVar:TrigEffect:DB$ Effect | RememberObjects$ TriggeredObjectLKICopy | StaticAbilities$ BlockRestrict
+SVar:BlockRestrict:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered | ValidBlocker$ Creature.OppCtrl
+A:AB$ Pump | Cost$ 1 T | ValidTgts$ Creature.OppCtrl | SubAbility$ DBMove | SorcerySpeed$ True
+SVar:DBMove:DB$ MoveCounter | Source$ ParentTarget | ValidTgts$ Creature.YouCtrl | CounterType$ Any | CounterNum$ 1

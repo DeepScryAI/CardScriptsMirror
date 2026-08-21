@@ -1,7 +1,11 @@
 Id:20925
-ColorIdentity:U
+ColorIdentity:WB
 OriginSet:Gfd5e6da37c69dc53
-ManaCost:2 U U
-Types:Legendary Enchantment
-R:Event$ Draw | ActiveZones$ Battlefield | ValidPlayer$ You | NotFirstCardInDrawStep$ True | ReplaceWith$ DrawTwo
-SVar:DrawTwo:DB$ Draw | Defined$ You | NumCards$ 2
+ManaCost:1 W B
+Types:Creature Vampire Noble
+PT:1/4
+K:Flying
+K:Lifelink
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ LifeGained | SVarCompare$ GE3 | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 3
+SVar:LifeGained:Count$LifeYouGainedThisTurn

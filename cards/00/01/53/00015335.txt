@@ -1,7 +1,10 @@
 Id:15335
-ColorIdentity:U
+ColorIdentity:R
 OriginSet:G70acd28f254172ff
-ManaCost:1 U
-Types:Instant
-A:SP$ Tap | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 2 | SubAbility$ TrigPump
-SVar:TrigPump:DB$ Pump | Defined$ Targeted | ConditionPresent$ Instant.YouOwn,Sorcery.YouOwn | ConditionZone$ Graveyard | ConditionCompare$ GE2 | KW$ HIDDEN This card doesn't untap during your next untap step. | Duration$ Permanent
+ManaCost:3 R R
+Types:Creature Elemental
+PT:4/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigEffect
+SVar:TrigEffect:DB$ Effect | StaticAbilities$ KWPump
+SVar:KWPump:Mode$ Continuous | AffectedZone$ Battlefield | Affected$ Creature.withoutFlying | AddHiddenKeyword$ CARDNAME can't block.
+SVar:PlayMain1:TRUE

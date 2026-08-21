@@ -1,13 +1,14 @@
 Id:25108
-ColorIdentity:BR
-OriginSet:Gf591a76e7a37cf73
-ManaCost:8 B B R
-Types:Instant
-S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ X | EffectZone$ All
-A:SP$ Discard | Mode$ Hand | Defined$ You | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 8 | SubAbility$ DBKhorne
-SVar:DBKhorne:DB$ DealDamage | Defined$ Player.Opponent | NumDmg$ 8 | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | Origin$ Stack | Destination$ Exile
-SVar:X:Count$ThisTurnEntered_Graveyard_from_Battlefield_Creature
-SVar:NeedsToPlayVar:Y LE3
-SVar:Y:Count$ValidHand Card.YouOwn
+ColorIdentity:BRG
+OriginSet:G2aca7ffc9201ba1c
+ManaCost:2 B R G
+Types:Legendary Creature Dragon
+PT:5/5
+K:Flying
+T:Mode$ Phase | Phase$ End of Turn | Execute$ TrigDraft | ValidPlayer$ You | TriggerZones$ Battlefield
+SVar:TrigDraft:DB$ MakeCard | Conjure$ True | AtRandom$ True | SpellbookCatalogIds$ 224,22973,21009,21113,21675,23143,18428,18441,18950,15184,22513,16589,22674 | WithCounter$ EGG | WithCounterNum$ 3 | Zone$ Exile | FaceDown$ True | RememberMade$ True | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Remembered | Duration$ Permanent | Triggers$ TrigRemoveEgg | SubAbility$ DBCleanup
+SVar:TrigRemoveEgg:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Exile | Execute$ DBRemoveCounter
+SVar:DBRemoveCounter:DB$ RemoveCounter | CounterType$ EGG | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Origin$ Exile | Destination$ Battlefield | ConditionDefined$ Self | ConditionPresent$ Card.counters_EQ0_EGG
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

@@ -1,8 +1,14 @@
 Id:25028
-ColorIdentity:R
-OriginSet:G2aca7ffc9201ba1c
-ManaCost:3 R
-Types:Enchantment
-S:Mode$ ReduceCost | ValidCard$ Goblin | Type$ Spell | Activator$ You | Amount$ 1 | Color$ R
-T:Mode$ Phase | Phase$ End of Turn | Execute$ TrigConjure | ValidPlayer$ You | TriggerZones$ Battlefield
-SVar:TrigConjure:DB$ MakeCard | Conjure$ True | AtRandom$ True | SpellbookCatalogIds$ 6393,10633,6034,20791,17636,18440,11416,21058,17943,11187,22701,22435,12819,18438,18760 | Zone$ Hand
+ColorIdentity:U
+OriginSet:G3a8b4b9d4649b357
+ManaCost:3 U U
+Types:Creature Sphinx
+PT:5/5
+K:Flying
+K:Ward:2
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ PeekAndReveal | PeekAmount$ X | NoPeek$ True | RememberRevealed$ True | SubAbility$ DBTwoPiles
+SVar:DBTwoPiles:DB$ TwoPiles | Defined$ You | DefinedCards$ Remembered | Separator$ Opponent | ChosenPile$ DBHand | UnchosenPile$ DBGrave
+SVar:DBHand:DB$ ChangeZone | Defined$ Remembered | Origin$ Library | Destination$ Hand
+SVar:DBGrave:DB$ ChangeZone | Defined$ Remembered | Origin$ Library | Destination$ Graveyard
+SVar:X:Count$Domain

@@ -1,12 +1,9 @@
 Id:9506
-ColorIdentity:
+ColorIdentity:U
 OriginSet:G49bcc8b9b86b628d
-ManaCost:3
-Types:Kindred Artifact Wizard Equipment
-K:Equip:3
-S:Mode$ Continuous | Affected$ Card.EquippedBy | AddAbility$ DivinerDraw | AddTrigger$ TrigDraw | AddSVar$ DivinerTrigPump
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.Wizard | TriggerZones$ Battlefield | Execute$ TrigAttach | OptionalDecider$ You
-SVar:TrigAttach:DB$ Attach | Defined$ TriggeredCardLKICopy
-SVar:TrigDraw:Mode$ Drawn | ValidCard$ Card.YouCtrl | TriggerZones$ Battlefield | Execute$ DivinerTrigPump
-SVar:DivinerTrigPump:DB$ Pump | Defined$ Self | NumAtt$ +1 | NumDef$ +1 | KW$ Flying
-SVar:DivinerDraw:AB$ Draw | Cost$ 4 | NumCards$ 1
+ManaCost:3 U
+Types:Sorcery
+A:SP$ ChooseType | Defined$ You | Type$ Creature | SubAbility$ DBDraw | AILogic$ MostProminentComputerControls
+SVar:DBDraw:DB$ Draw | NumCards$ X
+SVar:X:Count$Valid Permanent.ChosenType+YouCtrl
+SVar:NeedsToPlay:Creature

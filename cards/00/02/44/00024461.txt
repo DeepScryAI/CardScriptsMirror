@@ -1,10 +1,10 @@
 Id:24461
-ColorIdentity:B
+ColorIdentity:U
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:3 B
-Types:Creature Dwarf Barbarian
-PT:1/5
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigInitiative
-SVar:TrigInitiative:DB$ TakeInitiative
-T:Mode$ AttackerBlockedByCreature | ValidCard$ Card.Self | ValidBlocker$ Creature | TriggerZones$ Battlefield | Execute$ TrigLoseLife
-SVar:TrigLoseLife:DB$ LoseLife | Defined$ TriggeredBlockerController | LifeAmount$ 5
+ManaCost:4 U U
+Types:Sorcery
+K:Replicate:tapXType<1/Horror>
+A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Instant,Sorcery | RememberChanged$ True | SubAbility$ DBCopy
+SVar:DBCopy:DB$ Play | Defined$ Remembered | Amount$ All | CopyCard$ True | WithoutManaCost$ True | Optional$ True | SubAbility$ ExileSelf
+SVar:ExileSelf:DB$ ChangeZone | Origin$ Stack | Destination$ Exile | Defined$ Self | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

@@ -1,13 +1,9 @@
 Id:12049
-ColorIdentity:B
+ColorIdentity:G
 OriginSet:G28b959a4da853005
-ManaCost:4 B B
-Types:Creature Specter
-PT:4/4
-K:Flying
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDiscard | TriggerZones$ Battlefield
-SVar:TrigDiscard:DB$ Discard | Mode$ TgtChoose | NumCards$ 1 | Defined$ Player.Opponent | RememberDiscarded$ True | SubAbility$ DBRepeatLoseLife
-SVar:DBRepeatLoseLife:DB$ RepeatEach | UseImprinted$ True | RepeatCards$ Card.greatestRememberedCMC | Zone$ Battlefield,Graveyard,Exile,Library,Hand | RepeatSubAbility$ DBLoseLife | SubAbility$ DBCleanup
-SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ X | Defined$ ImprintedController
-SVar:X:Imprinted$CardManaCost
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:1 G
+Types:Creature Ooze
+PT:2/2
+A:AB$ ChangeZone | Cost$ G | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | ConditionDefined$ Targeted | ConditionPresent$ Creature | ConditionCompare$ EQ1 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1 | ConditionDefined$ Targeted | ConditionPresent$ Creature | ConditionCompare$ EQ1

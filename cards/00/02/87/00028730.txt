@@ -1,13 +1,9 @@
 Id:28730
-ColorIdentity:BRG
-OriginSet:G997e3b19a1e94e85
-ManaCost:2 B R G
-Types:Legendary Creature Lhurgoyf Wizard
-PT:*/1+*
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChoose
-SVar:TrigChoose:DB$ NameCard | Defined$ You | ChooseFromCatalogIds$ 9442,145,12962 | SubAbility$ DBCast
-SVar:DBCast:DB$ Play | CopyFromChosenName$ True | WithoutManaCost$ True
-S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X | SetToughness$ Y
-SVar:X:Count$ValidGraveyard Card$CardTypes
-SVar:Y:SVar$X/Plus.1
-SVar:PlayMain1:TRUE
+ColorIdentity:G
+OriginSet:G7ee0e82a2424d636
+ManaCost:2 G
+Types:Sorcery
+A:SP$ Token | TokenScriptIds$ 539752376 | RememberTokens$ True | SubAbility$ DBPutCounters
+SVar:DBPutCounters:DB$ PutCounter | Defined$ Remembered | CounterType$ P1P1 | CounterNum$ Count$ValidGraveyard,Exile Ooze.YouOwn,Card.YouOwn+catalogId28730/Plus.2 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+K:A deck can have any number of cards named CARDNAME.

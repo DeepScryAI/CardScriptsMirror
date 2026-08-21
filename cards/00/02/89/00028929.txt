@@ -1,12 +1,9 @@
 Id:28929
-ColorIdentity:U
-OriginSet:Gaf7c94f364052cdd
-ManaCost:1 U
-Types:Creature Bird Mutant
-PT:1/2
-K:Flying
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigBranch | CombatDamage$ True
-SVar:TrigBranch:DB$ Branch | Defined$ TriggeredTarget | BranchConditionSVar$ X | BranchConditionSVarCompare$ EQ0 | TrueSubAbility$ DBRadiation | FalseSubAbility$ DBProliferate
-SVar:DBRadiation:DB$ Radiation | Defined$ TriggeredTarget | Num$ 2
-SVar:DBProliferate:DB$ Proliferate
-SVar:X:TriggeredTarget$Counters.RAD
+ColorIdentity:G
+OriginSet:Gfe262f6450b3d189
+ManaCost:G
+Types:Sorcery
+A:SP$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Land.Basic | RememberChanged$ True | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Types$ Clue,Artifact | Duration$ Perpetual | Abilities$ ClueSac | Defined$ Remembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:ClueSac:AB$ Draw | Cost$ 2 Sac<1/CARDNAME/this permanent> | NumCards$ 1

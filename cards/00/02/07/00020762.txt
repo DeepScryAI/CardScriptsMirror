@@ -1,10 +1,11 @@
 Id:20762
-ColorIdentity:WR
+ColorIdentity:UR
 OriginSet:Gf8d4de878d0536c5
-ManaCost:2 R W
-Types:Legendary Creature Human Warrior
-PT:4/4
-T:Mode$ Attacks | ValidCard$ Creature.nonHuman+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigDig
-SVar:TrigDig:DB$ Dig | DigNum$ 6 | ChangeNum$ 1 | Optional$ True | Reveal$ False | ChangeValid$ Creature.Human | DestinationZone$ Battlefield | DestinationZone2$ Library | LibraryPosition$ -1 | RestRandomOrder$ True | Tapped$ True | Attacking$ True | RememberChanged$ True | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | Defined$ Remembered | KW$ Indestructible | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:U R
+Types:Creature Faerie Dragon
+PT:1/1
+K:Flying
+K:Haste
+T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | Execute$ TrigPutCounter | TriggerZones$ Battlefield
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+SVar:BuffedBy:Card.nonCreature

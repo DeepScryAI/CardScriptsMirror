@@ -1,14 +1,8 @@
 Id:19860
-ColorIdentity:WB
+ColorIdentity:R
 OriginSet:G23be9f486a22d38a
-ManaCost:2 W B
-Types:Enchantment
-T:Mode$ Phase | Phase$ Upkeep | TriggerZones$ Battlefield | Execute$ TrigSac
-SVar:TrigSac:DB$ Sacrifice | SacValid$ Permanent.nonLand+!token | Defined$ TriggeredPlayer | RememberSacrificed$ True | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | Defined$ TriggeredPlayer | NumCards$ 1 | Mode$ TgtChoose | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ0 | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 2 | Defined$ TriggeredPlayer | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ0 | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | Defined$ You | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ0 | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | LifeAmount$ 2 | Defined$ You | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ0 | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenScriptIds$ 1066714595 | TokenOwner$ You | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ0 | SubAbility$ DBSac
-SVar:DBSac:DB$ SacrificeAll | Defined$ Self | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ0 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:1 R
+Types:Creature Wolverine
+PT:2/1
+T:Mode$ Drawn | ValidCard$ Card.YouCtrl | Number$ 2 | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +1 | NumDef$ +1 | KW$ FirstStrike

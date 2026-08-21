@@ -1,10 +1,12 @@
 Id:25628
-ColorIdentity:B
-OriginSet:G06ccef4324c14725
-ManaCost:1
-Types:Artifact Creature Golem
-PT:1/2
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
-A:AB$ ChangeZone | Cost$ 2 B | Origin$ Graveyard | Destination$ Hand | ActivationZone$ Graveyard
-SVar:SacMe:1
+ColorIdentity:U
+OriginSet:G2e872aaf9b98489e
+ManaCost:3 U
+Types:Creature Vedalken Guest
+PT:*/*
+K:ETBReplacement:Other:TrigRoll
+SVar:TrigRoll:DB$ RollDice | ResultSVar$ diePwr | SubAbility$ RollTough
+SVar:RollTough:DB$ RollDice | ResultSVar$ dieTgn | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Self | Power$ diePwr | Toughness$ dieTgn | Duration$ Permanent
+R:Event$ RollDice | ActiveZones$ Battlefield | ValidPlayer$ You | ValidSides$ 6 | ReplaceWith$ SwapRoll
+SVar:SwapRoll:DB$ ReplaceEffect | VarName$ DicePTExchanges | VarType$ CardSet | VarValue$ Self

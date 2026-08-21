@@ -1,11 +1,16 @@
 Id:28605
-ColorIdentity:WB
+ColorIdentity:UBG
 OriginSet:G7ee0e82a2424d636
-ManaCost:1 W B
-Types:Legendary Creature Human Advisor
-PT:2/3
-K:Deathtouch
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigInvestigate
-SVar:TrigInvestigate:DB$ Investigate | Num$ PlayerCountRegisteredOpponents$HasPropertyLostLifeThisTurn
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Clue.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigToken | ActivationLimit$ 1
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 1377738288
+ManaCost:1 GU
+Types:Instant
+A:SP$ Mill | NumCards$ 3 | SubAbility$ DBInvestigate
+SVar:DBInvestigate:DB$ Investigate
+AlternateMode:Split
+ALTERNATE
+ManaCost:4 UB UB
+Types:Sorcery
+A:SP$ Mill | Defined$ Opponent | NumCards$ 3 | SubAbility$ DBCast
+SVar:DBCast:DB$ RepeatEach | RepeatPlayers$ Opponent | RepeatSubAbility$ DBChoose | SubAbility$ DBPlayAll
+SVar:DBChoose:DB$ ChooseCard | Choices$ Card.RememberedPlayerCtrl+nonLand | ChoiceZone$ Graveyard | Defined$ You | Amount$ 1 | RememberChosen$ True
+SVar:DBPlayAll:DB$ Play | Defined$ Remembered | Amount$ All | ValidSA$ Spell | WithoutManaCost$ True | Optional$ True | ReplaceGraveyard$ Exile | AILogic$ ReplaySpell | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

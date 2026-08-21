@@ -1,14 +1,12 @@
 Id:27780
-ColorIdentity:W
-OriginSet:G30e8a5e111cffb44
-ManaCost:1 W
-Types:Legendary Creature Human
-PT:2/2
-S:Mode$ Continuous | Affected$ Card.Self | AddPower$ X | AddToughness$ X
-T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ TIME | CounterNum$ Y
-SVar:X:Count$CardCounters.TIME
-SVar:Y:Count$ValidExile Card.suspended+YouOwn/Plus.Z
-SVar:Z:Count$Valid Permanent.Other+YouCtrl+counters_GE1_TIME
-K:Doctor's companion
-SVar:HasAttackEffect:TRUE
+ColorIdentity:G
+OriginSet:Gd488b4ad788f0529
+ManaCost:1 G
+Types:Legendary Creature Dog
+PT:1/1
+K:Haste
+T:Mode$ SpellCast | ValidCard$ Card.Adventure | ValidActivatingPlayer$ You | TriggerZones$ Battlefield,Exile | Execute$ TrigEffect
+SVar:TrigEffect:DB$ Pump | PumpZone$ Battlefield,Exile | NumAtt$ +1 | NumDef$ +1 | Duration$ Perpetual | SubAbility$ DBChange
+SVar:DBChange:DB$ ChangeZone | ConditionPresent$ Card.Self | ConditionZone$ Battlefield | Origin$ Battlefield | Destination$ Exile | WithCountersType$ FETCH
+T:Mode$ SpellCast | ValidCard$ Card.wasCastFromExile | ValidActivatingPlayer$ You | Execute$ TrigReturn | TriggerZones$ Exile | IsPresent$ Card.Self+counters_EQ1_FETCH | PresentZone$ Exile
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Exile | Destination$ Battlefield

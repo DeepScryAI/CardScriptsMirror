@@ -1,8 +1,11 @@
 Id:14211
-ColorIdentity:U
+ColorIdentity:B
 OriginSet:Gc18355312510df89
-ManaCost:U
-Types:Instant
-K:Strive:U
-A:SP$ ChangeZone | ValidTgts$ Enchantment | TargetMin$ 0 | TargetMax$ X | Origin$ Battlefield | Destination$ Hand
-SVar:X:Count$Valid Enchantment
+ManaCost:2 B B
+Types:Legendary Creature Human Noble
+PT:2/3
+T:Mode$ Untaps | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigExile | OptionalDecider$ You
+SVar:TrigExile:DB$ ChangeZone | ValidTgts$ Creature | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 4244760998 | TokenOwner$ You | ConditionCheckSVar$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Amount

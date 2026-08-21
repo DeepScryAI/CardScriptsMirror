@@ -1,8 +1,12 @@
 Id:15658
-ColorIdentity:B
+ColorIdentity:
 OriginSet:Gc1f5e527f9d411df
-ManaCost:5 B B
-Types:Creature Zombie Dragon
-PT:6/6
+ManaCost:7
+Types:Artifact Creature Sphinx
+PT:4/4
 K:Flying
-S:Mode$ AlternativeCost | ValidSA$ Spell.Self | EffectZone$ Graveyard | Cost$ B B Sac<2/Creature>
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChooseOpp
+SVar:TrigChooseOpp:DB$ ChoosePlayer | Defined$ You | Choices$ Player.Opponent | AILogic$ MostCardsInHand | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ X | Defined$ You | ConditionCheckSVar$ X | ConditionSVarCompare$ GE1
+SVar:Y:Count$ValidHand Card.YouOwn
+SVar:X:Count$ValidHand Card.ChosenCtrl/Minus.Y

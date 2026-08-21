@@ -1,22 +1,11 @@
 Id:23695
-ColorIdentity:U
-OriginSet:G18bf722b221724f8
-ManaCost:3 U U
-Types:Legendary Creature God
-PT:1/1
-S:Mode$ Continuous | Affected$ Card.Self | AddPower$ Z | AddToughness$ Z
-SVar:X:Count$ValidHand Card.YouOwn
-SVar:Y:Count$ValidExile Card.foretold+YouOwn
-SVar:Z:SVar$X/Plus.Y
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigChooseCardType
-SVar:TrigChooseCardType:DB$ ChooseType | Defined$ You | Type$ Card | SubAbility$ DBDig
-SVar:DBDig:DB$ Dig | DigNum$ 3 | Reveal$ True | ChangeNum$ All | ChangeValid$ Card.ChosenType | DestinationZone2$ Library | LibraryPosition$ -1
-AlternateMode:Modal
-ALTERNATE
-ManaCost:1 U
-Types:Legendary Creature Bird
-PT:3/3
-K:Flying
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZone | Defined$ Self | Origin$ Battlefield | Destination$ Hand | SubAbility$ DBScry
-SVar:DBScry:DB$ Scry | ScryNum$ 2
+ColorIdentity:WG
+OriginSet:G1a259dba25660062
+ManaCost:G W
+Types:Legendary Creature Human Druid
+PT:1/3
+A:AB$ PutCounterAll | Cost$ T | ValidCards$ Saga.YouCtrl | CounterType$ LORE | CounterNum$ 1 | SorcerySpeed$ True
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | Choices$ BounceSaga,GraveSaga | MinCharmNum$ 0
+SVar:BounceSaga:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | ValidTgts$ Saga.YouCtrl,Creature.Enchantment+YouCtrl | ChangeNum$ 1
+SVar:GraveSaga:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Saga | ChangeNum$ 1

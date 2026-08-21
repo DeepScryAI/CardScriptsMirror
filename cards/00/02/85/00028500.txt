@@ -1,14 +1,10 @@
 Id:28500
-ColorIdentity:URG
-OriginSet:G7ee0e82a2424d636
-ManaCost:UR
-Types:Instant
-A:SP$ Effect | StaticAbilities$ MustAttack,MustBlock | RememberObjects$ ThisTargetedCard | ValidTgts$ Creature | ExileOnMoved$ Battlefield
-SVar:MustAttack:Mode$ MustAttack | ValidCreature$ Card.IsRemembered
-SVar:MustBlock:Mode$ MustBlock | ValidCreature$ Card.IsRemembered
-AlternateMode:Split
-ALTERNATE
-ManaCost:4 RG RG
-Types:Sorcery
-A:SP$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +2 | NumDef$ +2 | KW$ Trample | SubAbility$ DBTurnFaceUp
-SVar:DBTurnFaceUp:DB$ SetState | Optional$ True | Choices$ Creature.faceDown+YouCtrl | Mode$ TurnFaceUp
+ColorIdentity:U
+OriginSet:G94329e6b3f93276f
+ManaCost:5 U U
+Types:Artifact Creature Clue Plant
+PT:6/6
+K:Ward:2
+T:Mode$ Phase | Phase$ BeginCombat | TriggerZones$ Battlefield | Execute$ TrigAnimateAll
+SVar:TrigAnimateAll:DB$ AnimateAll | ValidCards$ Clue.Other+YouCtrl | Power$ 6 | Toughness$ 6 | Types$ Creature,Plant
+A:AB$ Draw | Cost$ 2 Sac<1/CARDNAME> | NumCards$ 1

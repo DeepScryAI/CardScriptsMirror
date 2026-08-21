@@ -1,9 +1,11 @@
 Id:12933
-ColorIdentity:G
+ColorIdentity:R
 OriginSet:G98ca154ecf4968d7
-ManaCost:1 G
-Types:Creature Wolf
-PT:2/2
-S:Mode$ Continuous | Affected$ Card.Self | AddPower$ X | AddToughness$ X
-SVar:X:Count$Valid Creature.catalogId12933+YouCtrl/Minus.1
-SVar:BuffedBy:Creature.catalogId12933
+ManaCost:3 R R
+Types:Creature Dragon
+PT:5/5
+K:Flying
+K:Haste
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ ThunderDamage
+SVar:ThunderDamage:DB$ DamageAll | NumDmg$ 1 | ValidCards$ Creature.withFlying+OppCtrl | SubAbility$ ThunderTap
+SVar:ThunderTap:DB$ TapAll | ValidCards$ Creature.withFlying+OppCtrl

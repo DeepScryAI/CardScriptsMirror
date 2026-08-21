@@ -1,6 +1,10 @@
 Id:14680
-ColorIdentity:G
+ColorIdentity:WB
 OriginSet:G0a578e83854cf093
-ManaCost:2 G
-Types:Sorcery
-A:SP$ Dig | DigNum$ 5 | Reveal$ True | ChangeNum$ 1 | ChangeValid$ Creature,Land | DestinationZone2$ Graveyard | Optional$ True
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGainLife
+SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 1
+A:AB$ Mana | Cost$ T | Produced$ Combo W B

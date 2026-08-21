@@ -2,9 +2,10 @@ Id:10743
 ColorIdentity:
 OriginSet:Gc860c737f2a60f83
 ManaCost:no cost
-Types:Plane Lorwyn
-S:Mode$ Continuous | Affected$ Creature | AddPower$ AffectedX | AddToughness$ AffectedX | EffectZone$ Command
-SVar:AffectedX:Count$Valid Creature.sharesCreatureTypeWith+Other
+Types:Plane Ravnica
+T:Mode$ DamageDone | ValidSource$ Creature | ValidTarget$ Player | OptionalDecider$ TriggeredSourceController | CombatDamage$ True | TriggerZones$ Command | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ TriggeredSourceController | NumCards$ 1
 T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos
-SVar:RolledChaos:DB$ Animate | ValidTgts$ Creature | AddAllCreatureTypes$ True
-SVar:AIRollPlanarDieParams:Mode$ Always | HasCreatureInPlay$ True
+SVar:RolledChaos:DB$ Effect | StaticAbilities$ STHandSize | Duration$ Permanent
+SVar:STHandSize:Mode$ Continuous | Affected$ You | SetMaxHandSize$ Unlimited
+SVar:AIRollPlanarDieParams:Mode$ Always | LowPriority$ True | MaxRollsPerTurn$ 9

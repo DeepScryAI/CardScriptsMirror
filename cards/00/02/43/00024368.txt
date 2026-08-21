@@ -1,17 +1,9 @@
 Id:24368
-ColorIdentity:UBG
+ColorIdentity:R
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:1 B G U
-Types:Legendary Creature Human Rogue
-PT:4/4
-K:Menace
-K:Ward:PayLife<9>
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigPeek | CombatDamage$ True
-SVar:TrigPeek:DB$ PeekAndReveal | PeekAmount$ 9 | NoReveal$ True | RememberPeeked$ True | SubAbility$ PickOne
-SVar:PickOne:DB$ ChooseCard | Defined$ You | Amount$ 1 | Choices$ Card.Gate+IsRemembered | ChoiceZone$ Library | SubAbility$ MoveChosen
-SVar:MoveChosen:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | Defined$ ChosenCard | SubAbility$ DBBranch
-SVar:DBBranch:DB$ Branch | BranchConditionSVar$ X | BranchConditionSVarCompare$ GE9 | TrueSubAbility$ DBHand | FalseSubAbility$ DBBottom | SubAbility$ DBCleanup
-SVar:DBBottom:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered | Origin$ Library | Destination$ Library | LibraryPosition$ -1 | RandomOrder$ True
-SVar:DBHand:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered | Origin$ Library | Destination$ Hand
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearChosenCard$ True
-SVar:X:Count$Valid Gate.YouCtrl
+ManaCost:2 R
+Types:Legendary Creature Goblin Shaman
+PT:2/2
+T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigToken | TriggerZones$ Battlefield
+SVar:TrigToken:AB$ Token | Cost$ Sac<1/Creature.Other;Artifact/another creature or an artifact> | TokenScriptIds$ 889157275 | TokenTapped$ True | TokenAttacking$ True
+K:Choose a Background

@@ -1,12 +1,16 @@
 Id:24353
-ColorIdentity:
+ColorIdentity:WG
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:1
-Types:Artifact Equipment
-K:Equip:2
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddKeyword$ Lifelink | IsPresent$ Cleric.YouCtrl
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddKeyword$ Deathtouch | IsPresent$ Rogue.YouCtrl | PresentCompare$ GE1
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddKeyword$ Haste | IsPresent$ Warrior.YouCtrl | PresentCompare$ GE1
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddKeyword$ Flying | IsPresent$ Wizard.YouCtrl | PresentCompare$ GE1
-R:Event$ DamageDone | ActiveZones$ Battlefield | Prevent$ True | ValidTarget$ Creature.EquippedBy | CheckSVar$ X | SVarCompare$ EQ4
-SVar:X:Count$Party
+ManaCost:1 G W
+Types:Legendary Creature Jellyfish
+PT:0/5
+K:Flying
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigChoosePlayer1
+SVar:TrigChoosePlayer1:DB$ ChoosePlayer | Defined$ You | Choices$ Player | RememberChosen$ True | SubAbility$ Counters
+SVar:Counters:DB$ PutCounter | Defined$ ChosenPlayer | Choices$ Creature.ControlledBy ChosenPlayer | Chooser$ ChosenPlayer | Placer$ ChosenPlayer | CounterType$ P1P1 | CounterNum$ 2 | SubAbility$ TrigChoosePlayer2
+SVar:TrigChoosePlayer2:DB$ ChoosePlayer | Defined$ You | Choices$ Player.!IsRemembered | RememberChosen$ True | SubAbility$ Card
+SVar:Card:DB$ Draw | Defined$ ChosenPlayer | SubAbility$ TrigChoosePlayer3
+SVar:TrigChoosePlayer3:DB$ ChoosePlayer | ConditionCheckSVar$ X | ConditionSVarCompare$ GE3 | Defined$ You | Choices$ Player.!IsRemembered | RememberChosen$ True | SubAbility$ Tokens
+SVar:Tokens:DB$ Token | ConditionCheckSVar$ X | ConditionSVarCompare$ GE3 | TokenAmount$ 2 | TokenScriptIds$ 3851718391 | TokenOwner$ ChosenPlayer | SubAbility$ CleanupFinal
+SVar:X:PlayerCountPlayers$Amount
+SVar:CleanupFinal:DB$ Cleanup | ClearRemembered$ True

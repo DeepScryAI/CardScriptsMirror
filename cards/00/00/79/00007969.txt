@@ -1,8 +1,10 @@
 Id:7969
-ColorIdentity:W
+ColorIdentity:R
 OriginSet:Gc563c209d627c4c5
-ManaCost:2 W
-Types:Creature Dog
-PT:1/1
-S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddKeyword$ Vigilance | IsPresent$ Card.Self+enchanted
-SVar:EnchantMe:Once
+ManaCost:2 R
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddKeyword$ FirstStrike
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDealDamage
+SVar:TrigDealDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 3

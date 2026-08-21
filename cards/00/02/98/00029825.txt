@@ -1,11 +1,10 @@
 Id:29825
-ColorIdentity:W
-OriginSet:Gf09b85bbcc27770c
-ManaCost:1 W
-Types:Enchantment Aura
-K:Flash
-K:Enchant:Creature
-SVar:AttachAILogic:Pump
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 1 | AddKeyword$ Flying
+ColorIdentity:U
+OriginSet:G01a610e823cce3ca
+ManaCost:1 U
+Types:Creature Human Assassin
+PT:1/3
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | IsPresent$ Assassin.Legendary+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | NumAtt$ +1 | SubAbility$ DBUnblockable
+SVar:DBUnblockable:DB$ Effect | RememberObjects$ Self | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered

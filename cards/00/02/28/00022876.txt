@@ -1,7 +1,19 @@
 Id:22876
-ColorIdentity:WG
+ColorIdentity:B
 OriginSet:Gf78628ad511eefec
-ManaCost:G W
-Types:Sorcery
-K:Flashback:3 G W
-A:SP$ Token | TokenAmount$ 2 | TokenScriptIds$ 638238902 | TokenOwner$ You
+ManaCost:2 B
+Types:Creature Human Rogue
+PT:2/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Creature.YouDontCtrl+wasDealtDamageThisTurn
+K:Disturb:4 B
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:black
+Types:Creature Spirit Rogue
+PT:2/2
+K:Flying
+K:Deathtouch
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Graveyard | ReplaceWith$ Exile
+SVar:Exile:DB$ ChangeZone | Hidden$ True | Origin$ All | Destination$ Exile | Defined$ ReplacedCard

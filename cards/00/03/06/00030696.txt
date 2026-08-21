@@ -1,9 +1,12 @@
 Id:30696
-ColorIdentity:U
-OriginSet:Gc5a2f0ff902c0621
-ManaCost:2 U
-Types:Instant
-A:SP$ Token | TokenAmount$ 2 | TokenScriptIds$ 589551966 | TokenOwner$ You | RememberOriginalTokens$ True | SubAbility$ DBImmediateTrig
-SVar:DBImmediateTrig:DB$ ImmediateTrigger | TriggerAmount$ Remembered$Amount/DivideEvenlyDown.2 | Execute$ TrigTap | SubAbility$ DBCleanup
-SVar:TrigTap:DB$ Tap | ValidTgts$ Creature.OppCtrl
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:UR
+OriginSet:G2a4addc042b7552f
+ManaCost:1 U R
+Types:Enchantment Creature Otter Glimmer
+PT:2/2
+K:Double team
+T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | Execute$ TrigPump | TriggerZones$ Battlefield
+SVar:TrigPump:DB$ PumpAll | ValidCards$ Creature.Otter+YouCtrl,Creature.Enchantment+YouCtrl | NumAtt$ +1 | NumDef$ +1
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self+Creature | Execute$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Battlefield | StaticEffect$ Animate
+SVar:Animate:Mode$ Continuous | Affected$ Card.IsRemembered | AddType$ Enchantment | RemoveCardTypes$ True

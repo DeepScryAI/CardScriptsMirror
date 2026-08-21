@@ -1,13 +1,15 @@
 Id:26506
-ColorIdentity:WG
-OriginSet:G06757f68e16377c2
-ManaCost:3 G G W W
-Types:Legendary Creature Dinosaur Vampire
-PT:12/12
-K:Trample
-T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigCharm | TriggerZones$ Battlefield
-SVar:TrigCharm:DB$ Charm | Choices$ DBDino,DBVampire
-SVar:DBDino:DB$ Token | TokenScriptIds$ 4207724908 | TokenPower$ X | TokenToughness$ X | TokenTapped$ True | TokenAttacking$ True | TokenOwner$ You
-SVar:DBVampire:DB$ Token | TokenAmount$ Y | TokenScriptIds$ 2635397045 | TokenOwner$ You
-SVar:X:Count$Valid Creature.YouCtrl+Other+attacking$GreatestCardPower
-SVar:Y:Count$Valid Creature.attacking+Other
+ColorIdentity:WUB
+OriginSet:Gd5f5e54fa26ae40d
+ManaCost:3 W U B
+Types:Legendary Creature Vampire Knight Sphinx
+PT:6/6
+K:Flying
+K:Ward:2
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:AB$ Draw | Cost$ X W U B | NumCards$ X
+SVar:X:Count$xPaid
+T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:AB$ Token | Cost$ PayLife<4> | TokenAmount$ Y | TokenScriptIds$ 2487386651 | TokenOwner$ You
+SVar:Y:Count$YouDrewThisTurn
+SVar:HasAttackEffect:TRUE

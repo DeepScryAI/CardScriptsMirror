@@ -1,11 +1,13 @@
 Id:26955
-ColorIdentity:G
-OriginSet:G6ce0035cfb774934
-ManaCost:4 G G G
-Types:Legendary Creature Treefolk
-PT:4/10
-S:Mode$ Continuous | Affected$ Treefolk.YouCtrl | AddKeyword$ Vigilance
-T:Mode$ AttackersDeclared | ValidAttackers$ Treefolk.YouCtrl | Execute$ TrigMana | TriggerZones$ Battlefield
-SVar:TrigMana:DB$ Mana | Produced$ G | Amount$ X
-S:Mode$ UnspentMana | ValidPlayer$ You | ManaType$ Green
-SVar:X:TriggerObjectsAttackers$Amount/Twice
+ColorIdentity:BG
+OriginSet:G321081e278de53f0
+ManaCost:2 B G
+Types:Legendary Creature Elf Warrior
+PT:5/4
+T:Mode$ AttackersDeclared | ValidAttackers$ Elf.YouCtrl | Execute$ TrigPump | TriggerZones$ Battlefield
+SVar:TrigPump:DB$ Pump | Defined$ TriggeredAttackers | KW$ Deathtouch
+S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddTrigger$ ManaTrig
+SVar:ManaTrig:Mode$ AbilityResolves | ValidSource$ Card.Self | ValidSpellAbility$ SpellAbility.ManaAbility | ActivationLimit$ 1 | TriggerZones$ Battlefield | Execute$ TrigPutCounter | AILogic$ ActivateOnce
+SVar:TrigPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ X
+SVar:X:TriggeredSpellAbility$AmountManaProduced
+SVar:BuffedBy:Creature.hasManaAbility

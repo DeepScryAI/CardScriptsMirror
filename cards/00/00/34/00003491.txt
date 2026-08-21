@@ -1,10 +1,9 @@
 Id:3491
-ColorIdentity:G
+ColorIdentity:U
 OriginSet:G24ae8187eacbba52
-ManaCost:2 G
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:Pump
-T:Mode$ DamageDone | ValidSource$ Card.AttachedBy | ValidTarget$ Creature | TriggerZones$ Battlefield | Execute$ TrigDestroy
-SVar:TrigDestroy:DB$ Destroy | Defined$ TriggeredTargetLKICopy
-SVar:NonStackingAttachEffect:True
+ManaCost:2 U
+Types:Enchantment
+T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ Opponent | TriggerZones$ Battlefield | IsPresent$ Card.Self+Enchantment | Execute$ TrigAnimate
+SVar:TrigAnimate:DB$ Animate | Defined$ Self | Power$ 4 | Toughness$ 4 | staticAbilities$ VeiledSerpentST | Types$ Creature,Serpent | RemoveCardTypes$ True | RemoveCreatureTypes$ True | Duration$ Permanent
+K:Cycling:2
+SVar:VeiledSerpentST:Mode$ CantAttack | ValidCard$ Card.Self | UnlessDefender$ controlsIsland

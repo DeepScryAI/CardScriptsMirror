@@ -1,7 +1,11 @@
 Id:29266
-ColorIdentity:UB
-OriginSet:G0c9f9aa4a8bf0371
-ManaCost:3 U B
-Types:Instant
-A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Hand | TargetMin$ 0 | TargetMax$ 2 | ValidTgts$ Creature.YouOwn | SubAbility$ DBSeek
-SVar:DBSeek:DB$ Seek | Num$ 2 | Type$ Card.nonCreature+nonLand
+ColorIdentity:WB
+OriginSet:G27146c70b74a1e72
+ManaCost:1 W B
+Types:Legendary Creature Human Advisor
+PT:2/4
+T:Mode$ ChangesZoneAll | ValidCards$ Card.token+OppCtrl | Origin$ Any | Destination$ Battlefield | TriggerZones$ Battlefield | ActivationLimit$ 1 | Execute$ TrigCopy
+SVar:TrigCopy:DB$ CopyPermanent | Defined$ TriggeredCards | TokenTapped$ True
+T:Mode$ ChangesZoneAll | ValidCards$ Card.token+YouCtrl | Origin$ Any | Destination$ Battlefield | TriggerZones$ Battlefield | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ Opponent | LifeAmount$ 1 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ 1

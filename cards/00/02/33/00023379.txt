@@ -1,8 +1,13 @@
 Id:23379
 ColorIdentity:U
-OriginSet:Gf78628ad511eefec
-ManaCost:3 U U
-Types:Legendary Creature Human Wizard
-PT:3/4
-R:Event$ Counter | ValidSA$ Spell | Layer$ CantHappen | ActiveZones$ Battlefield
-S:Mode$ Continuous | Affected$ Instant.YouOwn,Sorcery.YouOwn | AffectedZone$ Graveyard | AddKeyword$ Flashback | Condition$ PlayerTurn
+OriginSet:G9f95a41d532c0550
+ManaCost:U U U U
+Types:Creature Skeleton Wizard
+PT:4/4
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Color$ U | Amount$ X | EffectZone$ All
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigExile | TriggerZones$ Battlefield
+SVar:TrigExile:DB$ ChangeZone | TargetMin$ 0 | TargetMax$ 1 | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Instant.YouCtrl,Sorcery.YouCtrl | RememberChanged$ True | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | Defined$ Remembered | ValidSA$ Spell | Optional$ True | CopyCard$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+S:Mode$ Continuous | Affected$ Card.Self | MayPlay$ True | AffectedZone$ Graveyard | EffectZone$ Graveyard | MayPlayAltManaCost$ U U U U ExileFromGrave<4/Instant;Sorcery/instant or sorcery cards> | ActivationZone$ Graveyard
+SVar:X:Count$ThisTurnCast_Instant.YouCtrl,Sorcery.YouCtrl

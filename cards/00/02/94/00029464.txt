@@ -1,9 +1,17 @@
 Id:29464
-ColorIdentity:
-OriginSet:Gac6359c222afbd4f
-ManaCost:2
-Types:Kindred Artifact Eldrazi
-A:AB$ Token | Cost$ 1 C T | TokenScriptIds$ 3873110322 | TokenOwner$ You
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Eldrazi.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
-S:Mode$ Continuous | Affected$ Card.Self+counters_GE8_P1P1 | SetPower$ 0 | SetToughness$ 0 | AddType$ Creature | AddKeyword$ Annihilator:2
+ColorIdentity:BRG
+OriginSet:G2ce881cc55bb9f18
+ManaCost:X X B R G
+Types:Creature Dragon
+PT:3/3
+K:Flying
+K:Trample
+T:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigSacrifice
+SVar:TrigSacrifice:DB$ Sacrifice | Defined$ Player | Amount$ X | SacValid$ Creature | Mode$ TgtChoose | RememberSacrificed$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | ReplacementEffects$ Static | RememberObjects$ Remembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:Static:Event$ Moved | Origin$ Stack | ValidCard$ Card.EffectSource | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBCounter
+SVar:ETBCounter:DB$ PutCounter | ETB$ True | Defined$ ReplacedCard | CounterType$ P1P1 | CounterNum$ Y | SubAbility$ RemoveSelf
+SVar:RemoveSelf:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile
+SVar:Y:Remembered$Amount/Twice
+SVar:X:Count$xPaid

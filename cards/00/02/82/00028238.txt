@@ -1,10 +1,14 @@
 Id:28238
-ColorIdentity:BG
-OriginSet:G4f78ded7b58f78f8
-ManaCost:5 B G
-Types:Creature Dinosaur
-PT:10/10
-A:AB$ PutCounter | Cost$ 10 B G | Monstrosity$ 10 | ReduceCost$ X
-SVar:X:Count$Valid Creature.OppCtrl+powerGE4
-T:Mode$ BecomeMonstrous | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigDestroyAll
-SVar:TrigDestroyAll:DB$ DestroyAll | ValidCards$ Creature.Other,Artifact
+ColorIdentity:W
+OriginSet:Gfd50577710a6ab09
+ManaCost:2 W
+Types:Creature Cat Warrior
+PT:3/1
+K:Flash
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | Choices$ DBPutCounter,DBGainLife,DBExile
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ X
+SVar:X:Count$LeftBattlefieldThisTurn Creature.YouCtrl
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ 3 | SubAbility$ DBScry
+SVar:DBScry:DB$ Scry | ScryNum$ 2
+SVar:DBExile:DB$ ChangeZoneAll | ValidTgts$ Player | Origin$ Graveyard | Destination$ Exile | ChangeType$ Card | IsCurse$ True

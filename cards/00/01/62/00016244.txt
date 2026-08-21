@@ -1,7 +1,10 @@
 Id:16244
 ColorIdentity:B
 OriginSet:G70d19654882197c9
-ManaCost:1 B
-Types:Creature Vampire Berserker
-PT:2/2
-A:AB$ Pump | Cost$ Discard<1/Card> | Defined$ Self | KW$ Flying
+ManaCost:2 B
+Types:Legendary Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice | Defined$ Opponent | SacValid$ Creature
+T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | CheckSVar$ X | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 353162950 | TokenOwner$ You
+SVar:X:Count$ThisTurnEntered_Battlefield_Planeswalker.YouCtrl

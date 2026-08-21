@@ -1,0 +1,16 @@
+Id:35079
+ColorIdentity:UG
+OriginSet:Gf8f2990d7136c11d
+ManaCost:2 GU GU
+Types:Legendary Creature Elf Noble
+PT:2/3
+S:Mode$ Continuous | Affected$ Elf.Other+YouCtrl | AddPower$ 1 | AddToughness$ 1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 3229393658 | TokenOwner$ You
+AlternateMode:Adventure
+ALTERNATE
+ManaCost:1 GU GU
+Types:Sorcery Adventure
+A:SP$ Mill | NumCards$ 4 | RememberMilled$ True | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Graveyard,Exile | Destination$ Hand | Hidden$ True | ChangeType$ Land.IsRemembered | ChangeNum$ 2 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

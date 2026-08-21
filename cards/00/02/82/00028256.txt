@@ -1,18 +1,10 @@
 Id:28256
-ColorIdentity:URG
-OriginSet:G8a59924df6623252
-ManaCost:G U R
-Types:Legendary Creature Human Ranger
-PT:3/4
-K:FirstStrike
-K:Reach
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZone | ValidTgts$ Artifact.Legendary,Land.Legendary | Origin$ Graveyard | TargetMin$ 0 | TargetMax$ 1 | Destination$ Exile | RememberChanged$ True | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | CounterType$ DISCOVERY | CounterNum$ 1 | Defined$ Remembered | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | StaticAbilities$ StaticPlay | SubAbility$ DBCleanup
-SVar:StaticPlay:Mode$ Continuous | MayPlayLimit$ 1 | Affected$ Card.counters_GE1_DISCOVERY | AffectedZone$ Exile | MayPlay$ True
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-T:Mode$ Phase | Phase$ EndCombat | ValidPlayer$ You | CheckSVar$ RaidTest | Execute$ TrigToken | TriggerZones$ Battlefield
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 3851718391 | TokenOwner$ You
-SVar:RaidTest:Count$AttackersDeclared
-SVar:HasAttackEffect:TRUE
+ColorIdentity:W
+OriginSet:Gfd50577710a6ab09
+ManaCost:W
+Types:Creature Bird
+PT:1/1
+K:Flying
+K:Vigilance
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigExplore
+SVar:TrigExplore:DB$ Explore | ValidTgts$ Creature.YouCtrl

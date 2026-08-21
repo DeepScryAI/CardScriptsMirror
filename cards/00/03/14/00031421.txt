@@ -1,8 +1,15 @@
 Id:31421
-ColorIdentity:UBG
-OriginSet:Gf2b808f4f642ac62
-ManaCost:2B 2G 2U
-Types:Creature Human Ranger
-PT:3/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDig
-SVar:TrigDig:DB$ Dig | DigNum$ 3 | ChangeNum$ 1 | ChangeValid$ Card | DestinationZone2$ Graveyard | DestinationZone$ Library | LibraryPosition$ 0 | Optional$ True
+ColorIdentity:UR
+OriginSet:Ge1676a27173c0866
+ManaCost:1 U R
+Types:Enchantment
+K:ETBReplacement:Other:SiegeChoice
+SVar:SiegeChoice:DB$ GenericChoice | Choices$ Jeskai,Temur | Defined$ You | SetChosenMode$ True | ShowChoice$ ExceptSelf
+SVar:Jeskai:DB$ Pump
+SVar:Temur:DB$ Pump
+S:Mode$ Continuous | Affected$ Card.Self+ChosenModeJeskai | AddTrigger$ JeskaiTrigger
+SVar:JeskaiTrigger:Mode$ DamageDoneOnce | CombatDamage$ True | ValidSource$ Creature.YouCtrl | TriggerZones$ Battlefield | ValidTarget$ Player | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw
+S:Mode$ Continuous | Affected$ Card.Self+ChosenModeTemur | AddStaticAbility$ TemurStatic
+SVar:TemurStatic:Mode$ Continuous | Affected$ Creature.YouCtrl | AddPower$ 1 | AddKeyword$ Trample & Haste
+SVar:PlayMain1:TRUE

@@ -1,9 +1,14 @@
 Id:14750
-ColorIdentity:U
+ColorIdentity:R
 OriginSet:Gfafc221218d3b700
-ManaCost:7 U U
-Types:Creature Leviathan
-PT:9/9
-T:Mode$ ChangesZone | ValidCard$ Card.wasCastFromYourHandByYou+Self | Destination$ Battlefield | Execute$ TrigTapAll
-SVar:TrigTapAll:DB$ TapAll | ValidCards$ Creature.nonBlue | SubAbility$ TrigPump2
-SVar:TrigPump2:DB$ PumpAll | ValidCards$ Creature.nonBlue | KW$ HIDDEN This card doesn't untap during your next untap step. | Duration$ Permanent
+ManaCost:4 R
+Types:Enchantment
+K:ETBReplacement:Other:ChooseP
+SVar:ChooseP:DB$ ChoosePlayer | Defined$ You | Choices$ Player | AILogic$ Curse | RememberChosen$ True | SubAbility$ ChoosePTwo
+SVar:ChoosePTwo:DB$ ChoosePlayer | Defined$ You | Choices$ NonChosenPlayer | AILogic$ Curse
+R:Event$ DamageDone | ActiveZones$ Battlefield | ValidSource$ Card.RememberedPlayerCtrl,Emblem.RememberedPlayerCtrl | ValidTarget$ Permanent.ChosenCtrl,Player.Chosen | ReplaceWith$ DmgTwice
+R:Event$ DamageDone | ActiveZones$ Battlefield | ValidSource$ Card.ChosenCtrl,Emblem.ChosenCtrl | ValidTarget$ Permanent.RememberedPlayerCtrl,Player.IsRemembered | ReplaceWith$ DmgTwice | Secondary$ True
+SVar:DmgTwice:DB$ ReplaceEffect | VarName$ DamageAmount | VarValue$ X
+SVar:X:ReplaceCount$DamageAmount/Twice
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ DBCleanup | Static$ True
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

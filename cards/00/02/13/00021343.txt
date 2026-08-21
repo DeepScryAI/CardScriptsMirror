@@ -1,9 +1,13 @@
 Id:21343
-ColorIdentity:WG
-OriginSet:G51d431785c8b33e5
-ManaCost:4 G W
-Types:Legendary Creature Elephant Warrior
-PT:5/5
-S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ X | EffectZone$ All
-S:Mode$ ReduceCost | ValidCard$ Creature | Type$ Spell | Activator$ You | Amount$ X | EffectZone$ Battlefield
-SVar:X:Count$Valid Creature.YouCtrl+counters_GE1_P1P1
+ColorIdentity:BG
+OriginSet:G8a59924df6623252
+ManaCost:3 B G
+Types:Legendary Creature Human Warrior
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 3635419940 | TokenOwner$ You | LockTokenScript$ True
+S:Mode$ Continuous | Affected$ Card.Self+equipped | AddHiddenKeyword$ CARDNAME must be blocked if able.
+SVar:EquipMe:Once
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | CheckSVar$ Zombies | NoResolvingCheck$ True | SVarCompare$ GE2 | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ Self | KW$ Indestructible
+SVar:Zombies:Count$Valid Zombie.attacking

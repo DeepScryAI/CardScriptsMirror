@@ -1,13 +1,12 @@
 Id:31842
-ColorIdentity:R
+ColorIdentity:W
 OriginSet:G7ab4f62d323b0ca7
-ManaCost:4 R R
-Types:Sorcery
-A:SP$ Shuffle | Defined$ You | SubAbility$ DBMill
-SVar:DBMill:DB$ Mill | NumCards$ 4 | Defined$ You | RememberMilled$ True | SubAbility$ DBChangeZoneAll
-SVar:DBChangeZoneAll:DB$ ChangeZoneAll | Origin$ Graveyard,Exile | Destination$ Battlefield | ChangeType$ Creature.IsRemembered | RememberChanged$ True | ForgetOtherRemembered$ True | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | KW$ Haste | Defined$ Remembered | Duration$ Permanent | SubAbility$ DBDelTrig
-SVar:DBDelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | RememberObjects$ Remembered | Execute$ TrigReturn | SubAbility$ DBCleanup
-SVar:TrigReturn:DB$ ChangeZone | Defined$ DelayTriggerRememberedLKI | Origin$ Battlefield | Destination$ Hand
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-K:Flashback:6 R R
+ManaCost:1 W
+Types:Legendary Creature Bird
+PT:2/2
+K:Flash
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone | OptionalDecider$ You
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Hidden$ True | AILogic$ BounceOwnTrigger | Mandatory$ True | ChangeType$ Permanent.Other+YouCtrl
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +1
+SVar:BuffedBy:Land

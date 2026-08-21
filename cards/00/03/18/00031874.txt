@@ -1,9 +1,10 @@
 Id:31874
-ColorIdentity:B
+ColorIdentity:G
 OriginSet:G7ab4f62d323b0ca7
-ManaCost:4 B
-Types:Legendary Creature Spirit Avatar
-PT:5/5
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraw
-SVar:TrigDraw:AB$ Draw | Cost$ PayLife<1> | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+ManaCost:G
+Types:Sorcery
+A:SP$ Charm | MinCharmNum$ 1 | CharmNum$ 3 | Choices$ DBFight,DBRemoveCounter,DBPutCounter
+SVar:DBFight:DB$ Pump | AILogic$ Fight | ValidTgts$ Creature.YouCtrl | SubAbility$ DBFight2
+SVar:DBFight2:DB$ Fight | Defined$ ParentTarget | ValidTgts$ Creature.OppCtrl
+SVar:DBRemoveCounter:DB$ RemoveCounter | ValidTgts$ Saga.YouCtrl | AITgts$ Saga.counters_GE1_LORE | CounterType$ LORE | CounterNum$ 1
+SVar:DBPutCounter:DB$ PutCounter | ValidTgts$ Saga.YouCtrl | CounterType$ LORE | CounterNum$ 1

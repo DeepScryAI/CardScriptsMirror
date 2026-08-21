@@ -1,9 +1,12 @@
 Id:28470
-ColorIdentity:B
-OriginSet:G7ee0e82a2424d636
-ManaCost:B
-Types:Creature Zombie Leech
-PT:1/1
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigMill | TriggerZones$ Battlefield
-SVar:TrigMill:DB$ Mill | NumCards$ 2 | Defined$ You
-A:AB$ Pump | Cost$ 1 B | NumAtt$ +2 | NumDef$ +2 | ActivationLimit$ 1
+ColorIdentity:WRG
+OriginSet:G94329e6b3f93276f
+ManaCost:2 R G W
+Types:Legendary Creature Bear
+PT:5/5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ X
+T:Mode$ Attacks | ValidCard$ Creature.YouCtrl+basePowerEQ2+baseToughnessEQ2 | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ TriggeredAttackerLKICopy | NumAtt$ +3 | NumDef$ +3
+SVar:X:Count$Valid Creature.YouCtrl+basePowerEQ2+baseToughnessEQ2
+SVar:BuffedBy:Creature.powerEQ2,Creature.toughnessEQ2

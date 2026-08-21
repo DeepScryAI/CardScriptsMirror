@@ -1,9 +1,18 @@
 Id:22967
-ColorIdentity:B
+ColorIdentity:U
 OriginSet:Gf78628ad511eefec
-ManaCost:2 B
-Types:Creature Vampire Rogue
+ManaCost:1 U
+Types:Creature Human Wizard
+PT:2/1
+K:Disturb:2 U
+A:AB$ Counter | Cost$ U Sac<1/CARDNAME> | TargetType$ Spell | ValidTgts$ Card.nonCreature | UnlessCost$ 3
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:blue
+Types:Creature Spirit Wizard
 PT:2/2
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | CheckSVar$ X | Execute$ TrigPutCounter | TriggerZones$ Battlefield
-SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Vampire.YouCtrl | CounterType$ P1P1 | CounterNum$ 1
-SVar:X:Count$LifeOppsLostThisTurn
+K:Flying
+R:Event$ Counter | ValidSA$ Spell.nonCreature+YouCtrl | Layer$ CantHappen | ActiveZones$ Battlefield
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Graveyard | ReplaceWith$ Exile
+SVar:Exile:DB$ ChangeZone | Hidden$ True | Origin$ All | Destination$ Exile | Defined$ ReplacedCard

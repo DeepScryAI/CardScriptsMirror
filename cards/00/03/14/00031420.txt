@@ -1,11 +1,11 @@
 Id:31420
-ColorIdentity:UR
-OriginSet:Gf2b808f4f642ac62
-ManaCost:U R
-Types:Sorcery
-A:SP$ Draw | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | Defined$ You | Mode$ TgtChoose | Optional$ True | NumCards$ 1 | RememberDiscarded$ True | SubAbility$ DBImmediateTrig
-SVar:DBImmediateTrig:DB$ ImmediateTrigger | ConditionDefined$ Remembered | ConditionPresent$ Card.nonLand | ConditionCompare$ EQ1 | Execute$ TrigDamage | SubAbility$ DBCleanup
-SVar:TrigDamage:DB$ DealDamage | NumDmg$ 3 | ValidTgts$ Creature
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-K:Harmonize:4 U R
+ColorIdentity:WUR
+OriginSet:Ge1676a27173c0866
+ManaCost:U R W
+Types:Creature Human Monk
+PT:3/3
+K:FirstStrike
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigEffect
+SVar:TrigEffect:DB$ DelayedTrigger | AILogic$ SpellCopy | Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ You | ThisTurn$ True | Execute$ TrigCopy
+SVar:TrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | AILogic$ Always | Amount$ 1 | MayChooseTarget$ True
+SVar:PlayMain1:TRUE

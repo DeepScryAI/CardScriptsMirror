@@ -1,9 +1,10 @@
 Id:32077
-ColorIdentity:BG
-OriginSet:G9946f072b5556073
-ManaCost:B G
-Types:Creature Elemental Lhurgoyf
-PT:*/1+*
-S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X | SetToughness$ Y
-SVar:X:Count$ValidExile Card.YouOwn
-SVar:Y:Count$ValidExile Card.YouOwn/Plus.1
+ColorIdentity:G
+OriginSet:G7ab4f62d323b0ca7
+ManaCost:2 G G
+Types:Legendary Artifact
+S:Mode$ ReduceCost | ValidCard$ Card.Green | Type$ Spell | Activator$ You | Amount$ 1
+R:Event$ AddCounter | ActiveZones$ Battlefield | ValidCard$ Creature.YouCtrl+inZoneBattlefield | ValidCounterType$ P1P1 | ReplaceWith$ DoubleCounters
+SVar:DoubleCounters:DB$ ReplaceCounter | ValidCounterType$ P1P1 | Amount$ X
+A:AB$ PutCounter | Cost$ 4 G G T | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ 2 | TargetMin$ 1 | TargetMax$ 2 | DividedAsYouChoose$ 2
+SVar:X:ReplaceCount$CounterNum/Twice

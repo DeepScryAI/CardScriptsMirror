@@ -1,10 +1,12 @@
 Id:33908
-ColorIdentity:G
-OriginSet:Gf8df2bea26dc6b68
-ManaCost:X G
+ColorIdentity:R
+OriginSet:G14da29c4716bedc3
+ManaCost:8 R R
 Types:Sorcery
-A:SP$ Token | TokenScriptIds$ 1802199211 | RememberTokens$ True | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | Defined$ Remembered | CounterType$ P1P1 | CounterNum$ X | SubAbility$ DBSurveil
-SVar:DBSurveil:DB$ Surveil | Amount$ 2 | SubAbility$ DBCleanup
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ X | EffectZone$ All
+A:SP$ RepeatEach | RepeatPlayers$ Player.Opponent | RepeatSubAbility$ DBToken | ChangeZoneTable$ True
+SVar:DBToken:DB$ Token | TokenScriptIds$ 4293801453 | TokenAmount$ 2 | TokenOwner$ You | RememberTokens$ True | PumpKeywords$ Haste | PumpDuration$ EOT | SubAbility$ DBEff
+SVar:DBEff:DB$ Effect | RememberObjects$ Remembered | ExileOnMoved$ Battlefield | StaticAbilities$ MustAttack | SubAbility$ DBCleanup
+SVar:MustAttack:Mode$ MustAttack | ValidCreature$ Card.IsRemembered | MustAttack$ RememberedPlayer
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$xPaid
+SVar:X:Count$ValidGraveyard Instant.YouOwn,Sorcery.YouOwn

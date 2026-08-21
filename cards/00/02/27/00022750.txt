@@ -1,13 +1,9 @@
 Id:22750
-ColorIdentity:W
-OriginSet:G66f2eb694ffd614a
-ManaCost:1 W
-Types:Creature Wall
-PT:0/4
-K:Defender
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ ExileDraw
-SVar:ExileDraw:DB$ Dig | Defined$ You | DigNum$ Y | ChangeNum$ All | DestinationZone$ Exile | ExileFaceDown$ True
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | Execute$ TrigReturn | CheckSVar$ X | SVarCompare$ GE3 | TriggerZones$ Battlefield
-SVar:TrigReturn:DB$ ChangeZone | Origin$ Exile | Destination$ Hand | ChangeType$ Card.ExiledWithSource | Hidden$ True | ChangeNum$ 1 | Mandatory$ True
-SVar:X:Count$Valid Creature.YouCtrl$DifferentCardPower
-SVar:Y:PlayerCountOpponents$Amount
+ColorIdentity:U
+OriginSet:G9f95a41d532c0550
+ManaCost:1 U
+Types:Creature Snake Rogue
+PT:2/1
+S:Mode$ CantBlockBy | ValidAttacker$ Card.Self+attacking | IsPresent$ Card.attacking+Other | PresentCompare$ EQ0
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigVenture | TriggerZones$ Battlefield | TriggerController$ TriggeredSourceController
+SVar:TrigVenture:DB$ Venture

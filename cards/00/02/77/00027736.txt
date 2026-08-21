@@ -1,11 +1,10 @@
 Id:27736
-ColorIdentity:G
-OriginSet:G30e8a5e111cffb44
-ManaCost:2 G
-Types:Legendary Creature Human Warrior
+ColorIdentity:W
+OriginSet:G997e3b19a1e94e85
+ManaCost:1 W
+Types:Legendary Creature Human Peasant
 PT:2/2
-K:Trample
-T:Mode$ SpellCast | ValidCard$ Card.Historic | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +X | NumDef$ +X
-SVar:X:TriggeredSpellAbility$CardManaCostLKI
-K:Doctor's companion
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 134855612 | TokenOwner$ You
+S:Mode$ Continuous | Affected$ Food.nonCreature+YouCtrl | AddType$ Equipment | AddStaticAbility$ FoodEquip | AddKeyword$ Equip:1
+SVar:FoodEquip:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1 | AddToughness$ 1

@@ -1,8 +1,10 @@
 Id:29486
-ColorIdentity:B
-OriginSet:Gac6359c222afbd4f
-ManaCost:2 B
-Types:Enchantment
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigAmass
-T:Mode$ Drawn | ValidCard$ Card.YouCtrl | Number$ 3 | TriggerZones$ Battlefield | Execute$ TrigAmass | Secondary$ True
-SVar:TrigAmass:DB$ Amass | Type$ Zombie | Num$ 3
+ColorIdentity:
+OriginSet:G2ce881cc55bb9f18
+ManaCost:3 C C
+Types:Sorcery
+A:SP$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBChooseColor | SubAbility$ ExileAll
+SVar:DBChooseColor:DB$ ChooseColor | Defined$ Remembered | AILogic$ MostProminentComputerControls | SubAbility$ FilterForExile
+SVar:FilterForExile:DB$ Pump | RememberObjects$ Valid Permanent.RememberedPlayerCtrl+MonoColor+ChosenColor
+SVar:ExileAll:DB$ ChangeZoneAll | Origin$ Battlefield | Destination$ Exile | ChangeType$ Card.nonColorless+!IsRemembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

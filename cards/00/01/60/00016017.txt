@@ -1,8 +1,17 @@
 Id:16017
-ColorIdentity:U
+ColorIdentity:G
 OriginSet:Gc276c26a85a70470
-ManaCost:4 U
-Types:Creature Zombie Horror
-PT:3/5
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | IsPresent$ Permanent.Zombie+Other+YouCtrl | Execute$ TrigDraw
-SVar:TrigDraw:AB$ Discard | Defined$ You | NumCards$ 1 | Mode$ TgtChoose | Cost$ Draw<1/You>
+ManaCost:1 G
+Types:Creature Human Shaman Werewolf
+PT:3/3
+S:Mode$ CantAttack | ValidCard$ Card.Self | IsPresent$ Creature.YouCtrl+powerGE4 | PresentCompare$ EQ0
+T:Mode$ Phase | Phase$ Upkeep | WerewolfTransformCondition$ True | TriggerZones$ Battlefield | Execute$ TrigTransform
+SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:green
+Types:Creature Werewolf
+PT:4/4
+T:Mode$ Phase | Phase$ Upkeep | WerewolfUntransformCondition$ True | TriggerZones$ Battlefield | Execute$ TrigTransform
+SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform

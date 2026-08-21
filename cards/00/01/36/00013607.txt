@@ -1,11 +1,11 @@
 Id:13607
-ColorIdentity:G
+ColorIdentity:U
 OriginSet:G4773f4feb3f15a2b
-ManaCost:3 G G
-Types:Creature Hydra
-PT:0/0
-K:Trample
-K:etbCounter:P1P1:4
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDoubleCounters
-SVar:TrigDoubleCounters:DB$ MultiplyCounter | Defined$ Valid Creature.YouCtrl | CounterType$ P1P1
-SVar:HasAttackEffect:TRUE
+ManaCost:4 U U
+Types:Creature Fish Illusion
+PT:4/4
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ MindFishing
+SVar:MindFishing:DB$ Mill | NumCards$ 5 | ValidTgts$ Opponent | RememberMilled$ True | SubAbility$ FishyCast
+SVar:FishyCast:DB$ Play | ValidZone$ Graveyard,Exile | Valid$ Instant.IsRemembered,Sorcery.IsRemembered | Controller$ You | WithoutManaCost$ True | ValidSA$ Spell | Optional$ True | Amount$ 1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

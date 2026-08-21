@@ -1,9 +1,11 @@
 Id:34260
-ColorIdentity:WG
+ColorIdentity:G
 OriginSet:Gcb93bbfc68a40806
-ManaCost:2 GW
-Types:Legendary Creature Gamma Advisor Hero
-PT:3/3
-K:Vigilance
-A:AB$ PutCounter | Cost$ 6 GW | Defined$ Self | CounterType$ P1P1 | PowerUp$ True | SubAbility$ DBDouble
-SVar:DBDouble:DB$ MultiplyCounter | Defined$ Valid Creature.YouCtrl | CounterType$ P1P1
+ManaCost:2 G
+Types:Enchantment Aura
+K:Flash
+K:Enchant:Creature.YouCtrl:creature you control
+SVar:AttachAILogic:Pump
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ Enchanted | KW$ Hexproof
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 2 | AddToughness$ 2

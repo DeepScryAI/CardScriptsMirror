@@ -1,7 +1,14 @@
 Id:26207
-ColorIdentity:G
+ColorIdentity:BG
 OriginSet:G2192e8955d5e1ad1
-ManaCost:1 G
-Types:Sorcery
-A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Permanent.YouCtrl | SubAbility$ DBProliferate
-SVar:DBProliferate:DB$ Proliferate
+ManaCost:1 B G
+Types:Legendary Creature Phyrexian Zombie Elf
+PT:3/3
+K:FirstStrike
+K:Deathtouch
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigCharm | TriggerZones$ Battlefield
+SVar:TrigCharm:DB$ Charm | Choices$ DBDraw,DBDestroy,DBRemove
+SVar:DBDraw:DB$ Draw | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 1
+SVar:DBDestroy:DB$ Destroy | ValidTgts$ Enchantment
+SVar:DBRemove:DB$ RemoveCounter | ValidTgts$ Permanent | CounterType$ Any | CounterNum$ 3 | UpTo$ True

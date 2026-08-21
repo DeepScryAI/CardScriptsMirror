@@ -1,10 +1,13 @@
 Id:25116
-ColorIdentity:
-OriginSet:Gf591a76e7a37cf73
-ManaCost:4
-Types:Artifact Creature Insect
-PT:4/3
-K:Vigilance
-T:Mode$ ChangesZone | Origin$ Graveyard | Destination$ Battlefield | TriggerZones$ Battlefield | ValidCard$ Card.Self | Execute$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Permanent.nonLand | TargetMin$ 0 | TargetMax$ 1
-K:Unearth:7
+ColorIdentity:WU
+OriginSet:G2aca7ffc9201ba1c
+ManaCost:W U
+Types:Legendary Creature Human Cleric
+PT:2/2
+K:Flash
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.wasCastByYou+Self | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouOwn+nonLegendary+ThisTurnEnteredFrom_Battlefield | RememberChanged$ True | ChangeNum$ 1 | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Remembered | Triggers$ BecomesTarget | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:BecomesTarget:Mode$ BecomesTarget | ValidTarget$ Card.Self | ActivationLimit$ 1 | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

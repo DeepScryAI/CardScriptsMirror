@@ -1,10 +1,16 @@
 Id:26764
-ColorIdentity:WG
-OriginSet:G321081e278de53f0
-ManaCost:1 G W
-Types:Legendary Enchantment Creature Human Druid
-PT:2/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self,Enchantment.YouCtrl+Other | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ 1
-T:Mode$ DamageDone | TriggerZones$ Battlefield | ValidSource$ Card.Self,Creature.enchanted+YouCtrl | OptionalDecider$ You | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigToken | ResolvedLimit$ 1
-SVar:TrigToken:DB$ CopyPermanent | Choices$ Enchantment.nonLegendary+YouCtrl
+ColorIdentity:BR
+OriginSet:G06757f68e16377c2
+ManaCost:1 R
+Types:Creature Devil
+PT:2/1
+A:AB$ SetState | Cost$ 3 BP | Defined$ Self | Mode$ Transform | SorcerySpeed$ True | AILogic$ Always
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:black,red
+Types:Creature Phyrexian Devil
+PT:3/2
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice | Defined$ Opponent | SacValid$ Creature,Artifact
+SVar:SacMe:2

@@ -1,14 +1,9 @@
 Id:25851
-ColorIdentity:B
-OriginSet:Gb879a1706584aeee
-ManaCost:3 B
-Types:Legendary Creature Rat Warlock
-PT:3/4
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump
-T:Mode$ Blocks | ValidCard$ Card.Self | Execute$ TrigPump | Secondary$ True
-SVar:TrigPump:DB$ PumpAll | ValidCards$ Rat.StrictlyOther+YouCtrl | NumAtt$ +X | NumDef$ +X
-SVar:X:Count$Valid Rat.YouCtrl
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigChange
-SVar:TrigChange:AB$ ChangeZone | Cost$ Mill<4> | Origin$ Graveyard | Destination$ Hand | ChangeType$ Rat.Creature+YouOwn | ChangeNum$ 2 | Hidden$ True
-SVar:HasAttackEffect:TRUE
-SVar:HasBlockEffect:TRUE
+ColorIdentity:W
+OriginSet:G06ccef4324c14725
+ManaCost:1 W
+Types:Sorcery
+A:SP$ Effect | RememberObjects$ Targeted & Self | ReplacementEffects$ ETBCreat | ExileOnMoved$ Graveyard,Stack | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Artifact.YouCtrl+cmcLE3,Creature.YouCtrl+cmcLE3
+SVar:ETBCreat:Event$ Moved | ValidCard$ Creature.IsRemembered | Destination$ Battlefield | ReplaceWith$ DBPutP1P1 | ReplacementResult$ Updated
+SVar:DBPutP1P1:DB$ PutCounter | Defined$ ReplacedCard | CounterType$ P1P1 | ETB$ True | CounterNum$ 1

@@ -1,10 +1,13 @@
 Id:13922
-ColorIdentity:UBR
+ColorIdentity:G
 OriginSet:G6645ca87da6316d5
-ManaCost:2 U B R
-Types:Legendary Creature Zombie Wizard
-PT:2/4
-T:Mode$ Phase | Phase$ Draw | ValidPlayer$ Player | TriggerZones$ Battlefield | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ TriggeredPlayer
-T:Mode$ Drawn | ValidCard$ Card.OppOwn | TriggerZones$ Battlefield | Execute$ TrigDamage
-SVar:TrigDamage:DB$ DealDamage | Defined$ TriggeredPlayer | NumDmg$ 1
+ManaCost:6 G G
+Types:Creature Beast
+PT:0/0
+T:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigReveal
+SVar:TrigReveal:DB$ PeekAndReveal | Defined$ Player | RememberRevealed$ True
+K:etbCounter:P1P1:X:no Condition
+SVar:X:Remembered$CardManaCost
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ DBCleanup | Static$ True
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+K:Trample

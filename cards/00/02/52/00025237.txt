@@ -1,11 +1,14 @@
 Id:25237
-ColorIdentity:B
+ColorIdentity:G
 OriginSet:Gf591a76e7a37cf73
-ManaCost:X B B B B
-Types:Sorcery
-A:SP$ Token | TokenAmount$ X | TokenScriptIds$ 321060237 | TokenTapped$ True | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | LifeAmount$ Y | SubAbility$ DBChange
-SVar:DBChange:DB$ ChangeZone | Origin$ Stack | Destination$ Exile
-S:Mode$ Continuous | Affected$ Card.Self | MayPlay$ True | AffectedZone$ Graveyard | EffectZone$ Graveyard
+ManaCost:10 G G
+Types:Creature Tyranid
+PT:12/12
+K:Vigilance
+K:Reach
+K:Ward:2
+A:SP$ PermanentCreature | Cost$ 10 G G RemoveAnyCounter<X/P1P1/Creature>
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ Y | EffectZone$ All | Relative$ True
+S:Mode$ CantBlockBy | ValidAttacker$ Card.Self | ValidBlocker$ Creature.powerLE2
 SVar:X:Count$xPaid
-SVar:Y:Count$Valid Artifact.YouCtrl
+SVar:Y:SVar$X/Times.2

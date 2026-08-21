@@ -1,8 +1,11 @@
 Id:27681
-ColorIdentity:
-OriginSet:G30e8a5e111cffb44
-ManaCost:3
-Types:Artifact
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSurveil
-SVar:TrigSurveil:DB$ Surveil | Amount$ 3
-A:AB$ Pump | Cost$ T | ValidTgts$ Creature.Legendary+YouCtrl | KW$ Escape:CardManaCost ExileFromGrave<3/Card.Other/other> | TgtZone$ Graveyard | PumpZone$ Graveyard
+ColorIdentity:U
+OriginSet:G7579344e30f8be85
+ManaCost:U
+Types:Creature Faerie Wizard
+PT:1/1
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigImmediateTrig | OptionalDecider$ You
+SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ 2 | Execute$ TrigTap
+SVar:TrigTap:DB$ Tap | ValidTgts$ Creature.OppCtrl | SubAbility$ DBCounter
+SVar:DBCounter:DB$ PutCounter | Defined$ Targeted | CounterType$ Stun | CounterNum$ 1

@@ -1,9 +1,9 @@
 Id:7805
-ColorIdentity:R
+ColorIdentity:W
 OriginSet:G9231f4a3f94f4472
-ManaCost:X R
-Types:Instant
-A:SP$ Pump | ValidTgts$ Creature.attacking | NumAtt$ +X | SubAbility$ DelTrigSlowtrip
-SVar:DelTrigSlowtrip:DB$ DelayedTrigger | NextTurn$ True | Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Player | Execute$ DrawSlowtrip
-SVar:DrawSlowtrip:DB$ Draw | Defined$ You
-SVar:X:Count$xPaid
+ManaCost:5 W
+Types:Creature Human Wizard
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Aura.CanEnchantSource | AttachedTo$ Self | ConditionPresent$ Card.Self | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Aura.CanEnchantSource | ConditionPresent$ Card.Self | ConditionCompare$ LE0

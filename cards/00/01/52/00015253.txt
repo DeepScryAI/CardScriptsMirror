@@ -1,9 +1,10 @@
 Id:15253
-ColorIdentity:W
+ColorIdentity:R
 OriginSet:G70acd28f254172ff
-ManaCost:1 W
-Types:Creature Cat Monk
-PT:1/1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDestroy | OptionalDecider$ You
-SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Enchantment
-SVar:PlayMain1:TRUE
+ManaCost:3 R R
+Types:Creature Hellion
+PT:4/5
+K:Trample
+R:Event$ DamageDone | ActiveZones$ Battlefield | ValidSource$ Card.RedSource+Other+YouCtrl | ValidTarget$ Permanent,Player | ReplaceWith$ DmgPlus1
+SVar:DmgPlus1:DB$ ReplaceEffect | VarName$ DamageAmount | VarValue$ X
+SVar:X:ReplaceCount$DamageAmount/Plus.1

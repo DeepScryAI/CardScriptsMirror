@@ -1,16 +1,16 @@
 Id:20782
-ColorIdentity:W
-OriginSet:Gfd5e6da37c69dc53
-ManaCost:1 W W
-Types:Legendary Planeswalker Basri
+ColorIdentity:G
+OriginSet:Gf8d4de878d0536c5
+ManaCost:3 G G
+Types:Legendary Planeswalker Vivien
 Loyalty:3
-A:AB$ PutCounter | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ 1 | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | Defined$ Targeted | KW$ Indestructible
-A:AB$ Effect | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | Triggers$ TrigAttack
-SVar:TrigAttack:Mode$ AttackersDeclared | ValidAttackers$ Creature.!token | TriggerZones$ Command | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenAmount$ BasriX | TokenScriptIds$ 1214250791 | TokenOwner$ You | TokenTapped$ True | TokenAttacking$ True
-SVar:BasriX:TriggerObjectsAttackers$Valid Creature.!token
-A:AB$ Effect | Cost$ SubCounter<6/LOYALTY> | Planeswalker$ True | Ultimate$ True | Name$ 5651508669933934588 | Triggers$ EffPhase | Duration$ Permanent
-SVar:EffPhase:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | Execute$ EmblemTrigToken
-SVar:EmblemTrigToken:DB$ Token | TokenOwner$ You | TokenScriptIds$ 1214250791 | SubAbility$ DBPutCounterAll
-SVar:DBPutCounterAll:DB$ PutCounterAll | ValidCards$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1
+S:Mode$ Continuous | Affected$ Card.TopLibrary+YouCtrl | AffectedZone$ Library | MayLookAt$ You
+S:Mode$ Continuous | Affected$ Creature.TopLibrary+YouCtrl | MayPlay$ True | AffectedZone$ Library
+SVar:NonStackingEffect:True
+A:AB$ Token | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | TokenScriptIds$ 273416837 | TokenOwner$ You | RememberTokens$ True | SubAbility$ DBCounter
+SVar:DBCounter:DB$ PutCounter | Defined$ Remembered | CounterType$ Vigilance,Reach,Trample | CounterNum$ 1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+A:AB$ Effect | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | Ultimate$ True | Triggers$ TrigSearch | AILogic$ WillCastCreature
+SVar:TrigSearch:Mode$ SpellCast | ValidCard$ Creature | ValidActivatingPlayer$ You | OneOff$ True | TriggerZones$ Command | Execute$ DBSearch
+SVar:DBSearch:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Creature.cmcLTX | ChangeNum$ 1
+SVar:X:TriggeredSpellAbility$CardManaCostLKI

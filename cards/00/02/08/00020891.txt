@@ -1,9 +1,17 @@
 Id:20891
-ColorIdentity:U
+ColorIdentity:G
 OriginSet:Gfd5e6da37c69dc53
-ManaCost:3 U U
-Types:Creature Spirit
-PT:3/2
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
-SVar:TrigChangeZone:DB$ ChangeZone | ValidTgts$ Creature.nonSpirit | TargetMin$ 0 | TargetMax$ 1 | Origin$ Battlefield | Destination$ Hand
+ManaCost:3 G G
+Types:Creature Beast
+PT:6/6
+K:Vigilance
+K:Reach
+K:Trample
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigCharm
+T:Mode$ Blocks | ValidCard$ Card.Self | Execute$ TrigCharm | Secondary$ True
+SVar:TrigCharm:DB$ Charm | Choices$ DBCreateToken,DBGainLife,DBDraw
+SVar:DBCreateToken:DB$ Token | TokenScriptIds$ 273416837 | TokenOwner$ You
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ 3
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1
+SVar:HasAttackEffect:TRUE
+SVar:HasBlockEffect:TRUE

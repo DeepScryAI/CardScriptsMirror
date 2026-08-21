@@ -1,8 +1,11 @@
 Id:16378
-ColorIdentity:B
+ColorIdentity:R
 OriginSet:Gd94e3db4ef71ffd2
-ManaCost:3 B
-Types:Creature Human Pirate
-PT:2/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSearch
-SVar:TrigSearch:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Card.YouOwn+NotedNameSmugglerCaptain | Optional$ True
+ManaCost:5 R R
+Types:Creature Dragon
+PT:5/5
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMonarch
+SVar:TrigMonarch:DB$ BecomeMonarch
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | CheckDefinedPlayer$ You.isMonarch | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 4249416919 | TokenOwner$ You

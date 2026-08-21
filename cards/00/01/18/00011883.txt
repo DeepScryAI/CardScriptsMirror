@@ -1,13 +1,14 @@
 Id:11883
-ColorIdentity:G
+ColorIdentity:U
 OriginSet:G43171707a7efd07b
-ManaCost:4 G G G
-Types:Creature Phyrexian Beast
-PT:6/7
-K:MayEffectFromOpeningHand:ManaOnMain
-K:Vigilance
-K:Reach
-SVar:RevealCard:DB$ Reveal | RevealDefined$ Self | SubAbility$ ManaOnMain
-SVar:ManaOnMain:DB$ Effect | Triggers$ TrigMana | Duration$ Permanent
-SVar:TrigMana:Mode$ Phase | Phase$ Main1 | ValidPlayer$ You | OneOff$ True | Execute$ EffMana
-SVar:EffMana:DB$ Mana | Produced$ G
+ManaCost:4 U U U
+Types:Creature Phyrexian Sphinx
+PT:5/7
+K:MayEffectFromOpeningHand:RevealCard
+K:Flying
+SVar:RevealCard:DB$ Reveal | RevealDefined$ Self | SubAbility$ DrainOnUpkeep
+SVar:DrainOnUpkeep:DB$ Effect | Triggers$ TrigMill
+SVar:TrigMill:Mode$ Phase | Phase$ Upkeep | Execute$ Mill | OneOff$ True
+SVar:Mill:DB$ Mill | NumCards$ 7 | Defined$ Player.Opponent
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ Play | TgtZone$ Graveyard | WithoutManaCost$ True | ValidTgts$ Instant.OppOwn,Sorcery.OppOwn | Optional$ True

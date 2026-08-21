@@ -1,7 +1,10 @@
 Id:6243
-ColorIdentity:RG
+ColorIdentity:R
 OriginSet:G0085c354434a9ecc
-ManaCost:3 R
-Types:Creature Goblin
-PT:3/3
-A:AB$ Mana | Cost$ T Sac<1/Forest> | Produced$ Combo R G | Amount$ 3
+ManaCost:3 R R
+Types:Creature Goblin Assassin
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self,Goblin.Other | Execute$ AssassinsFlip
+SVar:AssassinsFlip:DB$ FlipCoin | Flipper$ Player | NoCall$ True | RememberResult$ True | SubAbility$ Assassination
+SVar:Assassination:DB$ Sacrifice | Defined$ FlippedTails | SacValid$ Creature | Amount$ 1 | SubAbility$ ResetFlips
+SVar:ResetFlips:DB$ Cleanup | ClearCoinFlips$ True

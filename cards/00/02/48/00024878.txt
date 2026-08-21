@@ -1,10 +1,14 @@
 Id:24878
-ColorIdentity:
+ColorIdentity:B
 OriginSet:G3a8b4b9d4649b357
-ManaCost:3
-Types:Legendary Artifact
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
-S:Mode$ CantPayLife | ValidPlayer$ Player | ValidCause$ Spell,Activated.!ManaAbility | ForCost$ True
-A:AB$ DestroyAll | Cost$ X T Exile<1/CARDNAME> | ValidCards$ Permanent.nonLand+cmcLEX | SorcerySpeed$ True
-SVar:X:Count$xPaid
+ManaCost:1 B B
+Types:Legendary Creature Nightmare
+PT:3/3
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice | Optional$ True | SacValid$ Artifact,Creature,Enchantment,Land,Planeswalker | Amount$ 1 | RememberSacrificed$ True | SubAbility$ DBRepeatEach
+SVar:DBRepeatEach:DB$ RepeatEach | ConditionDefined$ Remembered | ConditionPresent$ Card | RepeatSubAbility$ DBMaySac | RepeatPlayers$ Player.Opponent | SubAbility$ DBCleanup
+SVar:DBMaySac:DB$ Sacrifice | Defined$ Player.IsRemembered | SacValid$ Permanent.sharesCardTypeWith RememberedCard | RememberSacrificed$ True | Optional$ True | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ0 | Defined$ Player.IsRemembered | LifeAmount$ 2 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ0 | Defined$ You | NumCards$ 1
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Valid Card.RememberedPlayerCtrl

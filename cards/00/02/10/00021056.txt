@@ -1,11 +1,9 @@
 Id:21056
-ColorIdentity:G
-OriginSet:G7b2607750b451c25
-ManaCost:2 G
-Types:Creature Ooze
+ColorIdentity:W
+OriginSet:G2f853d6139309fb0
+ManaCost:1 W
+Types:Creature Kor Cleric
 PT:2/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1
-T:Mode$ Attacks | ValidCard$ Creature.Self | Execute$ TrigPutCounterAll
-SVar:TrigPutCounterAll:DB$ PutCounterAll | ValidCards$ Creature.attacking+counters_GE1_P1P1 | CounterType$ P1P1 | CounterNum$ 1
-SVar:HasAttackEffect:TRUE
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump | IsPresent$ Artifact.YouCtrl,Enchantment.YouCtrl
+SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +1 | NumDef$ +1 | KW$ Lifelink
+SVar:BuffedBy:Artifact,Enchantment

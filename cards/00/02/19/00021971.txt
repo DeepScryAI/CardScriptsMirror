@@ -1,9 +1,13 @@
 Id:21971
-ColorIdentity:R
-OriginSet:Gd784248bfdf9e1d7
-ManaCost:7 R
-Types:Instant
-A:SP$ DealDamage | ValidTgts$ Any | NumDmg$ 5 | DamageMap$ True | SubAbility$ DBDealDamage
-SVar:DBDealDamage:DB$ DealDamage | ValidTgts$ Any | TargetUnique$ True | NumDmg$ 3 | SubAbility$ DBDamageResolve
-SVar:DBDamageResolve:DB$ DamageResolve | SubAbility$ DBMana
-SVar:DBMana:DB$ Mana | Produced$ R | Amount$ 3
+ColorIdentity:WB
+OriginSet:G6fa60d857e930f32
+ManaCost:2 W
+Types:Creature Human Cleric
+PT:2/3
+A:AB$ PumpAll | Cost$ Exile<1/CARDNAME> | ValidCards$ Creature.YouCtrl | KW$ Indestructible
+AlternateMode:Modal
+ALTERNATE
+ManaCost:5 B B B
+Types:Sorcery
+A:SP$ ChooseCard | Defined$ You | Amount$ 1 | Choices$ Creature,Planeswalker | Mandatory$ True | ChoiceZone$ Battlefield | SubAbility$ DBDestroyAll
+SVar:DBDestroyAll:DB$ DestroyAll | ValidCards$ Creature.nonChosenCard,Planeswalker.nonChosenCard

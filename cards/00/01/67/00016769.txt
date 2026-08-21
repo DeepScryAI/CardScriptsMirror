@@ -1,9 +1,9 @@
 Id:16769
-ColorIdentity:B
+ColorIdentity:
 OriginSet:Gd31f94cf3a5f78e4
-ManaCost:B
-Types:Enchantment
-T:Mode$ LifeLost | ValidPlayer$ You | TriggerZones$ Battlefield | FirstTime$ True | Execute$ TrigEnergy
-SVar:TrigEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ 1
-A:AB$ LoseLife | Cost$ PayEnergy<2> Sac<1/CARDNAME> | Defined$ Player.Opponent | LifeAmount$ 3 | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ AFLifeLost
+ManaCost:6
+Types:Legendary Artifact
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigEnergy | TriggerZones$ Battlefield
+T:Mode$ ChangesZone | ValidCard$ Artifact.Other+YouCtrl | Origin$ Any | Destination$ Battlefield | Execute$ TrigEnergy | TriggerZones$ Battlefield | Secondary$ True
+SVar:TrigEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ 2
+A:AB$ AddTurn | Cost$ PayEnergy<8> Exile<1/CARDNAME> | NumTurns$ 1

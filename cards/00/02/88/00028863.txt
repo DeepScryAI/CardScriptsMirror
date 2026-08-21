@@ -1,11 +1,12 @@
 Id:28863
-ColorIdentity:WBR
-OriginSet:Gaf7c94f364052cdd
-ManaCost:R W B
-Types:Legendary Artifact Creature Human
-PT:0/4
-T:Mode$ RolledDie | TriggerZones$ Battlefield | Execute$ TrigBranch | ValidPlayer$ You | ValidResult$ GE4
-SVar:TrigBranch:DB$ Branch | BranchConditionSVar$ TriggerCount$Result | BranchConditionSVarCompare$ GE6 | TrueSubAbility$ Tokens | FalseSubAbility$ Token
-SVar:Token:DB$ Token | TokenScriptIds$ 1043372835
-SVar:Tokens:DB$ Token | TokenScriptIds$ 1043372835,3851718391
-A:AB$ RollDice | Cost$ 4 T | Amount$ Count$TotalManaSpent Treasure/Plus.1
+ColorIdentity:G
+OriginSet:G997e3b19a1e94e85
+ManaCost:1 G
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+T:Mode$ Attacks | ValidCard$ Card.AttachedBy | Execute$ TrigChange | TriggerZones$ Battlefield | OptionalDecider$ You
+SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | Tapped$ True | ChangeType$ Land | ChangeNum$ X | ShuffleNonMandatory$ True
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddSVar$ AE
+SVar:X:Count$Valid Creature.EnchantedBy+IsSuspected/Plus.1
+SVar:AE:SVar:HasAttackEffect:TRUE

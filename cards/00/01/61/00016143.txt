@@ -1,13 +1,11 @@
 Id:16143
-ColorIdentity:R
+ColorIdentity:B
 OriginSet:G70d19654882197c9
-ManaCost:1 R R
+ManaCost:1 B
 Types:Sorcery
-K:Escalate:1
-A:SP$ Charm | MinCharmNum$ 1 | CharmNum$ 3 | Choices$ DBWheel,DBDamage1,DBDamage2
-SVar:DBWheel:DB$ Discard | ValidTgts$ Player | Mode$ Hand | RememberDiscarded$ True | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | NumCards$ X | Defined$ ParentTarget | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Remembered$Amount
-SVar:DBDamage1:DB$ DealDamage | ValidTgts$ Creature | NumDmg$ 4
-SVar:DBDamage2:DB$ DealDamage | ValidTgts$ Opponent,Planeswalker | NumDmg$ 3
+K:Escalate:Discard<1/Card>
+A:SP$ Charm | MinCharmNum$ 1 | CharmNum$ 3 | Choices$ DBDiscard,DBPump,DBDrain
+SVar:DBDiscard:DB$ Discard | ValidTgts$ Opponent | DiscardValid$ Instant,Sorcery | Mode$ RevealYouChoose
+SVar:DBPump:DB$ Pump | ValidTgts$ Creature | NumAtt$ -2 | NumDef$ -2 | IsCurse$ True
+SVar:DBDrain:DB$ LoseLife | ValidTgts$ Opponent | LifeAmount$ 2 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2

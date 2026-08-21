@@ -1,9 +1,13 @@
 Id:30322
-ColorIdentity:B
-OriginSet:G8b2ed00ac2a0ff47
-Types:Creature Human Survivor
-ManaCost:1 B
-PT:3/1
-S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self | ValidBlocker$ Creature.Glimmer
-T:Mode$ Phase | Phase$ Main | PhaseCount$ 2 | ValidPlayer$ You | PresentDefined$ Self | IsPresent$ Card.tapped | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigChangeZone
-SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Library | Destination$ Graveyard | ChangeType$ Card | ChangeNum$ 1 | Mandatory$ True
+ColorIdentity:W
+OriginSet:Gac6359c222afbd4f
+ManaCost:1 W
+Types:Creature Cat
+PT:1/1
+K:FirstStrike
+K:Lifelink
+K:Ascend
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | CheckSVar$ YouLifeGained | SVarCompare$ GE1 | Execute$ TrigToken | TriggerZones$ Battlefield
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 2467913596 | TokenOwner$ You | SubAbility$ DBMassTokens
+SVar:DBMassTokens:DB$ CopyPermanent | Condition$ Blessing | Defined$ Valid Card.token+YouCtrl+ThisTurnEntered | NumCopies$ 1
+SVar:YouLifeGained:Count$LifeYouGainedThisTurn

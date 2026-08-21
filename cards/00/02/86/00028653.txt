@@ -1,9 +1,10 @@
 Id:28653
-ColorIdentity:WB
-OriginSet:Ge329d8d60ca65422
-ManaCost:4 W B
-Types:Sorcery
-A:SP$ ChooseCard | Defined$ Player | Choices$ Creature | ControlledByPlayer$ Chooser | MinAmount$ 0 | Amount$ 2 | Reveal$ True | SubAbility$ SacAllOthers
-SVar:SacAllOthers:DB$ SacrificeAll | ValidCards$ Creature.nonChosenCard | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenScriptIds$ 3851718391 | TokenAmount$ X
-SVar:X:Count$Valid Creature.OppCtrl
+ColorIdentity:W
+OriginSet:G7ee0e82a2424d636
+ManaCost:W
+Types:Artifact Food Equipment
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2
+A:AB$ GainLife | Cost$ 2 T Sac<1/CARDNAME> | LifeAmount$ 3
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | OptionalDecider$ TriggeredCardController | Execute$ TrigToken
+SVar:TrigToken:AB$ Token | Cost$ 1 W | TokenAmount$ 2 | TokenScriptIds$ 858060049 | TokenOwner$ You
+K:Equip:2

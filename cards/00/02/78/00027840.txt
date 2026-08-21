@@ -1,10 +1,12 @@
 Id:27840
-ColorIdentity:
+ColorIdentity:B
 OriginSet:G30e8a5e111cffb44
-ManaCost:no cost
-Types:Plane Mars
-T:Mode$ PlaneswalkedTo | ValidCard$ Card.Self | Execute$ TrigSurveil
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigSurveil | TriggerZones$ Command | Secondary$ True
-SVar:TrigSurveil:DB$ Surveil | Amount$ 2
-T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ TrigReanimate
-SVar:TrigReanimate:DB$ ChangeZone | ValidTgts$ Creature.YouCtrl | Origin$ Graveyard | Destination$ Battlefield
+ManaCost:3 B B
+Types:Artifact Creature Dalek
+PT:3/3
+K:Flying
+K:Menace
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Creature.OppCtrl | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ TargetedController | LifeAmount$ 3
+SVar:PlayMain1:TRUE

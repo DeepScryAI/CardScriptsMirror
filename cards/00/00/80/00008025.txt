@@ -1,9 +1,10 @@
 Id:8025
-ColorIdentity:UB
+ColorIdentity:B
 OriginSet:Gc563c209d627c4c5
-ManaCost:2 U B
-Types:Creature Vampire
-PT:4/4
-K:Flying
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigLoseLife
-SVar:TrigLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ 1
+ManaCost:3 B B
+Types:Instant
+A:SP$ PeekAndReveal | PeekAmount$ 5 | NoReveal$ True | RememberPeeked$ True | SubAbility$ DBRepeat
+SVar:DBRepeat:DB$ RepeatEach | RepeatSubAbility$ DBChangeZone | RepeatCards$ Card.IsRemembered | Zone$ Library | UseImprinted$ True | SubAbility$ PutIntoHand
+SVar:DBChangeZone:DB$ ChangeZone | Defined$ Imprinted | Origin$ Library | Destination$ Graveyard | UnlessCost$ PayLife<2> | UnlessPayer$ You | ForgetChanged$ True
+SVar:PutIntoHand:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered | Origin$ Library | Destination$ Hand | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

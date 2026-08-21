@@ -1,9 +1,14 @@
 Id:31404
-ColorIdentity:G
-OriginSet:Gf2b808f4f642ac62
-ManaCost:5 G
-Types:Creature Elephant Druid
-PT:4/4
-K:Reach
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigEndure | TriggerZones$ Battlefield
-SVar:TrigEndure:DB$ Endure | Num$ 3
+ColorIdentity:WBG
+OriginSet:Ge1676a27173c0866
+ManaCost:2 W B G
+Types:Legendary Creature Spirit Dragon
+PT:5/7
+K:Flying
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | Execute$ TrigDraw | TriggerZones$ Battlefield | CheckSVar$ X | SVarCompare$ GE10
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1 | SubAbility$ DBUntapAll
+SVar:DBUntapAll:DB$ UntapAll | ValidCards$ Creature.YouCtrl | ConditionCheckSVar$ X | ConditionSVarCompare$ GE20 | SubAbility$ RepeatLoseLife
+SVar:RepeatLoseLife:DB$ RepeatEach | RepeatPlayers$ Opponent | RepeatSubAbility$ DBLoseLife | ConditionCheckSVar$ X | ConditionSVarCompare$ GE40
+SVar:DBLoseLife:DB$ LoseLife | Defined$ Player.IsRemembered | LifeAmount$ HalfUp
+SVar:HalfUp:PlayerCountRemembered$LifeTotal/HalfUp
+SVar:X:Count$Valid Creature.YouCtrl$CardToughness

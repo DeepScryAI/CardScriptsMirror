@@ -1,15 +1,15 @@
 Id:28520
-ColorIdentity:UR
+ColorIdentity:G
 OriginSet:G7ee0e82a2424d636
-ManaCost:1 U R
-Types:Artifact Vehicle
-PT:4/4
-A:AB$ Animate | Cost$ CollectEvidence<6> | Defined$ Self | Types$ Artifact,Creature
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPlay | OptionalDecider$ You
-SVar:TrigPlay:DB$ Play | ValidZone$ Exile | Valid$ Card.ExiledWithSource | ValidSA$ Instant,Sorcery | Controller$ You | Optional$ True | RememberPlayed$ True | Amount$ 1 | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | ReplacementEffects$ StaticReplace | RememberObjects$ Remembered
-SVar:StaticReplace:Event$ Moved | ValidLKI$ Card.IsRemembered | Origin$ Stack | Destination$ Graveyard | ReplaceWith$ MoveLibrary
-SVar:MoveLibrary:DB$ ChangeZone | Defined$ ReplacedCard | Origin$ Stack | Destination$ Library | LibraryPosition$ -1 | SubAbility$ ExileSelf
-SVar:ExileSelf:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile
-K:Crew:2
-SVar:HasAttackEffect:TRUE
+ManaCost:G G G
+Types:Instant
+A:SP$ Charm | Choices$ DBTutor,DBPutCounter,DBAntiquate
+SVar:DBTutor:DB$ ChangeZone | Origin$ Library | Destination$ Library | ChangeType$ Creature,Land | ChangeNum$ 1 | Reveal$ True | Shuffle$ False | RememberChanged$ True | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Defined$ Remembered | Origin$ Library | Destination$ Battlefield | Tapped$ True | ConditionDefined$ Remembered | ConditionPresent$ Card.Land | ForgetChanged$ True | SubAbility$ DBChangeZone2
+SVar:DBChangeZone2:DB$ ChangeZone | Defined$ Remembered | Origin$ Library | Destination$ Hand | SubAbility$ DBShuffle
+SVar:DBShuffle:DB$ Shuffle | Defined$ You | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:DBPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | SubAbility$ DBDamage | AILogic$ PowerDmg
+SVar:DBDamage:DB$ DealDamage | ValidTgts$ Creature.YouDontCtrl | NumDmg$ X | DamageSource$ ParentTarget | AILogic$ PowerDmg
+SVar:X:ParentTargeted$CardPower
+SVar:DBAntiquate:DB$ ChangeZone | ValidTgts$ Artifact,Enchantment | Origin$ Battlefield | Destination$ Exile

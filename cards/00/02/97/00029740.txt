@@ -1,12 +1,15 @@
 Id:29740
-ColorIdentity:WUG
-OriginSet:G01a610e823cce3ca
-ManaCost:1 G W U
-Types:Legendary Creature Human Assassin Scientist
-PT:4/4
-K:Vigilance
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSearch
-SVar:TrigSearch:DB$ ChangeZone | OriginAlternative$ Graveyard,Hand | Hidden$ True | Origin$ Library | Destination$ Battlefield | ChangeType$ Card.catalogId29751 | ChangeNum$ 1 | ShuffleNonMandatory$ True
-A:AB$ Mana | Cost$ T | Produced$ C | SubAbility$ DBImmediateTrig
-SVar:DBImmediateTrig:DB$ ImmediateTrigger | Execute$ TrigMill
-SVar:TrigMill:DB$ Mill | NumCards$ 2
+ColorIdentity:U
+OriginSet:Gac6359c222afbd4f
+ManaCost:1 U
+Types:Creature Drake
+PT:3/2
+K:Flying
+K:Hexproof:Activated:activated abilities
+K:Hexproof:Triggered:triggered abilities
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExchange
+SVar:TrigExchange:DB$ ExchangeControl | Defined$ Self | ValidTgts$ Creature.OppCtrl | RememberExchanged$ True | SubAbility$ Energy
+SVar:Energy:DB$ PutCounter | ConditionDefined$ Remembered | ConditionPresent$ Card | Defined$ You | CounterType$ ENERGY | CounterNum$ 4 | SubAbility$ Sacrifice
+SVar:Sacrifice:DB$ SacrificeAll | ConditionDefined$ Remembered | ConditionPresent$ Card | Defined$ Targeted | UnlessCost$ PayEnergy<N> | UnlessPayer$ You | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:N:Targeted$CardManaCost

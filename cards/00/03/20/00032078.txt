@@ -1,10 +1,20 @@
 Id:32078
-ColorIdentity:W
-OriginSet:G9946f072b5556073
-ManaCost:2 W
-Types:Creature Human Soldier
-PT:2/4
-T:Mode$ SpellCast | ValidCard$ Card.YouCtrl | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigCharm | ActivatorThisTurnCast$ EQ2
-SVar:TrigCharm:DB$ Charm | Choices$ DBToken,DBPutCounterAll
-SVar:DBToken:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 1647422943 | TokenOwner$ You
-SVar:DBPutCounterAll:DB$ PutCounterAll | ValidCards$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1
+ColorIdentity:UR
+OriginSet:G7ab4f62d323b0ca7
+ManaCost:U R
+Types:Legendary Creature Human Noble Wizard
+PT:2/2
+A:AB$ Mana | Cost$ T | Produced$ Combo U R | RestrictValid$ Spell.nonCreature
+T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidSA$ Spell.ManaSpent GE4 | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBTransform
+SVar:DBTransform:DB$ SetState | Defined$ Self | Mode$ Transform | ConditionCheckSVar$ X | ConditionSVarCompare$ GE3
+SVar:X:Count$CardCounters.P1P1
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:blue,red
+Types:Legendary Creature Demon Noble Wizard
+PT:3/3
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDamageAll
+SVar:TrigDamageAll:DB$ DamageAll | ValidPlayers$ Player.Opponent | NumDmg$ X
+SVar:X:Count$ValidGraveyard Card.YouOwn+nonCreature+nonLand

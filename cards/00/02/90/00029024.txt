@@ -1,8 +1,12 @@
 Id:29024
-ColorIdentity:B
-OriginSet:G27146c70b74a1e72
-ManaCost:1 B
-Types:Sorcery
-A:SP$ Discard | ValidTgts$ Opponent | Mode$ RevealYouChoose | Optional$ True | DiscardValid$ Card.nonLand | RememberDiscarded$ True | SubAbility$ DBReturn
-SVar:DBReturn:DB$ ChangeZone | Origin$ Exile | Destination$ Graveyard | ChangeType$ Card.faceUp+TargetedPlayerOwn | Hidden$ True | Optional$ True | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ0 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:
+OriginSet:Gaf7c94f364052cdd
+ManaCost:1
+Types:Artifact Equipment
+T:Mode$ Attacks | ValidCard$ Card.EquippedBy | Execute$ TrigChoose
+SVar:TrigChoose:DB$ Charm | Choices$ DBDraw,DBPutCounter,DBUntap
+SVar:DBDraw:DB$ Draw | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Mode$ TgtChoose
+SVar:DBPutCounter:DB$ PutCounter | CounterType$ P1P1 | Defined$ TriggeredAttackerLKICopy | CounterNum$ 1
+SVar:DBUntap:DB$ Untap | ValidTgts$ Land | TargetMin$ 0 | TargetMax$ 2
+K:Equip:2

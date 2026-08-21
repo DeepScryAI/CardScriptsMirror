@@ -1,0 +1,12 @@
+Id:20147
+ColorIdentity:B
+OriginSet:G00aff909a83a7400
+ManaCost:1 B
+Types:Creature Frog Rogue
+PT:2/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigReveal
+SVar:TrigReveal:DB$ RevealHand | ValidTgts$ Opponent | Defined$ Targeted | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | DefinedPlayer$ Targeted | Chooser$ You | ChangeType$ Card.nonLand | ChangeNum$ 1 | IsCurse$ True | RememberChanged$ True | SubAbility$ DBRansom
+SVar:DBRansom:DB$ Effect | Duration$ Permanent | Abilities$ PayUp | RememberObjects$ RememberedLKI | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:PayUp:ST$ ChangeZone | Cost$ 3 | Defined$ Remembered | Origin$ Exile | Destination$ Hand | Activator$ RememberedOwner | ActivationZone$ Command | AILogic$ Always
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

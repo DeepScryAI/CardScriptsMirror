@@ -1,11 +1,12 @@
 Id:26299
-ColorIdentity:W
-OriginSet:G74a73d701e7801b3
-ManaCost:1 W W
-Types:Legendary Creature Elephant Artificer
-PT:3/3
-K:Vigilance
-T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigConjure
-SVar:TrigConjure:DB$ MakeCard | Conjure$ True | CatalogId$ 11680 | Zone$ Hand | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenScriptIds$ 143981790
-SVar:HasAttackEffect:TRUE
+ColorIdentity:R
+OriginSet:G2192e8955d5e1ad1
+ManaCost:2 R
+Types:Legendary Creature Goblin Rebel
+PT:2/2
+K:Trample
+K:Haste
+T:Mode$ Attacks | ValidCard$ Creature.equipped+YouCtrl+Other | Execute$ TrigAttackAttach | OptionalDecider$ You | TriggerZones$ Battlefield
+T:Mode$ ChangesZone | ValidCard$ Creature.equipped+YouCtrl+Other | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigAttach | TriggerZones$ Battlefield | OptionalDecider$ You | Secondary$ True
+SVar:TrigAttackAttach:DB$ Attach | Object$ AttachedTo TriggeredAttackerLKICopy.Equipment | Defined$ Self
+SVar:TrigAttach:DB$ Attach | Object$ AttachedTo TriggeredCardLKICopy.Equipment | Defined$ Self

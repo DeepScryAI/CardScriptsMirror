@@ -1,13 +1,9 @@
 Id:30154
-ColorIdentity:
-OriginSet:Ge949f7cc91575fe7
-ManaCost:no cost
-Types:Legendary Land
-A:AB$ Mana | Cost$ T | Produced$ C
-A:AB$ ChangeZoneAll | Cost$ 1 T | ValidTgts$ Opponent | ChangeType$ Card.BottomLibrary | Origin$ Library | Destination$ Exile
-T:Mode$ ChangesZoneAll | ValidCards$ Card.OppOwn+!token+nonCopiedSpell | Destination$ Exile | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | CounterType$ RELEASE | Defined$ Self | CounterNum$ 1 | SubAbility$ DBSac
-SVar:DBSac:DB$ Sacrifice | SacValid$ Self | RememberSacrificed$ True | ConditionPresent$ Card.Self+counters_GE13_RELEASE | SubAbility$ DBNameCard
-SVar:DBNameCard:DB$ NameCard | Defined$ You | ChooseFromCatalogIds$ 16172 | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBCast
-SVar:DBCast:DB$ Play | CopyFromChosenName$ True | Mandatory$ True | WithoutManaCost$ True | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearNamedCard$ True
+ColorIdentity:G
+OriginSet:Gf09b85bbcc27770c
+ManaCost:1 G
+Types:Sorcery
+K:Gift
+SVar:GiftAbility:DB$ Draw | Defined$ Promised
+A:SP$ Destroy | ValidTgts$ Artifact,Enchantment | TargetMin$ X | TargetMax$ X
+SVar:X:Count$PromisedGift.2.1

@@ -2,10 +2,9 @@ Id:12790
 ColorIdentity:
 OriginSet:G4801bb28ce9773ed
 ManaCost:no cost
-Types:Phenomenon
-T:Mode$ PlaneswalkedTo | ValidCard$ Card.Self | Execute$ TrigDig
-SVar:TrigDig:DB$ DigUntil | Amount$ 5 | Valid$ Plane | DigZone$ PlanarDeck | ImprintFound$ True | RememberRevealed$ True | FoundDestination$ PlanarDeck | RevealedDestination$ PlanarDeck | SubAbility$ DBPutOnTop
-SVar:DBPutOnTop:DB$ ChangeZone | ChangeType$ Card.IsImprinted | Origin$ PlanarDeck | Destination$ PlanarDeck | LibraryPosition$ 0 | ForgetChanged$ True | SubAbility$ DBRestOnBottom
-SVar:DBRestOnBottom:DB$ ChangeZone | Defined$ Remembered | Origin$ PlanarDeck | Destination$ PlanarDeck | LibraryPosition$ -1 | RandomOrder$ True | SubAbility$ Replaneswalk
-SVar:Replaneswalk:DB$ Planeswalk | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True
+Types:Plane Zendikar
+S:Mode$ CantAttack | EffectZone$ Command | ValidCard$ Creature.powerGE7
+S:Mode$ CantBlockBy | EffectZone$ Command | ValidBlocker$ Creature.powerGE7 | Secondary$ True
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos
+SVar:RolledChaos:DB$ Token | TokenScriptIds$ 1822661781
+SVar:AIRollPlanarDieParams:Mode$ Always | LowPriority$ True | MaxRollsPerTurn$ 9

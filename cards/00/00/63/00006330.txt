@@ -1,8 +1,10 @@
 Id:6330
 ColorIdentity:G
 OriginSet:Gd11012ee98ee8d76
-ManaCost:3 G G
-Types:Creature Elf
-PT:2/2
-S:Mode$ Continuous | Affected$ Forest.YouCtrl | SetPower$ 1 | SetToughness$ 1 | AddType$ Creature & Elf | SetColor$ Green
-A:AB$ Pump | Cost$ 1 G Sac<1/Elf> | ValidTgts$ Creature | NumAtt$ +3 | NumDef$ +3
+ManaCost:2 G
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ AffectedX | AddToughness$ AffectedX | EffectZone$ Battlefield
+SVar:AffectedX:Count$Valid Creature.sharesCreatureTypeWith+Other/Times.2
+SVar:PlayMain1:TRUE

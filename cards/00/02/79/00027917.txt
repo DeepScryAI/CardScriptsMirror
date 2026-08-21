@@ -1,9 +1,11 @@
 Id:27917
-ColorIdentity:G
-OriginSet:G06c78c29bfb28e3d
-ManaCost:1 G
-Types:Sorcery
-A:SP$ Pump | ValidTgts$ Creature.YouCtrl | SubAbility$ DBDamage | AILogic$ PowerDmg
-SVar:DBDamage:DB$ DealDamage | ValidTgts$ Creature | TargetUnique$ True | AILogic$ PowerDmg | NumDmg$ X | DamageSource$ ParentTarget | ExcessSVar$ Excess | SubAbility$ DBDiscover
-SVar:DBDiscover:DB$ Discover | Num$ Excess | ConditionCheckSVar$ Excess
-SVar:X:ParentTargeted$CardPower
+ColorIdentity:
+OriginSet:G30e8a5e111cffb44
+ManaCost:2
+Types:Artifact Equipment
+R:Event$ Attached | ValidCard$ Card.Self | ValidTarget$ Creature | ReplaceWith$ ChooseName | ActiveZones$ Battlefield
+SVar:ChooseName:DB$ NameCard | Defined$ You | ValidCards$ Creature | SubAbility$ ChooseCT
+SVar:ChooseCT:DB$ ChooseType | Defined$ You | Type$ Creature
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddKeyword$ Ward:1 | SetName$ 15785470589410566969 | RemoveCreatureTypes$ True | AddType$ ChosenType
+S:Mode$ CantBlockBy | ValidAttacker$ Creature.EquippedBy
+K:Equip:2

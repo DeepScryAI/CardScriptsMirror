@@ -1,15 +1,10 @@
 Id:27812
-ColorIdentity:
+ColorIdentity:W
 OriginSet:G30e8a5e111cffb44
-ManaCost:no cost
-Types:Plane Gallifrey
-R:Event$ Moved | ValidCard$ Creature | Destination$ Battlefield | ReplaceWith$ ETBTapped | ReplacementResult$ Updated | ActiveZones$ Command
-SVar:ETBTapped:DB$ Tap | ETB$ True | Defined$ ReplacedCard
-T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos
-SVar:RolledChaos:DB$ Untap | ValidTgts$ Permanent.nonLand+OppCtrl | TargetMin$ 0 | TargetMax$ OneEach | TargetsForEachPlayer$ True | SubAbility$ DBPhase
-SVar:OneEach:PlayerCountOpponents$Amount
-SVar:DBPhase:DB$ Phases | Defined$ Targeted | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | Triggers$ TrigPlaneswalk | StaticAbilities$ CantPhaseIn | RememberObjects$ Targeted | Duration$ Permanent | ForgetOnPhasedIn$ True
-SVar:CantPhaseIn:Mode$ CantPhaseIn | ValidCard$ Card.phasedOutIsRemembered | IsPresent$ Card.EffectSource+faceUp | PresentZone$ Command
-SVar:TrigPlaneswalk:Mode$ PlaneswalkedTo | Execute$ DBPhaseIn | TriggerZones$ Command | Secondary$ True
-SVar:DBPhaseIn:DB$ Phases | Defined$ Remembered | PhaseInOrOut$ True
+ManaCost:4 W W
+Types:Creature Alien Eye
+PT:6/6
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | TriggerZones$ Battlefield | ValidCard$ Card.Self | Execute$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Creature.tapped | TargetMin$ 0 | TargetMax$ 1
+K:Suspend:5:1 W

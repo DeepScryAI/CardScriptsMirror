@@ -1,12 +1,12 @@
 Id:24433
-ColorIdentity:U
+ColorIdentity:WB
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:2 U
-Types:Enchantment Aura
-K:Flash
-K:Enchant:Creature
-SVar:AttachAILogic:Curse
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigTap
-SVar:TrigTap:DB$ Tap | Defined$ Enchanted | SubAbility$ RemCombat
-SVar:RemCombat:DB$ RemoveFromCombat | Defined$ Enchanted
-S:Mode$ Continuous | Affected$ Creature.nonLegendary+EnchantedBy | AddHiddenKeyword$ This card doesn't untap during your next untap step.
+ManaCost:1 W B
+Types:Legendary Creature Human Rogue
+PT:3/3
+S:Mode$ Continuous | Affected$ Card.TopLibrary+YouOwn | AffectedZone$ Library | MayLookAt$ You
+S:Mode$ Continuous | Affected$ Cleric.TopLibrary+YouOwn+nonLand,Rogue.TopLibrary+YouOwn+nonLand,Warrior.TopLibrary+YouOwn+nonLand,Wizard.TopLibrary+YouOwn+nonLand | AffectedZone$ Library | MayPlay$ True
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ X | SVarCompare$ EQ4 | Execute$ PutCounterAll
+SVar:PutCounterAll:DB$ PutCounterAll | ValidCards$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBPumpAll
+SVar:DBPumpAll:DB$ PumpAll | ValidCards$ Creature.YouCtrl | KW$ Deathtouch
+SVar:X:Count$Party

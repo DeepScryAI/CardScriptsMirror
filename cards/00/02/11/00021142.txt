@@ -1,8 +1,16 @@
 Id:21142
-ColorIdentity:R
-OriginSet:G72c9c624ceb92bff
-ManaCost:1 R
-Types:Creature Goblin Wizard
-PT:2/1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDiscard
-SVar:TrigDiscard:AB$ Draw | Cost$ Discard<1/Card> | NumCards$ 1
+ColorIdentity:B
+OriginSet:G7b2607750b451c25
+ManaCost:3 B B
+Types:Sorcery
+A:SP$ ChangeZoneAll | Origin$ Battlefield | Destination$ Exile | ChangeType$ Creature.cmcLE3,Planeswalker.cmcLE3 | SubAbility$ DBChangeZoneAll
+SVar:DBChangeZoneAll:DB$ ChangeZoneAll | Origin$ Graveyard | Destination$ Exile | ChangeType$ Creature.cmcLE3,Planeswalker.cmcLE3
+SVar:PlayMain1:TRUE
+SVar:NeedsToPlayVar:Comp GE2
+SVar:You:SVar$YouLilW/Plus.YouLilC
+SVar:YouLilW:Count$Valid Planeswalker.YouCtrl+cmcLE3+inZoneBattlefield
+SVar:YouLilC:Count$Valid Creature.YouCtrl+cmcLE3+inZoneBattlefield
+SVar:Comp:SVar:You/Minus.Opp
+SVar:Opp:SVar$OppLilW/Plus.OppLilC
+SVar:OppLilW:Count$Valid Planeswalker.OppCtrl+cmcLE3+inZoneBattlefield
+SVar:OppLilC:Count$Valid Creature.OppCtrl+cmcLE3+inZoneBattlefield

@@ -1,10 +1,10 @@
 Id:4963
-ColorIdentity:RG
+ColorIdentity:G
 OriginSet:G9e6cd9ac1f7f4832
-ManaCost:2 R G
-Types:Enchantment
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigBounce
-SVar:TrigBounce:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Hidden$ True | ChangeType$ Enchantment.YouCtrl+Red,Enchantment.YouCtrl+Green | ChangeNum$ 1 | Mandatory$ True | AILogic$ NeverBounceItself
-S:Mode$ Continuous | Affected$ Land.YouCtrl | SetPower$ 2 | SetToughness$ 2 | AddType$ Creature | AddKeyword$ FirstStrike
-SVar:NeedsToPlay:Enchantment.Red+YouCtrl,Enchantment.Green+YouCtrl
-SVar:NonStackingEffect:True
+ManaCost:G
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddAbility$ AnyMana
+SVar:AnyMana:AB$ Mana | Cost$ T | Produced$ Any
+SVar:NonStackingAttachEffect:True

@@ -1,10 +1,14 @@
 Id:34326
 ColorIdentity:B
 OriginSet:Gcb93bbfc68a40806
-ManaCost:1 B
-Types:Creature Zombie Ninja Villain
-PT:2/1
+ManaCost:4 B
+Types:Legendary Artifact Vehicle
+PT:5/5
+K:Flying
 K:Deathtouch
-T:Mode$ ChangesZoneAll | Origin$ Graveyard | Destination$ Any | ValidCards$ Creature.YouOwn | Execute$ TrigLoseLife | TriggerZones$ Battlefield
-SVar:TrigLoseLife:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 1 | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigVillainousChoice
+SVar:TrigVillainousChoice:DB$ VillainousChoice | Defined$ TriggeredTarget | Choices$ DBSac,DBLoseLife
+SVar:DBSac:DB$ Sacrifice | Amount$ 1 | SacValid$ Creature.!token | Defined$ Remembered
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 2 | Defined$ Player.IsRemembered | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ 2
+K:Crew:3

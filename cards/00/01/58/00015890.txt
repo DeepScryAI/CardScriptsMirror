@@ -1,12 +1,19 @@
 Id:15890
-ColorIdentity:U
+ColorIdentity:R
 OriginSet:G92026fbb3573fda5
-ManaCost:3 U U
-Types:Creature Zombie Horror
-PT:7/7
-K:Flying
-S:Mode$ Continuous | Affected$ Card.Self | AddPower$ -X | AddToughness$ -X
-A:AB$ ChangeZone | Cost$ 3 U Discard<3/Card> | Origin$ Graveyard | Destination$ Battlefield | ActivationZone$ Graveyard | Tapped$ True
-SVar:X:Count$ValidHand Card.YouOwn
-SVar:NeedsToPlayVar:X LE6
-SVar:BuffedBy:Card
+ManaCost:2 R
+Types:Creature Human Rogue Werewolf
+PT:3/2
+K:Haste
+T:Mode$ Phase | Phase$ Upkeep | WerewolfTransformCondition$ True | TriggerZones$ Battlefield | Execute$ TrigTransform
+SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:red
+Types:Creature Werewolf
+PT:4/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Werewolf.YouCtrl | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigTransform1
+SVar:TrigTransform1:DB$ SetState | Defined$ TriggeredCard | Mode$ Transform
+T:Mode$ Phase | Phase$ Upkeep | WerewolfUntransformCondition$ True | TriggerZones$ Battlefield | Execute$ TrigTransform2
+SVar:TrigTransform2:DB$ SetState | Defined$ Self | Mode$ Transform

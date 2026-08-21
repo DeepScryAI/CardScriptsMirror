@@ -1,9 +1,10 @@
 Id:24951
-ColorIdentity:R
+ColorIdentity:
 OriginSet:G3a8b4b9d4649b357
-ManaCost:1 R
-Types:Sorcery
-A:SP$ Charm | Choices$ DBDestroyArtifact,DBDestroyDefender,DBDamage
-SVar:DBDestroyArtifact:DB$ Destroy | ValidTgts$ Artifact
-SVar:DBDestroyDefender:DB$ Destroy | ValidTgts$ Creature.withDefender
-SVar:DBDamage:DB$ DamageAll | NumDmg$ 1 | ValidCards$ Creature.OppCtrl
+ManaCost:3
+Types:Legendary Artifact
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+S:Mode$ CantPayLife | ValidPlayer$ Player | ValidCause$ Spell,Activated.!ManaAbility | ForCost$ True
+A:AB$ DestroyAll | Cost$ X T Exile<1/CARDNAME> | ValidCards$ Permanent.nonLand+cmcLEX | SorcerySpeed$ True
+SVar:X:Count$xPaid

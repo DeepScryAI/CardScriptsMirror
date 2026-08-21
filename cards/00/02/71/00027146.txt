@@ -1,8 +1,11 @@
 Id:27146
-ColorIdentity:W
+ColorIdentity:
 OriginSet:G6ce0035cfb774934
-ManaCost:1 W
-Types:Creature Halfling Peasant
-PT:2/1
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigTempt
-SVar:TrigTempt:DB$ RingTemptsYou
+ManaCost:2
+Types:Legendary Artifact Equipment
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ X | AddKeyword$ FirstStrike
+T:Mode$ DamageDone | ValidSource$ Creature.EquippedBy | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigCastFromYard | TriggerZones$ Battlefield
+SVar:TrigCastFromYard:DB$ Play | Valid$ Card.YouOwn | ValidSA$ Instant.cmcLEY,Sorcery.cmcLEY | ValidZone$ Hand | Optional$ True | WithoutManaCost$ True | Amount$ 1 | Controller$ You
+K:Equip:3
+SVar:X:Count$ValidGraveyard Instant.YouOwn,Sorcery.YouOwn
+SVar:Y:TriggerCount$DamageAmount

@@ -1,9 +1,12 @@
 Id:11102
-ColorIdentity:B
+ColorIdentity:R
 OriginSet:Gd09f2fd86b2e8dd0
-ManaCost:B B
-Types:Instant
-A:SP$ Pump | ValidTgts$ Creature | NumAtt$ -3 | NumDef$ -3 | IsCurse$ True | SubAbility$ VampiricUrge
-SVar:VampiricUrge:DB$ Tap | CardChoices$ Vampire.YouCtrl+untapped | AnyNumber$ True | ChoiceAmount$ Count$Valid Vampire.YouCtrl+untapped | RememberTapped$ True | SubAbility$ VampiricFeed
-SVar:VampiricFeed:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ 1 | Defined$ Remembered | SubAbility$ DBCleanup
+ManaCost:3 R
+Types:Creature Goblin Artificer Ally
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self,Ally.Other+YouCtrl | Execute$ TuktukDestroy | OptionalDecider$ You
+SVar:TuktukDestroy:DB$ Destroy | ValidTgts$ Artifact | RememberDestroyed$ True | SubAbility$ TuktukDamage
+SVar:TuktukDamage:DB$ DealDamage | Defined$ TargetedController | NumDmg$ X | ConditionCheckSVar$ Y | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$Valid Ally.YouCtrl
+SVar:Y:Remembered$Amount

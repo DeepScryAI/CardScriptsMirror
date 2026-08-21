@@ -3,9 +3,6 @@ ColorIdentity:
 OriginSet:Gfd50577710a6ab09
 ManaCost:no cost
 Types:Land Cave
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ ETBTapped | ReplacementResult$ Updated
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
-K:ETBReplacement:Other:ChooseColor
-SVar:ChooseColor:DB$ ChooseColor | Defined$ You | AILogic$ MostProminentInComputerDeck
-A:AB$ Mana | Cost$ T | Produced$ Chosen
-A:AB$ Mana | Cost$ T | Produced$ Chosen | RestrictValid$ Activated.Land | Amount$ 2
+K:ETBReplacement:Copy:DBCopy:Optional
+SVar:DBCopy:DB$ Clone | Choices$ Land.Other | ChoiceZone$ Graveyard | IntoPlayTapped$ True | AddTypes$ Cave
+A:AB$ Mana | Cost$ T | Produced$ C

@@ -1,8 +1,12 @@
 Id:3849
-ColorIdentity:
+ColorIdentity:B
 OriginSet:G3da30095b68d8df0
-ManaCost:4
-Types:Artifact Creature Juggernaut
-PT:4/3
-K:Echo:4
-A:AB$ PutCounter | Cost$ Sac<1/Artifact> | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ 1
+ManaCost:2 B B
+Types:Sorcery
+A:SP$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Creature.nonBlack | RememberLKI$ True | ForgetOtherTargets$ True | SubAbility$ ExileYard
+SVar:ExileYard:DB$ ChangeZoneAll | Origin$ Graveyard | Destination$ Exile | Defined$ RememberedController | ChangeType$ Remembered.sameName | SubAbility$ ExileHand
+SVar:ExileHand:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | DefinedPlayer$ RememberedController | ChangeType$ Remembered.sameName | ChangeNum$ NumInHand | Chooser$ You | SubAbility$ ExileLib
+SVar:ExileLib:DB$ ChangeZone | Origin$ Library | Destination$ Exile | DefinedPlayer$ RememberedController | ChangeType$ Remembered.sameName | ChangeNum$ NumInLib | Chooser$ You | Shuffle$ True | SubAbility$ DBCleanup
+SVar:NumInHand:PlayerCountRememberedController$CardsInHand
+SVar:NumInLib:PlayerCountRememberedController$CardsInLibrary
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

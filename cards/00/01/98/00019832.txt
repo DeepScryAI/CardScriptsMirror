@@ -1,15 +1,11 @@
 Id:19832
-ColorIdentity:R
-OriginSet:G23be9f486a22d38a
-ManaCost:2 R
-Types:Creature Giant
-PT:4/3
-T:Mode$ BecomesTarget | ValidTarget$ Card.Self | ValidSource$ Spell | TriggerZones$ Battlefield | Execute$ TrigDmg
-SVar:TrigDmg:DB$ DealDamage | Defined$ TriggeredSourceController | NumDmg$ 2
-AlternateMode:Adventure
-ALTERNATE
-ManaCost:1 R
-Types:Instant Adventure
-A:SP$ Effect | StaticAbilities$ STCantPrevent | AILogic$ Burn | SubAbility$ DBDamage
-SVar:STCantPrevent:Mode$ CantPreventDamage
-SVar:DBDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 2 | NoPrevention$ True
+ColorIdentity:RG
+OriginSet:Ga539dc09c09c4538
+ManaCost:2 R G
+Types:Legendary Creature Minotaur Warrior
+PT:5/5
+S:Mode$ MinMaxBlocker | ValidCard$ Card.Self | Max$ 1
+T:Mode$ AttackersDeclared | AttackingPlayer$ Player.Opponent | Execute$ TrigGainControl | TriggerZones$ Battlefield | OptionalDecider$ You | PresentDefined$ Self | IsPresent$ Card.tapped
+SVar:TrigGainControl:DB$ GainControl | Defined$ Self | NewController$ TriggeredAttackingPlayer | LoseControl$ EndOfCombat | RememberControlled$ True | SubAbility$ DBAttack
+SVar:DBAttack:DB$ ChangeCombatants | Defined$ Remembered | Attacking$ .Defending & Valid Planeswalker.Defending | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

@@ -1,8 +1,12 @@
 Id:33888
-ColorIdentity:W
-OriginSet:Gf8df2bea26dc6b68
-ManaCost:3 W
-Types:Creature Spirit Camel
-PT:4/3
-K:Vigilance
-A:AB$ ChangeZone | Cost$ 1 W | Origin$ Graveyard | Destination$ Hand | ActivationZone$ Graveyard | SorcerySpeed$ True
+ColorIdentity:U
+OriginSet:G14da29c4716bedc3
+ManaCost:5 U
+Types:Sorcery
+A:SP$ Dig | DigNum$ 4 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | ExileFaceDown$ True | SubAbility$ DBDig
+SVar:DBDig:DB$ Dig | DigNum$ 4 | ChangeNum$ All | DestinationZone$ Exile | Imprint$ True | SubAbility$ TheyChoose
+SVar:TheyChoose:DB$ TwoPiles | Zone$ Exile | DefinedPiles$ Remembered,Imprinted | Chooser$ Opponent | ChosenPile$ ToGrave | UnchosenPile$ DBPlay | SubAbility$ DBCleanup
+SVar:ToGrave:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Graveyard
+SVar:DBPlay:DB$ Play | Defined$ Remembered | ValidSA$ Spell | WithoutManaCost$ True | Optional$ True | Amount$ 1 | ForgetPlayed$ True | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered | Origin$ Exile | Destination$ Hand
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True

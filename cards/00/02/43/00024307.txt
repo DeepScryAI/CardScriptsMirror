@@ -1,9 +1,8 @@
 Id:24307
 ColorIdentity:R
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:2 R
-Types:Creature Human Artificer
-PT:3/1
-T:Mode$ ChangesZoneAll | ValidCards$ Artifact.YouCtrl | Origin$ Any | Destination$ Battlefield | TriggerZones$ Battlefield | Execute$ TrigDealDamage
-SVar:TrigDealDamage:DB$ DealDamage | Defined$ Opponent | NumDmg$ X
-SVar:X:TriggerCount$Amount
+ManaCost:4 R
+Types:Legendary Enchantment Background
+S:Mode$ Continuous | Affected$ Creature.IsCommander+YouOwn | AddTrigger$ TrigDragon
+SVar:TrigDragon:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | CheckDefinedPlayer$ You.damageDoneSingleSource GE5 | Execute$ DBDragon
+SVar:DBDragon:DB$ Token | TokenScriptIds$ 2858880039

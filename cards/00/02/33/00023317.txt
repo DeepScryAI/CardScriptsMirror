@@ -1,11 +1,20 @@
 Id:23317
-ColorIdentity:B
-OriginSet:Gbe3783f336562357
-ManaCost:3 B
-Types:Creature Vampire
-PT:3/3
-K:Deathtouch
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDiscard
-SVar:TrigDiscard:DB$ Discard | ValidTgts$ Opponent | NumCards$ 1 | DiscardValid$ Card.nonLand+cmcEQX | Mode$ TgtChoose | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenScriptIds$ 2179622914
-SVar:X:Count$ValidHand Card.TargetedPlayerOwn$GreatestCardManaCost
+ColorIdentity:W
+OriginSet:G6e75ff4f143a3dc3
+ManaCost:W
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 1 | AddKeyword$ Vigilance
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.EnchantedBy | Execute$ TrigCurse
+SVar:TrigCurse:DB$ Pump | ValidTgts$ Opponent | IsCurse$ True | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Defined$ Self | Origin$ Graveyard | Destination$ Battlefield | AttachedToPlayer$ ParentTarget | Transformed$ True | GainControl$ True | AILogic$ Curse
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:white
+Types:Enchantment Aura Curse
+K:Enchant:Player
+SVar:AttachAILogic:Curse
+R:Event$ Moved | ValidCard$ Creature.EnchantedPlayerCtrl | Destination$ Battlefield | ReplaceWith$ ETBTapped | ReplacementResult$ Updated | ActiveZones$ Battlefield
+SVar:ETBTapped:DB$ Tap | ETB$ True | Defined$ ReplacedCard

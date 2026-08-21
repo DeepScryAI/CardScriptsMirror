@@ -1,12 +1,13 @@
 Id:23989
 ColorIdentity:B
-OriginSet:G9afc9838c5e994df
-ManaCost:5 B B
-Types:Creature Horror
-PT:5/4
-K:AlternateAdditionalCost:Sac<1/Creature>:Discard<1/Card>:PayLife<4>
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSac
-SVar:TrigSac:DB$ Sacrifice | Defined$ Opponent | SacValid$ Creature | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | Mode$ TgtChoose | Defined$ Opponent | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | Defined$ Opponent | LifeAmount$ 4
-SVar:AIPreference:SacCost$Creature.token,Creature.cmcLE3
+OriginSet:Gfdfe2ebef04be34e
+ManaCost:2 B
+Types:Creature Vampire Rogue
+PT:2/3
+K:Menace
+K:Lifelink
+A:AB$ Surveil | Cost$ 1 Sac<1/Creature.Other/another creature> | Amount$ 1
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ X | SVarCompare$ GE5 | Execute$ TrigDraw
+SVar:TrigDraw:AB$ Draw | Cost$ PayLife<2>
+SVar:X:Count$ValidGraveyard Card.YouOwn$DifferentCardManaCost
+SVar:AIPreference:SacCost$Creature.token,Creature.cmcLE2

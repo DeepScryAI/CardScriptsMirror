@@ -1,7 +1,8 @@
 Id:24197
-ColorIdentity:B
-OriginSet:G51fcb7ec0cb81c29
-ManaCost:4 B
-Types:Sorcery
-A:SP$ ChooseCard | Defined$ Player | Choices$ Creature | Secretly$ True | Amount$ 1 | ControlAndNot$ True | Reveal$ True | SubAbility$ DBDestroyChosen | Mandatory$ True
-SVar:DBDestroyChosen:DB$ DestroyAll | ValidCards$ Creature.ChosenCard
+ColorIdentity:G
+OriginSet:Gcf5d9b1e2ed6c496
+ManaCost:1 G G
+Types:Instant
+A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Card.YouOwn | SubAbility$ DBEffect | RememberChanged$ True
+SVar:DBEffect:DB$ Pump | ConditionDefined$ Targeted | ConditionPresent$ Creature | PumpZone$ Hand | Defined$ Remembered | NumAtt$ +3 | NumDef$ +3 | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

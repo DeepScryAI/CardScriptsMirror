@@ -1,8 +1,11 @@
 Id:24419
-ColorIdentity:G
+ColorIdentity:WB
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:2 G
-Types:Creature Dragon Druid
-PT:3/2
-A:AB$ Untap | Cost$ 8 | ValidTgts$ Land.YouCtrl | SubAbility$ DBAnimate
-SVar:DBAnimate:DB$ Animate | Defined$ Targeted | Power$ 8 | Toughness$ 8 | Keywords$ Trample & Haste | Types$ Creature,Elemental
+ManaCost:2 W B
+Types:Legendary Creature Elf Cleric
+PT:2/2
+S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ Ward:X
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Revolt$ True | Execute$ TrigExperience
+SVar:TrigExperience:DB$ PutCounter | Defined$ You | CounterType$ Experience | CounterNum$ 1
+S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddPower$ X
+SVar:X:Count$YourCountersExperience

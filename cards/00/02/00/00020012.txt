@@ -1,11 +1,14 @@
 Id:20012
-ColorIdentity:W
+ColorIdentity:G
 OriginSet:G23be9f486a22d38a
-ManaCost:1 W
-Types:Artifact Equipment
-K:Flash
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigAttach
-SVar:TrigAttach:DB$ Attach | ValidTgts$ Knight.YouCtrl
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddToughness$ 2 | AddKeyword$ Vigilance
-K:Equip:3
-SVar:BuffedBy:Knight
+ManaCost:2 G G
+Types:Legendary Creature Beast
+PT:4/4
+K:Vigilance
+K:Deathtouch
+K:Haste
+S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self | ValidBlocker$ Creature.powerLE2
+S:Mode$ CantPreventDamage | IsCombat$ True | ValidSource$ Creature.YouCtrl
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Opponent | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ MoreDamage
+SVar:MoreDamage:DB$ DealDamage | ValidTgts$ Planeswalker.ControlledBy TriggeredTarget | NumDmg$ X
+SVar:X:TriggerCount$DamageAmount

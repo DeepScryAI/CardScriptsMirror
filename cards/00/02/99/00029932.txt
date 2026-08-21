@@ -1,8 +1,11 @@
 Id:29932
-ColorIdentity:R
+ColorIdentity:WG
 OriginSet:Gf09b85bbcc27770c
-ManaCost:no cost
-Types:Land
-A:AB$ Mana | Cost$ T | Produced$ C
-A:AB$ Mana | Cost$ T | Produced$ R | RestrictValid$ Spell.Creature
-A:AB$ Pump | Cost$ R T | ValidTgts$ Lizard.YouCtrl,Mouse.YouCtrl,Otter.YouCtrl,Raccoon.YouCtrl | NumAtt$ +1 | KW$ Haste | SorcerySpeed$ True
+ManaCost:4 G W
+Types:Legendary Creature Rabbit Soldier
+PT:4/4
+K:Vigilance
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPutCounters
+SVar:TrigPutCounters:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ 1 | TargetMin$ 0 | TargetMax$ 2 | ValidTgts$ Creature
+T:Mode$ Attacks | ValidCard$ Creature.YouCtrl+counters_GE1_P1P1 | Execute$ TrigDoubleCounters | TriggerZones$ Battlefield
+SVar:TrigDoubleCounters:DB$ MultiplyCounter | Defined$ TriggeredAttackerLKICopy | CounterType$ P1P1

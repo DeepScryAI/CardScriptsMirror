@@ -1,9 +1,11 @@
 Id:33301
-ColorIdentity:WG
+ColorIdentity:B
 OriginSet:G7ab1fe96128a1641
-ManaCost:1 GW GW
-Types:Creature Kithkin Citizen
-PT:3/3
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigSurveil | CheckSVar$ X
-SVar:TrigSurveil:DB$ Surveil | Amount$ 1
-SVar:X:Count$ThisTurnEntered_Battlefield_Creature.YouCtrl+StrictlyOther
+ManaCost:3 B
+Types:Creature Goblin Berserker
+PT:5/5
+S:Mode$ RaiseCost | ValidCard$ Card.Self | Activator$ You | Type$ Spell | Cost$ BeholdExile<1/Goblin> | EffectZone$ All
+A:AB$ Blight | Cost$ PayLife<1> Blight<2> | SorcerySpeed$ True | ValidTgts$ Opponent | Num$ 2
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Defined$ ExiledWith | Origin$ Exile | Destination$ Hand
+SVar:PlayMain1:TRUE

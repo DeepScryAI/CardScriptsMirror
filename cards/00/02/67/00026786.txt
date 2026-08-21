@@ -1,15 +1,8 @@
 Id:26786
-ColorIdentity:WUR
-OriginSet:G321081e278de53f0
-ManaCost:1 U R W
-Types:Legendary Creature Human Monk
-PT:3/4
-S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddKeyword$ Prowess
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card.nonCreature+nonLand+cmcLTX | RememberChanged$ True | SubAbility$ DBPlay
-SVar:DBPlay:DB$ Play | Defined$ Remembered | CopyCard$ True | Controller$ You | WithoutManaCost$ True | Optional$ True | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$CardPower
-SVar:HasAttackEffect:TRUE
-SVar:EquipMe:Multiple
-SVar:EnchantMe:Multiple
+ColorIdentity:R
+OriginSet:G06757f68e16377c2
+ManaCost:2 R
+Types:Sorcery
+A:SP$ DealDamage | ValidTgts$ Any | NumDmg$ 2 | SubAbility$ DBCantBlock
+SVar:DBCantBlock:DB$ Pump | Defined$ Targeted.Creature | KW$ HIDDEN CARDNAME can't block. | IsCurse$ True | SubAbility$ DBIncubate
+SVar:DBIncubate:DB$ Incubate | Amount$ 1

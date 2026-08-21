@@ -1,9 +1,10 @@
 Id:31755
 ColorIdentity:W
-OriginSet:G7ab4f62d323b0ca7
+OriginSet:G530ea9d733a13e9d
 ManaCost:2 W
-Types:Creature Cat
-PT:1/3
-K:Flying
-K:Vigilance
-S:Mode$ Continuous | IsPresent$ Artifact.YouCtrl | PresentCompare$ GE2 | Affected$ Card.Self | AddPower$ 2
+Types:Legendary Creature Human Assassin
+PT:1/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Card.Historic+nonAssassin+YouOwn
+T:Mode$ SpellCast | ValidCard$ Card.Historic | ValidActivatingPlayer$ You | Execute$ TrigPutCounter | TriggerZones$ Battlefield
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1

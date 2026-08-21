@@ -1,8 +1,12 @@
 Id:7640
-ColorIdentity:R
+ColorIdentity:W
 OriginSet:Ge2708a7ec03a6695
-ManaCost:2 R
-Types:Creature Spirit
-PT:2/1
-A:AB$ DealDamage | Cost$ 2 R T | ValidTgts$ Creature | NumDmg$ 2
-A:AB$ DealDamage | Cost$ 3 R Discard<1/CARDNAME> | ValidTgts$ Creature | NumDmg$ 4 | ActivationZone$ Hand
+ManaCost:3 W W
+Types:Legendary Creature Spirit
+PT:*/*
+S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X | SetToughness$ X
+S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ Vigilance | CheckSVar$ X | SVarCompare$ GE4
+T:Mode$ DamageDealtOnce | ValidSource$ Card.Self | CheckSVar$ X | SVarCompare$ GE7 | TriggerZones$ Battlefield | Execute$ TrigGain
+SVar:TrigGain:DB$ GainLife | Defined$ You | LifeAmount$ 7
+SVar:X:Count$ValidHand Card.YouOwn
+SVar:NeedsToPlayVar:X GE3

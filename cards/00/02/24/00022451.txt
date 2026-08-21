@@ -1,7 +1,12 @@
 Id:22451
-ColorIdentity:G
-OriginSet:G9f95a41d532c0550
-ManaCost:2 G
-Types:Creature Human Elf Druid
-PT:2/4
-S:Mode$ Continuous | Affected$ Card.Self | Condition$ PlayerTurn | EffectZone$ Battlefield | SetPower$ 4 | SetToughness$ 2 | AddType$ Creature & Bear | RemoveCreatureTypes$ True
+ColorIdentity:
+OriginSet:G92f7f9489fec5865
+ManaCost:2
+Types:Artifact
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ C
+A:AB$ RollDice | Cost$ 4 | Sides$ 6 | ResultSVar$ X | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Self | Power$ X | Toughness$ X | Types$ Artifact,Creature,Insect | Keywords$ Flying | RemoveCreatureTypes$ True | Optional$ True
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.Other+attacking | KW$ Flying

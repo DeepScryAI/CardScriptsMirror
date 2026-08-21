@@ -1,9 +1,13 @@
 Id:24424
 ColorIdentity:G
 OriginSet:G51fcb7ec0cb81c29
+ManaCost:3 G
+Types:Artifact Book
+A:AB$ ChangeZone | Cost$ 1 G T | Origin$ Hand | Destination$ Battlefield | ChangeType$ Creature | ChangeNum$ 1
+AlternateMode:Adventure
+ALTERNATE
 ManaCost:2 G
-Types:Sorcery
-A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Permanent.YouOwn | TargetMin$ 0 | TargetMax$ 5 | SubAbility$ DBTwoPiles
-SVar:DBTwoPiles:DB$ TwoPiles | Chooser$ Opponent | DefinedCards$ Targeted | Separator$ You | ChosenPile$ DBHand | UnchosenPile$ DBGrave | AILogic$ Worst
-SVar:DBHand:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Hand
-SVar:DBGrave:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Graveyard
+Types:Sorcery Adventure
+A:SP$ Mill | NumCards$ 5 | RememberMilled$ True | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Graveyard,Exile | Destination$ Hand | Hidden$ True | Mandatory$ True | ChangeType$ Creature.IsRemembered | ChangeNum$ 1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

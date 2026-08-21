@@ -1,14 +1,8 @@
 Id:20019
-ColorIdentity:B
+ColorIdentity:R
 OriginSet:G23be9f486a22d38a
-ManaCost:1 B
-Types:Creature Human Knight
-PT:2/1
-K:Lifelink
-AlternateMode:Adventure
-ALTERNATE
-ManaCost:B
-Types:Sorcery Adventure
-A:SP$ GainLife | Defined$ You | LifeAmount$ X | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ X
-SVar:X:Count$Valid Knight.YouCtrl
+ManaCost:R
+Types:Instant
+A:SP$ DealDamage | ValidTgts$ Creature,Planeswalker | NumDmg$ 4 | RememberDamaged$ True | SubAbility$ DBSac
+SVar:DBSac:DB$ Sacrifice | SacValid$ Land | Defined$ You | ConditionDefined$ Remembered | ConditionPresent$ Card.nonRed | ConditionCompare$ GE1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

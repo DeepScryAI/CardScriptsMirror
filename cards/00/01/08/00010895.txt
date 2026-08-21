@@ -1,9 +1,10 @@
 Id:10895
-ColorIdentity:U
+ColorIdentity:R
 OriginSet:G4398040c23c94f0e
-ManaCost:U
+ManaCost:1 R
 Types:Enchantment
-A:AB$ ChangeZoneAll | Cost$ SubCounter<5/QUEST> Sac<1/CARDNAME> | ValidTgts$ Player | ChangeType$ Card | Origin$ Graveyard | Destination$ Library | Shuffle$ True
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Graveyard | ValidCard$ Card.!token+YouOwn | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ QUEST | CounterNum$ 1
-SVar:MaxQuestEffect:5
+T:Mode$ SpellCast | ValidCard$ Instant.sharesNameWith YourGraveyard,Sorcery.sharesNameWith YourGraveyard | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter | OptionalDecider$ You
+T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | IsPresent$ Card.Self+counters_GE2_QUEST | NoResolvingCheck$ True | Execute$ TrigCopySpell | OptionalDecider$ You
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ QUEST | CounterNum$ 1 | ConditionDefined$ TriggeredCard
+SVar:TrigCopySpell:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | AILogic$ Always | MayChooseTarget$ True
+SVar:MaxQuestEffect:2

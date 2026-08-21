@@ -1,8 +1,30 @@
 Id:25823
-ColorIdentity:B
+ColorIdentity:BR
 OriginSet:G06ccef4324c14725
-ManaCost:4 B
-Types:Creature Beast Horror
-PT:4/5
-S:Mode$ Continuous | Affected$ Card.Self | CheckSVar$ X | SVarCompare$ GE2 | AddKeyword$ Lifelink & Deathtouch
-SVar:X:Count$YouDrewThisTurn
+ManaCost:2 B R
+Types:Legendary Creature Phyrexian Human Artificer
+PT:3/5
+T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigDrain | TriggerZones$ Battlefield
+SVar:TrigDrain:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ X | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ X | SubAbility$ Meld
+SVar:Meld:DB$ Meld | ConditionPresent$ Card.Self+YouCtrl+YouOwn+attacking | ConditionCheckSVar$ Y | CatalogId$ 25825 | Tapped$ True | Attacking$ True | PrimaryCatalogId$ 25823 | SecondaryCatalogId$ 25838
+SVar:X:Count$Valid Creature.attacking+YouCtrl
+SVar:Y:Count$Valid Creature.YouCtrl+YouOwn+catalogId25838+attacking
+SVar:PlayMain1:TRUE
+MeldPairId:25838
+AlternateMode:Meld
+ALTERNATE
+ManaCost:no cost
+Colors:black,red
+Types:Legendary Artifact Creature Phyrexian Artificer
+PT:9/9
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigCharm | TriggerZones$ Battlefield | Secondary$ True
+SVar:TrigCharm:DB$ Charm | Choices$ DBDiscard,DBDamage,DBDestroy,DBPump,DBCurse,DBToken | CharmNum$ 3
+SVar:DBDiscard:DB$ Discard | ValidTgts$ Opponent | NumCards$ 2 | Mode$ TgtChoose
+SVar:DBDamage:DB$ DealDamage | NumDmg$ 3 | ValidTgts$ Any
+SVar:DBDestroy:DB$ Destroy | TargetMax$ 1 | ValidTgts$ Artifact,Planeswalker
+SVar:DBPump:DB$ PumpAll | ValidCards$ Card.Creature+YouCtrl | KW$ Menace & Trample
+SVar:DBCurse:DB$ PumpAll | ValidCards$ Card.Creature+YouDontCtrl | NumAtt$ -1 | NumDef$ -1
+SVar:DBToken:DB$ Token | TokenAmount$ 2 | TokenTapped$ True | TokenScriptIds$ 2975106104 | TokenOwner$ You
+SVar:HasAttackEffect:TRUE

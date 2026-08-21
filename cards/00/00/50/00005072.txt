@@ -1,8 +1,10 @@
 Id:5072
-ColorIdentity:WBR
+ColorIdentity:W
 OriginSet:Ga43915481c3b48d8
-ManaCost:1 R W B
-Types:Enchantment
-T:Mode$ Attacks | ValidCard$ Creature.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | Defined$ TriggeredAttackerLKICopy | NumAtt$ +2 | NumDef$ +2
-SVar:PlayMain1:TRUE
+ManaCost:1 W
+Types:Sorcery
+A:SP$ Effect | ReplacementEffects$ FDRep | StaticAbilities$ FDManaConvertion | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw
+SVar:FDRep:Event$ ProduceMana | ValidSA$ SpellAbility.YouCtrl | ReplaceWith$ ProduceW
+SVar:ProduceW:DB$ ReplaceMana | ReplaceColor$ White
+SVar:FDManaConvertion:Mode$ ManaConvert | ValidPlayer$ You | ManaConversion$ White->AnyColor

@@ -1,7 +1,15 @@
 Id:27961
-ColorIdentity:W
-OriginSet:Gfd50577710a6ab09
-ManaCost:W
-Types:Instant
-A:SP$ Pump | ValidTgts$ Creature | NumAtt$ +1 | NumDef$ +3 | KW$ Flying | SubAbility$ DBUntap
-SVar:DBUntap:DB$ Untap | Defined$ Targeted
+ColorIdentity:
+OriginSet:G30e8a5e111cffb44
+ManaCost:no cost
+Types:Plane Gallifrey
+R:Event$ Moved | ValidCard$ Creature | Destination$ Battlefield | ReplaceWith$ ETBTapped | ReplacementResult$ Updated | ActiveZones$ Command
+SVar:ETBTapped:DB$ Tap | ETB$ True | Defined$ ReplacedCard
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos
+SVar:RolledChaos:DB$ Untap | ValidTgts$ Permanent.nonLand+OppCtrl | TargetMin$ 0 | TargetMax$ OneEach | TargetsForEachPlayer$ True | SubAbility$ DBPhase
+SVar:OneEach:PlayerCountOpponents$Amount
+SVar:DBPhase:DB$ Phases | Defined$ Targeted | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | Triggers$ TrigPlaneswalk | StaticAbilities$ CantPhaseIn | RememberObjects$ Targeted | Duration$ Permanent | ForgetOnPhasedIn$ True
+SVar:CantPhaseIn:Mode$ CantPhaseIn | ValidCard$ Card.phasedOutIsRemembered | IsPresent$ Card.EffectSource+faceUp | PresentZone$ Command
+SVar:TrigPlaneswalk:Mode$ PlaneswalkedTo | Execute$ DBPhaseIn | TriggerZones$ Command | Secondary$ True
+SVar:DBPhaseIn:DB$ Phases | Defined$ Remembered | PhaseInOrOut$ True

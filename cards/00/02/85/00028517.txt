@@ -1,14 +1,8 @@
 Id:28517
-ColorIdentity:R
+ColorIdentity:G
 OriginSet:G7ee0e82a2424d636
-ManaCost:2 R R
-Types:Artifact Creature Insect Thopter
-PT:4/4
-K:Flying
-K:Trample
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ DBForEach
-SVar:DBForEach:DB$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBChoose | SubAbility$ DBDestroy
-SVar:DBChoose:DB$ ChooseCard | ChoiceZone$ Battlefield | Amount$ 1 | Choices$ Land.nonBasic+RememberedPlayerCtrl | Optional$ True | ImprintChosen$ True
-SVar:DBDestroy:DB$ Destroy | Defined$ Imprinted | RememberDestroyed$ True | SubAbility$ DBSearch
-SVar:DBSearch:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | Tapped$ True | ChangeType$ Land.Basic | DefinedPlayer$ RememberedController | Optional$ True | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True
+ManaCost:G
+Types:Sorcery
+S:Mode$ OptionalCost | EffectZone$ All | ValidCard$ Card.Self | ValidSA$ Spell | Cost$ CollectEvidence<8>
+A:SP$ ChangeZone | Origin$ Library | Destination$ Hand | ConditionDefined$ Collected | ConditionPresent$ Card | ConditionCompare$ EQ0 | ChangeType$ Land.Basic | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Land,Creature | ChangeNum$ 1 | ConditionDefined$ Collected | ConditionPresent$ Card

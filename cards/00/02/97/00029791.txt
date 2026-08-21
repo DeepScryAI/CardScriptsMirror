@@ -1,8 +1,17 @@
 Id:29791
-ColorIdentity:U
-OriginSet:Gf09b85bbcc27770c
-ManaCost:4 U U
-Types:Sorcery
-A:SP$ ChangeZone | TargetMin$ 0 | TargetMax$ 2 | ValidTgts$ Creature | Origin$ Battlefield | Destination$ Hand | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 2 | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ TgtChoose
+ColorIdentity:UR
+OriginSet:G997e3b19a1e94e85
+ManaCost:1 U R
+Types:Legendary Creature Human Wizard
+PT:2/2
+K:ETBReplacement:Other:SiegeChoice
+SVar:SiegeChoice:DB$ GenericChoice | Choices$ Cosplay,Science | Defined$ You | SetChosenMode$ True | ShowChoice$ ExceptSelf
+SVar:Cosplay:DB$ Pump
+SVar:Science:DB$ Pump
+S:Mode$ Continuous | Affected$ Card.Self+ChosenModeCosplay | AddTrigger$ CosplayTrigger
+S:Mode$ Continuous | Affected$ Card.Self+ChosenModeScience | AddTrigger$ ScienceTrigger
+SVar:CosplayTrigger:Mode$ SpellCast | ValidCard$ Creature,Planeswalker | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigAnimate
+SVar:TrigAnimate:DB$ Animate | Power$ X | Toughness$ X
+SVar:X:TriggeredSpellAbility$CardManaCostLKI
+SVar:ScienceTrigger:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | Defined$ Player.Opponent | NumDmg$ 2

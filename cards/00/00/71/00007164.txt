@@ -1,9 +1,11 @@
 Id:7164
-ColorIdentity:W
+ColorIdentity:G
 OriginSet:G332b6b8a53f3d107
-ManaCost:1 W
-Types:Enchantment Aura
-K:Flash
-K:Enchant:Creature
-SVar:AttachAILogic:Pump
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 1 | AddToughness$ 2
+ManaCost:4 G G
+Types:Legendary Creature Spirit
+PT:4/4
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | Defined$ TriggeredNewCardLKICopy | Optional$ True | RememberChanged$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Spirit | TargetsWithDefinedController$ TriggeredCardController | TargetMin$ 0 | TargetMax$ X | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ GE1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:TriggeredCardController$ValidGraveyard Spirit.YouCtrl

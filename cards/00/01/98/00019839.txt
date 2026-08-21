@@ -1,9 +1,13 @@
 Id:19839
-ColorIdentity:G
-OriginSet:G23be9f486a22d38a
-ManaCost:no cost
-Types:Land
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ LandTapped | ReplacementResult$ Updated
-SVar:LandTapped:DB$ Tap | Defined$ Self | ETB$ True | ConditionPresent$ Forest.YouCtrl | ConditionCompare$ EQ0
-A:AB$ Mana | Cost$ T | Produced$ G
-A:AB$ Mana | Cost$ 2 G G T | Produced$ G | Amount$ 6 | RestrictValid$ Spell.Creature,Activated.Creature+inZoneBattlefield
+ColorIdentity:U
+OriginSet:Ga539dc09c09c4538
+ManaCost:3 U
+Types:Creature Shapeshifter Wall
+PT:0/0
+K:ETBReplacement:Copy:DBCopy:Optional
+SVar:DBCopy:DB$ Clone | Choices$ Creature.Other | AddTypes$ Wall | AddKeywords$ Defender | AiChoiceLogic$ BestOppCtrl | SubAbility$ DBTrigger | RememberCloneOrigin$ True
+SVar:DBTrigger:DB$ ImmediateTrigger | Execute$ DBTap | RememberObjects$ RememberedCard | SubAbility$ DBCleanup
+SVar:DBTap:DB$ Tap | Defined$ DelayTriggerRemembered | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ DelayTriggerRemembered | ForgetOnMoved$ Battlefield | ReplacementEffects$ DontUntap | Duration$ AsLongAsControl
+SVar:DontUntap:Event$ Untap | ValidCard$ Card.IsRemembered | ValidStepTurnToController$ You | Layer$ CantHappen
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

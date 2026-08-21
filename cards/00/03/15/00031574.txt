@@ -1,12 +1,14 @@
 Id:31574
-ColorIdentity:WB
-OriginSet:G530ea9d733a13e9d
-ManaCost:1 W B
-Types:Legendary Creature Spirit Warrior
-PT:2/2
-T:Mode$ SpellCast | ValidCard$ Card.White | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCountersAll1
-SVar:TrigPutCountersAll1:DB$ PutCounterAll | ValidCards$ Creature.Legendary+YouCtrl | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBPumpAll1
-SVar:DBPumpAll1:DB$ PumpAll | ValidCards$ Creature.Legendary+YouCtrl | KW$ Vigilance
-T:Mode$ SpellCast | ValidCard$ Card.Black | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCountersAll2
-SVar:TrigPutCountersAll2:DB$ PutCounterAll | ValidCards$ Creature.Legendary+YouCtrl | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBPumpAll2
-SVar:DBPumpAll2:DB$ PumpAll | ValidCards$ Creature.Legendary+YouCtrl | KW$ Menace
+ColorIdentity:R
+OriginSet:Gf2b808f4f642ac62
+ManaCost:3 R
+Types:Creature Dog Monk
+PT:2/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | Duration$ UntilTheEndOfYourNextTurn | StaticAbilities$ Play | SubAbility$ DBCleanup | ForgetOnMoved$ Exile
+SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+T:Mode$ SpellCast | ValidCard$ Card.YouCtrl | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump | ActivatorThisTurnCast$ EQ2
+SVar:TrigPump:DB$ Pump | Defined$ Self | KW$ DoubleStrike
+SVar:BuffedBy:Card

@@ -1,9 +1,18 @@
 Id:23354
-ColorIdentity:B
-OriginSet:Gbe3783f336562357
-ManaCost:B B
-Types:Instant
-A:SP$ DealDamage | ValidTgts$ Creature,Planeswalker | NumDmg$ 3 | SubAbility$ DBChooseCard
-SVar:DBChooseCard:DB$ ChooseCard | ChoiceZone$ Hand | Choices$ Card.Creature+YouOwn | Mandatory$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Pump | PumpZone$ Hand | Defined$ ChosenCard | NumAtt$ +3 | Duration$ Perpetual | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+ColorIdentity:W
+OriginSet:G6e75ff4f143a3dc3
+ManaCost:1 W
+Types:Creature Spirit Warrior
+PT:1/1
+K:DoubleStrike
+K:Disturb:2 W
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:white
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddKeyword$ DoubleStrike
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Graveyard | ReplaceWith$ Exile
+SVar:Exile:DB$ ChangeZone | Hidden$ True | Origin$ All | Destination$ Exile | Defined$ ReplacedCard

@@ -1,10 +1,11 @@
 Id:9404
 ColorIdentity:U
 OriginSet:G1ddd2c86a9ea60e3
-ManaCost:2 U
-Types:Creature Faerie Soldier
-PT:1/1
-K:Flash
-K:Flying
-S:Mode$ Continuous | Affected$ Creature.Faerie+Other+YouCtrl | AddPower$ 1 | AddToughness$ 1
-S:Mode$ Continuous | Affected$ Faerie.Other+YouCtrl | AddKeyword$ Shroud
+ManaCost:2 U U
+Types:Instant
+A:SP$ Counter | TargetType$ Spell | ValidTgts$ Card | RememberCounteredCMC$ True | SubAbility$ DBClash
+SVar:DBClash:DB$ Clash | WinSubAbility$ DBDelTrig
+SVar:DBDelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ Main1,Main2 | ValidPlayer$ You | Execute$ AddMana | OptionalDecider$ You | RememberNumber$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:AddMana:DB$ Mana | Produced$ C | Amount$ X
+SVar:X:Count$TriggerRememberAmount

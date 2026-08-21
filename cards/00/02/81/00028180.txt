@@ -1,8 +1,9 @@
 Id:28180
-ColorIdentity:U
+ColorIdentity:R
 OriginSet:Gfd50577710a6ab09
-ManaCost:1 U
-Types:Creature Human Pirate
-PT:2/1
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigDig
-SVar:TrigDig:DB$ Dig | DigNum$ 4 | ChangeNum$ 1 | Optional$ True | ForceRevealToController$ True | ChangeValid$ Pirate,Artifact | RestRandomOrder$ True
+ManaCost:R
+Types:Instant
+A:SP$ Pump | ValidTgts$ Creature.attacking | NumAtt$ +2 | NumDef$ +2 | KW$ Trample | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Targeted | Triggers$ DamageTrig
+SVar:DamageTrig:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigDestroy | CombatDamage$ True
+SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Artifact.ControlledBy TriggeredTarget

@@ -1,10 +1,12 @@
 Id:15031
-ColorIdentity:WU
+ColorIdentity:BR
 OriginSet:Gdb18f239871b8cef
-ManaCost:3 W U
+ManaCost:4 B R
 Types:Legendary Creature Elder Dragon
-PT:5/4
+PT:6/5
 K:Flying
-S:Mode$ Continuous | Affected$ Card.Self+untapped | AddKeyword$ Hexproof
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigDig | CombatDamage$ True
-SVar:TrigDig:DB$ Dig | DigNum$ 3 | Defined$ You | NoReveal$ True
+K:Haste
+S:Mode$ Continuous | Affected$ Creature.Other+YouCtrl | AddKeyword$ Haste
+T:Mode$ SpellCast | ValidSAonCard$ Spell.Creature+sharesNameWith YourGraveyard,Spell.Planeswalker+sharesNameWith YourGraveyard | ValidActivatingPlayer$ Opponent | TriggerZones$ Battlefield | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ TriggeredActivator | LifeAmount$ 10
+SVar:PlayMain1:TRUE

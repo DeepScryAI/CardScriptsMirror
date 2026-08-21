@@ -1,13 +1,9 @@
 Id:23229
-ColorIdentity:W
+ColorIdentity:
 OriginSet:G6e75ff4f143a3dc3
-ManaCost:1 W
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:Pump
-S:Mode$ Continuous | Affected$ Card.EnchantedBy | AddTrigger$ NurturingChangeZone | AddSVar$ NurturingPump
-SVar:NurturingChangeZone:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.YouCtrl | TriggerZones$ Battlefield | Execute$ NurturingPump
-SVar:NurturingPump:DB$ Pump | Defined$ Self | NumAtt$ +1 | NumDef$ +1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 273812182
-SVar:BuffedBy:Creature
+ManaCost:3
+Types:Artifact
+S:Mode$ Continuous | Affected$ Creature.attackingYou | AddPower$ -1
+T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | CheckSVar$ X | SVarCompare$ GE4 | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Defined$ Self | Origin$ Battlefield | Destination$ Exile
+SVar:X:Count$LifeYouLostThisTurn

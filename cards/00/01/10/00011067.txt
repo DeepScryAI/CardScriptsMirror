@@ -1,14 +1,10 @@
 Id:11067
-ColorIdentity:W
+ColorIdentity:
 OriginSet:Gd09f2fd86b2e8dd0
-ManaCost:3 W
-Types:Instant Trap
-S:Mode$ AlternativeCost | ValidSA$ Spell.Self | EffectZone$ All | Cost$ W | CheckSVar$ X
-A:SP$ ChooseSource | Choices$ Card,Emblem | AILogic$ NeedsPrevention | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | ValidTgts$ Any | ReplacementEffects$ ReDamage | RememberObjects$ Targeted
-SVar:ReDamage:Event$ DamageDone | ActiveZones$ Command | ValidTarget$ You,Permanent.YouCtrl | ValidSource$ Card.ChosenCardStrict,Emblem.ChosenCard | ReplaceWith$ PreventDamage | PreventionEffect$ NextN
-SVar:PreventDamage:DB$ ReplaceDamage | Amount$ ShieldAmount | DivideShield$ True | SubAbility$ DBDealDamage
-SVar:DBDealDamage:DB$ DealDamage | NumDmg$ Y | Defined$ Remembered | DamageSource$ EffectSource
-SVar:X:Count$ThisTurnCast_Instant.Red+OppCtrl,Sorcery.Red+OppCtrl
-SVar:ShieldAmount:Number$3
-SVar:Y:ReplaceCount$DamageAmount
+ManaCost:3
+Types:Artifact Equipment
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddAbility$ RazorDamage | AddSVar$ BoomerangCatch
+SVar:RazorDamage:AB$ DealDamage | Cost$ T Unattach<OriginalHost/catalogId11067> | NumDmg$ 1 | DamageSource$ OriginalHost | ValidTgts$ Any | SubAbility$ BoomerangCatch
+SVar:BoomerangCatch:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Defined$ OriginalHost
+K:Equip:2
+SVar:NonStackingAttachEffect:True

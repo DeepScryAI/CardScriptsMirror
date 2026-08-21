@@ -1,11 +1,12 @@
 Id:4743
-ColorIdentity:UB
+ColorIdentity:W
 OriginSet:Gfb91362c2efb868e
-ManaCost:2 U
-Types:Sorcery
-K:Kicker:1 B
-A:SP$ Draw | NumCards$ 3 | SubAbility$ DBDiscardYou
-SVar:DBDiscardYou:DB$ Discard | Defined$ You | NumCards$ 2 | SubAbility$ DBDiscardTarget | Mode$ TgtChoose
-SVar:DBDiscardTarget:DB$ Discard | Condition$ Kicked | ValidTgts$ Player | NumCards$ 2 | Mode$ TgtChoose
-SVar:NeedsToPlayKickedVar:Z GE1
-SVar:Z:Count$ValidHand Card.OppOwn
+ManaCost:1 W
+Types:Creature Wall
+PT:1/3
+K:Defender
+K:Kicker:1 W
+T:Mode$ ChangesZone | ValidCard$ Card.Self+kicked | Origin$ Any | Destination$ Battlefield | Execute$ BarricadePumped | Static$ True
+SVar:BarricadePumped:DB$ PutCounter | CounterType$ P1P1 | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Self | staticAbilities$ CanAttack | Duration$ Permanent
+SVar:CanAttack:Mode$ CanAttackDefender | ValidCard$ Card.Self

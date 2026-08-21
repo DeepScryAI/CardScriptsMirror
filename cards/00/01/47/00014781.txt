@@ -1,10 +1,11 @@
 Id:14781
-ColorIdentity:B
+ColorIdentity:W
 OriginSet:Gfafc221218d3b700
-ManaCost:4 B B B
-Types:Sorcery
-A:SP$ DestroyAll | ValidCards$ Creature | RememberDestroyed$ True | SubAbility$ DBReturn
-SVar:DBReturn:DB$ ChangeZone | ChangeType$ Creature.!token+IsRemembered | ChangeNum$ 1 | Hidden$ True | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True | StaticEffect$ Animate | SubAbility$ DBCleanup
-SVar:Animate:Mode$ Continuous | Affected$ Card.IsRemembered | AddType$ Zombie | AddColor$ Black
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | SubAbility$ DBChange
-SVar:DBChange:DB$ ChangeZone | Origin$ Stack | Destination$ Exile
+ManaCost:3 W W
+Types:Legendary Planeswalker Nahiri
+Loyalty:3
+A:AB$ Token | Cost$ AddCounter<2/LOYALTY> | Planeswalker$ True | TokenScriptIds$ 2155628203 | TokenOwner$ You | RememberTokens$ True | SubAbility$ DBAttach
+SVar:DBAttach:DB$ Attach | Optional$ True | Choices$ Equipment.YouCtrl | Defined$ Remembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+A:AB$ ChangeZone | Cost$ SubCounter<2/LOYALTY> | Origin$ Hand,Graveyard | Destination$ Battlefield | Hidden$ True | Planeswalker$ True | ChangeType$ Equipment.YouCtrl | Optional$ True
+A:AB$ Token | Cost$ SubCounter<10/LOYALTY> | Planeswalker$ True | Ultimate$ True | TokenScriptIds$ 2886978184 | TokenOwner$ You

@@ -1,8 +1,10 @@
 Id:13028
 ColorIdentity:UR
 OriginSet:G5449dea2d54987a1
-ManaCost:2 U R
-Types:Instant
-A:SP$ Counter | TargetType$ Spell | ValidTgts$ Creature | SubAbility$ DBDamage
-SVar:DBDamage:DB$ DealDamage | NumDmg$ Backlash | Defined$ TargetedController
-SVar:Backlash:Targeted$CardPower
+ManaCost:X U R
+Types:Sorcery
+A:SP$ Dig | Defined$ You | DigNum$ X | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | Valid$ Card.IsRemembered+YouOwn | ValidZone$ Exile | ValidSA$ Instant.cmcLEX,Sorcery.cmcLEX | Controller$ You | WithoutManaCost$ True | Optional$ True | Amount$ All | SubAbility$ DBGrave
+SVar:DBGrave:DB$ ChangeZoneAll | Origin$ Exile | Destination$ Graveyard | ChangeType$ Card.IsRemembered+YouOwn | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$xPaid

@@ -1,9 +1,8 @@
 Id:30540
 ColorIdentity:G
 OriginSet:G8b2ed00ac2a0ff47
+Types:Creature Human Scout Survivor
 ManaCost:1 G
-Types:Creature Dog
-PT:3/1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSurveil
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigSurveil | Secondary$ True
-SVar:TrigSurveil:DB$ Surveil | Amount$ 1
+PT:2/2
+T:Mode$ Phase | Phase$ Main | PhaseCount$ 2 | ValidPlayer$ You | PresentDefined$ Self | IsPresent$ Card.tapped | TriggerZones$ Battlefield | Execute$ TrigDigUntil
+SVar:TrigDigUntil:DB$ DigUntil | Valid$ Card.Land | RevealedDestination$ Library | RevealedLibraryPosition$ -1 | RevealRandomOrder$ True | FoundDestination$ Hand

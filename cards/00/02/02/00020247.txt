@@ -1,11 +1,11 @@
 Id:20247
-ColorIdentity:R
+ColorIdentity:WG
 OriginSet:G42eb6bda83007836
-ManaCost:1 R R
-Types:Creature Phoenix
-PT:2/2
-K:Flying
-K:Haste
-A:AB$ Pump | Cost$ 2 R | NumAtt$ +2
-K:Escape:2 R R ExileFromGrave<3/Card.Other/other>
-K:etbCounter:P1P1:1:ValidCard$ Card.Self+escaped
+ManaCost:G W
+Types:Creature Cat
+PT:3/3
+A:AB$ Pump | Cost$ G W | KW$ Indestructible | Defined$ Self
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True | StaticEffect$ Animate
+SVar:Animate:Mode$ Continuous | Affected$ Card.IsRemembered | AddType$ Aura & Enchantment | RemoveCardTypes$ True | RemoveAllAbilities$ True | AddKeyword$ Enchant:Creature.YouCtrl:creature you control | AddAbility$ ABPump
+SVar:ABPump:AB$ Pump | Cost$ G W | KW$ Indestructible | Defined$ Enchanted

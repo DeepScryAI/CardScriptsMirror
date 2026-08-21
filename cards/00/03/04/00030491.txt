@@ -1,8 +1,9 @@
 Id:30491
-ColorIdentity:W
+ColorIdentity:WG
 OriginSet:G8b2ed00ac2a0ff47
-ManaCost:1 W W
-Types:Sorcery
-A:SP$ Charm | Choices$ DBDestroyAll,DBDestroyAll2
-SVar:DBDestroyAll:DB$ DestroyAll | ValidCards$ Creature.tapped
-SVar:DBDestroyAll2:DB$ DestroyAll | ValidCards$ Creature.untapped
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ LandTapped | ReplacementResult$ Updated
+SVar:LandTapped:DB$ Tap | Defined$ Self | ETB$ True | ConditionCheckSVar$ X | ConditionSVarCompare$ GT13
+SVar:X:PlayerCountPlayers$LowestLifeTotal
+A:AB$ Mana | Cost$ T | Produced$ Combo G W

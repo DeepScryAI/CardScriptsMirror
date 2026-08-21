@@ -1,9 +1,10 @@
 Id:11005
 ColorIdentity:B
 OriginSet:Gd09f2fd86b2e8dd0
-ManaCost:B
-Types:Creature Avatar
-PT:13/13
-S:Mode$ Continuous | Affected$ Card.Self | AddPower$ -X | AddToughness$ -X
-SVar:X:Count$YourLifeTotal
-SVar:NeedsToPlayVar:X LE12
+ManaCost:1 B B
+Types:Sorcery
+A:SP$ ChangeZone | ValidTgts$ Creature.YouCtrl | Origin$ Graveyard | Destination$ Library | RememberTargets$ True | SubAbility$ DBDamage
+SVar:DBDamage:DB$ DealDamage | NumDmg$ X | ValidTgts$ Creature | ConditionCheckSVar$ Y | ConditionSVarCompare$ GT0 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$CardPower
+SVar:Y:Remembered$Amount

@@ -1,7 +1,13 @@
 Id:17893
-ColorIdentity:W
+ColorIdentity:B
 OriginSet:G84be946b27d900a1
-ManaCost:1 W W
-Types:Sorcery
-A:SP$ ChooseCard | Defined$ Player | WithTotalPower$ 4 | Reveal$ True | SubAbility$ SacAllOthers | AILogic$ NegativePowerFirst
-SVar:SacAllOthers:DB$ SacrificeAll | ValidCards$ Creature.!ChosenCard
+ManaCost:1 B
+Types:Enchantment Aura
+K:Enchant:Creature.OppCtrl:creature an opponent controls
+SVar:AttachAILogic:Pump
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.AttachedBy | Execute$ TrigExile
+SVar:TrigExile:DB$ Dig | Defined$ TriggeredCardOwner | DigNum$ X | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | RememberObjects$ Remembered | Duration$ Permanent | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | MayPlayIgnoreType$ True | Affected$ Card.nonLand+IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:TriggeredCard$CardPower

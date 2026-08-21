@@ -1,16 +1,14 @@
 Id:17412
-ColorIdentity:
+ColorIdentity:B
 OriginSet:G5475e2be497fd272
-ManaCost:2
-Types:Artifact Equipment
-K:Equip:2
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddToughness$ 1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigOppToken
-SVar:TrigOppToken:DB$ Token | ValidTgts$ Opponent | TokenAmount$ 2 | TokenScriptIds$ 1162190339 | TokenOwner$ Targeted
-T:Mode$ DamageDone | ValidSource$ Creature.EquippedBy | ValidTarget$ Player | CombatDamage$ True | Execute$ DBTransform
-SVar:DBTransform:DB$ SetState | Defined$ Self | Mode$ Transform | Optional$ True
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Types:Land
-A:AB$ Mana | Cost$ T | Produced$ Any | Amount$ 3
+ManaCost:3 B B
+Types:Creature Orc Pirate Wizard
+PT:4/4
+K:Menace
+K:Deathtouch
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ CntLife | Defined$ Player.IsRemembered
+SVar:CntLife:PlayerCountRemembered$LifeTotal/ThirdUp
+SVar:NeedsToPlayVar:MyLife GT1
+SVar:MyLife:Count$YourLifeTotal

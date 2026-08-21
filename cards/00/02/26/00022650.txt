@@ -1,16 +1,9 @@
 Id:22650
-ColorIdentity:B
+ColorIdentity:W
 OriginSet:G9f95a41d532c0550
-ManaCost:B
-Types:Enchantment Class
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ X | Execute$ TrigLose1
-SVar:TrigLose1:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 1
-SVar:X:Count$ThisTurnEntered_Graveyard_from_Battlefield_Creature
-K:Class:2:1 B:AddTrigger$ TriggerClassLevel
-SVar:TriggerClassLevel:Mode$ ClassLevelGained | ClassLevel$ 2 | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigDig | Secondary$ True
-SVar:TrigDig:DB$ Dig | DigNum$ 3 | DestinationZone2$ Graveyard | NoReveal$ True
-K:Class:3:6 B:AddTrigger$ TriggerEndTurn
-SVar:TriggerEndTurn:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ RepeatOpps | Secondary$ True
-SVar:RepeatOpps:DB$ RepeatEach | RepeatPlayers$ Player.Opponent | RepeatSubAbility$ TrigLoseAgain
-SVar:TrigLoseAgain:DB$ LoseLife | Defined$ Remembered | LifeAmount$ Y
-SVar:Y:PlayerCountRemembered$LifeLostThisTurn
+ManaCost:1 W
+Types:Legendary Creature Gnome Artificer
+PT:2/2
+A:AB$ ChangeZone | Cost$ W T Sac<1/Artifact> | Origin$ Library | Destination$ Battlefield | ChangeType$ Artifact.cmcEQX | ChangeNum$ 1 | SorcerySpeed$ True | AILogic$ SacAndUpgrade
+SVar:X:Sacrificed$CardManaCost/Plus.1
+SVar:AIPreference:SacCost$Artifact

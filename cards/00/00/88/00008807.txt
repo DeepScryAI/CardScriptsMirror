@@ -1,14 +1,10 @@
 Id:8807
-ColorIdentity:
+ColorIdentity:B
 OriginSet:G70f74088c47d66bd
-ManaCost:5
-Types:Artifact Creature Construct
-PT:0/1
-K:Indestructible
-K:ETBReplacement:Other:ChooseP
-SVar:ChooseP:DB$ ChoosePlayer | Defined$ You | Choices$ Player | AILogic$ Curse
-A:AB$ DealDamage | Cost$ T | NumDmg$ 1
-T:Mode$ DamageDoneOnce | Execute$ TrigDamage | ValidTarget$ Card.Self | TriggerZones$ Battlefield
-SVar:TrigDamage:DB$ DealDamage | NumDmg$ X | Defined$ ChosenPlayer
-SVar:X:TriggerCount$DamageAmount
-SVar:HasCombatEffect:TRUE
+ManaCost:3 B B B
+Types:Creature Demon
+PT:5/5
+K:Flying
+K:Shadow
+A:AB$ PumpAll | Cost$ B B | ValidCards$ Creature.withShadow | NumAtt$ +1 | SubAbility$ DBPumpAll
+SVar:DBPumpAll:DB$ PumpAll | ValidCards$ Creature.withoutShadow | NumAtt$ -1

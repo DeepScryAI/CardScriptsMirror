@@ -1,13 +1,12 @@
 Id:19183
-ColorIdentity:UG
+ColorIdentity:G
 OriginSet:Gf56613712ce2ae1f
-ManaCost:2 G G U
-Types:Legendary Creature Human Mutant
-PT:4/5
-K:Flying
-K:Trample
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.Other+YouCtrl | CounterType$ P1P1 | CounterNum$ 2
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigProliferate
-SVar:TrigProliferate:DB$ Proliferate | SubAbility$ TrigProliferate2
-SVar:TrigProliferate2:DB$ Proliferate
+ManaCost:3 G G
+Types:Legendary Creature Zombie God
+PT:5/5
+K:Deathtouch
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDoublePower
+SVar:TrigDoublePower:DB$ Pump | Defined$ Valid Creature.YouCtrl+StrictlyOther | NumAtt$ Double | KW$ Vigilance
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard,Exile | ValidCard$ Card.Self | Execute$ TriReturn | OptionalDecider$ You
+SVar:TriReturn:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Destination$ Library | LibraryPosition$ 2
+SVar:PlayMain1:TRUE

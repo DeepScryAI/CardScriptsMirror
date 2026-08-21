@@ -1,9 +1,16 @@
 Id:18718
-ColorIdentity:R
+ColorIdentity:UB
 OriginSet:G1ecb361a0a117393
-ManaCost:1 R
-Types:Creature Goblin Warrior
-PT:2/2
-A:AB$ Charm | Cost$ 1 Sac<1/CARDNAME> | Choices$ DBDamage,DBDestroy
-SVar:DBDamage:DB$ DealDamage | ValidTgts$ Creature | NumDmg$ 2
-SVar:DBDestroy:DB$ Destroy | ValidTgts$ Permanent.nonLand+Colorless
+ManaCost:1 UB
+Types:Sorcery
+A:SP$ Surveil | Amount$ 2 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1
+AlternateMode:Split
+ALTERNATE
+ManaCost:3 U B
+Types:Instant
+A:SP$ RepeatEach | RepeatPlayers$ Player.Opponent | RepeatSubAbility$ TrigChooseReturn | SubAbility$ DBReturn
+SVar:TrigChooseReturn:DB$ ChooseCard | Defined$ Remembered | Choices$ Permanent.greatestCMC_NonLandPermanentControlledByRemembered | Mandatory$ True | RememberChosen$ True
+SVar:DBReturn:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Defined$ Remembered | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ Player.Opponent | NumCards$ 1 | Mode$ TgtChoose | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

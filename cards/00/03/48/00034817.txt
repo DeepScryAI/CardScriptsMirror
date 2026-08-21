@@ -1,0 +1,12 @@
+Id:34817
+ColorIdentity:B
+OriginSet:G11c0621ce29fa608
+ManaCost:3 B
+Types:Enchantment Plan
+T:Mode$ ChangesZoneAll | ValidCards$ Creature.YouOwn+!token | Origin$ Any | Destination$ Graveyard | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ 1 | SubAbility$ DBCounter
+SVar:DBCounter:DB$ PutCounter | Defined$ Self | CounterType$ PLAN | CounterNum$ 1
+T:Mode$ CounterAdded | ValidCard$ Card.Self | TriggerZones$ Battlefield | CounterType$ PLAN | CounterAmount$ EQ3 | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 2564522677 | TokenAmount$ 3

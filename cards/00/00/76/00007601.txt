@@ -1,8 +1,10 @@
 Id:7601
-ColorIdentity:B
+ColorIdentity:
 OriginSet:G4747f23d5c5760bc
-ManaCost:X B B
-Types:Instant Arcane
-S:Mode$ AlternativeCost | ValidSA$ Spell.Self | EffectZone$ All | Cost$ ExileFromHand<1/Card.Black+Other+cmcEQX> | Announce$ X
-A:SP$ Pump | ValidTgts$ Creature | NumAtt$ -X | NumDef$ -X | IsCurse$ True
-SVar:X:Count$xPaid
+ManaCost:1
+Types:Artifact Equipment
+K:Equip:2
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddAbility$ ShurikenDamage | AddSVar$ ShurikenGainCtrl & ShurikenForget
+SVar:ShurikenDamage:AB$ DealDamage | Cost$ T Unattach<OriginalHost/catalogId7601> | NumDmg$ 2 | DamageSource$ OriginalHost | ValidTgts$ Creature | SubAbility$ ShurikenGainCtrl
+SVar:ShurikenGainCtrl:DB$ GainControl | NewController$ TargetedController | Defined$ OriginalHost | ConditionDefined$ Self | ConditionPresent$ Ninja | ConditionCompare$ EQ0
+SVar:NonStackingAttachEffect:True

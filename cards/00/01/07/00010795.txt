@@ -1,6 +1,10 @@
 Id:10795
 ColorIdentity:
 OriginSet:G4398040c23c94f0e
-ManaCost:1
+ManaCost:6
 Types:Artifact
-A:AB$ ChangeZone | Cost$ 2 T Sac<1/CARDNAME> | Origin$ Library | Destination$ Hand | ChangeType$ Land | ChangeNum$ 1
+K:etbCounter:CHARGE:X:no Condition
+SVar:X:Count$YourLifeTotal
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigLife | OptionalDecider$ You
+SVar:TrigLife:DB$ SetLife | Defined$ You | LifeAmount$ Y
+SVar:Y:Count$CardCounters.CHARGE

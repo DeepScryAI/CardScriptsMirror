@@ -1,8 +1,23 @@
 Id:23596
 ColorIdentity:U
 OriginSet:G1a259dba25660062
-ManaCost:1 U
-Types:Instant
-A:SP$ ChangeZone | ValidTgts$ Artifact,Creature | Origin$ Battlefield | Destination$ Exile | RememberTargets$ True | SubAbility$ DBReturn
-SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | WithCountersType$ P1P1 | WithCountersAmount$ 1 | SubAbility$ DBCleanup
+ManaCost:3 U
+Types:Enchantment Saga
+K:Chapter:3:DBReturn1,DBReturn2,DBTransform
+SVar:DBReturn1:DB$ ChangeZone | ValidTgts$ Creature,Planeswalker | TargetMin$ 0 | TargetMax$ 1 | Origin$ Battlefield | Destination$ Hand
+SVar:DBReturn2:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ChangeType$ Artifact.YouOwn | Hidden$ True | ChangeNum$ 1 | Mandatory$ True | RememberChanged$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1 | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ0 | SubAbility$ DBCleanup
+SVar:DBTransform:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | Transformed$ True | GainControl$ True | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:blue
+Types:Enchantment Creature Moonfolk
+PT:3/3
+K:Flying
+T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigEffect
+SVar:TrigEffect:DB$ Effect | StaticAbilities$ OppCantCast | RememberObjects$ TriggeredCard | Duration$ UntilYourNextTurn
+SVar:OppCantCast:Mode$ CantBeCast | ValidCard$ Card.cmcEQX | Caster$ Opponent
+SVar:X:Remembered$CardManaCostLKI

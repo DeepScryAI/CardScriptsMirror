@@ -1,9 +1,12 @@
 Id:32418
-ColorIdentity:
-OriginSet:G66b3a7eeabd9000e
-ManaCost:no cost
-Types:Land
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ DBChooseBasic | ReplacementResult$ Updated
-SVar:DBChooseBasic:DB$ ChooseType | ETB$ True | Type$ Basic Land | SubAbility$ DBTap
-SVar:DBTap:DB$ Tap | ETB$ True | Defined$ Self | UnlessCost$ PayLife<2> | UnlessPayer$ You
-S:Mode$ Continuous | Affected$ Card.Self | AddType$ ChosenType | RemoveLandTypes$ True
+ColorIdentity:WB
+OriginSet:G9946f072b5556073
+ManaCost:2 W B B
+Types:Legendary Creature Human Knight
+PT:4/4
+K:Deathtouch
+K:Lifelink
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPumpAll
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPumpAll | TriggerZones$ Battlefield | Secondary$ True
+SVar:TrigPumpAll:DB$ PumpAll | ValidCards$ Creature.YouCtrl+StrictlyOther | NumAtt$ +1 | KW$ Deathtouch
+SVar:HasAttackEffect:TRUE

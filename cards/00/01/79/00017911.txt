@@ -1,8 +1,12 @@
 Id:17911
-ColorIdentity:B
-OriginSet:G21ed5bd3b1924169
-ManaCost:2 B
-Types:Creature Orc Pirate
-PT:2/3
-S:Mode$ Continuous | Affected$ Card.Self | AddPower$ 2 | IsPresent$ Planeswalker.Angrath+YouCtrl
-SVar:BuffedBy:Angrath
+ColorIdentity:W
+OriginSet:G84be946b27d900a1
+ManaCost:1 W
+Types:Creature Vampire Knight
+PT:1/1
+T:Mode$ Phase | Phase$ Upkeep | CheckSVar$ X | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigGainLife
+SVar:TrigGainLife:DB$ GainLife | Defined$ TriggeredCardController | LifeAmount$ Y
+SVar:X:PlayerCountPropertyYou$LifeLostLastTurn
+SVar:Y:TriggeredCard$CardToughness

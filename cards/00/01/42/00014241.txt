@@ -1,13 +1,10 @@
 Id:14241
-ColorIdentity:R
+ColorIdentity:U
 OriginSet:Gc18355312510df89
-ManaCost:1 R R
-Types:Creature Human Shaman
-PT:1/3
-K:DoubleStrike
-K:Trample
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigExile
-SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | ExileOnMoved$ Exile | RememberObjects$ Remembered | SubAbility$ DBCleanup
-SVar:STPlay:Mode$ Continuous | Affected$ Card.IsRemembered | MayPlay$ True | AffectedZone$ Exile
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:2 U
+Types:Instant
+K:Strive:1 U
+A:SP$ ChooseCard | Defined$ You | Amount$ 1 | Choices$ Creature | Mandatory$ True | SubAbility$ Pump4Tgt | AILogic$ Clone
+SVar:Pump4Tgt:DB$ RepeatEach | ValidTgts$ Creature.YouCtrl | TargetMin$ 0 | TargetMax$ MaxTargets | DefinedCards$ Targeted | RepeatSubAbility$ ShapeTgt
+SVar:ShapeTgt:DB$ Clone | Defined$ ChosenCard | CloneTarget$ Remembered | Duration$ UntilEndOfTurn
+SVar:MaxTargets:Count$Valid Creature.YouCtrl

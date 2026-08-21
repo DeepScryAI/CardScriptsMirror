@@ -1,8 +1,12 @@
 Id:29444
-ColorIdentity:R
-OriginSet:Gac6359c222afbd4f
-ManaCost:2 R
-Types:Instant
-K:Devoid
-S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ 2 | EffectZone$ All | IsPresent$ Permanent.MultiColor+OppCtrl
-A:SP$ DealDamage | ValidTgts$ Any | NumDmg$ 4
+ColorIdentity:U
+OriginSet:G2ce881cc55bb9f18
+ManaCost:1 U
+Types:Creature Shapeshifter
+PT:1/3
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigEnergy
+SVar:TrigEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ TriggerCount$DamageAmount
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigImmediateTrig
+SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ PayEnergy<2> | Execute$ TrigCopy
+SVar:TrigCopy:DB$ Clone | AddTriggers$ TrigDamage | ValidTgts$ Creature.Other+YouCtrl | AddSVars$ TrigDamage,TrigEnergy | GainThisAbility$ True
+SVar:TrigDamage:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigEnergy | TriggerZones$ Battlefield

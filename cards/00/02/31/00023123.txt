@@ -1,10 +1,11 @@
 Id:23123
-ColorIdentity:W
-OriginSet:G3aa323ca47c740b1
-ManaCost:4 W W
-Types:Sorcery
-A:SP$ ChangeZoneAll | ChangeType$ Creature.YouOwn | Origin$ Graveyard | Destination$ Battlefield | StaticEffect$ Animate | SubAbility$ DBExile
-SVar:Animate:Mode$ Continuous | Affected$ Card.IsRemembered | SetPower$ 1 | SetToughness$ 1 | AddType$ Spirit | AddKeyword$ Flying
-SVar:DBExile:DB$ ChangeZone | Origin$ Stack | Destination$ Exile
-SVar:X:Count$ValidGraveyard Creature.YouOwn
-SVar:NeedsToPlayVar:X GE4
+ColorIdentity:B
+OriginSet:G7a76c1974b0a33a6
+ManaCost:1 B
+Types:Creature Zombie Warrior
+PT:3/3
+K:Exploit
+T:Mode$ Exploited | ValidCard$ Creature | ValidSource$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Planeswalker
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDealDamage
+SVar:TrigDealDamage:DB$ DealDamage | Defined$ You | NumDmg$ 1

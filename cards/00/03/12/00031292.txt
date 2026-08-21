@@ -1,9 +1,12 @@
 Id:31292
-ColorIdentity:U
-OriginSet:Ge1676a27173c0866
-ManaCost:1 U
-Types:Enchantment
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigMill
-SVar:TrigMill:DB$ Mill | Defined$ You | NumCards$ 3 | SubAbility$ DBExile
-SVar:DBExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ConditionPresent$ Card.YouOwn | ConditionZone$ Library | ConditionCompare$ EQ0 | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | ChangeType$ Card.YouOwn | ChangeNum$ 5 | Origin$ Graveyard | Destination$ Library | Hidden$ True | Reorder$ True | Mandatory$ True | ConditionPresent$ Card.YouOwn | ConditionZone$ Library | ConditionCompare$ EQ0
+ColorIdentity:URG
+OriginSet:Gef9d0d0c16b2fcf7
+ManaCost:G U R
+Types:Legendary Creature Human Artificer
+PT:2/4
+T:Mode$ DamageDoneOnce | CombatDamage$ True | ValidSource$ Creature.Artifact+YouCtrl | ValidTarget$ Player | TriggerZones$ Battlefield | Execute$ TrigEnergy
+SVar:TrigEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ 2
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigChooseNumber
+SVar:TrigChooseNumber:DB$ ChooseNumber | Max$ Count$YourCountersEnergy | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | ConditionCheckSVar$ X | UnlessCost$ Mandatory PayEnergy<X> | UnlessPayer$ You | UnlessSwitched$ True | TokenScriptIds$ 3838368454 | TokenPower$ X | TokenToughness$ X
+SVar:X:Count$ChosenNumber

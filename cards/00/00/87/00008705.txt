@@ -1,9 +1,12 @@
 Id:8705
-ColorIdentity:W
+ColorIdentity:WU
 OriginSet:G70f74088c47d66bd
-ManaCost:5 W W
-Types:Creature Giant
-PT:3/4
-K:Suspend:5:W
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigTapAll
-SVar:TrigTapAll:DB$ TapAll | ValidCards$ Creature.nonWhite
+ManaCost:5 W U
+Types:Legendary Creature Human Wizard
+PT:3/5
+K:Vigilance
+A:AB$ Untap | Cost$ T | ValidTgts$ Creature.attacking | SubAbility$ DBPump
+SVar:DBPump:DB$ Effect | ReplacementEffects$ RPrevent1,RPrevent2 | RememberObjects$ Targeted | ExileOnMoved$ Battlefield
+SVar:RPrevent1:Event$ DamageDone | Prevent$ True | IsCombat$ True | ValidSource$ Card.IsRemembered
+SVar:RPrevent2:Event$ DamageDone | Prevent$ True | IsCombat$ True | ValidTarget$ Card.IsRemembered | Secondary$ True
+K:Suspend:4:W U

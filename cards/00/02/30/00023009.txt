@@ -1,15 +1,9 @@
 Id:23009
-ColorIdentity:WB
-OriginSet:G8a59924df6623252
-ManaCost:W B
-Types:Legendary Creature Human
-PT:1/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigInvestigate
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigInvestigate | Secondary$ True
-SVar:TrigInvestigate:DB$ Investigate | Defined$ Opponent | Optional$ True | RememberInvestigatingPlayers$ True | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | Defined$ Opponent.!IsRemembered | LifeAmount$ 1 | SubAbility$ DBInvestigate
-SVar:DBInvestigate:DB$ Investigate | Num$ Y | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:PlayerCountRemembered$Amount
-SVar:Y:SVar$X/Plus.1
-K:Partner:Friends forever
+ColorIdentity:WG
+OriginSet:Gf78628ad511eefec
+ManaCost:G W
+Types:Instant
+K:Flashback:2 G W
+A:SP$ Effect | Triggers$ CreatureEnchantmentETB
+SVar:CreatureEnchantmentETB:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.YouCtrl,Enchantment.YouCtrl | TriggerZones$ Command | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1

@@ -2,16 +2,9 @@ Id:12787
 ColorIdentity:
 OriginSet:G4801bb28ce9773ed
 ManaCost:no cost
-Types:Plane Ravnica
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature | TriggerZones$ Command | Execute$ OssuaryCounters
-SVar:OssuaryCounters:DB$ PutCounter | ValidTgts$ Creature | TargetsWithDefinedController$ TriggeredCardController | TargetingPlayer$ TriggeredCardController | CounterType$ P1P1 | CounterNum$ OssuaryX | TargetMin$ 1 | TargetMax$ MaxTgts | DividedAsYouChoose$ OssuaryX
-SVar:OssuaryX:TriggeredCard$CardPower
-SVar:MaxTgts:TriggeredCardController$Valid Creature.YouCtrl
+Types:Plane Lorwyn
+T:Mode$ Phase | Phase$ EndCombat | ValidPlayer$ You | TriggerZones$ Command | OptionalDecider$ You | Execute$ TrigExchange
+SVar:TrigExchange:DB$ Pump | ValidTgts$ Creature.YouCtrl+dealtCombatDamageThisCombat | SubAbility$ DBExchange
+SVar:DBExchange:DB$ ExchangeControl | Defined$ ParentTarget | ValidTgts$ Creature.ControlledBy Player.wasDealtCombatDamageThisCombatBy ParentTarget
 T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos
-SVar:RolledChaos:DB$ ChangeZoneAll | ChangeType$ Creature | Imprint$ True | Origin$ Battlefield | Destination$ Exile | SubAbility$ OssuaryRepeat
-SVar:OssuaryRepeat:DB$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ OssuaryTokens | SubAbility$ WalkAway | ChangeZoneTable$ True
-SVar:OssuaryTokens:DB$ Token | TokenAmount$ OsX | TokenScriptIds$ 3815350479 | TokenOwner$ Player.IsRemembered
-SVar:WalkAway:DB$ Planeswalk | SubAbility$ ClearImprinted
-SVar:ClearImprinted:DB$ Cleanup | ClearImprinted$ True
-SVar:OsX:ImprintedLKI$Valid Card.RememberedPlayerCtrl$CardPower
-SVar:AIRollPlanarDieParams:Mode$ Random | MinTurn$ 5
+SVar:RolledChaos:DB$ GainControl | ValidTgts$ Creature.YouOwn

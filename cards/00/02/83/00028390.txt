@@ -1,14 +1,13 @@
 Id:28390
-ColorIdentity:WR
-OriginSet:G7ee0e82a2424d636
-ManaCost:3 R W
-Types:Legendary Creature Angel
-PT:4/4
-K:Flying
-K:Vigilance
-K:Haste
-T:Mode$ AttackersDeclared | Execute$ TrigDraw | ValidAttackers$ Creature | ValidAttackersAmount$ GE3 | TriggerZones$ Battlefield | AttackingPlayer$ Player
-SVar:TrigDraw:DB$ Draw
-T:Mode$ AttackersDeclared | Execute$ TrigDamage | ValidAttackers$ Creature | ValidAttackersAmount$ GE5 | TriggerZones$ Battlefield | AttackingPlayer$ Player
-SVar:TrigDamage:DB$ DealDamage | Defined$ Opponent | NumDmg$ 3 | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | LifeAmount$ 3
+ColorIdentity:BRG
+OriginSet:G4f78ded7b58f78f8
+ManaCost:1 BG R
+Types:Legendary Creature Dinosaur Mutant
+PT:3/1
+K:Bloodthirst:X
+K:Menace
+T:Mode$ DamageDoneOnce | Execute$ TrigChoose | ValidTarget$ Card.Self | TriggerZones$ Battlefield
+SVar:TrigChoose:DB$ ChoosePlayer | Defined$ You | Choices$ Opponent | Random$ True | SubAbility$ DBDealDamage
+SVar:DBDealDamage:DB$ DealDamage | Defined$ ChosenPlayer | NumDmg$ X | UnlessCost$ Sac<1/Creature.!token/a nontoken creature> | UnlessPayer$ ChosenPlayer | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenPlayer$ True
+SVar:X:Count$CardPower

@@ -1,7 +1,10 @@
 Id:15872
 ColorIdentity:W
 OriginSet:G92026fbb3573fda5
-ManaCost:4 W W
+ManaCost:1 W
 Types:Sorcery
-A:SP$ ChangeZoneAll | ChangeType$ Creature | Origin$ Battlefield | Destination$ Exile | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | Condition$ Delirium | TokenScriptIds$ 2375228291 | TokenOwner$ You
+A:SP$ Pump | ValidTgts$ Creature | SubAbility$ DBExile | AILogic$ SameName
+SVar:DBExile:DB$ ChangeZoneAll | Origin$ Battlefield | Destination$ Exile | Defined$ TargetedController | ChangeType$ TargetedCard.Self,Creature.NotDefinedTargeted+sharesNameWith Targeted | Shuffle$ True | RememberLKI$ True | AILogic$ Always | SubAbility$ DBInvestigate
+SVar:DBInvestigate:DB$ Investigate | Num$ X | Defined$ RememberedController | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:RememberedLKI$Valid Card.!token

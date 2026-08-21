@@ -1,10 +1,8 @@
 Id:7328
-ColorIdentity:R
+ColorIdentity:
 OriginSet:G332b6b8a53f3d107
-ManaCost:2 R R
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:Pump
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 2 | AddToughness$ 2
-S:Mode$ MustAttack | ValidCreature$ Creature.EnchantedBy | Secondary$ True
-K:Flash
+ManaCost:4
+Types:Artifact
+R:Event$ Draw | ActiveZones$ Battlefield | ValidPlayer$ Player | ReplaceWith$ ExileTop
+SVar:ExileTop:DB$ Dig | Defined$ ReplacedPlayer | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | NoReveal$ True
+S:Mode$ Continuous | MayPlay$ True | MayPlayPlayer$ CardOwner | Affected$ Card.ExiledWithSource+ThisTurnEntered | AffectedZone$ Exile

@@ -1,15 +1,20 @@
 Id:30250
 ColorIdentity:B
-OriginSet:G7b2137df486dc752
-ManaCost:1 B
-Types:Enchantment Room
-T:Mode$ ChangesZoneAll | ValidCards$ Card.YouOwn | Origin$ Library | Destination$ Graveyard | TriggerZones$ Battlefield | Execute$ TrigLoseLife
-SVar:TrigLoseLife:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ X
-SVar:X:TriggerObjectsCards$CardTypes
-AlternateMode:Split
-ALTERNATE
+OriginSet:Ge949f7cc91575fe7
 ManaCost:4 B
-Types:Enchantment Room
-T:Mode$ UnlockDoor | ValidPlayer$ You | ValidCard$ Card.Self | ThisDoor$ True | Execute$ TrigMill
-SVar:TrigMill:DB$ Mill | Defined$ You | NumCards$ 3 | SubAbility$ DBReturn
-SVar:DBReturn:DB$ ChangeZone | ChangeType$ Creature.YouOwn | Mandatory$ True | Origin$ Graveyard | Destination$ Battlefield | Hidden$ True | ChangeNum$ 1
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | NumCards$ 3 | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ 3
+R:Event$ GameLoss | ActiveZones$ Battlefield | ValidPlayer$ You | ReplaceWith$ DBTransform
+SVar:DBTransform:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | Transformed$ True | GainControl$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Types:Legendary Planeswalker You
+Loyalty:5
+R:Event$ GameLoss | ActiveZones$ Battlefield | ValidPlayer$ You | Layer$ CantHappen
+A:AB$ LoseLife | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | Defined$ Player.Opponent | LifeAmount$ 1
+A:AB$ Destroy | Cost$ SubCounter<4/LOYALTY> | ValidTgts$ Creature | Planeswalker$ True

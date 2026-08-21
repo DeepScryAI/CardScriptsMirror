@@ -1,10 +1,12 @@
 Id:27489
-ColorIdentity:UB
-OriginSet:G7579344e30f8be85
-ManaCost:U B
-Types:Legendary Creature Faerie Warrior
-PT:2/2
-K:Flash
+ColorIdentity:U
+OriginSet:G4e034c55e7afd8b4
+ManaCost:U
+Types:Creature Faerie Wizard
+PT:3/3
 K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Faerie.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigDrain
-SVar:TrigDrain:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 1
+K:Ward:2
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ ETBTapped | ReplacementResult$ Updated
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True | SubAbility$ DBAddCounter
+SVar:DBAddCounter:DB$ PutCounter | Defined$ Self | ETB$ True | CounterType$ STUN | CounterNum$ 3
+A:AB$ Untap | Cost$ 1 U

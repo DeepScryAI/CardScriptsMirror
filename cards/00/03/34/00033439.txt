@@ -1,12 +1,9 @@
 Id:33439
-ColorIdentity:WU
-OriginSet:G23d1f017cc66962f
-ManaCost:3 WU WU
-Types:Legendary Creature Mutant Ninja Turtle
-PT:4/6
-K:Vigilance
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | ValidTgts$ Artifact.YouCtrl | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | ValidTgts$ Creature.YouCtrl | TargetMin$ 0 | TargetMax$ 1 | ThisDefinedAndTgts$ ParentTarget | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn
-SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ All | Destination$ Battlefield | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:W
+OriginSet:G7ab1fe96128a1641
+ManaCost:2 W
+Types:Creature Kithkin Soldier
+PT:4/4
+K:etbCounter:M1M1:2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.Other+YouCtrl | TriggerZones$ Battlefield | IsPresent$ Card.Self+counters_GE1_M1M1 | NoResolvingCheck$ True | Execute$ TrigRemoveCounter
+SVar:TrigRemoveCounter:DB$ RemoveCounter | Defined$ Self | CounterType$ M1M1 | CounterNum$ 1

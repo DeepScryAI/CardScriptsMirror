@@ -1,14 +1,9 @@
 Id:28380
-ColorIdentity:G
-OriginSet:G7ee0e82a2424d636
-ManaCost:2 G
-Types:Enchantment Aura
-K:Flash
-K:Enchant:Creature
-SVar:AttachAILogic:Pump
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigUntap
-SVar:TrigUntap:DB$ Untap | Defined$ Enchanted | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | Defined$ Enchanted | KW$ Hexproof | SubAbility$ DBUnsuspect
-SVar:DBUnsuspect:DB$ AlterAttribute | Attributes$ Suspected | ConditionDefined$ Enchanted | ConditionPresent$ Card.IsSuspected | Activate$ False | Defined$ Enchanted
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 2 | AddToughness$ 2
-S:Mode$ CantBeSuspected | ValidCard$ Creature.EnchantedBy | Secondary$ True
+ColorIdentity:BG
+OriginSet:G4f78ded7b58f78f8
+ManaCost:1 B G
+Types:Creature Dinosaur
+PT:2/2
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ X | Execute$ TrigToken
+SVar:TrigToken:DB$ CopyPermanent | Defined$ Self | TokenTapped$ True
+SVar:X:Count$ThisTurnEntered_Graveyard_from_Battlefield_Creature

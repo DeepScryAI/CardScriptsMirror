@@ -1,15 +1,9 @@
 Id:24355
-ColorIdentity:B
+ColorIdentity:U
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:1 B
-Types:Sorcery
-A:SP$ RollDice | Sides$ 20 | ResultSubAbilities$ 1-9:OneOppSac,10-19:EachOppSac,20:SacTopPower
-SVar:OneOppSac:DB$ ChoosePlayer | Defined$ You | Choices$ Player.Opponent | SubAbility$ DBSac
-SVar:DBSac:DB$ Sacrifice | Defined$ ChosenPlayer | SacValid$ Creature | SubAbility$ DBCleanupChosen
-SVar:EachOppSac:DB$ Sacrifice | Defined$ Player.Opponent | SacValid$ Creature
-SVar:SacTopPower:DB$ RepeatEach | RepeatPlayers$ Player.Opponent | RepeatSubAbility$ DBChooseCard | SubAbility$ DBSacAll
-SVar:DBChooseCard:DB$ ChooseCard | Defined$ Player.IsRemembered | Choices$ Creature.greatestPowerControlledByRemembered | Mandatory$ True | Reveal$ True | RememberChosen$ True
-SVar:DBSacAll:DB$ SacrificeAll | ValidCards$ Card.IsRemembered | SubAbility$ DBCleanup
-SVar:DBCleanupChosen:DB$ Cleanup | ClearChosenPlayer$ True
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:NeedsToPlay:Creature.OppCtrl
+ManaCost:1 U
+Types:Artifact Equipment
+T:Mode$ DamageDone | ValidSource$ Creature.EquippedBy | ValidTarget$ Player | CombatDamage$ True | Execute$ DBScry | TriggerZones$ Battlefield
+SVar:DBScry:DB$ Scry | ScryNum$ 1 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1
+K:Equip:2

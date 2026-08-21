@@ -1,8 +1,11 @@
 Id:16822
-ColorIdentity:
+ColorIdentity:G
 OriginSet:Gd31f94cf3a5f78e4
-ManaCost:2
-Types:Artifact
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGainLife
-SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 3
-A:AB$ Draw | Cost$ 5 T Sac<1/CARDNAME> | NumCards$ 1
+ManaCost:3 G
+Types:Creature Elf Druid
+PT:3/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigEnergy
+SVar:TrigEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ X
+SVar:X:Count$Valid Creature.YouCtrl$GreatestCardPower
+A:AB$ Effect | Cost$ PayEnergy<3> | ValidTgts$ Creature | ExileOnMoved$ Battlefield | StaticAbilities$ MustBlock | RememberObjects$ Targeted
+SVar:MustBlock:Mode$ MustBlock | ValidCreature$ Card.IsRemembered

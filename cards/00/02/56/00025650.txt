@@ -1,7 +1,24 @@
 Id:25650
-ColorIdentity:G
-OriginSet:G06ccef4324c14725
-ManaCost:2 G G
-Types:Sorcery
-A:SP$ Token | TokenOwner$ Player.controlsEnchantment,controlsArtifact | TokenScriptIds$ 3783868715 | SubAbility$ DBDestroy
-SVar:DBDestroy:DB$ DestroyAll | ValidCards$ Artifact,Enchantment
+ColorIdentity:B
+OriginSet:Gfb000cedf5e9c32e
+ManaCost:5 B
+Types:Legendary Artifact Creature Robot
+PT:6/5
+K:More Than Meets the Eye:3 B
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | ValidTgts$ Opponent | LifeAmount$ X | SubAbility$ DBConvert
+SVar:DBConvert:DB$ SetState | Mode$ Transform | ConditionCheckSVar$ AFLifeLost | ConditionSVarCompare$ EQ0
+SVar:X:TargetedPlayer$LifeLostThisTurn
+SVar:AFLifeLost:Number$0
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:black
+Types:Legendary Artifact Vehicle
+PT:3/5
+K:Living metal
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | Execute$ TrigRandomPump | TriggerZones$ Battlefield
+SVar:TrigRandomPump:DB$ Pump | Defined$ Self | KW$ Flying & Indestructible | RandomKeyword$ True
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigConvert
+SVar:TrigConvert:DB$ SetState | Mode$ Transform
+SVar:HasAttackEffect:TRUE

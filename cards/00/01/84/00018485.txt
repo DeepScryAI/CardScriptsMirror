@@ -2,8 +2,11 @@ Id:18485
 ColorIdentity:B
 OriginSet:G3b823183c96b2df3
 ManaCost:1 B B
-Types:Creature Nightmare Horse
-PT:2/2
-S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self | ValidBlocker$ Creature.White
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPumpAll
-SVar:TrigPumpAll:DB$ PumpAll | ValidCards$ Creature.OppCtrl | NumAtt$ -1 | NumDef$ -1 | IsCurse$ True
+Types:Legendary Creature Human Wizard
+PT:3/3
+K:Deathtouch
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigImmediateTrig | TriggerZones$ Battlefield
+SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ X | Execute$ TrigChange
+SVar:X:Count$xPaid
+SVar:TrigChange:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouOwn+cmcEQX | WithCountersType$ CORPSE | AILogic$ BeforeCombat | LeaveBattlefield$ Exile
+SVar:HasAttackEffect:TRUE

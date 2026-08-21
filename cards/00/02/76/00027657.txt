@@ -1,13 +1,11 @@
 Id:27657
-ColorIdentity:
-OriginSet:G30e8a5e111cffb44
-ManaCost:no cost
-Types:Plane Earth
-T:Mode$ PlaneswalkedTo | ValidCard$ Card.Self | Execute$ TrigExile | OptionalDecider$ You
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigExile | OptionalDecider$ You | TriggerZones$ Command | Secondary$ True
-SVar:TrigExile:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | ChangeType$ Card.nonLand | WithCountersType$ TIME | WithCountersAmount$ X | RememberChanged$ True | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | Defined$ Remembered | ConditionDefined$ Remembered | ConditionPresent$ Card.withoutSuspend | PumpZone$ Exile | KW$ Suspend | Duration$ Permanent | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Remembered$CardManaCost
-T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ TrigTimeTravel
-SVar:TrigTimeTravel:DB$ TimeTravel
+ColorIdentity:G
+OriginSet:G7579344e30f8be85
+ManaCost:2 G G
+Types:Creature Beast Peasant
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 134855612 | TokenOwner$ You
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPumpAll
+SVar:TrigPumpAll:AB$ PumpAll | Cost$ Sac<1/Food> | ValidCards$ Creature.attacking | NumAtt$ +1 | NumDef$ +1 | KW$ Trample
+SVar:HasAttackEffect:TRUE

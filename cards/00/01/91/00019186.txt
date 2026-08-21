@@ -1,11 +1,12 @@
 Id:19186
-ColorIdentity:RG
+ColorIdentity:R
 OriginSet:Gf56613712ce2ae1f
-ManaCost:2 RG RG
-Types:Legendary Planeswalker Samut
-Loyalty:5
-S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddKeyword$ Haste
-SVar:PlayMain1:TRUE
-SVar:BuffedBy:Creature
-A:AB$ Pump | Cost$ SubCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Creature | NumAtt$ +2 | NumDef$ +1 | KW$ Haste | SubAbility$ DBScry
-SVar:DBScry:DB$ Scry | ScryNum$ 1
+ManaCost:3 R R
+Types:Legendary Creature Boar God
+PT:6/6
+K:Trample
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigChange | TriggerZones$ Battlefield | OptionalDecider$ You
+SVar:TrigChange:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | ChangeType$ Creature.YouCtrl | Tapped$ True | Attacking$ True | AtEOT$ Hand
+SVar:HasAttackEffect:TRUE
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard,Exile | ValidCard$ Card.Self | Execute$ TriReturn | OptionalDecider$ You
+SVar:TriReturn:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Destination$ Library | LibraryPosition$ 2

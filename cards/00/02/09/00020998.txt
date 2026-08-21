@@ -1,9 +1,12 @@
 Id:20998
-ColorIdentity:G
-OriginSet:G1978f1acb91e317a
-ManaCost:3 G
-Types:Creature Beast
+ColorIdentity:U
+OriginSet:Gfd5e6da37c69dc53
+ManaCost:3 U U
+Types:Creature Elemental
 PT:3/3
-K:Trample
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Destination$ Battlefield | Execute$ TrigPutCounters
-SVar:TrigPutCounters:DB$ PutCounterAll | ValidCards$ Creature.StrictlyOther+catalogId20998 | CounterType$ P1P1 | CounterNum$ 2
+S:Mode$ ReduceCost | ValidCard$ Card.Self | EffectZone$ All | Type$ Spell | Amount$ 1 | Color$ 2 U | CheckSVar$ X
+SVar:X:Count$ThisTurnCast_Instant.YouCtrl,Sorcery.YouCtrl
+K:Flying
+K:Prowess
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigScry
+SVar:TrigScry:DB$ Scry | ScryNum$ 2

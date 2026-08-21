@@ -1,10 +1,10 @@
 Id:19624
-ColorIdentity:
+ColorIdentity:B
 OriginSet:G7c61dc677f00d087
-ManaCost:4
-Types:Artifact
-A:AB$ NameCard | Cost$ 1 T | Defined$ You | SubAbility$ DBReveal | SorcerySpeed$ True
-SVar:DBReveal:DB$ PeekAndReveal | RememberRevealed$ True | SubAbility$ DBSac
-SVar:DBSac:DB$ Sacrifice | SacValid$ Self | ConditionDefined$ Remembered | ConditionPresent$ Card.NamedCard | ConditionCompare$ GE1 | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | NumCards$ 3 | ConditionDefined$ Remembered | ConditionPresent$ Card.NamedCard | ConditionCompare$ GE1 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearNamedCard$ True
+ManaCost:3 B B
+Types:Creature Human Wizard
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile | OptionalDecider$ You
+SVar:TrigExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Creature | SubAbility$ DBToken | RememberChanged$ True
+SVar:DBToken:DB$ Token | TokenScriptIds$ 353162950 | TokenOwner$ You | ConditionDefined$ Remembered | ConditionPresent$ Card.Creature | ConditionCompare$ EQ1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

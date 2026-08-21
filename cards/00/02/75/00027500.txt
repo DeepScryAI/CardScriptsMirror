@@ -1,12 +1,15 @@
 Id:27500
-ColorIdentity:R
-OriginSet:G7579344e30f8be85
-ManaCost:1 R
-Types:Creature Human Peasant
-PT:2/1
-S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ FirstStrike | Condition$ PlayerTurn
-AlternateMode:Adventure
-ALTERNATE
-ManaCost:2 R
-Types:Instant Adventure
-A:SP$ Token | TokenAmount$ 2 | TokenScriptIds$ 3370794869 | TokenOwner$ You
+ColorIdentity:UG
+OriginSet:G4e034c55e7afd8b4
+ManaCost:X G U
+Types:Legendary Creature Bird Hydra
+PT:2/2
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ HalfXUp | TokenScriptIds$ 134855612 | TokenOwner$ You
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:AB$ Draw | Cost$ Sac<1/Food>
+K:etbCounter:P1P1:X
+SVar:X:Count$xPaid
+SVar:HalfXUp:Count$xPaid/HalfUp
+SVar:HasAttackEffect:TRUE

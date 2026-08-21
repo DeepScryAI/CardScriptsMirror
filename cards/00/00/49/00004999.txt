@@ -1,9 +1,13 @@
 Id:4999
-ColorIdentity:
+ColorIdentity:U
 OriginSet:G9e6cd9ac1f7f4832
-ManaCost:4
-Types:Legendary Artifact
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSearch
-SVar:TrigSearch:DB$ ChangeZone | ChangeType$ Creature.YouOwn,Artifact.YouOwn | ChangeNum$ X | Origin$ Library | Destination$ Exile
-A:AB$ ChangeZone | Cost$ 4 T | Hidden$ True | Origin$ Exile | Destination$ Hand | AtRandom$ True | ChangeType$ Card.ExiledWithSource
-SVar:X:Count$ValidLibrary Creature.YouOwn,Artifact.YouOwn
+ManaCost:U
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddAbility$ ABChooseColor | AddSVar$ DBAnimate
+SVar:ABChooseColor:AB$ ChooseColor | Cost$ 2 U | Defined$ You | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | ValidTgts$ Creature | Colors$ ChosenColor | OverwriteColors$ True
+SVar:NonStackingAttachEffect:True

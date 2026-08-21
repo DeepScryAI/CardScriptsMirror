@@ -1,9 +1,11 @@
 Id:26222
-ColorIdentity:B
+ColorIdentity:W
 OriginSet:G2192e8955d5e1ad1
-ManaCost:1 B
-Types:Legendary Creature Phyrexian Vampire
-PT:2/2
-T:Mode$ ChangesZoneAll | TriggerZones$ Battlefield | ValidCards$ Creature.Other+YouCtrl | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigDrain | ActivationLimit$ 1
-SVar:TrigDrain:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 2 | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2
+ManaCost:1 W
+Types:Artifact Creature Phyrexian Construct
+PT:1/3
+K:Flying
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPumpAttack | CheckSVar$ X | SVarCompare$ GE3
+SVar:TrigPumpAttack:DB$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +1 | NumDef$ +1
+SVar:X:PlayerCountOpponents$HighestCounters.Poison
+SVar:HasAttackEffect:TRUE

@@ -1,19 +1,11 @@
 Id:23241
 ColorIdentity:B
 OriginSet:G6e75ff4f143a3dc3
-ManaCost:1 B
-Types:Creature Human Peasant
-PT:2/1
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ CardsDiscarded | Execute$ TrigTransform
-SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform
-SVar:CardsDiscarded:PlayerCountPropertyYou$CardsDiscardedThisTurn
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:black
-Types:Creature Human Warlock
-PT:3/3
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigLoseLife
-SVar:TrigLoseLife:DB$ LoseLife | Defined$ TriggeredDefendingPlayer | LifeAmount$ 1 | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
-SVar:HasAttackEffect:TRUE
+ManaCost:2 B
+Types:Creature Bat
+PT:2/2
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | CheckSVar$ X | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Creature.YouOwn
+SVar:X:Count$LifeYouGainedThisTurn
+SVar:NeedsToPlayVar:X GE1

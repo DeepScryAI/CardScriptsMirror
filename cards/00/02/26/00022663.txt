@@ -1,12 +1,9 @@
 Id:22663
 ColorIdentity:R
 OriginSet:G9f95a41d532c0550
-ManaCost:1 R
-Types:Instant
-A:SP$ Charm | Choices$ BreakTheirChains,InterrogateThem
-SVar:BreakTheirChains:DB$ Destroy | ValidTgts$ Artifact
-SVar:InterrogateThem:DB$ Dig | ValidTgts$ Opponent | DigNum$ 3 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBChoose
-SVar:DBChoose:DB$ ChooseCard | Choices$ Card.IsRemembered | ChoiceZone$ Exile | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | StaticAbilities$ STMayPlay | Duration$ UntilTheEndOfYourNextTurn | RememberObjects$ ChosenCard | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearChosenCard$ True
-SVar:STMayPlay:Mode$ Continuous | Affected$ Card.IsRemembered | AffectedZone$ Exile | MayPlay$ True | MayPlayIgnoreColor$ True
+ManaCost:2 R
+Types:Sorcery
+A:SP$ GainControl | ValidTgts$ Creature | LoseControl$ EOT | Untap$ True | AddKWs$ Haste | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | ConditionCheckSVar$ TreasureCheck | Defined$ Targeted | NumAtt$ +2
+SVar:TreasureCheck:Count$CastTotalManaSpent Treasure
+SVar:AIPreference:ManaFrom$Treasure

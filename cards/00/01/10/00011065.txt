@@ -1,11 +1,12 @@
 Id:11065
-ColorIdentity:RG
+ColorIdentity:B
 OriginSet:Gd09f2fd86b2e8dd0
-ManaCost:no cost
-Types:Land
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
-A:AB$ Mana | Cost$ T | Produced$ Combo R G
-A:AB$ Animate | Cost$ 2 R G | Defined$ Self | Power$ 3 | Toughness$ 3 | Types$ Creature,Elemental | Colors$ Red,Green | OverwriteColors$ True | Triggers$ TrigAttack
-SVar:TrigAttack:Mode$ Attacks | ValidCard$ Creature.Self | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+ManaCost:B
+Types:Enchantment
+T:Mode$ Discarded | ValidCard$ Card.OppOwn | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigPutCounter
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Opponent | CheckSVar$ CardsInHand | SVarCompare$ EQ0 | IsPresent$ Card.Self+counters_GE2_QUEST | Execute$ TrigLoseLife | TriggerZones$ Battlefield | OptionalDecider$ You
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ QUEST | CounterNum$ 1
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ TriggeredPlayer | LifeAmount$ 5
+SVar:CardsInHand:Count$ValidHand Card.ActivePlayerCtrl
+SVar:PlayMain1:TRUE
+SVar:MaxQuestEffect:2

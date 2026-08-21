@@ -1,11 +1,10 @@
 Id:29962
-ColorIdentity:
+ColorIdentity:W
 OriginSet:Gf09b85bbcc27770c
-ManaCost:4
-Types:Artifact Equipment
-K:Gift
-SVar:GiftAbility:DB$ Token | TokenScriptIds$ 2753563426 | TokenTapped$ True | TokenOwner$ Promised | LockTokenScript$ True
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self+PromisedGift | Execute$ TrigAttach
-SVar:TrigAttach:DB$ Attach | ValidTgts$ Creature.YouCtrl
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 3 | AddToughness$ 3 | RemoveKeyword$ Flying
-K:Equip:3
+ManaCost:3 W W
+Types:Creature Elemental Coyote
+PT:3/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Creature.OppCtrl | Duration$ UntilHostLeavesPlay | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | ConditionDefined$ Targeted | ConditionPresent$ Creature.powerLE2
+SVar:PlayMain1:TRUE

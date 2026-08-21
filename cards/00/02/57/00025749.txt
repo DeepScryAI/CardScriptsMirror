@@ -1,14 +1,11 @@
 Id:25749
-ColorIdentity:WR
+ColorIdentity:U
 OriginSet:G06ccef4324c14725
-ManaCost:1 R W
-Types:Legendary Creature Human Noble
-PT:2/3
-A:AB$ Discard | Cost$ 4 T | Defined$ You | RememberDiscarded$ True | Mode$ Hand | SubAbility$ DBDraw | SorcerySpeed$ True
-SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ X | SubAbility$ DBChooseCardOne
-SVar:DBChooseCardOne:DB$ ChooseCard | Defined$ You | Choices$ Artifact.IsRemembered+cmcEQ1,Creature.IsRemembered+cmcEQ1 | ImprintChosen$ True | ChoiceZone$ Graveyard,Exile | SubAbility$ DBChooseCardTwo
-SVar:DBChooseCardTwo:DB$ ChooseCard | Defined$ You | Choices$ Artifact.IsRemembered+cmcEQ2,Creature.IsRemembered+cmcEQ2 | ImprintChosen$ True | ChoiceZone$ Graveyard,Exile | SubAbility$ DBChooseCardThree
-SVar:DBChooseCardThree:DB$ ChooseCard | Defined$ You | Choices$ Artifact.IsRemembered+cmcEQ3,Creature.IsRemembered+cmcEQ3 | ImprintChosen$ True | ChoiceZone$ Graveyard,Exile | SubAbility$ DBChangeZoneAll
-SVar:DBChangeZoneAll:DB$ ChangeZone | Defined$ Imprinted | Origin$ Graveyard,Exile | Destination$ Battlefield | SubAbility$ DBCleanup
+ManaCost:1 U
+Types:Creature Human Scout
+PT:0/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill
+SVar:TrigMill:DB$ Mill | NumCards$ 3 | Defined$ You | Imprint$ True | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Graveyard,Exile | Destination$ Hand | ChangeType$ Card.nonCreature+nonLand+YouOwn+IsImprinted | RememberChanged$ True | Hidden$ True | Optional$ True | SubAbility$ DBCounter
+SVar:DBCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | ConditionDefined$ Remembered | ConditionNotPresent$ Card | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True
-SVar:X:Remembered$Amount

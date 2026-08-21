@@ -1,9 +1,13 @@
 Id:24298
-ColorIdentity:G
+ColorIdentity:R
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:1 G
-Types:Legendary Enchantment Background
-S:Mode$ Continuous | Affected$ Creature.IsCommander+YouOwn | AddTrigger$ AttacksPlayer
-SVar:AttacksPlayer:Mode$ Attacks | ValidCard$ Card.Self | Attacked$ Player | Condition$ NoOpponentHasMoreLifeThanAttacked | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.Other+YouCtrl | NumAtt$ +X | NumDef$ +X
-SVar:X:Count$CardPower
+ManaCost:5 R
+Types:Creature Beholder
+PT:5/5
+T:Mode$ Attacks | ValidCard$ Creature.OppCtrl | Attacked$ Opponent | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ TriggeredAttackerLKICopy | NumAtt$ Double
+A:AB$ PutCounter | Cost$ X X R | Monstrosity$ X
+SVar:X:Count$xPaid
+T:Mode$ BecomeMonstrous | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigGoad
+SVar:TrigGoad:DB$ Goad | TargetMin$ 0 | TargetMax$ MonstrosityX | ValidTgts$ Creature.OppCtrl
+SVar:MonstrosityX:TriggerCount$Amount

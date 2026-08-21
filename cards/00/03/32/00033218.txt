@@ -1,11 +1,14 @@
 Id:33218
 ColorIdentity:G
-OriginSet:G7ab1fe96128a1641
-ManaCost:4 G G
-Types:Creature Elemental
-PT:6/6
-K:Trample
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.YouCtrl | TargetMin$ 0 | TargetMax$ X | NumAtt$ +X | NumDef$ +X
-SVar:X:Count$Valid Permanent.YouCtrl$Colors
-SVar:PlayMain1:ALWAYS
+OriginSet:G530ea9d733a13e9d
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ LandTapped | ReplacementResult$ Updated
+SVar:LandTapped:DB$ Tap | Defined$ Self | ETB$ True | ConditionPresent$ Creature.Legendary+YouCtrl | ConditionCompare$ EQ0
+A:AB$ Mana | Cost$ T | Produced$ G | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | Triggers$ SpellCastTrig
+SVar:SpellCastTrig:Mode$ SpellCast | ValidCard$ Bird | ValidActivatingPlayer$ You | Execute$ TrigCounter | OneOff$ True
+SVar:TrigCounter:DB$ Effect | ReplacementEffects$ ETBCounters | RememberObjects$ TriggeredCard | ForgetOnMoved$ Stack
+SVar:ETBCounters:Event$ Moved | Origin$ Stack | Destination$ Battlefield | ValidCard$ Card.IsRemembered | ReplaceWith$ ETBAddExtraCounter | ReplacementResult$ Updated
+SVar:ETBAddExtraCounter:DB$ PutCounter | ETB$ True | Defined$ ReplacedCard | CounterType$ P1P1 | CounterNum$ 1
+A:AB$ Token | Cost$ 2 G G T | TokenScriptIds$ 490609126

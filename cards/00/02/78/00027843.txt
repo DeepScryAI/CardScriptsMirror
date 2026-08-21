@@ -1,12 +1,9 @@
 Id:27843
-ColorIdentity:WU
+ColorIdentity:R
 OriginSet:G30e8a5e111cffb44
-ManaCost:2 W U
-Types:Legendary Creature Time Lord Doctor
-PT:2/4
-S:Mode$ Continuous | Affected$ Player | SetMaxHandSize$ Unlimited
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | OptionalDecider$ True | Defined$ Player | RememberDrawn$ True | NumCards$ 1 | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | EffectOwner$ RememberedOwner.Opponent | RememberObjects$ You | StaticAbilities$ STCantAttack | Duration$ UntilTheEndOfYourNextTurn | SubAbility$ DBCleanup
-SVar:STCantAttack:Mode$ CantAttack | ValidCard$ Creature.YouCtrl | Target$ Player.IsRemembered,Permanent.RememberedPlayerCtrl
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:1 R
+Types:Legendary Creature Human
+PT:2/2
+S:Mode$ Continuous | Affected$ Artifact.nonCreature+nonEquipment+YouCtrl | AddType$ Equipment | AddStaticAbility$ EquipAB | AddKeyword$ Equip:1
+SVar:EquipAB:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1
+K:Doctor's companion

@@ -1,13 +1,27 @@
 Id:31893
-ColorIdentity:U
+ColorIdentity:W
 OriginSet:G7ab4f62d323b0ca7
-ManaCost:2 U
-Types:Enchantment Aura
-K:Flash
-K:Enchant:Artifact,Creature:artifact or creature
-SVar:AttachAITgts:Artifact,Creature
-SVar:AttachAILogic:Curse
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigTap
-SVar:TrigTap:DB$ Tap | Defined$ Enchanted
-R:Event$ Untap | ActiveZones$ Battlefield | ValidCard$ Permanent.EnchantedBy | ValidStepTurnToController$ You | Layer$ CantHappen
-S:Mode$ CantBeActivated | ValidCard$ Permanent.EnchantedBy | Secondary$ True
+ManaCost:3 W
+Types:Legendary Creature Human Noble Knight
+PT:3/3
+S:Mode$ Continuous | Affected$ Card.Self,Knight.Other+YouCtrl | AddKeyword$ Flying | Condition$ PlayerTurn
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 2186494377 | TokenOwner$ You
+A:AB$ ChangeZone | Cost$ 4 W W T | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn | SorcerySpeed$ True
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | Transformed$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:white
+Types:Legendary Enchantment Creature Saga Dragon
+PT:5/5
+K:Chapter:3:DBWingsOfLight,DBWingsOfLight,DBGigaflare
+SVar:DBWingsOfLight:DB$ PutCounterAll | ValidCards$ Creature.YouCtrl+StrictlyOther | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBPumpAll
+SVar:DBPumpAll:DB$ PumpAll | ValidCards$ Creature.YouCtrl+StrictlyOther | KW$ Flying
+SVar:DBGigaflare:DB$ Destroy | ValidTgts$ Permanent | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | SubAbility$ DBReturn | RememberChanged$ True
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+K:Flying
+SVar:X:Count$ValidGraveyard Creature.YouOwn

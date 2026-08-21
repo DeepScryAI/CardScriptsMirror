@@ -1,8 +1,11 @@
 Id:23502
-ColorIdentity:G
+ColorIdentity:U
 OriginSet:G1a259dba25660062
-ManaCost:4 G G
-Types:Enchantment Creature Dog
-PT:6/5
-K:Trample
-A:AB$ ChangeZone | Cost$ 2 G Discard<1/CARDNAME> | ActivationZone$ Hand | Origin$ Library | Destination$ Battlefield | Tapped$ True | ChangeType$ Land.Basic
+ManaCost:2 U U
+Types:Sorcery
+A:SP$ ChangeZone | Cost$ 2 U U Sac<1/Artifact;Creature/artifact or creature> | Origin$ Library | Destination$ Battlefield | ChangeType$ Equipment,Vehicle | RememberChanged$ True | SubAbility$ DBScry
+SVar:DBScry:DB$ Scry | ConditionDefined$ Remembered | ConditionPresent$ Card | ScryNum$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$Compare Y LTZ.2.0
+SVar:Y:Remembered$CardManaCost
+SVar:Z:Sacrificed$CardManaCost

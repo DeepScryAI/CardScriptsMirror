@@ -1,9 +1,8 @@
 Id:26044
-ColorIdentity:G
-OriginSet:G2192e8955d5e1ad1
-ManaCost:3 G
-Types:Sorcery
-A:SP$ Dig | DigNum$ 6 | ChangeNum$ 2 | Optional$ True | ForceRevealToController$ True | ChangeValid$ Land | DestinationZone$ Battlefield | Tapped$ True | RestRandomOrder$ True | RememberChanged$ True | SubAbility$ DBProliferate
-SVar:DBProliferate:DB$ Proliferate | Amount$ Number$2/Minus.Y | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:Y:Count$RememberedSize
+ColorIdentity:WU
+OriginSet:G880fc7f6ed36df4d
+ManaCost:W U
+Types:Instant
+A:SP$ Destroy | ValidTgts$ Creature.powerGE4 | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBChoose
+SVar:DBChoose:DB$ ChooseCard | Mandatory$ True | ChoiceZone$ Hand | Choices$ Card.nonLand+YouOwn | Amount$ 1 | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ ChosenCard | KW$ Flash | Duration$ Perpetual | PumpZone$ Hand

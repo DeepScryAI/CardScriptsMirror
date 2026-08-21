@@ -1,9 +1,15 @@
 Id:17397
-ColorIdentity:W
+ColorIdentity:B
 OriginSet:G5475e2be497fd272
-ManaCost:1 W
-Types:Enchantment
-S:Mode$ CantBeCast | ValidCard$ Card | Origin$ Graveyard
-S:Mode$ CantBeActivated | ValidCard$ Card | AffectedZone$ Graveyard
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature | TriggerZones$ Battlefield | Execute$ TrigGain
-SVar:TrigGain:DB$ GainLife | Defined$ You | LifeAmount$ 1
+ManaCost:1 B
+Types:Legendary Enchantment
+A:AB$ Draw | Cost$ 1 B PayLife<2>
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ DBTransform | LifeTotal$ You | LifeAmount$ LE5
+SVar:DBTransform:DB$ SetState | Defined$ Self | Mode$ Transform
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Types:Legendary Land
+A:AB$ Mana | Cost$ T | Produced$ B | Amount$ 1
+A:AB$ GainLife | Cost$ T Sac<1/Creature> | LifeAmount$ X
+SVar:X:Sacrificed$CardToughness

@@ -1,8 +1,12 @@
 Id:14336
-ColorIdentity:B
+ColorIdentity:BR
 OriginSet:G2192ecccbc32f5ad
-ManaCost:1 B
-Types:Creature Zombie Wizard
-PT:2/1
-T:Mode$ Vote | TriggerZones$ Battlefield | Execute$ TrigLoseLife | List$ OppVotedDiff
-SVar:TrigLoseLife:DB$ LoseLife | Defined$ TriggeredOpponentVotedDiff | LifeAmount$ 2
+ManaCost:X B R
+Types:Legendary Creature Goblin Rogue
+PT:2/2
+K:etbCounter:P1P1:X
+SVar:X:Count$xPaid
+A:AB$ ChangeZone | Cost$ 2 | Defined$ BottomOfLibrary | Origin$ Library | Destination$ Graveyard | RememberChanged$ True | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Defined$ Remembered | Origin$ All | Destination$ Battlefield | Hidden$ True | ConditionDefined$ Remembered | ConditionPresent$ Card.Creature+powerLEY | ConditionCompare$ GE1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:Y:Count$CardPower

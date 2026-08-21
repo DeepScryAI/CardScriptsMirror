@@ -1,9 +1,13 @@
 Id:19704
 ColorIdentity:R
 OriginSet:G7c61dc677f00d087
-ManaCost:R
-Types:Creature Elemental Lizard
-PT:1/1
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDealDamage
-SVar:TrigDealDamage:DB$ DealDamage | Defined$ TriggeredDefender.Opponent & Valid Planeswalker.TriggeredDefender | NumDmg$ 1
-SVar:HasAttackEffect:TRUE
+ManaCost:1 R
+Types:Artifact Equipment
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 3896853773 | TokenOwner$ You | RememberTokens$ True | SubAbility$ DBAttach
+SVar:DBAttach:DB$ Attach | Defined$ Remembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+S:Mode$ Continuous | Affected$ Card.EquippedBy | AddAbility$ Damage
+SVar:Damage:AB$ DealDamage | Cost$ Sac<1/CARDNAME> | ValidTgts$ Any | NumDmg$ 1
+SVar:NonStackingAttachEffect:True
+K:Equip:2

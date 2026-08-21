@@ -1,10 +1,10 @@
 Id:13719
 ColorIdentity:W
 OriginSet:G97e9a20e5a5d5822
-ManaCost:1 W
+ManaCost:W
 Types:Enchantment Aura
-K:Enchant:Creature
+K:Enchant:Mountain.YouCtrl:Mountain you control
 SVar:AttachAILogic:Pump
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddToughness$ 2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Creature.OppCtrl | Duration$ UntilHostLeavesPlay
+SVar:PlayMain1:TRUE

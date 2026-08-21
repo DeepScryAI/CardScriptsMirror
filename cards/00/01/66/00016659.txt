@@ -1,7 +1,10 @@
 Id:16659
-ColorIdentity:W
+ColorIdentity:R
 OriginSet:Ge1d53e4f418bb713
-ManaCost:2 W
-Types:Enchantment
-T:Mode$ AttackersDeclared | Execute$ TrigPump | TriggerZones$ Battlefield | OptionalDecider$ You
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.attacking | KW$ DoubleStrike
+ManaCost:6 R
+Types:Instant
+K:Undaunted
+A:SP$ ChangeZone | ValidTgts$ Creature | TargetMin$ 2 | TargetMax$ 2 | Origin$ Battlefield | Destination$ Exile | RememberLKI$ True | SubAbility$ DBTransform
+SVar:DBTransform:DB$ RepeatEach | UseImprinted$ True | DefinedCards$ DirectRemembered | ChooseOrder$ True | Zone$ Exile | RepeatSubAbility$ DBReveal | SubAbility$ DBCleanRemembered
+SVar:DBReveal:DB$ DigUntil | Defined$ ImprintedController | Amount$ 1 | Valid$ Creature | RevealedDestination$ Library | RevealedLibraryPosition$ 0 | FoundDestination$ Battlefield | Shuffle$ True
+SVar:DBCleanRemembered:DB$ Cleanup | ClearRemembered$ True

@@ -1,15 +1,11 @@
 Id:27541
-ColorIdentity:UG
-OriginSet:G7579344e30f8be85
-ManaCost:3 G
-Types:Creature Elemental Elk
-PT:3/4
-K:Trample
-T:Mode$ SpellCast | ValidCard$ Card.cmcGE5 | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
-AlternateMode:Adventure
-ALTERNATE
-ManaCost:1 U
-Types:Instant Adventure
-A:SP$ Draw | NumCards$ 2 | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 2 | Mode$ TgtChoose
+ColorIdentity:W
+OriginSet:Ge16da27db30ac32e
+ManaCost:3 W
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+T:Mode$ Attacks | ValidCard$ Card.AttachedBy | Execute$ TrigDigUntil | TriggerZones$ Battlefield
+SVar:TrigDigUntil:DB$ DigUntil | Valid$ Aura | FoundDestination$ Battlefield | OptionalFoundMove$ True | OptionalNoDestination$ Hand | RevealedDestination$ Library | RevealedLibraryPosition$ -1 | RevealRandomOrder$ True
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddSVar$ AE
+SVar:AE:SVar:HasAttackEffect:TRUE

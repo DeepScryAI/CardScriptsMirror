@@ -1,17 +1,9 @@
 Id:12058
-ColorIdentity:UBG
+ColorIdentity:WBR
 OriginSet:G28b959a4da853005
-ManaCost:2 B G U
-Types:Legendary Creature Ooze
-PT:0/0
-K:ETBReplacement:Copy:MimeoChooseTwo:Optional
-SVar:MimeoChooseTwo:DB$ ChooseCard | ConditionCheckSVar$ MimeoInYard | ConditionSVarCompare$ GE2 | Defined$ You | Amount$ 2 | AILogic$ Clone | Choices$ Creature | ChoiceZone$ Graveyard | RememberChosen$ True | SubAbility$ MimeoExile
-SVar:MimeoExile:DB$ ChangeZoneAll | ConditionCheckSVar$ MimeoNumRemembered | ConditionSVarCompare$ EQ2 | Origin$ Graveyard | Destination$ Exile | ChangeType$ Card.IsRemembered | RememberChanged$ True | ForgetOtherRemembered$ True | SubAbility$ MimeoChooseCopy
-SVar:MimeoChooseCopy:DB$ ChooseCard | ConditionCheckSVar$ MimeoNumRemembered | ConditionSVarCompare$ EQ2 | Defined$ You | Amount$ 1 | Mandatory$ True | AILogic$ Clone | Choices$ Creature.IsRemembered | ChoiceZone$ Exile | ForgetChosen$ True | SubAbility$ MimeoAddCounters
-SVar:MimeoAddCounters:DB$ PutCounter | ETB$ True | Defined$ Self | ConditionCheckSVar$ MimeoNumRemembered | ConditionSVarCompare$ EQ1 | CounterType$ P1P1 | CounterNum$ MimeoX | SubAbility$ MimeoCopyChosen
-SVar:MimeoCopyChosen:DB$ Clone | Defined$ ChosenCard | ConditionCheckSVar$ MimeoNumRemembered | ConditionSVarCompare$ EQ1 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearChosenCard$ True
-SVar:MimeoInYard:Count$ValidGraveyard Creature
-SVar:MimeoNumRemembered:Remembered$Amount
-SVar:MimeoX:Remembered$CardPower
-SVar:NeedsToPlayVar:MimeoInYard GE2
+ManaCost:4 R W B
+Types:Legendary Creature Angel
+PT:4/7
+K:Flying
+K:Vigilance
+A:AB$ ChangeZone | Cost$ T | ValidTgts$ Opponent | ChangeType$ Creature.OppOwn | ChangeNum$ 1 | Hidden$ True | Origin$ Graveyard | AtRandom$ True | Destination$ Battlefield | GainControl$ True

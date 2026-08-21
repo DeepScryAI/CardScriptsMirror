@@ -1,8 +1,11 @@
 Id:26002
-ColorIdentity:B
-OriginSet:G2192e8955d5e1ad1
-ManaCost:X B
-Types:Instant
-A:SP$ Pump | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | NumAtt$ -X | NumDef$ -X | IsCurse$ True | SubAbility$ DBReanimate
-SVar:DBReanimate:DB$ ChangeZone | Origin$ Graveyard | Chooser$ You | ChangeNum$ 1 | ConditionCheckSVar$ X | ConditionSVarCompare$ GE5 | Destination$ Battlefield | Hidden$ True | Tapped$ True | ChangeType$ Creature.YouOwn+cmcLEX
-SVar:X:Count$xPaid
+ColorIdentity:W
+OriginSet:Gb879a1706584aeee
+ManaCost:2 W
+Types:Enchantment Aura
+K:Enchant:Creature.YouCtrl:creature you control
+SVar:AttachAILogic:Pump
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Permanent.nonLand+OppCtrl | Duration$ UntilHostLeavesPlay
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddKeyword$ Ward:2
+SVar:PlayMain1:TRUE

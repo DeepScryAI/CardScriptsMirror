@@ -1,9 +1,14 @@
 Id:16968
 ColorIdentity:W
 OriginSet:Gbcdce58dfbbf1bad
-ManaCost:2 W W
-Types:Enchantment
-K:ETBReplacement:Other:DBNameCard
-SVar:DBNameCard:DB$ NameCard | Defined$ You
-S:Mode$ CantBeCast | ValidCard$ Card.NamedCard+nonLand | Caster$ Opponent
-R:Event$ DamageDone | ActiveZones$ Battlefield | Prevent$ True | ValidTarget$ You,Permanent.YouCtrl | ValidSource$ Card.NamedCard
+ManaCost:1 W W
+Types:Legendary Planeswalker Gideon
+Loyalty:3
+A:AB$ Effect | Cost$ AddCounter<1/LOYALTY> | ValidTgts$ Permanent | Planeswalker$ True | Duration$ UntilYourNextTurn | RememberObjects$ Targeted | ReplacementEffects$ RPrevent
+SVar:RPrevent:Event$ DamageDone | Prevent$ True | ValidSource$ Card.IsRemembered
+A:AB$ Animate | Cost$ AddCounter<0/LOYALTY> | Defined$ Self | Power$ 4 | Toughness$ 4 | Keywords$ Indestructible | Types$ Creature,Human,Soldier | SubAbility$ GideonPrevent | Planeswalker$ True
+SVar:GideonPrevent:DB$ Effect | ReplacementEffects$ RGideon | Duration$ UntilHostLeavesPlayOrEOT
+SVar:RGideon:Event$ DamageDone | Prevent$ True | ValidTarget$ Card.EffectSource
+A:AB$ Effect | Cost$ AddCounter<0/LOYALTY> | Name$ 14074899173918917401 | ReplacementEffects$ DBYouCantLose,DBOppCantWin | Planeswalker$ True | Ultimate$ True | Duration$ Permanent | AILogic$ Always | Stackable$ False
+SVar:DBYouCantLose:Event$ GameLoss | ValidPlayer$ You | Layer$ CantHappen | IsPresent$ Planeswalker.Gideon+YouCtrl
+SVar:DBOppCantWin:Event$ GameWin | ValidPlayer$ Opponent | Layer$ CantHappen | IsPresent$ Planeswalker.Gideon+YouCtrl | Secondary$ True

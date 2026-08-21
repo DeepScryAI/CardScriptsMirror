@@ -1,12 +1,12 @@
 Id:16695
-ColorIdentity:BR
+ColorIdentity:WB
 OriginSet:Ge1d53e4f418bb713
-ManaCost:1 B R
-Types:Legendary Creature Goblin Berserker
-PT:2/3
-T:Mode$ SpellCast | ValidActivatingPlayer$ You | ActivatorThisTurnCast$ EQ1 | ValidCard$ Card | Execute$ TrigChoose | TriggerZones$ Battlefield
-SVar:TrigChoose:DB$ ChoosePlayer | Defined$ You | Choices$ Player.Opponent | Random$ True | SubAbility$ DBDealDamage
-SVar:DBDealDamage:DB$ DealDamage | Defined$ ChosenPlayer | NumDmg$ X | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearChosenPlayer$ True
-SVar:X:TriggeredSpellAbility$CardManaCostLKI
+ManaCost:1 W B
+Types:Legendary Creature Human Cleric
+PT:2/2
+K:Lifelink
+T:Mode$ Phase | Phase$ Main2 | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:AB$ Draw | Cost$ PayLife<X> | NumCards$ X
+SVar:X:PlayerCountRegisteredOpponents$HasPropertywasDealtCombatDamageThisTurn
 K:Partner
+SVar:PlayMain1:TRUE

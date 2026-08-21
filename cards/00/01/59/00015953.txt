@@ -1,9 +1,16 @@
 Id:15953
-ColorIdentity:G
+ColorIdentity:R
 OriginSet:Gc276c26a85a70470
-ManaCost:2 G
-Types:Enchantment
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigMill | TriggerZones$ Battlefield
-SVar:TrigMill:DB$ Mill | NumCards$ 2 | Defined$ You | Optional$ True
-T:Mode$ ChangesZoneAll | ValidCards$ Land.YouOwn+!token | Origin$ Any | Destination$ Graveyard | TriggerZones$ Battlefield | FirstTime$ True | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 704294417 | TokenOwner$ You
+ManaCost:2 R
+Types:Creature Human Werewolf
+PT:2/2
+T:Mode$ Phase | Phase$ Upkeep | WerewolfTransformCondition$ True | TriggerZones$ Battlefield | Execute$ TrigTransform
+SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:red
+Types:Creature Werewolf
+PT:4/4
+T:Mode$ Phase | Phase$ Upkeep | WerewolfUntransformCondition$ True | TriggerZones$ Battlefield | Execute$ TrigTransform
+SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform

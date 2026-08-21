@@ -1,9 +1,10 @@
 Id:26195
-ColorIdentity:
+ColorIdentity:W
 OriginSet:G2192e8955d5e1ad1
-ManaCost:no cost
-Types:Land Sphere
-A:AB$ Mana | Cost$ T | Produced$ C
-A:AB$ Mana | Cost$ T | Produced$ Any | RestrictValid$ Spell.Creature+Phyrexian
-A:AB$ Pump | Cost$ T | CheckSVar$ X | SVarCompare$ GE3 | ValidTgts$ Creature.powerEQ1+toughnessEQ1 | NumAtt$ +2 | NumDef$ +1
-SVar:X:PlayerCountOpponents$HighestCounters.Poison
+ManaCost:2 W
+Types:Creature Phyrexian Bird
+PT:2/2
+K:Flying
+K:Toxic:1
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.YouCtrl+withToxic+Other | NumAtt$ +1 | NumDef$ +1 | KW$ Flying

@@ -1,9 +1,12 @@
 Id:28987
-ColorIdentity:
-OriginSet:Gc7beb665b378d90a
-ManaCost:2
-Types:Artifact
-A:AB$ Mill | Cost$ 1 T | NumCards$ 1 | Defined$ You | RememberMilled$ True | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | Hidden$ True | Origin$ Graveyard,Exile | Destination$ Hand | ChangeType$ Instant.IsRemembered,Sorcery.IsRemembered | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-A:AB$ Untap | Cost$ tapXType<1/Creature.Legendary/untapped legendary creature>
+ColorIdentity:R
+OriginSet:Gaf7c94f364052cdd
+ManaCost:1 R
+Types:Legendary Creature Human Warrior
+PT:2/1
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | IsPresent$ Card.Self+modified | Execute$ TrigDamage | OptionalDecider$ You
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Any | Defined$ You | NumDmg$ X | DamageMap$ True | SubAbility$ DBDealDamageSelf
+SVar:DBDealDamageSelf:DB$ DealDamage | Defined$ You | NumDmg$ X | SubAbility$ DBDamageResolve
+SVar:DBDamageResolve:DB$ DamageResolve
+SVar:X:Count$CardPower
+SVar:HasAttackEffect:TRUE

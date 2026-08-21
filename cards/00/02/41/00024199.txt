@@ -1,7 +1,15 @@
 Id:24199
-ColorIdentity:U
-OriginSet:G51fcb7ec0cb81c29
-ManaCost:4 U
-Types:Sorcery
-A:SP$ AnimateAll | ValidCards$ Creature.YouCtrl | Power$ X | Toughness$ X
-SVar:X:Count$ValidExile,Graveyard Instant.YouOwn,Sorcery.YouOwn,Card.AdventureCard+YouOwn
+ColorIdentity:W
+OriginSet:Gcf5d9b1e2ed6c496
+ManaCost:3 W W
+Types:Creature Angel
+PT:4/3
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDestroyAll
+SVar:TrigDestroyAll:DB$ DestroyAll | ValidCards$ Permanent.YouDontCtrl+sharesNameWith Remembered
+T:Mode$ DamageDone | ValidSource$ Permanent | ValidTarget$ You | Static$ True | Execute$ TrigRemember
+SVar:TrigRemember:DB$ Pump | ImprintCards$ TriggeredSource
+T:Mode$ Phase | Phase$ Cleanup | Static$ True | Execute$ TrigForget
+SVar:TrigForget:DB$ Cleanup | ClearRemembered$ True | SubAbility$ DBImprint
+SVar:DBImprint:DB$ Pump | RememberObjects$ Imprinted | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearImprinted$ True

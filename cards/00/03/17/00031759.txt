@@ -1,12 +1,10 @@
 Id:31759
-ColorIdentity:WG
-OriginSet:G7ab4f62d323b0ca7
-ManaCost:G W
-Types:Legendary Creature Human Noble Cleric
-PT:2/2
-K:Lifelink
-T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigRemoveCounter
-SVar:TrigRemoveCounter:DB$ RemoveCounter | Choices$ Saga.YouCtrl | CounterType$ LORE | CounterNum$ 1 | ChoiceOptional$ True | SubAbility$ DBPutCounter | RememberAmount$ True
-SVar:DBPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ X | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$RememberedNumber
+ColorIdentity:B
+OriginSet:G530ea9d733a13e9d
+ManaCost:2 B
+Types:Legendary Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | SetColor$ Black | AddType$ Dragon | RemoveCreatureTypes$ True | SetPower$ 4 | SetToughness$ 2 | AddKeyword$ Flying & Deathtouch | Goad$ True
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | Defined$ TriggeredNewCardLKICopy

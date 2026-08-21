@@ -1,11 +1,9 @@
 Id:20065
 ColorIdentity:G
 OriginSet:G23be9f486a22d38a
-ManaCost:2 G G
-Types:Creature Wolf
-PT:3/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigFight
-SVar:TrigFight:DB$ Fight | Defined$ TriggeredCardLKICopy | ValidTgts$ Creature.YouDontCtrl | TargetMin$ 0 | TargetMax$ 1
-A:AB$ PutCounter | Cost$ Sac<1/Food> | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | Defined$ Self | KW$ Indestructible | SubAbility$ DBTap
-SVar:DBTap:DB$ Tap | Defined$ Self
+ManaCost:G G
+Types:Legendary Creature Human Knight
+PT:2/2
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.attacking+Other | NumAtt$ +X | NumDef$ +X
+SVar:X:Count$CardPower

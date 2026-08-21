@@ -1,9 +1,14 @@
 Id:21864
-ColorIdentity:G
-OriginSet:G6fa60d857e930f32
-ManaCost:2 G G
-Types:Creature Treefolk Druid
-PT:5/4
-K:Trample
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigLearn
-SVar:TrigLearn:DB$ Learn
+ColorIdentity:R
+OriginSet:Gabb23d0d25cdc46d
+ManaCost:2 R
+Types:Legendary Creature Spirit Warrior
+PT:2/2
+K:Haste
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | RememberObjects$ Remembered | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+T:Mode$ ChangesZoneAll | Origin$ Library,Graveyard | Destination$ Exile | ValidCards$ Card.YouOwn | Execute$ TrigPutCounter | TriggerZones$ Battlefield
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1

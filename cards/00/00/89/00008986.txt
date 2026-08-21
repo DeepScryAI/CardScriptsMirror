@@ -1,14 +1,9 @@
 Id:8986
-ColorIdentity:B
+ColorIdentity:R
 OriginSet:Gce1d73449bd71b54
-ManaCost:B
-Types:Sorcery
-A:SP$ ChooseCard | ValidTgts$ Opponent | ChoiceZone$ Graveyard | Choices$ Card.YouOwn | AILogic$ WorstCard | Mandatory$ True | RememberChosen$ True | SubAbility$ DBRepeat
-SVar:DBRepeat:DB$ Repeat | RepeatSubAbility$ DBChooseAgain | ConditionCheckSVar$ ChoiceNum | SubAbility$ DBMoveChosen | RepeatCheckSVar$ CheckRepeat | RepeatSVarCompare$ GT0
-SVar:DBChooseAgain:DB$ ChooseCard | Defined$ ParentTarget | ChoiceZone$ Graveyard | Choices$ Card.YouOwn+!IsRemembered | Mandatory$ True | AILogic$ WorstCard | RememberChosen$ True | UnlessCost$ B | UnlessPayer$ You | UnlessSwitched$ True | UnlessResolveSubs$ WhenNotPaid | SubAbility$ DBStoreSVar | ShowCurrentCard$ ChosenCard
-SVar:DBStoreSVar:DB$ StoreSVar | SVar$ CheckNotPaid | Type$ Number | Expression$ 0
-SVar:DBMoveChosen:DB$ ChangeZone | Defined$ ChosenCard | Origin$ Graveyard | Destination$ Hand | SubAbility$ DBReset
-SVar:DBReset:DB$ StoreSVar | SVar$ CheckNotPaid | Type$ Number | Expression$ 1
-SVar:ChoiceNum:Count$ValidGraveyard Card.YouOwn+!IsRemembered
-SVar:CheckNotPaid:Number$1
-SVar:CheckRepeat:SVar$ChoiceNum/Times.CheckNotPaid
+ManaCost:3 R
+Types:Creature Beast
+PT:6/6
+K:Trample
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSac
+SVar:TrigSac:DB$ ChangeZone | Origin$ Battlefield | Destination$ Library | LibraryPosition$ 0 | Defined$ Self | UnlessCost$ Sac<1/Land> | UnlessPayer$ Player | UnlessSwitched$ True

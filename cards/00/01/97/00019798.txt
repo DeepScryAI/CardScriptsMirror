@@ -1,12 +1,10 @@
 Id:19798
-ColorIdentity:R
+ColorIdentity:
 OriginSet:Ga539dc09c09c4538
-ManaCost:2 R R
-Types:Creature Phoenix
-PT:3/3
-K:Flying
-K:Haste
-T:Mode$ SpellCast | ValidCard$ Card.IsCommander+YouOwn | ValidActivatingPlayer$ You | TriggerZones$ Graveyard | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZone | Defined$ Self | Origin$ Graveyard | Destination$ Battlefield
-SVar:SacMe:2
-SVar:DiscardMe:3
+ManaCost:4
+Types:Artifact
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ PutCounter | Cost$ T | CounterType$ CHARGE | CounterNum$ 1 | SubAbility$ DBMana
+SVar:DBMana:DB$ Mana | Produced$ Any | Amount$ X
+SVar:X:Count$CardCounters.CHARGE

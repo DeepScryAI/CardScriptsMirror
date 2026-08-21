@@ -1,9 +1,11 @@
 Id:8792
-ColorIdentity:B
+ColorIdentity:U
 OriginSet:G70f74088c47d66bd
-ManaCost:B B
-Types:Sorcery
-A:SP$ LoseLife | Defined$ Player | LifeAmount$ 1 | AILifeThreshold$ 1 | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | Mode$ TgtChoose | Defined$ Player | SubAbility$ DBSacCreature
-SVar:DBSacCreature:DB$ Sacrifice | SacValid$ Creature | Defined$ Player | SubAbility$ DBSacLand
-SVar:DBSacLand:DB$ Sacrifice | SacValid$ Land | Defined$ Player
+ManaCost:7 U
+Types:Creature Serpent
+PT:6/6
+K:Morph:5 U
+S:Mode$ CantAttack | ValidCard$ Card.Self | UnlessDefender$ controlsIsland
+T:Mode$ Always | TriggerZones$ Battlefield | IsPresent$ Island.YouCtrl | PresentCompare$ EQ0 | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice
+SVar:NeedsToPlay:Island.YouCtrl

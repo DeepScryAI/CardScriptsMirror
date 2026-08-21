@@ -1,12 +1,19 @@
 Id:32040
-ColorIdentity:BG
-OriginSet:G7856e27bce45729f
-ManaCost:1 B G
-Types:Creature Insect
-PT:1/1
+ColorIdentity:U
+OriginSet:G7ab4f62d323b0ca7
+ManaCost:3 U
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | NumCards$ 3 | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | NumCards$ 2 | Mode$ TgtChoose | Defined$ You
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | CheckSVar$ X | SVarCompare$ GE8 | TriggerZones$ Battlefield | Execute$ TrigTransform
+SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform
+SVar:X:Count$ValidGraveyard Card.YouOwn
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:blue
+Types:Artifact Vehicle
+PT:4/4
 K:Flying
-T:Mode$ Sacrificed | ValidCard$ Land | Execute$ TrigBranch | TriggerZones$ Battlefield | ValidPlayer$ You
-SVar:TrigBranch:DB$ Branch | BranchConditionSVar$ X | BranchConditionSVarCompare$ GE7 | TrueSubAbility$ DBCopy | FalseSubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenScriptIds$ 414510107 | TokenTapped$ True | TokenOwner$ You
-SVar:DBCopy:DB$ CopyPermanent | Defined$ Self | TokenTapped$ True
-SVar:X:Count$ValidGraveyard Land.YouOwn
+K:Crew:1

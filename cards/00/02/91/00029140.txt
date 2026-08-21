@@ -1,11 +1,12 @@
 Id:29140
-ColorIdentity:U
-OriginSet:G27146c70b74a1e72
-ManaCost:3 U U
-Types:Creature Sphinx Rogue
-PT:3/5
-K:Flying
-K:Vigilance
-K:Ward:2
-T:Mode$ CommitCrime | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigSurveil | ActivationLimit$ 1
-SVar:TrigSurveil:DB$ Surveil | Amount$ 2
+ColorIdentity:G
+OriginSet:Gc7beb665b378d90a
+ManaCost:3 G
+Types:Creature Human Citizen
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | ValidTgts$ Permanent.YouOwn | Origin$ Graveyard | Destination$ Exile | Imprint$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | ForgetOnMoved$ Exile | RememberObjects$ Imprinted | Duration$ Permanent | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | Affected$ Card.IsRemembered | MayPlay$ True | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearImprinted$ True
+S:Mode$ ReduceCost | ValidCard$ Card.!wasCastFromYourHand | Activator$ You | Type$ Spell | Amount$ 1

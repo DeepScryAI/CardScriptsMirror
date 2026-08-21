@@ -1,7 +1,10 @@
 Id:13330
-ColorIdentity:G
+ColorIdentity:WB
 OriginSet:Gfdc478e04211a499
-ManaCost:3 G
-Types:Enchantment
-A:AB$ Token | Cost$ XMin1 1 G RemoveAnyCounter<X1+/P1P1/Creature> | TokenScriptIds$ 3942560239 | TokenOwner$ You | TokenPower$ X | TokenToughness$ X
-SVar:X:Count$xPaid
+ManaCost:2 W B
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Curse
+S:Mode$ CantAttack,CantBlock,CantBeActivated | ValidCard$ Creature.EnchantedBy
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Player.EnchantedController | TriggerZones$ Battlefield | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ TriggeredPlayer | LifeAmount$ 1

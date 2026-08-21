@@ -1,14 +1,9 @@
 Id:33892
-ColorIdentity:UG
-OriginSet:Gf8df2bea26dc6b68
-ManaCost:2 G U
-Types:Legendary Creature Gorgon Wizard
-PT:4/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | TriggerZones$ Battlefield | ValidCard$ Land.YouCtrl | Execute$ TrigPrepare
-SVar:TrigPrepare:DB$ AlterAttribute | Attributes$ Prepared
-AlternateMode:Prepare
-ALTERNATE
-ManaCost:G U
+ColorIdentity:W
+OriginSet:G14da29c4716bedc3
+ManaCost:3 W W
 Types:Sorcery
-A:SP$ Draw | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
+A:SP$ DestroyAll | ValidCards$ Creature | RememberDestroyed$ True | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 2645485105 | TokenAmount$ X | TokenOwner$ You | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Valid Card.!token+YouCtrl

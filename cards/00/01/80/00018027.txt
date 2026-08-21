@@ -1,9 +1,11 @@
 Id:18027
 ColorIdentity:U
 OriginSet:G21ed5bd3b1924169
-ManaCost:1 U U
+ManaCost:U
 Types:Enchantment Aura
+K:Flash
 K:Enchant:Creature
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigTap
-SVar:TrigTap:DB$ Tap | Defined$ Enchanted
-R:Event$ Untap | ActiveZones$ Battlefield | ValidCard$ Creature.AttachedBy | ValidStepTurnToController$ You | Layer$ CantHappen
+SVar:AttachAILogic:SpecificCard
+SVar:AttachAIValid:Pirate
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy+Pirate | AddToughness$ 2
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy+nonPirate | AddPower$ -2

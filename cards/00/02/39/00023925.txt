@@ -1,12 +1,14 @@
 Id:23925
 ColorIdentity:WUB
-OriginSet:Gfdfe2ebef04be34e
-ManaCost:WU U UB
-Types:Legendary Creature Human Rogue
-PT:3/1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigConnive
-SVar:TrigConnive:DB$ Connive
-T:Mode$ DiscardedAll | ValidPlayer$ You | ValidCard$ Card | TriggerZones$ Battlefield | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZoneAll | Origin$ Graveyard | Destination$ Exile | ChangeType$ Card.TriggeredCards
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZoneAll | ChangeType$ Card.ExiledWithSource | Origin$ Exile | Destination$ Hand
+OriginSet:G5f5d8cfb206e2fac
+ManaCost:3 W U B
+Types:Legendary Creature Sphinx Rogue
+PT:6/6
+K:Flying
+K:Ward:3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigVote
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigVote | TriggerZones$ Battlefield | Secondary$ True
+SVar:TrigVote:DB$ Vote | Defined$ Player | Choices$ DBEvidence,DBBribery | StoreVoteNum$ True
+SVar:DBEvidence:DB$ Investigate | Defined$ You | Num$ VoteNum
+SVar:DBBribery:DB$ Token | TokenAmount$ VoteNum | TokenScriptIds$ 3851718391 | TokenOwner$ You
+S:Mode$ Continuous | Affected$ You | AdditionalOptionalVote$ 1

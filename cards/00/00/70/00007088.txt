@@ -1,9 +1,16 @@
 Id:7088
 ColorIdentity:W
 OriginSet:G332b6b8a53f3d107
-ManaCost:2 W
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:Curse
-S:Mode$ CantAttack,CantBlock | ValidCard$ Creature.EnchantedBy
-A:AB$ ChangeZone | Cost$ 1 W | Origin$ Battlefield | Destination$ Hand
+ManaCost:W
+Types:Creature Human Soldier
+PT:1/1
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.DamagedBy | TriggerZones$ Battlefield | Execute$ TrigFlip
+SVar:TrigFlip:DB$ SetState | Defined$ Self | Mode$ Flip
+AlternateMode:Flip
+ALTERNATE
+ManaCost:W
+Colors:white
+Types:Legendary Creature Human Samurai
+PT:3/4
+K:DoubleStrike
+K:Bushido:2

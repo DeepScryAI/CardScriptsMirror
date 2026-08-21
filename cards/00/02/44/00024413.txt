@@ -1,16 +1,11 @@
 Id:24413
-ColorIdentity:U
+ColorIdentity:
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:4 U
-Types:Creature Hag
-PT:3/5
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPumpAll
-SVar:TrigPumpAll:DB$ PumpAll | ValidCards$ Creature.OppCtrl | NumAtt$ -4 | IsCurse$ True
-AlternateMode:Adventure
-ALTERNATE
-ManaCost:2 U
-Types:Instant Adventure
-A:SP$ Pump | TargetMin$ 0 | TargetMax$ 2 | ValidTgts$ Creature | NumAtt$ +1 | SubAbility$ DBUnblockable
-SVar:DBUnblockable:DB$ Effect | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable
-SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
-SVar:PlayMain1:TRUE
+ManaCost:8
+Types:Artifact Creature Construct
+PT:7/7
+K:Trample
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | CheckSVar$ X | Execute$ TrigTreasure
+SVar:TrigTreasure:DB$ Token | TokenAmount$ X | TokenScriptIds$ 3851718391
+SVar:X:Count$CastTotalManaSpent Treasure
+SVar:AIPreference:ManaFrom$Treasure

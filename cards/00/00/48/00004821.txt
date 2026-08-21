@@ -1,7 +1,10 @@
 Id:4821
-ColorIdentity:G
+ColorIdentity:B
 OriginSet:Gfb91362c2efb868e
-ManaCost:1 G
-Types:Instant
-A:SP$ Fog | SubAbility$ DBPumpAll
-SVar:DBPumpAll:DB$ PumpAll | ValidCards$ Creature.attacking | KW$ HIDDEN This card doesn't untap during your next untap step. | Duration$ Permanent
+ManaCost:2 B
+Types:Enchantment Aura
+K:Enchant:Land
+SVar:AttachAILogic:ChangeType
+S:Mode$ Continuous | Affected$ Card.EnchantedBy | AddType$ Swamp | RemoveLandTypes$ True
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1

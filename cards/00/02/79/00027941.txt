@@ -1,9 +1,11 @@
 Id:27941
-ColorIdentity:G
-OriginSet:G06c78c29bfb28e3d
-ManaCost:3 G G
-Types:Creature Dinosaur
-PT:5/5
-K:Myriad
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigDestroy | CombatDamage$ True
-SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Artifact.ControlledBy TriggeredTarget,Enchantment.ControlledBy TriggeredTarget
+ColorIdentity:
+OriginSet:G30e8a5e111cffb44
+ManaCost:no cost
+Types:Plane Androzani Minor
+T:Mode$ PlaneswalkedTo | ValidCard$ Card.Self | Execute$ TrigLoseLife
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigLoseLife | TriggerZones$ Command | Secondary$ True
+SVar:TrigLoseLife:DB$ LoseLife | LifeAmount$ 3 | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 3851718391
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 134855612,1634403845 | TokenOwner$ You

@@ -1,9 +1,14 @@
 Id:9016
-ColorIdentity:UBG
+ColorIdentity:R
 OriginSet:Gce1d73449bd71b54
-ManaCost:3 B G U
-Types:Legendary Creature Dragon
-PT:6/6
-K:Flying
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | OptionalDecider$ You | Execute$ TrigPutCounter
-SVar:TrigPutCounter:AB$ PutCounter | Cost$ 2 G | Defined$ Self | CounterType$ P1P1 | CounterNum$ 6
+ManaCost:2 R R
+Types:Creature Hellion
+PT:6/5
+K:Echo:X
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDmg
+SVar:TrigDmg:DB$ ChooseNumber | ChooseAnyNumber$ True | SubAbility$ DBDmg | AILogic$ Min
+SVar:DBDmg:DB$ DealDamage | ValidTgts$ Creature | NumDmg$ Y | NoPrevention$ True | DamageMap$ True | SubAbility$ DmgYou
+SVar:DmgYou:DB$ DealDamage | Defined$ You | NumDmg$ Y | NoPrevention$ True | SubAbility$ DmgResolve
+SVar:DmgResolve:DB$ DamageResolve
+SVar:X:Count$YourLifeTotal
+SVar:Y:Count$ChosenNumber

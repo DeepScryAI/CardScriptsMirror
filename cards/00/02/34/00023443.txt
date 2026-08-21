@@ -1,11 +1,16 @@
 Id:23443
-ColorIdentity:W
-OriginSet:G1a259dba25660062
-ManaCost:2 W
-Types:Enchantment Aura
-K:Enchant:Creature,Artifact:artifact or creature
-SVar:AttachAILogic:Pump
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ X | AddToughness$ X
-SVar:X:Count$Valid Creature.YouCtrl,Vehicle.YouCtrl
-A:AB$ Token | Cost$ 2 W Discard<1/CARDNAME> | TokenAmount$ 2 | TokenScriptIds$ 3304177632 | ActivationZone$ Hand
-SVar:BuffedBy:Creature,Vehicle
+ColorIdentity:U
+OriginSet:Gbe3783f336562357
+ManaCost:2 U
+Types:Sorcery
+A:SP$ Draw | NumCards$ 2 | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | Hidden$ True | ChangeType$ Instant,Sorcery | RememberChanged$ True | SubAbility$ DBBranch
+SVar:DBBranch:DB$ Branch | BranchConditionSVar$ X | TrueSubAbility$ ExileHand
+SVar:ExileHand:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | DefinedPlayer$ You | ChangeType$ Remembered.sameName | ChangeNum$ NumInHand | Chooser$ You | Imprint$ True | SubAbility$ ExileLib
+SVar:ExileLib:DB$ ChangeZone | Origin$ Library | Destination$ Exile | DefinedPlayer$ You | ChangeType$ Remembered.sameName | ChangeNum$ NumInLib | Chooser$ You | Shuffle$ True | SubAbility$ DBSeek
+SVar:DBSeek:DB$ Seek | Num$ X | Type$ Card.Instant,Card.Sorcery | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True
+SVar:NumInLib:Count$ValidLibrary Card.YouOwn+sharesNameWith Remembered
+SVar:NumInHand:Count$ValidHand Card.YouOwn+sharesNameWith Remembered
+SVar:X:Count$RememberedSize/Plus.Y
+SVar:Y:Count$ImprintedSize

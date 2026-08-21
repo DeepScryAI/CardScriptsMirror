@@ -1,10 +1,12 @@
 Id:31705
-ColorIdentity:U
-OriginSet:G7ab4f62d323b0ca7
-ManaCost:1 U
-Types:Artifact Vehicle
-PT:2/3
-K:Flying
-K:Vigilance
-A:AB$ Mana | Cost$ T | Produced$ C | RestrictValid$ Spell.Artifact,Activated.Artifact
-K:Crew:1
+ColorIdentity:
+OriginSet:Gfac9eb8c75f25726
+ManaCost:no cost
+Types:Land Desert
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ LandTapped | ReplacementResult$ Updated
+SVar:LandTapped:DB$ Tap | Defined$ Self | ETB$ True | ConditionCheckSVar$ X | ConditionSVarCompare$ LT1
+SVar:X:Count$StartingPlayer.0.1
+K:ETBReplacement:Other:ChooseColors
+SVar:ChooseColors:DB$ ChooseColor | Defined$ You | TwoColors$ True | UpTo$ True | ColorsFrom$ ValidHand Card.YouOwn | AILogic$ MostProminentInComputerDeck
+A:AB$ Mana | Cost$ T | Produced$ C
+A:AB$ Mana | Cost$ T | Produced$ Combo Chosen

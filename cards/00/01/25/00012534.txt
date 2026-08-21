@@ -1,19 +1,12 @@
 Id:12534
-ColorIdentity:U
+ColorIdentity:WB
 OriginSet:G12585413ffc93ad8
-ManaCost:3 U U
-Types:Creature Spirit
-PT:1/3
-K:Flying
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | OptionalDecider$ You | Execute$ TrigTransform | TriggerZones$ Battlefield
-SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform | RememberChanged$ True | SubAbility$ DBAttach
-SVar:DBAttach:DB$ Attach | ValidTgts$ Creature.ControlledBy TriggeredTarget | AILogic$ GainControl | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBCleanup
+ManaCost:2 W B
+Types:Legendary Planeswalker Sorin
+Loyalty:3
+A:AB$ Token | Cost$ AddCounter<1/LOYALTY> | TokenScriptIds$ 756294351 | Planeswalker$ True
+A:AB$ Effect | Cost$ SubCounter<2/LOYALTY> | Name$ 12106271580726106319 | StaticAbilities$ STPump | Planeswalker$ True | Duration$ Permanent | AILogic$ Always
+SVar:STPump:Mode$ Continuous | AffectedZone$ Battlefield | Affected$ Creature.YouCtrl | AddPower$ 1
+A:AB$ Destroy | Cost$ SubCounter<6/LOYALTY> | Planeswalker$ True | Ultimate$ True | ValidTgts$ Creature,Planeswalker.Other | TargetMin$ 0 | TargetMax$ 3 | RememberTargets$ True | ForgetOtherTargets$ True | SubAbility$ DBChangeZoneAll
+SVar:DBChangeZoneAll:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:blue
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:GainControl
-S:Mode$ Continuous | Affected$ Card.EnchantedBy | GainControl$ You

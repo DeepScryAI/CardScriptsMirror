@@ -1,11 +1,10 @@
 Id:8509
-ColorIdentity:R
+ColorIdentity:WU
 OriginSet:Gf7b8c9355081f53b
-ManaCost:2 R R
-Types:Creature Minotaur Warrior
+ManaCost:2 W
+Types:Creature Giant
 PT:3/3
-K:Cumulative upkeep:FlipCoin<1>:Flip a coin.
-T:Mode$ FlippedCoin | ValidPlayer$ You | ValidResult$ Win | TriggerZones$ Battlefield | Execute$ TrigYouDmg
-SVar:TrigYouDmg:DB$ DealDamage | NumDmg$ 1 | ValidTgts$ Any
-T:Mode$ FlippedCoin | ValidPlayer$ You | ValidResult$ Lose | TriggerZones$ Battlefield | Execute$ TrigOppDmg
-SVar:TrigOppDmg:DB$ DealDamage | NumDmg$ 1 | ValidTgts$ Any | TargetingPlayer$ Opponent
+K:Cumulative upkeep:WU
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ X | TokenScriptIds$ 2353112250 | TokenOwner$ You
+SVar:X:TriggeredCard$CardCounters.AGE

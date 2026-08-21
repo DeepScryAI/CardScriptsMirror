@@ -1,11 +1,9 @@
 Id:8093
-ColorIdentity:UB
+ColorIdentity:BG
 OriginSet:Gc563c209d627c4c5
-ManaCost:3 U U B B
-Types:Legendary Creature Vampire
-PT:5/5
-K:Flying
-R:Event$ DamageDone | ActiveZones$ Battlefield | IsCombat$ True | ValidSource$ Card.Self | ValidTarget$ Player | ReplaceWith$ CountersAndMill | ExecuteMode$ PerTarget
-SVar:X:ReplaceCount$DamageAmount
-SVar:CountersAndMill:DB$ PutCounter | Defined$ Self | CounterNum$ X | CounterType$ P1P1 | SubAbility$ Mill
-SVar:Mill:DB$ Mill | Defined$ ReplacedTarget | NumCards$ X
+ManaCost:no cost
+Types:Land
+A:AB$ Mana | Cost$ T | Produced$ C
+A:AB$ Animate | Cost$ 3 B G | Defined$ Self | Types$ Creature,Zombie,Plant | Colors$ Black,Green | OverwriteColors$ True | staticAbilities$ Static
+SVar:Static:Mode$ Continuous | Affected$ Card.Self | EffectZone$ Battlefield | SetPower$ X | SetToughness$ X
+SVar:X:Count$ValidGraveyard Creature.YouOwn

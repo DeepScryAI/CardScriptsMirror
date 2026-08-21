@@ -1,8 +1,13 @@
 Id:17220
-ColorIdentity:B
+ColorIdentity:WB
 OriginSet:G4b92e66c84393de5
-ManaCost:2 B
-Types:Creature Minotaur Warrior
-PT:2/3
-T:Mode$ Discarded | ValidCard$ Card.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +2
+ManaCost:1 B
+Types:Sorcery
+A:SP$ PutCounter | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 2 | CounterType$ M1M1 | CounterNum$ 1 | IsCurse$ True
+AlternateMode:Split
+ALTERNATE
+ManaCost:3 W
+Types:Sorcery
+K:Aftermath
+A:SP$ ChangeZone | ValidTgts$ Creature.counters_GE1_M1M1 | TargetMin$ 0 | TargetMax$ MaxTargets | Origin$ Battlefield | Destination$ Exile
+SVar:MaxTargets:Count$Valid Creature.counters_GE_M1M1

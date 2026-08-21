@@ -1,10 +1,14 @@
 Id:25120
-ColorIdentity:UR
-OriginSet:Gf591a76e7a37cf73
-ManaCost:3 U R
-Types:Instant
-A:SP$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ MaxTgt | TargetsWithDifferentControllers$ True | SubAbility$ DBRepeatEach | RememberLKI$ True
-SVar:DBRepeatEach:DB$ RepeatEach | DefinedCards$ DirectRemembered | Zone$ Exile | UseImprinted$ True | RepeatSubAbility$ DBDig | SubAbility$ DBCleanup
-SVar:DBDig:DB$ DigUntil | Defined$ ImprintedController | Amount$ 1 | Valid$ Creature | FoundDestination$ Battlefield | RevealedDestination$ Library | RevealedLibraryPosition$ -1 | RevealRandomOrder$ True
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:MaxTgt:PlayerCountPlayers$Amount
+ColorIdentity:WU
+OriginSet:G2aca7ffc9201ba1c
+ManaCost:1 W W
+Types:Enchantment
+K:Kicker:1 U
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Permanent.nonLand+OppCtrl | Duration$ UntilHostLeavesPlay
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self+kicked | Execute$ TrigChoose
+SVar:TrigChoose:DB$ ChooseCard | ChoiceZone$ Hand | Choices$ Permanent.nonLand+YouOwn | Mandatory$ True | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ ChosenCard | Triggers$ ETBExile | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:ETBExile:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+SVar:OblivionRing:TRUE

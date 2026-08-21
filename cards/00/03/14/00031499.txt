@@ -1,10 +1,10 @@
 Id:31499
-ColorIdentity:W
-OriginSet:Gf2b808f4f642ac62
-ManaCost:4 W
+ColorIdentity:B
+OriginSet:G93ac57511923c3dd
+ManaCost:3 B
 Types:Enchantment
-K:Flash
-S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ X | EffectZone$ All
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Destination$ Battlefield | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZone | ValidTgts$ Artifact.OppCtrl,Creature.OppCtrl | Origin$ Battlefield | Destination$ Exile | Duration$ UntilHostLeavesPlay
-SVar:X:Count$Valid Creature.attacking
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | LifeAmount$ X | ValidTgts$ Opponent
+SVar:X:SVar$Y/Abs
+SVar:Y:TriggeredCard$CardPower/Minus.Z
+SVar:Z:TriggeredCard$CardToughness

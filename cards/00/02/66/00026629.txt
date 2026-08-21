@@ -1,10 +1,13 @@
 Id:26629
-ColorIdentity:U
+ColorIdentity:G
 OriginSet:G06757f68e16377c2
-ManaCost:1 U
-Types:Creature Moonfolk Ninja
-PT:0/1
-K:Flash
-K:Backup:1:BackupAbility
-SVar:BackupAbility:DB$ Pump | KW$ Hexproof
-K:Hexproof
+ManaCost:2 G G
+Types:Creature Human Warrior
+PT:4/3
+K:Backup:1:BackupAbilities
+SVar:BackupAbilities:DB$ Animate | Keywords$ Trample | Triggers$ DamageTrig
+SVar:DamageTrig:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player,Battle | Execute$ TrigDig | CombatDamage$ True
+SVar:TrigDig:DB$ Dig | DigNum$ X | ChangeNum$ 1 | ChangeValid$ Creature,Land | Optional$ True | DestinationZone$ Hand | RestRandomOrder$ True
+K:Trample
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player,Battle | Execute$ TrigDig | CombatDamage$ True
+SVar:X:TriggerCount$DamageAmount

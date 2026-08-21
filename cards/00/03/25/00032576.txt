@@ -1,11 +1,12 @@
 Id:32576
-ColorIdentity:UG
-OriginSet:G8a59924df6623252
-ManaCost:3 G U
-Types:Legendary Creature Human Warrior
-PT:3/5
-K:Vigilance
-K:Reach
-T:Mode$ AttackersDeclared | AttackingPlayer$ You | ValidAttackers$ Creature.Artifact+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigDiscover
-SVar:TrigDiscover:DB$ Discover | Num$ X
-SVar:X:TriggerObjectsAttackers$GreatestCardPower
+ColorIdentity:R
+OriginSet:G66b3a7eeabd9000e
+ManaCost:2 R
+Types:Legendary Creature Elemental Villain
+PT:0/0
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | Tapped$ True | ChangeType$ Mountain.Basic
+S:Mode$ Continuous | Affected$ Card.Self | AddPower$ X | AddToughness$ X
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice | SacValid$ Land | Defined$ You
+SVar:X:Count$Valid Mountain.YouCtrl

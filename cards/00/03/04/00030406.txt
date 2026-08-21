@@ -1,14 +1,9 @@
 Id:30406
-ColorIdentity:UB
-OriginSet:G8b2ed00ac2a0ff47
-ManaCost:2 U B
-Types:Legendary Planeswalker Kaito
-Loyalty:4
-K:Ninjutsu:1 U B
-S:Mode$ Continuous | Affected$ Permanent.Self+counters_GE1_LOYALTY | Condition$ PlayerTurn | AddType$ Creature & Ninja | RemoveCardTypes$ True | SetPower$ 3 | SetToughness$ 4 | AddKeyword$ Hexproof
-A:AB$ Effect | Cost$ AddCounter<1/LOYALTY> | Name$ 12164098124325126708 | StaticAbilities$ STNinjaBoost | Planeswalker$ True | Duration$ Permanent
-SVar:STNinjaBoost:Mode$ Continuous | Affected$ Ninja.YouCtrl | AffectedZone$ Battlefield | AddPower$ 1 | AddToughness$ 1
-A:AB$ Surveil | Cost$ AddCounter<0/LOYALTY> | Amount$ 2 | Planeswalker$ True | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ PlayerCountRegisteredOpponents$HasPropertyLostLifeThisTurn
-A:AB$ Tap | Cost$ SubCounter<2/LOYALTY> | ValidTgts$ Creature | Planeswalker$ True | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | Defined$ Targeted | CounterType$ Stun | CounterNum$ 2
+ColorIdentity:B
+OriginSet:G7b2137df486dc752
+ManaCost:3 B
+Types:Instant
+K:Suspend:3:1 B
+A:SP$ Destroy | ValidTgts$ Creature.OppCtrl | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ TargetedController | LifeAmount$ 3 | SubAbility$ DBChange
+SVar:DBChange:DB$ ChangeZone | Origin$ Stack | Destination$ Exile | WithCountersType$ TIME | WithCountersAmount$ 3

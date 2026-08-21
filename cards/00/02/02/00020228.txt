@@ -1,10 +1,11 @@
 Id:20228
-ColorIdentity:RG
-OriginSet:G42eb6bda83007836
-ManaCost:R G
-Types:Legendary Creature Satyr
-PT:2/2
-K:Haste
-S:Mode$ Continuous | Affected$ Card.Satyr+Other+YouCtrl | AddPower$ 1 | AddToughness$ 1 | AddKeyword$ Haste
-T:Mode$ AttackersDeclared | Execute$ TrigDiscard | ValidAttackers$ Creature | ValidAttackersAmount$ GE3 | TriggerZones$ Battlefield | AttackingPlayer$ You
-SVar:TrigDiscard:DB$ Draw | Defined$ You | NumCards$ 2 | UnlessCost$ Discard<1/Random> | UnlessPayer$ You | UnlessSwitched$ True
+ColorIdentity:W
+OriginSet:G00aff909a83a7400
+ManaCost:W W
+Types:Creature Human Soldier Wizard
+PT:2/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ DBChooseSb
+SVar:DBChooseSb:DB$ ChooseCard | Defined$ You | Amount$ 1 | Choices$ Card.White+YouOwn | ChoiceZone$ Sideboard | SubAbility$ DBMoveHand
+SVar:DBMoveHand:DB$ ChangeZone | Origin$ Hand | Destination$ Sideboard | ChangeType$ Card.YouOwn | Mandatory$ True | ChangeNum$ 1 | SubAbility$ DBMoveSb | NoReveal$ True | RememberChanged$ True | ConditionDefined$ ChosenCard | ConditionPresent$ Card | ConditionCompare$ GE1
+SVar:DBMoveSb:DB$ ChangeZone | Origin$ Sideboard | Destination$ Hand | Defined$ ChosenCard | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ GE1 | Reveal$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

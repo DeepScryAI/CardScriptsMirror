@@ -1,18 +1,9 @@
 Id:21887
-ColorIdentity:B
-OriginSet:G6fa60d857e930f32
-ManaCost:4 B B
-Types:Legendary Planeswalker Liliana
-Loyalty:5
-T:Mode$ SpellCastOrCopy | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | Execute$ TrigDrain | TriggerZones$ Battlefield
-SVar:TrigDrain:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 2 | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2
-A:AB$ LoseLife | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | Defined$ You | LifeAmount$ 1 | SubAbility$ DBDig
-SVar:DBDig:DB$ Dig | DigNum$ 3 | ChangeNum$ 1 | NoReveal$ True | DestinationZone2$ Graveyard
-A:AB$ RepeatEach | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | RepeatPlayers$ Opponent | RepeatSubAbility$ DBChooseCard | SubAbility$ DBSac
-SVar:DBChooseCard:DB$ ChooseCard | Defined$ Player.IsRemembered | Choices$ Creature.greatestPowerControlledByRemembered | Mandatory$ True | Reveal$ True | RememberChosen$ True
-SVar:DBSac:DB$ SacrificeAll | ValidCards$ Card.IsRemembered | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearChosenCard$ True
-A:AB$ Repeat | Cost$ SubCounter<8/LOYALTY> | Planeswalker$ True | Ultimate$ True | RepeatSubAbility$ TrigDiscard | MaxRepeat$ 7
-SVar:TrigDiscard:DB$ Discard | Defined$ Player.Opponent | Mode$ TgtChoose | Optional$ True | RememberDiscardingPlayers$ True | AILogic$ UnlessAtLife.6 | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | Defined$ Opponent.!IsRemembered | LifeAmount$ 3 | SubAbility$ DBCleanup
+ColorIdentity:U
+OriginSet:Gabb23d0d25cdc46d
+ManaCost:3 U
+Types:Creature Human Wizard
+PT:2/4
+A:AB$ Effect | Cost$ U T | ValidTgts$ Creature.OppCtrl | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable | Duration$ UntilYourNextTurn | SubAbility$ DBGoad
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+SVar:DBGoad:DB$ Goad | Defined$ Targeted

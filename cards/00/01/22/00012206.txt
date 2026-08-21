@@ -1,9 +1,20 @@
 Id:12206
-ColorIdentity:U
+ColorIdentity:UR
 OriginSet:G14de52802b0b467c
-ManaCost:1 U U
-Types:Enchantment Aura
-K:Enchant:Creature
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigTap
-SVar:TrigTap:DB$ Tap | Defined$ Enchanted
-R:Event$ Untap | ActiveZones$ Battlefield | ValidCard$ Creature.AttachedBy | ValidStepTurnToController$ You | Layer$ CantHappen
+ManaCost:2 U
+Types:Creature Human Advisor
+PT:0/1
+A:AB$ Draw | Cost$ T | NumCards$ 1 | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | Mode$ TgtChoose | NumCards$ 1 | RememberDiscarded$ True | SubAbility$ DBTransform
+SVar:DBTransform:DB$ SetState | Defined$ Self | ConditionDefined$ Remembered | ConditionPresent$ Card.Creature | ConditionCompare$ EQ1 | SubAbility$ DBUntap | Mode$ Transform
+SVar:DBUntap:DB$ Untap | Defined$ Self | ConditionDefined$ Remembered | ConditionPresent$ Card.Creature | ConditionCompare$ EQ1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:red
+Types:Creature Human Mutant
+PT:5/1
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigTap | IsPresent$ Card.!attackedThisTurn+Self
+SVar:TrigTap:DB$ Tap | Defined$ Self | SubAbility$ DBTransform2
+SVar:DBTransform2:DB$ SetState | Defined$ Self | Mode$ Transform

@@ -1,12 +1,11 @@
 Id:25226
-ColorIdentity:G
+ColorIdentity:U
 OriginSet:Gf591a76e7a37cf73
-ManaCost:X 1 G
+ManaCost:4 U
 Types:Creature Tyranid
-PT:0/0
-K:Ravenous
-K:Trample
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenAmount$ Y | TokenScriptIds$ 3260724308
-SVar:X:Count$xPaid
-SVar:Y:TriggerCount$DamageAmount
+PT:4/3
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigInfectionCounter
+SVar:TrigInfectionCounter:DB$ PutCounter | CounterType$ INFECTION | CounterNum$ 1 | ValidTgts$ Creature.ControlledBy TriggeredDefendingPlayer
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.counters_GE1_INFECTION | Execute$ DBCopy
+SVar:DBCopy:DB$ CopyPermanent | Defined$ TriggeredCardLKICopy | AddTypes$ Tyranid
+SVar:HasAttackEffect:TRUE

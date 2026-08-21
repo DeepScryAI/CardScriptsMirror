@@ -1,10 +1,9 @@
 Id:23853
-ColorIdentity:R
+ColorIdentity:G
 OriginSet:G5f5d8cfb206e2fac
-ManaCost:4 R
-Types:Enchantment
+ManaCost:5 G
+Types:Creature Rhino Warrior
+PT:6/6
+K:Trample
 T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | CounterType$ CONTESTED | ValidTgts$ Land | TargetMin$ OneEach | TargetMax$ OneEach | TargetsForEachPlayer$ True
-SVar:OneEach:PlayerCountPlayers$Amount
-T:Mode$ DamageDone | ValidSource$ Creature | ValidTarget$ Player.controlsLand.counters\_GE1\_CONTESTED | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigGainControl
-SVar:TrigGainControl:DB$ GainControl | Choices$ Land.ControlledBy TriggeredTarget+counters_GE1_CONTESTED | Chooser$ TriggeredSourceController | Untap$ True | NewController$ TriggeredSourceController
+SVar:TrigPutCounter:DB$ PutCounter | CounterTypes$ EachType_Permanent.YouCtrl | AltChoiceForEach$ P1P1

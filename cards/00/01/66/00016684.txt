@@ -1,8 +1,14 @@
 Id:16684
-ColorIdentity:G
+ColorIdentity:WBRG
 OriginSet:Ge1d53e4f418bb713
-ManaCost:6 G
-Types:Sorcery
-K:Undaunted
-A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Hand | TargetMin$ 0 | TargetMax$ 2 | ValidTgts$ Card.YouCtrl | SubAbility$ DBChange
-SVar:DBChange:DB$ ChangeZone | Origin$ Stack | Destination$ Exile
+ManaCost:B R G W
+Types:Legendary Creature Human Soldier
+PT:3/4
+K:Vigilance
+K:Haste
+K:ETBReplacement:Other:ChooseP
+SVar:ChooseP:DB$ ChoosePlayer | Defined$ You | Choices$ Player | AILogic$ Curse
+T:Mode$ DamageDone | ValidSource$ Creature.YouCtrl | ValidTarget$ Player | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigDealDamage
+SVar:TrigDealDamage:DB$ DealDamage | DamageSource$ TriggeredSource | NumDmg$ X | Defined$ ChosenPlayer
+SVar:X:TriggerCount$DamageAmount
+SVar:HasCombatEffect:TRUE

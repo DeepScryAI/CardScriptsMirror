@@ -1,10 +1,11 @@
 Id:6778
-ColorIdentity:B
+ColorIdentity:
 OriginSet:G8b552b617d13301f
-ManaCost:X B B B
-Types:Sorcery
-A:SP$ LoseLife | Defined$ Player | LifeAmount$ X | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | NumCards$ X | Mode$ TgtChoose | Defined$ Player | SubAbility$ DBSacCreature
-SVar:DBSacCreature:DB$ Sacrifice | Amount$ X | SacValid$ Creature | Defined$ Player | SubAbility$ DBSacLand
-SVar:DBSacLand:DB$ Sacrifice | Amount$ X | SacValid$ Land | Defined$ Player
-SVar:X:Count$xPaid
+ManaCost:4
+Types:Artifact
+K:Indestructible
+T:Mode$ Always | TriggerZones$ Battlefield | IsPresent$ Card.Self+counters_GEX_CHARGE+YouCtrl | Execute$ TrigWinGame
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigPutCounter | OptionalDecider$ You | TriggerZones$ Battlefield
+SVar:TrigPutCounter:DB$ PutCounter | CounterType$ CHARGE | CounterNum$ 1 | Defined$ Self
+SVar:TrigWinGame:DB$ WinsGame | Defined$ You
+SVar:X:Number$20

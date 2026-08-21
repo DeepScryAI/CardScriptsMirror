@@ -1,6 +1,10 @@
 Id:5243
-ColorIdentity:
+ColorIdentity:R
 OriginSet:Gfdac7ecc1e8a7d21
-ManaCost:4
-Types:Artifact
-A:AB$ Mana | Cost$ T Mill<1> | Produced$ Special EachColoredManaSymbol_Milled | InstantSpeed$ True
+ManaCost:2 R R
+Types:Enchantment
+T:Mode$ FlippedCoin | ValidPlayer$ You | ValidResult$ Win | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | CounterType$ LUCK | CounterNum$ 1
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | IsPresent$ Card.Self+counters_GE10_LUCK | Execute$ TrigWin
+SVar:TrigWin:DB$ WinsGame | Defined$ You
+SVar:PlayMain1:ALWAYS

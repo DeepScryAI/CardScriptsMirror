@@ -1,11 +1,10 @@
 Id:19287
-ColorIdentity:U
+ColorIdentity:B
 OriginSet:Gb6b8d78626a44788
-ManaCost:4 U U
-Types:Legendary Planeswalker Jace
-Loyalty:4
-T:Mode$ Drawn | ValidCard$ Card.YouCtrl | Number$ 2 | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1
-A:AB$ Draw | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True
-A:AB$ Effect | Cost$ SubCounter<7/LOYALTY> | Planeswalker$ True | Ultimate$ True | StaticAbilities$ Unblockable
-SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Creature.YouCtrl
+ManaCost:1 B
+Types:Creature Zombie
+PT:2/3
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigChange | TriggerZones$ Battlefield
+SVar:TrigChange:AB$ ChangeZone | Cost$ 2 B | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Creature.YouCtrl

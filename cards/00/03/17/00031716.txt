@@ -1,10 +1,11 @@
 Id:31716
-ColorIdentity:BG
-OriginSet:G7ab4f62d323b0ca7
-ManaCost:2 B G G
-Types:Legendary Creature Avatar
-PT:3/3
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.OppCtrl | NumAtt$ -X | NumDef$ -X | IsCurse$ True
-SVar:X:Count$ValidGraveyard Permanent.YouOwn
+ColorIdentity:UBG
+OriginSet:Gfac9eb8c75f25726
+ManaCost:B G U
+Types:Legendary Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | ActivationLimit$ 1 | Execute$ TrigSeekLand
+T:Mode$ ChangesZone | Origin$ Graveyard | Destination$ Any | ValidCard$ Card.Land+YouOwn | TriggerZones$ Battlefield | ActivationLimit$ 1 | Execute$ TrigSeekLand | Secondary$ True
+SVar:TrigSeekLand:DB$ Seek | Type$ Card.Land
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | ActivationLimit$ 1 | Execute$ TrigSeekNonLand
+T:Mode$ ChangesZone | Origin$ Graveyard | Destination$ Any | ValidCard$ Card.nonLand+YouOwn | TriggerZones$ Battlefield | ActivationLimit$ 1 | Execute$ TrigSeekNonLand | Secondary$ True
+SVar:TrigSeekNonLand:DB$ Seek | Type$ Card.nonLand

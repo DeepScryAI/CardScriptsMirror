@@ -1,7 +1,10 @@
 Id:18998
-ColorIdentity:R
+ColorIdentity:B
 OriginSet:G0b51a0aecbe39efe
-ManaCost:2 R
+ManaCost:1 B B
 Types:Sorcery
-A:SP$ DamageAll | NumDmg$ X | ValidCards$ Creature
-SVar:X:Count$Valid Gate.YouCtrl
+A:SP$ PumpAll | ValidCards$ Creature | NumAtt$ -2 | NumDef$ -2 | IsCurse$ True | SubAbility$ ExileSomeCreatures
+SVar:ExileSomeCreatures:DB$ ChangeZone | Defined$ ValidGraveyard Creature.!token+ThisTurnEnteredFrom_Battlefield | Origin$ Graveyard | Destination$ Exile | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | ReplacementEffects$ DeathRep
+SVar:DeathRep:Event$ Moved | ValidLKI$ Creature | Origin$ Battlefield | Destination$ Graveyard | ReplaceWith$ Exile
+SVar:Exile:DB$ ChangeZone | Defined$ ReplacedCard | Origin$ Battlefield | Destination$ Exile

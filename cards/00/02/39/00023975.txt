@@ -1,12 +1,12 @@
 Id:23975
-ColorIdentity:G
-OriginSet:G9afc9838c5e994df
-ManaCost:4 G G
-Types:Creature Human Citizen
-PT:6/6
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm
-SVar:TrigCharm:DB$ Charm | Choices$ DBDestroy,DBDestroy2,DBExile,DBGainLife
-SVar:DBDestroy:DB$ Destroy | ValidTgts$ Artifact
-SVar:DBDestroy2:DB$ Destroy | ValidTgts$ Enchantment
-SVar:DBExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card
-SVar:DBGainLife:DB$ GainLife | LifeAmount$ 4
+ColorIdentity:W
+OriginSet:Gfdfe2ebef04be34e
+ManaCost:3 W W
+Types:Artifact Vehicle
+PT:4/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigExile | Secondary$ True
+SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Creature.Other | TargetMin$ 0 | TargetMax$ 1 | Duration$ UntilHostLeavesPlay | RememberChanged$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZoneAll | Origin$ Exile | Destination$ Battlefield | ConditionDefined$ Remembered | ConditionPresent$ Card | ChangeType$ Card.ExiledWithSource+!IsRemembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+K:Crew:2

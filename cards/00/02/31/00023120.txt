@@ -1,14 +1,11 @@
 Id:23120
 ColorIdentity:B
-OriginSet:G3aa323ca47c740b1
-ManaCost:6 B
-Types:Creature Demon
-PT:8/4
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigRepeat
-SVar:TrigRepeat:DB$ RepeatEach | RepeatPlayers$ Player.Opponent | RepeatSubAbility$ DBChooseCard | SubAbility$ DBSac
-SVar:DBChooseCard:DB$ ChooseCard | Defined$ Player.IsRemembered | Choices$ Creature.greatestPowerControlledByRemembered | Mandatory$ True | Reveal$ True | ImprintChosen$ True | AILogic$ WorstCard
-SVar:DBSac:DB$ SacrificeAll | ValidCards$ Card.IsImprinted | RememberSacrificed$ True | SubAbility$ DBLifeGain
-SVar:DBLifeGain:DB$ GainLife | Defined$ You | LifeAmount$ X | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True | ClearChosenCard$ True
-SVar:X:RememberedLKI$GreatestCardPower
-K:Madness:2 B PayLife<8>
+OriginSet:G7a76c1974b0a33a6
+ManaCost:2 B
+Types:Creature Vampire
+PT:3/1
+K:Flying
+S:Mode$ CantBlock | ValidCard$ Card.Self
+T:Mode$ DamageDone | ValidSource$ Card.Self | Execute$ TrigToken | CombatDamage$ True | ValidTarget$ Player | TriggerZones$ Battlefield
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 2179622914
+A:AB$ ChangeZone | Cost$ B Sac<2/Blood.token/Blood token> | Origin$ Graveyard | Destination$ Battlefield | ActivationZone$ Graveyard

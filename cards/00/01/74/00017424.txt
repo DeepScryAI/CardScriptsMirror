@@ -1,13 +1,13 @@
 Id:17424
-ColorIdentity:WR
+ColorIdentity:UB
 OriginSet:G5475e2be497fd272
-ManaCost:3 R W
-Types:Legendary Planeswalker Huatli
-Loyalty:3
-A:AB$ GainLife | Cost$ AddCounter<2/LOYALTY> | Planeswalker$ True | LifeAmount$ GreatestPow
-SVar:GreatestPow:Count$Valid Creature.YouCtrl$GreatestCardPower
-A:AB$ Token | Cost$ AddCounter<0/LOYALTY> | Planeswalker$ True | TokenScriptIds$ 1788530226 | TokenOwner$ You
-A:AB$ DealDamage | Cost$ SubCounter<X/LOYALTY> | NumDmg$ X | Planeswalker$ True | Ultimate$ True | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ X | DividedAsYouChoose$ X | RememberDamaged$ True | SubAbility$ DBNoBlock
-SVar:DBNoBlock:DB$ Pump | KW$ HIDDEN CARDNAME can't block. | Defined$ Remembered | SubAbility$ DBCleanup
+ManaCost:2 U B
+Types:Creature Human Pirate
+PT:2/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Creature.Other,Artifact.Other | Duration$ UntilHostLeavesPlay | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | RememberObjects$ Remembered | Duration$ Permanent | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | MayPlayIgnoreType$ True | Affected$ Card.IsRemembered+nonLand | AffectedZone$ Exile
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$xPaid
+SVar:PlayMain1:TRUE
+SVar:NeedsToPlay:Artifact.OppCtrl,Creature.OppCtrl

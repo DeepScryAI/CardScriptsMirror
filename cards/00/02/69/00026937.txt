@@ -1,14 +1,13 @@
 Id:26937
-ColorIdentity:W
-OriginSet:G6ce0035cfb774934
-ManaCost:2 W
-Types:Creature Halfling Peasant
-PT:2/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigFood
-SVar:TrigFood:DB$ Token | TokenScriptIds$ 134855612 | TokenOwner$ You | RememberOriginalTokens$ True | SubAbility$ DBImmediateTrig
-SVar:DBImmediateTrig:DB$ ImmediateTrigger | TriggerAmount$ Remembered$Amount | Execute$ TrigPump | SubAbility$ DBCleanup
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.YouCtrl | NumAtt$ +X | NumDef$ +X
+ColorIdentity:UBG
+OriginSet:G321081e278de53f0
+ManaCost:B G U
+Types:Legendary Creature Rat Shaman
+PT:3/4
+K:Menace
+K:Ward:1
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ DBExile
+SVar:DBExile:DB$ ChangeZone | DefinedPlayer$ You | TargetMin$ 0 | TargetMax$ 1 | Destination$ Exile | ChangeNum$ 1 | ValidTgts$ Rat.YouCtrl,Card.Legendary+YouCtrl | Origin$ Graveyard | RememberChanged$ True | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | Defined$ Remembered | Controller$ You | CopyCard$ True | ValidSA$ Spell | Optional$ True | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$Valid Food.YouCtrl
-SVar:PlayMain1:TRUE
-SVar:BuffedBy:Food
+SVar:HasAttackEffect:TRUE

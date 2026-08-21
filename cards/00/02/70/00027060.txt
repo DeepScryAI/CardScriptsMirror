@@ -1,13 +1,11 @@
 Id:27060
-ColorIdentity:B
+ColorIdentity:
 OriginSet:G6ce0035cfb774934
-ManaCost:2 B B
-Types:Enchantment Saga
-K:Chapter:3:DBTempt,DBDestroy,DBEachOpp
-SVar:DBTempt:DB$ RingTemptsYou | SubAbility$ DBMill
-SVar:DBMill:DB$ Mill | NumCards$ X | Defined$ Player
-SVar:X:Count$Valid Creature.YouCtrl+IsRingbearer$CardPower
-SVar:DBDestroy:DB$ DestroyAll | ValidCards$ Creature.nonLegendary
-SVar:DBEachOpp:DB$ RepeatEach | RepeatPlayers$ Player.Opponent | RepeatSubAbility$ TrigLoseLife
-SVar:TrigLoseLife:DB$ LoseLife | Defined$ Player.IsRemembered | LifeAmount$ Y
-SVar:Y:Count$ValidGraveyard Creature.RememberedPlayerCtrl
+ManaCost:1
+Types:Artifact Equipment
+K:Equip:1
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1 | AddToughness$ 1
+T:Mode$ AttackerBlockedByCreature | ValidCard$ Creature | ValidBlocker$ Creature.AttachedBy | TriggerZones$ Battlefield | Execute$ TrigAnimateAttacker
+T:Mode$ AttackerBlockedByCreature | ValidCard$ Creature.AttachedBy | ValidBlocker$ Creature | TriggerZones$ Battlefield | Execute$ TrigAnimateDefender | Secondary$ True
+SVar:TrigAnimateDefender:DB$ Animate | Defined$ TriggeredBlockerLKICopy | RemoveAllAbilities$ True
+SVar:TrigAnimateAttacker:DB$ Animate | Defined$ TriggeredAttackerLKICopy | RemoveAllAbilities$ True

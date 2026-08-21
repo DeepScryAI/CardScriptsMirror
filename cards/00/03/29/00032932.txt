@@ -1,8 +1,9 @@
 Id:32932
 ColorIdentity:G
-OriginSet:G731e0066916b7465
+OriginSet:G22ed5d6f3707b461
 ManaCost:3 G
-Types:Creature Human Warrior Ally
-PT:4/3
-T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | IsPresent$ Land.YouCtrl | PresentCompare$ GE8 | Execute$ TrigPumpAll
-SVar:TrigPumpAll:DB$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +2 | NumDef$ +2
+Types:Sorcery
+A:SP$ Earthbend | Num$ 2 | SubAbility$ DBImmediateTrig
+SVar:DBImmediateTrig:DB$ ImmediateTrigger | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.YouCtrl | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBFight
+SVar:DBFight:DB$ Fight | Defined$ ParentTarget | ValidTgts$ Creature.OppCtrl

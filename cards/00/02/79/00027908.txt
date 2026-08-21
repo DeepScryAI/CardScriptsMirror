@@ -1,21 +1,9 @@
 Id:27908
-ColorIdentity:B
-OriginSet:G06c78c29bfb28e3d
-ManaCost:2 B
-Types:Artifact
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
-SVar:TrigDraw:AB$ Draw | Cost$ Sac<1/Creature.!token/nontoken creature> | NumCards$ Y | SubAbility$ DBMill
-SVar:DBMill:DB$ Mill | NumCards$ Y
-SVar:Y:Sacrificed$CardPower
-K:Craft:2 B B XMin1 ExileCtrlOrGrave<X/Creature.Other>
-SVar:X:Count$xPaid
-A:AB$ ChangeZone | Cost$ 2 B | Origin$ Graveyard | Destination$ Hand | ActivationZone$ Graveyard
-AlternateMode:DoubleFaced
-ALTERNATE
+ColorIdentity:
+OriginSet:G30e8a5e111cffb44
 ManaCost:no cost
-Colors:black
-Types:Creature Skeleton Horror
-PT:*/*
-S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X | SetToughness$ X
-SVar:X:ExiledWith$CardPower
-S:Mode$ Continuous | EffectZone$ Battlefield | Affected$ Card.Self | SharedKeywordsZone$ Exile | SharedRestrictions$ Card.ExiledWithSource | AddKeyword$ Flying & FirstStrike & DoubleStrike & Deathtouch & Haste & Hexproof & Indestructible & Lifelink & Menace & Protection & Reach & Trample & Vigilance
+Types:Plane New Earth
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Command | Execute$ TrigAnimate
+SVar:TrigAnimate:DB$ AnimateAll | ValidCards$ Artifact.nonCreature+YouCtrl | Types$ Vehicle | Power$ 3 | Toughness$ 3 | Keywords$ Flying & Haste & Crew:1
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 3851718391,3042363704 | TokenOwner$ You

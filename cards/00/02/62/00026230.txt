@@ -1,8 +1,12 @@
 Id:26230
-ColorIdentity:
+ColorIdentity:WR
 OriginSet:G2192e8955d5e1ad1
-ManaCost:2
-Types:Artifact Creature Phyrexian Construct
-PT:3/1
-T:Mode$ SpellCast | ValidCard$ Card.MultiColor | ValidActivatingPlayer$ Player | TriggerZones$ Battlefield | ActivatorThisTurnCast$ EQ1 | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ NonTriggeredCardController
+ManaCost:R W
+Types:Legendary Creature Human Rebel
+PT:2/2
+K:Trample
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +X | NumDef$ +X | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | ConditionDefined$ Self | ConditionPresent$ Card.powerGE4
+SVar:X:Count$Valid Creature.YouCtrl+equipped
+SVar:HasAttackEffect:TRUE

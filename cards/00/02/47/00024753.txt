@@ -1,14 +1,10 @@
 Id:24753
-ColorIdentity:UB
-OriginSet:G3c9db52fa0bcee92
-ManaCost:2 U B
-Types:Legendary Creature Human Pirate
-PT:4/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigLoseLife
-SVar:TrigLoseLife:DB$ LoseLife | LifeAmount$ 2 | SubAbility$ TrigToken
-SVar:TrigToken:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 3851718391
-T:Mode$ DamageDoneOnce | ValidSource$ Pirate.YouCtrl | TriggerZones$ Battlefield | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDig
-SVar:TrigDig:DB$ Dig | Defined$ TriggeredTarget | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | ForgetOnMoved$ Exile | RememberObjects$ Remembered | Duration$ Permanent | SubAbility$ DBCleanup
-SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered+nonLand | AffectedZone$ Exile
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:WG
+OriginSet:G18bf722b221724f8
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ G
+A:AB$ PutCounter | Cost$ G W W T Sac<1/CARDNAME> | CounterNum$ 2 | CounterType$ P1P1 | TargetMin$ 1 | TargetMax$ 2 | DividedAsYouChoose$ 2 | ValidTgts$ Creature.YouCtrl | SorcerySpeed$ True | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Targeted | KW$ Vigilance & Lifelink

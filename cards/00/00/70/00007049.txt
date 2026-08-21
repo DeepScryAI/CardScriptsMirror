@@ -2,6 +2,10 @@ Id:7049
 ColorIdentity:G
 OriginSet:Gbbed67f0d6a15b16
 ManaCost:1 G
-Types:Instant
-A:SP$ Destroy | ValidTgts$ Artifact | SubAbility$ DBScry
-SVar:DBScry:DB$ Scry | ScryNum$ 2
+Types:Creature Snake
+PT:1/2
+T:Mode$ AttackerBlockedByCreature | ValidCard$ Creature | ValidBlocker$ Card.Self | Execute$ DelTrigBlocked
+T:Mode$ AttackerBlockedByCreature | ValidCard$ Card.Self | ValidBlocker$ Creature | Execute$ DelTrigBlocker | Secondary$ True
+SVar:DelTrigBlocked:DB$ DelayedTrigger | Mode$ Phase | Phase$ EndCombat | ValidPlayer$ Player | Execute$ TrigDestroy | RememberObjects$ TriggeredAttackerLKICopy
+SVar:DelTrigBlocker:DB$ DelayedTrigger | Mode$ Phase | Phase$ EndCombat | ValidPlayer$ Player | Execute$ TrigDestroy | RememberObjects$ TriggeredBlockerLKICopy
+SVar:TrigDestroy:DB$ Destroy | Defined$ DelayTriggerRememberedLKI

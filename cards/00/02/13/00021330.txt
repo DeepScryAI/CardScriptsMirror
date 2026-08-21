@@ -1,7 +1,9 @@
 Id:21330
 ColorIdentity:B
-OriginSet:G51d431785c8b33e5
+OriginSet:G72c9c624ceb92bff
 ManaCost:4 B B
 Types:Sorcery
-A:SP$ PumpAll | ValidCards$ Creature | NumAtt$ -4 | NumDef$ -4 | SubAbility$ DBMonarch
-SVar:DBMonarch:DB$ BecomeMonarch
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ X | EffectZone$ All
+SVar:X:Count$Party
+A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouOwn | SubAbility$ DBPartyReturn
+SVar:DBPartyReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.Cleric+YouOwn,Creature.Rogue+YouOwn,Creature.Warrior+YouOwn,Creature.Wizard+YouOwn | TargetMin$ 0 | TargetMax$ 1

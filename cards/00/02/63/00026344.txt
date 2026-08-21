@@ -1,12 +1,9 @@
 Id:26344
-ColorIdentity:
-OriginSet:Gd5f5e54fa26ae40d
-ManaCost:3
-Types:Legendary Artifact Equipment
-K:Living Weapon
-K:Equip:3
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1 | AddToughness$ 1
-T:Mode$ Attacks | ValidCard$ Creature.EquippedBy | Execute$ TrigChange | OptionalDecider$ You
-SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Land.Basic | Tapped$ True | ShuffleNonMandatory$ True
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddSVar$ AE
-SVar:AE:SVar:HasAttackEffect:TRUE
+ColorIdentity:U
+OriginSet:G2192e8955d5e1ad1
+ManaCost:3 U
+Types:Artifact Creature Phyrexian Artificer
+PT:2/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self,Artifact.YouCtrl+Other | Execute$ TrigLoot
+SVar:TrigLoot:AB$ Discard | Defined$ You | Mode$ TgtChoose | Cost$ Draw<1/You>
+A:AB$ ChangeZone | Cost$ 2 | Origin$ Graveyard | Destination$ Library | LibraryPosition$ -1 | ValidTgts$ Card.YouCtrl

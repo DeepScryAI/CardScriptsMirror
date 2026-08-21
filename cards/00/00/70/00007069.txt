@@ -1,8 +1,19 @@
 Id:7069
 ColorIdentity:R
 OriginSet:G332b6b8a53f3d107
-ManaCost:1 R
-Types:Creature Goblin Shaman
+ManaCost:3 R
+Types:Creature Goblin Warrior
 PT:1/1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMana
-SVar:TrigMana:DB$ Mana | Produced$ R | Amount$ 1
+K:Haste
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Opponent | Execute$ TrigFlip
+SVar:TrigFlip:DB$ SetState | Defined$ Self | Mode$ Flip
+AlternateMode:Flip
+ALTERNATE
+ManaCost:3 R
+Colors:red
+Types:Legendary Creature Goblin Shaman
+PT:2/2
+K:Protection:Red
+R:Event$ DamageDone | ActiveZones$ Battlefield | ValidSource$ Card.RedSource | ValidTarget$ Player | ReplaceWith$ DmgPlus1
+SVar:DmgPlus1:DB$ ReplaceEffect | VarName$ DamageAmount | VarValue$ X
+SVar:X:ReplaceCount$DamageAmount/Plus.1

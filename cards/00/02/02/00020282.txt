@@ -1,11 +1,12 @@
 Id:20282
 ColorIdentity:R
-OriginSet:Gfa87e7bbc5a709eb
-ManaCost:2 R
-Types:Enchantment Aura
-K:Flash
-K:Enchant:Creature
-SVar:AttachAILogic:Pump
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | Defined$ Enchanted | KW$ FirstStrike
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 2
+OriginSet:G42eb6bda83007836
+ManaCost:4 R
+Types:Legendary Enchantment Creature God
+PT:7/6
+K:Indestructible
+S:Mode$ Continuous | Affected$ Card.Self | RemoveType$ Creature | CheckSVar$ X | SVarCompare$ LT5
+SVar:X:Count$Devotion.Red
+SVar:BuffedBy:Permanent.Red
+S:Mode$ Continuous | Affected$ Creature.YouCtrl+Other | AddKeyword$ Haste
+A:AB$ ChangeZone | Cost$ 2 R | Origin$ Hand | Destination$ Battlefield | ChangeType$ Creature.Red,Creature.Artifact | ChangeNum$ 1 | Optional$ You | AtEOT$ Sacrifice

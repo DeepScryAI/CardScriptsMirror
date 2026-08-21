@@ -1,13 +1,25 @@
 Id:26086
-ColorIdentity:UB
-OriginSet:G2192e8955d5e1ad1
-ManaCost:2 U B
-Types:Legendary Planeswalker Kaito
-Loyalty:3
-T:Mode$ DamageDoneOnce | CombatDamage$ True | ValidSource$ Creature.YouCtrl | TriggerZones$ Battlefield | ValidTarget$ Player | Execute$ TrigLoyalty
-SVar:TrigLoyalty:AB$ Effect | Cost$ Return<1/Card.TriggeredSources> | StaticAbilities$ PWTwice
-SVar:PWTwice:Mode$ NumLoyaltyAct | ValidCard$ Card.EffectSource | Twice$ True
-A:AB$ Effect | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Creature | RememberObjects$ Targeted | StaticAbilities$ DBCantAttackBlock | ForgetOnMoved$ Battlefield | IsCurse$ True | Duration$ UntilYourNextTurn
-SVar:DBCantAttackBlock:Mode$ CantAttack,CantBlock | ValidCard$ Card.IsRemembered
-A:AB$ Draw | Cost$ AddCounter<0/LOYALTY> | NumCards$ 1 | Planeswalker$ True
-A:AB$ Token | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | TokenScriptIds$ 34370100
+ColorIdentity:WU
+OriginSet:G6e75ff4f143a3dc3
+ManaCost:1 W U
+Types:Creature Spirit
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+T:Mode$ BecomesTarget | ValidTarget$ Card.Self | ValidSource$ Spell.Aura | TriggerZones$ Battlefield | Execute$ TrigToken | Secondary$ True
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 273812182
+K:Disturb:W U
+SVar:EnchantMe:Multiple
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:white,blue
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+T:Mode$ BecomesTarget | ValidTarget$ Creature.EnchantedBy | ValidSource$ Spell.Aura | TriggerZones$ Battlefield | Execute$ TrigToken | Secondary$ True
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 273812182
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Graveyard | ReplaceWith$ Exile
+SVar:Exile:DB$ ChangeZone | Hidden$ True | Origin$ All | Destination$ Exile | Defined$ ReplacedCard
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddSVar$ EnMe | Secondary$ True
+SVar:EnMe:SVar:EnchantMe:Multiple

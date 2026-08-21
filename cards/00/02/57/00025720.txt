@@ -1,8 +1,9 @@
 Id:25720
-ColorIdentity:R
+ColorIdentity:G
 OriginSet:G06ccef4324c14725
-ManaCost:1 R
-Types:Enchantment Aura
-K:Enchant:Creature
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 2 | AddToughness$ 2 | IsPresent$ Card.EnchantedBy+YouCtrl
-S:Mode$ CantBlock | ValidCard$ Creature.EnchantedBy | IsPresent$ Card.EnchantedBy+YouDontCtrl | Secondary$ True
+ManaCost:G
+Types:Sorcery
+A:SP$ Charm | Choices$ FetchBasic,Fight
+SVar:FetchBasic:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Land.Basic
+SVar:Fight:DB$ Pump | AILogic$ Fight | ValidTgts$ Creature.YouCtrl | SubAbility$ DBFight
+SVar:DBFight:DB$ Fight | Defined$ ParentTarget | ValidTgts$ Creature.YouDontCtrl

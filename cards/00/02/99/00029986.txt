@@ -1,12 +1,10 @@
 Id:29986
 ColorIdentity:B
 OriginSet:Gf09b85bbcc27770c
-ManaCost:2 B
-Types:Creature Lizard Warlock
-PT:2/2
-K:Menace
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigBranch
-SVar:TrigBranch:DB$ Branch | ValidTgts$ Opponent | BranchConditionSVar$ X | BranchConditionSVarCompare$ GT0 | TrueSubAbility$ DBDuress | FalseSubAbility$ DBDiscard
-SVar:DBDuress:DB$ Discard | Defined$ TargetedPlayer | Mode$ RevealYouChoose | DiscardValid$ Card.nonLand | NumCards$ 1
-SVar:DBDiscard:DB$ Discard | Defined$ TargetedPlayer | Mode$ TgtChoose | NumCards$ 1
-SVar:X:TargetedPlayer$LifeLostThisTurn
+ManaCost:4 B
+Types:Creature Bat Lizard
+PT:3/3
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDrain
+SVar:TrigDrain:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 2 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2

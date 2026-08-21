@@ -1,9 +1,13 @@
 Id:26850
-ColorIdentity:
-OriginSet:G3601f5e223de6c7f
-ManaCost:3
-Types:Artifact Equipment
-T:Mode$ Attacks | ValidCard$ Card.EquippedBy | TriggerZones$ Battlefield | Execute$ TrigExchangeDamage
-SVar:TrigExchangeDamage:DB$ DealDamage | ValidTgts$ Creature.ControlledBy TriggeredDefendingPlayer | DamageSource$ TriggeredAttackerLKICopy | NumDmg$ TriggeredAttacker$CardPower
-K:Equip:2:Elf.YouCtrl:Elf
-K:Equip:5
+ColorIdentity:WURG
+OriginSet:G997e3b19a1e94e85
+ManaCost:1 W U R G
+Types:Legendary Creature Human Soldier
+PT:3/8
+K:FirstStrike
+K:Vigilance
+T:Mode$ SpellCast | ValidActivatingPlayer$ You | TargetsValid$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1 | SubAbility$ EachPlayLand
+SVar:EachPlayLand:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | ChangeType$ Land | DefinedPlayer$ Player | ChangeNum$ 1 | RememberChanged$ True | SubAbility$ DrawAbstainers
+SVar:DrawAbstainers:DB$ Draw | Defined$ OppNonRememberedOwner | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

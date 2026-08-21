@@ -1,13 +1,10 @@
 Id:29014
-ColorIdentity:
-OriginSet:G27146c70b74a1e72
-ManaCost:no cost
-Types:Land Desert
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
-A:AB$ Mana | Cost$ T | Produced$ C | Amount$ 2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Hidden$ True | Mandatory$ True | ChangeType$ Land.YouCtrl | RememberLKI$ True | AILogic$ NeverBounceItself | SubAbility$ DBSurveil
-SVar:DBSurveil:DB$ Surveil | Amount$ 1 | ConditionDefined$ RememberedLKI | ConditionPresent$ Desert.Other | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:NeedsToPlay:Land.YouCtrl
+ColorIdentity:UB
+OriginSet:Gaf7c94f364052cdd
+ManaCost:2 U B
+Types:Creature Mutant Warrior
+PT:4/4
+K:Ward:2
+T:Mode$ ChangesZone | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigRadiation
+SVar:TrigRadiation:DB$ Radiation | ValidTgts$ Player | Num$ 4
+S:Mode$ CantBlockBy | ValidAttacker$ Card.Self | ValidDefender$ Player.Condition Counters.RAD

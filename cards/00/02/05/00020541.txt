@@ -1,14 +1,10 @@
 Id:20541
-ColorIdentity:WG
+ColorIdentity:U
 OriginSet:Gc9c1dd0d52c99ca4
-ManaCost:2 G W
-Types:Legendary Creature Hyena Beast
-PT:3/3
-K:PartnerWithId:20513
-K:Vigilance
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZone | Hidden$ True | ChangeType$ Creature.YouCtrl+Other | Mandatory$ True | Origin$ Battlefield | Destination$ Exile | RememberLKI$ True | Duration$ UntilHostLeavesPlay | SubAbility$ DBImmediateTrigger
-SVar:DBImmediateTrigger:DB$ ImmediateTrigger | Execute$ TrigPutCounters | ConditionDefined$ Remembered | ConditionPresent$ Card | RememberObjects$ RememberedLKI | SubAbility$ DBCleanup
-SVar:TrigPutCounters:DB$ PutCounter | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ X | TargetMin$ 0 | TargetMax$ X | DividedAsYouChoose$ X
-SVar:X:TriggerRemembered$CardPower
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:1 U
+Types:Creature Shapeshifter
+PT:1/1
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDigUntil
+T:Mode$ Blocks | ValidCard$ Card.Self | Execute$ TrigDigUntil | Secondary$ True
+SVar:TrigDigUntil:DB$ DigUntil | Reveal$ True | ValidTgts$ Opponent | IsCurse$ True | Valid$ Creature | RevealedDestination$ Library | RevealedLibraryPosition$ -1 | RememberFound$ True | RevealRandomOrder$ True | SubAbility$ DBClone
+SVar:DBClone:DB$ Clone | Defined$ Remembered | CloneTarget$ Self | Duration$ UntilEndOfTurn

@@ -1,11 +1,11 @@
 Id:32618
 ColorIdentity:R
-OriginSet:G36e97d2da170e675
-ManaCost:1 R
-Types:Enchantment
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 2358082860 | TokenOwner$ You
-T:Mode$ AbilityTriggered | TriggerZones$ Battlefield | ValidMode$ Attacks,AttackersDeclared,AttackersDeclaredOneTarget | Execute$ TrigPutCounter | ValidSource$ Creature.YouCtrl | TriggeredOwnAbility$ True
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ QUEST | CounterNum$ 1 | SubAbility$ DBCopy
-SVar:DBCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | Optional$ True | MayChooseTarget$ True | ConditionPresent$ Card.Self+counters_GE4_QUEST
-SVar:MaxQuestEffect:4
+OriginSet:G66b3a7eeabd9000e
+ManaCost:4 R R
+Types:Legendary Creature Human Rogue Villain
+PT:5/5
+S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ FirstStrike | Condition$ PlayerTurn
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Creature | NumDmg$ 2 | DamageMap$ True | SubAbility$ DBDamage
+SVar:DBDamage:DB$ DealDamage | Defined$ TargetedController | NumDmg$ 2 | SubAbility$ DBDamageResolve
+SVar:DBDamageResolve:DB$ DamageResolve

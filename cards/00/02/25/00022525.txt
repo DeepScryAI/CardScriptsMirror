@@ -2,10 +2,9 @@ Id:22525
 ColorIdentity:B
 OriginSet:G9f95a41d532c0550
 ManaCost:1 B
-Types:Creature Elf Warlock
-PT:2/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | CheckSVar$ TreasureCheck | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1 | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 1
-SVar:TreasureCheck:Count$CastTotalManaSpent Treasure
-SVar:AIPreference:ManaFrom$Treasure
+Types:Sorcery
+A:SP$ RevealHand | ValidTgts$ Opponent | Defined$ Targeted | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | DefinedPlayer$ Targeted | Chooser$ You | ChangeType$ Card.nonLand | ChangeNum$ 1 | Mandatory$ True | RememberChanged$ True | SubAbility$ TheyLose
+SVar:TheyLose:DB$ LoseLife | Defined$ Targeted | LifeAmount$ 1 | ConditionDefined$ Remembered | ConditionPresent$ Instant,Card.withFlash | SubAbility$ YouLose
+SVar:YouLose:DB$ LoseLife | LifeAmount$ 1 | ConditionDefined$ Remembered | ConditionPresent$ Instant,Card.withFlash | ConditionCompare$ EQ0 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

@@ -2,7 +2,10 @@ Id:12804
 ColorIdentity:
 OriginSet:G4801bb28ce9773ed
 ManaCost:no cost
-Types:Phenomenon
-T:Mode$ PlaneswalkedTo | ValidCard$ Card.Self | Execute$ Disaster
-SVar:Disaster:DB$ DestroyAll | ValidCards$ Creature | SubAbility$ PWAway
-SVar:PWAway:DB$ Planeswalk
+Types:Plane Ravnica
+T:Mode$ PlaneswalkedFrom | ValidCard$ Plane.Self | Execute$ OrzhovaDeal
+SVar:OrzhovaDeal:DB$ ChangeZoneAll | Origin$ Graveyard | Destination$ Battlefield | ChangeType$ Creature
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos
+SVar:RolledChaos:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Creature.OppCtrl | TargetMin$ 0 | TargetMax$ OneEach | TargetsForEachPlayer$ True
+SVar:OneEach:PlayerCountOpponents$Amount
+SVar:AIRollPlanarDieParams:Mode$ Always

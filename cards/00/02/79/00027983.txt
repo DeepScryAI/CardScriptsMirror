@@ -1,21 +1,16 @@
 Id:27983
-ColorIdentity:R
-OriginSet:Gfd50577710a6ab09
-ManaCost:2 R
+ColorIdentity:
+OriginSet:G30e8a5e111cffb44
+ManaCost:2
 Types:Legendary Artifact
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigDiscard
-SVar:TrigDiscard:DB$ Discard | AnyNumber$ True | Optional$ True | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ Remembered$Amount/Plus.1 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You.descended | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | CounterType$ BORE | SubAbility$ DBBranch
-SVar:DBBranch:DB$ Branch | BranchConditionSVar$ Count$CardCounters.BORE | BranchConditionSVarCompare$ GE3 | TrueSubAbility$ DBRemoveCounter
-SVar:DBRemoveCounter:DB$ RemoveCounter | CounterType$ BORE | CounterNum$ All | SubAbility$ DBTransform
-SVar:DBTransform:DB$ SetState | Defined$ Self | Mode$ Transform
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Types:Legendary Land Cave
-A:AB$ Mana | Cost$ T | Produced$ R
-T:Mode$ SpellCast | ValidCard$ Permanent | ValidSA$ Spell.ManaFromCard.StrictlySelf | ValidActivatingPlayer$ You | Execute$ TrigDiscover
-SVar:TrigDiscover:DB$ Discover | Num$ TriggeredSpellAbility$CardManaCostLKI
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ TIME | CounterNum$ 1
+A:AB$ Untap | Cost$ 2 T | ValidTgts$ Creature.YouCtrl | SubAbility$ DBPhase
+SVar:DBPhase:DB$ Phases | Defined$ Targeted | RememberAffected$ True | WontPhaseInNormal$ True | ConditionPresent$ Card.Self | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | Triggers$ TrigComeBack | RememberObjects$ Remembered | ImprintCards$ Self | ConditionPresent$ Card.Self | Duration$ Permanent | ForgetOnPhasedIn$ True
+SVar:TrigComeBack:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.IsImprinted | Execute$ DBPhaseIn | TriggerZones$ Command | TriggerController$ TriggeredCardController | Static$ True
+SVar:DBPhaseIn:DB$ Phases | Defined$ Remembered | PhaseInOrOut$ True | SubAbility$ DBExileSelf
+SVar:DBExileSelf:DB$ ChangeZone | Origin$ Command | Destination$ Exile | Defined$ Self
+A:AB$ DestroyAll | Cost$ 3 T | ValidCards$ Permanent.nonLand+cmcLEX | SorcerySpeed$ True | SubAbility$ DBSacrifice
+SVar:DBSacrifice:DB$ Sacrifice | ConditionDefined$ Self
+SVar:X:Count$CardCounters.TIME

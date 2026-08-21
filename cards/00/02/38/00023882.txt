@@ -1,11 +1,14 @@
 Id:23882
-ColorIdentity:WUG
-OriginSet:Gfdfe2ebef04be34e
-ManaCost:1 G W U
-Types:Legendary Creature Bird Demon
-PT:3/3
-K:Flying
-K:Trample
-K:etbCounter:SHIELD:1
-S:Mode$ Continuous | Affected$ Card.TopLibrary+YouOwn | AffectedZone$ Library | MayLookAt$ You
-S:Mode$ Continuous | Affected$ Card.TopLibrary+YouOwn+nonLand | AffectedZone$ Library | MayPlay$ True | RaiseCost$ RemoveAnyCounter<1/Any/Creature>
+ColorIdentity:WUB
+OriginSet:G5f5d8cfb206e2fac
+ManaCost:1 W U B
+Types:Legendary Creature Octopus Rogue
+PT:2/4
+T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigPump | TriggerZones$ Battlefield
+SVar:TrigPump:DB$ Effect | RememberObjects$ Targeted | ValidTgts$ Creature.attacking | StaticAbilities$ Unblockable | SubAbility$ DBConnive
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+SVar:DBConnive:DB$ Connive | Defined$ Targeted | SubAbility$ DBChooseCard
+SVar:DBChooseCard:DB$ ChooseCard | Defined$ You | Choices$ Creature.attacking+NotDefinedTargeted+powerLTX | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | KW$ DoubleStrike | Defined$ ChosenCard | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+SVar:X:Targeted$CardPower

@@ -1,9 +1,11 @@
 Id:34386
-ColorIdentity:BR
-OriginSet:G11c0621ce29fa608
-ManaCost:1 B R
-Types:Legendary Creature God Warrior Villain
-PT:4/3
-S:Mode$ MustAttack | ValidCreature$ Card.Self
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.attacking+YouCtrl | Execute$ TrigChangeZone
-SVar:TrigChangeZone:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Hand
+ColorIdentity:W
+OriginSet:Gcb93bbfc68a40806
+ManaCost:3 W
+Types:Creature Human Spy Warrior
+PT:2/2
+T:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigCopy
+SVar:TrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | Amount$ X | MayChooseTarget$ True
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Artifact,Enchantment | TargetMin$ 0 | TargetMax$ 1
+SVar:X:Count$TotalCommanderCastFromCommandZone

@@ -1,8 +1,9 @@
 Id:28006
-ColorIdentity:
-OriginSet:Gfd50577710a6ab09
-ManaCost:2
-Types:Artifact Creature Gnome
-PT:2/1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange | OptionalDecider$ You
-SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Library | LibraryPosition$ 0 | ChangeType$ Land.Basic,Card.Cave | ChangeNum$ 1 | ShuffleNonMandatory$ True
+ColorIdentity:B
+OriginSet:G30e8a5e111cffb44
+ManaCost:3 B
+Types:Instant
+A:SP$ ChangeZone | ValidTgts$ Creature | Origin$ Battlefield | Destination$ Library | Shuffle$ True | SubAbility$ DBChoice
+SVar:DBChoice:DB$ VillainousChoice | Defined$ TargetedOwner | Choices$ DBLoseLife,DBShuffleAnother
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 5 | Defined$ Remembered
+SVar:DBShuffleAnother:DB$ ChangeZone | ChangeType$ Creature.OwnedBy Remembered | DefinedPlayer$ Remembered | Chooser$ Remembered | ChangeNum$ 1 | Mandatory$ True | Origin$ Battlefield | Destination$ Library | Shuffle$ True | Hidden$ True

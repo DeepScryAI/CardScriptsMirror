@@ -1,7 +1,12 @@
 Id:31961
-ColorIdentity:
+ColorIdentity:R
 OriginSet:G7ab4f62d323b0ca7
-ManaCost:1
-Types:Artifact
-A:AB$ ChangeZone | Cost$ 1 T Sac<1/CARDNAME> | Origin$ Library | Destination$ Hand | ChangeType$ Land.Basic
-A:AB$ ChangeZone | Cost$ 3 T Sac<1/CARDNAME> | Origin$ Library | Destination$ Hand | ChangeType$ Land | ChangeNum$ 1
+ManaCost:2 R
+Types:Legendary Creature Human Soldier
+PT:2/3
+K:Menace
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigExile | TriggerZones$ Battlefield
+SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | RememberObjects$ Remembered | ForgetOnMoved$ Exile | Duration$ AsLongAsControl | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

@@ -1,9 +1,12 @@
 Id:12044
-ColorIdentity:UR
+ColorIdentity:U
 OriginSet:G28b959a4da853005
-ManaCost:U R
-Types:Legendary Creature Vedalken Wizard
-PT:1/1
-A:AB$ DealDamage | Cost$ X U R T | ValidTgts$ Creature | NumDmg$ X | SubAbility$ DBDraw | AILogic$ NinThePainArtist
-SVar:DBDraw:DB$ Draw | Defined$ TargetedController | NumCards$ X
-SVar:X:Count$xPaid
+ManaCost:U
+Types:Sorcery
+A:SP$ RepeatEach | RepeatPlayers$ Player | StartingWith$ You | RepeatSubAbility$ DBPay | SubAbility$ DBDraw
+SVar:DBPay:DB$ ChooseNumber | Defined$ Player.IsRemembered | ChooseAnyNumber$ True | SubAbility$ DBStore
+SVar:DBStore:DB$ StoreSVar | SVar$ JoinForcesAmount | Type$ CountSVar | Expression$ JoinForcesAmount/Plus.Y | UnlessCost$ Y | UnlessPayer$ Player.IsRemembered | UnlessSwitched$ True
+SVar:DBDraw:DB$ Draw | Defined$ Player | NumCards$ JoinForcesAmount | SubAbility$ DBReset
+SVar:DBReset:DB$ StoreSVar | SVar$ JoinForcesAmount | Type$ Number | Expression$ 0
+SVar:Y:Count$ChosenNumber
+SVar:JoinForcesAmount:Number$0

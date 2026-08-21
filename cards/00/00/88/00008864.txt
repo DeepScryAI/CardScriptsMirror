@@ -2,9 +2,11 @@ Id:8864
 ColorIdentity:U
 OriginSet:Gce1d73449bd71b54
 ManaCost:2 U U
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:Pump
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ X | AddToughness$ X | AddKeyword$ Vigilance | AddSVar$ EnMe
-SVar:X:Count$Valid Aura.AttachedTo Creature.EnchantedBy/Times.2
-SVar:EnMe:SVar:EnchantMe:Multiple
+Types:Creature Shapeshifter
+PT:*/*
+K:Morph:2 U
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | Layer$ Copy | ReplacementResult$ Updated | ReplaceWith$ MorphChoice
+R:Event$ TurnFaceUp | ValidCard$ Card.Self | ActiveZones$ Battlefield | Layer$ Copy | Secondary$ True | ReplaceWith$ MorphChoice
+SVar:MorphChoice:DB$ GenericChoice | Defined$ You | Choices$ BigTough,BigPower
+SVar:BigPower:DB$ Clone | Defined$ Self | SetPower$ 5 | SetToughness$ 1
+SVar:BigTough:DB$ Clone | Defined$ Self | SetPower$ 1 | SetToughness$ 5

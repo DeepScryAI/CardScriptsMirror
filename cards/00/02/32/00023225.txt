@@ -1,21 +1,12 @@
 Id:23225
-ColorIdentity:U
+ColorIdentity:B
 OriginSet:G6e75ff4f143a3dc3
-ManaCost:1 U
-Types:Creature Cat Spirit
-PT:1/1
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
-K:Disturb:2 U
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:blue
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:Curiosity
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddTrigger$ TrigDamageDone
-SVar:TrigDamageDone:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Graveyard | ReplaceWith$ Exile
-SVar:Exile:DB$ ChangeZone | Hidden$ True | Origin$ All | Destination$ Exile | Defined$ ReplacedCard
+ManaCost:3 B
+Types:Creature Vampire
+PT:3/3
+K:Menace
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 2179622914
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump
+SVar:TrigPump:AB$ Pump | Cost$ Sac<1/Blood.token/Blood token> | Defined$ Self | NumAtt$ +2 | NumDef$ +2
+SVar:HasAttackEffect:TRUE

@@ -1,15 +1,9 @@
 Id:27283
 ColorIdentity:G
-OriginSet:G4e034c55e7afd8b4
-ManaCost:1 G
-Types:Creature Elemental Raccoon
-PT:2/2
-A:AB$ Mana | Cost$ T | Produced$ G
-A:AB$ ChangeZone | Cost$ 1 G T Discard<1/Card> | Origin$ Battlefield | Destination$ Hand
-AlternateMode:Adventure
-ALTERNATE
-ManaCost:5 G G
-Types:Sorcery Adventure
-A:SP$ Mill | NumCards$ 7 | RememberMilled$ True | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | Hidden$ True | Mandatory$ True | Origin$ Graveyard,Exile | Destination$ Battlefield | ChangeType$ Creature.IsRemembered,Enchantment.IsRemembered,Land.IsRemembered | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+OriginSet:G6ce0035cfb774934
+ManaCost:2 G
+Types:Instant
+A:SP$ Pump | ValidTgts$ Creature.YouCtrl | AILogic$ PowerDmg | SubAbility$ SoulsDamage
+SVar:SoulsDamage:DB$ DealDamage | ValidTgts$ Creature.YouDontCtrl | AILogic$ PowerDmg | NumDmg$ X | DamageSource$ ParentTarget | SubAbility$ DBFood
+SVar:DBFood:DB$ Token | TokenScriptIds$ 134855612
+SVar:X:ParentTargeted$CardPower

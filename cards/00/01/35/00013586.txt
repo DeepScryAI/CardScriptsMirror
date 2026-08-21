@@ -1,10 +1,11 @@
 Id:13586
-ColorIdentity:U
+ColorIdentity:W
 OriginSet:G4773f4feb3f15a2b
-ManaCost:6 U
-Types:Enchantment
-S:Mode$ Continuous | Affected$ Creature.OppCtrl | AddType$ Illusion | AddTrigger$ DismissTarget | AddSVar$ DismissSac & TargetingSac
-SVar:DismissTarget:Mode$ BecomesTarget | ValidTarget$ Card.Self | TriggerZones$ Battlefield | Execute$ DismissSac
-SVar:DismissSac:DB$ Sacrifice
-SVar:NonStackingEffect:True
-SVar:TargetingSac:SVar:Targeting:Dies
+ManaCost:6 W
+Types:Sorcery
+A:SP$ Tap | CardChoices$ Creature.YouCtrl+untapped | AnyNumber$ True | ChoiceAmount$ Count$Valid Creature.YouCtrl+untapped | RememberTapped$ True | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenAmount$ Y | TokenScriptIds$ 2375228291 | TokenOwner$ You | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:Y:Remembered$Amount
+SVar:NeedsToPlay:Creature.YouCtrl+untapped
+SVar:PlayMain1:ALWAYS

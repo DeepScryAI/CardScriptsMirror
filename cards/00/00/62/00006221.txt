@@ -1,9 +1,12 @@
 Id:6221
 ColorIdentity:U
 OriginSet:G0085c354434a9ecc
-ManaCost:2 U U
-Types:Creature Spirit
-PT:2/2
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Player | TriggerZones$ Battlefield | Execute$ TrigMillYou
-SVar:TrigMillYou:DB$ Mill | Defined$ TriggeredPlayer | NumCards$ X
-SVar:X:TriggeredPlayer$CardsInHand
+ManaCost:2 U
+Types:Creature Shapeshifter
+PT:1/1
+K:Flying
+K:Morph:2 U U
+T:Mode$ TurnFaceUp | ValidCard$ Card.Self | Execute$ TrigDermoplasmChangeZone | TriggerZones$ Battlefield
+SVar:TrigDermoplasmChangeZone:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | ChangeType$ Creature.withMorph,Creature.withMegamorph | RememberChanged$ True | SubAbility$ DBDermoplasmBounce
+SVar:DBDermoplasmBounce:DB$ ChangeZone | Defined$ Self | Origin$ Battlefield | Destination$ Hand | ConditionDefined$ Remembered | ConditionPresent$ Creature.withMorph,Creature.withMegamorph | ConditionCompare$ GE1 | SubAbility$ DBDermoplasmCleanup
+SVar:DBDermoplasmCleanup:DB$ Cleanup | ClearRemembered$ True

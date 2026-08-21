@@ -1,10 +1,11 @@
 Id:19961
-ColorIdentity:G
+ColorIdentity:WUBRG
 OriginSet:G23be9f486a22d38a
-ManaCost:3 G
-Types:Creature Elf Warrior
-PT:2/3
-S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ 2 | EffectZone$ All | IsPresent$ Permanent.Green+OppCtrl
-K:Deathtouch
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+ManaCost:4 W
+Types:Legendary Creature Human Noble
+PT:5/5
+A:AB$ PumpAll | Cost$ R | ValidCards$ Creature | KW$ Trample & Haste | AILogic$ PumpForTrample
+A:AB$ PutCounter | Cost$ 1 G | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ 1
+A:AB$ GainLife | Cost$ 2 W | LifeAmount$ 5 | ValidTgts$ Player
+A:AB$ Draw | Cost$ 3 U | NumCards$ 1 | ValidTgts$ Player
+A:AB$ ChangeZone | Cost$ 4 B | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature | AITgts$ Creature.YouOwn | ChangeNum$ 1

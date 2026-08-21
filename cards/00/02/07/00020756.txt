@@ -1,8 +1,10 @@
 Id:20756
-ColorIdentity:WUR
+ColorIdentity:URG
 OriginSet:Gf8d4de878d0536c5
-ManaCost:1 U R W
+ManaCost:1 G U R
 Types:Enchantment
-T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | Execute$ TrigDraw | TriggerZones$ Battlefield
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
-SVar:BuffedBy:Card.nonCreature
+S:Mode$ Continuous | Affected$ You | AdjustLandPlays$ 1
+T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 2
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDiscard
+SVar:TrigDiscard:DB$ Discard | Mode$ Hand | Defined$ You

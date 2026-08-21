@@ -1,13 +1,11 @@
 Id:25862
-ColorIdentity:B
-OriginSet:Gb879a1706584aeee
-ManaCost:1 B
-Types:Creature Human Warlock
-PT:1/3
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigCharm
-SVar:TrigCharm:DB$ Charm | MinCharmNum$ 1 | CharmNum$ Count$Compare Y EQ13.2.1 | Choices$ DBDraw,DBExile
-SVar:DBDraw:DB$ Draw | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 1
-SVar:Y:Count$YourLifeTotal
-SVar:DBExile:DB$ ChangeZoneAll | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Player | ChangeType$ Card
-SVar:DBLoseLife2:DB$ LoseLife | Defined$ Targeted | LifeAmount$ 1
+ColorIdentity:G
+OriginSet:G06ccef4324c14725
+ManaCost:1 G
+Types:Creature Human Artificer Scout
+PT:1/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Artifact.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigDig
+SVar:TrigDig:DB$ PeekAndReveal | PeekAmount$ 1 | RevealValid$ Land | RevealOptional$ True | RememberRevealed$ True | SubAbility$ DBToHand
+SVar:DBToHand:DB$ ChangeZone | Defined$ Remembered | Origin$ Library | Destination$ Hand | SubAbility$ DBToGrave
+SVar:DBToGrave:DB$ ChangeZone | Defined$ TopOfLibrary | Origin$ Library | Destination$ Graveyard | Optional$ True | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ0 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

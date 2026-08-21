@@ -1,9 +1,12 @@
 Id:23408
-ColorIdentity:W
-OriginSet:Ga4d5d94d587eb185
-ManaCost:3 W
-Types:Instant
-A:SP$ ChangeZoneAll | ValidTgts$ Opponent | Origin$ Graveyard | Destination$ Exile | ChangeType$ Card | IsCurse$ True | RememberChanged$ True | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenScriptIds$ 3432565933 | TokenAmount$ X | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Remembered$Valid Creature
+ColorIdentity:U
+OriginSet:Gbe3783f336562357
+ManaCost:4 U
+Types:Creature Spirit
+PT:5/5
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeInstant
+SVar:TrigChangeInstant:DB$ ChangeZone | Origin$ Library | Destination$ Graveyard | ChangeType$ Instant.YouOwn | ChangeNum$ 1 | Hidden$ True | AtRandom$ True | NoShuffle$ True | Mandatory$ True | NoLooking$ True | SubAbility$ DBChangeSorcery
+SVar:DBChangeSorcery:DB$ ChangeZone | Origin$ Library | Destination$ Graveyard | ChangeType$ Sorcery.YouOwn | ChangeNum$ 1 | Hidden$ True | AtRandom$ True | NoShuffle$ True | Mandatory$ True | NoLooking$ True
+T:Mode$ SpellCast | ValidCard$ Instant.wasCastFromYourGraveyard,Sorcery.wasCastFromYourGraveyard | ValidActivatingPlayer$ You | Execute$ TrigCopy | TriggerZones$ Battlefield
+SVar:TrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | AILogic$ Always | MayChooseTarget$ True

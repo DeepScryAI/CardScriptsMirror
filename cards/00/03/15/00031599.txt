@@ -1,15 +1,9 @@
 Id:31599
-ColorIdentity:B
-OriginSet:G530ea9d733a13e9d
-ManaCost:4 B
-Types:Legendary Creature Elder Wizard
-PT:4/5
-T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | Execute$ TrigSurveil | TriggerZones$ Battlefield
-SVar:TrigSurveil:DB$ Surveil | Amount$ 1
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | Execute$ TrigSac | TriggerZones$ Battlefield
-SVar:TrigSac:DB$ Sacrifice | Defined$ Opponent | SacValid$ Creature.!token | RememberSacrificed$ True | Optional$ True | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | Defined$ OppNonRememberedController | LifeAmount$ X | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:SVar$Y/Times.2
-SVar:Y:Count$ValidGraveyard Instant.YouOwn,Sorcery.YouOwn
-SVar:BuffedBy:Instant,Sorcery
+ColorIdentity:WUR
+OriginSet:Gf2b808f4f642ac62
+ManaCost:1 R
+Types:Creature Orc Monk
+PT:2/2
+T:Mode$ SpellCast | ValidCard$ Card.YouCtrl | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump | ActivatorThisTurnCast$ EQ2
+SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +1 | NumDef$ +1
+A:AB$ Mana | Cost$ 1 | Produced$ Combo U R W | ActivationLimit$ 1

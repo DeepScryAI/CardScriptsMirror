@@ -1,15 +1,9 @@
 Id:22399
-ColorIdentity:BR
-OriginSet:G92f7f9489fec5865
-ManaCost:2 B R
-Types:Legendary Creature Tiefling Warlock
-PT:1/4
-K:Deathtouch
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigExile
-SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | RememberObjects$ Remembered | Duration$ UntilTheEndOfYourNextTurn | SubAbility$ DBCleanup | ForgetOnMoved$ Exile
-SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-T:Mode$ SpellCast | ValidCard$ Card.wasCastFromExile+!token | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigToken
-T:Mode$ LandPlayed | Origin$ Exile | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigToken | Secondary$ True
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 3851718391 | TokenOwner$ You
+ColorIdentity:G
+OriginSet:Geb2cf181996ee3b2
+ManaCost:G
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 798446951
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl+!token | TriggerZones$ Battlefield | Execute$ TrigReturn
+SVar:TrigReturn:AB$ ChangeZone | Cost$ 1 | Origin$ Battlefield | Destination$ Hand | Defined$ Self

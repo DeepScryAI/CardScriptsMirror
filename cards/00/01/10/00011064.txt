@@ -1,12 +1,9 @@
 Id:11064
-ColorIdentity:B
+ColorIdentity:R
 OriginSet:Gd09f2fd86b2e8dd0
-ManaCost:B
+ManaCost:R
 Types:Enchantment
-T:Mode$ Discarded | ValidCard$ Card.OppOwn | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigPutCounter
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Opponent | CheckSVar$ CardsInHand | SVarCompare$ EQ0 | IsPresent$ Card.Self+counters_GE2_QUEST | Execute$ TrigLoseLife | TriggerZones$ Battlefield | OptionalDecider$ You
+S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddPower$ 2 | IsPresent$ Card.Self+counters_GE5_QUEST
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Goblin.YouCtrl | Execute$ TrigPutCounter | OptionalDecider$ You | TriggerZones$ Battlefield
 SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ QUEST | CounterNum$ 1
-SVar:TrigLoseLife:DB$ LoseLife | Defined$ TriggeredPlayer | LifeAmount$ 5
-SVar:CardsInHand:Count$ValidHand Card.ActivePlayerCtrl
-SVar:PlayMain1:TRUE
-SVar:MaxQuestEffect:2
+SVar:MaxQuestEffect:5

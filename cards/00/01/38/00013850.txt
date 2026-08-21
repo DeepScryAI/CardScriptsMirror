@@ -1,10 +1,9 @@
 Id:13850
-ColorIdentity:R
+ColorIdentity:UR
 OriginSet:G97e9a20e5a5d5822
-ManaCost:3 R R
-Types:Creature Giant
-PT:5/4
-A:AB$ PutCounter | Cost$ 6 R R | Monstrosity$ 3
-T:Mode$ BecomeMonstrous | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Effect | StaticAbilities$ KWPump
-SVar:KWPump:Mode$ Continuous | Affected$ Creature.withoutFlying+OppCtrl | AddHiddenKeyword$ CARDNAME can't block.
+ManaCost:2 U R
+Types:Instant
+A:SP$ PeekAndReveal | PeekAmount$ 5 | RememberRevealed$ True | NoPeek$ True | SubAbility$ DBTwoPiles
+SVar:DBTwoPiles:DB$ TwoPiles | Chooser$ Opponent | DefinedCards$ Remembered | Separator$ You | ChosenPile$ DBHand | UnchosenPile$ DBGrave | AILogic$ Worst
+SVar:DBHand:DB$ ChangeZone | Defined$ Remembered | Origin$ Library | Destination$ Hand
+SVar:DBGrave:DB$ ChangeZone | Defined$ Remembered | Origin$ Library | Destination$ Graveyard

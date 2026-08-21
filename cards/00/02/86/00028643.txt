@@ -1,14 +1,13 @@
 Id:28643
 ColorIdentity:BG
-OriginSet:Ge329d8d60ca65422
-ManaCost:3 B G
-Types:Legendary Creature Insect Shaman
-PT:3/3
-K:Flying
+OriginSet:G7ee0e82a2424d636
+ManaCost:4 B G
+Types:Legendary Creature Elf Detective
+PT:5/4
 K:Menace
-S:Mode$ Continuous | Affected$ Insect.YouCtrl+Other | AddKeyword$ Menace
-T:Mode$ ChangesZoneAll | ValidCards$ Card.YouOwn | Origin$ Graveyard | ResolvedLimit$ 1 | OptionalDecider$ You | Destination$ Any | TriggerZones$ Battlefield | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 2380780906 | RememberTokens$ True | TokenOwner$ You | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | Defined$ Remembered | CounterNum$ X | CounterType$ P1P1 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:TriggerObjectsCards$GreatestCardManaCost
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken | TriggerZones$ Battlefield
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigToken | Secondary$ True
+SVar:TrigToken:AB$ Token | Cost$ CollectEvidence<4> | TokenScriptIds$ 797801024 | TokenAmount$ 2
+A:AB$ Surveil | Cost$ Sac<4/Card.token/tokens> | Amount$ 2 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 2 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2

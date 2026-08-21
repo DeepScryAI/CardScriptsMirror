@@ -1,10 +1,11 @@
 Id:13402
-ColorIdentity:U
+ColorIdentity:WB
 OriginSet:Gfdc478e04211a499
-ManaCost:3 U
-Types:Sorcery
-K:Cipher
-A:SP$ ChangeZone | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | ValidTgts$ Creature | SubAbility$ DelTrig
-SVar:DelTrig:DB$ DelayedTrigger | RememberObjects$ RememberedLKI | Mode$ Phase | Phase$ End of Turn | Execute$ TrigReturn | SubAbility$ DBCleanup
-SVar:TrigReturn:DB$ ChangeZone | Defined$ DelayTriggerRememberedLKI | Origin$ Exile | Destination$ Battlefield
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:W B
+Types:Creature Human Wizard
+PT:2/2
+A:AB$ Pump | Cost$ 1 W B | ValidTgts$ Creature | KW$ Lifelink
+A:AB$ Effect | Cost$ 1 W B | Triggers$ VizkopaMageTrig
+SVar:VizkopaMageTrig:Mode$ LifeGained | ValidPlayer$ You | TriggerZones$ Command | Execute$ VizkopaMageDrain
+SVar:VizkopaMageDrain:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ VizkopaMageX
+SVar:VizkopaMageX:TriggerCount$LifeAmount

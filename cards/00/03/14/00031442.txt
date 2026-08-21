@@ -1,9 +1,14 @@
 Id:31442
-ColorIdentity:U
-OriginSet:Gf2b808f4f642ac62
-ManaCost:2 U
-Types:Creature Human Citizen
-PT:3/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigImmediateTrig
-SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ ExileFromGrave<1/Creature/creature card> | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Instant.YouOwn,Sorcery.YouOwn
+ColorIdentity:WUR
+OriginSet:Ge1676a27173c0866
+ManaCost:2 U R W
+Types:Instant
+A:SP$ ChooseSource | Choices$ Card,Emblem | AILogic$ NeedsPrevention | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | ReplacementEffects$ RPreventNextFromSource | ConditionDefined$ ChosenCard | ConditionPresent$ Card,Emblem
+SVar:RPreventNextFromSource:Event$ DamageDone | ValidSource$ Card.ChosenCardStrict,Emblem.ChosenCard | ValidTarget$ You | ReplaceWith$ DBImmediateTrigger | PreventionEffect$ True
+SVar:DBImmediateTrigger:DB$ ImmediateTrigger | Execute$ TrigDamage | RememberSVarAmount$ X | SubAbility$ ExileEffect
+SVar:TrigDamage:DB$ DealDamage | Defined$ ChosenCardController | NumDmg$ Y | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ Y
+SVar:ExileEffect:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile
+SVar:X:ReplaceCount$DamageAmount
+SVar:Y:Count$TriggerRememberAmount

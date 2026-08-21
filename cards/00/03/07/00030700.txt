@@ -1,7 +1,14 @@
 Id:30700
-ColorIdentity:R
-OriginSet:Gc5a2f0ff902c0621
-ManaCost:2 R
-Types:Instant
-A:SP$ DealDamage | NumDmg$ 5 | ValidTgts$ Creature | ReplaceDyingDefined$ Targeted | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Equipment.AttachedTo ParentTarget | TargetMin$ 0 | TargetMax$ 1
+ColorIdentity:BR
+OriginSet:G2a4addc042b7552f
+ManaCost:1 B R
+Types:Enchantment Creature Lizard Glimmer
+PT:4/2
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigImmediateTrig
+SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ Sac<1/Permanent.Other+nonLand/another nonland permanent> | Execute$ TrigEachOpp
+SVar:TrigEachOpp:DB$ RepeatEach | RepeatPlayers$ Opponent | RepeatSubAbility$ DBChoose | SubAbility$ DBExile
+SVar:DBChoose:DB$ ChooseCard | Defined$ Remembered | Choices$ Permanent.nonLand+!token | ControlledByPlayer$ Chooser | ChoiceZone$ Battlefield | ImprintChosen$ True | Mandatory$ True | SubAbility$ DBRandom
+SVar:DBRandom:DB$ ChooseCard | Defined$ Remembered | Choices$ Card.nonLand | ControlledByPlayer$ Chooser | ChoiceZone$ Library | AtRandom$ True | ImprintChosen$ True
+SVar:DBExile:DB$ ChangeZone | Defined$ Imprinted | Origin$ Battlefield,Library | Destination$ Exile | SubAbility$ DBDamage | RememberChanged$ True
+SVar:DBDamage:DB$ DealDamage | Defined$ Opponent | NumDmg$ Remembered$CardManaCost | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True | ClearChosenCard$ True

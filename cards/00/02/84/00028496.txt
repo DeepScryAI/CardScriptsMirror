@@ -1,8 +1,11 @@
 Id:28496
-ColorIdentity:G
-OriginSet:G7ee0e82a2424d636
-ManaCost:3 G
-Types:Sorcery
-A:SP$ Dig | DigNum$ 5 | SkipReorder$ True | ChangeNum$ 2 | DestinationZone$ Library | RememberChanged$ True | LibraryPosition$ 0 | RestRandomOrder$ True | SubAbility$ DBCloak
-SVar:DBCloak:DB$ Cloak | Defined$ Remembered | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:W
+OriginSet:G94329e6b3f93276f
+ManaCost:1 W
+Types:Creature Human Detective
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigInvestigate
+SVar:TrigInvestigate:DB$ Investigate
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | Execute$ TrigInvestigateEach | TriggerZones$ Battlefield
+SVar:TrigInvestigateEach:DB$ Investigate | Num$ Count$Valid Creature.IsGoaded+YouCtrl | SubAbility$ DBNoGoad
+SVar:DBNoGoad:DB$ Goad | NoLonger$ True | Defined$ Valid Creature.YouCtrl

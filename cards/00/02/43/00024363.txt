@@ -1,12 +1,10 @@
 Id:24363
-ColorIdentity:UR
+ColorIdentity:U
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:4 U R
-Types:Legendary Creature Human Elf Shaman
-PT:2/7
-T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ You | Execute$ TrigPutBottom | TriggerZones$ Battlefield | ActivationLimit$ 1 | OptionalDecider$ You
-SVar:TrigPutBottom:DB$ ChangeZone | Origin$ Stack | Destination$ Library | LibraryPosition$ -1 | Defined$ TriggeredSpellAbility | RememberChanged$ True | SubAbility$ DBDig
-SVar:DBDig:DB$ DigUntil | Valid$ Card.nonLand | ForgetOtherRemembered$ True | ImprintFound$ True | RememberFound$ True | RememberRevealed$ True | NoMoveRevealed$ True | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBPlay
-SVar:DBPlay:DB$ Play | Defined$ Imprinted | ValidZone$ Library | ValidSA$ Spell | WithoutManaCost$ True | Optional$ True | ForgetPlayed$ True | SubAbility$ DBBottom
-SVar:DBBottom:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered | Origin$ Library | Destination$ Library | LibraryPosition$ -1 | RandomOrder$ True | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True
+ManaCost:2 U
+Types:Creature Horror Wizard
+PT:1/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigEffect
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigEffect | TriggerZones$ Battlefield | Secondary$ True
+SVar:TrigEffect:DB$ Effect | ValidTgts$ Card.Artifact+OppCtrl | TgtZone$ Battlefield | StaticAbilities$ STSteal | RememberLKI$ Targeted | ImprintCards$ Valid Creature.Horror+YouCtrl | ForgetOnMoved$ Battlefield
+SVar:STSteal:Mode$ Continuous | Affected$ Card.IsImprinted | GainsAbilitiesOfDefined$ RememberedLKI | ManaConversion$ Blue->AnyColor

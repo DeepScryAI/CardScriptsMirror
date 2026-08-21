@@ -1,13 +1,10 @@
 Id:10891
-ColorIdentity:G
+ColorIdentity:R
 OriginSet:G4398040c23c94f0e
-ManaCost:3 G
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:Pump
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddAbility$ DamageTgt | AddSVar$ DamageThis & PredatoryX & PredatoryY
-SVar:DamageTgt:AB$ DealDamage | Cost$ T | ValidTgts$ Creature | NumDmg$ PredatoryX | SubAbility$ DamageThis
-SVar:DamageThis:DB$ DealDamage | Defined$ Self | DamageSource$ Targeted | NumDmg$ PredatoryY
-SVar:PredatoryX:Count$CardPower
-SVar:PredatoryY:Targeted$CardPower
-SVar:NonStackingAttachEffect:True
+ManaCost:1 R
+Types:Creature Insect
+PT:1/1
+K:FirstStrike
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +2 | NumDef$ +2
+SVar:BuffedBy:Land

@@ -1,7 +1,12 @@
 Id:16943
-ColorIdentity:G
+ColorIdentity:B
 OriginSet:Gbcdce58dfbbf1bad
-ManaCost:1 G
-Types:Instant
-A:SP$ Destroy | ValidTgts$ Artifact
-K:Cycling:G
+ManaCost:2 B
+Types:Sorcery
+A:SP$ NameCard | Defined$ You | ValidCards$ Card.Artifact | SubAbility$ ExileYard
+SVar:ExileYard:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Player | ChangeType$ Card.NamedCard | Chooser$ You | ChangeNum$ NumInYard | Hidden$ True | SubAbility$ ExileHand
+SVar:ExileHand:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | DefinedPlayer$ Targeted | ChangeType$ Card.NamedCard | ChangeNum$ NumInHand | Chooser$ You | SubAbility$ ExileLib
+SVar:ExileLib:DB$ ChangeZone | Origin$ Library | Destination$ Exile | DefinedPlayer$ Targeted | ChangeType$ Card.NamedCard | ChangeNum$ NumInLib | Chooser$ You | Shuffle$ True
+SVar:NumInLib:TargetedPlayer$CardsInLibrary
+SVar:NumInHand:TargetedPlayer$CardsInHand
+SVar:NumInYard:TargetedPlayer$CardsInGraveyard

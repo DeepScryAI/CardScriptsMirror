@@ -1,12 +1,11 @@
 Id:14837
-ColorIdentity:RG
+ColorIdentity:B
 OriginSet:G25ee1eefb1a14f05
-ManaCost:5 R G
-Types:Legendary Creature Dragon
-PT:6/4
+ManaCost:3 B B
+Types:Creature Demon
+PT:5/4
 K:Flying
-K:Trample
-T:Mode$ Attacks | ValidCard$ Dragon.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | Defined$ TriggeredAttackerLKICopy | KW$ DoubleStrike
-SVar:BuffedBy:Dragon
-SVar:PlayMain1:TRUE
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ Opponent | TriggerZones$ Battlefield | Execute$ TrigChoose
+SVar:TrigChoose:DB$ ChooseCard | Defined$ TriggeredPlayer | MinAmount$ 0 | Amount$ 2 | TargetControls$ True | Choices$ Creature | Reveal$ True | SubAbility$ DBSacrificeAll
+SVar:DBSacrificeAll:DB$ SacrificeAll | ValidCards$ Creature.nonChosenCard | Controller$ TriggeredPlayer | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True

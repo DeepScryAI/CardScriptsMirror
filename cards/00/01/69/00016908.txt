@@ -1,7 +1,12 @@
 Id:16908
-ColorIdentity:R
+ColorIdentity:UG
 OriginSet:Gbcdce58dfbbf1bad
-ManaCost:X R
-Types:Sorcery
-A:SP$ Destroy | TargetMin$ X | TargetMax$ X | ValidTgts$ Artifact
-SVar:X:Count$xPaid
+ManaCost:2 G U
+Types:Enchantment
+T:Mode$ Phase | Phase$ Main1 | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigRemove
+SVar:TrigRemove:DB$ RemoveCounter | CounterType$ FLOOD | CounterNum$ All | RememberRemoved$ True | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Self | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ0 | CounterType$ FLOOD | CounterNum$ 1 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ0 | SubAbility$ DBGetMana
+SVar:DBGetMana:DB$ Mana | Produced$ C G U | ConditionCheckSVar$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$RememberedSize

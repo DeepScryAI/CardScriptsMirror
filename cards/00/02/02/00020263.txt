@@ -1,10 +1,13 @@
 Id:20263
-ColorIdentity:G
+ColorIdentity:W
 OriginSet:G42eb6bda83007836
-ManaCost:2 G
-Types:Enchantment Saga
-K:Chapter:4:TrigToken,TrigPutCounter,TrigDraw,TrigGold
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 1647422943 | TokenOwner$ You
-SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 3
-SVar:TrigDraw:DB$ Draw | NumCards$ 2 | ConditionPresent$ Creature.YouCtrl+powerGE4
-SVar:TrigGold:DB$ Token | TokenScriptIds$ 4244760998 | TokenOwner$ You
+ManaCost:2 W
+Types:Legendary Enchantment Creature God
+PT:5/5
+K:Indestructible
+S:Mode$ Continuous | Affected$ Card.Self | RemoveType$ Creature | CheckSVar$ X | SVarCompare$ LT5
+SVar:X:Count$Devotion.White
+SVar:BuffedBy:Permanent.White
+T:Mode$ LifeGained | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl,Enchantment.YouCtrl | CounterType$ P1P1 | CounterNum$ 1
+A:AB$ Pump | Cost$ 1 W | ValidTgts$ Creature.Other | KW$ Lifelink

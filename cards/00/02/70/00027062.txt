@@ -1,7 +1,15 @@
 Id:27062
-ColorIdentity:B
+ColorIdentity:U
 OriginSet:G6ce0035cfb774934
-ManaCost:1 B
-Types:Instant
-A:SP$ Pump | ValidTgts$ Creature | SubAbility$ DBAmass | KWChoice$ Indestructible,Lifelink
-SVar:DBAmass:DB$ Amass | Type$ Orc | Num$ 1
+ManaCost:1 U
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Curse
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigTap
+SVar:TrigTap:DB$ Tap | Defined$ Enchanted
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddReplacementEffect$ DBUntap
+SVar:DBUntap:Event$ Untap | ActiveZones$ Battlefield | ValidCard$ Card.Self | ReplaceWith$ RepRemoveCounter | ValidStepTurnToController$ You
+SVar:RepRemoveCounter:DB$ RemoveCounter | Defined$ ReplacedCard | CounterType$ P1P1 | CounterNum$ 1 | RememberRemoved$ True | SubAbility$ Untap
+SVar:Untap:DB$ Untap | Defined$ Self | ConditionCheckSVar$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$RememberedSize

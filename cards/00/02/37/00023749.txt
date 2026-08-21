@@ -1,11 +1,10 @@
 Id:23749
 ColorIdentity:B
-OriginSet:G18bf722b221724f8
-ManaCost:3 B
-Types:Creature Elf Rogue
-PT:4/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm
-SVar:TrigCharm:DB$ Charm | Choices$ DBRemoveCounter,DBPump
-SVar:DBRemoveCounter:DB$ RemoveCounter | ValidTgts$ Permanent | CounterType$ Any | CounterNum$ X
-SVar:DBPump:DB$ Pump | ValidTgts$ Creature.OppCtrl | IsCurse$ True | NumAtt$ -X | NumDef$ -X
-SVar:X:Count$Valid Elf.YouCtrl
+OriginSet:G1a259dba25660062
+ManaCost:2 B B
+Types:Enchantment Aura
+K:Enchant:Creature.YouCtrl,Artifact.YouCtrl:artifact or creature you control
+SVar:AttachAITgts:Creature,Vehicle
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Creature.OppCtrl,Planeswalker.OppCtrl
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 1 | AddToughness$ 1

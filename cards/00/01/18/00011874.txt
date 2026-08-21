@@ -1,10 +1,7 @@
 Id:11874
-ColorIdentity:G
+ColorIdentity:R
 OriginSet:G43171707a7efd07b
-ManaCost:5 G
-Types:Creature Phyrexian Cleric
-PT:3/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm
-SVar:TrigCharm:DB$ Charm | Choices$ DBSearch,DBRemove
-SVar:DBSearch:DB$ ChangeZone | Origin$ Library | Destination$ Library | LibraryPosition$ 0 | ChangeType$ Creature | ChangeNum$ 1
-SVar:DBRemove:DB$ ChangeZone | ValidTgts$ Permanent.nonCreature | IsCurse$ True | Origin$ Battlefield | Destination$ Library | LibraryPosition$ -1
+ManaCost:2 R
+Types:Enchantment
+S:Mode$ Continuous | Affected$ Artifact.nonCreature+nonEquipment | AddKeyword$ Equip:X:::XAlternative$ Number$ConvertedManaCost | AddType$ Equipment | RemoveArtifactTypes$ True | AddStaticAbility$ EquipPump
+SVar:EquipPump:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ ConvertedManaCost

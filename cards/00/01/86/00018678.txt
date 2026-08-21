@@ -1,7 +1,11 @@
 Id:18678
 ColorIdentity:B
 OriginSet:G1ecb361a0a117393
-ManaCost:3 B B
-Types:Sorcery
-A:SP$ Destroy | ValidTgts$ Creature | SubAbility$ DBSurveil
-SVar:DBSurveil:DB$ Surveil | Amount$ 2
+ManaCost:1 B B
+Types:Creature Vampire Assassin
+PT:3/1
+K:Lifelink
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone | OptionalDecider$ You
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card
+T:Mode$ Surveil | ValidPlayer$ You | Execute$ TrigReturn | TriggerZones$ Graveyard | IsPresent$ Card.StrictlySelf | PresentZone$ Graveyard | PresentPlayer$ You
+SVar:TrigReturn:AB$ ChangeZone | Cost$ PayLife<3> | Defined$ Self | Origin$ Graveyard | Destination$ Hand

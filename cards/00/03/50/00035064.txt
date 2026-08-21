@@ -1,0 +1,15 @@
+Id:35064
+ColorIdentity:W
+OriginSet:Gf8f2990d7136c11d
+ManaCost:1 W
+Types:Instant
+K:Kicker:2 W W
+A:SP$ ChangeZone | Origin$ Battlefield | Destination$ Hand | ValidTgts$ Creature.YouOwn | TargetMin$ X | TargetMax$ Y | RememberChanged$ True | SubAbility$ DBChangeZone | SubAbility$ DBDelayedTrigger
+SVar:DBDelayedTrigger:DB$ Effect | Triggers$ UpkeepTrig | RememberObjects$ Remembered | Duration$ Permanent | SubAbility$ DBCleanup
+SVar:UpkeepTrig:Mode$ Phase | Phase$ Upkeep | Execute$ TrigToken | OneOff$ True
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 2875351555 | TokenOwner$ You | TokenAmount$ TokenX
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$Kicked.0.1
+SVar:Y:Count$Kicked.Z.1
+SVar:Z:Count$Valid Creature.YouOwn
+SVar:TokenX:Remembered$Amount

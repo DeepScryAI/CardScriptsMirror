@@ -1,7 +1,10 @@
 Id:7881
 ColorIdentity:W
 OriginSet:G9231f4a3f94f4472
-ManaCost:2 W W
-Types:Creature Human Cleric
-PT:1/1
-A:AB$ PreventDamage | Cost$ T | ValidTgts$ Creature | Amount$ 1 | Radiance$ True
+ManaCost:1 W
+Types:Creature Cat
+PT:2/2
+K:Flash
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Hidden$ True | Mandatory$ True | ChangeType$ Creature.YouCtrl | ChangeNum$ 1 | AILogic$ NeverBounceItself
+SVar:NeedsToPlay:Creature.YouCtrl+!token

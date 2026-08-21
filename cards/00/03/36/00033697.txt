@@ -1,15 +1,11 @@
 Id:33697
-ColorIdentity:UR
-OriginSet:G14da29c4716bedc3
-ManaCost:U R
-Types:Creature Lizard Wizard
-PT:2/2
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPrepare
-T:Mode$ DamageDoneOnce | CombatDamage$ True | ValidSource$ Creature.token+YouCtrl | TriggerZones$ Battlefield | ValidTarget$ Player | Execute$ TrigPrepare | Secondary$ True
-SVar:TrigPrepare:DB$ AlterAttribute | Attributes$ Prepared
-AlternateMode:Prepare
-ALTERNATE
-ManaCost:3 U R
-Types:Sorcery
-A:SP$ CopyPermanent | ValidTgts$ Creature.YouCtrl | PumpKeywords$ Haste | PumpDuration$ EOT
+ColorIdentity:G
+OriginSet:G23d1f017cc66962f
+ManaCost:2 G G
+Types:Legendary Creature Crocodile Mutant Rogue
+PT:5/4
+K:Trample
+K:etbCounter:Hexproof:1
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigImmediateTrig
+SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ RemoveAnyCounter<1/Any/NICKNAME> | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Artifact.ControlledBy Spawner>TriggeredTarget,Enchantment.ControlledBy Spawner>TriggeredTarget

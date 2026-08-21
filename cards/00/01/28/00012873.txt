@@ -1,9 +1,14 @@
 Id:12873
-ColorIdentity:U
+ColorIdentity:G
 OriginSet:G98ca154ecf4968d7
-ManaCost:1 U U
-Types:Enchantment Aura
-K:Enchant:Creature,Artifact:artifact or creature
-SVar:AttachAILogic:Curse
-R:Event$ Untap | ActiveZones$ Battlefield | ValidCard$ Card.EnchantedBy | ValidStepTurnToController$ You | Layer$ CantHappen
-S:Mode$ CantBeActivated | ValidCard$ Card.EnchantedBy | Secondary$ True
+ManaCost:4 G G G
+Types:Creature Wurm
+PT:7/7
+K:Trample
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigLife | CheckSVar$ YourLife | SVarCompare$ LT7
+SVar:TrigLife:DB$ SetLife | Defined$ You | LifeAmount$ 7
+R:Event$ LifeReduced | ActiveZones$ Battlefield | ValidPlayer$ You.lifeGE7 | Result$ LT7 | IsDamage$ True | ReplaceWith$ ReduceLoss
+SVar:ReduceLoss:DB$ ReplaceEffect | VarName$ Amount | VarValue$ X
+SVar:X:ReplaceCount$Amount/LimitMax.Difference
+SVar:Difference:Count$YourLifeTotal/Minus.7
+SVar:YourLife:Count$YourLifeTotal

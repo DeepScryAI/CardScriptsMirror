@@ -1,11 +1,14 @@
 Id:23494
-ColorIdentity:B
-OriginSet:G1a259dba25660062
-ManaCost:3 B
-Types:Legendary Enchantment Creature Shrine
-PT:2/2
-K:Deathtouch
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigImmediateTrig
-SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ 1 | Execute$ TrigDestroy
-SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Creature.toughnessLEX
-SVar:X:Count$Valid Shrine.YouCtrl
+ColorIdentity:R
+OriginSet:Ga4d5d94d587eb185
+ManaCost:2 R
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddTrigger$ AttackTrigger | AddSVar$ AE
+SVar:AttackTrigger:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | Defined$ TriggeredDefender | NumDmg$ X
+SVar:X:TriggeredDefendingPlayer$CardsInHand
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self+YouOwn | TriggerZones$ Battlefield | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Hand
+SVar:AE:SVar:HasAttackEffect:TRUE

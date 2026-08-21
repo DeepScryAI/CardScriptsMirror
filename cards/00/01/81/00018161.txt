@@ -1,10 +1,8 @@
 Id:18161
 ColorIdentity:U
 OriginSet:G5033d54b23b37629
-ManaCost:2 U U
-Types:Legendary Creature Human Wizard
-PT:3/3
-K:Flash
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCopy
-SVar:TrigCopy:DB$ CopySpellAbility | ValidTgts$ Instant.YouCtrl,Sorcery.YouCtrl | TargetType$ Spell | MayChooseTarget$ True
-S:Mode$ Continuous | Affected$ Wizard.Other+YouCtrl | AddPower$ 1 | AddToughness$ 1
+ManaCost:4 U U
+Types:Legendary Sorcery
+A:SP$ AddTurn | ValidTgts$ Player | NumTurns$ 1 | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | ValidTgts$ Permanent.nonLand | TargetMin$ 0 | TargetMax$ 1 | Origin$ Battlefield | Destination$ Hand | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | Origin$ Stack | Destination$ Exile

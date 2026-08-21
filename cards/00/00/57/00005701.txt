@@ -1,7 +1,14 @@
 Id:5701
-ColorIdentity:U
+ColorIdentity:B
 OriginSet:G7327b0fa163b48eb
-ManaCost:1 U
+ManaCost:1 B
 Types:Instant
-A:SP$ Counter | TargetType$ Spell | ValidTgts$ Card | UnlessCost$ ExileFromGrave<1/All> | SubAbility$ DBDraw
+A:SP$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBChooseNum | SubAbility$ DBExile
+SVar:DBChooseNum:DB$ ChooseNumber | Defined$ Player.IsRemembered | Min$ 0 | Max$ X | SubAbility$ DBChooseCard
+SVar:DBChooseCard:DB$ ChooseCard | Defined$ Player.IsRemembered | Amount$ Y | Choices$ Card.RememberedPlayerCtrl | ChoiceZone$ Graveyard | Mandatory$ True | RememberChosen$ True
+SVar:DBExile:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered | Origin$ Graveyard | Destination$ Exile | SubAbility$ DBRepeat
+SVar:DBRepeat:DB$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBLoseLife | SubAbility$ DBDraw
+SVar:DBLoseLife:DB$ LoseLife | Defined$ Player.IsRemembered | LifeAmount$ X
 SVar:DBDraw:DB$ Draw
+SVar:X:Count$ValidGraveyard Card.RememberedPlayerCtrl
+SVar:Y:Count$ChosenNumber

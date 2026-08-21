@@ -1,10 +1,8 @@
 Id:5086
-ColorIdentity:W
+ColorIdentity:URG
 OriginSet:Ga43915481c3b48d8
-ManaCost:2 W
-Types:Creature Angel
-PT:3/3
-K:Flying
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigChange
-SVar:TrigChange:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | Defined$ TriggeredNewCardLKICopy | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenScriptIds$ 660169459 | TokenOwner$ Player.Other
+ManaCost:G U R
+Types:Sorcery
+A:SP$ PeekAndReveal | PeekAmount$ X | NoPeek$ True | SubAbility$ DBCreature
+SVar:DBCreature:DB$ ChangeZone | ChangeType$ EACH Creature.YouOwn & Land.YouOwn & Card.nonCreature+nonLand+YouOwn | Mandatory$ True | Chooser$ Opponent | Origin$ Library | Destination$ Hand | Shuffle$ True
+SVar:X:Count$ValidLibrary Card.YouOwn

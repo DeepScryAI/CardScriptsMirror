@@ -1,10 +1,9 @@
 Id:26295
-ColorIdentity:WR
-OriginSet:G74a73d701e7801b3
-ManaCost:2 R W
-Types:Artifact Equipment
-K:For Mirrodin
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddToughness$ 2
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.EquippedBy | Execute$ TrigDraft
-SVar:TrigDraft:DB$ Draft | SpellbookCatalogIds$ 11718,11719,11509,11515,11570,11715,11760,11716,11628,11673,26135,25998,26006,26034,11925
-K:Equip:3
+ColorIdentity:R
+OriginSet:G2192e8955d5e1ad1
+ManaCost:X R R
+Types:Sorcery
+A:SP$ Destroy | TargetMin$ 0 | TargetMax$ X | ValidTgts$ Artifact | RememberDestroyed$ True | SubAbility$ DBCopy
+SVar:DBCopy:DB$ CopyPermanent | Defined$ Remembered | ConditionCheckSVar$ X | ConditionSVarCompare$ GE5 | PumpKeywords$ Haste | SubAbility$ DBCleanup | AtEOT$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$xPaid

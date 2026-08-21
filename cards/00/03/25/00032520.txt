@@ -1,9 +1,15 @@
 Id:32520
-ColorIdentity:UB
+ColorIdentity:BR
 OriginSet:G66b3a7eeabd9000e
-ManaCost:5 UB
-Types:Legendary Creature Human Artificer Villain
-PT:4/6
-K:Flying
-T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ PumpAll | ValidCards$ Villain.YouCtrl+StrictlyOther | KW$ Flying
+ManaCost:2 B R
+Types:Legendary Creature Symbiote Villain
+PT:4/3
+K:Trample
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouOwn+cmcLE3 | RememberChanged$ True | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Remembered | Duration$ Permanent | staticAbilities$ CarnageMustAttack | Triggers$ CarnageDamage | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:CarnageMustAttack:Mode$ MustAttack | ValidCreature$ Card.Self
+SVar:CarnageDamage:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice | SacValid$ Self
+K:Mayhem:B R

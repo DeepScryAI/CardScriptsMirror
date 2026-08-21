@@ -1,10 +1,10 @@
 Id:16673
-ColorIdentity:B
+ColorIdentity:UR
 OriginSet:Ge1d53e4f418bb713
-ManaCost:2 B
-Types:Creature Human Wizard
-PT:3/3
-A:AB$ Effect | Cost$ 2 B T Exile<1/CARDNAME> | ReplacementEffects$ GraveToExile | StaticAbilities$ STPlay | AILogic$ YawgmothsWill
-SVar:STPlay:Mode$ Continuous | Affected$ Card.YouCtrl | AffectedZone$ Graveyard | MayPlay$ True
-SVar:GraveToExile:Event$ Moved | ActiveZones$ Command | Destination$ Graveyard | ValidCard$ Card.!token+YouOwn | ReplaceWith$ Exile
-SVar:Exile:DB$ ChangeZone | Hidden$ True | Origin$ All | Destination$ Exile | Defined$ ReplacedCard
+ManaCost:1 U R
+Types:Legendary Creature Human Wizard
+PT:1/4
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ Player | Execute$ DrawDamageOther | TriggerZones$ Battlefield
+SVar:DrawDamageOther:DB$ Draw | Defined$ TriggeredPlayer | NumCards$ 1 | ConditionCheckSVar$ OtherLost | OptionalDecider$ True
+SVar:OtherLost:PlayerCountDefinedRegistered.Other$HasPropertyLostLifeThisTurn
+K:Partner

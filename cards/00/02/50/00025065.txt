@@ -1,9 +1,10 @@
 Id:25065
-ColorIdentity:B
-OriginSet:G9afc9838c5e994df
-ManaCost:B
-Types:Sorcery
-A:SP$ Pump | ValidTgts$ Creature | TargetMin$ 2 | TargetMax$ 2 | TargetUnique$ True | TargetsWithSameController$ True | RememberTargets$ True | IsCurse$ True | SubAbility$ DBChooseSac
-SVar:DBChooseSac:DB$ ChooseCard | Choices$ Card.IsRemembered | Defined$ TargetedController | SubAbility$ DBSac | AILogic$ WorstCard
-SVar:DBSac:DB$ SacrificeAll | Defined$ ChosenCard | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:R
+OriginSet:G3a8b4b9d4649b357
+ManaCost:1 R
+Types:Instant
+A:SP$ Charm | Choices$ DelayedTrigger,DBDoubleStrike
+SVar:DelayedTrigger:DB$ DelayedTrigger | AILogic$ SpellCopy | Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | ThisTurn$ True | Execute$ EffTrigCopy
+SVar:EffTrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | MayChooseTarget$ True
+SVar:DBDoubleStrike:DB$ Pump | ValidTgts$ Creature.YouCtrl | KW$ DoubleStrike
+SVar:BuffedBy:Instant,Sorcery

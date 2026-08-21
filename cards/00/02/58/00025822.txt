@@ -1,9 +1,11 @@
 Id:25822
-ColorIdentity:B
+ColorIdentity:R
 OriginSet:G06ccef4324c14725
-ManaCost:2
-Types:Artifact Equipment
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.EquippedBy | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw
-K:Equip:2:::AlternateCost$ B
+ManaCost:1
+Types:Artifact
+A:AB$ Dig | Cost$ 1 T Sac<1/CARDNAME> | Defined$ You | DigNum$ 2 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBChoose
+SVar:DBChoose:DB$ ChooseCard | Defined$ You | Amount$ 1 | Mandatory$ True | Choices$ Card.IsRemembered | ChoiceZone$ Exile | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | ExileOnMoved$ Exile | RememberObjects$ ChosenCard | Duration$ UntilTheEndOfYourNextTurn | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearChosenCard$ True
+K:Unearth:1 R

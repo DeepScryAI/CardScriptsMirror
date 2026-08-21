@@ -1,8 +1,13 @@
 Id:10562
-ColorIdentity:RG
+ColorIdentity:UR
 OriginSet:G9445ff04667ca5ba
-ManaCost:1 R G G
-Types:Creature Beast
-PT:5/5
-R:Event$ Counter | ValidCard$ Card.Self | ValidSA$ Spell | Layer$ CantHappen
-R:Event$ Counter | ValidSA$ Spell.Creature+powerGE5+YouCtrl | Layer$ CantHappen | ActiveZones$ Battlefield
+ManaCost:3 U R
+Types:Creature Dragon
+PT:3/5
+K:Flying
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDraw | TriggerZones$ Battlefield
+SVar:TrigDraw:DB$ Draw | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | NumAtt$ +X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$CardManaCost

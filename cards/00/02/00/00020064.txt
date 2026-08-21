@@ -1,11 +1,11 @@
 Id:20064
-ColorIdentity:B
+ColorIdentity:U
 OriginSet:G23be9f486a22d38a
-ManaCost:3 B
-Types:Creature Human Noble
-PT:4/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChoose
-SVar:TrigChoose:DB$ ChooseCard | Choices$ Creature.YouCtrl+Other | ChoiceZone$ Battlefield | SubAbility$ DBDamageChosen
-SVar:DBDamageChosen:DB$ DealDamage | Defined$ ChosenCard | NumDmg$ 2 | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | ConditionDefined$ ChosenCard | ConditionPresent$ Card | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+ManaCost:3 U U
+Types:Legendary Creature Human Knight
+PT:*/4
+S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X
+SVar:X:Count$ValidHand Card.YouOwn
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+S:Mode$ RaiseCost | ValidTarget$ Card.Self | Activator$ Player.Opponent | Type$ Spell | Amount$ 2

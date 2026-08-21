@@ -1,9 +1,13 @@
 Id:23074
-ColorIdentity:U
-OriginSet:G7a76c1974b0a33a6
-ManaCost:1 U
-Types:Creature Zombie Horror
-PT:1/2
-A:AB$ ChangeZone | Cost$ 2 U | ValidTgts$ Creature.YouOwn | Origin$ Graveyard | Destination$ Exile | SubAbility$ DBCounter
-SVar:DBCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ 1 | Defined$ Self
-S:Mode$ Continuous | Affected$ Card.Self | EffectZone$ Battlefield | GainsAbilitiesOf$ Creature.ExiledWithSource | GainsAbilitiesOfZones$ Exile
+ColorIdentity:BR
+OriginSet:Gf78628ad511eefec
+ManaCost:3 B R
+Types:Sorcery
+A:SP$ Pump | TargetMin$ 0 | TargetMax$ 2 | ValidTgts$ Creature.YouOwn | TgtZone$ Graveyard | RememberObjects$ Targeted | SubAbility$ DBChoosePlayer
+SVar:DBChoosePlayer:DB$ ChoosePlayer | Defined$ You | Choices$ Player.Opponent | SubAbility$ DBOppChoose
+SVar:DBOppChoose:DB$ ChooseCard | Choices$ Card.IsRemembered | ChoiceZone$ Graveyard | Defined$ ChosenPlayer | Mandatory$ True | ForgetChosen$ True | SubAbility$ DBChangeZone1
+SVar:DBChangeZone1:DB$ ChangeZone | Defined$ ChosenCard | Origin$ Graveyard | Destination$ Hand | SubAbility$ DBChangeZone2
+SVar:DBChangeZone2:DB$ ChangeZone | Defined$ Remembered | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Keywords$ Haste | Defined$ Remembered | Duration$ Permanent | AtEOT$ Sacrifice | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearChosenCard$ True | ClearChosenPlayer$ True
+K:Flashback:4 B R

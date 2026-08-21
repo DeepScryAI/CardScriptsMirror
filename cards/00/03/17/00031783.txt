@@ -1,9 +1,14 @@
 Id:31783
-ColorIdentity:
-OriginSet:G7ab4f62d323b0ca7
-ManaCost:7
-Types:Artifact Creature Demon
-PT:6/6
-K:Vigilance
-K:Reach
-K:Trample
+ColorIdentity:U
+OriginSet:G530ea9d733a13e9d
+ManaCost:3 U
+Types:Enchantment Aura
+K:Flash
+K:Enchant:Creature.OppCtrl:creature an opponent controls
+SVar:AttachAILogic:Curse
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigRemoveFromCombat
+SVar:TrigRemoveFromCombat:DB$ RemoveFromCombat | Defined$ Enchanted | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ X
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | RemoveAllAbilities$ True
+S:Mode$ CantAttack,CantBlock | ValidCard$ Creature.EnchantedBy | Secondary$ True
+SVar:X:Count$Valid Creature.tapped+ControlledBy Player.EnchantedController

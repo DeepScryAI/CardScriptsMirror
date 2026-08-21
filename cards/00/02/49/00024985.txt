@@ -1,10 +1,12 @@
 Id:24985
-ColorIdentity:UR
+ColorIdentity:UG
 OriginSet:G3a8b4b9d4649b357
 ManaCost:U
-Types:Instant
-K:Kicker:1 R
-A:SP$ Pump | NumAtt$ -1 | ValidTgts$ Creature | IsCurse$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | Condition$ Kicked | StaticAbilities$ MustBlock | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | SubAbility$ DBDraw
-SVar:MustBlock:Mode$ MustBlock | ValidCreature$ Card.IsRemembered
-SVar:DBDraw:DB$ Draw
+Types:Creature Faerie Wizard
+PT:1/1
+K:Kicker:3 G
+K:etbCounter:P1P1:2:CheckSVar$ WasKicked
+K:Flying
+A:AB$ ChooseType | Cost$ T | Defined$ You | Type$ Basic Land | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | ValidTgts$ Land.YouCtrl | Types$ ChosenType | RemoveLandTypes$ True
+SVar:WasKicked:Count$Kicked.1.0

@@ -1,10 +1,11 @@
 Id:22448
-ColorIdentity:B
-OriginSet:G9f95a41d532c0550
-ManaCost:1 B
-Types:Sorcery
-A:SP$ RevealHand | ValidTgts$ Opponent | Defined$ Targeted | SubAbility$ DBExile
-SVar:DBExile:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | DefinedPlayer$ Targeted | Chooser$ You | ChangeType$ Card.nonLand | ChangeNum$ 1 | Mandatory$ True | RememberChanged$ True | SubAbility$ TheyLose
-SVar:TheyLose:DB$ LoseLife | Defined$ Targeted | LifeAmount$ 1 | ConditionDefined$ Remembered | ConditionPresent$ Instant,Card.withFlash | SubAbility$ YouLose
-SVar:YouLose:DB$ LoseLife | LifeAmount$ 1 | ConditionDefined$ Remembered | ConditionPresent$ Instant,Card.withFlash | ConditionCompare$ EQ0 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:U
+OriginSet:G92f7f9489fec5865
+ManaCost:X U U U
+Types:Instant
+A:SP$ RollDice | Sides$ 20 | Modifier$ Y | ResultSubAbilities$ 1-14:DBDraw,Else:DBScry
+SVar:DBDraw:DB$ Draw | NumCards$ X
+SVar:DBScry:DB$ Scry | ScryNum$ X | SubAbility$ DBDraw2
+SVar:DBDraw2:DB$ Draw | NumCards$ X
+SVar:X:Count$xPaid
+SVar:Y:Count$ValidHand Card.YouOwn

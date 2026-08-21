@@ -1,7 +1,15 @@
 Id:25755
-ColorIdentity:W
+ColorIdentity:R
 OriginSet:G06ccef4324c14725
-ManaCost:3 W W
-Types:Sorcery
-A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Artifact.YouOwn,Enchantment.YouOwn,Planeswalker.YouOwn | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenTapped$ True | TokenScriptIds$ 2975106104
+ManaCost:1 R
+Types:Legendary Creature Human Artificer
+PT:2/2
+K:Haste
+S:Mode$ CantBlock | ValidCard$ Card.Self
+T:Mode$ DamageDoneOnce | ValidTarget$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigExile
+SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ X | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBChoose
+SVar:DBChoose:DB$ ChooseCard | Choices$ Card.IsRemembered | ChoiceZone$ Exile | Mandatory$ True | ForgetOtherRemembered$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ ChosenCard | StaticAbilities$ Play | Duration$ UntilTheEndOfYourNextTurn | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.ChosenCard | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+SVar:X:TriggerCount$DamageAmount

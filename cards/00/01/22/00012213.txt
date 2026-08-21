@@ -1,9 +1,11 @@
 Id:12213
-ColorIdentity:R
+ColorIdentity:
 OriginSet:G14de52802b0b467c
-ManaCost:1 R R
-Types:Creature Vampire
-PT:3/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCanNotBlock
-SVar:TrigCanNotBlock:DB$ Pump | ValidTgts$ Creature | KW$ HIDDEN CARDNAME can't block. | IsCurse$ True
-SVar:PlayMain1:TRUE
+ManaCost:5
+Types:Artifact Creature Construct
+PT:1/1
+K:Indestructible
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Creature | CombatDamage$ True | Execute$ TrigFlip | TriggerZones$ Battlefield
+SVar:TrigFlip:DB$ FlipCoin | Defined$ You | WinSubAbility$ DBDestroy
+SVar:DBDestroy:DB$ Destroy | Defined$ TriggeredTargetLKICopy | NoRegen$ False
+SVar:HasCombatEffect:TRUE

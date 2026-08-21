@@ -1,9 +1,11 @@
 Id:8958
 ColorIdentity:W
 OriginSet:Gce1d73449bd71b54
-ManaCost:2 W
-Types:Creature Sliver
-PT:2/2
-S:Mode$ Continuous | Affected$ Sliver | AddAbility$ Regen
-SVar:Regen:AB$ Regenerate | Cost$ 2 T | ValidTgts$ Sliver
-SVar:PlayMain1:TRUE
+ManaCost:W
+Types:Enchantment
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigChooseOneToDestroy
+SVar:TrigChooseOneToDestroy:DB$ ChooseCard | Choices$ Creature.leastPower+withoutIndestructible | Mandatory$ True | SubAbility$ DBDestroy
+SVar:DBDestroy:DB$ Destroy | Defined$ ChosenCard | NoRegen$ True
+T:Mode$ Always | TriggerZones$ Battlefield | IsPresent$ Creature | PresentCompare$ EQ0 | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice
+SVar:NeedsToPlay:Creature.YouDontCtrl+leastPower

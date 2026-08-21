@@ -1,7 +1,10 @@
 Id:22031
-ColorIdentity:UR
+ColorIdentity:G
 OriginSet:Gd784248bfdf9e1d7
-ManaCost:3 U R
-Types:Instant
-A:SP$ Draw | NumCards$ 4 | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 2 | Mode$ TgtChoose | UnlessType$ Instant,Sorcery
+ManaCost:1 G
+Types:Sorcery
+A:SP$ Pump | ValidTgts$ Creature.YouCtrl | AILogic$ PowerDmg | SubAbility$ SoulsDamage
+SVar:SoulsDamage:DB$ DealDamage | ValidTgts$ Creature.YouDontCtrl,Planeswalker.YouDontCtrl | AILogic$ PowerDmg | NumDmg$ X | DamageSource$ ParentTarget | SubAbility$ DBDelayedTrigger
+SVar:DBDelayedTrigger:DB$ DelayedTrigger | Mode$ ChangesZone | RememberObjects$ Targeted.YouDontCtrl | ValidCard$ Card.IsTriggerRemembered | Origin$ Battlefield | Destination$ Graveyard | ThisTurn$ True | Execute$ TrigGainLife
+SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 2
+SVar:X:ParentTargeted$CardPower

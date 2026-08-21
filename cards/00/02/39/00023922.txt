@@ -1,8 +1,12 @@
 Id:23922
-ColorIdentity:R
-OriginSet:Gfdfe2ebef04be34e
-ManaCost:3 R R
-Types:Sorcery
-A:SP$ DestroyAll | ValidCards$ Artifact | SubAbility$ DBDamageAll
-SVar:DBDamageAll:DB$ DamageAll | NumDmg$ X | ValidCards$ Creature
-SVar:X:Count$ThisTurnEntered_Graveyard_from_Battlefield_Card.Artifact
+ColorIdentity:W
+OriginSet:G5f5d8cfb206e2fac
+ManaCost:1 W
+Types:Enchantment Aura
+K:Enchant:Opponent
+SVar:AttachAILogic:Curse
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ Opponent.EnchantedBy | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ TriggeredPlayer & You
+T:Mode$ AttackersDeclared | AttackingPlayer$ You | AttackedTarget$ Player.EnchantedBy,Planeswalker.EnchantedPlayerCtrl | Execute$ TrigSac | TriggerZones$ Battlefield
+T:Mode$ AttackersDeclared | AttackingPlayer$ Player.EnchantedBy | AttackedTarget$ You,Planeswalker.YouCtrl | Execute$ TrigSac | Secondary$ True | TriggerZones$ Battlefield
+SVar:TrigSac:DB$ Sacrifice

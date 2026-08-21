@@ -1,9 +1,14 @@
 Id:31371
-ColorIdentity:G
-OriginSet:Gf2b808f4f642ac62
-ManaCost:2 G
-Types:Creature Human Ranger
-PT:3/3
-K:Trample
-T:Mode$ ChangesZoneAll | ValidCards$ Card.YouOwn | Origin$ Graveyard | Destination$ Any | TriggerZones$ Battlefield | PlayerTurn$ True | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | CounterType$ P1P1 | Defined$ Self | CounterNum$ 1
+ColorIdentity:R
+OriginSet:G9de1432c543d1aef
+ManaCost:1 R
+Types:Creature Goblin Pilot
+PT:2/1
+T:Mode$ Crewed | ValidCrew$ Card.Self | Execute$ TrigPump | TriggerZones$ Battlefield
+SVar:TrigPump:DB$ Pump | Defined$ TriggeredCardLKICopy | KW$ Haste | SubAbility$ DBDelTrig
+SVar:DBDelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ TrigSac | RememberObjects$ TriggeredCardLKICopy | ConditionDefined$ TriggeredCardLKICopy | ConditionPresent$ Vehicle
+SVar:TrigSac:DB$ SacrificeAll | Defined$ DelayTriggerRememberedLKI | Controller$ You | RememberSacrificed$ True | SubAbility$ TrigImmediateTrig
+SVar:TrigImmediateTrig:DB$ ImmediateTrigger | ConditionDefined$ RememberedLKI | ConditionPresent$ Creature | RememberObjects$ RememberedLKI | SubAbility$ DBCleanup | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ X
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:TriggerRemembered$CardPower

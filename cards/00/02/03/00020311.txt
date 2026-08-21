@@ -1,8 +1,10 @@
 Id:20311
-ColorIdentity:W
+ColorIdentity:UB
 OriginSet:Gfa87e7bbc5a709eb
-ManaCost:2 W W
-Types:Creature Human Soldier
-PT:3/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSearch | OptionalDecider$ You
-SVar:TrigSearch:DB$ ChangeZone | Origin$ Library | OriginAlternative$ Graveyard | Destination$ Hand | ChangeType$ Card.YouOwn+catalogId20313 | ChangeNum$ 1 | Optional$ True
+ManaCost:4 U B
+Types:Legendary Planeswalker Ashiok
+Loyalty:4
+A:AB$ Draw | Cost$ AddCounter<2/LOYALTY> | Planeswalker$ True | SubAbility$ DBMill
+SVar:DBMill:DB$ Mill | Defined$ Player | NumCards$ 2
+A:AB$ ChangeZone | Cost$ SubCounter<5/LOYALTY> | Planeswalker$ True | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True | ValidTgts$ Creature
+A:AB$ GainControl | Cost$ SubCounter<11/LOYALTY> | Planeswalker$ True | Ultimate$ True | ValidTgts$ Opponent | AllValid$ Creature.TargetedPlayerCtrl | NewController$ You

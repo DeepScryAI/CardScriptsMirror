@@ -1,14 +1,12 @@
 Id:21421
-ColorIdentity:B
+ColorIdentity:RG
 OriginSet:G51d431785c8b33e5
-ManaCost:4 B
-Types:Instant
-A:SP$ Charm | MinCharmNum$ 1 | CharmNum$ Count$Compare Y GE1.2.1 | Choices$ DBOppSac,DBExile
-SVar:DBOppSac:DB$ RepeatEach | RepeatPlayers$ Player.Opponent | RepeatSubAbility$ DBChooseCard | SubAbility$ DBSac
-SVar:DBChooseCard:DB$ ChooseCard | Defined$ Player.IsRemembered | Choices$ Creature.greatestPowerControlledByRemembered | Mandatory$ True | Reveal$ True | RememberChosen$ True
-SVar:DBSac:DB$ SacrificeAll | ValidCards$ Card.IsRemembered | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearChosenCard$ True
-SVar:DBExile:DB$ ChangeZoneAll | ChangeType$ Card.OppCtrl | Origin$ Graveyard | Destination$ Exile | RememberChanged$ True | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenScriptIds$ 199271829 | TokenAmount$ Z | SubAbility$ DBCleanup
-SVar:Y:Count$Valid Card.IsCommander+YouCtrl
-SVar:Z:Count$ValidExile Creature.IsRemembered$GreatestCardPower
+ManaCost:2 R G
+Types:Legendary Creature Human Scout
+PT:1/4
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigDig
+SVar:TrigDig:DB$ Dig | DigNum$ 1 | ChangeNum$ All | Optional$ True | Reveal$ True | ChangeValid$ Creature | DestinationZone$ Battlefield | DestinationZone2$ Hand | Tapped$ True | Attacking$ DefendingPlayer & Valid Planeswalker.ControlledBy DefendingPlayer | RememberChanged$ True | SubAbility$ DBImmediateTriggerCheck
+SVar:DBImmediateTriggerCheck:DB$ ImmediateTrigger | Execute$ DBFight | ConditionDefined$ Remembered | ConditionPresent$ Creature | ConditionCompare$ GE1
+SVar:DBFight:DB$ Fight | Defined$ Remembered & Self | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:HasAttackEffect:TRUE

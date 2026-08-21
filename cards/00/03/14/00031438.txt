@@ -1,11 +1,10 @@
 Id:31438
-ColorIdentity:UBG
-OriginSet:Gf2b808f4f642ac62
-ManaCost:1 B G U
-Types:Creature Dragon
-PT:3/3
-K:Flying
-T:Mode$ ChangesZoneAll | Origin$ Graveyard | Destination$ Any | ValidCards$ Card.YouOwn | PlayerTurn$ True | Execute$ TrigToken | TriggerZones$ Battlefield
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 3851718391
-A:AB$ Pump | Cost$ 2 B G U ExileFromGrave<1/CARDNAME/this card> | ActivationZone$ Graveyard | ValidTgts$ Creature | SorcerySpeed$ True | SubAbility$ DBCounter
-SVar:DBCounter:DB$ PutCounterAll | ValidCards$ Creature.targetedBy | CounterType$ P1P1 | CounterNum$ 2 | CounterType2$ Flying | CounterNum2$ 1
+ColorIdentity:U
+OriginSet:Ge1676a27173c0866
+ManaCost:3 U
+Types:Creature Snake Shapeshifter
+PT:0/0
+K:ETBReplacement:Copy:DBCopy:Optional
+SVar:DBCopy:DB$ Clone | Choices$ Creature.Other
+A:AB$ PutCounter | Cost$ 2 U ExileFromGrave<1/CARDNAME/this card> | ValidTgts$ Creature.nonLegendary+YouCtrl | CounterType$ P1P1 | CounterNum$ 1 | ActivationZone$ Graveyard | SorcerySpeed$ True | SubAbility$ DBClone
+SVar:DBClone:DB$ Clone | Defined$ Targeted | CloneTarget$ Valid Creature.YouCtrl+NotDefinedTargeted | Duration$ UntilEndOfTurn

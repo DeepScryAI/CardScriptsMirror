@@ -1,13 +1,9 @@
 Id:24759
-ColorIdentity:WBR
-OriginSet:G3c9db52fa0bcee92
-ManaCost:1 R W B
-Types:Legendary Creature Human Knight
-PT:2/4
-K:Menace
-S:Mode$ Continuous | Affected$ Creature.Legendary+Other+YouCtrl | AddKeyword$ Menace
-T:Mode$ LandPlayed | ValidCard$ Land.Legendary+YouCtrl | ValidActivatingPlayer$ You | Execute$ TrigDraw | TriggerZones$ Battlefield
-T:Mode$ SpellCast | ValidCard$ Card.Legendary+YouCtrl | ValidActivatingPlayer$ You | Execute$ TrigDraw | TriggerZones$ Battlefield | Secondary$ True
-SVar:TrigDraw:DB$ Draw | Defined$ You | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ 1
-SVar:BuffedBy:Legendary
+ColorIdentity:U
+OriginSet:Gd784248bfdf9e1d7
+ManaCost:1 U
+Types:Sorcery
+T:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigCopy
+SVar:TrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | ConditionPresent$ Planeswalker.YouCtrl,Cleric.YouCtrl,Druid.YouCtrl,Shaman.YouCtrl,Warlock.YouCtrl,Wizard.YouCtrl | ConditionCompare$ GE1
+A:SP$ Scry | ScryNum$ 1 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1

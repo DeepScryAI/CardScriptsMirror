@@ -1,11 +1,9 @@
 Id:21791
-ColorIdentity:U
-OriginSet:Gabb23d0d25cdc46d
-ManaCost:X U U
-Types:Sorcery
-A:SP$ Dig | Defined$ You | DigNum$ X | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBPlay
-SVar:DBPlay:DB$ Play | Valid$ Card.IsRemembered+YouOwn | ValidSA$ Instant.cmcLEX,Sorcery.cmcLEX | ValidZone$ Exile | Controller$ You | WithoutManaCost$ True | Optional$ True | ForgetPlayed$ True | Amount$ 1 | SubAbility$ DBHand
-SVar:DBHand:DB$ ChangeZoneAll | Origin$ Exile | Destination$ Hand | ChangeType$ Instant.IsRemembered+YouOwn,Sorcery.IsRemembered+YouOwn | ForgetChanged$ True | SubAbility$ DBLibrary
-SVar:DBLibrary:DB$ ChangeZoneAll | Origin$ Exile | Destination$ Library | ChangeType$ Card.IsRemembered+YouOwn | LibraryPosition$ -1 | RandomOrder$ True | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$xPaid
+ColorIdentity:UG
+OriginSet:G18bf722b221724f8
+ManaCost:G U
+Types:Enchantment Saga
+K:Chapter:3:DBMill,DBChangeZone1,DBChangeZone2
+SVar:DBMill:DB$ Mill | NumCards$ 3 | Defined$ You
+SVar:DBChangeZone1:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | TargetMin$ 0 | TargetMax$ 2 | ValidTgts$ Permanent.Snow+YouOwn
+SVar:DBChangeZone2:DB$ ChangeZone | Origin$ Graveyard | Destination$ Library | DefinedPlayer$ Player | Chooser$ You | ChangeNum$ 3 | Hidden$ True | Shuffle$ True | Mandatory$ True

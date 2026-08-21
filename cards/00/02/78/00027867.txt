@@ -1,10 +1,13 @@
 Id:27867
-ColorIdentity:
+ColorIdentity:UR
 OriginSet:G30e8a5e111cffb44
-ManaCost:no cost
-Types:Plane Earth
-T:Mode$ PlaneswalkedTo | ValidCard$ Card.Self | Execute$ TrigToken
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigToken | TriggerZones$ Command | Secondary$ True
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 1214250791 | TokenTapped$ True
-T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ TrigPutCounterAll
-SVar:TrigPutCounterAll:DB$ PutCounterAll | ValidCards$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1
+ManaCost:5 U R
+Types:Creature Fish
+PT:7/7
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 2753563426 | TokenOwner$ You | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 3851718391 | TokenTapped$ True | TokenOwner$ You
+S:Mode$ Continuous | Affected$ Fish.YouCtrl | AddKeyword$ Haste
+S:Mode$ CantBlockBy | ValidAttacker$ Fish.YouCtrl | ValidBlocker$ Creature.Human | Secondary$ True
+SVar:PlayMain1:TRUE
+K:Foretell:3 U R

@@ -1,9 +1,9 @@
 Id:5989
-ColorIdentity:W
+ColorIdentity:U
 OriginSet:G0eb5e52d26fe1c23
-ManaCost:W
-Types:Instant
-A:SP$ Charm | Choices$ DetroyAura,PumpSoldier,PumpVigilance
-SVar:DetroyAura:DB$ Destroy | ValidTgts$ Aura.AttachedTo Creature
-SVar:PumpSoldier:DB$ Pump | NumAtt$ +2 | NumDef$ +2 | ValidTgts$ Creature.Soldier
-SVar:PumpVigilance:DB$ PumpAll | ValidCards$ Creature.YouCtrl | KW$ Vigilance
+ManaCost:3 U
+Types:Sorcery
+A:SP$ ChooseType | Defined$ You | Type$ Creature | SubAbility$ ApplyPressure
+SVar:ApplyPressure:DB$ GainControl | AllValid$ Creature.ChosenType | NewController$ You | ConditionCheckSVar$ YourPeerGroup | ConditionSVarCompare$ GTY
+SVar:YourPeerGroup:Count$Valid Creature.ChosenType+YouCtrl
+SVar:Y:PlayerCountOther$HighestValid Creature.ChosenType+YouCtrl

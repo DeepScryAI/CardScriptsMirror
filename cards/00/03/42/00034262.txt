@@ -1,12 +1,11 @@
 Id:34262
-ColorIdentity:R
+ColorIdentity:B
 OriginSet:Gcb93bbfc68a40806
-ManaCost:5 R
-Types:Legendary Creature Gamma Hero
-PT:5/5
-K:Trample
-S:Mode$ Continuous | Affected$ Hero.Other+YouCtrl | AddKeyword$ Trample
-T:Mode$ AttackerBlocked | ValidCard$ Hero.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ TriggeredAttackerLKICopy | CounterType$ P1P1 | CounterNum$ X
-SVar:X:Count$Valid Creature.blockingTriggeredAttacker
-SVar:PlayMain1:TRUE
+ManaCost:4 B
+Types:Enchantment Saga
+K:Chapter:3:DBDestroy,DBToken,DBPumpAll
+SVar:DBDestroy:DB$ Destroy | ValidTgts$ Creature.nonArtifact+OppCtrl | TargetMin$ 0 | TargetMax$ X | TargetsForEachPlayer$ True
+SVar:DBToken:DB$ Token | TokenAmount$ X | TokenScriptIds$ 2564522677 | TokenOwner$ You
+SVar:DBPumpAll:DB$ PumpAll | ValidCards$ Creature.Artifact+YouCtrl | KW$ Deathtouch | SubAbility$ DBPutCounterAll
+SVar:DBPutCounterAll:DB$ PutCounterAll | ValidCards$ Creature.Artifact+YouCtrl | CounterType$ P1P1 | CounterNum$ 1
+SVar:X:PlayerCountOpponents$Amount

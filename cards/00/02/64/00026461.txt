@@ -1,9 +1,12 @@
 Id:26461
-ColorIdentity:R
-OriginSet:G06757f68e16377c2
-ManaCost:5 R R R
-Types:Enchantment
-K:Convoke
-R:Event$ DamageDone | ValidSource$ Card.YouCtrl,Emblem.YouCtrl | ActiveZones$ Battlefield | ValidTarget$ Player,Permanent | ReplaceWith$ DmgTriple
-SVar:DmgTriple:DB$ ReplaceEffect | VarName$ DamageAmount | VarValue$ Z
-SVar:Z:ReplaceCount$DamageAmount/Thrice
+ColorIdentity:G
+OriginSet:G74a73d701e7801b3
+ManaCost:2 G G
+Types:Legendary Creature Phyrexian Beast
+PT:4/4
+K:Trample
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigEffect
+SVar:TrigEffect:DB$ Effect | Boon$ True | Duration$ Permanent | Triggers$ SpellCast
+SVar:SpellCast:Mode$ SpellCast | ValidCard$ Creature | ValidActivatingPlayer$ You | TriggerZones$ Command | Execute$ TrigEffectBis
+SVar:TrigEffectBis:DB$ Pump | PumpZone$ Stack | Defined$ TriggeredCard | NumAtt$ +X | NumDef$ +X | Duration$ Perpetual
+SVar:X:TriggeredSpellAbility$CardPower

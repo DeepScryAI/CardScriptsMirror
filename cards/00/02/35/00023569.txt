@@ -1,8 +1,11 @@
 Id:23569
-ColorIdentity:U
+ColorIdentity:BG
 OriginSet:G1a259dba25660062
-ManaCost:5 U U
-Types:Artifact Creature Crab
-PT:5/7
-K:Ward:3
-A:AB$ Counter | Cost$ 2 U Discard<1/CARDNAME> | TargetType$ Spell,Activated,Triggered | ValidTgts$ Card,Emblem | UnlessCost$ 3 | ActivationZone$ Hand
+ManaCost:1 B G
+Types:Enchantment Creature Cat Beast
+PT:2/1
+K:Menace
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Permanent.YouOwn
+R:Event$ Moved | ActiveZones$ Battlefield | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | ReplaceWith$ Exile
+SVar:Exile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | Defined$ ReplacedCard

@@ -1,11 +1,10 @@
 Id:18955
-ColorIdentity:U
-OriginSet:G0b51a0aecbe39efe
-ManaCost:4 U
-Types:Creature Elemental
-PT:3/3
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigTap
-SVar:TrigTap:DB$ Tap | ValidTgts$ Creature.OppCtrl | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | Defined$ Targeted | KW$ HIDDEN This card doesn't untap during your next untap step. | Duration$ Permanent
-SVar:PlayMain1:TRUE
+ColorIdentity:BR
+OriginSet:G586a4ae96288ce18
+ManaCost:1 B R
+Types:Enchantment
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigExile | TriggerZones$ Battlefield
+SVar:TrigExile:DB$ Dig | Defined$ You | DestinationZone$ Exile | DigNum$ 1 | ChangeNum$ All
+S:Mode$ Continuous | Affected$ Card.ExiledWithSource | AffectedZone$ Exile | MayPlay$ True | Condition$ PlayerTurn | CheckSVar$ X
+SVar:X:Count$LifeOppsLostThisTurn
+A:AB$ DealDamage | Cost$ 3 R | ValidTgts$ Opponent,Planeswalker | NumDmg$ 1

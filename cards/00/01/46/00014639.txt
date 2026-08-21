@@ -1,9 +1,11 @@
 Id:14639
-ColorIdentity:B
+ColorIdentity:G
 OriginSet:G0a578e83854cf093
-ManaCost:3 B
-Types:Creature Orc Assassin
-PT:2/3
-K:Outlast:B
-S:Mode$ Continuous | Affected$ Creature.YouCtrl+counters_GE1_P1P1 | AddKeyword$ Deathtouch
-SVar:PlayMain1:TRUE
+ManaCost:3 G G
+Types:Creature Turtle
+PT:5/9
+K:Landwalk:Island
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigExile | TriggerZones$ Battlefield
+SVar:TrigExile:DB$ ChangeZone | Defined$ Self | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DelTrig
+SVar:DelTrig:DB$ DelayedTrigger | ConditionDefined$ Remembered | ConditionPresent$ Card | DelayedTriggerDefinedPlayer$ You | RememberObjects$ RememberedLKI | ThisTurn$ True | Mode$ Phase | Phase$ Declare Attackers | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Defined$ DelayTriggerRememberedLKI | Origin$ Exile | Destination$ Battlefield | Attacking$ True | Tapped$ True | GainControl$ True

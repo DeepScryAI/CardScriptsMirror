@@ -1,9 +1,16 @@
 Id:17393
-ColorIdentity:UBR
-OriginSet:G5475e2be497fd272
-ManaCost:1 U B R
-Types:Legendary Creature Human Pirate
-PT:3/3
-S:Mode$ Continuous | Affected$ Creature.Pirate+Other+YouCtrl | AddPower$ 1 | AddToughness$ 1
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigGainCtrl
-SVar:TrigGainCtrl:DB$ GainControl | ValidTgts$ Permanent.nonLand+ControlledBy Player.wasDealtCombatDamageThisTurnBy Creature.Pirate GE3
+ColorIdentity:WUBRG
+OriginSet:G024fc2244a6b356b
+ManaCost:W U B R G
+Types:Legendary Creature Dragon
+PT:6/6
+K:Flash
+K:Flying
+K:Trample
+K:Haste
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigNoLose
+SVar:TrigNoLose:DB$ Effect | ReplacementEffects$ LoseReplace
+SVar:LoseReplace:Event$ GameLoss | ActiveZones$ Command | ValidPlayer$ You | ReplaceWith$ DrawSeven
+SVar:DrawSeven:DB$ Draw | NumCards$ 3 | SubAbility$ DBSetLife
+SVar:DBSetLife:DB$ SetLife | Defined$ You | LifeAmount$ 5 | SubAbility$ ExileEffect
+SVar:ExileEffect:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile

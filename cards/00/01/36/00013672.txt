@@ -1,8 +1,12 @@
 Id:13672
-ColorIdentity:G
+ColorIdentity:B
 OriginSet:G2c84d791794998a6
-ManaCost:3 G G
-Types:Legendary Creature Human Warrior
-PT:4/5
-T:Mode$ SpellCast | ValidActivatingPlayer$ You | TargetsValid$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigAnimate
-SVar:TrigAnimate:DB$ Animate | ValidTgts$ Land.YouCtrl | TargetMin$ 0 | TargetMax$ 3 | Power$ 2 | Toughness$ 2 | Types$ Creature,Warrior
+ManaCost:5 B B
+Types:Creature Demon
+PT:6/6
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ X | TokenScriptIds$ 1929744934 | TokenOwner$ You
+SVar:X:Count$Devotion.Black
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice | Defined$ You | SacValid$ Creature

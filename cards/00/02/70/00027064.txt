@@ -1,8 +1,11 @@
 Id:27064
-ColorIdentity:U
+ColorIdentity:UR
 OriginSet:G6ce0035cfb774934
-ManaCost:1 U
-Types:Creature Human Peasant
+ManaCost:1 U R
+Types:Legendary Creature Halfling Rogue
 PT:1/3
-A:AB$ Mana | Cost$ T | Produced$ Any | RestrictValid$ Spell.Instant,Spell.Sorcery
-A:AB$ Mill | Cost$ 5 U T | NumCards$ 3 | ValidTgts$ Player
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigTempt
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigTempt | Secondary$ True
+SVar:TrigTempt:DB$ RingTemptsYou
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigTreasure
+SVar:TrigTreasure:DB$ Token | TokenScriptIds$ 3851718391 | TokenOwner$ You

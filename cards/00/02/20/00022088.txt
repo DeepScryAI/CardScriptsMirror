@@ -1,14 +1,8 @@
 Id:22088
-ColorIdentity:U
+ColorIdentity:WR
 OriginSet:Gd784248bfdf9e1d7
-ManaCost:1 U
+ManaCost:RW
 Types:Instant
-A:SP$ Counter | TargetType$ Spell | ValidTgts$ Instant,Sorcery | SubAbility$ ExileYard
-SVar:ExileYard:DB$ ChangeZoneAll | Origin$ Graveyard | Destination$ Exile | Defined$ TargetedController | ChangeType$ TargetedCard.sameName | SubAbility$ ExileHand
-SVar:ExileHand:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | DefinedPlayer$ TargetedController | ChangeType$ TargetedCard.sameName | ChangeNum$ NumInHand | Chooser$ You | SubAbility$ ExileLib | RememberChanged$ True
-SVar:ExileLib:DB$ ChangeZone | Origin$ Library | Destination$ Exile | DefinedPlayer$ TargetedController | ChangeType$ TargetedCard.sameName | ChangeNum$ NumInLib | Chooser$ You | Shuffle$ True | SubAbility$ Draw
-SVar:Draw:DB$ Draw | Defined$ TargetedController | NumCards$ X | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$RememberedSize
-SVar:NumInHand:TargetedController$CardsInHand
-SVar:NumInLib:TargetedController$CardsInLibrary
+A:SP$ Pump | ValidTgts$ Creature | NumAtt$ +1 | SubAbility$ DBDelayedTrigger
+SVar:DBDelayedTrigger:DB$ DelayedTrigger | Mode$ ChangesZone | RememberObjects$ Targeted | ValidCard$ Card.IsTriggerRemembered | Origin$ Battlefield | Destination$ Graveyard | ThisTurn$ True | Execute$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 2645485105

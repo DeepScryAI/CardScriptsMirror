@@ -1,11 +1,22 @@
 Id:33270
-ColorIdentity:WU
+ColorIdentity:UR
 OriginSet:G7ab1fe96128a1641
-ManaCost:1 W U
-Types:Kindred Sorcery Merfolk
-A:SP$ Charm | Choices$ DBCopy,DBPumpAll,DBDraw,DBTap | CharmNum$ 2
-SVar:DBCopy:DB$ CopyPermanent | ValidTgts$ Merfolk.YouCtrl
-SVar:DBPumpAll:DB$ PumpAll | ValidTgts$ Player | ValidCards$ Creature | KW$ Lifelink
-SVar:DBDraw:DB$ Draw | ValidTgts$ Player
-SVar:DBTap:DB$ Tap | ValidTgts$ Creature | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | Defined$ ParentTarget | CounterType$ STUN | CounterNum$ 1
+ManaCost:1 R
+Types:Legendary Creature Elemental Sorcerer
+PT:1/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+T:Mode$ Transformed | ValidCard$ Card.Self | Execute$ TrigDraw | Secondary$ True
+SVar:TrigDraw:AB$ Draw | Cost$ Discard<1/Card> | NumCards$ 1
+T:Mode$ Phase | Phase$ Main1 | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigTransform
+SVar:TrigTransform:AB$ SetState | Cost$ U | Defined$ Self | Mode$ Transform
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:blue
+Types:Legendary Creature Elemental Wizard
+PT:1/3
+T:Mode$ Transformed | ValidCard$ Card.Self | Execute$ TrigMana
+T:Mode$ Phase | Phase$ Main1 | Secondary$ True | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigMana
+SVar:TrigMana:DB$ Mana | Produced$ Any | Amount$ 2 | RestrictValid$ Spell.cmcGE4
+T:Mode$ Phase | Phase$ Main1 | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigTransform
+SVar:TrigTransform:AB$ SetState | Cost$ R | Defined$ Self | Mode$ Transform

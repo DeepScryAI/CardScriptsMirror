@@ -1,16 +1,9 @@
 Id:27799
-ColorIdentity:BR
+ColorIdentity:
 OriginSet:G30e8a5e111cffb44
-ManaCost:2 B R
-Types:Creature Alien Soldier
-PT:4/2
-K:FirstStrike
-K:Haste
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigChoice
-SVar:TrigChoice:DB$ VillainousChoice | Defined$ Opponent | Choices$ DBDiscard,DBDamage
-SVar:DBDiscard:DB$ Discard | Defined$ Player.IsRemembered | Mode$ Hand | RememberDiscarded$ True | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | NumCards$ X | Defined$ Player.IsRemembered | SubAbility$ CleanDrawn
-SVar:CleanDrawn:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Remembered$Amount/Minus.1
-SVar:DBDamage:DB$ DealDamage | Defined$ Player.IsRemembered | NumDmg$ Y
-SVar:Y:Count$ValidHand Card.OwnedBy Player.IsRemembered
+ManaCost:2
+Types:Legendary Artifact Equipment
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 3
+S:Mode$ Continuous | Affected$ Creature.EquippedBy+attacking | AddKeyword$ FirstStrike & MustBeBlockedBy Creature.Dalek
+K:Equip:1:Creature.Legendary+YouCtrl:legendary creature
+K:Equip:3

@@ -1,13 +1,14 @@
 Id:29600
-ColorIdentity:UB
+ColorIdentity:W
 OriginSet:Gac6359c222afbd4f
-ManaCost:3 UB
-Types:Instant
-A:SP$ ChangeZone | ChangeType$ Instant,Card.hasKeywordFlash | ChangeNum$ 1 | Origin$ Library | Destination$ Hand | Shuffle$ True
-AlternateMode:Modal
-ALTERNATE
-ManaCost:no cost
-Types:Land
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
-A:AB$ Mana | Cost$ T | Produced$ Combo U B
+ManaCost:W
+Types:Creature Human Cleric
+PT:1/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigGainLife
+SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1 | SubAbility$ DBEnergy
+SVar:DBEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ 1
+T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigImmediateTrig | TriggerZones$ Battlefield
+SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ PayEnergy<3> | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ Pump | ValidTgts$ Creature.attacking | SubAbility$ DBCounter
+SVar:DBCounter:DB$ PutCounterAll | ValidCards$ Creature.targetedBy | CounterType$ P1P1 | CounterNum$ 2 | CounterType2$ Flying | CounterNum2$ 1 | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Targeted | Types$ Angel | Duration$ Permanent

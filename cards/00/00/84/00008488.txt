@@ -1,12 +1,8 @@
 Id:8488
-ColorIdentity:UBR
+ColorIdentity:R
 OriginSet:Gf7b8c9355081f53b
-ManaCost:4 U B R
-Types:Legendary Creature Vampire Noble
-PT:5/5
-K:Flying
-K:Haste
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.DamagedBy | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterNum$ 1 | CounterType$ P1P1
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigDraw | OptionalDecider$ You
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+ManaCost:5 R R
+Types:Sorcery
+S:Mode$ AlternativeCost | ValidSA$ Spell.Self | EffectZone$ All | Cost$ ExileFromHand<2/Card.Red+Other>
+A:SP$ UntapAll | ValidCards$ Creature.attackedThisTurn | SubAbility$ DBAddCombat
+SVar:DBAddCombat:DB$ AddPhase | ExtraPhase$ Combat | FollowedBy$ Main2 | ConditionPhases$ Main1,Main2

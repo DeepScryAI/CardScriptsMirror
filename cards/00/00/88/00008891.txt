@@ -1,12 +1,10 @@
 Id:8891
-ColorIdentity:R
+ColorIdentity:G
 OriginSet:Gce1d73449bd71b54
-ManaCost:2 R R
-Types:Creature Lhurgoyf
-PT:*/*
-S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ Y | SetToughness$ Y
-K:Suspend:X:XMin1 X 3 R
-T:Mode$ CounterRemoved | ValidCard$ Card.Self | TriggerZones$ Exile | CounterType$ TIME | Execute$ TrigDestroy
-SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Land.nonBasic
-SVar:X:Count$xPaid
-SVar:Y:Count$ValidGraveyard Land.nonBasic+OppCtrl
+ManaCost:5 G
+Types:Creature Treefolk
+PT:3/6
+K:Vanishing:3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigReturn
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigReturn | Secondary$ True
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Creature.Other | TargetsWithDefinedController$ TriggeredCardController

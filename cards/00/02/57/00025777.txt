@@ -1,10 +1,13 @@
 Id:25777
-ColorIdentity:W
+ColorIdentity:B
 OriginSet:G06ccef4324c14725
-ManaCost:1 W
-Types:Instant
-A:SP$ ChangeZone | ValidTgts$ Permanent.nonLand | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | Duration$ Permanent | StaticAbilities$ MayPlay,CostsMore | RememberObjects$ Remembered | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
-SVar:MayPlay:Mode$ Continuous | Affected$ Card.IsRemembered | AffectedZone$ Exile | MayPlay$ True | MayPlayPlayer$ CardOwner
-SVar:CostsMore:Mode$ RaiseCost | ValidCard$ Card.IsRemembered+CastSa Spell.MayPlaySource | AffectedZone$ Exile | Type$ Spell | Amount$ 2 | Activator$ Opponent
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:2 B
+Types:Creature Phyrexian Horror
+PT:1/3
+K:Flying
+SVar:SacMe:3
+T:Mode$ Drawn | ValidCard$ Card.YouCtrl | Number$ 2 | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | ValidTgts$ Creature.YouOwn+cmcLEX+Other | Origin$ Graveyard | Destination$ Battlefield
+SVar:X:TriggeredCard$CardPower

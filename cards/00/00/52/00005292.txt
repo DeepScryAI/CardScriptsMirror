@@ -1,8 +1,9 @@
 Id:5292
-ColorIdentity:U
+ColorIdentity:R
 OriginSet:Gfdac7ecc1e8a7d21
-ManaCost:1 U
-Types:Creature Human Wizard
-PT:1/1
-S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self
-A:AB$ ChangeZone | Cost$ U Discard<1/Card> | Origin$ Battlefield | Destination$ Hand
+ManaCost:4 R
+Types:Sorcery
+A:SP$ Branch | ValidTgts$ Player | BranchConditionSVar$ X | BranchConditionSVarCompare$ GE7 | TrueSubAbility$ ThreshWaste | FalseSubAbility$ WasteLand
+SVar:WasteLand:DB$ Sacrifice | Defined$ Targeted | SacValid$ Land
+SVar:ThreshWaste:DB$ SacrificeAll | ValidCards$ Land
+SVar:X:Count$ValidGraveyard Card.YouOwn

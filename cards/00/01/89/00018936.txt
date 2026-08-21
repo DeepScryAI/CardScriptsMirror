@@ -1,8 +1,12 @@
 Id:18936
-ColorIdentity:WU
-OriginSet:G0b51a0aecbe39efe
-ManaCost:3 W U
-Types:Creature Human Knight
-PT:2/5
+ColorIdentity:W
+OriginSet:G586a4ae96288ce18
+ManaCost:4 W
+Types:Creature Beast
+PT:4/5
 K:Vigilance
-S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | Hidden$ True | ChangeType$ Creature.!token+Other+YouCtrl | ChangeNum$ MaxTgts | Duration$ UntilHostLeavesPlay
+S:Mode$ Continuous | Affected$ Card.Self | AddPower$ X | AddToughness$ X
+SVar:X:Count$ValidExile Card.ExiledWithSource/Times.2
+SVar:MaxTgts:Count$Valid Creature.!token+Other+YouCtrl

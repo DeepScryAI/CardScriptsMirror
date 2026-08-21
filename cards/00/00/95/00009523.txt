@@ -1,11 +1,7 @@
 Id:9523
-ColorIdentity:G
+ColorIdentity:W
 OriginSet:G49bcc8b9b86b628d
-ManaCost:4 G
-Types:Creature Elf Archer
-PT:2/4
-S:Mode$ Continuous | Affected$ Creature.Archer+Other+YouCtrl | AddPower$ 1 | AddToughness$ 1
-T:Mode$ DamageDone | ValidSource$ Archer.YouCtrl+inZoneBattlefield | ValidTarget$ Creature | TriggerZones$ Battlefield | Execute$ TrigDealDamage
-SVar:TrigDealDamage:DB$ DealDamage | Defined$ TriggeredTargetController | DamageSource$ TriggeredSource | NumDmg$ X
-SVar:X:TriggerCount$DamageAmount
-SVar:HasCombatEffect:TRUE
+ManaCost:1 W
+Types:Instant
+A:SP$ DelayedTrigger | ValidTgts$ Creature | Mode$ ChangesZone | RememberObjects$ Targeted | ValidCard$ Card.IsTriggerRemembered | Origin$ Battlefield | Destination$ Graveyard | ThisTurn$ True | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Defined$ DelayTriggerRemembered | Origin$ Graveyard | Destination$ Battlefield

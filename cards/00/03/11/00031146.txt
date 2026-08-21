@@ -1,12 +1,12 @@
 Id:31146
 ColorIdentity:
-OriginSet:G997e3b19a1e94e85
-ManaCost:2
+OriginSet:G4524bbf7a3db9dc0
+ManaCost:3
 Types:Artifact Vehicle
-PT:3/2
-K:Flying
-K:Crew:1
-T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ You | Execute$ TrigCharge | TriggerZones$ Battlefield
-SVar:TrigCharge:DB$ PutCounter | CounterType$ CHARGE | CounterNum$ X
-SVar:X:TriggeredCard$CardManaCost/Times.4
-A:AB$ AddTurn | Cost$ SubCounter<121/CHARGE> | Defined$ You | NumTurns$ 1
+PT:4/4
+K:ETBReplacement:Other:ChooseCT
+SVar:ChooseCT:DB$ ChooseType | Type$ Creature | AILogic$ MostProminentInComputerDeck
+S:Mode$ Continuous | Affected$ Creature.Vehicle+YouCtrl | AddType$ ChosenType
+S:Mode$ Continuous | Affected$ Creature.ChosenType+Other+YouCtrl | AddPower$ 1 | AddToughness$ 1
+K:Crew:3
+SVar:PlayMain1:TRUE

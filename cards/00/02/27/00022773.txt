@@ -1,9 +1,15 @@
 Id:22773
-ColorIdentity:W
-OriginSet:Gf78628ad511eefec
-ManaCost:2 W
-Types:Enchantment
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Permanent.nonLand+OppCtrl | Duration$ UntilHostLeavesPlay
-SVar:PlayMain1:TRUE
-SVar:OblivionRing:TRUE
+ColorIdentity:R
+OriginSet:G268a0d6ee06912c2
+ManaCost:R R
+Types:Creature Phoenix
+PT:2/2
+K:Flying
+S:Mode$ CantBlock | ValidCard$ Card.Self
+T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ You | NoResolvingCheck$ True | TriggerZones$ Graveyard | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ FLAME | CounterNum$ X | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | ConditionDefined$ Self | ConditionPresent$ Card.counters_GE5_FLAME | Defined$ Self | Origin$ Graveyard | Destination$ Battlefield | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Pump | ConditionDefined$ Remembered | ConditionPresent$ Card.Self | NumAtt$ +1 | NumDef$ +1 | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$TriggeredManaCostDevotion.Red
+SVar:SacMe:3

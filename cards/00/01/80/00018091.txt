@@ -1,6 +1,12 @@
 Id:18091
-ColorIdentity:R
+ColorIdentity:B
 OriginSet:G5033d54b23b37629
-ManaCost:R
-Types:Instant
-A:SP$ Pump | ValidTgts$ Creature | NumAtt$ +1 | KW$ FirstStrike & Haste
+ManaCost:3 B
+Types:Enchantment Saga
+K:Chapter:3:DBDealDamage,DBDealDamage,DBToken
+SVar:DBDealDamage:DB$ DealDamage | Defined$ Player.Opponent | NumDmg$ 2 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2
+SVar:DBToken:DB$ Token | TokenScriptIds$ 3152831892 | TokenOwner$ You | TokenPower$ X | TokenToughness$ X | RememberTokens$ True | SubAbility$ DBDamageYou
+SVar:DBDamageYou:DB$ DealDamage | Defined$ You | NumDmg$ X | DamageSource$ Remembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$YourLifeTotal/HalfUp

@@ -1,11 +1,10 @@
 Id:32616
-ColorIdentity:WBR
-OriginSet:G36e97d2da170e675
-ManaCost:R W B
-Types:Legendary Creature Human Noble Ally
-PT:2/4
-K:Firebending:X:, where X is CARDNAME's power.
-T:Mode$ SpellCast | ValidCard$ Card.wasCastFromExile | ValidActivatingPlayer$ You | Execute$ TrigPutCounterAll | TriggerZones$ Battlefield
-T:Mode$ ChangesZone | Origin$ Exile | Destination$ Battlefield | ValidCard$ Permanent.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounterAll | Secondary$ True
-SVar:TrigPutCounterAll:DB$ PutCounterAll | ValidCards$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1
-SVar:X:Count$CardPower
+ColorIdentity:W
+OriginSet:G66b3a7eeabd9000e
+ManaCost:1 W
+Types:Creature Human Detective
+PT:1/1
+K:etbCounter:P1P1:1
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ X
+SVar:X:Count$CardCounters.P1P1

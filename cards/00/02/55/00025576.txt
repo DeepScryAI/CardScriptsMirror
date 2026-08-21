@@ -1,12 +1,14 @@
 Id:25576
-ColorIdentity:W
-OriginSet:Gce0c33e5115830a3
-ManaCost:1 W
-Types:Legendary Creature Human Pilot
-PT:3/1
-R:Event$ DamageDone | Prevent$ True | ValidTarget$ Creature.Self | IsPresent$ Artifact.Creature+YouCtrl+attacking
-T:Mode$ Taps | ValidCard$ Card.Self | Execute$ DBExileTopCard
-SVar:DBExileTopCard:DB$ Dig | Defined$ You | DigNum$ 6 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBPlay
-SVar:DBPlay:DB$ Play | Valid$ Vehicle.IsRemembered,Artifact.Creature+IsRemembered | ValidSA$ Spell | ValidZone$ Exile | Controller$ You | Optional$ True | Amount$ 1 | SubAbility$ PutRestBackBottomLibrary
-SVar:PutRestBackBottomLibrary:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered | Origin$ Exile | Destination$ Library | LibraryPosition$ -1 | RandomOrder$ True | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:B
+OriginSet:G2e872aaf9b98489e
+ManaCost:2 B
+Types:Instant
+A:SP$ Pump | ValidTgts$ Creature | SubAbility$ DBRollDice | IsCurse$ True
+SVar:DBRollDice:DB$ RollDice | ResultSubAbilities$ 1:DBCurse,2:DBCounter,3:DBDrain,4:DBCurseBis,5:DBDestroy,6:DBExile
+SVar:DBCurse:DB$ Animate | Defined$ Targeted | Toughness$ 1
+SVar:DBCounter:DB$ PutCounter | Defined$ Targeted | CounterType$ M1M1 | CounterNum$ 2
+SVar:DBDrain:DB$ DealDamage | Defined$ Targeted | NumDmg$ 3 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ 3
+SVar:DBCurseBis:DB$ Pump | Defined$ Targeted | NumAtt$ -4 | NumDef$ -4
+SVar:DBDestroy:DB$ Destroy | Defined$ Targeted
+SVar:DBExile:DB$ ChangeZone | Defined$ Targeted | Origin$ Battlefield | Destination$ Exile

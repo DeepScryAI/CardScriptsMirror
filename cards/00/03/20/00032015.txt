@@ -1,12 +1,11 @@
 Id:32015
-ColorIdentity:UBR
-OriginSet:G8a59924df6623252
-ManaCost:2 U B R
-Types:Legendary Creature Human Scientist
-PT:3/6
-K:Flying
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | SubAbility$ DBVillainousChoice
-SVar:DBVillainousChoice:DB$ VillainousChoice | Defined$ Opponent | Choices$ DBDiscard,DBChangeZone
-SVar:DBDiscard:DB$ Discard | Defined$ Remembered | NumCards$ 1 | Mode$ TgtChoose
-SVar:DBChangeZone:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | Optional$ You | ChangeType$ Construct,Robot,Vehicle | ChangeNum$ 1
+ColorIdentity:WG
+OriginSet:G7ab4f62d323b0ca7
+ManaCost:3 G W
+Types:Legendary Creature Human Rebel Warlock
+PT:4/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 3069350400 | TokenOwner$ You
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.Other+YouCtrl | NumAtt$ +X | NumDef$ +X
+SVar:X:Count$Valid Creature.YouCtrl

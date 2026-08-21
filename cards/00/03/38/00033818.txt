@@ -1,9 +1,13 @@
 Id:33818
-ColorIdentity:
-OriginSet:Gf8df2bea26dc6b68
-ManaCost:2
-Types:Artifact Creature Construct
-PT:2/1
-T:Mode$ SpellCast | ValidCard$ Card.MultiColor | ValidActivatingPlayer$ You | Execute$ TrigPutCounter | TriggerZones$ Battlefield
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
-SVar:BuffedBy:Card.MultiColor
+ColorIdentity:UG
+OriginSet:Gf04404de3fa1525e
+ManaCost:2 G U
+Types:Legendary Creature Frog Druid
+PT:1/4
+K:Increment
+T:Mode$ CounterAddedOnce | ValidCard$ Card.Self | TriggerZones$ Battlefield | OptionalDecider$ You | CounterType$ P1P1 | Execute$ TrigMana
+SVar:TrigMana:DB$ Mana | Produced$ Any
+A:AB$ Token | Cost$ X T | TokenScriptIds$ 1802199211 | RememberTokens$ True | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Remembered | CounterType$ P1P1 | CounterNum$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$xPaid

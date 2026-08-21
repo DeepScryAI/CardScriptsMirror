@@ -1,9 +1,12 @@
 Id:19630
-ColorIdentity:WU
+ColorIdentity:W
 OriginSet:G7c61dc677f00d087
-ManaCost:1 W U
-Types:Creature Bird Spirit
-PT:2/3
-K:Flying
-S:Mode$ Continuous | Affected$ Creature.withFlying+Other+YouCtrl | AddPower$ 1 | AddToughness$ 1
-SVar:PlayMain1:TRUE
+ManaCost:2 W W W
+Types:Creature Elemental Knight
+PT:4/6
+K:Vigilance
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ Destroy | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Permanent.nonLand | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 3338649862 | TokenOwner$ TargetedController
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Artifact.YouCtrl,Enchantment.YouCtrl

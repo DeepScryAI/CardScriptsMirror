@@ -1,0 +1,13 @@
+Id:35293
+ColorIdentity:B
+OriginSet:G6f5d1d11d5ddb670
+ManaCost:1 B
+Types:Creature Vampire Shapeshifter
+PT:2/2
+K:Lifelink
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Destination$ Battlefield | Execute$ TrigLook
+SVar:TrigLook:DB$ RevealHand | ValidTgts$ Opponent | Look$ True | RememberRevealed$ True | SubAbility$ DBChooseCard
+SVar:DBChooseCard:DB$ ChooseCard | ChoiceZone$ Hand | Choices$ Card.nonLand+IsRemembered | MinAmount$ 0 | Amount$ 1 | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Defined$ ChosenCard | Origin$ Hand | Destination$ Exile | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ Targeted | ConditionDefined$ ChosenCard | ConditionPresent$ Card | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearChosenCard$ True

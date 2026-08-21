@@ -1,12 +1,13 @@
 Id:30350
-ColorIdentity:W
-OriginSet:G8b2ed00ac2a0ff47
-ManaCost:4 W W
-Types:Enchantment Creature Nightmare
-PT:5/5
-A:SP$ PermanentCreature | Cost$ 4 W W Exile<1/Creature>
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Creature.OppCtrl
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZoneAll | ChangeType$ Card.ExiledWithSource | Origin$ Exile | Destination$ Hand
+ColorIdentity:UB
+OriginSet:G9ff9681e1fe8713a
+ManaCost:U B
+Types:Sorcery
+A:SP$ Reveal | ValidTgts$ Opponent | RevealAllValid$ Card.nonLand+TargetedPlayerCtrl | RememberRevealed$ True | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | DefinedPlayer$ Targeted | Chooser$ You | ChangeType$ Card.nonLand | Mandatory$ True | SubAbility$ DBClearRemembered
+SVar:DBClearRemembered:DB$ Cleanup | ClearRemembered$ True | SubAbility$ DBSeek
+SVar:DBSeek:DB$ Seek | Condition$ Threshold | Num$ 1 | Type$ Rat | RememberFound$ True | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Remembered | staticAbilities$ ReduceCost | Duration$ Perpetual | SubAbility$ DBGainLife
+SVar:ReduceCost:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ 1 | EffectZone$ All
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ X
+SVar:X:Count$ValidHand Card.YouOwn+Rat

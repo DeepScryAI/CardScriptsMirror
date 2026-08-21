@@ -1,7 +1,12 @@
 Id:8893
 ColorIdentity:U
 OriginSet:Gce1d73449bd71b54
-ManaCost:2 U U
-Types:Instant
-A:SP$ Counter | TargetType$ Spell | ValidTgts$ Card | Destination$ Graveyard | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | Defined$ TargetedController | NumCards$ 1 | Mode$ TgtChoose
+ManaCost:7 U U
+Types:Sorcery
+K:Suspend:3:1 U U
+A:SP$ RepeatEach | ValidTgts$ Opponent | RepeatCards$ Permanent.nonLand+TargetedPlayerCtrl+tapped | Zone$ Battlefield | RepeatSubAbility$ DBSearch | SubAbility$ DBChangeZone
+SVar:DBSearch:DB$ ChooseCard | ChoiceZone$ Library | QuasiLibrarySearch$ TargetedPlayer | Choices$ Card.TargetedPlayerOwn+!IsImprinted+sharesNameWith Remembered | ImprintChosen$ True
+SVar:DBChangeZone:DB$ ChangeZone | Defined$ Imprinted | Origin$ Library | Destination$ Battlefield | GainControl$ True | Searched$ True | SubAbility$ DBShuffle
+SVar:DBShuffle:DB$ Shuffle | Defined$ ParentTarget
+SVar:NeedsToPlayVar:Z GE3
+SVar:Z:PlayerCountOpponents$HighestValid Permanent.nonLand+YouCtrl+tapped

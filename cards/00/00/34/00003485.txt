@@ -1,13 +1,10 @@
 Id:3485
 ColorIdentity:B
 OriginSet:G24ae8187eacbba52
-ManaCost:B
-Types:Creature Phyrexian Horror
-PT:0/0
-K:etbCounter:P1P1:1
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigPutCounter | TriggerZones$ Battlefield | OptionalDecider$ You
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ DelTrigDestroy
-T:Mode$ Blocks | ValidCard$ Card.Self | Execute$ DelTrigDestroy | Secondary$ True
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterNum$ 1 | CounterType$ P1P1
-SVar:DelTrigDestroy:DB$ DelayedTrigger | Mode$ Phase | Phase$ EndCombat | Execute$ TrigDestroy
-SVar:TrigDestroy:DB$ Destroy | Defined$ Self
+ManaCost:2 B B
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 2 | AddToughness$ 2 | AddKeyword$ Flying | AddTrigger$ VampiricEmbraceTrig | AddSVar$ VampiricEmbraceCounters
+SVar:VampiricEmbraceTrig:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.DamagedBy | TriggerZones$ Battlefield | Execute$ VampiricEmbraceCounters
+SVar:VampiricEmbraceCounters:DB$ PutCounter | Defined$ Self | CounterNum$ 1 | CounterType$ P1P1

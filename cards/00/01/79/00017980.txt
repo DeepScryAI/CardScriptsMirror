@@ -1,6 +1,11 @@
 Id:17980
-ColorIdentity:R
+ColorIdentity:W
 OriginSet:G21ed5bd3b1924169
-ManaCost:2 R R
-Types:Creature Dinosaur
-PT:3/4
+ManaCost:2 W
+Types:Creature Vampire Knight
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange | OptionalDecider$ You
+SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Library | LibraryPosition$ 0 | ChangeType$ Card.Vampire | ChangeNum$ 1 | ShuffleNonMandatory$ True
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Vampire.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature | NumAtt$ +1 | NumDef$ +1
+SVar:BuffedBy:Vampire

@@ -1,9 +1,8 @@
 Id:11533
-ColorIdentity:
+ColorIdentity:RG
 OriginSet:Gc046eafa1d269dd1
-ManaCost:4
-Types:Artifact Creature Phyrexian Dog
-PT:2/2
-K:Infect
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigReturn | OptionalDecider$ You
-SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Creature.withInfect+YouOwn
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ LandTapped | ReplacementResult$ Updated
+SVar:LandTapped:DB$ Tap | Defined$ Self | ETB$ True | ConditionPresent$ Land.YouCtrl | ConditionCompare$ GT2
+A:AB$ Mana | Cost$ T | Produced$ Combo R G

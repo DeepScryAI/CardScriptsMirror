@@ -1,22 +1,10 @@
 Id:17854
-ColorIdentity:
-OriginSet:G84be946b27d900a1
-ManaCost:2
-Types:Legendary Artifact
-A:AB$ Draw | Cost$ 1 T | SubAbility$ DBExile
-SVar:DBExile:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | ChangeType$ Card | Mandatory$ True | RememberChanged$ True | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | LifeAmount$ 5 | SubAbility$ DBUntap | ConditionCheckSVar$ Y | ConditionSVarCompare$ GE5
-SVar:DBUntap:DB$ Untap | Defined$ Self | SubAbility$ DBTransform | ConditionCheckSVar$ Y | ConditionSVarCompare$ GE5
-SVar:DBTransform:DB$ SetState | Defined$ Self | Mode$ Transform | ConditionCheckSVar$ Y | ConditionSVarCompare$ GE5
-T:Mode$ ChangesZone | Origin$ Exile | Destination$ Any | Static$ True | ValidCard$ Card.IsRemembered+ExiledWithSource | Execute$ DBForget
-SVar:DBForget:DB$ Pump | ForgetObjects$ TriggeredCard
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | Static$ True | ValidCard$ Card.Self | Execute$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:Y:Remembered$DifferentCardManaCost
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:colorless
-Types:Legendary Land
-A:AB$ Mana | Cost$ T | Produced$ Any | Amount$ X
-SVar:X:Count$YourLifeTotal
+ColorIdentity:R
+OriginSet:G1b9a73841edd3e32
+ManaCost:3 R R
+Types:Sorcery
+A:SP$ Subgame | RememberPlayers$ NotWin | StartingLife$ 1 | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ Player.IsRemembered | ReplacementEffects$ DmgEvent | Duration$ Permanent
+SVar:DmgEvent:Event$ DamageDone | ValidTarget$ Player.IsRemembered | ReplaceWith$ DmgTwice
+SVar:DmgTwice:DB$ ReplaceEffect | VarName$ DamageAmount | VarValue$ X
+SVar:X:ReplaceCount$DamageAmount/Twice

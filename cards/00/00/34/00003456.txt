@@ -1,10 +1,10 @@
 Id:3456
-ColorIdentity:B
+ColorIdentity:W
 OriginSet:G24ae8187eacbba52
-ManaCost:2 B
-Types:Creature Worm Horror
-PT:5/1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSac
-SVar:TrigSac:DB$ Sacrifice | Defined$ You | SacValid$ Creature
-A:AB$ Regenerate | Cost$ B
-SVar:NeedsToPlay:Creature.YouCtrl+cmcLE3
+ManaCost:2 W
+Types:Creature Human
+PT:1/1
+A:AB$ Effect | Cost$ 1 W T | ValidTgts$ Creature | RememberObjects$ Targeted | StaticAbilities$ Enchant | Triggers$ TrigCastSpell | ExileOnMoved$ Battlefield | Duration$ Permanent
+SVar:Enchant:Mode$ Continuous | Affected$ Card.IsRemembered | AddType$ Enchantment | RemoveAllAbilities$ True | RemoveCardTypes$ True
+SVar:TrigCastSpell:Mode$ SpellCast | ValidActivatingPlayer$ You | ValidCard$ Creature | TriggerZones$ Command | Execute$ RemoveEffect | Static$ True
+SVar:RemoveEffect:DB$ ChangeZone | Origin$ Command | Destination$ Exile

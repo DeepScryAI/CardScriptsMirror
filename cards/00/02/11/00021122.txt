@@ -1,6 +1,16 @@
 Id:21122
-ColorIdentity:W
-OriginSet:G72c9c624ceb92bff
-ManaCost:1 W
-Types:Creature Kor Warrior
-PT:3/1
+ColorIdentity:
+OriginSet:G7b2607750b451c25
+ManaCost:4
+Types:Artifact Creature Construct
+PT:4/4
+K:Kicker:3
+R:Event$ Moved | ValidCard$ Card.Self+kicked | Destination$ Battlefield | ReplaceWith$ DBPutCounter | ReplacementResult$ Updated
+SVar:DBPutCounter:DB$ PutCounter | ETB$ True | Defined$ Self | CounterType$ P1P1 | CounterNum$ X
+SVar:X:Count$Valid Land.nonBasic+OppCtrl
+SVar:NeedsToPlayKicked:Land.nonBasic+OppCtrl
+T:Mode$ BecomesTarget | ValidTarget$ Card.Self | TriggerZones$ Battlefield | ValidSource$ Spell | Execute$ TrigSac
+SVar:TrigSac:DB$ SacrificeAll | Defined$ Self | RememberSacrificed$ True | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenAmount$ Y | TokenScriptIds$ 2066756521 | TokenOwner$ You | SubAbility$ DBCleanup
+SVar:Y:RememberedLKI$CardPower
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

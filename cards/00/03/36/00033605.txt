@@ -1,9 +1,10 @@
 Id:33605
-ColorIdentity:BG
-OriginSet:Gf04404de3fa1525e
-ManaCost:1 B G
-Types:Artifact
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigLoseLife
-SVar:TrigLoseLife:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 1 | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
-A:AB$ ChangeZone | Cost$ 1 B G T Sac<1/Creature> | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouOwn | SorcerySpeed$ True
+ColorIdentity:R
+OriginSet:Gff0a4227ae9f1a4b
+ManaCost:4 R R
+Types:Legendary Creature Mutant Ninja Turtle
+PT:5/6
+K:Menace
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player.wasDealtCombatDamageThisTurnBySourceTimes EQ1 | TriggerZones$ Battlefield | Execute$ TrigUntap
+SVar:TrigUntap:DB$ UntapAll | ValidCards$ Creature.attacking | SubAbility$ DBAddCombat
+SVar:DBAddCombat:DB$ AddPhase | ExtraPhase$ Combat | AfterPhase$ EndCombat

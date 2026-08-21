@@ -1,12 +1,7 @@
 Id:4537
 ColorIdentity:R
 OriginSet:G239b3b7a46d83e8e
-ManaCost:2 R
-Types:Sorcery
-A:SP$ ReorderZone | Zone$ Graveyard | Defined$ You | Random$ True | SubAbility$ DBChoosePlayer
-SVar:DBChoosePlayer:DB$ ChoosePlayer | Defined$ You | Choices$ Player.Opponent | AILogic$ Curse | SubAbility$ DBChoose
-SVar:DBChoose:DB$ ChooseCard | Defined$ ChosenPlayer | Choices$ Card.YouOwn | ChoiceZone$ Graveyard | AtRandom$ True | Amount$ 1 | SubAbility$ DBReturn
-SVar:DBReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ConditionDefined$ ChosenCard | ConditionPresent$ Card.Creature | ConditionCompare$ GE1 | Defined$ ChosenCard | SubAbility$ DBExile
-SVar:DBExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ConditionDefined$ ChosenCard | ConditionPresent$ Card.Creature | ConditionCompare$ EQ0 | Defined$ ChosenCard
-SVar:X:Count$ValidGraveyard Creature.YouCtrl
-SVar:NeedsToPlayVar:X GE2
+ManaCost:3 R R
+Types:Creature Cat
+PT:3/3
+S:Mode$ Continuous | Affected$ Card.Self | AddPower$ 3 | AddToughness$ 3 | IsPresent$ Land.YouCtrl+untapped | PresentCompare$ EQ0

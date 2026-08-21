@@ -1,12 +1,12 @@
 Id:23057
-ColorIdentity:U
-OriginSet:G7a76c1974b0a33a6
-ManaCost:5 U U
-Types:Creature Kraken Horror
-PT:7/8
-K:Flash
-R:Event$ Counter | ValidCard$ Card.Self | ValidSA$ Spell | Layer$ CantHappen
-T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ You | Execute$ TrigCharm | TriggerZones$ Battlefield
-SVar:TrigCharm:DB$ Charm | Choices$ ControlReturn,ControlBounce | MinCharmNum$ 0
-SVar:ControlReturn:DB$ ChangeZone | ValidTgts$ Card.YouDontCtrl | TargetType$ Spell | TgtZone$ Stack | Origin$ Stack | Destination$ Hand
-SVar:ControlBounce:DB$ ChangeZone | ValidTgts$ Permanent.nonLand | TgtZone$ Battlefield | Origin$ Battlefield | Destination$ Hand
+ColorIdentity:B
+OriginSet:Gf78628ad511eefec
+ManaCost:X B B
+Types:Legendary Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPumpAll
+SVar:TrigPumpAll:DB$ PumpAll | ValidCards$ Creature | NumAtt$ -X | NumDef$ -X | IsCurse$ True
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ Opponent | LifeAmount$ 1
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.OppCtrl | TriggerZones$ Battlefield | Execute$ TrigGainLife
+SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 1
+SVar:X:Count$xPaid

@@ -1,13 +1,11 @@
 Id:18876
-ColorIdentity:WB
-OriginSet:G0852bdaf94eef605
-ManaCost:1 W B
-Types:Legendary Planeswalker Kaya
-Loyalty:3
-A:AB$ ChangeZone | Cost$ AddCounter<1/LOYALTY> | Origin$ Graveyard | Destination$ Exile | TargetMin$ 0 | TargetMax$ 2 | TargetsWithSameController$ True | ValidTgts$ Card | Planeswalker$ True | SubAbility$ DBGainLife | RememberChanged$ True
-SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2 | ConditionDefined$ Remembered | ConditionPresent$ Creature | ConditionCompare$ GE1 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-A:AB$ ChangeZone | Cost$ SubCounter<1/LOYALTY> | Planeswalker$ True | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Permanent.nonLand+cmcLE1
-A:AB$ DealDamage | Cost$ SubCounter<5/LOYALTY> | Planeswalker$ True | Ultimate$ True | ValidTgts$ Player | RememberTargets$ True | NumDmg$ X | SubAbility$ DBYouGainLife
-SVar:DBYouGainLife:DB$ GainLife | Defined$ You | LifeAmount$ X
-SVar:X:Count$ValidExile Card.RememberedPlayerOwn
+ColorIdentity:G
+OriginSet:G1ecb361a0a117393
+ManaCost:1 G
+Types:Enchantment Aura
+K:Enchant:Land
+SVar:AttachAILogic:Pump
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ FreeCard
+SVar:FreeCard:DB$ Draw | Defined$ You | NumCards$ 1
+S:Mode$ Continuous | Affected$ Card.EnchantedBy | AddAbility$ AbundantGrowthTap
+SVar:AbundantGrowthTap:AB$ Mana | Cost$ T | Produced$ Any

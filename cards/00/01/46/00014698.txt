@@ -1,8 +1,10 @@
 Id:14698
-ColorIdentity:G
+ColorIdentity:UBG
 OriginSet:G0a578e83854cf093
-ManaCost:3 G
-Types:Creature Snake Shaman
-PT:3/4
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl+toughnessGE4 | TriggerZones$ Battlefield | Execute$ TrigGainLife
-SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 4
+ManaCost:B G U
+Types:Instant
+A:SP$ Charm | Choices$ DBDestroyCreature,DBDestroyArtEnc,DBDraw
+SVar:DBDestroyCreature:DB$ Destroy | ValidTgts$ Creature.MonoColor
+SVar:DBDestroyArtEnc:DB$ Destroy | ValidTgts$ Artifact,Enchantment
+SVar:DBDraw:DB$ Draw | NumCards$ 2 | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ TgtChoose

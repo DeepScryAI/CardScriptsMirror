@@ -1,8 +1,13 @@
 Id:27845
-ColorIdentity:UG
+ColorIdentity:UBR
 OriginSet:G30e8a5e111cffb44
-ManaCost:4 G U
-Types:Legendary Creature Time Lord Doctor
-PT:3/3
-T:Mode$ SpellCast | TriggerZones$ Battlefield | ValidCard$ Card.Historic | ValidActivatingPlayer$ You | ActivationLimit$ 1 | Execute$ TrigCopy
-SVar:TrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | NonLegendary$ True
+ManaCost:1 U B R
+Types:Legendary Artifact Creature Alien Scientist
+PT:3/4
+K:Menace
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ DalekCreation
+SVar:DalekCreation:DB$ Token | TokenScriptIds$ 809974435 | TokenOwner$ You | ConditionCheckSVar$ X | ConditionSVarCompare$ GE3 | SubAbility$ VillainousChoice
+SVar:VillainousChoice:DB$ VillainousChoice | Defined$ Opponent.LostLifeThisTurn GE3 | Choices$ Draw,Discard
+SVar:Draw:DB$ Draw | Defined$ You | NumCards$ 1
+SVar:Discard:DB$ Discard | Defined$ Remembered | NumCards$ 1 | Mode$ TgtChoose
+SVar:X:PlayerCountRegisteredOpponents$HighestLifeLostThisTurn

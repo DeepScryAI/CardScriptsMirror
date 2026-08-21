@@ -1,10 +1,11 @@
 Id:5060
-ColorIdentity:WR
+ColorIdentity:WB
 OriginSet:Ga43915481c3b48d8
-ManaCost:2 R R
-Types:Creature Giant
-PT:3/3
+ManaCost:3 B B
+Types:Creature Angel
+PT:5/4
+K:Flying
 K:Kicker:W W
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDestroy
-SVar:TrigDestroy:DB$ DestroyAll | ValidCards$ Creature.StrictlyOther+YouCtrl | ConditionDefined$ Self | ConditionPresent$ Card.!kicked | SubAbility$ TrigKicker
-SVar:TrigKicker:DB$ DestroyAll | ValidCards$ Creature.StrictlyOther | ConditionDefined$ Self | ConditionPresent$ Card.kicked
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDestroyYourLand
+SVar:TrigDestroyYourLand:DB$ DestroyAll | ValidCards$ Land.YouCtrl | ConditionDefined$ Self | ConditionPresent$ Card.!kicked | SubAbility$ TrigKicker
+SVar:TrigKicker:DB$ DestroyAll | ValidCards$ Land | ConditionDefined$ Self | ConditionPresent$ Card.kicked

@@ -1,6 +1,11 @@
 Id:10757
-ColorIdentity:
+ColorIdentity:U
 OriginSet:G4398040c23c94f0e
-ManaCost:no cost
-Types:Land
-A:AB$ ChangeZone | Cost$ T PayLife<1> Sac<1/CARDNAME> | Origin$ Library | Destination$ Battlefield | ChangeType$ Mountain,Plains
+ManaCost:2 U
+Types:Enchantment
+T:Mode$ Phase | Phase$ End of Turn | CheckSVar$ X | SVarCompare$ GE2 | TriggerZones$ Battlefield | Execute$ TrigPutCounter | OptionalDecider$ You
+R:Event$ Draw | ActiveZones$ Battlefield | ValidPlayer$ You | ReplaceWith$ Tutor | IsPresent$ Card.Self+counters_GE6_QUEST | Optional$ True
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ QUEST | CounterNum$ 1
+SVar:Tutor:DB$ ChangeZone | Origin$ Library | Destination$ Hand
+SVar:X:Count$YouDrewThisTurn
+SVar:MaxQuestEffect:6

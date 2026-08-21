@@ -1,8 +1,10 @@
 Id:15350
-ColorIdentity:W
+ColorIdentity:R
 OriginSet:G70acd28f254172ff
-ManaCost:3 W
-Types:Enchantment Aura
-K:Enchant:Permanent.nonLand:nonland permanent
-SVar:AttachAILogic:Curse
-S:Mode$ CantAttack,CantBlock,CantBeActivated | ValidCard$ Card.EnchantedBy
+ManaCost:1 R
+Types:Creature Goblin Scout
+PT:2/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigUnblockable
+SVar:TrigUnblockable:DB$ Effect | ValidTgts$ Creature.powerLE2 | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable | AILogic$ Pump
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+SVar:PlayMain1:TRUE

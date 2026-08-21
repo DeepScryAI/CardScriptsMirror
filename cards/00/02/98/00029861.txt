@@ -1,15 +1,10 @@
 Id:29861
-ColorIdentity:RG
-OriginSet:Gf09b85bbcc27770c
-ManaCost:X R R G G
-Types:Legendary Creature Badger Warrior
-PT:5/5
+ColorIdentity:R
+OriginSet:G01a610e823cce3ca
+ManaCost:3 R
+Types:Creature Minotaur
+PT:4/3
 K:Trample
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
-SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ X | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ STPlay | SubAbility$ DBCleanup | ForgetOnMoved$ Exile | Duration$ UntilTheEndOfYourNextTurn
-SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-S:Mode$ Continuous | Affected$ You | AdjustLandPlays$ 1
-SVar:PlayMain1:ALWAYS
-SVar:X:Count$xPaid
+T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigImmediateTrig | TriggerZones$ Battlefield
+SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ 1 R | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature | IsCurse$ True | KW$ HIDDEN CARDNAME can't block.

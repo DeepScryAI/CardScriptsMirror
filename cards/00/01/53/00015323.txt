@@ -1,8 +1,9 @@
 Id:15323
-ColorIdentity:U
+ColorIdentity:
 OriginSet:G70acd28f254172ff
-ManaCost:1 U
-Types:Instant
-A:SP$ Counter | TargetType$ Spell | TargetValidTargeting$ You | ValidTgts$ Instant,Sorcery | RememberCountered$ True | SubAbility$ DBCopy
-SVar:DBCopy:DB$ CopySpellAbility | Defined$ Remembered | ConditionPresent$ Instant.YouOwn,Sorcery.YouOwn | ConditionZone$ Graveyard | ConditionCompare$ GE2 | MayChooseTarget$ True | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:1
+Types:Artifact
+K:ETBReplacement:Other:ChooseColor
+SVar:ChooseColor:DB$ ChooseColor | Defined$ You | AILogic$ MostProminentInComputerDeck
+T:Mode$ SpellCast | ValidCard$ Card.ChosenColor | ValidActivatingPlayer$ You | Execute$ TrigGainLife | TriggerZones$ Battlefield
+SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 1

@@ -1,11 +1,15 @@
 Id:28252
-ColorIdentity:B
-OriginSet:G4f78ded7b58f78f8
-ManaCost:2 B
-Types:Creature Dinosaur
-PT:3/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPutCounter
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPutCounter | Secondary$ True
-SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | CounterType$ M1M1 | IsCurse$ True | CounterNum$ 1
-S:Mode$ CantBlock | ValidCard$ Creature.counters_GE1_M1M1+OppCtrl
-SVar:HasAttackEffect:TRUE
+ColorIdentity:
+OriginSet:Gfd50577710a6ab09
+ManaCost:3
+Types:Legendary Artifact
+A:AB$ Draw | Cost$ T | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Mode$ TgtChoose
+A:AB$ SetState | Cost$ 4 T | Defined$ Self | Mode$ Transform | CheckSVar$ X | SVarCompare$ GE4
+SVar:X:Count$ValidGraveyard Card.YouOwn$CardTypesPermanent
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Types:Legendary Land
+A:AB$ Mana | Cost$ T | Produced$ Any | Amount$ X
+SVar:X:Count$ValidGraveyard Permanent.YouOwn

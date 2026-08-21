@@ -1,7 +1,10 @@
 Id:10889
-ColorIdentity:W
+ColorIdentity:B
 OriginSet:G4398040c23c94f0e
-ManaCost:2 W
-Types:Instant Trap
-S:Mode$ AlternativeCost | ValidSA$ Spell.Self | EffectZone$ All | Cost$ W | IsPresent$ Creature.attacking | PresentCompare$ EQ1
-A:SP$ Destroy | ValidTgts$ Creature.attacking+withoutFlying
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigLoseLife
+A:AB$ Mana | Cost$ T | Produced$ B
+SVar:TrigLoseLife:DB$ LoseLife | ValidTgts$ Player | LifeAmount$ 1

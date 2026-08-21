@@ -1,11 +1,12 @@
 Id:28439
-ColorIdentity:G
-OriginSet:G7ee0e82a2424d636
-ManaCost:3 G G
-Types:Creature Wurm Horror
-PT:4/5
-K:Disguise:4 G
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigProvoke
-T:Mode$ TurnFaceUp | ValidCard$ Card.Self | Execute$ TrigProvoke | TriggerZones$ Battlefield | Secondary$ True
-SVar:TrigProvoke:DB$ Effect | ValidTgts$ Creature | StaticAbilities$ MustBlock | RememberObjects$ Targeted | ExileOnMoved$ Battlefield
-SVar:MustBlock:Mode$ MustBlock | ValidCreature$ Card.IsRemembered
+ColorIdentity:U
+OriginSet:G06ccef4324c14725
+ManaCost:2 U
+Types:Enchantment Aura
+K:Enchant:Artifact
+SVar:AttachAITgts:Card.nonCreature
+SVar:AttachAILogic:Animate
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | NumCards$ 2 | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Mode$ TgtChoose
+S:Mode$ Continuous | Affected$ Artifact.EnchantedBy | SetPower$ 4 | SetToughness$ 4 | AddType$ Creature

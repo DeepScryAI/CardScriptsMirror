@@ -1,14 +1,10 @@
 Id:27905
-ColorIdentity:R
-OriginSet:G6ce0035cfb774934
-ManaCost:6 R
-Types:Creature Human Knight
-PT:7/4
-K:Affinity:Human
-K:Trample
-K:Haste
-T:Mode$ Phase | TriggerZones$ Battlefield | Phase$ End of Turn | ValidPlayer$ You | IsPresent$ Card.Self+attackedThisTurn | Execute$ TrigChangeZone
-SVar:TrigChangeZone:DB$ ChangeZone | Defined$ Self | Origin$ Battlefield | Destination$ Hand | RememberChanged$ True | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenScriptIds$ 1647422943 | TokenOwner$ You | TokenAmount$ Y | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:Y:RememberedLKI$CardToughness
+ColorIdentity:
+OriginSet:G30e8a5e111cffb44
+ManaCost:no cost
+Types:Plane Spacecraft
+T:Mode$ Attacks | ValidCard$ Creature | TriggerZones$ Command | Execute$ AnimosityPump
+SVar:AnimosityPump:DB$ Pump | Defined$ TriggeredAttackerLKICopy | NumAtt$ +X | NumDef$ +X
+SVar:X:Count$Valid Creature.!TriggeredAttacker+ControlledBy AttackingPlayer+sharesCreatureTypeWith TriggeredAttacker
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ TrigSetState
+SVar:TrigSetState:DB$ SetState | ValidTgts$ Creature | Mode$ TurnFaceDown | FaceDownSetType$ Artifact & Creature & Cyberman | FaceDownPower$ 2 | FaceDownToughness$ 2

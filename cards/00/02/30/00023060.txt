@@ -1,9 +1,21 @@
 Id:23060
-ColorIdentity:
-OriginSet:G7a76c1974b0a33a6
-ManaCost:2
-Types:Artifact Book Clue
-K:etbCounter:SUSPECT:X:no Condition
-SVar:X:PlayerCountPlayers$HighestValid Creature.YouCtrl
-A:AB$ Draw | Cost$ 2 T SubCounter<1/SUSPECT> | NumCards$ 1
-A:AB$ Draw | Cost$ 2 Sac<1/CARDNAME> | NumCards$ 1
+ColorIdentity:G
+OriginSet:Gf78628ad511eefec
+ManaCost:4 G G
+Types:Creature Human Werewolf
+PT:6/6
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 4257275070
+K:Daybound
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:green
+Types:Creature Werewolf
+PT:7/7
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigToken | Secondary$ True
+SVar:TrigToken:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 4257275070
+A:AB$ Pump | Cost$ 2 G G | ValidTgts$ Wolf.Other+YouCtrl,Werewolf.Other+YouCtrl | AILogic$ Fight | SubAbility$ DBFight
+SVar:DBFight:DB$ Fight | Defined$ ParentTarget | ValidTgts$ Creature.YouDontCtrl
+K:Nightbound

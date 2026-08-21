@@ -1,10 +1,10 @@
 Id:5808
-ColorIdentity:R
+ColorIdentity:W
 OriginSet:G0eb5e52d26fe1c23
-ManaCost:3 R R
-Types:Creature Beast
-PT:3/3
-K:Haste
-A:AB$ Pump | Cost$ 1 R | Defined$ Self | NumAtt$ +1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | OptionalDecider$ You | Execute$ TrigChange
-SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Card.catalogId5808 | ShuffleNonMandatory$ True
+ManaCost:2 W W
+Types:Enchantment
+T:Mode$ DamageDone | ValidSource$ Creature.inZoneBattlefield | ValidTarget$ You | Execute$ TrigPutCounter | TriggerZones$ Battlefield
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ TriggeredSourceLKICopy | CounterType$ GOLD | CounterNum$ 1
+S:Mode$ Continuous | Affected$ Creature.counters_GE1_GOLD | AddType$ Wall | AddKeyword$ Defender
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigRemove
+SVar:TrigRemove:DB$ RemoveCounterAll | ValidCards$ Creature | CounterType$ GOLD | AllCounters$ True

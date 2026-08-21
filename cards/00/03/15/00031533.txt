@@ -1,7 +1,11 @@
 Id:31533
-ColorIdentity:R
+ColorIdentity:G
 OriginSet:Gf2b808f4f642ac62
-ManaCost:R
-Types:Sorcery
-A:SP$ Pump | ValidTgts$ Creature | NumAtt$ +3 | KW$ Haste
-K:Harmonize:4 R
+ManaCost:1 G
+Types:Creature Dog Scout
+PT:1/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill
+SVar:TrigMill:DB$ Mill | NumCards$ 3 | RememberMilled$ True | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Hidden$ True | Origin$ Graveyard,Exile | Destination$ Hand | ChangeType$ Land.IsRemembered | RememberChanged$ True | ForgetOtherRemembered$ True | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ0 | CounterType$ P1P1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

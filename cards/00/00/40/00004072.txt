@@ -1,10 +1,9 @@
 Id:4072
-ColorIdentity:B
+ColorIdentity:U
 OriginSet:Gdd40b2fbd2aa3c03
-ManaCost:3 B
-Types:Creature Horror
-PT:4/4
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange
-SVar:TrigChange:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ChangeType$ Creature | DefinedPlayer$ Player.Other | ChangeNum$ 1 | Hidden$ True | Optional$ True
-SVar:NeedsToPlayVar:Z EQ0
-SVar:Z:Count$ValidGraveyard Creature.OppOwn+powerGT4+toughnessGT4
+ManaCost:3 U
+Types:Enchantment
+R:Event$ Untap | ActiveZones$ Battlefield | ValidCard$ Permanent.nonLand | ValidStepTurnToController$ You | Layer$ CantHappen
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ 2
+SVar:NonStackingEffect:True

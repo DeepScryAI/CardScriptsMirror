@@ -1,13 +1,8 @@
 Id:23356
-ColorIdentity:W
-OriginSet:Gbe3783f336562357
-ManaCost:1 W
-Types:Creature Human Cleric
-PT:3/1
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigConjure
-SVar:TrigConjure:DB$ MakeCard | Conjure$ True | CatalogId$ 23356 | Zone$ Hand | RememberMade$ True | SubAbility$ DBDelayTrig
-SVar:DBDelayTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ TrigDiscard | RememberObjects$ Remembered | SubAbility$ DBCleanup
-SVar:TrigDiscard:DB$ Discard | Mode$ Defined | DefinedCards$ DelayTriggerRemembered
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigTap
-SVar:TrigTap:DB$ Tap | ValidTgts$ Permanent.YouDontCtrl
+ColorIdentity:B
+OriginSet:G6e75ff4f143a3dc3
+ManaCost:B
+Types:Instant
+A:SP$ Animate | ValidTgts$ Creature | Triggers$ DiesTrigger
+SVar:DiesTrigger:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | Tapped$ True | Defined$ TriggeredNewCardLKICopy | WithCountersType$ P1P1

@@ -1,14 +1,11 @@
 Id:21620
-ColorIdentity:UG
+ColorIdentity:G
 OriginSet:G18bf722b221724f8
-ManaCost:3 G G U U
-Types:Legendary Creature Serpent
-PT:6/6
-R:Event$ Counter | ValidCard$ Card.Self | ValidSA$ Spell | Layer$ CantHappen
-T:Mode$ Phase | Phase$ Upkeep | TriggerZones$ Battlefield | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 670394258 | TokenOwner$ You
-A:AB$ Charm | Cost$ Sac<1/Serpent.Other/another Serpent> | Choices$ DBTap,DBPump
-SVar:DBTap:DB$ Tap | ValidTgts$ Permanent | SubAbility$ DBConstrict
-SVar:DBConstrict:DB$ Effect | RememberObjects$ ParentTarget | StaticAbilities$ DBCantBeActivated | ForgetOnMoved$ Battlefield
-SVar:DBCantBeActivated:Mode$ CantBeActivated | ValidCard$ Card.IsRemembered
-SVar:DBPump:DB$ Pump | Defined$ Self | KW$ Indestructible
+ManaCost:G
+Types:Artifact Equipment
+K:Equip:3
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1 | AddToughness$ 2 | AddKeyword$ Reach
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken | TriggerZones$ Battlefield
+SVar:TrigToken:AB$ Token | Cost$ 2 | TokenScriptIds$ 1441965772 | RememberTokens$ True | SubAbility$ DBAttach
+SVar:DBAttach:DB$ Attach | Object$ TriggeredCardLKICopy | Defined$ Remembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

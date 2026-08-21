@@ -1,13 +1,11 @@
 Id:28421
-ColorIdentity:WBG
-OriginSet:G7ee0e82a2424d636
-ManaCost:1 BG
-Types:Instant
-A:SP$ ChangeZone | TargetMin$ 0 | TargetMax$ 2 | TargetsWithSameController$ True | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | ValidTgts$ Player | LifeAmount$ 2 | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | Defined$ TargetedPlayer
-AlternateMode:Split
-ALTERNATE
-ManaCost:4 GW GW
-Types:Sorcery
-A:SP$ DestroyAll | ValidCards$ Artifact,Enchantment
+ColorIdentity:G
+OriginSet:G4155bbd49d5da56f
+ManaCost:1 G
+Types:Creature Fungus
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigConjure
+SVar:TrigConjure:DB$ MakeCard | Amount$ 2 | Conjure$ True | CatalogId$ 28421 | Zone$ Graveyard
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ SPORE | CounterNum$ 1
+A:AB$ ChangeZone | Cost$ SubCounter<3/SPORE> | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.Fungus+YouOwn

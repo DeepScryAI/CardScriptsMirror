@@ -1,7 +1,12 @@
 Id:11033
-ColorIdentity:B
+ColorIdentity:U
 OriginSet:Gd09f2fd86b2e8dd0
-ManaCost:3 B
-Types:Creature Insect
-PT:3/2
-K:Flying
+ManaCost:2 U U
+Types:Legendary Planeswalker Jace
+Loyalty:3
+A:AB$ Dig | Cost$ AddCounter<2/LOYALTY> | ValidTgts$ Player | DigNum$ 1 | ChangeNum$ Any | DestinationZone$ Library | LibraryPosition2$ 0 | Planeswalker$ True
+A:AB$ Draw | Cost$ AddCounter<0/LOYALTY> | NumCards$ 3 | SubAbility$ DBChangeZone | Planeswalker$ True
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Hand | Destination$ Library | ChangeType$ Card | ChangeNum$ 2 | LibraryPosition$ 0 | Mandatory$ True
+A:AB$ ChangeZone | Cost$ SubCounter<1/LOYALTY> | Origin$ Battlefield | Destination$ Hand | ValidTgts$ Creature | Planeswalker$ True
+A:AB$ ChangeZoneAll | Cost$ SubCounter<12/LOYALTY> | Origin$ Library | Destination$ Exile | ValidTgts$ Player | SubAbility$ DBChangeZone2 | Planeswalker$ True | Ultimate$ True
+SVar:DBChangeZone2:DB$ ChangeZoneAll | Origin$ Hand | Destination$ Library | Defined$ Targeted | ChangeType$ Card | Shuffle$ True

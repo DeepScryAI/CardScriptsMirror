@@ -1,9 +1,14 @@
 Id:19919
-ColorIdentity:UR
+ColorIdentity:G
 OriginSet:G23be9f486a22d38a
-ManaCost:U R
-Types:Enchantment
-T:Mode$ Drawn | ValidCard$ Card.YouCtrl | Number$ 2 | TriggerZones$ Battlefield | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 589551966 | TokenOwner$ You
-A:AB$ Draw | Cost$ 4 U R | NumCards$ 1 | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ TgtChoose
+ManaCost:G
+Types:Creature Human Berserker
+PT:1/2
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigTrig | TriggerZones$ Battlefield
+SVar:TrigTrig:AB$ ImmediateTrigger | Cost$ Sac<1/CARDNAME> | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Artifact,Enchantment
+AlternateMode:Adventure
+ALTERNATE
+ManaCost:5 G G
+Types:Sorcery Adventure
+A:SP$ Token | TokenAmount$ 3 | TokenScriptIds$ 3783868715 | TokenOwner$ You

@@ -1,9 +1,12 @@
 Id:31291
-ColorIdentity:R
-OriginSet:Ge1676a27173c0866
-ManaCost:R
-Types:Creature Goblin Warrior
-PT:1/1
-K:Mobilize:1
-A:AB$ DealDamage | Cost$ 1 R Sac<1/CARDNAME/this creature> | ValidTgts$ Creature | NumDmg$ X
-SVar:X:Count$Valid Creature.YouCtrl
+ColorIdentity:G
+OriginSet:Gef9d0d0c16b2fcf7
+ManaCost:2 G
+Types:Creature Elephant Warrior
+PT:3/3
+K:Trample
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigEnergy
+SVar:TrigEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ TriggerCount$DamageAmount
+A:AB$ PutCounter | Cost$ PayEnergy<6> | Defined$ Self | CounterType$ P1P1 | CounterNum$ 2 | Exhaust$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ X
+SVar:X:Count$Valid Creature.YouCtrl$GreatestCardPower

@@ -1,12 +1,13 @@
 Id:21795
-ColorIdentity:UG
-OriginSet:Gabb23d0d25cdc46d
-ManaCost:3 G U
-Types:Sorcery
-A:SP$ ChangeZoneAll | ChangeType$ Creature | Origin$ Battlefield | Destination$ Exile | RememberLKI$ True | SubAbility$ DBRepeatEach
-SVar:DBRepeatEach:DB$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBToken | SubAbility$ DBCleanup
-SVar:DBToken:DB$ Token | TokenScriptIds$ 1802199211 | TokenOwner$ Player.IsRemembered | ImprintTokens$ True | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | Defined$ Imprinted | CounterType$ P1P1 | CounterNum$ X | Placer$ Player.IsRemembered | SubAbility$ DBCleanImprinted
-SVar:DBCleanImprinted:DB$ Cleanup | ClearImprinted$ True
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:RememberedLKI$Valid Card.RememberedPlayerCtrl$CardPower
+ColorIdentity:R
+OriginSet:G18bf722b221724f8
+ManaCost:1 R
+Types:Instant
+A:SP$ Counter | TargetType$ Spell | ValidTgts$ Card | SubAbility$ DBRandom | Destination$ Graveyard | RememberForCounter$ True
+SVar:DBRandom:DB$ ChooseNumber | Min$ 1 | Max$ 3 | Defined$ You | Random$ True | SubAbility$ DBMill
+SVar:DBMill:DB$ Mill | NumCards$ X | Defined$ TargetedController | SubAbility$ DBDig
+SVar:DBDig:DB$ DigUntil | Defined$ TargetedController | Valid$ Card.nonLand+doesNotShareNameWith Remembered | FoundDestination$ Exile | RevealedDestination$ Exile | RememberFound$ True | ForgetOtherRemembered$ True | ImprintRevealed$ True | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | Controller$ TargetedController | Defined$ Remembered | ValidSA$ Spell | WithoutManaCost$ True | Optional$ True | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZoneAll | ChangeType$ Card.IsImprinted | Origin$ Exile | Destination$ Library | RandomOrder$ True | LibraryPosition$ -1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True
+SVar:X:Count$ChosenNumber

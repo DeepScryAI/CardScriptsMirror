@@ -1,9 +1,11 @@
 Id:32181
-ColorIdentity:R
-OriginSet:G9946f072b5556073
-ManaCost:2 R
-Types:Creature Kavu Artificer
-PT:2/2
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.YouCtrl | NumAtt$ +1 | KW$ FirstStrike
-SVar:PlayMain1:TRUE
+ColorIdentity:
+OriginSet:G8a59924df6623252
+ManaCost:7
+Types:Legendary Enchantment Aura
+K:Enchant:Creature.YouCtrl:creature you control
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | SetPower$ 9 | SetToughness$ 9 | AddKeyword$ Flying & FirstStrike & Trample & Haste
+T:Mode$ DamageDone | ValidSource$ Creature.EnchantedBy | ValidTarget$ Opponent | CombatDamage$ True | Execute$ TrigDmg
+SVar:TrigDmg:DB$ DamageAll | ValidPlayers$ OppNonTriggeredTarget | DamageSource$ TriggeredSource | NumDmg$ X
+SVar:X:TriggerCount$DamageAmount

@@ -1,8 +1,11 @@
 Id:34508
 ColorIdentity:R
-OriginSet:G11c0621ce29fa608
-ManaCost:1 R
-Types:Legendary Creature Human Detective Hero
-PT:3/1
-A:AB$ Draw | Cost$ 2 T Discard<1/Card> | Defined$ You | NumCards$ X
-SVar:X:PlayerCountPropertyYou$CardsDiscardedThisTurn
+OriginSet:Gcb93bbfc68a40806
+ManaCost:2 R
+Types:Legendary Creature Human Artificer Villain
+PT:2/4
+T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigGoad | TriggerZones$ Battlefield
+SVar:TrigGoad:DB$ Goad | ValidTgts$ Creature.OppCtrl | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Targeted | KW$ HIDDEN CARDNAME can't block. | IsCurse$ True
+T:Mode$ DamageDoneOnce | CombatDamage$ True | ValidSource$ Creature.IsGoaded | ValidTarget$ Opponent | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ 1 | TokenScriptIds$ 3851718391 | TokenOwner$ You

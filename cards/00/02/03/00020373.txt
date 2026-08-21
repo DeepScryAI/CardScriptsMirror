@@ -1,6 +1,11 @@
 Id:20373
 ColorIdentity:R
 OriginSet:Gfa87e7bbc5a709eb
-ManaCost:3 R R
-Types:Enchantment Creature Cyclops
-PT:7/3
+ManaCost:2 R
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 3 | AddToughness$ 3
+S:Mode$ MustAttack | ValidCreature$ Creature.EnchantedBy | Secondary$ True
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.AttachedBy | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | Defined$ TriggeredCardController | NumDmg$ 3

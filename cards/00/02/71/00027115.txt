@@ -1,7 +1,11 @@
 Id:27115
-ColorIdentity:R
+ColorIdentity:G
 OriginSet:G6ce0035cfb774934
-ManaCost:1 R
-Types:Instant
-A:SP$ DealDamage | ValidTgts$ Creature | NumDmg$ 3 | ReplaceDyingDefined$ ThisTargetedCard.Creature | SubAbility$ DBDebuff
-SVar:DBDebuff:DB$ Debuff | Defined$ Targeted | Keywords$ Indestructible
+ManaCost:4 G G G
+Types:Legendary Creature Treefolk
+PT:4/10
+S:Mode$ Continuous | Affected$ Treefolk.YouCtrl | AddKeyword$ Vigilance
+T:Mode$ AttackersDeclared | ValidAttackers$ Treefolk.YouCtrl | Execute$ TrigMana | TriggerZones$ Battlefield
+SVar:TrigMana:DB$ Mana | Produced$ G | Amount$ X
+S:Mode$ UnspentMana | ValidPlayer$ You | ManaType$ Green
+SVar:X:TriggerObjectsAttackers$Amount/Twice

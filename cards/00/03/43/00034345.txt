@@ -1,10 +1,10 @@
 Id:34345
-ColorIdentity:U
+ColorIdentity:WU
 OriginSet:Gcb93bbfc68a40806
-ManaCost:2 U U
-Types:Legendary Creature Human Artificer Villain
-PT:2/4
+ManaCost:2 W U
+Types:Legendary Artifact Creature Dragon Robot
+PT:*/5
 K:Flying
-T:Mode$ DamageDoneOnce | CombatDamage$ True | ValidSource$ Creature.withFlying+YouCtrl | ValidTarget$ Player | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ TriggeredSources | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw
+S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X
+S:Mode$ Continuous | Affected$ Card.Self | MayPlay$ True | AffectedZone$ Graveyard | EffectZone$ Graveyard | RaiseCost$ Discard<1/Card>
+SVar:X:Count$ValidBattlefield,Graveyard Card.nonCreature+YouCtrl$GreatestCardManaCost

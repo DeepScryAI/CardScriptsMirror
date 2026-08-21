@@ -1,11 +1,12 @@
 Id:32051
 ColorIdentity:
-OriginSet:G9946f072b5556073
-ManaCost:6
-Types:Creature Eldrazi
-PT:7/5
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Battlefield | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | ChangeType$ Permanent.YouCtrl+cmcLEX | Origin$ Hand | Tapped$ True | Destination$ Battlefield
-SVar:X:Count$Valid Land.YouCtrl
-K:Warp:4
+OriginSet:G7ab4f62d323b0ca7
+ManaCost:no cost
+Types:Land Town
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ LandTapped | ReplacementResult$ Updated
+SVar:LandTapped:DB$ Tap | Defined$ Self | ETB$ True | ConditionCheckSVar$ X | ConditionSVarCompare$ GT3
+A:AB$ Mana | Cost$ T | Produced$ C
+A:AB$ Mana | Cost$ T PayLife<1> | Produced$ Any | Amount$ 1
+SVar:X:Count$Compare Y GE1.Z.4
+SVar:Y:PlayerCountPropertyYou$HasPropertyActive
+SVar:Z:Count$YourTurns

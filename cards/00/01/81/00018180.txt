@@ -1,8 +1,9 @@
 Id:18180
-ColorIdentity:U
+ColorIdentity:B
 OriginSet:G5033d54b23b37629
-ManaCost:1 U
-Types:Creature Human Rogue
-PT:2/1
-S:Mode$ CantBlockBy | ValidAttacker$ Card.Self | CheckSVar$ X
-SVar:X:Count$ThisTurnCast_Card.Historic+YouCtrl
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ B
+A:AB$ ChangeZone | Cost$ 2 B T Sac<1/CARDNAME> | ValidTgts$ Creature.YouCtrl | Origin$ Graveyard | Destination$ Hand

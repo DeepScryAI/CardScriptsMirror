@@ -1,8 +1,11 @@
 Id:27059
-ColorIdentity:R
+ColorIdentity:B
 OriginSet:G6ce0035cfb774934
-ManaCost:3 R
-Types:Creature Troll Soldier
-PT:4/4
-K:Trample
-S:Mode$ CantBlock | ValidCard$ Card.Self | IsPresent$ Goblin.YouCtrl,Orc.YouCtrl | PresentCompare$ EQ0
+ManaCost:no cost
+Types:Legendary Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ LandTapped | ReplacementResult$ Updated
+SVar:LandTapped:DB$ Tap | Defined$ Self | ETB$ True | ConditionPresent$ Creature.Legendary+YouCtrl | ConditionCompare$ EQ0
+A:AB$ Mana | Cost$ T | Produced$ B
+A:AB$ Amass | Cost$ X X B T | Type$ Orc | Num$ X | CheckSVar$ Morbid
+SVar:Morbid:Count$Morbid.1.0
+SVar:X:Count$xPaid

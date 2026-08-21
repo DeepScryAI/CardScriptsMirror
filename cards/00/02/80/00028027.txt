@@ -1,18 +1,12 @@
 Id:28027
-ColorIdentity:R
-OriginSet:Gfd50577710a6ab09
-ManaCost:R
-Types:Artifact Equipment
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2
-K:Equip:1
-K:Craft:3 R R ExileCtrlOrGrave<1/Artifact.Other>
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:red
-Types:Artifact Equipment
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 3 | AddTrigger$ AttacksTrig
-SVar:AttacksTrig:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigImmediateTrig
-SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ Sac<1/Artifact.NotDefinedOriginalHost/another artifact> | Execute$ TrigDamage | CopyTriggeringObjects$ True
-SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Creature | NumDmg$ Count$CardPower
-K:Equip:1
+ColorIdentity:
+OriginSet:G3601f5e223de6c7f
+ManaCost:2
+Types:Legendary Artifact Equipment
+K:Ascend
+T:Mode$ Attacks | ValidCard$ Creature.EquippedBy | Execute$ TrigCounter
+SVar:TrigCounter:DB$ PutCounterAll | ValidCards$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ X
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddSVar$ AE
+SVar:X:Count$Blessing.2.1
+K:Equip:3
+SVar:AE:SVar:HasAttackEffect:TRUE

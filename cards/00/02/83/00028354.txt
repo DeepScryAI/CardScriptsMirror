@@ -1,12 +1,20 @@
 Id:28354
-ColorIdentity:WR
-OriginSet:G94329e6b3f93276f
-ManaCost:2 R W
-Types:Legendary Creature Human Detective
-PT:2/4
-K:Vigilance
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigSuspect
-SVar:TrigSuspect:DB$ AlterAttribute | ValidTgts$ Creature | Attributes$ Suspected | SubAbility$ DBGoad
-SVar:DBGoad:DB$ Goad | Defined$ Valid Creature.IsSuspected
-T:Mode$ DamageAll | CombatDamage$ True | ValidSource$ Creature.OppCtrl | ValidTarget$ Opponent | Execute$ TrigDraw | TriggerZones$ Battlefield
-SVar:TrigDraw:DB$ Draw | Defined$ TriggeredSourcesController & You
+ColorIdentity:B
+OriginSet:Gfd50577710a6ab09
+ManaCost:2
+Types:Legendary Artifact
+A:AB$ Mill | Cost$ T | NumCards$ 2
+K:Craft:4 ExileCtrlOrGrave<1/Dinosaur.Other> ExileCtrlOrGrave<1/Merfolk.Other> ExileCtrlOrGrave<1/Pirate.Other> ExileCtrlOrGrave<1/Vampire.Other>:a Dinosaur, a Merfolk, a Pirate, and a Vampire:the four
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:black
+Types:Legendary Creature Skeleton Spirit Pirate
+PT:7/7
+K:Menace
+K:Trample
+K:Lifelink
+K:Hexproof
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ DBSacrifice | TriggerZones$ Battlefield
+SVar:DBSacrifice:DB$ Sacrifice | Amount$ 1 | SacValid$ Permanent.nonLand | Defined$ Opponent | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Exile | Destination$ Battlefield | ChooseFromDefined$ ExiledWith.Creature | ChangeNum$ 1 | Hidden$ True | Tapped$ True | Attacking$ True | GainControl$ True

@@ -1,14 +1,9 @@
 Id:26163
-ColorIdentity:UR
+ColorIdentity:WU
 OriginSet:G2192e8955d5e1ad1
-ManaCost:2 U R
-Types:Creature Phyrexian Chimera
-PT:2/4
+ManaCost:2 W U
+Types:Artifact Creature Phyrexian Squid
+PT:*/5
 K:Flying
-T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigCounter
-SVar:TrigCounter:DB$ PutCounter | Defined$ Self | CounterType$ OIL | CounterNum$ 1
-A:AB$ Draw | Cost$ SubCounter<3/OIL> | SorcerySpeed$ True | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | DiscardValid$ Card.nonLand | Optional$ True | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBImmediateTrig
-SVar:DBImmediateTrig:DB$ ImmediateTrigger | ConditionDefined$ Remembered | ConditionPresent$ Card | Execute$ TrigDamage | SubAbility$ DBCleanup
-SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Creature,Planeswalker | NumDmg$ 3
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X
+SVar:X:Count$Valid Artifact.YouCtrl

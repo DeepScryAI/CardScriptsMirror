@@ -1,12 +1,10 @@
 Id:33607
-ColorIdentity:UR
-OriginSet:Gf04404de3fa1525e
-ManaCost:1 U R
-Types:Creature Elemental Horse
+ColorIdentity:B
+OriginSet:Gff0a4227ae9f1a4b
+ManaCost:3 B
+Types:Legendary Creature Rat Avatar
 PT:3/3
-K:Ward:1
-K:Haste
-T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +1 | NumDef$ +1 | SubAbility$ DBCopy
-SVar:DBCopy:DB$ CopyPermanent | ConditionCheckSVar$ X | ConditionSVarCompare$ GE5 | Defined$ Self
-SVar:X:TriggeredCard$CastTotalManaSpent
+K:Menace
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | TriggerZones$ Battlefield | ValidCard$ Card.Self,Creature.!token+YouCtrl | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 2440351532 | TokenOwner$ You
+A:AB$ Draw | Cost$ 2 Sac<1/Permanent.token/token>

@@ -2,12 +2,8 @@ Id:16970
 ColorIdentity:W
 OriginSet:Gbcdce58dfbbf1bad
 ManaCost:4 W
-Types:Legendary Planeswalker Gideon
-Loyalty:5
-A:AB$ UntapAll | Cost$ AddCounter<2/LOYALTY> | Planeswalker$ True | ValidCards$ Creature.YouCtrl | SubAbility$ DBPumpAll
-SVar:DBPumpAll:DB$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +1 | NumDef$ +1
-A:AB$ Animate | Cost$ AddCounter<0/LOYALTY> | Defined$ Self | Power$ 5 | Toughness$ 5 | Keywords$ Indestructible | Types$ Creature,Human,Soldier | SubAbility$ GideonPrevent | Planeswalker$ True
-SVar:GideonPrevent:DB$ Effect | ReplacementEffects$ RPrevent | Duration$ UntilHostLeavesPlayOrEOT
-SVar:RPrevent:Event$ DamageDone | Prevent$ True | ValidTarget$ Card.EffectSource
-A:AB$ PumpAll | Cost$ SubCounter<10/LOYALTY> | Planeswalker$ True | Ultimate$ True | ValidCards$ Creature.YouCtrl | NumAtt$ +2 | NumDef$ +2 | SubAbility$ DBTapAll
-SVar:DBTapAll:DB$ TapAll | ValidCards$ Creature.OppCtrl
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSearch | OptionalDecider$ You
+SVar:TrigSearch:DB$ ChangeZone | Origin$ Library | OriginAlternative$ Graveyard | Destination$ Hand | ChangeType$ Card.YouOwn+catalogId16971 | ChangeNum$ 1 | Optional$ True
+S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddPower$ 1 | AddToughness$ 1
+SVar:PlayMain1:TRUE

@@ -1,12 +1,10 @@
 Id:25030
-ColorIdentity:WB
-OriginSet:G2aca7ffc9201ba1c
-ManaCost:W B
-Types:Creature Human Artificer
+ColorIdentity:RG
+OriginSet:G3a8b4b9d4649b357
+ManaCost:1 R
+Types:Creature Goblin Druid
 PT:2/2
-K:Vigilance
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigDiscard
-SVar:TrigDiscard:DB$ Reveal | ValidTgts$ Player | RevealAllValid$ Card.nonLand+TargetedPlayerCtrl | SubAbility$ DBExile
-SVar:DBExile:DB$ ChangeZone | DefinedPlayer$ Targeted | Chooser$ You | Origin$ Hand | Destination$ Exile | ChangeNum$ 1 | ChangeType$ Card.nonLand+TargetedPlayerCtrl | AlreadyRevealed$ True | AILogic$ BestCard | RememberChanged$ True | SubAbility$ DBConjure
-SVar:DBConjure:DB$ MakeCard | ConditionDefined$ Remembered | ConditionPresent$ Card | Conjure$ True | Defined$ TargetedPlayer | CatalogId$ 132 | Zone$ Hand | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+K:Kicker:G
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self+kicked | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Land.hasABasicLandType
+A:AB$ Draw | Cost$ R T Sac<1/Land> | NumCards$ 1

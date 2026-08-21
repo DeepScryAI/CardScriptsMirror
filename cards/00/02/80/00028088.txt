@@ -1,12 +1,12 @@
 Id:28088
-ColorIdentity:U
-OriginSet:Gfd50577710a6ab09
-ManaCost:2 U
-Types:Creature Human Pirate
-PT:2/3
-K:Flying
-K:Ward:1
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | TriggerZones$ Battlefield | Execute$ TrigAnimate
-SVar:TrigAnimate:DB$ Animate | RemoveAllAbilities$ True | Types$ Artifact,Treasure | Duration$ AsLongAsInPlay | Abilities$ TreasureSac | RemoveCardTypes$ True | ValidTgts$ Artifact.Other,Creature.Other | TargetMin$ 0 | TargetMax$ OneEach | TargetsForEachPlayer$ True
-SVar:OneEach:PlayerCountPlayers$Amount
-SVar:TreasureSac:AB$ Mana | Cost$ T Sac<1/CARDNAME/this artifact> | Produced$ Any
+ColorIdentity:W
+OriginSet:G06c78c29bfb28e3d
+ManaCost:2 W W
+Types:Creature Vampire Cleric
+PT:3/3
+K:Lifelink
+T:Mode$ ChangesZone | CheckSVar$ X | SVarCompare$ GE3 | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange
+T:Mode$ Attacks | CheckSVar$ X | SVarCompare$ GE3 | ValidCard$ Card.Self | Execute$ TrigChange | TriggerZones$ Battlefield | Secondary$ True
+SVar:TrigChange:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Permanent.YouOwn+cmcLE3
+SVar:X:Count$Valid Creature.YouCtrl$DifferentCardPower
+SVar:HasAttackEffect:TRUE

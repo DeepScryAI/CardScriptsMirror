@@ -1,7 +1,17 @@
 Id:29434
-ColorIdentity:U
-OriginSet:Gac6359c222afbd4f
-ManaCost:1 U U
-Types:Instant
-S:Mode$ AlternativeCost | ValidSA$ Spell.Self | EffectZone$ All | Cost$ Sac<1/Creature.Blue+!token/a nontoken blue creature>
-A:SP$ Counter | TargetType$ Spell | ValidTgts$ Card
+ColorIdentity:WB
+OriginSet:G0c9f9aa4a8bf0371
+ManaCost:2 W B
+Types:Legendary Creature Spirit Advisor
+PT:0/5
+K:Starting intensity:0
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 1377738288 | SubAbility$ DBIntensify
+SVar:DBIntensify:DB$ Intensify
+S:Mode$ Continuous | Affected$ Spirit.YouCtrl | AddPower$ X
+SVar:X:Count$Intensity
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigExile | OptionalDecider$ You
+SVar:TrigExile:DB$ ChangeZone | Defined$ Self | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DelTrig
+SVar:DelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ ObzedatReturn | ConditionDefined$ Remembered | ConditionPresent$ Card | RememberObjects$ Remembered
+SVar:ObzedatReturn:DB$ ChangeZone | Defined$ DelayTriggerRememberedLKI | Origin$ Exile,Command | Destination$ Battlefield | SubAbility$ ObzedatPump
+SVar:ObzedatPump:DB$ Pump | Defined$ Remembered | KW$ Haste | Duration$ Permanent

@@ -1,11 +1,11 @@
 Id:28636
-ColorIdentity:WB
+ColorIdentity:B
 OriginSet:G7ee0e82a2424d636
-ManaCost:2 W B
-Types:Creature Vampire Rogue
-PT:2/4
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.powerLE2+YouCtrl+Other | TriggerZones$ Battlefield | Execute$ TrigGain
-SVar:TrigGain:DB$ LoseLife | Defined$ Opponent | LifeAmount$ 1 | SubAbility$ DBGain
-SVar:DBGain:DB$ GainLife | Defined$ You | LifeAmount$ 1
-A:AB$ PumpAll | Cost$ 5 W B | ValidCards$ Creature.powerLE2+YouCtrl | KW$ Deathtouch & Lifelink
+ManaCost:3 B
+Types:Enchantment
+K:Flash
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPutCountersAll
+SVar:TrigPutCountersAll:DB$ PutCounterAll | ValidCards$ Creature.YouCtrl | CounterType$ IMPOSTOR | CounterNum$ 1
+T:Mode$ ChangesZone | ValidCard$ Creature.YouCtrl+counters_GE1_IMPOSTOR | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigExile | TriggerZones$ Battlefield
+SVar:TrigExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | Defined$ TriggeredCard | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouOwn+!TriggeredCard | TargetMin$ 0 | TargetMax$ 1

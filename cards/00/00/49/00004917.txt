@@ -1,9 +1,11 @@
 Id:4917
-ColorIdentity:WUB
+ColorIdentity:UB
 OriginSet:G9e6cd9ac1f7f4832
-ManaCost:no cost
-Types:Land Lair
-A:AB$ Mana | Cost$ T | Produced$ Combo W U B
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSacUnless
-SVar:TrigSacUnless:DB$ Sacrifice | UnlessCost$ Return<1/Land.nonLair/non-Lair land> | UnlessPayer$ You
-SVar:NeedsToPlay:Land.nonLair+YouCtrl
+ManaCost:1 U U
+Types:Creature Shapeshifter
+PT:2/2
+K:Kicker:2 B Discard<1/Creature>
+R:Event$ Moved | ValidCard$ Card.Self+kicked | Destination$ Battlefield | ReplaceWith$ DBPump | ReplacementResult$ Updated
+SVar:DBPump:DB$ Animate | Defined$ Self | Keywords$ Flying | Duration$ Permanent | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | ETB$ True | Defined$ Self | CounterType$ P1P1 | CounterNum$ KickedPet
+SVar:KickedPet:CastSA>Discarded$CardManaCost

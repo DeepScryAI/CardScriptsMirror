@@ -1,9 +1,8 @@
 Id:24089
-ColorIdentity:G
+ColorIdentity:B
 OriginSet:G9afc9838c5e994df
-ManaCost:2 G
-Types:Creature Human Druid
-PT:3/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigGainLife
-SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
-SVar:BuffedBy:Creature
+ManaCost:1 B
+Types:Sorcery
+A:SP$ Pump | ValidTgts$ Creature | TargetMin$ 2 | TargetMax$ 2 | TargetUnique$ True | TargetsWithSameController$ True | IsCurse$ True | SubAbility$ DBChooseSac
+SVar:DBChooseSac:DB$ ChooseCard | DefinedCards$ Targeted | Defined$ TargetedController | SubAbility$ DBSac | AILogic$ WorstCard
+SVar:DBSac:DB$ SacrificeAll | Defined$ ChosenCard

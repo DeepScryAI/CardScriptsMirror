@@ -2,10 +2,10 @@ Id:12803
 ColorIdentity:
 OriginSet:G4801bb28ce9773ed
 ManaCost:no cost
-Types:Plane Ravnica
-T:Mode$ PlaneswalkedFrom | ValidCard$ Plane.Self | Execute$ OrzhovaDeal
-SVar:OrzhovaDeal:DB$ ChangeZoneAll | Origin$ Graveyard | Destination$ Battlefield | ChangeType$ Creature
+Types:Plane Kamigawa
+T:Mode$ DamageDone | ValidSource$ Creature.YouCtrl | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigRamp | TriggerZones$ Command
+SVar:TrigRamp:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | Tapped$ True | ChangeType$ Land.Basic | ShuffleNonMandatory$ True
 T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos
-SVar:RolledChaos:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Creature.OppCtrl | TargetMin$ 0 | TargetMax$ OneEach | TargetsForEachPlayer$ True
-SVar:OneEach:PlayerCountOpponents$Amount
-SVar:AIRollPlanarDieParams:Mode$ Always
+SVar:RolledChaos:DB$ Effect | ValidTgts$ Creature | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable | AILogic$ Pump
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+SVar:AIRollPlanarDieParams:Mode$ Always | HasCreatureInPlay$ True | RollInMain1$ True

@@ -1,10 +1,18 @@
 Id:22253
-ColorIdentity:R
-OriginSet:Geb2cf181996ee3b2
-ManaCost:3 R
-Types:Creature Cyclops Berserker
-PT:4/3
-K:Reach
-T:Mode$ Attacks | ValidCard$ Card.Self | Delirium$ True | Execute$ TrigDamageAll
-SVar:TrigDamageAll:DB$ DamageAll | ValidCards$ Creature.DefenderCtrl | NumDmg$ 1
-SVar:HasAttackEffect:TRUE
+ColorIdentity:UR
+OriginSet:Ga575fa2f4f5cded4
+ManaCost:1 U R
+Types:Legendary Creature Efreet
+PT:2/3
+K:Flying
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigChooseNumber
+SVar:TrigChooseNumber:DB$ ChooseNumber | Defined$ You | Min$ 1 | Max$ 5 | AILogic$ Max | SubAbility$ FlipCoin
+SVar:FlipCoin:DB$ FlipCoin | Amount$ X | WinSubAbility$ DBDraw | LoseSubAbility$ DBDamage | RememberNumber$ Wins | SubAbility$ DBEffect
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ Wins
+SVar:DBDamage:DB$ DealDamage | NumDmg$ Damage | Defined$ You
+SVar:DBEffect:DB$ Effect | StaticAbilities$ MayPlay | Stackable$ False | ConditionCheckSVar$ Y | ConditionSVarCompare$ EQ5 | SubAbility$ DBCleanup
+SVar:MayPlay:Mode$ Continuous | Affected$ Card.nonLand+YouOwn | MayPlay$ True | MayPlayWithoutManaCost$ True | AffectedZone$ Hand
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$ChosenNumber
+SVar:Y:Count$RememberedNumber
+SVar:Damage:SVar$Losses/Times.2

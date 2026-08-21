@@ -1,6 +1,12 @@
 Id:15040
-ColorIdentity:G
+ColorIdentity:WG
 OriginSet:Gdb18f239871b8cef
-ManaCost:4 G
+ManaCost:G W
 Types:Instant
-A:SP$ PutCounter | Bolster$ 4
+A:SP$ Charm | Choices$ DBPrevent,DBSacrifice,DBPutCounter,DBPump | CharmNum$ 2
+SVar:DBPrevent:DB$ Effect | ValidTgts$ Instant,Sorcery | AILogic$ Prevent | TgtZone$ Stack | StaticAbilities$ PreventDmg | ExileOnMoved$ Stack | RememberObjects$ TargetedSource
+SVar:PreventDmg:Mode$ Continuous | AffectedZone$ Stack | Affected$ Card.IsRemembered | AddKeyword$ Prevent all damage that would be dealt by CARDNAME.
+SVar:DBSacrifice:DB$ Sacrifice | ValidTgts$ Player | SacValid$ Enchantment
+SVar:DBPutCounter:DB$ PutCounter | ValidTgts$ Creature | AILogic$ Good | CounterType$ P1P1 | CounterNum$ 1
+SVar:DBPump:DB$ Pump | ValidTgts$ Creature.YouCtrl | AILogic$ Fight | SubAbility$ DBFight
+SVar:DBFight:DB$ Fight | Defined$ ParentTarget | ValidTgts$ Creature.YouDontCtrl

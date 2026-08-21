@@ -1,8 +1,10 @@
 Id:3889
-ColorIdentity:U
+ColorIdentity:
 OriginSet:G3da30095b68d8df0
-ManaCost:1 U U
-Types:Creature Metathran Soldier
-PT:2/3
-S:Mode$ CantBlockBy | ValidAttacker$ Card.Self+enchanted
-SVar:EnchantMe:Once
+ManaCost:3
+Types:Artifact Creature Construct
+PT:1/2
+A:AB$ Reveal | Cost$ T | RevealValid$ Card.Artifact+YouCtrl | AnyNumber$ True | RememberRevealed$ True | SubAbility$ DBMetalWorkerMana
+SVar:DBMetalWorkerMana:DB$ Mana | Produced$ C | Amount$ MetalWorkerX | SubAbility$ DBMetalWorkerCleanup
+SVar:DBMetalWorkerCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:MetalWorkerX:Remembered$Amount/Twice

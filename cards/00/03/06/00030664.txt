@@ -1,7 +1,13 @@
 Id:30664
-ColorIdentity:B
-OriginSet:Gc5a2f0ff902c0621
-ManaCost:3 B B
-Types:Sorcery
-S:Mode$ AlternativeCost | ValidSA$ Spell.Self | EffectZone$ All | Cost$ B | IsPresent$ Creature | PresentCompare$ GE13
-A:SP$ Sacrifice | Amount$ 13 | SacValid$ Creature | Defined$ Player
+ColorIdentity:W
+OriginSet:G8b2ed00ac2a0ff47
+ManaCost:1 W W
+Types:Artifact Vehicle
+PT:2/2
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Creature.toughnessLE5 | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigDread
+SVar:TrigDread:DB$ ManifestDread | DefinedPlayer$ RememberedOwner | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+K:Crew:1

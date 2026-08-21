@@ -1,11 +1,12 @@
 Id:18771
-ColorIdentity:UB
+ColorIdentity:WR
 OriginSet:G1ecb361a0a117393
-ManaCost:1 U B
-Types:Sorcery
-A:SP$ ChangeZoneAll | Defined$ Player.Opponent | Origin$ Graveyard | Destination$ Exile | ChangeType$ Card | RememberChanged$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | Duration$ Permanent | StaticAbilities$ STPlay | RememberObjects$ Remembered | ForgetOnMoved$ Exile | SubAbility$ DelTrig
-SVar:STPlay:Mode$ Continuous | MayPlay$ True | MayPlayIgnoreType$ True | Affected$ Card.nonLand+IsRemembered | AffectedZone$ Exile
-SVar:DelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ TrigReturn | RememberObjects$ RememberedLKI | IsPresent$ Card.IsTriggerRemembered | PresentZone$ Exile | SubAbility$ ExileSelf
-SVar:TrigReturn:DB$ ChangeZone | Defined$ DelayTriggerRememberedLKI | Origin$ Exile | Destination$ Graveyard
-SVar:ExileSelf:DB$ ChangeZone | Defined$ Self | Origin$ Stack | Destination$ Exile
+ManaCost:RW
+Types:Instant
+A:SP$ Pump | ValidTgts$ Creature | NumAtt$ +2 | NumDef$ +2
+AlternateMode:Split
+ALTERNATE
+ManaCost:2 R W
+Types:Instant
+A:SP$ DealDamage | ValidTgts$ Any | NumDmg$ 3 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 3

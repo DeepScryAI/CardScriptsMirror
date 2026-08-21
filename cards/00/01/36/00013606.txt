@@ -1,11 +1,9 @@
 Id:13606
-ColorIdentity:U
+ColorIdentity:G
 OriginSet:G4773f4feb3f15a2b
-ManaCost:4 U U
-Types:Creature Fish Illusion
-PT:4/4
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ MindFishing
-SVar:MindFishing:DB$ Mill | NumCards$ 5 | ValidTgts$ Opponent | RememberMilled$ True | SubAbility$ FishyCast
-SVar:FishyCast:DB$ Play | ValidZone$ Graveyard,Exile | Valid$ Instant.IsRemembered,Sorcery.IsRemembered | Controller$ You | WithoutManaCost$ True | ValidSA$ Spell | Optional$ True | Amount$ 1 | SubAbility$ DBCleanup
+ManaCost:3 G
+Types:Enchantment
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigPeek | TriggerZones$ Battlefield
+SVar:TrigPeek:DB$ PeekAndReveal | PeekAmount$ 1 | NoReveal$ True | RememberPeeked$ True | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Optional$ True | Origin$ Library | Destination$ Battlefield | Defined$ Remembered | ConditionDefined$ Remembered | ConditionPresent$ Land | ConditionCompare$ GE1 | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

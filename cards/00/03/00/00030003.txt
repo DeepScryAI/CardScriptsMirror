@@ -1,12 +1,12 @@
 Id:30003
-ColorIdentity:UB
+ColorIdentity:G
 OriginSet:Gf09b85bbcc27770c
-ManaCost:2 U B
-Types:Legendary Creature Rat Rogue
-PT:3/4
-K:Ward:2
-R:Event$ Moved | ActiveZones$ Battlefield | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.OppCtrl | ReplaceWith$ DBExile
-SVar:DBExile:DB$ ChangeZone | Hidden$ True | Origin$ All | Destination$ Exile | Defined$ ReplacedCard
-T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenAmount$ X | TokenScriptIds$ 1595333169 | TokenOwner$ You
-SVar:X:Count$ThisTurnEntered_Exile_from_Battlefield_Creature.OppCtrl
+ManaCost:2 G
+Types:Creature Squirrel Warrior
+PT:1/1
+K:Trample
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPutCounter1
+SVar:TrigPutCounter1:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ X
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Squirrel.Other+YouCtrl,Food.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter2
+SVar:TrigPutCounter2:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+SVar:X:Count$Valid Squirrel.Other+YouCtrl,Food.Other+YouCtrl

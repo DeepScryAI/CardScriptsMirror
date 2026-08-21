@@ -2,6 +2,9 @@ Id:20324
 ColorIdentity:B
 OriginSet:Gfa87e7bbc5a709eb
 ManaCost:B
-Types:Sorcery
-A:SP$ LoseLife | ValidTgts$ Player | LifeAmount$ 2
-K:Escape:3 B ExileFromGrave<3/Card.Other/other>
+Types:Instant
+A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card | RememberChanged$ True | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 3 | ConditionDefined$ Remembered | ConditionPresent$ Creature | ConditionCompare$ EQ1 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | ConditionDefined$ Remembered | ConditionPresent$ Creature | ConditionCompare$ EQ0 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+K:Escape:3 B ExileFromGrave<5/Card.Other/other>

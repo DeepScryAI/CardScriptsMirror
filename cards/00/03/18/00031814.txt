@@ -1,9 +1,12 @@
 Id:31814
-ColorIdentity:U
-OriginSet:G7ab4f62d323b0ca7
-ManaCost:2 U
-Types:Legendary Creature Human Warlock
-PT:1/4
-T:Mode$ Scry | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraw
-T:Mode$ Surveil | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraw | Secondary$ True
-SVar:TrigDraw:DB$ Draw
+ColorIdentity:B
+OriginSet:G530ea9d733a13e9d
+ManaCost:2 B
+Types:Legendary Artifact Vehicle
+PT:4/3
+K:Flying
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigImmediateTrigger | TriggerZones$ Battlefield
+SVar:TrigImmediateTrigger:AB$ ImmediateTrigger | Cost$ Sac<1/CARDNAME> | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouOwn
+A:AB$ ChangeZone | Cost$ 4 B | Origin$ Graveyard | Destination$ Battlefield | ActivationZone$ Graveyard | Tapped$ True
+K:Crew:2

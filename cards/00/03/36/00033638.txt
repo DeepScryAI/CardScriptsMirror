@@ -1,12 +1,9 @@
 Id:33638
-ColorIdentity:R
-OriginSet:Gf04404de3fa1525e
-ManaCost:1 R
-Types:Creature Goblin Bard
-PT:2/2
-K:Menace
-T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBMana
-SVar:DBMana:DB$ Mana | Produced$ R | Amount$ Y | ConditionCheckSVar$ X | ConditionSVarCompare$ GE5
-SVar:X:TriggeredCard$CastTotalManaSpent
-SVar:Y:Count$CardPower
+ColorIdentity:U
+OriginSet:G23d1f017cc66962f
+ManaCost:2 U
+Types:Artifact Equipment
+K:Equip:3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | ValidTgts$ Permanent.nonLand+Other | TargetMin$ 0 | TargetMax$ 1 | Origin$ Battlefield | Destination$ Hand
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddToughness$ 1 | AddKeyword$ Vigilance

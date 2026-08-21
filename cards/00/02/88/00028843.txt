@@ -1,13 +1,10 @@
 Id:28843
-ColorIdentity:B
-OriginSet:Gaf7c94f364052cdd
-ManaCost:2 B
-Types:Creature Insect Mutant
-PT:2/2
-K:Flying
-S:Mode$ CantBlock | ValidCard$ Creature.Self
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigRadiation | CombatDamage$ True
-SVar:TrigRadiation:DB$ Radiation | Defined$ TriggeredTarget | Num$ X
-SVar:X:TriggerCount$DamageAmount
-T:Mode$ Milled | ValidPlayer$ Opponent | OptionalDecider$ You | ValidCard$ Card.nonLand | TriggerZones$ Graveyard | Execute$ TrigReturn | PresentZone$ Graveyard | IsPresent$ Card.StrictlySelf
-SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand
+ColorIdentity:G
+OriginSet:G997e3b19a1e94e85
+ManaCost:2 G
+Types:Instant
+K:Replicate:2 G
+A:SP$ CopyPermanent | Populate$ True | SubAbility$ DBProlif
+SVar:DBProlif:DB$ Proliferate | SubAbility$ DBInvestigate
+SVar:DBInvestigate:DB$ Investigate | SubAbility$ DBRegen
+SVar:DBRegen:DB$ Regenerate | ValidTgts$ Creature

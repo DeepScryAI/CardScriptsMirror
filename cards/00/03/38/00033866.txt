@@ -1,10 +1,12 @@
 Id:33866
-ColorIdentity:G
-OriginSet:Gf8df2bea26dc6b68
-ManaCost:2 G
-Types:Creature Badger Pest
-PT:4/2
-K:Trample
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigGainLife
-SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2
-SVar:HasAttackEffect:TRUE
+ColorIdentity:B
+OriginSet:Gf04404de3fa1525e
+ManaCost:1 B B
+Types:Legendary Planeswalker Ral
+Loyalty:3
+A:AB$ Surveil | Cost$ AddCounter<1/LOYALTY> | Amount$ 2 | Planeswalker$ True
+A:AB$ Discard | Cost$ SubCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Player | NumCards$ 1 | Mode$ TgtChoose | TargetMin$ 0 | TargetMax$ MaxTgt
+A:AB$ ChangeZone | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Card.Creature+cmcLE3+YouOwn
+A:AB$ FlipCoin | Cost$ SubCounter<7/LOYALTY> | ValidTgts$ Opponent | Amount$ 5 | NoCall$ True | HeadsSubAbility$ DBSkipTurn | Planeswalker$ True | Ultimate$ True
+SVar:DBSkipTurn:DB$ SkipTurn | NumTurns$ X | Defined$ Targeted
+SVar:MaxTgt:PlayerCountPlayers$Amount

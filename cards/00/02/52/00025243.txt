@@ -1,8 +1,11 @@
 Id:25243
-ColorIdentity:B
+ColorIdentity:
 OriginSet:Gf591a76e7a37cf73
-ManaCost:4 B B
-Types:Legendary Artifact Creature Necron
-PT:4/6
-K:Deathtouch
-S:Mode$ Continuous | Affected$ Card.Self | EffectZone$ Battlefield | GainsAbilitiesOf$ Artifact.YouOwn | GainsAbilitiesOfZones$ Graveyard
+ManaCost:2
+Types:Artifact Equipment
+T:Mode$ Attacks | ValidCard$ Card.EquippedBy | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 2779279098 | TokenOwner$ You | TokenAttacking$ True | SubAbility$ DBPump
+SVar:DBPump:DB$ PumpAll | ValidCards$ Creature.attacking | KW$ Menace
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddSVar$ AE
+SVar:AE:SVar:HasAttackEffect:TRUE
+K:Equip:3

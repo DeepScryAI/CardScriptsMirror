@@ -1,9 +1,10 @@
 Id:18994
-ColorIdentity:RG
+ColorIdentity:UG
 OriginSet:G0b51a0aecbe39efe
-ManaCost:2 R G
-Types:Creature Cat Beast
-PT:3/3
-K:Riot
-K:Trample
-A:AB$ Pump | Cost$ 4 R G | NumAtt$ +3
+ManaCost:G U
+Types:Creature Merfolk Wizard
+PT:2/2
+A:AB$ Effect | Cost$ 1 G T | ReplacementEffects$ ExtraETBCounter
+SVar:ExtraETBCounter:Event$ Moved | ReplacementResult$ Updated | ActiveZones$ Command | Destination$ Battlefield | ValidCard$ Creature.YouCtrl+Other | ReplaceWith$ AddExtraCounter
+SVar:AddExtraCounter:DB$ PutCounter | ETB$ True | Defined$ ReplacedCard | CounterType$ P1P1 | CounterNum$ 1
+A:AB$ MoveCounter | Cost$ 1 U T | ValidTgts$ Creature.YouCtrl | TargetMin$ 2 | TargetMax$ 2 | CounterType$ P1P1 | CounterNum$ 1

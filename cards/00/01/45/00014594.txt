@@ -1,10 +1,8 @@
 Id:14594
-ColorIdentity:
+ColorIdentity:G
 OriginSet:G0a578e83854cf093
-ManaCost:2
-Types:Artifact Equipment
-K:Equip:1
-T:Mode$ Attacks | ValidCard$ Card.AttachedBy | Execute$ TrigDamage
-SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Creature.ControlledBy TriggeredDefendingPlayer | NumDmg$ 1
-S:Mode$ Continuous | Affected$ Creature.AttachedBy | AddSVar$ AE
-SVar:AE:SVar:HasAttackEffect:TRUE
+ManaCost:G
+Types:Enchantment
+R:Event$ AddCounter | ActiveZones$ Battlefield | ValidCard$ Creature.YouCtrl+inZoneBattlefield | ValidCounterType$ P1P1 | ReplaceWith$ AddOneMoreCounters
+SVar:AddOneMoreCounters:DB$ ReplaceCounter | ValidCounterType$ P1P1 | ChooseCounter$ True | Amount$ X
+SVar:X:ReplaceCount$CounterNum/Plus.1

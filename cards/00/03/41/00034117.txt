@@ -1,10 +1,12 @@
 Id:34117
-ColorIdentity:UR
-OriginSet:Gcb93bbfc68a40806
-ManaCost:2 U R
-Types:Legendary Creature Human Archer Hero
-PT:3/4
-K:Reach
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.OppCtrl+DamagedBy | TriggerZones$ Battlefield | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw
-A:AB$ DealDamage | Cost$ T | ValidTgts$ Any | NumDmg$ 1
+ColorIdentity:
+OriginSet:Gf8df2bea26dc6b68
+ManaCost:7
+Types:Creature Avatar
+PT:6/6
+K:Vigilance
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | NumCards$ X | RememberDrawn$ True | OptionalDecider$ True | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | Mode$ TgtChoose | NumCards$ 2 | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$Converge

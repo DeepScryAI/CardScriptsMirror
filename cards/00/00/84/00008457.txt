@@ -1,7 +1,11 @@
 Id:8457
-ColorIdentity:G
+ColorIdentity:UB
 OriginSet:Gf7b8c9355081f53b
-ManaCost:1 G
-Types:Snow Creature Centaur Warrior
-PT:2/2
-A:AB$ Pump | Cost$ S | Defined$ Self | NumAtt$ +1 | NumDef$ +1 | ActivationLimit$ 1
+ManaCost:2 U B
+Types:Snow Creature Specter
+PT:2/3
+K:Flying
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigCharm | TriggerZones$ Battlefield
+SVar:TrigCharm:DB$ Charm | Choices$ DBBounce,DBDiscard
+SVar:DBBounce:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Hidden$ True | ChangeType$ Permanent.ControlledBy TriggeredTarget | ChangeNum$ 1 | Chooser$ TriggeredTarget | Mandatory$ True
+SVar:DBDiscard:DB$ Discard | Defined$ TriggeredTarget | NumCards$ 1 | Mode$ TgtChoose

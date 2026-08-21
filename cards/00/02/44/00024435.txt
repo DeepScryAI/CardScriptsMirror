@@ -1,15 +1,9 @@
 Id:24435
-ColorIdentity:R
+ColorIdentity:
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:2 R
-Types:Creature Dragon Rogue Warrior
-PT:2/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigTreasure
-SVar:TrigTreasure:DB$ Token | TokenScriptIds$ 3851718391 | TokenOwner$ You
-T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigSac | TriggerZones$ Battlefield
-SVar:TrigSac:DB$ Sacrifice | Defined$ You | Amount$ X | SacValid$ Treasure | Optional$ True | RememberSacrificed$ True | SubAbility$ TrigImmediateTrig
-SVar:TrigImmediateTrig:DB$ ImmediateTrigger | Execute$ DBPump | ConditionDefined$ RememberedLKI | ConditionPresent$ Card | RememberObjects$ RememberedLKI | SubAbility$ DBCleanup
-SVar:DBPump:DB$ Pump | ValidTgts$ Creature | KW$ DoubleStrike | TargetMin$ 0 | TargetMax$ DBSize
+ManaCost:3
+Types:Artifact
+A:AB$ ChangeZone | Cost$ 2 T Sac<1/CARDNAME> | Origin$ Library | Destination$ Library | ChangeType$ Land.Basic,Gate | ChangeNum$ 2 | RememberChanged$ True | Reveal$ True | Shuffle$ False | SubAbility$ DBChangeZone1
+SVar:DBChangeZone1:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Land.IsRemembered,Gate.IsRemembered | ChangeNum$ 1 | Mandatory$ True | ForgetChanged$ True | NoLooking$ True | Tapped$ True | Shuffle$ True | SubAbility$ DBChangeZone2
+SVar:DBChangeZone2:DB$ ChangeZone | Origin$ Library | Destination$ Hand | Defined$ Remembered | ConditionDefined$ Remembered | ConditionPresent$ Card | ForgetChanged$ True | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:DBSize:TriggerRemembered$Amount
-SVar:X:Count$Valid Treasure.YouCtrl

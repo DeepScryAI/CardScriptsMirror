@@ -1,19 +1,13 @@
 Id:31758
-ColorIdentity:BR
-OriginSet:G7ab4f62d323b0ca7
-ManaCost:B R
-Types:Legendary Creature Human Knight
-PT:3/2
-T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | Execute$ TrigSurveil | TriggerZones$ Battlefield
-SVar:TrigSurveil:DB$ Surveil | Amount$ 1
-SVar:BuffedBy:Card.nonLand+nonCreature
-A:AB$ ChangeZone | Cost$ 3 B B R R | Origin$ Graveyard | Destination$ Battlefield | ActivationZone$ Graveyard | SorcerySpeed$ True | Transformed$ True
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:black,red
-Types:Legendary Creature Demon
-PT:5/5
-K:Flying
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigChange
-SVar:TrigChange:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Library | LibraryPosition$ -1
+ColorIdentity:WB
+OriginSet:G530ea9d733a13e9d
+ManaCost:2 W B
+Types:Legendary Creature Elf Warrior
+PT:3/3
+T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigCounter
+SVar:TrigCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Self | KW$ Flying
+T:Mode$ Phase | Phase$ Main | PhaseCount$ 2 | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ X | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ X
+SVar:X:PlayerCountRegisteredOpponents$HasPropertywasDealtCombatDamageThisTurnBy Card.Self,Dragon GE1

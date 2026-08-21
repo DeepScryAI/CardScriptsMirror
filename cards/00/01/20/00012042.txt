@@ -1,7 +1,17 @@
 Id:12042
-ColorIdentity:W
+ColorIdentity:R
 OriginSet:G28b959a4da853005
-ManaCost:4 W W
-Types:Enchantment
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self,Permanent.nonLand+YouCtrl+Other | Execute$ TrigMartyrsSacrifice | TriggerZones$ Battlefield
-SVar:TrigMartyrsSacrifice:DB$ Sacrifice | Amount$ 1 | SacValid$ TriggeredCard.sharesCardTypeWith | Defined$ TriggeredCardOpponent
+ManaCost:4 R R
+Types:Creature Dragon
+PT:5/5
+K:Flying
+K:Trample
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigJoinForces
+T:Mode$ Blocks | ValidCard$ Card.Self | Execute$ TrigJoinForces | Secondary$ True
+SVar:TrigJoinForces:DB$ RepeatEach | RepeatPlayers$ Player | StartingWith$ You | RepeatSubAbility$ DBPay | SubAbility$ DBPump
+SVar:DBPay:DB$ ChooseNumber | Defined$ Player.IsRemembered | ChooseAnyNumber$ True | SubAbility$ DBStore
+SVar:DBStore:DB$ StoreSVar | SVar$ JoinForcesAmount | Type$ CountSVar | Expression$ JoinForcesAmount/Plus.Y | UnlessCost$ Y | UnlessPayer$ Player.IsRemembered | UnlessSwitched$ True
+SVar:DBPump:DB$ Pump | Defined$ Self | NumAtt$ +JoinForcesAmount | SubAbility$ DBReset
+SVar:DBReset:DB$ StoreSVar | SVar$ JoinForcesAmount | Type$ Number | Expression$ 0
+SVar:Y:Count$ChosenNumber
+SVar:JoinForcesAmount:Number$0

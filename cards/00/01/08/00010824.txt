@@ -1,12 +1,9 @@
 Id:10824
 ColorIdentity:R
 OriginSet:G4398040c23c94f0e
-ManaCost:4 R R
-Types:Creature Dragon
-PT:5/5
-K:Flying
-K:Haste
-T:Mode$ Attacks | ValidCard$ Creature.Self | TriggerZones$ Battlefield | Execute$ TrigUntap
-SVar:TrigUntap:AB$ UntapAll | Cost$ 5 R R | ValidCards$ Creature.attacking | SubAbility$ DBAddCombat
-SVar:DBAddCombat:DB$ AddPhase | ExtraPhase$ Combat | AfterPhase$ EndCombat
-SVar:PlayMain1:TRUE
+ManaCost:2 R
+Types:Creature Elemental Dog
+PT:2/2
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Opponent | CheckSVar$ TrigHand | SVarCompare$ LE2 | Execute$ TrigDamage | TriggerZones$ Battlefield
+SVar:TrigDamage:DB$ DealDamage | Defined$ TriggeredPlayer | NumDmg$ 2
+SVar:TrigHand:Count$ValidHand Card.ActivePlayerCtrl

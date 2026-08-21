@@ -1,9 +1,9 @@
 Id:19418
-ColorIdentity:W
+ColorIdentity:UR
 OriginSet:G9d37112ca6693432
-ManaCost:2 W W
-Types:Enchantment
-K:Flash
-S:Mode$ AlternativeCost | ValidSA$ Spell.Self | EffectZone$ All | Cost$ ExileFromHand<1/Card.White+Other> | Condition$ NotPlayerTurn
-S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddPower$ 1 | AddToughness$ 1
-SVar:BuffedBy:Creature
+ManaCost:2 U R
+Types:Sorcery
+A:SP$ Dig | Defined$ You | DigNum$ 6 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | Valid$ Sorcery.cmcLE3+IsRemembered+YouOwn | ValidZone$ Exile | Amount$ 2 | Controller$ You | WithoutManaCost$ True | Optional$ True | SubAbility$ DBLibrary
+SVar:DBLibrary:DB$ ChangeZoneAll | Origin$ Exile | Destination$ Library | LibraryPosition$ -1 | ChangeType$ Card.IsRemembered+YouOwn | RandomOrder$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

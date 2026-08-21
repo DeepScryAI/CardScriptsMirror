@@ -1,8 +1,12 @@
 Id:11319
-ColorIdentity:W
+ColorIdentity:
 OriginSet:G9fb0a9a59b6a9580
-ManaCost:2 W
-Types:Creature Human Wizard
-PT:2/2
-S:Mode$ Continuous | Affected$ Aura.AttachedTo Permanent.YouCtrl | AddKeyword$ Umbra armor
-SVar:PlayMain1:TRUE
+ManaCost:11
+Types:Legendary Creature Eldrazi
+PT:10/10
+K:Indestructible
+K:Annihilator:4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigShuffle
+SVar:TrigShuffle:DB$ ChangeZoneAll | Defined$ TriggeredCardOwner | ChangeType$ Card | Origin$ Graveyard | Destination$ Library | Shuffle$ True
+T:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Permanent

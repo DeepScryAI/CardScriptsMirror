@@ -1,7 +1,13 @@
 Id:26455
-ColorIdentity:R
-OriginSet:G06757f68e16377c2
-ManaCost:1 R
-Types:Instant
-K:Convoke
-A:SP$ Pump | TargetMin$ 0 | TargetMax$ 2 | NumAtt$ +2 | KW$ Haste | ValidTgts$ Creature
+ColorIdentity:W
+OriginSet:G74a73d701e7801b3
+ManaCost:1 W
+Types:Creature Phyrexian Insect
+PT:1/1
+K:Toxic:1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigBranch
+SVar:TrigBranch:DB$ Branch | BranchConditionSVar$ X | BranchConditionSVarCompare$ GE3 | TrueSubAbility$ DBGenericChoice | FalseSubAbility$ ConjurePlains
+SVar:DBGenericChoice:DB$ GenericChoice | Choices$ SeekNonLand,ConjurePlains
+SVar:SeekNonLand:DB$ Seek | Type$ Card.nonLand
+SVar:ConjurePlains:DB$ MakeCard | Conjure$ True | CatalogId$ 188 | Zone$ Hand
+SVar:X:PlayerCountOpponents$HighestCounters.Poison

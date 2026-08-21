@@ -1,7 +1,10 @@
 Id:19388
 ColorIdentity:G
-OriginSet:G9d37112ca6693432
-ManaCost:1 G
-Types:Creature Ouphe
-PT:2/2
-S:Mode$ CantBeActivated | Activator$ Player | AffectedZone$ Battlefield | ValidCard$ Artifact | ValidSA$ Activated
+OriginSet:Gb6b8d78626a44788
+ManaCost:2 G
+Types:Creature Bear Spirit
+PT:2/3
+A:AB$ PeekAndReveal | Cost$ 3 G | AILogic$ AtOppEOT | PeekAmount$ 1 | RevealValid$ Creature,Planeswalker | RevealOptional$ True | RememberRevealed$ True | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Defined$ TopOfLibrary | Origin$ Library | Destination$ Hand | ConditionDefined$ Remembered | ConditionPresent$ Creature,Planeswalker | ConditionCompare$ EQ1 | SubAbility$ DBBottom
+SVar:DBBottom:DB$ ChangeZone | Defined$ TopOfLibrary | Origin$ Library | Destination$ Library | Shuffle$ False | ConditionDefined$ Remembered | ConditionPresent$ Creature,Planeswalker | ConditionCompare$ EQ0 | LibraryPosition$ -1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

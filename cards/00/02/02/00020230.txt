@@ -1,10 +1,11 @@
 Id:20230
-ColorIdentity:WR
-OriginSet:G42eb6bda83007836
-ManaCost:R R W W
-Types:Legendary Creature Human Warrior
-PT:6/1
-S:Mode$ MustAttack | ValidCreature$ Card.Self
-K:ETBReplacement:Other:ChooseNum
-SVar:ChooseNum:DB$ ChooseNumber | Min$ 2 | Max$ 4 | Defined$ You | Random$ True
-S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ Protection:Card.cmcNEChosenNumber,Emblem:each mana value other than ChosenNumber
+ColorIdentity:B
+OriginSet:G00aff909a83a7400
+ManaCost:2 B B
+Types:Creature Specter
+PT:2/2
+K:Flying
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Opponent | Execute$ TrigChoice | TriggerZones$ Battlefield
+SVar:TrigChoice:DB$ GenericChoice | Defined$ TriggeredTarget | Choices$ DBDiscardOne,DBChallenge | AILogic$ Random
+SVar:DBDiscardOne:DB$ Discard | Defined$ TriggeredTarget | NumCards$ 1 | Mode$ TgtChoose
+SVar:DBChallenge:DB$ Discard | Defined$ TriggeredTarget | NumCards$ 2 | Mode$ TgtChoose | UnlessCost$ Reveal<2/Card.Black> | UnlessPayer$ You | UnlessSwitched$ True

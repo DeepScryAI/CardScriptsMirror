@@ -1,11 +1,9 @@
 Id:13302
-ColorIdentity:R
+ColorIdentity:UB
 OriginSet:Gfdc478e04211a499
-ManaCost:R
-Types:Creature Goblin Soldier
-PT:1/1
-K:Haste
-T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPump | IsPresent$ Creature.attacking+Other | NoResolvingCheck$ True | PresentCompare$ GE2
-SVar:TrigPump:DB$ PumpAll | ValidCards$ Creature.YouCtrl | KW$ FirstStrike & Trample | SubAbility$ TrigEffect
-SVar:TrigEffect:DB$ Effect | StaticAbilities$ KWPump
-SVar:KWPump:Mode$ CantBlockBy | ValidAttacker$ Creature.YouCtrl | ValidBlocker$ Creature.token
+ManaCost:U U B B
+Types:Legendary Creature Shapeshifter
+PT:3/3
+K:Hexproof
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Graveyard | ValidCard$ Creature.!token+OppOwn | TriggerZones$ Battlefield | Execute$ LazavCopy | OptionalDecider$ You
+SVar:LazavCopy:DB$ Clone | Defined$ TriggeredCardLKICopy | NewName$ 14682117270342183139 | AddTypes$ Legendary | AddKeywords$ Hexproof | GainThisAbility$ True | Optional$ True | AddSVars$ LazavCopy | AILogic$ IfDefinedCreatureIsBetter

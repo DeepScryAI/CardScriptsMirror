@@ -1,8 +1,11 @@
 Id:4574
-ColorIdentity:G
+ColorIdentity:U
 OriginSet:G239b3b7a46d83e8e
-ManaCost:2 G
-Types:Sorcery
-A:SP$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBDamage | DamageMap$ True
-SVar:DBDamage:DB$ DealDamage | Defined$ Remembered | NumDmg$ X
-SVar:X:Count$Valid Creature.withFlying+RememberedPlayerCtrl/Times.2
+ManaCost:3 U
+Types:Creature Human Scout
+PT:3/3
+K:Flying
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ DelTrig
+T:Mode$ Blocks | ValidCard$ Card.Self | Execute$ DelTrig | Secondary$ True
+SVar:DelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ EndCombat | ValidPlayer$ Player | Execute$ TrigBounce
+SVar:TrigBounce:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Defined$ Self

@@ -1,17 +1,14 @@
 Id:29563
-ColorIdentity:WG
+ColorIdentity:
 OriginSet:Gac6359c222afbd4f
-ManaCost:2 GW
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:Pump
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ X | AddToughness$ X
-SVar:X:Count$Valid Creature.YouCtrl,Enchantment.YouCtrl
-SVar:BuffedBy:Enchantment
-AlternateMode:Modal
-ALTERNATE
-ManaCost:no cost
-Types:Land
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
-A:AB$ Mana | Cost$ T | Produced$ Combo G W
+ManaCost:12
+Types:Legendary Creature Eldrazi
+PT:12/12
+K:Flying
+K:Protection:Spell.ThisTurnCast:spells that were cast this turn
+K:Protection:Permanent.ThisTurnCast:permanents that were cast this turn
+T:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigGainControl
+SVar:TrigGainControl:DB$ GainControl | ValidTgts$ Player | AllValid$ Creature.TargetedPlayerCtrl | NewController$ You
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigSacrificeAll
+SVar:TrigSacrificeAll:DB$ SacrificeAll | ValidCards$ Creature.YouCtrl
+K:Madness:C C C C C C

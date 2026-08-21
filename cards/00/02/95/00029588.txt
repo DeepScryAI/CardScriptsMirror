@@ -1,14 +1,12 @@
 Id:29588
-ColorIdentity:
+ColorIdentity:WU
 OriginSet:Gac6359c222afbd4f
-ManaCost:10
-Types:Legendary Creature Eldrazi
-PT:7/7
-K:Ward:Sac<2/Permanent>
-T:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigExile
-SVar:TrigExile:DB$ Dig | ValidTgts$ Opponent | DestinationZone$ Exile | DigNum$ Z | ChangeNum$ All
-SVar:Z:TargetedPlayer$CardsInLibrary/HalfUp
-K:etbCounter:P1P1:Y:no Condition
-SVar:Y:Count$ValidExile Card$GreatestCardManaCost
-S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ Annihilator:X
-SVar:X:Count$CardCounters.P1P1
+ManaCost:2 W U
+Types:Legendary Creature Moonfolk Wizard
+PT:2/5
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Permanent.YouCtrl+Other+!token | TriggerZones$ Battlefield | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | ChoiceRestriction$ ThisTurn | Choices$ DBToken1,DBToken2,DBToken3
+SVar:DBToken1:DB$ Token | TokenScriptIds$ 3815221359 | TokenOwner$ You
+SVar:DBToken2:DB$ Token | TokenScriptIds$ 3951474283 | TokenOwner$ You
+SVar:DBToken3:DB$ Token | TokenScriptIds$ 3148831679 | TokenOwner$ You
+A:AB$ PutCounterAll | Cost$ 3 W U | ValidCards$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1

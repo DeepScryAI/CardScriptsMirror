@@ -1,9 +1,10 @@
 Id:25593
-ColorIdentity:W
-OriginSet:G06ccef4324c14725
-ManaCost:4 W
-Types:Creature Human Soldier
-PT:3/4
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPut
-SVar:TrigPut:DB$ PutCounter | ValidTgts$ Soldier.Other+YouCtrl | CounterType$ P1P1
+ColorIdentity:
+OriginSet:G2e872aaf9b98489e
+ManaCost:1
+Types:Artifact Equipment
+K:Equip:3
+T:Mode$ Attacks | ValidCard$ Card.EquippedBy | Execute$ TrigRollDice
+SVar:TrigRollDice:DB$ RollDice | ResultSVar$ X | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ TriggeredAttackerLKICopy | NumAtt$ +X | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | ConditionDefined$ TriggeredAttackerLKICopy | ConditionPresent$ Creature.greatestPower

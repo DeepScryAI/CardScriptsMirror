@@ -1,8 +1,10 @@
 Id:32437
-ColorIdentity:W
-OriginSet:G66b3a7eeabd9000e
-ManaCost:W
-Types:Enchantment
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | UnlessCost$ tapXType<2/Creature;Treasure/creatures and/or Treasures> | UnlessPayer$ You | UnlessSwitched$ True | UnlessResolveSubs$ WhenNotPaid | SubAbility$ DBSac
-SVar:DBSac:DB$ Sacrifice | SacValid$ Self
+ColorIdentity:U
+OriginSet:G9946f072b5556073
+ManaCost:2 U U
+Types:Enchantment Aura
+K:Enchant:Creature,Spacecraft:creature or Spacecraft
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigTap
+SVar:TrigTap:DB$ Tap | Defined$ Enchanted
+S:Mode$ Continuous | Affected$ Permanent.EnchantedBy | GainControl$ You
+R:Event$ Untap | ActiveZones$ Battlefield | ValidCard$ Creature.EnchantedBy | ValidStepTurnToController$ You | Layer$ CantHappen

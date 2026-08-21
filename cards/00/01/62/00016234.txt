@@ -1,9 +1,9 @@
 Id:16234
-ColorIdentity:R
+ColorIdentity:U
 OriginSet:G70d19654882197c9
-ManaCost:3 R R
-Types:Creature Dragon
-PT:4/5
-K:Flying
-T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | IsSingleTarget$ True | TargetsValid$ Card.Self | Execute$ TrigCopy | TriggerZones$ Battlefield
-SVar:TrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | Controller$ TriggeredActivator | CopyForEachCanTarget$ Creature.ControlledBy TriggeredActivator
+ManaCost:5 U U
+Types:Enchantment
+T:Mode$ SpellCast | ValidActivatingPlayer$ Player.Opponent | ActivatorThisTurnCast$ EQ1 | Execute$ TrigExile | TriggerZones$ Battlefield
+SVar:TrigExile:DB$ Dig | Defined$ TriggeredActivator | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ CastCard
+SVar:CastCard:DB$ Play | Defined$ Remembered | WithoutManaCost$ True | ValidSA$ Spell | Optional$ True | Controller$ You | ShowCardToActivator$ True | ConditionDefined$ Remembered | ConditionPresent$ Card.nonLand | ConditionCompare$ EQ1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

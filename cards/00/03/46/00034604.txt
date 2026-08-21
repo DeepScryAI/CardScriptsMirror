@@ -1,19 +1,12 @@
 Id:34604
-ColorIdentity:UR
-OriginSet:G11c0621ce29fa608
-ManaCost:1 U
-Types:Legendary Creature Human Artificer Hero
-PT:1/3
-A:AB$ Dig | Cost$ 1 T | DigNum$ 4 | ChangeNum$ 1 | Optional$ True | ChangeValid$ Artifact | RestRandomOrder$ True
-A:AB$ SetState | Cost$ 4 U R | Defined$ Self | Mode$ Transform | SorcerySpeed$ True | AILogic$ Always
-AlternateMode:Modal
-ALTERNATE
-ManaCost:4 U R
-Types:Legendary Artifact Creature Human Hero
-PT:5/5
-K:Flying
-K:Haste
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | Execute$ TrigChangeZone | TriggerZones$ Battlefield
-SVar:TrigChangeZone:DB$ ChangeZone | ChangeType$ Artifact | Origin$ Hand | Destination$ Battlefield | RememberChanged$ True | SubAbility$ DBAttach
-SVar:DBAttach:DB$ Attach | Object$ Remembered | Defined$ Self | ConditionDefined$ Remembered | ConditionPresent$ Equipment | ConditionCompare$ GE1 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:
+OriginSet:Gcb93bbfc68a40806
+ManaCost:4
+Types:Artifact Equipment
+K:Flash
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigAttach
+SVar:TrigAttach:DB$ Attach | ValidTgts$ Creature.YouCtrl
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 3 | AddKeyword$ Trample | AddTrigger$ TrigDamageDone
+SVar:TrigDamageDone:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw
+K:Equip:3

@@ -1,18 +1,7 @@
 Id:28139
-ColorIdentity:WR
+ColorIdentity:R
 OriginSet:Gfd50577710a6ab09
-ManaCost:3 R W
-Types:Legendary Planeswalker Quintorius
-Loyalty:4
-T:Mode$ SpellCast | ValidCard$ Card.wasCastFromExile | ValidActivatingPlayer$ You | Execute$ TrigDamage | TriggerZones$ Battlefield
-SVar:TrigDamage:DB$ DealDamage | Defined$ Opponent | NumDmg$ 2 | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | LifeAmount$ 2
-A:AB$ Token | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | TokenScriptIds$ 2645485105
-A:AB$ Discover | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | Num$ 4
-A:AB$ ChangeZone | Cost$ SubCounter<6/LOYALTY> | Planeswalker$ True | Ultimate$ True | Origin$ Graveyard | Destination$ Exile | TargetMin$ 0 | TargetMax$ Yard | ValidTgts$ Card.YouOwn | RememberChanged$ True | SubAbility$ DBMana
-SVar:DBMana:DB$ Mana | Produced$ R | Amount$ X | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | RememberObjects$ Remembered | StaticAbilities$ STMayPlay | SubAbility$ DBCleanup | ForgetOnMoved$ Exile
-SVar:STMayPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:Yard:Count$ValidGraveyard Card.YouOwn
-SVar:X:Remembered$Amount
+ManaCost:3 R
+Types:Sorcery
+A:SP$ DamageAll | ValidCards$ Creature,Planeswalker | NumDmg$ X
+SVar:X:Count$ValidGraveyard,Battlefield Cave.YouCtrl

@@ -1,9 +1,14 @@
 Id:13943
 ColorIdentity:R
 OriginSet:G6645ca87da6316d5
-ManaCost:2 R R
-Types:Creature Elemental Beast
-PT:0/4
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +X
-SVar:X:Count$Valid Land.ControlledBy TriggeredDefendingPlayer
+ManaCost:X R
+Types:Sorcery
+A:SP$ Token | TokenAmount$ X | TokenScriptIds$ 2099312066 | TokenOwner$ You | SubAbility$ DBRepeat
+SVar:DBRepeat:DB$ RepeatEach | RepeatSubAbility$ DBTokenOpp | RepeatPlayers$ Player.Opponent | RepeatOptionalForEachPlayer$ True | SubAbility$ DBToken | ChangeZoneTable$ True
+SVar:DBTokenOpp:DB$ Token | TokenAmount$ X | TokenScriptIds$ 2099312066 | TokenOwner$ Player.IsRemembered | SubAbility$ DBCount
+SVar:DBCount:DB$ StoreSVar | SVar$ Y | Type$ CountSVar | Expression$ Y/Plus.1
+SVar:DBToken:DB$ Token | TokenAmount$ Z | TokenScriptIds$ 2099312066 | TokenOwner$ You | SubAbility$ DBReset
+SVar:DBReset:DB$ StoreSVar | SVar$ Y | Type$ Number | Expression$ 0
+SVar:Y:Number$0
+SVar:X:Count$xPaid
+SVar:Z:SVar$X/Times.Y

@@ -2,11 +2,7 @@ Id:12799
 ColorIdentity:
 OriginSet:G4801bb28ce9773ed
 ManaCost:no cost
-Types:Plane Innistrad
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Command | Execute$ TrigMill
-SVar:TrigMill:DB$ Mill | NumCards$ 7 | SubAbility$ DBRandom
-SVar:DBRandom:DB$ ChooseCard | Choices$ Card.YouOwn | ChoiceZone$ Graveyard | AtRandom$ True | Amount$ 1 | SubAbility$ DBReturn
-SVar:DBReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | Defined$ ChosenCard
-T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos
-SVar:RolledChaos:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Card.YouOwn
-SVar:AIRollPlanarDieParams:Mode$ Always | CardsInGraveyardGE$ 1
+Types:Phenomenon
+T:Mode$ PlaneswalkedTo | ValidCard$ Card.Self | Execute$ Epiphany
+SVar:Epiphany:DB$ Draw | Defined$ Player | NumCards$ 4 | SubAbility$ PWAway
+SVar:PWAway:DB$ Planeswalk

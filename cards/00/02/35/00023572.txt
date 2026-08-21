@@ -1,10 +1,11 @@
 Id:23572
-ColorIdentity:U
+ColorIdentity:B
 OriginSet:G1a259dba25660062
-ManaCost:1 U
-Types:Enchantment Creature Human Ninja
-PT:2/1
-K:Ninjutsu:U
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDraw
-SVar:TrigDraw:AB$ Discard | Defined$ You | Mode$ TgtChoose | NumCards$ X | Cost$ Draw<1/You>
-SVar:X:TriggeredSource$Valid Card.!ThisTurnEntered
+ManaCost:3 B
+Types:Legendary Enchantment Creature Shrine
+PT:2/2
+K:Deathtouch
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigImmediateTrig
+SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ 1 | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Creature.toughnessLEX
+SVar:X:Count$Valid Shrine.YouCtrl

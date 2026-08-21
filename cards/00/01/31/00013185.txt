@@ -1,9 +1,12 @@
 Id:13185
-ColorIdentity:UG
+ColorIdentity:UB
 OriginSet:Gdd020b591e71cb52
-ManaCost:2 G U
-Types:Creature Human Wizard
-PT:1/1
-K:Evolve
-T:Mode$ CounterAdded | ValidCard$ Card.Self | TriggerZones$ Battlefield | CounterType$ P1P1 | Execute$ FathomDraw | OptionalDecider$ You
-SVar:FathomDraw:DB$ Draw | Defined$ You | NumCards$ 1
+ManaCost:3 U B
+Types:Creature Horror
+PT:*/*
+S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ ConsumingPT | SetToughness$ ConsumingPT
+T:Mode$ SpellCast | ValidActivatingPlayer$ You | Execute$ Grind | TriggerZones$ Battlefield
+SVar:Grind:DB$ DigUntil | Defined$ Player.Opponent | Amount$ 1 | Valid$ Land | RevealedDestination$ Graveyard
+SVar:ConsumingPT:Count$ValidGraveyard Card.OppOwn
+SVar:NeedsToPlayVar:ConsumingPT GT 0
+SVar:BuffedBy:Card

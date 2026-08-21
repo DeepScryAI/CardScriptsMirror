@@ -1,12 +1,14 @@
 Id:18980
-ColorIdentity:WU
+ColorIdentity:BR
 OriginSet:G0b51a0aecbe39efe
-ManaCost:1 W U
-Types:Legendary Planeswalker Dovin
-Loyalty:3
-A:AB$ Effect | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | Triggers$ TrigDamage | RememberObjects$ Self
-SVar:TrigDamage:Mode$ DamageDone | ValidSource$ Creature.YouCtrl | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Remembered | CounterType$ LOYALTY | CounterNum$ 1
-A:AB$ Token | Cost$ SubCounter<1/LOYALTY> | Planeswalker$ True | TokenScriptIds$ 3939935181 | TokenOwner$ You | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
-A:AB$ Dig | Cost$ SubCounter<7/LOYALTY> | Planeswalker$ True | Ultimate$ True | DigNum$ 10 | ChangeNum$ 3 | DestinationZone$ Hand | DestinationZone2$ Library | LibraryPosition$ -1 | RestRandomOrder$ True
+ManaCost:5 B R
+Types:Enchantment
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ DBChooseOpp | Layer$ Control
+SVar:DBChooseOpp:DB$ ChoosePlayer | Defined$ You | Choices$ Player.Opponent | AILogic$ Curse | SubAbility$ MoveToPlay
+SVar:MoveToPlay:DB$ ChangeZone | Hidden$ True | Origin$ All | Destination$ Battlefield | Defined$ ReplacedCard | GainControl$ ChosenPlayer
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigCharm | TriggerZones$ Battlefield
+SVar:TrigCharm:DB$ Charm | Choices$ LifePact,DiscardPact,MakeZombies | ChoiceRestriction$ ThisGame
+SVar:LifePact:DB$ SetLife | Defined$ You | LifeAmount$ 4
+SVar:DiscardPact:DB$ Discard | Defined$ You | Mode$ Hand
+SVar:MakeZombies:DB$ Token | TokenAmount$ 5 | TokenScriptIds$ 353162950 | TokenOwner$ Opponent
+SVar:SacMe:6

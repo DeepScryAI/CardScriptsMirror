@@ -1,8 +1,12 @@
 Id:24062
-ColorIdentity:R
+ColorIdentity:B
 OriginSet:G9afc9838c5e994df
-ManaCost:4 R
-Types:Sorcery
-A:SP$ Charm | Choices$ DBDmg,DBDestroy
-SVar:DBDmg:DB$ DealDamage | ValidTgts$ Creature,Planeswalker | NumDmg$ 5
-SVar:DBDestroy:DB$ Destroy | ValidTgts$ Artifact
+ManaCost:5 B B
+Types:Creature Horror
+PT:5/4
+K:AlternateAdditionalCost:Sac<1/Creature>:Discard<1/Card>:PayLife<4>
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice | Defined$ Opponent | SacValid$ Creature | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Mode$ TgtChoose | Defined$ Opponent | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ Opponent | LifeAmount$ 4
+SVar:AIPreference:SacCost$Creature.token,Creature.cmcLE3

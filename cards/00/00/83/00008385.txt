@@ -1,11 +1,9 @@
 Id:8385
 ColorIdentity:BR
 OriginSet:Gde6d8130c178f566
-ManaCost:no cost
-Types:Land
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
-A:AB$ Mana | Cost$ T | Produced$ B R
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Hidden$ True | Mandatory$ True | ChangeType$ Land.YouCtrl | AILogic$ NeverBounceItself
-SVar:NeedsToPlay:Land.Basic+YouCtrl
+ManaCost:B B R
+Types:Creature Human Wizard
+PT:3/2
+K:FirstStrike
+A:AB$ Discard | Cost$ T | Defined$ You | ValidTgts$ Opponent | SorcerySpeed$ True | NumCards$ 1 | Mode$ RevealTgtChoose | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ ParentTarget | NumCards$ 1 | Mode$ RevealYouChoose

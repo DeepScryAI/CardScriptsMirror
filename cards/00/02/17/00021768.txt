@@ -1,10 +1,11 @@
 Id:21768
-ColorIdentity:
-OriginSet:Gabb23d0d25cdc46d
-ManaCost:3
-Types:Artifact
-T:Mode$ SpellCast | ValidCard$ Card.hasXCost | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounters
-SVar:TrigPutCounters:DB$ PutCounter | CounterType$ CHARGE | CounterNum$ 2
-A:AB$ Mana | Cost$ T | Produced$ Any
-A:AB$ Mana | Cost$ T | Produced$ C | Amount$ X | RestrictValid$ CostContainsX
-SVar:X:Count$CardCounters.CHARGE
+ColorIdentity:B
+OriginSet:G18bf722b221724f8
+ManaCost:3 B
+Types:Sorcery
+A:SP$ Discard | ValidTgts$ Player.Opponent | Mode$ TgtChoose | NumCards$ 2 | RememberDiscarded$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Number$2/Minus.Y
+SVar:Y:Count$RememberedSize
+K:Foretell:1 B

@@ -1,11 +1,15 @@
 Id:23047
-ColorIdentity:UG
-OriginSet:G7a76c1974b0a33a6
-ManaCost:2 G U
-Types:Legendary Creature Frog
-PT:3/3
-T:Mode$ Attacks | ValidCard$ Frog.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigMill
-SVar:TrigMill:DB$ Mill | NumCards$ 3 | Defined$ You
-T:Mode$ ChangesZone | ValidCard$ Permanent.YouOwn | Origin$ Library | Destination$ Graveyard | TriggerZones$ Battlefield | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | Defined$ TriggeredCard | WithCountersType$ CROAK | WithCountersAmount$ 1
-S:Mode$ Continuous | Affected$ Card.YouOwn+counters_GE1_CROAK | AffectedZone$ Exile | MayPlay$ True
+ColorIdentity:W
+OriginSet:Gf78628ad511eefec
+ManaCost:1 W
+Types:Creature Human Soldier
+PT:3/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigExile | Secondary$ True
+SVar:TrigExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Card
+A:AB$ ChooseColor | Cost$ 1 W | Defined$ You | AILogic$ MostProminentInHumanDeck | CheckSVar$ X | SVarCompare$ GE3 | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Self | KW$ Hexproof:ChosenColor | DefinedKW$ ChosenColor | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ Self | StaticAbilities$ CantBlockBy | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenColor$ True
+SVar:CantBlockBy:Mode$ CantBlockBy | ValidAttacker$ Creature.IsRemembered | ValidBlocker$ Creature.ChosenColor
+SVar:X:Count$Valid Creature.YouCtrl$DifferentCardPower

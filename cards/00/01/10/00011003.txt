@@ -2,7 +2,9 @@ Id:11003
 ColorIdentity:R
 OriginSet:Gd09f2fd86b2e8dd0
 ManaCost:2 R
-Types:Creature Human Shaman
-PT:0/1
-K:Haste
-A:AB$ DealDamage | Cost$ T | ValidTgts$ Any | NumDmg$ 1
+Types:Enchantment Aura
+K:Enchant:Land
+SVar:AttachAILogic:Animate
+S:Mode$ Continuous | Affected$ Land.AttachedBy | AddType$ Creature & Beast | SetColor$ Red | SetPower$ 4 | SetToughness$ 2 | AddKeyword$ Trample
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.AttachedBy | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Hand

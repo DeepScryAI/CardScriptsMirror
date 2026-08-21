@@ -1,8 +1,12 @@
 Id:28037
-ColorIdentity:R
-OriginSet:Gfd50577710a6ab09
-ManaCost:1 R
-Types:Creature Goblin Pirate
-PT:2/2
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You.descended | TriggerZones$ Battlefield | Execute$ TrigTreasure
-SVar:TrigTreasure:DB$ Token | TokenScriptIds$ 3851718391
+ColorIdentity:WUR
+OriginSet:G3601f5e223de6c7f
+ManaCost:1 U R W
+Types:Legendary Creature Avatar Wizard
+PT:3/4
+T:Mode$ SpellCast | ValidCard$ Instant.wasCastFromYourHandByYou,Sorcery.wasCastFromYourHandByYou | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | OpponentTurn$ True | Execute$ TrigEffect
+SVar:TrigEffect:DB$ Effect | ReplacementEffects$ MoveToExileReplace | RememberObjects$ TriggeredCard | ConditionDefined$ TriggeredCard | ConditionPresent$ Card.inZoneStack | ExileOnMoved$ Stack
+SVar:MoveToExileReplace:Event$ Moved | ValidCard$ Card.IsRemembered+YouOwn | Origin$ Stack | Destination$ Graveyard | Fizzle$ False | ReplaceWith$ ReplaceExile
+SVar:ReplaceExile:DB$ ChangeZone | Defined$ ReplacedCard | Origin$ Stack | Destination$ Exile | RememberChanged$ True | WithCountersType$ TIME | WithCountersAmount$ 3 | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Remembered | ConditionDefined$ Remembered | ConditionPresent$ Card.withoutSuspend | PumpZone$ Exile | KW$ Suspend | Duration$ Permanent | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

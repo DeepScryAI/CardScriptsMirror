@@ -1,8 +1,14 @@
 Id:25150
-ColorIdentity:BR
-OriginSet:Gf591a76e7a37cf73
-ManaCost:3 B R
-Types:Artifact Creature Astartes Dreadnought
-PT:5/4
-K:Haste
-S:Mode$ Continuous | Affected$ Card.Self | MayPlay$ True | AffectedZone$ Graveyard | EffectZone$ Graveyard | RaiseCost$ ExileFromGrave<1/Creature.Other/another creature card>
+ColorIdentity:BRG
+OriginSet:G9afc9838c5e994df
+ManaCost:3 B R G
+Types:Creature Raccoon Rogue
+PT:5/6
+K:Vigilance
+K:Menace
+A:AB$ Effect | Cost$ 1 ExileFromHand<1/CARDNAME> | ActivationZone$ Hand | ValidTgts$ Land | RememberObjects$ Targeted & Self | StaticAbilities$ Land,MayPlay | Triggers$ Cast | ImprintCards$ Self | Duration$ Permanent | ForgetOnMoved$ Exile
+SVar:Land:Mode$ Continuous | AffectedZone$ Battlefield | Affected$ Card.IsRemembered+!IsImprinted | AddAbility$ Mana
+SVar:Mana:AB$ Mana | Cost$ T | Produced$ Combo B R G | Amount$ 1
+SVar:MayPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsImprinted+IsRemembered | AffectedZone$ Exile | Secondary$ True
+SVar:Cast:Mode$ SpellCast | ValidCard$ Card.IsImprinted+IsRemembered+wasCastFromExile | Execute$ ExileSelf | Static$ True
+SVar:ExileSelf:DB$ ChangeZone | Origin$ Command | Destination$ Exile | Defined$ Self

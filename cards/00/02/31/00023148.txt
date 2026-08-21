@@ -1,12 +1,11 @@
 Id:23148
-ColorIdentity:B
-OriginSet:G6e75ff4f143a3dc3
-ManaCost:3 B
+ColorIdentity:R
+OriginSet:G7a76c1974b0a33a6
+ManaCost:4 R R
 Types:Creature Vampire
-PT:3/3
+PT:6/6
 K:Menace
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ DBToken
-SVar:DBToken:DB$ Token | TokenScriptIds$ 2179622914
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump
-SVar:TrigPump:AB$ Pump | Cost$ Sac<1/Blood.token/Blood token> | Defined$ Self | NumAtt$ +2 | NumDef$ +2
-SVar:HasAttackEffect:TRUE
+T:Mode$ DamageDealtOnce | ValidSource$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ X | TokenScriptIds$ 2179622914
+SVar:X:TriggerCount$DamageAmount
+A:AB$ DealDamage | Cost$ 2 R | ValidTgts$ Any | NumDmg$ 1

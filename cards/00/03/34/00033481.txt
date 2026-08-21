@@ -1,13 +1,11 @@
 Id:33481
-ColorIdentity:W
-OriginSet:G23d1f017cc66962f
-ManaCost:1 W
-Types:Enchantment Class
-T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigPutCounter | TriggerZones$ Battlefield
-SVar:TrigPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ 1 | ValidTgts$ Creature.attacking
-K:Class:2:2 W:AddTrigger$ TriggerLeaves
-SVar:TriggerLeaves:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Creature.YouCtrl+HasCounters | TriggerZones$ Battlefield | Execute$ TrigGainLife | Secondary$ True
-SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2
-K:Class:3:3 W:AddTrigger$ TriggerSpell
-SVar:TriggerSpell:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ You | Execute$ TrigPutCounterAll | TriggerZones$ Battlefield | Secondary$ True
-SVar:TrigPutCounterAll:DB$ PutCounterAll | ValidCards$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1
+ColorIdentity:WU
+OriginSet:G7ab1fe96128a1641
+ManaCost:1 W U
+Types:Kindred Sorcery Merfolk
+A:SP$ Charm | Choices$ DBCopy,DBPumpAll,DBDraw,DBTap | CharmNum$ 2
+SVar:DBCopy:DB$ CopyPermanent | ValidTgts$ Merfolk.YouCtrl
+SVar:DBPumpAll:DB$ PumpAll | ValidTgts$ Player | ValidCards$ Creature | KW$ Lifelink
+SVar:DBDraw:DB$ Draw | ValidTgts$ Player
+SVar:DBTap:DB$ Tap | ValidTgts$ Creature | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ ParentTarget | CounterType$ STUN | CounterNum$ 1

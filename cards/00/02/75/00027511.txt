@@ -1,11 +1,10 @@
 Id:27511
-ColorIdentity:RG
-OriginSet:G7579344e30f8be85
-ManaCost:R G
-Types:Legendary Creature Human Scout
-PT:1/2
-K:Haste
-T:Mode$ Attacks | ValidCard$ Card.Self | IsPresent$ Creature.YouCtrl+powerGE4 | NoResolvingCheck$ True | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +2 | NumDef$ +2
-A:AB$ Mana | Cost$ T | Produced$ Combo R G
-SVar:HasAttackEffect:TRUE
+ColorIdentity:W
+OriginSet:G4e034c55e7afd8b4
+ManaCost:1 W W
+Types:Creature Elf Fox Knight
+PT:2/2
+K:Flash
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Creature.nonFox+Other | TargetMin$ 0 | TargetMax$ 1 | Duration$ UntilHostLeavesPlay
+A:AB$ GainLife | Cost$ 1 W Sac<1/CARDNAME> | LifeAmount$ 2

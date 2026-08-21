@@ -1,11 +1,10 @@
 Id:26445
-ColorIdentity:G
-OriginSet:G06757f68e16377c2
-ManaCost:2 G
-Types:Enchantment Aura
-K:Enchant:Land
-SVar:AttachAILogic:Pump
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigIncubate
-SVar:TrigIncubate:DB$ Incubate | Amount$ 2
-T:Mode$ TapsForMana | ValidCard$ Card.AttachedBy | Execute$ TrigMana | Static$ True
-SVar:TrigMana:DB$ Mana | Produced$ Any | Amount$ 1 | Defined$ TriggeredCardController
+ColorIdentity:UB
+OriginSet:G74a73d701e7801b3
+ManaCost:2 U B
+Types:Artifact
+K:etbCounter:OIL:4
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | IsPresent$ Card.Self+counters_GE1_OIL | Execute$ TrigSeek | TriggerZones$ Battlefield
+SVar:TrigSeek:DB$ Seek | Type$ Card.cmcEQX | SubAbility$ DBRemoveCounter
+SVar:DBRemoveCounter:DB$ RemoveCounter | CounterType$ OIL
+SVar:X:Count$CardCounters.OIL

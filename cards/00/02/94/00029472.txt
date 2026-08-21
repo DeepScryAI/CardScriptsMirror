@@ -1,8 +1,10 @@
 Id:29472
-ColorIdentity:UR
-OriginSet:Gac6359c222afbd4f
-ManaCost:U R
-Types:Artifact
-R:Event$ AddCounter | ActiveZones$ Battlefield | ValidPlayer$ You | ValidCounterType$ ENERGY | ReplaceWith$ OneMore
-SVar:OneMore:DB$ ReplaceCounter | ValidCounterType$ ENERGY | ChooseCounter$ True | Amount$ ReplaceCount$CounterNum/Plus.1
-A:AB$ Draw | Cost$ T | CheckSVar$ Count$CountersRemovedThisTurn ENERGY You | SVarCompare$ GE4
+ColorIdentity:W
+OriginSet:G2ce881cc55bb9f18
+ManaCost:3 W W
+Types:Sorcery
+A:SP$ PutCounter | Defined$ You | CounterType$ ENERGY | SubAbility$ DBChooseNumber
+SVar:DBChooseNumber:DB$ ChooseNumber | Max$ Count$YourCountersEnergy | SubAbility$ DBPumpAll
+SVar:DBPumpAll:DB$ PumpAll | ConditionCheckSVar$ X | UnlessCost$ Mandatory PayEnergy<X> | UnlessPayer$ You | UnlessSwitched$ True | ValidCards$ Creature.YouCtrl+powerEQX | KW$ Indestructible | SubAbility$ DBDestroyAll
+SVar:X:Count$ChosenNumber
+SVar:DBDestroyAll:DB$ DestroyAll | ValidCards$ Creature

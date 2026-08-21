@@ -1,11 +1,12 @@
 Id:34393
-ColorIdentity:W
-OriginSet:G11c0621ce29fa608
-ManaCost:4 W
-Types:Enchantment
-K:Flash
-S:Mode$ Continuous | Affected$ Creature.Hero+YouCtrl | AddPower$ 2 | AddToughness$ 2
-T:Mode$ Phase | Phase$ End of Turn | CheckSVar$ X | TriggerZones$ Battlefield | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw
-SVar:X:Count$ThisTurnEntered_Battlefield_Hero.YouCtrl/Plus.Y
-SVar:Y:Count$CreaturesAttackedThisTurn Hero.YouCtrl
+ColorIdentity:U
+OriginSet:Gcb93bbfc68a40806
+ManaCost:2 U
+Types:Legendary Creature Human Noble Villain
+PT:2/2
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPlay
+SVar:TrigPlay:DB$ Play | TgtZone$ Graveyard | ValidTgts$ Instant.YouCtrl+cmcLEX,Sorcery.YouCtrl+cmcLEX | ValidSA$ Spell | Optional$ True | ReplaceGraveyard$ Exile | AILogic$ ReplaySpell | RememberPlayed$ True | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$CardPower
+SVar:HasAttackEffect:TRUE

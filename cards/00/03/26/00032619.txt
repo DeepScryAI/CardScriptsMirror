@@ -1,9 +1,11 @@
 Id:32619
-ColorIdentity:R
-OriginSet:G36e97d2da170e675
-ManaCost:1 R
-Types:Creature Human Monk
-PT:1/2
-K:Prowess
-K:Firebending:X:, where X is this creature's power.
-SVar:X:Count$CardPower
+ColorIdentity:BR
+OriginSet:G66b3a7eeabd9000e
+ManaCost:2 BR
+Types:Legendary Creature Mutant Villain
+PT:2/3
+T:Mode$ Phase | Phase$ Main1 | ValidPlayer$ You | Execute$ DBImmediateTrig | TriggerZones$ Battlefield
+SVar:DBImmediateTrig:AB$ ImmediateTrigger | Cost$ Discard<1/Card> | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature | KW$ HIDDEN CARDNAME can't block. | IsCurse$ True
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.OppCtrl | TriggerZones$ Battlefield | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | NumDmg$ 1 | Defined$ TriggeredCardController

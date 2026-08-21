@@ -1,8 +1,11 @@
 Id:26218
-ColorIdentity:G
+ColorIdentity:U
 OriginSet:G2192e8955d5e1ad1
-ManaCost:2 G
-Types:Sorcery
-A:SP$ Token | TokenScriptIds$ 3033524247 | TokenOwner$ You
-S:Mode$ Continuous | Affected$ Card.Self | CheckSVar$ X | SVarCompare$ GE3 | EffectZone$ Graveyard | AffectedZone$ Graveyard | AddKeyword$ Flashback:2 G
-SVar:X:PlayerCountOpponents$HighestCounters.Poison
+ManaCost:1 U
+Types:Creature Phyrexian Wizard
+PT:1/3
+T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | Execute$ TrigPutCounter | TriggerZones$ Battlefield
+SVar:TrigPutCounter:DB$ PutCounter | CounterType$ OIL
+S:Mode$ Continuous | Affected$ Card.Self+counters_GE4_OIL | AddPower$ 2
+S:Mode$ CantBlockBy | ValidAttacker$ Card.Self+counters_GE4_OIL | Secondary$ True
+SVar:BuffedBy:Card.nonCreature

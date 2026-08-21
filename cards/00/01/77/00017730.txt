@@ -1,8 +1,13 @@
 Id:17730
-ColorIdentity:
+ColorIdentity:R
 OriginSet:G1b9a73841edd3e32
-ManaCost:no cost
-Types:Artifact Contraption
-T:Mode$ CrankContraption | ValidCard$ Card.Self | Execute$ TrigCrank
-SVar:TrigCrank:DB$ Mill | NumCards$ X | ValidTgts$ Player
-SVar:X:Count$Valid Creature.YouCtrl
+ManaCost:3 R
+Types:Creature Goblin Warrior
+PT:0/0
+K:ETBReplacement:Other:RollCounters
+SVar:RollCounters:DB$ RollDice | ResultSVar$ Result | SubAbility$ DBCounters
+SVar:DBCounters:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ Result | ETB$ True
+T:Mode$ RolledDie | Execute$ TrigRemove | ValidPlayer$ You | TriggerZones$ Battlefield
+SVar:TrigRemove:DB$ RemoveCounterAll | ValidCards$ Card.Self | CounterType$ P1P1 | AllCounters$ True | SubAbility$ TrigCounters
+SVar:X:TriggerCount$Result
+SVar:TrigCounters:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ X

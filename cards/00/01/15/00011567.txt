@@ -1,9 +1,12 @@
 Id:11567
-ColorIdentity:
+ColorIdentity:W
 OriginSet:Gc046eafa1d269dd1
-ManaCost:no cost
-Types:Land Locus
-A:AB$ Mana | Cost$ T | Produced$ C
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGainLife
-SVar:TrigGainLife:DB$ GainLife | LifeAmount$ X
-SVar:X:Count$Valid Locus
+ManaCost:2 W W
+Types:Creature Elk
+PT:3/3
+K:Vigilance
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | ValidTgts$ Permanent.Other | Mandatory$ True | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DelTrig
+SVar:DelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ TrigBounce | RememberObjects$ RememberedLKI | SubAbility$ DBCleanup
+SVar:TrigBounce:DB$ ChangeZone | Origin$ Exile | Destination$ Battlefield | Defined$ DelayTriggerRememberedLKI
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

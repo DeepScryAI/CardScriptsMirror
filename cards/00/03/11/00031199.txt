@@ -1,14 +1,9 @@
 Id:31199
-ColorIdentity:R
-OriginSet:G9de1432c543d1aef
-ManaCost:2 R R
-Types:Legendary Creature Human Pirate
-PT:3/3
-K:Menace
-K:Haste
-T:Mode$ Attacks | ValidCard$ Card.Self | IsPresent$ Monkey.Legendary+YouCtrl | PresentCompare$ EQ0 | NoResolvingCheck$ True | TriggerZones$ Battlefield | Execute$ TrigConjure
-SVar:TrigConjure:DB$ MakeCard | Conjure$ True | CatalogId$ 22149 | Zone$ Battlefield | Tapped$ True | RememberMade$ True | SubAbility$ DBSetAttacking
-SVar:DBSetAttacking:DB$ ChangeCombatants | Defined$ Remembered | ConditionDefined$ Remembered | ConditionPresent$ Card.YouCtrl | Attacking$ True | SubAbility$ DBDelayTrig
-SVar:DBDelayTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ TrigReturn | ConditionDefined$ RememberedLKI | ConditionPresent$ Card | ConditionZone$ Battlefield | RememberObjects$ RememberedLKI | SubAbility$ DBCleanup
-SVar:TrigReturn:DB$ ChangeZone | Defined$ DelayTriggerRememberedLKI | Origin$ Battlefield | Destination$ Hand
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:U
+OriginSet:G4524bbf7a3db9dc0
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ LandTapped | ReplacementResult$ Updated
+SVar:LandTapped:DB$ Tap | Defined$ Self | ETB$ True | ConditionPresent$ Mount.YouCtrl,Vehicle.YouCtrl | ConditionCompare$ EQ0
+A:AB$ Mana | Cost$ T | Produced$ U
+A:AB$ Token | Cost$ 1 U T Sac<1/CARDNAME/this land> | SorcerySpeed$ True | TokenScriptIds$ 307587310

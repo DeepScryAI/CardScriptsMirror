@@ -1,9 +1,11 @@
 Id:7007
-ColorIdentity:G
+ColorIdentity:
 OriginSet:Gbbed67f0d6a15b16
-ManaCost:2 G
-Types:Creature Ouphe Rogue
-PT:2/2
-A:AB$ Counter | Cost$ G Sac<1/CARDNAME> | TargetType$ Activated | ValidTgts$ Artifact | SubAbility$ DBDestroy | RememberCountered$ True
-SVar:DBDestroy:DB$ Destroy | Defined$ Remembered | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:4
+Types:Artifact Equipment
+K:Equip:2
+S:Mode$ Continuous | Affected$ Card.EquippedBy | AddPower$ X | AddToughness$ X
+K:Sunburst
+SVar:X:Count$CardCounters.CHARGE
+SVar:NeedsToPlayVar:Z GE1
+SVar:Z:Count$UniqueManaColorsProduced.ByUntappedSources

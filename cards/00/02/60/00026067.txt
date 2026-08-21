@@ -1,10 +1,14 @@
 Id:26067
-ColorIdentity:G
-OriginSet:G2192e8955d5e1ad1
-ManaCost:X G
-Types:Sorcery
-A:SP$ DigMultiple | DigNum$ SVar$X/Plus.1 | Reveal$ True | ChangeValid$ Creature,Land | ChangeLater$ True | RememberChanged$ True | ImprintRest$ True | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | Defined$ Remembered | Origin$ Library | Destination$ Hand | DestinationAlternative$ Battlefield | DestAltSVar$ X | DestAltSVarCompare$ GE5 | SubAbility$ RestBottom
-SVar:RestBottom:DB$ ChangeZone | Defined$ Imprinted | Origin$ Library | Destination$ Library | LibraryPosition$ -1 | RandomOrder$ True | NoShuffle$ True | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True
-SVar:X:Count$xPaid
+ColorIdentity:UB
+OriginSet:G880fc7f6ed36df4d
+ManaCost:2 U B
+Types:Legendary Creature Human Artificer
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigConjure
+SVar:TrigConjure:DB$ MakeCard | Conjure$ True | CatalogId$ 19984 | Zone$ Battlefield
+T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | Execute$ TrigPutCounter | TriggerZones$ Battlefield
+SVar:TrigPutCounter:DB$ PutCounterAll | ValidCards$ Permanent.YouCtrl+catalogId19984 | CounterType$ HOUR | CounterNum$ 1 | SubAbility$ DBDrain
+SVar:DBDrain:DB$ LoseLife | Defined$ Opponent | LifeAmount$ 1 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
+SVar:BuffedBy:Card.nonCreature
+SVar:BuffedBy:Artifact.catalogId19984

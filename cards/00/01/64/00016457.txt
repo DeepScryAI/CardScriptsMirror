@@ -1,6 +1,13 @@
 Id:16457
-ColorIdentity:U
+ColorIdentity:WU
 OriginSet:G4bddbf7cb4f2475e
-ManaCost:1 U
-Types:Instant
-A:SP$ UntapAll | ValidCards$ Permanent.nonLand+YouCtrl
+ManaCost:2 W U
+Types:Legendary Planeswalker Dovin
+Loyalty:3
+A:AB$ Pump | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | NumAtt$ -3 | IsCurse$ True | Duration$ UntilYourNextTurn | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Creature | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ ParentTarget | StaticAbilities$ DBCantBeActivated | ForgetOnMoved$ Battlefield | IsCurse$ True | Duration$ UntilYourNextTurn
+SVar:DBCantBeActivated:Mode$ CantBeActivated | ValidCard$ Card.IsRemembered
+A:AB$ GainLife | Cost$ SubCounter<1/LOYALTY> | Planeswalker$ True | Defined$ You | LifeAmount$ 2 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1
+A:AB$ Effect | Cost$ SubCounter<7/LOYALTY> | Name$ 12098379769121530349 | StaticAbilities$ STDovin | Planeswalker$ True | Ultimate$ True | Stackable$ False | Duration$ Permanent | AILogic$ Always
+SVar:STDovin:Mode$ Continuous | Affected$ Player.Opponent | AddKeyword$ UntapAdjust:Permanent:2

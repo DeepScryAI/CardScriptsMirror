@@ -1,7 +1,9 @@
 Id:21532
 ColorIdentity:B
-OriginSet:G18bf722b221724f8
-ManaCost:5 B
-Types:Creature Spirit Knight
-PT:3/7
-A:AB$ LoseLife | Cost$ 1 B T ExileFromGrave<1/Creature> | ValidTgts$ Player | LifeAmount$ 3
+OriginSet:Gc3edc7c448c17480
+ManaCost:2 B
+Types:Artifact
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Elf.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZone | Defined$ TriggeredCard | Origin$ Graveyard | Destination$ Exile
+A:AB$ Effect | Cost$ T PayLife<2> | StaticAbilities$ MayCast
+SVar:MayCast:Mode$ Continuous | Affected$ Creature.ExiledWithEffectSource+nonLand | MayPlay$ True | AffectedZone$ Exile | MayPlayLimit$ 1

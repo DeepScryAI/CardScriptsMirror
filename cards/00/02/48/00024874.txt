@@ -1,14 +1,9 @@
 Id:24874
-ColorIdentity:WUBRG
+ColorIdentity:B
 OriginSet:G3a8b4b9d4649b357
-ManaCost:W U B R G
-Types:Legendary Creature Human Wizard
-PT:5/5
-S:Mode$ Continuous | Affected$ Creature.Legendary+YouCtrl | AddPower$ X | AddToughness$ X
-T:Mode$ SpellCast | ValidCard$ Card.Legendary+wasCastFromYourHandByYou | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ DBDigUntil
-SVar:DBDigUntil:DB$ DigUntil | Defined$ You | Valid$ Card.nonLand+Legendary+cmcLTY | FoundDestination$ Exile | RevealedDestination$ Exile | ImprintFound$ True | RememberRevealed$ True | SubAbility$ DBPlay
-SVar:DBPlay:DB$ Play | Defined$ Imprinted | ValidSA$ Spell | WithoutManaCost$ True | Optional$ True | SubAbility$ DBChange
-SVar:DBChange:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered | Origin$ Exile | Destination$ Library | RandomOrder$ True | LibraryPosition$ -1 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True
-SVar:X:Count$Valid Creature.Legendary+YouCtrl
-SVar:Y:TriggeredCard$CardManaCost
+ManaCost:1 B
+Types:Creature Phyrexian
+PT:3/3
+K:Defender
+A:AB$ LoseLife | Cost$ T 2 B | Defined$ Player.Opponent | LifeAmount$ X
+SVar:X:Count$Valid Creature.withDefender+YouCtrl

@@ -1,12 +1,11 @@
 Id:19191
-ColorIdentity:WB
+ColorIdentity:
 OriginSet:Gf56613712ce2ae1f
-ManaCost:2 W B
-Types:Legendary Planeswalker Sorin
-Loyalty:4
-S:Mode$ Continuous | Affected$ Creature.YouCtrl,Planeswalker.YouCtrl | AddKeyword$ Lifelink | Condition$ PlayerTurn
+ManaCost:4
+Types:Legendary Planeswalker Karn
+Loyalty:5
+S:Mode$ CantBeActivated | AffectedZone$ Battlefield | ValidCard$ Artifact.OppCtrl | ValidSA$ Activated
 SVar:NonStackingEffect:True
-A:AB$ DealDamage | Cost$ AddCounter<2/LOYALTY> | Planeswalker$ True | ValidTgts$ Player,Planeswalker | NumDmg$ 1
-A:AB$ ChangeZone | Cost$ SubCounter<X/LOYALTY> | Planeswalker$ True | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouOwn+cmcEQX | AILogic$ SorinVengefulBloodlord | StaticEffect$ Animate
-SVar:Animate:Mode$ Continuous | Affected$ Card.IsRemembered | AddType$ Vampire
-SVar:X:Count$xPaid
+A:AB$ Animate | Cost$ AddCounter<1/LOYALTY> | TargetMin$ 0 | TargetMax$ 1 | Planeswalker$ True | ValidTgts$ Artifact.nonCreature | Power$ X | Toughness$ X | Types$ Artifact,Creature | Duration$ UntilYourNextTurn | AILogic$ PTByCMC
+SVar:X:Targeted$CardManaCost
+A:AB$ ChangeZone | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | Origin$ Sideboard,Exile | Destination$ Hand | ChangeType$ Artifact.YouOwn | ChangeNum$ 1 | Hidden$ True | Reveal$ True | AILogic$ AnyMainPhase

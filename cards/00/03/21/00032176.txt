@@ -1,10 +1,12 @@
 Id:32176
-ColorIdentity:R
-OriginSet:G9946f072b5556073
-ManaCost:3 R
-Types:Artifact
-A:AB$ Dig | Cost$ T Sac<1/Artifact.Other/another artifact> | Defined$ You | DigNum$ X | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBMayPlay
-SVar:DBMayPlay:DB$ Effect | StaticAbilities$ STPlay | RememberObjects$ Remembered | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
-SVar:STPlay:Mode$ Continuous | Affected$ Card.IsRemembered | AffectedZone$ Exile | MayPlay$ True
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Sacrificed$CardManaCost/Plus.1
+ColorIdentity:UBR
+OriginSet:G8a59924df6623252
+ManaCost:2 U B R
+Types:Legendary Creature Human Scientist
+PT:3/6
+K:Flying
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | SubAbility$ DBVillainousChoice
+SVar:DBVillainousChoice:DB$ VillainousChoice | Defined$ Opponent | Choices$ DBDiscard,DBChangeZone
+SVar:DBDiscard:DB$ Discard | Defined$ Remembered | NumCards$ 1 | Mode$ TgtChoose
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | Optional$ You | ChangeType$ Construct,Robot,Vehicle | ChangeNum$ 1

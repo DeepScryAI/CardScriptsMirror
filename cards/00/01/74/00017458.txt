@@ -1,9 +1,18 @@
 Id:17458
 ColorIdentity:
 OriginSet:G5475e2be497fd272
+ManaCost:2
+Types:Artifact
+A:AB$ Scry | Cost$ 1 T | ScryNum$ 1 | SubAbility$ DBLandmark
+SVar:DBLandmark:DB$ PutCounter | Defined$ Self | CounterType$ LANDMARK | CounterNum$ 1 | SubAbility$ DBBranch
+SVar:DBBranch:DB$ Branch | BranchConditionSVar$ XMarksTheSpot | TrueSubAbility$ DBRemoveCtrs
+SVar:DBRemoveCtrs:DB$ RemoveCounter | Defined$ Self | CounterType$ LANDMARK | CounterNum$ All | SubAbility$ DBTransform
+SVar:DBTransform:DB$ SetState | Defined$ Self | Mode$ Transform | SubAbility$ DBTreasureTokens
+SVar:DBTreasureTokens:DB$ Token | TokenAmount$ 3 | TokenScriptIds$ 3851718391 | TokenOwner$ You
+SVar:XMarksTheSpot:Count$Valid Card.Self+counters_GE3_LANDMARK
+AlternateMode:DoubleFaced
+ALTERNATE
 ManaCost:no cost
 Types:Land
-K:ETBReplacement:Other:ChooseCT
-SVar:ChooseCT:DB$ ChooseType | Defined$ You | Type$ Creature | AILogic$ MostProminentInComputerDeckNonToken
 A:AB$ Mana | Cost$ T | Produced$ C
-A:AB$ Mana | Cost$ T | Produced$ Any | RestrictValid$ Spell.Creature+ChosenType
+A:AB$ Draw | Cost$ T Sac<1/Treasure> | NumCards$ 1

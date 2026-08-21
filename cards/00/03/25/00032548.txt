@@ -1,14 +1,12 @@
 Id:32548
-ColorIdentity:WU
-OriginSet:G1f5998b5f01949b9
-ManaCost:1 W U
-Types:Legendary Creature Spider Human Hero
-PT:3/3
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigTap
-SVar:TrigTap:DB$ Tap | ValidTgts$ Creature.ControlledBy TriggeredDefendingPlayer | SubAbility$ DBCounter
-SVar:DBCounter:DB$ PutCounter | Defined$ Targeted | CounterType$ STUN | CounterNum$ 1 | SubAbility$ DBRemoveCounters
-SVar:DBRemoveCounters:DB$ RemoveCounter | Choices$ Permanent.counters_GE1_STUN | ChoiceOptional$ True | CounterType$ STUN | CounterNum$ 3 | CounterNumShared$ True | UpTo$ True | RememberAmount$ True | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | NumCards$ X | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$RememberedNumber
-SVar:HasAttackEffect:TRUE
+ColorIdentity:R
+OriginSet:G66b3a7eeabd9000e
+ManaCost:R
+Types:Sorcery
+A:SP$ Charm | Choices$ DBDateNight,DBPatrolNight
+SVar:DBDateNight:DB$ Dig | Defined$ You | DigNum$ 2 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBChoose
+SVar:DBChoose:DB$ ChooseCard | Defined$ You | Amount$ 1 | Mandatory$ True | Choices$ Card.IsRemembered | ChoiceZone$ Exile | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | ExileOnMoved$ Exile | RememberObjects$ ChosenCard | Duration$ UntilTheEndOfYourNextTurn | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearChosenCard$ True
+SVar:DBPatrolNight:DB$ Pump | ValidTgts$ Creature | TargetMin$ 1 | TargetMax$ 2 | NumAtt$ +1 | KW$ FirstStrike

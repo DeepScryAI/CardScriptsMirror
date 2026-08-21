@@ -1,7 +1,10 @@
 Id:24381
-ColorIdentity:
+ColorIdentity:R
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:3
-Types:Artifact
-A:AB$ Mana | Cost$ T | Produced$ Any
-A:AB$ Untap | Cost$ 1 T | ValidTgts$ Creature.Legendary+YouCtrl
+ManaCost:4 R
+Types:Sorcery
+A:SP$ Dig | Defined$ You | DigNum$ 3 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBMayPlay
+SVar:DBMayPlay:DB$ Effect | StaticAbilities$ STMayPlay | Duration$ UntilTheEndOfYourNextTurn | RememberObjects$ Remembered | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | SubAbility$ DBToken
+SVar:STMayPlay:Mode$ Continuous | Affected$ Card.IsRemembered | AffectedZone$ Exile | MayPlay$ True
+SVar:DBToken:DB$ Token | TokenAmount$ 3 | TokenScriptIds$ 3851718391

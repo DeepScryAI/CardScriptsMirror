@@ -1,9 +1,10 @@
 Id:15396
-ColorIdentity:
+ColorIdentity:W
 OriginSet:Gec9609c94c5b1cdf
-ManaCost:7
-Types:Creature Eldrazi
-PT:7/5
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | DefinedPlayer$ TriggeredDefendingPlayer | Mandatory$ True | ChangeType$ Permanent | ChangeNum$ 2 | Chooser$ DefendingPlayer | Hidden$ True
-SVar:HasAttackEffect:TRUE
+ManaCost:1 W
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddKeyword$ Flying

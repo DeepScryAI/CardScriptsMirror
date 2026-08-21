@@ -1,9 +1,10 @@
 Id:34186
-ColorIdentity:B
-OriginSet:Gcb93bbfc68a40806
-ManaCost:3 B B
-Types:Legendary Artifact Creature Villain
-PT:3/5
-K:Flying
-T:Mode$ Drawn | ValidCard$ Card.YouCtrl | Number$ 2 | TriggerZones$ Battlefield | Execute$ TrigSac
-SVar:TrigSac:DB$ Sacrifice | ValidTgts$ Opponent | SacValid$ Creature.!token
+ColorIdentity:UR
+OriginSet:Gaf3c6d0810185c00
+ManaCost:U R
+Types:Artifact
+A:AB$ Mana | Cost$ T | Produced$ Any | RestrictValid$ Spell.Instant,Spell.Sorcery
+A:AB$ ChooseCard | Cost$ T | ChoiceZone$ Hand | Choices$ Instant.YouOwn,Sorcery.YouOwn | SorcerySpeed$ True | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ ChosenCard | Incorporate$ U R | Triggers$ CastTrig | Duration$ Perpetual
+SVar:CastTrig:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigCopy
+SVar:TrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | MayChooseTarget$ True

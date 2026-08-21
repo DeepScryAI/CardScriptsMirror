@@ -1,7 +1,11 @@
 Id:29723
 ColorIdentity:R
-OriginSet:G01a610e823cce3ca
-ManaCost:1 R
-Types:Instant
-A:SP$ DealDamage | NumDmg$ 3 | ValidTgts$ Creature | SubAbility$ DBDamage
-SVar:DBDamage:DB$ DealDamage | Defined$ TargetedController | NumDmg$ 2 | ConditionPresent$ Equipment.YouCtrl | ConditionCompare$ GE1
+OriginSet:Gac6359c222afbd4f
+ManaCost:2 R R
+Types:Creature Cat Dragon
+PT:3/2
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigEnergy
+SVar:TrigEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ 3
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPutCounter
+SVar:TrigPutCounter:AB$ PutCounter | Cost$ PayEnergy<3> | CounterType$ P1P1 | CounterNum$ 1

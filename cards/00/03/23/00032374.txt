@@ -1,10 +1,11 @@
 Id:32374
-ColorIdentity:B
-OriginSet:G66b3a7eeabd9000e
-ManaCost:2
-Types:Artifact
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Destination$ Battlefield | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw
-A:AB$ Mill | Cost$ 1 B Sac<1/CARDNAME> | NumCards$ 4 | RememberMilled$ True | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | Hidden$ True | Origin$ Graveyard,Exile | Destination$ Hand | ChangeType$ Creature.IsRemembered | SubAbility$ DBCleanup
+ColorIdentity:R
+OriginSet:G9946f072b5556073
+ManaCost:3 R
+Types:Artifact Creature Robot
+PT:3/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile | CheckSVar$ X
+SVar:TrigExile:DB$ ChangeZone | TargetMin$ 0 | TargetMax$ 1 | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Instant.YouOwn+cmcLE2,Sorcery.YouOwn+cmcLE2 | RememberChanged$ True | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | Defined$ Remembered | ValidSA$ Spell | Optional$ True | CopyCard$ True | WithoutManaCost$ True | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$Void.1.0

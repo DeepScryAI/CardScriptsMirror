@@ -1,12 +1,9 @@
 Id:24414
-ColorIdentity:W
+ColorIdentity:G
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:3 W
-Types:Creature Human Warrior
-PT:3/4
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigInitiative
-SVar:TrigInitiative:DB$ TakeInitiative
-T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigPump | TriggerZones$ Battlefield
-SVar:TrigPump:DB$ Pump | KW$ Protection:Creature | ValidTgts$ Creature.attacking+Cleric,Creature.attacking+Rogue,Creature.attacking+Warrior,Creature.attacking+Wizard | SubAbility$ DBExplore
-SVar:DBExplore:DB$ Explore | Defined$ Targeted
-SVar:PlayMain1:TRUE
+ManaCost:2 G
+Types:Legendary Enchantment Background
+S:Mode$ Continuous | Affected$ Creature.IsCommander+YouOwn | AddReplacementEffect$ This & Other
+SVar:This:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ ExtraCounter | ReplacementResult$ Updated
+SVar:Other:Event$ Moved | ValidCard$ Creature.Other+YouCtrl | ActiveZones$ Battlefield | Destination$ Battlefield | ReplaceWith$ ExtraCounter | ReplacementResult$ Updated
+SVar:ExtraCounter:DB$ PutCounter | ETB$ True | Defined$ ReplacedCard | CounterType$ P1P1

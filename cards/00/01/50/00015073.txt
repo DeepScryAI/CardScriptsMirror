@@ -2,9 +2,12 @@ Id:15073
 ColorIdentity:U
 OriginSet:Gdb18f239871b8cef
 ManaCost:3 U U
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:GainControl
-S:Mode$ Continuous | Affected$ Card.EnchantedBy | GainControl$ You
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.OppCtrl | TriggerZones$ Battlefield | Execute$ TrigAttach
-SVar:TrigAttach:DB$ Attach | Defined$ TriggeredCardLKICopy
+Types:Creature Dragon
+PT:4/3
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigTap
+SVar:TrigTap:DB$ Tap | ValidTgts$ Creature.OppCtrl | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ Targeted | ForgetOnMoved$ Battlefield | ReplacementEffects$ DontUntap | Duration$ AsLongAsControl
+SVar:DontUntap:Event$ Untap | ValidCard$ Card.IsRemembered | ValidStepTurnToController$ You | Layer$ CantHappen
+S:Mode$ RaiseCost | ValidTarget$ Card.Self | Activator$ Opponent | Type$ Spell | Amount$ 2
+SVar:PlayMain1:TRUE

@@ -1,12 +1,13 @@
 Id:33594
-ColorIdentity:R
-OriginSet:G23d1f017cc66962f
-ManaCost:1 R
-Types:Legendary Creature Bat Mutant
-PT:1/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | Defined$ Self | KWChoice$ Flying,Menace,Haste
-T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPumpAll
-SVar:TrigPumpAll:DB$ PumpAll | ValidCards$ Creature.attacking+Other | NumAtt$ +1
-SVar:BuffedBy:Creature
-SVar:HasAttackEffect:TRUE
+ColorIdentity:G
+OriginSet:Gff0a4227ae9f1a4b
+ManaCost:1 G
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Enchanted | CounterType$ P1P1 | CounterNum$ 1
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddTrigger$ AttackTrig
+SVar:AttackTrig:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDouble
+SVar:TrigDouble:DB$ MultiplyCounter | Defined$ TriggeredAttackerLKICopy | CounterType$ P1P1 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | ConditionCheckSVar$ TriggeredAttacker$CardPower | ConditionSVarCompare$ GE10

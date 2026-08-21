@@ -1,7 +1,9 @@
 Id:14661
-ColorIdentity:B
+ColorIdentity:WR
 OriginSet:G0a578e83854cf093
-ManaCost:4 B B
-Types:Sorcery
-A:SP$ Destroy | ValidTgts$ Creature | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenScriptIds$ 242392460 | ConditionDefined$ Targeted | ConditionPresent$ Creature.counters_GE1_P1P1
+ManaCost:R W
+Types:Instant
+A:SP$ Pump | ValidTgts$ Creature.blocking | RememberObjects$ Targeted | SubAbility$ DBDestroy
+SVar:DBDestroy:DB$ Destroy | Defined$ Remembered | SubAbility$ DBPump
+SVar:DBPump:DB$ PumpAll | ValidCards$ Creature.blockedByRemembered | KW$ Trample | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

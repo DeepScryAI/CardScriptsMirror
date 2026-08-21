@@ -1,11 +1,11 @@
 Id:31282
-ColorIdentity:W
-OriginSet:Ge1676a27173c0866
-ManaCost:2 W
-Types:Creature Human Monk
-PT:2/3
-K:Flying
-K:Lifelink
-T:Mode$ SpellCast | CheckSVar$ X | ValidCard$ Card.Self | Execute$ TrigCopy
-SVar:TrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility
-SVar:X:Count$ThisTurnCast_Card.YouCtrl+!CastSaSource
+ColorIdentity:WB
+OriginSet:G4524bbf7a3db9dc0
+ManaCost:W B
+Types:Legendary Creature Zombie Cat Warrior
+PT:3/2
+K:StartYourEngines
+A:AB$ Surveil | Cost$ Sac<1/Creature.Other/another creature> | ActivationLimit$ 1
+S:Mode$ Continuous | Affected$ Card.Self | Condition$ MaxSpeed | AddTrigger$ TrigDies
+SVar:TrigDies:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl+!token | TriggerZones$ Battlefield | Execute$ TrigToken | Secondary$ True
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 353162950 | TokenTapped$ True

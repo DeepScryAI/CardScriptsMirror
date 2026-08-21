@@ -1,10 +1,11 @@
 Id:29492
-ColorIdentity:UG
-OriginSet:Gac6359c222afbd4f
-ManaCost:1 G U
-Types:Legendary Creature Bird Wizard
-PT:3/4
-K:Flying
-S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddTrigger$ NaduTrigger | AddSVar$ NaduDig
-SVar:NaduTrigger:Mode$ BecomesTarget | ActivationLimit$ 2 | Execute$ NaduDig | ValidTarget$ Card.Self | TriggerZones$ Battlefield
-SVar:NaduDig:DB$ Dig | DigNum$ 1 | Reveal$ True | ChangeNum$ All | ChangeValid$ Land | DestinationZone$ Battlefield | DestinationZone2$ Hand
+ColorIdentity:U
+OriginSet:G2ce881cc55bb9f18
+ManaCost:no cost
+Types:Land Cave
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ U
+A:AB$ Mana | Cost$ 1 U T ExileFromGrave<7/Card> | Produced$ U | TriggersWhenSpent$ TrigCopy
+SVar:TrigCopy:Mode$ SpellAbilityCast | ValidSA$ Spell,Activated | ValidActivatingPlayer$ You | Execute$ TrigCopyMain
+SVar:TrigCopyMain:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | MayChooseTarget$ True

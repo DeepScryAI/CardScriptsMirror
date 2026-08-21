@@ -1,9 +1,10 @@
 Id:4947
-ColorIdentity:B
+ColorIdentity:BR
 OriginSet:G9e6cd9ac1f7f4832
-ManaCost:1 B B
+ManaCost:1 B R
 Types:Creature Zombie
-PT:2/2
-S:Mode$ Continuous | Affected$ Creature.Zombie+Other | AddPower$ 1 | AddToughness$ 1
-A:AB$ ChangeZone | Cost$ 1 B T | ValidTgts$ Zombie.YouOwn | Origin$ Graveyard | Destination$ Hand
-SVar:PlayMain1:TRUE
+PT:4/3
+A:AB$ Pump | Cost$ 2 | Defined$ Self | NumAtt$ +1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Hidden$ True | Mandatory$ True | ChangeType$ Creature.Black+YouCtrl,Creature.Red+YouCtrl | AILogic$ NeverBounceItself
+SVar:NeedsToPlay:Creature.Black+cmcLE3+YouCtrl,Creature.Red+cmcLE3+YouCtrl

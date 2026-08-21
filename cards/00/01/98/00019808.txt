@@ -1,13 +1,12 @@
 Id:19808
-ColorIdentity:U
+ColorIdentity:R
 OriginSet:Ga539dc09c09c4538
-ManaCost:3 U
-Types:Creature Shapeshifter Wall
-PT:0/0
-K:ETBReplacement:Copy:DBCopy:Optional
-SVar:DBCopy:DB$ Clone | Choices$ Creature.Other | AddTypes$ Wall | AddKeywords$ Defender | AiChoiceLogic$ BestOppCtrl | SubAbility$ DBTrigger | RememberCloneOrigin$ True
-SVar:DBTrigger:DB$ ImmediateTrigger | Execute$ DBTap | RememberObjects$ RememberedCard | SubAbility$ DBCleanup
-SVar:DBTap:DB$ Tap | Defined$ DelayTriggerRemembered | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | RememberObjects$ DelayTriggerRemembered | ForgetOnMoved$ Battlefield | ReplacementEffects$ DontUntap | Duration$ AsLongAsControl
-SVar:DontUntap:Event$ Untap | ValidCard$ Card.IsRemembered | ValidStepTurnToController$ You | Layer$ CantHappen
+ManaCost:3 R
+Types:Sorcery
+A:SP$ Dig | Defined$ You | DigNum$ 3 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ Play | ForgetOnMoved$ Exile | Duration$ UntilTheEndOfYourNextTurn | SubAbility$ DBEffect2
+SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBEffect2:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ Play2 | ForgetOnMoved$ Exile | Duration$ UntilTheEndOfYourNextTurn | ConditionDefined$ Self | ConditionPresent$ Card.wasCastFromGraveyard | ConditionCompare$ EQ1 | SubAbility$ DBCleanup
+SVar:Play2:Mode$ Continuous | MayPlay$ True | MayPlayWithoutManaCost$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+K:Flashback:7 R

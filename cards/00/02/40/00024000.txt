@@ -1,14 +1,11 @@
 Id:24000
-ColorIdentity:G
-OriginSet:G9afc9838c5e994df
-ManaCost:4 G
-Types:Creature Rhino Warrior
-PT:4/4
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump | TriggerZones$ Battlefield
-T:Mode$ Blocks | ValidCard$ Card.Self | Execute$ TrigPump | Secondary$ True | TriggerZones$ Battlefield
-SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +X | NumDef$ +X
-SVar:X:SVar$Y/LimitMin.Z
-SVar:Y:Count$Valid Creature.Other+YouCtrl$GreatestCardPower
-SVar:Z:Count$Valid Creature.Other+YouCtrl$GreatestCardToughness
-SVar:HasAttackEffect:TRUE
-SVar:HasBlockEffect:TRUE
+ColorIdentity:U
+OriginSet:Gfdfe2ebef04be34e
+ManaCost:2 U U
+Types:Creature Shapeshifter Rogue
+PT:0/0
+K:ETBReplacement:Copy:DBCopy:Optional
+SVar:DBCopy:DB$ Clone | Choices$ Creature.Other | SubAbility$ DBAddCounter | RememberCloneOrigin$ True
+SVar:DBAddCounter:DB$ PutCounter | Defined$ Self | CounterType$ SHIELD | ETB$ True | ConditionDefined$ Remembered | ConditionPresent$ Creature.YouCtrl | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$xPaid

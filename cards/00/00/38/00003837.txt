@@ -1,8 +1,10 @@
 Id:3837
 ColorIdentity:R
 OriginSet:G3da30095b68d8df0
-ManaCost:2 R
-Types:Creature Goat Beast
+ManaCost:3 R
+Types:Creature Human Wizard
 PT:1/1
-K:Landwalk:Mountain
-A:AB$ Pump | Cost$ R | Defined$ Self | NumAtt$ +1
+A:AB$ Reveal | Cost$ 2 R T | Defined$ You | RevealValid$ Card.Red | AnyNumber$ True | RememberRevealed$ True | SubAbility$ DBCinderDamage
+SVar:DBCinderDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ X | SubAbility$ DBCinderCleanup
+SVar:X:Remembered$Amount
+SVar:DBCinderCleanup:DB$ Cleanup | ClearRemembered$ True

@@ -1,7 +1,9 @@
 Id:4576
-ColorIdentity:U
+ColorIdentity:
 OriginSet:G239b3b7a46d83e8e
-ManaCost:U U
-Types:Instant
-A:SP$ ChangeZone | ValidTgts$ Creature | Origin$ Battlefield | Destination$ Hand | SubAbility$ DBBounce
-SVar:DBBounce:DB$ ChangeZone | ValidTgts$ Creature | TargetUnique$ True | Origin$ Battlefield | Destination$ Hand | UnlessCost$ 1 | UnlessPayer$ TargetedController
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ C
+A:AB$ Tap | Cost$ 2 T Sac<1/CARDNAME> | TargetMin$ 2 | TargetMax$ 2 | ValidTgts$ Land

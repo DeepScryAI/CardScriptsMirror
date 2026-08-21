@@ -1,12 +1,13 @@
 Id:26515
-ColorIdentity:W
-OriginSet:G06757f68e16377c2
-ManaCost:2 W
-Types:Creature Angel
-PT:3/3
+ColorIdentity:WU
+OriginSet:Gd5f5e54fa26ae40d
+ManaCost:4 W U
+Types:Creature Spirit
+PT:5/5
+K:Convoke
 K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigBlink
-SVar:TrigBlink:DB$ ChangeZone | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Creature.YouCtrl+Other,Artifact.YouCtrl+Other | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DelTrig
-SVar:DelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ TrigReturn | RememberObjects$ RememberedLKI | SubAbility$ DBCleanup
-SVar:TrigReturn:DB$ ChangeZone | Origin$ Exile | Destination$ Battlefield | Defined$ DelayTriggerRememberedLKI
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+K:Vigilance
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigEffect
+SVar:TrigEffect:DB$ Effect | StaticAbilities$ GrantConvoke | ForgetOnCast$ Card.YouCtrl
+SVar:GrantConvoke:Mode$ Continuous | Affected$ Card.YouCtrl | AffectedZone$ Stack | AddKeyword$ Convoke
+SVar:HasAttackEffect:TRUE

@@ -1,10 +1,12 @@
 Id:26009
-ColorIdentity:G
-OriginSet:G2192e8955d5e1ad1
-ManaCost:2 G
-Types:Creature Phyrexian Beast
-PT:4/4
-K:Trample
-K:Toxic:1
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigProliferate
-SVar:TrigProliferate:DB$ Proliferate
+ColorIdentity:W
+OriginSet:Gb879a1706584aeee
+ManaCost:1 W
+Types:Creature Human Wizard
+PT:1/2
+T:Mode$ ChangesZone | ValidCard$ Creature.Other+YouCtrl | Destination$ Battlefield | TriggerZones$ Battlefield | Execute$ TrigGainLife
+SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 1
+A:AB$ ChangeZone | Cost$ 4 W T | ValidTgts$ Creature.Other+YouCtrl | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ All | Destination$ Battlefield | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:BuffedBy:Creature

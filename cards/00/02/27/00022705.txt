@@ -1,12 +1,12 @@
 Id:22705
-ColorIdentity:U
-OriginSet:G268a0d6ee06912c2
-ManaCost:U
-Types:Creature Merfolk Scout
-PT:1/1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile | OptionalDecider$ You
-SVar:TrigExile:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | Hidden$ True | ChangeType$ Card.Merfolk,Card.Land | SubAbility$ DBConjure | RememberChanged$ True
-SVar:DBConjure:DB$ MakeCard | Conjure$ True | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ1 | CatalogId$ 252 | Zone$ Hand
-S:Mode$ Continuous | CheckSVar$ X | Affected$ Card.Self | AddPower$ 1
-SVar:X:Count$Valid Merfolk.Other+ThisTurnEntered+EnteredUnder You/Plus.Y
-SVar:Y:Count$Valid Island.ThisTurnEntered+EnteredUnder You
+ColorIdentity:W
+OriginSet:G9f95a41d532c0550
+ManaCost:W W W
+Types:Legendary Artifact Book
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ LifeGained | SVarCompare$ GE3 | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 1162405091 | TokenOwner$ You
+A:AB$ PutCounter | Cost$ W W W T Exile<1/CARDNAME> | ValidTgts$ Angel | CounterType$ ENLIGHTENED | CounterNum$ 1 | SorcerySpeed$ True | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Targeted | Duration$ Permanent | Replacements$ DBYouCantLose,DBOppCantWin
+SVar:DBYouCantLose:Event$ GameLoss | ValidPlayer$ You | Layer$ CantHappen
+SVar:DBOppCantWin:Event$ GameWin | ValidPlayer$ Opponent | Layer$ CantHappen | Secondary$ True
+SVar:LifeGained:Count$LifeYouGainedThisTurn

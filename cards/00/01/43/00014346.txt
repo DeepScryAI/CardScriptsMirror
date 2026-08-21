@@ -1,11 +1,10 @@
 Id:14346
-ColorIdentity:UBR
+ColorIdentity:UR
 OriginSet:G2192ecccbc32f5ad
-ManaCost:1 U B R
-Types:Legendary Creature Human Wizard
-PT:3/3
+ManaCost:U R
+Types:Creature Human Rogue
+PT:1/1
 K:Dethrone
-S:Mode$ Continuous | Affected$ Creature.Other+YouCtrl | AddKeyword$ Dethrone
-T:Mode$ ChangesZone | ValidCard$ Card.YouCtrl+counters_GE1_P1P1 | Origin$ Battlefield | Destination$ Graveyard | Execute$ DelTrigReturn | TriggerZones$ Battlefield
-SVar:DelTrigReturn:DB$ DelayedTrigger | Mode$ Phase | Phase$ End Of Turn | Execute$ DBReturn | RememberObjects$ TriggeredNewCardLKICopy
-SVar:DBReturn:DB$ ChangeZone | Defined$ DelayTriggerRememberedLKI | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True
+A:AB$ Pump | Cost$ 1 U R | ValidTgts$ Creature.YouCtrl | KW$ Haste | SubAbility$ DBUnblockable
+SVar:DBUnblockable:DB$ Effect | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered

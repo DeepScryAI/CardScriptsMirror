@@ -1,23 +1,9 @@
 Id:33159
-ColorIdentity:BR
-OriginSet:G7ab1fe96128a1641
-ManaCost:2 B
-Types:Legendary Creature Goblin Warlock
-PT:2/1
-K:Menace
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
-T:Mode$ Transformed | ValidCard$ Card.Self | Execute$ TrigChangeZone | Secondary$ True
-SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Goblin.YouOwn | TargetMin$ 0 | TargetMax$ 1
-T:Mode$ Phase | Phase$ Main1 | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigTransform
-SVar:TrigTransform:AB$ SetState | Cost$ R | Defined$ Self | Mode$ Transform
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:red
-Types:Legendary Creature Goblin Warrior
-PT:2/1
-K:Menace
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigCopy | TriggerZones$ Battlefield
-SVar:TrigCopy:AB$ CopyPermanent | Cost$ Blight<1> | TokenTapped$ True | TokenAttacking$ True | Defined$ CounterPutCards | AtEOTTrig$ Sacrifice
-T:Mode$ Phase | Phase$ Main1 | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigTransform
-SVar:TrigTransform:AB$ SetState | Cost$ B | Defined$ Self | Mode$ Transform
+ColorIdentity:R
+OriginSet:G731e0066916b7465
+ManaCost:1 R
+Types:Legendary Creature Human Bard Ally
+PT:2/2
+T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:AB$ Pump | Cost$ 1 | Defined$ Self | NumAtt$ +2 | NumDef$ +1 | SubAbility$ DBPumpAll
+SVar:DBPumpAll:DB$ PumpAll | ValidCards$ Creature.YouCtrl | KW$ Haste

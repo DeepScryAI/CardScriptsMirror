@@ -1,12 +1,12 @@
 Id:31701
-ColorIdentity:
-OriginSet:G7ab4f62d323b0ca7
-ManaCost:3
-Types:Artifact Equipment
-K:Equip:2
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 3 | AddToughness$ 2 | AddSVar$ BusterSwordCE
-T:Mode$ DamageDone | ValidSource$ Creature.EquippedBy | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDraw | TriggerZones$ Battlefield
-SVar:TrigDraw:DB$ Draw | SubAbility$ DBPlay
-SVar:DBPlay:DB$ Play | Valid$ Card.nonLand+YouOwn | ValidSA$ Spell.cmcLEX | ValidZone$ Hand | WithoutManaCost$ True | Amount$ 1 | Controller$ You | Optional$ True
-SVar:X:TriggerCount$DamageAmount
-SVar:BusterSwordCE:SVar:MustBeBlocked:AttackingPlayerConservative
+ColorIdentity:URG
+OriginSet:Gfac9eb8c75f25726
+ManaCost:G U R
+Types:Creature Ogre Warrior Wizard
+PT:4/4
+A:AB$ Seek | Cost$ 2 G | Type$ Card.catalogId31701 | Exhaust$ True | RememberFound$ True | SubAbility$ DBPut
+SVar:DBPut:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | Tapped$ True | Defined$ Remembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+A:AB$ Surveil | Cost$ 1 U | Amount$ 2 | Exhaust$ True | SubAbility$ DBUntap
+SVar:DBUntap:DB$ Untap
+A:AB$ PumpAll | Cost$ R | ValidCards$ Creature.YouCtrl | KW$ Haste | Exhaust$ True

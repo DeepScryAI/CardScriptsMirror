@@ -1,8 +1,19 @@
 Id:26671
-ColorIdentity:R
+ColorIdentity:WU
 OriginSet:G06757f68e16377c2
-ManaCost:1 R
-Types:Creature Human Shaman
-PT:1/3
-K:Haste
-A:AB$ Pump | Cost$ T | ValidTgts$ Creature.Other | KW$ Haste
+ManaCost:2 W W
+Types:Legendary Enchantment Creature God
+PT:4/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Enchantment.YouCtrl+nonGod
+A:AB$ SetState | Cost$ 3 UP | Defined$ Self | Mode$ Transform | SorcerySpeed$ True | AILogic$ Always
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:white,blue
+Types:Legendary Enchantment Creature Phyrexian God
+PT:4/6
+S:Mode$ CastWithFlash | ValidCard$ Card | ValidSA$ Spell | Caster$ You
+S:Mode$ ReduceCost | Type$ Spell | Activator$ You | Amount$ X
+SVar:X:PlayerCountOpponents$CardsDrawn
+SVar:NonStackingEffect:True

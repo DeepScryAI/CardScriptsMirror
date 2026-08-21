@@ -1,11 +1,13 @@
 Id:22973
 ColorIdentity:R
 OriginSet:Gf78628ad511eefec
-ManaCost:2 R R
-Types:Creature Phoenix
-PT:4/2
+ManaCost:3 R
+Types:Creature Dragon
+PT:4/4
 K:Flying
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | DayTime$ Neither | ReplaceWith$ DoDay | ReplacementResult$ Updated
-SVar:DoDay:DB$ DayTime | Value$ Day
-T:Mode$ DayTimeChanges | Execute$ TrigReturn | TriggerZones$ Graveyard
-SVar:TrigReturn:AB$ ChangeZone | Cost$ 1 R | Origin$ Graveyard | Destination$ Battlefield | Tapped$ True
+T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ You | Execute$ TrigDraw | TriggerZones$ Battlefield | OptionalDecider$ You
+SVar:TrigDraw:AB$ Draw | Cost$ Discard<0/Hand> | NumCards$ X
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigDealDamage
+SVar:TrigDealDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ Y
+SVar:X:TriggeredCard$CardNumColors
+SVar:Y:Count$Valid Permanent.YouCtrl$Colors

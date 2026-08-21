@@ -1,7 +1,12 @@
 Id:33860
-ColorIdentity:U
-OriginSet:Gf8df2bea26dc6b68
-ManaCost:3 U
-Types:Instant
-S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ 1 | ValidTarget$ Creature.attacking | EffectZone$ All
-A:SP$ ChangeZone | ValidTgts$ Creature | AlternativeDecider$ TargetedOwner | Origin$ Battlefield | Destination$ Library | DestinationAlternative$ Library | LibraryPositionAlternative$ -1
+ColorIdentity:B
+OriginSet:Gf04404de3fa1525e
+ManaCost:1 B
+Types:Creature Zombie Warlock
+PT:2/2
+S:Mode$ CantBlock | ValidCard$ Card.Self
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 1 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
+A:AB$ ChangeZone | Cost$ 1 B ExileFromGrave<1/Instant;Sorcery> | Origin$ Graveyard | Destination$ Battlefield | ActivationZone$ Graveyard
+SVar:HasAttackEffect:TRUE

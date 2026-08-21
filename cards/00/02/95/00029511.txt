@@ -1,16 +1,10 @@
 Id:29511
-ColorIdentity:R
+ColorIdentity:U
 OriginSet:Gac6359c222afbd4f
-ManaCost:3 R R
-Types:Creature Djinn Monk
-PT:2/2
-K:Prowess
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
-SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Instant.YouCtrl,Sorcery.YouCtrl
-AlternateMode:Modal
-ALTERNATE
 ManaCost:no cost
 Types:Land
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ DBTap | ReplacementResult$ Updated
-SVar:DBTap:DB$ Tap | ETB$ True | Defined$ Self | UnlessCost$ PayLife<3> | UnlessPayer$ You
-A:AB$ Mana | Cost$ T | Produced$ R
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ LandTapped | ReplacementResult$ Updated
+SVar:LandTapped:DB$ Tap | Defined$ Self | ETB$ True | ConditionPresent$ Island.YouCtrl | ConditionCompare$ EQ0
+A:AB$ Mana | Cost$ T | Produced$ U
+A:AB$ Effect | Cost$ U T | StaticAbilities$ GrantImprovise | ForgetOnCast$ Card.YouCtrl
+SVar:GrantImprovise:Mode$ Continuous | Affected$ Card.YouCtrl | AffectedZone$ Stack | AddKeyword$ Improvise

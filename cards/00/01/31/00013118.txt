@@ -1,9 +1,12 @@
 Id:13118
-ColorIdentity:WG
+ColorIdentity:W
 OriginSet:G5449dea2d54987a1
-ManaCost:G W
-Types:Instant
-A:SP$ Charm | Choices$ Buff,Exile,Knight
-SVar:Buff:DB$ Pump | ValidTgts$ Creature | NumAtt$ +2 | NumDef$ +2 | KW$ Trample
-SVar:Exile:DB$ ChangeZone | ValidTgts$ Creature.powerGE5 | Origin$ Battlefield | Destination$ Exile
-SVar:Knight:DB$ Token | TokenScriptIds$ 1066714595 | TokenOwner$ You
+ManaCost:2 W
+Types:Enchantment Aura
+K:Enchant:Land
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Land.AttachedBy | AddAbility$ PreventDamage
+SVar:PreventDamage:AB$ PreventDamage | Cost$ T | Defined$ You | Amount$ 1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 1066714595 | TokenOwner$ You
+SVar:NonStackingAttachEffect:True

@@ -1,14 +1,14 @@
 Id:25027
-ColorIdentity:R
-OriginSet:G2aca7ffc9201ba1c
-ManaCost:1 R
-Types:Creature Human Wizard
-PT:2/2
-K:Prowess
-T:Mode$ Phase | Phase$ Main1 | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigSeek
-SVar:TrigSeek:AB$ Seek | Cost$ Discard<1/Card> | Type$ Card.cmcGTX | RememberFound$ True | SubAbility$ DBExile
-SVar:X:Discarded$CardManaCost
-SVar:DBExile:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | Defined$ Remembered | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | RememberObjects$ Remembered | StaticAbilities$ MayPlay | Duration$ UntilTheEndOfYourNextTurn | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
-SVar:MayPlay:Mode$ Continuous | Affected$ Card.IsRemembered | MayPlay$ True | AffectedZone$ Exile
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:BRG
+OriginSet:G3a8b4b9d4649b357
+ManaCost:1 B R G
+Types:Legendary Creature Cat Avatar
+PT:5/4
+T:Mode$ ChangesZone | Origin$ Any | OptionalDecider$ You | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
+T:Mode$ Attacks | ValidCard$ Card.Self | OptionalDecider$ You | Execute$ TrigChangeZone | Secondary$ True
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True | Tapped$ True | Hidden$ True | ChangeType$ Land
+A:AB$ GainLife | Cost$ G Discard<1/Land> | LifeAmount$ 3
+A:AB$ Draw | Cost$ 1 R Discard<1/Land>
+A:AB$ Pump | Cost$ 2 B Discard<1/Land> | KW$ Indestructible | SubAbility$ DBTap
+SVar:DBTap:DB$ Tap | Defined$ Self
+SVar:HasAttackEffect:TRUE

@@ -1,58 +1,50 @@
 Id:24626
-ColorIdentity:B
+ColorIdentity:U
 OriginSet:G58bfeff4fb121c8e
-ManaCost:1 B
-Types:Legendary Creature Human Elf Cleric
-PT:2/2
-K:Deathtouch
-K:Specialize:2:::CheckSVar$ X | SVarCompare$ LE13
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDealDamage
-SVar:TrigDealDamage:DB$ DealDamage | Defined$ Player | NumDmg$ 1
-SVar:X:PlayerCountPlayers$LowestLifeTotal
+ManaCost:1 U
+Types:Legendary Creature Human Rogue Wizard
+PT:2/1
+K:Specialize:5:::ReduceCost$ X
+S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self+attacking | IsPresent$ Card.Other+attacking | PresentCompare$ EQ0
+SVar:X:Count$Compare Y GE2.3.0
+SVar:Y:Count$ValidGraveyard Instant.YouOwn,Sorcery.YouOwn
 AlternateMode:Specialize
 SPECIALIZE:WHITE
-ManaCost:1 W B
-Types:Legendary Creature Human Elf Cleric
-PT:4/4
-K:Deathtouch
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDealDamage
-SVar:TrigDealDamage:DB$ DealDamage | Defined$ Player | NumDmg$ 1
-T:Mode$ LifeLost | ValidPlayer$ You | TriggerZones$ Battlefield | PlayerTurn$ True | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 2186494377
+ManaCost:1 W U
+Types:Legendary Creature Human Rogue Wizard
+PT:3/2
+S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self
+T:Mode$ DamageDone | ValidSource$ Card.Self | OptionalDecider$ You | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigCounter | TriggerZones$ Battlefield
+SVar:TrigCounter:AB$ PutCounterAll | Cost$ ExileFromGrave<1/Instant;Sorcery/instant or sorcery> | ValidCards$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1
 SPECIALIZE:BLUE
-ManaCost:1 U B
-Types:Legendary Creature Human Elf Cleric
-PT:4/4
-K:Deathtouch
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDealDamage
-SVar:TrigDealDamage:DB$ DealDamage | Defined$ Player | NumDmg$ 1
-T:Mode$ LifeLost | ValidPlayer$ You | TriggerZones$ Battlefield | PlayerTurn$ True | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw
+ManaCost:1 U U
+Types:Legendary Creature Human Rogue Wizard
+PT:3/2
+S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigImmTrigger | TriggerZones$ Battlefield
+SVar:TrigImmTrigger:AB$ ImmediateTrigger | Cost$ ExileFromGrave<1/Instant;Sorcery/instant or sorcery> | Execute$ TrigTap | Secondary$ True
+SVar:TrigTap:DB$ Tap | ValidTgts$ Creature.OppCtrl | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Targeted | Duration$ Permanent | KW$ HIDDEN This card doesn't untap during your next untap step.
 SPECIALIZE:BLACK
-ManaCost:1 B B
-Types:Legendary Creature Human Elf Cleric
-PT:4/4
-K:Deathtouch
-K:Lifelink
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDealDamage
-SVar:TrigDealDamage:DB$ DealDamage | Defined$ Player | NumDmg$ 1
+ManaCost:1 U B
+Types:Legendary Creature Human Rogue Wizard
+PT:3/2
+S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self
+T:Mode$ DamageDone | ValidSource$ Card.Self | OptionalDecider$ You | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigToken | TriggerZones$ Battlefield
+SVar:TrigToken:AB$ Token | Cost$ ExileFromGrave<1/Instant;Sorcery/instant or sorcery> | TokenScriptIds$ 353162950
 SPECIALIZE:RED
-ManaCost:1 B R
-Types:Legendary Creature Human Elf Cleric
-PT:4/4
-K:Deathtouch
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDamageAll
-SVar:TrigDamageAll:DB$ DealDamage | Defined$ Player | NumDmg$ 1
-T:Mode$ LifeLost | ValidPlayer$ You | TriggerZones$ Battlefield | PlayerTurn$ True | Execute$ TrigDamageOpp
-SVar:TrigDamageOpp:DB$ DealDamage | NumDmg$ X | Defined$ Opponent
-SVar:X:TriggerCount$LifeAmount
+ManaCost:1 U R
+Types:Legendary Creature Human Rogue Wizard
+PT:3/2
+S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDamage | TriggerZones$ Battlefield
+SVar:TrigDamage:AB$ DealDamage | Cost$ ExileFromGrave<1/Instant;Sorcery/instant or sorcery> | Defined$ Opponent | NumDmg$ 2
 SPECIALIZE:GREEN
-ManaCost:1 B G
-Types:Legendary Creature Human Elf Cleric
-PT:4/4
-K:Deathtouch
-S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self | ValidBlocker$ Creature.powerLE2
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDealDamage
-SVar:TrigDealDamage:DB$ DealDamage | Defined$ Player | NumDmg$ 1
-T:Mode$ LifeLost | ValidPlayer$ You | TriggerZones$ Battlefield | PlayerTurn$ True | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | CounterType$ P1P1
+ManaCost:1 G U
+Types:Legendary Creature Human Rogue Wizard
+PT:3/2
+S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self
+T:Mode$ DamageDone | ValidSource$ Card.Self | OptionalDecider$ You | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDraw | TriggerZones$ Battlefield
+SVar:TrigDraw:AB$ Draw | Cost$ ExileFromGrave<1/Instant;Sorcery/instant or sorcery> | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | Name$ 9802026113094711440 | StaticAbilities$ Exploration
+SVar:Exploration:Mode$ Continuous | Affected$ You | AdjustLandPlays$ 1

@@ -1,10 +1,13 @@
 Id:29138
-ColorIdentity:UR
-OriginSet:G27146c70b74a1e72
-ManaCost:U R
-Types:Legendary Creature Siren Pirate
-PT:2/2
-K:Flying
-K:Haste
-T:Mode$ SpellCast | ValidCard$ Card.YouCtrl | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigInvestigate | ActivatorThisTurnCast$ EQ2
-SVar:TrigInvestigate:DB$ Investigate
+ColorIdentity:G
+OriginSet:Gc7beb665b378d90a
+ManaCost:10 G
+Types:Creature Plant Elemental
+PT:8/8
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ X | EffectZone$ All
+SVar:X:Count$ValidGraveyard Land.YouOwn
+K:Vigilance
+K:Reach
+K:Trample
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPumpAll
+SVar:TrigPumpAll:DB$ PumpAll | ValidCards$ Creature.StrictlyOther+YouCtrl | NumAtt$ +3 | NumDef$ +3 | KW$ Trample

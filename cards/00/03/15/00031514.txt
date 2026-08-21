@@ -1,9 +1,12 @@
 Id:31514
-ColorIdentity:URG
-OriginSet:Gf2b808f4f642ac62
-ManaCost:2G 2U 2R
-Types:Creature Beast
+ColorIdentity:U
+OriginSet:G93ac57511923c3dd
+ManaCost:4 U U
+Types:Creature Dragon
 PT:4/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1 | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ TgtChoose
+K:Flash
+K:Flying
+T:Mode$ ChangesZone | ValidCard$ Card.wasCastByYou+Self | Destination$ Battlefield | Execute$ TrigCounter
+SVar:TrigCounter:DB$ Counter | TargetType$ Spell | ValidTgts$ Card | RememberCountered$ True | Destination$ Exile | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | Valid$ Card.nonLand+IsRemembered | ValidSA$ Spell | ValidZone$ Exile | WithoutManaCost$ True | Controller$ You | Optional$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

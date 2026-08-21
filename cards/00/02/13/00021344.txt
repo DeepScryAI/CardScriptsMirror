@@ -1,12 +1,11 @@
 Id:21344
-ColorIdentity:RG
-OriginSet:G51d431785c8b33e5
-ManaCost:2 R G
-Types:Legendary Creature Human Scout
-PT:1/4
-T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigDig
-SVar:TrigDig:DB$ Dig | DigNum$ 1 | ChangeNum$ All | Optional$ True | Reveal$ True | ChangeValid$ Creature | DestinationZone$ Battlefield | DestinationZone2$ Hand | Tapped$ True | Attacking$ DefendingPlayer & Valid Planeswalker.ControlledBy DefendingPlayer | RememberChanged$ True | SubAbility$ DBImmediateTriggerCheck
-SVar:DBImmediateTriggerCheck:DB$ ImmediateTrigger | Execute$ DBFight | ConditionDefined$ Remembered | ConditionPresent$ Creature | ConditionCompare$ GE1
-SVar:DBFight:DB$ Fight | Defined$ Remembered & Self | SubAbility$ DBCleanup
+ColorIdentity:B
+OriginSet:G8a59924df6623252
+ManaCost:1 B
+Types:Legendary Artifact Equipment
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddKeyword$ Menace
+T:Mode$ Attacks | ValidCard$ Card.EquippedBy | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice | Defined$ TriggeredDefendingPlayer | SacValid$ Creature | Amount$ 1 | RememberSacrificed$ True | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ GE1 | TokenScriptIds$ 3635419940 | TokenOwner$ You | LockTokenScript$ True | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:HasAttackEffect:TRUE
+K:Equip:4

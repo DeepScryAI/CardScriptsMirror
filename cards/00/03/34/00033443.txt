@@ -1,10 +1,10 @@
 Id:33443
 ColorIdentity:U
-OriginSet:G23d1f017cc66962f
-ManaCost:3 U
-Types:Legendary Creature Mutant Ninja Turtle
-PT:3/5
-A:AB$ PutCounter | Cost$ T | ValidTgts$ Artifact.YouCtrl | CounterType$ P1P1 | CounterNum$ 3 | SorcerySpeed$ True | SubAbility$ DBAnimate
-SVar:DBAnimate:DB$ Animate | Defined$ Targeted | ConditionDefined$ Targeted | ConditionPresent$ Card.nonCreature | Power$ 0 | Toughness$ 0 | Types$ Creature,Robot | Duration$ Permanent
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Artifact.YouCtrl+HasCounters | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Artifact.YouCtrl,Creature.YouCtrl | TargetMin$ 0 | TargetMax$ 1 | CounterType$ EachFromSource | EachFromSource$ TriggeredCardLKICopy
+OriginSet:G7ab1fe96128a1641
+ManaCost:6 U
+Types:Instant
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ X | EffectZone$ All
+A:SP$ Tap | TargetMin$ 0 | TargetMax$ 2 | ValidTgts$ Creature | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Targeted | CounterType$ STUN | CounterNum$ 1 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw
+SVar:X:Count$Valid Permanent.YouCtrl$Colors

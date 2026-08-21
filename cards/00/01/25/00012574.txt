@@ -1,7 +1,9 @@
 Id:12574
-ColorIdentity:U
+ColorIdentity:R
 OriginSet:Gfd7b72e0eb9d2cf5
-ManaCost:1 U
-Types:Creature Human Wizard
-PT:1/1
-A:AB$ Draw | Cost$ Sac<1/CARDNAME>
+ManaCost:3 R R
+Types:Instant
+A:SP$ DamageAll | ValidTgts$ Player | NumDmg$ 1 | RememberDamaged$ True | ValidCards$ Creature | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Effect | RememberObjects$ Remembered | ForgetOnMoved$ Battlefield | StaticAbilities$ MustAttack | SubAbility$ DBCleanup
+SVar:MustAttack:Mode$ MustAttack | ValidCreature$ Card.IsRemembered
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

@@ -1,12 +1,19 @@
 Id:21796
-ColorIdentity:G
-OriginSet:Gabb23d0d25cdc46d
-ManaCost:4 G
-Types:Enchantment
-K:etbCounter:GROWTH:1
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDoubleCounters
-SVar:TrigDoubleCounters:DB$ MultiplyCounter | Defined$ Self | CounterType$ GROWTH | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenScriptIds$ 1802199211 | RememberTokens$ True | SubAbility$ DBCounters
-SVar:DBCounters:DB$ PutCounter | Defined$ Remembered | CounterType$ P1P1 | CounterNum$ X | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$CardCounters.GROWTH
+ColorIdentity:R
+OriginSet:G18bf722b221724f8
+ManaCost:2 R R
+Types:Legendary Creature God
+PT:5/4
+K:Trample
+T:Mode$ ExcessDamage | ValidTarget$ Creature.OppCtrl,Planeswalker.OppCtrl | CombatDamage$ False | TriggerZones$ Battlefield | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Creature.!TriggeredTarget,Player,Planeswalker.!TriggeredTarget | NumDmg$ X
+SVar:X:TriggerCount$DamageAmount
+AlternateMode:Modal
+ALTERNATE
+ManaCost:1 R
+Types:Legendary Artifact Equipment
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddAbility$ HammerDamage
+SVar:HammerDamage:AB$ DealDamage | Cost$ 1 R T Unattach<OriginalHost/catalogId21796> | NumDmg$ 3 | DamageSource$ OriginalHost | ValidTgts$ Any | SubAbility$ HammerCatch
+SVar:HammerCatch:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Defined$ OriginalHost
+S:Mode$ Continuous | Affected$ Card.EquippedBy+Legendary | AddPower$ 3
+K:Equip:1 R

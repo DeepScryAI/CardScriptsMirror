@@ -1,15 +1,10 @@
 Id:31707
-ColorIdentity:WUG
-OriginSet:G7ab4f62d323b0ca7
-ManaCost:1 G W U
-Types:Legendary Creature Bird
-PT:3/5
-T:Mode$ AttackersDeclared | ValidAttackers$ Bird.YouCtrl | Execute$ TrigDig | TriggerZones$ Battlefield
-SVar:TrigDig:DB$ Dig | DigNum$ X | ChangeNum$ 1 | Optional$ True | ChangeValid$ Card | DestinationZone$ Hand | DestinationZone2$ Library | LibraryPosition2$ 0 | SkipReorder$ True | RememberChanged$ True | SubAbility$ DBDig
-SVar:DBDig:DB$ Dig | DigNum$ Y | ChangeNum$ Any | ChangeValid$ Land | Tapped$ True | DestinationZone$ Battlefield | DestinationZone2$ Graveyard | SubAbility$ DBCleanup
+ColorIdentity:R
+OriginSet:Gfac9eb8c75f25726
+ManaCost:4 R R
+Types:Kindred Enchantment Dragon
+T:Mode$ SpellCast | ValidCard$ Card.Dragon,Card.nonCreature | ValidActivatingPlayer$ You | Execute$ TrigDraft | TriggerZones$ Battlefield
+SVar:TrigDraft:DB$ Draft | SpellbookCatalogIds$ 14996,31486,31433,31441,31460,15184,31512 | RememberDrafted$ True | SubAbility$ DBPut
+SVar:DBPut:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | Defined$ Remembered | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +1
-SVar:X:TriggerObjectsAttackers$Amount
-SVar:Y:SVar$X/Minus.Z
-SVar:Z:Remembered$Amount
+A:AB$ Token | Cost$ 2 R R Discard<1/CARDNAME> | ActivationZone$ Hand | TokenScriptIds$ 2858880039

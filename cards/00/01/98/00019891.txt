@@ -1,9 +1,14 @@
 Id:19891
-ColorIdentity:B
+ColorIdentity:WB
 OriginSet:G23be9f486a22d38a
-ManaCost:2 B
-Types:Sorcery
-A:SP$ Draw | NumCards$ 2 | ValidTgts$ Player | SubAbility$ DBLoseLife | AIManaPref$ B
-SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 2 | Defined$ Targeted | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenAmount$ X | TokenScriptIds$ 134855612 | TokenOwner$ You
-SVar:X:Count$Adamant.Black.1.0
+ManaCost:2 W B
+Types:Enchantment
+T:Mode$ Phase | Phase$ Upkeep | TriggerZones$ Battlefield | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice | SacValid$ Permanent.nonLand+!token | Defined$ TriggeredPlayer | RememberSacrificed$ True | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ TriggeredPlayer | NumCards$ 1 | Mode$ TgtChoose | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ0 | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 2 | Defined$ TriggeredPlayer | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ0 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ0 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ 2 | Defined$ You | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ0 | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 1066714595 | TokenOwner$ You | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ0 | SubAbility$ DBSac
+SVar:DBSac:DB$ SacrificeAll | Defined$ Self | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ0 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

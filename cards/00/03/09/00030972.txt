@@ -1,7 +1,14 @@
 Id:30972
-ColorIdentity:W
-OriginSet:G4524bbf7a3db9dc0
-ManaCost:W
-Types:Instant
-A:SP$ Pump | ValidTgts$ Creature | NumAtt$ +2 | NumDef$ +2
-K:Cycling:2
+ColorIdentity:BG
+OriginSet:G2c8286a6f234d4b9
+ManaCost:1 B
+Types:Legendary Creature Gorgon Assassin
+PT:1/3
+K:Deathtouch
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:AB$ Token | Cost$ 1 BG | TokenScriptIds$ 1711213110 | TokenOwner$ You
+A:AB$ Effect | Cost$ 4 B | Triggers$ TrigDamage
+SVar:TrigDamage:Mode$ DamageDoneOnce | CombatDamage$ True | ValidSource$ Creature.Gorgon+YouCtrl,Creature.Snake+YouCtrl | ValidTarget$ Player | TriggerZones$ Battlefield | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ TriggeredTarget | LifeAmount$ X
+SVar:X:TriggeredTarget$LifeTotal/HalfUp
+SVar:HasAttackEffect:TRUE

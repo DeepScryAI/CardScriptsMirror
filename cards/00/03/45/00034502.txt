@@ -1,10 +1,12 @@
 Id:34502
-ColorIdentity:B
-OriginSet:G11c0621ce29fa608
-ManaCost:3 B B
-Types:Legendary Artifact Creature Villain
-PT:2/2
+ColorIdentity:W
+OriginSet:Gcb93bbfc68a40806
+ManaCost:3 W
+Types:Legendary Creature Human Hero
+PT:3/3
 K:Flying
-K:Lifelink
-A:AB$ Connive | Cost$ PayLife<3> | PlayerTurn$ True
-S:Mode$ Continuous | Affected$ Creature.OppCtrl | AddPower$ -1 | AddToughness$ -1
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | ValidTgts$ Creature.Other+YouCtrl | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ All | Destination$ Battlefield | GainControl$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:HasAttackEffect:TRUE

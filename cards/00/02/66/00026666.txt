@@ -1,9 +1,11 @@
 Id:26666
-ColorIdentity:R
+ColorIdentity:UB
 OriginSet:G06757f68e16377c2
-ManaCost:1 R
-Types:Creature Phyrexian Lizard
-PT:2/2
-K:Trample
-T:Mode$ Attacks | ValidCard$ Card.Self | Attacked$ Battle | Execute$ TrigPump | TriggerZones$ Battlefield
-SVar:TrigPump:DB$ Pump | NumAtt$ +1 | NumDef$ +1
+ManaCost:1 U B
+Types:Creature Faerie Rogue
+PT:3/1
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigImmediateTrig | OptionalDecider$ You
+SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ X | Execute$ TrigCast
+SVar:TrigCast:DB$ Play | TgtZone$ Graveyard | WithoutManaCost$ True | ValidSA$ Spell | ValidTgts$ Instant.cmcEQX,Sorcery.cmcEQX | Optional$ True | ReplaceGraveyard$ Exile
+SVar:X:Count$xPaid

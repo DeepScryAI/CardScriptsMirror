@@ -1,7 +1,12 @@
 Id:24206
-ColorIdentity:
-OriginSet:G51fcb7ec0cb81c29
-ManaCost:6
-Types:Artifact Creature Dragon
-PT:4/4
-K:Flying
+ColorIdentity:BR
+OriginSet:Gcf5d9b1e2ed6c496
+ManaCost:B R
+Types:Creature Lizard Warrior
+PT:3/1
+K:Menace
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChoose
+SVar:TrigChoose:DB$ ChooseCard | ChoiceZone$ Hand | Choices$ Creature.withoutBlitz+YouOwn | Mandatory$ True | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | PumpZone$ Hand | Defined$ ChosenCard | KW$ Blitz:CardManaCost:Spell.Creature | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+K:Blitz:B R

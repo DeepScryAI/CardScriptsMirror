@@ -1,9 +1,13 @@
 Id:19831
-ColorIdentity:B
-OriginSet:G23be9f486a22d38a
-ManaCost:3 B B
-Types:Creature Faerie
-PT:3/3
-K:Flying
-A:AB$ Pump | Cost$ 2 B Sac<1/Food> | ValidTgts$ Creature | NumAtt$ -3 | NumDef$ -3 | IsCurse$ True
-SVar:AIPreference:SacCost$Card.Food
+ColorIdentity:U
+OriginSet:Ga539dc09c09c4538
+ManaCost:2 U U
+Types:Instant
+K:Split second
+A:SP$ Pump | TargetType$ Spell | ValidTgts$ Card.nonCreature | TgtZone$ Stack | ImprintCards$ TargetedSource | SubAbility$ DBRemember
+SVar:DBRemember:DB$ Pump | ValidTgts$ Creature | RememberObjects$ ThisTargetedCard | SubAbility$ DBRememberPlayer
+SVar:DBRememberPlayer:DB$ Pump | RememberObjects$ RememberedController | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBGainControl
+SVar:DBGainControl:DB$ GainControl | Defined$ Remembered.Creature | NewController$ ImprintedController | ConditionDefined$ Imprinted | ConditionPresent$ Card | SubAbility$ DBControlSpell
+SVar:DBControlSpell:DB$ ControlSpell | Defined$ Targeted | NewController$ Player.IsRemembered | Mode$ Gain | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBChooseTargets
+SVar:DBChooseTargets:DB$ ChangeTargets | Defined$ Targeted | Chooser$ Player.IsRemembered | Optional$ True | ConditionDefined$ Imprinted | ConditionPresent$ Card | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True

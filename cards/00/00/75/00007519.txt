@@ -1,11 +1,15 @@
 Id:7519
-ColorIdentity:WUBRG
+ColorIdentity:W
 OriginSet:G4747f23d5c5760bc
-ManaCost:W U B R G
-Types:Legendary Enchantment Aura
-K:Enchant:Land
+ManaCost:W
+Types:Enchantment Aura
+K:Enchant:Plains
 SVar:AttachAILogic:Pump
-A:AB$ Animate | Cost$ 2 | Defined$ Enchanted | Power$ 8 | Toughness$ 12 | Types$ Creature,Legendary,Spirit | Keywords$ Trample
+A:AB$ Animate | Cost$ 2 | Defined$ Enchanted | Power$ 2 | Toughness$ 5 | Types$ Creature,Spirit | Colors$ White | Triggers$ PseudoLifelink
 T:Mode$ ChangesZone | ValidCard$ Card.EnchantedBy | Origin$ Battlefield | Destination$ Graveyard | TriggerZones$ Battlefield | Execute$ TrigReturnOwner | OptionalDecider$ You
 SVar:TrigReturnOwner:DB$ ChangeZone | Hidden$ True | ChangeType$ Card.StrictlySelf | DefinedPlayer$ You | Origin$ Graveyard | Destination$ Hand | Mandatory$ True
+SVar:PseudoLifelink:Mode$ DamageDealtOnce | ValidSource$ Card.Self | Execute$ GenjuTrigGain | TriggerZones$ Battlefield
+SVar:GenjuTrigGain:DB$ GainLife | Defined$ You | LifeAmount$ GenjuX
 SVar:NonStackingAttachEffect:True
+SVar:AIPaymentPreference:AvoidPayingWithAttachTarget
+SVar:GenjuX:TriggerCount$DamageAmount

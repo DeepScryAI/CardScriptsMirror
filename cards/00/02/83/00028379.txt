@@ -1,15 +1,9 @@
 Id:28379
-ColorIdentity:WR
-OriginSet:G7ee0e82a2424d636
-ManaCost:2 R W
-Types:Legendary Creature Spirit Detective
-PT:2/4
-K:DoubleStrike
-K:Vigilance
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigBranch
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigBranch | TriggerZones$ Battlefield | Secondary$ True
-SVar:TrigBranch:DB$ Branch | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | BranchConditionSVar$ X | BranchConditionSVarCompare$ EQ1 | TrueSubAbility$ ExileIt | FalseSubAbility$ SuspectIt
-SVar:ExileIt:DB$ ChangeZone | Defined$ Targeted | Origin$ Battlefield | Destination$ Exile
-SVar:SuspectIt:DB$ AlterAttribute | Defined$ Targeted | Attributes$ Suspected
-SVar:X:Targeted$Valid Card.IsSuspected
-SVar:HasAttackEffect:TRUE
+ColorIdentity:UG
+OriginSet:G4f78ded7b58f78f8
+ManaCost:2 G U
+Types:Legendary Creature Dinosaur
+PT:5/4
+K:PartnerWithId:28392
+R:Event$ Moved | ActiveZones$ Battlefield | ValidCard$ Dinosaur.YouCtrl+Other | Destination$ Battlefield | ReplaceWith$ EnterWithCounters | ReplacementResult$ Updated
+SVar:EnterWithCounters:DB$ PutCounter | ETB$ True | CounterType$ EachFromSource | EachFromSource$ Self | Defined$ ReplacedCard | CounterNum$ 1

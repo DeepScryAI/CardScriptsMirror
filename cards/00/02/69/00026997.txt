@@ -1,7 +1,12 @@
 Id:26997
-ColorIdentity:
-OriginSet:G6ce0035cfb774934
-ManaCost:no cost
-Types:Land
-A:AB$ Mana | Cost$ T | Produced$ C
-A:AB$ Mana | Cost$ 1 T | Produced$ Combo Any | Amount$ 2 | RestrictValid$ Spell.Legendary
+ColorIdentity:R
+OriginSet:G3601f5e223de6c7f
+ManaCost:2 R
+Types:Legendary Creature Dwarf Warrior
+PT:1/1
+K:DoubleStrike
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.Legendary+Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigTreasure
+SVar:TrigTreasure:DB$ Token | TokenScriptIds$ 3851718391 | TokenOwner$ You
+SVar:BuffedBy:Creature.Legendary

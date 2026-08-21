@@ -1,9 +1,10 @@
 Id:19208
-ColorIdentity:R
-OriginSet:Gb6b8d78626a44788
-ManaCost:2 R
-Types:Creature Zombie Minotaur Warrior
-PT:2/2
-S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ FirstStrike | Condition$ PlayerTurn
-A:AB$ Pump | Cost$ 1 Sac<1/Creature.Other/another creature> | Defined$ Self | NumAtt$ +2 | AILogic$ Aristocrat
-SVar:AIPreference:SacCost$Creature.Other
+ColorIdentity:B
+OriginSet:Gf56613712ce2ae1f
+ManaCost:3 B B
+Types:Legendary Planeswalker Nixilis
+Loyalty:5
+T:Mode$ Drawn | ValidCard$ Card.OppOwn | TriggerZones$ Battlefield | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | Defined$ TriggeredPlayer | NumDmg$ 1
+A:AB$ Destroy | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | ValidTgts$ Creature | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ TargetedController | NumCards$ 2

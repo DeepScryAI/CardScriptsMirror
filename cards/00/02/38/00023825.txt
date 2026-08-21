@@ -1,10 +1,9 @@
 Id:23825
-ColorIdentity:UB
-OriginSet:G5f5d8cfb206e2fac
-ManaCost:3 U B
-Types:Legendary Creature Human Wizard
-PT:3/3
-S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ X | EffectZone$ All
-SVar:X:Count$ValidGraveyard Card.YouOwn$DifferentCardManaCost
-T:Mode$ Discarded | ValidPlayer$ You | ValidCard$ Card.nonLand | TriggerZones$ Battlefield | Execute$ TrigPlay
-SVar:TrigPlay:DB$ Play | Defined$ TriggeredCard | ValidSA$ Spell | Controller$ You | Optional$ True | Amount$ All
+ColorIdentity:B
+OriginSet:G18bf722b221724f8
+ManaCost:1 B
+Types:Creature Elf Berserker
+PT:3/1
+T:Mode$ ChangesZone | ValidCard$ Elf.Other+YouCtrl,Berserker.Other+YouCtrl | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigDraw | TriggerZones$ Battlefield
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1 | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ 1

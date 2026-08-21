@@ -1,7 +1,11 @@
 Id:13874
-ColorIdentity:
+ColorIdentity:BR
 OriginSet:G97e9a20e5a5d5822
-ManaCost:no cost
-Types:Land
-A:AB$ Mana | Cost$ T | Produced$ C
-A:AB$ Mana | Cost$ 1 T | Produced$ Any
+ManaCost:3 B R
+Types:Creature Dog
+PT:6/6
+S:Mode$ MinMaxBlocker | ValidCard$ Creature.Self | Min$ 3
+S:Mode$ CantTarget | AffectedZone$ Graveyard
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | Defined$ TriggeredNewCardLKICopy | SubAbility$ DBChangeZoneAll
+SVar:DBChangeZoneAll:DB$ ChangeZoneAll | UseAllOriginZones$ True | Origin$ Graveyard | Destination$ Hand | ChangeType$ Creature

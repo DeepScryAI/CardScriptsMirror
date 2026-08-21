@@ -1,12 +1,10 @@
 Id:27939
-ColorIdentity:W
-OriginSet:G06c78c29bfb28e3d
-ManaCost:2 W W
-Types:Creature Vampire Cleric
-PT:3/3
-K:Lifelink
-T:Mode$ ChangesZone | CheckSVar$ X | SVarCompare$ GE3 | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange
-T:Mode$ Attacks | CheckSVar$ X | SVarCompare$ GE3 | ValidCard$ Card.Self | Execute$ TrigChange | TriggerZones$ Battlefield | Secondary$ True
-SVar:TrigChange:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Permanent.YouOwn+cmcLE3
-SVar:X:Count$Valid Creature.YouCtrl$DifferentCardPower
-SVar:HasAttackEffect:TRUE
+ColorIdentity:
+OriginSet:G30e8a5e111cffb44
+ManaCost:3
+Types:Artifact
+A:AB$ Mana | Cost$ T | Produced$ Any
+A:AB$ Untap | Cost$ 1 T | ValidTgts$ Artifact.Other
+A:AB$ Scry | Cost$ 2 T | ScryNum$ 1
+A:AB$ Effect | Cost$ 3 T | ValidTgts$ Creature | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable | AILogic$ MakeUnblockable
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered

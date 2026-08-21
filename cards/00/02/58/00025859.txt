@@ -1,11 +1,12 @@
 Id:25859
-ColorIdentity:B
-OriginSet:Gb879a1706584aeee
-ManaCost:1 B
-Types:Creature Vampire
-PT:1/2
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigDamage | TriggerZones$ Battlefield
-SVar:TrigDamage:DB$ DealDamage | Defined$ Opponent | NumDmg$ 1 | RememberAmount$ True | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | LifeAmount$ X | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$RememberedNumber
+ColorIdentity:UR
+OriginSet:G06ccef4324c14725
+ManaCost:2 U R
+Types:Legendary Planeswalker Saheeli
+Loyalty:3
+A:AB$ Scry | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | ScryNum$ 1 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | UnlessCost$ tapXType<1/Artifact> | UnlessPayer$ You | UnlessSwitched$ True
+A:AB$ Token | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | PumpDuration$ EOT | TokenAmount$ 2 | PumpKeywords$ Haste | TokenScriptIds$ 3939935181 | TokenOwner$ You
+A:AB$ Effect | Cost$ SubCounter<4/LOYALTY> | Name$ 8000567068698435230 | StaticAbilities$ EmblemArtifactPump,ReduceCost | Planeswalker$ True | Ultimate$ True | Stackable$ False | Duration$ Permanent | AILogic$ Always
+SVar:EmblemArtifactPump:Mode$ Continuous | AddPower$ 1 | AddToughness$ 1 | Affected$ Artifact.YouCtrl | AffectedZone$ Battlefield
+SVar:ReduceCost:Mode$ ReduceCost | ValidCard$ Artifact | Type$ Spell | Activator$ You | Amount$ 1

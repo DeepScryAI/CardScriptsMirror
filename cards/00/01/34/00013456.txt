@@ -1,9 +1,16 @@
 Id:13456
-ColorIdentity:UR
+ColorIdentity:BRG
 OriginSet:G9b1658d4f3a50109
-ManaCost:2 U R
-Types:Creature Weird
-PT:1/5
-K:Flying
-T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigChangePT | OptionalDecider$ You
-SVar:TrigChangePT:DB$ Pump | KW$ HIDDEN CARDNAME's power and toughness are switched | Defined$ Self
+ManaCost:3 B G
+Types:Sorcery
+K:Fuse
+A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Creature | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ X
+SVar:X:ParentTargeted$CardPower
+AlternateMode:Split
+ALTERNATE
+ManaCost:R G
+Types:Sorcery
+A:SP$ Pump | ValidTgts$ Creature.YouCtrl | AILogic$ PowerDmg | SubAbility$ BloodDamage
+SVar:BloodDamage:DB$ DealDamage | ValidTgts$ Any | AILogic$ PowerDmg | NumDmg$ Y | DamageSource$ ParentTarget
+SVar:Y:ParentTargeted$CardPower

@@ -1,12 +1,8 @@
 Id:28416
-ColorIdentity:
-OriginSet:G7ee0e82a2424d636
-ManaCost:2
-Types:Enchantment Case
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange
-SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Land.Basic
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | IsPresent$ Card.Self+!IsSolved | CheckSVar$ X | SVarCompare$ GE5 | TriggerZones$ Battlefield | Execute$ TrigSolve
-SVar:TrigSolve:DB$ AlterAttribute | Defined$ Self | Attributes$ Solved
-T:Mode$ Phase | Phase$ BeginCombat | IsPresent$ Card.Self+IsSolved | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.YouCtrl | KW$ Flying & DoubleStrike & Vigilance
-SVar:X:Count$Valid Permanent.YouCtrl$Colors
+ColorIdentity:BG
+OriginSet:G4155bbd49d5da56f
+ManaCost:4 B G
+Types:Sorcery
+A:SP$ PumpAll | Duration$ Perpetual | ValidCards$ Creature.YouOwn | PumpZone$ Graveyard | NumAtt$ +X | NumDef$ +X | SubAbility$ DBReturn
+SVar:X:Count$ValidGraveyard Permanent.YouOwn
+SVar:DBReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | Hidden$ True | Mandatory$ True | ChangeType$ Creature.YouOwn

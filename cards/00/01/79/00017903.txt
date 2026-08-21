@@ -1,9 +1,13 @@
 Id:17903
-ColorIdentity:W
+ColorIdentity:WG
 OriginSet:G84be946b27d900a1
-ManaCost:3 W W
-Types:Creature Dinosaur
-PT:5/5
-T:Mode$ DamageDoneOnce | Execute$ TrigExile | ValidTarget$ Card.Self | TriggerZones$ Battlefield
-SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Creature.OppCtrl | Duration$ UntilHostLeavesPlay
-SVar:HasCombatEffect:TRUE
+ManaCost:2 G W
+Types:Legendary Planeswalker Huatli
+Loyalty:3
+A:AB$ PutCounter | Cost$ AddCounter<1/LOYALTY> | Defined$ Self | CounterType$ LOYALTY | CounterNum$ X | Planeswalker$ True
+A:AB$ Pump | Cost$ SubCounter<1/LOYALTY> | ValidTgts$ Creature | NumAtt$ +X | NumDef$ +X | Planeswalker$ True
+A:AB$ Effect | Cost$ SubCounter<8/LOYALTY> | Planeswalker$ True | Ultimate$ True | Name$ 18439157545864114823 | Triggers$ HuatliCreatureETB | Duration$ Permanent | AILogic$ Always
+SVar:HuatliCreatureETB:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.YouCtrl | OptionalDecider$ You | TriggerZones$ Command | Execute$ HuatliDraw
+SVar:HuatliDraw:DB$ Draw
+SVar:X:Count$Valid Creature.YouCtrl
+SVar:PlayMain1:TRUE

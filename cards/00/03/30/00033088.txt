@@ -1,11 +1,12 @@
 Id:33088
-ColorIdentity:G
-OriginSet:G7ab1fe96128a1641
-ManaCost:3 G
-Types:Creature Elf Warrior
+ColorIdentity:W
+OriginSet:G731e0066916b7465
+ManaCost:5 W W
+Types:Legendary Creature Bison Ally
 PT:6/6
-S:Mode$ RaiseCost | ValidCard$ Card.Self | Activator$ You | Type$ Spell | Cost$ BeholdExile<1/Elf> | EffectZone$ All
-T:Mode$ SpellCast | ValidCard$ Creature | ValidActivatingPlayer$ You | Execute$ TrigDraw | TriggerZones$ Battlefield
-SVar:TrigDraw:DB$ Draw
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigChangeZone
-SVar:TrigChangeZone:DB$ ChangeZone | Defined$ ExiledWith | Origin$ Exile | Destination$ Hand
+K:Flying
+K:Vigilance
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self,Ally.Other+YouCtrl | Execute$ TrigPumpAll
+SVar:TrigPumpAll:DB$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +1 | NumDef$ +1 | KW$ Flying & Vigilance
+SVar:PlayMain1:TRUE
+SVar:BuffedBy:Ally

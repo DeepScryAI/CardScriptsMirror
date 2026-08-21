@@ -1,8 +1,10 @@
 Id:16983
-ColorIdentity:R
+ColorIdentity:BG
 OriginSet:Gbcdce58dfbbf1bad
-ManaCost:1 R
-Types:Creature Human Cleric
+ManaCost:B G
+Types:Legendary Creature Human Cleric
 PT:2/2
-T:Mode$ AbilityCast | ValidActivatingPlayer$ Opponent | ValidCard$ Artifact.inZoneBattlefield,Creature.inZoneBattlefield,Land.inZoneBattlefield | ValidSA$ SpellAbility.!ManaAbility | TriggerZones$ Battlefield | Execute$ TrigDmg
-SVar:TrigDmg:DB$ DealDamage | NumDmg$ 2 | Defined$ TriggeredActivator
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature | CounterType$ M1M1 | CounterNum$ 1 | IsCurse$ True
+T:Mode$ CounterAddedOnce | ValidCard$ Creature | ValidSource$ You | CounterType$ M1M1 | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 1390898557 | TokenOwner$ You

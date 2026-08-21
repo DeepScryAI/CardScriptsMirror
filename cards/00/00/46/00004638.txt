@@ -1,8 +1,13 @@
 Id:4638
-ColorIdentity:W
+ColorIdentity:BRG
 OriginSet:Gfb91362c2efb868e
-ManaCost:4 W
-Types:Sorcery
-A:SP$ TwoPiles | Defined$ You | Separator$ You | Chooser$ Opponent | ChosenPile$ DBExile | UnchosenPile$ DBReturn | ValidCards$ Creature | Zone$ Graveyard | AILogic$ Worst
-SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Library | Destination$ Battlefield
-SVar:DBExile:DB$ ChangeZone | Defined$ Remembered | Origin$ Library | Destination$ Exile
+ManaCost:3 B R G
+Types:Legendary Creature Dragon
+PT:6/6
+K:Flying
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | OptionalDecider$ You | Execute$ TrigChooseColor | TriggerZones$ Battlefield
+SVar:TrigChooseColor:AB$ ChooseColor | Cost$ 2 R | Defined$ You | AILogic$ MostProminentInHumanDeck | SubAbility$ DBRevealHand
+SVar:DBRevealHand:DB$ RevealHand | Defined$ TriggeredTarget | RememberRevealed$ True | SubAbility$ DBDamage
+SVar:DBDamage:DB$ DealDamage | Defined$ TriggeredTarget | NumDmg$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Valid Card.ChosenColor

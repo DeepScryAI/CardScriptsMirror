@@ -1,7 +1,13 @@
 Id:9804
-ColorIdentity:WU
+ColorIdentity:B
 OriginSet:G0388e25893b1e049
-ManaCost:WU WU
-Types:Creature Merfolk Wizard
-PT:2/2
-A:AB$ Dig | Cost$ WU Q | DigNum$ 1 | DestinationZone$ Exile | DestinationZone2$ Library | LibraryPosition2$ 0 | Optional$ True
+ManaCost:3 B B
+Types:Creature Faerie Wizard
+PT:3/2
+K:Flying
+K:Persist
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | ValidTgts$ Creature.OppOwn | RememberChanged$ True | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True | SubAbility$ DBPump
+SVar:DBPump:DB$ Animate | Keywords$ Haste | Defined$ Remembered | Duration$ Permanent | AtEOT$ YourExile | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:PlayMain1:ALWAYS

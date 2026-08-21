@@ -1,16 +1,10 @@
 Id:23343
 ColorIdentity:G
-OriginSet:Gbe3783f336562357
-ManaCost:3 G
-Types:Creature Wolf
-PT:4/4
-K:Trample
-K:Haste
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Destination$ Exile | Execute$ TrigNoteNum | Static$ True
-SVar:TrigNoteNum:DB$ Pump | NoteNumber$ X
-SVar:X:Count$YourTurns
-K:etbCounter:P1P1:Z:CheckSVar$ WasForetold
-SVar:Z:SVar$X/Minus.Y
-SVar:Y:Count$NotedNumber
-SVar:WasForetold:Count$Foretold.1.0
-K:Foretell:4 G G
+OriginSet:G6e75ff4f143a3dc3
+ManaCost:2 G
+Types:Artifact Equipment
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 3 | AddToughness$ 3 | AddSVar$ AE
+T:Mode$ Attacks | ValidCard$ Creature.EquippedBy | Execute$ TrigPump
+SVar:TrigPump:AB$ Pump | Cost$ Sac<1/Forest> | Defined$ TriggeredAttackerLKICopy | KW$ Trample
+K:Equip:3
+SVar:AE:SVar:HasAttackEffect:TRUE

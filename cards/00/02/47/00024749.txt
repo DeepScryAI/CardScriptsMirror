@@ -1,9 +1,46 @@
 Id:24749
-ColorIdentity:
-OriginSet:G3c9db52fa0bcee92
-ManaCost:2
-Types:Artifact
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
-A:AB$ Mana | Cost$ T | Produced$ C
-A:AB$ Mana | Cost$ T | Produced$ Any | RestrictValid$ Spell.MultiColor
+ColorIdentity:R
+OriginSet:G58bfeff4fb121c8e
+ManaCost:3 R R
+Types:Legendary Creature Human Warlock
+PT:4/4
+K:Specialize:2
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigControl
+SVar:TrigControl:DB$ GainControl | ValidTgts$ Artifact.OppCtrl+cmcLE4,Creature.OppCtrl+cmcLE4 | LoseControl$ UntilTheEndOfYourNextTurn
+AlternateMode:Specialize
+SPECIALIZE:WHITE
+ManaCost:3 R R W
+Types:Legendary Creature Human Warlock
+PT:5/5
+T:Mode$ Specializes | ValidCard$ Card.Self | Execute$ TrigImmediateTrig
+SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ Sac<1/Creature.Other;Artifact/another creature or an artifact> | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouOwn | SubAbility$ DBHaste
+SVar:DBHaste:DB$ Animate | Keywords$ Haste | Defined$ Targeted | Duration$ Permanent | SubAbility$ EOTSac
+SVar:EOTSac:DB$ Animate | ConditionDefined$ Targeted | ConditionPresent$ Card.cmcGE4 | Defined$ Targeted | AtEOT$ Sacrifice
+SPECIALIZE:BLUE
+ManaCost:3 U R R
+Types:Legendary Creature Human Warlock
+PT:5/5
+T:Mode$ Specializes | ValidCard$ Card.Self | Execute$ TrigImmediateTrig
+SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ Sac<1/Creature.Other;Artifact/another creature or an artifact> | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Instant.YouOwn,Sorcery.YouOwn
+SPECIALIZE:BLACK
+ManaCost:3 B R R
+Types:Legendary Creature Human Warlock
+PT:5/5
+T:Mode$ Specializes | ValidCard$ Card.Self | Execute$ TrigImmediateTrig
+SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ Sac<1/Creature.Other;Artifact/another creature or an artifact> | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | ValidTgts$ Opponent | Defined$ You | NumCards$ 3 | UnlessCost$ PayLife<5> | UnlessPayer$ Targeted
+SPECIALIZE:RED
+ManaCost:3 R R R
+Types:Legendary Creature Human Warlock
+PT:5/5
+T:Mode$ Specializes | ValidCard$ Card.Self | Execute$ TrigUntap
+SVar:TrigUntap:AB$ Untap | Cost$ Sac<1/Creature.Other;Artifact/another creature or an artifact> | SubAbility$ DBAddCombat
+SVar:DBAddCombat:DB$ AddPhase | ExtraPhase$ Combat | FollowedBy$ Main2 | ConditionPhases$ Main1,Main2
+SPECIALIZE:GREEN
+ManaCost:3 R R G
+Types:Legendary Creature Human Warlock
+PT:5/5
+T:Mode$ Specializes | ValidCard$ Card.Self | Execute$ TrigEffect
+SVar:TrigEffect:AB$ Pump | Cost$ Sac<1/Creature.Other;Artifact/another creature or an artifact> | NumAtt$ +3 | NumDef$ +3 | KW$ Trample | Duration$ Perpetual

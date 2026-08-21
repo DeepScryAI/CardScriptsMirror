@@ -1,12 +1,11 @@
 Id:27916
-ColorIdentity:WB
-OriginSet:G06c78c29bfb28e3d
-ManaCost:1 W B
-Types:Legendary Creature Vampire Cleric
-PT:2/2
-T:Mode$ AttackersDeclared | Execute$ TrigAnimate | TriggerZones$ Battlefield | AttackingPlayer$ You
-SVar:TrigAnimate:DB$ Animate | ValidTgts$ Creature.Vampire+YouCtrl+attacking+nonDemon | Types$ Demon | Triggers$ TrigDie | Duration$ Permanent
-SVar:TrigDie:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1 | SubAbility$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 3875630332 | TokenOwner$ You | TokenTapped$ True
-SVar:PlayMain1:TRUE
+ColorIdentity:
+OriginSet:G30e8a5e111cffb44
+ManaCost:no cost
+Types:Plane Earth
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Command | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.YouCtrl | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBClone
+SVar:DBClone:DB$ Clone | CloneTarget$ ParentTarget | ValidTgts$ Creature.OppCtrl | TargetUnique$ True
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ TrigVote
+SVar:TrigVote:DB$ Vote | Defined$ Player | VoteSubAbility$ DBExile | VoteCard$ Creature.YouDontCtrl | AILogic$ Judgment
+SVar:DBExile:DB$ ChangeZone | Defined$ Remembered | Origin$ Battlefield | Destination$ Exile

@@ -1,8 +1,9 @@
 Id:19949
-ColorIdentity:G
+ColorIdentity:
 OriginSet:G23be9f486a22d38a
-ManaCost:1 G
-Types:Creature Elf Knight
-PT:3/1
-A:AB$ MustBlock | Cost$ Sac<1/Food> | ValidTgts$ Creature
-SVar:AIPreference:SacCost$Card.Food
+ManaCost:no cost
+Types:Land Plains
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ LandTapped | ReplacementResult$ Updated
+SVar:LandTapped:DB$ Tap | Defined$ Self | ETB$ True | ConditionPresent$ Plains.YouCtrl+Other | ConditionCompare$ LT3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self+untapped | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1

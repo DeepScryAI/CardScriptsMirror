@@ -1,8 +1,12 @@
 Id:11527
 ColorIdentity:
 OriginSet:Gc046eafa1d269dd1
-ManaCost:4
-Types:Artifact Creature Horse
-PT:2/2
-S:Mode$ Continuous | Affected$ Card.Self | AddPower$ 2 | AddToughness$ 2 | Condition$ Metalcraft
-SVar:BuffedBy:Artifact
+ManaCost:X
+Types:Artifact
+K:etbCounter:CHARGE:X
+SVar:X:Count$xPaid
+A:AB$ Animate | Cost$ 1 | Defined$ Self | Types$ Artifact,Creature,Construct | RemoveCreatureTypes$ True | staticAbilities$ Static
+SVar:Static:Mode$ Continuous | Affected$ Card.Self | EffectZone$ Battlefield | SetPower$ Y | SetToughness$ Y
+SVar:Y:Count$CardCounters.CHARGE
+SVar:NeedsToPlayVar:Z GE4
+SVar:Z:Count$Valid Land.YouCtrl+untapped

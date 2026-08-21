@@ -1,6 +1,9 @@
 Id:10925
-ColorIdentity:U
+ColorIdentity:B
 OriginSet:G4398040c23c94f0e
-ManaCost:U
-Types:Instant
-A:SP$ Counter | TargetType$ Spell | ValidTgts$ Card.nonCreature | UnlessCost$ 2
+ManaCost:B
+Types:Enchantment
+A:AB$ ChangeZone | Cost$ SubCounter<3/QUEST> Sac<1/CARDNAME> | Origin$ Graveyard | Destination$ Hand | TargetMin$ 0 | TargetMax$ 2 | ValidTgts$ Creature.YouCtrl
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | OptionalDecider$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ QUEST | CounterNum$ 1
+SVar:MaxQuestEffect:3

@@ -1,10 +1,12 @@
 Id:34417
 ColorIdentity:W
-OriginSet:G11c0621ce29fa608
-ManaCost:3 W W
-Types:Legendary Creature Human Kree Hero
-PT:5/4
-K:Flash
-K:Flying
-K:Lifelink
-A:AB$ PutCounter | Cost$ 5 W W | Defined$ Self | CounterTypes$ P1P1,Indestructible | PowerUp$ True
+OriginSet:Gcb93bbfc68a40806
+ManaCost:2 W
+Types:Artifact Equipment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigAttach
+SVar:TrigAttach:DB$ Attach | ValidTgts$ Creature.YouCtrl
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1 | AddToughness$ 2 | AddTrigger$ AttackTrigger | AddSVar$ AE
+SVar:AttackTrigger:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigGainLife
+SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2
+K:Equip:2
+SVar:AE:SVar:HasAttackEffect:TRUE

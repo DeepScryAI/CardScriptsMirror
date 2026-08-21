@@ -1,11 +1,14 @@
 Id:31643
-ColorIdentity:W
-OriginSet:G530ea9d733a13e9d
-ManaCost:2 W
-Types:Enchantment Creature Saga Unicorn
-PT:3/3
-K:Chapter:3:DBAerospark,DBPutCounter,DBPutCounter
-SVar:DBAerospark:DB$ ChangeZone | ValidTgts$ Creature.OppCtrl | Origin$ Battlefield | Destination$ Exile | Duration$ UntilHostLeavesPlay
-SVar:DBPutCounter:DB$ PutCounter | TargetMin$ 0 | TargetMax$ 2 | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | LifeAmount$ 2
-K:FirstStrike
+ColorIdentity:UR
+OriginSet:Gf2b808f4f642ac62
+ManaCost:3 R
+Types:Creature Dragon
+PT:2/4
+K:Flying
+T:Mode$ SpellCast | ValidCard$ Card.nonCreature,Dragon | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +2
+AlternateMode:Omen
+ALTERNATE
+ManaCost:1 U
+Types:Instant Omen
+A:SP$ Counter | TargetType$ Spell | ValidTgts$ Card.cmcLE2

@@ -1,16 +1,9 @@
 Id:15914
-ColorIdentity:R
+ColorIdentity:G
 OriginSet:G92026fbb3573fda5
-ManaCost:2 R
-Types:Creature Devil
-PT:3/2
-K:Menace
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPeek
-SVar:TrigPeek:DB$ PeekAndReveal | PeekAmount$ 1 | RevealValid$ Card | ImprintRevealed$ True | SubAbility$ DBProd
-SVar:DBProd:DB$ GenericChoice | Defined$ Opponent | TempRemember$ Chooser | Choices$ DBGraveAndDamage,DoNothing | ConditionDefined$ Imprinted | ConditionPresent$ Card | ConditionCompare$ EQ1 | AILogic$ SinProdder | SubAbility$ DBPutIntoHand
-SVar:DoNothing:DB$ Cleanup
-SVar:DBGraveAndDamage:DB$ ChangeZone | Origin$ Library | Destination$ Graveyard | Defined$ Imprinted | SubAbility$ DBDamage
-SVar:DBDamage:DB$ DealDamage | Defined$ Remembered | NumDmg$ X | SubAbility$ DBCleanup
-SVar:X:Imprinted$CardManaCost
-SVar:DBPutIntoHand:DB$ Dig | DigNum$ 1 | ChangeNum$ All | ChangeValid$ Card | DestinationZone$ Hand | SubAbility$ DBCleanup | ConditionDefined$ Imprinted | ConditionPresent$ Card | ConditionCompare$ EQ1
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True
+ManaCost:2 G
+Types:Creature Wolf Warrior
+PT:2/2
+K:Trample
+T:Mode$ BecomesTarget | ValidTarget$ Wolf.YouCtrl+inZoneBattlefield,Werewolf.YouCtrl+inZoneBattlefield | ValidSource$ Instant,Sorcery | TriggerZones$ Battlefield | Execute$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 4257275070 | TokenOwner$ You

@@ -1,12 +1,11 @@
 Id:29311
-ColorIdentity:BRG
-OriginSet:G2ce881cc55bb9f18
-ManaCost:1 B R G
-Types:Legendary Creature Human Warrior
-PT:0/5
-S:Mode$ Continuous | Affected$ Card.Self | AddPower$ X
-SVar:X:Count$ValidGraveyard Creature$GreatestCardPower
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigMill | TriggerZones$ Battlefield
-SVar:TrigMill:DB$ Mill | Defined$ Player | NumCards$ 1
-S:Mode$ Continuous | Affected$ Land.ThisTurnEnteredFrom_Library | Condition$ PlayerTurn | MayPlay$ True | MayPlayLimit$ 1 | MayPlayText$ Land | EffectZone$ Battlefield | AffectedZone$ Graveyard
-S:Mode$ Continuous | Affected$ Card.nonLand+ThisTurnEnteredFrom_Library | Condition$ PlayerTurn | MayPlay$ True | MayPlayLimit$ 1 | EffectZone$ Battlefield | AffectedZone$ Graveyard | Secondary$ True
+ColorIdentity:G
+OriginSet:G27146c70b74a1e72
+ManaCost:2 G
+Types:Creature Human Scout
+PT:2/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill
+SVar:TrigMill:DB$ Mill | NumCards$ 3 | Defined$ You | Imprint$ True | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Graveyard,Exile | Destination$ Hand | ChangeType$ Land.YouOwn+IsImprinted | RememberChanged$ True | Hidden$ True | Mandatory$ True | SubAbility$ DBTreasure
+SVar:DBTreasure:DB$ Token | TokenScriptIds$ 3851718391 | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ0 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True

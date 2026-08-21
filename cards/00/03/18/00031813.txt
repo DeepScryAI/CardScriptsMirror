@@ -1,11 +1,12 @@
 Id:31813
-ColorIdentity:B
-OriginSet:G7ab4f62d323b0ca7
-ManaCost:4 B B
-Types:Creature Plant Horror
-PT:4/4
-K:TypeCycling:Swamp:2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDiscard
-SVar:TrigDiscard:DB$ Discard | Defined$ Opponent | Mode$ TgtChoose | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 2 | Defined$ Opponent | SubAbility$ DBExile
-SVar:DBExile:DB$ Dig | Defined$ Player.Opponent | DigNum$ 3 | ChangeNum$ All | DestinationZone$ Exile
+ColorIdentity:W
+OriginSet:G530ea9d733a13e9d
+ManaCost:4 W
+Types:Legendary Creature Human Warrior
+PT:3/5
+K:Flash
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPump1
+SVar:TrigPump1:DB$ Pump | ValidTgts$ Permanent.Legendary+Other+YouCtrl | KW$ Indestructible | Duration$ AsLongAsControl
+T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump2
+SVar:TrigPump2:DB$ Pump | KW$ Indestructible | Defined$ Self
+SVar:PlayMain1:TRUE

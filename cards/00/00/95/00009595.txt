@@ -1,10 +1,12 @@
 Id:9595
-ColorIdentity:R
+ColorIdentity:U
 OriginSet:G49bcc8b9b86b628d
-ManaCost:5 R
+ManaCost:2 U U
 Types:Creature Elemental
-PT:6/1
-K:Evoke:1 R R
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigDamageCreature
-SVar:TrigDamageCreature:DB$ DealDamage | ValidTgts$ Creature | NumDmg$ 6
-SVar:NeedsToPlayEvoked:Creature.OppCtrl+toughnessLE6
+PT:3/3
+K:Evoke:3 U
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Battlefield | Destination$ Any | Execute$ TrigChooseOpp
+SVar:TrigChooseOpp:DB$ ChoosePlayer | Defined$ You | Choices$ Player.Opponent | AILogic$ MostCardsInHand | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ X | ConditionPresent$ Card.ChosenCtrl | ConditionCompare$ GTY | ConditionZone$ Hand
+SVar:Y:Count$ValidHand Card.YouOwn
+SVar:X:Count$ValidHand Card.ChosenCtrl/Minus.Y

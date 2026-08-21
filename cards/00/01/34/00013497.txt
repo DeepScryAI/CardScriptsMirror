@@ -1,8 +1,10 @@
 Id:13497
-ColorIdentity:B
+ColorIdentity:UG
 OriginSet:G9b1658d4f3a50109
-ManaCost:4 B B
-Types:Creature Zombie Cleric
-PT:2/7
-K:Extort
-S:Mode$ Continuous | Affected$ Creature.Other+YouCtrl | AddKeyword$ Extort
+ManaCost:G G U U
+Types:Instant
+A:SP$ Counter | TargetType$ Spell | RememberCounteredCMC$ True | ValidTgts$ Card | SubAbility$ DBDelTrig
+SVar:DBDelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ Main1 | ValidPlayer$ You | Execute$ AddMana | RememberNumber$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:AddMana:DB$ Mana | Produced$ Combo Any | Amount$ X
+SVar:X:Count$TriggerRememberAmount

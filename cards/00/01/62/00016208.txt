@@ -1,12 +1,10 @@
 Id:16208
-ColorIdentity:U
+ColorIdentity:WG
 OriginSet:G70d19654882197c9
-ManaCost:2 U U
-Types:Creature Shapeshifter
-PT:0/3
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigExile | TriggerZones$ Battlefield | OptionalDecider$ You
-SVar:TrigExile:DB$ ChangeZone | ValidTgts$ Creature.!token+Other | Mandatory$ True | Origin$ Battlefield | Destination$ Exile | RememberLKI$ True | Imprint$ True | SubAbility$ DelTrig
-SVar:DelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ TrigBounce | RememberObjects$ ImprintedLKI | SubAbility$ DBClone
-SVar:TrigBounce:DB$ ChangeZone | Origin$ Exile | Destination$ Battlefield | Defined$ DelayTriggerRememberedLKI
-SVar:DBClone:DB$ Clone | Defined$ RememberedLKI | CloneTarget$ Self | Duration$ UntilEndOfTurn | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True
+ManaCost:2 G W
+Types:Creature Human Knight
+PT:3/3
+K:Flash
+K:Lifelink
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ PumpAll | ValidCards$ Creature.Human+StrictlyOther+YouCtrl | NumAtt$ +1 | NumDef$ +1 | KW$ Lifelink

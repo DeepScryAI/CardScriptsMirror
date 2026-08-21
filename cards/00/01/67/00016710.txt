@@ -1,11 +1,12 @@
 Id:16710
-ColorIdentity:W
+ColorIdentity:U
 OriginSet:Gd31f94cf3a5f78e4
-ManaCost:1 W
-Types:Creature Dwarf Scout
-PT:3/1
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigEnergy
+ManaCost:1 U
+Types:Creature Vedalken Artificer
+PT:1/2
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigEnergy
 SVar:TrigEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ 2
-A:AB$ ChangeZone | Cost$ PayEnergy<2> | Origin$ Battlefield | Destination$ Exile | SubAbility$ DBReturn | RememberChanged$ True
-SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:AB$ Token | Cost$ PayEnergy<2> | TokenScriptIds$ 825621291 | TokenOwner$ You
+SVar:HasAttackEffect:TRUE

@@ -1,7 +1,13 @@
 Id:13384
-ColorIdentity:W
+ColorIdentity:G
 OriginSet:Gfdc478e04211a499
-ManaCost:1 W
-Types:Creature Human Cleric
-PT:2/2
-K:Extort
+ManaCost:5 G G
+Types:Creature Avatar
+PT:6/8
+K:Reach
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ DestroyOneEach
+SVar:DestroyOneEach:DB$ Destroy | ValidTgts$ Permanent.nonCreature+OppCtrl | TargetMin$ 0 | TargetMax$ OneEach | TargetsForEachPlayer$ True | RememberDestroyed$ True | SubAbility$ GetForests
+SVar:GetForests:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Forest | ChangeNum$ X | Tapped$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Amount
+SVar:OneEach:PlayerCountOpponents$Amount

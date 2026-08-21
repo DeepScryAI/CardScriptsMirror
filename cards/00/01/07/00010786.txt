@@ -1,7 +1,10 @@
 Id:10786
 ColorIdentity:B
 OriginSet:G4398040c23c94f0e
-ManaCost:4 B
-Types:Sorcery
-A:SP$ Destroy | ValidTgts$ Land | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | Defined$ TargetedController | NumCards$ 1 | Mode$ TgtChoose
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ B
+A:AB$ Mana | Cost$ 2 T | Produced$ B | Amount$ X
+SVar:X:Count$ValidGraveyard Creature.Black+YouCtrl

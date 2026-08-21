@@ -1,13 +1,20 @@
 Id:23310
-ColorIdentity:R
-OriginSet:Gbe3783f336562357
-ManaCost:1 R
-Types:Creature Human Warrior
+ColorIdentity:WB
+OriginSet:G6e75ff4f143a3dc3
+ManaCost:1 W
+Types:Creature Human Peasant
 PT:2/2
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraft
-SVar:TrigDraft:DB$ Draft | SpellbookCatalogIds$ 22439,21121,19614,22480,22614,21720,21579,18128,19673,20361,21200,14475,21211,18194,23158 | RememberDrafted$ True | SubAbility$ DBExile
-SVar:DBExile:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | Defined$ Remembered | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ Play | ExileOnMoved$ Exile | SubAbility$ DBCleanup
-SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-S:Mode$ ReduceCost | ValidCard$ Card | ValidSpell$ Activated.Equip | Activator$ You | Amount$ 1 | Condition$ PlayerTurn
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self,Creature.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigGainLife1
+SVar:TrigGainLife1:DB$ GainLife | Defined$ You | LifeAmount$ 1
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ YouLifeGained | SVarCompare$ GE3 | Execute$ TrigTransform
+SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform
+SVar:YouLifeGained:Count$LifeYouGainedThisTurn
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:black
+Types:Creature Human Rogue
+PT:3/5
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self,Creature.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigGainLife2
+SVar:TrigGainLife2:DB$ GainLife | Defined$ You | LifeAmount$ 1
+A:AB$ Pump | Cost$ 1 B | Defined$ Self | KW$ Deathtouch

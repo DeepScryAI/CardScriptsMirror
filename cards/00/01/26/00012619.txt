@@ -1,9 +1,9 @@
 Id:12619
-ColorIdentity:B
+ColorIdentity:G
 OriginSet:Gfd7b72e0eb9d2cf5
-ManaCost:3 B B
+ManaCost:2 G
 Types:Enchantment
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ DESPAIR | CounterNum$ 1 | SubAbility$ DBExile
-SVar:DBExile:DB$ ChangeZone | DefinedPlayer$ Player | ChangeNum$ X | Hidden$ True | Origin$ Battlefield,Hand | Destination$ Exile | Mandatory$ True
-SVar:X:Count$CardCounters.DESPAIR
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ DBReveal
+SVar:DBReveal:DB$ PeekAndReveal | PeekAmount$ 1 | RevealValid$ Card | RememberRevealed$ True | SubAbility$ DBMayCast
+SVar:DBMayCast:DB$ Play | Defined$ Remembered | ValidSA$ Spell | ForgetRemembered$ True | WithoutManaCost$ True | Optional$ True | ConditionDefined$ Remembered | ConditionPresent$ Creature.sharesCreatureTypeWith Valid Creature.YouCtrl | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Defined$ Remembered | Origin$ Library | Destination$ Library | LibraryPosition$ -1 | Shuffle$ False | ForgetChanged$ True

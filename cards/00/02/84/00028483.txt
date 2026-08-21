@@ -1,7 +1,12 @@
 Id:28483
-ColorIdentity:G
-OriginSet:G7ee0e82a2424d636
-ManaCost:G
-Types:Instant
-A:SP$ Pump | ValidTgts$ Creature | NumAtt$ +X | NumDef$ +X | KW$ Reach
-SVar:X:Count$Valid Creature.YouCtrl
+ColorIdentity:UB
+OriginSet:G94329e6b3f93276f
+ManaCost:3 U B
+Types:Legendary Creature Octopus Rogue
+PT:1/8
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigClash
+SVar:TrigClash:DB$ Clash | Defined$ TriggeredDefendingPlayer
+T:Mode$ Clashed | ValidPlayer$ You | Won$ True | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | SubAbility$ DBCast
+SVar:DBCast:DB$ Play | Valid$ Card.nonLand+YouOwn | ValidSA$ Spell.cmcLE8 | ValidZone$ Hand | WithoutManaCost$ True | Optional$ True
+SVar:HasAttackEffect:TRUE

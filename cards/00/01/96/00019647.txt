@@ -1,12 +1,11 @@
 Id:19647
-ColorIdentity:B
+ColorIdentity:RG
 OriginSet:G7c61dc677f00d087
-ManaCost:2 B
-Types:Creature Bird
+ManaCost:R G
+Types:Creature Elemental
 PT:2/2
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill
-SVar:TrigMill:DB$ Mill | NumCards$ 4 | Defined$ You | RememberMilled$ True | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ X | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Remembered$Valid Card.Creature
+S:Mode$ Continuous | Affected$ Elemental.YouCtrl+Other | AddPower$ 1
+SVar:PlayMain1:TRUE
+A:AB$ Pump | Cost$ 2 R G | Defined$ Self | NumAtt$ +X | NumDef$ +X
+SVar:X:Count$Valid Elemental.YouCtrl
+SVar:BuffedBy:Card.Elemental

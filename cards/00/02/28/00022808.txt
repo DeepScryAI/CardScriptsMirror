@@ -1,10 +1,11 @@
 Id:22808
 ColorIdentity:G
-OriginSet:Gf78628ad511eefec
-ManaCost:2 G
-Types:Creature Human Warlock
-PT:0/4
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 638238902 | TokenOwner$ You
-A:AB$ Pump | Cost$ 5 G | ValidTgts$ Creature.YouCtrl | NumAtt$ +3 | NumDef$ +3 | KW$ Trample | CheckSVar$ X | SVarCompare$ GE3
-SVar:X:Count$Valid Creature.YouCtrl$DifferentCardPower
+OriginSet:G66f2eb694ffd614a
+ManaCost:X G G
+Types:Legendary Creature Treefolk
+PT:0/0
+K:etbCounter:P1P1:Y:no Condition
+A:AB$ Effect | Cost$ SubCounter<1/P1P1/NICKNAME> | ValidTgts$ Creature.Other+counters_GE1_P1P1 | RememberObjects$ Targeted | ReplacementEffects$ RPrevent
+SVar:RPrevent:Event$ DamageDone | Prevent$ True | ActiveZones$ Command | ValidTarget$ Creature.IsRemembered
+SVar:X:Count$xPaid
+SVar:Y:Count$CastTotalManaSpent

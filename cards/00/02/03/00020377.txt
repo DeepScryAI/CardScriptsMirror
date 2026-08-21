@@ -1,6 +1,10 @@
 Id:20377
-ColorIdentity:U
+ColorIdentity:R
 OriginSet:Gfa87e7bbc5a709eb
-ManaCost:2 U U
-Types:Enchantment Creature Merfolk Soldier
-PT:2/5
+ManaCost:3 R
+Types:Enchantment Aura
+K:Enchant:Creature.YouCtrl:creature you control
+SVar:AttachAILogic:Pump
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Creature.OppCtrl,Planeswalker.OppCtrl | NumDmg$ 4
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 1 | AddToughness$ 1

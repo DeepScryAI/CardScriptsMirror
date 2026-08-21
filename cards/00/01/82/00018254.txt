@@ -1,6 +1,12 @@
 Id:18254
-ColorIdentity:B
+ColorIdentity:R
 OriginSet:G5033d54b23b37629
-ManaCost:4 B
-Types:Legendary Creature Frog Spirit
-PT:9/3
+ManaCost:2 R
+Types:Enchantment Saga
+K:Chapter:3:TrigDamageAll,TrigMana,TrigSac
+SVar:TrigDamageAll:DB$ DamageAll | NumDmg$ 1 | ValidCards$ Creature.withoutFlying
+SVar:TrigMana:DB$ Mana | Produced$ R | Amount$ 2 | AILogic$ ManaRitual | AINoRecursiveCheck$ True
+SVar:TrigSac:DB$ Sacrifice | SacValid$ Mountain | RememberSacrificed$ True | SubAbility$ DBDamageAll
+SVar:DBDamageAll:DB$ DamageAll | NumDmg$ 3 | ValidCards$ Creature | ConditionCheckSVar$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Amount

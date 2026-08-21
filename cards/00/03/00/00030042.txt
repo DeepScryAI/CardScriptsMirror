@@ -1,13 +1,12 @@
 Id:30042
-ColorIdentity:W
-OriginSet:G30e4cc621dfc3a2e
-ManaCost:4 W W
-Types:Instant
-K:Gift
-SVar:GiftAbility:DB$ AddTurn | Defined$ Promised | NumTurns$ 1
-A:SP$ Token | TokenAmount$ 4 | TokenScriptIds$ 3625246308 | TokenOwner$ You | SubAbility$ DBPhases
-SVar:DBPhases:DB$ Phases | Defined$ Valid Permanent.YouCtrl | ConditionZone$ Stack | ConditionPresent$ Card.Self+PromisedGift | ConditionCompare$ EQ1 | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | ConditionZone$ Stack | ConditionPresent$ Card.Self+PromisedGift | ConditionCompare$ EQ1 | Duration$ UntilYourNextTurn | StaticAbilities$ STCantChange | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | Defined$ You | Duration$ UntilYourNextTurn | KW$ Protection:Everything | ConditionZone$ Stack | ConditionPresent$ Card.Self+PromisedGift | ConditionCompare$ EQ1 | SubAbility$ DBChange
-SVar:STCantChange:Mode$ CantChangeLife | ValidPlayer$ You
-SVar:DBChange:DB$ ChangeZone | Origin$ Stack | Destination$ Exile
+ColorIdentity:B
+OriginSet:Gf09b85bbcc27770c
+ManaCost:2 B
+Types:Creature Bat Warrior
+PT:1/3
+K:Flying
+K:Deathtouch
+T:Mode$ LifeGained | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump | ActivationLimit$ 1 | PlayerTurn$ True
+T:Mode$ LifeLost | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump | ActivationLimit$ 1 | PlayerTurn$ True | Secondary$ True
+SVar:TrigPump:DB$ PumpAll | ValidCards$ Bat.YouCtrl | KW$ Deathtouch | NumAtt$ +1
+SVar:PlayMain1:TRUE

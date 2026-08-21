@@ -1,9 +1,12 @@
 Id:29355
-ColorIdentity:U
-OriginSet:G2ce881cc55bb9f18
-ManaCost:1 U
-Types:Creature Moonfolk Wizard
-PT:1/3
+ColorIdentity:W
+OriginSet:G27146c70b74a1e72
+ManaCost:4 W
+Types:Creature Pegasus
+PT:4/3
 K:Flying
-A:AB$ Draw | Cost$ T Return<1/Land> | NumCards$ 1 | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | ConditionDefined$ Returned | ConditionPresent$ Land.hasANonBasicLandType | ConditionCompare$ EQ0 | Defined$ You | NumCards$ 1 | Mode$ TgtChoose
+K:Vigilance
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Destination$ Battlefield | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | ValidTgts$ Permanent.YouCtrl+cmcLE3 | ConditionCheckSVar$ X | ConditionSVarCompare$ LT1 | Origin$ Graveyard | Destination$ Hand | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Targeted | ConditionCheckSVar$ X | Origin$ Graveyard | Destination$ Battlefield
+SVar:X:Count$Valid Permanent.Mount+YouCtrl

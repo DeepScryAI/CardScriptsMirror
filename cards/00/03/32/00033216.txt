@@ -1,10 +1,11 @@
 Id:33216
 ColorIdentity:G
-OriginSet:G7ab1fe96128a1641
-ManaCost:3 G
-Types:Enchantment Aura
-K:Enchant:Creature.YouCtrl:creature you control
-SVar:AttachAILogic:Pump
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigFight
-SVar:TrigFight:DB$ Fight | Defined$ Enchanted | ValidTgts$ Creature.OppCtrl | TargetMin$ 0 | TargetMax$ 1
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 2 | AddToughness$ 2
+OriginSet:G530ea9d733a13e9d
+ManaCost:1 G
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self,Creature.Legendary+YouCtrl | Execute$ TrigFood
+SVar:TrigFood:DB$ Token | TokenScriptIds$ 134855612 | TokenOwner$ You
+T:Mode$ AttackersDeclared | Execute$ TrigImmediateTrig | TriggerZones$ Battlefield | AttackingPlayer$ You
+SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ Sac<X/Food> | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.attacking | TargetMin$ 0 | TargetMax$ X | NumAtt$ +3 | NumDef$ +3 | KW$ Trample & Indestructible
+SVar:X:Count$xPaid

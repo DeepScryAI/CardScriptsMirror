@@ -1,13 +1,9 @@
 Id:30908
-ColorIdentity:B
-OriginSet:G4524bbf7a3db9dc0
-ManaCost:6 B
-Types:Artifact Vehicle
+ColorIdentity:G
+OriginSet:Gc5a2f0ff902c0621
+ManaCost:2 G
+Types:Creature Spider Spirit
 PT:4/3
-K:Affinity:Artifact
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDestroy
-SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ OneEach | TargetsForEachPlayer$ True | RememberLKI$ True | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | ConditionDefined$ RememberedLKI | ConditionPresent$ Creature.YouCtrl | ConditionCompare$ GE1 | CounterNum$ 2 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-K:Crew:2
-SVar:OneEach:PlayerCountPlayers$Amount
+K:Reach
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.!token+YouCtrl+Other | Execute$ TrigDigUntil | OptionalDecider$ You
+SVar:TrigDigUntil:DB$ DigUntil | Valid$ Creature | FoundDestination$ Hand | RevealedDestination$ Library | RevealedLibraryPosition$ -1 | RevealRandomOrder$ True

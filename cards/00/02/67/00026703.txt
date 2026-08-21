@@ -1,0 +1,18 @@
+Id:26703
+ColorIdentity:G
+OriginSet:G06757f68e16377c2
+ManaCost:4 G
+Types:Battle Siege
+Defense:6
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCounter
+SVar:TrigCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1 | AILogic$ Fight | SubAbility$ DBFight
+SVar:DBFight:DB$ Fight | Defined$ ParentTarget | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Creature.YouDontCtrl | AILogic$ Always
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:green
+Types:Creature Ooze
+PT:4/4
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.Other | NumAtt$ +2 | NumDef$ +2 | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Targeted | RemoveAllAbilities$ True

@@ -1,10 +1,8 @@
 Id:13953
 ColorIdentity:B
 OriginSet:G51ef4566c3e086bc
-ManaCost:1 B
-Types:Enchantment Creature Insect
-PT:1/1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigReveal
-SVar:TrigReveal:DB$ RevealHand | Defined$ Targeted | ValidTgts$ Opponent | SubAbility$ ExileCard
-SVar:ExileCard:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | DefinedPlayer$ Targeted | Chooser$ You | ChangeType$ Card.nonLand | ChangeNum$ 1 | IsCurse$ True | Duration$ UntilHostLeavesPlay
-SVar:PlayMain1:TRUE
+ManaCost:B B
+Types:Instant
+A:SP$ Pump | ValidTgts$ Creature | IsCurse$ True | RememberTargets$ True | NumAtt$ -3 | NumDef$ -3 | SubAbility$ DBPumpAll
+SVar:DBPumpAll:DB$ PumpAll | ValidCards$ Remembered.sameName+Other+Creature | NumAtt$ -3 | NumDef$ -3 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

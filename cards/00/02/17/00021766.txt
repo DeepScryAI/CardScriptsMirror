@@ -1,12 +1,10 @@
 Id:21766
-ColorIdentity:U
-OriginSet:Gabb23d0d25cdc46d
-ManaCost:4 U
-Types:Legendary Creature Human Wizard
-PT:3/3
-T:Mode$ SpellCastOrCopy | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 1802199211 | RememberTokens$ True | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | Defined$ Remembered | CounterType$ P1P1 | CounterNum$ TriggeredSpellAbility$CardManaCostLKI | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-A:AB$ Effect | Cost$ 3 U | ValidTgts$ Creature.token | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable | AILogic$ MakeUnblockable
-SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+ColorIdentity:BG
+OriginSet:G18bf722b221724f8
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ G
+A:AB$ Pump | Cost$ 2 B B G T Sac<1/CARDNAME> | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Creature.YouDontCtrl | NumAtt$ -2 | NumDef$ -2 | IsCurse$ True | SorcerySpeed$ True | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 1441965772 | TokenOwner$ You

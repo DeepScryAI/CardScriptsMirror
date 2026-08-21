@@ -1,6 +1,10 @@
 Id:20365
-ColorIdentity:G
+ColorIdentity:WR
 OriginSet:Gfa87e7bbc5a709eb
-ManaCost:G
-Types:Instant
-A:SP$ ChangeZone | ValidTgts$ Enchantment | IsCurse$ True | Origin$ Battlefield | Destination$ Library | LibraryPosition$ -1
+ManaCost:1 R W
+Types:Enchantment Creature Human Soldier
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 1647422943 | TokenOwner$ You
+T:Mode$ SpellCast | ValidActivatingPlayer$ You | TargetsValid$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +1

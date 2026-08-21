@@ -1,10 +1,12 @@
 Id:5786
-ColorIdentity:B
-OriginSet:G9093c541fa53ee21
-ManaCost:4 B B
-Types:Creature Specter
-PT:4/4
-K:Flying
-K:Morph:3 B B
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigDiscard | CombatDamage$ True
-SVar:TrigDiscard:DB$ Discard | Defined$ TriggeredTarget | NumCards$ 2 | Mode$ TgtChoose
+ColorIdentity:U
+OriginSet:G7327b0fa163b48eb
+ManaCost:2 U
+Types:Creature Nightmare Turtle Beast
+PT:2/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChooseExile
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigReturn
+SVar:TrigChooseExile:DB$ ChooseCard | Choices$ Land.YouCtrl | Mandatory$ True | Amount$ 1 | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | Defined$ ChosenCard | RememberChanged$ True
+SVar:TrigReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

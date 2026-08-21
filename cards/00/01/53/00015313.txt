@@ -1,10 +1,13 @@
 Id:15313
-ColorIdentity:U
+ColorIdentity:G
 OriginSet:G70acd28f254172ff
-ManaCost:3 U
-Types:Creature Illusion Wall
-PT:0/4
-K:Flash
-K:Defender
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPumpCurse
-SVar:TrigPumpCurse:DB$ Pump | ValidTgts$ Creature.attacking | IsCurse$ True | NumAtt$ -4
+ManaCost:5 G G
+Types:Sorcery
+A:SP$ Scry | ScryNum$ 5 | SubAbility$ DBReveal
+SVar:DBReveal:DB$ Dig | DigNum$ 1 | Reveal$ True | RememberRevealed$ True | DestinationZone$ Library | LibraryPosition$ 0 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ X | ConditionCheckSVar$ Z | ConditionSVarCompare$ EQ1 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ Y | ConditionCheckSVar$ Z | ConditionSVarCompare$ EQ1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$CardPower
+SVar:Y:Remembered$CardToughness
+SVar:Z:Remembered$Valid Creature

@@ -1,10 +1,12 @@
 Id:21650
 ColorIdentity:W
 OriginSet:G18bf722b221724f8
-ManaCost:1 W
-Types:Enchantment
-K:ETBReplacement:Other:ChooseCT
-SVar:ChooseCT:DB$ ChooseType | Defined$ You | Type$ Creature | AILogic$ MostProminentInComputerDeck
-S:Mode$ Continuous | Affected$ Creature.ChosenType+YouCtrl | AddPower$ 1 | AddToughness$ 1
-SVar:PlayMain1:TRUE
-SVar:AIPreference:SacCost$Creature.ChosenType+Other
+ManaCost:2 W W
+Types:Creature Angel Cleric
+PT:3/4
+K:Flash
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | Hidden$ True | ChangeType$ Creature.nonAngel+YouCtrl | ChangeNum$ MaxTgts | Duration$ UntilHostLeavesPlay
+SVar:MaxTgts:Count$Valid Creature.nonAngel+YouCtrl
+K:Foretell:2 W

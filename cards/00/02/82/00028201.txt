@@ -1,10 +1,9 @@
 Id:28201
 ColorIdentity:W
 OriginSet:Gfd50577710a6ab09
-ManaCost:1 W
-Types:Creature Human Soldier
-PT:2/2
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigImmediateTrig | TriggerZones$ Battlefield
-SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ 2 W | Execute$ TrigTap
-SVar:TrigTap:DB$ Tap | ValidTgts$ Creature
-SVar:HasAttackEffect:TRUE
+ManaCost:2 W
+Types:Creature Vampire Soldier
+PT:3/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSac
+SVar:TrigSac:AB$ ImmediateTrigger | Cost$ Sac<1/Creature.Other;Artifact.Other/another creature or artifact> | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | CounterNum$ 1 | CounterType$ P1P1 | TargetMin$ 0 | TargetMax$ 2 | ValidTgts$ Creature

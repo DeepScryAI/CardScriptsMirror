@@ -1,12 +1,9 @@
 Id:11210
-ColorIdentity:G
+ColorIdentity:
 OriginSet:G9fb0a9a59b6a9580
-ManaCost:4 G
-Types:Creature Elemental
-PT:2/8
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigJaddiLifestriderTap
-SVar:TrigJaddiLifestriderTap:DB$ Tap | CardChoices$ Creature.YouCtrl+untapped | AnyNumber$ True | ChoiceAmount$ Count$Valid Creature.YouCtrl+untapped | RememberTapped$ True | SubAbility$ DBJaddiLifestriderGainLife
-SVar:DBJaddiLifestriderGainLife:DB$ GainLife | LifeAmount$ JaddiLifestriderZ | SubAbility$ DBJaddiLifestriderCleanup
-SVar:DBJaddiLifestriderCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:JaddiLifestriderY:Remembered$Amount
-SVar:JaddiLifestriderZ:SVar$JaddiLifestriderY/Times.2
+ManaCost:12
+Types:Creature Eldrazi
+PT:11/11
+K:Annihilator:2
+T:Mode$ Sacrificed | ValidCard$ Permanent.!token+OppCtrl | Execute$ TrigReturn | TriggerZones$ Battlefield
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True | Defined$ TriggeredCard

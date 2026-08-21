@@ -1,12 +1,15 @@
 Id:27743
-ColorIdentity:WUR
-OriginSet:G30e8a5e111cffb44
-ManaCost:1 U R W
-Types:Legendary Creature Human Scientist
-PT:3/3
-T:Mode$ CounterAddedOnce | ValidCard$ Permanent.YouCtrl+inRealZoneBattlefield | TriggerZones$ Battlefield | CounterType$ TIME | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 1214250791
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPumpAll
-SVar:TrigPumpAll:AB$ PumpAll | Cost$ 8 | ValidCards$ Creature.attacking | NumAtt$ +X | NumDef$ +X
-SVar:X:Count$Valid Permanent.YouCtrl$CardCounters.TIME
-SVar:HasAttackEffect:TRUE
+ColorIdentity:G
+OriginSet:G997e3b19a1e94e85
+ManaCost:3 G
+Types:Creature Wolf
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 3202701456 | TokenOwner$ You | AttachedTo$ Targeted | ValidTgts$ Creature.YouCtrl+Other
+AlternateMode:Adventure
+ALTERNATE
+ManaCost:1 G
+Types:Sorcery Adventure
+A:SP$ Mill | NumCards$ 4 | RememberMilled$ True | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Hidden$ True | Origin$ Graveyard,Exile | Mandatory$ True | Destination$ Hand | ChangeType$ Card.IsRemembered+Creature,Card.IsRemembered+Planeswalker | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

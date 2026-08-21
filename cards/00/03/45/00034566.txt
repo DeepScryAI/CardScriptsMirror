@@ -1,9 +1,13 @@
 Id:34566
-ColorIdentity:U
-OriginSet:G11c0621ce29fa608
-ManaCost:U
+ColorIdentity:WURG
+OriginSet:Gcb93bbfc68a40806
+ManaCost:R G W U
 Types:Legendary Creature Human Hero
-PT:1/1
-S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self+powerLE1
-A:AB$ PutCounter | Cost$ X U U | Defined$ Self | CounterType$ P1P1 | CounterNum$ X | PowerUp$ True
-SVar:X:Count$xPaid
+PT:4/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm
+T:Mode$ SpellCast | ValidCard$ Card.cmcEQ4,Card.powerEQ4,Card.toughnessEQ4 | ValidActivatingPlayer$ You | Execute$ TrigCharm | TriggerZones$ Battlefield | Secondary$ True
+SVar:TrigCharm:DB$ Charm | Choices$ DBToken,DBDamage,DBPutCounter,DBDraw | ChoiceRestriction$ ThisTurn
+SVar:DBToken:DB$ Token | TokenScriptIds$ 2308911801
+SVar:DBDamage:DB$ DealDamage | Defined$ Opponent | NumDmg$ 3 | AILogic$ Good
+SVar:DBPutCounter:DB$ PutCounter | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ 2
+SVar:DBDraw:DB$ Draw

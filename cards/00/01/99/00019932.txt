@@ -1,10 +1,11 @@
 Id:19932
-ColorIdentity:WB
+ColorIdentity:BG
 OriginSet:G23be9f486a22d38a
-ManaCost:1 W B
-Types:Enchantment
-T:Mode$ Attacks | ValidCard$ Card.Knight+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigDrain
-SVar:TrigDrain:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 1 | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | LifeAmount$ 1
-A:AB$ ChangeZoneAll | Cost$ 6 W B Sac<1/CARDNAME> | ChangeType$ Card.Knight+Creature+YouCtrl | Origin$ Graveyard | Destination$ Battlefield
-SVar:BuffedBy:Knight
+ManaCost:4 B G
+Types:Legendary Planeswalker Garruk
+Loyalty:5
+A:AB$ Token | Cost$ AddCounter<0/LOYALTY> | Planeswalker$ True | TokenAmount$ 2 | TokenScriptIds$ 2954911520 | TokenOwner$ You
+A:AB$ Destroy | Cost$ SubCounter<3/LOYALTY> | ValidTgts$ Creature | Planeswalker$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw
+A:AB$ Effect | Cost$ SubCounter<6/LOYALTY> | Name$ 14342061155996590232 | StaticAbilities$ STTrample | Planeswalker$ True | Ultimate$ True | Duration$ Permanent | AILogic$ Always
+SVar:STTrample:Mode$ Continuous | Affected$ Creature.YouCtrl | AffectedZone$ Battlefield | AddKeyword$ Trample | AddPower$ 3 | AddToughness$ 3

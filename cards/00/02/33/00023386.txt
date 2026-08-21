@@ -1,8 +1,13 @@
 Id:23386
-ColorIdentity:R
-OriginSet:Ga4d5d94d587eb185
-ManaCost:6 R
-Types:Sorcery
-A:SP$ ChangeZoneAll | ChangeType$ Creature | RememberChanged$ Card.!token | Origin$ Battlefield | Destination$ Library | Shuffle$ True | SubAbility$ DBDigUntil
-SVar:DBDigUntil:DB$ DigUntil | Defined$ RememberedOwner | Amount$ 1 | Valid$ Creature | FoundDestination$ Battlefield | RevealedDestination$ Library | Reveal$ True | RevealedLibraryPosition$ -1 | RevealRandomOrder$ True | SubAbility$ DBClean
-SVar:DBClean:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:G
+OriginSet:Gbe3783f336562357
+ManaCost:1 G
+Types:Creature Human Rogue
+PT:2/2
+S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self | ValidBlocker$ Creature.powerLE2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigAnimateAll
+SVar:TrigAnimateAll:DB$ AnimateAll | Duration$ Perpetual | ValidCards$ Creature.YouCtrl | Triggers$ DiesTrigger
+SVar:DiesTrigger:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigShuffle | OptionalDecider$ You
+SVar:TrigShuffle:DB$ ChangeZone | Origin$ Graveyard | Destination$ Library | Shuffle$ True | Defined$ TriggeredNewCardLKICopy | RememberChanged$ True | SubAbility$ DBInvestigate
+SVar:DBInvestigate:DB$ Investigate | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

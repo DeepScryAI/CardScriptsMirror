@@ -1,7 +1,14 @@
 Id:21439
-ColorIdentity:U
+ColorIdentity:W
 OriginSet:G51d431785c8b33e5
-ManaCost:2 U
-Types:Instant
-A:SP$ Pump | ValidTgts$ Opponent | SubAbility$ DBGainControl | AILogic$ DonateTargetPlayer
-SVar:DBGainControl:DB$ GainControl | ValidTgts$ Creature | NewController$ ParentTarget
+ManaCost:3 W
+Types:Creature Human Soldier
+PT:3/4
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ Opponent | TriggerZones$ Battlefield | CheckSVar$ X | SVarCompare$ GTW | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 1214250791 | TokenOwner$ You
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ Opponent | TriggerZones$ Battlefield | CheckSVar$ Z | SVarCompare$ GTY | Execute$ TrigChangeZone | OptionalDecider$ You
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Land.Plains+Basic | Tapped$ True | ChangeNum$ 1
+SVar:W:Count$Valid Creature.YouCtrl
+SVar:X:Count$Valid Creature.ActivePlayerCtrl
+SVar:Y:Count$Valid Land.YouCtrl
+SVar:Z:Count$Valid Land.ActivePlayerCtrl

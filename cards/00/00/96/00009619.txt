@@ -1,8 +1,10 @@
 Id:9619
-ColorIdentity:R
+ColorIdentity:W
 OriginSet:G49bcc8b9b86b628d
-ManaCost:3 R
-Types:Creature Shapeshifter
-PT:3/3
-K:Changeling
-A:AB$ Pump | Cost$ R | KW$ FirstStrike | Defined$ Self
+ManaCost:3 W W
+Types:Creature Giant Wizard
+PT:4/4
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigKinship | TriggerZones$ Battlefield | OptionalDecider$ You
+SVar:TrigKinship:DB$ PeekAndReveal | PeekAmount$ 1 | RevealValid$ Card.sharesCreatureTypeWith | RevealOptional$ True | RememberRevealed$ True | SubAbility$ DBLife
+SVar:DBLife:DB$ GainLife | LifeAmount$ 4 | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

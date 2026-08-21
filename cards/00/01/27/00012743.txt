@@ -1,10 +1,15 @@
 Id:12743
 ColorIdentity:U
 OriginSet:Gfd7b72e0eb9d2cf5
-ManaCost:2 U
-Types:Creature Human Scout
-PT:2/1
-K:Soulbond
-S:Mode$ Continuous | Affected$ Creature.PairedWith,Creature.Self+Paired | AddTrigger$ DamageTrigger | AddSVar$ TandemLookoutTrigDraw
-SVar:DamageTrigger:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Opponent | TriggerZones$ Battlefield | Execute$ TandemLookoutTrigDraw
-SVar:TandemLookoutTrigDraw:DB$ Draw
+ManaCost:3 U U
+Types:Legendary Planeswalker Tamiyo
+Loyalty:4
+A:AB$ Tap | Cost$ AddCounter<1/LOYALTY> | ValidTgts$ Permanent | Planeswalker$ True | SubAbility$ TamiyoPump
+SVar:TamiyoPump:DB$ Pump | Defined$ Targeted | Duration$ Permanent | KW$ HIDDEN This card doesn't untap during your next untap step.
+A:AB$ Draw | Cost$ SubCounter<2/LOYALTY> | ValidTgts$ Player | Defined$ You | NumCards$ X | Planeswalker$ True
+SVar:X:Count$Valid Creature.tapped+TargetedPlayerCtrl
+A:AB$ Effect | Cost$ SubCounter<8/LOYALTY> | Planeswalker$ True | Ultimate$ True | Name$ 13503166638849584935 | StaticAbilities$ UnlimitedHand | Triggers$ TamiyoCardToGrave | Stackable$ False | Duration$ Permanent | AILogic$ Always
+SVar:UnlimitedHand:Mode$ Continuous | Affected$ You | SetMaxHandSize$ Unlimited
+SVar:TamiyoCardToGrave:Mode$ ChangesZone | Origin$ Any | Destination$ Graveyard | ValidCard$ Card.!token+YouOwn | OptionalDecider$ You | TriggerZones$ Command | Execute$ TamiyoReturn
+SVar:TamiyoReturn:DB$ ChangeZone | Defined$ TriggeredCardLKICopy | Origin$ Graveyard | Destination$ Hand
+SVar:PlayMain1:TRUE

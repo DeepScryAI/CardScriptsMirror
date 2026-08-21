@@ -1,10 +1,11 @@
 Id:20712
-ColorIdentity:WR
+ColorIdentity:BR
 OriginSet:Gf8d4de878d0536c5
-ManaCost:R W
-Types:Creature Elemental Cat
-PT:3/2
-T:Mode$ Cycled | ValidCard$ Card.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigImmediateTrig
-SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ 2 | Execute$ TrigDealDamage
-SVar:TrigDealDamage:DB$ DealDamage | ValidTgts$ Creature | NumDmg$ 2 | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2
+ManaCost:3 BR BR
+Types:Legendary Creature Hellion Horror
+PT:3/5
+K:Companion:Card.cmcM21,Land:Your starting deck contains only cards with odd mana value and land cards.
+R:Event$ DamageDone | ActiveZones$ Battlefield | ValidSource$ Card.YouCtrl+cmcM21 | ValidTarget$ Permanent,Player | ReplaceWith$ DmgTwice
+SVar:DmgTwice:DB$ ReplaceEffect | VarName$ DamageAmount | VarValue$ Y
+SVar:Y:ReplaceCount$DamageAmount/Twice
+SVar:PlayMain1:TRUE

@@ -1,11 +1,10 @@
 Id:13189
-ColorIdentity:RG
+ColorIdentity:UB
 OriginSet:Gdd020b591e71cb52
-ManaCost:4 R G
-Types:Creature Elemental
-PT:*/*
-S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X | SetToughness$ X
-A:AB$ Pump | Cost$ 1 R G Discard<1/CARDNAME> | ActivationZone$ Hand | ValidTgts$ Creature.attacking | NumAtt$ +X | NumDef$ +X
-SVar:X:Count$Valid Land.YouCtrl
-SVar:BuffedBy:Land
-SVar:NeedsToPlayVar:X GE3
+ManaCost:UB UB UB
+Types:Creature Specter
+PT:2/3
+K:Flying
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigExile | TriggerZones$ Battlefield
+SVar:TrigExile:DB$ Dig | Defined$ TriggeredTarget | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile
+S:Mode$ Continuous | MayPlay$ True | Affected$ Card.ExiledWithSource | AffectedZone$ Exile

@@ -1,12 +1,18 @@
 Id:28567
-ColorIdentity:WBR
+ColorIdentity:U
 OriginSet:G7ee0e82a2424d636
-ManaCost:1 WB
-Types:Sorcery
-A:SP$ Destroy | ValidTgts$ Creature.tapped
-AlternateMode:Split
-ALTERNATE
-ManaCost:4 BR BR
-Types:Sorcery
-A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | TargetMin$ 0 | TargetMax$ 2 | TargetsWithSameController$ True | ValidTgts$ Creature | GainControl$ True | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | Defined$ Targeted | KW$ Haste | AtEOT$ Sacrifice
+ManaCost:1 U U
+Types:Artifact Creature Bird
+PT:1/4
+K:Flying
+K:Disguise:1 U
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigSteal | TriggerZones$ Battlefield
+SVar:TrigSteal:DB$ GainControl | ValidTgts$ Permanent.YouOwn+YouDontCtrl
+T:Mode$ TurnFaceUp | ValidCard$ Card.Self | Execute$ TrigDonate | TriggerZones$ Battlefield
+SVar:TrigDonate:DB$ Pump | ValidTgts$ Opponent | SubAbility$ DBGainControl
+SVar:DBGainControl:DB$ GainControl | ValidTgts$ Permanent.YouCtrl | TargetMin$ 0 | TargetMax$ X | NewController$ ParentTarget | RememberControlled$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ Y | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$Valid Permanent.YouCtrl
+SVar:Y:Remembered$Amount
+SVar:HasAttackEffect:TRUE

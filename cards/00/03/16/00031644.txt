@@ -1,17 +1,10 @@
 Id:31644
-ColorIdentity:R
-OriginSet:G530ea9d733a13e9d
-ManaCost:5 R
-Types:Enchantment Creature Saga Ox
-PT:7/5
-K:Chapter:3:DBLightning,DBIce,DBFire
-SVar:DBLightning:DB$ DealDamage | TargetMin$ 0 | TargetMax$ 2 | ValidTgts$ Creature | NumDmg$ 3
-SVar:DBIce:DB$ Pump | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 3 | KW$ HIDDEN CARDNAME can't block. | IsCurse$ True
-SVar:DBFire:DB$ Discard | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | NumCards$ 2 | SubAbility$ DBImmediateTrigger
-SVar:DBImmediateTrigger:DB$ ImmediateTrigger | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ GE1 | Execute$ TrigDealDamage | RememberObjects$ Remembered | SubAbility$ DBCleanup
-SVar:TrigDealDamage:DB$ DamageAll | NumDmg$ X | ValidPlayers$ Player.Opponent
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-K:Trample
-K:Haste
-SVar:X:TriggerRemembered$CardManaCost
+ColorIdentity:G
+OriginSet:Gf2b808f4f642ac62
+ManaCost:2 G
+Types:Creature Human Druid
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ 1
+A:AB$ PutCounter | Cost$ 3 G ExileFromGrave<1/CARDNAME> | ActivationZone$ Graveyard | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ 1 | SorcerySpeed$ True | SubAbility$ DBMultiplyCounter
+SVar:DBMultiplyCounter:DB$ MultiplyCounter | Defined$ Targeted | CounterType$ P1P1

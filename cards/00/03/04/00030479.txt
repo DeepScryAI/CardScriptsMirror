@@ -1,7 +1,13 @@
 Id:30479
-ColorIdentity:W
+ColorIdentity:B
 OriginSet:G8b2ed00ac2a0ff47
-ManaCost:4 W
-Types:Instant
-S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ 3 | EffectZone$ All | ValidTarget$ Creature.tapped
-A:SP$ Destroy | ValidTgts$ Creature
+ManaCost:B B B B B B
+Types:Creature Demon
+PT:6/6
+K:Flying
+T:Mode$ ChangesZone | ValidCard$ Card.Self+wasCast | Origin$ Any | Destination$ Battlefield | Execute$ TrigExcruciator
+SVar:TrigExcruciator:DB$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBDigExile
+SVar:DBDigExile:DB$ Dig | DigNum$ X | ChangeNum$ All | Defined$ Player.IsRemembered | DestinationZone$ Exile | ExileFaceDown$ True | NoReveal$ True
+SVar:X:Count$ValidLibrary Card.RememberedPlayerCtrl/Minus.6
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You

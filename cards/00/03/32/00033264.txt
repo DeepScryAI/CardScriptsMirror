@@ -1,10 +1,13 @@
 Id:33264
-ColorIdentity:U
+ColorIdentity:WB
 OriginSet:G7ab1fe96128a1641
-ManaCost:4 U
-Types:Creature Elemental
-PT:3/5
+ManaCost:WB WB
+Types:Legendary Creature Bird Bard
+PT:1/1
 K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature | KW$ Flying
-K:TypeCycling:Basic:1 U
+K:FirstStrike
+K:Lifelink
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigAnimate
+SVar:TrigAnimate:DB$ Animate | ValidTgts$ Creature.Other | TargetMin$ 0 | TargetMax$ 1 | RemoveAllAbilities$ True | Duration$ Permanent | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Targeted | CounterTypes$ Flying,FirstStrike,Lifelink
+SVar:PlayMain1:TRUE

@@ -1,7 +1,9 @@
 Id:10866
-ColorIdentity:B
+ColorIdentity:U
 OriginSet:G4398040c23c94f0e
-ManaCost:2 B
-Types:Creature Zombie
-PT:2/2
-S:Mode$ CantBlock | ValidCard$ Card.Self | IsPresent$ Vampire.YouCtrl | PresentCompare$ EQ0
+ManaCost:2 U U
+Types:Instant Trap
+S:Mode$ AlternativeCost | ValidSA$ Spell.Self | EffectZone$ All | Cost$ 0 | CheckSVar$ OppCastThisTurn
+A:SP$ ChangeZone | TargetType$ Spell | ValidTgts$ Card | TgtZone$ Stack | Origin$ Stack | Destination$ Exile | TargetMin$ 0 | TargetMax$ MaxTgts
+SVar:OppCastThisTurn:PlayerCountOpponents$ConditionGE3 SpellsCastThisTurn
+SVar:MaxTgts:Count$ValidStack Card

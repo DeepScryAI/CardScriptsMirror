@@ -1,11 +1,19 @@
 Id:32043
-ColorIdentity:BRG
-OriginSet:G7856e27bce45729f
-ManaCost:2 B R G
-Types:Legendary Creature Insect Druid
-PT:2/5
-K:Flying
-S:Mode$ Continuous | Affected$ Land.YouOwn | MayPlay$ True | AffectedZone$ Graveyard
-T:Mode$ Sacrificed | ValidCard$ Permanent.Other+!token | ValidPlayer$ You | PlayerTurn$ True | Execute$ TrigPutCounter | TriggerZones$ Battlefield
-SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.Other+YouCtrl | TargetMin$ 0 | TargetMax$ 1 | CounterType$ P1P1 | CounterNum$ X
-SVar:X:Count$CardPower
+ColorIdentity:R
+OriginSet:G7ab4f62d323b0ca7
+ManaCost:2 R
+Types:Enchantment
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.YouCtrl | NumAtt$ +2
+T:Mode$ Phase | Phase$ EndCombat | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ X | SVarCompare$ GE6 | Execute$ TrigTransform
+SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform | SubAbility$ DBAttach
+SVar:DBAttach:DB$ Attach | Choices$ Creature.YouCtrl | Object$ Self | AILogic$ Pump
+SVar:X:Count$MaxCombatDamageThisTurn
+SVar:PlayMain1:TRUE
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:red
+Types:Legendary Artifact Equipment
+K:Equip:3
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddKeyword$ DoubleStrike

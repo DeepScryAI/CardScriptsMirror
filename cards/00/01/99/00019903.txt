@@ -1,9 +1,13 @@
 Id:19903
-ColorIdentity:G
+ColorIdentity:RG
 OriginSet:G23be9f486a22d38a
-ManaCost:2 G
+ManaCost:3 R G
 Types:Sorcery
-A:SP$ Sacrifice | SacValid$ Food | Defined$ You | Amount$ 2 | Optional$ True | StrictAmount$ True | RememberSacrificed$ True | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenScriptIds$ 2240579273 | TokenOwner$ You | ConditionDefined$ RememberedLKI | ConditionPresent$ Food | ConditionCompare$ EQ2 | SubAbility$ DBToken2
-SVar:DBToken2:DB$ Token | TokenAmount$ 3 | TokenScriptIds$ 134855612 | TokenOwner$ You | ConditionDefined$ RememberedLKI | ConditionPresent$ Food | ConditionCompare$ EQ0 | SubAbility$ DBCleanup
+A:SP$ Dig | DestinationZone$ Exile | DigNum$ 5 | ChangeNum$ All | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | Name$ 9155503163015387821 | RememberObjects$ RememberedCard | ForgetOnMoved$ Exile | StaticAbilities$ Play | Duration$ UntilTheEndOfYourNextTurn | SubAbility$ DBEffect2
+SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBEffect2:DB$ Effect | Name$ 8266691884525685346 | StaticAbilities$ Exploration | AILogic$ Always | SubAbility$ DBCleanup
+SVar:Exploration:Mode$ Continuous | Affected$ You | AdjustLandPlays$ 1
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:NeedsToPlayVar:ZZ GE1
+SVar:ZZ:Count$ValidHand Land.YouOwn

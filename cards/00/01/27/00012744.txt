@@ -1,8 +1,10 @@
 Id:12744
 ColorIdentity:U
 OriginSet:Gfd7b72e0eb9d2cf5
-ManaCost:5 U U
-Types:Sorcery
-K:Miracle:1 U
-A:SP$ AddTurn | NumTurns$ 1 | SubAbility$ DBExile
-SVar:DBExile:DB$ ChangeZone | Origin$ Stack | Destination$ Exile
+ManaCost:2 U
+Types:Creature Human Scout
+PT:2/1
+K:Soulbond
+S:Mode$ Continuous | Affected$ Creature.PairedWith,Creature.Self+Paired | AddTrigger$ DamageTrigger | AddSVar$ TandemLookoutTrigDraw
+SVar:DamageTrigger:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Opponent | TriggerZones$ Battlefield | Execute$ TandemLookoutTrigDraw
+SVar:TandemLookoutTrigDraw:DB$ Draw

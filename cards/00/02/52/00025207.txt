@@ -1,9 +1,12 @@
 Id:25207
-ColorIdentity:R
+ColorIdentity:WB
 OriginSet:Gf591a76e7a37cf73
-ManaCost:4 R
-Types:Creature Tyranid
-PT:5/5
-K:Trample
-T:Mode$ SpellCast | ValidCard$ Creature.cmcGE5 | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDamage
-SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 5
+ManaCost:1 W B
+Types:Legendary Creature Human Soldier
+PT:2/2
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ Opponent | LifeAmount$ X
+A:AB$ GainLife | Cost$ 2 Sac<1/Creature.Other/another creature> | LifeAmount$ 2 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw
+SVar:X:Count$Valid Creature.attacking+Other
+SVar:HasAttackEffect:TRUE

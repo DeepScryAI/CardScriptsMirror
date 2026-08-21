@@ -1,0 +1,13 @@
+Id:35051
+ColorIdentity:BR
+OriginSet:Gf8f2990d7136c11d
+ManaCost:3 B R
+Types:Legendary Creature Dragon
+PT:5/5
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ DBTreasureTokens
+SVar:DBTreasureTokens:DB$ Token | TokenAmount$ X | TokenScriptIds$ 3851718391 | TokenOwner$ You | TokenTapped$ True
+T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | ValidSA$ Spell.ManaFromTreasure | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ 1
+SVar:X:Count$Valid Artifact.OppCtrl

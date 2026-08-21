@@ -1,7 +1,11 @@
 Id:29591
 ColorIdentity:
 OriginSet:Gac6359c222afbd4f
-ManaCost:no cost
-Types:Land Urza's Cave
-A:AB$ Mana | Cost$ T | Produced$ C
-A:AB$ ChangeZone | Cost$ 3 T Sac<1/CARDNAME> | Origin$ Library | Destination$ Battlefield | Tapped$ True | ChangeType$ Land | ChangeNum$ 1
+ManaCost:2 C
+Types:Creature Eldrazi Drone
+PT:2/2
+T:Mode$ SpellCast | ValidCard$ Card.Colorless | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 3873110322 | TokenOwner$ You
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.Other+Colorless+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | Defined$ Player.Opponent | NumDmg$ 1
+SVar:BuffedBy:Card.Colorless

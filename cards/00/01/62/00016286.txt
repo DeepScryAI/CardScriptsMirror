@@ -1,16 +1,14 @@
 Id:16286
-ColorIdentity:G
+ColorIdentity:WUG
 OriginSet:G70d19654882197c9
-ManaCost:2 G G
-Types:Creature Werewolf Horror
-PT:2/4
-S:Mode$ Continuous | Affected$ Card.Self | CanBlockAmount$ 1
-A:AB$ SetState | Cost$ 6 G | Defined$ Self | Mode$ Transform
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Types:Creature Eldrazi Werewolf
-PT:4/6
-K:Vigilance
-K:CARDNAME must be blocked if able.
-S:Mode$ Continuous | Affected$ Card.Self | CanBlockAmount$ 1
+ManaCost:1 G W U
+Types:Legendary Planeswalker Tamiyo
+Loyalty:4
+A:AB$ Effect | Cost$ AddCounter<1/LOYALTY> | Name$ 3574269512539486480 | Planeswalker$ True | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 2 | Triggers$ TrigDamage | ForgetOnMoved$ Battlefield | Duration$ UntilYourNextTurn | RememberObjects$ Targeted
+SVar:TrigDamage:Mode$ DamageDealtOnce | CombatDamage$ True | ValidSource$ Creature.IsRemembered | Execute$ TrigDrawCard
+SVar:TrigDrawCard:DB$ Draw | Defined$ You
+A:AB$ Tap | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | ValidTgts$ Permanent.nonLand | TargetMin$ 0 | TargetMax$ 2 | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Targeted | Duration$ Permanent | KW$ HIDDEN This card doesn't untap during your next untap step.
+A:AB$ Effect | Cost$ SubCounter<7/LOYALTY> | Planeswalker$ True | Ultimate$ True | Name$ 1711004485267317480 | StaticAbilities$ Omniscience | Stackable$ False | Duration$ Permanent | AILogic$ Always | SubAbility$ DBDraw
+SVar:Omniscience:Mode$ Continuous | Affected$ Card.nonLand+YouOwn | MayPlay$ True | MayPlayWithoutManaCost$ True | AffectedZone$ Hand
+SVar:DBDraw:DB$ Draw | NumCards$ 3

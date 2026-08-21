@@ -2,12 +2,8 @@ Id:12812
 ColorIdentity:
 OriginSet:G4801bb28ce9773ed
 ManaCost:no cost
-Types:Plane Dominaria
-A:AB$ ChangeZone | Cost$ 0 | Origin$ Hand | Destination$ Exile | ChangeType$ Card.nonLand+YouCtrl | DefinedPlayer$ You | RememberChanged$ True | SorcerySpeed$ True | ActivationZone$ Command | SubAbility$ TimeInGates
-SVar:TimeInGates:DB$ PutCounter | Defined$ Remembered | CounterType$ TIME | CounterNum$ GateX | SubAbility$ GiveSuspend | TgtZone$ Exile
-SVar:GiveSuspend:DB$ PumpAll | ValidCards$ Card.IsRemembered+withoutSuspend | KW$ Suspend | PumpZone$ Exile | Duration$ Permanent | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:GateX:Remembered$CardManaCost
+Types:Plane Kamigawa
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Creature | Execute$ TakenumaDraw | TriggerZones$ Command
+SVar:TakenumaDraw:DB$ Draw | Defined$ TriggeredCardController | NumCards$ 1
 T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos
-SVar:RolledChaos:DB$ RemoveCounterAll | ValidCards$ Card.suspended+YouOwn | CounterType$ TIME | CounterNum$ 2 | ValidZone$ Exile
-SVar:AIRollPlanarDieParams:Mode$ Always | RollInMain1$ True | MaxRollsPerTurn$ 9
+SVar:RolledChaos:DB$ ChangeZone | ValidTgts$ Creature.YouCtrl | Origin$ Battlefield | Destination$ Hand

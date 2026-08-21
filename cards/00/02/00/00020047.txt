@@ -1,8 +1,15 @@
 Id:20047
-ColorIdentity:UG
+ColorIdentity:W
 OriginSet:G23be9f486a22d38a
-ManaCost:GU GU GU GU
-Types:Creature Turtle Hydra
-PT:4/4
-T:Mode$ SpellCast | ValidCard$ Card.cmcGE5 | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+ManaCost:5 W
+Types:Creature Human Knight
+PT:*/*
+K:Flying
+K:Vigilance
+S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X | SetToughness$ X
+SVar:X:Count$Valid Creature.YouCtrl
+SVar:BuffedBy:Creature
+SVar:NoZeroToughnessAI:True
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenOwner$ You | TokenAmount$ Y | TokenScriptIds$ 1066714595
+SVar:Y:PlayerCountOpponents$Amount

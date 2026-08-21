@@ -1,10 +1,12 @@
 Id:14769
-ColorIdentity:W
+ColorIdentity:G
 OriginSet:Gfafc221218d3b700
-ManaCost:1 W W
-Types:Creature Avatar
-PT:3/2
-K:Vigilance
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenAmount$ X | TokenScriptIds$ 273812182 | TokenOwner$ You
-SVar:X:Count$ValidGraveyard Creature.YouOwn
+ManaCost:5 G
+Types:Creature Elemental Beast
+PT:5/7
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigRepeat
+SVar:TrigRepeat:DB$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBChoose | SubAbility$ DBCleanup
+SVar:DBChoose:DB$ ChooseType | Defined$ Player.IsRemembered | Type$ Creature | AILogic$ MostProminentInComputerGraveyard | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | ChangeType$ Card.RememberedPlayerCtrl+ChosenType | Hidden$ True | Origin$ Graveyard | Destination$ Hand | DefinedPlayer$ Remembered | Chooser$ Remembered | ChangeNum$ X
+SVar:X:Count$ValidGraveyard Card.RememberedPlayerCtrl+ChosenType
+SVar:DBCleanup:DB$ Cleanup | ClearChosenType$ True

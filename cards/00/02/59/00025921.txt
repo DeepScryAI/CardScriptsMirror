@@ -1,15 +1,8 @@
 Id:25921
-ColorIdentity:W
-OriginSet:G880fc7f6ed36df4d
-ManaCost:3
-Types:Artifact Creature Soldier
-PT:3/3
-K:Unearth:1 W
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigBoon
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Battlefield | Destination$ Any | Execute$ TrigBoon | Secondary$ True
-SVar:TrigBoon:DB$ Effect | Boon$ True | Duration$ Permanent | Triggers$ SpellCast
-SVar:SpellCast:Mode$ SpellCast | ValidCard$ Creature | ValidActivatingPlayer$ You | TriggerZones$ Command | Execute$ ReplEffAddCounter
-SVar:ReplEffAddCounter:DB$ Effect | ReplacementEffects$ ETBAddCounter | RememberObjects$ TriggeredCard
-SVar:ETBAddCounter:Event$ Moved | Origin$ Stack | Destination$ Battlefield | ValidCard$ Card.IsRemembered | ReplaceWith$ ETBAddExtraCounter | ReplacementResult$ Updated
-SVar:ETBAddExtraCounter:DB$ PutCounter | ETB$ True | Defined$ ReplacedCard | CounterType$ P1P1 | SubAbility$ DBRemoveSelf
-SVar:DBRemoveSelf:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile
+ColorIdentity:B
+OriginSet:G06ccef4324c14725
+ManaCost:4 B
+Types:Creature Beast Horror
+PT:4/5
+S:Mode$ Continuous | Affected$ Card.Self | CheckSVar$ X | SVarCompare$ GE2 | AddKeyword$ Lifelink & Deathtouch
+SVar:X:Count$YouDrewThisTurn

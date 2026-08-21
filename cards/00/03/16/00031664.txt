@@ -1,14 +1,16 @@
 Id:31664
-ColorIdentity:WG
-OriginSet:G530ea9d733a13e9d
-ManaCost:2 G W
-Types:Legendary Creature Human Warrior
-PT:4/4
-K:Reach
-K:Trample
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigDestroy | CombatDamage$ True
-SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Artifact.ControlledBy TriggeredTarget | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ X | Execute$ TrigPutCounterAll
-SVar:TrigPutCounterAll:DB$ PutCounterAll | ValidCards$ Creature.YouCtrl+StrictlyOther | CounterType$ P1P1 | CounterNum$ 1
-SVar:X:Count$CountersAddedThisTurn Any Player Card.Self
+ColorIdentity:R
+OriginSet:Gf2b808f4f642ac62
+ManaCost:4 R
+Types:Creature Dragon
+PT:3/3
+K:Flying
+K:Haste
+A:AB$ Pump | Cost$ 1 R | Defined$ Self | NumAtt$ +1
+AlternateMode:Omen
+ALTERNATE
+ManaCost:1 R
+Types:Sorcery Omen
+A:SP$ Discard | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ 2 | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ GE1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

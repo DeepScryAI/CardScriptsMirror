@@ -1,9 +1,12 @@
 Id:18908
-ColorIdentity:RG
+ColorIdentity:R
 OriginSet:G586a4ae96288ce18
-ManaCost:3 R G
-Types:Legendary Creature Centaur Druid
-PT:5/5
-S:Mode$ CantBeCast | ValidCard$ Card.nonCreature | Caster$ You
-T:Mode$ TapsForMana | ValidCard$ Land | Activator$ You | Execute$ TrigMana | TriggerZones$ Battlefield | Static$ True
-SVar:TrigMana:DB$ ManaReflected | ColorOrType$ Type | ReflectProperty$ Produced | Defined$ You
+ManaCost:2 R R
+Types:Creature Elemental
+PT:1/1
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDig
+SVar:TrigDig:DB$ DigUntil | Reveal$ True | Valid$ Creature | RevealedDestination$ Library | RevealedLibraryPosition$ -1 | RevealRandomOrder$ True | RememberFound$ True | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Power$ X | Toughness$ Y | Duration$ UntilYourNextTurn | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$CardPower/Times.2
+SVar:Y:Remembered$CardToughness/Times.2

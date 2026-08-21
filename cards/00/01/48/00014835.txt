@@ -1,8 +1,9 @@
 Id:14835
-ColorIdentity:G
+ColorIdentity:R
 OriginSet:G25ee1eefb1a14f05
-ManaCost:3 G
-Types:Creature Snake Archer
-PT:5/2
-K:Defender
-K:Reach
+ManaCost:2 R
+Types:Instant
+A:SP$ Effect | ValidTgts$ Creature | Triggers$ TrigDealtDmg | ExileOnMoved$ Battlefield | RememberObjects$ Targeted
+SVar:TrigDealtDmg:Mode$ DamageDoneOnce | ValidTarget$ Card.IsRemembered | Execute$ DmgOther
+SVar:DmgOther:DB$ DamageAll | ValidCards$ Creature.!IsRemembered | ValidPlayers$ Player | NumDmg$ X | DamageSource$ Remembered
+SVar:X:TriggerCount$DamageAmount

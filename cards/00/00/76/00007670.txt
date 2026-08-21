@@ -1,8 +1,12 @@
 Id:7670
-ColorIdentity:U
+ColorIdentity:G
 OriginSet:G3fddc6426f419054
-ManaCost:3 U
-Types:Creature Human Wizard
-PT:2/3
-A:AB$ RearrangeTopOfLibrary | Cost$ 1 U | Defined$ You | NumCards$ X
+ManaCost:2 G
+Types:Creature Human Monk
+PT:1/1
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ X | SubAbility$ SelectOpponent
+SVar:SelectOpponent:DB$ Pump | ValidTgts$ Opponent | SubAbility$ TrigRemoveCounter
+SVar:TrigRemoveCounter:DB$ RemoveCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ Y
 SVar:X:Count$ValidHand Card.YouOwn
+SVar:Y:TargetedPlayer$CardsInHand

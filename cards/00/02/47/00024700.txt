@@ -1,11 +1,14 @@
 Id:24700
-ColorIdentity:UR
-OriginSet:G72c9c624ceb92bff
-ManaCost:1 U R
-Types:Creature Merfolk Wizard
-PT:1/3
-K:Flying
-K:Haste
-T:Mode$ SpellCast | ValidCard$ Instant,Sorcery,Wizard | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +2
-SVar:BuffedBy:Instant,Sorcery,Wizard
+ColorIdentity:U
+OriginSet:G58bfeff4fb121c8e
+ManaCost:4 U U
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSeekTwo
+SVar:TrigSeekTwo:DB$ Seek | ImprintFound$ True | Num$ 2 | Type$ Card.Instant+cmcEQ3,Card.Sorcery+cmcEQ3 | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | Defined$ Imprinted
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ DBCopy | TriggerZones$ Battlefield | OptionalDecider$ You
+SVar:DBCopy:DB$ Play | Valid$ Card.IsImprinted+ExiledWithSource | ValidZone$ Exile | WithoutManaCost$ True | ValidSA$ Spell | Optional$ True | CopyCard$ True
+T:Mode$ ChangesZone | Origin$ Exile | Destination$ Any | Static$ True | ValidCard$ Card.IsImprinted+ExiledWithSource | Execute$ DBForget
+SVar:DBForget:DB$ Pump | ForgetImprinted$ TriggeredCard
+T:Mode$ ChangesZone | Origin$ Battlefield | ValidCard$ Card.Self | Destination$ Any | Execute$ DBCleanup | Static$ True
+SVar:DBCleanup:DB$ Cleanup | ClearImprinted$ True

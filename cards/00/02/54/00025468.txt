@@ -1,0 +1,14 @@
+Id:25468
+ColorIdentity:
+OriginSet:G2e872aaf9b98489e
+ManaCost:no cost
+Types:Artifact Attraction
+Lights:4 5 6
+K:Visit:TrigPhaseOut
+SVar:TrigPhaseOut:DB$ Phases | ValidTgts$ Creature.!IsRemembered | RememberAffected$ True | WontPhaseInNormal$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | Triggers$ TrigComeBack | RememberObjects$ Remembered | Duration$ Permanent
+SVar:TrigComeBack:Mode$ RolledDie | TriggerZones$ Command | Execute$ TrigPhaseIn | Static$ True | ValidResult$ LE3 | RolledToVisitAttractions$ True | ValidPlayer$ You
+SVar:TrigPhaseIn:DB$ Phases | Defined$ Remembered | PhaseInOrOut$ True | SubAbility$ DBExileSelf
+SVar:DBExileSelf:DB$ ChangeZone | Origin$ Command | Destination$ Exile | Defined$ Self
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigReset | Static$ True
+SVar:TrigReset:DB$ Cleanup | ClearRemembered$ True

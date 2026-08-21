@@ -1,16 +1,9 @@
 Id:19193
-ColorIdentity:U
+ColorIdentity:WB
 OriginSet:Gf56613712ce2ae1f
-ManaCost:3 U
-Types:Creature Illusion
-PT:0/0
-K:ETBReplacement:Copy:DBCopy:Optional
-SVar:DBCopy:DB$ Clone | Choices$ Creature.Other+YouCtrl,Planeswalker.Other+YouCtrl | NonLegendary$ True | SubAbility$ DBConditionEffect
-SVar:DBConditionEffect:DB$ Effect | RememberObjects$ Self | ReplacementEffects$ ETBCreatPlans
-SVar:ETBCreatPlans:Event$ Moved | ValidCard$ Creature.IsRemembered,Planeswalker.IsRemembered | Destination$ Battlefield | ReplaceWith$ DBPutP1P1 | ReplacementResult$ Updated
-SVar:DBPutP1P1:DB$ PutCounter | Defined$ ReplacedNewCard.Creature | CounterType$ P1P1 | ETB$ True | CounterNum$ 1 | SubAbility$ DBPutLOYALTY
-SVar:DBPutLOYALTY:DB$ PutCounter | Defined$ ReplacedNewCard.Planeswalker | CounterType$ LOYALTY | ETB$ True | CounterNum$ 1 | SubAbility$ DBExile
-SVar:DBExile:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile
-SVar:NeedsToPlayVar:Z GE1
-SVar:Z:Count$Valid Creature.YouCtrl/Plus.Z1
-SVar:Z1:Count$Valid Planeswalker.YouCtrl
+ManaCost:3 WB WB WB
+Types:Legendary Planeswalker Kaya
+Loyalty:7
+S:Mode$ IgnoreHexproof | Activator$ You | ValidEntity$ Permanent.OppCtrl,Opponent
+SVar:PlayMain1:TRUE
+A:AB$ ChangeZone | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ true | ValidTgts$ Creature | Origin$ Battlefield | Destination$ Exile

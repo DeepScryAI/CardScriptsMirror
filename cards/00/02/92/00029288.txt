@@ -1,17 +1,9 @@
 Id:29288
-ColorIdentity:WB
-OriginSet:G0c9f9aa4a8bf0371
-ManaCost:2 W B
-Types:Legendary Creature Spirit Advisor
-PT:0/5
-K:Starting intensity:0
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 1377738288 | SubAbility$ DBIntensify
-SVar:DBIntensify:DB$ Intensify
-S:Mode$ Continuous | Affected$ Spirit.YouCtrl | AddPower$ X
-SVar:X:Count$Intensity
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigExile | OptionalDecider$ You
-SVar:TrigExile:DB$ ChangeZone | Defined$ Self | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DelTrig
-SVar:DelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ ObzedatReturn | ConditionDefined$ Remembered | ConditionPresent$ Card | RememberObjects$ Remembered
-SVar:ObzedatReturn:DB$ ChangeZone | Defined$ DelayTriggerRememberedLKI | Origin$ Exile,Command | Destination$ Battlefield | SubAbility$ ObzedatPump
-SVar:ObzedatPump:DB$ Pump | Defined$ Remembered | KW$ Haste | Duration$ Permanent
+ColorIdentity:U
+OriginSet:G27146c70b74a1e72
+ManaCost:U
+Types:Instant
+K:Spree
+A:SP$ Charm | Choices$ DBAnimate,DBDraw | MinCharmNum$ 1 | CharmNum$ 2
+SVar:DBAnimate:DB$ Animate | ModeCost$ 1 | ValidTgts$ Creature | Power$ 0 | Toughness$ 1 | Colors$ White | OverwriteColors$ True | Types$ Rabbit | RemoveCreatureTypes$ True
+SVar:DBDraw:DB$ Draw | ModeCost$ 3 | NumCards$ 2 | ValidTgts$ Player

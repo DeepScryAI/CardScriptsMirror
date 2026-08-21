@@ -1,7 +1,12 @@
 Id:18482
-ColorIdentity:B
+ColorIdentity:G
 OriginSet:G3b823183c96b2df3
-ManaCost:3 B B
-Types:Enchantment
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl+!token | TriggerZones$ Battlefield | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 353162950 | TokenOwner$ You
+ManaCost:X G
+Types:Creature Hydra
+PT:0/0
+S:Mode$ MinMaxBlocker | ValidCard$ Card.Self | Max$ 1
+K:etbCounter:P1P1:X
+SVar:X:Count$xPaid
+T:Mode$ DamageDoneOnce | ValidTarget$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ Y
+SVar:Y:TriggerCount$DamageAmount

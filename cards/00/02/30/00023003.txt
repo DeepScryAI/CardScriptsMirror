@@ -1,14 +1,11 @@
 Id:23003
-ColorIdentity:UBR
-OriginSet:G8a59924df6623252
-ManaCost:1 U B R
-Types:Legendary Creature Human Wizard
-PT:3/5
-S:Mode$ Continuous | Affected$ You | SetMaxHandSize$ 11
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDraw | TriggerZones$ Battlefield
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1 | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 1 | SubAbility$ DBPlay
-SVar:DBPlay:DB$ Play | ConditionCheckSVar$ HandSize | ConditionSVarCompare$ GE11 | Valid$ Card.YouOwn | ValidSA$ Instant,Sorcery | ValidZone$ Hand | WithoutManaCost$ True | Amount$ 1 | Controller$ You | Optional$ True
-SVar:HandSize:Count$ValidHand Card.YouOwn
-K:Partner:Friends forever
+ColorIdentity:R
+OriginSet:Gf78628ad511eefec
+ManaCost:3 R R
+Types:Creature Dragon
+PT:4/3
+K:Flying
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigDealDamage
+SVar:TrigDealDamage:DB$ DealDamage | ValidTgts$ Creature | TargetsWithDefinedController$ TriggeredDefendingPlayer | NumDmg$ X
+SVar:X:Targeted$Valid Creature.Zombie/Plus.1
 SVar:HasAttackEffect:TRUE

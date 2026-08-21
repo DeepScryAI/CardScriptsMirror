@@ -1,15 +1,8 @@
 Id:23580
-ColorIdentity:B
+ColorIdentity:G
 OriginSet:G1a259dba25660062
-ManaCost:1 B B
-Types:Legendary Creature Rat Ninja
-PT:3/2
-K:Ninjutsu:3 B
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigExile
-SVar:TrigExile:DB$ Dig | DigNum$ 1 | ChangeNum$ All | Defined$ Player | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | RememberObjects$ Remembered | StaticAbilities$ MayPlay | Triggers$ Play1,Play2 | SubAbility$ DBCleanup
-SVar:MayPlay:Mode$ Continuous | Affected$ Card.IsRemembered | AffectedZone$ Exile | MayPlay$ True | MayPlayAltManaCost$ PayLife<ConvertedManaCost>
-SVar:Play1:Mode$ SpellCast | ValidCard$ Card.IsRemembered | ValidActivatingPlayer$ You | TriggerZones$ Command | Execute$ ExileSelf | Static$ True
-SVar:Play2:Mode$ LandPlayed | ValidCard$ Land.IsRemembered | TriggerZones$ Command | Execute$ ExileSelf | Static$ True
-SVar:ExileSelf:DB$ ChangeZone | Origin$ Command | Destination$ Exile
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:4 G G
+Types:Enchantment Creature Dog
+PT:6/5
+K:Trample
+A:AB$ ChangeZone | Cost$ 2 G Discard<1/CARDNAME> | ActivationZone$ Hand | Origin$ Library | Destination$ Battlefield | Tapped$ True | ChangeType$ Land.Basic

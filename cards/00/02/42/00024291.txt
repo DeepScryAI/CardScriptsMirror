@@ -1,13 +1,14 @@
 Id:24291
-ColorIdentity:W
+ColorIdentity:U
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:5 W W
-Types:Creature Snake
-PT:5/6
-K:Vigilance
-R:Event$ DamageDone | Prevent$ True | ValidTarget$ Card.Self | PlayerTurn$ True
-AlternateMode:Adventure
-ALTERNATE
-ManaCost:2 W
-Types:Instant Adventure
-A:SP$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Artifact,Enchantment
+ManaCost:3 U
+Types:Sorcery
+A:SP$ RollDice | Sides$ 20 | ResultSubAbilities$ 1-9:DBTapAll,10-19:TapAndLock,20:TapLockETBEffect
+SVar:DBTapAll:DB$ TapAll | ValidCards$ Creature.OppCtrl
+SVar:TapAndLock:DB$ TapAll | ValidCards$ Creature.OppCtrl | SubAbility$ DBNoUntap
+SVar:DBNoUntap:DB$ PumpAll | ValidCards$ Creature.OppCtrl | KW$ HIDDEN This card doesn't untap during your next untap step. | IsCurse$ True | Duration$ Permanent
+SVar:TapLockETBEffect:DB$ TapAll | ValidCards$ Creature.OppCtrl | SubAbility$ NoUntap
+SVar:NoUntap:DB$ PumpAll | ValidCards$ Creature.OppCtrl | KW$ HIDDEN This card doesn't untap during your next untap step. | IsCurse$ True | Duration$ Permanent | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | ReplacementEffects$ TapLockETBTapped | Duration$ UntilYourNextTurn
+SVar:TapLockETBTapped:Event$ Moved | ValidCard$ Creature.OppCtrl | Destination$ Battlefield | ReplaceWith$ ETBTapped | ReplacementResult$ Updated
+SVar:ETBTapped:DB$ Tap | ETB$ True | Defined$ ReplacedCard

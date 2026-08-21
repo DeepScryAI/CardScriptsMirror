@@ -1,13 +1,13 @@
 Id:31784
-ColorIdentity:W
-OriginSet:G7ab4f62d323b0ca7
-ManaCost:no cost
-Types:Land Town
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
-A:AB$ Mana | Cost$ T | Produced$ W
-AlternateMode:Adventure
-ALTERNATE
-ManaCost:3 W W
-Types:Sorcery Adventure
-A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Hand | TargetMin$ 0 | TargetMax$ 2 | ValidTgts$ Artifact.YouOwn,Enchantment.YouOwn
+ColorIdentity:WB
+OriginSet:G530ea9d733a13e9d
+ManaCost:W B
+Types:Legendary Creature Dwarf Wizard
+PT:1/2
+T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDealDamage
+SVar:TrigDealDamage:DB$ DamageAll | ValidPlayers$ Player.Opponent | NumDmg$ 1 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
+A:AB$ RepeatEach | Cost$ 4 T Sac<1/CARDNAME> | RepeatPlayers$ Opponent.LostLifeThisTurn | RepeatSubAbility$ DBChooseCard | SubAbility$ DBSac
+SVar:DBChooseCard:DB$ ChooseCard | Defined$ Player.IsRemembered | Choices$ Creature.greatestPowerControlledByRemembered | Mandatory$ True | Reveal$ True | RememberChosen$ True
+SVar:DBSac:DB$ SacrificeAll | ValidCards$ Card.IsRemembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearChosenCard$ True

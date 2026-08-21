@@ -1,7 +1,10 @@
 Id:8809
-ColorIdentity:B
+ColorIdentity:R
 OriginSet:G70f74088c47d66bd
-ManaCost:1 B B
-Types:Instant
-K:Split second
-A:SP$ Pump | ValidTgts$ Creature | NumAtt$ -4 | NumDef$ -4 | IsCurse$ True
+ManaCost:3 R
+Types:Creature Elemental
+PT:2/3
+K:Echo:3 R
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigTremor
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigTremor | Secondary$ True
+SVar:TrigTremor:DB$ DamageAll | ValidCards$ Creature.withoutFlying | NumDmg$ 1

@@ -1,14 +1,10 @@
 Id:24752
-ColorIdentity:WUBRG
-OriginSet:G3c9db52fa0bcee92
-ManaCost:5 W U B R G
-Types:Creature Avatar
-PT:10/10
-K:Vigilance
-K:Trample
-K:Lifelink
-R:Event$ Moved | ActiveZones$ Battlefield | Destination$ Battlefield | ValidCard$ Card.Self+!wasCast,Card.Self+CastSa Spell.ManaSpent EQ0 | ReplaceWith$ Exile
-SVar:Exile:DB$ ChangeZone | Hidden$ True | Origin$ All | Destination$ Exile | Defined$ ReplacedCard
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigExile
-SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ 10 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBPlay
-SVar:DBPlay:DB$ Play | Valid$ Card.nonLand+IsRemembered+YouOwn+cmcLE10 | WithTotalCMC$ 10 | ValidZone$ Exile | ValidSA$ Spell | Controller$ You | WithoutManaCost$ True | Optional$ True | Amount$ All
+ColorIdentity:WR
+OriginSet:Gf8d4de878d0536c5
+ManaCost:2 R W
+Types:Legendary Creature Human Warrior
+PT:4/4
+T:Mode$ AttackersDeclared | ValidAttackers$ Creature.nonHuman+YouCtrl | Execute$ TrigDig | TriggerZones$ Battlefield
+SVar:TrigDig:DB$ Dig | DigNum$ 6 | ChangeNum$ 1 | Optional$ True | Reveal$ False | ChangeValid$ Creature.Human | DestinationZone$ Battlefield | DestinationZone2$ Library | LibraryPosition$ -1 | RestRandomOrder$ True | Tapped$ True | Attacking$ True | RememberChanged$ True | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Remembered | KW$ Indestructible | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

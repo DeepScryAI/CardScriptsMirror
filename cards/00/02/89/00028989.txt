@@ -1,11 +1,13 @@
 Id:28989
-ColorIdentity:WBR
-OriginSet:Gc7beb665b378d90a
-ManaCost:1 R W B
-Types:Legendary Creature Vampire Assassin
-PT:3/3
+ColorIdentity:B
+OriginSet:Gaf7c94f364052cdd
+ManaCost:2 B
+Types:Creature Insect Mutant
+PT:2/2
 K:Flying
-K:Lifelink
-T:Mode$ DamageDoneOnce | ValidSource$ Card.Outlaw+YouCtrl | TriggerZones$ Battlefield | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigTreasure
-SVar:TrigTreasure:DB$ Token | TokenScriptIds$ 3851718391
-A:AB$ PutCounterAll | Cost$ 3 Sac<2/Treasure> | ValidCards$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 2 | SorcerySpeed$ True
+S:Mode$ CantBlock | ValidCard$ Creature.Self
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigRadiation | CombatDamage$ True
+SVar:TrigRadiation:DB$ Radiation | Defined$ TriggeredTarget | Num$ X
+SVar:X:TriggerCount$DamageAmount
+T:Mode$ Milled | ValidPlayer$ Opponent | OptionalDecider$ You | ValidCard$ Card.nonLand | TriggerZones$ Graveyard | Execute$ TrigReturn | PresentZone$ Graveyard | IsPresent$ Card.StrictlySelf
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand

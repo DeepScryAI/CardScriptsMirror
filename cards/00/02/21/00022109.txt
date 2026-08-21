@@ -1,11 +1,10 @@
 Id:22109
-ColorIdentity:R
-OriginSet:Ga575fa2f4f5cded4
-ManaCost:2 R
-Types:Instant
-A:SP$ DigUntil | Valid$ Card.nonLand | RevealedDestination$ Library | RevealedLibraryPosition$ -1 | RevealRandomOrder$ True | RememberFound$ True | SubAbility$ DBImmediateTrigger
-SVar:DBImmediateTrigger:DB$ ImmediateTrigger | ConditionDefined$ Remembered | ConditionPresent$ Card.nonLand | Execute$ TrigDamage
-SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ X | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Remembered$CardManaCost
-K:Flashback:3 R R
+ColorIdentity:UR
+OriginSet:Gd784248bfdf9e1d7
+ManaCost:U R
+Types:Creature Human Shaman
+PT:2/2
+T:Mode$ SpellCastOrCopy | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigUnblockable
+SVar:TrigUnblockable:DB$ Effect | RememberObjects$ Self | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable | SubAbility$ DBPutCounter
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+SVar:DBPutCounter:DB$ PutCounter | CounterType$ P1P1 | ConditionCheckSVar$ TriggeredSpellAbility$CardManaCostLKI | ConditionSVarCompare$ GE5

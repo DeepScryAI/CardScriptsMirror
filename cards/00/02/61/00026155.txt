@@ -1,13 +1,8 @@
 Id:26155
-ColorIdentity:WB
+ColorIdentity:U
 OriginSet:G2192e8955d5e1ad1
-ManaCost:2 W B
-Types:Legendary Creature Phyrexian Knight
-PT:3/4
-K:BattleCry
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigEffect
-SVar:TrigEffect:DB$ Effect | ValidTgts$ Creature | Duration$ UntilEndOfCombat | ReplacementEffects$ StrikeWithAwe | ExileOnMoved$ Battlefield | RememberObjects$ Targeted
-SVar:StrikeWithAwe:Event$ DamageDone | IsCombat$ True | ValidTarget$ Player | ValidSource$ Card.IsRemembered | ReplaceWith$ CreateTokensInstead | PreventionEffect$ True
-SVar:CreateTokensInstead:DB$ Token | TokenAmount$ X | TokenScriptIds$ 2259993196 | TokenOwner$ You | SubAbility$ ExileEffect
-SVar:ExileEffect:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile
-SVar:X:ReplaceCount$DamageAmount
+ManaCost:X U U
+Types:Sorcery
+A:SP$ GainControl | ValidTgts$ Creature.cmcLEX | SubAbility$ DBCopy
+SVar:DBCopy:DB$ CopyPermanent | Defined$ Targeted | ConditionCheckSVar$ X | ConditionSVarCompare$ GE5
+SVar:X:Count$xPaid

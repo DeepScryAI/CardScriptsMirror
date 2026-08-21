@@ -1,11 +1,10 @@
 Id:22111
-ColorIdentity:BG
-OriginSet:Ga575fa2f4f5cded4
-ManaCost:2 G
-Types:Legendary Creature Squirrel Warrior
+ColorIdentity:UR
+OriginSet:Gd784248bfdf9e1d7
+ManaCost:UR UR
+Types:Creature Orc Wizard
 PT:3/3
-K:Landwalk:Forest
-R:Event$ CreateToken | ActiveZones$ Battlefield | ValidToken$ Card.YouCtrl | ReplaceWith$ DBReplace
-SVar:DBReplace:DB$ ReplaceToken | Type$ AddToken | TokenScriptIds$ 798446951
-A:AB$ Pump | Cost$ B Sac<X/Squirrel> | ValidTgts$ Creature | NumAtt$ +X | NumDef$ -X
-SVar:X:Count$xPaid
+K:Defender
+T:Mode$ SpellCastOrCopy | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigEffect
+SVar:TrigEffect:DB$ Effect | StaticAbilities$ CanAttack | Duration$ UntilHostLeavesPlayOrEOT
+SVar:CanAttack:Mode$ CanAttackDefender | ValidCard$ Card.EffectSource

@@ -1,11 +1,9 @@
 Id:31123
-ColorIdentity:URG
-OriginSet:Gef9d0d0c16b2fcf7
-ManaCost:1 G U R
-Types:Legendary Creature Human Artificer
-PT:4/4
-T:Mode$ SpellCast | ValidCard$ Artificer,Artifact | ValidActivatingPlayer$ You | Execute$ TrigEnergy | TriggerZones$ Battlefield
-SVar:TrigEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ 1
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigImmediateTrig
-SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ PayEnergy<3> | Execute$ TrigCopy
-SVar:TrigCopy:DB$ CopyPermanent | ValidTgts$ Permanent.YouCtrl | SetPower$ 5 | SetToughness$ 5 | AddTypes$ Artifact & Creature | AddKeywords$ Haste | AtEOT$ Sacrifice
+ColorIdentity:
+OriginSet:G4524bbf7a3db9dc0
+ManaCost:2
+Types:Artifact
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw
+A:AB$ AlterAttribute | Cost$ 2 T | ValidTgts$ Mount.YouCtrl | SorcerySpeed$ True | Attributes$ Saddled
+A:AB$ Animate | Cost$ 2 T | ValidTgts$ Vehicle.YouCtrl | Types$ Artifact,Creature

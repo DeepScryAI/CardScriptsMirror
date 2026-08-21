@@ -1,9 +1,17 @@
 Id:29712
-ColorIdentity:UR
-OriginSet:G01a610e823cce3ca
-ManaCost:1 U R
-Types:Legendary Artifact Vehicle
-PT:4/4
-T:Mode$ DamageDone | CombatDamage$ True | ValidSource$ Card.Self | ValidTarget$ Player | TriggerZones$ Battlefield | Execute$ TrigDiscard
-SVar:TrigDiscard:AB$ Draw | NumCards$ Count$Valid Artifact.YouCtrl | Cost$ Discard<0/Hand>
-K:Crew:3
+ColorIdentity:WU
+OriginSet:Gac6359c222afbd4f
+ManaCost:3 WU WU
+Types:Sorcery
+A:SP$ TapAll | ValidCards$ Creature | ValidTgts$ Player | RememberTapped$ True | SubAbility$ DBChooseNumber
+SVar:DBChooseNumber:DB$ ChooseNumber | Max$ Max | SubAbility$ DBStun
+SVar:DBStun:DB$ PutCounter | UnlessCost$ PayEnergy<X> | UnlessPayer$ You | UnlessSwitched$ True | Choices$ Creature.IsRemembered | ChoiceAmount$ X | MinChoiceAmount$ 0 | CounterType$ Stun
+SVar:Max:Count$YourCountersEnergy
+SVar:X:Count$ChosenNumber
+AlternateMode:Modal
+ALTERNATE
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ Combo W U

@@ -1,16 +1,14 @@
 Id:29192
-ColorIdentity:URG
+ColorIdentity:W
 OriginSet:G27146c70b74a1e72
-ManaCost:G U R
-Types:Legendary Creature Human Wizard
+ManaCost:2 W
+Types:Creature Rabbit Mercenary
 PT:3/3
-T:Mode$ SpellCast | ValidActivatingPlayer$ You | ValidSA$ Spell.Modal | Execute$ TrigCharm | TriggerZones$ Battlefield
-SVar:TrigCharm:DB$ Charm | Choices$ DBExile,DBPutCounter,DBToken | CharmNum$ X | MinCharmNum$ 0
-SVar:X:TriggeredSpellAbility$NumTimesChoseMode
-SVar:DBExile:DB$ Dig | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | ExileOnMoved$ Exile | RememberObjects$ Remembered | Duration$ UntilTheEndOfYourNextTurn | SubAbility$ DBCleanup
-SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+K:Vigilance
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | CheckSVar$ X | SVarCompare$ GTY | OptionalDecider$ You | ValidCard$ Card.Self | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Land.Plains | ChangeNum$ 1 | RememberChanged$ True | Tapped$ True | NoShuffle$ True | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Optional$ True | Origin$ Library | Destination$ Battlefield | ConditionCheckSVar$ X | ConditionSVarCompare$ GTY | ChangeType$ Land.Plains | ChangeNum$ 1 | RememberChanged$ True | Tapped$ True | NoShuffle$ True | SubAbility$ DBShuffle
+SVar:DBShuffle:DB$ Shuffle | Defined$ You | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ GE1 | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:DBPutCounter:DB$ PutCounter | CounterType$ P1P1 | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | KW$ Trample
-SVar:DBToken:DB$ Token | TokenScriptIds$ 4227844541
+SVar:X:PlayerCountOpponents$HighestValid Land.YouCtrl
+SVar:Y:Count$Valid Land.YouCtrl

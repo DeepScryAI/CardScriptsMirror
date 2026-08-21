@@ -1,11 +1,15 @@
 Id:27732
-ColorIdentity:UR
-OriginSet:G30e8a5e111cffb44
-ManaCost:1 U R
-Types:Legendary Creature Human Incarnation
-PT:3/3
-K:Vanishing:3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZone | ChangeType$ Artifact.Other+YouCtrl | ChangeNum$ 1 | Hidden$ True | Mandatory$ True | Origin$ Battlefield | Destination$ Exile | Duration$ UntilHostLeavesPlay
-S:Mode$ Continuous | Affected$ Card.Self | EffectZone$ Battlefield | GainsAbilitiesOf$ Card.ExiledWithSource | GainsTriggerAbsOf$ Card.ExiledWithSource | GainsAbilitiesOfZones$ Exile | AddPower$ X | AddToughness$ X
-SVar:X:Count$ValidExile Card.ExiledWithSource$CardManaCost
+ColorIdentity:
+OriginSet:Gc439e34e3f5d02f3
+ManaCost:2
+Types:Artifact Vehicle
+PT:2/4
+K:Flying
+T:Mode$ Attacks | ValidCard$ Card.Self | IsPresent$ Card.Time Lord+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigEffect
+SVar:TrigEffect:DB$ Effect | StaticAbilities$ GrantCascade | Triggers$ ExileEffect | SubAbility$ DBPlaneswalk
+SVar:DBPlaneswalk:DB$ Planeswalk | Optional$ True
+SVar:GrantCascade:Mode$ Continuous | Affected$ Card.YouCtrl | AffectedZone$ Stack | AddKeyword$ Cascade
+SVar:ExileEffect:Mode$ SpellCast | EffectZone$ Command | ValidCard$ Card.YouCtrl | Execute$ RemoveEffect | Static$ True
+SVar:RemoveEffect:DB$ ChangeZone | Origin$ Command | Destination$ Exile | Defined$ Self
+K:Crew:2
+SVar:HasAttackEffect:TRUE

@@ -1,10 +1,16 @@
 Id:28480
-ColorIdentity:UR
-OriginSet:G7ee0e82a2424d636
-ManaCost:2 U R
-Types:Creature Goblin Artificer
-PT:3/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
-T:Mode$ TurnFaceUp | ValidCard$ Card.Self | Execute$ TrigToken | TriggerZones$ Battlefield | Secondary$ True
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 3939935181 | TokenOwner$ You
-K:Disguise:UR UR
+ColorIdentity:G
+OriginSet:G94329e6b3f93276f
+ManaCost:3 G
+Types:Creature Centaur Detective
+PT:3/4
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPeek | TriggerZones$ Battlefield
+SVar:TrigPeek:DB$ PeekAndReveal | Defined$ Player | RememberRevealed$ True | SubAbility$ DBInvestigate
+SVar:DBInvestigate:DB$ Investigate | Num$ X | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ Player | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Valid Card.nonLand
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | OptionalDecider$ You | TriggerZones$ Battlefield | Execute$ TrigUntap
+SVar:TrigUntap:DB$ UntapAll | ValidCards$ Land.YouCtrl | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STCantBeCast | Duration$ UntilYourNextTurn
+SVar:STCantBeCast:Mode$ CantBeCast | ValidCard$ Card | Caster$ You

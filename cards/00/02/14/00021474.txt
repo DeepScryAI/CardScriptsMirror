@@ -1,9 +1,10 @@
 Id:21474
-ColorIdentity:WR
-OriginSet:G18bf722b221724f8
-ManaCost:no cost
-Types:Land
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
-A:AB$ Mana | Cost$ T | Produced$ W
-A:AB$ ChangeZone | Cost$ 1 R R W T Sac<1/CARDNAME> | Origin$ Library | Destination$ Hand | ChangeType$ EACH Aura & Equipment
+ColorIdentity:W
+OriginSet:G51d431785c8b33e5
+ManaCost:2 W
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Exile
+T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | IsPresent$ Creature.YouCtrl | PresentCompare$ EQ0 | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice | SubAbility$ DBChangeZoneAll
+SVar:DBChangeZoneAll:DB$ ChangeZoneAll | Origin$ Exile | Destination$ Battlefield | ChangeType$ Card.ExiledWithSource

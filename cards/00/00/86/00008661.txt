@@ -1,12 +1,9 @@
 Id:8661
 ColorIdentity:B
 OriginSet:G70f74088c47d66bd
-ManaCost:2 B
-Types:Creature Nightmare Horror
-PT:2/1
-K:Shadow
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigReturn
-SVar:TrigExile:DB$ ChangeZone | TargetMin$ 1 | IsCurse$ True | ValidTgts$ Creature.withShadow+Other | RememberTargets$ True | ForgetOtherTargets$ True | Origin$ Battlefield | Destination$ Exile
-SVar:TrigReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield
-SVar:PlayMain1:TRUE
+ManaCost:4 B
+Types:Creature Eye
+PT:6/3
+S:Mode$ CantAttack | ValidCard$ Creature.nonEye+YouCtrl
+T:Mode$ AttackerBlockedByCreature | ValidCard$ Card.Self | ValidBlocker$ Creature | Execute$ TrigDestroyBlocker | TriggerZones$ Battlefield
+SVar:TrigDestroyBlocker:DB$ Destroy | Defined$ TriggeredBlockerLKICopy

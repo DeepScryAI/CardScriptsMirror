@@ -1,13 +1,10 @@
 Id:26373
-ColorIdentity:B
-OriginSet:Gd5f5e54fa26ae40d
-ManaCost:4 B B
-Types:Creature Demon
-PT:6/6
-K:Flying
-K:Trample
-R:Event$ BeginPhase | ActiveZones$ Battlefield | ValidPlayer$ You | Phase$ Draw | Skip$ True
-T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraw
-T:Mode$ LandPlayed | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigDraw | Secondary$ True
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1 | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 1
+ColorIdentity:W
+OriginSet:G2192e8955d5e1ad1
+ManaCost:X W W
+Types:Sorcery
+A:SP$ GainLife | LifeAmount$ X | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | RememberTokens$ True | TokenAmount$ X | TokenScriptIds$ 2259993196 | TokenOwner$ You | SubAbility$ DBWrath
+SVar:DBWrath:DB$ DestroyAll | ValidCards$ Creature.!IsRemembered | ConditionCheckSVar$ X | ConditionSVarCompare$ GE5 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$xPaid

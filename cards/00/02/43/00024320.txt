@@ -1,15 +1,15 @@
 Id:24320
-ColorIdentity:G
+ColorIdentity:B
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:3 G
-Types:Enchantment
-T:Mode$ Phase | Phase$ Upkeep | TriggerZones$ Battlefield | ValidPlayer$ You | Execute$ TrigExile
-SVar:TrigExile:DB$ Dig | DigNum$ 4 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBRollDice
-SVar:DBRollDice:DB$ RollDice | Sides$ 20 | ResultSubAbilities$ 1-9:DBPutLand,10-19:DBToken,20:DBPutAll
-SVar:DBPutLand:DB$ ChangeZone | Origin$ Exile | Destination$ Battlefield | Hidden$ True | ChangeType$ Land.IsRemembered | SubAbility$ DBCleanup
-SVar:DBToken:DB$ Token | TokenScriptIds$ 4257275070 | ImprintTokens$ True | SubAbility$ DBPutCounters
-SVar:DBPutCounters:DB$ PutCounter | Defined$ Imprinted | CounterType$ P1P1 | CounterNum$ X | SubAbility$ DBCleanup
-SVar:X:Remembered$Valid Creature
-SVar:DBPutAll:DB$ ChangeZoneAll | ChangeType$ Card.ExiledWithSource | Origin$ Exile | Destination$ Battlefield | SubAbility$ DBSacrifice
-SVar:DBSacrifice:DB$ Sacrifice | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True
+ManaCost:5 B B
+Types:Creature Horror
+PT:6/6
+K:Menace
+T:Mode$ Attacks | ValidCard$ Card.Self | Attacked$ Player | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZoneAll | Defined$ TriggeredDefendingPlayer | ChangeType$ Card | Origin$ Hand | Destination$ Exile | RememberChanged$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ TriggeredDefendingPlayer | NumCards$ RemTossed | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ MayPlay | SubAbility$ DBCleanup | Duration$ Permanent | ForgetOnMoved$ Exile
+SVar:MayPlay:Mode$ Continuous | MayPlay$ True | MayPlayIgnoreColor$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:RemTossed:Remembered$Amount
+SVar:HasAttackEffect:TRUE

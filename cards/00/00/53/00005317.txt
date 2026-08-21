@@ -1,8 +1,14 @@
 Id:5317
-ColorIdentity:B
+ColorIdentity:R
 OriginSet:Gfdac7ecc1e8a7d21
-ManaCost:2 B
-Types:Creature Rat
-PT:1/1
-A:AB$ DamageAll | Cost$ 2 B | ValidCards$ Creature | ValidPlayers$ Player | NumDmg$ 1
-A:AB$ DamageAll | Cost$ 3 B | ValidCards$ Creature | ValidPlayers$ Player | NumDmg$ 3 | Activation$ Threshold
+ManaCost:2 R R
+Types:Enchantment
+T:Mode$ Attacks | ValidCard$ Creature | Execute$ CoinFlip | TriggerZones$ Battlefield
+SVar:CoinFlip:DB$ FlipCoin | WinSubAbility$ CreateWinEffect | LoseSubAbility$ CreateLossEffect
+SVar:CreateWinEffect:DB$ Effect | Name$ 12160160825561773802 | ReplacementEffects$ EventWinDamageDone | ImprintCards$ TriggeredAttacker
+SVar:EventWinDamageDone:Event$ DamageDone | ValidSource$ Card.IsImprinted | IsCombat$ True | ReplaceWith$ DmgTwice
+SVar:DmgTwice:DB$ ReplaceEffect | VarName$ DamageAmount | VarValue$ WinX | SubAbility$ ExileEffect
+SVar:WinX:ReplaceCount$DamageAmount/Twice
+SVar:CreateLossEffect:DB$ Effect | Name$ 15602654908884257114 | ReplacementEffects$ EventLossDamageDone | ImprintCards$ TriggeredAttacker
+SVar:EventLossDamageDone:Event$ DamageDone | ValidSource$ Card.IsImprinted | ReplaceWith$ ExileEffect | PreventionEffect$ True | IsCombat$ True
+SVar:ExileEffect:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile

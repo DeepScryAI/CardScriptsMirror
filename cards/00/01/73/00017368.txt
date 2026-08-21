@@ -1,14 +1,8 @@
 Id:17368
-ColorIdentity:WG
+ColorIdentity:
 OriginSet:Gaa482ed186eee527
-ManaCost:4 G W
-Types:Legendary Creature Cat Artificer
-PT:5/4
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange
-SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Library | ChangeType$ Equipment | ChangeNum$ 1 | Reveal$ True | Shuffle$ False | RememberChanged$ True | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | Defined$ Remembered | Origin$ Library | Destination$ Battlefield | ConditionDefined$ Remembered | ConditionPresent$ Card.catalogId17349 | ForgetChanged$ True | SubAbility$ DBChangeZone2
-SVar:DBChangeZone2:DB$ ChangeZone | Defined$ Remembered | Origin$ Library | Destination$ Hand | SubAbility$ DBShuffle
-SVar:DBShuffle:DB$ Shuffle | Defined$ You | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-T:Mode$ Attacks | ValidCard$ Creature.YouCtrl+equipped | Execute$ TrigTap | TriggerZones$ Battlefield | OptionalDecider$ You
-SVar:TrigTap:DB$ Tap | ValidTgts$ Creature.DefendingPlayerCtrl
+ManaCost:2
+Types:Artifact
+K:ETBReplacement:Other:ChooseCT
+SVar:ChooseCT:DB$ ChooseType | Defined$ You | Type$ Creature | AILogic$ MostProminentComputerControls
+A:AB$ Clone | Cost$ 1 | ValidTgts$ Creature.ChosenType+YouCtrl | Duration$ UntilEndOfTurn | AddTypes$ Artifact

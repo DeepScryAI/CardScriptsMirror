@@ -1,9 +1,12 @@
 Id:21919
 ColorIdentity:R
-OriginSet:Gd784248bfdf9e1d7
-ManaCost:R
-Types:Instant
-A:SP$ Effect | ValidTgts$ Creature | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ MustBlock | SubAbility$ DBPump
-SVar:MustBlock:Mode$ MustBlock | ValidCreature$ Card.IsRemembered
-SVar:DBPump:DB$ Pump | Defined$ Targeted | KW$ Reach | Optional$ True | OptionQuestion$ Do you want TARGETS to gain reach? | SubAbility$ DBLearn
-SVar:DBLearn:DB$ Learn
+OriginSet:G6fa60d857e930f32
+ManaCost:1 R
+Types:Creature Human Shaman
+PT:2/2
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:AB$ Draw | Cost$ 1 Discard<1/Card>
+T:Mode$ DiscardedAll | ValidPlayer$ You | ValidCard$ Card.nonLand | TriggerZones$ Battlefield | Execute$ TrigEffect
+SVar:TrigEffect:AB$ Effect | Cost$ ExileFromGrave<1/Card.TriggeredCards> | RememberObjects$ ExiledCards | StaticAbilities$ MayCast | ExileOnMoved$ Stack
+SVar:MayCast:Mode$ Continuous | Affected$ Card.IsRemembered+nonLand | MayPlay$ True | AffectedZone$ Exile
+SVar:HasAttackEffect:TRUE

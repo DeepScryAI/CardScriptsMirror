@@ -1,15 +1,13 @@
 Id:32600
-ColorIdentity:G
-OriginSet:G36e97d2da170e675
-ManaCost:2 G G
-Types:Enchantment Aura
-K:Enchant:Creature.YouCtrl:creature you control
-SVar:AttachAILogic:Pump
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ X | AddToughness$ X | AddType$ Avatar
-T:Mode$ ChangesZone | ValidCard$ Card.EnchantedBy | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigMill
-SVar:TrigMill:DB$ Mill | NumCards$ Y | RememberMilled$ True | SubAbility$ DBReturnAura
-SVar:DBReturnAura:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | Defined$ Self | SubAbility$ DBReturnCreature
-SVar:DBReturnCreature:DB$ ChangeZone | Hidden$ True | Origin$ Graveyard,Exile | Destination$ Battlefield | ChangeType$ Creature.IsRemembered | ChangeNum$ 1 | Optional$ True | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$ValidGraveyard Creature.YouOwn
-SVar:Y:TriggeredCard$CardPower
+ColorIdentity:RG
+OriginSet:G66b3a7eeabd9000e
+ManaCost:3 R R G G
+Types:Legendary Creature Human Villain
+PT:6/7
+K:Vigilance
+K:Trample
+K:Haste
+T:Mode$ Attacks | ValidCard$ Card.Self | CheckSVar$ X | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw
+SVar:X:Count$ThisTurnCast_Card.cmcGE4+YouCtrl
+SVar:HasAttackEffect:TRUE

@@ -1,16 +1,13 @@
 Id:21547
-ColorIdentity:WUBRG
+ColorIdentity:U
 OriginSet:G18bf722b221724f8
-ManaCost:1 G G
-Types:Legendary Creature God
-PT:1/4
-K:Vigilance
-A:AB$ Mana | Cost$ T | Produced$ Any | Amount$ 1
-S:Mode$ Continuous | Affected$ Creature.Legendary+Other+YouCtrl | AddAbility$ Mana | AddKeyword$ Vigilance
-SVar:Mana:AB$ Mana | Cost$ T | Produced$ Any | Amount$ 1
-AlternateMode:Modal
-ALTERNATE
-ManaCost:W U B R G
-Types:Legendary Enchantment
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDig
-SVar:TrigDig:DB$ DigUntil | Valid$ Creature,Planeswalker | FoundDestination$ Battlefield | RevealedDestination$ Library | RevealedLibraryPosition$ -1 | RevealRandomOrder$ True
+ManaCost:U
+Types:Snow Creature Spirit
+PT:1/1
+A:AB$ Animate | Cost$ S S | Types$ Spirit,Warrior | RemoveCreatureTypes$ True | Duration$ Permanent | Power$ 2 | Toughness$ 3
+A:AB$ PutCounter | Cost$ S S S | ConditionPresent$ Card.Self+Warrior | CounterType$ Flying | CounterNum$ 1 | SubAbility$ TrigAnimate
+SVar:TrigAnimate:DB$ Animate | ConditionPresent$ Card.Self+Warrior | Types$ Angel,Spirit,Warrior | RemoveCreatureTypes$ True | Duration$ Permanent | Power$ 4 | Toughness$ 4
+A:AB$ PutCounter | Cost$ S S S S | ConditionPresent$ Card.Self+Angel | CounterType$ P1P1 | CounterNum$ 2 | SubAbility$ AddTrigger
+SVar:AddTrigger:DB$ Animate | Defined$ Self | ConditionPresent$ Card.Self+Angel | Triggers$ DamageDraw | Duration$ Permanent
+SVar:DamageDraw:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1

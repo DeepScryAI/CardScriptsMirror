@@ -1,11 +1,9 @@
 Id:17017
-ColorIdentity:G
+ColorIdentity:
 OriginSet:Gbcdce58dfbbf1bad
-ManaCost:2 G
-Types:Creature Beast
-PT:2/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDestroy | OptionalDecider$ You
-SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Artifact
-R:Event$ Moved | ValidCard$ Artifact.OppCtrl | Destination$ Battlefield | ReplaceWith$ ETBTapped | ReplacementResult$ Updated | ActiveZones$ Battlefield
-SVar:ETBTapped:DB$ Tap | ETB$ True | Defined$ ReplacedCard
-SVar:PlayMain1:TRUE
+ManaCost:3
+Types:Artifact
+A:AB$ GainLife | Cost$ 1 T | LifeAmount$ 1 | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ BRICK | CounterNum$ 1
+A:AB$ GainLife | Cost$ T | LifeAmount$ 2 | CheckSVar$ X | SVarCompare$ GE3
+SVar:X:Count$CardCounters.BRICK

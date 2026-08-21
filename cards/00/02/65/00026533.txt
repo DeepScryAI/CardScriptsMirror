@@ -1,18 +1,11 @@
 Id:26533
-ColorIdentity:UB
-OriginSet:G06757f68e16377c2
-ManaCost:1 U B
-Types:Battle Siege
-Defense:4
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill
-SVar:TrigMill:DB$ Mill | Defined$ Player | NumCards$ 3 | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | Defined$ Opponent | Mode$ TgtChoose | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:blue,black
-Types:Creature Zombie
-PT:4/4
-K:ETBReplacement:Copy:DBCopy:Optional
-SVar:DBCopy:DB$ Clone | Choices$ Creature | ChoiceZone$ Graveyard | SetPower$ 4 | SetToughness$ 4 | AddColors$ Black | AddTypes$ Zombie
+ColorIdentity:WU
+OriginSet:Gd5f5e54fa26ae40d
+ManaCost:2 WU
+Types:Creature Kithkin Wizard
+PT:3/2
+T:Mode$ Taps | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | ValidTgts$ Permanent.nonLand+!token | TargetMin$ 0 | TargetMax$ 1 | Mandatory$ True | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DelTrig
+SVar:DelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ TrigBounce | RememberObjects$ RememberedLKI | SubAbility$ DBCleanup
+SVar:TrigBounce:DB$ ChangeZone | Origin$ Exile | Destination$ Battlefield | Defined$ DelayTriggerRememberedLKI
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

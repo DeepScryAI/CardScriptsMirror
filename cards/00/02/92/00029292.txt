@@ -1,13 +1,11 @@
 Id:29292
-ColorIdentity:R
-OriginSet:G0c9f9aa4a8bf0371
-ManaCost:1 R
-Types:Creature Ogre Mercenary
-PT:2/1
-K:Menace
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigRandom | TriggerZones$ Battlefield
-SVar:TrigRandom:DB$ ChooseCard | Choices$ Card.nonLand+OwnedBy TriggeredTarget | ChoiceZone$ Hand | AtRandom$ True | Amount$ 1 | SubAbility$ DBAnimate
-SVar:DBAnimate:DB$ Animate | Defined$ ChosenCard | Triggers$ CastSpellLoseLife | Duration$ Perpetual | SubAbility$ DBCleanup
-SVar:CastSpellLoseLife:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigDrain
-SVar:TrigDrain:DB$ LoseLife | LifeAmount$ 2
-SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+ColorIdentity:
+OriginSet:G27146c70b74a1e72
+ManaCost:2
+Types:Artifact Vehicle
+PT:3/3
+S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ Haste | IsPresent$ Mount.YouCtrl
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ DBDig
+SVar:DBDig:DB$ Dig | DigNum$ 1 | ChangeNum$ 1 | Tapped$ True | ChangeValid$ Card.Land | ForceRevealToController$ True | Optional$ True | DestinationZone$ Battlefield | DestinationZone2$ Library | LibraryPosition2$ 0
+K:Crew:2
+SVar:HasAttackEffect:TRUE

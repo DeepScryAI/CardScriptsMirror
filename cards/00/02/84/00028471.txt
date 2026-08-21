@@ -1,16 +1,11 @@
 Id:28471
-ColorIdentity:UBG
-OriginSet:G7ee0e82a2424d636
-ManaCost:1 GU
-Types:Instant
-A:SP$ Mill | NumCards$ 3 | SubAbility$ DBInvestigate
-SVar:DBInvestigate:DB$ Investigate
-AlternateMode:Split
-ALTERNATE
-ManaCost:4 UB UB
-Types:Sorcery
-A:SP$ Mill | Defined$ Opponent | NumCards$ 3 | SubAbility$ DBCast
-SVar:DBCast:DB$ RepeatEach | RepeatPlayers$ Opponent | RepeatSubAbility$ DBChoose | SubAbility$ DBPlayAll
-SVar:DBChoose:DB$ ChooseCard | Choices$ Card.RememberedPlayerCtrl+nonLand | ChoiceZone$ Graveyard | Defined$ You | Amount$ 1 | RememberChosen$ True
-SVar:DBPlayAll:DB$ Play | Defined$ Remembered | Amount$ All | ValidSA$ Spell | WithoutManaCost$ True | Optional$ True | ReplaceGraveyard$ Exile | AILogic$ ReplaySpell | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:G
+OriginSet:G94329e6b3f93276f
+ManaCost:3 G
+Types:Creature Elf Lizard Warrior
+PT:4/4
+K:Trample
+K:Disguise:4 G
+T:Mode$ TurnFaceUp | ValidCard$ Card.Self,Creature.Other+YouCtrl | Execute$ TrigPutCounters | TriggerZones$ Battlefield
+SVar:TrigPutCounters:DB$ PutCounter | Defined$ TriggeredCard | CounterType$ P1P1 | CounterNum$ X
+SVar:X:TriggeredCard$CardPower

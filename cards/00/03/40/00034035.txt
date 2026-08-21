@@ -1,9 +1,11 @@
 Id:34035
-ColorIdentity:W
-OriginSet:Gcb93bbfc68a40806
-ManaCost:3 W
-Types:Legendary Creature Human Soldier Hero
-PT:3/4
-K:Flash
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPumpAll
-SVar:TrigPumpAll:DB$ PumpAll | ValidCards$ Soldier.YouCtrl,Hero.YouCtrl | KW$ Indestructible
+ColorIdentity:U
+OriginSet:Gf8df2bea26dc6b68
+ManaCost:2 U
+Types:Creature Human Wizard
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | ValidTgts$ Creature.Other | TargetMin$ 0 | TargetMax$ 1 | Origin$ Battlefield | Destination$ Hand
+T:Mode$ SpellCast | ValidCard$ Card.hasXCost | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigUnblockable
+SVar:TrigUnblockable:DB$ Effect | RememberObjects$ Self | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered

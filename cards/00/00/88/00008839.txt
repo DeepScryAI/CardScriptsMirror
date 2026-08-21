@@ -1,8 +1,10 @@
 Id:8839
-ColorIdentity:
+ColorIdentity:G
 OriginSet:G70f74088c47d66bd
-ManaCost:no cost
-Types:Land
-K:ETBReplacement:Copy:DBCopy:Optional
-SVar:DBCopy:DB$ Clone | Choices$ Land.Other | IntoPlayTapped$ True
-SVar:NeedsToPlay:Land.YouDontCtrl+!catalogId8839,Land.YouCtrl+nonLegendary+!catalogId8839
+ManaCost:3 G G
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 3 | AddToughness$ 3 | AddTrigger$ VerdantTrig | AddSVar$ VerdantToken
+SVar:VerdantTrig:Mode$ Phase | Phase$ Upkeep | TriggerZones$ Battlefield | Execute$ VerdantToken
+SVar:VerdantToken:DB$ Token | TokenScriptIds$ 3815350479 | TokenOwner$ You

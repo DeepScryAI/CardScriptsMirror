@@ -1,10 +1,10 @@
 Id:33044
-ColorIdentity:G
-OriginSet:G821b410e312d7e12
-ManaCost:X G G
+ColorIdentity:W
+OriginSet:G22ed5d6f3707b461
+ManaCost:2 W
 Types:Enchantment
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenAmount$ X | TokenScriptIds$ 1704049915 | TokenOwner$ You
-S:Mode$ Continuous | Affected$ Creature.token+YouCtrl | AddAbility$ AnyMana
-SVar:AnyMana:AB$ Mana | Cost$ T | Produced$ Any | Amount$ 1
-SVar:X:Count$xPaid
+T:Mode$ Attacks | ValidCard$ Creature.YouCtrl | Alone$ True | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ TriggeredAttackerLKICopy | NumAtt$ +X | NumDef$ +X
+A:AB$ DealDamage | Cost$ 2 W Discard<1/CARDNAME> | ActivationZone$ Hand | ValidTgts$ Creature | NumDmg$ X
+SVar:X:Count$Valid Creature.YouCtrl
+SVar:PlayMain1:TRUE

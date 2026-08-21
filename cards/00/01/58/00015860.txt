@@ -1,11 +1,23 @@
 Id:15860
-ColorIdentity:B
+ColorIdentity:RG
 OriginSet:G92026fbb3573fda5
-ManaCost:1 B
-Types:Creature Vampire Wizard
-PT:3/1
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Player | TriggerZones$ Battlefield | CheckSVar$ TrigCount | SVarCompare$ EQ0 | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ 1
-SVar:TrigCount:Count$ValidHand Card.ActivePlayerCtrl
-K:Madness:1 B
+ManaCost:2 R G
+Types:Legendary Planeswalker Arlinn
+Loyalty:3
+A:AB$ Pump | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | NumAtt$ +2 | NumDef$ +2 | KW$ Vigilance & Haste | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Creature
+A:AB$ Token | Cost$ AddCounter<0/LOYALTY> | TokenScriptIds$ 4257275070 | TokenOwner$ You | Planeswalker$ True | SubAbility$ DBTransform
+SVar:DBTransform:DB$ SetState | Defined$ Self | Mode$ Transform
+SVar:PlayMain1:TRUE
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:red,green
+Types:Legendary Planeswalker Arlinn
+Loyalty:0
+A:AB$ PumpAll | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | ValidCards$ Creature.YouCtrl | NumAtt$ +1 | NumDef$ +1 | KW$ Trample
+A:AB$ DealDamage | Cost$ SubCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Any | NumDmg$ 3 | SubAbility$ DBTransform
+SVar:DBTransform:DB$ SetState | Defined$ Self | Mode$ Transform
+A:AB$ Effect | Cost$ SubCounter<6/LOYALTY> | Name$ 16264212156910574021 | StaticAbilities$ STArlinn | Planeswalker$ True | Ultimate$ True | Stackable$ False | Duration$ Permanent | AILogic$ Always
+SVar:STArlinn:Mode$ Continuous | Affected$ Creature.YouCtrl | AffectedZone$ Battlefield | AddKeyword$ Haste | AddAbility$ ArlinnDealDamage | AddSVar$ ArlinnX
+SVar:ArlinnDealDamage:AB$ DealDamage | Cost$ T | ValidTgts$ Any | NumDmg$ ArlinnX
+SVar:ArlinnX:Count$CardPower

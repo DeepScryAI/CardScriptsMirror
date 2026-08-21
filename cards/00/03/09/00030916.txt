@@ -1,9 +1,10 @@
 Id:30916
-ColorIdentity:R
-OriginSet:G4524bbf7a3db9dc0
-ManaCost:R
-Types:Creature Goblin Pilot
-PT:1/1
-S:Mode$ TapPowerValue | ValidSA$ Activated.Saddle+Mount,Activated.Crew+Vehicle | ValidCard$ Card.Self | Value$ 2
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigDealDamage
-SVar:TrigDealDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 1
+ColorIdentity:B
+OriginSet:Gc5a2f0ff902c0621
+ManaCost:1 B
+Types:Legendary Creature Skeleton Rogue
+PT:1/3
+T:Mode$ Discarded | ValidCard$ Card.OppOwn | TriggerZones$ Battlefield | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Defined$ TriggeredCard | Origin$ Graveyard | Destination$ Exile | WithCountersType$ STASH
+S:Mode$ Continuous | Condition$ PlayerTurn | MayPlay$ True | Affected$ Card.YouDontOwn+counters_GE1_STASH | AffectedZone$ Exile | MayPlayIgnoreType$ True
+A:AB$ Discard | Cost$ 3 B T | Defined$ Opponent | Mode$ TgtChoose | SorcerySpeed$ True

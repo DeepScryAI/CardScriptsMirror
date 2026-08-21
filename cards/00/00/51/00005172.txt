@@ -1,10 +1,10 @@
 Id:5172
-ColorIdentity:W
-OriginSet:G0675c7eb4ac29dac
-ManaCost:4 W W
-Types:Creature Angel
-PT:4/4
-K:Flying
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Graveyard | IsPresent$ Card.StrictlySelf | PresentZone$ Graveyard | Execute$ TrigRoll
-SVar:TrigRoll:DB$ RollDice | Sides$ 4 | ResultSubAbilities$ 1:DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | Defined$ Self | Origin$ Graveyard | Destination$ Battlefield
+ColorIdentity:B
+OriginSet:Ga43915481c3b48d8
+ManaCost:4 B
+Types:Creature Zombie Snake
+PT:3/3
+A:AB$ ChooseColor | Cost$ 1 B | Defined$ You | AILogic$ MostProminentInHumanDeck | SorcerySpeed$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | Triggers$ TrigBlocked | RememberObjects$ Self
+SVar:TrigBlocked:Mode$ AttackerBlockedByCreature | ValidCard$ Creature.IsRemembered | ValidBlocker$ Creature.ChosenColor | Execute$ ABDestroy
+SVar:ABDestroy:DB$ Destroy | Defined$ TriggeredBlockerLKICopy

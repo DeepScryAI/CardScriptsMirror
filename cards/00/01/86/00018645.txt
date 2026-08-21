@@ -1,8 +1,13 @@
 Id:18645
-ColorIdentity:G
-OriginSet:G1ecb361a0a117393
-ManaCost:2 G G
-Types:Creature Elf Druid
-PT:2/3
-T:Mode$ SpellCast | ValidCard$ Creature | ValidActivatingPlayer$ You | Execute$ TrigDraw | TriggerZones$ Battlefield
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+ColorIdentity:UR
+OriginSet:Gd7cbb6e7dea72fb5
+ManaCost:2 U R
+Types:Legendary Planeswalker Saheeli
+Loyalty:4
+A:AB$ Token | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | TokenScriptIds$ 825621291 | TokenOwner$ You
+A:AB$ Effect | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | StaticAbilities$ GrantAffinity | Triggers$ TrigCastSpell
+SVar:GrantAffinity:Mode$ Continuous | Affected$ Card.YouCtrl | AffectedZone$ Stack | AddKeyword$ Affinity:Artifact
+SVar:TrigCastSpell:Mode$ SpellCast | ValidActivatingPlayer$ You | TriggerZones$ Command | Execute$ RemoveEffect | Static$ True
+SVar:RemoveEffect:DB$ ChangeZone | Origin$ Command | Destination$ Exile
+A:AB$ CopyPermanent | Cost$ SubCounter<7/LOYALTY> | Planeswalker$ True | Ultimate$ True | Defined$ Valid Artifact.YouCtrl | PumpKeywords$ Haste | AtEOT$ Exile | AILogic$ DuplicatePerms
+K:CARDNAME can be your commander.

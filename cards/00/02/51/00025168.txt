@@ -1,10 +1,15 @@
 Id:25168
-ColorIdentity:B
-OriginSet:Gf591a76e7a37cf73
-ManaCost:1 B B B
-Types:Artifact Creature Necron
-PT:3/2
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSac
-SVar:TrigSac:DB$ Sacrifice | Defined$ Player | SacValid$ Creature
-K:Unearth:5 B B B
+ColorIdentity:R
+OriginSet:G9afc9838c5e994df
+ManaCost:3 R
+Types:Creature Human Citizen
+PT:4/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigCantBlock
+SVar:TrigCantBlock:DB$ Pump | ValidTgts$ Creature.OppCtrl | KW$ HIDDEN CARDNAME can't block. | IsCurse$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ2 | RememberObjects$ Targeted | Triggers$ MustAttackTrig | Duration$ Permanent | ExileOnMoved$ Battlefield
+SVar:MustAttackTrig:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ Player.controlsCreature.IsRemembered_GE1 | Execute$ TrigAttacks | Static$ True
+SVar:TrigAttacks:DB$ Animate | Defined$ Remembered | staticAbilities$ MustAttack | Duration$ UntilEndOfCombat | SubAbility$ ExileSelf
+SVar:MustAttack:Mode$ MustAttack | ValidCreature$ Card.Self
+SVar:ExileSelf:DB$ ChangeZone | Origin$ Command | Destination$ Exile | Defined$ Self
+SVar:X:Count$ResolvedThisTurn
+SVar:BuffedBy:Creature

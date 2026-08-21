@@ -1,9 +1,10 @@
 Id:28370
-ColorIdentity:W
-OriginSet:G94329e6b3f93276f
-ManaCost:3 W
-Types:Instant
-A:SP$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Permanent.nonLand | TargetMin$ 0 | TargetMax$ OneEach | TargetsForEachPlayer$ True | RememberLKI$ True | SubAbility$ CloakEach
-SVar:CloakEach:DB$ Cloak | Amount$ 1 | Defined$ TopOfLibrary | DefinedPlayer$ RememberedController | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:OneEach:PlayerCountPlayers$Amount
+ColorIdentity:UB
+OriginSet:Gfd50577710a6ab09
+ManaCost:U B
+Types:Sorcery
+A:SP$ Charm | MinCharmNum$ 1 | CharmNum$ Count$Compare Y GE8.3.1 | Choices$ DBReturn,DBDiscard,DBLook
+SVar:DBReturn:DB$ ChangeZone | ValidTgts$ Permanent.nonLand | Origin$ Battlefield | Destination$ Hand
+SVar:DBDiscard:DB$ Discard | ValidTgts$ Opponent | Mode$ TgtChoose
+SVar:DBLook:DB$ Dig | DigNum$ 3 | ChangeValid$ Card | DestinationZone$ Hand | DestinationZone2$ Graveyard
+SVar:Y:Count$ValidGraveyard Permanent.YouOwn

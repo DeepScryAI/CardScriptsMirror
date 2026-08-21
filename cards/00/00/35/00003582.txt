@@ -1,11 +1,11 @@
 Id:3582
-ColorIdentity:
+ColorIdentity:W
 OriginSet:Gf01f1543bdb61bd2
-ManaCost:5
-Types:Artifact
-A:AB$ ChangeZoneAll | Cost$ T Sac<1/CARDNAME> | ChangeType$ Card | Origin$ Hand | Destination$ Exile | ExileFaceDown$ True | RememberChanged$ True | SubAbility$ DrawEach
-SVar:DrawEach:DB$ Draw | Defined$ Player | NumCards$ 7 | SubAbility$ DelayedReturn
-SVar:DelayedReturn:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ DiscardEach | RememberObjects$ RememberedLKI | SubAbility$ DBCleanup
-SVar:DiscardEach:DB$ Discard | Defined$ Player | Mode$ Hand | SubAbility$ ReturnAll
-SVar:ReturnAll:DB$ ChangeZone | Origin$ Exile | Destination$ Hand | Defined$ DelayTriggerRememberedLKI
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:2 W
+Types:Enchantment
+A:AB$ ChooseSource | Cost$ Sac<1/Creature> | Choices$ Card,Emblem | AILogic$ NeedsPrevention | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | ValidTgts$ Any | ExileOnMoved$ Battlefield | ReplacementEffects$ RPreventNextFromSource | RememberObjects$ Targeted | SubAbility$ DBCleanup | ConditionDefined$ ChosenCard | ConditionPresent$ Card,Emblem | ConditionCompare$ GE1
+SVar:RPreventNextFromSource:Event$ DamageDone | ValidSource$ Card.ChosenCardStrict,Emblem.ChosenCard | ValidTarget$ Card.IsRemembered,Player.IsRemembered | ReplaceWith$ ExileEffect | PreventionEffect$ True
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+SVar:ExileEffect:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile
+SVar:NonStackingEffect:True

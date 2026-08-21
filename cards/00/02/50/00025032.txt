@@ -1,14 +1,9 @@
 Id:25032
-ColorIdentity:BG
-OriginSet:G2aca7ffc9201ba1c
-ManaCost:2 G G
-Types:Creature Insect
-PT:3/2
-K:Kicker:B
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
-SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Card.YouOwn | SubAbility$ DBConjure
-SVar:DBConjure:DB$ MakeCard | Conjure$ True | ValidTgts$ Card.OppOwn | TargetMin$ Y | TargetMax$ Y | TgtZone$ Graveyard | DefinedName$ ThisTargetedCard | Zone$ Hand | RememberMade$ True | SubAbility$ DBAnimate
-SVar:DBAnimate:DB$ Animate | Defined$ Remembered | staticAbilities$ SpendAnyMana | Duration$ Perpetual | SubAbility$ DBCleanup
-SVar:SpendAnyMana:Mode$ ManaConvert | EffectZone$ Stack | ValidPlayer$ You | ValidCard$ Card.Self | ValidSA$ Spell | ManaConversion$ AnyType->AnyColor
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:Y:Count$Kicked.1.0
+ColorIdentity:WU
+OriginSet:G3a8b4b9d4649b357
+ManaCost:2 W
+Types:Instant
+K:Kicker:1 U
+A:SP$ Tap | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 2 | SubAbility$ DBCounter
+SVar:DBCounter:DB$ PutCounter | Condition$ Kicked | Defined$ Targeted | CounterType$ Stun | CounterNum$ 1 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw

@@ -1,13 +1,10 @@
 Id:29125
-ColorIdentity:BR
-OriginSet:G27146c70b74a1e72
-ManaCost:1 B R
-Types:Legendary Creature Lizard Rogue
-PT:4/3
-S:Mode$ Continuous | Affected$ Creature.YouCtrl+YouDontOwn | AddType$ Mercenary
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDig
-SVar:TrigDig:DB$ Dig | ValidTgts$ Opponent | DigNum$ X | ChangeNum$ All | RememberChanged$ True | DestinationZone$ Exile | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | StaticAbilities$ EffPlay | EffectOwner$ You | RememberObjects$ Remembered | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
-SVar:EffPlay:Mode$ Continuous | MayPlay$ True | MayPlayIgnoreType$ True | Affected$ Card.IsRemembered+nonLand | AffectedZone$ Exile
+ColorIdentity:R
+OriginSet:Gc7beb665b378d90a
+ManaCost:2 R
+Types:Sorcery
+A:SP$ Dig | Defined$ You | DigNum$ 2 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ STPlay | SubAbility$ DBCleanup | ForgetOnMoved$ Exile | Duration$ UntilTheEndOfYourNextTurn
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$Valid Permanent.Outlaw+YouCtrl
+K:Retrace

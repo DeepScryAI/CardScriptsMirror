@@ -1,10 +1,13 @@
 Id:34634
-ColorIdentity:G
-OriginSet:G11c0621ce29fa608
-ManaCost:3 G G
-Types:Enchantment Saga
-K:Chapter:3:DBEffect,DBPutCounter,DBPump
-SVar:DBEffect:DB$ Effect | StaticAbilities$ FreeCast | ForgetOnCast$ Creature.Red+YouCtrl,Creature.Green+YouCtrl
-SVar:FreeCast:Mode$ Continuous | Affected$ Creature.Red,Creature.Green | ValidSA$ Spell | MayPlay$ True | MayPlayWithoutManaCost$ True | MayPlayDontGrantZonePermissions$ True | AffectedZone$ Hand,Graveyard,Library,Exile,Command
-SVar:DBPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 3
-SVar:DBPump:DB$ Pump | ValidTgts$ Creature.YouCtrl | NumAtt$ Double | NumDef$ Double | KW$ Trample | AILogic$ Pump
+ColorIdentity:W
+OriginSet:Gcb93bbfc68a40806
+ManaCost:4 W
+Types:Legendary Creature Human Soldier Hero
+PT:3/5
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigEffect
+SVar:TrigEffect:DB$ Effect | RememberObjects$ Targeted | ReplacementEffects$ ETBCreat | ExileOnMoved$ Graveyard | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | ValidTgts$ Creature.YouOwn+cmcLEX | Origin$ Graveyard | Destination$ Battlefield
+SVar:ETBCreat:Event$ Moved | ValidCard$ Hero.IsRemembered | Destination$ Battlefield | ReplaceWith$ DBPutP1P1 | ReplacementResult$ Updated
+SVar:DBPutP1P1:DB$ PutCounter | Defined$ ReplacedCard | CounterType$ P1P1 | ETB$ True | CounterNum$ 1
+SVar:X:Count$CardPower
+SVar:HasAttackEffect:TRUE

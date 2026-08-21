@@ -1,10 +1,12 @@
 Id:15955
 ColorIdentity:B
 OriginSet:Gc276c26a85a70470
-ManaCost:2 B
-Types:Creature Zombie Bird
-PT:2/1
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigMill | Secondary$ True
-SVar:TrigMill:DB$ Mill | NumCards$ 2 | Defined$ You
+ManaCost:3 B
+Types:Enchantment
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDiscard
+SVar:TrigDiscard:DB$ Discard | Defined$ Player | NumCards$ 1 | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBImprint
+SVar:DBImprint:DB$ Pump | ImprintCards$ ValidAll Card.IsRemembered+YouCtrl | SubAbility$ DBForget
+SVar:DBForget:DB$ Pump | ForgetObjects$ Imprinted | SubAbility$ DBRepeat
+SVar:DBRepeat:DB$ RepeatEach | DefinedCards$ Remembered | ClearRemembered$ True | RepeatSubAbility$ DBDmg | SubAbility$ DBCleanup
+SVar:DBDmg:DB$ LoseLife | Defined$ RememberedController | LifeAmount$ 3 | ConditionDefined$ Remembered | ConditionPresent$ Card.sharesCardTypeWith Imprinted+OppOwn
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True

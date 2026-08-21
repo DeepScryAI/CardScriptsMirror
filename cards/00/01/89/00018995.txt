@@ -1,9 +1,15 @@
 Id:18995
-ColorIdentity:UG
+ColorIdentity:WB
 OriginSet:G0b51a0aecbe39efe
-ManaCost:G G U U
-Types:Creature Elf Lizard Wizard
-PT:3/2
-K:Flash
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCounter | OptionalDecider$ You
-SVar:TrigCounter:DB$ Counter | TargetType$ Spell | ValidTgts$ Card
+ManaCost:1 WB
+Types:Instant
+A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw
+AlternateMode:Split
+ALTERNATE
+ManaCost:2 W B
+Types:Sorcery
+A:SP$ Sacrifice | ValidTgts$ Player | SacValid$ Creature.greatestPowerControlledByTargeted | SubAbility$ DBGainLife | RememberSacrificed$ True
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:RememberedLKI$CardPower

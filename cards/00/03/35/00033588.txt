@@ -1,13 +1,10 @@
 Id:33588
 ColorIdentity:U
-OriginSet:G23d1f017cc66962f
-ManaCost:5 U U
-Types:Sorcery
-A:SP$ ChangeZoneAll | ChangeType$ Creature | Origin$ Battlefield | Destination$ Hand | SubAbility$ DBGenericChoice
-SVar:DBGenericChoice:DB$ GenericChoice | Defined$ Player | TempRemember$ Chooser | Choices$ Stargate,Homebody | ShowChoice$ ExceptSelf | SubAbility$ DBTimetwister | AILogic$ Timetwister
-SVar:Stargate:DB$ Pump | Defined$ Remembered | NoteCards$ Self | NoteCardsFor$ Stargate
-SVar:Homebody:DB$ Pump | Defined$ Remembered
-SVar:DBTimetwister:DB$ ChangeZoneAll | ChangeType$ Card.OwnedBy Player.NotedForStargate | Origin$ Hand,Graveyard | Destination$ Library | Shuffle$ True | UseAllOriginZones$ True | SubAbility$ DBRepeatDraw
-SVar:DBRepeatDraw:DB$ Draw | Defined$ Player.NotedForStargate | NumCards$ 7 | SubAbility$ DBClearNoted
-SVar:DBClearNoted:DB$ Pump | Defined$ Player | ClearNotedCardsFor$ Stargate | SubAbility$ DBChange
-SVar:DBChange:DB$ ChangeZone | Origin$ Stack | Destination$ Exile
+OriginSet:Gff0a4227ae9f1a4b
+ManaCost:2 U
+Types:Legendary Creature Human Mutant Shapeshifter
+PT:1/1
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ IrmaCopy
+SVar:IrmaCopy:DB$ Clone | ValidTgts$ Creature.Other+YouCtrl | TargetMin$ 0 | TargetMax$ 1 | NewName$ 2329342343144800519 | GainThisAbility$ True | AddSVars$ IrmaCopy,IrmaPutCounter | SubAbility$ IrmaPutCounter | AILogic$ CloneBestCreature
+SVar:IrmaPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+SVar:PlayMain1:TRUE

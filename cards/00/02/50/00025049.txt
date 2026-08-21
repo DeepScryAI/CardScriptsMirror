@@ -1,9 +1,13 @@
 Id:25049
-ColorIdentity:G
-OriginSet:G2aca7ffc9201ba1c
-ManaCost:1 G
-Types:Creature Treefolk
-PT:2/3
-K:Vigilance
-A:AB$ Seek | Cost$ 7 G | ReduceCost$ X | Type$ Creature
-SVar:X:Count$Domain
+ColorIdentity:R
+OriginSet:G3a8b4b9d4649b357
+ManaCost:2 R R
+Types:Enchantment Saga
+K:Read ahead
+K:Chapter:3:DBDealDamage,DBDiscard,DBToken
+SVar:DBDealDamage:DB$ DamageAll | ValidCards$ Creature | ValidPlayers$ Opponent | NumDmg$ 2
+SVar:DBDiscard:DB$ Discard | AnyNumber$ True | Optional$ True | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ Y | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:Y:Count$RememberedSize
+SVar:DBToken:DB$ Token | TokenScriptIds$ 2858880039

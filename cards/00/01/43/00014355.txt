@@ -1,10 +1,13 @@
 Id:14355
-ColorIdentity:W
+ColorIdentity:B
 OriginSet:G2192ecccbc32f5ad
-ManaCost:2 W
+ManaCost:4 B B
 Types:Sorcery
-A:SP$ PeekAndReveal | Defined$ Player | RememberRevealed$ True | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenAmount$ X | TokenScriptIds$ 273812182 | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | Defined$ Player | SubAbility$ DBCleanup
+A:SP$ Sacrifice | SacValid$ Creature | Defined$ Player | SubAbility$ DBToken | RememberSacrificed$ True
+SVar:DBToken:DB$ Token | TokenScriptIds$ 3565013139 | TokenOwner$ You | TokenPower$ X | TokenToughness$ X | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Remembered$Valid Card.nonLand
+SVar:X:RememberedLKI$CardPower
+SVar:NeedsToPlayVar:Z EQ2
+SVar:Z:SVar$Z1/Plus.Z2
+SVar:Z1:Count$Valid Creature.YouCtrl+powerGE1/LimitMax.1
+SVar:Z2:Count$Valid Creature.OppCtrl+powerGE2/LimitMax.1

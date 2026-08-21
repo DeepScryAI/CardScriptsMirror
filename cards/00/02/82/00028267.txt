@@ -1,16 +1,10 @@
 Id:28267
-ColorIdentity:R
-OriginSet:G4155bbd49d5da56f
-ManaCost:2 R
-Types:Legendary Creature Dinosaur Pirate
-PT:2/2
-K:Menace
-A:AB$ Pump | Cost$ R | NumAtt$ +1
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigTreasure | CombatDamage$ True
-SVar:TrigTreasure:DB$ Token | TokenScriptIds$ 3851718391 | SubAbility$ DBChoose
-SVar:DBChoose:DB$ ChooseCard | Choices$ Card.cmcEQX+ControlledBy TriggeredTarget | ChoiceZone$ Library | Amount$ 1 | AtRandom$ True | SubAbility$ DBChangeZoneAll
-SVar:DBChangeZoneAll:DB$ ChangeZoneAll | Origin$ Library | Destination$ Exile | ChangeType$ Card.ChosenCard | RememberChanged$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | StaticAbilities$ MayPlay | RememberObjects$ Remembered | SubAbility$ DBCleanup
-SVar:MayPlay:Mode$ Continuous | Affected$ Card.IsRemembered+nonLand | AffectedZone$ Exile | MayPlay$ True
-SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True | ClearRemembered$ True
-SVar:X:TriggerCount$DamageAmount
+ColorIdentity:W
+OriginSet:Gfd50577710a6ab09
+ManaCost:4 W
+Types:Creature Human Artificer Scout
+PT:4/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | Choices$ DBReturn,DBScry
+SVar:DBReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Artifact.YouOwn
+SVar:DBScry:DB$ Scry | ScryNum$ 3

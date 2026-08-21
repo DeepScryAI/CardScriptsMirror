@@ -1,17 +1,9 @@
 Id:27408
-ColorIdentity:BR
-OriginSet:G7579344e30f8be85
-ManaCost:1 B
-Types:Creature Human Soldier
-PT:2/2
-K:etbCounter:P1P1:X:no Condition
-SVar:X:Count$ThisTurnEntered_Graveyard_from_Battlefield_Creature.YouCtrl
-AlternateMode:Adventure
-ALTERNATE
-ManaCost:R
-Types:Sorcery Adventure
-A:SP$ Pump | ValidTgts$ Creature.YouCtrl | RememberObjects$ ThisTargetedCard | AILogic$ PowerDmg | SubAbility$ DBDamage
-SVar:DBDamage:DB$ DealDamage | AILogic$ PowerDmg | ValidTgts$ Any | DamageSource$ ParentTarget | NumDmg$ X | TargetUnique$ True | SubAbility$ DBSac
-SVar:DBSac:DB$ SacrificeAll | Defined$ Remembered | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:ParentTargeted$CardPower
+ColorIdentity:W
+OriginSet:G8636ad1cfd514d83
+ManaCost:2 W
+Types:Artifact
+K:etbCounter:LOYALTY:3
+A:AB$ Mana | Cost$ T | Produced$ W
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Planeswalker.YouCtrl | IsPresent$ Card.Self+counters_GE1_LOYALTY | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigMoveCounter
+SVar:TrigMoveCounter:DB$ MoveCounter | Source$ Self | Defined$ TriggeredCardLKICopy | CounterType$ LOYALTY

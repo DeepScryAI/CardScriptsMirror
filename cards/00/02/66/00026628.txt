@@ -1,9 +1,15 @@
 Id:26628
-ColorIdentity:G
+ColorIdentity:WR
 OriginSet:G06757f68e16377c2
-ManaCost:1 G
-Types:Creature Spider
-PT:1/1
-K:Reach
-K:Deathtouch
-A:AB$ PutCounter | Cost$ 3 G | CounterType$ P1P1
+ManaCost:2 R R W
+Types:Legendary Creature Human God
+PT:5/4
+S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ Vigilance & Haste | CheckSVar$ X | SVarCompare$ LE1
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDig
+SVar:TrigDig:DB$ Dig | DigNum$ 6 | ChangeNum$ 1 | Optional$ True | ChangeValid$ Creature.Legendary | DestinationZone$ Exile | DestinationZone2$ Library | LibraryPosition$ -1 | RestRandomOrder$ True | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ MayPlay | RememberObjects$ Remembered | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:MayPlay:Mode$ Continuous | MayPlay$ True | MayPlayWithoutManaCost$ True | Affected$ Card.IsRemembered+nonLand | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$ValidHand Card.YouOwn
+SVar:PlayMain1:TRUE
+SVar:HasAttackEffect:TRUE

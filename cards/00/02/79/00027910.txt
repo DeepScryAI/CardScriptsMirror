@@ -1,10 +1,14 @@
 Id:27910
-ColorIdentity:R
-OriginSet:G06c78c29bfb28e3d
-ManaCost:2 R
-Types:Creature Goblin Pirate
-PT:2/2
-K:Menace
-K:Haste
-A:AB$ DealDamage | Cost$ Sac<1/Artifact.Other;Creature.Other/another creature or artifact> | ValidTgts$ Any | NumDmg$ X | Boast$ True
-SVar:X:Sacrificed$CardManaCost/Plus.2
+ColorIdentity:U
+OriginSet:G30e8a5e111cffb44
+ManaCost:3 U
+Types:Legendary Creature Human Scientist
+PT:3/4
+S:Mode$ Continuous | Affected$ You | SetMaxHandSize$ Unlimited
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigImmediateTrig | OptionalDecider$ You
+SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ Sac<X/Artifact> | Execute$ TrigTap
+SVar:TrigTap:DB$ Tap | TargetMin$ 0 | TargetMax$ X | ValidTgts$ Creature | SubAbility$ TrigDraw
+SVar:TrigDraw:DB$ Draw | NumCards$ X
+SVar:X:Count$xPaid
+K:Doctor's companion
+SVar:HasAttackEffect:TRUE

@@ -1,13 +1,13 @@
 Id:13629
-ColorIdentity:R
+ColorIdentity:G
 OriginSet:G4773f4feb3f15a2b
-ManaCost:2 R R R
-Types:Creature Dragon
-PT:4/4
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self,Dragon.Other+YouCtrl | Execute$ TrigDamage
-SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ NumDragons | DamageSource$ TriggeredCard
-SVar:NumDragons:Count$Valid Dragon.YouCtrl
-A:AB$ Pump | Cost$ R | Defined$ Self | NumAtt$ +1
-SVar:PlayMain1:TRUE
-SVar:BuffedBy:Dragon
+ManaCost:G
+Types:Instant
+R:Event$ Counter | ValidCard$ Card.Self | ValidSA$ Spell | Layer$ CantHappen
+A:SP$ Effect | StaticAbilities$ STFlash | Triggers$ SpellCastTrig
+SVar:STFlash:Mode$ CastWithFlash | ValidCard$ Card.Creature | ValidSA$ Spell | Caster$ You
+SVar:SpellCastTrig:Mode$ SpellCast | ValidCard$ Creature | ValidActivatingPlayer$ You | Execute$ SavageSummon | OneOff$ True | Static$ True
+SVar:SavageSummon:DB$ Effect | ReplacementEffects$ AntiMagic,ETBCounters | RememberObjects$ TriggeredCard | ForgetOnMoved$ Stack
+SVar:AntiMagic:Event$ Counter | ValidCard$ Card.IsRemembered | ValidSA$ Spell | Layer$ CantHappen
+SVar:ETBCounters:Event$ Moved | Origin$ Stack | Destination$ Battlefield | ValidCard$ Card.IsRemembered | ReplaceWith$ ETBAddExtraCounter | ReplacementResult$ Updated
+SVar:ETBAddExtraCounter:DB$ PutCounter | ETB$ True | Defined$ ReplacedCard | CounterType$ P1P1 | CounterNum$ 1

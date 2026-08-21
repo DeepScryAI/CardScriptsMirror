@@ -1,7 +1,8 @@
 Id:15241
 ColorIdentity:B
 OriginSet:G70acd28f254172ff
-ManaCost:3 B B
-Types:Sorcery
-A:SP$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Card | ChangeNum$ 1 | Mandatory$ True | SubAbility$ DBMana
-SVar:DBMana:DB$ Mana | ConditionPresent$ Instant.YouOwn,Sorcery.YouOwn | ConditionZone$ Graveyard | ConditionCompare$ GE2 | Produced$ B | Amount$ 3
+ManaCost:2 B
+Types:Instant
+A:SP$ Regenerate | ValidTgts$ Creature | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | SubAbility$ DBRegenerate
+SVar:DBRegenerate:DB$ Regenerate | Defined$ Valid Creature.YouCtrl+!targetedBy | ConditionPresent$ Instant.YouOwn,Sorcery.YouOwn | ConditionZone$ Graveyard | ConditionCompare$ GE2

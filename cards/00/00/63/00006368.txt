@@ -1,10 +1,10 @@
 Id:6368
-ColorIdentity:R
+ColorIdentity:G
 OriginSet:Gd11012ee98ee8d76
-ManaCost:5 R R
-Types:Creature Dragon Wizard
-PT:5/5
-K:Flying
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDiscardDraw
-SVar:TrigDiscardDraw:DB$ Discard | Mode$ Hand | Defined$ Player | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | Defined$ Player | NumCards$ 7
+ManaCost:1 G
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 1 | AddToughness$ 1 | AddKeyword$ Trample
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.cmcGE6 | Execute$ TrigReturn | TriggerZones$ Graveyard | OptionalDecider$ You
+SVar:TrigReturn:DB$ ChangeZone | Defined$ Self | Origin$ Graveyard | Destination$ Battlefield | AttachedTo$ TriggeredCardLKICopy

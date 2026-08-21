@@ -1,13 +1,11 @@
 Id:28547
-ColorIdentity:WUBRG
+ColorIdentity:G
 OriginSet:G7ee0e82a2424d636
-ManaCost:W U B R G
-Types:Legendary Creature Dragon Avatar
-PT:6/6
-K:Flying
-K:Hexproof:Card.MultiColor:multicolored
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ DBDamage | TriggerZones$ Battlefield
-SVar:DBDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ X | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | NumCards$ X | ValidTgts$ Player | SubAbility$ DBGain
-SVar:DBGain:DB$ GainLife | LifeAmount$ X
-SVar:X:Count$Valid Card.YouCtrl$DifferentColorPair
+ManaCost:3 G
+Types:Enchantment Case
+S:Mode$ Continuous | Affected$ You | AdjustLandPlays$ 1
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | CheckSVar$ X | SVarCompare$ GE7 | IsPresent$ Card.Self+!IsSolved | TriggerZones$ Battlefield | Execute$ TrigSolve
+SVar:TrigSolve:DB$ AlterAttribute | Defined$ Self | Attributes$ Solved
+SVar:X:Count$Valid Land.YouCtrl
+S:Mode$ Continuous | Affected$ Card.TopLibrary+YouCtrl | AffectedZone$ Library | MayLookAt$ You | IsPresent$ Card.Self+IsSolved | Secondary$ True
+S:Mode$ Continuous | Affected$ Land.TopLibrary+YouCtrl,Creature.TopLibrary+YouCtrl,Enchantment.TopLibrary+YouCtrl | IsPresent$ Card.Self+IsSolved | AffectedZone$ Library | MayLookAt$ You | MayPlay$ True

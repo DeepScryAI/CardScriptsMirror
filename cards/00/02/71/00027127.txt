@@ -1,9 +1,8 @@
 Id:27127
 ColorIdentity:RG
 OriginSet:G6ce0035cfb774934
-ManaCost:2 R G
-Types:Legendary Creature Human Ranger
-PT:4/4
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature | NumAtt$ +1 | NumDef$ +1 | SubAbility$ DBFerocious
-SVar:DBFerocious:DB$ Pump | Defined$ Targeted | ConditionDefined$ Targeted | ConditionPresent$ Creature.powerGE4 | KW$ FirstStrike
+ManaCost:R G
+Types:Instant
+A:SP$ Pump | ValidTgts$ Creature.YouCtrl | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | ValidTgts$ Creature.Legendary+YouCtrl | TargetMin$ 0 | TargetMax$ 1 | TargetUnique$ True | SubAbility$ DBEachDamage
+SVar:DBEachDamage:DB$ EachDamage | ValidTgts$ Creature.YouDontCtrl | DefinedDamagers$ Targeted.YouCtrl | NumDmg$ Count$CardPower

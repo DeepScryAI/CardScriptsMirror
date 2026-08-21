@@ -1,8 +1,11 @@
 Id:19606
-ColorIdentity:R
+ColorIdentity:U
 OriginSet:G7c61dc677f00d087
-ManaCost:1 R
-Types:Creature Elemental Cat
-PT:2/2
-A:AB$ Mana | Cost$ T | Produced$ R | RestrictValid$ Spell.Elemental,Spell.Planeswalker+Chandra
-SVar:BuffedBy:Planeswalker.Chandra
+ManaCost:5 U U
+Types:Creature Human Rogue
+PT:2/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange
+SVar:TrigChange:DB$ GainControl | ValidTgts$ Permanent
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | Execute$ TrigDraw | TriggerZones$ Battlefield | IsPresent$ Permanent.YouDontOwn+YouCtrl | PresentCompare$ GE3
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 3
+SVar:PlayMain1:TRUE

@@ -1,10 +1,11 @@
 Id:29505
-ColorIdentity:W
+ColorIdentity:U
 OriginSet:Gac6359c222afbd4f
-ManaCost:1 W W
-Types:Legendary Creature Fox Advisor
-PT:3/4
-K:Lifelink
-S:Mode$ Continuous | Affected$ Enchantment.YouCtrl+wasCast | AffectedZone$ Stack | AddKeyword$ Affinity:Aura
-T:Mode$ SpellCast | ValidCard$ Aura | ValidActivatingPlayer$ You | TargetsValid$ Permanent.modified+YouCtrl | Execute$ TrigDraw | TriggerZones$ Battlefield
-SVar:TrigDraw:DB$ Draw
+ManaCost:1 U
+Types:Instant
+A:SP$ PutCounter | Defined$ You | AILogic$ PayEnergy | CounterType$ ENERGY | CounterNum$ 2 | SubAbility$ DBChooseNumber
+SVar:DBChooseNumber:DB$ ChooseNumber | Max$ Max | SubAbility$ DBPay
+SVar:DBPay:DB$ Pump | UnlessCost$ Mandatory PayEnergy<N> | UnlessPayer$ You | UnlessSwitched$ True | SubAbility$ DBCounter
+SVar:DBCounter:DB$ Counter | TargetType$ Spell | TgtZone$ Stack | ValidTgts$ Card | UnlessCost$ N
+SVar:Max:Count$YourCountersEnergy
+SVar:N:Count$ChosenNumber

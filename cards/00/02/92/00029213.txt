@@ -1,9 +1,9 @@
 Id:29213
-ColorIdentity:
+ColorIdentity:U
 OriginSet:G27146c70b74a1e72
-ManaCost:2
-Types:Artifact Creature Mercenary
-PT:1/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange | OptionalDecider$ You
-SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Library | LibraryPosition$ 0 | ChangeType$ Land.Basic,Desert | ChangeNum$ 1 | ShuffleNonMandatory$ True
-A:AB$ Pump | Cost$ T | NumAtt$ +1 | ValidTgts$ Creature.YouCtrl | SorcerySpeed$ True
+ManaCost:1 U
+Types:Enchantment
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ X | SVarCompare$ EQ0 | IsPresent$ Creature.Self | PresentCompare$ EQ0 | Execute$ TrigAnimate
+SVar:TrigAnimate:DB$ Animate | Defined$ Self | Power$ 3 | Toughness$ 3 | Types$ Creature,Spirit | Keywords$ Flying | Duration$ Permanent
+SVar:X:Count$ThisTurnCast_Card.YouCtrl+wasCastFromYourHand
+A:AB$ Surveil | Cost$ 2 U | Amount$ 1

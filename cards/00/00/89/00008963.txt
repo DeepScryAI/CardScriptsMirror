@@ -1,9 +1,10 @@
 Id:8963
-ColorIdentity:R
+ColorIdentity:G
 OriginSet:Gce1d73449bd71b54
-ManaCost:2 R R
-Types:Enchantment
-T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | IsPresent$ Creature | PresentCompare$ EQ0 | Execute$ TrigSac
-SVar:TrigSac:DB$ Sacrifice
-A:AB$ DamageAll | Cost$ R | NumDmg$ 1 | ValidCards$ Creature | ValidPlayers$ Player | AILogic$ DmgAllCreaturesAndPlayers
-SVar:NeedsToPlay:Creature
+ManaCost:2 G
+Types:Creature Fungus
+PT:1/1
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ SPORE | CounterNum$ 1
+A:AB$ Token | Cost$ SubCounter<3/SPORE> | TokenScriptIds$ 3815350479 | TokenOwner$ You
+A:AB$ Draw | Cost$ 1 Sac<1/Saproling> | NumCards$ 1

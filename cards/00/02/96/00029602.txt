@@ -1,11 +1,11 @@
 Id:29602
-ColorIdentity:W
+ColorIdentity:R
 OriginSet:Gac6359c222afbd4f
-ManaCost:W W
-Types:Creature Spirit Knight
-PT:2/2
+ManaCost:9
+Types:Legendary Creature Eldrazi Dragon
+PT:6/6
+K:Emerge:6 R R
+T:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:AB$ Draw | Cost$ ExileFromHand<1/All> | Defined$ You | NumCards$ 3
 K:Flying
-K:FirstStrike
-T:Mode$ ChangesZone | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDestroy
-SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Land.nonBasic | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBSearch | AILogic$ GhostQuarter
-SVar:DBSearch:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | DefinedPlayer$ TargetedController | ChangeType$ Land.Basic | Tapped$ True
+S:Mode$ Continuous | Affected$ Creature.YouCtrl+wasCast | AddKeyword$ Emerge:CardManaCost | AffectedZone$ Stack | EffectZone$ Battlefield

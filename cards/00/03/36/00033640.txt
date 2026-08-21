@@ -1,12 +1,10 @@
 Id:33640
-ColorIdentity:B
-OriginSet:Gf04404de3fa1525e
-ManaCost:2 B
-Types:Legendary Creature Bird Skeleton Warlock
-PT:2/1
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 3473329731 | TokenOwner$ You
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ X | Execute$ TrigChangeZone
-SVar:TrigChangeZone:DB$ ChangeZone | ValidTgts$ Creature.cmcLEX+YouOwn | TargetMin$ 0 | TargetMax$ 1 | Origin$ Graveyard | Destination$ Battlefield
-SVar:X:Count$LifeYouGainedThisTurn
+ColorIdentity:UR
+OriginSet:G23d1f017cc66962f
+ManaCost:4 U R
+Types:Sorcery
+A:SP$ Charm | MinCharmNum$ 1 | CharmNum$ 2 | Choices$ DBDamage,DBReturn1
+SVar:DBDamage:DB$ DealDamage | ValidTgts$ Creature | NumDmg$ 5
+SVar:DBReturn1:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Artifact.YouOwn | ConditionDefined$ Targeted | ConditionPresent$ Artifact.Creature | SubAbility$ DBReturn2
+SVar:DBReturn2:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | Defined$ Targeted | StaticEffect$ Animate
+SVar:Animate:Mode$ Continuous | Affected$ Card.IsRemembered | AddType$ Artifact & Creature & Robot | SetPower$ 3 | SetToughness$ 3 | AddKeyword$ Flying

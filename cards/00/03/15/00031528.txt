@@ -1,8 +1,9 @@
 Id:31528
-ColorIdentity:B
+ColorIdentity:WBG
 OriginSet:Gf2b808f4f642ac62
-ManaCost:2 B
-Types:Instant
-A:SP$ Charm | Choices$ DBPumpAll,DBReturn
-SVar:DBPumpAll:DB$ PumpAll | ValidTgts$ Opponent | ValidCards$ Creature | NumAtt$ -1 | NumDef$ -1
-SVar:DBReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | TargetMin$ 0 | TargetMax$ 2 | ValidTgts$ Creature.YouOwn
+ManaCost:2
+Types:Artifact
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Plains.Basic,Swamp.Basic,Forest.Basic
+A:AB$ Token | Cost$ 1 W B G T Sac<1/CARDNAME> | TokenPower$ X | TokenToughness$ X | TokenScriptIds$ 714053204 | TokenOwner$ You | SorcerySpeed$ True
+SVar:X:Count$Valid Creature.YouCtrl$GreatestCardToughness

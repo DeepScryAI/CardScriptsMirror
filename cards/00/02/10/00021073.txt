@@ -1,10 +1,12 @@
 Id:21073
-ColorIdentity:G
-OriginSet:G7b2607750b451c25
-ManaCost:G
-Types:Creature Fungus Beast
-PT:0/0
-K:etbCounter:P1P1:1
-T:Mode$ BecomesTarget | ValidTarget$ Creature.YouCtrl+counters_GE1_P1P1 | ValidSource$ Spell.OppCtrl | TriggerZones$ Battlefield | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 704294417 | TokenOwner$ You
-A:AB$ PutCounter | Cost$ 1 T | CounterType$ P1P1 | CounterNum$ 1
+ColorIdentity:BR
+OriginSet:G1d8d8c82025bee91
+ManaCost:3 B R
+Types:Legendary Creature Phoenix
+PT:4/4
+K:Flying
+K:Haste
+K:Protection:Red
+A:AB$ ChangeZone | Cost$ 1 T | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.Legendary+YouCtrl | GainControl$ True
+A:AB$ ChangeZone | Cost$ tapXType<6/Creature> | Origin$ Graveyard | Destination$ Battlefield | ActivationZone$ Graveyard | SubAbility$ CheckWin
+SVar:CheckWin:DB$ WinsGame | Defined$ You | ConditionDefined$ Tapped | ConditionPresent$ Creature.Legendary | ConditionCompare$ EQ6

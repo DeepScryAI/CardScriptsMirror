@@ -1,9 +1,13 @@
 Id:21379
-ColorIdentity:B
+ColorIdentity:R
 OriginSet:G51d431785c8b33e5
-ManaCost:1 B
-Types:Legendary Creature Elf Scout
-PT:1/2
+ManaCost:3 R
+Types:Legendary Creature Goblin Pirate
+PT:3/3
+K:Menace
 K:Partner
-T:Mode$ ChangesZone | ValidCard$ Card.Self,Elf.Other+YouCtrl | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigDraw
-SVar:TrigDraw:AB$ Draw | Cost$ 1 PayLife<1> | Defined$ You | NumCards$ 1
+T:Mode$ DamageAll | ValidSource$ Pirate.YouCtrl+inZoneBattlefield | ValidTarget$ Opponent | TriggerZones$ Battlefield | Execute$ TrigExileTop
+SVar:TrigExileTop:DB$ Dig | DigNum$ 1 | ChangeNum$ All | Defined$ TriggeredTargets | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ EffPlay | EffectOwner$ You | RememberObjects$ Remembered | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:EffPlay:Mode$ Continuous | MayPlay$ True | MayPlayIgnoreType$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

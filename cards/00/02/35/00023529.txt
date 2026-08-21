@@ -1,23 +1,12 @@
 Id:23529
-ColorIdentity:G
+ColorIdentity:B
 OriginSet:G1a259dba25660062
-ManaCost:2 G
-Types:Enchantment Saga
-K:Chapter:3:DBToken,DBPutCounter,DBTransform
-SVar:DBToken:DB$ Token | TokenScriptIds$ 378122796
-SVar:DBPutCounter:DB$ PutCounter | TargetMin$ 0 | TargetMax$ 2 | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ 1
-SVar:DBTransform:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn
-SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | Transformed$ True | GainControl$ True | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:green
-Types:Enchantment Creature Dragon Spirit
+ManaCost:2 B
+Types:Artifact Creature Equipment Insect
 PT:2/2
-K:Flying
-T:Mode$ ChangesZone | Destination$ Battlefield | ValidCard$ Creature.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigImmediateTrig
-SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ X | Execute$ TrigPutCounter | RememberObjects$ TriggeredCardLKICopy
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ DelayTriggerRememberedLKI | CounterType$ P1P1 | CounterNum$ X
-S:Mode$ Continuous | IsPresent$ Creature.modified+YouCtrl | PresentCompare$ GE5 | Affected$ Card.Self | AddPower$ 5 | AddToughness$ 5 | AddKeyword$ Trample
-SVar:X:Count$xPaid
+K:Reconfigure:2
+T:Mode$ Attacks | ValidCard$ Card.Self,Creature.EquippedBy | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ TriggeredAttackerLKICopy | NumAtt$ +2
+SVar:HasAttackEffect:TRUE
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddSVar$ AE
+SVar:AE:SVar:HasAttackEffect:TRUE

@@ -1,6 +1,10 @@
 Id:29828
 ColorIdentity:B
-OriginSet:Gf09b85bbcc27770c
-ManaCost:1 B
-Types:Sorcery
-A:SP$ Destroy | ValidTgts$ Creature
+OriginSet:G01a610e823cce3ca
+ManaCost:2 B B
+Types:Instant
+K:Freerunning:1 B
+A:SP$ Destroy | ValidTgts$ Creature | SubAbility$ DBDraw | RememberDestroyed$ True
+SVar:DBDraw:DB$ Draw | ConditionCheckSVar$ DiedThisTurn | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:DiedThisTurn:Count$ThisTurnEntered_Graveyard_from_Battlefield_Creature.!IsRemembered

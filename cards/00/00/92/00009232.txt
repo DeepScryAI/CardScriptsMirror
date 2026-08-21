@@ -1,8 +1,11 @@
 Id:9232
-ColorIdentity:B
+ColorIdentity:W
 OriginSet:G1ddd2c86a9ea60e3
-ManaCost:4 B
-Types:Creature Shapeshifter
-PT:4/4
-K:Changeling
-S:Mode$ Continuous | EffectZone$ Battlefield | Affected$ Card.Self | AddKeyword$ Flying & Fear & FirstStrike & DoubleStrike & Deathtouch & Haste & Landwalk & Lifelink & Protection & Reach & Trample & Shroud & Vigilance | SharedKeywordsZone$ Graveyard | SharedRestrictions$ Creature
+ManaCost:W
+Types:Creature Kithkin Wizard
+PT:1/1
+K:Protection:Red
+A:AB$ ChooseSource | Cost$ Sac<1/CARDNAME> | Choices$ Card.RedSource | AILogic$ NeedsPrevention | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | ReplacementEffects$ RPreventNextFromSource | SubAbility$ DBCleanup | ConditionDefined$ ChosenCard | ConditionPresent$ Card | ConditionCompare$ GE1
+SVar:RPreventNextFromSource:Event$ DamageDone | ValidSource$ Card.ChosenCardStrict+RedSource | Prevent$ True
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True

@@ -1,13 +1,8 @@
 Id:34295
-ColorIdentity:WURG
+ColorIdentity:W
 OriginSet:Gcb93bbfc68a40806
-ManaCost:R G W U
-Types:Legendary Creature Human Hero
-PT:4/4
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm
-T:Mode$ SpellCast | ValidCard$ Card.cmcEQ4,Card.powerEQ4,Card.toughnessEQ4 | ValidActivatingPlayer$ You | Execute$ TrigCharm | TriggerZones$ Battlefield | Secondary$ True
-SVar:TrigCharm:DB$ Charm | Choices$ DBToken,DBDamage,DBPutCounter,DBDraw | ChoiceRestriction$ ThisTurn
-SVar:DBToken:DB$ Token | TokenScriptIds$ 2308911801
-SVar:DBDamage:DB$ DealDamage | Defined$ Opponent | NumDmg$ 3 | AILogic$ Good
-SVar:DBPutCounter:DB$ PutCounter | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ 2
-SVar:DBDraw:DB$ Draw
+ManaCost:2 W
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw
+S:Mode$ CastWithFlash | ValidCard$ Card | ValidSA$ Spell.Hero | Caster$ You

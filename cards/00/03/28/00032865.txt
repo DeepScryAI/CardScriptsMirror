@@ -1,7 +1,20 @@
 Id:32865
-ColorIdentity:W
-OriginSet:G731e0066916b7465
-ManaCost:W
-Types:Instant
-A:SP$ Pump | ValidTgts$ Creature.blocking+YouCtrl | NumAtt$ +2 | NumDef$ +2 | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw
+ColorIdentity:R
+OriginSet:G36e97d2da170e675
+ManaCost:2 R R
+Types:Enchantment Saga
+K:Chapter:3:DBExile,DBMana,DBTransform
+SVar:DBExile:DB$ Dig | Defined$ You | DigNum$ 3 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ Remembered | StaticAbilities$ MayPlay | Duration$ UntilTheEndOfYourNextTurn | SubAbility$ DBCleanup | ForgetOnMoved$ Exile
+SVar:MayPlay:Mode$ Continuous | Affected$ Card.IsRemembered | AffectedZone$ Exile | MayPlay$ True
+SVar:DBMana:DB$ Mana | Produced$ Any
+SVar:DBTransform:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | Transformed$ True | GainControl$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Types:Legendary Creature Avatar
+PT:4/4
+K:Firebending:4
+A:AB$ Token | Cost$ 8 | TokenScriptIds$ 1892775386 | TokenOwner$ You

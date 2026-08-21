@@ -1,8 +1,11 @@
 Id:33493
-ColorIdentity:WR
-OriginSet:G23d1f017cc66962f
-ManaCost:1 RW
-Types:Artifact Creature Robot Ninja
-PT:1/1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 157951881 | TokenOwner$ You
+ColorIdentity:BG
+OriginSet:G7ab1fe96128a1641
+ManaCost:4 B G
+Types:Kindred Sorcery Elf
+A:SP$ Charm | Choices$ DBCopy,DBChangeZone,DBDestroy,DBPumpAll | CharmNum$ 2
+SVar:DBCopy:DB$ CopyPermanent | ValidTgts$ Elf.YouCtrl
+SVar:DBChangeZone:DB$ ChangeZone | ValidTgts$ Permanent.YouOwn | TargetMin$ 1 | TargetMax$ 2 | TgtZone$ Graveyard | Origin$ Graveyard | Destination$ Hand
+SVar:DBDestroy:DB$ Destroy | ValidTgts$ Creature,Enchantment
+SVar:DBPumpAll:DB$ PumpAll | ValidTgts$ Player | ValidCards$ Creature | NumAtt$ +3 | NumDef$ +3 | SubAbility$ DBUntapAll
+SVar:DBUntapAll:DB$ UntapAll | ValidCards$ Creature.TargetedPlayerCtrl

@@ -1,9 +1,12 @@
 Id:28952
-ColorIdentity:
-OriginSet:G343cd0ac847a92b7
-ManaCost:3
-Types:Artifact Equipment
-K:Indestructible
-S:Mode$ Continuous | Affected$ Card.EquippedBy | AddToughness$ 3 | AddPower$ 3 | AddKeyword$ Vigilance | AddAbility$ Damage
-SVar:Damage:AB$ Mana | Cost$ Sac<1/CARDNAME> | Produced$ Any | Amount$ 3 | AILogic$ BlackLotus
-K:Equip:3
+ColorIdentity:B
+OriginSet:Gaf7c94f364052cdd
+ManaCost:1 B
+Types:Legendary Creature Human Rogue
+PT:2/2
+K:Menace
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +X | NumDef$ +X
+SVar:X:Count$Valid Snake.Other+YouCtrl,Rogue.Other+YouCtrl
+A:AB$ PutCounter | Cost$ 1 B | ValidTgts$ Creature.Other | CounterType$ Menace | CounterNum$ 1 | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Targeted | Types$ Rogue | Duration$ Permanent

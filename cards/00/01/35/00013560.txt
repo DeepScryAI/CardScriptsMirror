@@ -1,11 +1,17 @@
 Id:13560
-ColorIdentity:G
+ColorIdentity:R
 OriginSet:G489334d05947807e
-ManaCost:4 G G
-Types:Legendary Planeswalker Garruk
+ManaCost:2 R R
+Types:Legendary Planeswalker Chandra
 Loyalty:4
-A:AB$ Dig | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | DigNum$ 5 | Reveal$ True | ChangeNum$ All | ChangeValid$ Creature
-A:AB$ ChangeZone | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | Origin$ Hand | Destination$ Battlefield | ChangeType$ Creature.Green+YouCtrl | Optional$ True
-A:AB$ Effect | Cost$ SubCounter<7/LOYALTY> | Planeswalker$ True | Ultimate$ True | Name$ 10284692630135603066 | Triggers$ TrigSearch | Duration$ Permanent | AILogic$ Always
-SVar:TrigSearch:Mode$ SpellCast | ValidCard$ Card.Creature | ValidActivatingPlayer$ You | TriggerZones$ Command | OptionalDecider$ You | Execute$ DBSearch
-SVar:DBSearch:DB$ ChangeZone | ChangeType$ Creature | Origin$ Library | Destination$ Battlefield | ShuffleNonMandatory$ True
+A:AB$ DealDamage | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Player,Planeswalker | NumDmg$ 1 | DamageMap$ True | SubAbility$ ChandraDamage
+SVar:ChandraDamage:DB$ DealDamage | ValidTgts$ Creature.ControlledBy TargetedOrController | TargetMin$ 0 | TargetMax$ 1 | NumDmg$ 1 | SubAbility$ DBDamageResolve
+SVar:DBDamageResolve:DB$ DamageResolve | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Targeted | IsCurse$ True | KW$ HIDDEN CARDNAME can't block. | ConditionDefined$ Targeted | ConditionPresent$ Creature | ConditionCompare$ GE1
+A:AB$ Dig | Cost$ AddCounter<0/LOYALTY> | Planeswalker$ True | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ Play | SubAbility$ DBCleanup | ExileOnMoved$ Exile
+SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+A:AB$ Dig | Cost$ SubCounter<7/LOYALTY> | Planeswalker$ True | Ultimate$ True | Defined$ You | DigNum$ 10 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBChoose
+SVar:DBChoose:DB$ ChooseCard | Choices$ Instant.IsRemembered,Sorcery.IsRemembered | Mandatory$ True | ChoiceZone$ Exile | Defined$ You | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | Defined$ ChosenCard | ValidSA$ Spell | WithoutManaCost$ True | CopyCard$ True | Amount$ 3 | AllowRepeats$ True | Controller$ You | Optional$ True | SubAbility$ DBCleanup

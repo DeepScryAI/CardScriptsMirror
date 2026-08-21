@@ -1,8 +1,11 @@
 Id:27258
-ColorIdentity:W
-OriginSet:G8636ad1cfd514d83
-ManaCost:1 W
-Types:Creature Ogre Spirit
-PT:0/4
-S:Mode$ CantAttackUnless | ValidCard$ Creature | Target$ Planeswalker.YouCtrl | Cost$ 1
-A:AB$ ChangeZone | Cost$ 4 W W ExileFromGrave<1/CARDNAME> | ActivationZone$ Graveyard | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Planeswalker.YouOwn
+ColorIdentity:BR
+OriginSet:G6ce0035cfb774934
+ManaCost:3 B R
+Types:Legendary Creature Avatar Horror
+PT:4/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange
+SVar:TrigChange:DB$ GainControl | ValidTgts$ Creature.OppCtrl | LoseControl$ EOT | Untap$ True | AddKWs$ Haste
+A:AB$ PumpAll | Cost$ 1 B R | ValidCards$ Creature.YouCtrl | NumAtt$ +2 | SubAbility$ LoseTwo
+SVar:LoseTwo:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 2
+SVar:PlayMain1:OPPONENTCREATURES

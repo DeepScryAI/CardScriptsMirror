@@ -1,11 +1,17 @@
 Id:28151
-ColorIdentity:
+ColorIdentity:W
 OriginSet:Gfd50577710a6ab09
-ManaCost:4
-Types:Artifact Creature Golem
-PT:4/4
-K:Ward:2
-K:ETBReplacement:Other:ChooseCT
-SVar:ChooseCT:DB$ ChooseType | Type$ Creature | AILogic$ MostProminentInComputerDeck
-S:Mode$ Continuous | Affected$ Card.Self | AddType$ ChosenType
-S:Mode$ Panharmonicon | ValidCard$ Creature.Other+YouCtrl+ChosenType
+ManaCost:1 W
+Types:Artifact
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Plains.Basic | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ 2
+K:Craft:5 W W ExileCtrlOrGrave<1/Artifact.Other>
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:white
+Types:Artifact
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 2883502801
+S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddPower$ 1 | AddToughness$ 1

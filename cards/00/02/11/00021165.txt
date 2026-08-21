@@ -1,8 +1,12 @@
 Id:21165
-ColorIdentity:W
-OriginSet:G72c9c624ceb92bff
-ManaCost:1 W
-Types:Creature Kor Warrior
-PT:1/1
-K:DoubleStrike
-S:Mode$ Continuous | Affected$ Warrior.YouCtrl+equipped | AddKeyword$ DoubleStrike
+ColorIdentity:UB
+OriginSet:G1e059136f10fb240
+ManaCost:2 U B
+Types:Legendary Creature Vampire Rogue
+PT:2/4
+S:Mode$ Continuous | Affected$ Rogue.Other+YouCtrl | AddPower$ 1 | AddToughness$ 1
+T:Mode$ DamageDoneOnce | CombatDamage$ True | ValidSource$ Rogue.YouCtrl | ValidTarget$ Player | TriggerZones$ Battlefield | Execute$ TrigMill
+SVar:TrigMill:DB$ Mill | Defined$ TriggeredTarget | NumCards$ X | RememberMilled$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | ConditionDefined$ Remembered | ConditionPresent$ Creature | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:TriggerCount$DamageAmount

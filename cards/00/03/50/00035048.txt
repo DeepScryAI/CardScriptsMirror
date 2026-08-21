@@ -1,0 +1,13 @@
+Id:35048
+ColorIdentity:UG
+OriginSet:Gf8f2990d7136c11d
+ManaCost:2 G U
+Types:Creature Elf Citizen
+PT:3/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZoneAll | ChangeType$ Land.IsRemembered | Origin$ Graveyard | Destination$ Battlefield | Tapped$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Graveyard | Execute$ TrigReturn
+SVar:TrigReturn:AB$ ChangeZone | Cost$ 1 G U | Defined$ Self | Origin$ Graveyard | Destination$ Hand

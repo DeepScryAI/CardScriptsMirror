@@ -3,7 +3,9 @@ ColorIdentity:
 OriginSet:G84adc137b751e29e
 ManaCost:no cost
 Types:Scheme
-T:Mode$ SetInMotion | ValidCard$ Card.Self | Execute$ GraveEmbrace | TriggerZones$ Command
-SVar:GraveEmbrace:DB$ ChangeZoneAll | ChangeType$ Card | Origin$ Graveyard,Hand | Destination$ Library | Shuffle$ True | SubAbility$ MyVision
-SVar:MyVision:DB$ Draw | Defined$ You | NumCards$ 7 | SubAbility$ PitifulDraw
-SVar:PitifulDraw:DB$ Draw | Defined$ Player.Other | NumCards$ 4
+T:Mode$ SetInMotion | ValidCard$ Card.Self | Execute$ LibraryDance | TriggerZones$ Command
+SVar:LibraryDance:DB$ DigUntil | Defined$ Player.Opponent | Valid$ Creature | RememberRevealed$ True | ImprintFound$ True | NoMoveRevealed$ True | SubAbility$ MakeItChoose
+SVar:MakeItChoose:DB$ ChooseCard | Choices$ Card.IsImprinted | ChoiceZone$ Library | Mandatory$ True | Amount$ 1 | SubAbility$ MakeItDance
+SVar:MakeItDance:DB$ ChangeZone | Defined$ ChosenCard | Origin$ Library | Destination$ Battlefield | Mandatory$ True | GainControl$ True | ForgetChanged$ True | SubAbility$ TakeOutTheTrash
+SVar:TakeOutTheTrash:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered | Origin$ Library | Destination$ Graveyard | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True

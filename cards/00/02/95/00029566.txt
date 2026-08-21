@@ -1,17 +1,12 @@
 Id:29566
-ColorIdentity:R
+ColorIdentity:B
 OriginSet:Gac6359c222afbd4f
-ManaCost:2 R
-Types:Sorcery
-A:SP$ Destroy | ValidTgts$ Land | SubAbility$ DBChange
-SVar:DBChange:DB$ ChangeZone | Optional$ True | Origin$ Library | Destination$ Battlefield | ChangeType$ Land.Basic | Tapped$ True | ChangeNum$ 1 | DefinedPlayer$ TargetedController | ShuffleNonMandatory$ True | SubAbility$ CantBlockEffect
-SVar:CantBlockEffect:DB$ Effect | StaticAbilities$ KWPump | AILogic$ Evasion
-SVar:KWPump:Mode$ Continuous | AffectedZone$ Battlefield | Affected$ Creature.withoutFlying | AddHiddenKeyword$ CARDNAME can't block.
-SVar:PlayMain1:TRUE
-AlternateMode:Modal
-ALTERNATE
-ManaCost:no cost
-Types:Land
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ DBTap | ReplacementResult$ Updated
-SVar:DBTap:DB$ Tap | ETB$ True | Defined$ Self | UnlessCost$ PayLife<3> | UnlessPayer$ You
-A:AB$ Mana | Cost$ T | Produced$ R
+ManaCost:1 B
+Types:Artifact Creature Phyrexian Slith
+PT:1/1
+K:Menace
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigPutCounter | TriggerZones$ Battlefield
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | RememberAmount$ True | SubAbility$ TrigImmediate
+SVar:TrigImmediate:DB$ ImmediateTrigger | Execute$ TrigRemoveCounter | OptionalDecider$ You | TriggerAmount$ Count$RememberedNumber | SubAbility$ DBCleanup
+SVar:TrigRemoveCounter:DB$ RemoveCounter | ValidTgts$ Permanent.Other,Opponent | CounterType$ Any | CounterNum$ 1
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

@@ -1,7 +1,10 @@
 Id:8177
-ColorIdentity:UR
+ColorIdentity:UBRG
 OriginSet:G2c4e6f6c46954cd6
-ManaCost:U R R
-Types:Creature Goblin Wizard
+ManaCost:U B R G
+Types:Creature Nephilim
 PT:2/2
-A:AB$ ChangeTargets | Cost$ Sac<1/CARDNAME> | TargetType$ Spell | ValidTgts$ Instant,Sorcery
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigDraw | CombatDamage$ True
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ X
+SVar:X:TriggerCount$DamageAmount
+A:AB$ Pump | Cost$ 1 Discard<1/Card> | Defined$ Self | NumAtt$ +1 | NumDef$ +1

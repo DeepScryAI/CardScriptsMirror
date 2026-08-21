@@ -1,9 +1,10 @@
 Id:5183
-ColorIdentity:W
-OriginSet:Gfdac7ecc1e8a7d21
-ManaCost:no cost
-Types:Land
-A:AB$ Mana | Cost$ T | Produced$ W
-A:AB$ Mana | Cost$ T Sac<1/CARDNAME> | Produced$ Any
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+ColorIdentity:G
+OriginSet:Gce9cffa17c4c8bfc
+ManaCost:4 G G G
+Types:Creature Basilisk
+PT:4/5
+S:Mode$ Continuous | Affected$ Card.Self | AddHiddenKeyword$ All creatures able to block CARDNAME do so. | Condition$ Threshold
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Creature | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ DelTrig
+SVar:DelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ EndCombat | ValidPlayer$ Player | Execute$ TrigDestroy | RememberObjects$ TriggeredTargetLKICopy
+SVar:TrigDestroy:DB$ Destroy | Defined$ DelayTriggerRememberedLKI

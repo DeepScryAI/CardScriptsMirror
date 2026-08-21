@@ -1,8 +1,12 @@
 Id:29150
-ColorIdentity:B
-OriginSet:G27146c70b74a1e72
-ManaCost:B
-Types:Creature Rat Warlock
-PT:1/1
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 472008509 | TokenOwner$ You
+ColorIdentity:WRG
+OriginSet:Gc7beb665b378d90a
+ManaCost:5 R G W
+Types:Legendary Creature Human Ranger
+PT:6/6
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ Count$ValidGraveyard Land.YouOwn | EffectZone$ All
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDraw | Secondary$ True
+SVar:TrigDraw:AB$ Draw | Cost$ Sac<1/Land>
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Graveyard | ValidCard$ Desert.!token+YouOwn | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 524779715

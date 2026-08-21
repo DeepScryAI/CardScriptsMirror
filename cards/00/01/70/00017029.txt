@@ -1,9 +1,13 @@
 Id:17029
-ColorIdentity:U
+ColorIdentity:B
 OriginSet:Gbcdce58dfbbf1bad
-ManaCost:5 U
-Types:Enchantment
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 3
-S:Mode$ AlternativeCost | ValidSA$ Activated.Cycling | ValidPlayer$ You | Cost$ Discard<1/CARDNAME> | CheckSVar$ X | SVarCompare$ GE7
-SVar:X:Count$ValidHand Card.YouOwn
+ManaCost:1 B B
+Types:Sorcery
+A:SP$ Destroy | ValidTgts$ Creature,Planeswalker
+AlternateMode:Split
+ALTERNATE
+ManaCost:3 B
+Types:Sorcery
+K:Aftermath
+A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 353162950 | TokenOwner$ You

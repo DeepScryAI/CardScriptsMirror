@@ -1,8 +1,12 @@
 Id:32294
-ColorIdentity:B
+ColorIdentity:W
 OriginSet:G9946f072b5556073
-ManaCost:1 B B
-Types:Legendary Creature Human Wizard
-PT:2/3
-A:AB$ ChangeZone | Cost$ T | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouOwn | SorcerySpeed$ True | StaticEffect$ Animate
-SVar:Animate:Mode$ Continuous | Affected$ Card.IsRemembered | AddType$ Skeleton | RemoveAllAbilities$ True
+ManaCost:W
+Types:Enchantment Aura
+K:Enchant:Artifact.YouCtrl:artifact you control
+SVar:AttachAILogic:Pump
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Creature.OppCtrl | Duration$ UntilHostLeavesPlay
+S:Mode$ Continuous | Affected$ Permanent.EnchantedBy | AddKeyword$ Ward:1
+SVar:PlayMain1:TRUE
+SVar:NeedsToPlay:Creature.OppCtrl

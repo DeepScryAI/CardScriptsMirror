@@ -1,11 +1,13 @@
 Id:27786
-ColorIdentity:WG
-OriginSet:G30e8a5e111cffb44
-ManaCost:1 G W
-Types:Legendary Creature Human Soldier
-PT:2/4
-K:Trample
-K:Haste
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigDraw | CombatDamage$ True
-SVar:TrigDraw:DB$ Draw | Defined$ You & TriggeredTarget | NumCards$ X
-SVar:X:TriggerCount$DamageAmount
+ColorIdentity:U
+OriginSet:Gd488b4ad788f0529
+ManaCost:1 U
+Types:Instant
+A:SP$ Charm | Choices$ DBDecrease,DBIncrease | MinCharmNum$ 1 | CharmNum$ 2
+SVar:DBDecrease:DB$ ChangeZone | ValidTgts$ Creature.YouCtrl | Origin$ Battlefield | Destination$ Hand | RememberChanged$ True | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Remembered | staticAbilities$ ReduceCost | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:ReduceCost:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ 1 | EffectZone$ All
+SVar:DBIncrease:DB$ ChangeZone | ValidTgts$ Creature.YouDontCtrl | Origin$ Battlefield | Destination$ Hand | RememberChanged$ True | SubAbility$ DBAnimate2
+SVar:DBAnimate2:DB$ Animate | Defined$ Remembered | staticAbilities$ RaiseCost | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:RaiseCost:Mode$ RaiseCost | ValidCard$ Card.Self | Type$ Spell | Amount$ 1 | EffectZone$ All
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

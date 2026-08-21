@@ -1,13 +1,11 @@
 Id:26389
-ColorIdentity:
-OriginSet:Gd5f5e54fa26ae40d
-ManaCost:no cost
-Types:Plane Theros
-S:Mode$ Continuous | EffectZone$ Command | Affected$ Creature.!token | AddType$ Enchantment
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Enchantment.YouCtrl | TriggerZones$ Command | Execute$ TrigGainLife
-SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
-T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos
-SVar:RolledChaos:DB$ ChooseColor | SubAbility$ DBMana | AILogic$ MostProminentComputerControls | AINoRecursiveCheck$ True
-SVar:DBMana:DB$ Mana | Produced$ Chosen | Amount$ X | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearChosenColor$ True
-SVar:X:Count$Devotion.Chosen
+ColorIdentity:UG
+OriginSet:G997e3b19a1e94e85
+ManaCost:2 G U
+Types:Creature Elf Wizard
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange | OptionalDecider$ You
+SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | Tapped$ True | ChangeType$ Land.Basic | ShuffleNonMandatory$ True
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ TriggeredCardController | NumCards$ 1
+SVar:SacMe:1

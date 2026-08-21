@@ -1,8 +1,14 @@
 Id:20931
-ColorIdentity:W
+ColorIdentity:R
 OriginSet:Gfd5e6da37c69dc53
-ManaCost:1 W
-Types:Creature Human Knight
-PT:1/2
-A:AB$ PutCounter | Cost$ W T | CounterType$ P1P1 | CounterNum$ 1 | ValidTgts$ Creature.counters_GE1_P1P1
-A:AB$ PutCounter | Cost$ 4 W W T | CounterType$ P1P1 | CounterNum$ 1 | ValidTgts$ Creature | AILogic$ NoCounterOfType
+ManaCost:3 R
+Types:Creature Human Shaman
+PT:*/4
+K:Trample
+S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X
+SVar:X:Count$ValidGraveyard Instant.YouOwn,Sorcery.YouOwn
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigDiscard
+SVar:TrigDiscard:DB$ Discard | Defined$ You | NumCards$ 2 | Optional$ True | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ Y | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:Y:Remembered$Amount

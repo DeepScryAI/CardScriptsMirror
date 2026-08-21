@@ -1,8 +1,11 @@
 Id:26172
-ColorIdentity:R
+ColorIdentity:G
 OriginSet:G2192e8955d5e1ad1
-ManaCost:2 R
-Types:Legendary Creature Phyrexian Goblin Artificer
-PT:3/3
-A:AB$ Mana | Cost$ T Sac<1/Artifact> | Produced$ R | Amount$ X | RestrictValid$ Spell.Artifact,Activated.Artifact+inZoneBattlefield
-SVar:X:Sacrificed$CardManaCost
+ManaCost:2 G G
+Types:Artifact
+S:Mode$ Continuous | Affected$ Land.YouOwn | MayPlay$ True | AffectedZone$ Graveyard
+A:AB$ Play | Cost$ T | ValidSA$ Spell | SorcerySpeed$ True | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ0 | TgtZone$ Graveyard | ValidTgts$ Permanent.nonLand+YouOwn | RememberPlayed$ True | Optional$ True | SubAbility$ DBEffect | AILogic$ NeedsChosenCard
+SVar:DBEffect:DB$ Effect | ConditionDefined$ Remembered | ConditionPresent$ Card | StaticAbilities$ STCantBeCast | SubAbility$ DBCleanup
+SVar:STCantBeCast:Mode$ CantBeCast | ValidCard$ Card | Caster$ You
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$ThisTurnCast_Card.YouCtrl

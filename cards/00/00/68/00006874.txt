@@ -1,9 +1,10 @@
 Id:6874
 ColorIdentity:
 OriginSet:G8b552b617d13301f
-ManaCost:2
-Types:Artifact Equipment
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddKeyword$ FirstStrike | AddAbility$ SurestrikeTridentDmg | AddSVar$ SurestrikeTridentX
-SVar:SurestrikeTridentDmg:AB$ DealDamage | Cost$ T Unattach<OriginalHost/catalogId6874> | NumDmg$ SurestrikeTridentX | ValidTgts$ Player,Planeswalker
-SVar:SurestrikeTridentX:Count$CardPower
-K:Equip:4
+ManaCost:8
+Types:Artifact Creature Golem
+PT:7/10
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigChoose
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigChoose | Secondary$ True
+SVar:TrigChoose:DB$ ChooseCard | Defined$ You | Choices$ Land | EachBasicType$ True | SubAbility$ DBDestroy
+SVar:DBDestroy:DB$ DestroyAll | ValidCards$ Card.ChosenCard

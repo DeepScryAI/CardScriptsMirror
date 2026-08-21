@@ -1,8 +1,11 @@
 Id:10521
-ColorIdentity:UR
+ColorIdentity:RG
 OriginSet:G9445ff04667ca5ba
-ManaCost:U R
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:Pump
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 2 | AddKeyword$ Flying
+ManaCost:1 R G
+Types:Artifact Equipment
+K:Equip:3
+T:Mode$ Attacks | ValidCard$ Card.AttachedBy | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | Defined$ TriggeredDefender.Opponent & Valid Planeswalker.TriggeredDefender | DamageSource$ TriggeredAttackerLKICopy | NumDmg$ X
+SVar:X:TriggeredAttacker$CardPower
+S:Mode$ Continuous | Affected$ Creature.AttachedBy | AddSVar$ AE
+SVar:AE:SVar:HasAttackEffect:TRUE

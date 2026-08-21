@@ -1,8 +1,9 @@
 Id:11572
 ColorIdentity:
 OriginSet:Gc046eafa1d269dd1
-ManaCost:5
-Types:Artifact Creature Golem
-PT:3/3
-A:AB$ Pump | Cost$ 2 | ValidTgts$ Creature.Artifact | NumAtt$ +1 | NumDef$ +1
-A:AB$ Pump | Cost$ 2 | ValidTgts$ Creature.Artifact | KWChoice$ Flying,Trample,Haste
+ManaCost:1
+Types:Artifact
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigPutCounter | OptionalDecider$ You | TriggerZones$ Battlefield
+A:AB$ GainLife | Cost$ T Sac<1/CARDNAME> | LifeAmount$ X
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ CHARGE | CounterNum$ 1
+SVar:X:Count$CardCounters.CHARGE

@@ -1,8 +1,11 @@
 Id:21485
 ColorIdentity:U
-OriginSet:G18bf722b221724f8
+OriginSet:G51d431785c8b33e5
 ManaCost:3 U
-Types:Instant
-A:SP$ Scry | ScryNum$ 2 | SubAbility$ DBDraw | AILogic$ BestOpportunity
-SVar:DBDraw:DB$ Draw | NumCards$ 2
-K:Foretell:1 U
+Types:Sorcery
+A:SP$ Charm | MinCharmNum$ 1 | CharmNum$ Count$Compare Y GE1.2.1 | Choices$ DBControl,DBClone
+SVar:DBControl:DB$ ChooseCard | ValidTgts$ Opponent | Mandatory$ True | Choices$ Creature.TargetedPlayerCtrl | SubAbility$ DBGainControl | AILogic$ WorstCard
+SVar:DBGainControl:DB$ GainControl | Defined$ ChosenCard | NewController$ You
+SVar:DBClone:DB$ Clone | Choices$ Creature.YouCtrl | ExcludeChosen$ True | CloneTarget$ Valid Creature.YouCtrl | Duration$ UntilEndOfTurn
+SVar:Y:Count$Valid Card.IsCommander+YouCtrl
+SVar:PlayMain1:TRUE

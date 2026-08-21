@@ -1,14 +1,11 @@
 Id:23809
-ColorIdentity:WUB
-OriginSet:G5f5d8cfb206e2fac
-ManaCost:1 W U B
-Types:Legendary Creature Octopus Rogue
-PT:2/4
-T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigPump | TriggerZones$ Battlefield
-SVar:TrigPump:DB$ Effect | RememberObjects$ Targeted | ValidTgts$ Creature.attacking | StaticAbilities$ Unblockable | SubAbility$ DBConnive
-SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
-SVar:DBConnive:DB$ Connive | Defined$ Targeted | SubAbility$ DBChooseCard
-SVar:DBChooseCard:DB$ ChooseCard | Defined$ You | Choices$ Creature.attacking+NotDefinedTargeted+powerLTX | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | KW$ DoubleStrike | Defined$ ChosenCard | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
-SVar:X:Targeted$CardPower
+ColorIdentity:B
+OriginSet:Gd970889168b5769f
+ManaCost:2 B
+Types:Instant
+A:SP$ Sacrifice | ValidTgts$ Player | SacValid$ Creature.!token | RememberSacrificed$ True | SubAbility$ DBImmediateTrigger
+SVar:DBImmediateTrigger:DB$ ImmediateTrigger | ConditionDefined$ Remembered | ConditionPresent$ Card | RememberObjects$ Remembered | Execute$ TrigConjure | SubAbility$ DBCleanup
+SVar:TrigConjure:AB$ MakeCard | Cost$ Discard<1/Card> | Conjure$ True | DefinedName$ DelayTriggerRemembered | Zone$ Hand | RememberMade$ True | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Remembered | staticAbilities$ SpendAnyMana | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:SpendAnyMana:Mode$ ManaConvert | EffectZone$ Stack | ValidPlayer$ You | ValidCard$ Card.Self | ValidSA$ Spell | ManaConversion$ AnyType->AnyColor
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

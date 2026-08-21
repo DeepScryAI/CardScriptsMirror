@@ -1,12 +1,10 @@
 Id:14373
-ColorIdentity:G
+ColorIdentity:U
 OriginSet:Gd1afe764e8df12f6
-ManaCost:3 G G
-Types:Legendary Planeswalker Nissa
-Loyalty:3
-A:AB$ Animate | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Land.YouCtrl | Power$ 4 | Toughness$ 4 | Types$ Creature,Elemental | Duration$ Permanent | Keywords$ Trample
-A:AB$ Untap | Cost$ AddCounter<1/LOYALTY> | ValidTgts$ Forest | TargetMin$ 0 | TargetMax$ 4 | Planeswalker$ True
-A:AB$ ChangeZone | Cost$ SubCounter<7/LOYALTY> | Origin$ Library | Destination$ Battlefield | ChangeType$ Land.Basic | ChangeNum$ XFetch | Planeswalker$ True | Ultimate$ True | RememberChanged$ True | SubAbility$ DBAnimate
-SVar:DBAnimate:DB$ Animate | Defined$ Remembered | Power$ 4 | Toughness$ 4 | Types$ Creature,Elemental | Duration$ Permanent | Keywords$ Trample | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:XFetch:Count$ValidLibrary Land.Basic+YouCtrl
+ManaCost:2 U U
+Types:Legendary Planeswalker Jace
+Loyalty:5
+A:AB$ Dig | Cost$ AddCounter<1/LOYALTY> | Defined$ You | DigNum$ 2 | DestinationZone$ Graveyard | NoReveal$ True | LibraryPosition2$ 0 | Planeswalker$ True
+A:AB$ ChangeZone | Cost$ SubCounter<3/LOYALTY> | Origin$ Battlefield | Destination$ Hand | ValidTgts$ Permanent.Other+nonLand | Planeswalker$ True
+A:AB$ ChangeZoneAll | Cost$ SubCounter<8/LOYALTY> | ChangeType$ Card | Origin$ Hand,Graveyard | Destination$ Library | Shuffle$ True | SubAbility$ DBDraw | UseAllOriginZones$ True | Planeswalker$ True | Ultimate$ True
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 7

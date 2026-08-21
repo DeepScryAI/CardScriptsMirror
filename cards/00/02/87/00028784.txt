@@ -1,10 +1,11 @@
 Id:28784
-ColorIdentity:R
-OriginSet:Gaf7c94f364052cdd
-ManaCost:2 R
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:Pump
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 2 | AddToughness$ 2 | Goad$ True
-T:Mode$ Attacks | ValidCard$ Creature.EnchantedBy | Execute$ TrigRadiation
-SVar:TrigRadiation:DB$ Radiation | Defined$ TriggeredDefendingPlayer | Num$ 2
+ColorIdentity:BR
+OriginSet:Ge329d8d60ca65422
+ManaCost:1 BR BR
+Types:Creature Devil Detective
+PT:3/3
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigDiscard
+SVar:TrigDiscard:DB$ Discard | Mode$ Hand | SubAbility$ DBInvestigate
+SVar:DBInvestigate:DB$ Investigate | Num$ 4
+S:Mode$ Continuous | Affected$ Card.Self | AddPower$ 2 | AddToughness$ 2 | AddKeyword$ Menace | CheckSVar$ X | SVarCompare$ LE1
+SVar:X:Count$ValidHand Card.YouOwn

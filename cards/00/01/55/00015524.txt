@@ -1,7 +1,11 @@
 Id:15524
-ColorIdentity:W
+ColorIdentity:
 OriginSet:Gec9609c94c5b1cdf
-ManaCost:3 W W
-Types:Sorcery
-A:SP$ DestroyAll | ValidCards$ Creature.nonLand
-K:Awaken:4:5 W W W
+ManaCost:1
+Types:Artifact Equipment
+S:Mode$ Continuous | Affected$ Card.EquippedBy | AddAbility$ Damage | AddSVar$ PathwayTapAll & PathwayCleanup
+SVar:Damage:AB$ DealDamage | Cost$ 2 T | ValidTgts$ Creature | NumDmg$ 1 | RememberDamaged$ True | SubAbility$ PathwayTapAll
+SVar:PathwayTapAll:DB$ TapAll | ValidCards$ Creature.IsRemembered+Colorless | SubAbility$ PathwayCleanup
+SVar:PathwayCleanup:DB$ Cleanup | ClearRemembered$ True
+K:Equip:2
+SVar:NonStackingAttachEffect:True

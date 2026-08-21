@@ -1,11 +1,11 @@
 Id:6359
-ColorIdentity:W
+ColorIdentity:R
 OriginSet:Gd11012ee98ee8d76
-ManaCost:X X 2 W W
+ManaCost:8 R R
 Types:Sorcery
-K:Cycling:2 W
-A:SP$ Token | TokenAmount$ X | TokenScriptIds$ 2375228291 | TokenOwner$ You
-T:Mode$ Cycled | ValidCard$ Card.Self | Execute$ TrigToken | OptionalDecider$ You
-SVar:TrigToken:AB$ Token | Cost$ X | TokenAmount$ X | TokenScriptIds$ 1214250791 | TokenOwner$ You
-SVar:X:Count$xPaid
-SVar:PlayMain1:ALWAYS
+K:Cycling:5 R R
+A:SP$ ChangeZoneAll | ChangeType$ Artifact,Land,Creature | Origin$ Battlefield | Destination$ Exile | SubAbility$ DBExileHand
+T:Mode$ Cycled | ValidCard$ Card.Self | Execute$ TrigDestroyAll
+SVar:DBExileHand:DB$ ChangeZoneAll | ChangeType$ Card | Origin$ Hand | Destination$ Exile | SubAbility$ DBExileGraveyard
+SVar:DBExileGraveyard:DB$ ChangeZoneAll | ChangeType$ Card | Origin$ Graveyard | Destination$ Exile
+SVar:TrigDestroyAll:DB$ DestroyAll | ValidCards$ Land

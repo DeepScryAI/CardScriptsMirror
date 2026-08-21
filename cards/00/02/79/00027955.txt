@@ -1,14 +1,11 @@
 Id:27955
-ColorIdentity:UG
-OriginSet:G06c78c29bfb28e3d
-ManaCost:4 G U
-Types:Legendary Creature Salamander Serpent
-PT:6/6
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPutCounter
-T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPutCounter | Secondary$ True
-SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Land | CounterType$ FLOOD | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | RememberObjects$ Targeted | StaticAbilities$ FountainStatic | ForgetOnMoved$ Battlefield | ForgetCounter$ FLOOD | Duration$ Permanent
-SVar:FountainStatic:Mode$ Continuous | Affected$ Card.IsRemembered | AddType$ Island
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigUntap
-SVar:TrigUntap:DB$ UntapAll | ValidCards$ Permanent.YouCtrl+HasCounters
-SVar:HasAttackEffect:TRUE
+ColorIdentity:
+OriginSet:G30e8a5e111cffb44
+ManaCost:no cost
+Types:Plane Outside Mutter's Spiral
+T:Mode$ PlaneswalkedTo | ValidCard$ Card.Self | Execute$ TrigPutCounter
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigPutCounter | TriggerZones$ Command | Secondary$ True
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.nonCat+YouCtrl | CounterType$ P1P1 | CounterNum$ 2 | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Targeted | Types$ Cat | Duration$ Permanent
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ TrigPumpAll
+SVar:TrigPumpAll:DB$ PumpAll | ValidCards$ Card.Cat | KW$ Provoke

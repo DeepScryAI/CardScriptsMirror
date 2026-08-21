@@ -1,9 +1,13 @@
 Id:24877
-ColorIdentity:WG
+ColorIdentity:B
 OriginSet:G3a8b4b9d4649b357
-ManaCost:1 W
-Types:Creature Human Druid
-PT:2/2
-K:Kicker:G
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self+kicked | Execute$ TrigCounter
-SVar:TrigCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1
+ManaCost:2 B
+Types:Enchantment Saga
+K:Read ahead
+K:Chapter:3:ABDiscard,DBChangeZone,DBSacrificeOpp
+SVar:ABDiscard:AB$ Discard | Cost$ Sac<1/Creature> | Mode$ TgtChoose | Defined$ Opponent
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Creature.YouOwn
+SVar:DBSacrificeOpp:DB$ Sacrifice | ValidTgts$ Opponent | Optional$ True | SacValid$ Permanent.nonLand+!token | RememberSacrificed$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ0 | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ0 | LifeAmount$ 2 | Defined$ Targeted | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

@@ -1,7 +1,13 @@
 Id:10975
-ColorIdentity:U
+ColorIdentity:W
 OriginSet:Gd09f2fd86b2e8dd0
-ManaCost:2 U
-Types:Instant
-A:SP$ ChangeZone | Origin$ Battlefield | Destination$ Hand | ValidTgts$ Permanent.YouCtrl | SubAbility$ DBChange
-SVar:DBChange:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | ValidTgts$ Permanent.YouDontCtrl
+ManaCost:3 W W W
+Types:Creature Angel
+PT:6/6
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigExile
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigReturn
+SVar:TrigExile:DB$ ChangeZone | ValidTgts$ Permanent.Other+nonLand | RememberTargets$ True | Origin$ Battlefield | Destination$ Exile
+SVar:TrigReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | SubAbility$ DBCleanup | Destination$ Battlefield
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:BuffedBy:Land

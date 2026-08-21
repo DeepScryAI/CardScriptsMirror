@@ -1,12 +1,15 @@
 Id:20292
-ColorIdentity:G
-OriginSet:Gfa87e7bbc5a709eb
-ManaCost:G
-Types:Creature Spider
-PT:1/2
-K:Reach
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDamage
-SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Creature.OppCtrl+withFlying | NumDmg$ X
-SVar:X:Count$CardPower
-K:Escape:3 G G ExileFromGrave<4/Card.Other/other>
-K:etbCounter:P1P1:3:ValidCard$ Card.Self+escaped
+ColorIdentity:U
+OriginSet:G42eb6bda83007836
+ManaCost:3 U
+Types:Legendary Enchantment Creature God
+PT:6/5
+K:Indestructible
+S:Mode$ Continuous | Affected$ Card.Self | RemoveType$ Creature | CheckSVar$ X | SVarCompare$ LT5
+SVar:X:Count$Devotion.Blue
+SVar:BuffedBy:Permanent.Blue
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | ValidTgts$ Creature.Other+YouCtrl | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ All | Destination$ Battlefield | GainControl$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+A:AB$ Tap | Cost$ 3 U | ValidTgts$ Creature.Other | IsCurse$ True

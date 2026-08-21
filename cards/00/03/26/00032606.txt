@@ -1,10 +1,8 @@
 Id:32606
 ColorIdentity:B
-OriginSet:G36e97d2da170e675
-ManaCost:2 B
-Types:Creature Human Rogue Ally
-PT:3/3
-K:Firebending:1
-A:AB$ ChangeZone | Cost$ tapXType<1/Ally> | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card
-T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigCast | OptionalDecider$ You
-SVar:TrigCast:DB$ Play | ValidZone$ Exile | Valid$ Ally.YouOwn+ExiledWithSource | ValidSA$ Spell | Controller$ You | Optional$ True | Amount$ 1
+OriginSet:G66b3a7eeabd9000e
+ManaCost:1 B B
+Types:Sorcery
+K:Mayhem:3 B
+A:SP$ PumpAll | ValidCards$ Creature | NumAtt$ -2 | NumDef$ -2 | IsCurse$ True | SubAbility$ DBPumpAll | ConditionDefined$ Self | ConditionPresent$ Card.!CastSa Spell.Mayhem | ConditionCompare$ EQ1
+SVar:DBPumpAll:DB$ PumpAll | ValidCards$ Creature.OppCtrl | NumAtt$ -2 | NumDef$ -2 | ConditionDefined$ Self | ConditionPresent$ Card.CastSa Spell.Mayhem | IsCurse$ True

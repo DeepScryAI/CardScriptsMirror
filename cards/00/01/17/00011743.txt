@@ -1,13 +1,8 @@
 Id:11743
-ColorIdentity:U
+ColorIdentity:
 OriginSet:Geea47b3330de77a6
-ManaCost:2 U U
-Types:Sorcery
-A:SP$ ChangeZone | Origin$ Library | Destination$ Exile | ChangeType$ Card | ChangeNum$ 1 | Mandatory$ True | Imprint$ True | AILogic$ BestCard | SubAbility$ DBChoose
-SVar:DBChoose:DB$ GenericChoice | Defined$ Opponent | Choices$ DBToHand,DoNothing | ConditionDefined$ Imprinted | ConditionZone$ Exile | ConditionPresent$ Card | ConditionCompare$ EQ1 | SubAbility$ DBDraw
-SVar:DBToHand:DB$ ChangeZone | Origin$ Exile | Destination$ Hand | Defined$ Imprinted | Unimprint$ True
-SVar:DoNothing:DB$ Cleanup
-SVar:DBDraw:DB$ Draw | NumCards$ 3 | ConditionDefined$ Imprinted | ConditionZone$ Exile | ConditionPresent$ Card | ConditionCompare$ GE1 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearImprinted$ True
-SVar:NeedsToPlayVar:X LE4
-SVar:X:Count$ValidHand Card.YouOwn
+ManaCost:4
+Types:Artifact
+A:AB$ LoseLife | Cost$ 4 T | LifeAmount$ 2 | ValidTgts$ Opponent | SubAbility$ DBPoison
+SVar:DBPoison:DB$ Poison | Num$ 1 | Defined$ Targeted | SubAbility$ DBMill
+SVar:DBMill:DB$ Mill | NumCards$ 6 | Defined$ Targeted

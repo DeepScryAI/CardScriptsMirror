@@ -1,9 +1,11 @@
 Id:27785
-ColorIdentity:W
-OriginSet:G30e8a5e111cffb44
-ManaCost:1 W
-Types:Legendary Creature Human Detective
-PT:2/1
-T:Mode$ SpellCast | ValidCard$ Card.Historic | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | ActivationLimit$ 1 | Execute$ TrigInvestigate
-SVar:TrigInvestigate:DB$ Investigate
-K:Doctor's companion
+ColorIdentity:R
+OriginSet:Gd488b4ad788f0529
+ManaCost:2 R
+Types:Enchantment
+S:Mode$ CantGainLife | ValidPlayer$ Player
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigBranch
+SVar:TrigBranch:DB$ Branch | BranchConditionSVar$ Celebration | BranchConditionSVarCompare$ GE2 | TrueSubAbility$ DBConjure | FalseSubAbility$ DBFood
+SVar:DBFood:DB$ Token | TokenScriptIds$ 134855612
+SVar:DBConjure:DB$ MakeCard | Conjure$ True | CatalogId$ 27456 | Zone$ Battlefield
+SVar:Celebration:Count$ThisTurnEntered_Battlefield_Permanent.nonLand+YouCtrl

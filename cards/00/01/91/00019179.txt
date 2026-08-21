@@ -1,13 +1,12 @@
 Id:19179
-ColorIdentity:W
+ColorIdentity:U
 OriginSet:Gf56613712ce2ae1f
-ManaCost:6 W W
-Types:Legendary Artifact Vehicle
-PT:5/5
-K:Flying
-K:FirstStrike
-K:Vigilance
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 1619264477 | TokenOwner$ You | TokenAttacking$ True
-SVar:HasAttackEffect:TRUE
-K:Crew:4
+ManaCost:X U U
+Types:Sorcery
+A:SP$ ChangeZoneAll | ChangeType$ Card.YouOwn | Origin$ Graveyard | Destination$ Library | Shuffle$ True | SubAbility$ DBDraw | UseAllOriginZones$ True | ConditionCheckSVar$ X | ConditionSVarCompare$ GE10
+SVar:DBDraw:DB$ Draw | NumCards$ X | SubAbility$ DBUntap | AILogic$ ConsiderPrimary
+SVar:DBUntap:DB$ Untap | UntapUpTo$ True | UntapType$ Land | Amount$ 5 | SubAbility$ DBEffect | ConditionCheckSVar$ X | ConditionSVarCompare$ GE10
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STHandSize | Duration$ Permanent | SubAbility$ DBChange | ConditionCheckSVar$ X | ConditionSVarCompare$ GE10
+SVar:STHandSize:Mode$ Continuous | Affected$ You | SetMaxHandSize$ Unlimited
+SVar:DBChange:DB$ ChangeZone | Origin$ Stack | Destination$ Exile
+SVar:X:Count$xPaid

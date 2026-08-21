@@ -1,8 +1,9 @@
 Id:23615
-ColorIdentity:U
+ColorIdentity:R
 OriginSet:G1a259dba25660062
-ManaCost:4 U
-Types:Artifact Creature Moonfolk Rogue
-PT:3/5
-A:AB$ Tap | Cost$ 3 U Discard<1/CARDNAME> | ActivationZone$ Hand | ValidTgts$ Creature.YouDontCtrl | TargetMin$ 0 | TargetMax$ 2 | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | Defined$ Targeted | KW$ HIDDEN This card doesn't untap during your next untap step. | Duration$ Permanent
+ManaCost:4 R
+Types:Creature Spirit
+PT:3/6
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Destination$ Battlefield | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | ValidTgts$ Artifact.YouCtrl+cmcLE3 | Origin$ Graveyard | Destination$ Battlefield | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Keywords$ Haste | Defined$ Targeted | Duration$ Permanent | AtEOT$ Sacrifice

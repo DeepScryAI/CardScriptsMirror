@@ -1,13 +1,9 @@
 Id:24313
-ColorIdentity:
+ColorIdentity:WR
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:4
-Types:Artifact Creature Dog
-PT:4/4
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ DBTrigRollDice
-SVar:DBTrigRollDice:DB$ RollDice | Sides$ 20 | Amount$ NbAttackedPlayers | UseHighestRoll$ True | ResultSubAbilities$ 1-9:DBDamageToController,10-19:DBDamageToDefending,20:DBDamageToOpponents
-SVar:NbAttackedPlayers:PlayerCountOpponents$HasPropertyDefending
-SVar:DBDamageToController:DB$ DealDamage | Defined$ You | NumDmg$ X
-SVar:DBDamageToDefending:DB$ DealDamage | Defined$ Player.attackedBySourceThisCombat | NumDmg$ X
-SVar:DBDamageToOpponents:DB$ DealDamage | Defined$ Player.Opponent | NumDmg$ X
-SVar:X:Count$CardPower
+ManaCost:4 R W
+Types:Legendary Creature Human Noble Soldier
+PT:5/5
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | Execute$ TrigPump | TriggerZones$ Battlefield
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.Other+YouCtrl | KW$ Haste & Myriad
+SVar:PlayMain1:TRUE

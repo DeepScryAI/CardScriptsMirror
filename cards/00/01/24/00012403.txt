@@ -1,8 +1,11 @@
 Id:12403
-ColorIdentity:BG
+ColorIdentity:
 OriginSet:G14de52802b0b467c
-ManaCost:no cost
-Types:Land
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ LandTapped | ReplacementResult$ Updated
-SVar:LandTapped:DB$ Tap | Defined$ Self | ETB$ True | ConditionPresent$ Swamp.YouCtrl,Forest.YouCtrl | ConditionCompare$ EQ0
-A:AB$ Mana | Cost$ T | Produced$ Combo B G
+ManaCost:2
+Types:Artifact Equipment
+K:Equip:1
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1
+T:Mode$ AttackerBlockedByCreature | ValidCard$ Creature.Vampire | ValidBlocker$ Card.AttachedBy | Execute$ TrigDestroyBlocked
+T:Mode$ AttackerBlockedByCreature | ValidCard$ Card.AttachedBy | ValidBlocker$ Creature.Vampire | Execute$ TrigDestroyBlocker | Secondary$ True
+SVar:TrigDestroyBlocked:DB$ Destroy | Defined$ TriggeredAttackerLKICopy | NoRegen$ True
+SVar:TrigDestroyBlocker:DB$ Destroy | Defined$ TriggeredBlockerLKICopy | NoRegen$ True

@@ -1,7 +1,10 @@
 Id:27441
-ColorIdentity:R
-OriginSet:G7579344e30f8be85
-ManaCost:2 R
-Types:Instant
-A:SP$ DealDamage | ValidTgts$ Creature | NumDmg$ X
-SVar:X:Count$ValidGraveyard Instant.YouOwn,Sorcery.YouOwn,Card.AdventureCard+YouOwn/Plus.2
+ColorIdentity:B
+OriginSet:G4e034c55e7afd8b4
+ManaCost:1 B B B
+Types:Sorcery
+K:Bargain
+A:SP$ ChangeZone | ChangeNum$ 1 | ChangeType$ Card | Mandatory$ True | SubAbility$ DBPlay | Origin$ Library | Destination$ Exile | ExileFaceDown$ True | RememberChanged$ True
+SVar:DBPlay:DB$ Play | Defined$ Remembered | ValidSA$ Spell.cmcLE4 | Condition$ Bargain | ImprintPlayed$ True | Controller$ You | WithoutManaCost$ True | Optional$ True | Amount$ All | SubAbility$ DBReturnHand
+SVar:DBReturnHand:DB$ ChangeZone | Origin$ Exile | Destination$ Hand | Defined$ Remembered | Hidden$ True | ConditionDefined$ Imprinted | ConditionPresent$ Card | ConditionCompare$ EQ0 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True

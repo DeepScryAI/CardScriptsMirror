@@ -1,11 +1,22 @@
 Id:24637
-ColorIdentity:W
+ColorIdentity:R
 OriginSet:G58bfeff4fb121c8e
-ManaCost:4 W W
-Types:Instant
-A:SP$ Charm | MinCharmNum$ 1 | CharmNum$ 5 | Choices$ KnightTokens,SeekCard,DestroyArtifact,DestroyEnchantment,GainLife
-SVar:KnightTokens:DB$ Token | TokenOwner$ You | TokenScriptIds$ 2186494377 | TokenAmount$ 2
-SVar:SeekCard:DB$ Seek | Type$ Card.Permanent+nonLand+cmcLE3
-SVar:DestroyArtifact:DB$ Destroy | ValidTgts$ Artifact
-SVar:DestroyEnchantment:DB$ Destroy | ValidTgts$ Enchantment
-SVar:GainLife:DB$ GainLife | ValidTgts$ Player | LifeAmount$ 3
+ManaCost:2 R R
+Types:Legendary Creature Demon
+PT:4/3
+K:Haste
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigCounter | TriggerZones$ Battlefield
+SVar:TrigCounter:DB$ PutCounter | CounterType$ FLAME | CounterNum$ 1 | ValidCards$ Self | SubAbility$ DBSeek
+SVar:DBSeek:DB$ Seek | Type$ Card.cmcEQX+YouOwn | ImprintFound$ True | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | Defined$ Imprinted | ExileFaceDown$ True | Mandatory$ True | SubAbility$ DBClearImprinted
+SVar:DBClearImprinted:DB$ Cleanup | ClearImprinted$ True
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered+ExiledWithSource | Origin$ Exile | Destination$ Hand | SubAbility$ DBDelay
+SVar:DBDelay:DB$ DelayedTrigger | DelayedTriggerDefinedPlayer$ You | Mode$ Phase | Phase$ End of Turn | Execute$ TrigDiscardExiled | RememberObjects$ Remembered
+SVar:TrigDiscardExiled:DB$ Discard | Mode$ Defined | DefinedCards$ DelayTriggerRemembered
+T:Mode$ ChangesZone | Origin$ Battlefield | ExcludedDestinations$ Graveyard | Static$ True | Destination$ Any | ValidCard$ Card.Self | Execute$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+T:Mode$ ChangesZone | Origin$ Exile | Destination$ Any | Static$ True | ValidCard$ Card.IsRemembered+ExiledWithSource | Execute$ DBForget
+SVar:DBForget:DB$ Pump | ForgetObjects$ TriggeredCard
+SVar:X:Count$CardCounters.FLAME
+SVar:HasAttackEffect:TRUE

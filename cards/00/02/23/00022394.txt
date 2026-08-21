@@ -1,11 +1,12 @@
 Id:22394
 ColorIdentity:U
-OriginSet:G92f7f9489fec5865
-ManaCost:1 U U
-Types:Legendary Creature Gnome Wizard
-PT:1/3
-T:Mode$ Drawn | ValidCard$ Card.YouCtrl | Number$ 2 | TriggerZones$ Battlefield | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 2866012856
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Illusion.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigChangeZone | OptionalDecider$ You
-SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | ChangeType$ Permanent.cmcLEX+YouOwn | ChangeNum$ 1
-SVar:X:TriggeredCard$CardPower
+OriginSet:Geb2cf181996ee3b2
+ManaCost:2 U
+Types:Enchantment Aura
+K:Enchant:Creature
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | IsPresent$ Card.YouCtrl+token | Execute$ TrigTap
+SVar:TrigTap:DB$ Tap | Defined$ Enchanted | SubAbility$ DBScry
+SVar:DBScry:DB$ Scry | ScryNum$ 2
+R:Event$ Untap | ActiveZones$ Battlefield | ValidCard$ Creature.AttachedBy | ValidStepTurnToController$ You | Layer$ CantHappen
+SVar:NeedsToPlayVar:Y GE1
+SVar:Y:Count$Valid Permanent.token+YouCtrl

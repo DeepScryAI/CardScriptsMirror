@@ -1,10 +1,13 @@
 Id:26453
-ColorIdentity:WG
-OriginSet:G06757f68e16377c2
-ManaCost:G W
-Types:Creature Elemental Warrior
-PT:0/0
+ColorIdentity:BG
+OriginSet:G74a73d701e7801b3
+ManaCost:1 B G
+Types:Creature Phyrexian Ooze
+PT:3/3
 K:Trample
-K:etbCounter:P1P1:2
-T:Mode$ CounterAddedOnce | ValidCard$ Permanent.Other+YouCtrl+inZoneBattlefield | TriggerZones$ Battlefield | CounterType$ P1P1 | FirstTime$ True | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ 1
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigConjure
+SVar:TrigConjure:DB$ MakeCard | Conjure$ True | CatalogId$ 26453 | Amount$ 1 | Zone$ Graveyard | RememberMade$ True | SubAbility$ DBRemember
+SVar:DBRemember:DB$ Pump | RememberObjects$ TriggeredCardLKICopy | SubAbility$ DBDouble
+SVar:DBDouble:DB$ Pump | PumpZone$ Graveyard | Defined$ Remembered | NumAtt$ Double | NumDef$ Double | Duration$ Perpetual | SubAbility$ DBShuffle
+SVar:DBShuffle:DB$ ChangeZone | Origin$ Graveyard | Shuffle$ True | Destination$ Library | Defined$ Remembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

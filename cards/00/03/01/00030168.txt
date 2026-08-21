@@ -1,14 +1,15 @@
 Id:30168
 ColorIdentity:G
-OriginSet:Ge949f7cc91575fe7
-ManaCost:no cost
-Colors:green
-Types:Land Planeswalker Wrenn
-Loyalty:1
-A:AB$ Animate | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | Defined$ Self | Abilities$ ABMana | Duration$ UntilYourNextTurn
-SVar:ABMana:AB$ Mana | Cost$ T | Produced$ G
-A:AB$ Token | Cost$ SubCounter<1/LOYALTY> | Planeswalker$ True | TokenScriptIds$ 798446951
-A:AB$ Effect | Cost$ SubCounter<4/LOYALTY> | Planeswalker$ True | Ultimate$ True | Name$ 4768449532435277752 | Triggers$ TrigCradle | Duration$ Permanent
-SVar:TrigCradle:Mode$ Phase | Phase$ Main1 | ValidPlayer$ You | TriggerZones$ Command | Execute$ TrigMana
-SVar:TrigMana:DB$ Mana | Produced$ G | Amount$ X | Defined$ You
-SVar:X:Count$Valid Creature.YouCtrl
+OriginSet:G30e4cc621dfc3a2e
+ManaCost:3 G
+Types:Creature Badger Druid
+PT:3/4
+S:Mode$ Continuous | Affected$ Fungus.YouCtrl,Saproling.YouCtrl | AddAbility$ Mana
+SVar:Mana:AB$ Mana | Cost$ T | Produced$ G | Amount$ 1
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 3815350479 | TokenOwner$ You
+AlternateMode:Adventure
+ALTERNATE
+ManaCost:2 G
+Types:Instant Adventure
+A:SP$ Token | TokenScriptIds$ 3815350479 | TokenAmount$ 2 | TokenOwner$ You

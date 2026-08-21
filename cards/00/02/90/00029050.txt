@@ -1,7 +1,18 @@
 Id:29050
-ColorIdentity:B
-OriginSet:G27146c70b74a1e72
-ManaCost:2 B B
-Types:Instant
-A:SP$ ChangeZone | ValidTgts$ Creature | Origin$ Battlefield | Destination$ Exile | SubAbility$ DBSurveil
-SVar:DBSurveil:DB$ Surveil | Amount$ 2 | ConditionDefined$ Targeted | ConditionPresent$ Card.cmcLE3
+ColorIdentity:U
+OriginSet:Gaf7c94f364052cdd
+ManaCost:3 U
+Types:Enchantment
+K:ETBReplacement:Other:SiegeChoice
+SVar:SiegeChoice:DB$ GenericChoice | Choices$ Brotherhood,Enclave | Defined$ You | SetChosenMode$ True | AILogic$ Brotherhood | ShowChoice$ ExceptSelf
+SVar:Brotherhood:DB$ Pump
+SVar:Enclave:DB$ Pump
+S:Mode$ Continuous | Affected$ Card.Self+ChosenModeBrotherhood | AddTrigger$ BrotherhoodTrig
+S:Mode$ Continuous | Affected$ Card.Self+ChosenModeEnclave | AddTrigger$ EnclaveTrig
+SVar:BrotherhoodTrig:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraw | Secondary$ True
+SVar:TrigDraw:DB$ Draw | Defined$ Opponent | NumCards$ 1 | RememberDrawn$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ Remembered$Amount | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:EnclaveTrig:Mode$ AttackersDeclaredOneTarget | AttackedTarget$ You | AttackingPlayer$ Player | Execute$ TrigRadiation | TriggerZones$ Battlefield | Secondary$ True
+SVar:TrigRadiation:DB$ Radiation | Defined$ TriggeredAttackingPlayer | Num$ X
+SVar:X:TriggerObjectsAttackers$Amount/Times.2

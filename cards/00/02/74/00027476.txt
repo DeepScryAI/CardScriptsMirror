@@ -1,13 +1,9 @@
 Id:27476
 ColorIdentity:B
-OriginSet:G7579344e30f8be85
-ManaCost:4 B B
-Types:Creature Dragon Warlock
-PT:5/4
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSac
-SVar:TrigSac:DB$ Sacrifice | Defined$ You | Amount$ SacX | SacValid$ Enchantment,Artifact,Card.token | RememberSacrificed$ True | Optional$ True | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ DrawX | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:SacX:Count$Valid Enchantment.YouCtrl,Artifact.YouCtrl,Card.token+YouCtrl
-SVar:DrawX:Remembered$Amount
+OriginSet:G4e034c55e7afd8b4
+ManaCost:2 B B
+Types:Sorcery
+A:SP$ Charm | Choices$ DBDiscard,DBLoseLife,DBSac | MinCharmNum$ 1 | CharmNum$ 3
+SVar:DBDiscard:DB$ Discard | NumCards$ 2 | Mode$ TgtChoose | Defined$ Player | AILogic$ AnyPhaseIfFavored
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 4 | Defined$ Player | AILogic$ AnyPhase
+SVar:DBSac:DB$ Sacrifice | SacValid$ Creature | Defined$ Player | Amount$ 2

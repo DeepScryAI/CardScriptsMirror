@@ -1,11 +1,17 @@
 Id:26576
-ColorIdentity:W
+ColorIdentity:UB
 OriginSet:G06757f68e16377c2
-ManaCost:4 W
-Types:Creature Human Knight
-PT:4/4
-K:Convoke
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDig
-SVar:TrigDig:DB$ Dig | DigNum$ 6 | ChangeNum$ 2 | Optional$ True | ChangeValid$ Creature.cmcLEX | SkipReorder$ True | SubAbility$ DBShuffle | ForceRevealToController$ True
-SVar:DBShuffle:DB$ Shuffle | Defined$ You
-SVar:X:Convoked$Amount
+ManaCost:1 B
+Types:Creature Human Rogue
+PT:1/1
+K:Deathtouch
+A:AB$ SetState | Cost$ 4 UP | Mode$ Transform | SorcerySpeed$ True
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:blue,black
+Types:Creature Phyrexian Rogue
+PT:3/3
+K:Deathtouch
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player,Battle | Execute$ TrigDraw | CombatDamage$ True
+SVar:TrigDraw:DB$ Draw

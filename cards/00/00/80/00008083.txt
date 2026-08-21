@@ -1,10 +1,9 @@
 Id:8083
-ColorIdentity:R
+ColorIdentity:G
 OriginSet:Gc563c209d627c4c5
-ManaCost:2 R
-Types:Creature Human Shaman
+ManaCost:2 G G
+Types:Creature Human Druid
 PT:1/1
-T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | Execute$ TrigSac
-SVar:TrigSac:DB$ Sacrifice | SacValid$ Land.untapped | Defined$ TriggeredPlayer
-S:Mode$ Continuous | Affected$ Land | AddSVar$ AITap
-SVar:AITap:SVar:AITapDown:True
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | Execute$ TrigUntap | TriggerZones$ Battlefield
+A:AB$ Untap | Cost$ T | ValidTgts$ Land | AILogic$ PoolExtraMana
+SVar:TrigUntap:DB$ Untap | Defined$ Self

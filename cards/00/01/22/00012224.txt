@@ -1,17 +1,9 @@
 Id:12224
-ColorIdentity:U
+ColorIdentity:W
 OriginSet:G14de52802b0b467c
-ManaCost:U
-Types:Creature Human Wizard
-PT:1/1
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPeek
-SVar:TrigPeek:DB$ PeekAndReveal | PeekAmount$ 1 | RevealOptional$ True | RememberRevealed$ True | AILogic$ InstantOrSorcery | SubAbility$ DBTransform
-SVar:DBTransform:DB$ SetState | Defined$ Self | Mode$ Transform | ConditionDefined$ Remembered | ConditionPresent$ Card.Instant,Card.Sorcery | ConditionCompare$ EQ1 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:blue
-Types:Creature Human Insect
-PT:3/2
+ManaCost:4 W W
+Types:Creature Spirit
+PT:5/5
 K:Flying
+K:ETBReplacement:Other:AddExtraCounter:Mandatory:Graveyard:Creature.Human+YouCtrl
+SVar:AddExtraCounter:DB$ PutCounter | ETB$ True | Defined$ ReplacedCard | CounterType$ P1P1 | CounterNum$ 1

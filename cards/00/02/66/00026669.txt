@@ -1,8 +1,11 @@
 Id:26669
-ColorIdentity:W
+ColorIdentity:R
 OriginSet:G06757f68e16377c2
-ManaCost:3 W
-Types:Creature Phyrexian Knight
-PT:2/4
-T:Mode$ SpellCast | TriggerZones$ Battlefield | ValidActivatingPlayer$ You | TargetsValid$ Permanent.inZoneBattlefield | Execute$ TrigIncubate
-SVar:TrigIncubate:DB$ Incubate | Amount$ 2
+ManaCost:2 R
+Types:Creature Dwarf Pilot
+PT:2/1
+K:Backup:1:BackupAbility
+SVar:BackupAbility:DB$ Animate | Triggers$ TapTrig
+SVar:TapTrig:Mode$ Taps | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:AB$ Draw | Cost$ Discard<1/Card>
+T:Mode$ Taps | ValidCard$ Card.Self | Execute$ TrigDraw

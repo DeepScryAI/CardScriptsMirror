@@ -1,11 +1,10 @@
 Id:27709
-ColorIdentity:W
-OriginSet:G30e8a5e111cffb44
-ManaCost:1 W
+ColorIdentity:R
+OriginSet:G7579344e30f8be85
+ManaCost:R
 Types:Instant
-A:SP$ PumpAll | ValidCards$ Creature | KW$ Hexproof & Indestructible | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | Defined$ Player | KW$ Hexproof | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | ReplacementEffects$ DBCantLose,DBCantWin | StaticAbilities$ STKeepLife
-SVar:DBCantLose:Event$ GameLoss | ValidPlayer$ Player | Layer$ CantHappen
-SVar:DBCantWin:Event$ GameWin | ValidPlayer$ Player | Layer$ CantHappen | Secondary$ True
-SVar:STKeepLife:Mode$ CantLoseLife | ValidPlayer$ Player
+K:Bargain
+A:SP$ DealDamage | ValidTgts$ Creature,Planeswalker | NumDmg$ X | RememberDamaged$ True | ReplaceDyingDefined$ Remembered | SubAbility$ DBScry
+SVar:DBScry:DB$ Scry | ScryNum$ 1 | Condition$ Bargain | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$Bargain.3.2

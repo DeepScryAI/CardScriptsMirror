@@ -1,12 +1,16 @@
 Id:21068
-ColorIdentity:W
-OriginSet:G7b2607750b451c25
-ManaCost:1 W W
-Types:Creature Kor Spirit
-PT:2/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZone | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Permanent.nonLand+!token+YouDontCtrl+cmcLE4 | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 4083411767 | TokenOwner$ RememberedOwner | ConditionDefined$ Remembered | ConditionPresent$ Card.ExiledWithSource | TokenPower$ X | TokenToughness$ X | SubAbility$ DBCleanup
+ColorIdentity:R
+OriginSet:G1d8d8c82025bee91
+ManaCost:3 R
+Types:Legendary Creature Human Archer
+PT:1/4
+K:Reach
+S:Mode$ Continuous | Affected$ Card.IsCommander+YouCtrl | AddPower$ +X
+SVar:X:Count$Valid Card.IsCommander+YouCtrl
+AlternateMode:Adventure
+ALTERNATE
+ManaCost:2 R
+Types:Sorcery Adventure
+A:SP$ ChangeZone | Origin$ Hand | Destination$ Command | Optional$ You | ChangeType$ Card.Creature+Legendary+YouOwn | ChangeNum$ 1 | RememberChanged$ True | SubAbility$ YouAreCommander
+SVar:YouAreCommander:DB$ AlterAttribute | Defined$ Remembered | Attributes$ Commander | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Remembered$CardManaCost

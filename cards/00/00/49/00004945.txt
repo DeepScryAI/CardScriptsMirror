@@ -1,11 +1,8 @@
 Id:4945
-ColorIdentity:W
+ColorIdentity:BR
 OriginSet:G9e6cd9ac1f7f4832
-ManaCost:2 W
+ManaCost:1 B R
 Types:Enchantment
-R:Event$ DamageDone | ActiveZones$ Battlefield | ValidTarget$ Creature.YouCtrl | ReplaceWith$ DmgMinus1
-SVar:DmgMinus1:DB$ ReplaceEffect | VarName$ DamageAmount | VarValue$ X
-SVar:X:ReplaceCount$DamageAmount/Minus.1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
-SVar:PlayMain1:TRUE
+T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | Execute$ TrigSac | CheckSVar$ AttackedThisTurn | SVarCompare$ EQ0
+SVar:TrigSac:DB$ Sacrifice | Defined$ TriggeredPlayer | SacValid$ Creature.!firstTurnControlled
+SVar:AttackedThisTurn:PlayerCountPlayers$AttackersDeclared

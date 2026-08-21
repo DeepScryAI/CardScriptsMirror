@@ -1,9 +1,10 @@
 Id:22297
-ColorIdentity:U
+ColorIdentity:R
 OriginSet:Geb2cf181996ee3b2
-ManaCost:1 U
-Types:Creature Merfolk Wizard
+ManaCost:R
+Types:Creature Human Shaman
 PT:1/1
-A:AB$ Draw | Cost$ U T | NumCards$ 1 | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | Defined$ You | Mode$ TgtChoose | NumCards$ 1
-A:AB$ Draw | Cost$ 2 U T | NumCards$ 1 | Activation$ Delirium
+T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ DBSurveil
+SVar:DBSurveil:DB$ Surveil | Amount$ 1
+S:Mode$ Continuous | Affected$ Card.Self | AddPower$ 2 | AddToughness$ 2 | AddKeyword$ Flying | Condition$ Delirium
+S:Mode$ MustAttack | ValidCreature$ Card.Self | Condition$ Delirium | Secondary$ True

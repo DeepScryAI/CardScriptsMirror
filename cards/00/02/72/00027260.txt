@@ -1,13 +1,12 @@
 Id:27260
-ColorIdentity:W
-OriginSet:G8636ad1cfd514d83
-ManaCost:3 W
-Types:Creature Sliver
-PT:3/3
-S:Mode$ Continuous | Affected$ Creature.Sliver+YouCtrl | AddTrigger$ ETBTrig
-SVar:ETBTrig:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPumpAll
-SVar:TrigPumpAll:DB$ PumpAll | ValidCards$ Sliver.YouCtrl | NumAtt$ +1 | NumDef$ +1 | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ1 | SubAbility$ DBMonarch
-SVar:DBMonarch:DB$ BecomeMonarch | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ0
-SVar:X:Count$Monarch.1.0
-SVar:PlayMain1:TRUE
-SVar:BuffedBy:Sliver
+ColorIdentity:U
+OriginSet:G6ce0035cfb774934
+ManaCost:2 U
+Types:Enchantment Saga
+K:Chapter:3:DBGainControl,DBTap,DBDraw
+SVar:DBGainControl:DB$ GainControl | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Artifact | SubAbility$ TrigTempt | LoseControl$ LeavesPlay,LoseControl
+SVar:TrigTempt:DB$ RingTemptsYou
+SVar:DBTap:DB$ Tap | ValidTgts$ Creature | SubAbility$ DBCounter | TargetMin$ 0 | TargetMax$ 2
+SVar:DBCounter:DB$ PutCounter | Defined$ Targeted | CounterType$ Stun | CounterNum$ 1
+SVar:DBDraw:DB$ Draw | ValidTgts$ Opponent | Defined$ You | NumCards$ X
+SVar:X:Count$Valid Creature.tapped+TargetedPlayerCtrl

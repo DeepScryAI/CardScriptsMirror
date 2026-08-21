@@ -1,9 +1,14 @@
 Id:31770
-ColorIdentity:G
-OriginSet:G7ab4f62d323b0ca7
-ManaCost:G
-Types:Creature Plant Beast
-PT:1/1
-K:Deathtouch
-A:AB$ Pump | Cost$ 8 | Defined$ Self | NumAtt$ +X | NumDef$ +X
-SVar:X:Count$ValidGraveyard Permanent.YouOwn
+ColorIdentity:U
+OriginSet:G530ea9d733a13e9d
+ManaCost:4 U
+Types:Legendary Creature Elder Dragon
+PT:5/5
+K:Flying
+K:Vigilance
+K:Ward:2
+T:Mode$ ChangesZone | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPump
+T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump | Secondary$ True
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature | NumAtt$ +1 | SubAbility$ DBUnblockable
+SVar:DBUnblockable:DB$ Effect | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered

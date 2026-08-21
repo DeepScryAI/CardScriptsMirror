@@ -1,9 +1,15 @@
 Id:25217
-ColorIdentity:B
+ColorIdentity:BR
 OriginSet:Gf591a76e7a37cf73
-ManaCost:2 B
-Types:Artifact Creature Necron Noble
-PT:3/2
-K:Menace
-S:Mode$ Continuous | Affected$ Creature.Artifact+YouCtrl+Other | AddKeyword$ Menace | AddPower$ 1
-K:Unearth:2 B
+ManaCost:4 B R
+Types:Legendary Artifact Equipment
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Imprint$ True | TargetMin$ 0 | TargetMax$ 1 | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Creature
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ X | AddKeyword$ Menace
+T:Mode$ ChangesZone | Origin$ Battlefield | ValidCard$ Card.Self | Destination$ Any | Execute$ DBCleanup | Static$ True
+T:Mode$ ChangesZone | Origin$ Exile | Destination$ Any | Static$ True | ValidCard$ Card.IsImprinted+ExiledWithSource | Execute$ DBForget
+SVar:DBForget:DB$ Pump | ForgetImprinted$ TriggeredCard
+SVar:DBCleanup:DB$ Cleanup | ClearImprinted$ True
+K:Equip:2
+SVar:X:Imprinted$CardPower
+SVar:NeedsToPlay:Creature.OppCtrl

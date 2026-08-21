@@ -1,14 +1,8 @@
 Id:23063
-ColorIdentity:WB
-OriginSet:G7a76c1974b0a33a6
-ManaCost:1 W B
-Types:Legendary Planeswalker Kaya
-Loyalty:3
-A:AB$ PumpAll | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | ValidCards$ Creature.YouCtrl | KW$ Deathtouch | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Creature.token+YouCtrl | CounterType$ P1P1 | CounterNum$ 1
-A:AB$ Effect | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | ReplacementEffects$ TokenReplace
-SVar:TokenReplace:Event$ CreateToken | ActiveZones$ Battlefield | ValidToken$ Card.YouCtrl | ReplaceWith$ DoubleToken
-SVar:DoubleToken:DB$ ReplaceToken | Type$ Amount
-A:AB$ ChangeZoneAll | Cost$ SubCounter<6/LOYALTY> | Planeswalker$ True | Ultimate$ True | ChangeType$ Card | Origin$ Graveyard | Destination$ Exile | RememberChanged$ True | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenScriptIds$ 273812182 | TokenAmount$ X
-SVar:X:Remembered$Amount
+ColorIdentity:G
+OriginSet:Gf78628ad511eefec
+ManaCost:G
+Types:Instant
+A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Library | Shuffle$ True | ValidTgts$ Card | TargetMin$ 0 | TargetMax$ 3 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ 2 | Defined$ You
+K:Flashback:1 G

@@ -1,9 +1,12 @@
 Id:4026
 ColorIdentity:U
 OriginSet:Gdd40b2fbd2aa3c03
-ManaCost:U U U
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:Pump
-T:Mode$ DamageDone | ValidSource$ Card.AttachedBy | ValidTarget$ Creature | TriggerZones$ Battlefield | Execute$ CharismaticControl
-SVar:CharismaticControl:DB$ GainControl | Defined$ TriggeredTarget | LoseControl$ LeavesPlay
+ManaCost:3 U
+Types:Creature Illusion Spirit
+PT:*/*
+K:ETBReplacement:Other:ChooseColor
+SVar:ChooseColor:DB$ ChooseColor | Defined$ You | AILogic$ MostProminentHumanControls
+S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X | SetToughness$ X
+SVar:X:Count$Valid Permanent.OppCtrl+ChosenColor
+SVar:NeedsToPlay:Permanent.OppCtrl+nonColorless
+SVar:NoZeroToughnessAI:True

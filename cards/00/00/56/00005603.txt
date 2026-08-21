@@ -1,9 +1,10 @@
 Id:5603
 ColorIdentity:R
 OriginSet:Ge4af4f9459d5dadd
-ManaCost:2 R
-Types:Creature Wall
-PT:2/5
-K:Defender
-T:Mode$ Discarded | ValidCard$ Card.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigChange
-SVar:TrigChange:AB$ ChangeZone | Cost$ Sac<1/CARDNAME> | Defined$ TriggeredCard | Origin$ Graveyard | Destination$ Hand
+ManaCost:3 R
+Types:Creature Nightmare Beast
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigReturn
+SVar:TrigExile:DB$ ChangeZone | ValidTgts$ Land | Origin$ Battlefield | Destination$ Exile | RememberTargets$ True | ForgetOtherTargets$ True
+SVar:TrigReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield

@@ -1,8 +1,10 @@
 Id:30417
-ColorIdentity:B
-OriginSet:G8b2ed00ac2a0ff47
-ManaCost:3 B B
-Types:Instant
-A:SP$ Charm | Choices$ DBChange,DBDestroy
-SVar:DBChange:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouCtrl
-SVar:DBDestroy:DB$ Destroy | ValidTgts$ Creature
+ColorIdentity:
+OriginSet:G7b2137df486dc752
+ManaCost:no cost
+Types:Scheme
+T:Mode$ SetInMotion | ValidCard$ Card.Self | Execute$ TrigCharm | TriggerZones$ Command
+SVar:TrigCharm:DB$ Charm | CharmNum$ Count$Compare X GE6.2.1 | Choices$ DBToken,DBAnimateAll
+SVar:DBToken:DB$ Token | TokenAmount$ 3 | TokenScriptIds$ 1965070986
+SVar:DBAnimateAll:DB$ AnimateAll | ValidCards$ Creature.OppCtrl | Power$ 1 | Toughness$ 1 | RemoveAllAbilities$ True | Duration$ UntilYourNextTurn
+SVar:X:Count$Valid Land.YouCtrl

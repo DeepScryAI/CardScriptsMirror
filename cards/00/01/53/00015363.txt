@@ -1,9 +1,9 @@
 Id:15363
-ColorIdentity:W
+ColorIdentity:B
 OriginSet:G70acd28f254172ff
-ManaCost:3 W W
-Types:Sorcery
-A:SP$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ YouChoose | SubAbility$ SacAllOthers
-SVar:YouChoose:DB$ ChooseCard | Defined$ You | Choices$ Permanent | ChooseEach$ Artifact & Creature & Enchantment & Planeswalker | ControlledByPlayer$ Remembered | RememberChosen$ True | Mandatory$ True | Reveal$ True
-SVar:SacAllOthers:DB$ SacrificeAll | ValidCards$ Permanent.nonLand+!IsRemembered | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:B
+Types:Instant
+A:SP$ Pump | ValidTgts$ Creature.YouCtrl | NumAtt$ +1 | KW$ Deathtouch | SubAbility$ DBMoonglove
+SVar:DBMoonglove:DB$ Effect | Triggers$ MoongloveTrigger | RememberObjects$ Targeted
+SVar:MoongloveTrigger:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.DamagedBy RememberedLKI | TriggerZones$ Command | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | LifeAmount$ 2 | Defined$ TriggeredCardController

@@ -1,9 +1,12 @@
 Id:4453
-ColorIdentity:B
+ColorIdentity:W
 OriginSet:G239b3b7a46d83e8e
-ManaCost:2 B
-Types:Creature Spirit
-PT:1/1
-A:AB$ Regenerate | Cost$ B
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigDiscard | CombatDamage$ True
-SVar:TrigDiscard:DB$ Discard | Defined$ TriggeredTarget | NumCards$ 1 | Mode$ TgtChoose
+ManaCost:2 W W
+Types:Enchantment
+K:etbCounter:OMEN:7
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigRemoveCtr
+SVar:TrigRemoveCtr:DB$ RemoveCounter | Defined$ Self | CounterType$ OMEN | CounterNum$ 1 | SubAbility$ WinnerDecided
+SVar:WinnerDecided:DB$ WinsGame | Defined$ Player.lifeEQX | ConditionPresent$ Card.Self+counters_EQ0_OMEN | ConditionCheckSVar$ NumHighestLife | ConditionSVarCompare$ LT2 | SubAbility$ GameIsADraw
+SVar:GameIsADraw:DB$ GameDrawn | ConditionPresent$ Card.Self+counters_EQ0_OMEN | ConditionCheckSVar$ NumHighestLife | ConditionSVarCompare$ GE2
+SVar:X:PlayerCountPlayers$HighestLifeTotal
+SVar:NumHighestLife:PlayerCountPlayers$TiedForHighestLife

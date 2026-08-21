@@ -1,10 +1,11 @@
 Id:25707
-ColorIdentity:W
+ColorIdentity:B
 OriginSet:G06ccef4324c14725
-ManaCost:2 W
+ManaCost:B
 Types:Legendary Creature Human Artificer
-PT:2/1
-K:Vigilance
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDestroy
-SVar:TrigDestroy:DB$ Destroy | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Artifact,Enchantment
-A:AB$ Draw | Cost$ T | ValidTgts$ Opponent | Defined$ TargetedAndYou | NumCards$ 1
+PT:1/1
+K:Deathtouch
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigToken | OptionalDecider$ You
+SVar:TrigToken:AB$ Token | Cost$ Sac<1/Creature.Other/another creature> | TokenTapped$ True | TokenScriptIds$ 2975106104
+A:AB$ Token | Cost$ 5 ExileFromGrave<1/Creature/creature card> | TokenTapped$ True | TokenScriptIds$ 3689834536
+SVar:HasAttackEffect:TRUE

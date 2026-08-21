@@ -1,11 +1,10 @@
 Id:34568
-ColorIdentity:WG
-OriginSet:G11c0621ce29fa608
-ManaCost:1 G W W
-Types:Legendary Creature Mutant Hero
+ColorIdentity:B
+OriginSet:Gcb93bbfc68a40806
+ManaCost:3 B
+Types:Legendary Creature Villain
 PT:4/4
-K:Flying
-S:Mode$ CantAttack | ValidCard$ Creature.withFlying | Target$ You
-S:Mode$ CantBlockBy | ValidAttacker$ Creature.YouCtrl | ValidBlocker$ Creature.withFlying | Secondary$ True
-T:Mode$ SpellCast | ValidActivatingPlayer$ You | TargetsValid$ Creature.inZoneBattlefield | Execute$ TrigPump | TriggerZones$ Battlefield
-SVar:TrigPump:DB$ Pump | Defined$ TriggeredSpellAbilityTargets | KW$ Flying
+K:Menace
+T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ Opponent | ActivatorThisTurnCast$ EQ1 | Execute$ TrigLoseLife | TriggerZones$ Battlefield
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ TriggeredActivator | LifeAmount$ X
+SVar:X:TriggeredCard$CardManaCost

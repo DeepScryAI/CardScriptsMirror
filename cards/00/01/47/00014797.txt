@@ -1,7 +1,12 @@
 Id:14797
-ColorIdentity:
+ColorIdentity:R
 OriginSet:Gfafc221218d3b700
-ManaCost:3
-Types:Artifact
-A:AB$ Mana | Cost$ T | Produced$ C
-A:AB$ Destroy | Cost$ 7 T Sac<1/CARDNAME> | ValidTgts$ Permanent
+ManaCost:5 R R
+Types:Creature Dragon
+PT:5/5
+K:Flying
+K:Haste
+S:Mode$ Continuous | Affected$ Card.Self | AddPower$ 2 | AddToughness$ 2 | AddTrigger$ TrigAttacks | IsPresent$ Card.IsCommander+YouOwn+YouCtrl
+SVar:TrigAttacks:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDealDamage
+SVar:TrigDealDamage:DB$ DealDamage | ValidTgts$ Creature.ControlledBy TriggeredDefendingPlayer | NumDmg$ 7
+SVar:BuffedBy:Card.IsCommander

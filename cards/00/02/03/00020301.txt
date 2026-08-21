@@ -1,9 +1,11 @@
 Id:20301
-ColorIdentity:G
-OriginSet:Gfa87e7bbc5a709eb
-ManaCost:1 G
-Types:Enchantment Creature Human
-PT:2/3
-R:Event$ Counter | ValidSA$ Spell.Creature+YouCtrl,Spell.Enchantment+YouCtrl | Layer$ CantHappen | ActiveZones$ Battlefield
-A:AB$ Animate | Cost$ 3 G | ValidTgts$ Land.YouCtrl | Power$ X | Toughness$ X | Types$ Creature,Elemental | Keywords$ Trample & Haste
-SVar:X:Count$Valid Enchantment.YouCtrl
+ColorIdentity:B
+OriginSet:G42eb6bda83007836
+ManaCost:2 B
+Types:Creature Horror
+PT:3/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 1847023127 | TokenOwner$ You
+A:AB$ Scry | Cost$ Sac<1/Creature.Other/another creature> | ScryNum$ 1 | AILogic$ AtOppEOT
+K:Escape:3 B B ExileFromGrave<4/Card.Other/other>
+K:etbCounter:P1P1:2:ValidCard$ Card.Self+escaped

@@ -1,7 +1,12 @@
 Id:8689
-ColorIdentity:R
+ColorIdentity:B
 OriginSet:G70f74088c47d66bd
-ManaCost:1 R
-Types:Sorcery
-A:SP$ DealDamage | ValidTgts$ Any | NumDmg$ 1
-K:Storm
+ManaCost:3 B B
+Types:Creature Gorgon
+PT:2/4
+T:Mode$ AttackerBlockedByCreature | ValidCard$ Creature.nonBlack | ValidBlocker$ Card.Self | Execute$ DelTrigBlocked
+T:Mode$ AttackerBlockedByCreature | ValidCard$ Card.Self | ValidBlocker$ Creature.nonBlack | Execute$ DelTrigBlocker | Secondary$ True
+SVar:DelTrigBlocked:DB$ DelayedTrigger | Mode$ Phase | Phase$ EndCombat | ValidPlayer$ Player | Execute$ TrigDestroy | RememberObjects$ TriggeredAttackerLKICopy
+SVar:DelTrigBlocker:DB$ DelayedTrigger | Mode$ Phase | Phase$ EndCombat | ValidPlayer$ Player | Execute$ TrigDestroy | RememberObjects$ TriggeredBlockerLKICopy
+SVar:TrigDestroy:DB$ Destroy | Defined$ DelayTriggerRememberedLKI
+K:Madness:B B

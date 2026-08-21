@@ -1,14 +1,8 @@
 Id:16285
-ColorIdentity:WUG
+ColorIdentity:U
 OriginSet:G70d19654882197c9
-ManaCost:1 G W U
-Types:Legendary Planeswalker Tamiyo
-Loyalty:4
-A:AB$ Effect | Cost$ AddCounter<1/LOYALTY> | Name$ 3574269512539486480 | Planeswalker$ True | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 2 | Triggers$ TrigDamage | ForgetOnMoved$ Battlefield | Duration$ UntilYourNextTurn | RememberObjects$ Targeted
-SVar:TrigDamage:Mode$ DamageDealtOnce | CombatDamage$ True | ValidSource$ Creature.IsRemembered | Execute$ TrigDrawCard
-SVar:TrigDrawCard:DB$ Draw | Defined$ You
-A:AB$ Tap | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | ValidTgts$ Permanent.nonLand | TargetMin$ 0 | TargetMax$ 2 | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | Defined$ Targeted | Duration$ Permanent | KW$ HIDDEN This card doesn't untap during your next untap step.
-A:AB$ Effect | Cost$ SubCounter<7/LOYALTY> | Planeswalker$ True | Ultimate$ True | Name$ 1711004485267317480 | StaticAbilities$ Omniscience | Stackable$ False | Duration$ Permanent | AILogic$ Always | SubAbility$ DBDraw
-SVar:Omniscience:Mode$ Continuous | Affected$ Card.nonLand+YouOwn | MayPlay$ True | MayPlayWithoutManaCost$ True | AffectedZone$ Hand
-SVar:DBDraw:DB$ Draw | NumCards$ 3
+ManaCost:1 U
+Types:Sorcery
+A:SP$ Draw | Defined$ You | NumCards$ 1 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ X
+SVar:X:Count$ValidGraveyard Card.YouOwn+catalogId16285

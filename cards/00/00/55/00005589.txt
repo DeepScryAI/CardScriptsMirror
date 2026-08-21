@@ -1,13 +1,8 @@
 Id:5589
 ColorIdentity:G
 OriginSet:Ge4af4f9459d5dadd
-ManaCost:3 G
+ManaCost:2 G G
 Types:Creature Insect Druid
-PT:2/2
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigNantukoDiscardLand
-SVar:TrigNantukoDiscardLand:DB$ Discard | DiscardValid$ Land | NumCards$ NantukoX | Optional$ True | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBNantukoPutCounter
-SVar:DBNantukoPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ NantukoY | SubAbility$ DBNantukoDraw
-SVar:DBNantukoDraw:DB$ Draw | NumCards$ NantukoY | SubAbility$ DBNantukoCleanup
-SVar:DBNantukoCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:NantukoX:Count$ValidHand Land.YouOwn
-SVar:NantukoY:Remembered$Amount
+PT:2/3
+A:AB$ Destroy | Cost$ G T Sac<1/CARDNAME> | ValidTgts$ Enchantment | AILogic$ AtEOTIfNotAttacking
+S:Mode$ Continuous | Affected$ Card.Self | AddPower$ 1 | AddToughness$ 1 | Condition$ Threshold

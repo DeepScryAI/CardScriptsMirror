@@ -1,8 +1,11 @@
 Id:33337
-ColorIdentity:RG
-OriginSet:G40dbb28fb92f9206
-ManaCost:RG RG
-Types:Enchantment
-T:Mode$ ChangesZone | Origin$ Library | Destination$ Hand | ValidCard$ Creature.YouOwn | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | PumpZone$ Hand | TriggeredCardLKICopy | NumAtt$ +X | Duration$ Perpetual
-SVar:X:Count$Valid Permanent.YouCtrl$Colors
+ColorIdentity:WB
+OriginSet:G7ab1fe96128a1641
+ManaCost:4 WB WB
+Types:Creature Elemental Incarnation
+PT:3/5
+K:Evoke:WB WB
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | CheckSVar$ CastSA>Count$Adamant_2.White.2.0 | ValidCard$ Card.Self | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouCtrl+cmcLE3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | CheckSVar$ CastSA>Count$Adamant_2.Black.2.0 | ValidCard$ Card.Self | Execute$ TrigPutCounters
+SVar:TrigPutCounters:DB$ PutCounter | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | CounterNum$ 3 | CounterType$ M1M1

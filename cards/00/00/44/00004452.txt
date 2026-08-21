@@ -1,12 +1,7 @@
 Id:4452
-ColorIdentity:W
+ColorIdentity:G
 OriginSet:G239b3b7a46d83e8e
-ManaCost:2 W W
-Types:Enchantment
-K:etbCounter:OMEN:7
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigRemoveCtr
-SVar:TrigRemoveCtr:DB$ RemoveCounter | Defined$ Self | CounterType$ OMEN | CounterNum$ 1 | SubAbility$ WinnerDecided
-SVar:WinnerDecided:DB$ WinsGame | Defined$ Player.lifeEQX | ConditionPresent$ Card.Self+counters_EQ0_OMEN | ConditionCheckSVar$ NumHighestLife | ConditionSVarCompare$ LT2 | SubAbility$ GameIsADraw
-SVar:GameIsADraw:DB$ GameDrawn | ConditionPresent$ Card.Self+counters_EQ0_OMEN | ConditionCheckSVar$ NumHighestLife | ConditionSVarCompare$ GE2
-SVar:X:PlayerCountPlayers$HighestLifeTotal
-SVar:NumHighestLife:PlayerCountPlayers$TiedForHighestLife
+ManaCost:3 G
+Types:Sorcery
+A:SP$ DestroyAll | ValidCards$ Enchantment.YouDontCtrl | SubAbility$ DBDestroyAll
+SVar:DBDestroyAll:DB$ DestroyAll | ValidCards$ Enchantment.YouCtrl | ConditionPresent$ Land.untapped+YouCtrl | ConditionCompare$ GE1

@@ -1,6 +1,13 @@
 Id:10171
-ColorIdentity:R
+ColorIdentity:B
 OriginSet:G8f5d5a0744ac5b98
-ManaCost:3 R
-Types:Creature Ogre Mutant
-PT:5/1
+ManaCost:2 B B
+Types:Artifact
+A:AB$ Draw | Cost$ T ExileFromGrave<2/Card> | NumCards$ 1
+R:Event$ DamageDone | ActiveZones$ Battlefield | ValidTarget$ You | ReplaceWith$ ChangeZone | PreventionEffect$ True
+SVar:ChangeZone:DB$ ChangeZone | Hidden$ True | Mandatory$ True | ChangeType$ Card | ChangeNum$ X | DefinedPlayer$ ReplacedTarget | Origin$ Graveyard | Destination$ Exile
+T:Mode$ Always | TriggerZones$ Battlefield | IsPresent$ Card.YouCtrl | PresentZone$ Graveyard | PresentCompare$ EQ0 | Execute$ TrigLoseGame
+SVar:TrigLoseGame:DB$ LosesGame | Defined$ You
+SVar:X:ReplaceCount$DamageAmount
+SVar:Y:Count$ValidGraveyard Card.YouCtrl
+SVar:NeedsToPlayVar:Y GE1

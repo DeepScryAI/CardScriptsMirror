@@ -1,8 +1,9 @@
 Id:4987
-ColorIdentity:G
+ColorIdentity:WRG
 OriginSet:G9e6cd9ac1f7f4832
-ManaCost:3 G
-Types:Creature Beast
-PT:2/3
-A:AB$ ChooseColor | Cost$ 2 G T Sac<1/CARDNAME> | Defined$ You | SubAbility$ DestroyAll
-SVar:DestroyAll:DB$ DestroyAll | ValidCards$ Enchantment.ChosenColor
+ManaCost:no cost
+Types:Land Lair
+A:AB$ Mana | Cost$ T | Produced$ Combo R G W
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSacUnless
+SVar:TrigSacUnless:DB$ Sacrifice | UnlessCost$ Return<1/Land.nonLair/non-Lair land> | UnlessPayer$ You
+SVar:NeedsToPlay:Land.nonLair+YouCtrl

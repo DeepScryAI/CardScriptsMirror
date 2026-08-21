@@ -1,10 +1,9 @@
 Id:3382
-ColorIdentity:W
+ColorIdentity:B
 OriginSet:G24ae8187eacbba52
-ManaCost:2 W
+ManaCost:3 B
 Types:Enchantment Aura
 K:Enchant:Creature
 SVar:AttachAILogic:Curse
-R:Event$ DamageDone | ActiveZones$ Battlefield | ValidTarget$ You | ReplaceWith$ DmgEnchanted | DamageTarget$ Enchanted
-SVar:DmgEnchanted:DB$ ReplaceEffect | VarName$ Affected | VarValue$ Enchanted | VarType$ Card
-SVar:NonStackingAttachEffect:True
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Player.EnchantedController | TriggerZones$ Battlefield | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | Defined$ TriggeredPlayer | NumDmg$ 2

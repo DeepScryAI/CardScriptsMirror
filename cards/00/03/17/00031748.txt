@@ -1,7 +1,11 @@
 Id:31748
 ColorIdentity:W
-OriginSet:G7ab4f62d323b0ca7
-ManaCost:4 W
+OriginSet:G530ea9d733a13e9d
+ManaCost:1 W
 Types:Instant
-S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ 2 | EffectZone$ All | ValidTarget$ Creature.tapped
-A:SP$ Destroy | ValidTgts$ Permanent.nonLand
+K:Tiered
+A:SP$ Charm | Choices$ DBCrossSlash,DBBladeBeam,DBOmnislash
+SVar:DBCrossSlash:DB$ Destroy | ModeCost$ 0 | ValidTgts$ Creature.tapped
+SVar:DBBladeBeam:DB$ Destroy | ModeCost$ 1 | ValidTgts$ Creature.tapped | TargetMin$ 0 | TargetMax$ MaxTgt | TargetsWithDifferentControllers$ True
+SVar:DBOmnislash:DB$ DestroyAll | ModeCost$ 3 W | ValidCards$ Creature.tapped
+SVar:MaxTgt:PlayerCountPlayers$Amount

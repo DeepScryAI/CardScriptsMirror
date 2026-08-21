@@ -1,8 +1,11 @@
 Id:15747
-ColorIdentity:R
+ColorIdentity:B
 OriginSet:G5b1ad34969911ca7
-ManaCost:2 R
-Types:Creature Ogre Warrior
-PT:3/2
-A:AB$ Pump | Cost$ 0 | ValidTgts$ Equipment.YouCtrl | AITgts$ Equipment.YouCtrl+!equipping | SubAbility$ KazuulAttach | SorcerySpeed$ True
-SVar:KazuulAttach:DB$ Attach | Object$ ParentTarget | Defined$ Self
+ManaCost:2 B B
+Types:Legendary Creature Vampire Warrior
+PT:3/4
+K:Lifelink
+R:Event$ Moved | ActiveZones$ Battlefield | Origin$ Battlefield | Destination$ Graveyard | ValidLKI$ Creature.!token+OppCtrl | ReplaceWith$ Exile
+SVar:Exile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | SubAbility$ DBToken | Defined$ ReplacedCard
+SVar:DBToken:DB$ Token | TokenScriptIds$ 353162950 | TokenOwner$ You
+A:AB$ PutCounter | Cost$ 2 B Sac<1/Vampire.Other;Zombie.Other/another Vampire or Zombie> | CounterType$ P1P1 | CounterNum$ 2

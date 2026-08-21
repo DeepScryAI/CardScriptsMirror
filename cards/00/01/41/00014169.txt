@@ -1,6 +1,13 @@
 Id:14169
-ColorIdentity:G
+ColorIdentity:W
 OriginSet:Gc18355312510df89
-ManaCost:3 G
-Types:Sorcery
-A:SP$ Destroy | ValidTgts$ Enchantment,Land
+ManaCost:1 W
+Types:Instant
+A:SP$ ChangeZone | ValidTgts$ Enchantment | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ ExileYard
+SVar:ExileYard:DB$ ChangeZone | ChangeType$ Remembered.sameName | Origin$ Graveyard | DefinedPlayer$ TargetedController | Chooser$ You | Destination$ Exile | ChangeNum$ NumInYard | Hidden$ True | SubAbility$ ExileHand | ConditionDefined$ Remembered | ConditionPresent$ God | ConditionCompare$ GE1
+SVar:ExileHand:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | DefinedPlayer$ TargetedController | ChangeType$ Remembered.sameName | ChangeNum$ NumInHand | Chooser$ You | SubAbility$ ExileLib | ConditionDefined$ Remembered | ConditionPresent$ God | ConditionCompare$ GE1
+SVar:ExileLib:DB$ ChangeZone | Origin$ Library | Destination$ Exile | DefinedPlayer$ TargetedController | ChangeType$ Remembered.sameName | ChangeNum$ NumInLib | Chooser$ You | Shuffle$ True | SubAbility$ DBCleanup | ConditionDefined$ Remembered | ConditionPresent$ God | ConditionCompare$ GE1
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:NumInLib:TargetedController$CardsInLibrary
+SVar:NumInHand:TargetedController$CardsInHand
+SVar:NumInYard:TargetedController$CardsInGraveyard

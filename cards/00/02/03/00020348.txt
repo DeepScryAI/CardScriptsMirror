@@ -1,10 +1,9 @@
 Id:20348
-ColorIdentity:R
+ColorIdentity:UG
 OriginSet:Gfa87e7bbc5a709eb
-ManaCost:2 R
-Types:Creature Satyr
+ManaCost:1 G U
+Types:Legendary Creature Human Wizard
 PT:2/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm
-SVar:TrigCharm:DB$ Charm | Choices$ DBDestroy,DBHaste
-SVar:DBDestroy:DB$ Destroy | ValidTgts$ Artifact
-SVar:DBHaste:DB$ Pump | Defined$ Self | KW$ Haste
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Enchantment.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Targeted | KW$ Flying

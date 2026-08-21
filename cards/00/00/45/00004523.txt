@@ -1,10 +1,8 @@
 Id:4523
-ColorIdentity:W
+ColorIdentity:
 OriginSet:G239b3b7a46d83e8e
-ManaCost:2 W W
-Types:Enchantment
-A:AB$ ChooseSource | Cost$ 1 | Choices$ Card,Emblem | AILogic$ NeedsPrevention | SubAbility$ DBEffect | UnlessCost$ 1 | UnlessPayer$ Player
-SVar:DBEffect:DB$ Effect | ReplacementEffects$ RPreventNextFromSource | SubAbility$ DBCleanup | ConditionDefined$ ChosenCard | ConditionPresent$ Card,Emblem
-SVar:RPreventNextFromSource:Event$ DamageDone | ValidSource$ Card.ChosenCardStrict,Emblem.ChosenCard | ValidTarget$ You | ReplaceWith$ ExileEffect | PreventionEffect$ True
-SVar:ExileEffect:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile
-SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+ManaCost:no cost
+Types:Land
+A:AB$ ChooseColor | Cost$ T | AILogic$ MostProminentInComputerDeck | SubAbility$ DBMana | InstantSpeed$ True
+SVar:DBMana:DB$ Mana | Produced$ Chosen | UnlessCost$ 1 | UnlessPayer$ Player | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenColor$ True

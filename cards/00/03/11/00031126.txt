@@ -1,15 +1,9 @@
 Id:31126
-ColorIdentity:R
-OriginSet:Gef9d0d0c16b2fcf7
-ManaCost:4 R R
-Types:Creature Cat Dragon
-PT:6/5
+ColorIdentity:W
+OriginSet:G4524bbf7a3db9dc0
+ManaCost:3 W
+Types:Artifact Creature Robot Artificer
+PT:0/4
 K:Flying
-K:Haste
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigEnergy
-SVar:TrigEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ 2 | SubAbility$ DBChooseNumber
-SVar:DBChooseNumber:DB$ ChooseNumber | Max$ Max | SubAbility$ DBImmediateTrig
-SVar:DBImmediateTrig:DB$ ImmediateTrigger | ConditionCheckSVar$ X | UnlessCost$ Mandatory PayEnergy<X> | UnlessPayer$ You | UnlessSwitched$ True | Execute$ DBDamageAll
-SVar:DBDamageAll:DB$ DamageAll | ValidCards$ Creature.Other | NumDmg$ X
-SVar:Max:Count$YourCountersEnergy
-SVar:X:Count$ChosenNumber
+S:Mode$ Continuous | Affected$ Card.Self | AddPower$ X
+SVar:X:Count$Valid Artifact.YouCtrl

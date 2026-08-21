@@ -1,10 +1,9 @@
 Id:18193
-ColorIdentity:WG
+ColorIdentity:
 OriginSet:G5033d54b23b37629
-ManaCost:G W
-Types:Legendary Creature Human Warrior
-PT:0/0
-S:Mode$ CantTarget | ValidTarget$ Card.Self | ValidSA$ Activated,Triggered | Activator$ Player.Opponent
-S:Mode$ Continuous | Affected$ Card.Self | AddPower$ X | AddToughness$ X
-SVar:X:Count$Valid Creature.YouCtrl
-SVar:BuffedBy:Creature
+ManaCost:1
+Types:Artifact
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGainLife
+SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 3
+A:AB$ ChooseType | Cost$ T | Defined$ You | Type$ Basic Land | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | ValidTgts$ Land.YouCtrl | Types$ ChosenType

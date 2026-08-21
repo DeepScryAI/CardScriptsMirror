@@ -1,11 +1,12 @@
 Id:31324
-ColorIdentity:WUR
-OriginSet:G93ac57511923c3dd
-ManaCost:U R W
-Types:Legendary Creature Djinn Monk
+ColorIdentity:R
+OriginSet:G997e3b19a1e94e85
+ManaCost:2 R
+Types:Artifact Creature Dog Food
 PT:1/1
-K:Trample
-K:Prowess
-T:Mode$ DamageDone | ValidSource$ Card.Self | Execute$ TrigToken | CombatDamage$ True | ValidTarget$ Player | TriggerZones$ Battlefield
-SVar:TrigToken:DB$ Token | TokenAmount$ X | TokenScriptIds$ 1221548164 | TokenOwner$ You
-SVar:X:TriggerCount$DamageAmount
+K:Protection:Red
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ DBFourDamage
+SVar:DBFourDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 4 | DamageMap$ True | SubAbility$ DBTwoDamage
+SVar:DBTwoDamage:DB$ DealDamage | Defined$ You | NumDmg$ 2 | SubAbility$ DBDamageResolve
+SVar:DBDamageResolve:DB$ DamageResolve
+A:AB$ GainLife | Cost$ G T Sac<1/CARDNAME/this creature> | Defined$ You | LifeAmount$ 3

@@ -1,9 +1,10 @@
 Id:5752
 ColorIdentity:W
 OriginSet:G7327b0fa163b48eb
-ManaCost:1 W
+ManaCost:2 W
 Types:Enchantment
-S:Mode$ Continuous | Affected$ Creature.Bird | AddPower$ X | AddToughness$ X
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Bird.YouOwn | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ FEATHER | CounterNum$ 1
-SVar:X:Count$CardCounters.FEATHER
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigUpkeep
+SVar:TrigUpkeep:DB$ Sacrifice | UnlessPayer$ You | UnlessCost$ Discard<1/Card>
+R:Event$ BeginPhase | ActiveZones$ Battlefield | ValidPlayer$ You | Phase$ Draw | Skip$ True
+S:Mode$ Continuous | Affected$ You | AddKeyword$ Shroud
+R:Event$ DamageDone | ActiveZones$ Battlefield | Prevent$ True | ValidTarget$ You

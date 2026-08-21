@@ -1,13 +1,14 @@
 Id:33045
 ColorIdentity:U
-OriginSet:G821b410e312d7e12
-ManaCost:4 U
-Types:Creature Elemental Incarnation
-PT:3/5
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigAnimate
-SVar:TrigAnimate:DB$ Animate | ValidTgts$ Creature | Keywords$ Flying | Triggers$ DealsDamage
-SVar:DealsDamage:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | NumCards$ X
-K:Encore:7 U U
-SVar:X:TriggerCount$DamageAmount
+OriginSet:G22ed5d6f3707b461
+ManaCost:3 U
+Types:Legendary Creature Human Pilot Ally
+PT:1/4
+K:Flying
+T:Mode$ AttackersDeclared | AttackingPlayer$ You | ValidAttackers$ Creature.withFlying | Execute$ TrigDraw | TriggerZones$ Battlefield
+SVar:TrigDraw:DB$ Draw | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBImmediateTrig
+SVar:DBImmediateTrig:DB$ ImmediateTrigger | ConditionDefined$ Remembered | ConditionPresent$ Card.nonLand | ConditionCompare$ GE1 | Execute$ TrigPutCounter | SubAbility$ DBCleanup
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
 SVar:PlayMain1:TRUE

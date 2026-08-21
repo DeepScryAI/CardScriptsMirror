@@ -1,14 +1,10 @@
 Id:5744
-ColorIdentity:U
+ColorIdentity:WG
 OriginSet:G7327b0fa163b48eb
-ManaCost:4 U
-Types:Creature Beast
-PT:1/5
-K:Flying
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigExile | TriggerZones$ Battlefield
-SVar:TrigExile:DB$ Repeat | RepeatSubAbility$ DBExileCleanup | RepeatCheckSVar$ X | RepeatSVarCompare$ LTY | SubAbility$ DBCleanup
-SVar:DBExileCleanup:DB$ Cleanup | ClearRemembered$ True | SubAbility$ DBExile
-SVar:DBExile:DB$ Dig | Defined$ TriggeredTarget | DigNum$ 4 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Remembered$DifferentCardNames
-SVar:Y:Count$RememberedSize
+ManaCost:no cost
+Types:Land
+A:AB$ Mana | Cost$ T | Produced$ C
+S:Mode$ Continuous | EffectZone$ Graveyard | Affected$ Land.YouCtrl | AddAbility$ AddMana
+SVar:AddMana:AB$ Mana | Cost$ T | Produced$ Combo G W
+SVar:SacMe:2
+SVar:DiscardMe:1

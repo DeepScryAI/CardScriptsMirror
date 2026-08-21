@@ -1,9 +1,10 @@
 Id:24147
 ColorIdentity:B
-OriginSet:G51fcb7ec0cb81c29
-ManaCost:1 B
-Types:Legendary Enchantment Background
-S:Mode$ Continuous | Affected$ Creature.IsCommander+YouOwn | AddTrigger$ AttacksPlayer
-SVar:AttacksPlayer:Mode$ Attacks | ValidCard$ Card.Self | Attacked$ Player | Condition$ NoOpponentHasMoreLifeThanAttacked | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ 1 | Defined$ Self | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | Defined$ Self | KW$ Deathtouch & Indestructible
+OriginSet:G9afc9838c5e994df
+ManaCost:2 B
+Types:Sorcery
+A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Creature.White+YouOwn | TargetMin$ 0 | TargetMax$ 1 | LockInText$ True | SubAbility$ ReturnU
+SVar:ReturnU:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Creature.Blue+YouOwn | TargetMin$ 0 | TargetMax$ 1 | LockInText$ True | SubAbility$ ReturnB
+SVar:ReturnB:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Creature.Black+YouOwn | TargetMin$ 0 | TargetMax$ 1 | LockInText$ True | SubAbility$ ReturnR
+SVar:ReturnR:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Creature.Red+YouOwn | TargetMin$ 0 | TargetMax$ 1 | LockInText$ True | SubAbility$ ReturnG
+SVar:ReturnG:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Creature.Green+YouOwn | TargetMin$ 0 | LockInText$ True | TargetMax$ 1

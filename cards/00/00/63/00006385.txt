@@ -1,13 +1,7 @@
 Id:6385
-ColorIdentity:W
+ColorIdentity:B
 OriginSet:Gd11012ee98ee8d76
-ManaCost:2 W W
-Types:Enchantment
-R:Event$ DamageDone | ActiveZones$ Battlefield | ValidTarget$ You | ReplaceWith$ Counters
-SVar:Counters:DB$ PutCounter | Defined$ Self | CounterType$ DEPLETION | CounterNum$ X
-T:Mode$ Always | TriggerZones$ Battlefield | IsPresent$ Card.Self+counters_GE4_DEPLETION | Execute$ TrigSac
-SVar:TrigSac:DB$ Sacrifice
-T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | Execute$ TrigRemoveCounter
-SVar:TrigRemoveCounter:DB$ RemoveCounter | CounterType$ DEPLETION | CounterNum$ All
-SVar:X:ReplaceCount$DamageAmount
-SVar:All:Count$CardCounters.DEPLETION
+ManaCost:3 B B
+Types:Sorcery
+A:SP$ LoseLife | ValidTgts$ Player | LifeAmount$ X
+SVar:X:TargetedPlayer$DamageThisTurn

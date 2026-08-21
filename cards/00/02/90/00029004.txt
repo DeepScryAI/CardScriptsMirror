@@ -1,12 +1,11 @@
 Id:29004
-ColorIdentity:WRG
-OriginSet:Gc7beb665b378d90a
-ManaCost:5 R G W
-Types:Legendary Creature Human Ranger
-PT:6/6
-S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ Count$ValidGraveyard Land.YouOwn | EffectZone$ All
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDraw | Secondary$ True
-SVar:TrigDraw:AB$ Draw | Cost$ Sac<1/Land>
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Graveyard | ValidCard$ Desert.!token+YouOwn | TriggerZones$ Battlefield | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 524779715
+ColorIdentity:
+OriginSet:Gaf7c94f364052cdd
+ManaCost:no cost
+Types:Land
+K:ETBReplacement:Other:DBTap:Optional
+SVar:DBTap:DB$ Tap | ETB$ True | Defined$ Self | SubAbility$ DBRadiation
+SVar:DBRadiation:DB$ Radiation | Defined$ You | Num$ 2
+A:AB$ Mana | Cost$ T | Produced$ C
+A:AB$ Draw | Cost$ 5 T | NumCards$ 1 | ReduceCost$ X
+SVar:X:Count$YourCountersRAD

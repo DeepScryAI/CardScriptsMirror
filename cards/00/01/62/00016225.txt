@@ -1,8 +1,9 @@
 Id:16225
-ColorIdentity:U
+ColorIdentity:W
 OriginSet:G70d19654882197c9
-ManaCost:2 U
-Types:Enchantment
-T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ Opponent | Execute$ TrigCounter | TriggerZones$ Battlefield
-SVar:TrigCounter:DB$ Counter | Defined$ TriggeredSpellAbility | SubAbility$ DBSacrifice
-SVar:DBSacrifice:DB$ Sacrifice
+ManaCost:1 W
+Types:Instant
+A:SP$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Creature | RememberChanged$ True | SubAbility$ DelTrig
+SVar:DelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ TrigReturn | RememberObjects$ RememberedLKI | SubAbility$ DBCleanup
+SVar:TrigReturn:DB$ ChangeZone | Defined$ DelayTriggerRememberedLKI | Origin$ Exile | Destination$ Battlefield | WithCountersType$ P1P1
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

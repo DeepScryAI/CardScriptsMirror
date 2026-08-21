@@ -1,9 +1,12 @@
 Id:15462
-ColorIdentity:B
+ColorIdentity:W
 OriginSet:Gec9609c94c5b1cdf
-ManaCost:2 B
-Types:Instant
-K:Devoid
-A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Opponent | DefinedPlayer$ Targeted | Mandatory$ True | ChangeType$ Card | ChangeNum$ 1 | Hidden$ True | IsCurse$ True | Chooser$ Targeted | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenScriptIds$ 2659457071 | TokenOwner$ You | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw
+ManaCost:2 W W
+Types:Legendary Planeswalker Gideon
+Loyalty:4
+A:AB$ Animate | Cost$ AddCounter<1/LOYALTY> | Defined$ Self | Power$ 5 | Toughness$ 5 | Keywords$ Indestructible | Types$ Creature,Human,Soldier,Ally | SubAbility$ GideonPrevent | Planeswalker$ True
+SVar:GideonPrevent:DB$ Effect | ReplacementEffects$ RPrevent | Duration$ UntilHostLeavesPlayOrEOT
+SVar:RPrevent:Event$ DamageDone | Prevent$ True | ValidTarget$ Card.EffectSource
+A:AB$ Token | Cost$ AddCounter<0/LOYALTY> | TokenScriptIds$ 3153053587 | TokenOwner$ You | Planeswalker$ True
+A:AB$ Effect | Cost$ SubCounter<4/LOYALTY> | Name$ 17122252808620189606 | StaticAbilities$ STPump | Planeswalker$ True | Ultimate$ True | Duration$ Permanent | AILogic$ NeedCreatures:3
+SVar:STPump:Mode$ Continuous | AffectedZone$ Battlefield | Affected$ Creature.YouCtrl | AddPower$ 1 | AddToughness$ 1

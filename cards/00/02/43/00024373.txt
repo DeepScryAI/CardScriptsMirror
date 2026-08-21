@@ -1,13 +1,8 @@
 Id:24373
-ColorIdentity:WU
+ColorIdentity:B
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:2 W U
-Types:Legendary Creature Human Monk
-PT:2/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGainLife
-T:Mode$ SpellCast | ValidCard$ Card.YouCtrl | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigExile | ActivatorThisTurnCast$ EQ2
-SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 2 | SubAbility$ DBScry
-SVar:DBScry:DB$ Scry | ScryNum$ 2
-SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | ValidTgts$ Creature.YouCtrl | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBReturn
-SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ All | Destination$ Battlefield | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:2 B
+Types:Legendary Enchantment Background
+S:Mode$ Continuous | Affected$ Creature.IsCommander+YouOwn | AddTrigger$ BecomesTapped
+SVar:BecomesTapped:Mode$ Taps | ValidCard$ Card.Self | Execute$ TrigPump
+SVar:TrigPump:DB$ PumpAll | ValidCards$ Card.sharesCreatureTypeWith+YouCtrl | KW$ Undying | NumAtt$ +2

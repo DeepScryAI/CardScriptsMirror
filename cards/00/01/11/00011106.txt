@@ -1,7 +1,10 @@
 Id:11106
-ColorIdentity:W
+ColorIdentity:G
 OriginSet:Gd09f2fd86b2e8dd0
-ManaCost:W
-Types:Instant
-A:SP$ Pump | ValidTgts$ Creature | NumAtt$ +1 | NumDef$ +1 | SubAbility$ DBUntap
-SVar:DBUntap:DB$ Untap | Defined$ Targeted
+ManaCost:4 G
+Types:Enchantment Aura
+K:Enchant:Land
+SVar:AttachAILogic:Animate
+S:Mode$ Continuous | Affected$ Land.AttachedBy | AddType$ Creature & Elemental | SetColor$ Green | SetPower$ 6 | SetToughness$ 4
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.AttachedBy | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Hand

@@ -1,14 +1,10 @@
 Id:29416
-ColorIdentity:B
-OriginSet:Gac6359c222afbd4f
-ManaCost:1 B
-Types:Creature Skeleton Noble
-PT:2/2
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | Execute$ TrigExile | TriggerZones$ Battlefield
-SVar:TrigExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Card
-A:AB$ PutCounter | Cost$ 1 B | Adapt$ 2
-T:Mode$ CounterAddedOnce | ValidCard$ Card.Self | TriggerZones$ Battlefield | CounterType$ P1P1 | Execute$ TrigChangeZone
-SVar:TrigChangeZone:DB$ ChangeZone | ChangeType$ Creature.ExiledWithSource | GainControl$ True | Origin$ Exile | Hidden$ True | Mandatory$ True | RememberChanged$ True | Destination$ Battlefield | WithCountersType$ FINALITY | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | Defined$ Remembered | KW$ Haste | AtEOT$ Sacrifice | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:PlayMain1:TRUE
+ColorIdentity:BR
+OriginSet:G0c9f9aa4a8bf0371
+ManaCost:4 B R
+Types:Legendary Creature Goblin Rogue
+PT:6/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigHeist
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigHeist | TriggerZones$ Battlefield | Secondary$ True
+SVar:TrigHeist:DB$ Heist | ValidTgts$ Opponent
+S:Mode$ Continuous | MayPlay$ True | MayPlayAltManaCost$ 0 | MayPlayLimit$ 1 | MayPlayDontGrantZonePermissions$ True | Affected$ Card.YouDontOwn+cmcLE3 | AffectedZone$ Hand,Graveyard,Library,Exile,Command

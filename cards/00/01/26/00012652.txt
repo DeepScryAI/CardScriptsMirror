@@ -1,8 +1,10 @@
 Id:12652
-ColorIdentity:B
+ColorIdentity:U
 OriginSet:Gfd7b72e0eb9d2cf5
-ManaCost:B
+ManaCost:1 U
 Types:Enchantment Aura
 K:Enchant:Creature
-SVar:AttachAILogic:Curse
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ -1 | AddToughness$ -1 | AddType$ Zombie | AddColor$ Black
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddTrigger$ AttackTrigger | AddSVar$ TrigTapUnTap
+SVar:AttackTrigger:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigTapUnTap | TriggerZones$ Battlefield
+SVar:TrigTapUnTap:DB$ TapOrUntap | ValidTgts$ Permanent

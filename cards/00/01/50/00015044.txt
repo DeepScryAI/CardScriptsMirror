@@ -2,9 +2,10 @@ Id:15044
 ColorIdentity:U
 OriginSet:Gdb18f239871b8cef
 ManaCost:1 U
-Types:Enchantment Aura
-K:Flash
-K:Enchant:Creature.Red,Creature.Green:red or green creature
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigTap
-SVar:TrigTap:DB$ Tap | Defined$ Enchanted
-R:Event$ Untap | ActiveZones$ Battlefield | ValidCard$ Creature.AttachedBy | ValidStepTurnToController$ You | Layer$ CantHappen
+Types:Creature Human Monk
+PT:1/3
+T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | Execute$ TrigPump | TriggerZones$ Battlefield
+SVar:TrigPump:DB$ Pump | NumAtt$ +1 | SubAbility$ DBUnblockable
+SVar:DBUnblockable:DB$ Effect | RememberObjects$ Self | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+SVar:BuffedBy:Card.nonLand+nonCreature

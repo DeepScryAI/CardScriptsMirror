@@ -1,7 +1,10 @@
 Id:32220
-ColorIdentity:W
+ColorIdentity:G
 OriginSet:G9946f072b5556073
-ManaCost:2 W
-Types:Sorcery
-A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | TargetMin$ 0 | TargetMax$ 3 | MaxTotalTargetCMC$ 3 | ValidTgts$ Creature.YouOwn | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ 1 | Defined$ Targeted
+ManaCost:1 G G
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 2258507865 | TokenOwner$ You
+K:ETBReplacement:Other:AddExtraCounter:Mandatory:Battlefield:Creature.YouCtrl
+SVar:AddExtraCounter:DB$ PutCounter | ETB$ True | Defined$ ReplacedCard | CounterType$ P1P1 | CounterNum$ X
+SVar:X:Count$ThisTurnEntered_Battlefield_Land.YouCtrl

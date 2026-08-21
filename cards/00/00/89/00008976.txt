@@ -1,11 +1,14 @@
 Id:8976
-ColorIdentity:R
+ColorIdentity:B
 OriginSet:Gce1d73449bd71b54
-ManaCost:1 R
-Types:Sorcery
-A:SP$ DamageAll | ValidCards$ Creature.withoutFlying | NumDmg$ 2
-AlternateMode:Split
-ALTERNATE
-ManaCost:5 R
-Types:Sorcery
-A:SP$ DamageAll | ValidCards$ Creature.withFlying | NumDmg$ 6
+ManaCost:3 B B
+Types:Creature Horror
+PT:*/*
+S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ Y | SetToughness$ Y
+K:Suspend:X:XMin1 X B B B
+T:Mode$ CounterRemoved | ValidCard$ Card.Self | TriggerZones$ Exile | CounterType$ TIME | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | ValidTgts$ Player | LifeAmount$ 1 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
+SVar:X:Count$xPaid
+SVar:Y:Count$YourLifeTotal/Minus.Z
+SVar:Z:Count$OppGreatestLifeTotal

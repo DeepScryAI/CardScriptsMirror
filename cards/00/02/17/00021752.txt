@@ -1,12 +1,9 @@
 Id:21752
-ColorIdentity:B
-OriginSet:Gabb23d0d25cdc46d
-ManaCost:4 B
-Types:Creature Shade Warlock
-PT:3/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZoneAll
-SVar:TrigChangeZoneAll:DB$ ChangeZoneAll | ChangeType$ Card.YouDontOwn | Origin$ Graveyard | Destination$ Exile | RememberChanged$ True | SubAbility$ DBChooseCard
-SVar:DBChooseCard:DB$ ChooseCard | Defined$ You | Choices$ Card.nonLand+IsRemembered | ChoiceZone$ Exile | Mandatory$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | RememberObjects$ ChosenCard | StaticAbilities$ STPlay | Duration$ Permanent | ExileOnMoved$ Exile | SubAbility$ DBCleanup
-SVar:STPlay:Mode$ Continuous | MayPlay$ True | MayPlayIgnoreColor$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearChosenCard$ True
+ColorIdentity:W
+OriginSet:G18bf722b221724f8
+ManaCost:2 W
+Types:Creature Dwarf Warrior
+PT:2/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange | OptionalDecider$ You
+SVar:TrigChange:DB$ ChangeZone | Origin$ Library | OriginAlternative$ Graveyard | Destination$ Hand | ChangeType$ Rune.YouOwn | ChangeNum$ 1 | Optional$ True
+S:Mode$ AlternativeCost | ValidSA$ Spell | ValidCard$ Card.Rune | ValidPlayer$ You | Cost$ 1

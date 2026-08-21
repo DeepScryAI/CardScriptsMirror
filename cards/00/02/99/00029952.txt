@@ -1,7 +1,13 @@
 Id:29952
-ColorIdentity:
+ColorIdentity:B
 OriginSet:Gf09b85bbcc27770c
-ManaCost:2
-Types:Artifact Equipment
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1 | AddToughness$ 1 | AddKeyword$ Vigilance & Reach
-K:Equip:1
+ManaCost:2 B
+Types:Creature Bat Warlock
+PT:2/3
+K:Offspring:B
+K:Flying
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDig
+SVar:TrigDig:DB$ Dig | DigNum$ 1 | Reveal$ True | ChangeNum$ All | ChangeValid$ Card | DestinationZone$ Hand | RememberChanged$ True | SubAbility$ DBLose
+SVar:DBLose:DB$ LoseLife | LifeAmount$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$CardManaCost

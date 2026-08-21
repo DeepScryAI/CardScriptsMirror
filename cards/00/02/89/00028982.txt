@@ -1,11 +1,14 @@
 Id:28982
-ColorIdentity:U
-OriginSet:Gc7beb665b378d90a
-ManaCost:2 U
-Types:Artifact
-A:AB$ Mana | Cost$ T | Produced$ U | TriggersWhenSpent$ TrigSpent
-SVar:TrigSpent:Mode$ SpellCast | ValidCard$ Instant.cmcLE3+YouCtrl,Sorcery.cmcLE3+YouCtrl | ValidActivatingPlayer$ You | Execute$ TrigEffect
-SVar:TrigEffect:DB$ Effect | ReplacementEffects$ MoveToExileReplace | RememberObjects$ TriggeredCard | ExileOnMoved$ Stack
-SVar:MoveToExileReplace:Event$ Moved | ValidCard$ Card.IsRemembered | Origin$ Stack | Destination$ Graveyard | Fizzle$ False | ReplaceWith$ ReplaceExile | Optional$ True
-SVar:ReplaceExile:DB$ ChangeZone | Defined$ ReplacedCard | Origin$ Stack | Destination$ Exile | ExiledWithEffectSource$ True
-A:AB$ Play | Cost$ 3 U U T | Defined$ ExiledWith | ValidSA$ Spell | Amount$ All | WithoutManaCost$ True | Optional$ True | SorcerySpeed$ True
+ColorIdentity:R
+OriginSet:Gaf7c94f364052cdd
+ManaCost:4 R
+Types:Enchantment Aura
+K:Enchant:Creature
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ 3 | EffectZone$ All | CheckSVar$ X
+SVar:AttachAILogic:Pump
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigUntap
+SVar:TrigUntap:DB$ UntapAll | ValidCards$ Creature.YouCtrl | SubAbility$ DBAddCombat
+SVar:DBAddCombat:DB$ AddPhase | ExtraPhase$ Combat | ConditionPhases$ Main1,Main2 | ConditionPlayerTurn$ True
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 2 | AddToughness$ 2 | AddKeyword$ Haste
+SVar:X:Count$ThisTurnEntered_Graveyard_from_Battlefield_Creature
+SVar:PlayMain1:TRUE

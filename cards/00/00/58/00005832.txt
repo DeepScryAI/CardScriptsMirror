@@ -1,11 +1,8 @@
 Id:5832
-ColorIdentity:U
+ColorIdentity:B
 OriginSet:G0eb5e52d26fe1c23
-ManaCost:1 U U
-Types:Creature Octopus
-PT:1/2
-K:You may choose not to untap CARDNAME during your untap step.
-K:ETBReplacement:Other:DBChooseOpp
-SVar:DBChooseOpp:DB$ ChoosePlayer | Choices$ Player.Opponent | AILogic$ Curse | SubAbility$ DBChooseType
-SVar:DBChooseType:DB$ ChooseType | Defined$ Player.Chosen | Type$ Creature | AILogic$ MostProminentComputerControls
-A:AB$ GainControl | Cost$ T | ValidTgts$ Creature.IsNotChosenType | LoseControl$ Untap,LeavesPlay
+ManaCost:2 B
+Types:Creature Human Cleric
+PT:2/1
+T:Mode$ DamageDone | ValidSource$ Goblin | ValidTarget$ Player | TriggerZones$ Battlefield | CombatDamage$ True | Execute$ TrigDiscard
+SVar:TrigDiscard:DB$ Discard | Defined$ TriggeredTarget | NumCards$ 1 | Mode$ TgtChoose

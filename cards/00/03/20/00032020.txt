@@ -1,11 +1,12 @@
 Id:32020
-ColorIdentity:
-OriginSet:G8a59924df6623252
-ManaCost:7
-Types:Legendary Enchantment Aura
-K:Enchant:Creature.YouCtrl:creature you control
-SVar:AttachAILogic:Pump
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | SetPower$ 9 | SetToughness$ 9 | AddKeyword$ Flying & FirstStrike & Trample & Haste
-T:Mode$ DamageDone | ValidSource$ Creature.EnchantedBy | ValidTarget$ Opponent | CombatDamage$ True | Execute$ TrigDmg
-SVar:TrigDmg:DB$ DamageAll | ValidPlayers$ OppNonTriggeredTarget | DamageSource$ TriggeredSource | NumDmg$ X
-SVar:X:TriggerCount$DamageAmount
+ColorIdentity:RG
+OriginSet:G7ab4f62d323b0ca7
+ManaCost:R G
+Types:Legendary Creature Human Shaman
+PT:1/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:AB$ Draw | Cost$ Discard<1/Card> | NumCards$ 1
+A:AB$ ChangeZone | Cost$ X T | ValidTgts$ Saga.YouOwn+cmcEQX | Origin$ Graveyard | Destination$ Battlefield | SorcerySpeed$ True | WithCountersType$ FINALITY | WithCountersAmount$ 1 | SubAbility$ DBPump | RememberChanged$ True
+SVar:DBPump:DB$ Pump | KW$ Haste | Defined$ Remembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$xPaid

@@ -1,8 +1,11 @@
 Id:5005
-ColorIdentity:
+ColorIdentity:RG
 OriginSet:G9e6cd9ac1f7f4832
-ManaCost:2
-Types:Artifact
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
-A:AB$ ManaReflected | Cost$ T | ColorOrType$ Color | Valid$ Basic.YouCtrl | ReflectProperty$ Produce
+ManaCost:2 R G
+Types:Creature Kavu
+PT:5/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDealDamage
+SVar:TrigChange:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Hidden$ True | ChangeType$ Creature.Red+YouCtrl,Creature.Green+YouCtrl | ChangeNum$ 1 | Mandatory$ True | AILogic$ NeverBounceItself
+SVar:TrigDealDamage:DB$ DealDamage | ValidTgts$ Player,Planeswalker | NumDmg$ 1
+SVar:NeedsToPlay:Creature.Red+YouCtrl+cmcLE4,Creature.Green+YouCtrl+cmcLE4

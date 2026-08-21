@@ -1,10 +1,10 @@
 Id:4663
-ColorIdentity:W
+ColorIdentity:U
 OriginSet:Gfb91362c2efb868e
-ManaCost:3 W
-Types:Enchantment
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ Player.Opponent | Execute$ TrigTwoPile | TriggerZones$ Battlefield
-SVar:TrigTwoPile:DB$ TwoPiles | Defined$ TriggeredPlayer | Chooser$ TriggeredPlayer | ValidCards$ Creature | Zone$ Battlefield | Separator$ You | ChosenPile$ DBEffect
-SVar:DBEffect:DB$ Effect | RememberObjects$ Remembered | StaticAbilities$ STCantAttack
-SVar:STCantAttack:Mode$ CantAttack | ValidCard$ Creature.!IsRemembered
-SVar:NonStackingAttachEffect:True
+ManaCost:U
+Types:Creature Faerie
+PT:1/1
+K:Kicker:3 U
+T:Mode$ ChangesZone | ValidCard$ Card.Self+kicked | Origin$ Any | Destination$ Battlefield | Execute$ SquadronEnlist | Static$ True
+SVar:SquadronEnlist:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 2 | SubAbility$ SquadronLaunch
+SVar:SquadronLaunch:DB$ Pump | Defined$ Self | KW$ Flying | Duration$ Permanent

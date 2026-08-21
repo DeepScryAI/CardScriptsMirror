@@ -1,8 +1,10 @@
 Id:32210
-ColorIdentity:W
+ColorIdentity:UB
 OriginSet:G9946f072b5556073
-ManaCost:W
-Types:Instant
-A:SP$ Charm | Choices$ DBPump,DBDmg
-SVar:DBPump:DB$ Pump | ValidTgts$ Artifact,Creature | KW$ Indestructible
-SVar:DBDmg:DB$ DealDamage | ValidTgts$ Creature.tapped | NumDmg$ 2
+ManaCost:1 U B
+Types:Legendary Creature Human Cleric
+PT:2/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | NumCards$ 2 | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 2 | Mode$ TgtChoose | UnlessType$ Artifact
+S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ Deathtouch | Condition$ PlayerTurn

@@ -1,6 +1,12 @@
 Id:11609
-ColorIdentity:B
+ColorIdentity:
 OriginSet:Gc046eafa1d269dd1
-ManaCost:2 B
-Types:Creature Human Warrior
-PT:3/2
+ManaCost:4
+Types:Artifact Creature Masticore
+PT:4/4
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigUpkeep
+SVar:TrigUpkeep:DB$ Sacrifice | UnlessPayer$ You | UnlessCost$ Discard<1/Card>
+A:AB$ DealDamage | Cost$ 4 ExileFromGrave<1/Creature> | NumDmg$ 4 | ValidTgts$ Any
+A:AB$ Regenerate | Cost$ 2
+SVar:NeedsToPlayVar:Z GE3
+SVar:Z:Count$ValidHand Card.YouOwn

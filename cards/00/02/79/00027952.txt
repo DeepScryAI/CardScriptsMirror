@@ -1,12 +1,14 @@
 Id:27952
-ColorIdentity:WRG
-OriginSet:G06c78c29bfb28e3d
-ManaCost:R G W
-Types:Legendary Creature Human Warrior
-PT:1/5
-K:Haste
-A:AB$ Pump | Cost$ 2 G T | ValidTgts$ Creature.YouCtrl | SubAbility$ DBFight | ReduceCost$ X
-SVar:DBFight:DB$ Fight | Defined$ ParentTarget | ValidTgts$ Creature | TargetUnique$ True
-SVar:X:Count$Compare Y EQ2.2.0
-SVar:Y:AllTargeted$Valid Creature.YouCtrl
-S:Mode$ Panharmonicon | ValidMode$ DamageDoneOnce,DamageDone | ValidTarget$ Creature.YouCtrl | ValidCard$ Permanent.YouCtrl
+ColorIdentity:BR
+OriginSet:G30e8a5e111cffb44
+ManaCost:2 B R
+Types:Legendary Creature Demon
+PT:6/6
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ ETBTapped | ReplacementResult$ Updated
+SVar:ETBTapped:DB$ Tap | Defined$ Self | SubAbility$ DBAddCounter | ETB$ True
+SVar:DBAddCounter:DB$ PutCounter | Defined$ Self | ETB$ True | CounterType$ STUN | CounterNum$ 6
+T:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigGainControl
+SVar:TrigGainControl:DB$ GainControl | ValidTgts$ Creature | LoseControl$ EOT | Untap$ True | AddKWs$ Haste & Menace
+T:Mode$ DamageDone | ValidSource$ Creature | TargetRelativeToSource$ Player.CardOwner | ValidTarget$ Player | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigUntap
+SVar:TrigUntap:DB$ Untap | Defined$ Self | SubAbility$ TrigDraw
+SVar:TrigDraw:DB$ Draw

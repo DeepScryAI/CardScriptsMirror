@@ -1,12 +1,11 @@
 Id:20043
-ColorIdentity:U
+ColorIdentity:W
 OriginSet:G23be9f486a22d38a
-ManaCost:6 U U U
-Types:Legendary Artifact
-S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ X | EffectZone$ All
-SVar:X:Count$ValidGraveyard Instant.YouOwn,Sorcery.YouOwn
-S:Mode$ Continuous | Affected$ You | SetMaxHandSize$ Unlimited
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ KNOWLEDGE | CounterNum$ 1 | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ Y
-SVar:Y:Count$CardCounters.KNOWLEDGE
+ManaCost:1 W
+Types:Artifact Equipment
+K:Flash
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigAttach
+SVar:TrigAttach:DB$ Attach | ValidTgts$ Knight.YouCtrl
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddToughness$ 2 | AddKeyword$ Vigilance
+K:Equip:3
+SVar:BuffedBy:Knight

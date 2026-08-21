@@ -1,9 +1,19 @@
 Id:15893
-ColorIdentity:R
+ColorIdentity:W
 OriginSet:G92026fbb3573fda5
-ManaCost:2 R
-Types:Enchantment
-T:Mode$ SpellCast | ValidCard$ Instant.wasCastFromYourHandByYou,Sorcery.wasCastFromYourHandByYou | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | TgtZone$ Graveyard | ValidTgts$ Instant.YouCtrl+sharesNameWith TriggeredCard,Sorcery.YouCtrl+sharesNameWith TriggeredCard | PumpZone$ Graveyard | SubAbility$ TrigPlay
-SVar:TrigPlay:DB$ Play | Defined$ Targeted | ValidSA$ Spell | Optional$ True
-SVar:NonStackingEffect:True
+ManaCost:1 W
+Types:Creature Human Soldier
+PT:2/2
+T:Mode$ Phase | Phase$ Upkeep | TriggerZones$ Battlefield | ValidPlayer$ You | IsPresent$ Creature.YouCtrl | PresentCompare$ GE4 | Execute$ TrigTransform
+SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:white
+Types:Creature Human Cleric
+PT:*/*
+S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X | SetToughness$ X
+SVar:X:Count$Valid Creature.YouCtrl
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 1163824624 | TokenOwner$ You
+SVar:BuffedBy:Creature

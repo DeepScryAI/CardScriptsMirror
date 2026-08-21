@@ -1,7 +1,14 @@
 Id:19225
-ColorIdentity:R
-OriginSet:Gb6b8d78626a44788
-ManaCost:4 R R
-Types:Sorcery
-A:SP$ GainControl | ValidTgts$ Creature | LoseControl$ EOT | Untap$ True | AddKWs$ Haste | SubAbility$ DBDamage
-SVar:DBDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 2 | TargetUnique$ True
+ColorIdentity:BG
+OriginSet:Gf56613712ce2ae1f
+ManaCost:1 B B G
+Types:Legendary Creature Zombie Elf Wizard
+PT:5/4
+K:Trample
+T:Mode$ Phase | Phase$ BeginCombat | Static$ True | ValidPlayer$ Player | TriggerZones$ Battlefield | Execute$ CleanupAndRemember
+SVar:CleanupAndRemember:DB$ Cleanup | ClearRemembered$ True | SubAbility$ RememberTargets
+SVar:RememberTargets:DB$ PumpAll | PumpZone$ Graveyard | ValidCards$ Creature.YouOwn,Planeswalker.YouOwn | RememberPumped$ True
+T:Mode$ Phase | Phase$ EndCombat | Static$ True | ValidPlayer$ Player | TriggerZones$ Battlefield | Execute$ JustCleanup
+SVar:JustCleanup:DB$ Cleanup | ClearRemembered$ True
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player,Planeswalker | CombatDamage$ True | Execute$ TrigChange | TriggerZones$ Battlefield
+SVar:TrigChange:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Creature.IsRemembered,Planeswalker.IsRemembered

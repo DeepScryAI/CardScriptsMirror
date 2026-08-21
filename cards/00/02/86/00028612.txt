@@ -1,11 +1,12 @@
 Id:28612
-ColorIdentity:WG
+ColorIdentity:U
 OriginSet:G7ee0e82a2424d636
-ManaCost:2 G W W
-Types:Legendary Creature Elf Scout
+ManaCost:2 U
+Types:Creature Merfolk Advisor
 PT:3/2
-K:Lifelink
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 1641056 | TokenOwner$ You
-T:Mode$ Attacks | ValidCard$ Wolf.YouCtrl | IsPresent$ Card.Self+attackedThisCombat | TriggerZones$ Battlefield | Execute$ TrigForceBlock | NoResolvingCheck$ True
-SVar:TrigForceBlock:DB$ MustBlock | DefinedAttacker$ TriggeredAttacker | Duration$ UntilEndOfCombat | ValidTgts$ Creature.OppCtrl
+S:Mode$ CantBlockBy | ValidAttacker$ Card.Self+attacking | CheckSVar$ SaccedThisTurn
+SVar:SaccedThisTurn:PlayerCountPropertyYou$SacrificedThisTurn Artifact
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1 | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ TgtChoose
+SVar:HasAttackEffect:TRUE

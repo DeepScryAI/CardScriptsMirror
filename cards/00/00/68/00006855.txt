@@ -1,7 +1,10 @@
 Id:6855
-ColorIdentity:B
+ColorIdentity:R
 OriginSet:G8b552b617d13301f
-ManaCost:3 B
-Types:Creature Insect
-PT:3/3
-S:Mode$ CantBlock | ValidCard$ Card.Self
+ManaCost:3 R R
+Types:Instant
+K:Entwine:1 R
+A:SP$ Charm | Choices$ DBPump,DBUntapAll | PlayerTurn$ True | ActivationPhases$ BeginCombat->EndCombat
+SVar:DBPump:DB$ PumpAll | ValidCards$ Creature.YouCtrl | KW$ DoubleStrike
+SVar:DBUntapAll:DB$ UntapAll | ValidCards$ Creature.YouCtrl | SubAbility$ DBAddCombat
+SVar:DBAddCombat:DB$ AddPhase | ExtraPhase$ Combat | AfterPhase$ EndCombat

@@ -1,10 +1,9 @@
 Id:33183
-ColorIdentity:U
-OriginSet:G7ab1fe96128a1641
-ManaCost:1 U
-Types:Creature Horse Serpent
-PT:4/5
-K:etbCounter:M1M1:3
-A:AB$ Draw | Cost$ 1 U RemoveAnyCounter<1/Any/CARDNAME/this creature>
-A:AB$ Tap | Cost$ 2 U RemoveAnyCounter<2/Any/CARDNAME/this creature> | ValidTgts$ Creature | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | Defined$ Targeted | CounterType$ Stun | CounterNum$ 1
+ColorIdentity:R
+OriginSet:G731e0066916b7465
+ManaCost:2 R R R
+Types:Sorcery
+K:Storm
+A:SP$ ChangeZone | DefinedPlayer$ You | Destination$ Exile | ChangeNum$ 1 | ChangeType$ Instant.YouOwn+cmcLE3,Sorcery.YouOwn+cmcLE3 | AtRandom$ True | Origin$ Graveyard | Hidden$ True | Mandatory$ True | RememberChanged$ True | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | Defined$ Remembered | ValidSA$ Spell | WithoutManaCost$ True | Optional$ True | ReplaceGraveyard$ Exile | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

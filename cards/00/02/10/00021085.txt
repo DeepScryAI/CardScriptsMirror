@@ -1,14 +1,11 @@
 Id:21085
-ColorIdentity:BR
+ColorIdentity:W
 OriginSet:G7b2607750b451c25
-ManaCost:4 B R
-Types:Legendary Creature Vampire Rogue
-PT:4/4
+ManaCost:2 W
+Types:Creature Archon
+PT:2/3
 K:Flying
-K:Deathtouch
-K:Haste
-S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ X | EffectZone$ All
-SVar:X:Count$Party
-S:Mode$ Continuous | Affected$ Creature.Other+YouCtrl | AddKeyword$ Deathtouch
-T:Mode$ DamageDone | ValidSource$ Creature.YouCtrl | ValidTarget$ Planeswalker | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigDestroy
-SVar:TrigDestroy:DB$ Destroy | Defined$ TriggeredTargetLKICopy
+S:Mode$ CantBeCast | ValidCard$ Card | Caster$ Player | NumLimitEachTurn$ 1
+R:Event$ Moved | ValidCard$ Land.OppCtrl+nonBasic | Destination$ Battlefield | ReplaceWith$ ETBTapped | ReplacementResult$ Updated | ActiveZones$ Battlefield
+SVar:ETBTapped:DB$ Tap | ETB$ True | Defined$ ReplacedCard
+SVar:NonStackingEffect:True

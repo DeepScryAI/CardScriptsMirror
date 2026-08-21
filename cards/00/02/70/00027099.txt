@@ -1,14 +1,10 @@
 Id:27099
-ColorIdentity:B
+ColorIdentity:U
 OriginSet:G6ce0035cfb774934
-ManaCost:3 B B
-Types:Legendary Creature Avatar Horror
-PT:4/4
-K:Menace
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigExile | TriggerZones$ Battlefield
-SVar:TrigExile:DB$ ChangeZone | ValidTgts$ Creature.YouOwn | Origin$ Graveyard | Destination$ Exile | RememberChanged$ True | SubAbility$ DBCopy
-SVar:DBCopy:DB$ CopyPermanent | Defined$ Remembered | TokenTapped$ True | TokenAttacking$ True | SetPower$ 3 | SetToughness$ 3 | SetColor$ Black | AtEOT$ Exile | AtEOTCondition$ Y | SetCreatureTypes$ Wraith | AddKeywords$ Menace | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:Y:Count$Compare X EQ0.1.0
-SVar:X:Count$Valid Card.Self+IsRingbearer
-SVar:HasAttackEffect:TRUE
+ManaCost:2 U
+Types:Legendary Creature Elf Noble
+PT:3/2
+T:Mode$ ChangesZone | ValidCard$ Card.Self,Creature.YouCtrl+Other | Origin$ Any | Destination$ Battlefield | Execute$ TrigScry | TriggerZones$ Battlefield
+SVar:TrigScry:DB$ Scry | ScryNum$ 1 | SubAbility$ TrigTempt
+SVar:TrigTempt:DB$ RingTemptsYou | ConditionCheckSVar$ Resolved | ConditionSVarCompare$ EQ2
+SVar:Resolved:Count$ResolvedThisTurn

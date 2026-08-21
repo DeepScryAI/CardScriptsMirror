@@ -1,9 +1,10 @@
 Id:22459
-ColorIdentity:W
-OriginSet:G9f95a41d532c0550
-ManaCost:1 W
-Types:Artifact Equipment
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddToughness$ 1
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.AttachedBy | Execute$ TrigAnimate | OptionalDecider$ You
-SVar:TrigAnimate:DB$ Animate | Defined$ Self | Types$ Artifact,Creature,Construct | Power$ 2 | Toughness$ 1 | Keywords$ Flying & Ward:1 | RemoveCardTypes$ True | RemoveCreatureTypes$ True | RemoveTypes$ Equipment | Duration$ Permanent
-K:Equip:1
+ColorIdentity:B
+OriginSet:G92f7f9489fec5865
+ManaCost:2 B
+Types:Instant
+A:SP$ Effect | StaticAbilities$ OppPerms | RememberObjects$ Caster & Valid Permanent.OppCtrl
+SVar:OppPerms:Mode$ Continuous | Affected$ Permanent.IsRemembered | AddTrigger$ DamageTrig
+SVar:DamageTrig:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player.OriginalHostRemembered | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ TriggeredSourceController | LifeAmount$ 2

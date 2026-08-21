@@ -1,8 +1,10 @@
 Id:4218
 ColorIdentity:U
 OriginSet:Gdd40b2fbd2aa3c03
-ManaCost:2 U
+ManaCost:3 U
 Types:Creature Merfolk
-PT:1/2
-T:Mode$ AttackerBlocked | ValidCard$ Card.Self | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZone | Defined$ Self | Origin$ Battlefield | Destination$ Hand
+PT:5/5
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ DelTrig
+T:Mode$ Blocks | ValidCard$ Card.Self | Execute$ DelTrig | Secondary$ True
+SVar:DelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ EndCombat | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZone | Origin$ Battlefield | Destination$ Library | LibraryPosition$ 0 | Defined$ Self

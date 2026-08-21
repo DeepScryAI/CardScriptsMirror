@@ -1,9 +1,14 @@
 Id:31807
-ColorIdentity:W
-OriginSet:G7ab4f62d323b0ca7
-ManaCost:4 W
-Types:Artifact Equipment
-K:Job select
-K:Equip:4:Flavor Machina
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddToughness$ X | AddPower$ X | AddType$ Artificer
-SVar:X:Count$Valid Artifact.YouCtrl/Times.2
+ColorIdentity:U
+OriginSet:G530ea9d733a13e9d
+ManaCost:4 U
+Types:Enchantment Creature Saga Drake
+PT:5/4
+K:Chapter:4:DBSonicWings,DBTap,DBTap,DBTap
+SVar:DBSonicWings:DB$ RepeatEach | RepeatPlayers$ Player.Opponent | RepeatSubAbility$ DBChooseReturn | SubAbility$ DBReturn
+SVar:DBChooseReturn:DB$ ChooseCard | Defined$ Remembered | Choices$ Creature.greatestCMC_CreatureControlledByRemembered | Mandatory$ True | RememberChosen$ True
+SVar:DBReturn:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Defined$ Remembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:DBTap:DB$ Tap | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBStun
+SVar:DBStun:DB$ PutCounter | Defined$ Targeted | CounterType$ Stun | CounterNum$ 1
+K:Flying

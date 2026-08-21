@@ -1,9 +1,10 @@
 Id:23391
-ColorIdentity:U
-OriginSet:Ga4d5d94d587eb185
-ManaCost:1 U
-Types:Artifact Vehicle
-PT:3/1
-K:ETBReplacement:Copy:DBCopy:Optional
-SVar:DBCopy:DB$ Clone | Choices$ Creature.OppCtrl | AddTypes$ Vehicle & Artifact | AddKeywords$ Crew:3 | RemoveCardTypes$ True | RemoveSubTypes$ True
-K:Crew:3
+ColorIdentity:B
+OriginSet:Gbe3783f336562357
+ManaCost:B
+Types:Sorcery
+A:SP$ Reveal | ValidTgts$ Player | RevealAllValid$ Card.cmcGE2+TargetedPlayerCtrl | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | DefinedPlayer$ Targeted | Chooser$ You | Origin$ Hand | Destination$ Exile | ChangeNum$ 1 | ChangeType$ Card.cmcGE2+TargetedPlayerCtrl | Mandatory$ True | AlreadyRevealed$ True | Imprint$ True | AILogic$ BestCard | SubAbility$ DBDraft
+SVar:DBDraft:DB$ Draft | ConditionDefined$ Imprinted | ConditionPresent$ Card | ConditionCompare$ GE1 | Defined$ Targeted | Conjure$ True | SpellbookCatalogIds$ 21586,413,16633,4145,21737,21725,20093,21276,18012,22574,21723,22712,22625,22693,19938 | RememberDrafted$ True | SubAbility$ DBReveal
+SVar:DBReveal:DB$ Reveal | Defined$ Targeted | RevealDefined$ Remembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True

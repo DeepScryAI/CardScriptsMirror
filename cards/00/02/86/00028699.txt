@@ -1,9 +1,13 @@
 Id:28699
-ColorIdentity:
-OriginSet:G997e3b19a1e94e85
-ManaCost:no cost
-Types:Artifact Food
-K:Suspend:2:2
-A:AB$ GainLife | Cost$ 2 Sac<1/CARDNAME> | LifeAmount$ 3 | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | NumCards$ 3 | SubAbility$ DBDamage
-SVar:DBDamage:DB$ DealDamage | Defined$ Opponent | NumDmg$ 3
+ColorIdentity:U
+OriginSet:G7ee0e82a2424d636
+ManaCost:1 U
+Types:Legendary Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+S:Mode$ Continuous | Affected$ You | SetMaxHandSize$ Unlimited
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ X | SVarCompare$ GT1 | Execute$ TrigPutCounters
+SVar:TrigPutCounters:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ Y
+SVar:X:Count$YouDrewThisTurn
+SVar:Y:SVar$X/Minus.1
+SVar:PlayMain1:TRUE

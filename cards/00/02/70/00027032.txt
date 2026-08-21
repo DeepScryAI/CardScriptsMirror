@@ -1,7 +1,13 @@
 Id:27032
-ColorIdentity:G
-OriginSet:G6ce0035cfb774934
-ManaCost:G
-Types:Sorcery
-A:SP$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Land.Basic | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenScriptIds$ 134855612
+ColorIdentity:UBR
+OriginSet:G3601f5e223de6c7f
+ManaCost:5 U B R
+Types:Legendary Creature Avatar Horror
+PT:9/9
+K:Trample
+T:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigAmass
+SVar:TrigAmass:DB$ Amass | Type$ Orc | Num$ 5 | SubAbility$ TrigMill
+SVar:TrigMill:DB$ Mill | Defined$ You | NumCards$ 5 | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | Mandatory$ True | ChangeType$ Creature.YouOwn | ChangeNum$ 1 | Hidden$ True
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.OppCtrl+IsCommander | TriggerZones$ Battlefield | Execute$ TrigTempt
+SVar:TrigTempt:DB$ RingTemptsYou

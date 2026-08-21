@@ -1,14 +1,12 @@
 Id:8519
-ColorIdentity:R
+ColorIdentity:UB
 OriginSet:Gf7b8c9355081f53b
-ManaCost:X R
-Types:Creature Elemental Serpent
-PT:2/1
-K:Trample
-K:Haste
-K:etbCounter:P1P0:X
-SVar:X:Count$xPaid
-T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | Execute$ TrigSac
-SVar:TrigSac:DB$ Sacrifice | SacValid$ Self
-SVar:EndOfTurnLeavePlay:True
-SVar:PlayMain1:TRUE
+ManaCost:3 U
+Types:Enchantment Aura
+K:Enchant:Creature
+K:Cumulative upkeep:UB
+SVar:AttachAILogic:GainControl
+S:Mode$ Continuous | Affected$ Card.EnchantedBy | GainControl$ You
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigLoseLife | ValidCard$ Card.Self
+SVar:TrigLoseLife:DB$ LoseLife | LifeAmount$ X
+SVar:X:TriggeredCard$CardCounters.AGE/Times.2

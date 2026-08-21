@@ -1,7 +1,11 @@
 Id:29063
-ColorIdentity:U
-OriginSet:G27146c70b74a1e72
-ManaCost:3 U
-Types:Enchantment
-T:Mode$ SpellCast | ValidCard$ Card.Outlaw | ValidActivatingPlayer$ You | Execute$ TrigCopy | TriggerZones$ Battlefield
-SVar:TrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility
+ColorIdentity:WR
+OriginSet:Gaf7c94f364052cdd
+ManaCost:1 R W
+Types:Legendary Creature Human Bard
+PT:1/5
+T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigImmediateTrig | TriggerZones$ Battlefield
+SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ 2 Sac<1/Aura.Attached/Aura attached to CARDNAME> | Execute$ DBRepeatCopy | ConditionDefined$ Sacrificed | ConditionPresent$ Aura | ConditionCompare$ GE1
+SVar:DBRepeatCopy:DB$ RepeatEach | RepeatCards$ Creature.attacking+Other+YouCtrl | Zone$ Battlefield | RepeatSubAbility$ DBCopy
+SVar:DBCopy:DB$ CopyPermanent | Defined$ Spawner>Sacrificed | AttachedTo$ Remembered
+SVar:HasAttackEffect:TRUE

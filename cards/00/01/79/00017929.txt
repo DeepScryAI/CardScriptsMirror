@@ -1,13 +1,10 @@
 Id:17929
-ColorIdentity:U
-OriginSet:G21ed5bd3b1924169
-ManaCost:U
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:Pump
-S:Mode$ Continuous | Affected$ Creature.AttachedBy | AddPower$ 1 | AddToughness$ 1 | AddTrigger$ TriggerDamageDone | AddSVar$ CuriousObsessionDraw
-SVar:TriggerDamageDone:Mode$ DamageDone | ValidSource$ Card.Self | CombatDamage$ True | ValidTarget$ Player | OptionalDecider$ You | Execute$ CuriousObsessionDraw
-SVar:CuriousObsessionDraw:DB$ Draw | Defined$ You | NumCards$ 1
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ X | SVarCompare$ EQ0 | Execute$ TrigSac
-SVar:TrigSac:DB$ Sacrifice | SacValid$ Self
-SVar:X:Count$AttackersDeclared
+ColorIdentity:B
+OriginSet:G84be946b27d900a1
+ManaCost:4 B B
+Types:Legendary Creature Elder Dinosaur
+PT:6/6
+K:Deathtouch
+A:AB$ PutCounter | Cost$ B | ActivationZone$ Hand | PlayerTurn$ True | ValidTgts$ Creature | CounterType$ PREY | CounterNum$ 1 | IsCurse$ True | AILogic$ MarkOppCreature
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDestroyAll
+SVar:TrigDestroyAll:DB$ DestroyAll | ValidCards$ Creature.OppCtrl+counters_GE1_PREY | AILogic$ Always

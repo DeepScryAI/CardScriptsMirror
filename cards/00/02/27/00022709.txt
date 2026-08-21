@@ -1,14 +1,9 @@
 Id:22709
 ColorIdentity:B
-OriginSet:G268a0d6ee06912c2
+OriginSet:G9f95a41d532c0550
 ManaCost:1 B
-Types:Creature Human
-PT:2/3
-A:AB$ Charm | Cost$ 2 PayLife<2> | Choices$ Cleric,Phyrexian | GameActivationLimit$ 1
-SVar:Cleric:DB$ Animate | Defined$ Self | Types$ Human Cleric | Duration$ Permanent | RemoveCreatureTypes$ True | SubAbility$ DBPumpCleric
-SVar:DBPumpCleric:DB$ Pump | Defined$ Self | NumAtt$ +1 | NumDef$ +1 | KW$ Lifelink | Duration$ Permanent
-SVar:Phyrexian:DB$ Animate | Defined$ Self | Types$ Phyrexian | Triggers$ DamageSac | RemoveCreatureTypes$ True | Duration$ Permanent | SubAbility$ DBPumpPhyrexian
-SVar:DBPumpPhyrexian:DB$ Pump | Defined$ Self | NumAtt$ +3 | NumDef$ +2 | KW$ Trample | Duration$ Permanent
-SVar:DamageSac:Mode$ DamageDoneOnce | ValidTarget$ Card.Self | Execute$ TrigSac | TriggerZones$ Battlefield
-SVar:TrigSac:DB$ Sacrifice | Amount$ X | SacValid$ Permanent
-SVar:X:TriggerCount$DamageAmount
+Types:Artifact Equipment
+K:Equip:2
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 3851718391
+S:Mode$ CantBlockBy | ValidAttacker$ Creature.EquippedBy+powerLE3

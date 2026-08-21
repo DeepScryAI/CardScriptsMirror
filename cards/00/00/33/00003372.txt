@@ -1,8 +1,9 @@
 Id:3372
-ColorIdentity:R
+ColorIdentity:
 OriginSet:G24ae8187eacbba52
-ManaCost:1 R
-Types:Creature Goblin
-PT:4/4
-K:CARDNAME can't attack unless a creature with greater power also attacks.
-K:CARDNAME can't block unless a creature with greater power also blocks.
+ManaCost:4
+Types:Artifact
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Player | TriggerZones$ Battlefield | Execute$ TrigBounce
+SVar:TrigBounce:DB$ ChangeZoneAll | ChangeType$ Creature.ActivePlayerCtrl+powerGTX | Origin$ Battlefield | Destination$ Hand
+SVar:X:Count$ValidHand Card.ActivePlayerCtrl
+SVar:NonStackingEffect:True

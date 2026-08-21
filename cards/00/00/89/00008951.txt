@@ -1,9 +1,10 @@
 Id:8951
-ColorIdentity:WUR
+ColorIdentity:B
 OriginSet:Gce1d73449bd71b54
-ManaCost:3 U R W
-Types:Legendary Creature Dragon
-PT:6/6
-K:Flying
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | OptionalDecider$ You | Execute$ TrigDestroy
-SVar:TrigDestroy:AB$ Destroy | Cost$ 2 R | TargetMin$ 0 | TargetMax$ 2 | ValidTgts$ Land
+ManaCost:4 B B
+Types:Enchantment
+R:Event$ BeginPhase | ActiveZones$ Battlefield | ValidPlayer$ You | Phase$ Draw | Skip$ True
+S:Mode$ Continuous | Affected$ You | SetMaxHandSize$ 2
+T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraw
+T:Mode$ LandPlayed | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigDraw | Secondary$ True
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1

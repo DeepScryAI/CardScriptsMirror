@@ -1,8 +1,10 @@
 Id:24198
-ColorIdentity:
-OriginSet:G51fcb7ec0cb81c29
-ManaCost:1
-Types:Artifact
-A:AB$ GainLife | Cost$ 1 T | Defined$ You | LifeAmount$ 2
-A:AB$ ChangeZoneAll | Cost$ 2 T Exile<1/CARDNAME> | ChangeType$ Card.IsCommander+YouOwn | Origin$ Command,Graveyard | Destination$ Hand | SubAbility$ DBGraveShuffle
-SVar:DBGraveShuffle:DB$ ChangeZoneAll | ChangeType$ Card.YouOwn | Origin$ Graveyard | Destination$ Library | Shuffle$ True
+ColorIdentity:B
+OriginSet:Gcf5d9b1e2ed6c496
+ManaCost:3 B B
+Types:Artifact Creature Gargoyle Demon
+PT:4/5
+K:Flying
+S:Mode$ OptionalCost | EffectZone$ All | ValidCard$ Card.Self | ValidSA$ Spell | Cost$ Sac<1/Creature.nonDemon/non-Demon creature>
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | CheckSVar$ CastSA>Count$OptionalGenericCostPaid.1.0 | NoResolvingCheck$ True | Execute$ TrigConjure
+SVar:TrigConjure:DB$ MakeCard | Conjure$ True | CatalogId$ 15246 | Zone$ Battlefield

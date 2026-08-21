@@ -1,14 +1,8 @@
 Id:21706
-ColorIdentity:R
+ColorIdentity:W
 OriginSet:G18bf722b221724f8
-ManaCost:3 R R
-Types:Creature Giant Berserker
-PT:4/6
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigImmediate
-SVar:TrigImmediate:AB$ ImmediateTrigger | Cost$ Sac<1/Creature.Other/another creature> | RememberObjects$ Sacrificed | Execute$ TrigDamage | AILogic$ SacForDamage.GiantX2
-SVar:TrigDamage:DB$ DealDamage | ConditionDefined$ DelayTriggerRememberedLKI | ConditionPresent$ Giant | ConditionCompare$ EQ0 | ValidTgts$ Any | NumDmg$ X | SubAbility$ DBGiantDamage
-SVar:DBGiantDamage:DB$ DealDamage | ConditionDefined$ DelayTriggerRememberedLKI | ConditionPresent$ Giant | ConditionCompare$ GE1 | Defined$ Targeted | NumDmg$ Y
-SVar:X:TriggerRemembered$CardPower
-SVar:Y:TriggerRemembered$CardPower/Times.2
-SVar:AIPreferenceParams:CreatureEvalThreshold$ 200
-SVar:HasAttackEffect:TRUE
+ManaCost:4 W
+Types:Creature Dwarf Warrior
+PT:4/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ DBFetch
+SVar:DBFetch:AB$ ChangeZone | Cost$ ExileFromGrave<1/Creature> | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Artifact.YouOwn,Enchantment.YouOwn

@@ -1,14 +1,11 @@
 Id:24176
-ColorIdentity:WUB
-OriginSet:G51fcb7ec0cb81c29
-ManaCost:1 W U B
-Types:Legendary Creature God
-PT:5/2
-S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ Indestructible | CheckSVar$ CurrentLife | SVarCompare$ LEX
-SVar:CurrentLife:Count$YourLifeTotal
-SVar:X:Count$YourStartingLife/HalfDown
-T:Mode$ ChangesZone | ValidCard$ Creature.!token+Other+YouCtrl | Origin$ Battlefield | Destination$ Graveyard | Execute$ DBAskOpponentDrawOrPlay | TriggerZones$ Battlefield
-SVar:DBAskOpponentDrawOrPlay:DB$ GenericChoice | ValidTgts$ Opponent | Choices$ DBDrawCard,DBCheatCreature
-SVar:DBDrawCard:DB$ Draw | Defined$ You | NumCards$ 1
-SVar:DBCheatCreature:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | ChangeType$ Creature.toughnessLEY | ChangeNum$ 1
-SVar:Y:TriggeredCard$CardToughness
+ColorIdentity:G
+OriginSet:G9afc9838c5e994df
+ManaCost:1 G
+Types:Creature Human Druid
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ Self | KW$ Deathtouch | SubAbility$ DBPumpAll
+SVar:DBPumpAll:DB$ PumpAll | ValidCards$ Creature.YouCtrl | KW$ Deathtouch | ConditionCheckSVar$ CreatureETBAmount | ConditionSVarCompare$ EQ2
+SVar:CreatureETBAmount:Count$ResolvedThisTurn
+SVar:BuffedBy:Creature

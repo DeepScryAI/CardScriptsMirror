@@ -1,13 +1,11 @@
 Id:24343
 ColorIdentity:
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:3
-Types:Artifact Vehicle
-PT:6/6
-K:Trample
-K:Ward:Discard<1/Card>
-T:Mode$ BecomesCrewed | ValidCard$ Card.Self | FirstTimeCrewed$ True | ValidCrewAmount$ 2 | Execute$ DBAnimate
-SVar:DBAnimate:DB$ Animate | Defined$ Self | Duration$ UntilEndOfTurn | Triggers$ TrigCDPlayer
-SVar:TrigCDPlayer:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ DBDraw | CombatDamage$ True | TriggerZones$ Battlefield
-SVar:DBDraw:DB$ Draw | NumCards$ 2
-K:Crew:4
+ManaCost:4
+Types:Artifact
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ ROPE
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Player | TriggerZones$ Battlefield | Execute$ TrigRope
+SVar:TrigRope:DB$ PutCounter | UnlessCost$ 2 | UnlessPayer$ TriggeredPlayer | UnlessSwitched$ True | Chooser$ TriggeredPlayer | Choices$ Creature.ControlledBy TriggeredPlayer | CounterType$ ROPE | UnlessResolveSubs$ WhenNotPaid | SubAbility$ CostNotPaid
+SVar:CostNotPaid:DB$ ChangeZoneAll | ChangeType$ Card.Self,Creature.counters_EQ0_ROPE | Origin$ Battlefield | Destination$ Exile | SubAbility$ DBRemoveRope
+SVar:DBRemoveRope:DB$ RemoveCounterAll | ValidCards$ Creature | CounterType$ ROPE | AllCounters$ True

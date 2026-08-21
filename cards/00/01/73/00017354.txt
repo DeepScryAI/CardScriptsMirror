@@ -1,9 +1,11 @@
 Id:17354
-ColorIdentity:R
+ColorIdentity:UBR
 OriginSet:Gaa482ed186eee527
-ManaCost:2 R
-Types:Creature Goblin Wizard
-PT:1/3
-K:Haste
-A:AB$ ChangeZone | Cost$ R T | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Instant.YouCtrl,Sorcery.YouCtrl
-A:AB$ Play | Cost$ 1 R T Sac<1/CARDNAME> | Valid$ Instant.ExiledWithSource,Sorcery.ExiledWithSource | ValidZone$ Exile | WithoutManaCost$ True | Amount$ All | Controller$ You | Optional$ True
+ManaCost:2 U B R
+Types:Legendary Creature Human Wizard
+PT:4/5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Wizard.YouCtrl+!token+Other | TriggerZones$ Command | PresentZone$ Command | IsPresent$ Card.StrictlySelf | Execute$ TrigCopyPermanent
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Wizard.YouCtrl+!token+Other | TriggerZones$ Battlefield | PresentZone$ Battlefield | IsPresent$ Card.StrictlySelf | Execute$ TrigCopyPermanent | Secondary$ True
+SVar:TrigCopyPermanent:AB$ CopyPermanent | Cost$ 1 | Defined$ TriggeredCardLKICopy | PumpKeywords$ Haste | AtEOT$ Exile
+A:AB$ LoseLife | Cost$ tapXType<5/Wizard> | ValidTgts$ Player | LifeAmount$ 7
+SVar:BuffedBy:Wizard

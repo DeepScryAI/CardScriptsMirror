@@ -1,13 +1,7 @@
 Id:9932
-ColorIdentity:WB
+ColorIdentity:B
 OriginSet:G6a049984467eca45
-ManaCost:2 WB WB WB
-Types:Creature Horror
-PT:3/4
-S:Mode$ Continuous | Affected$ Creature.White+Other+YouCtrl | AddPower$ 1 | AddToughness$ 1
-S:Mode$ Continuous | Affected$ Creature.Black+Other+YouCtrl | AddPower$ 1 | AddToughness$ 1
-T:Mode$ SpellCast | ValidCard$ Card.Black | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDestroy | OptionalDecider$ You
-T:Mode$ SpellCast | ValidCard$ Card.White | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigTap | OptionalDecider$ You
-SVar:TrigTap:DB$ Tap | ValidTgts$ Creature
-SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Creature | ConditionDefined$ Targeted | ConditionPresent$ Creature.tapped
-SVar:BuffedBy:Card.White,Card.Black
+ManaCost:1 B
+Types:Enchantment
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Creature.counters_GE1_M1M1

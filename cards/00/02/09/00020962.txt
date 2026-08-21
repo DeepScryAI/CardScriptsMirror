@@ -1,13 +1,10 @@
 Id:20962
-ColorIdentity:WG
-OriginSet:G2f853d6139309fb0
-ManaCost:2 W W
-Types:Legendary Creature Unicorn
-PT:4/4
-A:AB$ ChangeZone | Cost$ 3 | ValidTgts$ Creature.Other+YouCtrl | Origin$ Battlefield | Destination$ Exile | RememberTargets$ True | SubAbility$ DBReturn
-SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ All | Destination$ Battlefield | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.Other+YouCtrl | Execute$ TrigPutCounter | TriggerZones$ Battlefield
-SVar:TrigPutCounter:AB$ PutCounter | Cost$ GW | Defined$ TriggeredCardLKICopy | CounterType$ P1P1 | CounterNum$ X
-SVar:X:Count$Compare Y GE1.2.1
-SVar:Y:TriggeredCard$Valid Card.Unicorn
+ColorIdentity:U
+OriginSet:Gfd5e6da37c69dc53
+ManaCost:5 U U
+Types:Creature Whale
+PT:8/8
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 3310545417 | TokenOwner$ Opponent
+SVar:PlayMain1:TRUE
+S:Mode$ RaiseCost | ValidTarget$ Card.Self | Activator$ Opponent | Type$ Spell | Amount$ 3

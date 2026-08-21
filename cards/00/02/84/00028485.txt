@@ -1,11 +1,12 @@
 Id:28485
-ColorIdentity:G
-OriginSet:G7ee0e82a2424d636
-ManaCost:5 G G
-Types:Creature Spider
-PT:3/3
-K:Reach
-T:Mode$ ChangesZone | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCounter
-SVar:TrigCounter:DB$ PutCounter | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ 3 | SubAbility$ DBGainLife | TargetMin$ 1 | TargetMax$ 3 | DividedAsYouChoose$ 3
-SVar:DBGainLife:DB$ GainLife | LifeAmount$ X
-SVar:X:Count$Valid Creature.YouCtrl$GreatestCardToughness
+ColorIdentity:UB
+OriginSet:G94329e6b3f93276f
+ManaCost:1 U B
+Types:Legendary Creature Vampire Detective
+PT:1/3
+K:Flying
+K:Vigilance
+T:Mode$ Surveil | ValidPlayer$ You | Execute$ TrigPutCounter | TriggerZones$ Battlefield
+SVar:TrigPutCounter:DB$ PutCounter | CounterType$ P1P1
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouOwn+powerLTCount$CardPower | WithCountersType$ FINALITY

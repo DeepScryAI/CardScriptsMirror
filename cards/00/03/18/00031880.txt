@@ -1,17 +1,7 @@
 Id:31880
 ColorIdentity:W
 OriginSet:G7ab4f62d323b0ca7
-ManaCost:2 W
-Types:Enchantment
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPeek
-SVar:TrigPeek:DB$ PeekAndReveal | PeekAmount$ 1 | RevealValid$ Artifact,Creature | RevealOptional$ True | RememberRevealed$ True | SubAbility$ DBToHand
-SVar:DBToHand:DB$ ChangeZone | Defined$ Remembered | Origin$ Library | Destination$ Hand | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenScriptIds$ 134855612 | TokenOwner$ You | ConditionDefined$ Remembered | ConditionPresent$ Card.inZoneHand | ConditionCompare$ EQ1 | SubAbility$ DBTransform
-SVar:DBTransform:DB$ SetState | Defined$ Self | Mode$ Transform | ConditionDefined$ Remembered | ConditionPresent$ Card.inZoneHand | ConditionCompare$ EQ1 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Types:Land
-A:AB$ Mana | Cost$ T | Produced$ W | Amount$ 1
-A:AB$ PutCounterAll | Cost$ 3 T Sac<1/Artifact> | ValidCards$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1 | SorcerySpeed$ True
+ManaCost:1 W
+Types:Creature Cat Beast
+PT:2/2
+A:AB$ Tap | Cost$ 1 W T | ValidTgts$ Creature.nonEnchantment

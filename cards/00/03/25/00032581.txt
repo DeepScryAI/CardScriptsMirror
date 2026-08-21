@@ -1,11 +1,13 @@
 Id:32581
-ColorIdentity:BG
-OriginSet:G8a59924df6623252
-ManaCost:3 B G
-Types:Legendary Creature Human Survivor
-PT:4/4
-K:Menace
-K:Partner:Survivors
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.token | Execute$ TrigPutCounter | ActivationLimit$ 1
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterNum$ 1 | CounterType$ P1P1 | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw
+ColorIdentity:U
+OriginSet:G66b3a7eeabd9000e
+ManaCost:3 U
+Types:Legendary Creature Human Villain
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ X | TokenScriptIds$ 1751953109 | TokenOwner$ You | RememberTokens$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedLKI | Triggers$ TrigExile | Duration$ Permanent | ForgetOnMoved$ Battlefield | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:TrigExile:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.EffectSource | Execute$ ExileTwin
+SVar:ExileTwin:DB$ ChangeZone | Defined$ Remembered | Origin$ Battlefield | Destination$ Exile
+SVar:X:Count$Valid Villain.!token+YouCtrl

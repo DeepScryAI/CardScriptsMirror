@@ -1,11 +1,12 @@
 Id:32180
-ColorIdentity:U
-OriginSet:G9946f072b5556073
-ManaCost:3 U U
-Types:Legendary Creature Jellyfish Advisor
-PT:3/4
-K:Flying
-S:Mode$ Continuous | Affected$ Card.TopLibrary+YouCtrl | AffectedZone$ Library | MayLookAt$ You
-S:Mode$ Continuous | Affected$ Artifact.TopLibrary+YouCtrl+nonLand | AffectedZone$ Library | MayPlay$ True
-S:Mode$ Continuous | Affected$ Artifact.YouCtrl | AddAbility$ AnyMana
-SVar:AnyMana:AB$ Mana | Cost$ T | Produced$ U | Amount$ 1 | RestrictValid$ Spell.!wasCastFromYourHand
+ColorIdentity:WUR
+OriginSet:G8a59924df6623252
+ManaCost:1 U R W
+Types:Legendary Creature Hedgehog Warrior
+PT:2/4
+K:Haste
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPutCounterAll
+SVar:TrigPutCounterAll:DB$ PutCounterAll | ValidCards$ Creature.YouCtrl+withFlash,Creature.YouCtrl+withHaste | CounterType$ P1P1 | CounterNum$ 1
+T:Mode$ DamageDoneOnce | Execute$ TrigToken | ValidTarget$ Creature.YouCtrl+withFlash,Creature.YouCtrl+withHaste | TriggerZones$ Battlefield
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 3851718391 | TokenTapped$ True
+SVar:HasAttackEffect:TRUE

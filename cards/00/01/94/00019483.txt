@@ -1,12 +1,14 @@
 Id:19483
-ColorIdentity:R
+ColorIdentity:BR
 OriginSet:G9d37112ca6693432
-ManaCost:4 R
-Types:Creature Cyclops
-PT:4/4
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | TargetMin$ 0 | TargetMax$ 2 | KW$ HIDDEN CARDNAME can't block. | IsCurse$ True | ValidTgts$ Creature
-K:Cycling:1 R
-T:Mode$ Cycled | ValidCard$ Card.Self | Execute$ TrigCanNotBlock
-SVar:TrigCanNotBlock:DB$ Pump | ValidTgts$ Creature | KW$ HIDDEN CARDNAME can't block. | IsCurse$ True
+ManaCost:B R R
+Types:Creature Elemental Skeleton
+PT:6/1
+K:Haste
+K:Trample
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDiscard
+SVar:TrigDiscard:DB$ Discard | Defined$ TriggeredTarget | NumCards$ 2 | Mode$ TgtChoose
+T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice | SacValid$ Self
+SVar:EndOfTurnLeavePlay:True
 SVar:PlayMain1:TRUE

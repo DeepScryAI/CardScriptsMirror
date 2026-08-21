@@ -1,16 +1,12 @@
 Id:30029
-ColorIdentity:UG
-OriginSet:G30e4cc621dfc3a2e
-ManaCost:2 G U
-Types:Enchantment Class
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPeek
-SVar:TrigPeek:DB$ PeekAndReveal | PeekAmount$ 1 | RevealValid$ Land | RevealOptional$ True | RememberRevealed$ True | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ GE1 | TokenScriptIds$ 2753563426 | TokenOwner$ You | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-K:Class:2:G U:AddReplacementEffect$ SharkCatch
-SVar:SharkCatch:Event$ CreateToken | ActiveZones$ Battlefield | ValidPlayer$ You | ValidToken$ Fish | ReplaceWith$ TokenReplace1
-SVar:TokenReplace1:DB$ ReplaceToken | Type$ ReplaceToken | TokenScriptIds$ 3115458177
-K:Class:3:2 G U:AddReplacementEffect$ OctopusCatch
-SVar:OctopusCatch:Event$ CreateToken | ActiveZones$ Battlefield | ValidPlayer$ You | ValidToken$ Shark | ReplaceWith$ TokenReplace2
-SVar:TokenReplace2:DB$ ReplaceToken | Type$ ReplaceToken | TokenScriptIds$ 3388877773
+ColorIdentity:WB
+OriginSet:Gf09b85bbcc27770c
+ManaCost:W B
+Types:Enchantment
+T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | ValidPlayer$ You | CheckSVar$ X | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 1
+T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | ValidPlayer$ You | CheckSVar$ Y | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 3356756006 | TokenOwner$ You
+A:AB$ Draw | Cost$ 1 B PayLife<2> | NumCards$ 1
+SVar:X:Count$LifeYouGainedThisTurn
+SVar:Y:PlayerCountPropertyYou$LifeLostThisTurn/Times.X

@@ -1,9 +1,14 @@
 Id:25847
 ColorIdentity:WR
-OriginSet:Gb879a1706584aeee
-ManaCost:3 W
-Types:Legendary Creature Spirit Soldier
-PT:3/4
-K:Vigilance
-T:Mode$ BecomesTarget | ValidTarget$ Card.Self | ValidSource$ Ability.numTargets EQ1 | TriggerZones$ Battlefield | Execute$ TrigCopy
-SVar:TrigCopy:AB$ CopySpellAbility | Cost$ 1 RW | Defined$ TriggeredSourceSA | CopyForEachCanTarget$ Creature.YouCtrl
+OriginSet:G06ccef4324c14725
+ManaCost:1 R W
+Types:Legendary Creature Human Noble
+PT:2/3
+A:AB$ Discard | Cost$ 4 T | Defined$ You | RememberDiscarded$ True | Mode$ Hand | SubAbility$ DBDraw | SorcerySpeed$ True
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ X | SubAbility$ DBChooseCardOne
+SVar:DBChooseCardOne:DB$ ChooseCard | Defined$ You | Choices$ Artifact.IsRemembered+cmcEQ1,Creature.IsRemembered+cmcEQ1 | ImprintChosen$ True | ChoiceZone$ Graveyard,Exile | SubAbility$ DBChooseCardTwo
+SVar:DBChooseCardTwo:DB$ ChooseCard | Defined$ You | Choices$ Artifact.IsRemembered+cmcEQ2,Creature.IsRemembered+cmcEQ2 | ImprintChosen$ True | ChoiceZone$ Graveyard,Exile | SubAbility$ DBChooseCardThree
+SVar:DBChooseCardThree:DB$ ChooseCard | Defined$ You | Choices$ Artifact.IsRemembered+cmcEQ3,Creature.IsRemembered+cmcEQ3 | ImprintChosen$ True | ChoiceZone$ Graveyard,Exile | SubAbility$ DBChangeZoneAll
+SVar:DBChangeZoneAll:DB$ ChangeZone | Defined$ Imprinted | Origin$ Graveyard,Exile | Destination$ Battlefield | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True
+SVar:X:Remembered$Amount

@@ -1,8 +1,11 @@
 Id:24907
-ColorIdentity:UB
+ColorIdentity:WB
 OriginSet:G3a8b4b9d4649b357
-ManaCost:2 U
-Types:Sorcery
-K:Kicker:1 B
-A:SP$ Draw | NumCards$ 2 | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | Defined$ Opponent | NumCards$ 1 | Mode$ TgtChoose | Condition$ Kicked
+ManaCost:W B
+Types:Legendary Creature Phyrexian Kor Cleric
+PT:2/2
+K:Deathtouch
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigGainLife
+SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigDrain
+SVar:TrigDrain:DB$ LoseLife | Defined$ Opponent | LifeAmount$ 1

@@ -1,6 +1,16 @@
 Id:30869
-ColorIdentity:G
-OriginSet:G4524bbf7a3db9dc0
-ManaCost:2 G
-Types:Instant
-A:SP$ Pump | ValidTgts$ Creature | NumAtt$ +4 | NumDef$ +4 | KW$ Trample
+ColorIdentity:U
+OriginSet:Gc5a2f0ff902c0621
+ManaCost:1 U U
+Types:Legendary Planeswalker Kaito
+Loyalty:3
+T:Mode$ DamageDone | CombatDamage$ True | ValidSource$ Creature.YouCtrl | TriggerZones$ Battlefield | ValidTarget$ Player | Execute$ TrigLoyalty
+SVar:TrigLoyalty:DB$ PutCounter | Defined$ Self | CounterType$ LOYALTY | CounterNum$ 1
+A:AB$ Effect | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | StaticAbilities$ Unblockable | SubAbility$ DBDraw | TargetMin$ 0 | TargetMax$ 1 | AILogic$ MakeUnblockable | ValidTgts$ Creature.YouCtrl | RememberObjects$ Targeted | ExileOnMoved$ Battlefield
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+SVar:DBDraw:DB$ Draw | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Mode$ TgtChoose
+A:AB$ Token | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | TokenScriptIds$ 1970227813
+A:AB$ Effect | Cost$ SubCounter<9/LOYALTY> | Planeswalker$ True | Ultimate$ True | Stackable$ False | Name$ 16328985298665255070 | Triggers$ CastTrig | Duration$ Permanent | AILogic$ Always
+SVar:CastTrig:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ Player | Execute$ TrigToken | TriggerZones$ Command
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 1970227813

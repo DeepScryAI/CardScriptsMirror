@@ -1,8 +1,14 @@
 Id:33339
-ColorIdentity:G
-OriginSet:G8b2ed00ac2a0ff47
-Types:Legendary Creature Beast Survivor
-ManaCost:4 G
-PT:4/3
-T:Mode$ Phase | Phase$ Main | PhaseCount$ 2 | ValidPlayer$ You | PresentDefined$ Self | IsPresent$ Card.tapped | TriggerZones$ Battlefield | Execute$ TrigChangeZone
-SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | ChangeType$ Permanent.YouOwn
+ColorIdentity:R
+OriginSet:G7ab1fe96128a1641
+ManaCost:X R
+Types:Instant
+A:SP$ DealDamage | ValidTgts$ Creature | NumDmg$ X | SubAbility$ DBDelayedTrigger
+SVar:DBDelayedTrigger:DB$ DelayedTrigger | Mode$ ChangesZone | RememberObjects$ Targeted | ValidCard$ Card.IsTriggerRemembered | Origin$ Battlefield | Destination$ Graveyard | ThisTurn$ True | Execute$ TrigExile
+SVar:TrigExile:DB$ Dig | DigNum$ Y | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBChoose
+SVar:DBChoose:DB$ ChooseCard | Amount$ 1 | Mandatory$ True | Choices$ Card.IsRemembered | ChoiceZone$ Exile | SubAbility$ DBPlayEffect
+SVar:DBPlayEffect:DB$ Effect | StaticAbilities$ STPlay | Duration$ UntilTheEndOfYourNextTurn | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.ChosenCard | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True | ClearRemembered$ True
+SVar:X:Count$xPaid
+SVar:Y:TriggeredCard$CardPower

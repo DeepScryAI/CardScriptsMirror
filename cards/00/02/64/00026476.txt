@@ -1,9 +1,10 @@
 Id:26476
 ColorIdentity:G
-OriginSet:G06757f68e16377c2
-ManaCost:1 G
-Types:Creature Merfolk Scout
-PT:2/3
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player,Battle | CombatDamage$ True | Execute$ TrigSurveil
-SVar:TrigSurveil:DB$ Surveil | Amount$ 1 | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | Optional$ True | ChangeType$ Land.YouOwn | Origin$ Graveyard | Destination$ Battlefield | Hidden$ True | ChangeNum$ 1 | Tapped$ True
+OriginSet:G06ccef4324c14725
+ManaCost:1
+Types:Artifact Creature Insect
+PT:1/2
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigGainLife
+SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 3
+A:AB$ ChangeZone | Cost$ G Sac<1/CARDNAME> | ValidTgts$ Enchantment.nonCreature,Artifact.nonCreature | Origin$ Battlefield | Destination$ Exile
+SVar:SacMe:1

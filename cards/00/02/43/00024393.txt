@@ -1,17 +1,15 @@
 Id:24393
-ColorIdentity:B
+ColorIdentity:G
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:3 B
-Types:Creature Human Rogue Assassin
-PT:3/4
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigInitiative
-SVar:TrigInitiative:DB$ TakeInitiative
-R:Event$ Moved | ActiveZones$ Battlefield | Origin$ Battlefield | Destination$ Graveyard | ValidLKI$ Creature.OppCtrl | ReplaceWith$ Exile
-SVar:Exile:DB$ ChangeZone | Defined$ ReplacedCard | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | Defined$ Remembered | CounterType$ HIT | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigLoseLife | CheckSVar$ X
-SVar:TrigLoseLife:DB$ LoseLife | Defined$ TriggeredDefendingPlayer | LifeAmount$ Y
-SVar:X:DungeonsCompleted$Amount
-SVar:Y:TriggeredDefendingPlayer$ValidExile Card.YouOwn+counters_GE1_HIT
-SVar:HasAttackEffect:TRUE
+ManaCost:3 G
+Types:Enchantment
+T:Mode$ Phase | Phase$ Upkeep | TriggerZones$ Battlefield | ValidPlayer$ You | Execute$ TrigExile
+SVar:TrigExile:DB$ Dig | DigNum$ 4 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBRollDice
+SVar:DBRollDice:DB$ RollDice | Sides$ 20 | ResultSubAbilities$ 1-9:DBPutLand,10-19:DBToken,20:DBPutAll
+SVar:DBPutLand:DB$ ChangeZone | Origin$ Exile | Destination$ Battlefield | Hidden$ True | ChangeType$ Land.IsRemembered | SubAbility$ DBCleanup
+SVar:DBToken:DB$ Token | TokenScriptIds$ 4257275070 | ImprintTokens$ True | SubAbility$ DBPutCounters
+SVar:DBPutCounters:DB$ PutCounter | Defined$ Imprinted | CounterType$ P1P1 | CounterNum$ X | SubAbility$ DBCleanup
+SVar:X:Remembered$Valid Creature
+SVar:DBPutAll:DB$ ChangeZoneAll | ChangeType$ Card.ExiledWithSource | Origin$ Exile | Destination$ Battlefield | SubAbility$ DBSacrifice
+SVar:DBSacrifice:DB$ Sacrifice | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True

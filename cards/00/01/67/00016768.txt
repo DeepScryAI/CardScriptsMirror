@@ -1,9 +1,14 @@
 Id:16768
-ColorIdentity:
+ColorIdentity:B
 OriginSet:Gd31f94cf3a5f78e4
-ManaCost:6
-Types:Legendary Artifact
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigEnergy | TriggerZones$ Battlefield
-T:Mode$ ChangesZone | ValidCard$ Artifact.Other+YouCtrl | Origin$ Any | Destination$ Battlefield | Execute$ TrigEnergy | TriggerZones$ Battlefield | Secondary$ True
-SVar:TrigEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ 2
-A:AB$ AddTurn | Cost$ PayEnergy<8> Exile<1/CARDNAME> | NumTurns$ 1
+ManaCost:1 B
+Types:Creature Human Rogue
+PT:2/1
+K:Menace
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigEnergy
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigEnergy | Secondary$ True | TriggerZones$ Battlefield
+SVar:TrigEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ 1
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:AB$ Draw | Cost$ PayEnergy<2> | Defined$ You | NumCards$ 1 | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ 1
+SVar:HasAttackEffect:TRUE

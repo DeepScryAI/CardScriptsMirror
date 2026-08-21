@@ -1,7 +1,14 @@
 Id:33175
-ColorIdentity:WR
-OriginSet:G7ab1fe96128a1641
-ManaCost:1 RW RW
-Types:Legendary Creature Vampire Cleric
+ColorIdentity:R
+OriginSet:G731e0066916b7465
+ManaCost:3 R
+Types:Legendary Creature Human Rebel Ally
 PT:3/3
-A:AB$ CopySpellAbility | Cost$ tapXType<2/Creature> | TargetType$ Triggered.YouCtrl | ValidTgts$ Card,Emblem | MayChooseTarget$ True | ActivationLimit$ 1
+K:FirstStrike
+S:Mode$ Continuous | Affected$ Creature.Other+YouCtrl | AddKeyword$ Haste
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:AB$ Draw | Cost$ Discard<1/Hand> | NumCards$ X
+SVar:X:Count$Valid Creature.attacking
+SVar:PlayMain1:TRUE
+SVar:HasAttackEffect:TRUE
+SVar:BuffedBy:Creature.attacking

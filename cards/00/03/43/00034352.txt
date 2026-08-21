@@ -1,10 +1,11 @@
 Id:34352
-ColorIdentity:R
+ColorIdentity:W
 OriginSet:Gcb93bbfc68a40806
-ManaCost:4 R
-Types:Legendary Artifact Creature Human Hero
-PT:3/5
+ManaCost:2 W
+Types:Legendary Creature Human Bird Hero
+PT:1/2
 K:Flying
-T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPumpAll
-SVar:TrigPumpAll:DB$ PumpAll | ValidCards$ Creature.attacking+modified+YouCtrl | KW$ DoubleStrike
-SVar:HasAttackEffect:TRUE
+T:Mode$ DamageDone | ValidSource$ Card.Self | Execute$ TrigToken | CombatDamage$ True | ValidTarget$ Player | TriggerZones$ Battlefield
+SVar:TrigToken:DB$ Token | TokenAmount$ X | TokenScriptIds$ 2353112250 | TokenOwner$ You | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+SVar:X:TriggerCount$DamageAmount

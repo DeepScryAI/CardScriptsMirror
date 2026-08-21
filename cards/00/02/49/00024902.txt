@@ -1,11 +1,11 @@
 Id:24902
-ColorIdentity:UG
+ColorIdentity:G
 OriginSet:G3a8b4b9d4649b357
-ManaCost:2 G U
-Types:Legendary Creature Elf Scout
-PT:2/4
-K:Flying
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigDig | CombatDamage$ True
-SVar:TrigDig:DB$ Dig | DigNum$ X | Defined$ You | DestinationZone$ Library | RestRandomOrder$ True | LibraryPosition$ 0 | Optional$ True | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ5
-SVar:X:Count$Domain
+ManaCost:3 G G
+Types:Creature Phyrexian Wurm
+PT:6/6
+K:Trample
+S:Mode$ OptionalCost | ValidCard$ Permanent.Green | ValidSA$ Spell | Activator$ You | Cost$ PayLife<2> | ReduceColor$ G
+T:Mode$ SpellCast | ValidCard$ Permanent.Green | ValidActivatingPlayer$ You | Execute$ TrigCounters | TriggerZones$ Battlefield
+SVar:TrigCounters:DB$ PutCounterAll | ValidCards$ Creature.YouCtrl | CounterType$ P1P1
+SVar:BuffedBy:Permanent.Green

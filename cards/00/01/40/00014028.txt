@@ -1,9 +1,11 @@
 Id:14028
-ColorIdentity:W
+ColorIdentity:B
 OriginSet:Gdaee41baa388b0e7
-ManaCost:1 W
-Types:Creature Human Soldier
-PT:2/2
-S:Mode$ ReduceCost | ValidCard$ Aura | Type$ Spell | Activator$ You | Amount$ 1
-T:Mode$ SpellCast | ValidActivatingPlayer$ You | TargetsValid$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigCounters
-SVar:TrigCounters:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+ManaCost:1 B B
+Types:Enchantment Creature Demon
+PT:3/3
+K:Bestow:3 B B
+K:Flying
+S:Mode$ Continuous | Affected$ Card.EnchantedBy | AddKeyword$ Flying | AddPower$ 3 | AddToughness$ 3
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ 1

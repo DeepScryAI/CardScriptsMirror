@@ -2,10 +2,12 @@ Id:10709
 ColorIdentity:
 OriginSet:Gc860c737f2a60f83
 ManaCost:no cost
-Types:Plane Muraganda
-S:Mode$ ReduceCost | EffectZone$ Command | ValidCard$ Card.Green | Type$ Spell | Amount$ 1
-S:Mode$ ReduceCost | EffectZone$ Command | ValidCard$ Card.Red | Type$ Spell | Amount$ 1
-T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ Y
-SVar:Y:Targeted$CardManaCost
-SVar:AIRollPlanarDieParams:Mode$ Always | HasCreatureInPlay$ True
+Types:Plane Shandalar
+T:Mode$ TapsForMana | ValidCard$ Permanent | Execute$ TrigMana | TriggerZones$ Command | Static$ True
+SVar:TrigMana:DB$ ManaReflected | ColorOrType$ Type | ReflectProperty$ Produced | Defined$ TriggeredActivator
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos
+SVar:RolledChaos:DB$ Effect | ValidTgts$ Player | IsCurse$ True | StaticAbilities$ STCantCast | Triggers$ TrigPlaneswalk | RememberObjects$ Targeted | Duration$ Permanent
+SVar:STCantCast:Mode$ CantBeCast | ValidCard$ Card | Caster$ Player.IsRemembered
+SVar:TrigPlaneswalk:Mode$ PlaneswalkedTo | Execute$ ExileSelf | Static$ True
+SVar:ExileSelf:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile
+SVar:AIRollPlanarDieParams:Mode$ Always

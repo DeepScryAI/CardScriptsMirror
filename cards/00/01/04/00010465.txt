@@ -1,7 +1,10 @@
 Id:10465
-ColorIdentity:WG
+ColorIdentity:WUG
 OriginSet:G9445ff04667ca5ba
-ManaCost:1 G W
-Types:Creature Rhino Soldier
-PT:3/3
-A:AB$ PumpAll | Cost$ Sac<1/CARDNAME> | ValidCards$ Creature.YouCtrl | KW$ Indestructible
+ManaCost:GU W
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Curse
+S:Mode$ CantAttack,CantBlock | ValidCard$ Creature.EnchantedBy
+T:Mode$ BecomesTarget | ValidTarget$ Card.AttachedBy | TriggerZones$ Battlefield | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Defined$ TriggeredTargetLKICopy | Origin$ Battlefield | Destination$ Exile

@@ -1,9 +1,12 @@
 Id:23806
-ColorIdentity:R
-OriginSet:G5f5d8cfb206e2fac
-ManaCost:3 R
-Types:Enchantment
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | Execute$ TrigDig | TriggerZones$ Battlefield
-SVar:TrigDig:AB$ Dig | Cost$ Sac<1/Creature> | ForceRevealToController$ True | DigNum$ X | Optional$ True | DestinationZone$ Battlefield | ChangeValid$ Creature | AILogic$ SacAndUpgrade | RestRandomOrder$ True
-SVar:X:Sacrificed$CardManaCost
-SVar:AIPreference:SacCost$Creature.!token+cmcGE1
+ColorIdentity:G
+OriginSet:Gd970889168b5769f
+ManaCost:3 G
+Types:Enchantment Aura
+K:Starting intensity:1
+K:Enchant:Land
+SVar:AttachAILogic:Pump
+T:Mode$ TapsForMana | ValidCard$ Card.EnchantedBy | TriggerZones$ Battlefield | Execute$ TrigMana
+SVar:TrigMana:DB$ Mana | Produced$ G | Amount$ X | Defined$ TriggeredCardController | SubAbility$ DBIntensify
+SVar:DBIntensify:DB$ Intensify
+SVar:X:Count$Intensity

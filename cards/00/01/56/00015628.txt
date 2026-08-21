@@ -1,10 +1,15 @@
 Id:15628
-ColorIdentity:WB
+ColorIdentity:W
 OriginSet:Gc1f5e527f9d411df
-ManaCost:1 W B
-Types:Legendary Creature Zombie Soldier
-PT:2/2
-T:Mode$ SpellCast | ValidCard$ Enchantment | ValidActivatingPlayer$ You | Execute$ TrigPutCounter | TriggerZones$ Battlefield
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ You | CounterType$ Experience | CounterNum$ 1
-A:AB$ Token | Cost$ 1 W B | TokenScriptIds$ 3064455052 | TokenOwner$ You
-SVar:BuffedBy:Enchantment
+ManaCost:4 W W
+Types:Creature Angel
+PT:5/5
+K:Flying
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ DBChooseCard
+SVar:DBChooseCard:DB$ ChooseCard | Choices$ Creature.OppCtrl | ChoiceZone$ Graveyard | AILogic$ WorstCard | Mandatory$ True | Defined$ You | RememberChosen$ True | SubAbility$ DBChoosePlayer
+SVar:DBChoosePlayer:DB$ ChoosePlayer | Choices$ Player.Opponent | Defined$ You | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ0 | AILogic$ LeastCreatures | SubAbility$ DBChoosePlayer2
+SVar:DBChoosePlayer2:DB$ ChoosePlayer | Choices$ ChosenCardController | Defined$ You | ConditionCheckSVar$ X | AILogic$ LeastCreatures | SubAbility$ DBChooseCard2
+SVar:DBChooseCard2:DB$ ChooseCard | Choices$ Creature.YouCtrl | ChoiceZone$ Graveyard | Defined$ ChosenPlayer | AILogic$ WorstCard | Mandatory$ True | RememberChosen$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered | Origin$ Graveyard | Destination$ Battlefield | Optional$ True | OptionQuestion$ Return TARGETS from graveyard to battlefield under their owners' control? | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True | ClearChosenPlayer$ True | ClearRemembered$ True
+SVar:X:Count$ValidGraveyard Card.Chosen

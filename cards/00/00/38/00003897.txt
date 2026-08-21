@@ -1,7 +1,11 @@
 Id:3897
-ColorIdentity:B
+ColorIdentity:G
 OriginSet:G3da30095b68d8df0
-ManaCost:3 B
-Types:Creature Phyrexian Skeleton
-PT:2/2
-A:AB$ Regenerate | Cost$ B
+ManaCost:3 G
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.AttachedBy | Execute$ TrigSearch
+SVar:TrigSearch:DB$ ChangeZone | Optional$ True | DefinedPlayer$ TriggeredCardController | ChangeType$ Creature | ChangeNum$ 1 | Hidden$ True | Origin$ Library | Destination$ Battlefield | ShuffleNonMandatory$ True
+S:Mode$ Continuous | Affected$ Creature.AttachedBy | AddSVar$ Sac
+SVar:Sac:SVar:SacMe:5

@@ -1,19 +1,12 @@
 Id:26441
-ColorIdentity:BR
-OriginSet:G06757f68e16377c2
-ManaCost:1 B B
-Types:Legendary Creature Elf Noble
-PT:3/3
-A:AB$ DealDamage | Cost$ T Sac<1/Creature.Other;Artifact.Other/another creature or artifact> | ValidTgts$ Opponent,Battle | SubAbility$ DBGainLife | NumDmg$ X
-SVar:DBGainLife:DB$ GainLife | LifeAmount$ X
-SVar:X:Sacrificed$CardManaCost
-A:AB$ SetState | Cost$ 5 RP | Defined$ Self | Mode$ Transform | SorcerySpeed$ True | AILogic$ Always
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:black,red
-Types:Legendary Creature Phyrexian Elf Noble
-PT:4/4
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigChangeZone
-SVar:TrigChangeZone:DB$ ChangeZone | ValidTgts$ Artifact.YouOwn,Creature.YouOwn | TargetMin$ 0 | TargetMax$ 1 | Origin$ Graveyard | Destination$ Battlefield | SubAbility$ DBAnimate
-SVar:DBAnimate:DB$ Animate | Keywords$ Haste | Defined$ Targeted | Duration$ Permanent | AtEOT$ Exile
+ColorIdentity:B
+OriginSet:G74a73d701e7801b3
+ManaCost:2 B
+Types:Creature Phyrexian Imp
+PT:2/2
+K:Flying
+K:Toxic:1
+A:AB$ Pump | Cost$ B | KW$ Haste | Defined$ Self
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigSeek | CombatDamage$ True
+SVar:TrigSeek:DB$ Seek | Type$ Card.cmcEQX
+SVar:X:TriggeredTarget$Counters.Poison

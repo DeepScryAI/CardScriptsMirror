@@ -1,10 +1,14 @@
 Id:28104
-ColorIdentity:B
-OriginSet:Gfd50577710a6ab09
-ManaCost:1 B
-Types:Artifact
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigDraw | Secondary$ True
-SVar:TrigDraw:DB$ Draw | Defined$ TriggeredCardController | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 1
-SVar:SacMe:4
+ColorIdentity:UG
+OriginSet:G06c78c29bfb28e3d
+ManaCost:4 G U
+Types:Legendary Creature Salamander Serpent
+PT:6/6
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPutCounter
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPutCounter | Secondary$ True
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Land | CounterType$ FLOOD | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ Targeted | StaticAbilities$ FountainStatic | ForgetOnMoved$ Battlefield | ForgetCounter$ FLOOD | Duration$ Permanent
+SVar:FountainStatic:Mode$ Continuous | Affected$ Card.IsRemembered | AddType$ Island
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigUntap
+SVar:TrigUntap:DB$ UntapAll | ValidCards$ Permanent.YouCtrl+HasCounters
+SVar:HasAttackEffect:TRUE

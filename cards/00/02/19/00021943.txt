@@ -1,9 +1,9 @@
 Id:21943
-ColorIdentity:W
-OriginSet:Gd784248bfdf9e1d7
-ManaCost:3 W
-Types:Creature Bird Cleric
-PT:2/3
-K:Flying
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.YouCtrl | NumAtt$ +1 | KW$ Vigilance
+ColorIdentity:BG
+OriginSet:G6fa60d857e930f32
+ManaCost:1 B B B G G G
+Types:Instant
+A:SP$ ChangeZoneAll | ChangeType$ Card.YouCtrl | Origin$ Hand | Destination$ Graveyard | RememberChanged$ True | SubAbility$ DBChangeZoneAll
+SVar:DBChangeZoneAll:DB$ ChangeZoneAll | ChangeType$ Card.YouCtrl+!IsRemembered | Origin$ Graveyard | Destination$ Hand | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Stack | Destination$ Exile | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

@@ -1,7 +1,11 @@
 Id:32216
-ColorIdentity:G
+ColorIdentity:U
 OriginSet:G9946f072b5556073
-ManaCost:G
-Types:Sorcery
-A:SP$ GainLife | LifeAmount$ 2 | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenScriptIds$ 2258507865 | TokenOwner$ You
+ManaCost:U
+Types:Artifact Equipment
+K:Equip:2
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1
+T:Mode$ Attacks | ValidCard$ Creature.EquippedBy | Execute$ TrigUnblockable
+SVar:TrigUnblockable:DB$ Effect | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable | AILogic$ Pump | SubAbility$ DBAnimate
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+SVar:DBAnimate:DB$ Animate | Defined$ Targeted | Power$ 1 | Toughness$ 1

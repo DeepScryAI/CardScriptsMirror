@@ -1,8 +1,14 @@
 Id:31960
-ColorIdentity:WG
+ColorIdentity:WR
 OriginSet:G7ab4f62d323b0ca7
-ManaCost:no cost
-Types:Land Town
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
-A:AB$ Mana | Cost$ T | Produced$ Combo G W
+ManaCost:1 R W
+Types:Legendary Creature Human Soldier
+PT:3/2
+K:FirstStrike
+K:Trample
+K:Lifelink
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigEffect | CombatDamage$ True
+SVar:TrigEffect:DB$ Effect | ReplacementEffects$ Stagger | RememberObjects$ TriggeredTarget | Duration$ UntilYourNextTurn
+SVar:Stagger:Event$ DamageDone | ActiveZones$ Command | ValidSource$ Card,Emblem | ValidTarget$ Player.IsRemembered,Permanent.ControlledBy Player.IsRemembered | ReplaceWith$ DmgTwice
+SVar:DmgTwice:DB$ ReplaceEffect | VarName$ DamageAmount | VarValue$ StaggerX
+SVar:StaggerX:ReplaceCount$DamageAmount/Twice

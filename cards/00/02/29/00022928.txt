@@ -2,17 +2,12 @@ Id:22928
 ColorIdentity:R
 OriginSet:Gf78628ad511eefec
 ManaCost:2 R
-Types:Creature Human Werewolf
-PT:2/3
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.YouCtrl | NumAtt$ +1 | KW$ Haste
-K:Daybound
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:red
-Types:Creature Werewolf
-PT:3/4
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.YouCtrl | NumAtt$ +2 | KW$ Trample & Haste
-K:Nightbound
+Types:Artifact
+T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigCharge
+SVar:TrigCharge:DB$ PutCounter | Defined$ Self | CounterType$ CHARGE | CounterNum$ 1
+A:AB$ DealDamage | Cost$ 1 R T SubCounter<X/CHARGE> | NumDmg$ X | ValidTgts$ Any
+SVar:X:Count$xPaid
+A:AB$ Dig | Cost$ 1 R T | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect | AILogic$ ExileAndPlayUntilEOT
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ Play | SubAbility$ DBCleanup | ExileOnMoved$ Exile
+SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

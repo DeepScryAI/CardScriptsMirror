@@ -1,9 +1,11 @@
 Id:32188
-ColorIdentity:R
-OriginSet:G9946f072b5556073
-ManaCost:6 R
-Types:Creature Dragon
+ColorIdentity:G
+OriginSet:G7856e27bce45729f
+ManaCost:G
+Types:Artifact Spacecraft
 PT:4/4
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDealDamage
-SVar:TrigDealDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 3
+K:Station:8
+S:Mode$ Continuous | Affected$ Card.Self+counters_GE3_CHARGE | AddStaticAbility$ ExplorationStatic
+SVar:ExplorationStatic:Mode$ Continuous | Affected$ You | AdjustLandPlays$ 1
+S:Mode$ Continuous | Affected$ Card.Self+counters_GE8_CHARGE | AddType$ Creature | AddKeyword$ Flying | AddStaticAbility$ BroodshipStatic
+SVar:BroodshipStatic:Mode$ Continuous | Affected$ Permanent.nonLand+YouOwn | Condition$ PlayerTurn | MayPlay$ True | MayPlayLimit$ 1 | RaiseCost$ Sac<1/Land> | EffectZone$ Battlefield | AffectedZone$ Graveyard

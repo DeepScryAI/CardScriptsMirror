@@ -1,8 +1,9 @@
 Id:34356
 ColorIdentity:U
 OriginSet:Gcb93bbfc68a40806
-ManaCost:X U U
+ManaCost:2 U
 Types:Sorcery
-A:SP$ Draw | NumCards$ X | SubAbility$ DBPlay
-SVar:DBPlay:DB$ Play | Valid$ Card | ValidSA$ Spell.Hero+YouOwn | ValidZone$ Hand | WithoutManaCost$ True | Amount$ 1 | Controller$ You | Optional$ True | ConditionCheckSVar$ X | ConditionSVarCompare$ GE5
-SVar:X:Count$xPaid
+A:SP$ Charm | Choices$ DBBounce,DBReturn
+SVar:DBBounce:DB$ ChangeZone | ValidTgts$ Permanent.nonLand | TgtZone$ Battlefield | Origin$ Battlefield | Destination$ Hand
+SVar:DBReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Instant.YouOwn,Sorcery.YouOwn
+K:Rebound

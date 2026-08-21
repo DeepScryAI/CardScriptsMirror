@@ -1,0 +1,15 @@
+Id:30110
+ColorIdentity:WB
+OriginSet:Gf09b85bbcc27770c
+ManaCost:3 W B
+Types:Creature Bat Warlock
+PT:3/5
+K:Flying
+K:Vigilance
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ X | Execute$ TrigGenericChoice
+SVar:TrigGenericChoice:DB$ GenericChoice | ValidTgts$ Opponent | Choices$ PaySac,PayDiscard | FallbackAbility$ LoseLifeFallback | AILogic$ PayUnlessCost
+SVar:PaySac:DB$ LoseLife | LifeAmount$ 3 | Defined$ Targeted | UnlessCost$ Sac<1/Permanent.nonLand/nonland permanent> | UnlessPayer$ Targeted
+SVar:PayDiscard:DB$ LoseLife | LifeAmount$ 3 | Defined$ Targeted | UnlessCost$ Discard<1/Card> | UnlessPayer$ Targeted
+SVar:LoseLifeFallback:DB$ LoseLife | Defined$ Targeted | LifeAmount$ 3
+SVar:X:Count$LifeYouGainedThisTurn/Plus.Y
+SVar:Y:PlayerCountPropertyYou$LifeLostThisTurn

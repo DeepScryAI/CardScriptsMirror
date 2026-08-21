@@ -1,11 +1,10 @@
 Id:27828
 ColorIdentity:
 OriginSet:G30e8a5e111cffb44
-ManaCost:no cost
-Types:Plane The Library
-S:Mode$ Continuous | EffectZone$ Command | Affected$ Player | SetMaxHandSize$ Unlimited
-T:Mode$ DamageDone | ValidSource$ Creature.YouCtrl | ValidTarget$ Player | CombatDamage$ True | OptionalDecider$ You | TriggerZones$ Command | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw
-T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos
-SVar:RolledChaos:DB$ PutCounter | CounterType$ Shadow | ValidTgts$ Creature
-SVar:AIRollPlanarDieParams:Mode$ Always | HasCreatureInPlay$ True | RollInMain1$ True
+ManaCost:2
+Types:Artifact Creature Robot
+PT:3/1
+S:Mode$ OptionalAttackCost | ValidCard$ Card.Self | Trigger$ TrigEffect | Cost$ Exert<1/CARDNAME>
+SVar:TrigEffect:DB$ Effect | StaticAbilities$ Unblockable | SubAbility$ DBScry
+SVar:DBScry:DB$ Scry | ScryNum$ 1
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.EffectSource

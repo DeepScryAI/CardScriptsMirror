@@ -1,8 +1,9 @@
 Id:14155
 ColorIdentity:R
 OriginSet:Gc18355312510df89
-ManaCost:R
-Types:Sorcery
-K:Strive:R
-A:SP$ Pump | ValidTgts$ Creature | KW$ HIDDEN CARDNAME can't block. | IsCurse$ True | TargetMin$ 0 | TargetMax$ MaxTargets
-SVar:MaxTargets:Count$Valid Creature
+ManaCost:7 R
+Types:Creature Giant
+PT:10/10
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ DelTrigLeaves
+SVar:DelTrigLeaves:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ TrigDestroyAll
+SVar:TrigDestroyAll:DB$ DestroyAll | ValidCards$ Permanent

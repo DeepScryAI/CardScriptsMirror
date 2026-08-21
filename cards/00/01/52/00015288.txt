@@ -1,11 +1,11 @@
 Id:15288
-ColorIdentity:B
+ColorIdentity:R
 OriginSet:G70acd28f254172ff
-ManaCost:1 B
+ManaCost:1 R
 Types:Enchantment Aura
 K:Enchant:Creature
 SVar:AttachAILogic:Pump
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 2 | AddTrigger$ TrigDraw | AddSVar$ InfernalDraw
-SVar:TrigDraw:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ InfernalDraw | TriggerController$ TriggeredCardController
-SVar:InfernalDraw:DB$ Draw | Defined$ TriggeredCardController
-SVar:PlayMain1:TRUE
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 2 | AddToughness$ 1 | AddKeyword$ Haste
+S:Mode$ MustAttack | ValidCreature$ Creature.EnchantedBy | Secondary$ True
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.AttachedBy | Execute$ TrigChange | OptionalDecider$ You
+SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Card.catalogId15288 | ChangeNum$ 1 | ShuffleNonMandatory$ True

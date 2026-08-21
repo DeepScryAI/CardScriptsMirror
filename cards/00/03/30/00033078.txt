@@ -1,21 +1,11 @@
 Id:33078
-ColorIdentity:WG
-OriginSet:G7ab1fe96128a1641
-ManaCost:2 W
-Types:Legendary Creature Kithkin Warrior
-PT:3/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
-T:Mode$ Transformed | ValidCard$ Card.Self | Execute$ TrigToken | Secondary$ True
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 2841281128
-T:Mode$ Phase | Phase$ Main1 | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigTransform
-SVar:TrigTransform:AB$ SetState | Cost$ G | Defined$ Self | Mode$ Transform
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:green
-Types:Legendary Creature Kithkin Soldier
-PT:3/2
-A:AB$ Mana | Cost$ T | Produced$ Combo G W | Each$ X
-T:Mode$ Phase | Phase$ Main1 | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigTransform
-SVar:TrigTransform:AB$ SetState | Cost$ W | Defined$ Self | Mode$ Transform
-SVar:X:Count$Valid Creature.Other+YouCtrl
+ColorIdentity:R
+OriginSet:G22ed5d6f3707b461
+ManaCost:3 R
+Types:Legendary Creature Human Noble
+PT:4/3
+K:Firebending:3
+A:AB$ Dig | Cost$ 3 | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | Defined$ You | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ EffSModeContinuous | ExileOnMoved$ Exile | RememberObjects$ Remembered | SubAbility$ DBCleanup
+SVar:EffSModeContinuous:Mode$ Continuous | Affected$ Card.IsRemembered | MayPlay$ True | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

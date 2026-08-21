@@ -1,7 +1,10 @@
 Id:4258
-ColorIdentity:B
+ColorIdentity:R
 OriginSet:Gdd40b2fbd2aa3c03
-ManaCost:3 B B
-Types:Creature Beast
-PT:3/3
-A:AB$ DamageAll | Cost$ B | NumDmg$ 1 | ValidCards$ Creature | ValidPlayers$ Player
+ManaCost:4 R R R
+Types:Sorcery
+A:SP$ ChangeZoneAll | ChangeType$ Permanent.!token | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBRepeatChoose
+SVar:DBRepeatChoose:DB$ Repeat | RepeatSubAbility$ DBRepeat | RepeatDefined$ Remembered | RepeatPresent$ Card
+SVar:DBRepeat:DB$ RepeatEach | StartingWith$ You | RepeatPlayers$ Player | RepeatSubAbility$ DBChoose
+SVar:DBChoose:DB$ ChooseCard | Defined$ Player.IsRemembered | Choices$ Card.IsRemembered | ForgetChosen$ True | ChoiceZone$ Exile | SubAbility$ DBGainControl
+SVar:DBGainControl:DB$ ChangeZone | Origin$ Exile | Destination$ Battlefield | Defined$ ChosenCard | GainControl$ Player.IsRemembered | Tapped$ True

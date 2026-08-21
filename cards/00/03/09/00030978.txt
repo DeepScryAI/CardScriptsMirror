@@ -1,13 +1,10 @@
 Id:30978
 ColorIdentity:G
-OriginSet:G4524bbf7a3db9dc0
-ManaCost:2 G
-Types:Artifact Vehicle
-PT:*/4
-S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone | OptionalDecider$ You
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigChangeZone | TriggerZones$ Battlefield | OptionalDecider$ You | Secondary$ True
-SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | Tapped$ True | ChangeType$ Land.Basic
-K:Crew:4
-SVar:X:Count$Valid Land.YouCtrl
-SVar:BuffedBy:Land
+OriginSet:G2c8286a6f234d4b9
+ManaCost:3 G
+Types:Legendary Creature Elf Druid
+PT:3/3
+S:Mode$ Continuous | Affected$ Elf.YouCtrl | AddTrigger$ TrigTapped
+SVar:TrigTapped:Mode$ Taps | ValidCard$ Card.Self | TriggerZones$ Battlefield | ActivationLimit$ 1 | PlayerTurn$ True | Execute$ TrigUntap
+SVar:TrigUntap:DB$ Untap | Defined$ Self | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1

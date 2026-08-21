@@ -1,11 +1,14 @@
 Id:24826
-ColorIdentity:W
-OriginSet:G3a8b4b9d4649b357
-ManaCost:3 W W
-Types:Creature Phyrexian Human
-PT:5/5
-K:Vigilance
-S:Mode$ OptionalCost | ValidCard$ Permanent.White | ValidSA$ Spell | Activator$ You | Cost$ PayLife<2> | ReduceColor$ W
-T:Mode$ SpellCast | ValidCard$ Permanent.White | ValidActivatingPlayer$ You | Execute$ TrigToken | TriggerZones$ Battlefield
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 1214250791
-SVar:BuffedBy:Permanent.White
+ColorIdentity:UB
+OriginSet:G3c9db52fa0bcee92
+ManaCost:2 U B
+Types:Legendary Creature Human Pirate
+PT:4/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | LifeAmount$ 2 | SubAbility$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 3851718391
+T:Mode$ DamageDoneOnce | ValidSource$ Pirate.YouCtrl | TriggerZones$ Battlefield | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDig
+SVar:TrigDig:DB$ Dig | Defined$ TriggeredTarget | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | ForgetOnMoved$ Exile | RememberObjects$ Remembered | Duration$ Permanent | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered+nonLand | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

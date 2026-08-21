@@ -1,20 +1,12 @@
 Id:22814
-ColorIdentity:WU
-OriginSet:Gf78628ad511eefec
-ManaCost:W U
-Types:Legendary Creature Human Soldier
-PT:2/3
-K:Lifelink
-S:Mode$ CantTarget | AffectedZone$ Graveyard
-K:Disturb:2 W U
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:white,blue
-Types:Legendary Creature Spirit Soldier
-PT:3/2
-K:Flying
-T:Mode$ ChangesZoneAll | ValidCards$ Creature.!token | Origin$ Any | Destination$ Graveyard | TriggerZones$ Battlefield | ActivationLimit$ 1 | Execute$ TrigInvestigate
-SVar:TrigInvestigate:DB$ Investigate
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Graveyard | ReplaceWith$ Exile
-SVar:Exile:DB$ ChangeZone | Hidden$ True | Origin$ All | Destination$ Exile | Defined$ ReplacedCard
+ColorIdentity:B
+OriginSet:G66f2eb694ffd614a
+ManaCost:4 B
+Types:Creature Zombie Horror
+PT:4/5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSacZom
+SVar:TrigSacZom:DB$ Sacrifice | Defined$ You | Optional$ True | Amount$ 3 | SacValid$ Zombie | RememberSacrificed$ True | SubAbility$ DBImmediateTrigger
+SVar:DBImmediateTrigger:DB$ ImmediateTrigger | Execute$ TrigSac | ConditionDefined$ RememberedLKI | ConditionPresent$ Zombie | RememberObjects$ RememberedLKI | SubAbility$ DBCleanup
+SVar:TrigSac:DB$ Sacrifice | Defined$ Opponent | SacValid$ Creature | Amount$ X
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:TriggerRemembered$Amount

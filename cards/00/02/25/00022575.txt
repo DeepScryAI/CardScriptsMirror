@@ -1,12 +1,12 @@
 Id:22575
-ColorIdentity:W
+ColorIdentity:WR
 OriginSet:G9f95a41d532c0550
-ManaCost:W
+ManaCost:R W
 Types:Enchantment Class
-S:Mode$ RaiseCost | ValidCard$ Card | Activator$ Opponent | ValidSpell$ Spell | Amount$ 1 | Condition$ PlayerTurn
-K:Class:2:2 W:AddStaticAbility$ SPump
-SVar:SPump:Mode$ Continuous | Affected$ Creature.YouCtrl | AddPower$ 1 | AddToughness$ 1 | Secondary$ True
-K:Class:3:4 W:AddTrigger$ TriggerAttackersDeclared
-SVar:TriggerAttackersDeclared:Mode$ AttackersDeclared | AttackingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump | Secondary$ True
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.attacking | NumAtt$ +X | NumDef$ +X | KW$ DoubleStrike
-SVar:X:Count$Valid Creature.attacking/Minus.1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Card.Equipment | ChangeNum$ 1
+K:Class:2:1 R W:AddStaticAbility$ SReduceCost
+SVar:SReduceCost:Mode$ ReduceCost | ValidCard$ Card | ValidSpell$ Activated.Equip | Activator$ You | Amount$ 2 | Secondary$ True
+K:Class:3:3 R W:AddTrigger$ TriggerAttacks
+SVar:TriggerAttacks:Mode$ Attacks | ValidCard$ Creature.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigMustBlock | Secondary$ True
+SVar:TrigMustBlock:DB$ MustBlock | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | DefinedAttacker$ TriggeredAttackerLKICopy | BlockAllDefined$ True | Duration$ UntilEndOfCombat

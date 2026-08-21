@@ -1,11 +1,13 @@
 Id:34003
-ColorIdentity:UR
-OriginSet:Gcb93bbfc68a40806
-ManaCost:2 UR UR
-Types:Legendary Creature Spider Human Hero
-PT:4/4
-K:Reach
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDraw
-SVar:TrigDraw:AB$ Draw | Cost$ Discard<1/Hand> | NumCards$ X
-SVar:X:PlayerCountPropertyYou$CardsDiscardedThisTurn
-SVar:HasAttackEffect:TRUE
+ColorIdentity:UG
+OriginSet:Gf8df2bea26dc6b68
+ManaCost:3 G U
+Types:Creature Elf Wizard
+PT:3/3
+K:Ward:2
+K:Increment
+T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | CheckSVar$ X | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 1802199211 | TokenOwner$ You | SubAbility$ DBPutCounter | RememberTokens$ True
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Remembered | CounterType$ P1P1 | CounterNum$ 3 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$CountersAddedThisTurn Any You Card.Self

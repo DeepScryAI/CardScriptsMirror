@@ -1,10 +1,11 @@
 Id:3280
-ColorIdentity:R
+ColorIdentity:B
 OriginSet:G24ae8187eacbba52
-ManaCost:1 R R
+ManaCost:1 B
 Types:Enchantment Aura
 K:Enchant:Creature
-SVar:AttachAITgts:Card.powerGE1
-SVar:AttachAILogic:Pump
-T:Mode$ DamageDone | ValidSource$ Card.AttachedBy | ValidTarget$ Player | Execute$ TrigSacrifice | CombatDamage$ True
-SVar:TrigSacrifice:DB$ Sacrifice | Defined$ TriggeredTarget | SacValid$ Land | ChangeNum$ 1
+SVar:AttachAILogic:Curse
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ -2
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | Defined$ TriggeredNewCardLKICopy
+SVar:SacMe:2

@@ -1,9 +1,10 @@
 Id:32835
-ColorIdentity:WB
-OriginSet:G22ed5d6f3707b461
-ManaCost:W B
-Types:Enchantment
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigClue
-SVar:TrigClue:DB$ Token | TokenScriptIds$ 2822783804 | TokenOwner$ You
-T:Mode$ Sacrificed | ValidCard$ Permanent.YouCtrl | Execute$ TrigAlly | TriggerZones$ Battlefield | ValidPlayer$ You | PlayerTurn$ True | ActivationLimit$ 1
-SVar:TrigAlly:DB$ Token | TokenScriptIds$ 2356312553
+ColorIdentity:B
+OriginSet:G36e97d2da170e675
+ManaCost:1 B B
+Types:Sorcery
+S:Mode$ RaiseCost | ValidCard$ Card.Self | Activator$ You | Type$ Spell | Cost$ Waterbend<X> | EffectZone$ All
+A:SP$ ChangeZone | Announce$ X | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Creature | TargetMin$ X | TargetMax$ X | SubAbility$ DBClone | RememberChanged$ True
+SVar:DBClone:DB$ CopyPermanent | Defined$ Remembered | AtEOT$ YourSacrifice | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$xPaid

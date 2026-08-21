@@ -1,8 +1,10 @@
 Id:19369
-ColorIdentity:
-OriginSet:G9d37112ca6693432
-ManaCost:S
-Types:Snow Artifact
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
-A:AB$ Mana | Cost$ 1 T | Produced$ Any
+ColorIdentity:G
+OriginSet:Gb6b8d78626a44788
+ManaCost:4 G
+Types:Sorcery
+A:SP$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +2 | NumDef$ +2 | SubAbility$ DBAnimateAll
+SVar:DBAnimateAll:DB$ AnimateAll | ValidCards$ Creature.YouCtrl | Triggers$ Trig
+SVar:Trig:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player,Planeswalker | CombatDamage$ True | Execute$ Eff
+SVar:Eff:DB$ Destroy | ValidTgts$ Artifact,Enchantment | TargetsWithDefinedController$ TriggeredDefendingPlayer | TargetMin$ 0 | TargetMax$ 1
+SVar:PlayMain1:TRUE

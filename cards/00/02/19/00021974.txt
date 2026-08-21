@@ -1,7 +1,18 @@
 Id:21974
-ColorIdentity:G
-OriginSet:Gd784248bfdf9e1d7
-ManaCost:2 G
-Types:Sorcery
-A:SP$ ChangeZone | Origin$ Library | Destination$ Battlefield | Tapped$ True | ChangeType$ Land.Forest+Basic | ChangeNum$ 1 | SubAbility$ DBLearn
-SVar:DBLearn:DB$ Learn
+ColorIdentity:WB
+OriginSet:G6fa60d857e930f32
+ManaCost:1 W
+Types:Legendary Creature Bird Cleric
+PT:1/1
+K:Flying
+K:Vigilance
+A:AB$ PutCounterAll | Cost$ T | ValidCards$ Creature.ThisTurnEntered+EnteredUnder You | CounterType$ P1P1 | CounterNum$ 1
+AlternateMode:Modal
+ALTERNATE
+ManaCost:2 B B
+Types:Legendary Creature Human Warlock
+PT:4/4
+A:AB$ PutCounter | Cost$ T | ValidTgts$ Creature.Other | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBDmg
+SVar:DBDmg:DB$ DealDamage | Defined$ ParentTarget | NumDmg$ 2
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl+counters_GE1_P1P1 | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1

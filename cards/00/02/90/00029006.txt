@@ -1,9 +1,12 @@
 Id:29006
-ColorIdentity:BR
-OriginSet:G27146c70b74a1e72
-ManaCost:B B R R
-Types:Legendary Creature Scorpion Dragon Rogue
-PT:5/5
-K:Flying
-K:Trample
-A:AB$ ChangeZone | Cost$ Sac<3/Creature.Other/other creatures> | Hidden$ True | Origin$ Hand | Destination$ Battlefield | ChangeType$ Creature.YouOwn | Optional$ True | SorcerySpeed$ True | ActivationLimit$ 1
+ColorIdentity:U
+OriginSet:Gaf7c94f364052cdd
+ManaCost:4 U
+Types:Creature Crab Mutant
+PT:4/4
+K:Vigilance
+T:Mode$ ChangesZone | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigRadiation
+SVar:TrigRadiation:DB$ Radiation | ValidTgts$ Player | Num$ 2
+T:Mode$ MilledAll | ValidPlayer$ Player | ValidCard$ Card.nonLand | TriggerZones$ Battlefield | Execute$ TrigDraw | ActivationLimit$ 1
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1 | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1

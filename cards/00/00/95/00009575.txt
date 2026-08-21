@@ -1,10 +1,8 @@
 Id:9575
-ColorIdentity:G
+ColorIdentity:W
 OriginSet:G49bcc8b9b86b628d
-ManaCost:3 G
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:Pump
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 2 | AddToughness$ 2
-T:Mode$ ChangesZone | ValidCard$ Card.EnchantedBy | Origin$ Battlefield | Destination$ Graveyard | OptionalDecider$ You | Execute$ DBReturn
-SVar:DBReturn:DB$ ChangeZone | Defined$ Self | Origin$ Graveyard | Destination$ Battlefield | AttachedTo$ Creature.sharesCreatureTypeWith TriggeredCardLKICopy | AILogic$ Pump
+ManaCost:1 W
+Types:Instant
+A:SP$ Protection | ValidTgts$ Creature.YouCtrl | Gains$ Choice | Choices$ AnyColor | SubAbility$ DBClash
+SVar:DBClash:DB$ Clash | WinSubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Parent | Origin$ Stack | Destination$ Hand

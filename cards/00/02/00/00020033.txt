@@ -1,11 +1,8 @@
 Id:20033
 ColorIdentity:U
 OriginSet:G23be9f486a22d38a
-ManaCost:3 U U
-Types:Legendary Creature Human Knight
-PT:*/4
-S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X
-SVar:X:Count$ValidHand Card.YouOwn
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
-S:Mode$ RaiseCost | ValidTarget$ Card.Self | Activator$ Player.Opponent | Type$ Spell | Amount$ 2
+ManaCost:4 U
+Types:Creature Merfolk Wizard
+PT:2/5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self,Creature.nonHuman+Other+YouCtrl | Execute$ TrigLoot | OptionalDecider$ You
+SVar:TrigLoot:AB$ Discard | Defined$ You | Mode$ TgtChoose | NumCards$ 1 | Cost$ Draw<1/You>

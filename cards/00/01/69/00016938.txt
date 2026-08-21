@@ -1,7 +1,10 @@
 Id:16938
-ColorIdentity:R
+ColorIdentity:G
 OriginSet:Gbcdce58dfbbf1bad
-ManaCost:5 R
-Types:Creature Beast
-PT:6/4
-K:Cycling:R
+ManaCost:2 G
+Types:Creature Hippo
+PT:4/5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ M1M1 | CounterNum$ 2
+T:Mode$ CounterAddedOnce | ValidCard$ Creature.Self | ValidSource$ You | CounterType$ M1M1 | TriggerZones$ Battlefield | Execute$ RemoveCounter
+SVar:RemoveCounter:DB$ RemoveCounter | ValidTgts$ Creature.YouCtrl+Other | AITgts$ Creature.counters_GE1_M1M1 | CounterType$ M1M1 | CounterNum$ 1

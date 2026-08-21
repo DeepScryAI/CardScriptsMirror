@@ -1,12 +1,9 @@
 Id:28375
-ColorIdentity:W
-OriginSet:G7ee0e82a2424d636
-ManaCost:4 W
-Types:Creature Lammasu
-PT:4/3
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigAbsolve
-SVar:TrigAbsolve:DB$ AlterAttribute | Defined$ Valid Creature.IsSuspected | Attributes$ Suspected | Activate$ False
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigGainLife
-SVar:TrigGainLife:DB$ GainLife | Defined$ TriggeredCardController | LifeAmount$ 3 | SubAbility$ DBSuspect
-SVar:DBSuspect:DB$ AlterAttribute | ValidTgts$ Creature.OppCtrl | TargetMin$ 0 | TargetMax$ 1 | Attributes$ Suspected
+ColorIdentity:U
+OriginSet:Gfd50577710a6ab09
+ManaCost:3 U
+Types:Creature Human Pirate
+PT:3/3
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ DBTap | IsPresent$ Artifact.YouCtrl
+SVar:DBTap:DB$ Tap | ValidTgts$ Artifact.OppCtrl,Creature.OppCtrl | SubAbility$ DBCounter
+SVar:DBCounter:DB$ PutCounter | Defined$ Targeted | CounterType$ Stun | CounterNum$ 1

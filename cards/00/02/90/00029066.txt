@@ -1,12 +1,10 @@
 Id:29066
 ColorIdentity:W
-OriginSet:G27146c70b74a1e72
-ManaCost:1 W
-Types:Creature Spirit
-PT:2/3
-K:Flying
-K:ETBReplacement:Other:CounterChoice
-SVar:CounterChoice:DB$ PutCounter | ETB$ True | CounterNum$ 2 | CounterType$ P1P1 | ConditionCheckSVar$ X | ConditionSVarCompare$ GE5 | SubAbility$ LifelinkCounter
-SVar:LifelinkCounter:DB$ PutCounter | ConditionCheckSVar$ X | ConditionSVarCompare$ GE5 | ETB$ True | CounterType$ Lifelink
-SVar:X:Count$Valid Land.YouCtrl+untapped
-K:Plot:1 W
+OriginSet:Gaf7c94f364052cdd
+ManaCost:3 W
+Types:Enchantment Saga
+K:Chapter:3:DBToken,DBChangeZone,DBChangeZone
+SVar:DBToken:DB$ Token | TokenScriptIds$ 134855612,1647422943
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Hand,Graveyard | Destination$ Battlefield | ChangeType$ Aura,Equipment | RememberChanged$ True | ChangeNum$ 1 | SubAbility$ DBAttach
+SVar:DBAttach:DB$ Attach | Optional$ True | ConditionDefined$ Remembered | ConditionPresent$ Equipment | Object$ Remembered | Choices$ Creature.YouCtrl | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

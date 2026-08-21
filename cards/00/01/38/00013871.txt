@@ -1,7 +1,12 @@
 Id:13871
-ColorIdentity:R
+ColorIdentity:U
 OriginSet:G97e9a20e5a5d5822
-ManaCost:1 R R
-Types:Creature Dog
-PT:1/2
-K:DoubleStrike
+ManaCost:U
+Types:Instant
+A:SP$ Pump | TargetMin$ 0 | TargetMax$ 2 | NumDef$ +3 | ValidTgts$ Creature | SubAbility$ DBUntap
+SVar:DBUntap:DB$ Untap | Defined$ ParentTarget | SubAbility$ DBDelTrig
+SVar:DBDelTrig:DB$ DelayedTrigger | ThisTurn$ True | Mode$ Phase | Phase$ EndCombat | Execute$ TrigRemember | RememberObjects$ ParentTarget
+SVar:TrigRemember:DB$ Pump | RememberObjects$ DelayTriggerRemembered | SubAbility$ TrigTap
+SVar:TrigTap:DB$ TapAll | ValidCards$ Creature.blockedByRemembered | SubAbility$ DBPump
+SVar:DBPump:DB$ PumpAll | ValidCards$ Creature.blockedByRemembered | Duration$ Permanent | KW$ HIDDEN This card doesn't untap during your next untap step. | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

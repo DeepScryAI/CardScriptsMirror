@@ -1,8 +1,10 @@
 Id:10074
-ColorIdentity:WR
+ColorIdentity:
 OriginSet:G6a049984467eca45
-ManaCost:3 RW RW
-Types:Sorcery
-K:Retrace
-A:SP$ UntapAll | ValidCards$ Creature.attackedThisTurn | SubAbility$ DBAddCombat
-SVar:DBAddCombat:DB$ AddPhase | ExtraPhase$ Combat | FollowedBy$ Main2 | ConditionPhases$ Main1,Main2
+ManaCost:6
+Types:Artifact
+S:Mode$ CantBeCast | ValidCard$ Creature | Caster$ Opponent.withMoreCreaturesThanYou
+S:Mode$ CantBeCast | ValidCard$ Artifact | Caster$ Opponent.withMoreArtifactsThanYou
+S:Mode$ CantBeCast | ValidCard$ Enchantment | Caster$ Opponent.withMoreEnchantmentsThanYou
+S:Mode$ CantPlayLand | Player$ Opponent.withMoreLandsThanYou
+SVar:NonStackingEffect:True

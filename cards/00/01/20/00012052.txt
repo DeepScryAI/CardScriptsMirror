@@ -1,10 +1,12 @@
 Id:12052
-ColorIdentity:BG
+ColorIdentity:B
 OriginSet:G28b959a4da853005
-ManaCost:B G
-Types:Legendary Creature Zombie Elemental
-PT:1/1
-K:Haste
-S:Mode$ CountersRemain | ValidCard$ Card.Self | EffectZone$ All
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+ManaCost:B
+Types:Sorcery
+A:SP$ RepeatEach | RepeatPlayers$ Player | StartingWith$ You | RepeatSubAbility$ DBPay | SubAbility$ DBMill
+SVar:DBPay:DB$ ChooseNumber | Defined$ Player.IsRemembered | ChooseAnyNumber$ True | SubAbility$ DBStore
+SVar:DBStore:DB$ StoreSVar | SVar$ JoinForcesAmount | Type$ CountSVar | Expression$ JoinForcesAmount/Plus.Y | UnlessCost$ Y | UnlessPayer$ Player.IsRemembered | UnlessSwitched$ True
+SVar:DBMill:DB$ Mill | Defined$ Player | NumCards$ JoinForcesAmount | SubAbility$ DBReset
+SVar:DBReset:DB$ StoreSVar | SVar$ JoinForcesAmount | Type$ Number | Expression$ 0
+SVar:Y:Count$ChosenNumber
+SVar:JoinForcesAmount:Number$0

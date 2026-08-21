@@ -1,15 +1,7 @@
 Id:15087
-ColorIdentity:U
+ColorIdentity:W
 OriginSet:Gdb18f239871b8cef
-ManaCost:3 U
-Types:Creature Avatar
-PT:*/*
-K:ETBReplacement:Copy:ChooseSpell
-SVar:ChooseSpell:DB$ ChangeZone | ChangeType$ Instant.YouOwn,Sorcery.YouOwn | ChangeNum$ 1 | Hidden$ True | Origin$ Graveyard | Destination$ Exile | RememberChanged$ True | Mandatory$ True
-S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X | SetToughness$ X
-SVar:X:Remembered$CardManaCost
-T:Mode$ DamageDealtOnce | CombatDamage$ True | ValidSource$ Card.Self | Execute$ TrigSacLore | TriggerZones$ Battlefield
-SVar:TrigSacLore:AB$ Play | Cost$ Sac<1/CARDNAME> | Defined$ Remembered | Amount$ All | Controller$ You | WithoutManaCost$ True | ValidSA$ Spell | Optional$ True | ForgetRemembered$ True
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | Static$ True | ValidCard$ Card.Self | Execute$ DBCleanup
-T:Mode$ ChangesZone | Origin$ Exile | Destination$ Any | Static$ True | ValidCard$ Card.IsRemembered | Execute$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:1 W
+Types:Creature Human Warrior
+PT:2/1
+S:Mode$ Continuous | Affected$ Card.Self+counters_GE1_P1P1 | AddKeyword$ Flying

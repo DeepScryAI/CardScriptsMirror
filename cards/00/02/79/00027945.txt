@@ -1,9 +1,14 @@
 Id:27945
-ColorIdentity:G
-OriginSet:G06c78c29bfb28e3d
-ManaCost:2 G
-Types:Creature Dinosaur
-PT:3/3
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigClone | TriggerZones$ Battlefield | OptionalDecider$ You
-SVar:TrigClone:DB$ Clone | NewName$ 15698674591202181352 | CloneTarget$ Self | ValidTgts$ Creature.Dinosaur+Other+YouCtrl | GainThisAbility$ True | AILogic$ CloneBestCreature
-SVar:HasAttackEffect:TRUE
+ColorIdentity:RG
+OriginSet:G30e8a5e111cffb44
+ManaCost:3 R G
+Types:Legendary Creature Alien Cleric
+PT:5/5
+K:Vigilance
+K:Trample
+A:AB$ ChoosePlayer | Cost$ 2 T Sac<1/Artifact> | Defined$ You | Choices$ Player | Random$ True | SubAbility$ DBImmediateTrig
+SVar:DBImmediateTrig:DB$ ImmediateTrigger | Execute$ TrigFight | RememberObjects$ ChosenPlayer | SubAbility$ DBCleanup
+SVar:TrigFight:DB$ Fight | Defined$ Self | ValidTgts$ Creature.Other+ControlledBy DelayTriggerRemembered
+SVar:DBCleanup:DB$ Cleanup | ClearChosenPlayer$ True
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Creature | Execute$ TrigPutCounter | TriggerZones$ Battlefield
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1

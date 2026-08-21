@@ -1,20 +1,8 @@
 Id:23023
-ColorIdentity:R
-OriginSet:G7a76c1974b0a33a6
-ManaCost:1 R R
-Types:Legendary Planeswalker Chandra
-Loyalty:3
-A:AB$ Mana | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | Produced$ R | SubAbility$ DBDealDamage
-SVar:DBDealDamage:DB$ DealDamage | ValidTgts$ Player,Planeswalker | TargetMin$ 0 | TargetMax$ 1 | NumDmg$ 1
-A:AB$ Dig | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | Name$ 2266791533600331723 | ConditionDefined$ Remembered | ConditionPresent$ Card.Red | ConditionCompare$ GE1 | RememberObjects$ RememberedCard | StaticAbilities$ STPlay | SubAbility$ DBCleanup | ForgetOnMoved$ Exile
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered+nonLand | AffectedZone$ Exile
-A:AB$ Dig | Cost$ SubCounter<7/LOYALTY> | Planeswalker$ True | Ultimate$ True | Defined$ You | DigNum$ 5 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect2
-SVar:DBEffect2:DB$ Effect | Name$ 15904170828646007756 | RememberObjects$ RememberedCard | StaticAbilities$ STPlay2 | SubAbility$ DBEffect3 | ForgetOnMoved$ Exile
-SVar:DBEffect3:DB$ Effect | Name$ 10444970772471218354 | Triggers$ TRSpellCast | Duration$ Permanent | SubAbility$ DBCleanup
-SVar:STPlay2:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered+Red+nonLand | AffectedZone$ Exile
-SVar:TRSpellCast:Mode$ SpellCast | ValidCard$ Card.Red | ValidActivatingPlayer$ You | TriggerZones$ Command | Execute$ TrigDealDamage
-SVar:TrigDealDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ X
-SVar:X:TriggeredCard$CastTotalManaSpent
-SVar:BuffedBy:Card.Red
+ColorIdentity:UB
+OriginSet:Gf78628ad511eefec
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ LandTapped | ReplacementResult$ Updated
+SVar:LandTapped:DB$ Tap | Defined$ Self | ETB$ True | ConditionPresent$ Land.YouCtrl | ConditionCompare$ LT2
+A:AB$ Mana | Cost$ T | Produced$ Combo U B

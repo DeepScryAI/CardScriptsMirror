@@ -1,9 +1,10 @@
 Id:12078
-ColorIdentity:G
+ColorIdentity:W
 OriginSet:Gcf233112e9f1fe8c
-ManaCost:5 G
-Types:Creature Spider
-PT:5/7
-K:Reach
-A:AB$ Pump | Cost$ tapXType<1/Spider> | ValidTgts$ Creature | IsCurse$ True | SubAbility$ DBChange
-SVar:DBChange:DB$ ChangeZone | Hidden$ True | Origin$ Library | OriginAlternative$ Graveyard | Destination$ Battlefield | ChangeType$ Card.YouOwn+catalogId12079 | AttachedTo$ ParentTarget
+ManaCost:2 W W
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 4 | AddToughness$ 4 | AddKeyword$ Flying & FirstStrike | AddType$ Angel
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.EnchantedBy | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | Defined$ Self

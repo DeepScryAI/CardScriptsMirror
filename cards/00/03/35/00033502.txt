@@ -1,8 +1,12 @@
 Id:33502
-ColorIdentity:WG
-OriginSet:G23d1f017cc66962f
-ManaCost:GW GW
-Types:Legendary Creature Mutant Ninja Turtle
-PT:2/2
-T:Mode$ CounterAdded | ValidCard$ Creature.YouCtrl | ValidSource$ You | TriggerZones$ Battlefield | Execute$ TrigDraw | ActivationLimit$ 1
-SVar:TrigDraw:DB$ Draw
+ColorIdentity:RG
+OriginSet:G7ab1fe96128a1641
+ManaCost:3 RG RG
+Types:Creature Elemental Incarnation
+PT:4/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | CheckSVar$ CastSA>Count$Adamant_2.Red.2.0 | ValidCard$ Card.Self | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | CheckSVar$ CastSA>Count$Adamant_2.Green.2.0 | ValidCard$ Card.Self | Execute$ TrigSearch
+SVar:TrigSearch:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Land | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2
+K:Evoke:RG RG

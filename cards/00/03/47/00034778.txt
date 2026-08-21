@@ -1,0 +1,13 @@
+Id:34778
+ColorIdentity:G
+OriginSet:G11c0621ce29fa608
+ManaCost:2 G
+Types:Legendary Creature Human Villain
+PT:2/2
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigCharm | TriggerZones$ Battlefield
+SVar:TrigCharm:DB$ Charm | Choices$ DBPutCounter,DBRemoveCounter
+SVar:DBPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ 1
+SVar:DBRemoveCounter:DB$ RemoveCounter | Choices$ Creature.YouCtrl+HasCounters | CounterType$ Any | CounterNum$ 1 | RememberRemoved$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | ConditionCheckSVar$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$RememberedSize

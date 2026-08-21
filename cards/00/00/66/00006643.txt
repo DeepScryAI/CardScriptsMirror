@@ -1,10 +1,9 @@
 Id:6643
 ColorIdentity:B
 OriginSet:G983da6aa108b8f13
-ManaCost:1 B B
-Types:Enchantment Aura
-K:Enchant:Artifact
-SVar:AttachAILogic:Curse
-S:Mode$ Continuous | Affected$ Card.EnchantedBy | AddTrigger$ TrigLoseLife | AddSVar$ RelicBaneLoseLife
-SVar:TrigLoseLife:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ RelicBaneLoseLife
-SVar:RelicBaneLoseLife:DB$ LoseLife | LifeAmount$ 2
+ManaCost:4 B B B B
+Types:Creature Demon
+PT:6/6
+K:Flying
+T:Mode$ ChangesZone | ValidCard$ Card.wasCastFromYourHandByYou+Self | Destination$ Battlefield | Execute$ TrigDestroyAll
+SVar:TrigDestroyAll:DB$ DestroyAll | ValidCards$ Creature.nonArtifact+nonBlack | NoRegen$ True

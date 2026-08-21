@@ -1,8 +1,9 @@
 Id:17089
-ColorIdentity:W
+ColorIdentity:B
 OriginSet:Gbcdce58dfbbf1bad
-ManaCost:4 W
-Types:Creature Camel
-PT:3/5
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken | IsPresent$ Creature.tapped+YouCtrl
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 154791205 | TokenOwner$ You
+ManaCost:B
+Types:Instant
+A:SP$ Pump | ValidTgts$ Creature | NumAtt$ +2 | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Triggers$ SupernaturalStaminaChangeZone | Defined$ ParentTarget
+SVar:SupernaturalStaminaChangeZone:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ SupernaturalStaminaTrigChangeZone | TriggerController$ TriggeredCardController
+SVar:SupernaturalStaminaTrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | Tapped$ True | Defined$ TriggeredNewCardLKICopy

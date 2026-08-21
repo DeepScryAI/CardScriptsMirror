@@ -1,12 +1,9 @@
 Id:16680
-ColorIdentity:WB
+ColorIdentity:
 OriginSet:Ge1d53e4f418bb713
-ManaCost:3 W B
-Types:Legendary Creature Human Cleric
-PT:2/2
-K:Flying
-S:Mode$ Continuous | Affected$ Creature.Other+YouCtrl | AddPower$ 1 | AddToughness$ 1
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigChangeZone | OptionalDecider$ You | TriggerZones$ Battlefield
-SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Creature.YouCtrl
-K:Partner
-SVar:PlayMain1:TRUE
+ManaCost:5
+Types:Artifact
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ Combo Any | Amount$ X
+SVar:X:Count$Domain

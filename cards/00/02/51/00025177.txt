@@ -1,10 +1,11 @@
 Id:25177
-ColorIdentity:RG
+ColorIdentity:G
 OriginSet:Gf591a76e7a37cf73
-ManaCost:X R G
-Types:Creature Tyranid
-PT:2/2
+ManaCost:X 1 G
+Types:Creature Tyranid Mutant
+PT:0/0
 K:Ravenous
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigFight
-SVar:TrigFight:DB$ Fight | Defined$ TriggeredCardLKICopy | ValidTgts$ Creature.OppCtrl | TargetMin$ 0 | TargetMax$ 1 | ReplaceDyingDefined$ Targeted
+K:Trample
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigDestroy | CombatDamage$ True
+SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Artifact.ControlledBy TriggeredTarget,Enchantment.ControlledBy TriggeredTarget
 SVar:X:Count$xPaid

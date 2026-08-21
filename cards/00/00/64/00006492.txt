@@ -1,11 +1,14 @@
 Id:6492
 ColorIdentity:
 OriginSet:G983da6aa108b8f13
-ManaCost:1
-Types:Artifact Creature Insect
-PT:0/0
-K:etbCounter:P1P1:2
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ DelTrig
-T:Mode$ Blocks | ValidCard$ Card.Self | Execute$ DelTrig | Secondary$ True
-SVar:DelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ EndCombat | Execute$ TrigRemoveCounter
-SVar:TrigRemoveCounter:DB$ RemoveCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+ManaCost:0
+Types:Artifact
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | OptionalDecider$ You | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Imprint$ True | Origin$ Hand | Destination$ Exile | ChangeType$ Card.nonArtifact+nonLand | ChangeNum$ 1
+A:AB$ ManaReflected | Cost$ T | Valid$ Defined.Imprinted | ColorOrType$ Color | ReflectProperty$ Is
+T:Mode$ ChangesZone | Origin$ Battlefield | ValidCard$ Card.Self | Destination$ Any | Execute$ DBCleanup | Static$ True
+T:Mode$ ChangesZone | Origin$ Exile | Destination$ Any | Static$ True | ValidCard$ Card.IsImprinted+ExiledWithSourceLKI | Execute$ DBForget
+SVar:DBForget:DB$ Pump | ForgetImprinted$ TriggeredCard
+SVar:DBCleanup:DB$ Cleanup | ClearImprinted$ True
+SVar:NeedsToPlayVar:Z GE1
+SVar:Z:Count$ValidHand Card.nonArtifact+nonColorless+nonLand+YouOwn

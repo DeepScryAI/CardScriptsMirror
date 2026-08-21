@@ -1,13 +1,15 @@
 Id:24265
-ColorIdentity:UR
+ColorIdentity:B
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:3 U R
-Types:Legendary Creature Dragon
-PT:3/3
+ManaCost:5 B B
+Types:Creature Dragon Horror
+PT:6/6
 K:Flying
-K:Haste
-T:Mode$ AttackersDeclaredOneTarget | ValidAttackers$ Dragon.YouCtrl | AttackedTarget$ Opponent | Execute$ TrigGoad | TriggerZones$ Battlefield
-SVar:TrigGoad:DB$ Goad | ValidTgts$ Creature | TargetsWithDefinedController$ TriggeredAttackedTarget
-T:Mode$ DamageDone | ValidSource$ Creature.hadToAttackThisCombat | ValidTarget$ Opponent | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | CounterType$ P1P1 | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigExile
+SVar:TrigExile:DB$ Dig | Defined$ Player.Opponent | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ Remembered | StaticAbilities$ STPlay | Duration$ Permanent | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile | MayPlayIgnoreColor$ True
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Permanent.OppOwn+YouCtrl+nonLand | TriggerZones$ Battlefield | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ TriggeredCardOwner | LifeAmount$ X
+SVar:X:TriggeredCard$CardManaCost

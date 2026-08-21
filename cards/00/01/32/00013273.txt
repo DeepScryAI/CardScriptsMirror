@@ -1,8 +1,10 @@
 Id:13273
 ColorIdentity:RG
 OriginSet:Gfdc478e04211a499
-ManaCost:no cost
-Types:Land Gate
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
-A:AB$ Mana | Cost$ T | Produced$ Combo R G
+ManaCost:R G
+Types:Instant
+A:SP$ Charm | Choices$ CantBlockEffect,DBGainCtrl,DmgAll
+SVar:CantBlockEffect:DB$ Effect | StaticAbilities$ KWPump | AILogic$ Evasion
+SVar:KWPump:Mode$ Continuous | AffectedZone$ Battlefield | Affected$ Creature.withoutFlying | AddHiddenKeyword$ CARDNAME can't block.
+SVar:DBGainCtrl:DB$ GainControl | AllValid$ Permanent.YouOwn
+SVar:DmgAll:DB$ DamageAll | NumDmg$ 3 | ValidCards$ Creature.withFlying

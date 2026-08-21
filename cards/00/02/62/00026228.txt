@@ -1,10 +1,15 @@
 Id:26228
-ColorIdentity:W
+ColorIdentity:U
 OriginSet:G2192e8955d5e1ad1
-ManaCost:X W W
-Types:Sorcery
-A:SP$ GainLife | LifeAmount$ X | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | RememberTokens$ True | TokenAmount$ X | TokenScriptIds$ 2259993196 | TokenOwner$ You | SubAbility$ DBWrath
-SVar:DBWrath:DB$ DestroyAll | ValidCards$ Creature.!IsRemembered | ConditionCheckSVar$ X | ConditionSVarCompare$ GE5 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:2 UP U
+Types:Legendary Planeswalker Jace
+Loyalty:5
+K:Compleated
+A:AB$ Pump | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | NumAtt$ -3 | IsCurse$ True | Duration$ UntilYourNextTurn | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Creature
+A:AB$ Mill | Cost$ SubCounter<2/LOYALTY> | NumCards$ 3 | Planeswalker$ True | ValidTgts$ Player | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ Y
+A:AB$ Mill | Cost$ SubCounter<X/LOYALTY> | NumCards$ Z | Planeswalker$ True | Ultimate$ True | ValidTgts$ Player
+SVar:Y:Count$Compare CheckGrave GE20.3.1
+SVar:CheckGrave:PlayerCountPlayers$HighestValidGraveyard Card.YouOwn
 SVar:X:Count$xPaid
+SVar:Z:SVar$X/Times.3

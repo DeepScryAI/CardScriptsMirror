@@ -1,12 +1,12 @@
 Id:17352
-ColorIdentity:G
+ColorIdentity:
 OriginSet:Gaa482ed186eee527
-ManaCost:1 G
-Types:Creature Cat
-PT:2/2
-S:Mode$ Continuous | Affected$ Creature.Cat+YouCtrl | AddKeyword$ Protection:Rat
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | ValidTgts$ Opponent | TokenScriptIds$ 2696332490 | TokenOwner$ Targeted
-T:Mode$ ChangesZone | ValidCard$ Rat | Origin$ Battlefield | Destination$ Graveyard | TriggerZones$ Battlefield | Execute$ TrigPutCounters
-SVar:TrigPutCounters:DB$ PutCounterAll | ValidCards$ Cat.YouCtrl | CounterType$ P1P1 | CounterNum$ 1
-SVar:PlayMain1:TRUE
+ManaCost:3
+Types:Artifact
+K:ETBReplacement:Other:ChooseCT
+SVar:ChooseCT:DB$ ChooseType | Defined$ You | Type$ Creature | AILogic$ MostProminentInComputerDeckNonToken
+S:Mode$ ReduceCost | ValidCard$ Creature.ChosenType | Type$ Spell | Activator$ You | Amount$ 1
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigPeek | TriggerZones$ Battlefield
+SVar:TrigPeek:DB$ PeekAndReveal | PeekAmount$ 1 | RevealValid$ Creature.ChosenType | RevealOptional$ True | RememberRevealed$ True | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Defined$ TopOfLibrary | Origin$ Library | Destination$ Hand | ConditionDefined$ Remembered | ConditionPresent$ Creature.ChosenType | ConditionCompare$ EQ1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

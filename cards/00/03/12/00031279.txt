@@ -1,9 +1,12 @@
 Id:31279
-ColorIdentity:WBG
-OriginSet:Ge1676a27173c0866
-ManaCost:1 W B G
-Types:Enchantment Saga
-K:Chapter:3:TrigToken,TrigPutCounter,TrigPumpAll
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 3447476566 | TokenAmount$ 3 | TokenOwner$ You
-SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 3 | TargetMin$ 1 | TargetMax$ 3 | DividedAsYouChoose$ 3
-SVar:TrigPumpAll:DB$ PumpAll | ValidCards$ Creature.YouCtrl | KW$ Trample & Lifelink
+ColorIdentity:
+OriginSet:G4524bbf7a3db9dc0
+ManaCost:4
+Types:Artifact Creature Construct
+PT:3/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigChangeZone | TriggerZones$ Battlefield | Secondary$ True
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
+K:Cycling:2
+SVar:HasAttackEffect:TRUE

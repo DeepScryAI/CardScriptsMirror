@@ -1,9 +1,25 @@
 Id:28108
-ColorIdentity:G
+ColorIdentity:B
 OriginSet:Gfd50577710a6ab09
-ManaCost:3 G
-Types:Creature Spider
-PT:3/4
-K:Reach
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill
-SVar:TrigMill:DB$ Mill | NumCards$ 2 | Optional$ True | Defined$ You
+ManaCost:3 B B
+Types:Legendary Creature Bat God
+PT:4/4
+K:Flying
+K:Lifelink
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDiscard
+SVar:TrigDiscard:DB$ Discard | Mode$ TgtChoose | Defined$ Opponent | NumCards$ 1 | RememberDiscarded$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:PlayerCountOpponents$Amount/Minus.Remembered$Amount
+T:Mode$ Discarded | ValidCard$ Land.OppOwn | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 3356756006 | TokenOwner$ You
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigTransform
+SVar:TrigTransform:DB$ ChangeZone | Defined$ TriggeredCard | Origin$ Graveyard | Destination$ Battlefield | Transformed$ True | Tapped$ True
+SVar:HasAttackEffect:TRUE
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Types:Land
+A:AB$ Mana | Cost$ T | Produced$ B
+A:AB$ SetState | Cost$ 2 B T | CheckSVar$ X | Defined$ Self | Mode$ Transform | SorcerySpeed$ True
+SVar:X:PlayerCount$HasPropertyHasCardsInHand_Card_LE1

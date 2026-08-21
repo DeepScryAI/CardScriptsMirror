@@ -1,6 +1,11 @@
 Id:19306
-ColorIdentity:U
+ColorIdentity:WR
 OriginSet:Gb6b8d78626a44788
-ManaCost:2 U
-Types:Creature Zombie Snake
-PT:3/2
+ManaCost:2 R W
+Types:Instant
+A:SP$ Discard | Defined$ You | RememberDiscarded$ True | Mode$ Hand | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ X | SubAbility$ DBGainLife
+SVar:X:Remembered$Amount/Plus.1
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ Y | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:Y:Count$ValidHand Card.YouOwn

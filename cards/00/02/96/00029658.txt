@@ -1,10 +1,10 @@
 Id:29658
-ColorIdentity:UB
-OriginSet:G01a610e823cce3ca
-ManaCost:1 U B
-Types:Legendary Creature Human Assassin Pirate
-PT:4/1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDig
-SVar:TrigDig:DB$ Dig | DigNum$ 6 | ChangeNum$ 1 | ChangeValid$ Assassin,Pirate,Vehicle | DestinationZone$ Hand | RestRandomOrder$ True
-T:Mode$ DamageDone | ValidSource$ Vehicle.YouCtrl | ValidTarget$ Player | CombatDamage$ True | OptionalDecider$ You | TriggerZones$ Graveyard | Execute$ TrigChange
-SVar:TrigChange:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand
+ColorIdentity:R
+OriginSet:Gac6359c222afbd4f
+ManaCost:R R
+Types:Enchantment
+T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ Opponent | OptionalDecider$ You | TriggerZones$ Battlefield | Execute$ TrigReveal
+SVar:TrigReveal:DB$ PeekAndReveal | PeekAmount$ 1 | NoPeek$ True | RevealOptional$ True | RememberRevealed$ True | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | Defined$ Remembered | ValidSA$ Spell.cmcEQX | WithoutManaCost$ True | Optional$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:TriggeredSpellAbility$CardManaCostLKI

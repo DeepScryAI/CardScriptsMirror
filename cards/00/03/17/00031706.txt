@@ -1,24 +1,9 @@
 Id:31706
-ColorIdentity:WB
-OriginSet:G7ab4f62d323b0ca7
+ColorIdentity:B
+OriginSet:Gfac9eb8c75f25726
 ManaCost:B
-Types:Legendary Creature Human Knight
-PT:2/3
-K:Deathtouch
-T:Mode$ DamageDealtOnce | ValidSource$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigLoseLife
-SVar:TrigLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ X | SubAbility$ DBUntap
-SVar:DBUntap:DB$ Untap | Defined$ Self | ConditionCheckSVar$ Z | ConditionSVarCompare$ LEY | SubAbility$ DBTransform
-SVar:DBTransform:DB$ SetState | Defined$ Self | ConditionCheckSVar$ Z | ConditionSVarCompare$ LEY | Mode$ Transform
-SVar:X:TriggerCount$DamageAmount
-SVar:Z:Count$YourLifeTotal
-SVar:Y:Count$YourStartingLife/HalfDown
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:white
-Types:Legendary Creature Human Knight
-PT:4/4
-K:Lifelink
-T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPumpAttack
-SVar:HasAttackEffect:TRUE
-SVar:TrigPumpAttack:DB$ PumpAll | ValidCards$ Creature.attacking+Other | KW$ Indestructible
+Types:Sorcery
+S:Mode$ OptionalCost | EffectZone$ All | ValidCard$ Card.Self | ValidSA$ Spell | Cost$ Behold<1/Dragon>
+A:SP$ Discard | ValidTgts$ Opponent | NumCards$ 1 | DiscardValid$ Card.cmcEQX | Mode$ TgtChoose | SubAbility$ DBExileGraveyard
+SVar:DBExileGraveyard:DB$ ChangeZoneAll | Condition$ OptionalCost | ConditionOptionalPaid$ True | Defined$ ParentTarget | ChangeType$ Card | Origin$ Graveyard | Destination$ Exile
+SVar:X:Count$ValidHand Card.TargetedPlayerOwn$GreatestCardManaCost

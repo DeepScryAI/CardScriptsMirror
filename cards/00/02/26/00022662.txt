@@ -1,8 +1,12 @@
 Id:22662
-ColorIdentity:R
+ColorIdentity:B
 OriginSet:G9f95a41d532c0550
-ManaCost:1 R
-Types:Instant
-A:SP$ Charm | Choices$ IntimidateThem,FendThemOff
-SVar:IntimidateThem:DB$ Pump | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 2 | KW$ HIDDEN CARDNAME can't block. | IsCurse$ True
-SVar:FendThemOff:DB$ Pump | ValidTgts$ Creature | NumAtt$ +3 | NumDef$ +1
+ManaCost:2 B
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Curse
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Destination$ Battlefield | Execute$ TrigVenture
+SVar:TrigVenture:DB$ Venture
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ -X | AddToughness$ -X
+SVar:X:Count$Compare Y GE1.5.2
+SVar:Y:DungeonsCompleted$Amount

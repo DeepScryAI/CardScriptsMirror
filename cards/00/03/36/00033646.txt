@@ -1,12 +1,14 @@
 Id:33646
-ColorIdentity:B
-OriginSet:Gf04404de3fa1525e
-ManaCost:B B B B B
-Types:Sorcery
-A:SP$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ X | Defined$ Player.IsRemembered | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | NumCards$ Y | Defined$ Player.IsRemembered | Mode$ TgtChoose | SubAbility$ DBSac
-SVar:DBSac:DB$ Sacrifice | SacValid$ Permanent | Amount$ Z | Defined$ Player.IsRemembered
-SVar:X:PlayerCountRemembered$LifeTotal/HalfDown
-SVar:Y:PlayerCountRemembered$CardsInHand/HalfDown
-SVar:Z:PlayerCountRemembered$Valid Permanent.RememberedPlayerCtrl/HalfDown
+ColorIdentity:R
+OriginSet:G23d1f017cc66962f
+ManaCost:1 R
+Types:Enchantment Class
+T:Mode$ AttackersDeclared | AttackingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:AB$ Draw | Cost$ Discard<1/Card>
+K:Class:2:1 R:AddTrigger$ TriggerDiscard
+SVar:TriggerDiscard:Mode$ Discarded | ValidCard$ Card.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigDamage | Secondary$ True
+SVar:TrigDamage:DB$ DealDamage | Defined$ Player.Opponent | NumDmg$ 2
+K:Class:3:1 R:AddTrigger$ TriggerClassLevel
+SVar:TriggerClassLevel:Mode$ ClassLevelGained | ClassLevel$ 3 | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigChangeZone | Secondary$ True
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeNum$ 1 | ChangeType$ Card | Mandatory$ True | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ Random

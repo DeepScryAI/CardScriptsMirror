@@ -1,7 +1,10 @@
 Id:14103
-ColorIdentity:U
+ColorIdentity:WG
 OriginSet:Gdaee41baa388b0e7
-ManaCost:1 U
-Types:Instant
-A:SP$ Counter | TargetType$ Spell | ValidTgts$ Card | UnlessCost$ X
-SVar:X:Count$Devotion.Blue
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigScry
+SVar:TrigScry:DB$ Scry | ScryNum$ 1
+A:AB$ Mana | Cost$ T | Produced$ Combo G W

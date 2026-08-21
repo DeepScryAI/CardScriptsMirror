@@ -1,11 +1,8 @@
 Id:18770
-ColorIdentity:U
+ColorIdentity:W
 OriginSet:G1ecb361a0a117393
-ManaCost:U U
-Types:Instant
-A:SP$ Surveil | Amount$ 2 | SubAbility$ DBChooseCard
-SVar:DBChooseCard:DB$ ChooseCard | Choices$ Instant.YouCtrl,Sorcery.YouCtrl | ChoiceZone$ Graveyard | Mandatory$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | RememberObjects$ ChosenCard | StaticAbilities$ Play | ExileOnMoved$ Stack | ReplacementEffects$ ReplaceGraveyard
-SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered+nonLand | AffectedZone$ Graveyard
-SVar:ReplaceGraveyard:Event$ Moved | ValidCard$ Card.IsRemembered | Origin$ Stack | Destination$ Graveyard | ReplaceWith$ MoveExile
-SVar:MoveExile:DB$ ChangeZone | Defined$ ReplacedCard | Origin$ Stack | Destination$ Exile
+ManaCost:2 W W
+Types:Creature Unicorn
+PT:2/2
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPumpAll
+SVar:TrigPumpAll:DB$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +1 | NumDef$ +1

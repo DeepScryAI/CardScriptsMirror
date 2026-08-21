@@ -1,9 +1,11 @@
 Id:22122
-ColorIdentity:U
-OriginSet:Ga575fa2f4f5cded4
-ManaCost:U U U
+ColorIdentity:WR
+OriginSet:Gd784248bfdf9e1d7
+ManaCost:2 R W
 Types:Sorcery
-K:Cycling:1 U
-A:SP$ Mill | Defined$ Opponent | NumCards$ 14
-T:Mode$ Cycled | ValidCard$ Card.Self | Execute$ TrigMill
-SVar:TrigMill:DB$ Mill | Defined$ Opponent | NumCards$ 4
+A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Card.Artifact+YouOwn | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ Enchantment
+SVar:Enchantment:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Card.Enchantment+YouOwn | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ Instant
+SVar:Instant:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Card.Instant+YouOwn | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ Sorcery
+SVar:Sorcery:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Card.Sorcery+YouOwn | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ Planeswalker
+SVar:Planeswalker:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Card.Planeswalker+YouOwn | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | Origin$ Stack | Destination$ Exile

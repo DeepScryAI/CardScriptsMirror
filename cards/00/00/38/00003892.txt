@@ -1,8 +1,11 @@
 Id:3892
 ColorIdentity:G
 OriginSet:G3da30095b68d8df0
-ManaCost:3 G
-Types:Sorcery
-A:SP$ DestroyAll | ValidCards$ Enchantment | RememberDestroyed$ True | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | LifeAmount$ X
-SVar:X:Remembered$Amount/Twice
+ManaCost:2 G
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ X | AddToughness$ X
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ GROWTH | CounterNum$ 1
+SVar:X:Count$CardCounters.GROWTH

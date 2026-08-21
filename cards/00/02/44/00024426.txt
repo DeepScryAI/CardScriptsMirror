@@ -1,7 +1,12 @@
 Id:24426
-ColorIdentity:W
+ColorIdentity:
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:3 W W
-Types:Sorcery
-A:SP$ ChooseCard | Defined$ Player | Choices$ Creature | ChooseEach$ Party | Reveal$ True | SubAbility$ SacAllOthers
-SVar:SacAllOthers:DB$ SacrificeAll | ValidCards$ Creature.nonChosenCard
+ManaCost:1
+Types:Artifact Equipment
+K:Equip:2
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddKeyword$ Lifelink | IsPresent$ Cleric.YouCtrl
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddKeyword$ Deathtouch | IsPresent$ Rogue.YouCtrl | PresentCompare$ GE1
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddKeyword$ Haste | IsPresent$ Warrior.YouCtrl | PresentCompare$ GE1
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddKeyword$ Flying | IsPresent$ Wizard.YouCtrl | PresentCompare$ GE1
+R:Event$ DamageDone | ActiveZones$ Battlefield | Prevent$ True | ValidTarget$ Creature.EquippedBy | CheckSVar$ X | SVarCompare$ EQ4
+SVar:X:Count$Party

@@ -2,7 +2,10 @@ Id:14982
 ColorIdentity:G
 OriginSet:Gdb18f239871b8cef
 ManaCost:1 G
-Types:Creature Human Warrior
-PT:2/2
-A:AB$ Pump | Cost$ 4 G | Defined$ Self | NumAtt$ +4 | NumDef$ +4 | CheckSVar$ FormidableTest | SVarCompare$ GE8
-SVar:FormidableTest:Count$Valid Creature.YouCtrl$CardPower
+Types:Enchantment
+S:Mode$ CombatDamageToughness | ValidCard$ Creature.YouCtrl
+A:AB$ Effect | Cost$ G | ValidTgts$ Creature.withDefender | RememberObjects$ Targeted | StaticAbilities$ CanAttack
+SVar:CanAttack:Mode$ CanAttackDefender | ValidCard$ Creature.IsRemembered
+A:AB$ PumpAll | Cost$ 2 G | ValidCards$ Creature.YouCtrl | NumDef$ +1
+SVar:PlayMain1:TRUE
+SVar:NonStackingEffect:True

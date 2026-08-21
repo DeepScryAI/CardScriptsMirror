@@ -1,14 +1,8 @@
 Id:23012
-ColorIdentity:UR
-OriginSet:G7a76c1974b0a33a6
-ManaCost:1 R R
-Types:Sorcery
-A:SP$ AddTurn | NumTurns$ 1 | ExtraTurnDelayedTrigger$ DBDelTrig | ExtraTurnDelayedTriggerExecute$ TrigEffect | SubAbility$ DBExile
-SVar:DBDelTrig:ThisTurn$ True | Static$ True | Mode$ Phase | Phase$ Upkeep
-SVar:TrigEffect:DB$ Effect | Defined$ You | StaticAbilities$ STCantPrevent | Triggers$ EndLose
-SVar:STCantPrevent:Mode$ CantPreventDamage
-SVar:EndLose:Mode$ Phase | Phase$ End of Turn | Execute$ TrigLose
-SVar:TrigLose:DB$ LosesGame | Defined$ You
-A:SP$ AddTurn | Cost$ 4 U U R | NumTurns$ 1 | ExtraTurnDelayedTrigger$ DBDelTrig | ExtraTurnDelayedTriggerExecute$ TrigEffect2 | NonBasicSpell$ True | SubAbility$ DBExile
-SVar:TrigEffect2:DB$ Effect | Defined$ You | StaticAbilities$ STCantPrevent
-SVar:DBExile:DB$ ChangeZone | Origin$ Stack | Destination$ Exile
+ColorIdentity:W
+OriginSet:Gf78628ad511eefec
+ManaCost:1 W
+Types:Instant
+A:SP$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +X | NumDef$ +1
+SVar:X:Count$Compare Y GE3.2.1
+SVar:Y:Count$Valid Creature.YouCtrl$DifferentCardPower

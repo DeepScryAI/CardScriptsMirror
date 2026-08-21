@@ -1,8 +1,12 @@
 Id:32690
-ColorIdentity:U
-OriginSet:G22ed5d6f3707b461
-ManaCost:U
-Types:Sorcery Lesson
-A:SP$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Defined$ Targeted | ValidTgts$ Permanent.nonLand | RememberLKI$ True | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | ConditionDefined$ RememberedLKI | ConditionPresent$ Card.YouCtrl | NumCards$ 1 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:W
+OriginSet:G66b3a7eeabd9000e
+ManaCost:3 W
+Types:Enchantment Aura
+K:Enchant:Creature.YouCtrl:creature you control
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ X | AddToughness$ X | AddSVar$ EqMe & EnMe
+R:Event$ DamageDone | ActiveZones$ Battlefield | ValidTarget$ You | ReplaceWith$ DmgEnchanted | DamageTarget$ Enchanted
+SVar:DmgEnchanted:DB$ ReplaceEffect | VarName$ Affected | VarValue$ Enchanted | VarType$ Card
+SVar:X:Count$Valid Aura.AttachedTo Creature.EnchantedBy,Equipment.AttachedTo Creature.EnchantedBy/Times.2
+SVar:EqMe:SVar:EquipMe:Multiple
+SVar:EnMe:SVar:EnchantMe:Multiple

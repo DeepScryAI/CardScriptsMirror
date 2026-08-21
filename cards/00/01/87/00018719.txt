@@ -1,9 +1,10 @@
 Id:18719
-ColorIdentity:R
+ColorIdentity:UB
 OriginSet:G1ecb361a0a117393
-ManaCost:1 R
-Types:Creature Goblin Rogue
-PT:2/1
-T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigEffect
-SVar:TrigEffect:DB$ Effect | StaticAbilities$ KWPump
-SVar:KWPump:Mode$ Continuous | Affected$ Creature.withDefender | AddHiddenKeyword$ CARDNAME can't block.
+ManaCost:1 U B
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1 | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ Player.Opponent | NumCards$ 1 | Mode$ TgtChoose
+T:Mode$ Surveil | ValidPlayer$ You | Execute$ TrigBounce | TriggerZones$ Battlefield
+SVar:TrigBounce:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Defined$ Self

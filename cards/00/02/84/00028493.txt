@@ -1,8 +1,15 @@
 Id:28493
 ColorIdentity:R
-OriginSet:G7ee0e82a2424d636
-ManaCost:3 R
-Types:Creature Human Artificer
-PT:2/3
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | Execute$ TrigToken | TriggerZones$ Battlefield
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 3939935181 | PumpKeywords$ Haste | PumpDuration$ EOT | AtEOT$ YourSacrifice
+OriginSet:G94329e6b3f93276f
+ManaCost:3 R R
+Types:Sorcery
+A:SP$ GenericChoice | Defined$ Opponent | TempRemember$ Chooser | Secretly$ True | Choices$ Silence,Snitch | SubAbility$ DBSilenceBranch
+SVar:Silence:DB$ Pump | Defined$ Remembered | NoteCards$ Self | NoteCardsFor$ Silence
+SVar:Snitch:DB$ Pump | Defined$ Remembered | NoteCards$ Self | NoteCardsFor$ Snitch
+SVar:DBSilenceBranch:DB$ Branch | BranchConditionSVar$ PlayerCountOpponents$HasPropertyNotedForSilence | BranchConditionSVarCompare$ EQPlayerCountOpponents$Amount | TrueSubAbility$ Damage4 | FalseSubAbility$ DBSnitchBranch
+SVar:DBSnitchBranch:DB$ Branch | BranchConditionSVar$ PlayerCountOpponents$HasPropertyNotedForSnitch | BranchConditionSVarCompare$ EQPlayerCountOpponents$Amount | TrueSubAbility$ Damage8 | FalseSubAbility$ Damage12
+SVar:Damage4:DB$ DealDamage | Defined$ Opponent | NumDmg$ 4 | SubAbility$ DBCleanup
+SVar:Damage8:DB$ DealDamage | Defined$ Opponent | NumDmg$ 8 | SubAbility$ DBCleanup
+SVar:Damage12:DB$ DealDamage | Defined$ Opponent.NotedForSilence | NumDmg$ 12 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Pump | Defined$ Player | ClearNotedCardsFor$ Silence,Snitch
+K:Flashback:5 R R

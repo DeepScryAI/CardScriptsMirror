@@ -1,9 +1,10 @@
 Id:33238
 ColorIdentity:G
-OriginSet:G7ab1fe96128a1641
-ManaCost:6 G G
-Types:Enchantment
-K:Affinity:Forest
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 1871001981
-A:AB$ PumpAll | Cost$ 1 G Exile<1/CARDNAME/this creature> | ValidCards$ Treefolk.YouCtrl,Forest.YouCtrl | KW$ Indestructible
+OriginSet:Gd2fd13ccc4a412d3
+ManaCost:1 G
+Types:Creature Human Citizen
+PT:1/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZone | Optional$ True | Origin$ Library | Destination$ Hand | ChangeType$ Food | ShuffleNonMandatory$ True | RememberChanged$ True | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 134855612 | TokenOwner$ You | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ0 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

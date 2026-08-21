@@ -1,11 +1,9 @@
 Id:27263
-ColorIdentity:
-OriginSet:G8636ad1cfd514d83
-ManaCost:3
-Types:Creature Insect
-PT:2/2
-K:Flash
-S:Mode$ CastWithFlash | ValidCard$ Card.Colorless | ValidSA$ Spell | EffectZone$ Battlefield | Caster$ You
-T:Mode$ SpellCast | ValidCard$ Card.Colorless | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +X | NumDef$ +X | KW$ Trample
-SVar:X:TriggeredSpellAbility$CardManaCostLKI
+ColorIdentity:B
+OriginSet:G6ce0035cfb774934
+ManaCost:3 B B B
+Types:Sorcery
+A:SP$ ChangeZoneAll | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Player | ChangeType$ Creature | RememberChanged$ True | SubAbility$ DBMayPlay
+SVar:DBMayPlay:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ MayPlay | SubAbility$ DBCleanup | Duration$ Permanent | ForgetOnMoved$ Exile
+SVar:MayPlay:Mode$ Continuous | MayPlay$ True | MayPlayIgnoreType$ True | Affected$ Card.IsRemembered+nonLand | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

@@ -1,11 +1,9 @@
 Id:14780
-ColorIdentity:W
+ColorIdentity:
 OriginSet:Gfafc221218d3b700
-ManaCost:3 W W
-Types:Legendary Planeswalker Nahiri
-Loyalty:3
-A:AB$ Token | Cost$ AddCounter<2/LOYALTY> | Planeswalker$ True | TokenScriptIds$ 2155628203 | TokenOwner$ You | RememberTokens$ True | SubAbility$ DBAttach
-SVar:DBAttach:DB$ Attach | Optional$ True | Choices$ Equipment.YouCtrl | Defined$ Remembered | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-A:AB$ ChangeZone | Cost$ SubCounter<2/LOYALTY> | Origin$ Hand,Graveyard | Destination$ Battlefield | Hidden$ True | Planeswalker$ True | ChangeType$ Equipment.YouCtrl | Optional$ True
-A:AB$ Token | Cost$ SubCounter<10/LOYALTY> | Planeswalker$ True | Ultimate$ True | TokenScriptIds$ 2886978184 | TokenOwner$ You
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ C
+A:AB$ ChangeZone | Cost$ 2 T Sac<1/CARDNAME> | Origin$ Library | Destination$ Battlefield | ChangeType$ Land.Basic | Tapped$ True | ChangeNum$ 2 | ShareLandType$ True

@@ -1,16 +1,14 @@
 Id:28945
-ColorIdentity:R
-OriginSet:G343cd0ac847a92b7
-ManaCost:1 R
-Types:Creature Human Rogue
-PT:2/2
-K:Menace
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigTreasure | OptionalDecider$ You
-SVar:TrigTreasure:DB$ Token | TokenScriptIds$ 3851718391 | RememberOriginalTokens$ True | SubAbility$ DBImmediateTrigger
-SVar:DBImmediateTrigger:DB$ ImmediateTrigger | Execute$ TrigToken | TriggerAmount$ Remembered$Amount | SubAbility$ DBCleanup
-SVar:TrigToken:DB$ Token | ValidTgts$ Opponent | TokenOwner$ Targeted | TokenScriptIds$ 3851718391 | TokenTapped$ True
+ColorIdentity:B
+OriginSet:Gaf7c94f364052cdd
+ManaCost:3 B
+Types:Creature Insect Mutant
+PT:0/0
+K:Flying
+K:etbCounter:P1P1:5
+R:Event$ DamageDone | ActiveZones$ Battlefield | ValidTarget$ Card.Self+counters_GE1_P1P1 | ReplaceWith$ Counters | PreventionEffect$ True | AlwaysReplace$ True
+SVar:Counters:DB$ RemoveCounter | Defined$ ReplacedTarget | CounterType$ P1P1 | CounterNum$ Y | RememberAmount$ True | SubAbility$ DBRadiation
+SVar:DBRadiation:DB$ Radiation | Defined$ Player | Num$ Z | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDamage
-SVar:TrigDamage:DB$ DealDamage | Defined$ TriggeredDefendingPlayer | NumDmg$ X
-SVar:X:Count$Valid Artifact.ControlledBy TriggeredDefendingPlayer
-SVar:HasAttackEffect:TRUE
+SVar:Y:ReplaceCount$DamageAmount
+SVar:Z:Count$RememberedNumber

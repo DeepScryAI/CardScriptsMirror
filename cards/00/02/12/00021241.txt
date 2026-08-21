@@ -1,10 +1,12 @@
 Id:21241
-ColorIdentity:U
+ColorIdentity:W
 OriginSet:G72c9c624ceb92bff
-ManaCost:3 U
-Types:Creature Merfolk Rogue
-PT:2/3
-A:AB$ Effect | Cost$ tapXType<1/Rogue.Other> | RememberObjects$ Self | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable
-SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw
+ManaCost:W
+Types:Creature Kor Cleric
+PT:1/1
+K:Kicker:2 W
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self+kicked | Execute$ TrigTap
+SVar:TrigTap:DB$ Tap | TargetMin$ 0 | TargetMax$ 2 | ValidTgts$ Creature
+SVar:NeedsToPlayKickedVar:Z GE2
+SVar:Z:Count$Valid Creature.OppCtrl

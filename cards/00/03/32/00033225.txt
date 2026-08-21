@@ -1,9 +1,11 @@
 Id:33225
-ColorIdentity:WB
-OriginSet:G7ab1fe96128a1641
-ManaCost:1 WB WB WB
-Types:Creature Treefolk Cleric
-PT:3/6
-K:Lifelink
-K:etbCounter:M1M1:2
-A:AB$ ChangeZone | Cost$ 1 WB RemoveAnyCounter<2/Any/CARDNAME/this creature> | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.cmcLE3+YouOwn | SorcerySpeed$ True
+ColorIdentity:W
+OriginSet:G530ea9d733a13e9d
+ManaCost:2 W
+Types:Instant
+A:SP$ Effect | ReplacementEffects$ PreventDamage | AILogic$ Fog
+SVar:PreventDamage:Event$ DamageDone | ActiveZones$ Command | ValidTarget$ You | ValidSource$ Card.OppCtrl,Emblem.OppCtrl | ReplaceWith$ DBTrigger | PreventionEffect$ True | ExecuteMode$ PerSource
+SVar:DBTrigger:DB$ ImmediateTrigger | Execute$ TrigDamageCreature | RememberObjects$ ReplacedSource | ConditionCheckSVar$ Y
+SVar:TrigDamageCreature:DB$ DealDamage | Defined$ DelayTriggerRemembered | DamageSource$ Valid Card.IsCommander+YouCtrl | NumDmg$ X
+SVar:X:Count$Valid Card.IsCommander+YouCtrl$CardPower
+SVar:Y:ReplacedSource$Valid Card.Creature

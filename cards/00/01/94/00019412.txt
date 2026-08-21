@@ -1,10 +1,12 @@
 Id:19412
 ColorIdentity:B
 OriginSet:G9d37112ca6693432
-ManaCost:4 B B
-Types:Creature Phyrexian Horror
-PT:5/4
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1 | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 1
-K:Unearth:2 B
+ManaCost:B
+Types:Creature Horror
+PT:1/1
+K:Menace
+T:Mode$ Phase | Phase$ Main1 | ValidPlayer$ You | Execute$ DBImmediateTrigger | TriggerZones$ Battlefield
+SVar:DBImmediateTrigger:AB$ ImmediateTrigger | Execute$ NameCard | Cost$ Sac<1/Creature>
+SVar:NameCard:DB$ NameCard | Defined$ You | ValidCards$ Card.nonLand | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | ValidTgts$ Player | Mode$ RevealDiscardAll | DiscardValid$ Card.NamedCard | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearNamedCard$ True

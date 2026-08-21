@@ -1,7 +1,12 @@
 Id:4915
-ColorIdentity:BR
+ColorIdentity:
 OriginSet:G9e6cd9ac1f7f4832
-ManaCost:1 B R
-Types:Enchantment
-S:Mode$ Continuous | Affected$ Creature.Goblin | AddPower$ 1 | AddToughness$ 1
-S:Mode$ Continuous | Affected$ Goblin | AddType$ Zombie | SetColor$ Black
+ManaCost:16
+Types:Artifact Creature Dragon
+PT:9/9
+K:Flying
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ X | EffectZone$ All
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice | UnlessCost$ UpkeepX | UnlessPayer$ You
+SVar:X:Count$Domain/Twice
+SVar:UpkeepX:Number$10/Minus.X

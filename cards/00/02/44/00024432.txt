@@ -1,8 +1,13 @@
 Id:24432
 ColorIdentity:R
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:1 R
-Types:Legendary Enchantment Background
-S:Mode$ Continuous | Affected$ Creature.IsCommander+YouOwn | AddAbility$ DealDamage
-SVar:DealDamage:AB$ DealDamage | Cost$ 1 Sac<1/Creature.Other;Artifact/another creature or an artifact> | ValidTgts$ Any | NumDmg$ 1
-SVar:AIPreference:SacCost$Creature.token,Artifact.token,Creature.cmcLE1,Artifact.cmcEQ1
+ManaCost:5 R
+Types:Creature Beast Demon
+PT:4/6
+K:Flying
+T:Mode$ SpellCast | ValidCard$ Card.wasCastFromExile | ValidActivatingPlayer$ You | Execute$ TrigCopy | TriggerZones$ Battlefield
+SVar:TrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | MayChooseTarget$ True | RememberNewCard$ True | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | ConditionDefined$ Remembered | ConditionPresent$ Permanent | Defined$ Remembered | Keywords$ Haste | Triggers$ EOTSac | Duration$ Permanent | SubAbility$ DBCleanup
+SVar:EOTSac:Mode$ Phase | Phase$ End of Turn | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

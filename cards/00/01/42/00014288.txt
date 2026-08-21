@@ -1,9 +1,11 @@
 Id:14288
-ColorIdentity:R
+ColorIdentity:U
 OriginSet:Gc18355312510df89
-ManaCost:4 R
-Types:Creature Dog
-PT:4/3
-A:AB$ PutCounter | Cost$ 5 R R | Monstrosity$ 1
-T:Mode$ BecomeMonstrous | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigDamageAll
-SVar:TrigDamageAll:DB$ DamageAll | ValidCards$ Creature.OppCtrl | ValidPlayers$ Player.Opponent | NumDmg$ 2
+ManaCost:3 U U
+Types:Enchantment Creature Nymph
+PT:4/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self,Enchantment.Other+YouCtrl | Execute$ TrigUnblockable
+SVar:TrigUnblockable:DB$ Effect | ValidTgts$ Creature | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable | AILogic$ Pump
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+SVar:PlayMain1:TRUE
+SVar:BuffedBy:Enchantment

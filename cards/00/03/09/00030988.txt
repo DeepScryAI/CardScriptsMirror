@@ -1,10 +1,13 @@
 Id:30988
-ColorIdentity:G
-OriginSet:G4524bbf7a3db9dc0
-ManaCost:4 G G
-Types:Creature Dinosaur
-PT:6/6
-K:Reach
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGainLife
-SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 4
-K:Cycling:2
+ColorIdentity:R
+OriginSet:G2c8286a6f234d4b9
+ManaCost:2 R
+Types:Legendary Creature Minotaur Warrior
+PT:2/3
+K:Haste
+S:Mode$ CantBlockBy | ValidAttacker$ Creature.Warrior | ValidBlocker$ Creature.Coward
+T:Mode$ AttackersDeclaredOneTarget | AttackedTarget$ Player | ValidAttackers$ Creature.Warrior+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigAnimate
+SVar:TrigAnimate:DB$ Animate | ValidTgts$ Creature | TargetsWithDefinedController$ TriggeredAttackedTarget | Types$ Coward | RemoveCreatureTypes$ True | Duration$ Permanent
+S:Mode$ Continuous | Affected$ Creature.Warrior+attacking+YouCtrl | AddPower$ X
+SVar:X:Count$Valid Coward.OppCtrl
+SVar:PlayMain1:TRUE

@@ -1,12 +1,11 @@
 Id:30340
-ColorIdentity:U
-OriginSet:G8b2ed00ac2a0ff47
-ManaCost:2 U U
-Types:Enchantment Creature Cat Glimmer
-PT:4/3
-K:Flash
-T:Mode$ DamageDone | ValidSource$ Creature.YouCtrl | ValidTarget$ Player | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self+Creature | Execute$ DBReturn
-SVar:DBReturn:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Battlefield | StaticEffect$ Animate
-SVar:Animate:Mode$ Continuous | Affected$ Card.IsRemembered | AddType$ Enchantment | RemoveCardTypes$ True
+ColorIdentity:BR
+OriginSet:G9ff9681e1fe8713a
+ManaCost:B R
+Types:Creature Lizard Warlock
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self,Lizard.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigBattleCry
+SVar:TrigBattleCry:DB$ Pump | Defined$ Self | KW$ BattleCry | Duration$ Perpetual
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self,Lizard.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | ValidTgts$ Opponent | LifeAmount$ 1 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1

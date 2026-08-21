@@ -1,7 +1,9 @@
 Id:16472
-ColorIdentity:B
+ColorIdentity:U
 OriginSet:G4bddbf7cb4f2475e
-ManaCost:1 B B
-Types:Instant
-A:SP$ DealDamage | ValidTgts$ Creature | NumDmg$ 3 | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 3
+ManaCost:1 U
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | TriggerZones$ Battlefield | ValidCard$ Artifact.YouCtrl,Permanent.Artificer+YouCtrl | Execute$ TrigEnergy
+SVar:TrigEnergy:AB$ PutCounter | Cost$ 1 | Defined$ You | CounterType$ ENERGY | CounterNum$ 2
+A:AB$ Draw | Cost$ PayEnergy<6> Sac<1/CARDNAME> | NumCards$ 3
+SVar:BuffedBy:Artifact,Artificer

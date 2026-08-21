@@ -1,9 +1,14 @@
 Id:32070
-ColorIdentity:
-OriginSet:G9946f072b5556073
-ManaCost:2
-Types:Artifact Creature Dog
-PT:2/1
-T:Mode$ Taps | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigGainLife
-SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 1
-A:AB$ ChangeZone | Cost$ 2 T | ValidTgts$ Card | Origin$ Graveyard | Destination$ Library | LibraryPosition$ -1
+ColorIdentity:G
+OriginSet:G7ab4f62d323b0ca7
+ManaCost:3 G
+Types:Artifact Book Equipment
+K:Job select
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddType$ Shaman | AddTrigger$ TrigAttack | AddSVar$ AE
+SVar:TrigAttack:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigChoose | TriggerZones$ Battlefield | OptionalDecider$ You
+SVar:TrigChoose:DB$ ChooseCard | Mandatory$ True | ChoiceZone$ Hand | Choices$ Creature.YouOwn | SubAbility$ DBChangeOne
+SVar:DBChangeOne:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | Defined$ ChosenCard | ConditionDefined$ ChosenCard | ConditionPresent$ Card.Enchantment | Tapped$ True | Attacking$ True | SubAbility$ DBChangeTwo
+SVar:DBChangeTwo:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | Defined$ ChosenCard | ConditionDefined$ ChosenCard | ConditionPresent$ Card.nonEnchantment | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+K:Equip:3:Flavor Abraxas
+SVar:AE:SVar:HasAttackEffect:TRUE

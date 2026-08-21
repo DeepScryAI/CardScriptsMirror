@@ -1,10 +1,11 @@
 Id:25643
-ColorIdentity:B
-OriginSet:G06ccef4324c14725
-ManaCost:B
-Types:Sorcery
-A:SP$ RevealHand | ValidTgts$ Opponent | ImprintRevealed$ True | RememberTargets$ True | SubAbility$ DBChooseCard
-SVar:DBChooseCard:DB$ ChooseCard | ChoiceZone$ Hand | Choices$ Artifact.IsImprinted,Creature.IsImprinted | RememberChosen$ True | Mandatory$ True | SubAbility$ DBChooseFromGraveyard
-SVar:DBChooseFromGraveyard:DB$ ChooseCard | ChoiceZone$ Graveyard | Choices$ Artifact.RememberedPlayerOwn,Creature.RememberedPlayerOwn | RememberChosen$ True | Mandatory$ True | Amount$ 1 | SubAbility$ DBExileBoth
-SVar:DBExileBoth:DB$ ChangeZone | Defined$ RememberedCard | Origin$ Graveyard,Hand | Destination$ Exile | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True
+ColorIdentity:G
+OriginSet:Gefb23f359c047d15
+ManaCost:2 G G
+Types:Legendary Creature Elf Warrior
+PT:3/3
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +X | NumDef$ +X
+SVar:X:Count$Valid Elf.YouCtrl+Other
+SVar:HasAttackEffect:TRUE
+S:Mode$ AssignCombatDamageAsUnblocked | ValidCard$ Card.Self | Optional$ True

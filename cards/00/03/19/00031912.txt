@@ -1,12 +1,10 @@
 Id:31912
-ColorIdentity:UR
+ColorIdentity:R
 OriginSet:G7ab4f62d323b0ca7
-ManaCost:3 U R
-Types:Legendary Creature Human Wizard
+ManaCost:2 R
+Types:Legendary Creature Human Rebel Warrior
 PT:3/3
-T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 3709958967 | TokenOwner$ You | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | NumCards$ 2 | ConditionCheckSVar$ X | ConditionSVarCompare$ GE4 | SubAbility$ DBSac
-SVar:DBSac:DB$ Sacrifice | ConditionCheckSVar$ X | ConditionSVarCompare$ GE8 | SubAbility$ DBDealDamage
-SVar:DBDealDamage:DB$ DealDamage | NumDmg$ X | ConditionCheckSVar$ X | ConditionSVarCompare$ GE8 | Defined$ Opponent
-SVar:X:TriggeredCard$CastTotalManaSpent
+S:Mode$ Continuous | Affected$ Creature.YouCtrl+equipped | AddKeyword$ Haste
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Equipment.YouCtrl+!token+Other | TriggerZones$ Battlefield | Execute$ TrigCopy
+SVar:TrigCopy:DB$ CopyPermanent | Defined$ TriggeredCardLKICopy | AddStaticAbilities$ EquipReduce | AtEOT$ SacrificeUpkeep
+SVar:EquipReduce:Mode$ ReduceCost | ValidCard$ Card.Self | ValidSpell$ Activated.Equip | Amount$ 2

@@ -1,8 +1,12 @@
 Id:27013
-ColorIdentity:U
-OriginSet:G6ce0035cfb774934
-ManaCost:2 U
-Types:Legendary Creature Human Cleric
+ColorIdentity:UG
+OriginSet:G3601f5e223de6c7f
+ManaCost:1 G U
+Types:Creature Elf Scout
 PT:1/4
-A:AB$ Untap | Cost$ T | ValidTgts$ Permanent.Other
-A:AB$ Untap | Cost$ T | ValidTgts$ Creature.Legendary+Other | TargetMin$ 2 | TargetMax$ 2
+T:Mode$ AttackersDeclared | AttackedTarget$ You | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.attacking | NumAtt$ -2 | IsCurse$ True
+T:Mode$ AttackersDeclared | Execute$ TrigChoose | IsPresent$ Creature.attackingYou | PresentCompare$ EQ0 | TriggerZones$ Battlefield
+SVar:TrigChoose:DB$ ChooseCard | Chooser$ TriggeredAttackingPlayer | Choices$ Creature.attacking | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ ChosenCard | NumAtt$ +2 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True

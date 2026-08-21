@@ -1,8 +1,10 @@
 Id:8749
-ColorIdentity:U
+ColorIdentity:
 OriginSet:G70f74088c47d66bd
-ManaCost:2 U
-Types:Enchantment Aura
-K:Enchant:Player
-T:Mode$ Phase | FirstUpkeep$ True | ValidPlayer$ Player.EnchantedBy | TriggerZones$ Battlefield | Execute$ AddUpkeep
-SVar:AddUpkeep:DB$ AddPhase | ExtraPhase$ Upkeep
+ManaCost:4
+Types:Artifact
+K:ETBReplacement:Other:ChooseColor
+SVar:ChooseColor:DB$ ChooseColor | Defined$ You | AILogic$ MostProminentInComputerDeck
+T:Mode$ SpellCast | ValidCard$ Card.ChosenColor | OptionalDecider$ You | Execute$ TrigGainLife | TriggerZones$ Battlefield
+SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 1
+A:AB$ Mana | Cost$ T | Produced$ Chosen

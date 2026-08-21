@@ -1,10 +1,12 @@
 Id:16718
 ColorIdentity:WG
 OriginSet:Gd31f94cf3a5f78e4
-ManaCost:2 G W
-Types:Enchantment
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSearch | OptionalDecider$ You
-SVar:TrigSearch:DB$ ChangeZone | Origin$ Library | OriginAlternative$ Graveyard | Destination$ Hand | ChangeType$ Card.YouOwn+catalogId16720 | Optional$ True
-A:AB$ ChooseCard | Cost$ Sac<1/CARDNAME> | Choices$ Creature | Mandatory$ True | AILogic$ NeedsPrevention | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | ReplacementEffects$ RPreventNextFromSource | RememberObjects$ ChosenCard | ExileOnMoved$ Battlefield
-SVar:RPreventNextFromSource:Event$ DamageDone | IsCombat$ True | ValidSource$ Card.IsRemembered | Prevent$ True
+ManaCost:4 G W
+Types:Legendary Planeswalker Ajani
+Loyalty:4
+A:AB$ Dig | Cost$ AddCounter<2/LOYALTY> | Planeswalker$ True | DigNum$ 3 | Reveal$ True | ChangeNum$ All | ChangeValid$ Permanent.nonLand
+A:AB$ ChangeZone | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | ValidTgts$ Creature | RememberLKI$ True | Origin$ Battlefield | Destination$ Exile | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ RememberedController | LifeAmount$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:RememberedLKI$CardPower
+A:AB$ PutCounterAll | Cost$ SubCounter<9/LOYALTY> | ValidCards$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 5 | Planeswalker$ True | Ultimate$ True | ValidCards2$ Planeswalker.YouCtrl+StrictlyOther | CounterType2$ LOYALTY | AILogic$ OwnCreatsAndOtherPWs

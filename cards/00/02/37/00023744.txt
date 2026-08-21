@@ -1,12 +1,11 @@
 Id:23744
-ColorIdentity:BG
-OriginSet:G18bf722b221724f8
-ManaCost:2 B G
-Types:Enchantment Saga
-K:Chapter:3:DBMill,DBPutCounterAll,DBEffect
-SVar:DBMill:DB$ Mill | NumCards$ 5 | Defined$ You | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | Hidden$ True | ChangeType$ Elf.YouOwn,Tyvar.YouOwn | ChangeNum$ 1 | Origin$ Graveyard | Destination$ Battlefield
-SVar:DBPutCounterAll:DB$ PutCounterAll | ValidCards$ Creature.Elf+YouCtrl | CounterType$ P1P1 | CounterNum$ 1
-SVar:DBEffect:DB$ Effect | Triggers$ TrigAttack
-SVar:TrigAttack:Mode$ Attacks | ValidCard$ Creature.Elf+YouCtrl | Execute$ TrigPump | TriggerZones$ Battlefield
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.OppCtrl | NumAtt$ -1 | NumDef$ -1 | IsCurse$ True
+ColorIdentity:W
+OriginSet:G1a259dba25660062
+ManaCost:2 W
+Types:Enchantment
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Destination$ Battlefield | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Creature,Artifact | TargetMin$ 0 | TargetMax$ 1 | Duration$ UntilHostLeavesPlay
+A:AB$ ChangeZone | Cost$ 1 W Discard<1/CARDNAME> | ActivationZone$ Hand | ValidTgts$ Creature,Artifact | Origin$ Battlefield | Destination$ Exile | SubAbility$ DelTrig | RememberChanged$ True
+SVar:DelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ TrigReturn | RememberObjects$ RememberedLKI | SubAbility$ DBCleanup
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Exile | Destination$ Battlefield | Defined$ DelayTriggerRememberedLKI
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

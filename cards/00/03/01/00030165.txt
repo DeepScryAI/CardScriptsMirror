@@ -1,0 +1,12 @@
+Id:30165
+ColorIdentity:WUR
+OriginSet:G30e4cc621dfc3a2e
+ManaCost:2 U R W
+Types:Legendary Creature Mouse Knight
+PT:4/5
+K:Haste
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | IsPresent$ Creature.attacking+Other | NoResolvingCheck$ True | Execute$ TrigDig
+SVar:TrigDig:DB$ Dig | DigNum$ 6 | ChangeNum$ 1 | Optional$ True | Reveal$ True | ChangeValid$ Creature | DestinationZone$ Battlefield | Tapped$ True | Attacking$ True | RestRandomOrder$ True | RememberChanged$ True | SubAbility$ DBDelayedTrigger
+SVar:DBDelayedTrigger:DB$ DelayedTrigger | Mode$ Phase | Phase$ EndCombat | Execute$ TrigBounce | RememberObjects$ Remembered | SubAbility$ DBCleanup
+SVar:TrigBounce:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Defined$ DelayTriggerRememberedLKI
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

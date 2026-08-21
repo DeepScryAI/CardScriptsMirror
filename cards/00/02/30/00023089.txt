@@ -1,20 +1,14 @@
 Id:23089
-ColorIdentity:B
+ColorIdentity:UR
 OriginSet:G7a76c1974b0a33a6
-ManaCost:1 B
-Types:Creature Vampire Wizard
-PT:2/1
-K:Flying
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self,Creature.Other+!token+YouCtrl | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 2179622914
-T:Mode$ TokenCreated | ValidPlayer$ You | ValidToken$ Blood | IsPresent$ Blood.token+YouCtrl | PresentCompare$ GE5 | Execute$ TrigTransform | TriggerZones$ Battlefield
-SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:black
-Types:Creature Vampire Wizard
-PT:3/3
-K:Flying
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | Execute$ TrigAnimate | TriggerZones$ Battlefield
-SVar:TrigAnimate:DB$ Animate | ValidTgts$ Blood.token+YouCtrl | TargetMin$ 0 | TargetMax$ 1 | Power$ 2 | Toughness$ 2 | Colors$ Black | OverwriteColors$ True | Types$ Creature,Bat | Keywords$ Flying & Haste | Duration$ Permanent
+ManaCost:1 R R
+Types:Sorcery
+A:SP$ AddTurn | NumTurns$ 1 | ExtraTurnDelayedTrigger$ DBDelTrig | ExtraTurnDelayedTriggerExecute$ TrigEffect | SubAbility$ DBExile
+SVar:DBDelTrig:ThisTurn$ True | Static$ True | Mode$ Phase | Phase$ Upkeep
+SVar:TrigEffect:DB$ Effect | Defined$ You | StaticAbilities$ STCantPrevent | Triggers$ EndLose
+SVar:STCantPrevent:Mode$ CantPreventDamage
+SVar:EndLose:Mode$ Phase | Phase$ End of Turn | Execute$ TrigLose
+SVar:TrigLose:DB$ LosesGame | Defined$ You
+A:SP$ AddTurn | Cost$ 4 U U R | NumTurns$ 1 | ExtraTurnDelayedTrigger$ DBDelTrig | ExtraTurnDelayedTriggerExecute$ TrigEffect2 | NonBasicSpell$ True | SubAbility$ DBExile
+SVar:TrigEffect2:DB$ Effect | Defined$ You | StaticAbilities$ STCantPrevent
+SVar:DBExile:DB$ ChangeZone | Origin$ Stack | Destination$ Exile

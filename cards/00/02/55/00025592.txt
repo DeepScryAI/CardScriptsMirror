@@ -1,10 +1,13 @@
 Id:25592
-ColorIdentity:B
-OriginSet:Gce0c33e5115830a3
-ManaCost:B B
-Types:Creature Human Artificer
-PT:2/2
-K:Flash
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | ValidTgts$ Player | TokenOwner$ You | TokenAmount$ X | TokenTapped$ True | TokenScriptIds$ 2975106104
-SVar:X:Count$ValidGraveyard Card.nonLand+ThisTurnEnteredFrom_Battlefield+OwnedBy TargetedPlayer
+ColorIdentity:
+OriginSet:G2e872aaf9b98489e
+ManaCost:no cost
+Types:Artifact Attraction
+K:Visit:TrigExile
+SVar:TrigExile:DB$ Dig | DigNum$ X | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ EffSModeContinuous | ForgetOnMoved$ Exile | RememberObjects$ Remembered | SubAbility$ DBDelayTrig
+SVar:EffSModeContinuous:Mode$ Continuous | Affected$ Card.IsRemembered | MayPlay$ True | AffectedZone$ Exile
+SVar:DBDelayTrig:DB$ DelayedTrigger | Mode$ Phase | RememberObjects$ Remembered | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionZone$ Exile | Phase$ End Of Turn | Execute$ TrigChangeAll | SubAbility$ DBCleanup
+SVar:TrigChangeAll:DB$ ChangeZone | Defined$ DelayTriggerRememberedLKI | Origin$ Exile | Destination$ Library | LibraryPosition$ -1
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:PlayerCountPropertyYou$AttractionsVisitedThisTurn

@@ -1,10 +1,30 @@
 Id:26826
-ColorIdentity:WU
-OriginSet:G3601f5e223de6c7f
-ManaCost:1 W U
-Types:Legendary Creature Human Noble
-PT:2/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | TriggerZones$ Battlefield | ValidCard$ Creature.Legendary+YouCtrl+cmcGE4 | Execute$ TrigMonarch
-SVar:TrigMonarch:DB$ BecomeMonarch
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | CheckDefinedPlayer$ You.isMonarch | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 1647422943 | TokenOwner$ You
+ColorIdentity:R
+OriginSet:G06757f68e16377c2
+ManaCost:2 R R
+Types:Legendary Creature Phyrexian Praetor
+PT:4/4
+K:FirstStrike
+T:Mode$ SpellCast | ValidCard$ Card.Instant,Card.Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDealDamage
+SVar:TrigDealDamage:DB$ DealDamage | ValidTgts$ Opponent | NumDmg$ 1 | SubAbility$ DBMana
+SVar:DBMana:DB$ Mana | Produced$ R | Amount$ 1
+A:AB$ ChangeZone | Cost$ R | CheckSVar$ X | SVarCompare$ GE3 | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn | SorcerySpeed$ True
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | Transformed$ True | ForgetOtherRemembered$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$ThisTurnCast_Instant.YouCtrl,Sorcery.YouCtrl
+SVar:BuffedBy:Instant,Sorcery
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:red
+Types:Enchantment Saga
+K:Chapter:3:DBDamage,DBToken,DBCastAll
+SVar:DBDamage:DB$ DamageAll | ValidTgts$ Opponent | NumDmg$ 3 | ValidPlayers$ Targeted | ValidCards$ Creature.TargetedPlayerCtrl
+SVar:DBToken:DB$ Token | TokenAmount$ 3 | TokenScriptIds$ 3851718391
+SVar:DBCastAll:DB$ Effect | ReplacementEffects$ REExileOnResolve | StaticAbilities$ STPlay | AILogic$ YawgmothsWill | AINoRecursiveCheck$ True | Ultimate$ True | SubAbility$ DBExileSelf
+SVar:STPlay:Mode$ Continuous | Affected$ Card.Instant,Card.Sorcery | AffectedZone$ Graveyard | MayPlay$ True
+SVar:REExileOnResolve:Event$ Moved | ValidLKI$ Card.CastSa Spell.MayPlaySource | Origin$ Stack | Destination$ Graveyard | ReplaceWith$ MoveExile
+SVar:MoveExile:DB$ ChangeZone | Defined$ ReplacedCard | Origin$ Stack | Destination$ Exile
+SVar:DBExileSelf:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | SubAbility$ DBReturnSelf | RememberChanged$ True
+SVar:DBReturnSelf:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

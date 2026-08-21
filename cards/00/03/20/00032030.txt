@@ -1,14 +1,10 @@
 Id:32030
-ColorIdentity:BRG
-OriginSet:G7856e27bce45729f
-ManaCost:1 B R G
-Types:Legendary Artifact Spacecraft
-PT:6/7
-K:Station:8
-S:Mode$ Continuous | Affected$ Card.Self+counters_GE2_CHARGE | AddAbility$ HearthhullDraw
-SVar:HearthhullDraw:AB$ Draw | Cost$ 1 T Sac<1/Land> | NumCards$ 2 | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | StaticAbilities$ Exploration
-SVar:Exploration:Mode$ Continuous | Affected$ You | AdjustLandPlays$ 1
-S:Mode$ Continuous | Affected$ Card.Self+counters_GE8_CHARGE | AddType$ Creature | AddKeyword$ Flying & Vigilance & Haste | AddTrigger$ SacrificeTrig
-SVar:SacrificeTrig:Mode$ Sacrificed | ValidCard$ Land | ValidPlayer$ You | Execute$ TrigLoseLife | TriggerZones$ Battlefield
-SVar:TrigLoseLife:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 2
+ColorIdentity:R
+OriginSet:G7ab4f62d323b0ca7
+ManaCost:1 R
+Types:Instant
+A:SP$ DealDamage | ValidTgts$ Creature.YouCtrl | AILogic$ PowerDmg | NumDmg$ X | DamageMap$ True | SubAbility$ DBDealDamage2 | DamageSource$ ThisTargetedCard
+SVar:DBDealDamage2:DB$ DealDamage | ValidTgts$ Any | TargetUnique$ True | NumDmg$ Y | SubAbility$ DBDamageResolve | DamageSource$ ParentTarget
+SVar:DBDamageResolve:DB$ DamageResolve
+SVar:X:Targeted$CardPower
+SVar:Y:ParentTargeted$CardPower

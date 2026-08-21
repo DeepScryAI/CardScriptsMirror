@@ -1,18 +1,14 @@
 Id:26545
-ColorIdentity:UR
-OriginSet:G06757f68e16377c2
-ManaCost:U R
-Types:Battle Siege
-Defense:4
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenOwner$ You | TokenScriptIds$ 3939935181
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:blue,red
-Types:Legendary Artifact Vehicle
-PT:*/4
-K:Flying
-K:Crew:1
-S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X
-SVar:X:Count$Valid Artifact.YouCtrl
+ColorIdentity:R
+OriginSet:Gd5f5e54fa26ae40d
+ManaCost:4 R
+Types:Sorcery
+A:SP$ Discard | Mode$ Hand | RememberDiscarded$ True | SubAbility$ DBMana
+SVar:DBMana:DB$ Mana | Produced$ R | Amount$ X | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ SVar$X/Plus.1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | SubAbility$ DBSpace
+SVar:X:Remembered$Amount
+SVar:DBSpace:DB$ BlankLine | SubAbility$ DBVote
+SVar:DBVote:DB$ Vote | Defined$ Player | Choices$ DBPlaneswalk,DBChaos | VoteTiedAbility$ DBChaos
+SVar:DBPlaneswalk:DB$ Planeswalk
+SVar:DBChaos:DB$ ChaosEnsues

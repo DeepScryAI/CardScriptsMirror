@@ -1,13 +1,9 @@
 Id:32248
-ColorIdentity:W
+ColorIdentity:B
 OriginSet:G9946f072b5556073
-ManaCost:1 W
-Types:Creature Human Knight
-PT:2/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | CheckSVar$ X | SVarCompare$ GTY | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 2258507865 | TokenOwner$ You
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +1
-SVar:X:PlayerCountOpponents$HighestValid Land.YouCtrl
-SVar:Y:Count$Valid Land.YouCtrl
-SVar:BuffedBy:Land
+ManaCost:2 B
+Types:Sorcery
+A:SP$ Draw | NumCards$ 2 | SubAbility$ DBLoseLifeYou
+SVar:DBLoseLifeYou:DB$ LoseLife | LifeAmount$ 2 | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ0 | SubAbility$ DBLoseLifeOpp
+SVar:DBLoseLifeOpp:DB$ LoseLife | Defined$ Opponent | LifeAmount$ 2 | ConditionCheckSVar$ X
+SVar:X:Count$Void.1.0

@@ -1,13 +1,8 @@
 Id:23903
-ColorIdentity:BR
-OriginSet:Gfdfe2ebef04be34e
-ManaCost:1 B R
-Types:Legendary Planeswalker Nixilis
-Loyalty:3
-K:Casualty:X:NonLegendary$ True | SetLoyalty$ Casualty:The copy isn't legendary and has starting loyalty X.
-A:AB$ RepeatEach | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | RepeatPlayers$ Opponent | RepeatSubAbility$ DBDrain | SubAbility$ DBGainLife
-SVar:DBDrain:DB$ LoseLife | Defined$ Player.IsRemembered | LifeAmount$ 2 | UnlessCost$ Discard<1/Card> | UnlessPayer$ Player.IsRemembered
-SVar:DBGainLife:DB$ GainLife | LifeAmount$ 2 | ConditionPresent$ Demon.YouCtrl,Devil.YouCtrl
-A:AB$ Token | Cost$ SubCounter<2/LOYALTY> | TokenScriptIds$ 1965070986 | Planeswalker$ True
-A:AB$ Draw | Cost$ SubCounter<7/LOYALTY> | Planeswalker$ True | Ultimate$ True | ValidTgts$ Player | NumCards$ 7 | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 7 | Defined$ Targeted
+ColorIdentity:WR
+OriginSet:G5f5d8cfb206e2fac
+ManaCost:1 R W
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 1092778731
+A:AB$ Token | Cost$ tapXType<3/Creature> | TokenScriptIds$ 3851718391

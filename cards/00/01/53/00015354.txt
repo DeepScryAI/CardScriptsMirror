@@ -1,11 +1,9 @@
 Id:15354
-ColorIdentity:U
+ColorIdentity:B
 OriginSet:G70acd28f254172ff
-ManaCost:2 U U
-Types:Sorcery
-A:SP$ PeekAndReveal | ValidTgts$ Opponent | Reveal$ True | NoPeek$ True | PeekAmount$ 7 | RememberRevealed$ True | SubAbility$ TelepathCast
-SVar:TelepathCast:DB$ Play | ValidZone$ Library | Valid$ Card.IsRemembered | ValidSA$ Instant,Sorcery | Controller$ You | WithoutManaCost$ True | Optional$ True | Amount$ X | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | Origin$ Library | Destination$ Graveyard | Defined$ Remembered | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$Compare Y GE2.2.1
-SVar:Y:Count$ValidGraveyard Instant.YouOwn,Sorcery.YouOwn
+ManaCost:2 B
+Types:Enchantment
+R:Event$ GainLife | ActiveZones$ Battlefield | ValidPlayer$ Opponent | ReplaceWith$ RLoseLife | AILogic$ LoseLife
+SVar:RLoseLife:DB$ LoseLife | LifeAmount$ X | Defined$ ReplacedPlayer
+SVar:X:ReplaceCount$LifeGained
+SVar:NonStackingEffect:True

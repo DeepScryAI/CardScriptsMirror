@@ -1,10 +1,10 @@
 Id:4188
 ColorIdentity:W
 OriginSet:Gdd40b2fbd2aa3c03
-ManaCost:1 W
-Types:Instant
-A:SP$ Sacrifice | Defined$ You | Amount$ SacX | SacValid$ Permanent | RememberSacrificed$ True | Optional$ True | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | LifeAmount$ LifeX | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:SacX:Count$Valid Permanent.YouCtrl
-SVar:LifeX:Remembered$Amount/Twice
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ LandTapped | ReplacementResult$ Updated
+SVar:LandTapped:DB$ Tap | Defined$ Self | ETB$ True | SubAbility$ DBAddCounter
+SVar:DBAddCounter:DB$ PutCounter | Defined$ Self | ETB$ True | CounterType$ DEPLETION | CounterNum$ 2
+A:AB$ Mana | Cost$ T SubCounter<1/DEPLETION> | Produced$ W | SubAbility$ DBSac | Amount$ 2
+SVar:DBSac:DB$ Sacrifice | SacValid$ Self | ConditionPresent$ Card.Self+counters_EQ0_DEPLETION

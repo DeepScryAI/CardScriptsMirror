@@ -1,14 +1,9 @@
 Id:5316
-ColorIdentity:R
+ColorIdentity:U
 OriginSet:Gfdac7ecc1e8a7d21
-ManaCost:2 R R
-Types:Enchantment
-T:Mode$ Attacks | ValidCard$ Creature | Execute$ CoinFlip | TriggerZones$ Battlefield
-SVar:CoinFlip:DB$ FlipCoin | WinSubAbility$ CreateWinEffect | LoseSubAbility$ CreateLossEffect
-SVar:CreateWinEffect:DB$ Effect | Name$ 12160160825561773802 | ReplacementEffects$ EventWinDamageDone | ImprintCards$ TriggeredAttacker
-SVar:EventWinDamageDone:Event$ DamageDone | ValidSource$ Card.IsImprinted | IsCombat$ True | ReplaceWith$ DmgTwice
-SVar:DmgTwice:DB$ ReplaceEffect | VarName$ DamageAmount | VarValue$ WinX | SubAbility$ ExileEffect
-SVar:WinX:ReplaceCount$DamageAmount/Twice
-SVar:CreateLossEffect:DB$ Effect | Name$ 15602654908884257114 | ReplacementEffects$ EventLossDamageDone | ImprintCards$ TriggeredAttacker
-SVar:EventLossDamageDone:Event$ DamageDone | ValidSource$ Card.IsImprinted | ReplaceWith$ ExileEffect | PreventionEffect$ True | IsCombat$ True
-SVar:ExileEffect:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile
+ManaCost:1 U
+Types:Enchantment Aura
+K:Enchant:Creature
+R:Event$ Untap | ActiveZones$ Battlefield | ValidCard$ Creature.EnchantedBy | ValidStepTurnToController$ You | Layer$ CantHappen
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddAbility$ Untap
+SVar:Untap:AB$ Untap | Cost$ 1 Discard<1/Card> | Defined$ Self

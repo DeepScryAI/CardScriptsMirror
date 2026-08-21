@@ -1,0 +1,12 @@
+Id:35167
+ColorIdentity:WUR
+OriginSet:G21d8f666c5c6b81d
+ManaCost:U R W
+Types:Legendary Creature Cat Wizard
+PT:3/2
+T:Mode$ ChangesZone | ValidCard$ Card.Self,Creature.YouCtrl | Origin$ Any | Destination$ Battlefield | Execute$ TrigExile | TriggerZones$ Battlefield
+SVar:TrigExile:DB$ ChangeZone | ValidTgts$ Instant.cmcEQ1+YouOwn,Sorcery.cmcEQ1+YouOwn | TargetMin$ 0 | TargetMax$ 1 | Origin$ Graveyard | Destination$ Exile | RememberChanged$ True | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ TriggeredCardLKICopy | Triggers$ CombatDamageTrigger | ConditionDefined$ Remembered | ConditionPresent$ Card | Duration$ Permanent | RememberObjects$ Remembered | SubAbility$ DBCleanup
+SVar:CombatDamageTrigger:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigPlay
+SVar:TrigPlay:DB$ Play | Defined$ Remembered | ValidZone$ Exile | CopyCard$ True | ValidSA$ Spell | WithoutManaCost$ True | Optional$ True
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

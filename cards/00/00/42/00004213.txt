@@ -1,10 +1,10 @@
 Id:4213
 ColorIdentity:U
 OriginSet:Gdd40b2fbd2aa3c03
-ManaCost:4 U
-Types:Creature Beast
-PT:3/3
-A:AB$ Mill | Cost$ U | RememberMilled$ True | SubAbility$ DBUnblockable
-SVar:DBUnblockable:DB$ Effect | ConditionDefined$ Remembered | ConditionPresent$ Card.Land | RememberObjects$ Self | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable | SubAbility$ DBCleanup
-SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:3 U U
+Types:Creature Merfolk
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigReturn
+SVar:TrigExile:DB$ ChangeZoneAll | ChangeType$ Artifact,Enchantment | Origin$ Graveyard | Destination$ Exile
+SVar:TrigReturn:DB$ ChangeZoneAll | ChangeType$ Artifact,Enchantment | Origin$ Graveyard | Destination$ Hand

@@ -1,9 +1,12 @@
 Id:11161
 ColorIdentity:U
 OriginSet:G9fb0a9a59b6a9580
-ManaCost:4 U
-Types:Enchantment Aura
-K:Enchant:Creature
-K:Umbra armor
-SVar:AttachAILogic:Pump
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 3 | AddToughness$ 3 | AddKeyword$ Flying
+ManaCost:1 U U
+Types:Creature Jellyfish
+PT:5/5
+K:Flying
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+R:Event$ Untap | ValidCard$ Card.Self | ValidStepTurnToController$ You | Layer$ CantHappen
+T:Mode$ BecomesTarget | ValidTarget$ You | ValidSource$ Spell | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigUntap
+SVar:TrigUntap:DB$ Untap | Defined$ Self

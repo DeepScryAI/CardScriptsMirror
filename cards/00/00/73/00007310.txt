@@ -1,15 +1,17 @@
 Id:7310
-ColorIdentity:U
+ColorIdentity:B
 OriginSet:G332b6b8a53f3d107
-ManaCost:1 U
-Types:Creature Human Wizard
-PT:1/1
-T:Mode$ Always | IsPresent$ Card.Self+withFlying | TriggerZones$ Battlefield | Execute$ TrigFlip
-SVar:TrigFlip:DB$ SetState | Defined$ Self | Mode$ Flip
-AlternateMode:Flip
-ALTERNATE
-ManaCost:1 U
-Colors:blue
-Types:Legendary Creature Human Wizard
-PT:3/3
-S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddKeyword$ Flying
+ManaCost:2 B B
+Types:Sorcery
+A:SP$ RevealHand | ValidTgts$ Opponent | RememberTargets$ True | RememberRevealed$ True | SubAbility$ DBRepeatChoose
+SVar:DBRepeatChoose:DB$ Repeat | RepeatSubAbility$ DBOppChoose | RepeatCheckSVar$ X | RepeatSVarCompare$ GE1 | SubAbility$ DBReturn
+SVar:DBOppChoose:DB$ ChooseCard | Defined$ Player.IsRemembered | Choices$ Card.IsRemembered | ChoiceZone$ Hand | Amount$ 1 | Mandatory$ True | SubAbility$ DBExileOpp
+SVar:DBExileOpp:DB$ ChangeZone | Defined$ ChosenCard | Origin$ Hand | Destination$ Exile | Imprint$ True | SubAbility$ DBYouChoose
+SVar:DBYouChoose:DB$ ChooseCard | Defined$ You | Choices$ Card.IsRemembered | ChoiceZone$ Hand | Amount$ 1 | Mandatory$ True | SubAbility$ DBExileYou
+SVar:DBExileYou:DB$ ChangeZone | Defined$ ChosenCard | Origin$ Hand | Destination$ Exile
+SVar:DBReturn:DB$ ChangeZoneAll | ChangeType$ Card.IsImprinted | Origin$ Exile | Destination$ Hand | SubAbility$ DBGoYard
+SVar:DBGoYard:DB$ ChangeZoneAll | ChangeType$ Card.!IsImprinted+IsRemembered | Origin$ Exile | Destination$ Graveyard | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True
+SVar:X:Count$ValidHand Card.IsRemembered
+SVar:NeedsToPlayVar:Y GE1
+SVar:Y:PlayerCountOpponents$HasPropertyHasCardsInHand_Card_GE2

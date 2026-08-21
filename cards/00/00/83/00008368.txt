@@ -1,12 +1,7 @@
 Id:8368
-ColorIdentity:W
+ColorIdentity:BR
 OriginSet:Gde6d8130c178f566
-ManaCost:4 W W
-Types:Creature Human Knight
-PT:3/4
-T:Mode$ DamageDealtOnce | ValidSource$ Card.Self | Execute$ TrigGain | TriggerZones$ Battlefield
-SVar:TrigGain:DB$ GainLife | Defined$ You | LifeAmount$ X
-SVar:X:TriggerCount$DamageAmount
-A:AB$ Effect | Cost$ 1 W Reveal<1/CARDNAME> | ValidTgts$ Creature | Triggers$ TrigDamage | RememberObjects$ Targeted | Forecast$ True
-SVar:TrigDamage:Mode$ DamageDealtOnce | ValidSource$ Creature.IsRemembered | Execute$ TrigGain
-SVar:HasCombatEffect:TRUE
+ManaCost:1 B R
+Types:Enchantment
+T:Mode$ DamageDone | ValidTarget$ Opponent | DamageAmount$ GE3 | Execute$ TrigDestroy | TriggerZones$ Battlefield
+SVar:TrigDestroy:DB$ Discard | Defined$ TriggeredTarget | NumCards$ 1 | Mode$ TgtChoose

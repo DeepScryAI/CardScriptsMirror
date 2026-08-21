@@ -1,11 +1,11 @@
 Id:25794
-ColorIdentity:G
+ColorIdentity:BR
 OriginSet:G06ccef4324c14725
-ManaCost:G
-Types:Creature Wurm
-PT:1/1
-S:Mode$ Continuous | Affected$ Card.Self | IsPresent$ Artifact.YouCtrl | PresentCompare$ GE3 | AddKeyword$ Deathtouch
-T:Mode$ ChangesZone | ValidCard$ Artifact.YouCtrl | Origin$ Any | Destination$ Battlefield | TriggerZones$ Battlefield | Execute$ TrigGainLife
-SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 1 | SubAbility$ DBCounter
-SVar:DBCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | ConditionCheckSVar$ Resolved | ConditionSVarCompare$ EQ1
-SVar:Resolved:Count$ResolvedThisTurn
+ManaCost:1 B R
+Types:Creature Human Artificer
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenTapped$ True | TokenScriptIds$ 2975106104
+A:AB$ PumpAll | Cost$ 1 B R Sac<1/Creature.Other;Artifact.Other/another creature or artifact> | ValidCards$ Creature.YouCtrl+StrictlyOther | NumAtt$ +1 | KW$ Menace & Haste
+SVar:PlayMain1:TRUE
+SVar:AIPreference:SacCost$Artifact.token,Creature.Other+cmcLE2,Artifact.cmcEQ1

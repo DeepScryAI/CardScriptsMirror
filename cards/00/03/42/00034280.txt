@@ -1,9 +1,12 @@
 Id:34280
-ColorIdentity:RG
+ColorIdentity:R
 OriginSet:Gcb93bbfc68a40806
-ManaCost:1 RG
-Types:Legendary Creature Human Hero
+ManaCost:1 R
+Types:Legendary Creature Human Villain
 PT:2/2
-K:Reach
-T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigAnimate
-SVar:TrigAnimate:DB$ Animate | Defined$ Self | Power$ 4 | Toughness$ 4
+K:Multikicker:2
+K:etbCounter:P1P1:X:no Condition
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Any | TargetMin$ 0 | TargetMax$ X | NumDmg$ Y
+SVar:X:Count$TimesKicked
+SVar:Y:Count$CardPower

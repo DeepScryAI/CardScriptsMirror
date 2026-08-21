@@ -1,16 +1,8 @@
 Id:14756
-ColorIdentity:R
+ColorIdentity:
 OriginSet:Gfafc221218d3b700
-ManaCost:3 R
-Types:Legendary Planeswalker Daretti
-Loyalty:3
-A:AB$ Discard | Cost$ AddCounter<2/LOYALTY> | Planeswalker$ True | NumCards$ 2 | Optional$ True | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ X | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Remembered$Amount
-A:AB$ Sacrifice | Cost$ SubCounter<2/LOYALTY> | SacValid$ Artifact | RememberSacrificed$ True | Planeswalker$ True | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | ValidTgts$ Artifact.YouCtrl | Origin$ Graveyard | Destination$ Battlefield | ConditionCheckSVar$ X | SubAbility$ DBCleanup
-A:AB$ Effect | Cost$ SubCounter<10/LOYALTY> | Planeswalker$ True | Ultimate$ True | Name$ 4630723605749284122 | Stackable$ False | Triggers$ TrigChangesZone | Duration$ Permanent | AILogic$ Always
-SVar:TrigChangesZone:Mode$ ChangesZone | ValidCard$ Artifact.YouOwn | Origin$ Battlefield | Destination$ Graveyard | Execute$ DelTrigReturn | TriggerZones$ Command
-SVar:DelTrigReturn:DB$ DelayedTrigger | Mode$ Phase | Phase$ End Of Turn | Execute$ DBReturn | RememberObjects$ TriggeredNewCardLKICopy
-SVar:DBReturn:DB$ ChangeZone | Defined$ DelayTriggerRememberedLKI | Origin$ Graveyard | Destination$ Battlefield
+ManaCost:3
+Types:Artifact
+T:Mode$ Attacks | ValidCard$ Creature | Attacked$ You,Planeswalker.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ TriggeredAttackerLKICopy | NumAtt$ +2
+A:AB$ GainControl | Cost$ 2 | Defined$ Self | ValidTgts$ Player.!CardOwner | PlayerTurn$ True

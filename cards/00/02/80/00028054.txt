@@ -1,7 +1,14 @@
 Id:28054
 ColorIdentity:R
-OriginSet:Gfd50577710a6ab09
-ManaCost:R
-Types:Creature Goblin Pirate
-PT:1/2
-S:Mode$ Continuous | Affected$ Card.Self | AddPower$ 1 | IsPresent$ Artifact.YouCtrl | AddKeyword$ Haste
+OriginSet:G6ce0035cfb774934
+ManaCost:6 R
+Types:Creature Human Knight
+PT:7/4
+K:Affinity:Human
+K:Trample
+K:Haste
+T:Mode$ Phase | TriggerZones$ Battlefield | Phase$ End of Turn | ValidPlayer$ You | IsPresent$ Card.Self+attackedThisTurn | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Defined$ Self | Origin$ Battlefield | Destination$ Hand | RememberChanged$ True | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 1647422943 | TokenOwner$ You | TokenAmount$ Y | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:Y:RememberedLKI$CardToughness

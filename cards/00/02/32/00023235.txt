@@ -1,10 +1,9 @@
 Id:23235
-ColorIdentity:W
+ColorIdentity:
 OriginSet:G6e75ff4f143a3dc3
-ManaCost:1 W
-Types:Creature Human Soldier
-PT:1/2
-K:Training
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ EachFromSource | EachFromSource$ TriggeredCardLKICopy
-SVar:SacMe:2
+ManaCost:1
+Types:Artifact Equipment
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1 | AddTrigger$ TrigDamageDone
+SVar:TrigDamageDone:Mode$ DamageDealtOnce | CombatDamage$ True | ValidSource$ Card.Self | Execute$ TrigBlood
+SVar:TrigBlood:DB$ Token | TokenScriptIds$ 2179622914 | TokenOwner$ You
+K:Equip:2

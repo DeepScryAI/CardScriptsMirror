@@ -1,10 +1,12 @@
 Id:23122
-ColorIdentity:U
-OriginSet:G3aa323ca47c740b1
-ManaCost:3 U
-Types:Creature Spirit Wizard
-PT:3/2
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
-SVar:TrigChangeZone:DB$ Play | ValidZone$ Graveyard | Valid$ Card.YouOwn | ValidSA$ Instant.cmcLEX,Sorcery.cmcLEX | WithoutManaCost$ True | Optional$ True | ReplaceGraveyard$ Exile
-SVar:X:Count$Valid Spirit.YouCtrl
+ColorIdentity:G
+OriginSet:G7a76c1974b0a33a6
+ManaCost:3 G G
+Types:Enchantment
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | Execute$ TrigCharm | TriggerZones$ Battlefield
+SVar:TrigCharm:DB$ Charm | Choices$ PumpAll,Animate,Draw,Gain
+SVar:PumpAll:DB$ PumpAll | ValidCards$ Creature.YouCtrl | KW$ Trample | NumAtt$ +1 | NumDef$ +1
+SVar:Animate:DB$ Animate | ValidTgts$ Land | Abilities$ ThreeG
+SVar:ThreeG:AB$ Mana | Cost$ T | Produced$ G | Amount$ 3
+SVar:Draw:DB$ Draw | Defined$ You | NumCards$ 1 | ConditionPresent$ Creature.YouCtrl+powerGE3
+SVar:Gain:DB$ GainLife | LifeAmount$ 3

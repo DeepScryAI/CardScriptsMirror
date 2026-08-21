@@ -1,20 +1,9 @@
 Id:20459
-ColorIdentity:U
-OriginSet:Gfd2908c43728a759
-ManaCost:3 U U
-Types:Legendary Planeswalker B.O.B.
-Loyalty:0
-K:ETBReplacement:Other:TrigFour
-SVar:TrigFour:DB$ Token | TokenAmount$ 4 | TokenScriptIds$ 579195384
-T:Mode$ CounterRemovedOnce | ValidCard$ Card.Self | TriggerZones$ Battlefield | CounterType$ LOYALTY | CheckSVar$ Beeb | SVarCompare$ GTLoy | Execute$ TrigSac | Static$ True
-SVar:TrigSac:DB$ Sacrifice | Amount$ Amt | SacValid$ Beeble
-SVar:Amt:TriggerCount$Amount
-T:Mode$ CounterAddedOnce | ValidCard$ Card.Self | TriggerZones$ Battlefield | CounterType$ LOYALTY | CheckSVar$ Loy | SVarCompare$ GTBeeb | Execute$ TrigCreate | Static$ True | Secondary$ True
-SVar:TrigCreate:DB$ Token | TokenAmount$ Amt | TokenScriptIds$ 579195384
-SVar:Loy:Count$CardCounters.LOYALTY
-SVar:Beeb:Count$Valid Beeble.YouCtrl
-K:The number of loyalty counters on CARDNAME is equal to the number of Beebles you control.
-SVar:NHand:Count$ValidHand Card.YouOwn
-A:AB$ Effect | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Beeble | TargetMin$ 0 | TargetMax$ NHand | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable
-SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
-A:AB$ Draw | Cost$ SubCounter<1/LOYALTY> | Planeswalker$ True
+ColorIdentity:
+OriginSet:Gfa87e7bbc5a709eb
+ManaCost:3
+Types:Artifact Creature Bird
+PT:1/3
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigScry
+SVar:TrigScry:DB$ Scry | ScryNum$ 1

@@ -1,10 +1,9 @@
 Id:27832
-ColorIdentity:BR
+ColorIdentity:W
 OriginSet:G30e8a5e111cffb44
-ManaCost:4 B R
-Types:Legendary Creature Time Lord Rogue
-PT:4/3
-K:Myriad
-S:Mode$ IgnoreLegendRule | ValidCard$ Creature.YouCtrl+token
-S:Mode$ CantSacrifice | ValidCard$ Creature.YouCtrl+token | ValidCause$ Triggered.YouCtrl | ForCost$ False
-S:Mode$ CantExile | ValidCard$ Creature.YouCtrl+token | ValidCause$ Triggered.YouCtrl | ForCost$ False | Secondary$ True
+ManaCost:3 W
+Types:Enchantment
+K:Vanishing:3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile | Secondary$ True
+T:Mode$ Phase | Phase$ Main1 | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Creature.OppCtrl | Duration$ UntilHostLeavesPlay

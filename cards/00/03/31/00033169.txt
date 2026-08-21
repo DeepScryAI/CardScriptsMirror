@@ -1,8 +1,10 @@
 Id:33169
-ColorIdentity:B
-OriginSet:G7ab1fe96128a1641
-ManaCost:1 B
-Types:Creature Elf Warrior
-PT:3/1
-A:AB$ Pump | Cost$ Discard<1/Card> | KW$ Indestructible | SubAbility$ DBTap
-SVar:DBTap:DB$ Tap
+ColorIdentity:R
+OriginSet:G731e0066916b7465
+ManaCost:3 R R
+Types:Sorcery Lesson
+A:SP$ DamageAll | ValidCards$ Creature | NumDmg$ 5 | RememberDamaged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | Triggers$ DiesTrig | RememberObjects$ Remembered | SubAbility$ DBCleanup
+SVar:DiesTrig:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl+IsRemembered | Execute$ TrigMana
+SVar:TrigMana:DB$ Mana | Produced$ R | Amount$ 1
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

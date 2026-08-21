@@ -1,12 +1,11 @@
 Id:25596
-ColorIdentity:W
-OriginSet:G06ccef4324c14725
-ManaCost:2 W
-Types:Creature Human Cleric
-PT:1/1
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill
-SVar:TrigMill:DB$ Mill | NumCards$ 3 | RememberMilled$ True | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | Hidden$ True | Origin$ Graveyard,Exile | Destination$ Hand | ChangeType$ Plains.IsRemembered,Creature.cmcLE3+IsRemembered | RememberChanged$ True | ForgetOtherRemembered$ True | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ0 | CounterType$ P1P1 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:
+OriginSet:G2e872aaf9b98489e
+ManaCost:no cost
+Types:Artifact Attraction
+K:Visit:TrigEffect
+SVar:TrigEffect:DB$ Effect | Triggers$ STShip
+SVar:STShip:Mode$ Phase | Phase$ EndCombat | ValidPlayer$ You | FirstCombat$ True | Execute$ TrigAdditionalCombat
+SVar:TrigAdditionalCombat:DB$ AddPhase | ExtraPhase$ Combat | AfterPhase$ EndCombat | SubAbility$ DBUntapAll
+SVar:DBUntapAll:DB$ UntapAll | ValidCards$ Creature.attackedThisTurn
+SVar:PlayMain1:TRUE

@@ -1,9 +1,15 @@
 Id:29428
-ColorIdentity:G
-OriginSet:Gac6359c222afbd4f
-ManaCost:1 G
-Types:Creature Snake Druid
-PT:1/4
-A:AB$ Mana | Cost$ T | Produced$ G
-A:AB$ Mana | Cost$ T | Produced$ G | Amount$ 4 | IsPresent$ Creature.YouCtrl+powerGE4
-K:Eternalize:2 G G
+ColorIdentity:W
+OriginSet:G0c9f9aa4a8bf0371
+ManaCost:4 W W W
+Types:Legendary Creature Vampire Cleric
+PT:4/7
+K:Lifelink
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMakeCard
+SVar:TrigMakeCard:DB$ MakeCard | Conjure$ True | SpellbookCatalogIds$ 7957,17583,18152,17535 | Zone$ Hand | SubAbility$ DBEffect | RememberMade$ True
+SVar:DBEffect:DB$ Effect | RememberObjects$ Remembered | StaticAbilities$ Play | SubAbility$ DBCleanup | ExileOnMoved$ Exile
+SVar:Play:Mode$ Continuous | MayPlay$ True | MayPlayWithoutManaCost$ True | Affected$ Card.IsRemembered | AffectedZone$ Hand
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ X | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 404516535 | TokenOwner$ You | TokenPower$ X | TokenToughness$ X
+SVar:X:Count$LifeYouGainedThisTurn

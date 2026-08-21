@@ -1,8 +1,12 @@
 Id:32241
-ColorIdentity:W
+ColorIdentity:U
 OriginSet:G9946f072b5556073
-ManaCost:1 W
-Types:Creature Human Pilot
-PT:2/2
-T:Mode$ Taps | ValidCard$ Card.Self | Execute$ TrigSurveil
-SVar:TrigSurveil:DB$ Surveil | Amount$ 1
+ManaCost:U
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Curse
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ -5
+T:Mode$ Taps | ValidCard$ Card.AttachedBy | TriggerZones$ Battlefield | Execute$ TrigDestroy1
+T:Mode$ DamageDoneOnce | ValidTarget$ Creature.EnchantedBy | Execute$ TrigDestroy2 | TriggerZones$ Battlefield | Secondary$ True
+SVar:TrigDestroy1:DB$ Destroy | Defined$ TriggeredCardLKICopy
+SVar:TrigDestroy2:DB$ Destroy | Defined$ TriggeredTargetLKICopy

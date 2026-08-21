@@ -1,8 +1,10 @@
 Id:18055
 ColorIdentity:B
-OriginSet:G5033d54b23b37629
-ManaCost:3 B
-Types:Creature Human Knight
-PT:4/2
-T:Mode$ SpellCast | ValidCard$ Card.Historic | ValidActivatingPlayer$ You | Execute$ TrigDamage | TriggerZones$ Battlefield
-SVar:TrigDamage:DB$ DealDamage | Defined$ Player.Opponent | NumDmg$ 2
+OriginSet:G21ed5bd3b1924169
+ManaCost:1 B
+Types:Creature Vampire Soldier
+PT:2/1
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDrain | TriggerZones$ Battlefield | IsPresent$ Planeswalker.Vraska+YouCtrl
+T:Mode$ Blocks | ValidCard$ Card.Self | Execute$ TrigDrain | Secondary$ True | TriggerZones$ Battlefield | IsPresent$ Planeswalker.Vraska+YouCtrl
+SVar:TrigDrain:DB$ LoseLife | ValidTgts$ Opponent | LifeAmount$ 2 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2

@@ -1,9 +1,10 @@
 Id:4374
-ColorIdentity:B
+ColorIdentity:W
 OriginSet:G94d5a0658e4301e7
-ManaCost:2 B
-Types:Creature Phyrexian Zombie Mercenary
-PT:1/1
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ PumpAll | ValidCards$ Creature.Mercenary+StrictlyOther | NumAtt$ +1 | NumDef$ +1
+ManaCost:2 W W
+Types:Enchantment
+K:Fading:5
+A:AB$ ChangeZone | Cost$ SubCounter<1/FADE> | ValidTgts$ Creature | Origin$ Battlefield | Destination$ Exile
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Defined$ ExiledWith | Origin$ Exile | Destination$ Battlefield
 SVar:PlayMain1:TRUE

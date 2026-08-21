@@ -1,15 +1,11 @@
 Id:28386
-ColorIdentity:G
-OriginSet:G7ee0e82a2424d636
-ManaCost:G G G
-Types:Instant
-A:SP$ Charm | Choices$ DBTutor,DBPutCounter,DBAntiquate
-SVar:DBTutor:DB$ ChangeZone | Origin$ Library | Destination$ Library | ChangeType$ Creature,Land | ChangeNum$ 1 | Reveal$ True | Shuffle$ False | RememberChanged$ True | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | Defined$ Remembered | Origin$ Library | Destination$ Battlefield | Tapped$ True | ConditionDefined$ Remembered | ConditionPresent$ Card.Land | ForgetChanged$ True | SubAbility$ DBChangeZone2
-SVar:DBChangeZone2:DB$ ChangeZone | Defined$ Remembered | Origin$ Library | Destination$ Hand | SubAbility$ DBShuffle
-SVar:DBShuffle:DB$ Shuffle | Defined$ You | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:DBPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | SubAbility$ DBDamage | AILogic$ PowerDmg
-SVar:DBDamage:DB$ DealDamage | ValidTgts$ Creature.YouDontCtrl | NumDmg$ X | DamageSource$ ParentTarget | AILogic$ PowerDmg
-SVar:X:ParentTargeted$CardPower
-SVar:DBAntiquate:DB$ ChangeZone | ValidTgts$ Artifact,Enchantment | Origin$ Battlefield | Destination$ Exile
+ColorIdentity:UBG
+OriginSet:G4f78ded7b58f78f8
+ManaCost:B G U
+Types:Legendary Creature Human Scientist
+PT:1/4
+S:Mode$ Continuous | Affected$ Card.Self,Human.YouCtrl | AddKeyword$ Exploit
+T:Mode$ Exploited | ValidCard$ Creature.nonHuman | ValidSource$ Creature.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 3851718391 | ConditionCheckSVar$ X | ConditionSVarCompare$ GE3
+SVar:X:TriggeredExploited$CardPower

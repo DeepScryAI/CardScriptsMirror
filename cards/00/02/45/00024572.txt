@@ -1,0 +1,71 @@
+Id:24572
+ColorIdentity:U
+OriginSet:G58bfeff4fb121c8e
+ManaCost:3 U
+Types:Legendary Creature Halfling Rogue
+PT:3/3
+K:Specialize:2
+T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigUnblockable | TriggerZones$ Battlefield
+SVar:TrigUnblockable:DB$ Effect | ValidTgts$ Creature.attacking | TargetMin$ 0 | TargetMax$ 1 | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable | AILogic$ Pump | SubAbility$ DBDelTrig
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+SVar:DBDelTrig:DB$ DelayedTrigger | ConditionDefined$ Targeted | ConditionPresent$ Card | Mode$ Phase | Phase$ End of Turn | RememberObjects$ Targeted | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Defined$ DelayTriggerRememberedLKI | Origin$ Battlefield | Destination$ Hand
+AlternateMode:Specialize
+SPECIALIZE:WHITE
+ManaCost:3 W U
+Types:Legendary Creature Halfling Rogue
+PT:4/4
+T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigUnblockable | TriggerZones$ Battlefield
+SVar:TrigUnblockable:DB$ Effect | ValidTgts$ Creature.attacking | TargetMin$ 0 | TargetMax$ 1 | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable | AILogic$ Pump | SubAbility$ DBDelTrig
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+SVar:DBDelTrig:DB$ DelayedTrigger | ConditionDefined$ Targeted | ConditionPresent$ Card | Mode$ Phase | Phase$ End of Turn | RememberObjects$ Targeted | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Defined$ DelayTriggerRememberedLKI | Origin$ Battlefield | Destination$ Hand | ForgetOtherRemembered$ True | RememberChanged$ True | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 1214250791 | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SPECIALIZE:BLUE
+ManaCost:3 U U
+Types:Legendary Creature Halfling Rogue
+PT:4/4
+T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigUnblockable | TriggerZones$ Battlefield
+SVar:TrigUnblockable:DB$ Effect | ValidTgts$ Creature.attacking | TargetMin$ 0 | TargetMax$ 1 | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable | AILogic$ Pump | SubAbility$ DBDelTrig
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+SVar:DBDelTrig:DB$ DelayedTrigger | ConditionDefined$ Targeted | ConditionPresent$ Card | Mode$ Phase | Phase$ End of Turn | RememberObjects$ Targeted | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Defined$ DelayTriggerRememberedLKI | Origin$ Battlefield | Destination$ Hand | ForgetOtherRemembered$ True | RememberChanged$ True | SubAbility$ DBChooseCard
+SVar:DBChooseCard:DB$ ChooseCard | ConditionDefined$ Remembered | ConditionPresent$ Card | Choices$ Creature.OppCtrl | Mandatory$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | SubAbility$ DBPerpetual
+SVar:DBPerpetual:DB$ Effect | Name$ 1832415975137100433 | ConditionDefined$ ChosenCard | ConditionPresent$ Card | StaticAbilities$ PerpetualDebuff | Duration$ Permanent | SubAbility$ DBClearChosen
+SVar:PerpetualDebuff:Mode$ Continuous | Affected$ Card.ChosenCard | AddPower$ -1 | AffectedZone$ All
+SVar:DBClearChosen:DB$ Cleanup | ClearChosenCard$ True
+SPECIALIZE:BLACK
+ManaCost:3 U B
+Types:Legendary Creature Halfling Rogue Assassin
+PT:4/4
+T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigUnblockable | TriggerZones$ Battlefield
+SVar:TrigUnblockable:DB$ Effect | ValidTgts$ Creature.attacking | TargetMin$ 0 | TargetMax$ 1 | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable | AILogic$ Pump | SubAbility$ DBDelTrig
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+SVar:DBDelTrig:DB$ DelayedTrigger | ConditionDefined$ Targeted | ConditionPresent$ Card | Mode$ Phase | Phase$ End of Turn | RememberObjects$ Targeted | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Defined$ DelayTriggerRememberedLKI | Origin$ Battlefield | Destination$ Hand | ForgetOtherRemembered$ True | RememberChanged$ True | SubAbility$ DBDrain
+SVar:DBDrain:DB$ LoseLife | Defined$ Opponent | LifeAmount$ 2 | ConditionDefined$ Remembered | ConditionPresent$ Card
+SPECIALIZE:RED
+ManaCost:3 U R
+Types:Legendary Creature Halfling Rogue
+PT:4/4
+T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigUnblockable | TriggerZones$ Battlefield
+SVar:TrigUnblockable:DB$ Effect | ValidTgts$ Creature.attacking | TargetMin$ 0 | TargetMax$ 1 | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable | AILogic$ Pump | SubAbility$ DBDelTrig
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+SVar:DBDelTrig:DB$ DelayedTrigger | ConditionDefined$ Targeted | ConditionPresent$ Card | Mode$ Phase | Phase$ End of Turn | RememberObjects$ Targeted | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Defined$ DelayTriggerRememberedLKI | Origin$ Battlefield | Destination$ Hand | ForgetOtherRemembered$ True | RememberChanged$ True | SubAbility$ DBTreasure
+SVar:DBTreasure:DB$ Token | TokenScriptIds$ 3851718391 | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SPECIALIZE:GREEN
+ManaCost:3 G U
+Types:Legendary Creature Halfling Rogue Scout
+PT:4/4
+T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigUnblockable | TriggerZones$ Battlefield
+SVar:TrigUnblockable:DB$ Effect | ValidTgts$ Creature.attacking | TargetMin$ 0 | TargetMax$ 1 | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable | AILogic$ Pump | SubAbility$ DBDelTrig
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+SVar:DBDelTrig:DB$ DelayedTrigger | ConditionDefined$ Targeted | ConditionPresent$ Card | Mode$ Phase | Phase$ End of Turn | RememberObjects$ Targeted | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Defined$ DelayTriggerRememberedLKI | Origin$ Battlefield | Destination$ Hand | ForgetOtherRemembered$ True | RememberChanged$ True | SubAbility$ DBPerpetual
+SVar:DBPerpetual:DB$ Effect | Name$ 5520140003816921361 | ConditionDefined$ Remembered | ConditionPresent$ Card | RememberObjects$ Remembered | StaticAbilities$ PerpetualP1P1 | Duration$ Permanent | SubAbility$ DBCleanup
+SVar:PerpetualP1P1:Mode$ Continuous | Affected$ Card.IsRemembered | AddPower$ 1 | AddToughness$ 1 | AffectedZone$ All
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

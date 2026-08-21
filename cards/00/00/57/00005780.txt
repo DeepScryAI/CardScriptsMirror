@@ -1,11 +1,12 @@
 Id:5780
-ColorIdentity:U
+ColorIdentity:R
 OriginSet:G7327b0fa163b48eb
-ManaCost:3 U U
-Types:Creature Nightmare Fish Beast
-PT:5/5
+ManaCost:3 R R R
+Types:Creature Nightmare Dragon
+PT:7/7
+K:Flying
+K:Trample
 T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZoneAll | ChangeType$ Card.YouCtrl | Origin$ Hand | Destination$ Exile | RememberChanged$ True
+SVar:TrigExile:DB$ ChangeZoneAll | ChangeType$ Permanent.YouCtrl+StrictlyOther | Origin$ Battlefield | Destination$ Exile
 T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Battlefield | Destination$ Any | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Hand | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:TrigReturn:DB$ ChangeZoneAll | ChangeType$ Card.ExiledWithSource | Origin$ Exile | Destination$ Battlefield

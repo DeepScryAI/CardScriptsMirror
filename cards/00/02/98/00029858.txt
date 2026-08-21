@@ -1,11 +1,11 @@
 Id:29858
-ColorIdentity:R
-OriginSet:Gf09b85bbcc27770c
-ManaCost:1 R
-Types:Enchantment
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPutCounter
-T:Mode$ ManaExpend | Amount$ 4 | Player$ You | TriggerZones$ Battlefield | Secondary$ True | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ STASH | CounterNum$ 1
-A:AB$ Discard | Cost$ 1 R Sac<1/CARDNAME> | Defined$ You | Mode$ Hand | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ X
-SVar:X:Count$CardCounters.STASH
+ColorIdentity:B
+OriginSet:G01a610e823cce3ca
+ManaCost:2 B
+Types:Legendary Creature Human Assassin
+PT:3/2
+K:PartnerWithId:29841
+T:Mode$ DamageDoneOnce | CombatDamage$ True | ValidSource$ Assassin.YouCtrl | ValidTarget$ Player | TriggerZones$ Battlefield | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | ValidTgts$ Card.Assassin+YouCtrl,Card.withFreerunning+YouCtrl | TargetMin$ 0 | TargetMax$ 1 | Origin$ Graveyard | Destination$ Exile | RememberChanged$ True | SubAbility$ DBCast
+SVar:DBCast:DB$ Play | Valid$ Card.IsRemembered | ValidZone$ Exile | CopyCard$ True | ValidSA$ Spell | Optional$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

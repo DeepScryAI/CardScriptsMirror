@@ -1,11 +1,11 @@
 Id:4985
-ColorIdentity:WRG
+ColorIdentity:BR
 OriginSet:G9e6cd9ac1f7f4832
-ManaCost:R G W
-Types:Instant
-A:SP$ Charm | Choices$ Bash,Token,Prevent
-SVar:Bash:DB$ Destroy | ValidTgts$ Land.nonBasic
-SVar:Token:DB$ Token | TokenAmount$ 3 | TokenScriptIds$ 3815350479 | TokenOwner$ You
-SVar:Prevent:DB$ ChooseSource | Choices$ Card,Emblem | AILogic$ NeedsPrevention | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | ReplacementEffects$ RPreventNextFromSource | ConditionDefined$ ChosenCard | ConditionPresent$ Card,Emblem
-SVar:RPreventNextFromSource:Event$ DamageDone | ValidSource$ Card.ChosenCardStrict,Emblem.ChosenCard | Prevent$ True
+ManaCost:4 B R
+Types:Creature Beast
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSac
+SVar:TrigChange:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Hidden$ True | Mandatory$ True | ChangeType$ Creature.Black+YouCtrl,Creature.Red+YouCtrl | AILogic$ NeverBounceItself
+SVar:TrigSac:DB$ Sacrifice | Defined$ Player | SacValid$ Land
+SVar:NeedsToPlay:Creature.Black+cmcLE3+YouCtrl,Creature.Red+cmcLE3+YouCtrl

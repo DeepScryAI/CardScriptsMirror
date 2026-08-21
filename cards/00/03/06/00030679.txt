@@ -1,13 +1,12 @@
 Id:30679
-ColorIdentity:U
-OriginSet:Gc5a2f0ff902c0621
-ManaCost:4 U U
-Types:Creature Sphinx
-PT:5/5
-R:Event$ Counter | ValidCard$ Card.Self | ValidSA$ Spell | Layer$ CantHappen
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPeekAndReveal
-SVar:TrigPeekAndReveal:DB$ PeekAndReveal | Defined$ You | PeekAmount$ 5 | NoReveal$ True | RememberPeeked$ True | SubAbility$ Separate
-SVar:Separate:DB$ TwoPiles | Defined$ You | Separator$ You | Chooser$ Opponent | DefinedCards$ Remembered | ChosenPile$ DBHand | UnchosenPile$ DBGraveyard | Zone$ Library | FaceDown$ One
-SVar:DBHand:DB$ ChangeZone | Defined$ Remembered | Origin$ Library | Destination$ Hand
-SVar:DBGraveyard:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered | Origin$ Library | Destination$ Graveyard
+ColorIdentity:WB
+OriginSet:G8b2ed00ac2a0ff47
+ManaCost:1 W B
+Types:Legendary Creature Human Warlock
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Enchantment.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigSurveil
+T:Mode$ FullyUnlock | ValidCard$ Card.Room | ValidPlayer$ You | Secondary$ True | Execute$ TrigSurveil | TriggerZones$ Battlefield
+SVar:TrigSurveil:DB$ Surveil | Amount$ 2 | ConditionCheckSVar$ Resolved | ConditionSVarCompare$ EQ1 | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ Player.Opponent | Mode$ TgtChoose | ConditionCheckSVar$ Resolved | ConditionSVarCompare$ EQ2 | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ChangeType$ Creature | ChangeNum$ 1 | Mandatory$ True | GainControl$ True | ConditionCheckSVar$ Resolved | ConditionSVarCompare$ EQ3 | Hidden$ True
+SVar:Resolved:Count$ResolvedThisTurn

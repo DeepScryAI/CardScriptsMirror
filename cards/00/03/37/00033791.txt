@@ -1,10 +1,15 @@
 Id:33791
-ColorIdentity:G
-OriginSet:Gf8df2bea26dc6b68
-ManaCost:1 G
-Types:Instant
-A:SP$ Charm | Choices$ DBDestroy,DBDamage,DBChangeZone
-SVar:DBDestroy:DB$ Destroy | ValidTgts$ Artifact
-SVar:DBDamage:DB$ DealDamage | ValidTgts$ Creature.withFlying | NumDmg$ 4
-SVar:DBChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw
+ColorIdentity:WR
+OriginSet:G23d1f017cc66962f
+ManaCost:2 R W
+Types:Legendary Creature Elf Rebel
+PT:2/4
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +1
+T:Mode$ Attacks | ValidCard$ Creature.Self | Execute$ TrigExile | TriggerZones$ Battlefield
+SVar:TrigExile:DB$ ChangeZone | ValidTgts$ Creature.YouOwn | TargetMin$ 0 | TargetMax$ 1 | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ All | Destination$ Battlefield | Tapped$ True | Attacking$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:BuffedBy:Creature
+SVar:HasAttackEffect:TRUE

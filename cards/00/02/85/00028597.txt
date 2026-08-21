@@ -1,11 +1,11 @@
 Id:28597
-ColorIdentity:B
+ColorIdentity:R
 OriginSet:G7ee0e82a2424d636
-ManaCost:3 B
-Types:Enchantment
-K:Flash
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature | NumAtt$ -4 | NumDef$ -4 | IsCurse$ True
-T:Mode$ ChangesZoneAll | ValidCards$ Creature.YouOwn | Origin$ Graveyard | Destination$ Any | TriggerZones$ Battlefield | Execute$ LoseGain
-SVar:LoseGain:DB$ LoseLife | Defined$ Opponent | LifeAmount$ 1 | SubAbility$ DBGain
-SVar:DBGain:DB$ GainLife | Defined$ You | LifeAmount$ 1
+ManaCost:1 R
+Types:Instant
+A:SP$ Charm | Choices$ DBTurnFaceUp,DBChangeZoneAll | MinCharmNum$ 1 | CharmNum$ 2
+SVar:DBTurnFaceUp:DB$ SetState | ValidTgts$ Creature.faceDown | Mode$ TurnFaceUp
+SVar:DBChangeZoneAll:DB$ ChangeZone | ChangeType$ Creature.faceUp+YouCtrl+withDisguise | Hidden$ True | ChangeNum$ X | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | ExileFaceDown$ True | SubAbility$ DBCloak
+SVar:DBCloak:DB$ Cloak | Defined$ Remembered | Shuffle$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$Valid Creature.YouCtrl+faceUp+withDisguise

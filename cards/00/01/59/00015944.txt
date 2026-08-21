@@ -1,11 +1,17 @@
 Id:15944
-ColorIdentity:G
+ColorIdentity:R
 OriginSet:Gc276c26a85a70470
-ManaCost:3 G
-Types:Creature Human Warrior
+ManaCost:1 R R
+Types:Creature Human Scout Werewolf
 PT:3/3
-T:Mode$ DamageDealtOnce | ValidSource$ Card.Self | ValidTarget$ Creature | TriggerZones$ Battlefield | Execute$ TrigInvestigate
-SVar:TrigInvestigate:DB$ Investigate
-T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | CheckSVar$ ClueResearch | SVarCompare$ GE3 | Execute$ TrigCheatCreature
-SVar:TrigCheatCreature:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | ChangeType$ Creature | ChangeNum$ 1
-SVar:ClueResearch:PlayerCountPropertyYou$SacrificedThisTurn Clue
+T:Mode$ Phase | Phase$ Upkeep | WerewolfTransformCondition$ True | TriggerZones$ Battlefield | Execute$ TrigTransform
+SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:red
+Types:Creature Werewolf
+PT:4/3
+S:Mode$ Continuous | Affected$ Creature.YouCtrl+attacking | AddPower$ 1 | AddKeyword$ Trample
+T:Mode$ Phase | Phase$ Upkeep | WerewolfUntransformCondition$ True | TriggerZones$ Battlefield | Execute$ TrigTransform
+SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform

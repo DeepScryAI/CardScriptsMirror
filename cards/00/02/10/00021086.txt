@@ -1,10 +1,11 @@
 Id:21086
-ColorIdentity:UB
+ColorIdentity:W
 OriginSet:G7b2607750b451c25
-ManaCost:3 U B
-Types:Legendary Creature Merfolk Rogue
-PT:4/4
-K:Flash
-A:AB$ ChangeZone | Cost$ 2 U B Return<1/Rogue.unblocked+attacking+YouCtrl/unblocked attacking Rogue you control> | ActivationZone$ Hand | Defined$ Self | Origin$ Hand | Destination$ Battlefield | Tapped$ True | Attacking$ True
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigGainControl | OptionalDecider$ You
-SVar:TrigGainControl:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True | ValidTgts$ Permanent | TargetsWithDefinedController$ TriggeredTarget
+ManaCost:W
+Types:Creature Human Cleric
+PT:*/2
+S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ X | SVarCompare$ EQ4 | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature | NumAtt$ +1 | NumDef$ +1 | KW$ Flying
+SVar:X:Count$Party
+SVar:BuffedBy:Rogue,Warrior,Wizard

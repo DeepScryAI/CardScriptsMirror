@@ -1,11 +1,10 @@
 Id:21318
-ColorIdentity:B
-OriginSet:G51d431785c8b33e5
-ManaCost:2 B
-Types:Enchantment
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 3
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigLoseLife
-SVar:TrigLoseLife:DB$ LoseLife | LifeAmount$ X
-SVar:X:Count$ValidHand Card.YouOwn/Times.2
-SVar:DonateMe:5
+ColorIdentity:U
+OriginSet:G72c9c624ceb92bff
+ManaCost:3 U
+Types:Creature Merfolk Rogue
+PT:2/3
+A:AB$ Effect | Cost$ tapXType<1/Rogue.Other> | RememberObjects$ Self | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw

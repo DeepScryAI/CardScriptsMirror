@@ -1,8 +1,13 @@
 Id:23472
-ColorIdentity:W
-OriginSet:G1a259dba25660062
-ManaCost:1 W
-Types:Enchantment Creature Human Samurai
-PT:2/1
-T:Mode$ Attacks | ValidCard$ Samurai.YouCtrl,Warrior.YouCtrl | Alone$ True | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | Defined$ TriggeredAttackerLKICopy | NumAtt$ +1 | NumDef$ +1
+ColorIdentity:U
+OriginSet:Ga4d5d94d587eb185
+ManaCost:5 U
+Types:Artifact Creature Turtle Warrior
+PT:4/4
+K:Improvise
+K:Ward:4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Artifact.YouCtrl | IsPresent$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | CounterType$ P1P1 | SubAbility$ DBUnblockable
+SVar:DBUnblockable:DB$ Effect | RememberObjects$ Self | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+SVar:BuffedBy:Artifact

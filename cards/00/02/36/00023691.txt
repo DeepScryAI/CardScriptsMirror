@@ -1,10 +1,11 @@
 Id:23691
-ColorIdentity:WR
-OriginSet:G8a59924df6623252
-ManaCost:2 W
-Types:Legendary Creature Human Warrior
-PT:2/4
-K:Training
-A:AB$ DealDamage | Cost$ 4 R Q Discard<1/Card> | ValidTgts$ Any | NumDmg$ X | AILogic$ PowerDmg | ExcessSVar$ Excess | ExcessSVarCondition$ Creature | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | ConditionCheckSVar$ Excess
-SVar:X:Count$CardPower
+ColorIdentity:G
+OriginSet:G1a259dba25660062
+ManaCost:1 G
+Types:Enchantment
+T:Mode$ ChangesZone | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl,Vehicle.YouCtrl | CounterType$ P1P1 | CounterNum$ 1
+A:AB$ PutCounter | Cost$ X G G Discard<1/CARDNAME> | ActivationZone$ Hand | ValidTgts$ Land.YouCtrl | CounterType$ P1P1 | CounterNum$ X | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ ParentTarget | Power$ 0 | Toughness$ 0 | Types$ Creature,Spirit | Colors$ Green | OverwriteColors$ True | Keywords$ Haste | Duration$ Permanent
+SVar:X:Count$xPaid
+SVar:BuffedBy:Land

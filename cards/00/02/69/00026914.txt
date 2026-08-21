@@ -1,9 +1,10 @@
 Id:26914
-ColorIdentity:R
-OriginSet:G6ce0035cfb774934
-ManaCost:1 R
-Types:Sorcery
-A:SP$ Pump | ValidTgts$ Creature.OppCtrl | AILogic$ PowerDmg | SubAbility$ MutinyDamage
-SVar:MutinyDamage:DB$ DealDamage | ValidTgts$ Creature | TargetUnique$ True | TargetsWithDefinedController$ ParentTargetedController | AILogic$ PowerDmg | NumDmg$ X | DamageSource$ ParentTarget | SubAbility$ TrigTempt
-SVar:X:ParentTargeted$CardPower
-SVar:TrigTempt:DB$ RingTemptsYou
+ColorIdentity:WG
+OriginSet:G321081e278de53f0
+ManaCost:1 G W
+Types:Legendary Enchantment Creature Human Druid
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self,Enchantment.YouCtrl+Other | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ 1
+T:Mode$ DamageDone | TriggerZones$ Battlefield | ValidSource$ Card.Self,Creature.enchanted+YouCtrl | OptionalDecider$ You | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigToken | ResolvedLimit$ 1
+SVar:TrigToken:DB$ CopyPermanent | Choices$ Enchantment.nonLegendary+YouCtrl

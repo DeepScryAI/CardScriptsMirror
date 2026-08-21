@@ -1,10 +1,13 @@
 Id:34316
-ColorIdentity:B
+ColorIdentity:R
 OriginSet:Gcb93bbfc68a40806
-ManaCost:2 B B
-Types:Legendary Artifact Creature Human Villain
-PT:3/4
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigCharm
-SVar:TrigCharm:DB$ Charm | Choices$ DBPump,DBDamage
-SVar:DBPump:DB$ Pump | Defined$ Self | KW$ Flying
-SVar:DBDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 1
+ManaCost:2 R
+Types:Creature Human Mercenary Hero
+PT:2/3
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 3851718391 | TokenOwner$ You
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigChoice
+SVar:TrigChoice:DB$ GenericChoice | Choices$ DBSacToPump,DBDiscardToPump
+SVar:DBSacToPump:DB$ Pump | UnlessCost$ Sac<1/Artifact> | UnlessPayer$ You | UnlessSwitched$ True | Defined$ Self | NumAtt$ +2
+SVar:DBDiscardToPump:DB$ Pump | UnlessCost$ Discard<1/Card> | UnlessPayer$ You | UnlessSwitched$ True | Defined$ Self | NumAtt$ +2
+SVar:HasAttackEffect:TRUE

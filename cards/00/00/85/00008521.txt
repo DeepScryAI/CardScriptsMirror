@@ -1,7 +1,9 @@
 Id:8521
-ColorIdentity:W
+ColorIdentity:R
 OriginSet:Gf7b8c9355081f53b
-ManaCost:W
+ManaCost:1 R R
 Types:Instant
-A:SP$ Effect | ReplacementEffects$ RPrevent
-SVar:RPrevent:Event$ DamageDone | Prevent$ True | ActiveZones$ Command | ValidSource$ Card.BlackSource,Card.RedSource
+A:SP$ DealDamage | ValidTgts$ Any | NumDmg$ X
+SVar:X:Count$CardCounters.CHARGE/Plus.3
+A:AB$ PutCounter | Cost$ Discard<1/Land> | CounterType$ CHARGE | CounterNum$ 2 | Defined$ Self | ActivationZone$ Stack | SubAbility$ DBChangeTarget | Activator$ Player
+SVar:DBChangeTarget:DB$ ChangeTargets | Defined$ SourceFirstSpell | Optional$ True

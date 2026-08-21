@@ -1,13 +1,10 @@
 Id:23797
-ColorIdentity:G
-OriginSet:G5f5d8cfb206e2fac
-ManaCost:2 G
-Types:Enchantment
-T:Mode$ AttackersDeclared | AttackingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.attacking | CounterType$ SHIELD | SubAbility$ DBAnimate
-SVar:DBAnimate:DB$ Animate | Defined$ Targeted | Triggers$ DealsDamage
-SVar:DealsDamage:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigRemoveCounter
-SVar:TrigRemoveCounter:DB$ RemoveCounter | CounterType$ SHIELD | RememberRemoved$ True | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | ConditionCheckSVar$ X | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$RememberedSize
+ColorIdentity:W
+OriginSet:Gd970889168b5769f
+ManaCost:W
+Types:Artifact Creature Equipment Insect
+PT:1/1
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1 | AddToughness$ 1
+T:Mode$ Attached | ValidSource$ Card.Self | ValidTarget$ Creature | TriggerZones$ Battlefield | Execute$ TrigCopy | ActivationLimit$ 1
+SVar:TrigCopy:DB$ CopyPermanent | Defined$ Self | DoesntHaveThisAbility$ True
+K:Reconfigure:2

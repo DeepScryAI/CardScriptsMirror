@@ -1,9 +1,12 @@
 Id:25256
-ColorIdentity:UG
+ColorIdentity:URG
 OriginSet:Gf591a76e7a37cf73
-ManaCost:1 G U
-Types:Creature Tyranid
-PT:2/2
-K:Flying
-K:Deathtouch
-K:Hexproof
+ManaCost:1 G U R
+Types:Legendary Creature Human Tyranid Wizard
+PT:1/1
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ 1
+A:AB$ Mana | SubAbility$ DBEffect | Cost$ T | Produced$ C | Amount$ 2
+SVar:DBEffect:DB$ Effect | Triggers$ CopySpellCast
+SVar:CopySpellCast:Mode$ SpellAbilityCast | ValidActivatingPlayer$ You | ValidSA$ Activated,Spell | OneOff$ True | Execute$ TrigCopySpell | HasXManaCost$ True
+SVar:TrigCopySpell:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | MayChooseTarget$ True | AILogic$ Always

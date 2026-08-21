@@ -1,8 +1,20 @@
 Id:26708
-ColorIdentity:UG
-OriginSet:G997e3b19a1e94e85
-ManaCost:5 U G
-Types:Legendary Creature Dinosaur Bird
-PT:7/8
-K:Flying
-K:Trample
+ColorIdentity:R
+OriginSet:G06757f68e16377c2
+ManaCost:2 R
+Types:Battle Siege
+Defense:5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDealDamage
+SVar:TrigDealDamage:DB$ DealDamage | ValidTgts$ Battle.Other,Opponent | NumDmg$ 4 | SubAbility$ DBDealDamage
+SVar:DBDealDamage:DB$ DealDamage | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | NumDmg$ 1
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:red
+Types:Creature Human Monk
+PT:4/4
+K:Prowess
+R:Event$ DamageDone | ValidSource$ Card.YouCtrl+nonCreature,Emblem.YouCtrl | ValidTarget$ Creature,Battle,Opponent | ReplaceWith$ DmgPlus2
+SVar:DmgPlus2:DB$ ReplaceEffect | VarName$ DamageAmount | VarValue$ X
+SVar:X:ReplaceCount$DamageAmount/Plus.2
+SVar:BuffedBy:Card.nonCreature

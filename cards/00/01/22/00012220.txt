@@ -1,7 +1,12 @@
 Id:12220
-ColorIdentity:G
+ColorIdentity:R
 OriginSet:G14de52802b0b467c
-ManaCost:1 G
-Types:Creature Wolf
-PT:2/2
-A:AB$ Pump | Cost$ 2 G | Defined$ Self | NumAtt$ +2 | NumDef$ +2 | ActivationLimit$ 1
+ManaCost:1 R
+Types:Enchantment Aura Curse
+K:Enchant:Player
+SVar:AttachAILogic:Curse
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Player.EnchantedBy | TriggerZones$ Battlefield | Execute$ DBChooseCard
+SVar:DBChooseCard:DB$ ChooseCard | Choices$ Planeswalker.ControlledBy TriggeredPlayer | Amount$ 1 | SubAbility$ DBDamagePlayer
+SVar:DBDamagePlayer:DB$ DealDamage | Defined$ TriggeredPlayer | NumDmg$ 1 | ConditionDefined$ ChosenCard | ConditionPresent$ Card | ConditionCompare$ EQ0 | SubAbility$ DBDamageChosen
+SVar:DBDamageChosen:DB$ DealDamage | Defined$ ChosenCard | NumDmg$ 1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True

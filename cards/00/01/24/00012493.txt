@@ -1,10 +1,25 @@
 Id:12493
 ColorIdentity:RG
 OriginSet:G12585413ffc93ad8
-ManaCost:1 R G
-Types:Creature Wolf
+ManaCost:2 R G
+Types:Creature Human Werewolf
 PT:2/2
-K:Intimidate
-S:Mode$ Continuous | Affected$ Creature.Wolf+Other+YouCtrl,Creature.Werewolf+Other+YouCtrl | AddPower$ 1 | AddToughness$ 1
-S:Mode$ CantTransform | ValidCard$ Creature.Werewolf+nonHuman+YouCtrl
-SVar:PlayMain1:TRUE
+T:Mode$ ChangesZone | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TokenAndLife
+T:Mode$ Transformed | ValidCard$ Card.Self | Execute$ TokenAndLife | Secondary$ True
+SVar:TokenAndLife:DB$ Token | TokenOwner$ You | TokenScriptIds$ 4257275070 | SubAbility$ Life
+SVar:Life:DB$ GainLife | Defined$ You | LifeAmount$ 2
+T:Mode$ Phase | Phase$ Upkeep | WerewolfTransformCondition$ True | TriggerZones$ Battlefield | Execute$ TrigTransform
+SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:green,red
+Types:Creature Werewolf
+PT:4/4
+K:Trample
+T:Mode$ Transformed | ValidCard$ Card.Self | Execute$ DamageAndMoreDamage
+SVar:DamageAndMoreDamage:DB$ DealDamage | ValidTgts$ Opponent,Planeswalker | NumDmg$ 2 | DamageMap$ True | SubAbility$ MoreDamage
+SVar:MoreDamage:DB$ DealDamage | ValidTgts$ Creature.ControlledBy TargetedOrController | TargetMin$ 0 | TargetMax$ 1 | NumDmg$ 2 | SubAbility$ DBDamageResolve
+SVar:DBDamageResolve:DB$ DamageResolve
+T:Mode$ Phase | Phase$ Upkeep | WerewolfUntransformCondition$ True | TriggerZones$ Battlefield | Execute$ TrigTransform
+SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform

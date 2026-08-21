@@ -1,12 +1,9 @@
 Id:31963
-ColorIdentity:U
+ColorIdentity:
 OriginSet:G7ab4f62d323b0ca7
-ManaCost:4 U U
-Types:Legendary Creature Cat Druid
-PT:3/5
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZone | ValidTgts$ Creature.YouCtrl | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn
-SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ All | Destination$ Battlefield | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | SubAbility$ DBAddEOT
-SVar:DBAddEOT:DB$ AddPhase | ExtraPhase$ End of Turn | AfterPhase$ End of Turn | ConditionCheckSVar$ X | ConditionSVarCompare$ LT1
-SVar:X:Count$FinishedEndOfTurnsThisTurn
+ManaCost:4
+Types:Artifact Equipment
+K:Equip:2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDealDamage
+SVar:TrigDealDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 2
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddToughness$ 1

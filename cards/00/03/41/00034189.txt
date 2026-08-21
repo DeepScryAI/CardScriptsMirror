@@ -1,12 +1,13 @@
 Id:34189
-ColorIdentity:B
-OriginSet:Gcb93bbfc68a40806
-ManaCost:3 B
-Types:Legendary Creature Human Horror Villain
-PT:2/2
-K:Menace
-S:Mode$ Continuous | Affected$ Card.Self | AddPower$ X | AddToughness$ X
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigMill | Secondary$ True | TriggerZones$ Battlefield
-SVar:TrigMill:DB$ Mill | Defined$ You | NumCards$ 2
-SVar:X:Count$ValidGraveyard Creature.YouOwn
+ColorIdentity:UR
+OriginSet:Gaf3c6d0810185c00
+ManaCost:U R
+Types:Creature Elemental Phoenix
+PT:2/1
+K:Flying
+T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield,Graveyard | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | PumpZone$ Battlefield,Graveyard | NumAtt$ +1 | NumDef$ +1 | Duration$ Perpetual | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | Origin$ Battlefield,Graveyard | Destination$ Exile | RememberChanged$ True | ConditionCheckSVar$ X | ConditionSVarCompare$ GE5 | Optional$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | Tapped$ True | ConditionCheckSVar$ X | ConditionSVarCompare$ GE5 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:TriggeredCard$CastTotalManaSpent

@@ -1,9 +1,13 @@
 Id:4030
 ColorIdentity:W
 OriginSet:Gdd40b2fbd2aa3c03
-ManaCost:5 W
-Types:Creature Ogre Rebel
-PT:3/4
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigTap
-SVar:TrigTap:DB$ Tap | TargetMin$ 0 | TargetMax$ 2 | ValidTgts$ Creature
-SVar:HasAttackEffect:TRUE
+ManaCost:W
+Types:Creature Human Spellshaper
+PT:1/1
+A:AB$ ChooseSource | Cost$ 1 W W T Discard<1/Card> | Choices$ Card,Emblem | AILogic$ NeedsPrevention | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | ReplacementEffects$ RPreventNextFromSource | SubAbility$ DBCleanup | ConditionDefined$ ChosenCard | ConditionPresent$ Card,Emblem
+SVar:RPreventNextFromSource:Event$ DamageDone | ValidSource$ Card.ChosenCardStrict,Emblem.ChosenCard | ValidTarget$ You | ReplaceWith$ GainLifeInstead | PreventionEffect$ True
+SVar:GainLifeInstead:DB$ GainLife | Defined$ You | LifeAmount$ X | SubAbility$ ExileEffect
+SVar:ExileEffect:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile
+SVar:X:ReplaceCount$DamageAmount
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True

@@ -1,12 +1,9 @@
 Id:26367
-ColorIdentity:URG
-OriginSet:Gd5f5e54fa26ae40d
-ManaCost:2 G U R
-Types:Legendary Creature Gremlin Artificer
-PT:4/4
-S:Mode$ Continuous | Affected$ Creature.Artifact+YouCtrl | AddKeyword$ Trample
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 1364918622 | RememberTokens$ True | SubAbility$ DBCounters
-SVar:DBCounters:DB$ PutCounter | Defined$ Remembered | CounterType$ P1P1 | CounterNum$ X | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$Valid Artifact.YouCtrl+token$DifferentCardNames
+ColorIdentity:B
+OriginSet:G2192e8955d5e1ad1
+ManaCost:1 B
+Types:Legendary Creature Phyrexian Vampire
+PT:2/2
+T:Mode$ ChangesZoneAll | TriggerZones$ Battlefield | ValidCards$ Creature.Other+YouCtrl | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigDrain | ActivationLimit$ 1
+SVar:TrigDrain:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 2 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2

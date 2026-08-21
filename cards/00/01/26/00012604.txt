@@ -1,9 +1,10 @@
 Id:12604
-ColorIdentity:
+ColorIdentity:W
 OriginSet:Gfd7b72e0eb9d2cf5
-ManaCost:5
-Types:Artifact
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ ConjurerExile | OptionalDecider$ You
-SVar:ConjurerExile:DB$ ChangeZone | ValidTgts$ Creature.YouCtrl | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ ConjurerReturn
-SVar:ConjurerReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ All | Destination$ Battlefield | GainControl$ True | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:4 W
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddTrigger$ CommanderTrig | AddSVar$ CommanderToken
+SVar:CommanderTrig:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ CommanderToken
+SVar:CommanderToken:DB$ Token | TokenScriptIds$ 638238902 | TokenOwner$ You

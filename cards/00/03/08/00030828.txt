@@ -1,12 +1,12 @@
 Id:30828
-ColorIdentity:RG
-OriginSet:G2c8286a6f234d4b9
-ManaCost:4 G
-Types:Legendary Creature Beast
-PT:5/5
-S:Mode$ ReduceCost | ValidCard$ Beast | Type$ Spell | Activator$ You | Amount$ 2
-K:ETBReplacement:Other:AddExtraCounter:Mandatory:Battlefield:Creature.Beast+YouCtrl+Other
-SVar:AddExtraCounter:DB$ PutCounter | ETB$ True | Defined$ ReplacedCard | CounterType$ P1P1 | CounterNum$ 1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self,Creature.powerGE4+Other | TriggerZones$ Battlefield | Execute$ TrigImmediateTrig
-SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ 1 RG | Execute$ TrigFight
-SVar:TrigFight:DB$ Fight | Defined$ Self | ValidTgts$ Creature.YouDontCtrl
+ColorIdentity:U
+OriginSet:Gc5a2f0ff902c0621
+ManaCost:1 U
+Types:Creature Human Wizard
+PT:1/3
+K:Vigilance
+K:Prowess
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | TriggerZones$ Battlefield | CombatDamage$ True | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ TriggeredSourceLKICopy | CounterType$ INCUBATION | CounterNum$ X
+A:AB$ Token | Cost$ SubCounter<3/INCUBATION> | TokenScriptIds$ 2459941552
+SVar:X:TriggerCount$DamageAmount

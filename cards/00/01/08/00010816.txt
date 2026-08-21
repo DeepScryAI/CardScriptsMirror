@@ -1,8 +1,11 @@
 Id:10816
 ColorIdentity:B
 OriginSet:G4398040c23c94f0e
-ManaCost:B
-Types:Creature Vampire Rogue
-PT:1/1
-S:Mode$ Continuous | Affected$ Card.Self | AddPower$ 2 | AddToughness$ 1 | AddKeyword$ Intimidate | CheckSVar$ X | SVarCompare$ LE10
-SVar:X:PlayerCountOpponents$LowestLifeTotal
+ManaCost:2 B B
+Types:Creature Specter
+PT:2/2
+K:Flying
+S:Mode$ Continuous | Affected$ Card.Self | AddPower$ 3 | AddToughness$ 3 | CheckSVar$ X | SVarCompare$ EQ0
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigDiscard | CombatDamage$ True
+SVar:TrigDiscard:DB$ Discard | Defined$ TriggeredTarget | NumCards$ 1 | Mode$ TgtChoose
+SVar:X:PlayerCountOpponents$LowestCardsInHand

@@ -1,15 +1,13 @@
 Id:24446
-ColorIdentity:G
+ColorIdentity:WU
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:5 G G
-Types:Creature Scorpion Scout
-PT:7/7
-K:Trample
-S:Mode$ Continuous | MayPlay$ True | MayPlayAltManaCost$ 0 | MayPlayLimit$ 1 | MayPlayDontGrantZonePermissions$ True | Affected$ Creature | AffectedZone$ Exile
-AlternateMode:Adventure
-ALTERNATE
-ManaCost:1 G
-Types:Sorcery Adventure
-A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Creature.YouOwn | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | RememberObjects$ Targeted | ForgetOnMoved$ Exile | Duration$ UntilTheEndOfYourNextTurn
-SVar:STPlay:Mode$ Continuous | Affected$ Card.nonLand+IsRemembered | AffectedZone$ Exile | MayPlay$ True
+ManaCost:2 W U
+Types:Legendary Creature Human Monk
+PT:2/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGainLife
+T:Mode$ SpellCast | ValidCard$ Card.YouCtrl | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigExile | ActivatorThisTurnCast$ EQ2
+SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 2 | SubAbility$ DBScry
+SVar:DBScry:DB$ Scry | ScryNum$ 2
+SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | ValidTgts$ Creature.YouCtrl | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ All | Destination$ Battlefield | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

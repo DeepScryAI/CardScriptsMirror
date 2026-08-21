@@ -1,6 +1,12 @@
 Id:11406
-ColorIdentity:
+ColorIdentity:U
 OriginSet:Gf6792163b580976b
-ManaCost:3
-Types:Artifact
-A:AB$ Scry | Cost$ 1 T | ScryNum$ 2
+ManaCost:2 U U
+Types:Creature Sphinx
+PT:4/4
+K:Flying
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ EachName
+SVar:EachName:DB$ NameCard | Defined$ Player | AILogic$ RandomInComputerDeck | SubAbility$ DBDigEach
+SVar:DBDigEach:DB$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBDig | SubAbility$ DBCleanup
+SVar:DBDig:DB$ Dig | DigNum$ 1 | Defined$ Player.IsRemembered | ChangeNum$ All | ChangeValid$ Card.NamedByRememberedPlayer | Reveal$ True
+SVar:DBCleanup:DB$ Cleanup | ClearNamedCard$ True

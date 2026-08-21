@@ -1,9 +1,11 @@
 Id:26775
-ColorIdentity:W
-OriginSet:G321081e278de53f0
-ManaCost:3 W
-Types:Creature Dinosaur
-PT:2/5
+ColorIdentity:U
+OriginSet:G06757f68e16377c2
+ManaCost:2 U
+Types:Creature Homunculus
+PT:2/2
+K:Convoke
 K:Vigilance
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigReturn | CombatDamage$ True
-SVar:TrigReturn:DB$ ChangeZone | ValidTgts$ Artifact.YouOwn,Enchantment.YouOwn | Origin$ Graveyard | Destination$ Battlefield
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigTap
+SVar:TrigTap:DB$ Tap | ValidTgts$ Creature.OppCtrl | SubAbility$ DBCounter
+SVar:DBCounter:DB$ PutCounter | Defined$ Targeted | CounterType$ Stun | CounterNum$ 1

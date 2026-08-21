@@ -1,0 +1,14 @@
+Id:30637
+ColorIdentity:B
+OriginSet:G8b2ed00ac2a0ff47
+ManaCost:1 B
+Types:Enchantment Aura
+K:Enchant:Creature
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSacrifice
+SVar:TrigSacrifice:DB$ Sacrifice | ValidTgts$ Player | SacValid$ Creature.!EnchantedBy
+SVar:AttachAILogic:Curse
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddSVar$ MortalDestroy
+SVar:MortalDestroy:SVar:DestroyWhenDamaged:True
+T:Mode$ DamageDoneOnce | ValidTarget$ Creature.EnchantedBy | Execute$ TrigDestroy | TriggerZones$ Battlefield
+SVar:TrigDestroy:DB$ Destroy | Defined$ TriggeredTargetLKICopy
+SVar:NonStackingAttachEffect:True

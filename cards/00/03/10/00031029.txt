@@ -1,11 +1,10 @@
 Id:31029
-ColorIdentity:WU
+ColorIdentity:U
 OriginSet:G4524bbf7a3db9dc0
-ManaCost:1 W W U U
-Types:Artifact Creature Construct
-PT:2/5
-K:DoubleStrike
-K:Prowess
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ ReturnOneEach
-SVar:ReturnOneEach:DB$ ChangeZone | Origin$ Battlefield | Destination$ Library | LibraryPosition$ 2 | ValidTgts$ Permanent.nonLand+OppCtrl | TargetMin$ 0 | TargetMax$ OneEach | TargetsForEachPlayer$ True
-SVar:OneEach:PlayerCountOpponents$Amount
+ManaCost:1 U U
+Types:Artifact
+K:StartYourEngines
+A:AB$ Draw | Cost$ 2 T
+S:Mode$ Continuous | Affected$ Card.Self | Condition$ MaxSpeed | AddTrigger$ DrawTrig
+SVar:DrawTrig:Mode$ Drawn | ValidCard$ Card.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigMill | Secondary$ True
+SVar:TrigMill:DB$ Mill | Defined$ Opponent | NumCards$ 2

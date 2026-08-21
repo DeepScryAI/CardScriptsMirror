@@ -1,14 +1,13 @@
 Id:22486
-ColorIdentity:B
-OriginSet:G9f95a41d532c0550
-ManaCost:2 B B
-Types:Legendary Creature Zombie Dragon
-PT:5/2
-K:Flash
-K:Flying
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
-S:Mode$ Continuous | Affected$ Card.Self | EffectZone$ Graveyard | AffectedZone$ Graveyard | MayPlay$ True | CheckSVar$ X
-SVar:X:Count$ThisTurnEntered_Graveyard_from_Battlefield_Creature.!catalogId22486
-SVar:SacMe:3
-SVar:DiscardMe:3
+ColorIdentity:WUG
+OriginSet:G92f7f9489fec5865
+ManaCost:4 G W U
+Types:Legendary Creature Giant
+PT:7/7
+K:Ward:3
+S:Mode$ Continuous | Affected$ Creature.Other+YouCtrl | AddKeyword$ Ward:3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigCharm | Secondary$ True
+SVar:TrigCharm:DB$ Charm | MinCharmNum$ 1 | CharmNum$ 2 | Choices$ DBAnimate7,DBAnimate1
+SVar:DBAnimate7:DB$ Animate | ValidTgts$ Creature | Power$ 7 | Toughness$ 7
+SVar:DBAnimate1:DB$ Animate | ValidTgts$ Creature | Power$ 1 | Toughness$ 1

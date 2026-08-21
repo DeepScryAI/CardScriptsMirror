@@ -1,10 +1,9 @@
 Id:30016
-ColorIdentity:U
+ColorIdentity:G
 OriginSet:Gf09b85bbcc27770c
-ManaCost:3 U
-Types:Artifact
-A:AB$ PutCounter | Cost$ T | Defined$ Self | SorcerySpeed$ True | CounterType$ COIN | CounterNum$ 1 | RememberAmount$ True | SubAbility$ DBImmediateTrig
-SVar:DBImmediateTrig:DB$ ImmediateTrigger | Execute$ TrigPlay | TriggerAmount$ Count$RememberedNumber | SubAbility$ DBCleanup
-SVar:TrigPlay:DB$ Play | TgtZone$ Graveyard | ValidTgts$ Instant.YouCtrl+cmcEQX,Sorcery.YouCtrl+cmcEQX | ValidSA$ Spell | WithoutManaCost$ True | Optional$ True | ReplaceGraveyard$ Exile | AILogic$ ReplaySpell
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$CardCounters.COIN
+ManaCost:G G
+Types:Creature Raccoon Scout
+PT:3/3
+S:Mode$ Continuous | Affected$ Card.Self | AddPower$ 4 | AddToughness$ 4 | AddKeyword$ Trample | CheckSVar$ X | SVarCompare$ GE4
+A:AB$ ChangeZone | Cost$ 1 | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card
+SVar:X:Count$ValidExile Card.ExiledWithSource$CardTypes

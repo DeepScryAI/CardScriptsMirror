@@ -1,16 +1,9 @@
 Id:31411
-ColorIdentity:B
-OriginSet:Gf2b808f4f642ac62
-ManaCost:5 B
-Types:Creature Dragon
-PT:3/5
-K:Flying
-K:Deathtouch
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZone | TargetMin$ 0 | TargetMax$ 2 | TargetsWithSameController$ True | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card
-AlternateMode:Omen
-ALTERNATE
-ManaCost:1 B
-Types:Sorcery Omen
-A:SP$ PutCounter | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ 1 | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw
+ColorIdentity:UBG
+OriginSet:Ge1676a27173c0866
+ManaCost:5 B G U
+Types:Sorcery
+A:SP$ DestroyAll | ValidCards$ Creature,Enchantment | RememberDestroyed$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Amount

@@ -1,9 +1,12 @@
 Id:33458
-ColorIdentity:UG
-OriginSet:G23d1f017cc66962f
-ManaCost:G U
-Types:Legendary Creature Frog Mutant Rogue
-PT:1/3
-K:Trample
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self,Mutant.Other+YouCtrl | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 2178077173 | TokenOwner$ You
+ColorIdentity:G
+OriginSet:G7ab1fe96128a1641
+ManaCost:1 G
+Types:Enchantment Aura
+K:Enchant:Land
+SVar:AttachAILogic:Pump
+K:ETBReplacement:Other:ChooseColor
+SVar:ChooseColor:DB$ ChooseColor | Defined$ You
+S:Mode$ Continuous | Affected$ Card.AttachedBy | SetColor$ ChosenColor
+T:Mode$ TapsForMana | ValidCard$ Card.AttachedBy | TriggerZones$ Battlefield | Execute$ TrigMana | Static$ True
+SVar:TrigMana:DB$ Mana | Produced$ Chosen | Defined$ TriggeredCardController

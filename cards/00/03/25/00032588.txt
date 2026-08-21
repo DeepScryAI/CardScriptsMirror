@@ -1,11 +1,12 @@
 Id:32588
-ColorIdentity:G
-OriginSet:Gf9e9b6435ee1d1c3
-ManaCost:1 G
-Types:Creature Human Citizen
-PT:2/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 134855612 | TokenOwner$ You
-T:Mode$ Sacrificed | ValidCard$ Food | ValidPlayer$ You | Execute$ TrigSearch | TriggerZones$ Battlefield | OptionalDecider$ You
-SVar:TrigSearch:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | Tapped$ True | ChangeType$ Land.Basic | NoShuffle$ True | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | Origin$ Battlefield | Destination$ Library | LibraryPosition$ -1 | Shuffle$ True
+ColorIdentity:B
+OriginSet:G66b3a7eeabd9000e
+ManaCost:2 B
+Types:Enchantment
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | Execute$ TrigReveal | TriggerZones$ Battlefield
+SVar:TrigReveal:DB$ PeekAndReveal | NoPeek$ True | ValidTgts$ Player | TargetMin$ 2 | TargetMax$ 2 | RememberRevealed$ True | SubAbility$ DBRepeatEach
+SVar:DBRepeatEach:DB$ RepeatEach | RepeatPlayers$ Targeted | RepeatSubAbility$ DBLoseLife | SubAbility$ DBChangeZoneAll
+SVar:DBLoseLife:DB$ LoseLife | Defined$ Player.IsRemembered | LifeAmount$ X
+SVar:DBChangeZoneAll:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered | Origin$ Library | Destination$ Hand | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$ValidLibrary Card.IsRemembered+!RememberedPlayerOwn$CardManaCost

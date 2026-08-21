@@ -1,8 +1,10 @@
 Id:33496
-ColorIdentity:G
-OriginSet:G23d1f017cc66962f
-ManaCost:2 G
-Types:Legendary Creature Mutant Ninja Turtle
+ColorIdentity:B
+OriginSet:G7ab1fe96128a1641
+ManaCost:2 B
+Types:Creature Elf Cleric
 PT:3/3
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | Revolt$ True | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ 1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSurveil
+SVar:TrigSurveil:DB$ Surveil | Amount$ 2
+T:Mode$ ChangesZoneAll | ValidCards$ Creature.Other+YouCtrl+wasCastFromGraveyard,Creature.Other+YouCtrl+ThisTurnEnteredFrom_Graveyard | Destination$ Battlefield | TriggerZones$ Battlefield | ActivationLimit$ 1 | Execute$ TrigCopy
+SVar:TrigCopy:DB$ CopyPermanent | Choices$ Card.TriggeredCards

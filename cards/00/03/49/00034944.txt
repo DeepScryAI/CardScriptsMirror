@@ -1,0 +1,16 @@
+Id:34944
+ColorIdentity:R
+OriginSet:Gf8f2990d7136c11d
+ManaCost:4 R R
+Types:Creature Dragon Wurm
+PT:0/5
+S:Mode$ Continuous | Affected$ Card.Self | AddPower$ X
+SVar:X:Count$Valid Mountain.YouCtrl/Times.2
+T:Mode$ AttackersDeclared | ValidAttackers$ Creature.YouCtrl | Execute$ TrigUntap | TriggerZones$ Battlefield | CheckSVar$ PackTactics | SVarCompare$ GE12 | NoResolvingCheck$ True
+SVar:TrigUntap:DB$ UntapAll | ValidCards$ Creature.YouCtrl+attacking | SubAbility$ DBAddCombat
+SVar:DBAddCombat:DB$ AddPhase | ExtraPhase$ Combat | AfterPhase$ EndCombat | SubAbility$ DBStore
+SVar:DBStore:DB$ StoreSVar | SVar$ TrigSwitch | Type$ Number | Expression$ 0
+SVar:PackTactics:Count$Valid Creature.attacking$CardPower/Times.TrigSwitch
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigReset | Static$ True
+T:Mode$ TurnBegin | Execute$ TrigReset | Static$ True
+SVar:TrigReset:DB$ StoreSVar | SVar$ TrigSwitch | Type$ Number | Expression$ 1

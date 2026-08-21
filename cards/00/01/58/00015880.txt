@@ -1,8 +1,11 @@
 Id:15880
-ColorIdentity:B
+ColorIdentity:U
 OriginSet:G92026fbb3573fda5
-ManaCost:4 B B
-Types:Sorcery
-A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouOwn | TargetMin$ 0 | TargetMax$ 2 | StaticEffect$ Animate | SubAbility$ DBPut
-SVar:Animate:Mode$ Continuous | Affected$ Card.IsRemembered | AddType$ Zombie | AddColor$ Black
-SVar:DBPut:DB$ ChangeZone | Defined$ Parent | Origin$ Stack | Destination$ Library | LibraryPosition$ -1
+ManaCost:X U
+Types:Instant
+A:SP$ PeekAndReveal | PeekAmount$ Y | RememberRevealed$ True | NoPeek$ True | SubAbility$ DBTwoPiles
+SVar:DBTwoPiles:DB$ TwoPiles | Chooser$ Opponent | DefinedCards$ Remembered | Separator$ You | ChosenPile$ DBHand | UnchosenPile$ DBGrave | AILogic$ Worst
+SVar:DBHand:DB$ ChangeZone | Defined$ Remembered | Origin$ Library | Destination$ Hand
+SVar:DBGrave:DB$ ChangeZone | Defined$ Remembered | Origin$ Library | Destination$ Graveyard
+SVar:Y:Count$xPaid/Plus.1
+SVar:X:Count$xPaid

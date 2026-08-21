@@ -1,19 +1,13 @@
 Id:28749
-ColorIdentity:BR
-OriginSet:G8a59924df6623252
-ManaCost:2 B R
-Types:Legendary Creature Chimera
-PT:3/5
+ColorIdentity:WB
+OriginSet:G7ee0e82a2424d636
+ManaCost:1 W B
+Types:Legendary Creature Human Advisor
+PT:2/4
+K:Affinity:Planeswalker
 K:Flying
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ ChooseName
-SVar:ChooseName:DB$ NameCard | ValidCards$ Card.nonLand | Defined$ You | AtRandom$ True | SubAbility$ CreateAbility
-SVar:CreateAbility:DB$ Effect | Abilities$ DiscordCast | Triggers$ TrigHostLeaves | Duration$ UntilYourNextEndStep | ImprintCards$ OriginalHost.inZoneBattlefield | SubAbility$ CleanupName
-SVar:CleanupName:DB$ Cleanup | ClearNamedCard$ True
-SVar:DiscordCast:ST$ Play | ActivationZone$ Command | Cost$ 0 | CopyFromChosenName$ True | ManaConversion$ AnyType->AnyColor | ValidSA$ Spell.CouldCastTiming+NamedSpell | Optional$ True | RememberPlayed$ True | SubAbility$ CheckCast | DescriptionFromChosenName$ True
-SVar:WasCast:Remembered$Valid Card
-SVar:CheckCast:DB$ Branch | BranchConditionSVar$ WasCast | TrueSubAbility$ ExileAbility
-SVar:ExileAbility:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile | SubAbility$ CleanupMemory
-SVar:CleanupMemory:DB$ Cleanup | ClearRemembered$ True | ClearNamedCard$ True | SubAbility$ MaybeRepeat
-SVar:MaybeRepeat:DB$ ImmediateTrigger | ConditionPresent$ Card | ConditionDefined$ Imprinted | Execute$ ChooseName
-SVar:TrigHostLeaves:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | Static$ True | ValidCard$ Card.IsImprinted | TriggerZones$ Command | Execute$ OnHostLost
-SVar:OnHostLost:DB$ Cleanup | ClearImprinted$ True
+K:Vigilance
+T:Mode$ AttackersDeclared | AttackingPlayer$ Player.Opponent | CheckSVar$ X | SVarCompare$ GE2 | Execute$ TrigDrain | TriggerZones$ Battlefield
+SVar:TrigDrain:DB$ LoseLife | Defined$ TriggeredAttackingPlayer | LifeAmount$ 3 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You
+SVar:X:Count$ValidAll Creature.attackingYouOrYourPWLKI

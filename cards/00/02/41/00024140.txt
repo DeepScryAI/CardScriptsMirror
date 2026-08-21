@@ -1,10 +1,13 @@
 Id:24140
-ColorIdentity:R
-OriginSet:Gcf5d9b1e2ed6c496
-ManaCost:2 R
-Types:Sorcery
-A:SP$ GainControl | ValidTgts$ Creature | LoseControl$ EOT | Untap$ True | SubAbility$ DBAnimate
-SVar:DBAnimate:DB$ Animate | Defined$ Targeted | Keywords$ Haste | staticAbilities$ CantBlock | Triggers$ PingUpkeep | Duration$ Perpetual
-SVar:CantBlock:Mode$ CantBlock | ValidCard$ Creature.Self
-SVar:PingUpkeep:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDamage
-SVar:TrigDamage:DB$ DealDamage | Defined$ CardController | NumDmg$ 1
+ColorIdentity:BRG
+OriginSet:G9afc9838c5e994df
+ManaCost:B R G
+Types:Instant
+A:SP$ Charm | Choices$ DBSac,DBExilePlay,DBExileGrave
+SVar:DBSac:DB$ Sacrifice | ValidTgts$ Opponent | SacValid$ Creature.cmcEQX,Planeswalker.cmcEQX
+SVar:X:Count$Valid Creature.TargetedPlayerCtrl,Planeswalker.TargetedPlayerCtrl$GreatestCardManaCost
+SVar:DBExilePlay:DB$ Dig | Defined$ You | DigNum$ 3 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ STPlay | SubAbility$ DBCleanup | ForgetOnMoved$ Exile | Duration$ UntilYourNextEndStep
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBExileGrave:DB$ ChangeZoneAll | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Player | ChangeType$ Card
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

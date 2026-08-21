@@ -1,9 +1,12 @@
 Id:23179
-ColorIdentity:B
-OriginSet:G6e75ff4f143a3dc3
-ManaCost:3 B B
-Types:Sorcery
-A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouOwn
-T:Mode$ Discarded | ValidCard$ Card.Self | Execute$ TrigImmediateTrig | TriggerController$ TriggeredCardController
-SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ B | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZone | ValidTgts$ Creature.YouOwn | Origin$ Graveyard | Destination$ Hand
+ColorIdentity:U
+OriginSet:G3aa323ca47c740b1
+ManaCost:3 U
+Types:Creature Spirit
+PT:2/3
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigInvestigate
+SVar:TrigInvestigate:DB$ Investigate | Num$ X
+SVar:X:PlayerCountOpponents$Amount
+T:Mode$ Drawn | ValidCard$ Card.YouCtrl | Number$ 2 | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 273812182

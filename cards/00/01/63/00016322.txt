@@ -1,13 +1,14 @@
 Id:16322
 ColorIdentity:G
 OriginSet:Gd94e3db4ef71ffd2
-ManaCost:3 G
-Types:Creature Elf Shaman
-PT:2/4
-K:MayEffectFromOpeningDeck:DBReveal
-SVar:DBReveal:DB$ Reveal | RevealDefined$ Self | SubAbility$ DBExile
-SVar:DBExile:DB$ ChangeZone | Origin$ Sideboard | Destination$ Exile | ChangeType$ Creature.YouOwn | ChangeNum$ 1 | Optional$ True | RememberChanged$ True | SubAbility$ DBPump | ConditionGameTypes$ Draft,QuestDraft
-SVar:DBPump:DB$ Pump | NoteCards$ Remembered | NoteCardsFor$ CallerOfTheUntamed | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-A:AB$ CopyPermanent | Cost$ RevealFromExile<1/Creature.YouOwn+NotedForCallerOfTheUntamed> X T | Defined$ Revealed | SubAbility$ DBCleanup
-SVar:X:Revealed$CardManaCost
+ManaCost:1 G
+Types:Creature Elf Scout
+PT:3/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChoose
+SVar:TrigChoose:DB$ GenericChoice | TempRemember$ Chooser | ShowChoice$ ExceptSelf | Defined$ Player | Choices$ Discard,No | SubAbility$ DBDiscard
+SVar:Discard:DB$ Pump | Defined$ Remembered | NoteCards$ Self | NoteCardsFor$ Discard
+SVar:No:DB$ Pump
+SVar:DBDiscard:DB$ Discard | Defined$ Player.NotedForDiscard | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBSearch
+SVar:DBSearch:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Land.Basic | DefinedPlayer$ RememberedOwner | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | SubAbility$ DBClearNotes
+SVar:DBClearNotes:DB$ Pump | Defined$ Player | ClearNotedCardsFor$ Discard

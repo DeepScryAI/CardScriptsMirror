@@ -1,18 +1,13 @@
 Id:24345
-ColorIdentity:RG
+ColorIdentity:U
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:2 R G
-Types:Legendary Planeswalker Minsc
-Loyalty:3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken | OptionalDecider$ You
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigToken | TriggerZones$ Battlefield | Secondary$ True | OptionalDecider$ You
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 1682363789
-A:AB$ PutCounter | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Creature.withTrample,Creature.withHaste | TargetMin$ 0 | TargetMax$ 1 | CounterType$ P1P1 | CounterNum$ 3
-A:AB$ Sacrifice | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | SacValid$ Creature | RememberSacrificed$ True | SubAbility$ DBImmediateTrigger | AILogic$ Lethal
-SVar:DBImmediateTrigger:DB$ ImmediateTrigger | Execute$ TrigDamage | ConditionDefined$ RememberedLKI | ConditionPresent$ Creature | RememberObjects$ RememberedLKI | SubAbility$ DBCleanup
-SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ X | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | ConditionDefined$ DelayTriggerRememberedLKI | ConditionPresent$ Hamster | NumCards$ X
+ManaCost:3 U U
+Types:Instant
+A:SP$ ChangeZone | ValidTgts$ Card | TargetType$ Spell | TgtZone$ Stack | Origin$ Stack | Destination$ Exile | AITgts$ Card.cmcGE3 | RememberChanged$ True | SubAbility$ DBRoll
+SVar:DBRoll:DB$ RollDice | Sides$ 20 | Modifier$ Y | ResultSubAbilities$ 1-14:DBMayPlay,Else:DBMayPlayWithoutCost
+SVar:DBMayPlay:DB$ Effect | StaticAbilities$ STPlay | RememberObjects$ Remembered | Duration$ Permanent | ExileOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:DBMayPlayWithoutCost:DB$ Effect | StaticAbilities$ STPlayWithoutCost | RememberObjects$ Remembered | Duration$ Permanent | ExileOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | MayPlayIgnoreColor$ True | Affected$ Card.IsRemembered+nonLand | AffectedZone$ Exile
+SVar:STPlayWithoutCost:Mode$ Continuous | MayPlay$ True | MayPlayWithoutManaCost$ True | Affected$ Card.IsRemembered+nonLand | AffectedZone$ Exile
+SVar:Y:SpellTargeted$CardManaCostLKI
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:TriggerRemembered$CardPower
-K:CARDNAME can be your commander.
-SVar:PlayMain1:TRUE

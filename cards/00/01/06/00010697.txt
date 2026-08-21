@@ -1,6 +1,18 @@
 Id:10697
-ColorIdentity:R
+ColorIdentity:B
 OriginSet:G7ee6e0e28c7c40e3
-ManaCost:4 R
-Types:Sorcery
-A:SP$ Sacrifice | Defined$ Player.Opponent | SacValid$ Land
+ManaCost:3 B B B
+Types:Creature Demon
+PT:7/7
+K:Flying
+K:Trample
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice | Defined$ You | SacValid$ Creature.Other | RememberSacrificed$ True | SubAbility$ DBLoseLifeOpp
+SVar:DBLoseLifeOpp:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ X | SubAbility$ DBLoseLifeYou
+SVar:DBLoseLifeYou:DB$ LoseLife | Defined$ You | LifeAmount$ 7 | ConditionCheckSVar$ Y | ConditionSVarCompare$ LT1 | SubAbility$ DBTap
+SVar:DBTap:DB$ Tap | Defined$ Self | ConditionCheckSVar$ Y | ConditionSVarCompare$ LT1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:RememberedLKI$CardPower
+SVar:Y:Remembered$Amount
+SVar:NeedsToPlayVar:Z GE6
+SVar:Z:Count$Valid Creature.YouCtrl

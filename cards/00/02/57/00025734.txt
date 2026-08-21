@@ -1,11 +1,8 @@
 Id:25734
-ColorIdentity:R
+ColorIdentity:U
 OriginSet:G06ccef4324c14725
-ManaCost:5 R R
-Types:Sorcery
-A:SP$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ Reveal | SubAbility$ Battlefield
-SVar:Reveal:DB$ PeekAndReveal | Defined$ RememberedPlayer | NoPeek$ True | PeekAmount$ X | RememberRevealed$ True
-SVar:Battlefield:DB$ ChangeZoneAll | ChangeType$ Permanent.IsRemembered | Origin$ Library | Destination$ Battlefield | ForgetChanged$ True | SubAbility$ Graveyard
-SVar:Graveyard:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered | Origin$ Library | Destination$ Graveyard | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$Valid Permanent.nonLand+RememberedPlayerCtrl
+ManaCost:1 U
+Types:Instant
+A:SP$ Charm | Choices$ DBCounter,DBStile
+SVar:DBCounter:DB$ Counter | TargetType$ Spell | ValidTgts$ Artifact,Enchantment | Destination$ Exile
+SVar:DBStile:DB$ Counter | ValidTgts$ Card,Emblem | TargetType$ Activated,Triggered

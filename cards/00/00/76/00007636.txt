@@ -1,10 +1,10 @@
 Id:7636
 ColorIdentity:W
 OriginSet:G4747f23d5c5760bc
-ManaCost:2 W
-Types:Creature Spirit
-PT:2/2
-T:Mode$ SpellCast | ValidCard$ Spirit,Arcane | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ KI | CounterNum$ 1
-A:AB$ Tap | Cost$ 1 SubCounter<X/KI> | TargetMin$ X | TargetMax$ X | ValidTgts$ Creature | IsCurse$ True
-SVar:X:Count$xPaid
+ManaCost:1 W
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+A:AB$ Effect | Cost$ 1 W | Name$ 9550852058710076622 | ValidTgts$ Any | ReplacementEffects$ WardDamage | RememberObjects$ Targeted | ImprintCards$ Enchanted | ExileOnMoved$ Battlefield
+SVar:WardDamage:Event$ DamageDone | ValidTarget$ Creature.IsImprinted | ReplaceWith$ WardDmg | DamageTarget$ Remembered
+SVar:WardDmg:DB$ ReplaceSplitDamage | DamageTarget$ Remembered

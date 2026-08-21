@@ -1,14 +1,13 @@
 Id:19130
-ColorIdentity:R
-OriginSet:Gf56613712ce2ae1f
-ManaCost:2 R R
-Types:Legendary Planeswalker Chandra
-Loyalty:4
-T:Mode$ CounterRemovedOnce | ValidCard$ Card.Self | CounterType$ LOYALTY | TriggerZones$ Battlefield | Execute$ TrigDmg
-SVar:TrigDmg:DB$ DealDamage | ValidTgts$ Opponent,Planeswalker | NumDmg$ X
-SVar:X:TriggerCount$Amount
-A:AB$ Dig | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | RememberObjects$ Remembered | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
-SVar:STPlay:Mode$ Continuous | AffectedZone$ Exile | Affected$ Card.IsRemembered | MayPlay$ True
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-A:AB$ Dig | Cost$ SubCounter<7/LOYALTY> | Planeswalker$ True | Ultimate$ True | Defined$ You | DigNum$ 7 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+ColorIdentity:RG
+OriginSet:G0b51a0aecbe39efe
+ManaCost:RG RG
+Types:Instant
+A:SP$ Pump | ValidTgts$ Creature.YouCtrl | AILogic$ PowerDmg | SubAbility$ SoulsDamage
+SVar:SoulsDamage:DB$ DealDamage | ValidTgts$ Creature.YouDontCtrl,Planeswalker.YouDontCtrl | AILogic$ PowerDmg | NumDmg$ X | DamageSource$ ParentTarget
+SVar:X:ParentTargeted$CardPower
+AlternateMode:Split
+ALTERNATE
+ManaCost:2 R G
+Types:Sorcery
+A:SP$ Token | TokenOwner$ You | TokenScriptIds$ 722662269

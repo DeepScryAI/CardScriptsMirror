@@ -1,19 +1,12 @@
 Id:24204
 ColorIdentity:R
-OriginSet:G51fcb7ec0cb81c29
-ManaCost:3 R
-Types:Creature Human Barbarian
-PT:5/3
-K:Trample
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigInitiative
-SVar:TrigInitiative:DB$ TakeInitiative
-T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigExile
-SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBBranch
-SVar:DBBranch:DB$ Branch | BranchConditionSVar$ X | TrueSubAbility$ DBEffect2 | FalseSubAbility$ DBEffect | SubAbility$ DBCleanup
-SVar:DBEffect2:DB$ Effect | StaticAbilities$ STPlay2 | RememberObjects$ Remembered | ForgetOnMoved$ Exile
-SVar:STPlay2:Mode$ Continuous | MayPlay$ True | MayPlayWithoutManaCost$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
-SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | RememberObjects$ Remembered | ForgetOnMoved$ Exile
-SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+OriginSet:Gcf5d9b1e2ed6c496
+ManaCost:1 R
+Types:Instant
+A:SP$ DealDamage | ValidTgts$ Any | NumDmg$ 2 | SubAbility$ DBChoose
+SVar:DBChoose:DB$ ChooseCard | ChoiceZone$ Hand | Choices$ Creature.YouOwn | Mandatory$ True | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ ChosenCard | Triggers$ DamageTrig | Duration$ Perpetual
+SVar:DamageTrig:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigPlay | CombatDamage$ True
+SVar:TrigPlay:DB$ Play | TgtZone$ Graveyard | ValidTgts$ Card.catalogId24204+YouOwn | ValidSA$ Spell | WithoutManaCost$ True | Optional$ True | RememberPlayed$ True | AILogic$ ReplaySpell | SubAbility$ DBLosePerpAbility
+SVar:DBLosePerpAbility:DB$ LosePerpetual | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:DungeonsCompleted$Amount
-SVar:HasAttackEffect:TRUE

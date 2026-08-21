@@ -1,9 +1,9 @@
 Id:12741
-ColorIdentity:R
+ColorIdentity:U
 OriginSet:Gfd7b72e0eb9d2cf5
-ManaCost:R
-Types:Creature Human Shaman
-PT:1/1
-K:Soulbond
-S:Mode$ Continuous | Affected$ Creature.PairedWith,Creature.Self+Paired | AddAbility$ Pump
-SVar:Pump:AB$ Pump | Cost$ R | Defined$ Self | NumAtt$ +1
+ManaCost:3 U
+Types:Sorcery
+A:SP$ DigUntil | ValidTgts$ Opponent | Valid$ Card.nonLand | FoundDestination$ Exile | RevealedDestination$ Exile | RememberFound$ True | IsCurse$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ StolenGoodsPlay | ForgetOnMoved$ Exile | RememberObjects$ Remembered | SubAbility$ DBCleanup
+SVar:StolenGoodsPlay:Mode$ Continuous | MayPlay$ True | MayPlayWithoutManaCost$ True | Affected$ Card.IsRemembered+nonLand | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

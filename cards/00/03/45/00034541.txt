@@ -1,8 +1,12 @@
 Id:34541
-ColorIdentity:G
-OriginSet:G11c0621ce29fa608
-ManaCost:G
-Types:Legendary Creature Human Hero
-PT:1/2
-A:AB$ Animate | Cost$ 3 | Types$ Dinosaur,Hero | RemoveCreatureTypes$ True | Power$ 3 | Toughness$ 5 | Keywords$ Vigilance & Reach
-A:AB$ Animate | Cost$ 6 | Types$ Dinosaur,Hero | RemoveCreatureTypes$ True | Power$ 6 | Toughness$ 6 | Keywords$ Trample
+ColorIdentity:
+OriginSet:Gcb93bbfc68a40806
+ManaCost:5
+Types:Legendary Creature Alien Hero
+PT:4/5
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange | OptionalDecider$ You
+SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Card.catalogId34370 | ChangeNum$ 1 | ShuffleNonMandatory$ True
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigEffect
+SVar:TrigEffect:DB$ Effect | ValidTgts$ Creature | StaticAbilities$ MustAttack | RememberObjects$ Targeted & TriggeredTarget | ExileOnMoved$ Battlefield | Duration$ UntilTheEndOfYourNextTurn
+SVar:MustAttack:Mode$ MustAttack | ValidCreature$ Creature.IsRemembered | MustAttack$ Player.IsRemembered

@@ -1,14 +1,12 @@
 Id:30927
-ColorIdentity:UR
-OriginSet:G4524bbf7a3db9dc0
-ManaCost:1 U R
-Types:Creature Fish Pirate
-PT:3/3
-K:Haste
-S:Mode$ Continuous | Affected$ Vehicle.YouCtrl | AddKeyword$ Haste
-T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigDraw | CheckSVar$ X | SVarCompare$ EQ2 | NoResolvingCheck$ True | TriggerZones$ Battlefield
-SVar:TrigDraw:DB$ Draw | NumCards$ 3 | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | NumCards$ 2 | Mode$ TgtChoose | Defined$ You
-SVar:Y:Count$Valid Creature.Pirate+attacking/LimitMax.1
-SVar:Z:Count$Valid Creature.Vehicle+attacking/LimitMax.1
-SVar:X:SVar$Y/Plus.Z
+ColorIdentity:BG
+OriginSet:Gc5a2f0ff902c0621
+ManaCost:1 B G G
+Types:Creature Elf Warlock
+PT:3/4
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | CheckSVar$ Morbid | TriggerZones$ Battlefield | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | Choices$ DBGainLife,DBDraw
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ 2 | Defined$ You
+SVar:DBDraw:DB$ Draw | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 1
+SVar:Morbid:Count$Morbid.1.0

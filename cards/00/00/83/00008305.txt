@@ -1,8 +1,10 @@
 Id:8305
 ColorIdentity:W
 OriginSet:Gde6d8130c178f566
-ManaCost:W
-Types:Instant
-A:SP$ ChangeZone | ValidTgts$ Creature.attacking | Origin$ Battlefield | Destination$ Library | LibraryPosition$ -1 | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | Defined$ TargetedController | LifeAmount$ X
-SVar:X:Targeted$CardToughness
+ManaCost:3 W W
+Types:Creature Elemental
+PT:3/3
+K:Flying
+T:Mode$ SpellCast | ValidCard$ Enchantment | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigCounters
+SVar:TrigCounters:DB$ PutCounterAll | ValidCards$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1
+SVar:BuffedBy:Enchantment

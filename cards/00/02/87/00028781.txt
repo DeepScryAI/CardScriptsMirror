@@ -1,13 +1,9 @@
 Id:28781
-ColorIdentity:UB
-OriginSet:Gfe262f6450b3d189
-ManaCost:U B
-Types:Creature Human Wizard
-PT:2/2
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigDig | TriggerZones$ Battlefield
-SVar:TrigDig:DB$ Dig | DigNum$ 1 | Defined$ Targeted | ValidTgts$ Opponent | ChangeNum$ All | DestinationZone$ Exile | ExileFaceDown$ True | WithMayLook$ True | RememberChanged$ True | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ X | SubAbility$ DBEffect
-SVar:X:Remembered$CardManaCost
-SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ STPlay | SubAbility$ DBCleanup | ForgetOnMoved$ Exile | Duration$ Permanent
-SVar:STPlay:Mode$ Continuous | MayPlay$ True | MayPlayIgnoreType$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:WB
+OriginSet:Ge329d8d60ca65422
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ Combo W B
+A:AB$ Investigate | Cost$ 4 T

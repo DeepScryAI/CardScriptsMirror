@@ -1,14 +1,14 @@
 Id:27855
-ColorIdentity:W
+ColorIdentity:UG
 OriginSet:G30e8a5e111cffb44
-ManaCost:2 W
-Types:Sorcery
-A:SP$ Draw | NumCards$ 2 | SubAbility$ DBExile
-SVar:DBExile:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | ChangeType$ Card.nonLand | WithCountersType$ TIME | WithCountersAmount$ X | RememberChanged$ True | SubAbility$ OppDraw
-SVar:OppDraw:DB$ Draw | NumCards$ 2 | ValidTgts$ Opponent | SubAbility$ OppExile
-SVar:OppExile:DB$ ChangeZone | DefinedPlayer$ Targeted | Origin$ Hand | Destination$ Exile | Chooser$ Targeted | Hidden$ True | WithCountersType$ TIME | WithCountersAmount$ Y | ChangeType$ Card.nonLand | Imprint$ True | SubAbility$ GiveSuspend
-SVar:GiveSuspend:DB$ PumpAll | ValidCards$ Card.IsRemembered+withoutSuspend,Card.IsImprinted+withoutSuspend | KW$ Suspend | PumpZone$ Exile | Duration$ Permanent | SubAbility$ DBTimeTravel
-SVar:DBTimeTravel:DB$ TimeTravel | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True
-SVar:X:Remembered$CardManaCost
-SVar:Y:Imprinted$CardManaCost
+ManaCost:2 G U
+Types:Legendary Creature Human Detective
+PT:*/*
+S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X | SetToughness$ X
+SVar:X:Count$ValidHand Card.YouOwn
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigInvestigate
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigInvestigate | Secondary$ True
+SVar:TrigInvestigate:DB$ Investigate
+A:AB$ DealDamage | Cost$ 1 G T | ValidTgts$ Creature.Other | GameActivationLimit$ 1 | NumDmg$ Y
+SVar:Y:Count$CardPower/Twice
+SVar:HasAttackEffect:TRUE

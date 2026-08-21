@@ -1,10 +1,12 @@
 Id:15513
-ColorIdentity:RG
+ColorIdentity:B
 OriginSet:Gec9609c94c5b1cdf
-ManaCost:3 R R G G
-Types:Legendary Creature Elemental
-PT:5/5
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 1690161160 | TokenOwner$ You
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self,Elemental.Other+YouCtrl | Execute$ TrigDealDamage
-SVar:TrigDealDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 3
+ManaCost:3 B B
+Types:Legendary Planeswalker Nixilis
+Loyalty:5
+A:AB$ Draw | Cost$ AddCounter<1/LOYALTY> | NumCards$ 1 | SubAbility$ DBLoseLife1 | Planeswalker$ True
+SVar:DBLoseLife1:DB$ LoseLife | LifeAmount$ 1
+A:AB$ Destroy | Cost$ SubCounter<3/LOYALTY> | ValidTgts$ Creature | Planeswalker$ True
+A:AB$ Effect | Cost$ SubCounter<8/LOYALTY> | ValidTgts$ Opponent | EffectOwner$ Targeted | Planeswalker$ True | Ultimate$ True | Name$ 4920642480861597497 | Triggers$ TrigDraw | Duration$ Permanent | AILogic$ Always
+SVar:TrigDraw:Mode$ Drawn | ValidCard$ Card | TriggerZones$ Command | Execute$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 2

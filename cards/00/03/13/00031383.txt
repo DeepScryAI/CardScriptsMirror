@@ -1,10 +1,11 @@
 Id:31383
-ColorIdentity:U
-OriginSet:Gf2b808f4f642ac62
-ManaCost:4 U
-Types:Creature Snake Wizard
-PT:4/4
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigTap
-SVar:TrigTap:DB$ Tap | ValidTgts$ Creature.OppCtrl | SubAbility$ DBPutCounter
-A:AB$ Tap | Cost$ 2 U ExileFromGrave<1/CARDNAME> | ActivationZone$ Graveyard | ValidTgts$ Creature.OppCtrl | SorcerySpeed$ True | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | Defined$ Targeted | CounterType$ Stun | CounterNum$ 1
+ColorIdentity:G
+OriginSet:G9de1432c543d1aef
+ManaCost:1 G
+Types:Creature Elk Mount
+PT:3/3
+T:Mode$ Attacks | ValidCard$ Card.Self+IsSaddled | TriggerZones$ Battlefield | Execute$ TrigSeek
+SVar:TrigSeek:DB$ Seek | Type$ Land | RememberFound$ True | SubAbility$ DBPut
+SVar:DBPut:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | Defined$ Remembered | Tapped$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+K:Saddle:2

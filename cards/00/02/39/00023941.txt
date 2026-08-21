@@ -1,8 +1,10 @@
 Id:23941
-ColorIdentity:W
-OriginSet:G9afc9838c5e994df
-ManaCost:5 W
-Types:Creature Angel Advisor
-PT:3/3
-K:Affinity:Citizen
-K:Flying
+ColorIdentity:WRG
+OriginSet:Gfdfe2ebef04be34e
+ManaCost:R G W
+Types:Enchantment
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigPeek | TriggerZones$ Battlefield
+SVar:TrigPeek:DB$ PeekAndReveal | PeekAmount$ 1 | RevealValid$ Creature,Planeswalker | RevealOptional$ True | RememberRevealed$ True | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Defined$ Remembered | Origin$ Library | Destination$ Hand | SubAbility$ DBChangeZone2
+SVar:DBChangeZone2:DB$ ChangeZone | Optional$ True | Defined$ TopOfLibrary | Origin$ Library | Destination$ Library | LibraryPosition$ -1 | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ0 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

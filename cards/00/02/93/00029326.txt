@@ -1,11 +1,10 @@
 Id:29326
-ColorIdentity:
-OriginSet:G2ce881cc55bb9f18
-ManaCost:no cost
-Types:Land Desert
-A:AB$ Mana | Cost$ T | Produced$ C
-A:AB$ Mana | Cost$ T Sac<1/Creature> | Produced$ Any
-A:AB$ ChangeZone | Cost$ X 2 T Sac<1/Desert> | RememberLKI$ True | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Creature.YouOwn+cmcEQX | ChangeNum$ 1 | SubAbility$ DBCopy | AILogic$ TheScarabGod | SorcerySpeed$ True
-SVar:DBCopy:DB$ CopyPermanent | Defined$ Remembered | SetPower$ 4 | SetToughness$ 4 | SetColor$ Black | SetCreatureTypes$ Zombie | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$xPaid
+ColorIdentity:G
+OriginSet:G27146c70b74a1e72
+ManaCost:2 G
+Types:Creature Possum Mount
+PT:3/3
+T:Mode$ Attacks | ValidCard$ Card.Self+IsSaddled | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | NumAtt$ +1 | NumDef$ +2 | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | ChangeType$ Creature.SaddledThisTurn | ChangeNum$ Count$Valid Creature.SaddledThisTurn | Hidden$ True
+K:Saddle:1

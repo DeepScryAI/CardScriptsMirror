@@ -1,7 +1,19 @@
 Id:12281
-ColorIdentity:W
+ColorIdentity:R
 OriginSet:G14de52802b0b467c
-ManaCost:1 W
-Types:Enchantment
-S:Mode$ Continuous | Affected$ Creature.token+YouCtrl | AddPower$ 1 | AddToughness$ 1 | AddKeyword$ Vigilance
-SVar:PlayMain1:TRUE
+ManaCost:3 R
+Types:Creature Human Werewolf
+PT:2/3
+S:Mode$ Continuous | Affected$ Creature.attacking+YouCtrl | AddPower$ 1
+T:Mode$ Phase | Phase$ Upkeep | WerewolfTransformCondition$ True | TriggerZones$ Battlefield | Execute$ TrigTransform
+SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:red
+Types:Creature Werewolf
+PT:5/5
+K:Trample
+S:Mode$ Continuous | Affected$ Creature.attacking+YouCtrl | AddPower$ 3
+T:Mode$ Phase | Phase$ Upkeep | WerewolfUntransformCondition$ True | TriggerZones$ Battlefield | Execute$ TrigTransform
+SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform

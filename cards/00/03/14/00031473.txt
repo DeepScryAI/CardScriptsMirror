@@ -1,15 +1,14 @@
 Id:31473
-ColorIdentity:W
-OriginSet:Gf2b808f4f642ac62
-ManaCost:4 W
-Types:Creature Dragon
-PT:3/4
-K:Flying
-K:Vigilance
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | Execute$ TrigPump | TriggerZones$ Battlefield
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.Other+YouCtrl | NumAtt$ +1
-AlternateMode:Omen
-ALTERNATE
-ManaCost:1 W
-Types:Sorcery Omen
-A:SP$ Token | TokenScriptIds$ 507896222 | TokenOwner$ You
+ColorIdentity:WR
+OriginSet:Ge1676a27173c0866
+ManaCost:1 R W
+Types:Enchantment
+K:ETBReplacement:Other:SiegeChoice
+SVar:SiegeChoice:DB$ GenericChoice | Choices$ Mardu,Jeskai | Defined$ You | SetChosenMode$ True | AILogic$ Dragons | ShowChoice$ ExceptSelf
+SVar:Mardu:DB$ Pump
+SVar:Jeskai:DB$ Pump
+S:Mode$ Continuous | Affected$ Card.Self+ChosenModeMardu | AddStaticAbility$ MarduHarmonicon
+S:Mode$ Continuous | Affected$ Card.Self+ChosenModeJeskai | AddTrigger$ JeskaiTrigger
+SVar:MarduHarmonicon:Mode$ Panharmonicon | ValidMode$ Attacks,AttackersDeclared,AttackersDeclaredOneTarget | ValidCard$ Permanent.YouCtrl | ValidCause$ Creature | Secondary$ True
+SVar:JeskaiTrigger:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigToken | Secondary$ True
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 1112542976 | TokenOwner$ You | PumpKeywords$ Lifelink & Haste | PumpDuration$ EOT

@@ -1,8 +1,12 @@
 Id:19432
-ColorIdentity:WG
+ColorIdentity:WB
 OriginSet:G9d37112ca6693432
-ManaCost:1 G W
-Types:Creature Unicorn
-PT:2/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.YouCtrl+Other | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ TriggeredCardLKICopy | CounterType$ P1P1 | CounterNum$ 1
+ManaCost:1 W B
+Types:Enchantment
+K:ETBReplacement:Other:ChooseCT
+SVar:ChooseCT:DB$ ChooseType | Defined$ You | Type$ Creature | AILogic$ MostProminentInComputerDeck
+S:Mode$ Continuous | Affected$ Creature.ChosenType+YouCtrl | AddPower$ 1 | AddToughness$ 1
+SVar:PlayMain1:TRUE
+SVar:AIPreference:SacCost$Creature.ChosenType+Other
+SVar:AIPreferenceParams:CreatureEvalThreshold$ Targeted/Plus.10
+A:AB$ Pump | Cost$ 1 Sac<1/Creature.ChosenType/creature of the chosen type> | ValidTgts$ Creature.YouCtrl | KW$ Indestructible

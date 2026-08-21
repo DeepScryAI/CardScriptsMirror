@@ -1,7 +1,13 @@
 Id:14776
-ColorIdentity:
+ColorIdentity:G
 OriginSet:Gfafc221218d3b700
-ManaCost:6
-Types:Artifact
-A:AB$ Draw | Cost$ 3 T | NumCards$ 3 | RaiseCost$ X
-SVar:X:Count$ValidHand Card.YouOwn
+ManaCost:X G G G
+Types:Creature Hydra
+PT:0/0
+K:Trample
+K:etbCounter:P1P1:X
+SVar:X:Count$xPaid
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigSac
+SVar:TrigSac:DB$ GainLife | Defined$ TriggeredCardController | LifeAmount$ XPower | SubAbility$ DBDrawCards
+SVar:DBDrawCards:DB$ Draw | NumCards$ XPower
+SVar:XPower:TriggeredCard$CardPower

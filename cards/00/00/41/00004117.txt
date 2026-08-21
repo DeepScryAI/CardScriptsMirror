@@ -1,8 +1,9 @@
 Id:4117
 ColorIdentity:B
 OriginSet:Gdd40b2fbd2aa3c03
-ManaCost:2 B B B
-Types:Enchantment
-S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddKeyword$ Fear
-SVar:NonStackingEffect:True
-SVar:PlayMain1:TRUE
+ManaCost:B B
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Curse
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ Player.EnchantedController | TriggerZones$ Battlefield | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | Defined$ TriggeredPlayer | NumDmg$ 2 | ConditionPresent$ Card.EnchantedBy+!attackedThisTurn

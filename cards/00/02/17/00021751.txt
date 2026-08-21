@@ -1,10 +1,9 @@
 Id:21751
-ColorIdentity:R
-OriginSet:Gabb23d0d25cdc46d
-ManaCost:2 R
-Types:Creature Human Artificer
-PT:3/3
-A:AB$ DigUntil | Cost$ T Sac<1/Artifact> | Valid$ Artifact | FoundDestination$ Battlefield | RevealedDestination$ Library | RevealedLibraryPosition$ -1 | RevealRandomOrder$ True | RememberRevealed$ True | SubAbility$ DBDealDamage
-SVar:DBDealDamage:DB$ DealDamage | Defined$ You | NumDmg$ X | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Remembered$Amount
+ColorIdentity:
+OriginSet:G18bf722b221724f8
+ManaCost:3
+Types:Artifact Equipment
+K:Equip:2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSearch | OptionalDecider$ You
+SVar:TrigSearch:DB$ ChangeZone | Hidden$ True | Origin$ Library | OriginAlternative$ Graveyard,Hand | Destination$ Battlefield | ChangeType$ Rune.YouOwn | AttachedTo$ Self | ShuffleNonMandatory$ True | Optional$ True
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1 | AddToughness$ 1

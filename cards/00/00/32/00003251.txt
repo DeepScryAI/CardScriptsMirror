@@ -1,7 +1,9 @@
 Id:3251
-ColorIdentity:B
+ColorIdentity:G
 OriginSet:G24ae8187eacbba52
-ManaCost:B
-Types:Creature Insect
-PT:1/1
-A:AB$ ChangeZone | Cost$ 2 B T | TargetMin$ 0 | TargetMax$ 3 | TargetsWithSameController$ True | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card
+ManaCost:G
+Types:Enchantment
+T:Mode$ Phase | Phase$ Main1,Main2 | ValidPlayer$ You | OptionalDecider$ You | TriggerZones$ Battlefield | Execute$ TrigMana | ResolvedLimit$ 1
+SVar:TrigMana:DB$ Pump | ValidTgts$ Opponent | IsCurse$ True | SubAbility$ DBMana
+SVar:DBMana:DB$ Mana | Amount$ NumManaMax | Produced$ Any
+SVar:NumManaMax:Count$Valid Island.TargetedPlayerCtrl

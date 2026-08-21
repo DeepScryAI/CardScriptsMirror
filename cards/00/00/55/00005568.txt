@@ -2,6 +2,12 @@ Id:5568
 ColorIdentity:B
 OriginSet:Ge4af4f9459d5dadd
 ManaCost:3 B
-Types:Instant
-A:SP$ ChangeZone | Cost$ 3 B Discard<X/Card> | Origin$ Library | Destination$ Library | ChangeType$ Card | ChangeNum$ X | LibraryPosition$ 0 | Mandatory$ True | Reorder$ True
-SVar:X:Count$xPaid
+Types:Creature Horror
+PT:3/1
+K:Haste
+T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice | SacValid$ Self
+SVar:EndOfTurnLeavePlay:True
+SVar:PlayMain1:TRUE
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | OptionalDecider$ You | TriggerZones$ Graveyard | Execute$ TrigReturn
+SVar:TrigReturn:AB$ ChangeZone | Cost$ ExileFromGrave<1/Creature.Black+Other> | Origin$ Graveyard | Destination$ Battlefield

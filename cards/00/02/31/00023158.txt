@@ -1,9 +1,11 @@
 Id:23158
-ColorIdentity:
-OriginSet:G6e75ff4f143a3dc3
-ManaCost:1
-Types:Artifact Equipment
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1 | AddTrigger$ TrigDamageDone
-SVar:TrigDamageDone:Mode$ DamageDealtOnce | CombatDamage$ True | ValidSource$ Card.Self | Execute$ TrigBlood
-SVar:TrigBlood:DB$ Token | TokenScriptIds$ 2179622914 | TokenOwner$ You
-K:Equip:2
+ColorIdentity:R
+OriginSet:G7a76c1974b0a33a6
+ManaCost:2 R R
+Types:Enchantment
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 670061161 | SubAbility$ DBSacrifice
+SVar:DBSacrifice:DB$ Sacrifice | ConditionPresent$ Permanent.YouCtrl | ConditionCompare$ EQ13 | SacValid$ Self | Optional$ True | RememberSacrificed$ True | SubAbility$ DBImmediateTrig
+SVar:DBImmediateTrig:DB$ ImmediateTrigger | ConditionDefined$ Remembered | ConditionPresent$ Card | Execute$ TrigDamage | SubAbility$ DBCleanup
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 7
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

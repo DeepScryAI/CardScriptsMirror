@@ -1,7 +1,12 @@
 Id:14321
 ColorIdentity:W
 OriginSet:G2192ecccbc32f5ad
-ManaCost:1 W W
-Types:Sorcery
-A:SP$ Vote | Defined$ Player | VoteSubAbility$ DBExile | VoteCard$ Permanent.nonLand+YouDontCtrl | AILogic$ Judgment
-SVar:DBExile:DB$ ChangeZone | Defined$ Remembered | Origin$ Battlefield | Destination$ Exile
+ManaCost:5 W
+Types:Creature Giant Soldier
+PT:5/5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigVote
+SVar:TrigVote:DB$ Vote | Defined$ Player | Choices$ PumpU,PumpB,PumpR,PumpG | AILogic$ Protection
+SVar:PumpU:DB$ Pump | KW$ Protection:Blue | Duration$ Permanent | Defined$ Self
+SVar:PumpB:DB$ Pump | KW$ Protection:Black | Duration$ Permanent | Defined$ Self
+SVar:PumpR:DB$ Pump | KW$ Protection:Red | Duration$ Permanent | Defined$ Self
+SVar:PumpG:DB$ Pump | KW$ Protection:Green | Duration$ Permanent | Defined$ Self

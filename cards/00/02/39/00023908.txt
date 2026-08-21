@@ -1,13 +1,14 @@
 Id:23908
 ColorIdentity:R
-OriginSet:Gfdfe2ebef04be34e
-ManaCost:2 R
-Types:Creature Human Warrior
-PT:2/3
-K:Menace
-T:Mode$ DamageDoneOnce | CombatDamage$ True | ValidSource$ Creature.YouCtrl | ValidTarget$ Player | TriggerZones$ Battlefield | Execute$ DBToken
-SVar:DBToken:DB$ Token | TokenScriptIds$ 3851718391
-A:AB$ Dig | Cost$ Sac<1/Treasure> | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | RememberObjects$ Remembered | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
-SVar:STPlay:Mode$ Continuous | AffectedZone$ Exile | Affected$ Card.IsRemembered | MayPlay$ True
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+OriginSet:G5f5d8cfb206e2fac
+ManaCost:3 R
+Types:Creature Ogre Warrior
+PT:4/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.YouCtrl+Other | TriggerZones$ Battlefield | Execute$ TrigTreasure
+SVar:TrigTreasure:DB$ Token | TokenScriptIds$ 3851718391 | SubAbility$ DBChooseX | ConditionCheckSVar$ Resolved | ConditionSVarCompare$ LE2
+SVar:DBChooseX:DB$ ChooseNumber | ChooseAnyNumber$ True | ConditionCheckSVar$ Resolved | ConditionSVarCompare$ GT2 | SubAbility$ DBImmediateTrig
+SVar:DBImmediateTrig:DB$ ImmediateTrigger | UnlessCost$ X | UnlessPayer$ You | UnlessSwitched$ True | ConditionCheckSVar$ Resolved | ConditionSVarCompare$ GT2 | Execute$ TrigDamage | RememberSVarAmount$ X
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ Y
+SVar:Resolved:Count$ResolvedThisTurn
+SVar:X:Count$ChosenNumber
+SVar:Y:Count$TriggerRememberAmount

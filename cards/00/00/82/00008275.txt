@@ -1,7 +1,12 @@
 Id:8275
-ColorIdentity:W
+ColorIdentity:WUBG
 OriginSet:G2c4e6f6c46954cd6
-ManaCost:2 W
-Types:Instant
-A:SP$ PreventDamage | ValidTgts$ Any | Amount$ 3 | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw
+ManaCost:G W U B
+Types:Creature Nephilim
+PT:1/1
+T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigPutCounter
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ PumpTrample
+SVar:PumpTrample:DB$ Pump | Defined$ Self | KW$ Trample | ConditionCheckSVar$ MyPower | ConditionSVarCompare$ GT9
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 2
+SVar:BuffedBy:Card
+SVar:MyPower:Count$CardPower

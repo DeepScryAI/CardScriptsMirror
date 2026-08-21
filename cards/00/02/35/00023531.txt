@@ -1,9 +1,13 @@
 Id:23531
-ColorIdentity:G
+ColorIdentity:B
 OriginSet:G1a259dba25660062
-ManaCost:3 G
-Types:Enchantment Creature Human Druid
-PT:3/3
-T:Mode$ ChangesZone | Destination$ Battlefield | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1
-A:AB$ PutCounter | Cost$ 2 G Discard<1/CARDNAME> | ActivationZone$ Hand | TargetMin$ 0 | TargetMax$ 2 | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1
+ManaCost:B
+Types:Enchantment Aura
+K:Enchant:Creature,Artifact:artifact or creature
+SVar:AttachAITgts:Creature
+SVar:AttachAILogic:Curse
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ -1 | AddToughness$ -1
+S:Mode$ CantBlock | ValidCard$ Creature.EnchantedBy | Secondary$ True
+S:Mode$ Continuous | Affected$ Card.EnchantedBy | AddTrigger$ TriggerTorment | AddSVar$ TrigLoseLife
+SVar:TriggerTorment:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigLoseLife | TriggerZones$ Battlefield
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ 1

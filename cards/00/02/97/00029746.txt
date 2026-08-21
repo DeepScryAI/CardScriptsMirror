@@ -1,9 +1,18 @@
 Id:29746
-ColorIdentity:
-OriginSet:G01a610e823cce3ca
-ManaCost:6
-Types:Legendary Artifact
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
-SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Permanent.Legendary+!catalogId29746 | GainControl$ True | ChangeNum$ 1 | Mandatory$ True
-A:AB$ Draw | Cost$ T | NumCards$ Count$Valid Permanent.YouCtrl+YouDontOwn
-SVar:X:Count$Valid Permanent.YouCtrl$Colors
+ColorIdentity:R
+OriginSet:Gac6359c222afbd4f
+ManaCost:2 R
+Types:Sorcery
+A:SP$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ 3 | SubAbility$ ChooseX
+SVar:ChooseX:DB$ ChooseNumber | Max$ Count$YourCountersEnergy | SubAbility$ Pay
+SVar:Pay:DB$ Pump | UnlessCost$ Mandatory PayEnergy<X> | UnlessPayer$ You | UnlessSwitched$ True | SubAbility$ Choose
+SVar:Choose:DB$ GenericChoice | TempRemember$ Chooser | ShowChoice$ ExceptSelf | Defined$ Player | Choices$ ExileDraw,No | SubAbility$ Exile
+SVar:ExileDraw:DB$ Pump | Defined$ Remembered | NoteCards$ Self | NoteCardsFor$ ExileDraw
+SVar:No:DB$ Pump
+SVar:Exile:DB$ ChangeZoneAll | Origin$ Hand | Destination$ Exile | Defined$ Player.NotedForExileDraw | RememberChanged$ True | SubAbility$ Draw
+SVar:Draw:DB$ Draw | Defined$ Player.NotedForExileDraw | NumCards$ X | SubAbility$ Effect
+SVar:Effect:DB$ Effect | ConditionCheckSVar$ X | ConditionSVarCompare$ GE7 | RememberObjects$ Remembered.YouOwn | StaticAbilities$ Play | Duration$ UntilTheEndOfYourNextTurn | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.YouOwn+IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | SubAbility$ DBClearNotes
+SVar:DBClearNotes:DB$ Pump | Defined$ Player | ClearNotedCardsFor$ ExileDraw
+SVar:X:Count$ChosenNumber

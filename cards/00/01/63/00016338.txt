@@ -1,10 +1,10 @@
 Id:16338
-ColorIdentity:G
+ColorIdentity:U
 OriginSet:Gd94e3db4ef71ffd2
-ManaCost:5 G
-Types:Creature Wolf
-PT:5/3
-K:Melee
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | Execute$ TrigPump | TriggerZones$ Battlefield
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.Other+YouCtrl | KW$ Melee
-SVar:PlayMain1:TRUE
+ManaCost:7 U U
+Types:Sorcery
+A:SP$ Vote | Defined$ Player | Choices$ DBTime,DBMoney | EachVote$ True | SubAbility$ DBChange
+SVar:DBTime:DB$ AddTurn | Defined$ You | NumTurns$ 1
+SVar:DBMoney:DB$ ChooseCard | Defined$ You | Choices$ Permanent.RememberedPlayerOwn | Mandatory$ True | SubAbility$ DBControl
+SVar:DBControl:DB$ GainControl | Defined$ ChosenCard | NewController$ You
+SVar:DBChange:DB$ ChangeZone | Origin$ Stack | Destination$ Exile

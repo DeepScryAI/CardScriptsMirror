@@ -1,8 +1,20 @@
 Id:32808
-ColorIdentity:G
-OriginSet:G22ed5d6f3707b461
-ManaCost:1 G
-Types:Instant
-A:SP$ Pump | ValidTgts$ Creature.YouCtrl | AILogic$ PowerDmg | SubAbility$ DBDamage
-SVar:DBDamage:DB$ DealDamage | ValidTgts$ Creature.OppCtrl | AILogic$ PowerDmg | NumDmg$ X | DamageSource$ ParentTarget
-SVar:X:ParentTargeted$CardPower
+ColorIdentity:WU
+OriginSet:G36e97d2da170e675
+ManaCost:1 W U
+Types:Legendary Creature Human Avatar Ally
+PT:2/3
+K:Flash
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigAirbend
+SVar:TrigAirbend:DB$ Airbend | ValidTgts$ Creature.Other,Card.inZoneStack | TgtZone$ Battlefield,Stack | TargetMin$ 0
+A:AB$ SetState | Cost$ Waterbend<8> | Defined$ Self | Mode$ Transform
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Types:Legendary Creature Avatar Spirit Ally
+PT:5/5
+K:Reach
+K:Trample
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPutCounterAll
+SVar:TrigPutCounterAll:DB$ PutCounterAll | ValidCards$ Creature.YouCtrl+tapped | CounterType$ P1P1 | CounterNum$ 1

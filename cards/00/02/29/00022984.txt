@@ -1,25 +1,9 @@
 Id:22984
-ColorIdentity:RG
+ColorIdentity:B
 OriginSet:Gf78628ad511eefec
-ManaCost:1 R G
-Types:Legendary Creature Human Werewolf
-PT:3/3
-T:Mode$ DamageDone | ValidSource$ Wolf.YouCtrl,Werewolf.YouCtrl | ValidTarget$ Player | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigDrawD
-SVar:TrigDrawD:DB$ Draw | Defined$ You | NumCards$ 1
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ X | SVarCompare$ GE3 | Execute$ TrigNight
-SVar:TrigNight:DB$ DayTime | Value$ Night | SubAbility$ DBTransform
-SVar:DBTransform:DB$ SetState | MinAmount$ 0 | Amount$ NumHumanWerewolves | Choices$ Human.Werewolf+YouCtrl+CanTransform | Mode$ Transform
-K:Daybound
-SVar:NumHumanWerewolves:Count$Valid Human.Werewolf+YouCtrl+CanTransform
-SVar:X:Count$Valid Wolf.YouCtrl,Werewolf.YouCtrl
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:red,green
-Types:Legendary Creature Werewolf
-PT:4/4
-T:Mode$ DamageDone | ValidSource$ Wolf.YouCtrl,Werewolf.YouCtrl | ValidTarget$ Player | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigDrawN
-SVar:TrigDrawN:DB$ Draw | Defined$ You | NumCards$ 1
-A:AB$ Pump | Cost$ X R G | ValidTgts$ Wolf.YouCtrl,Werewolf.YouCtrl | NumAtt$ +X | KW$ Trample
-K:Nightbound
-SVar:X:Count$xPaid
+ManaCost:1 B
+Types:Creature Human Wizard
+PT:1/2
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1 | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 1

@@ -1,12 +1,11 @@
 Id:29895
 ColorIdentity:G
-OriginSet:Gf09b85bbcc27770c
-ManaCost:G
-Types:Creature Frog Warrior
-PT:2/2
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigBounce
-SVar:TrigBounce:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | ChangeType$ Creature.StrictlyOther+YouCtrl | ChangeNum$ 1 | Mandatory$ True | Hidden$ True | RememberChanged$ True | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | ConditionCheckSVar$ X | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Optional$ True | ConditionCheckSVar$ X | ConditionSVarCompare$ LE0 | SubAbility$ DBCleanup
+OriginSet:G01a610e823cce3ca
+ManaCost:2 G
+Types:Enchantment Saga
+K:Chapter:3:DBExile,DBPutCounter,DBReturn
+SVar:DBExile:DB$ ChangeZone | ChangeNum$ 1 | ChangeType$ Permanent.YouOwn | Mandatory$ True | Origin$ Graveyard | Destination$ Exile | Hidden$ True | RememberChanged$ True | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ Remembered$CardManaCost | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Remembered$Amount
+SVar:DBPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ ExiledWith$CardManaCost
+SVar:DBReturn:DB$ ChangeZone | Defined$ Self & ExiledWith | Origin$ Battlefield,Exile | Destination$ Hand

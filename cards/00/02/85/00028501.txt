@@ -1,10 +1,13 @@
 Id:28501
-ColorIdentity:UR
-OriginSet:G7ee0e82a2424d636
-ManaCost:2 U R
-Types:Sorcery
-A:SP$ Draw | NumCards$ 2 | SubAbility$ DBImmediateTrig
-SVar:DBImmediateTrig:DB$ ImmediateTrigger | UnlessCost$ Discard<2/Card> | UnlessPayer$ You | RememberDiscarded$ True | RememberObjects$ Remembered | SubAbility$ DBCleanup | UnlessSwitched$ True | Execute$ TrigDamageAll
-SVar:TrigDamageAll:DB$ DamageAll | ValidCards$ Creature | NumDmg$ X
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:TriggerRemembered$GreatestCardManaCost
+ColorIdentity:R
+OriginSet:G94329e6b3f93276f
+ManaCost:3 R
+Types:Legendary Creature Elemental Dog
+PT:3/3
+K:Unleash
+S:Mode$ Continuous | Affected$ Dog.Other+YouCtrl | AddKeyword$ Unleash
+S:Mode$ Continuous | Affected$ Creature.YouCtrl+HasCounters | AddKeyword$ Haste
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigMana
+SVar:TrigMana:DB$ Mana | Produced$ R | Amount$ X
+SVar:X:Count$Valid Creature.attacking
+SVar:HasAttackEffect:TRUE

@@ -1,11 +1,15 @@
 Id:23613
-ColorIdentity:G
+ColorIdentity:UB
 OriginSet:G1a259dba25660062
-ManaCost:1 G
-Types:Enchantment
-T:Mode$ ChangesZone | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl,Vehicle.YouCtrl | CounterType$ P1P1 | CounterNum$ 1
-A:AB$ PutCounter | Cost$ X G G Discard<1/CARDNAME> | ActivationZone$ Hand | ValidTgts$ Land.YouCtrl | CounterType$ P1P1 | CounterNum$ X | SubAbility$ DBAnimate
-SVar:DBAnimate:DB$ Animate | Defined$ ParentTarget | Power$ 0 | Toughness$ 0 | Types$ Creature,Spirit | Colors$ Green | OverwriteColors$ True | Keywords$ Haste | Duration$ Permanent
-SVar:X:Count$xPaid
-SVar:BuffedBy:Land
+ManaCost:1 U B
+Types:Legendary Planeswalker Kaito
+Loyalty:3
+T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | IsPresent$ Card.Self+ThisTurnEntered | Execute$ TrigPhase
+SVar:TrigPhase:DB$ Phases | Defined$ Self
+A:AB$ Draw | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | NumCards$ 1 | SubAbility$ DBDiscard | AILogic$ Main2
+SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ TgtChoose | ConditionCheckSVar$ RaidTest | ConditionSVarCompare$ EQ0
+SVar:RaidTest:Count$AttackersDeclared
+A:AB$ Token | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | TokenScriptIds$ 3179181692
+A:AB$ Effect | Cost$ SubCounter<7/LOYALTY> | Planeswalker$ True | Ultimate$ True | Stackable$ False | Name$ 189084277335534147 | Triggers$ TrigDamage | Duration$ Permanent | AILogic$ Always
+SVar:TrigDamage:Mode$ DamageDone | ValidSource$ Creature.YouCtrl | ValidTarget$ Player | CombatDamage$ True | Execute$ EmblemTrigChangeZone | TriggerZones$ Command
+SVar:EmblemTrigChangeZone:DB$ ChangeZone | ChangeType$ Creature.Blue,Creature.Black | ChangeNum$ 1 | Origin$ Library | Destination$ Battlefield | ShuffleNonMandatory$ True

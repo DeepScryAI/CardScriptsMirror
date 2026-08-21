@@ -1,12 +1,13 @@
 Id:30485
-ColorIdentity:U
+ColorIdentity:W
 OriginSet:G8b2ed00ac2a0ff47
-ManaCost:1 U
-Types:Enchantment Creature Horror
-PT:1/1
-S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigCharm | CombatDamage$ True
-SVar:TrigCharm:DB$ Charm | Choices$ DBPutCounter,DBDraw,DBClone | ChoiceRestriction$ ThisGame
-SVar:DBPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ 2
-SVar:DBDraw:DB$ Draw
-SVar:DBClone:DB$ Clone | ValidTgts$ Creature.Other+YouCtrl
+ManaCost:1 W W
+Types:Enchantment Creature Sheep Glimmer
+PT:2/1
+K:Lifelink
+T:Mode$ ChangesZoneAll | ValidCards$ Creature.powerLE2+YouCtrl+Other | Destination$ Battlefield | TriggerZones$ Battlefield | ActivationLimit$ 1 | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self+Creature | Execute$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Battlefield | StaticEffect$ Animate
+SVar:Animate:Mode$ Continuous | Affected$ Card.IsRemembered | AddType$ Enchantment | RemoveCardTypes$ True
+SVar:BuffedBy:Creature.powerLE2

@@ -1,10 +1,15 @@
 Id:23836
-ColorIdentity:G
-OriginSet:G5f5d8cfb206e2fac
-ManaCost:2 G
-Types:Artifact Equipment
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddKeyword$ Trample
-T:Mode$ DamageDone | ValidSource$ Card.EquippedBy | Execute$ TrigToken | CombatDamage$ True | ValidTarget$ Player | TriggerZones$ Battlefield
-SVar:TrigToken:DB$ Token | TokenAmount$ X | TokenScriptIds$ 1092778731
-SVar:X:TriggerCount$DamageAmount
-K:Equip:3
+ColorIdentity:U
+OriginSet:G8ac2aa36572f9550
+ManaCost:4 U U
+Types:Creature Avatar
+PT:5/4
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+T:Mode$ Attacks | ValidCard$ Card.Self | Secondary$ True | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 2 | SubAbility$ TrigDiscard
+SVar:TrigDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ TgtChoose
+T:Mode$ Discarded | ValidCard$ Card.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.OppCtrl | IsCurse$ True | NumAtt$ -X | Duration$ UntilYourNextTurn
+SVar:X:Count$ValidGraveyard Card.YouOwn$DifferentCardManaCost
+SVar:HasAttackEffect:TRUE

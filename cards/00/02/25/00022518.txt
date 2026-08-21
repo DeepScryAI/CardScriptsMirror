@@ -1,10 +1,11 @@
 Id:22518
-ColorIdentity:U
+ColorIdentity:WR
 OriginSet:G9f95a41d532c0550
-ManaCost:1 U
-Types:Creature Orc Rogue
-PT:1/1
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigPutCounter | TriggerZones$ Battlefield
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
-A:AB$ Effect | Cost$ 3 U | RememberObjects$ Self | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable
-SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+ManaCost:2 R W
+Types:Legendary Creature Dwarf Warrior
+PT:5/3
+S:Mode$ Continuous | Affected$ Creature.YouCtrl | AffectedZone$ Battlefield | AddPower$ AffectedX | AddSVar$ EqMe
+SVar:AffectedX:Count$Valid Equipment.Attached/Times.2
+SVar:EqMe:SVar:EquipMe:Multiple
+S:Mode$ AlternativeCost | ValidSA$ Activated.Equip | ValidPlayer$ You | Cost$ 0 | CheckSVar$ X | SVarCompare$ LT1
+SVar:X:Count$ThisTurnActivated_Activated.Equip+YouCtrl

@@ -1,15 +1,12 @@
 Id:21007
-ColorIdentity:W
-OriginSet:G7b2607750b451c25
-ManaCost:3 W W
-Types:Creature Angel Cleric
-PT:2/6
-K:Flying
-K:DoubleStrike
-T:Mode$ DamageDone | ValidSource$ Creature.YouCtrl | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigGain | TriggerZones$ Battlefield
-SVar:TrigGain:DB$ GainLife | Defined$ You & TriggeredTarget | LifeAmount$ X
-SVar:X:TriggerCount$DamageAmount
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ Z | SVarCompare$ GEY | Execute$ TrigLose
-SVar:TrigLose:DB$ LosesGame | Defined$ Player.attackedBySourceThisTurn
-SVar:Z:Count$YourLifeTotal
-SVar:Y:Count$YourStartingLife/Plus.15
+ColorIdentity:U
+OriginSet:Gfd5e6da37c69dc53
+ManaCost:4 U U
+Types:Legendary Planeswalker Teferi
+Loyalty:4
+A:AB$ Draw | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True
+A:AB$ ChangeZone | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | ValidTgts$ Creature | Origin$ Battlefield | Destination$ Library | LibraryPosition$ 0
+A:AB$ Phases | Cost$ SubCounter<8/LOYALTY> | Planeswalker$ True | Ultimate$ True | ValidTgts$ Opponent | AllValid$ Creature.TargetedPlayerCtrl | RememberValids$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | Duration$ UntilTheEndOfYourNextTurn | RememberObjects$ Remembered | StaticAbilities$ CantPhaseIn | SubAbility$ DBCleanup
+SVar:CantPhaseIn:Mode$ CantPhaseIn | ValidCard$ Card.phasedOutIsRemembered
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

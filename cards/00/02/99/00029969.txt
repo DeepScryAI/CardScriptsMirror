@@ -1,8 +1,11 @@
 Id:29969
-ColorIdentity:G
+ColorIdentity:W
 OriginSet:Gf09b85bbcc27770c
-ManaCost:G
-Types:Enchantment
-T:Mode$ CounterAddedOnce | CounterType$ P1P1 | ValidSource$ You | ValidCard$ Creature.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ SUPPLY | CounterNum$ 1
-A:AB$ Draw | Cost$ 2 SubCounter<1/SUPPLY>
+ManaCost:1 W
+Types:Enchantment Aura
+K:Flash
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 1 | AddKeyword$ Flying

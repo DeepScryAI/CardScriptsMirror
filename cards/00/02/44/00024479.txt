@@ -1,10 +1,13 @@
 Id:24479
-ColorIdentity:R
+ColorIdentity:
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:1 R
-Types:Sorcery
-A:SP$ Charm | Choices$ DBBlock,DBToken
-SVar:DBBlock:DB$ Effect | StaticAbilities$ STBlock
-SVar:STBlock:Mode$ MustBlock | ValidCreature$ Creature
-SVar:DBToken:DB$ Token | TokenAmount$ X | TokenScriptIds$ 3851718391
-SVar:X:PlayerCountOpponents$HasPropertywasDealtDamageThisTurn
+ManaCost:4
+Types:Artifact Book
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigInitiative
+SVar:TrigInitiative:DB$ TakeInitiative
+A:AB$ Mana | Cost$ T | Produced$ C | Amount$ X
+SVar:X:Count$Initiative.2.1
+A:AB$ DigUntil | Cost$ 3 T | Valid$ Card.nonLand | FoundDestination$ Exile | RevealedDestination$ Exile | RememberFound$ True | SubAbility$ DBPlay | CheckSVar$ Y
+SVar:DBPlay:DB$ Play | Defined$ Remembered | ValidSA$ Spell | WithoutManaCost$ True | Optional$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:Y:DungeonsCompleted$Amount

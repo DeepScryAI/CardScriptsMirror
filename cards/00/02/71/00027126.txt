@@ -1,8 +1,10 @@
 Id:27126
-ColorIdentity:U
+ColorIdentity:W
 OriginSet:G6ce0035cfb774934
-ManaCost:4 U U
+ManaCost:2 W
 Types:Enchantment
-K:Ward:3
-T:Mode$ SpellCast | ValidCard$ Card.YouCtrl | Execute$ TrigCopyTarget | ActivatorThisTurnCast$ EQ2 | ValidActivatingPlayer$ You | TriggerZones$ Battlefield
-SVar:TrigCopyTarget:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | NonLegendary$ True | MayChooseTarget$ True
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Card.Equipment+YouCtrl
+S:Mode$ CastWithFlash | ValidSA$ Activated.Equip | Caster$ You | Condition$ PlayerTurn
+S:Mode$ AlternativeCost | ValidSA$ Activated.Equip | ValidPlayer$ You | Cost$ 0 | CheckSVar$ X | SVarCompare$ LT1 | Condition$ PlayerTurn
+SVar:X:Count$ThisTurnActivated_Activated.Equip+YouCtrl

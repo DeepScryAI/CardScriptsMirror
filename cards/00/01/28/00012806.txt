@@ -2,12 +2,10 @@ Id:12806
 ColorIdentity:
 OriginSet:G4801bb28ce9773ed
 ManaCost:no cost
-Types:Plane Mirrodin
-T:Mode$ PlaneswalkedTo | ValidCard$ Card.Self | Execute$ QuicksilverScry
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ QuicksilverScry | TriggerZones$ Command | Secondary$ True
-SVar:QuicksilverScry:DB$ Scry | ScryNum$ 4
+Types:Plane Ravnica
+S:Mode$ CantAttack | EffectZone$ Command | ValidCard$ Creature.ControlledBy You.castSpellThisTurn
+S:Mode$ CantBeCast | EffectZone$ Command | ValidCard$ Card | Caster$ You.attackedWithCreaturesThisTurn
 T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos
-SVar:RolledChaos:DB$ PeekAndReveal | RememberRevealed$ True | SubAbility$ DBPlay
-SVar:DBPlay:DB$ Play | Defined$ Remembered | Controller$ You | WithoutManaCost$ True | Optional$ True | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:AIRollPlanarDieParams:Mode$ Always
+SVar:RolledChaos:DB$ GainLife | LifeAmount$ PrahvX | Defined$ You
+SVar:PrahvX:Count$ValidHand Card.YouOwn
+SVar:AIRollPlanarDieParams:Mode$ Always | CardsInHandGE$ 2

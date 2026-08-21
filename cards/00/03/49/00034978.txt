@@ -1,0 +1,12 @@
+Id:34978
+ColorIdentity:R
+OriginSet:Gf8f2990d7136c11d
+ManaCost:3 R
+Types:Artifact
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigReveal
+SVar:TrigReveal:DB$ PeekAndReveal | Defined$ You | PeekAmount$ 13 | RememberPeeked$ True | SubAbility$ DBRandomPick
+SVar:DBRandomPick:DB$ ChooseCard | Defined$ You | Amount$ 1 | Choices$ Card.Creature+IsRemembered | ChoiceZone$ Library | AtRandom$ True | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | Defined$ ChosenCard | SubAbility$ DBRestRandomOrder
+SVar:DBRestRandomOrder:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered | Origin$ Library | Destination$ Library | LibraryPosition$ -1 | RandomOrder$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True | ClearRemembered$ True
+SVar:SacMe:5

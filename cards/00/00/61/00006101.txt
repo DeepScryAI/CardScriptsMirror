@@ -1,9 +1,9 @@
 Id:6101
-ColorIdentity:B
+ColorIdentity:R
 OriginSet:G0eb5e52d26fe1c23
-ManaCost:2 B
+ManaCost:2 R
 Types:Enchantment
-A:AB$ Effect | Cost$ 1 | ReplacementEffects$ DrawReplace
-SVar:DrawReplace:Event$ Draw | ValidPlayer$ You | ReplaceWith$ WasteCard
-SVar:WasteCard:DB$ Discard | Defined$ Player.Opponent | NumCards$ 1 | Mode$ TgtChoose | SubAbility$ ExileEffect
+A:AB$ Effect | Cost$ 1 | ValidTgts$ Any | RememberObjects$ Targeted | ImprintCards$ Self | ReplacementEffects$ DrawReplace
+SVar:DrawReplace:Event$ Draw | ValidPlayer$ You | ReplaceWith$ WarDamage
+SVar:WarDamage:DB$ DealDamage | Defined$ Remembered | DamageSource$ Imprinted | NumDmg$ 2 | SubAbility$ ExileEffect
 SVar:ExileEffect:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile

@@ -1,12 +1,12 @@
 Id:23811
-ColorIdentity:WRG
-OriginSet:G5f5d8cfb206e2fac
-ManaCost:1 R G W
-Types:Legendary Creature Cat Bard Druid
-PT:3/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 1092778731
-T:Mode$ Phase | Phase$ BeginCombat | Execute$ TrigImmediateTrig | TriggerZones$ Battlefield
-SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ tapXType<2/Creature> | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.ActivePlayerCtrl | NumAtt$ +2 | NumDef$ +2 | KW$ Trample | SubAbility$ DBGoad
-SVar:DBGoad:DB$ Goad | Defined$ Targeted
+ColorIdentity:B
+OriginSet:Gd970889168b5769f
+ManaCost:1 B
+Types:Sorcery
+A:SP$ Discard | ValidTgts$ Opponent | NumCards$ 1 | Mode$ TgtChoose | SubAbility$ DBChooseCard
+SVar:DBChooseCard:DB$ ChooseCard | UnlessCost$ Discard<1/Card> | UnlessPayer$ Targeted | Choices$ Card.TargetedPlayerOwn | ChoiceZone$ Library | AtRandom$ True | SubAbility$ DBConjure | OrString$ {p:You} conjures a duplicate of a random card from their library into your hand.
+SVar:DBConjure:DB$ MakeCard | Conjure$ True | DefinedName$ ChosenCard | Zone$ Hand | RememberMade$ True | SubAbility$ DBClearChosen
+SVar:DBClearChosen:DB$ Cleanup | ClearChosenCard$ True | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Remembered | staticAbilities$ SpendAnyMana | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:SpendAnyMana:Mode$ ManaConvert | EffectZone$ Stack | ValidPlayer$ You | ValidCard$ Card.Self | ValidSA$ Spell | ManaConversion$ AnyType->AnyColor
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

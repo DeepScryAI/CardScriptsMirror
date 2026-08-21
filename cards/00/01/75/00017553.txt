@@ -1,8 +1,10 @@
 Id:17553
-ColorIdentity:B
+ColorIdentity:UR
 OriginSet:Gda050e0f5b47c310
-ManaCost:B
-Types:Sorcery
-A:SP$ Charm | Choices$ DBChangeZone1,DBChangeZone2
-SVar:DBChangeZone1:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | Mandatory$ True | ValidTgts$ Creature.YouOwn
-SVar:DBChangeZone2:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | Mandatory$ True | ValidTgts$ Pirate.YouOwn | TargetMin$ 2 | TargetMax$ 2
+ManaCost:2 U R
+Types:Creature Human Pirate
+PT:4/3
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ RaidTest | OptionalDecider$ You | Execute$ TrigLoot
+SVar:TrigLoot:DB$ Draw | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | Mode$ TgtChoose | NumCards$ 1
+SVar:RaidTest:Count$AttackersDeclared

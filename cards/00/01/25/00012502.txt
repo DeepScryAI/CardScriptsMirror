@@ -1,10 +1,18 @@
 Id:12502
 ColorIdentity:G
 OriginSet:G12585413ffc93ad8
-ManaCost:3 G G
-Types:Enchantment
-T:Mode$ Attacks | ValidCard$ Creature | Attacked$ You,Planeswalker.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigDig
-SVar:TrigDig:DB$ Dig | DigNum$ 1 | Reveal$ True | ChangeNum$ All | ChangeValid$ Card | DestinationZone$ Library | LibraryPosition$ -1 | LibraryPosition2$ -1 | RememberChanged$ True | SubAbility$ DBRemoveCombat
-SVar:DBRemoveCombat:DB$ RemoveFromCombat | Defined$ TriggeredAttackerLKICopy | ConditionCheckSVar$ IsForest | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:IsForest:Remembered$Valid Forest
+ManaCost:2 G
+Types:Creature Human Werewolf
+PT:1/2
+T:Mode$ Phase | Phase$ Upkeep | WerewolfTransformCondition$ True | TriggerZones$ Battlefield | Execute$ TrigTransform
+SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:green
+Types:Creature Werewolf
+PT:4/5
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+T:Mode$ Phase | Phase$ Upkeep | WerewolfUntransformCondition$ True | TriggerZones$ Battlefield | Execute$ TrigTransform
+SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform

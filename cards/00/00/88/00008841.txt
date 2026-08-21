@@ -1,10 +1,12 @@
 Id:8841
-ColorIdentity:R
+ColorIdentity:U
 OriginSet:G70f74088c47d66bd
-ManaCost:1 R R
-Types:Creature Lizard Scout
-PT:2/1
-K:Flash
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature | KW$ FirstStrike
-SVar:AmbushAI:True
+ManaCost:3 U U
+Types:Creature Shapeshifter
+PT:0/0
+K:Morph:1 U
+K:ETBReplacement:Copy:DBCopy:Optional
+SVar:DBCopy:DB$ Clone | Choices$ Creature.Other | AddTriggers$ VesShapeUpkeepTrig | AddSVars$ VesShapeTurn,VesShapeUpkeepTrig | Duration$ UntilFacedown
+SVar:VesShapeUpkeepTrig:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ VesShapeTurn | OptionalDecider$ You
+SVar:VesShapeTurn:DB$ SetState | Defined$ Self | Mode$ TurnFaceDown
+R:Event$ TurnFaceUp | ValidCard$ Card.Self | Optional$ True | ReplaceWith$ DBCopy | ActiveZones$ Battlefield | Secondary$ True | ReplacementResult$ Updated

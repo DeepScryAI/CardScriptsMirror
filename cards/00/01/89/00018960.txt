@@ -1,7 +1,15 @@
 Id:18960
-ColorIdentity:B
+ColorIdentity:W
 OriginSet:G0b51a0aecbe39efe
-ManaCost:4 B
-Types:Instant
-A:SP$ Pump | ValidTgts$ Creature | NumAtt$ -3 | NumDef$ -3 | IsCurse$ True | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Creature.YouOwn | TargetMin$ 0 | TargetMax$ 1 | ConditionPresent$ Creature.YouCtrl+powerGE4
+ManaCost:3 W W
+Types:Creature Angel
+PT:5/4
+K:Flash
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigEffect
+SVar:TrigEffect:DB$ Effect | ReplacementEffects$ SelflessDamage
+SVar:SelflessDamage:Event$ LifeReduced | ValidPlayer$ You.lifeGE1 | Result$ LT1 | IsDamage$ True | ReplaceWith$ ReduceLoss
+SVar:ReduceLoss:DB$ ReplaceEffect | VarName$ Amount | VarValue$ X
+SVar:X:ReplaceCount$Amount/LimitMax.Difference
+SVar:Difference:Count$YourLifeTotal/Minus.1
+A:AB$ SetLife | Cost$ 4 W W ExileFromGrave<1/CARDNAME> | Defined$ You | ActivationZone$ Graveyard | LifeAmount$ 10

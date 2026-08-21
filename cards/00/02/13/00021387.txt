@@ -1,11 +1,12 @@
 Id:21387
-ColorIdentity:G
+ColorIdentity:B
 OriginSet:G51d431785c8b33e5
-ManaCost:2 G
-Types:Legendary Creature Elf Warrior
-PT:2/2
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | Execute$ TrigPayCost | TriggerZones$ Battlefield
-SVar:TrigPayCost:AB$ ImmediateTrigger | Cost$ X X | Execute$ TrigPutCounters
-SVar:TrigPutCounters:DB$ PutCounter | ValidTgts$ Elf | CounterType$ P1P1 | CounterNum$ X | TargetMin$ 0 | TargetMax$ X | DividedAsYouChoose$ X
-SVar:X:Count$xPaid
-K:Partner
+ManaCost:2 B B
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMonarch
+SVar:TrigMonarch:DB$ BecomeMonarch
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigRepeat
+SVar:TrigRepeat:DB$ RepeatEach | RepeatPlayers$ Opponent | RepeatSubAbility$ DBDrain
+SVar:DBDrain:DB$ LoseLife | Defined$ Player.IsRemembered | LifeAmount$ X | UnlessCost$ Discard<Y/Card> | UnlessPayer$ Player.IsRemembered
+SVar:X:Count$Monarch.6.3
+SVar:Y:Count$Monarch.2.1

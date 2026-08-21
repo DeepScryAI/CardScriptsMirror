@@ -1,7 +1,15 @@
 Id:29525
-ColorIdentity:R
+ColorIdentity:G
 OriginSet:Gac6359c222afbd4f
-ManaCost:1 R
+ManaCost:2 G
 Types:Sorcery
-K:Replicate:PayEnergy<3>
-A:SP$ DealDamage | ValidTgts$ Creature,Planeswalker | NumDmg$ 3
+A:SP$ Pump | ValidTgts$ Creature.YouCtrl | NumAtt$ +2 | NumDef$ +2 | SubAbility$ DBFight
+SVar:DBFight:DB$ Fight | Defined$ ParentTarget | ValidTgts$ Creature.YouDontCtrl | TargetMin$ 0 | TargetMax$ 1
+SVar:PlayMain1:TRUE
+AlternateMode:Modal
+ALTERNATE
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ DBTap | ReplacementResult$ Updated
+SVar:DBTap:DB$ Tap | ETB$ True | Defined$ Self | UnlessCost$ PayLife<3> | UnlessPayer$ You
+A:AB$ Mana | Cost$ T | Produced$ G

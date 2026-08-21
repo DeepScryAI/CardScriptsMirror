@@ -1,8 +1,9 @@
 Id:3477
-ColorIdentity:G
+ColorIdentity:R
 OriginSet:G24ae8187eacbba52
-ManaCost:2 G
-Types:Creature Treefolk
-PT:2/*
-S:Mode$ Continuous | CharacteristicDefining$ True | SetToughness$ X
-SVar:X:Count$Valid Forest.YouCtrl
+ManaCost:2 R
+Types:Enchantment
+A:AB$ DealDamage | Cost$ 2 R Sac<1/CARDNAME> | ValidTgts$ Any | NumDmg$ X
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ VERSE | CounterNum$ 1
+SVar:X:Count$CardCounters.VERSE

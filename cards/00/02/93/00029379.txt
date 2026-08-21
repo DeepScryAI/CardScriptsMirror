@@ -1,8 +1,13 @@
 Id:29379
-ColorIdentity:B
-OriginSet:Gac6359c222afbd4f
-ManaCost:1 B B
-Types:Instant
-A:SP$ Destroy | ValidTgts$ Creature,Planeswalker | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | LifeAmount$ X
-SVar:X:Targeted$CardNumColors
+ColorIdentity:WR
+OriginSet:G27146c70b74a1e72
+ManaCost:R W
+Types:Legendary Creature Human Mercenary
+PT:2/3
+T:Mode$ DamageDone | ValidSource$ Card.YouCtrl,Emblem.YouCtrl | ValidTarget$ Creature | DamageAmount$ EQTargetToughness | CombatDamage$ False | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw
+A:AB$ Effect | Cost$ X T | ReplacementEffects$ RepDamage | SetChosenNumber$ X
+SVar:X:Count$xPaid
+SVar:RepDamage:Event$ DamageDone | ActiveZones$ Command | ValidSource$ Card.YouCtrl,Emblem.YouCtrl | ValidTarget$ Permanent,Player | IsCombat$ False | ReplaceWith$ DmgPlusX
+SVar:DmgPlusX:DB$ ReplaceEffect | VarName$ DamageAmount | VarValue$ ReplaceCount$DamageAmount/Plus.Y
+SVar:Y:Count$ChosenNumber

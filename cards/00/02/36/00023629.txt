@@ -1,9 +1,20 @@
 Id:23629
-ColorIdentity:UB
+ColorIdentity:B
 OriginSet:G1a259dba25660062
-ManaCost:U B
-Types:Creature Rat Ninja
-PT:2/2
-K:Ninjutsu:U B
-S:Mode$ ReduceCost | ValidCard$ Card | ValidSpell$ Activated.Ninjutsu | Activator$ You | Amount$ 1
-S:Mode$ Continuous | EffectZone$ Battlefield | Affected$ Creature.Ninja+Other+YouCtrl,Creature.Rogue+Other+YouCtrl | AddPower$ 1 | AddToughness$ 1
+ManaCost:1 B
+Types:Enchantment Saga
+K:Chapter:3:DBCharm,DBCharm,DBTransform
+SVar:DBCharm:DB$ Charm | Choices$ P2P2,M1M1,GainLife
+SVar:P2P2:DB$ Pump | ValidTgts$ Creature | NumAtt$ +2 | NumDef$ +2 | AILogic$ Pump
+SVar:M1M1:DB$ Pump | ValidTgts$ Creature | NumAtt$ -1 | NumDef$ -1 | AILogic$ Curse
+SVar:GainLife:DB$ GainLife | LifeAmount$ 2 | Defined$ You
+SVar:DBTransform:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | Transformed$ True | GainControl$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:black
+Types:Enchantment Creature Human Samurai
+PT:2/3
+A:AB$ Mana | Cost$ T PayLife<1> | Produced$ B | RestrictValid$ Spell.Instant,Spell.Sorcery

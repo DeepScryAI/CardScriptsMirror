@@ -1,9 +1,13 @@
 Id:23896
-ColorIdentity:U
-OriginSet:Gfdfe2ebef04be34e
-ManaCost:1 U
-Types:Creature Bird Advisor
-PT:1/3
-K:Flying
-T:Mode$ SpellCast | ValidActivatingPlayer$ Player | ActivatorThisTurnCast$ EQ2 | TriggerZones$ Battlefield | Execute$ TrigConnive
-SVar:TrigConnive:DB$ Connive
+ColorIdentity:G
+OriginSet:G5f5d8cfb206e2fac
+ManaCost:2 G
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+T:Mode$ ChangesZone | ValidCard$ Card.EnchantedBy | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigChangeZone | OptionalDecider$ You
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Hand,Command | Destination$ Battlefield | ChangeType$ Creature.cmcLTX+YouOwn | RememberChanged$ True | SubAbility$ DBDelayedTrigger
+SVar:X:TriggeredCard$CardManaCost
+SVar:DBDelayedTrigger:DB$ DelayedTrigger | Mode$ Phase | Phase$ End Of Turn | Execute$ TrigReturn | RememberObjects$ Remembered | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBCleanup
+SVar:TrigReturn:DB$ ChangeZone | Defined$ Self | Origin$ Graveyard | Destination$ Battlefield | AttachedTo$ DelayTriggerRememberedLKI
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

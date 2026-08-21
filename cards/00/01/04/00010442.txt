@@ -1,14 +1,8 @@
 Id:10442
-ColorIdentity:WUBRG
+ColorIdentity:G
 OriginSet:Ga3dbc4b644a9a2c5
-ManaCost:3 R
-Types:Creature Phoenix
-PT:2/2
-K:Flying
-S:Mode$ AlternativeCost | ValidSA$ Spell.Self | EffectZone$ Graveyard | Cost$ W U B R G
-T:Mode$ SpellCast | ValidCard$ Card.Self | Static$ True | Execute$ DBEffect | CheckSVar$ AltCostPaid
-SVar:DBEffect:DB$ Effect | ExileOnMoved$ Stack | ReplacementEffects$ ETBCreat | ExileOnMoved$ Stack
-SVar:ETBCreat:Event$ Moved | ValidCard$ Card.EffectSource | Destination$ Battlefield | ReplaceWith$ DBPutP1P1 | ReplacementResult$ Updated
-SVar:DBPutP1P1:DB$ PutCounter | Defined$ ReplacedCard | CounterType$ P1P1 | ETB$ True | CounterNum$ 2 | SubAbility$ DBExile
-SVar:DBExile:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile
-SVar:AltCostPaid:Count$AltCost.1.0
+ManaCost:2 G G
+Types:Creature Cat
+PT:5/4
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigUpkeep
+SVar:TrigUpkeep:DB$ Sacrifice | UnlessPayer$ You | UnlessCost$ G

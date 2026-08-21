@@ -1,8 +1,13 @@
 Id:24471
-ColorIdentity:U
+ColorIdentity:UB
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:2 U
-Types:Creature Faerie Elf Wizard
-PT:2/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZone | ValidTgts$ Creature.Other | TargetMin$ 0 | TargetMax$ 1 | Origin$ Battlefield | Destination$ Hand
+ManaCost:3 U B
+Types:Legendary Creature Human Rogue
+PT:2/5
+K:Deathtouch
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigInitiative
+SVar:TrigInitiative:DB$ TakeInitiative
+T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigPump | TriggerZones$ Battlefield
+SVar:TrigPump:DB$ Pump | KW$ Deathtouch | ValidTgts$ Creature.attacking | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | ConditionCheckSVar$ X | NumAtt$ +5 | KW$ FirstStrike & Menace | Defined$ Targeted
+SVar:X:DungeonsCompleted$Amount

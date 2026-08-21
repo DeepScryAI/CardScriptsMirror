@@ -1,12 +1,11 @@
 Id:27809
-ColorIdentity:BR
+ColorIdentity:
 OriginSet:G30e8a5e111cffb44
-ManaCost:5 B R
-Types:Legendary Artifact Creature Dalek
-PT:6/6
-K:Affinity:Dalek
-S:Mode$ Continuous | Affected$ Dalek.Other+YouCtrl | AddKeyword$ Haste
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigChoice
-SVar:TrigChoice:DB$ VillainousChoice | Defined$ Opponent | Choices$ DBSacrifice,DBToken
-SVar:DBSacrifice:DB$ Sacrifice | Defined$ Remembered | SacValid$ Creature
-SVar:DBToken:DB$ Token | TokenScriptIds$ 809974435 | TokenOwner$ You
+ManaCost:no cost
+Types:Plane Alfava Metraxis
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigPutCounter | TriggerZones$ Command
+SVar:TrigPutCounter:DB$ PutCounter | CounterType$ EXPOSURE | CounterNum$ 1 | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ X
+SVar:X:Count$CardCounters.EXPOSURE
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 254612193

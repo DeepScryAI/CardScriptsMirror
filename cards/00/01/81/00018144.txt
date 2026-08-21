@@ -1,7 +1,12 @@
 Id:18144
-ColorIdentity:G
+ColorIdentity:RG
 OriginSet:G5033d54b23b37629
-ManaCost:2 G
-Types:Creature Elf Scout
-PT:3/2
-A:AB$ Mana | Cost$ 1 G | Produced$ Any
+ManaCost:1 R G
+Types:Legendary Creature Elf Archer
+PT:3/3
+K:Trample
+T:Mode$ SpellCast | ValidCard$ Card.kicked | ValidActivatingPlayer$ You | Execute$ DBPutCounter | TriggerZones$ Battlefield
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBDealDamage
+SVar:DBDealDamage:DB$ DealDamage | Defined$ Player.Opponent | NumDmg$ X
+SVar:X:Count$CardCounters.P1P1
+SVar:BuffedBy:Card.withKicker,Card.withMultikicker

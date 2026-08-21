@@ -1,11 +1,9 @@
 Id:15198
 ColorIdentity:U
 OriginSet:Gdb18f239871b8cef
-ManaCost:2 U
-Types:Creature Human Monk
-PT:2/1
-A:AB$ Draw | Cost$ U T | NumCards$ 1 | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | Defined$ You | Mode$ TgtChoose | NumCards$ 1
-T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigUntap
-SVar:TrigUntap:DB$ Untap | Defined$ Self
-SVar:BuffedBy:Card.nonLand+nonCreature
+ManaCost:3 U
+Types:Creature Human Wizard
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | NumCards$ 2 | Defined$ TriggeredCardController
+SVar:SacMe:1

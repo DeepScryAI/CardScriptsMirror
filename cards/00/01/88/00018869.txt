@@ -1,11 +1,11 @@
 Id:18869
-ColorIdentity:G
-OriginSet:G71e8f4e4ffe64448
-ManaCost:4 G G
-Types:Creature Elemental Avatar
-PT:4/4
-K:Trample
-S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ X | EffectZone$ All
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSearch
-SVar:TrigSearch:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Land.Basic | DefinedPlayer$ Player | ChangeNum$ 2 | Shuffle$ True
-SVar:X:PlayerCountOpponents$Amount
+ColorIdentity:WG
+OriginSet:G1ecb361a0a117393
+ManaCost:3 G W
+Types:Legendary Creature Dryad
+PT:1/4
+S:Mode$ Continuous | Affected$ Creature.Other+YouCtrl | AddPower$ 1 | AddToughness$ 1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 2151135643
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigGainControl
+SVar:TrigGainControl:DB$ GainControlVariant | AILogic$ GainControlOwns | AllValid$ Creature | ChangeController$ CardOwner

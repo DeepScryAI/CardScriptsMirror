@@ -1,10 +1,9 @@
 Id:23319
 ColorIdentity:R
-OriginSet:Gbe3783f336562357
-ManaCost:R R R
+OriginSet:G6e75ff4f143a3dc3
+ManaCost:1 R
 Types:Sorcery
-A:SP$ DamageAll | NumDmg$ 3 | ValidCards$ Creature | SubAbility$ DBChoose
-SVar:DBChoose:DB$ ChooseCard | ChoiceZone$ Hand | Choices$ Instant.YouOwn,Sorcery.YouOwn | Mandatory$ True | SubAbility$ DBAnimate
-SVar:DBAnimate:DB$ Animate | Defined$ ChosenCard | Replacements$ PerpDamageRep | Duration$ Perpetual
-SVar:PerpDamageRep:Event$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Permanent,Player | ReplaceWith$ DmgPlus2
-SVar:DmgPlus2:DB$ ReplaceEffect | VarName$ DamageAmount | VarValue$ ReplaceCount$DamageAmount/Plus.2
+A:SP$ Dig | Defined$ You | DigNum$ 2 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | Imprint$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ STPlay | SubAbility$ DBCleanup | ForgetOnMoved$ Exile | Duration$ UntilTheEndOfYourNextTurn
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile

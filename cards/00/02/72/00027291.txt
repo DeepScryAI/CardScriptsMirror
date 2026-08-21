@@ -1,8 +1,12 @@
 Id:27291
-ColorIdentity:W
-OriginSet:G4e034c55e7afd8b4
-ManaCost:3 W W
-Types:Sorcery
-A:SP$ ChooseNumber | Defined$ You | Min$ 0 | Max$ 10 | SubAbility$ DBDestroyAll | AILogic$ SweepCreatures
-SVar:DBDestroyAll:DB$ DestroyAll | ValidCards$ Creature.powerGEX
-SVar:X:Count$ChosenNumber
+ColorIdentity:BR
+OriginSet:G6ce0035cfb774934
+ManaCost:5 B R
+Types:Legendary Creature Avatar Demon
+PT:7/5
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ X | EffectZone$ All
+SVar:X:PlayerCount$SacrificedThisTurn Permanent
+K:Haste
+S:Mode$ CantBlockBy | ValidAttacker$ Card.Self | ValidBlocker$ Creature.nonLegendary
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Artifact.OppCtrl,Creature.OppCtrl

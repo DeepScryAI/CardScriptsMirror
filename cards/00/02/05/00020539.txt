@@ -1,12 +1,13 @@
 Id:20539
-ColorIdentity:W
+ColorIdentity:B
 OriginSet:Gc9c1dd0d52c99ca4
-ManaCost:3 W
+ManaCost:4 B B
 Types:Creature Nightmare
-PT:3/4
-K:Lifelink
-A:AB$ PutCounter | Cost$ X W W | Monstrosity$ X
-T:Mode$ BecomeMonstrous | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | CounterNum$ 1 | CounterType$ Lifelink | TargetMin$ 0 | TargetMax$ MaxTgts | ValidTgts$ Creature
-SVar:X:Count$xPaid
-SVar:MaxTgts:TriggerCount$Amount
+PT:5/5
+K:Mutate:4 B
+K:Flying
+T:Mode$ Mutates | ValidCard$ Card.Self | Execute$ TrigExile | TriggerZones$ Battlefield
+SVar:TrigExile:DB$ Dig | DigNum$ 1 | ChangeNum$ All | Defined$ Opponent | DestinationZone$ Exile | RememberChanged$ True | ExileFaceDown$ True | WithMayLook$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ Remembered | StaticAbilities$ STPlay | Duration$ Permanent | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

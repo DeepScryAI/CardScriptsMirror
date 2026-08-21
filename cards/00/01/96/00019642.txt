@@ -1,9 +1,10 @@
 Id:19642
-ColorIdentity:G
+ColorIdentity:R
 OriginSet:G7c61dc677f00d087
-ManaCost:2 G G
-Types:Creature Rhino
-PT:4/4
-K:Trample
-T:Mode$ SpellCast | ValidActivatingPlayer$ You | TargetsValid$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+ManaCost:4 R R
+Types:Legendary Planeswalker Chandra
+Loyalty:4
+A:AB$ DealDamage | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Any | NumDmg$ 2
+A:AB$ DealDamage | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | ValidTgts$ Creature | NumDmg$ 4 | SubAbility$ DBDealDamage
+SVar:DBDealDamage:DB$ DealDamage | Defined$ TargetedController | NumDmg$ 2
+A:AB$ DamageAll | Cost$ SubCounter<8/LOYALTY> | Planeswalker$ True | Ultimate$ True | ValidTgts$ Player | ValidPlayers$ Targeted | ValidCards$ Creature.TargetedPlayerCtrl | NumDmg$ 10

@@ -1,15 +1,9 @@
 Id:27252
-ColorIdentity:R
-OriginSet:G8636ad1cfd514d83
-ManaCost:4 R
-Types:Creature Phoenix
-PT:3/3
-K:Flying
-K:Haste
-T:Mode$ DamageDone | CombatDamage$ True | ValidTarget$ Player,Planeswalker | ValidSource$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigDelayedTrigger
-SVar:TrigDelayedTrigger:DB$ DelayedTrigger | AILogic$ SpellCopy | Execute$ EffTrigCopy | ThisTurn$ True | Mode$ SpellAbilityCast | ValidSA$ Activated.Loyalty | ValidActivatingPlayer$ You
-SVar:EffTrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | Amount$ 1 | MayChooseTarget$ True
-T:Mode$ SpellCast | ValidCard$ Card.Planeswalker | OptionalDecider$ You | ValidActivatingPlayer$ You | TriggerZones$ Graveyard | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZone | Defined$ Self | Origin$ Graveyard | Destination$ Battlefield
-SVar:SacMe:2
-SVar:DiscardMe:3
+ColorIdentity:W
+OriginSet:G6ce0035cfb774934
+ManaCost:3 W
+Types:Legendary Creature Halfling Citizen
+PT:2/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self,Creature.!token+powerLE2+YouCtrl | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 3813492103
+A:AB$ Pump | Cost$ tapXType<2/Halfling.Other/other halflings> | NumAtt$ +2 | Defined$ Self | KW$ Lifelink

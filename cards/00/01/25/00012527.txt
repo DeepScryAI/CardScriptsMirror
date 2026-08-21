@@ -1,9 +1,10 @@
 Id:12527
-ColorIdentity:U
+ColorIdentity:R
 OriginSet:G12585413ffc93ad8
-ManaCost:1 U
-Types:Creature Spirit
-PT:1/1
-K:Flying
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigMill | TriggerZones$ Battlefield
-SVar:TrigMill:DB$ Mill | Defined$ TriggeredTarget | NumCards$ 2
+ManaCost:2 R
+Types:Sorcery
+A:SP$ Discard | Defined$ You | RememberDiscarded$ True | Mode$ Hand | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Amount
+K:Flashback:5 R

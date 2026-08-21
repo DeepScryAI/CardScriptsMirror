@@ -1,8 +1,11 @@
 Id:9117
-ColorIdentity:B
+ColorIdentity:U
 OriginSet:Gdf2f562751f0d037
-ManaCost:2 B B
-Types:Sorcery
-A:SP$ Draw | NumCards$ X | SubAbility$ DB1
-SVar:DB1:DB$ LoseLife | LifeAmount$ X
-SVar:X:Count$Valid Creature.YouCtrl
+ManaCost:3 U
+Types:Creature Sliver
+PT:2/2
+S:Mode$ Continuous | Affected$ Sliver | EffectZone$ Battlefield | AddTrigger$ MesmericETB
+SVar:MesmericETB:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ MesmericFateseal
+SVar:MesmericFateseal:DB$ ChoosePlayer | Defined$ You | Choices$ Player.Opponent | AILogic$ Curse | SubAbility$ DBDig
+SVar:DBDig:DB$ Dig | Defined$ ChosenPlayer | DigNum$ 1 | ChangeNum$ Any | DestinationZone$ Library | LibraryPosition$ -1 | LibraryPosition2$ 0 | SubAbility$ DBCleanupChosen
+SVar:DBCleanupChosen:DB$ Cleanup | ClearChosenPlayer$ True

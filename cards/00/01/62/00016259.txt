@@ -1,9 +1,18 @@
 Id:16259
-ColorIdentity:W
+ColorIdentity:G
 OriginSet:G70d19654882197c9
-ManaCost:W
-Types:Enchantment
-S:Mode$ CastWithFlash | ValidCard$ Card.Aura,Card.Equipment | ValidSA$ Spell | Caster$ You
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Equipment+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigAttach | OptionalDecider$ You
-SVar:TrigAttach:DB$ Attach | ValidTgts$ Creature.YouCtrl | Object$ TriggeredCardLKICopy
-SVar:NonStackingEffect:True
+ManaCost:2 G
+Types:Creature Werewolf Horror
+PT:3/1
+S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self | ValidBlocker$ Creature.powerLTX
+SVar:X:Count$CardPower
+A:AB$ SetState | Cost$ 5 G | Defined$ Self | Mode$ Transform
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Types:Creature Eldrazi Werewolf
+PT:3/5
+S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self | ValidBlocker$ Creature.powerLTX
+SVar:X:Count$CardPower
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 3739367272 | TokenOwner$ You

@@ -2,10 +2,16 @@ Id:12788
 ColorIdentity:
 OriginSet:G4801bb28ce9773ed
 ManaCost:no cost
-Types:Plane Fabacin
-T:Mode$ PlaneswalkedTo | ValidCard$ Card.Self | Execute$ DreampodsDig
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ DreampodsDig | TriggerZones$ Command | Secondary$ True
-SVar:DreampodsDig:DB$ DigUntil | Valid$ Creature | FoundDestination$ Battlefield | RevealedDestination$ Library | RevealedLibraryPosition$ -1 | RevealRandomOrder$ True
+Types:Plane Ravnica
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature | TriggerZones$ Command | Execute$ OssuaryCounters
+SVar:OssuaryCounters:DB$ PutCounter | ValidTgts$ Creature | TargetsWithDefinedController$ TriggeredCardController | TargetingPlayer$ TriggeredCardController | CounterType$ P1P1 | CounterNum$ OssuaryX | TargetMin$ 1 | TargetMax$ MaxTgts | DividedAsYouChoose$ OssuaryX
+SVar:OssuaryX:TriggeredCard$CardPower
+SVar:MaxTgts:TriggeredCardController$Valid Creature.YouCtrl
 T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos
-SVar:RolledChaos:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouCtrl
-SVar:AIRollPlanarDieParams:Mode$ Always | MinTurn$ 3
+SVar:RolledChaos:DB$ ChangeZoneAll | ChangeType$ Creature | Imprint$ True | Origin$ Battlefield | Destination$ Exile | SubAbility$ OssuaryRepeat
+SVar:OssuaryRepeat:DB$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ OssuaryTokens | SubAbility$ WalkAway | ChangeZoneTable$ True
+SVar:OssuaryTokens:DB$ Token | TokenAmount$ OsX | TokenScriptIds$ 3815350479 | TokenOwner$ Player.IsRemembered
+SVar:WalkAway:DB$ Planeswalk | SubAbility$ ClearImprinted
+SVar:ClearImprinted:DB$ Cleanup | ClearImprinted$ True
+SVar:OsX:ImprintedLKI$Valid Card.RememberedPlayerCtrl$CardPower
+SVar:AIRollPlanarDieParams:Mode$ Random | MinTurn$ 5

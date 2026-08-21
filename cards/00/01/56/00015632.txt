@@ -1,13 +1,10 @@
 Id:15632
-ColorIdentity:R
+ColorIdentity:B
 OriginSet:Gc1f5e527f9d411df
-ManaCost:5 R R
-Types:Creature Dragon
-PT:4/4
-K:Flying
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigExile
-SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ X | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | ForgetOnMoved$ Exile | RememberObjects$ RememberedCard | SubAbility$ DBCleanup
-SVar:STPlay:Mode$ Continuous | Affected$ Card.nonLand+IsRemembered | MayPlay$ True | AffectedZone$ Exile
+ManaCost:X B B
+Types:Sorcery
+A:SP$ Mill | NumCards$ X | Defined$ Player | RememberMilled$ True | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenAmount$ Y | TokenScriptIds$ 353162950 | TokenOwner$ You | TokenTapped$ True | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:TriggerCount$DamageAmount
+SVar:X:Count$xPaid
+SVar:Y:Remembered$Valid Creature.inZoneGraveyard

@@ -1,13 +1,11 @@
 Id:18870
-ColorIdentity:R
-OriginSet:G71e8f4e4ffe64448
-ManaCost:4 R R
-Types:Creature Goblin Mutant
-PT:5/4
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenOwner$ You | TokenAmount$ X | TokenScriptIds$ 1112542976
-A:AB$ Effect | Cost$ 3 R T | ReplacementEffects$ RDoubleDamage
-SVar:RDoubleDamage:Event$ DamageDone | ActiveZones$ Command | ValidSource$ Card.YouCtrl,Emblem.YouCtrl | ValidTarget$ Opponent | ReplaceWith$ DmgTwice
-SVar:DmgTwice:DB$ ReplaceEffect | VarName$ DamageAmount | VarValue$ Y
-SVar:X:PlayerCountOpponents$Amount
-SVar:Y:ReplaceCount$DamageAmount/Twice
+ColorIdentity:WR
+OriginSet:G1ecb361a0a117393
+ManaCost:R R W W
+Types:Creature Human Knight
+PT:4/3
+K:Mentor
+T:Mode$ DamageDoneOnce | Execute$ TrigDamage | ValidTarget$ Card.Self | TriggerZones$ Battlefield
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Player | NumDmg$ X
+SVar:X:TriggerCount$DamageAmount
+SVar:HasCombatEffect:TRUE

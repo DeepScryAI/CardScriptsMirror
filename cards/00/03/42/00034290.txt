@@ -1,11 +1,12 @@
 Id:34290
-ColorIdentity:U
+ColorIdentity:B
 OriginSet:Gcb93bbfc68a40806
-ManaCost:1 U
-Types:Creature Human Advisor
-PT:1/3
-T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | Execute$ TrigPump | TriggerZones$ Battlefield
-SVar:TrigPump:DB$ Pump | NumAtt$ +1 | SubAbility$ DBUnblockable
-SVar:DBUnblockable:DB$ Effect | RememberObjects$ Self | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable
-SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
-SVar:BuffedBy:Card.nonLand+nonCreature
+ManaCost:4 B
+Types:Legendary Creature Human Spy Hero
+PT:3/4
+K:Menace
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill
+SVar:TrigMill:DB$ Mill | NumCards$ 3 | Defined$ You
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | LifeAmount$ X | Defined$ Player.Opponent
+SVar:X:Count$ValidGraveyard Creature.YouOwn

@@ -1,15 +1,10 @@
 Id:23072
-ColorIdentity:BR
-OriginSet:G7a76c1974b0a33a6
-ManaCost:4 B R
-Types:Legendary Creature Vampire Noble
-PT:3/4
-K:Flying
-K:Haste
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigChange | TriggerZones$ Battlefield
-SVar:TrigChange:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouOwn | Tapped$ True | Attacking$ True | RememberChanged$ True | SubAbility$ DBAnimate
-SVar:DBAnimate:DB$ Animate | Defined$ Remembered | Duration$ Permanent | Triggers$ TrigOlivia | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:TrigOlivia:Mode$ Always | TriggerZones$ Battlefield | IsPresent$ Vampire.YouCtrl+Legendary | PresentCompare$ EQ0 | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZone | Defined$ Self | Origin$ Battlefield | Destination$ Exile
-SVar:HasAttackEffect:TRUE
+ColorIdentity:R
+OriginSet:Gf78628ad511eefec
+ManaCost:2 R
+Types:Creature Vampire Archer
+PT:2/2
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | CheckSVar$ Y | Execute$ TrigDealDamage
+SVar:TrigDealDamage:DB$ DealDamage | NumDmg$ X | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Creature,Planeswalker
+SVar:X:Count$Valid Vampire.YouCtrl
+SVar:Y:Count$LifeOppsLostThisTurn

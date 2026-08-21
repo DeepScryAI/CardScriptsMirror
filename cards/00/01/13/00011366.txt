@@ -3,8 +3,9 @@ ColorIdentity:
 OriginSet:G84adc137b751e29e
 ManaCost:no cost
 Types:Ongoing Scheme
-R:Event$ DamageDone | ActiveZones$ Command | ValidSource$ Card.OppCtrl,Emblem.OppCtrl | ValidTarget$ You | ReplaceWith$ DBReplace | PreventionEffect$ True
-SVar:DBReplace:DB$ ReplaceDamage | Amount$ 1
-T:Mode$ Phase | Phase$ End of Turn | CheckSVar$ X | SVarCompare$ GE5 | TriggerZones$ Command | Execute$ Abandon
+T:Mode$ AttackerUnblocked | ValidCard$ Creature | ValidDefender$ You,Planeswalker.YouCtrl | TriggerZones$ Command | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenOwner$ You | TokenScriptIds$ 3097960584 | TokenBlocking$ TriggeredAttacker
+T:Mode$ AttackersDeclared | Execute$ DelTrigEOC | CheckSVar$ NatureShields | SVarCompare$ GE4 | NoResolvingCheck$ True | TriggerZones$ Command | AttackedTarget$ You
+SVar:DelTrigEOC:DB$ DelayedTrigger | Mode$ Phase | Phase$ EndCombat | ValidPlayer$ Player | Execute$ Abandon
 SVar:Abandon:DB$ Abandon
-SVar:X:PlayerCountPropertyYou$DamageThisTurn
+SVar:NatureShields:Count$Valid Creature.attackingYou

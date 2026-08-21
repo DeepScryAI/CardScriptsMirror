@@ -1,6 +1,11 @@
 Id:4370
-ColorIdentity:
+ColorIdentity:B
 OriginSet:G94d5a0658e4301e7
-ManaCost:2
-Types:Artifact
-A:AB$ PutCounterAll | Cost$ 1 T Sac<1/CARDNAME> | ValidCards$ Permanent.withFading+YouCtrl | CounterType$ FADE | CounterNum$ 1
+ManaCost:1 B
+Types:Enchantment Aura
+K:Enchant:Creature
+K:Fading:1
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 3 | AddToughness$ 2
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigSac
+SVar:TrigSac:DB$ Destroy | Defined$ AttachedBy TriggeredCardLKICopy | NoRegen$ True

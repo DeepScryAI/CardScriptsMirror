@@ -1,8 +1,10 @@
 Id:19172
-ColorIdentity:U
+ColorIdentity:UB
 OriginSet:Gf56613712ce2ae1f
-ManaCost:1 U U
-Types:Legendary Planeswalker Narset
-Loyalty:5
-S:Mode$ CantDraw | ValidPlayer$ Opponent | DrawLimit$ 1
-A:AB$ Dig | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | DigNum$ 4 | ChangeNum$ 1 | Optional$ True | ChangeValid$ Card.nonCreature+nonLand | RestRandomOrder$ True | ForceRevealToController$ True
+ManaCost:2 U U B
+Types:Sorcery
+A:SP$ DealDamage | ValidTgts$ Creature | NumDmg$ 4 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ X | SubAbility$ DBMill
+SVar:X:Count$TotalDamageDoneByThisTurn
+SVar:DBMill:DB$ Mill | NumCards$ 4 | ValidTgts$ Player | SubAbility$ DBAmass
+SVar:DBAmass:DB$ Amass | Type$ Zombie | Num$ 4

@@ -1,13 +1,10 @@
 Id:10859
-ColorIdentity:B
+ColorIdentity:W
 OriginSet:G4398040c23c94f0e
-ManaCost:3 B B
-Types:Creature Vampire Shaman
-PT:4/4
-K:Flying
-K:Protection:White
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigLoseLife
-SVar:TrigLoseLife:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ X | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ AFLifeLost
-SVar:AFLifeLost:Number$0
-SVar:X:Count$Valid Vampire.YouCtrl
+ManaCost:2 W
+Types:Creature Kor Soldier Ally
+PT:0/3
+K:Defender
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self,Ally.Other+YouCtrl | OptionalDecider$ You | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+SVar:BuffedBy:Ally

@@ -1,7 +1,10 @@
 Id:14011
-ColorIdentity:B
+ColorIdentity:R
 OriginSet:Gdaee41baa388b0e7
-ManaCost:1 B
-Types:Creature Minotaur
-PT:2/2
-S:Mode$ CantBlock | ValidCard$ Card.Self | IsPresent$ Minotaur.Other+YouCtrl | PresentCompare$ EQ0
+ManaCost:2 R
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 2 | AddToughness$ 2 | AddAbility$ CantBlockFT
+SVar:CantBlockFT:AB$ Effect | Cost$ 2 R | ValidTgts$ Creature | IsCurse$ True | RememberObjects$ ThisTargetedCard | ForgetOnMoved$ Battlefield | StaticAbilities$ KWPump | Duration$ UntilHostLeavesPlayOrEOT
+SVar:KWPump:Mode$ CantBlockBy | ValidAttacker$ Creature.EffectSource | ValidBlocker$ Creature.IsRemembered

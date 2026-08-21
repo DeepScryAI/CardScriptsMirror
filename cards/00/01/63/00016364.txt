@@ -1,8 +1,15 @@
 Id:16364
 ColorIdentity:W
 OriginSet:Gd94e3db4ef71ffd2
-ManaCost:3 W
+ManaCost:2 W W
 Types:Creature Human Soldier
-PT:2/4
+PT:2/2
 T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMonarch
 SVar:TrigMonarch:DB$ BecomeMonarch
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Creature.OppCtrl | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | Triggers$ ComeBack | RememberObjects$ You & Targeted | Duration$ Permanent | EffectOwner$ TargetedOwner | ForgetOnMoved$ Exile
+SVar:ComeBack:Mode$ BecomeMonarch | ValidPlayer$ Player.OpponentOf Remembered | Execute$ TrigReturn | TriggerZones$ Command | Static$ True
+SVar:TrigReturn:DB$ ChangeZoneAll | Origin$ Exile | Destination$ Battlefield | ChangeType$ Card.IsRemembered | SubAbility$ ExileSelf
+SVar:ExileSelf:DB$ ChangeZone | Origin$ Command | Destination$ Exile | Defined$ Self
+SVar:PlayMain1:TRUE

@@ -1,8 +1,11 @@
 Id:22823
-ColorIdentity:G
-OriginSet:Gf78628ad511eefec
-ManaCost:1 G
-Types:Instant
-A:SP$ PutCounter | ConditionCheckSVar$ X | ConditionSVarCompare$ GE3 | AILogic$ Fight | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBFight
-SVar:DBFight:DB$ Fight | Defined$ ParentTarget | ValidTgts$ Creature.YouDontCtrl
-SVar:X:Count$Valid Creature.YouCtrl$DifferentCardPower
+ColorIdentity:B
+OriginSet:G66f2eb694ffd614a
+ManaCost:2 B
+Types:Sorcery
+A:SP$ ChooseCard | ValidTgts$ Opponent | Choices$ Creature.TargetedPlayerOwn | ChoiceZone$ Graveyard | AILogic$ WorstCard | Amount$ 1 | SubAbility$ DBChangeZone | Mandatory$ True
+SVar:DBChangeZone:DB$ ChangeZone | Defined$ ChosenCard | Origin$ Graveyard | GainControl$ True | Destination$ Battlefield
+K:Flashback:8 B B:ReduceCost$ X
+SVar:X:Count$ValidBattlefield,Command Card.IsCommander+YouOwn$GreatestCardManaCost
+SVar:NeedsToPlayVar:Z GE1
+SVar:Z:Count$ValidGraveyard Creature.OppOwn

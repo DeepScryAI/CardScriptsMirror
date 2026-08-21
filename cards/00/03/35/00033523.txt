@@ -1,10 +1,14 @@
 Id:33523
-ColorIdentity:B
-OriginSet:G23d1f017cc66962f
-ManaCost:2 B
-Types:Legendary Creature Human Ninja
-PT:3/1
-K:Sneak:1 B
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDraw | TriggerZones$ Battlefield
-SVar:TrigDraw:DB$ Draw | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 1
+ColorIdentity:UG
+OriginSet:G40dbb28fb92f9206
+ManaCost:4 GU GU
+Types:Instant
+A:SP$ Seek | Num$ X | Type$ Card.SharesColorWith Valid Permanent.YouCtrl | RememberFound$ True | SubAbility$ DBAnimateW
+SVar:DBAnimateW:DB$ AnimateAll | Zone$ Hand | Duration$ Perpetual | ValidCards$ Card.IsRemembered | staticAbilities$ ReduceCost | ConditionPresent$ Permanent.YouCtrl+White | LockInText$ True | SubAbility$ DBAnimateU
+SVar:DBAnimateU:DB$ AnimateAll | Zone$ Hand | Duration$ Perpetual | ValidCards$ Card.IsRemembered | staticAbilities$ ReduceCost | ConditionPresent$ Permanent.YouCtrl+Blue | LockInText$ True | SubAbility$ DBAnimateB
+SVar:DBAnimateB:DB$ AnimateAll | Zone$ Hand | Duration$ Perpetual | ValidCards$ Card.IsRemembered | staticAbilities$ ReduceCost | ConditionPresent$ Permanent.YouCtrl+Black | LockInText$ True | SubAbility$ DBAnimateR
+SVar:DBAnimateR:DB$ AnimateAll | Zone$ Hand | Duration$ Perpetual | ValidCards$ Card.IsRemembered | staticAbilities$ ReduceCost | ConditionPresent$ Permanent.YouCtrl+Red | LockInText$ True | SubAbility$ DBAnimateG
+SVar:DBAnimateG:DB$ AnimateAll | Zone$ Hand | Duration$ Perpetual | ValidCards$ Card.IsRemembered | staticAbilities$ ReduceCost | ConditionPresent$ Permanent.YouCtrl+Green | LockInText$ True | SubAbility$ DBCleanup
+SVar:ReduceCost:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ 1 | EffectZone$ All
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | SubAbility$ DBEffect
+SVar:X:Count$Valid Permanent.YouCtrl$Colors

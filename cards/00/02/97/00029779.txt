@@ -1,8 +1,15 @@
 Id:29779
-ColorIdentity:G
-OriginSet:Gf09b85bbcc27770c
-ManaCost:1 G G
-Types:Creature Raccoon Warrior
-PT:3/4
-T:Mode$ ManaExpend | Amount$ 4 | Player$ You | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ PumpAll | ValidCards$ Raccoon.YouCtrl | KW$ Vigilance | NumAtt$ +1 | NumDef$ +1
+ColorIdentity:R
+OriginSet:G997e3b19a1e94e85
+ManaCost:3 R
+Types:Legendary Artifact Creature Juggernaut
+PT:5/3
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigUpkeep
+SVar:TrigUpkeep:DB$ Sacrifice | UnlessPayer$ You | UnlessCost$ Discard<1/Card>
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigShuffle | TriggerZones$ Battlefield
+SVar:TrigShuffle:DB$ Shuffle | Defined$ You | SubAbility$ DBExile
+SVar:DBExile:DB$ Dig | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ DBPlay | SubAbility$ DBCleanup | ExileOnMoved$ Exile
+SVar:DBPlay:Mode$ Continuous | MayPlay$ True | MayPlayWithoutManaCost$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:HasAttackEffect:TRUE

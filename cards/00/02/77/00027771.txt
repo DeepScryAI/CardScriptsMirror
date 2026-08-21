@@ -1,13 +1,12 @@
 Id:27771
-ColorIdentity:UB
-OriginSet:G30e8a5e111cffb44
-ManaCost:3 U B
-Types:Legendary Creature Time Lord Noble
-PT:3/4
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigLoseLife
-SVar:TrigLoseLife:DB$ LoseLife | LifeAmount$ 2 | SubAbility$ DBExile
-SVar:DBExile:DB$ Dig | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | Imprint$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | ForgetOnMoved$ Exile | RememberObjects$ Imprinted | Duration$ Permanent | SubAbility$ DBCleanup
-SVar:STPlay:Mode$ Continuous | Affected$ Card.IsRemembered | MayPlay$ True | AffectedZone$ Exile
-SVar:DBCleanup:DB$ Cleanup | ClearImprinted$ True
-S:Mode$ Continuous | AddKeyword$ Conspire | Affected$ Card.nonCreature+wasCastFromExile+YouCtrl | AffectedZone$ Stack | EffectZone$ Battlefield
+ColorIdentity:
+OriginSet:Gd488b4ad788f0529
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ LandTapped | ReplacementResult$ Updated
+SVar:LandTapped:DB$ Tap | Defined$ Self | ETB$ True | ConditionCheckSVar$ Y | ConditionSVarCompare$ LT3
+SVar:Y:Count$YourTurns/Plus.X
+SVar:X:Count$StartingPlayer.0.3
+K:ETBReplacement:Other:ChooseColor
+SVar:ChooseColor:DB$ ChooseColor | Defined$ You
+A:AB$ Mana | Cost$ T | Produced$ Chosen

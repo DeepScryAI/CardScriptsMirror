@@ -1,11 +1,13 @@
 Id:32484
-ColorIdentity:W
-OriginSet:G66b3a7eeabd9000e
-ManaCost:3 W
-Types:Legendary Creature Spider Human Hero
-PT:3/4
-K:WebSlinging:2 W
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ X | SVarCompare$ GE2 | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2
-SVar:X:Count$ThisTurnEntered_Battlefield_Creature.YouCtrl
+ColorIdentity:U
+OriginSet:G324b911e0e372b1b
+ManaCost:U
+Types:Creature Insect
+PT:1/2
+K:Flying
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigRandom
+SVar:TrigRandom:DB$ ChooseCard | Choices$ Land.YouOwn | ChoiceZone$ Library | AtRandom$ True | Amount$ 1 | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ ChosenCard | Types$ Basic,Island | Triggers$ LandETBDraw | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:LandETBDraw:Mode$ ChangesZone | ValidCard$ Card.Self | Execute$ TrigDraw | Origin$ Any | Destination$ Battlefield
+SVar:TrigDraw:DB$ Draw
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True

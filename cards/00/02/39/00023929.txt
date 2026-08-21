@@ -1,10 +1,13 @@
 Id:23929
-ColorIdentity:
-OriginSet:Gfdfe2ebef04be34e
-ManaCost:2
-Types:Artifact Vehicle
-PT:*/*
-A:AB$ ChangeZone | Cost$ T | TargetMin$ 0 | TargetMax$ 2 | TargetsWithSameController$ True | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card
-S:Mode$ Continuous | Affected$ Card.Self | SetPower$ X | SetToughness$ X
-SVar:X:Count$ValidExile Card.ExiledWithSource
-K:Crew:2
+ColorIdentity:B
+OriginSet:G5f5d8cfb206e2fac
+ManaCost:2 B
+Types:Instant
+K:Kicker:3 B
+A:SP$ ChangeZone | TargetMin$ 0 | TargetMax$ X | TargetsWithSameController$ True | Origin$ Graveyard | Destination$ Exile | RememberChanged$ True | AITgts$ Creature | ValidTgts$ Card | SubAbility$ ExileGrave
+SVar:ExileGrave:DB$ ChangeZoneAll | TargetMin$ Y | TargetMax$ Y | ValidTgts$ Player | Origin$ Graveyard | Destination$ Exile | ChangeType$ Card | RememberChanged$ True | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenAmount$ Z | TokenScriptIds$ 463201318 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$Kicked.0.2
+SVar:Y:Count$Kicked.1.0
+SVar:Z:Remembered$Valid Creature

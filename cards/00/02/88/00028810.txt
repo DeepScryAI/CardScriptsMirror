@@ -1,11 +1,11 @@
 Id:28810
-ColorIdentity:WR
-OriginSet:Gaf7c94f364052cdd
-ManaCost:2 R W
-Types:Legendary Creature Human Ranger
-PT:4/3
+ColorIdentity:UG
+OriginSet:Ge329d8d60ca65422
+ManaCost:1 GU GU
+Types:Creature Crab Elf
+PT:3/2
+K:Flash
 K:Vigilance
-T:Mode$ ChangesZone | ValidCard$ Creature.Other+enchanted+YouCtrl,Creature.Other+equipped+YouCtrl,Card.Self+equipped,Card.Self+enchanted | Origin$ Battlefield | Destination$ Graveyard | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | Hidden$ True | ChangeType$ Card | ChooseFromDefined$ AttachedTo TriggeredCardLKICopy.Aura | Origin$ Graveyard | Destination$ Battlefield | AttachedTo$ Targeted | SubAbility$ DBAttach
-SVar:DBAttach:DB$ Attach | Object$ AttachedTo TriggeredCardLKICopy.Equipment | Optional$ True | Defined$ Targeted
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPut
+SVar:TrigPut:DB$ PutCounter | ValidTgts$ Creature.Other+YouCtrl | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Targeted | Types$ Crab | Colors$ Blue | OverwriteColors$ True | Keywords$ Hexproof

@@ -1,11 +1,16 @@
 Id:29446
-ColorIdentity:
-OriginSet:Gac6359c222afbd4f
-ManaCost:2 C
-Types:Creature Eldrazi Drone
-PT:2/2
-T:Mode$ SpellCast | ValidCard$ Card.Colorless | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 3873110322 | TokenOwner$ You
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.Other+Colorless+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigDamage
-SVar:TrigDamage:DB$ DealDamage | Defined$ Player.Opponent | NumDmg$ 1
-SVar:BuffedBy:Card.Colorless
+ColorIdentity:B
+OriginSet:G2ce881cc55bb9f18
+ManaCost:2 B
+Types:Creature Lhurgoyf
+PT:*/1+*
+K:Deathtouch
+K:Lifelink
+S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X | SetToughness$ Y
+SVar:X:Count$ValidGraveyard Card$CardTypes
+SVar:Y:SVar$X/Plus.1
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | OptionalDecider$ You | Execute$ TrigMill | TriggerZones$ Battlefield
+SVar:TrigMill:DB$ Mill | Defined$ You | NumCards$ Z | RememberMilled$ True | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Hidden$ True | Origin$ Graveyard,Exile | Destination$ Hand | ChangeType$ Creature.IsRemembered | Optional$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:Z:TriggerCount$DamageAmount

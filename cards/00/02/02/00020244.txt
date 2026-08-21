@@ -1,11 +1,12 @@
 Id:20244
-ColorIdentity:
+ColorIdentity:U
 OriginSet:G42eb6bda83007836
-ManaCost:4
-Types:Legendary Artifact
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
-A:AB$ ChooseColor | Cost$ T | AILogic$ MostProminentComputerControls | AINoRecursiveCheck$ True | SubAbility$ DBMana
-SVar:DBMana:DB$ Mana | Produced$ Chosen | Amount$ X | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearChosenColor$ True
-SVar:X:Count$Devotion.Chosen
+ManaCost:2 U U
+Types:Enchantment
+K:Flash
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+S:Mode$ CantBeCast | ValidCard$ Card.nonLand+sharesNameWith Remembered.ExiledWithSource | Caster$ Opponent
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigBounce
+SVar:TrigExile:DB$ ChangeZone | TargetType$ Spell | ValidTgts$ Card | TgtZone$ Stack | Origin$ Stack | Destination$ Exile | IsCurse$ True | RememberChanged$ True
+SVar:TrigBounce:DB$ ChangeZone | Origin$ Exile | Destination$ Hand | Defined$ Remembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

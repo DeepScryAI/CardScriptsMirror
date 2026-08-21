@@ -1,11 +1,9 @@
 Id:28566
-ColorIdentity:
+ColorIdentity:R
 OriginSet:G7ee0e82a2424d636
-ManaCost:no cost
-Types:Land
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSac
-SVar:TrigSac:DB$ Sacrifice | UnlessCost$ tapXType<1/Artifact;Land/artifact or land> | UnlessPayer$ You
-A:AB$ Mana | Cost$ T | Produced$ Any
-SVar:NeedsToPlay:Land.untapped+YouCtrl;Artifact.untapped+YouCtrl
+ManaCost:4 R
+Types:Creature Lizard Warrior
+PT:5/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | OptionalDecider$ You | Execute$ TrigImmediateTrig
+SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ Sac<1/Artifact> | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | NumDmg$ 3 | ValidTgts$ Any

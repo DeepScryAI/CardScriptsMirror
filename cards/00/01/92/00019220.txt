@@ -1,8 +1,9 @@
 Id:19220
-ColorIdentity:G
-OriginSet:Gb6b8d78626a44788
-ManaCost:3 G
-Types:Creature Plant Elemental
-PT:4/4
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigProliferate
-SVar:TrigProliferate:DB$ Proliferate
+ColorIdentity:W
+OriginSet:Gf56613712ce2ae1f
+ManaCost:3 W W
+Types:Sorcery
+A:SP$ ChooseCard | Defined$ Player | Choices$ Creature,Planeswalker | ControlledByPlayer$ Chooser | Mandatory$ True | Reveal$ True | SubAbility$ SacAllOthers
+SVar:SacAllOthers:DB$ SacrificeAll | ValidCards$ Creature.nonChosenCard,Planeswalker.nonChosenCard | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STCantBeCast | Duration$ UntilTheEndOfYourNextTurn
+SVar:STCantBeCast:Mode$ CantBeCast | ValidCard$ Creature,Planeswalker

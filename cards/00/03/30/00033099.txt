@@ -1,10 +1,12 @@
 Id:33099
-ColorIdentity:G
-OriginSet:G7ab1fe96128a1641
-ManaCost:2 G
-Types:Creature Kithkin Ranger
+ColorIdentity:R
+OriginSet:G731e0066916b7465
+ManaCost:3 R
+Types:Legendary Creature Human Bard Ally
 PT:3/3
-K:Trample
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +1
-SVar:BuffedBy:Creature
+T:Mode$ AttackersDeclared | ValidAttackers$ Bard.YouCtrl | Execute$ TrigCharm | TriggerZones$ Battlefield
+SVar:TrigCharm:DB$ Charm | Choices$ DBPutCounter,DBPumpAll
+SVar:DBPutCounter:DB$ PutCounter | ValidTgts$ Saga.YouCtrl | TargetMin$ 0 | TargetMax$ X | CounterType$ LORE | CounterNum$ 1
+SVar:DBPumpAll:DB$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +Y
+SVar:X:Count$Valid Saga.YouCtrl
+SVar:Y:Count$Valid Saga.YouCtrl$CardCounters.LORE

@@ -1,22 +1,10 @@
 Id:23657
-ColorIdentity:B
+ColorIdentity:WB
 OriginSet:G1a259dba25660062
-ManaCost:3 B
-Types:Enchantment Saga
-K:Chapter:3:DBEachOpp,DBEachOpp,DBTransform
-SVar:DBEachOpp:DB$ RepeatEach | RepeatSubAbility$ DBSac | RepeatPlayers$ Opponent
-SVar:DBSac:DB$ Sacrifice | SacValid$ Creature | Defined$ Player.IsRemembered | UnlessCost$ Discard<1/Card> | UnlessPayer$ Remembered
-SVar:DBTransform:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn
-SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | Transformed$ True | GainControl$ True | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:black
-Types:Enchantment Creature Spirit
-PT:0/4
-K:Menace
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +X
-SVar:X:Count$ValidGraveyard Creature.ControlledBy TriggeredDefendingPlayer
+ManaCost:3 W B
+Types:Legendary Creature Human Advisor
+PT:4/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | IsPresent$ Artifact.YouCtrl | IsPresent2$ Enchantment.YouCtrl | Execute$ TrigToken
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigToken | IsPresent$ Artifact.YouCtrl | IsPresent2$ Enchantment.YouCtrl | Secondary$ True
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 1894967173
 SVar:HasAttackEffect:TRUE

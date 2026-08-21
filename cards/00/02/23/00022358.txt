@@ -1,8 +1,12 @@
 Id:22358
 ColorIdentity:R
-OriginSet:Ge508975d330db34e
-ManaCost:1 R
-Types:Artifact
-A:AB$ Mana | Cost$ 1 T | Produced$ Combo Any | Amount$ 2 | RestrictValid$ Spell.Dragon,Activated.Dragon+inZoneBattlefield
-A:AB$ Dig | Cost$ R T Sac<1/CARDNAME> | DigNum$ 7 | ChangeNum$ 1 | Optional$ True | ForceRevealToController$ True | ChangeValid$ Dragon | RestRandomOrder$ True
-SVar:BuffedBy:Dragon
+OriginSet:Geb2cf181996ee3b2
+ManaCost:2 R R
+Types:Enchantment Creature Manticore
+PT:3/4
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | Execute$ TrigDiscard | TriggerZones$ Battlefield | OptionalDecider$ You
+SVar:TrigDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBImmediateTrigger
+SVar:DBImmediateTrigger:DB$ ImmediateTrigger | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ GE1 | Execute$ TrigDamage | RememberObjects$ RememberedCard | SubAbility$ DBCleanup
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ X
+SVar:X:TriggerRemembered$CardTypes
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

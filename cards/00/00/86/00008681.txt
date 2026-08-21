@@ -1,7 +1,10 @@
 Id:8681
-ColorIdentity:W
+ColorIdentity:
 OriginSet:G70f74088c47d66bd
-ManaCost:W
-Types:Sorcery
-K:Flashback:5 W
-A:SP$ ChangeZone | Cost$ W tapXType<3/Creature.White/white creature> | ValidTgts$ Creature | Origin$ Battlefield | Destination$ Exile
+ManaCost:5
+Types:Artifact
+K:ETBReplacement:Other:ChooseColor
+SVar:ChooseColor:DB$ ChooseColor | Defined$ You | AILogic$ MostProminentInComputerDeck
+S:Mode$ Continuous | Affected$ Creature.ChosenColor | AddPower$ 1 | AddToughness$ 1
+T:Mode$ TapsForMana | ValidCard$ Land.Basic | Produced$ ChosenColor | Execute$ TrigMana | TriggerZones$ Battlefield | Static$ True
+SVar:TrigMana:DB$ Mana | Produced$ Chosen | Amount$ 1 | Defined$ TriggeredCardController

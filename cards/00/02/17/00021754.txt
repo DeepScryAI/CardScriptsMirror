@@ -1,9 +1,14 @@
 Id:21754
-ColorIdentity:B
-OriginSet:Gabb23d0d25cdc46d
-ManaCost:2 B
-Types:Enchantment
-S:Mode$ Continuous | Affected$ Pest.YouCtrl+attacking | AddPower$ 1 | AddKeyword$ Menace
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl+!token | TriggerZones$ Battlefield | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 272656594 | TokenOwner$ You
-SVar:PlayMain1:TRUE
+ColorIdentity:BG
+OriginSet:G18bf722b221724f8
+ManaCost:1 B G
+Types:Legendary Creature Wolf
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Permanent.OppCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | CheckSVar$ X | Execute$ TrigRemoveAll | TriggerZones$ Battlefield | OptionalDecider$ You
+SVar:TrigRemoveAll:DB$ RemoveCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ All | RememberAmount$ True | SubAbility$ DBChangeZoneAll
+SVar:DBChangeZoneAll:DB$ ChangeZoneAll | Origin$ Battlefield | Destination$ Exile | ChangeType$ Permanent.nonLand+Other+cmcLEY | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$CardCounters.P1P1
+SVar:Y:Count$RememberedNumber

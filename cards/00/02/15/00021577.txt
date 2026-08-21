@@ -1,8 +1,10 @@
 Id:21577
-ColorIdentity:W
+ColorIdentity:WG
 OriginSet:G18bf722b221724f8
-ManaCost:2 W
-Types:Creature Dwarf Warrior
-PT:2/3
-A:AB$ Tap | Cost$ 1 W | ValidTgts$ Creature | Boast$ True
-SVar:NonCombatPriority:10
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ G
+A:AB$ PutCounter | Cost$ G W W T Sac<1/CARDNAME> | CounterNum$ 1 | CounterType$ P1P1 | TargetMin$ 0 | TargetMax$ 2 | ValidTgts$ Creature.YouCtrl | SorcerySpeed$ True | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Targeted | KW$ Vigilance & Lifelink

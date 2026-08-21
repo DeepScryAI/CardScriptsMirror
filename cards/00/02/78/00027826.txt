@@ -1,12 +1,16 @@
 Id:27826
-ColorIdentity:RG
+ColorIdentity:
 OriginSet:G30e8a5e111cffb44
-ManaCost:3 R G
-Types:Legendary Creature Time Lord Doctor
-PT:4/4
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigInvestigate
-SVar:TrigInvestigate:DB$ Investigate
-T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigImmediateTrig | OptionalDecider$ You
-SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ Sac<1/Clue> | Execute$ TrigFlashback
-SVar:TrigFlashback:DB$ Pump | ValidTgts$ Instant.YouCtrl,Sorcery.YouCtrl | TgtZone$ Graveyard | KW$ Flashback:2 R G | PumpZone$ Graveyard | AILogic$ ReplaySpell
-SVar:HasAttackEffect:TRUE
+ManaCost:no cost
+Types:Plane Skaro
+T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigLoseLife | TriggerZones$ Command
+SVar:TrigLoseLife:DB$ LoseLife | LifeAmount$ X | ValidTgts$ Opponent
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ TrigRepeat
+SVar:TrigRepeat:DB$ RepeatEach | RepeatPlayers$ Player.Opponent | RepeatSubAbility$ DBToken | ChangeZoneTable$ True | SubAbility$ DBSac
+SVar:DBToken:DB$ Token | TokenScriptIds$ 809974435 | RememberTokens$ True | ImprintTokens$ True | PumpKeywords$ Haste | SubAbility$ DBEff
+SVar:DBEff:DB$ Effect | RememberObjects$ Remembered | ExileOnMoved$ Battlefield | StaticAbilities$ MustAttack | SubAbility$ DBCleanup
+SVar:MustAttack:Mode$ MustAttack | ValidCreature$ Card.IsRemembered | MustAttack$ RememberedPlayer
+SVar:DBSac:DB$ Pump | Defined$ Imprinted | AtEOT$ Sacrifice | SubAbility$ DBCleanup2
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:DBCleanup2:DB$ Cleanup | ClearImprinted$ True
+SVar:X:Count$Valid Artifact.YouCtrl

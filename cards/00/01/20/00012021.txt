@@ -1,8 +1,13 @@
 Id:12021
-ColorIdentity:R
+ColorIdentity:W
 OriginSet:G28b959a4da853005
-ManaCost:6 R R
-Types:Creature Avatar
-PT:8/8
-S:Mode$ Continuous | Affected$ Creature | AddKeyword$ DoubleStrike
-S:Mode$ MustAttack | ValidCreature$ Creature | Secondary$ True
+ManaCost:5 W W
+Types:Creature Angel
+PT:6/6
+K:Flying
+K:ETBReplacement:Other:ChooseEach
+SVar:ChooseEach:DB$ GenericChoice | Defined$ Player | TempRemember$ Chooser | Choices$ WarChoice,PeaceChoice | ShowChoice$ ExceptSelf
+SVar:WarChoice:DB$ Pump | Defined$ Remembered | NoteCards$ Self | NoteCardsFor$ War
+SVar:PeaceChoice:DB$ Pump | Defined$ Remembered | NoteCards$ Self | NoteCardsFor$ Peace
+S:Mode$ Continuous | AffectedZone$ Battlefield | Affected$ Creature.ControlledBy Player.NotedForWar | AddPower$ 3
+S:Mode$ Continuous | AffectedZone$ Battlefield | Affected$ Creature.ControlledBy Player.NotedForPeace | AddToughness$ 3

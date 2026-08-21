@@ -1,0 +1,14 @@
+Id:17387
+ColorIdentity:BRG
+OriginSet:Gaa482ed186eee527
+ManaCost:2 B R G
+Types:Legendary Creature Cat Dragon
+PT:5/4
+K:Flying
+K:Trample
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigSac | TriggerZones$ Battlefield
+SVar:TrigSac:DB$ Sacrifice | Defined$ TriggeredTarget | SacValid$ Creature | RememberSacrificed$ True | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 3331934293 | TokenOwner$ You | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ0 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Amount
+SVar:MustBeBlocked:True

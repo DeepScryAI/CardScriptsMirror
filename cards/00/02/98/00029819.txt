@@ -1,7 +1,10 @@
 Id:29819
-ColorIdentity:G
-OriginSet:Gf09b85bbcc27770c
-ManaCost:2 G
-Types:Creature Rabbit Druid
-PT:2/3
-S:Mode$ Continuous | Affected$ Card.Self | AddPower$ 2 | AddKeyword$ Trample | IsPresent$ Permanent.token+YouCtrl
+ColorIdentity:U
+OriginSet:G01a610e823cce3ca
+ManaCost:2 U U
+Types:Instant
+A:SP$ Pump | Origin$ Battlefield | ValidTgts$ Creature.!token+YouOwn | RememberTargets$ True | SubAbility$ DBExileTopCard
+SVar:DBExileTopCard:DB$ Dig | Defined$ You | DigNum$ 2 | ChangeNum$ All | NoReveal$ True | NoLooking$ True | RememberChanged$ True | SubAbility$ ExileAll
+SVar:ExileAll:DB$ ChangeZone | Origin$ Battlefield,Library | Destination$ Exile | Defined$ Remembered | SubAbility$ DBCloak
+SVar:DBCloak:DB$ Cloak | Defined$ Remembered | Tapped$ True | Shuffle$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

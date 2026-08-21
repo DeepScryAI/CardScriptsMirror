@@ -1,11 +1,8 @@
 Id:24982
-ColorIdentity:G
+ColorIdentity:B
 OriginSet:G3a8b4b9d4649b357
-ManaCost:2 G
-Types:Sorcery
-A:SP$ ChangeZone | Origin$ Library | Destination$ Library | ChangeType$ Creature | ChangeNum$ 4 | DifferentPower$ True | RememberChanged$ True | Reveal$ True | Shuffle$ False | SubAbility$ DBChoosePlayer
-SVar:DBChoosePlayer:DB$ ChoosePlayer | Defined$ You | Choices$ Player.Opponent | SubAbility$ OppPickTwo
-SVar:OppPickTwo:DB$ ChooseCard | Defined$ ChosenPlayer | Amount$ 2 | Mandatory$ True | Choices$ Card.IsRemembered | ChoiceZone$ Library | ForgetChosen$ True | SubAbility$ MoveNotChosen
-SVar:MoveNotChosen:DB$ ChangeZoneAll | Origin$ Library | Destination$ Hand | ChangeType$ Card.IsRemembered | SubAbility$ DBShuffle
-SVar:DBShuffle:DB$ Shuffle | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:1 B
+Types:Creature Phyrexian Human
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl | Execute$ TrigScry
+SVar:TrigScry:DB$ Scry

@@ -1,7 +1,12 @@
 Id:3853
-ColorIdentity:W
+ColorIdentity:B
 OriginSet:G3da30095b68d8df0
-ManaCost:1 W
-Types:Creature Human Cleric
-PT:1/1
-A:AB$ PreventDamage | Cost$ tapXType<1/Creature> | ValidTgts$ Creature | Amount$ 1
+ManaCost:1 B
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Curse
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter | OptionalDecider$ You
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Player.EnchantedController | TriggerZones$ Battlefield | Execute$ TrigDamage
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ INFECTION | CounterNum$ 1
+SVar:TrigDamage:DB$ DealDamage | Defined$ TriggeredPlayer | NumDmg$ X
+SVar:X:Count$CardCounters.INFECTION

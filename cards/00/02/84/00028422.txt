@@ -1,8 +1,11 @@
 Id:28422
-ColorIdentity:B
-OriginSet:G7ee0e82a2424d636
-ManaCost:2 B
-Types:Sorcery
-A:SP$ Charm | Choices$ DBDiscard,YouChoose
-SVar:DBDiscard:DB$ Discard | ValidTgts$ Opponent | NumCards$ 2 | Mode$ TgtChoose
-SVar:YouChoose:DB$ Discard | ValidTgts$ Opponent | Mode$ RevealYouChoose | DiscardValid$ Card.nonLand | NumCards$ 1
+ColorIdentity:W
+OriginSet:G4155bbd49d5da56f
+ManaCost:1 W
+Types:Instant
+A:SP$ Destroy | ValidTgts$ Creature.powerGE4 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ 4 | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ0
+K:Cycling:W
+T:Mode$ Cycled | ValidCard$ Card.Self | CheckSVar$ X | SVarCompare$ EQ0 | Execute$ DBGainLifeBis
+SVar:DBGainLifeBis:DB$ GainLife | LifeAmount$ 2
+SVar:X:Count$StartingPlayer.1.0

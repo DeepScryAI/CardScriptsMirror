@@ -1,11 +1,16 @@
 Id:14757
-ColorIdentity:B
+ColorIdentity:R
 OriginSet:Gfafc221218d3b700
-ManaCost:3 B B
-Types:Creature Demon
-PT:4/4
-K:Flying
-S:Mode$ Continuous | Affected$ Card.Self | AddPower$ 2 | AddToughness$ 2 | AddTrigger$ TrigDealsCB | IsPresent$ Card.IsCommander+YouOwn+YouCtrl
-SVar:TrigDealsCB:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigSac | TriggerZones$ Battlefield
-SVar:TrigSac:DB$ Sacrifice | Defined$ TriggeredTarget | SacValid$ Creature
-SVar:BuffedBy:Card.IsCommander
+ManaCost:3 R
+Types:Legendary Planeswalker Daretti
+Loyalty:3
+A:AB$ Discard | Cost$ AddCounter<2/LOYALTY> | Planeswalker$ True | NumCards$ 2 | Optional$ True | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Amount
+A:AB$ Sacrifice | Cost$ SubCounter<2/LOYALTY> | SacValid$ Artifact | RememberSacrificed$ True | Planeswalker$ True | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | ValidTgts$ Artifact.YouCtrl | Origin$ Graveyard | Destination$ Battlefield | ConditionCheckSVar$ X | SubAbility$ DBCleanup
+A:AB$ Effect | Cost$ SubCounter<10/LOYALTY> | Planeswalker$ True | Ultimate$ True | Name$ 4630723605749284122 | Stackable$ False | Triggers$ TrigChangesZone | Duration$ Permanent | AILogic$ Always
+SVar:TrigChangesZone:Mode$ ChangesZone | ValidCard$ Artifact.YouOwn | Origin$ Battlefield | Destination$ Graveyard | Execute$ DelTrigReturn | TriggerZones$ Command
+SVar:DelTrigReturn:DB$ DelayedTrigger | Mode$ Phase | Phase$ End Of Turn | Execute$ DBReturn | RememberObjects$ TriggeredNewCardLKICopy
+SVar:DBReturn:DB$ ChangeZone | Defined$ DelayTriggerRememberedLKI | Origin$ Graveyard | Destination$ Battlefield

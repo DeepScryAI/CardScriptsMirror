@@ -2,10 +2,10 @@ Id:14791
 ColorIdentity:U
 OriginSet:Gfafc221218d3b700
 ManaCost:3 U U
-Types:Creature Kraken
-PT:5/5
-K:Hexproof
-S:Mode$ Continuous | Affected$ Card.Self | AddPower$ 2 | AddToughness$ 2 | AddTrigger$ TrigBlocked | AddSVar$ StormsurgeKrakenDraw | IsPresent$ Card.IsCommander+YouOwn+YouCtrl
-SVar:TrigBlocked:Mode$ AttackerBlocked | ValidCard$ Card.Self | Execute$ StormsurgeKrakenDraw
-SVar:StormsurgeKrakenDraw:DB$ Draw | NumCards$ 2 | OptionalDecider$ You
-SVar:BuffedBy:Card.IsCommander
+Types:Legendary Creature Human Wizard
+PT:3/4
+A:AB$ Mill | Cost$ 2 U T | Defined$ Player | NumCards$ 3 | RememberMilled$ True | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ChangeType$ Creature.IsRemembered | Hidden$ True | ChangeNum$ 2 | ForgetOtherRemembered$ True | RememberLKI$ True | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 1439482797 | TokenOwner$ You | TokenPower$ X | TokenToughness$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$CardPower

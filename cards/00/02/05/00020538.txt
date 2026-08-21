@@ -2,10 +2,9 @@ Id:20538
 ColorIdentity:W
 OriginSet:Gc9c1dd0d52c99ca4
 ManaCost:2 W
-Types:Creature Human Scout Ranger
-PT:3/3
-K:FirstStrike
-S:Mode$ Continuous | Affected$ Card.TopLibrary+YouCtrl | AffectedZone$ Library | MayLookAt$ You
-S:Mode$ Continuous | Affected$ Land.TopLibrary+YouCtrl | AffectedZone$ Library | MayPlay$ True | CheckSVar$ X | SVarCompare$ GTY
-SVar:X:PlayerCountOpponents$HighestValid Land.YouCtrl
-SVar:Y:Count$Valid Land.YouCtrl
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 1 | AddToughness$ 1 | Goad$ True
+T:Mode$ Attacks | ValidCard$ Card.AttachedBy | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ PumpAll | ValidCards$ Creature.!TriggeredAttacker+attacking Opponent | NumAtt$ +1 | NumDef$ +1

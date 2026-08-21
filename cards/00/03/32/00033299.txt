@@ -1,9 +1,12 @@
 Id:33299
-ColorIdentity:U
+ColorIdentity:W
 OriginSet:G7ab1fe96128a1641
-ManaCost:5 U U
-Types:Kindred Sorcery Merfolk
-K:Convoke
-A:SP$ ChangeZone | TargetMin$ 1 | TargetMax$ 2 | ValidTgts$ Permanent.nonLand | Origin$ Battlefield | Destination$ Hand | RememberChanged$ True | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenAmount$ Remembered$Amount | TokenScriptIds$ 1821459448 | ConditionPresent$ Merfolk.YouCtrl | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:3 W
+Types:Creature Kithkin Knight
+PT:4/5
+K:Flash
+S:Mode$ RaiseCost | ValidCard$ Card.Self | Activator$ You | Type$ Spell | Cost$ BeholdExile<1/Kithkin> | EffectZone$ All
+S:Mode$ Continuous | Affected$ Kithkin.Other+YouCtrl | AddPower$ 1 | AddToughness$ 1
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Defined$ ExiledWith | Origin$ Exile | Destination$ Hand
+SVar:PlayMain1:TRUE

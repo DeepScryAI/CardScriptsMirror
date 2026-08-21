@@ -1,7 +1,13 @@
 Id:6239
-ColorIdentity:U
+ColorIdentity:B
 OriginSet:G0085c354434a9ecc
-ManaCost:4 U
-Types:Creature Human Wizard Mutant
-PT:3/3
-A:AB$ Pump | Cost$ 7 U | NumAtt$ +3 | NumDef$ +3 | Defined$ Self | KW$ Flying
+ManaCost:B B B
+Types:Creature Zombie
+PT:0/0
+K:Amplify:1
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | IsPresent$ Card.StrictlySelf | PresentZone$ Graveyard | PresentPlayer$ You | TriggerZones$ Graveyard | OptionalDecider$ You | Execute$ TrigReturn
+SVar:TrigReturn:AB$ ChangeZone | Cost$ B B B | Defined$ Self | Origin$ Graveyard | Destination$ Hand
+SVar:NeedsToPlayVar:X GE2
+SVar:X:Count$ValidHand Zombie.YouOwn
+SVar:SacMe:2
+SVar:DiscardMe:2

@@ -1,14 +1,10 @@
 Id:28459
-ColorIdentity:UB
-OriginSet:G7ee0e82a2424d636
-ManaCost:1 U B
-Types:Legendary Creature Vampire Assassin
-PT:1/4
-K:Deathtouch
-S:Mode$ Continuous | Affected$ Creature.faceDown+YouCtrl | EffectZone$ Battlefield | AddAbility$ TurnFaceUp
-SVar:TurnFaceUp:AB$ SetState | Cost$ 2 U B | Defined$ Self | Mode$ TurnFaceUp | SubAbility$ ExileSelf | RememberChanged$ True
-SVar:ExileSelf:DB$ ChangeZone | Defined$ Self | Origin$ Battlefield | Destination$ Exile | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ0 | Imprint$ True | SubAbility$ DBPlayExiled
-SVar:DBPlayExiled:DB$ Play | Valid$ Card.IsImprinted | WithoutManaCost$ True | ValidSA$ Spell | ValidZone$ Exile | Controller$ You | Optional$ True | Amount$ All | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True
-T:Mode$ DamageDone | ValidSource$ Assassin.YouCtrl | ValidTarget$ Opponent | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigCloak
-SVar:TrigCloak:DB$ Cloak | Defined$ ValidLibrary Card.TopLibrary+OwnedBy TriggeredTarget
+ColorIdentity:UG
+OriginSet:G3a8b4b9d4649b357
+ManaCost:G G U
+Types:Legendary Creature Merfolk Druid
+PT:4/4
+S:Mode$ Continuous | Affected$ Creature.Land+YouCtrl | AddKeyword$ Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | IsPresent$ Land.YouCtrl | PresentCompare$ GE7 | TriggerZones$ Battlefield | Execute$ TrigAnimate
+SVar:TrigAnimate:DB$ Animate | ValidTgts$ Land.YouCtrl | TargetMin$ 0 | TargetMax$ 1 | Duration$ Permanent | Power$ 4 | Toughness$ 4 | Types$ Elemental,Creature | Keywords$ Haste
+SVar:BuffedBy:Land

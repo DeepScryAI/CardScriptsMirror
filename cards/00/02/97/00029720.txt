@@ -1,10 +1,12 @@
 Id:29720
-ColorIdentity:UB
-OriginSet:G01a610e823cce3ca
-ManaCost:2 UB
-Types:Legendary Creature Human Assassin
-PT:3/2
-S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self | ValidBlocker$ Creature.powerGE3
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigSurveil
-SVar:TrigSurveil:DB$ Surveil | Amount$ X
-SVar:X:Count$Valid Assassin.YouCtrl+tapped
+ColorIdentity:WBG
+OriginSet:Gac6359c222afbd4f
+ManaCost:1 W B G
+Types:Legendary Creature Plant
+PT:2/7
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | Execute$ TrigBranch | TriggerZones$ Battlefield
+SVar:TrigBranch:DB$ Branch | BranchConditionSVar$ X | BranchConditionSVarCompare$ GE7 | TrueSubAbility$ DBZombie | FalseSubAbility$ DBPlant
+SVar:DBPlant:DB$ Token | TokenScriptIds$ 3097960584 | TokenOwner$ You
+SVar:DBZombie:DB$ Token | TokenScriptIds$ 353162950 | TokenOwner$ You
+SVar:X:Count$Valid Land.YouCtrl$DifferentCardNames
+S:Mode$ Continuous | AffectedZone$ Graveyard | Affected$ Land.YouOwn | AddKeyword$ Dredge:2

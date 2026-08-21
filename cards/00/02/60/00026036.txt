@@ -1,8 +1,11 @@
 Id:26036
 ColorIdentity:B
-OriginSet:G2192e8955d5e1ad1
-ManaCost:1
-Types:Artifact
-A:AB$ Draw | Cost$ 1 Sac<1/CARDNAME>
-A:AB$ ChangeZone | Cost$ 2 B Sac<1/CARDNAME> | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Creature.YouCtrl | SorcerySpeed$ True | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw
+OriginSet:Gb879a1706584aeee
+ManaCost:3 B
+Types:Creature Worm
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDiscard
+SVar:TrigDiscard:DB$ Discard | Defined$ Opponent | RememberDiscarded$ True | Mode$ TgtChoose | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ X
+SVar:X:SVar$Y/Times.2
+SVar:Y:PlayerCountOpponents$Amount/Minus.Remembered$Amount

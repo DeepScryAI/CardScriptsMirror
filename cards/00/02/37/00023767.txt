@@ -1,11 +1,15 @@
 Id:23767
-ColorIdentity:U
+ColorIdentity:WG
 OriginSet:G8a59924df6623252
-ManaCost:4 U
-Types:Legendary Creature Homunculus
-PT:1/4
-K:PartnerWithId:18307
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigFlip
-SVar:TrigFlip:DB$ FlipCoin | FlipUntilYouLose$ True
-T:Mode$ FlippedCoin | ValidResult$ Win | TriggerZones$ Battlefield | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+ManaCost:2 G W
+Types:Legendary Creature Human Monk
+PT:1/3
+K:Reach
+S:Mode$ Continuous | Affected$ Card.Self+!attacking | AddKeyword$ Hexproof
+T:Mode$ Attacks | ValidCard$ Creature.YouCtrl+withReach | TriggerZones$ Battlefield | Execute$ TrigUntap
+SVar:TrigUntap:DB$ Untap | Defined$ TriggeredAttackerLKICopy | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ TriggeredAttacker | StaticAbilities$ CantBeBlockedPow | ForgetOnMoved$ Battlefield | Duration$ UntilEndOfCombat
+SVar:CantBeBlockedPow:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered | ValidBlocker$ Creature.powerGTX
+SVar:X:Remembered$CardPower
+T:Mode$ DamageDoneOnce | CombatDamage$ True | ValidSource$ Creature.YouCtrl | TriggerZones$ Battlefield | ValidTarget$ Player | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw

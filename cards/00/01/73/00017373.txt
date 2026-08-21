@@ -1,9 +1,13 @@
 Id:17373
-ColorIdentity:U
+ColorIdentity:B
 OriginSet:Gaa482ed186eee527
-ManaCost:2 U
-Types:Creature Human Wizard
-PT:2/2
-K:Flash
-T:Mode$ ChangesZone | Phase$ Declare Attackers | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeAttacker | OptionalDecider$ You
-SVar:TrigChangeAttacker:DB$ ChangeCombatants | ValidTgts$ Creature.attacking | Attacking$ True
+ManaCost:4 B B
+Types:Creature Vampire Shaman
+PT:4/4
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Creature.OppCtrl
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.OppCtrl | TriggerZones$ Battlefield | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Exile | SubAbility$ DBPutCounterAll
+SVar:DBPutCounterAll:DB$ PutCounterAll | ValidCards$ Vampire.YouCtrl | CounterType$ P1P1 | CounterNum$ 1
+SVar:PlayMain1:TRUE

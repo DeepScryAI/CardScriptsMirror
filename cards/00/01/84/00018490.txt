@@ -1,8 +1,11 @@
 Id:18490
-ColorIdentity:B
+ColorIdentity:W
 OriginSet:G3b823183c96b2df3
-ManaCost:2 B
-Types:Creature Harpy
-PT:1/2
-K:Flying
-A:AB$ PutCounter | Cost$ 1 Sac<1/Creature.Other/another creature> | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+ManaCost:4 W W
+Types:Legendary Creature Human Knight
+PT:3/3
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenOwner$ You | TokenAmount$ X | TokenScriptIds$ 1214250791
+SVar:X:Count$Valid Creature.!token+YouCtrl
+A:AB$ PumpAll | Cost$ Sac<1/NICKNAME> | ValidCards$ Creature.YouCtrl+powerLTY | KW$ Indestructible
+SVar:Y:Count$CardPower

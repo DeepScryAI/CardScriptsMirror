@@ -1,8 +1,12 @@
 Id:17263
-ColorIdentity:W
+ColorIdentity:BG
 OriginSet:G4b92e66c84393de5
-ManaCost:1 W
-Types:Creature Human Warrior
-PT:3/1
-S:Mode$ OptionalAttackCost | ValidCard$ Card.Self | Trigger$ TrigPump | Cost$ Exert<1/CARDNAME>
-SVar:TrigPump:DB$ Pump | Defined$ Self | KW$ Prevent all combat damage that would be dealt to CARDNAME.
+ManaCost:1 B G
+Types:Creature Spider
+PT:1/4
+K:Reach
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Creature | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ TriggeredTargetLKICopy | CounterType$ M1M1 | CounterNum$ 1
+T:Mode$ CounterAddedOnce | ValidCard$ Creature | ValidSource$ You | CounterType$ M1M1 | TriggerZones$ Battlefield | Execute$ TrigDrain
+SVar:TrigDrain:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 1 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1

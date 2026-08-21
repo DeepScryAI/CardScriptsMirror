@@ -1,12 +1,9 @@
 Id:30358
-ColorIdentity:UB
-OriginSet:G8b2ed00ac2a0ff47
-ManaCost:1 U B
-Types:Enchantment Creature Nightmare
-PT:2/2
-K:Flying
-K:Lifelink
-S:Mode$ CantBlock | ValidCard$ Card.Self
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Enchantment.YouCtrl | OptionalDecider$ You | TriggerZones$ Graveyard | Execute$ TrigChange
-T:Mode$ FullyUnlock | ValidCard$ Card.Room | ValidPlayer$ You | Secondary$ True | OptionalDecider$ You | TriggerZones$ Graveyard | Execute$ TrigChange
-SVar:TrigChange:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand
+ColorIdentity:
+OriginSet:G7b2137df486dc752
+ManaCost:no cost
+Types:Scheme
+T:Mode$ SetInMotion | ValidCard$ Card.Self | Execute$ TrigChangeZone | TriggerZones$ Command
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Permanent.OppCtrl | TargetMin$ 0 | TargetMax$ OneEach | TargetsForEachPlayer$ True | SubAbility$ DBDigUntil
+SVar:DBDigUntil:DB$ DigUntil | Defined$ Player | Valid$ Permanent | RevealedDestination$ Library | RevealedLibraryPosition$ -1 | RevealRandomOrder$ True | FoundDestination$ Battlefield
+SVar:OneEach:PlayerCountOpponents$Amount

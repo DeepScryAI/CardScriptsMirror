@@ -1,10 +1,10 @@
 Id:23857
-ColorIdentity:B
+ColorIdentity:U
 OriginSet:G5f5d8cfb206e2fac
-ManaCost:3 B
-Types:Creature Rat
-PT:4/2
-K:Trample
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self+dealtCombatDamageThisTurn Player | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Battlefield
-K:Blitz:4 B
+ManaCost:2 U
+Types:Creature Octopus Rogue
+PT:1/4
+S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigClone
+SVar:TrigClone:DB$ Clone | ValidTgts$ Creature.Other | SetPower$ 1 | SetToughness$ 4 | AddStaticAbilities$ Unblockable | AILogic$ CloneBestCreature | Duration$ UntilEndOfTurn
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Creature.Self

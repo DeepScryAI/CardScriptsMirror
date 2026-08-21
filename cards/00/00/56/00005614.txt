@@ -1,10 +1,10 @@
 Id:5614
-ColorIdentity:W
+ColorIdentity:B
 OriginSet:Ge4af4f9459d5dadd
-ManaCost:2 W
-Types:Creature Human Soldier
-PT:2/2
-K:Vigilance
-S:Mode$ Continuous | Affected$ Card.Self | AddTrigger$ TriggerBounce | Condition$ Threshold
-SVar:TriggerBounce:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Battlefield | Destination$ Graveyard | Execute$ TriggeredBounce | Secondary$ True
-SVar:TriggeredBounce:AB$ ChangeZone | Cost$ W W | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Battlefield
+ManaCost:1 B B
+Types:Sorcery
+A:SP$ Branch | ValidTgts$ Land | BranchConditionSVar$ X | BranchConditionSVarCompare$ GE7 | TrueSubAbility$ ThreshDestroy | FalseSubAbility$ Destroy
+SVar:Destroy:DB$ Destroy | Defined$ Targeted
+SVar:ThreshDestroy:DB$ Destroy | Defined$ Targeted | SubAbility$ DBRancidDamage
+SVar:DBRancidDamage:DB$ DamageAll | NumDmg$ 1 | ValidCards$ Creature | ValidPlayers$ Player
+SVar:X:Count$ValidGraveyard Card.YouOwn

@@ -1,9 +1,9 @@
 Id:16969
 ColorIdentity:W
 OriginSet:Gbcdce58dfbbf1bad
-ManaCost:4 W
+ManaCost:2 W W
 Types:Enchantment
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSearch | OptionalDecider$ You
-SVar:TrigSearch:DB$ ChangeZone | Origin$ Library | OriginAlternative$ Graveyard | Destination$ Hand | ChangeType$ Card.YouOwn+catalogId16970 | ChangeNum$ 1 | Optional$ True
-S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddPower$ 1 | AddToughness$ 1
-SVar:PlayMain1:TRUE
+K:ETBReplacement:Other:DBNameCard
+SVar:DBNameCard:DB$ NameCard | Defined$ You
+S:Mode$ CantBeCast | ValidCard$ Card.NamedCard+nonLand | Caster$ Opponent
+R:Event$ DamageDone | ActiveZones$ Battlefield | Prevent$ True | ValidTarget$ You,Permanent.YouCtrl | ValidSource$ Card.NamedCard

@@ -1,10 +1,10 @@
 Id:25875
 ColorIdentity:W
-OriginSet:Gb879a1706584aeee
-ManaCost:2 W
-Types:Legendary Artifact Creature Artificer
-PT:3/3
-K:Vigilance
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigUntap
-SVar:TrigUntap:DB$ UntapAll | ValidCards$ Artifact.Creature+YouCtrl+Other
-A:AB$ Token | Cost$ 3 W T | TokenScriptIds$ 2136723450
+OriginSet:G06ccef4324c14725
+ManaCost:1 W
+Types:Instant
+A:SP$ ChangeZone | ValidTgts$ Permanent.nonLand | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | Duration$ Permanent | StaticAbilities$ MayPlay,CostsMore | RememberObjects$ Remembered | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:MayPlay:Mode$ Continuous | Affected$ Card.IsRemembered | AffectedZone$ Exile | MayPlay$ True | MayPlayPlayer$ CardOwner
+SVar:CostsMore:Mode$ RaiseCost | ValidCard$ Card.IsRemembered+CastSa Spell.MayPlaySource | AffectedZone$ Exile | Type$ Spell | Amount$ 2 | Activator$ Opponent
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

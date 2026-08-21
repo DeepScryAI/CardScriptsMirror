@@ -1,11 +1,11 @@
 Id:16643
-ColorIdentity:
+ColorIdentity:UB
 OriginSet:Ge1d53e4f418bb713
-ManaCost:3
-Types:Artifact Creature Construct
-PT:2/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ DBAttach | OptionalDecider$ You
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ DBAttach | TriggerZones$ Battlefield | OptionalDecider$ You | Secondary$ True
-SVar:DBAttach:DB$ Attach | ValidTgts$ Equipment | TargetMin$ 0 | TargetMax$ MaxTargets | Object$ Targeted | Defined$ Self
-SVar:MaxTargets:Count$Valid Equipment
-SVar:HasAttackEffect:TRUE
+ManaCost:2 U B
+Types:Instant
+A:SP$ Draw | NumCards$ X | SubAbility$ DBDiscard | RememberDrawn$ AllReplaced
+SVar:DBDiscard:DB$ Discard | Defined$ You | Mode$ TgtChoose | NumCards$ Y | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$ValidHand Card.YouOwn
+SVar:Y:Remembered$Amount
+K:TypeCycling:Basic:2

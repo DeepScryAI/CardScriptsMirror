@@ -1,16 +1,9 @@
 Id:28259
-ColorIdentity:R
-OriginSet:G4155bbd49d5da56f
-ManaCost:3 R R R
-Types:Artifact Creature Golem
-PT:6/6
-K:Trample
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigChangeZone
-SVar:TrigChangeZone:DB$ ChangeZoneAll | Origin$ Library | Destination$ Exile | ChangeType$ Mountain.YouOwn | RememberChanged$ True | SubAbility$ DBImmediateTrig
-SVar:DBImmediateTrig:DB$ ImmediateTrigger | ConditionDefined$ Remembered | ConditionPresent$ Card | Execute$ TrigDamage | RememberObjects$ Remembered | SubAbility$ DBCleanup
-SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Creature.OppCtrl,Planeswalker.OppCtrl | NumDmg$ X
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigChangeZoneAll
-SVar:TrigChangeZoneAll:DB$ ChangeZoneAll | ChangeType$ Card.ExiledWithSource | Origin$ Exile | Destination$ Battlefield | SubAbility$ DBConjure
-SVar:DBConjure:DB$ MakeCard | Conjure$ True | CatalogId$ 1892 | Zone$ Library | Amount$ 4
-SVar:X:TriggerRemembered$Amount
+ColorIdentity:BR
+OriginSet:Gfd50577710a6ab09
+ManaCost:B R
+Types:Sorcery
+A:SP$ Charm | MinCharmNum$ 1 | CharmNum$ Count$Compare Y GE1.2.1 | Choices$ DBDestroy,DBDestroyNonCreature
+SVar:DBDestroy:DB$ Destroy | ValidTgts$ Creature,Planeswalker
+SVar:DBDestroyNonCreature:DB$ Destroy | ValidTgts$ Permanent.nonCreature+nonLand+cmcLE1
+SVar:Y:Count$YouDescendedThisTurn

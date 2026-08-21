@@ -1,10 +1,9 @@
 Id:20683
-ColorIdentity:WBR
+ColorIdentity:W
 OriginSet:Gf8d4de878d0536c5
-ManaCost:2 R W B
-Types:Enchantment
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZone | ValidTgts$ Creature.Red+YouCtrl,Creature.White+YouCtrl,Creature.Black+YouCtrl | Origin$ Graveyard | Destination$ Exile | RememberChanged$ True | SubAbility$ DBCopy
-SVar:DBCopy:DB$ CopyPermanent | Defined$ Remembered | SetPower$ 1 | SetToughness$ 1 | PumpKeywords$ Haste | PumpDuration$ UntilYourNextTurn | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:PlayMain1:TRUE
+ManaCost:2 W
+Types:Creature Human Soldier
+PT:3/3
+K:ETBReplacement:Other:ChooseEvenOdd
+SVar:ChooseEvenOdd:DB$ ChooseEvenOdd | Defined$ You | AILogic$ CMCOppControlsByPower
+S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ Protection:Card.cmcChosenEvenOdd,Emblem.cmcChosenEvenOdd:each mana value of chosenEvenOdd.

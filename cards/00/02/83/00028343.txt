@@ -1,13 +1,13 @@
 Id:28343
-ColorIdentity:R
-OriginSet:G94329e6b3f93276f
-ManaCost:5 R R
-Types:Creature Elemental
-PT:3/3
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGoad
-SVar:TrigGoad:DB$ Goad | TargetMin$ 0 | SubAbility$ DBPutCounter | TargetMax$ X | ValidTgts$ Creature.OppCtrl | TargetsForEachPlayer$ True | RememberGoaded$ True
-SVar:DBPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ Y | SubAbility$ DBCleanup
+ColorIdentity:UB
+OriginSet:Gfd50577710a6ab09
+ManaCost:U B
+Types:Legendary Creature Spirit God
+PT:8/8
+S:Mode$ CantAttack,CantBlock | ValidCard$ Card.Self | IsPresent$ Permanent.YouOwn | PresentZone$ Graveyard | PresentCompare$ LE7
+A:AB$ Draw | Cost$ 2 U B | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | Mode$ TgtChoose | NumCards$ 1 | RememberDiscarded$ True | SubAbility$ DBImmediateTrig
+SVar:DBImmediateTrig:DB$ ImmediateTrigger | ConditionDefined$ Remembered | ConditionPresent$ Card | Execute$ TrigMill | RememberObjects$ Remembered | SubAbility$ DBCleanup
+SVar:TrigMill:DB$ Mill | NumCards$ X | ValidTgts$ Player
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:PlayerCountOpponents$Amount
-SVar:Y:Remembered$CardPower
+SVar:X:TriggerRemembered$CardManaCost

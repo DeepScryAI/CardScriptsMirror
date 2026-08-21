@@ -1,9 +1,10 @@
 Id:23951
-ColorIdentity:WG
-OriginSet:G9afc9838c5e994df
-ManaCost:no cost
-Types:Land
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
-A:AB$ Mana | Cost$ T | Produced$ Combo G W
-A:AB$ Draw | Cost$ 2 G W T Sac<1/CARDNAME>
+ColorIdentity:UBR
+OriginSet:Gfdfe2ebef04be34e
+ManaCost:2 UB B BR
+Types:Legendary Creature Vampire Rogue
+PT:2/5
+K:Flash
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self,Vampire.Other+YouCtrl | Execute$ TrigExile
+SVar:TrigExile:DB$ Dig | DigNum$ 1 | ChangeNum$ All | Defined$ Player | DestinationZone$ Exile | ExileWithCounters$ COLLECTION
+S:Mode$ Continuous | MayPlayLimit$ 1 | Affected$ Card.ExiledByYou+counters_GE1_COLLECTION | AffectedZone$ Exile | MayPlay$ True | MayPlayIgnoreColor$ True

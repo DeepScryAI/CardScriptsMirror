@@ -1,7 +1,10 @@
 Id:3267
-ColorIdentity:
+ColorIdentity:B
 OriginSet:G24ae8187eacbba52
-ManaCost:2
-Types:Artifact Creature Gnome
-PT:1/1
-A:AB$ ChangeZone | Cost$ 4 Sac<1/CARDNAME> | Origin$ Hand | Destination$ Battlefield | ChangeType$ Artifact | ChangeNum$ 1 | Optional$ You
+ManaCost:2 B
+Types:Enchantment
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigUpkeep
+SVar:TrigUpkeep:DB$ Sacrifice | UnlessPayer$ You | UnlessCost$ Sac<1/Creature>
+R:Event$ ProduceMana | ActiveZones$ Battlefield | ValidCard$ Land | ReplaceWith$ ProduceB
+SVar:ProduceB:DB$ ReplaceMana | ReplaceMana$ B
+SVar:NonStackingEffect:True

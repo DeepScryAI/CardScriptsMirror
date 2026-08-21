@@ -1,10 +1,10 @@
 Id:34347
-ColorIdentity:G
+ColorIdentity:B
 OriginSet:Gcb93bbfc68a40806
-ManaCost:4 G G
+ManaCost:3 B
 Types:Sorcery
-A:SP$ PeekAndReveal | PeekAmount$ 6 | NoPeek$ True | RememberRevealed$ True | SubAbility$ DBChangeField
-SVar:DBChangeField:DB$ ChangeZone | ChangeType$ Permanent.IsRemembered | ChangeNum$ 1 | Origin$ Library | Destination$ Battlefield | WithCountersType$ Indestructible | WithCountersAmount$ 1 | ForgetChanged$ True | Shuffle$ False | SubAbility$ DBChangeHand
-SVar:DBChangeHand:DB$ ChangeZone | ChangeType$ Permanent.IsRemembered | ChangeNum$ 1 | Origin$ Library | Destination$ Hand | ForgetChanged$ True | Shuffle$ False | SubAbility$ DBRestGrave
-SVar:DBRestGrave:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered | Origin$ Library | Destination$ Graveyard | Shuffle$ False | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+A:SP$ Token | TokenAmount$ X | TokenScriptIds$ 1084490654 | TokenOwner$ You
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.IsCommander+YouOwn | TriggerZones$ Graveyard | Execute$ TrigReturn
+T:Mode$ Attacks | ValidCard$ Card.IsCommander+YouOwn | Execute$ TrigReturn | Secondary$ True | TriggerZones$ Graveyard
+SVar:TrigReturn:AB$ ChangeZone | Cost$ 1 B | Defined$ Self | Origin$ Graveyard | Destination$ Hand
+SVar:X:PlayerCountOpponents$Amount

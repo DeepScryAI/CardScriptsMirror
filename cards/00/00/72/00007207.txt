@@ -1,7 +1,11 @@
 Id:7207
-ColorIdentity:W
+ColorIdentity:
 OriginSet:G332b6b8a53f3d107
-ManaCost:W
-Types:Creature Spirit
-PT:1/1
-K:Flying
+ManaCost:3
+Types:Artifact Equipment
+K:Equip:3
+S:Mode$ Continuous | Affected$ Card.EquippedBy | AddAbility$ GamaPump
+SVar:GamaPump:AB$ Pump | Cost$ 2 | Defined$ Self | NumAtt$ +1
+T:Mode$ DamageDone | ValidSource$ Card.EquippedBy | ValidTarget$ Creature.blocking | Execute$ GamaDamage | TriggerZones$ Battlefield
+SVar:GamaDamage:DB$ DamageAll | NumDmg$ X | ValidCards$ Creature.!TriggeredTarget+ControlledBy TriggeredTargetController
+SVar:X:TriggerCount$DamageAmount

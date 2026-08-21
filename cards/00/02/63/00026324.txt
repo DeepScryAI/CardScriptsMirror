@@ -1,9 +1,14 @@
 Id:26324
-ColorIdentity:UR
-OriginSet:G8a59924df6623252
-ManaCost:1 U R
-Types:Legendary Creature Human Bard
-PT:3/3
-S:Mode$ Continuous | Affected$ Card.nonLand+YouOwn+withoutForetell | AffectedZone$ Hand | AddKeyword$ Foretell
-T:Mode$ SpellCast | ValidCard$ Card.YouCtrl | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigGoad | ActivatorThisTurnCast$ EQ2
-SVar:TrigGoad:DB$ Goad | ValidTgts$ Creature.OppCtrl
+ColorIdentity:
+OriginSet:G2192e8955d5e1ad1
+ManaCost:3
+Types:Artifact Equipment
+K:Equip:2
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddToughness$ 2 | AddKeyword$ Protection:Red & Protection:Green
+T:Mode$ DamageDone | ValidSource$ Creature.EquippedBy | ValidTarget$ Player | CombatDamage$ True | Execute$ ExileTwo | TriggerZones$ Battlefield
+SVar:ExileTwo:DB$ Dig | Defined$ You | DigNum$ 2 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ STPlay | ForgetOnMoved$ Exile | Duration$ EndOfTurn | SubAbility$ DBEffectBis
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBEffectBis:DB$ Effect | Name$ 5386822593493009323 | StaticAbilities$ Exploration | AILogic$ Always | SubAbility$ DBCleanup
+SVar:Exploration:Mode$ Continuous | Affected$ You | AdjustLandPlays$ 1
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

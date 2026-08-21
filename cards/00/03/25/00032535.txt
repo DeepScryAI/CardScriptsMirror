@@ -1,8 +1,10 @@
 Id:32535
-ColorIdentity:UB
-OriginSet:G1f5998b5f01949b9
-ManaCost:5 U B
-Types:Legendary Creature Human Scientist Villain
-PT:8/8
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigAnimate
-SVar:TrigAnimate:DB$ Animate | ValidTgts$ Artifact.nonCreature+YouCtrl | Power$ 8 | Toughness$ 8 | Types$ Artifact,Creature,Robot,Villain | Duration$ Permanent
+ColorIdentity:B
+OriginSet:G66b3a7eeabd9000e
+ManaCost:2
+Types:Artifact
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Destination$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw
+A:AB$ Mill | Cost$ 1 B Sac<1/CARDNAME> | NumCards$ 4 | RememberMilled$ True | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Hidden$ True | Origin$ Graveyard,Exile | Destination$ Hand | ChangeType$ Creature.IsRemembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

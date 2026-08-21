@@ -1,7 +1,9 @@
 Id:18690
-ColorIdentity:W
+ColorIdentity:WR
 OriginSet:G1ecb361a0a117393
-ManaCost:3 W W
-Types:Enchantment
-R:Event$ CreateToken | ActiveZones$ Battlefield | ValidToken$ Creature.YouCtrl | ReplaceWith$ TokenReplace
-SVar:TokenReplace:DB$ ReplaceToken | Type$ ReplaceToken | TokenScriptIds$ 1619264477
+ManaCost:1 R W
+Types:Instant
+A:SP$ PumpAll | ValidCards$ Creature.YouCtrl | KW$ Indestructible | Duration$ Permanent | SubAbility$ DBAddTurn
+SVar:DBAddTurn:DB$ AddTurn | NumTurns$ 1 | ExtraTurnDelayedTrigger$ DBDelTrig | ExtraTurnDelayedTriggerExecute$ TrigLose
+SVar:DBDelTrig:ThisTurn$ True | Mode$ Phase | Phase$ End of Turn
+SVar:TrigLose:DB$ LosesGame | Defined$ You

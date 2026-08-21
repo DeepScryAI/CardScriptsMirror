@@ -1,10 +1,9 @@
 Id:34628
-ColorIdentity:W
-OriginSet:G11c0621ce29fa608
-ManaCost:3 W
-Types:Legendary Creature Human Hero Villain
+ColorIdentity:R
+OriginSet:Gcb93bbfc68a40806
+ManaCost:2 R
+Types:Legendary Creature Mutant Villain
 PT:2/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm
-SVar:TrigCharm:DB$ Charm | Choices$ DBPutCounter,DBReturn
-SVar:DBPutCounter:DB$ PutCounter | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 2 | CounterType$ P1P1 | CounterNum$ 1
-SVar:DBReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Artifact.YouOwn,Enchantment.YouOwn
+K:Haste
+T:Mode$ AttackersDeclaredOneTarget | AttackedTarget$ Player | ValidAttackers$ Creature.YouCtrl+ThisTurnEntered | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature | TargetsWithDefinedController$ TriggeredAttackedTarget | KW$ HIDDEN CARDNAME can't block. | IsCurse$ True

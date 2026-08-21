@@ -1,9 +1,13 @@
 Id:18366
-ColorIdentity:U
-OriginSet:G7d70f513279b26b6
-ManaCost:1 U
-Types:Creature Crab
-PT:1/1
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ TriggeredCardController
-SVar:SacMe:1
+ColorIdentity:W
+OriginSet:G7d4bd61c81d44275
+ManaCost:W W
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPut
+SVar:TrigPut:DB$ PutCounter | Support$ 2
+A:AB$ ChooseCard | Cost$ 1 | ValidTgts$ Creature.HasCounters | SubAbility$ DBDelayedTrigger
+SVar:DBDelayedTrigger:DB$ DelayedTrigger | Mode$ ChangesZone | RememberObjects$ Targeted | ValidCard$ Card.IsTriggerRemembered | Origin$ Battlefield | Destination$ Graveyard | ThisTurn$ True | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | Defined$ TriggeredCard
+SVar:NonStackingEffect:True
+SVar:PlayMain1:ALWAYS
+SVar:NeedsToPlay:Creature.YouCtrl

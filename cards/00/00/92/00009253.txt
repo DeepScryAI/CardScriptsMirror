@@ -1,7 +1,11 @@
 Id:9253
-ColorIdentity:U
+ColorIdentity:
 OriginSet:G1ddd2c86a9ea60e3
-ManaCost:1 U
-Types:Creature Merfolk Rogue
-PT:2/1
-A:AB$ Pump | Cost$ U | Defined$ Self | KW$ Landwalk:Island
+ManaCost:4
+Types:Artifact Equipment
+K:Equip:2
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddToughness$ 2
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.AttachedBy | Execute$ CleanTheBlade | OptionalDecider$ You
+SVar:CleanTheBlade:DB$ Cleanup | ClearRemembered$ True | SubAbility$ DeathrendersCall
+SVar:DeathrendersCall:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | ChangeType$ Creature | ChangeNum$ 1 | RememberChanged$ True | SubAbility$ DeathrenderAttach
+SVar:DeathrenderAttach:DB$ Attach | Defined$ Remembered

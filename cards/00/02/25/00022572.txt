@@ -1,16 +1,8 @@
 Id:22572
-ColorIdentity:BR
+ColorIdentity:B
 OriginSet:G9f95a41d532c0550
-ManaCost:X 2 B R
-Types:Legendary Creature Demon
-PT:5/3
-K:Flying
-K:Trample
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm
-SVar:TrigCharm:DB$ Charm | Choices$ DBPumpAll,DBReturn
-SVar:DBPumpAll:DB$ PumpAll | NumAtt$ -X | NumDef$ -X | ValidCards$ Creature.StrictlyOther | IsCurse$ True | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ X
-SVar:DBReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | TargetMin$ 0 | TargetMax$ X | MaxTotalTargetCMC$ X | ValidTgts$ Creature.YouOwn | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | Defined$ Targeted | KW$ Haste
-SVar:X:Count$xPaid
-SVar:PlayMain1:TRUE
+ManaCost:B
+Types:Instant
+A:SP$ Animate | Triggers$ DiesTrigger | ValidTgts$ Creature
+SVar:DiesTrigger:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | Tapped$ True | Defined$ TriggeredNewCardLKICopy | WithCountersType$ P1P1

@@ -1,11 +1,15 @@
 Id:17886
-ColorIdentity:W
+ColorIdentity:WU
 OriginSet:G84be946b27d900a1
-ManaCost:2 W
-Types:Enchantment
-K:Ascend
-K:ETBReplacement:Other:ChooseCT
-SVar:ChooseCT:DB$ ChooseType | Defined$ You | Type$ Creature | AILogic$ MostProminentInComputerDeck
-S:Mode$ Continuous | Affected$ Creature.ChosenType+YouCtrl | AddPower$ 1 | AddToughness$ 1
-S:Mode$ Continuous | Affected$ Creature.ChosenType+YouCtrl | AddKeyword$ Vigilance | Condition$ Blessing
-SVar:PlayMain1:TRUE
+ManaCost:2 W W U U
+Types:Legendary Creature Sphinx
+PT:6/6
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange
+SVar:TrigChange:DB$ RepeatEach | RepeatPlayers$ Player.Opponent | NextTurnForEachPlayer$ True | RepeatSubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STCantBeCast | EffectOwner$ Remembered
+SVar:STCantBeCast:Mode$ CantBeCast | ValidCard$ Instant,Sorcery | Caster$ You
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:AB$ GainLife | Cost$ X W U U | Defined$ You | LifeAmount$ X | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ X
+SVar:X:Count$xPaid

@@ -1,11 +1,12 @@
 Id:24379
-ColorIdentity:B
+ColorIdentity:U
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:3 B
-Types:Creature Tiefling Warlock
-PT:2/2
-K:Lifelink
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigInitiative
-SVar:TrigInitiative:DB$ TakeInitiative
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | CheckDefinedPlayer$ You.hasInitiative | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | CounterType$ P1P1
+ManaCost:2 U
+Types:Legendary Creature Human Rogue Wizard
+PT:2/3
+K:Ward:2
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | CheckDefinedPlayer$ You.hasInitiative | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | ConditionCheckSVar$ X
+K:Choose a Background
+SVar:X:DungeonsCompleted$Amount

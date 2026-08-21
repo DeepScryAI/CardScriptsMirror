@@ -1,8 +1,10 @@
 Id:32528
-ColorIdentity:R
+ColorIdentity:W
 OriginSet:G66b3a7eeabd9000e
-ManaCost:2 R
-Types:Instant
-A:SP$ DealDamage | ValidTgts$ Creature | NumDmg$ X | DamageSource$ Targeted | SubAbility$ DBDamage
-SVar:DBDamage:DB$ DealDamage | Defined$ TargetedController | NumDmg$ 2 | ConditionPresent$ Creature.targetedBy+attacking | ConditionCompare$ GE1
-SVar:X:Targeted$CardPower
+ManaCost:3 W
+Types:Creature Human Citizen
+PT:2/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | Choices$ DBPutCounter,DBReturn
+SVar:DBPutCounter:DB$ PutCounter | TargetMin$ 0 | TargetMax$ 2 | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ 1
+SVar:DBReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Creature.YouOwn+cmcLE2

@@ -1,10 +1,11 @@
 Id:27195
-ColorIdentity:
-OriginSet:G997e3b19a1e94e85
-ManaCost:0
-Types:Artifact Food
-A:AB$ Charm | Cost$ 2 T Sac<1/CARDNAME> | Choices$ Boil,Mash,Stew
-SVar:Boil:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 1
-SVar:Mash:DB$ Token | TokenScriptIds$ 134855612 | TokenAmount$ 2
-SVar:Stew:DB$ GainLife | LifeAmount$ 3 | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw
+ColorIdentity:U
+OriginSet:G6ce0035cfb774934
+ManaCost:3 U
+Types:Legendary Creature Bird Soldier
+PT:3/3
+K:Flying
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | ValidTgts$ Creature.YouOwn | TargetMin$ 0 | TargetMax$ 1 | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ All | Destination$ Battlefield | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

@@ -1,9 +1,12 @@
 Id:29870
-ColorIdentity:RG
-OriginSet:Gf09b85bbcc27770c
-ManaCost:3 RG RG
-Types:Creature Raccoon Berserker
-PT:4/5
-K:Trample
-T:Mode$ ManaExpend | Amount$ 4 | Player$ You | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | NumAtt$ +2 | NumDef$ +1 | Defined$ Self
+ColorIdentity:R
+OriginSet:G01a610e823cce3ca
+ManaCost:2 R
+Types:Sorcery
+K:Freerunning:X R
+A:SP$ Dig | Defined$ You | DigNum$ Y | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBMayPlay
+SVar:DBMayPlay:DB$ Effect | StaticAbilities$ STCommuned | Duration$ UntilTheEndOfYourNextTurn | RememberObjects$ Remembered | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:STCommuned:Mode$ Continuous | Affected$ Card.IsRemembered | AffectedZone$ Exile | MayPlay$ True
+SVar:Y:Count$Freerunning.X.2
+SVar:X:Count$xPaid

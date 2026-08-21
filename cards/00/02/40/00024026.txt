@@ -1,8 +1,11 @@
 Id:24026
-ColorIdentity:G
+ColorIdentity:
 OriginSet:G9afc9838c5e994df
-ManaCost:X G
-Types:Instant
-A:SP$ Pump | ValidTgts$ Creature | NumAtt$ +X | NumDef$ +X | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenScriptIds$ 1092778731 | TokenOwner$ You
-SVar:X:Count$xPaid
+ManaCost:4
+Types:Artifact Equipment
+T:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigCopy
+SVar:TrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddKeyword$ DoubleStrike | IsPresent$ Equipment.AttachedTo Creature.EquippedBy | PresentCompare$ GE2
+K:Equip:1
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddSVar$ EqMe | Secondary$ True
+SVar:EqMe:SVar:EquipMe:Multiple

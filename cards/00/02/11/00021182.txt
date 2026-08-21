@@ -1,8 +1,13 @@
 Id:21182
-ColorIdentity:R
+ColorIdentity:U
 OriginSet:G72c9c624ceb92bff
-ManaCost:2 R
+ManaCost:1 U
 Types:Instant
-A:SP$ Charm | Choices$ Shock,DestroyArtifact
-SVar:Shock:DB$ DealDamage | ValidTgts$ Creature,Planeswalker | NumDmg$ 2
-SVar:DestroyArtifact:DB$ Destroy | ValidTgts$ Artifact
+A:SP$ PumpAll | ValidCards$ Creature.OppCtrl | NumAtt$ -2 | IsCurse$ True
+AlternateMode:Modal
+ALTERNATE
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ U

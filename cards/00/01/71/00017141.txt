@@ -3,6 +3,7 @@ ColorIdentity:
 OriginSet:G5fc5076129f6ad6a
 ManaCost:no cost
 Types:Scheme
-T:Mode$ SetInMotion | ValidCard$ Card.Self | Execute$ DBSac | TriggerZones$ Command
-SVar:DBSac:DB$ Sacrifice | SacValid$ Creature | Defined$ Player.Opponent | SubAbility$ DBSac2
-SVar:DBSac2:DB$ Sacrifice | SacValid$ Creature | Defined$ Player.Opponent | ConditionPresent$ Land.YouCtrl | PresentCompare$ GE6
+T:Mode$ SetInMotion | ValidCard$ Card.Self | Execute$ TrigChoose | TriggerZones$ Command
+SVar:TrigChoose:DB$ ChooseCard | Defined$ Opponent | Choices$ Creature | ControlledByPlayer$ Chooser | Mandatory$ True | Reveal$ True | SubAbility$ DBSacrificeAll
+SVar:DBSacrificeAll:DB$ SacrificeAll | ValidCards$ Creature.nonChosenCard+OppCtrl | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True

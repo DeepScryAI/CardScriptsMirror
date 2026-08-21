@@ -1,11 +1,12 @@
 Id:15905
-ColorIdentity:U
+ColorIdentity:UB
 OriginSet:G92026fbb3573fda5
-ManaCost:1 U
-Types:Creature Spirit
-PT:2/1
-K:Flash
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | ValidTgts$ Spirit | KW$ Hexproof
-S:Mode$ CastWithFlash | ValidCard$ Spirit | ValidSA$ Spell | Caster$ You
+ManaCost:1 U B
+Types:Creature Zombie
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Graveyard | Destination$ Battlefield | TriggerZones$ Graveyard | ValidCard$ Creature.YouOwn+Other | Execute$ DelTrig
+T:Mode$ ChangesZone | Destination$ Battlefield | TriggerZones$ Graveyard | ValidCard$ Creature.YouOwn+YouCtrl+Other+wasCastFromGraveyard | Execute$ DelTrig | Secondary$ True
+SVar:DelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Defined$ Self | Origin$ Graveyard | Destination$ Battlefield | Tapped$ True
+SVar:DiscardMe:2
+SVar:SacMe:1

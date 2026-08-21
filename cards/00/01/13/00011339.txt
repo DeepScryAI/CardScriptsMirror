@@ -3,5 +3,8 @@ ColorIdentity:
 OriginSet:G84adc137b751e29e
 ManaCost:no cost
 Types:Scheme
-T:Mode$ SetInMotion | ValidCard$ Card.Self | Execute$ GoodTimes | TriggerZones$ Command
-SVar:GoodTimes:DB$ AddTurn | NumTurns$ 1 | NoSchemes$ True
+T:Mode$ SetInMotion | ValidCard$ Card.Self | Execute$ Ignite | TriggerZones$ Command
+SVar:Ignite:DB$ Pump | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Artifact | AILogic$ Destroy | IsCurse$ True | SubAbility$ Burn
+SVar:Burn:DB$ Pump | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Enchantment | AILogic$ Destroy | IsCurse$ True | SubAbility$ Smolder
+SVar:Smolder:DB$ Pump | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Land.nonBasic | AILogic$ Destroy | IsCurse$ True | SubAbility$ Burninate
+SVar:Burninate:DB$ Destroy | Defined$ Targeted

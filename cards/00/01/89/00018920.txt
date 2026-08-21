@@ -1,7 +1,10 @@
 Id:18920
-ColorIdentity:W
+ColorIdentity:WB
 OriginSet:G586a4ae96288ce18
-ManaCost:3 W
+ManaCost:4 W B
 Types:Enchantment
-T:Mode$ Drawn | ValidCard$ Card.OppOwn | TriggerZones$ Battlefield | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | UnlessCost$ 2 | UnlessPayer$ TriggeredCardController | TokenScriptIds$ 3851718391 | TokenOwner$ You
+S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddPower$ 1 | AddToughness$ 1
+S:Mode$ Continuous | Affected$ Creature.OppCtrl | AddPower$ -1 | AddToughness$ -1
+SVar:PlayMain1:TRUE
+A:AB$ ChangeZone | Cost$ 2 W B | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card.OppOwn | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | ConditionDefined$ Targeted | ConditionPresent$ Creature | ConditionCompare$ EQ1 | TokenScriptIds$ 1377738288 | TokenOwner$ You

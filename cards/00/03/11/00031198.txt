@@ -1,14 +1,11 @@
 Id:31198
-ColorIdentity:BR
-OriginSet:G9de1432c543d1aef
-ManaCost:2 B R
-Types:Creature Scorpion Dragon
-PT:4/4
-K:Flying
-K:StartYourEngines
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPump
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump | TriggerZones$ Battlefield | Secondary$ True
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.YouCtrl+withoutUnearth | TgtZone$ Graveyard | PumpZone$ Graveyard | KW$ Unearth:CardManaCost | Duration$ Perpetual
-S:Mode$ Continuous | Affected$ Card.Self | Condition$ MaxSpeed | AddStaticAbility$ FreebieReaving | AddSVar$ ReavingX
-SVar:FreebieReaving:Mode$ AlternativeCost | ValidSA$ Activated.Unearth | ValidPlayer$ You | Cost$ 0 | CheckSVar$ ReavingX | SVarCompare$ LT1 | AffectedZone$ Graveyard | EffectZone$ Graveyard | Secondary$ True
-SVar:ReavingX:Count$ThisTurnActivated_Activated.Unearth+YouCtrl
+ColorIdentity:RG
+OriginSet:G4524bbf7a3db9dc0
+ManaCost:R G
+Types:Legendary Creature Goblin Pilot
+PT:2/3
+K:Vigilance
+A:AB$ Mana | Cost$ T | Produced$ Any | Amount$ X | RestrictValid$ Activated
+A:AB$ ChangeZone | Cost$ 10 R G | Origin$ Hand | Destination$ Battlefield | ChangeType$ Permanent | ChangeNum$ Y | Exhaust$ True
+SVar:X:Count$CardPower
+SVar:Y:Count$ValidHand Permanent.YouOwn

@@ -1,11 +1,12 @@
 Id:27892
-ColorIdentity:B
-OriginSet:G3601f5e223de6c7f
-ManaCost:no cost
-Types:Legendary Land
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
-A:AB$ Mana | Cost$ T | Produced$ B
-A:AB$ PutCounter | Cost$ 3 B T | ValidTgts$ Creature | CounterType$ Shadow | CounterNum$ 1 | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | RememberObjects$ Targeted | StaticAbilities$ ShadowStatic | ForgetOnMoved$ Battlefield | ForgetCounter$ Shadow | Duration$ Permanent
-SVar:ShadowStatic:Mode$ Continuous | Affected$ Card.IsRemembered | AddType$ Wraith
+ColorIdentity:WUR
+OriginSet:G30e8a5e111cffb44
+ManaCost:1 U R W
+Types:Legendary Creature Human Scientist
+PT:3/3
+T:Mode$ CounterAddedOnce | ValidCard$ Permanent.YouCtrl+inRealZoneBattlefield | TriggerZones$ Battlefield | CounterType$ TIME | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 1214250791
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPumpAll
+SVar:TrigPumpAll:AB$ PumpAll | Cost$ 8 | ValidCards$ Creature.attacking | NumAtt$ +X | NumDef$ +X
+SVar:X:Count$Valid Permanent.YouCtrl$CardCounters.TIME
+SVar:HasAttackEffect:TRUE

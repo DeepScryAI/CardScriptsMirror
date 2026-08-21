@@ -1,10 +1,16 @@
 Id:26098
-ColorIdentity:U
-OriginSet:G2192e8955d5e1ad1
-ManaCost:1 U
-Types:Artifact Creature Phyrexian Drone
-PT:1/1
+ColorIdentity:R
+OriginSet:G903d26fe51c6a362
+ManaCost:6 R R R
+Types:Legendary Creature Dragon
+PT:5/4
+K:Affinity:Artifact
 K:Flying
-K:Vigilance
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw
+K:Haste
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigExile
+SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ 5 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay,STAffinity | RememberObjects$ Remembered | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | AffectedZone$ Exile,Stack | Affected$ Card.IsRemembered+Artifact+nonLand | MayPlay$ True | MayPlayLimit$ 1
+SVar:STAffinity:Mode$ Continuous | AffectedZone$ Stack | AddKeyword$ Affinity:Artifact | Affected$ Card.CastSa Spell.MayPlaySource
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:HasAttackEffect:TRUE

@@ -1,11 +1,12 @@
 Id:29707
-ColorIdentity:
-OriginSet:G01a610e823cce3ca
-ManaCost:2
-Types:Artifact Equipment
-K:Flash
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigAttach
-SVar:TrigAttach:DB$ Attach | ValidTgts$ Creature.YouCtrl | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | Defined$ Targeted | ConditionDefined$ Targeted | ConditionPresent$ Assassin | KW$ Deathtouch
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1 | AddKeyword$ FirstStrike
-K:Equip:2
+ColorIdentity:W
+OriginSet:Gac6359c222afbd4f
+ManaCost:W
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Permanent.nonLand+OppCtrl | SubAbility$ DBEnergy | Duration$ UntilHostLeavesPlay
+SVar:DBEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ 2
+T:Mode$ Phase | Phase$ Main1 | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice | UnlessCost$ PayEnergy<1> | UnlessPayer$ You
+SVar:PlayMain1:TRUE
+SVar:OblivionRing:TRUE

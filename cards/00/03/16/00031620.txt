@@ -1,17 +1,10 @@
 Id:31620
-ColorIdentity:WR
-OriginSet:G530ea9d733a13e9d
-ManaCost:1 R W
-Types:Legendary Creature Moogle Warrior
-PT:1/2
-K:Lifelink
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigChoose
-SVar:TrigChoose:DB$ GenericChoice | TempRemember$ Chooser | ShowChoice$ ExceptSelf | Defined$ Player | Choices$ Discard,No | SubAbility$ DBDiscard
-SVar:Discard:DB$ Pump | Defined$ Remembered | NoteCards$ Self | NoteCardsFor$ Discard
-SVar:No:DB$ Pump
-SVar:DBDiscard:DB$ Discard | Defined$ Player.NotedForDiscard | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | Defined$ RememberedOwner | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenScriptIds$ 1020939062 | TokenOwner$ You | ConditionDefined$ Remembered | ConditionPresent$ Creature | SubAbility$ DBPutCounterAll
-SVar:DBPutCounterAll:DB$ PutCounterAll | ValidCards$ Moogle.YouCtrl | CounterType$ P1P1 | CounterNum$ 1 | ConditionDefined$ Remembered | ConditionPresent$ Card.nonCreature | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | SubAbility$ DBClearNotes
-SVar:DBClearNotes:DB$ Pump | Defined$ Player | ClearNotedCardsFor$ Discard
+ColorIdentity:WUR
+OriginSet:Gf2b808f4f642ac62
+ManaCost:2U 2R 2W
+Types:Creature Bird Scout
+PT:2/3
+K:Flying
+K:Vigilance
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Library | ValidTgts$ Card.YouOwn+nonCreature+nonLand | TargetMin$ 0 | TargetMax$ 1

@@ -1,11 +1,17 @@
 Id:21913
-ColorIdentity:WR
+ColorIdentity:BG
 OriginSet:G6fa60d857e930f32
-ManaCost:1 R W
-Types:Creature Spirit Cleric
-PT:3/3
-K:Vigilance
-K:Trample
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigChangeZone | OptionalDecider$ You
-SVar:TrigChangeZone:DB$ ChangeZone | ValidTgts$ Creature.cmcLEX+YouCtrl | Origin$ Graveyard | Destination$ Battlefield
-SVar:X:TriggerCount$DamageAmount
+ManaCost:2 G
+Types:Legendary Creature Pest
+PT:3/2
+S:Mode$ Continuous | EffectZone$ Battlefield | Affected$ Pest.Other+YouCtrl,Bat.Other+YouCtrl,Insect.Other+YouCtrl,Snake.Other+YouCtrl,Spider.Other+YouCtrl | AddPower$ 1 | AddToughness$ 1
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigGainLife
+SVar:TrigGainLife:DB$ GainLife | Defined$ TriggeredCardController | LifeAmount$ 4
+AlternateMode:Modal
+ALTERNATE
+ManaCost:2 B B
+Types:Sorcery
+A:SP$ Dig | DigNum$ 5 | ChangeNum$ Any | DestinationZone$ Hand | RememberChanged$ True | DestinationZone2$ Graveyard | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ X | Defined$ You | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Valid Card/Times.3

@@ -1,10 +1,10 @@
 Id:32973
 ColorIdentity:G
-OriginSet:G731e0066916b7465
-ManaCost:4 G G
+OriginSet:G22ed5d6f3707b461
+ManaCost:4 G
 Types:Enchantment
-S:Mode$ RaiseCost | ValidCard$ Card.Self | Activator$ You | Type$ Spell | Cost$ Sac<X/Land/land(s)> | EffectZone$ All
-K:Hexproof
-S:Mode$ Continuous | Affected$ Land.YouCtrl | AddAbility$ AnyMana
-SVar:AnyMana:AB$ Mana | Cost$ T | Produced$ Any | Amount$ 3
-SVar:X:Count$Valid Land.YouCtrl/HalfUp
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPumpAll
+SVar:TrigPumpAll:DB$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +2 | NumDef$ +2
+T:Mode$ DamageDoneOnce | CombatDamage$ True | ValidSource$ Ally.YouCtrl | TriggerZones$ Battlefield | ValidTarget$ Player | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw
+SVar:PlayMain1:ALWAYS

@@ -1,10 +1,16 @@
 Id:21144
-ColorIdentity:U
-OriginSet:G72c9c624ceb92bff
-ManaCost:2 U
-Types:Instant
-A:SP$ Tap | ValidTgts$ Creature | AILogic$ Curse | SubAbility$ DBMill
-SVar:DBMill:DB$ Mill | Defined$ TargetedController | NumCards$ 2 | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | Defined$ ParentTarget | KW$ HIDDEN This card doesn't untap during your next untap step. | Duration$ Permanent | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw
-SVar:NeedsToPlay:Creature.OppCtrl
+ColorIdentity:R
+OriginSet:G7b2607750b451c25
+ManaCost:X R R
+Types:Sorcery
+A:SP$ DealDamage | NumDmg$ Y | ValidTgts$ Creature,Planeswalker | TargetMin$ 0 | TargetMax$ 2 | DividedAsYouChoose$ Y
+SVar:X:Count$xPaid
+SVar:Y:Count$Compare X LT6.X.Z
+SVar:Z:Count$xPaid/Twice
+AlternateMode:Modal
+ALTERNATE
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ DBTap | ReplacementResult$ Updated
+SVar:DBTap:DB$ Tap | ETB$ True | Defined$ Self | UnlessCost$ PayLife<3> | UnlessPayer$ You
+A:AB$ Mana | Cost$ T | Produced$ R

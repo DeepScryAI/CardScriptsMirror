@@ -1,9 +1,12 @@
 Id:28072
-ColorIdentity:
-OriginSet:Gfd50577710a6ab09
-ManaCost:1
-Types:Artifact Equipment
-K:Equip:2
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1 | AddToughness$ 1
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddKeyword$ Deathtouch | Condition$ PlayerTurn
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddKeyword$ Reach | Condition$ NotPlayerTurn | Secondary$ True
+ColorIdentity:W
+OriginSet:G06c78c29bfb28e3d
+ManaCost:2 W
+Types:Creature Vampire Cleric
+PT:1/1
+K:Flying
+T:Mode$ LifeGained | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ X | TokenScriptIds$ 2635397045 | TokenOwner$ You
+SVar:X:TriggeredCard$CardPower

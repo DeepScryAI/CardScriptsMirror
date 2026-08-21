@@ -1,14 +1,10 @@
 Id:21845
-ColorIdentity:UR
-OriginSet:G6fa60d857e930f32
-ManaCost:X U R
-Types:Sorcery
-A:SP$ Dig | Defined$ You | DigNum$ X | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenAmount$ L | TokenScriptIds$ 3851718391 | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | NumCards$ B | SubAbility$ DBDealDamage
-SVar:DBDealDamage:DB$ DealDamage | Defined$ Player.Opponent | NumDmg$ R | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$xPaid
-SVar:L:Remembered$Valid Card.Land
-SVar:B:Remembered$Valid Card.Blue
-SVar:R:Remembered$Valid Card.Red
+ColorIdentity:
+OriginSet:Gabb23d0d25cdc46d
+ManaCost:3
+Types:Artifact
+T:Mode$ SpellCast | ValidCard$ Card.hasXCost | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounters
+SVar:TrigPutCounters:DB$ PutCounter | CounterType$ CHARGE | CounterNum$ 2
+A:AB$ Mana | Cost$ T | Produced$ Any
+A:AB$ Mana | Cost$ T | Produced$ C | Amount$ X | RestrictValid$ CostContainsX
+SVar:X:Count$CardCounters.CHARGE

@@ -1,22 +1,12 @@
 Id:25550
-ColorIdentity:WR
-OriginSet:Gfb000cedf5e9c32e
-ManaCost:1 R W
-Types:Legendary Artifact Creature Robot
-PT:2/2
-K:More Than Meets the Eye:R W
-K:FirstStrike
-A:AB$ DealDamage | Cost$ 1 XMin1 SubCounter<X/P1P1/NICKNAME> | ValidTgts$ Creature | NumDmg$ X | SubAbility$ DBConvert
-SVar:DBConvert:DB$ SetState | Mode$ Transform
-SVar:X:Count$xPaid
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:red,white
-Types:Legendary Artifact Vehicle
-PT:2/2
-K:Living metal
-T:Mode$ SpellCast | ValidActivatingPlayer$ You | TargetsValid$ Creature.YouCtrl,Vehicle.YouCtrl | Execute$ TrigPutCounters
-SVar:TrigPutCounters:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ X | SubAbility$ DBConvert
-SVar:DBConvert:DB$ SetState | Mode$ Transform
-SVar:X:TriggerObjectsSpellAbilityTargets$Valid Creature.YouCtrl,Vehicle.YouCtrl
+ColorIdentity:R
+OriginSet:G2e872aaf9b98489e
+ManaCost:2 R
+Types:Enchantment
+T:Mode$ RolledDie | TriggerZones$ Battlefield | Execute$ TrigReveal | ValidPlayer$ You | OptionalDecider$ You | ResolvedLimit$ 1
+SVar:TrigReveal:DB$ PeekAndReveal | NoPeek$ True | ImprintRevealed$ True | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | ConditionDefined$ Imprinted | ConditionPresent$ Card.cmcLTX | Optional$ True | Defined$ Imprinted | RememberChanged$ True | Origin$ Library | Destination$ Exile | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | RememberObjects$ Remembered | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True
+SVar:X:TriggerCount$Result

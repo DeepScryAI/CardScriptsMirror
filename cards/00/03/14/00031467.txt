@@ -1,11 +1,12 @@
 Id:31467
-ColorIdentity:W
-OriginSet:Gf2b808f4f642ac62
-ManaCost:3 W
-Types:Instant
-S:Mode$ ReduceCost | ValidCard$ Card.Self | EffectZone$ All | Type$ Spell | Amount$ 2 | CheckSVar$ X
-A:SP$ Charm | Choices$ DBToken,DBPump,DBDestroy | Defined$ You
-SVar:DBToken:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 1221548164 | TokenOwner$ You
-SVar:DBPump:DB$ Pump | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 2 | NumAtt$ +2 | NumDef$ +2
-SVar:DBDestroy:DB$ Destroy | ValidTgts$ Creature.powerGE4
-SVar:X:Count$ThisTurnCast_Card.YouCtrl
+ColorIdentity:WBR
+OriginSet:Ge1676a27173c0866
+ManaCost:R W B
+Types:Enchantment Saga
+K:Chapter:3:DBDraw,DBEffect,DBEffect
+SVar:DBDraw:DB$ Draw | NumCards$ 2 | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 2
+SVar:DBEffect:DB$ Effect | Triggers$ CreatureETB
+SVar:CreatureETB:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.YouCtrl | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 1 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1

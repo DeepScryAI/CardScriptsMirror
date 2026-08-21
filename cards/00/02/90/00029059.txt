@@ -1,9 +1,15 @@
 Id:29059
-ColorIdentity:B
-OriginSet:G27146c70b74a1e72
-ManaCost:1 B
-Types:Creature Vampire
-PT:2/2
-K:Lifelink
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill
-SVar:TrigMill:DB$ Mill | NumCards$ 2 | ValidTgts$ Player
+ColorIdentity:R
+OriginSet:Gaf7c94f364052cdd
+ManaCost:3 R R
+Types:Legendary Artifact Creature Robot
+PT:5/5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | IsCurse$ True | ValidTgts$ Opponent | SubAbility$ DBEnergy
+SVar:DBEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ X
+SVar:X:Count$Valid Land.nonBasic+TargetedPlayerCtrl
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigImmediateTrig | TriggerZones$ Battlefield
+SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ PayEnergy<4> | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Land.nonBasic+ControlledBy Spawner>TriggeredDefendingPlayer | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ Static | RememberObjects$ TargetedController
+SVar:Static:Mode$ CantBlockBy | ValidAttacker$ Creature | ValidBlocker$ Creature.withoutFlying+RememberedPlayerCtrl

@@ -1,10 +1,12 @@
 Id:34583
-ColorIdentity:UG
-OriginSet:G11c0621ce29fa608
-ManaCost:G U
-Types:Legendary Creature Human Scientist Hero
-PT:1/1
-T:Mode$ Drawn | ValidCard$ Card.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
-A:AB$ Token | Cost$ 2 G T SubCounter<X/P1P1> | TokenScriptIds$ 704294417 | TokenOwner$ You | TokenAmount$ X
-SVar:X:Count$xPaid
+ColorIdentity:UB
+OriginSet:Gcb93bbfc68a40806
+ManaCost:2 UB UB
+Types:Legendary Creature Shark Human Villain
+PT:2/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigConnive
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigConnive | Secondary$ True
+SVar:TrigConnive:DB$ Connive
+A:AB$ Effect | Cost$ 4 UB | RememberObjects$ Self | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+SVar:HasAttackEffect:TRUE

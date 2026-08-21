@@ -1,8 +1,11 @@
 Id:22268
-ColorIdentity:UB
+ColorIdentity:W
 OriginSet:Geb2cf181996ee3b2
-ManaCost:U B
-Types:Creature Zombie Wizard
-PT:1/3
-T:Mode$ Discarded | ValidCard$ Card.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigAmass
-SVar:TrigAmass:AB$ Amass | Cost$ 1 | Type$ Zombie | Num$ 2
+ManaCost:1 W
+Types:Artifact Equipment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 3939935181 | RememberTokens$ True | SubAbility$ DBAttach
+SVar:DBAttach:DB$ Attach | Defined$ Remembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1
+K:Equip:2

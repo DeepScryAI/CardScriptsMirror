@@ -1,12 +1,11 @@
 Id:13173
-ColorIdentity:WG
+ColorIdentity:BG
 OriginSet:G5449dea2d54987a1
-ManaCost:1 G W
-Types:Creature Elemental
-PT:*/*
-S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X | SetToughness$ X
-SVar:X:Count$Valid Creature.YouCtrl
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ DBCopy
-SVar:DBCopy:DB$ CopyPermanent | Populate$ True
-SVar:BuffedBy:Creature
-SVar:NoZeroToughnessAI:True
+ManaCost:3 B G
+Types:Legendary Planeswalker Vraska
+Loyalty:5
+A:AB$ Animate | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | Defined$ Self | Triggers$ TrigVraska | Duration$ UntilYourNextTurn | AILogic$ EOT
+SVar:TrigVraska:Mode$ DamageDone | ValidSource$ Creature | ValidTarget$ Card.Self | TriggerZones$ Battlefield | CombatDamage$ True | Execute$ VraskaGaze
+SVar:VraskaGaze:DB$ Destroy | Defined$ TriggeredSourceLKICopy
+A:AB$ Destroy | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | ValidTgts$ Permanent.nonLand
+A:AB$ Token | Cost$ SubCounter<7/LOYALTY> | Planeswalker$ True | Ultimate$ True | TokenAmount$ 3 | TokenScriptIds$ 1716721376 | TokenOwner$ You

@@ -1,10 +1,13 @@
 Id:23894
-ColorIdentity:WRG
-OriginSet:Gfdfe2ebef04be34e
-ManaCost:1 R G W
-Types:Legendary Creature Cat Demon
-PT:5/4
-S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddPower$ 1 | AddKeyword$ Vigilance | IsPresent$ Creature.YouCtrl | PresentCompare$ GE3
-S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddPower$ 1 | AddKeyword$ Trample | IsPresent$ Creature.YouCtrl | PresentCompare$ GE6
-S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddPower$ 1 | AddKeyword$ DoubleStrike | IsPresent$ Creature.YouCtrl | PresentCompare$ GE9
-SVar:BuffedBy:Creature
+ColorIdentity:R
+OriginSet:G5f5d8cfb206e2fac
+ManaCost:4 R
+Types:Creature Lizard Rogue
+PT:3/3
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigExile | TriggerZones$ Battlefield
+SVar:TrigExile:DB$ Dig | DigNum$ 1 | ChangeNum$ All | Defined$ Player | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ EffPlay | EffectOwner$ You | RememberObjects$ Remembered | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:EffPlay:Mode$ Continuous | MayPlay$ True | MayPlayIgnoreColor$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+K:Blitz:2 R
+SVar:HasAttackEffect:TRUE

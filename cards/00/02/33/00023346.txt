@@ -1,13 +1,11 @@
 Id:23346
-ColorIdentity:
-OriginSet:Gbe3783f336562357
-ManaCost:2
-Types:Creature Human
-PT:1/1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraft
-SVar:TrigDraft:DB$ Draft | SpellbookCatalogIds$ 23034,22991,22967,22834,23299,23056,22984,22920,22947,23269,23201,23137,22791,23051,22767 | RememberDrafted$ True | SubAbility$ DBAnimate
-SVar:DBAnimate:DB$ Animate | Defined$ Remembered | staticAbilities$ SpendAnyMana | Triggers$ CastTrigger | Duration$ Perpetual | SubAbility$ DBCleanup
-SVar:SpendAnyMana:Mode$ ManaConvert | EffectZone$ Stack | ValidPlayer$ You | ValidCard$ Card.Self | ValidSA$ Spell | ManaConversion$ AnyType->AnyColor
-SVar:CastTrigger:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZone | ChangeType$ Card.catalogId23346+YouCtrl | ChangeNum$ 1 | Origin$ Battlefield | Destination$ Hand | Hidden$ True | Mandatory$ True
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:U
+OriginSet:G6e75ff4f143a3dc3
+ManaCost:1 U
+Types:Creature Spirit
+PT:3/3
+K:Defender
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Enchantment.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigEffect
+SVar:TrigEffect:DB$ Effect | StaticAbilities$ CanAttack | Duration$ UntilHostLeavesPlayOrEOT
+SVar:CanAttack:Mode$ CanAttackDefender | ValidCard$ Card.EffectSource
+SVar:BuffedBy:Enchantment

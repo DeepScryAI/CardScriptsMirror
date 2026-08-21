@@ -1,11 +1,12 @@
 Id:25117
-ColorIdentity:
-OriginSet:Gf591a76e7a37cf73
-ManaCost:3
-Types:Artifact Creature Wraith
-PT:2/1
-S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigSearch | TriggerZones$ Battlefield
-SVar:TrigSearch:AB$ ChooseCard | Cost$ 3 Sac<1/CARDNAME> | Choices$ Land.YouCtrl | Mandatory$ True | SubAbility$ DBChange
-SVar:DBChange:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Land.Basic+sharesNameWith ChosenCard | ChangeNum$ 2 | Tapped$ True | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+ColorIdentity:U
+OriginSet:G2aca7ffc9201ba1c
+ManaCost:2 U
+Types:Creature Bird Wizard
+PT:2/3
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigConjure
+SVar:TrigConjure:DB$ MakeCard | Conjure$ True | CatalogIds$ 2,18,165,166,167,168,169,249,250 | Zone$ Library
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ DBScry | TriggerZones$ Battlefield
+SVar:DBScry:DB$ Scry
+SVar:HasAttackEffect:TRUE

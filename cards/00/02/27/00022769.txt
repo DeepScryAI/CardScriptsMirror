@@ -1,7 +1,12 @@
 Id:22769
-ColorIdentity:B
-OriginSet:Gf78628ad511eefec
-ManaCost:2 B
-Types:Instant
-A:SP$ Draw | NumCards$ 2 | ValidTgts$ Player | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 2 | Defined$ Targeted
+ColorIdentity:U
+OriginSet:G268a0d6ee06912c2
+ManaCost:3 U
+Types:Legendary Planeswalker Kiora
+Loyalty:4
+A:AB$ MakeCard | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | Conjure$ True | CatalogId$ 10848 | Zone$ Hand
+A:AB$ Untap | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Creature,Land | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Targeted | KW$ Prevent all damage that would be dealt to and dealt by CARDNAME. | Duration$ UntilYourNextTurn
+A:AB$ Sacrifice | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | Optional$ True | SacValid$ Kraken | Amount$ 1 | RememberSacrificed$ True | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 1489593734 | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

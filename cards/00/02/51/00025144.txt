@@ -1,10 +1,16 @@
 Id:25144
-ColorIdentity:
-OriginSet:Gf591a76e7a37cf73
-ManaCost:4
-Types:Artifact Vehicle
-PT:3/3
-K:Flying
-T:Mode$ BecomesCrewed | ValidCard$ Card.Self | Execute$ DBPumpAll
-SVar:DBPumpAll:DB$ PumpAll | ValidCards$ Artifact.Creature+YouCtrl | KW$ Unearth:3 | PumpZone$ Graveyard
-K:Crew:2
+ColorIdentity:UBR
+OriginSet:G9afc9838c5e994df
+ManaCost:3 U B R
+Types:Creature Vampire Rogue
+PT:4/5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDealDamage
+SVar:TrigDealDamage:DB$ DealDamage | NumDmg$ 2 | Defined$ Opponent | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2 | SubAbility$ DBScry
+SVar:DBScry:DB$ Scry | ScryNum$ 2
+A:AB$ Effect | Cost$ 1 ExileFromHand<1/CARDNAME> | ActivationZone$ Hand | ValidTgts$ Land | RememberObjects$ Targeted & Self | StaticAbilities$ Land,MayPlay | Triggers$ Cast | ImprintCards$ Self | Duration$ Permanent | ForgetOnMoved$ Exile
+SVar:Land:Mode$ Continuous | AffectedZone$ Battlefield | Affected$ Card.IsRemembered+!IsImprinted | AddAbility$ Mana
+SVar:Mana:AB$ Mana | Cost$ T | Produced$ Combo U B R | Amount$ 1
+SVar:MayPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsImprinted+IsRemembered | AffectedZone$ Exile | Secondary$ True
+SVar:Cast:Mode$ SpellCast | ValidCard$ Card.IsImprinted+IsRemembered+wasCastFromExile | Execute$ ExileSelf | Static$ True
+SVar:ExileSelf:DB$ ChangeZone | Origin$ Command | Destination$ Exile | Defined$ Self

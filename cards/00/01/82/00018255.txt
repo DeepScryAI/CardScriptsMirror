@@ -1,8 +1,12 @@
 Id:18255
-ColorIdentity:G
+ColorIdentity:R
 OriginSet:G5033d54b23b37629
-ManaCost:2 G
-Types:Creature Fungus
-PT:2/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 3815350479 | TokenOwner$ You
+ManaCost:1 R
+Types:Enchantment Saga
+K:Chapter:3:TrigDiscard,TrigDraw,TrigEffect
+SVar:TrigDiscard:DB$ Discard | Mode$ Hand | Defined$ You
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 2
+SVar:TrigEffect:DB$ Effect | ReplacementEffects$ FlameOfKeldDamageEvent
+SVar:FlameOfKeldDamageEvent:Event$ DamageDone | ActiveZones$ Command | ValidSource$ Card.RedSource | ValidTarget$ Permanent,Player | ReplaceWith$ DmgPlus2
+SVar:DmgPlus2:DB$ ReplaceEffect | VarName$ DamageAmount | VarValue$ X
+SVar:X:ReplaceCount$DamageAmount/Plus.2

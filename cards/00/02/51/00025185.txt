@@ -1,10 +1,15 @@
 Id:25185
-ColorIdentity:
+ColorIdentity:UBR
 OriginSet:Gf591a76e7a37cf73
-ManaCost:3
-Types:Artifact Vehicle
-PT:3/1
+ManaCost:3 U B R
+Types:Legendary Creature Demon Noble
+PT:6/5
 K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 321060237
-K:Crew:2
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Destination$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | NumCards$ X | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ X
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Demon.YouCtrl+Other | TriggerZones$ Battlefield | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ Y | DamageSource$ TriggeredCardLKICopy
+SVar:X:Count$Valid Demon.YouCtrl
+SVar:Y:TriggeredCard$CardPower
+SVar:BuffedBy:Demon

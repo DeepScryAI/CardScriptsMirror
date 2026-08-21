@@ -1,9 +1,12 @@
 Id:24264
 ColorIdentity:R
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:4 R R
-Types:Creature Giant Bard
-PT:4/4
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange
-SVar:TrigChange:DB$ GainControl | ValidTgts$ Creature.YouDontCtrl | LoseControl$ EOT | Untap$ True | AddKWs$ Haste & Myriad
-SVar:PlayMain1:OPPONENTCREATURES
+ManaCost:2 R
+Types:Creature Demon
+PT:3/2
+K:Menace
+S:Mode$ CantBlock | ValidCard$ Creature.IsGoaded+OppCtrl
+T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | Execute$ DBGoad | TriggerZones$ Battlefield
+SVar:DBGoad:DB$ Goad | ValidTgts$ Creature.OppCtrl
+SVar:BuffedBy:Card.nonCreature
+SVar:HasAttackEffect:TRUE

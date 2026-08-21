@@ -1,8 +1,9 @@
 Id:32240
 ColorIdentity:U
 OriginSet:G9946f072b5556073
-ManaCost:3 U
-Types:Creature Human Bard
-PT:3/4
-S:Mode$ Panharmonicon | ValidMode$ ChangesZone,ChangesZoneAll | ValidCard$ Permanent.YouCtrl | ValidCause$ Permanent | Destination$ Battlefield
-K:Warp:1 U
+ManaCost:1 U
+Types:Artifact
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+T:Mode$ ChangesZone | Destination$ Any | Origin$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw | Secondary$ True
+SVar:TrigDraw:DB$ Draw
+A:AB$ PutCounter | Cost$ 1 U Sac<1/CARDNAME/this artifact> | ValidTgts$ Creature.tapped | TargetMin$ 0 | TargetMax$ 1 | CounterType$ STUN | CounterNum$ 1

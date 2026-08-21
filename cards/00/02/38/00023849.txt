@@ -1,12 +1,13 @@
 Id:23849
-ColorIdentity:W
+ColorIdentity:WG
 OriginSet:G5f5d8cfb206e2fac
-ManaCost:1 W
-Types:Enchantment Aura
-K:Enchant:Opponent
-SVar:AttachAILogic:Curse
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ Opponent.EnchantedBy | TriggerZones$ Battlefield | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ TriggeredPlayer & You
-T:Mode$ AttackersDeclared | AttackingPlayer$ You | AttackedTarget$ Player.EnchantedBy,Planeswalker.EnchantedPlayerCtrl | Execute$ TrigSac | TriggerZones$ Battlefield
-T:Mode$ AttackersDeclared | AttackingPlayer$ Player.EnchantedBy | AttackedTarget$ You,Planeswalker.YouCtrl | Execute$ TrigSac | Secondary$ True | TriggerZones$ Battlefield
-SVar:TrigSac:DB$ Sacrifice
+ManaCost:1 G W
+Types:Legendary Creature Human Citizen
+PT:1/1
+T:Mode$ ChangesZoneAll | ValidCards$ Creature.basePowerEQ1+baseToughnessEQ1+Other+YouCtrl | Destination$ Battlefield | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | CounterType$ P1P1
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPumpAll
+SVar:TrigPumpAll:DB$ PumpAll | ValidCards$ Creature.basePowerEQ1+baseToughnessEQ1+Other+YouCtrl | NumAtt$ +X | NumDef$ +X
+SVar:X:Count$CardCounters.P1P1
+SVar:HasAttackEffect:TRUE
+SVar:BuffedBy:Creature.powerEQ1,Creature.toughnessEQ1

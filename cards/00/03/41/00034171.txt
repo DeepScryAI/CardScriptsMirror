@@ -1,15 +1,12 @@
 Id:34171
-ColorIdentity:B
-OriginSet:Gcb93bbfc68a40806
-ManaCost:2 B
-Types:Legendary Creature Elemental Rogue Villain
-PT:3/3
-K:Deathtouch
-T:Mode$ SpellCast | ValidCard$ Card.wasCastFromExile+!token | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump
-T:Mode$ LandPlayed | Origin$ Exile | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPump | Secondary$ True
-SVar:TrigPump:DB$ Pump | KW$ Indestructible | Defined$ Self
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDig
-SVar:TrigDig:DB$ Dig | DigNum$ 1 | Defined$ TriggeredTarget | ChangeNum$ All | DestinationZone$ Exile | ExileFaceDown$ True | WithMayLook$ True | RememberChanged$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ STPlay | SubAbility$ DBCleanup | ForgetOnMoved$ Exile | Duration$ Permanent
-SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile | MayPlayIgnoreType$ True
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:UG
+OriginSet:Gaf3c6d0810185c00
+ManaCost:1 G U
+Types:Legendary Creature Human Wizard
+PT:1/3
+T:Mode$ SpellCast | ValidCard$ Card.hasXCost | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ DBNameCard
+SVar:DBNameCard:DB$ NameCard | AtRandom$ True | ValidCards$ Creature.cmcEQX | SubAbility$ DBConjure
+SVar:DBConjure:DB$ MakeCard | Name$ ChosenName | Conjure$ True | Zone$ Battlefield | SubAbility$ DBClearNamed
+SVar:DBClearNamed:DB$ Cleanup | ClearNamedCard$ True
+SVar:X:Count$xPaid
+A:AB$ Mana | Cost$ T | Produced$ G U | RestrictValid$ Spell.hasXCost

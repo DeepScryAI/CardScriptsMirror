@@ -1,9 +1,12 @@
 Id:21113
-ColorIdentity:G
-OriginSet:G72c9c624ceb92bff
-ManaCost:3 G
-Types:Creature Beast
-PT:4/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +2 | NumDef$ +2
-SVar:BuffedBy:Land
+ColorIdentity:R
+OriginSet:G7b2607750b451c25
+ManaCost:2 R R
+Types:Creature Dragon
+PT:4/4
+K:Flying
+S:Mode$ UnspentMana | ValidPlayer$ You | ManaType$ Red
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigImmediateTrig
+SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ X | XColor$ R | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ X
+SVar:X:Count$xPaid

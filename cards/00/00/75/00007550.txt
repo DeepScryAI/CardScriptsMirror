@@ -1,8 +1,11 @@
 Id:7550
-ColorIdentity:B
+ColorIdentity:R
 OriginSet:G4747f23d5c5760bc
-ManaCost:4 B B
-Types:Legendary Creature Demon Spirit
-PT:6/4
-T:Mode$ SpellCast | ValidCard$ Spirit,Arcane | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | ChangeType$ Card | ValidTgts$ Opponent | Chooser$ Targeted | ChangeNum$ 1 | Mandatory$ True
+ManaCost:2 R
+Types:Enchantment Aura
+K:Flash
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+R:Event$ Moved | ValidLKI$ Creature.DamagedBy Enchanted | Destination$ Graveyard | ActiveZones$ Battlefield | ReplaceWith$ DBExile
+SVar:DBExile:DB$ ChangeZone | Defined$ ReplacedCard | Origin$ Battlefield | Destination$ Exile
+SVar:NonStackingAttachEffect:True

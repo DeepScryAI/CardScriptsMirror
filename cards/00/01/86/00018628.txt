@@ -1,14 +1,14 @@
 Id:18628
-ColorIdentity:WUB
+ColorIdentity:BRG
 OriginSet:Gd7cbb6e7dea72fb5
-ManaCost:2 W U B
-Types:Legendary Creature Sphinx
-PT:3/5
-K:Flying
-K:Vigilance
-K:Menace
-T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigReveal
-SVar:TrigReveal:DB$ PeekAndReveal | PeekAmount$ 1 | RevealValid$ Card | RememberRevealed$ True | SubAbility$ DBMayCast
-SVar:DBMayCast:DB$ Play | Defined$ Remembered | ForgetRemembered$ True | ValidSA$ Spell | WithoutManaCost$ True | Optional$ True | ConditionDefined$ Remembered | ConditionPresent$ Card.cmcOdd | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBCleanup
+ManaCost:2 B R G
+Types:Legendary Planeswalker Windgrace
+Loyalty:5
+A:AB$ Discard | Cost$ AddCounter<2/LOYALTY> | Planeswalker$ True | Defined$ You | NumCards$ 1 | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | SubAbility$ DBDraw2
+SVar:DBDraw2:DB$ Draw | ConditionDefined$ Remembered | ConditionPresent$ Land | ConditionCompare$ EQ1 | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+A:AB$ ChangeZone | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | Origin$ Graveyard | Destination$ Battlefield | TargetMin$ 0 | TargetMax$ 2 | ValidTgts$ Land.YouCtrl
+A:AB$ Destroy | Cost$ SubCounter<11/LOYALTY> | Planeswalker$ True | Ultimate$ True | ValidTgts$ Permanent.nonLand | TargetMin$ 0 | TargetMax$ 6 | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenAmount$ 6 | TokenOwner$ You | TokenScriptIds$ 3897504530
+K:CARDNAME can be your commander.

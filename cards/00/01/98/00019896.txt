@@ -1,11 +1,14 @@
 Id:19896
-ColorIdentity:U
+ColorIdentity:R
 OriginSet:G23be9f486a22d38a
-ManaCost:X U U U
-Types:Legendary Creature Human Wizard
-PT:3/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ X
-SVar:X:Count$xPaid
-T:Mode$ SpellCast | ValidCard$ Card.Blue | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigTap
-SVar:TrigTap:DB$ Tap | ValidTgts$ Permanent.OppCtrl+nonLand
+ManaCost:4 R R
+Types:Legendary Artifact Equipment
+K:Flash
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ X | EffectZone$ All
+SVar:X:Count$Valid Creature.attacking+YouCtrl
+SVar:BuffedBy:Creature.attacking
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigAttach
+SVar:TrigAttach:DB$ Attach | ValidTgts$ Creature.YouCtrl
+SVar:NeedsToPlay:Creature.YouCtrl
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1 | AddToughness$ 1 | AddKeyword$ DoubleStrike & Trample
+K:Equip:3

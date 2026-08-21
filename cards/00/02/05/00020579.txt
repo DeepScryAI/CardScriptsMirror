@@ -1,8 +1,12 @@
 Id:20579
-ColorIdentity:W
+ColorIdentity:G
 OriginSet:Gf8d4de878d0536c5
-ManaCost:3 W
-Types:Creature Human Soldier
-PT:3/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 1647422943 | TokenOwner$ You
+ManaCost:4 G
+Types:Creature Elk Beast
+PT:6/6
+K:Mutate:5 G
+T:Mode$ Mutates | ValidCard$ Card.Self | Execute$ TrigDigUntil
+SVar:TrigDigUntil:DB$ DigUntil | Amount$ X | Defined$ You | Valid$ Permanent | RevealedDestination$ Exile | FoundDestination$ Exile | RememberFound$ True | SubAbility$ DBToPlay
+SVar:DBToPlay:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$TimesMutated

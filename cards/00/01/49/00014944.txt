@@ -1,8 +1,14 @@
 Id:14944
-ColorIdentity:B
+ColorIdentity:WUR
 OriginSet:G25ee1eefb1a14f05
-ManaCost:4 B B
-Types:Creature Demon
-PT:4/4
-K:Delve
-S:Mode$ Continuous | EffectZone$ Battlefield | Affected$ Card.Self | AddKeyword$ Flying & FirstStrike & DoubleStrike & Deathtouch & Haste & Hexproof & Indestructible & Lifelink & Reach & Trample & Vigilance | SharedKeywordsZone$ Exile | SharedRestrictions$ Creature.delved
+ManaCost:1 W
+Types:Creature Human Monk
+PT:2/2
+K:Lifelink
+S:Mode$ Continuous | AddKeyword$ Lifelink | Affected$ Instant.YouCtrl,Sorcery.YouCtrl | AffectedZone$ Stack
+A:AB$ Effect | Cost$ 2 UR UR | Triggers$ SpellCastTrig
+SVar:SpellCastTrig:Mode$ SpellCast | ValidCard$ Sorcery.YouOwn+wasCastFromYourHand,Instant.YouOwn+wasCastFromYourHand | ValidActivatingPlayer$ You | Execute$ Buybacked | Static$ True
+SVar:Buybacked:DB$ Effect | ReplacementEffects$ MoveToHandReplace | RememberObjects$ TriggeredCard | SubAbility$ ExileSelf
+SVar:MoveToHandReplace:Event$ Moved | ValidCard$ Card.IsRemembered | Origin$ Stack | Destination$ Graveyard | Fizzle$ False | ReplaceWith$ ReplaceHand
+SVar:ReplaceHand:DB$ ChangeZone | Defined$ Remembered | Origin$ Stack | Destination$ Hand | SubAbility$ ExileSelf
+SVar:ExileSelf:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile

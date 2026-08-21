@@ -1,12 +1,11 @@
 Id:15705
-ColorIdentity:W
+ColorIdentity:U
 OriginSet:G5b1ad34969911ca7
-ManaCost:1 W
-Types:Instant
-A:SP$ Pump | ValidTgts$ Creature | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | Defined$ You | SubAbility$ DBEffect | LifeAmount$ X
-SVar:X:Targeted$CardPower
-SVar:DBEffect:DB$ Effect | ReplacementEffects$ Dazzle | ImprintCards$ Targeted | Triggers$ OutOfSight
-SVar:Dazzle:Event$ DamageDone | ValidSource$ Card.IsImprinted | ReplaceWith$ ExileEffect | PreventionEffect$ True
-SVar:OutOfSight:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Creature.IsImprinted | Execute$ ExileEffect | Static$ True
-SVar:ExileEffect:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile
+ManaCost:4 U
+Types:Creature Elemental
+PT:3/4
+K:Flying
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigPutCounter | OptionalDecider$ You
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Land.YouCtrl | CounterType$ P1P1 | CounterNum$ 3 | RememberCards$ True | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Remembered | Power$ 0 | Toughness$ 0 | Types$ Creature,Elemental | Keywords$ Haste | Duration$ Permanent | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

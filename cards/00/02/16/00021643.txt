@@ -1,10 +1,12 @@
 Id:21643
-ColorIdentity:UB
+ColorIdentity:U
 OriginSet:G18bf722b221724f8
-ManaCost:no cost
-Types:Land
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
-A:AB$ Mana | Cost$ T | Produced$ U
-A:AB$ Mill | Cost$ 3 U B B T Sac<1/CARDNAME> | Defined$ You | NumCards$ 4 | SubAbility$ DBReturn
-SVar:DBReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ChangeType$ Creature.YouCtrl | ChangeNum$ 1 | Hidden$ True | Tapped$ True
+ManaCost:U
+Types:Artifact Equipment
+K:Equip:2
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddToughness$ 1 | AddStaticAbility$ Hexproof
+SVar:Hexproof:Mode$ Continuous | Affected$ Card.Self+untapped | AddKeyword$ Hexproof
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken | TriggerZones$ Battlefield
+SVar:TrigToken:AB$ Token | Cost$ 3 U | TokenScriptIds$ 3774353100 | RememberTokens$ True | SubAbility$ DBAttach
+SVar:DBAttach:DB$ Attach | Object$ TriggeredCardLKICopy | Defined$ Remembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

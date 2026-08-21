@@ -1,7 +1,10 @@
 Id:15422
-ColorIdentity:
+ColorIdentity:R
 OriginSet:Gec9609c94c5b1cdf
-ManaCost:no cost
-Types:Land Mountain Forest
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ LandTapped | ReplacementResult$ Updated
-SVar:LandTapped:DB$ Tap | Defined$ Self | ETB$ True | ConditionPresent$ Land.Basic+YouCtrl | ConditionCompare$ LE1
+ManaCost:3 R
+Types:Creature Goblin Scout Ally
+PT:3/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self,Ally.Other+YouCtrl | Execute$ TrigPumpAll
+SVar:TrigPumpAll:DB$ PumpAll | ValidCards$ Creature.YouCtrl | KW$ Haste
+SVar:PlayMain1:ALWAYS
+SVar:BuffedBy:Ally

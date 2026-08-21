@@ -1,11 +1,15 @@
 Id:26519
-ColorIdentity:R
-OriginSet:G06757f68e16377c2
-ManaCost:2 R
-Types:Creature Dwarf Pilot
-PT:2/1
-K:Backup:1:BackupAbility
-SVar:BackupAbility:DB$ Animate | Triggers$ TapTrig
-SVar:TapTrig:Mode$ Taps | ValidCard$ Card.Self | Execute$ TrigDraw
-SVar:TrigDraw:AB$ Draw | Cost$ Discard<1/Card>
-T:Mode$ Taps | ValidCard$ Card.Self | Execute$ TrigDraw
+ColorIdentity:W
+OriginSet:Gd5f5e54fa26ae40d
+ManaCost:4 W
+Types:Creature Dragon
+PT:3/4
+K:Backup:1:BackupAbilities
+SVar:BackupAbilities:DB$ Animate | Keywords$ Flying | Triggers$ AttackTrig | sVars$ AE
+SVar:AttackTrig:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | ValidTgts$ Permanent.nonLand+cmcLEX+YouOwn | Origin$ Graveyard | Destination$ Battlefield
+SVar:X:TriggeredAttacker$CardPower
+K:Flying
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigReturn
+SVar:HasAttackEffect:TRUE
+SVar:AE:SVar:HasAttackEffect:TRUE

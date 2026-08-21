@@ -1,9 +1,11 @@
 Id:12469
-ColorIdentity:U
+ColorIdentity:B
 OriginSet:G12585413ffc93ad8
-ManaCost:4 U U
-Types:Creature Zombie Horror
-PT:5/5
+ManaCost:B B B
+Types:Creature Zombie
+PT:3/2
 K:Undying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill
-SVar:TrigMill:DB$ Mill | NumCards$ 5 | ValidTgts$ Player
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | ValidTgts$ Opponent | LifeAmount$ 2

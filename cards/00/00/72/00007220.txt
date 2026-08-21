@@ -1,11 +1,13 @@
 Id:7220
-ColorIdentity:
+ColorIdentity:R
 OriginSet:G332b6b8a53f3d107
-ManaCost:5
-Types:Artifact
-T:Mode$ Drawn | ValidCard$ Card.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigExile
-SVar:TrigExile:DB$ Dig | DigNum$ 1 | ChangeNum$ All | Defined$ You | DestinationZone$ Exile | ExileFaceDown$ True
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigChangeHandExile
-SVar:TrigChangeHandExile:DB$ ChangeZoneAll | Origin$ Hand | Destination$ Exile | ExileFaceDown$ True | ChangeType$ Card.YouCtrl | Imprint$ True | SubAbility$ ChangeBack
-SVar:ChangeBack:DB$ ChangeZoneAll | ChangeType$ Card.!IsImprinted+ExiledWithSource+YouOwn | Origin$ Exile | Destination$ Hand | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearImprinted$ True
+ManaCost:5 R
+Types:Sorcery
+A:SP$ NameCard | ValidCards$ Card.nonLand | SubAbility$ DBChooseNumber
+SVar:DBChooseNumber:DB$ ChooseNumber | Min$ 1 | SubAbility$ DBReveal
+SVar:DBReveal:DB$ PeekAndReveal | PeekNum$ X | NoPeek$ True | ValidTgts$ Player | RememberRevealed$ True | SubAbility$ DBDamage
+SVar:DBDamage:DB$ DealDamage | NumDmg$ 8 | Defined$ Targeted | ConditionDefined$ Remembered | ConditionPresent$ Card.NamedCard | ConditionCompare$ EQY | SubAbility$ DBShuffle
+SVar:DBShuffle:DB$ Shuffle | Defined$ ParentTarget | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:TargetedPlayer$CardsInLibrary
+SVar:Y:Count$ChosenNumber

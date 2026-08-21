@@ -1,8 +1,12 @@
 Id:27159
-ColorIdentity:G
+ColorIdentity:R
 OriginSet:G6ce0035cfb774934
-ManaCost:1 G
-Types:Creature Human Shaman
+ManaCost:2 R
+Types:Legendary Creature Goblin Soldier
 PT:1/1
-A:AB$ Mana | Cost$ T | Produced$ Any
-A:AB$ Pump | Cost$ 6 G T | ValidTgts$ Creature.Other | NumAtt$ +3 | NumDef$ +3 | KW$ Trample
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigAmass
+SVar:TrigAmass:DB$ Amass | Type$ Orc | Num$ 2 | RememberAmass$ True | SubAbility$ DBImmediateTrig
+SVar:DBImmediateTrig:DB$ ImmediateTrigger | ConditionDefined$ Remembered | ConditionPresent$ Card | RememberObjects$ Remembered | Execute$ TrigGainControl | SubAbility$ DBCleanup
+SVar:TrigGainControl:DB$ GainControl | ValidTgts$ Creature.nonLegendary+powerLEX+OppCtrl | LoseControl$ EOT | Untap$ True | AddKWs$ Haste
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:TriggerRemembered$CardPower

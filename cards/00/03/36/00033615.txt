@@ -1,16 +1,10 @@
 Id:33615
-ColorIdentity:U
-OriginSet:Gf04404de3fa1525e
-ManaCost:3 U U
-Types:Creature Human Wizard
-PT:5/5
-K:Flying
-K:Ward:2
-K:ETBReplacement:Other:DBPrepare
-SVar:DBPrepare:DB$ AlterAttribute | Attributes$ Prepared
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPrepare
-SVar:TrigPrepare:AB$ AlterAttribute | Cost$ ExileFromGrave<8/Card> | Attributes$ Prepared
-AlternateMode:Prepare
-SVar:HasAttackEffect:TRUE
-ALTERNATE
-CopyFaceFromId:2
+ColorIdentity:W
+OriginSet:Gff0a4227ae9f1a4b
+ManaCost:2 W
+Types:Legendary Creature Mutant Ninja Rat
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Creature.tapped | TargetMin$ 0 | TargetMax$ 1
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | ValidTgts$ Player.Other | Defined$ TargetedAndYou | NumCards$ 1

@@ -1,10 +1,13 @@
 Id:7659
-ColorIdentity:U
+ColorIdentity:B
 OriginSet:G3fddc6426f419054
-ManaCost:3 U U
-Types:Legendary Creature Kirin Spirit
-PT:4/4
-K:Flying
-T:Mode$ SpellCast | ValidCard$ Spirit,Arcane | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigMill
-SVar:TrigMill:DB$ Mill | ValidTgts$ Player | NumCards$ X
-SVar:X:TriggeredSpellAbility$CardManaCostLKI
+ManaCost:5 B
+Types:Sorcery Arcane
+A:SP$ ChooseNumber | ValidTgts$ Opponent | AILogic$ Damnation | Notify$ True | SubAbility$ DBChoice
+SVar:DBChoice:DB$ GenericChoice | Choices$ DBLoseLife,DBSac
+SVar:DBLoseLife:DB$ LoseLife | Defined$ ParentTarget | LifeAmount$ X
+SVar:DBSac:DB$ Sacrifice | Defined$ ParentTarget | SacValid$ Permanent | Amount$ Y
+SVar:X:Count$ChosenNumber
+SVar:Y:SVar$W/LimitMin.0
+SVar:W:SVar$Z/Minus.X
+SVar:Z:Count$Valid Permanent.TargetedPlayerCtrl

@@ -1,11 +1,9 @@
 Id:23365
-ColorIdentity:R
-OriginSet:Gbe3783f336562357
-ManaCost:2 R R
-Types:Creature Dragon
-PT:4/4
+ColorIdentity:UR
+OriginSet:G6e75ff4f143a3dc3
+ManaCost:1 U R
+Types:Creature Horror
+PT:2/1
 K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigAnimate
-SVar:TrigAnimate:DB$ Animate | ValidTgts$ Land.nonBasic+YouDontCtrl | RemoveNonManaAbilities$ True | Triggers$ EndofTurnShock | Duration$ Permanent
-SVar:EndofTurnShock:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDamage
-SVar:TrigDamage:DB$ DealDamage | Defined$ You | NumDmg$ 2 | UnlessCost$ Sac<1/CARDNAME> | UnlessPayer$ TriggeredPlayer
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigDig
+SVar:TrigDig:DB$ Dig | DigNum$ 6 | ChangeNum$ 1 | Optional$ True | ForceRevealToController$ True | ChangeValid$ Card.nonCreature+nonLand | RestRandomOrder$ True

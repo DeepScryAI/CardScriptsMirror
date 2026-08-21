@@ -1,11 +1,10 @@
 Id:26912
-ColorIdentity:W
-OriginSet:G6ce0035cfb774934
-ManaCost:2 W
-Types:Legendary Creature Human Soldier
-PT:3/3
-K:Vigilance
-T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ Opponent | TriggerZones$ Battlefield | Execute$ TrigCounter | ValidSA$ Spell.ManaSpent EQ0
-SVar:TrigCounter:DB$ Counter | Defined$ TriggeredSpellAbility
-A:AB$ PumpAll | Cost$ Sac<1/CARDNAME> | ValidCards$ Creature.YouCtrl | KW$ Indestructible | SubAbility$ TrigTempt
-SVar:TrigTempt:DB$ RingTemptsYou
+ColorIdentity:B
+OriginSet:G321081e278de53f0
+ManaCost:1 B
+Types:Creature Human Knight
+PT:2/2
+K:Menace
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | IsPresent$ Card.Self+counters_LT4_P1P1 | Execute$ TrigPutCounter | TriggerZones$ Battlefield
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBSearch
+SVar:DBSearch:DB$ ChangeZone | ConditionDefined$ Self | ConditionPresent$ Card.Self+counters_EQ4_P1P1 | Origin$ Library | Destination$ Hand | ChangeType$ Card | ChangeNum$ 1 | Mandatory$ True

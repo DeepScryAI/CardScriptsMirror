@@ -1,16 +1,14 @@
 Id:21106
-ColorIdentity:B
-OriginSet:G72c9c624ceb92bff
-ManaCost:2 B
-Types:Creature Human Rogue
-PT:2/3
-K:Menace
-S:Mode$ Continuous | Affected$ Card.Self | AddPower$ 3 | CheckSVar$ X | SVarCompare$ GE8
-SVar:X:PlayerCountOpponents$HighestCardsInGraveyard
-AlternateMode:Modal
-ALTERNATE
-ManaCost:no cost
-Types:Land
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
-A:AB$ Mana | Cost$ T | Produced$ B
+ColorIdentity:U
+OriginSet:G7b2607750b451c25
+ManaCost:3 U
+Types:Sorcery
+K:Kicker:2 U U
+A:SP$ Charm | MinCharmNum$ X | CharmNum$ Y | Choices$ DBReturn,DBScry,DBToken
+SVar:DBReturn:DB$ ChangeZone | TargetMin$ 0 | TargetMax$ 2 | ValidTgts$ Creature | Origin$ Battlefield | Destination$ Hand
+SVar:DBScry:DB$ Scry | ScryNum$ 2 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ 2
+SVar:DBToken:DB$ Token | ValidTgts$ Player | TokenScriptIds$ 4083411767 | TokenOwner$ TargetedPlayer | TokenPower$ Z | TokenToughness$ Z
+SVar:X:Count$Kicked.0.1
+SVar:Y:Count$Kicked.3.1
+SVar:Z:TargetedPlayer$CardsInHand

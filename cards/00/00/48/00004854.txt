@@ -2,7 +2,9 @@ Id:4854
 ColorIdentity:UB
 OriginSet:Gfb91362c2efb868e
 ManaCost:2 B
-Types:Creature Spirit Minion
+Types:Creature Human Wizard
 PT:3/1
-S:Mode$ CantBlock | ValidCard$ Card.Self
-A:AB$ Pump | Cost$ U | Defined$ Self | KW$ Prevent all combat damage that would be dealt to and dealt by CARDNAME.
+K:Kicker:1 U
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self+kicked | Execute$ TrigKicker
+SVar:TrigKicker:DB$ ChangeZone | ValidTgts$ Permanent | Origin$ Battlefield | Destination$ Hand
+SVar:NeedsToPlayKicked:Permanent.OppCtrl

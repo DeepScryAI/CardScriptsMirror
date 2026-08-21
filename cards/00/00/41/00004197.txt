@@ -1,6 +1,11 @@
 Id:4197
-ColorIdentity:
+ColorIdentity:U
 OriginSet:Gdd40b2fbd2aa3c03
-ManaCost:2
-Types:Artifact
-A:AB$ ChangeZone | Cost$ 2 T | ValidTgts$ Permanent.!token+YouCtrl | Origin$ Battlefield | Destination$ Library | Shuffle$ True
+ManaCost:3 U
+Types:Creature Human Pirate
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ RepeatEachOpp
+SVar:RepeatEachOpp:DB$ RepeatEach | RepeatPlayers$ Player.Opponent | RepeatSubAbility$ TrigSac
+SVar:TrigSac:DB$ Sacrifice | Defined$ Remembered | SacValid$ Permanent | UnlessCost$ 2 | UnlessPayer$ Remembered
+SVar:NeedsToPlayVar:Z LE1
+SVar:Z:Count$Valid Card.canProduceMana+OppCtrl+untapped

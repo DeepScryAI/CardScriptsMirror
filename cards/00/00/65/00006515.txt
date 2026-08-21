@@ -1,15 +1,8 @@
 Id:6515
 ColorIdentity:
 OriginSet:G983da6aa108b8f13
-ManaCost:6
-Types:Artifact Creature Shapeshifter
-PT:2/4
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | OptionalDecider$ You | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZone | Unimprint$ True | Imprint$ True | ImprintLast$ True | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Creature.!token
-S:Mode$ Continuous | Affected$ Card.Self | AddType$ ImprintedCreatureType | CheckSVar$ Z | SVarCompare$ EQ1 | SetPower$ X | SetToughness$ Y
-T:Mode$ ChangesZone | Origin$ Exile | Destination$ Any | Static$ True | ValidCard$ Card.IsImprinted | Execute$ DBCleanup
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | Static$ True | ValidCard$ Card.Self | Execute$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearImprinted$ True
-SVar:X:Imprinted$CardPower
-SVar:Y:Imprinted$CardToughness
-SVar:Z:Count$ValidExile Creature.IsImprinted
+ManaCost:4
+Types:Artifact Creature Scorpion
+PT:3/1
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Artifact.Creature+Other,Card.Self | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigUntap
+SVar:TrigUntap:DB$ Untap | ValidTgts$ Artifact

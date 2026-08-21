@@ -1,11 +1,9 @@
 Id:34174
 ColorIdentity:R
-OriginSet:Gcb93bbfc68a40806
-ManaCost:4 R
-Types:Legendary Creature Elemental Villain
-PT:4/4
-K:Haste
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigCopy | TriggerZones$ Battlefield
-SVar:TrigCopy:DB$ CopyPermanent | NumCopies$ X | Defined$ Self | NonLegendary$ True | TokenTapped$ True | TokenAttacking$ True | AtEOT$ Exile
-SVar:X:PlayerCountPropertyYou$CardsDiscardedThisTurn
-SVar:HasAttackEffect:TRUE
+OriginSet:Gaf3c6d0810185c00
+ManaCost:1 R
+Types:Sorcery
+A:SP$ Effect | Triggers$ DiesTrig | SubAbility$ DBDamageAll
+SVar:DiesTrig:Mode$ ChangesZone | ValidCard$ Creature.!token | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigPump | TriggerZones$ Command
+SVar:TrigPump:DB$ Pump | Defined$ TriggeredCard | PumpZone$ Graveyard | KW$ Unearth:5 | Duration$ Perpetual
+SVar:DBDamageAll:DB$ DamageAll | ValidCards$ Creature | NumDmg$ 3

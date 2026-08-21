@@ -1,12 +1,12 @@
 Id:21390
-ColorIdentity:B
+ColorIdentity:W
 OriginSet:G51d431785c8b33e5
-ManaCost:2 B
-Types:Creature Human Rogue
-PT:3/2
-K:Flash
-S:Mode$ Continuous | Affected$ Opponent | ControlOpponentsSearchingLibrary$ You
-R:Event$ Moved | ValidCard$ Card.OppOwn | FoundSearchingLibrary$ True | Origin$ Library | ReplaceWith$ RepExile | ActiveZones$ Battlefield
-SVar:RepExile:DB$ ChangeZone | Hidden$ True | Origin$ All | Destination$ Exile | Defined$ ReplacedCard | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | Duration$ Permanent | StaticAbilities$ MayPlay | RememberObjects$ ReplacedCard | ForgetOnMoved$ Exile
-SVar:MayPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile | MayPlayIgnoreColor$ True
+ManaCost:2 W W
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMonarch
+SVar:TrigMonarch:DB$ BecomeMonarch
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigBranch
+SVar:TrigBranch:DB$ Branch | BranchConditionSVar$ X | TrueSubAbility$ DBAngel | FalseSubAbility$ DBSpirit
+SVar:DBSpirit:DB$ Token | TokenScriptIds$ 273812182 | TokenOwner$ You
+SVar:DBAngel:DB$ Token | TokenScriptIds$ 2375228291 | TokenOwner$ You
+SVar:X:Count$Monarch.1.0

@@ -1,15 +1,10 @@
 Id:23848
-ColorIdentity:BR
+ColorIdentity:W
 OriginSet:G5f5d8cfb206e2fac
-ManaCost:2 B R
-Types:Legendary Creature Phoenix
-PT:3/3
-K:Flying
-K:Haste
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ Player | TriggerZones$ Battlefield | Execute$ TrigPhoenix | CheckSVar$ X
-SVar:TrigPhoenix:DB$ Pump | ValidTgts$ Phoenix.YouCtrl | AILogic$ PowerDmg | SubAbility$ DBDamage
-SVar:DBDamage:DB$ DealDamage | ValidTgts$ Any | AILogic$ PowerDmg | NumDmg$ Y | DamageSource$ ParentTarget
-SVar:X:Count$LeftGraveyardThisTurn Card.Creature+YouOwn
-SVar:Y:ParentTargeted$CardPower
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Phoenix.Other+YouCtrl | TriggerZones$ Graveyard | Execute$ TrigPlay | OptionalDecider$ You
-SVar:TrigPlay:DB$ Play | Optional$ True
+ManaCost:3 W
+Types:Legendary Creature Elf Druid
+PT:3/2
+K:Convoke
+T:Mode$ Phase | Phase$ End of Turn | CheckSVar$ X | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw
+SVar:X:Count$ThisTurnEntered_Battlefield_Card.tokenCreated+YouCtrl

@@ -1,10 +1,8 @@
 Id:33425
-ColorIdentity:UR
-OriginSet:G23d1f017cc66962f
-ManaCost:4 U R
+ColorIdentity:B
+OriginSet:G7ab1fe96128a1641
+ManaCost:3 B
 Types:Sorcery
-A:SP$ Charm | MinCharmNum$ 1 | CharmNum$ 2 | Choices$ DBDamage,DBReturn1
-SVar:DBDamage:DB$ DealDamage | ValidTgts$ Creature | NumDmg$ 5
-SVar:DBReturn1:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Artifact.YouOwn | ConditionDefined$ Targeted | ConditionPresent$ Artifact.Creature | SubAbility$ DBReturn2
-SVar:DBReturn2:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | Defined$ Targeted | StaticEffect$ Animate
-SVar:Animate:Mode$ Continuous | Affected$ Card.IsRemembered | AddType$ Artifact & Creature & Robot | SetPower$ 3 | SetToughness$ 3 | AddKeyword$ Flying
+A:SP$ Charm | Choices$ DBChangeZone,DBRemoveCounter | MinCharmNum$ 1 | CharmNum$ 2 | Defined$ You
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | DefinedPlayer$ Targeted | ValidTgts$ Opponent | Chooser$ Targeted | ChangeType$ Card | ChangeNum$ 2 | IsCurse$ True | Mandatory$ True
+SVar:DBRemoveCounter:DB$ RemoveCounter | ValidTgts$ Creature | CounterType$ All | CounterNum$ All

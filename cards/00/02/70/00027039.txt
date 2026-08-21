@@ -1,9 +1,11 @@
 Id:27039
-ColorIdentity:R
-OriginSet:G6ce0035cfb774934
+ColorIdentity:B
+OriginSet:G3601f5e223de6c7f
 ManaCost:no cost
-Types:Legendary Land
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ LandTapped | ReplacementResult$ Updated
-SVar:LandTapped:DB$ Tap | Defined$ Self | ETB$ True | ConditionPresent$ Creature.Legendary+YouCtrl | ConditionCompare$ EQ0
-A:AB$ Mana | Cost$ T | Produced$ R
-A:AB$ Token | Cost$ 3 R T ExileFromGrave<3/Card/cards> | TokenScriptIds$ 3851718391 | TokenAmount$ 2
+Types:Legendary Land Gate
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ DBTap | ReplacementResult$ Updated
+SVar:DBTap:DB$ Tap | ETB$ True | Defined$ Self | UnlessCost$ PayLife<3> | UnlessPayer$ You
+A:AB$ Mana | Cost$ T | Produced$ B
+A:AB$ ChoosePlayer | Cost$ 1 B T | Defined$ You | Choices$ Player.withMostLife | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | ValidTgts$ Creature | RememberObjects$ ChosenPlayer & Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ CantBlock
+SVar:CantBlock:Mode$ CantBlockBy | ValidAttacker$ Creature.IsRemembered | ValidBlocker$ Creature.RememberedPlayerCtrl

@@ -1,9 +1,13 @@
 Id:9292
-ColorIdentity:G
+ColorIdentity:W
 OriginSet:G1ddd2c86a9ea60e3
-ManaCost:2 G G
-Types:Legendary Planeswalker Garruk
-Loyalty:3
-A:AB$ Untap | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Land | TargetMin$ 2 | TargetMax$ 2
-A:AB$ Token | Cost$ SubCounter<1/LOYALTY> | Planeswalker$ True | TokenScriptIds$ 273416837 | TokenOwner$ You
-A:AB$ PumpAll | Cost$ SubCounter<4/LOYALTY> | Planeswalker$ True | Ultimate$ True | ValidCards$ Creature.YouCtrl | NumAtt$ +3 | NumDef$ +3 | KW$ Trample
+ManaCost:3 W
+Types:Creature Kithkin Wizard
+PT:3/3
+K:Flying
+T:Mode$ Attacks | ValidCard$ Creature.Self | Execute$ TrigExile | TriggerZones$ Battlefield
+SVar:TrigExile:DB$ ChangeZone | ValidTgts$ Creature.Other | Mandatory$ True | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DelTrig
+SVar:DelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ TrigBounce | RememberObjects$ RememberedLKI | SubAbility$ DBCleanup
+SVar:TrigBounce:DB$ ChangeZone | Origin$ Exile | Destination$ Battlefield | Defined$ DelayTriggerRememberedLKI
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:HasAttackEffect:TRUE

@@ -1,6 +1,10 @@
 Id:8021
-ColorIdentity:U
+ColorIdentity:R
 OriginSet:Gc563c209d627c4c5
-ManaCost:3 U
-Types:Instant
-A:SP$ ChangeZoneAll | Defined$ Player | ChangeType$ Card | Origin$ Graveyard | Destination$ Library | Shuffle$ True
+ManaCost:4 R
+Types:Enchantment
+T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ You | Execute$ TrigChangeZone | TriggerZones$ Battlefield
+SVar:TrigChangeZone:DB$ ChangeZoneAll | Origin$ Hand | Destination$ Library | ChangeType$ Card.YouOwn | RememberChanged$ True | LibraryPosition$ -1 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ RemTossed | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:RemTossed:Remembered$Amount

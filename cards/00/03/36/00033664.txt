@@ -1,11 +1,12 @@
 Id:33664
-ColorIdentity:B
-OriginSet:Gf04404de3fa1525e
-ManaCost:2 B B
-Types:Creature Demon
-PT:7/6
-K:Trample
-K:Ward:Discard<1/Card>
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | Execute$ TrigSac | TriggerZones$ Battlefield
-SVar:TrigSac:DB$ Sacrifice | SacValid$ Permanent | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ0
-SVar:X:Count$LifeYouGainedThisTurn
+ColorIdentity:WUBRG
+OriginSet:G23d1f017cc66962f
+ManaCost:2
+Types:Artifact Food
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Land.Basic
+A:AB$ GainLife | Cost$ 2 W U B R G T Sac<1/CARDNAME/this artifact> | LifeAmount$ 3 | ValidTgts$ Player | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ ParentTarget | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ Player.Opponent | Mode$ TgtChoose | SubAbility$ DBDamage
+SVar:DBDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 3 | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | CounterType$ P1P1 | CounterNum$ 3

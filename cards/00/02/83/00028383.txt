@@ -1,8 +1,9 @@
 Id:28383
-ColorIdentity:G
-OriginSet:G7ee0e82a2424d636
-ManaCost:G
+ColorIdentity:W
+OriginSet:G4f78ded7b58f78f8
+ManaCost:3 W W
 Types:Sorcery
-S:Mode$ OptionalCost | EffectZone$ All | ValidCard$ Card.Self | ValidSA$ Spell | Cost$ CollectEvidence<8>
-A:SP$ ChangeZone | Origin$ Library | Destination$ Hand | ConditionDefined$ Collected | ConditionPresent$ Card | ConditionCompare$ EQ0 | ChangeType$ Land.Basic | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Land,Creature | ChangeNum$ 1 | ConditionDefined$ Collected | ConditionPresent$ Card
+A:SP$ DestroyAll | ValidCards$ Creature.tapped | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | Triggers$ TrigTaps | Duration$ UntilYourNextTurn
+SVar:TrigTaps:Mode$ Taps | ValidCard$ Creature | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ Destroy | Defined$ TriggeredCardLKICopy

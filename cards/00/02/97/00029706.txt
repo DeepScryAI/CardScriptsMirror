@@ -1,9 +1,10 @@
 Id:29706
 ColorIdentity:B
-OriginSet:G01a610e823cce3ca
-ManaCost:1 B
-Types:Artifact
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1 | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 1
-A:AB$ PumpAll | Cost$ B T Sac<1/CARDNAME> | ValidCards$ Creature.YouCtrl+equipped,Equipment.YouCtrl | KW$ Deathtouch
+OriginSet:Gac6359c222afbd4f
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ LandTapped | ReplacementResult$ Updated
+SVar:LandTapped:DB$ Tap | Defined$ Self | ETB$ True | ConditionPresent$ Swamp.YouCtrl | ConditionCompare$ EQ0
+A:AB$ Mana | Cost$ T | Produced$ B
+A:AB$ Connive | Cost$ B T | ValidTgts$ Creature.YouCtrl | ConniveNum$ X
+SVar:X:Count$ThisTurnEntered_Graveyard_from_Battlefield_Creature

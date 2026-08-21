@@ -1,7 +1,11 @@
 Id:27538
 ColorIdentity:B
-OriginSet:G7579344e30f8be85
-ManaCost:2 B B
-Types:Instant
-A:SP$ ChangeZone | ValidTgts$ Creature | Origin$ Battlefield | Destination$ Exile | SubAbility$ DBScry
-SVar:DBScry:DB$ Scry | ConditionPresent$ Enchantment.YouCtrl | ScryNum$ 2
+OriginSet:Ge16da27db30ac32e
+ManaCost:2 B
+Types:Creature Faerie Rogue
+PT:3/1
+K:Flying
+T:Mode$ DamageDoneOnce | CombatDamage$ True | ValidSource$ Creature.Faerie+YouCtrl | ValidTarget$ Player | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 2412584323 | TokenOwner$ TriggeredTarget | RememberTokens$ True | SubAbility$ DBGoad
+SVar:DBGoad:DB$ Goad | Defined$ Remembered | Duration$ Permanent | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

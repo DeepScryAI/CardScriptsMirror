@@ -1,14 +1,12 @@
 Id:23822
-ColorIdentity:B
-OriginSet:G5f5d8cfb206e2fac
-ManaCost:3 B
-Types:Creature Human Warlock
-PT:3/1
-K:Deathtouch
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigExile | TriggerZones$ Battlefield | Secondary$ True
-SVar:TrigExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card | RememberChanged$ True | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenScriptIds$ 463201318 | ConditionDefined$ Remembered | ConditionPresent$ Creature | ConditionCompare$ EQ1 | SubAbility$ DBTreasure
-SVar:DBTreasure:DB$ Token | TokenScriptIds$ 3851718391 | ConditionDefined$ Remembered | ConditionPresent$ Land | ConditionCompare$ EQ1 | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | LifeAmount$ 3 | ConditionDefined$ Remembered | ConditionPresent$ Creature,Land | ConditionCompare$ EQ0 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:BG
+OriginSet:G18bf722b221724f8
+ManaCost:2 B G
+Types:Enchantment Saga
+K:Chapter:3:DBMill,DBPutCounterAll,DBEffect
+SVar:DBMill:DB$ Mill | NumCards$ 5 | Defined$ You | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Hidden$ True | ChangeType$ Elf.YouOwn,Tyvar.YouOwn | ChangeNum$ 1 | Origin$ Graveyard | Destination$ Battlefield
+SVar:DBPutCounterAll:DB$ PutCounterAll | ValidCards$ Creature.Elf+YouCtrl | CounterType$ P1P1 | CounterNum$ 1
+SVar:DBEffect:DB$ Effect | Triggers$ TrigAttack
+SVar:TrigAttack:Mode$ Attacks | ValidCard$ Creature.Elf+YouCtrl | Execute$ TrigPump | TriggerZones$ Battlefield
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.OppCtrl | NumAtt$ -1 | NumDef$ -1 | IsCurse$ True

@@ -1,8 +1,13 @@
 Id:18653
-ColorIdentity:B
-OriginSet:G1ecb361a0a117393
-ManaCost:1 B
-Types:Creature Rat
-PT:1/1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDiscard
-SVar:TrigDiscard:DB$ Discard | Defined$ Opponent | Mode$ TgtChoose
+ColorIdentity:R
+OriginSet:Gd7cbb6e7dea72fb5
+ManaCost:2 R
+Types:Legendary Creature Human Knight
+PT:3/3
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenOwner$ TriggeredTarget | TokenAmount$ X | TokenScriptIds$ 2389963374
+SVar:X:TriggerCount$DamageAmount
+S:Mode$ CantBlock | ValidCard$ Survivor.OppCtrl
+S:Mode$ CantAttack | ValidCard$ Creature.Survivor+OppCtrl | Target$ You,Planeswalker.YouCtrl
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigGainControl
+SVar:TrigGainControl:DB$ GainControl | AllValid$ Survivor | NewController$ You

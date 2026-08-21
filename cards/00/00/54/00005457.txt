@@ -1,7 +1,12 @@
 Id:5457
-ColorIdentity:
+ColorIdentity:R
 OriginSet:Gfdac7ecc1e8a7d21
-ManaCost:2
-Types:Artifact
-A:AB$ ChangeZone | Cost$ 3 T | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card
-A:AB$ ChangeZone | Cost$ 1 Sac<1/CARDNAME> | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card
+ManaCost:1 R R
+Types:Enchantment Aura
+K:Enchant:Land
+SVar:AttachAILogic:Curse
+T:Mode$ Taps | ValidCard$ Card.AttachedBy | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ Destroy | Defined$ TriggeredCardLKICopy | SubAbility$ DBDmg
+SVar:DBDmg:DB$ DealDamage | Defined$ TriggeredCardController | NumDmg$ 1 | SubAbility$ DBAttach
+SVar:DBAttach:DB$ Attach | Object$ Self | Chooser$ TriggeredCardController | Choices$ Land | AILogic$ Curse
+SVar:NonStackingAttachEffect:True

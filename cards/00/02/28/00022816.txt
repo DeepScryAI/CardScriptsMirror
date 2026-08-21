@@ -1,21 +1,11 @@
 Id:22816
-ColorIdentity:WU
-OriginSet:Gf78628ad511eefec
-ManaCost:W U
-Types:Creature Human Peasant
-PT:2/1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill
-SVar:TrigMill:DB$ Mill | NumCards$ 2 | Defined$ You
-T:Mode$ SpellCast | ValidCard$ Card.wasCastFromYourGraveyardByYou | ValidActivatingPlayer$ You | Execute$ TrigTap | TriggerZones$ Battlefield
-SVar:TrigTap:DB$ Tap | ValidTgts$ Creature.YouDontCtrl
-K:Disturb:1 W U
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:white,blue
-Types:Creature Spirit
-PT:3/1
-K:Flying
-S:Mode$ CantBlockBy | ValidAttacker$ Creature.withoutFlying | ValidBlocker$ Creature.Self
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Graveyard | ReplaceWith$ Exile
-SVar:Exile:DB$ ChangeZone | Hidden$ True | Origin$ All | Destination$ Exile | Defined$ ReplacedCard
+ColorIdentity:U
+OriginSet:G66f2eb694ffd614a
+ManaCost:3 U
+Types:Creature Shapeshifter
+PT:2/2
+K:Flash
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigMillSK
+SVar:TrigMillSK:DB$ Mill | Defined$ Player | NumCards$ 3 | RememberMilled$ True | SubAbility$ DBExileSK
+SVar:DBExileSK:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | Hidden$ True | ChangeType$ Creature.IsRemembered | ChangeNum$ 1 | Imprint$ True | ForgetOtherRemembered$ True | SubAbility$ DBCloneSK
+SVar:DBCloneSK:DB$ Clone | ConditionDefined$ Imprinted | ConditionZone$ Exile | ConditionPresent$ Card | Defined$ Imprinted | GainThisAbility$ True

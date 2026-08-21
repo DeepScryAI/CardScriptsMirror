@@ -1,14 +1,14 @@
 Id:23080
-ColorIdentity:B
-OriginSet:G7a76c1974b0a33a6
-ManaCost:2 B B
-Types:Legendary Planeswalker Sorin
-Loyalty:4
-A:AB$ PeekAndReveal | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | PeekAmount$ 1 | RevealOptional$ True | RememberRevealed$ True | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | Defined$ TopOfLibrary | Origin$ Library | Destination$ Hand | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ1 | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ X | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ1 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Remembered$CardManaCost
-A:AB$ Token | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | TokenScriptIds$ 9675348
-A:AB$ DealDamage | Cost$ SubCounter<7/LOYALTY> | Planeswalker$ True | Ultimate$ True | ValidTgts$ Any | NumDmg$ 13 | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | LifeAmount$ 13
+ColorIdentity:UBR
+OriginSet:G8a59924df6623252
+ManaCost:1 U B R
+Types:Legendary Creature Human Wizard
+PT:3/5
+S:Mode$ Continuous | Affected$ You | SetMaxHandSize$ 11
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDraw | TriggerZones$ Battlefield
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1 | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 1 | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | ConditionCheckSVar$ HandSize | ConditionSVarCompare$ GE11 | Valid$ Card.YouOwn | ValidSA$ Instant,Sorcery | ValidZone$ Hand | WithoutManaCost$ True | Amount$ 1 | Controller$ You | Optional$ True
+SVar:HandSize:Count$ValidHand Card.YouOwn
+K:Partner:Friends forever
+SVar:HasAttackEffect:TRUE

@@ -2,7 +2,7 @@ Id:20353
 ColorIdentity:W
 OriginSet:Gfa87e7bbc5a709eb
 ManaCost:1 W
-Types:Creature Cat Warrior
-PT:3/1
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card.OppOwn
+Types:Instant
+A:SP$ ChangeZone | ValidTgts$ Creature,Enchantment | Origin$ Battlefield | Destination$ Exile | RememberTargets$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ All | Destination$ Battlefield | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

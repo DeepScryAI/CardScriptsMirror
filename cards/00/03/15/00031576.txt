@@ -1,11 +1,16 @@
 Id:31576
-ColorIdentity:R
-OriginSet:G530ea9d733a13e9d
-ManaCost:2 R
-Types:Legendary Creature Human Rebel
-PT:*/3
-K:Menace
-S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X
-T:Mode$ AbilityCast | ValidCard$ Artifact.inZoneBattlefield | ValidSA$ Activated.OppCtrl | ValidSAonCard$ Activated.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigDmg
-SVar:TrigDmg:DB$ DealDamage | NumDmg$ 1 | Defined$ TriggeredActivator
-SVar:X:Count$Valid Artifact.OppCtrl
+ColorIdentity:B
+OriginSet:Gf2b808f4f642ac62
+ManaCost:5 B
+Types:Creature Dragon
+PT:3/5
+K:Flying
+K:Deathtouch
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | TargetMin$ 0 | TargetMax$ 2 | TargetsWithSameController$ True | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card
+AlternateMode:Omen
+ALTERNATE
+ManaCost:1 B
+Types:Sorcery Omen
+A:SP$ PutCounter | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ 1 | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw

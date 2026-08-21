@@ -1,8 +1,12 @@
 Id:23914
-ColorIdentity:BRG
-OriginSet:Gfdfe2ebef04be34e
-ManaCost:B R G
-Types:Enchantment
-T:Mode$ Sacrificed | ValidCard$ Creature.YouCtrl | Execute$ TrigReturn | OptionalDecider$ You | ResolvedLimit$ 1 | TriggerZones$ Battlefield
-SVar:TrigReturn:DB$ ChangeZone | ValidTgts$ Creature.cmcLTX+YouOwn | Origin$ Graveyard | Destination$ Battlefield | Tapped$ True
-SVar:X:TriggeredCard$CardManaCost
+ColorIdentity:U
+OriginSet:G5f5d8cfb206e2fac
+ManaCost:3 U
+Types:Creature Bird Rogue
+PT:3/3
+K:Flying
+K:Escape:3 U ExileFromGrave<5/Card.Other/other>
+K:ETBReplacement:Other:DBAnimate:Mandatory::Card.Self+escaped
+SVar:DBAnimate:DB$ Animate | Triggers$ DamageTrig | Duration$ Permanent
+SVar:DamageTrig:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigCast | TriggerZones$ Battlefield
+SVar:TrigCast:DB$ Play | ValidZone$ Exile | Valid$ Artifact.ExiledWithSource,Instant.ExiledWithSource,Sorcery.ExiledWithSource | ValidSA$ Spell | Controller$ You | WithoutManaCost$ True | Amount$ 1 | Optional$ True

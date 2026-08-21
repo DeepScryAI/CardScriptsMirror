@@ -1,14 +1,10 @@
 Id:18922
-ColorIdentity:U
+ColorIdentity:
 OriginSet:G586a4ae96288ce18
-ManaCost:2 U U
-Types:Creature Sphinx
-PT:4/4
-K:MayEffectFromOpeningHand:RevealCard
-SVar:RevealCard:DB$ Reveal | RevealDefined$ Self | SubAbility$ ScryOnUpkeep
-SVar:ScryOnUpkeep:DB$ Effect | Triggers$ TrigOpenScry | Duration$ Permanent
-SVar:TrigOpenScry:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | OneOff$ True | Execute$ DBScry
-SVar:DBScry:DB$ Scry | ScryNum$ 3
-K:Flying
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigScry
-SVar:TrigScry:DB$ Scry | ScryNum$ 1
+ManaCost:8
+Types:Artifact Creature Construct
+PT:8/8
+K:Affinity:Gate
+S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self | ValidBlocker$ Creature.powerLE2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Gate.YouCtrl | OptionalDecider$ You | TriggerZones$ Graveyard | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZone | Origin$ Graveyard | Destination$ Library | Defined$ Self

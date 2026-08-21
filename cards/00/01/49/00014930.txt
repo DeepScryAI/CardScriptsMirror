@@ -1,6 +1,12 @@
 Id:14930
-ColorIdentity:W
+ColorIdentity:U
 OriginSet:G25ee1eefb1a14f05
-ManaCost:2 W
-Types:Instant
-A:SP$ DealDamage | ValidTgts$ Creature.attacking,Creature.blocking | NumDmg$ 5
+ManaCost:4 U U
+Types:Creature Djinn Monk
+PT:4/5
+K:Prowess
+T:Mode$ Attacks | ValidCard$ Card.Self | OptionalDecider$ You | Execute$ TrigBounce
+SVar:TrigBounce:DB$ ChangeZone | ValidTgts$ Creature | Origin$ Battlefield | Destination$ Hand | IsCurse$ True | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ1
+SVar:Y:Count$CardPower
+SVar:X:Targeted$Valid Creature.powerLTY
+SVar:HasAttackEffect:TRUE

@@ -1,7 +1,13 @@
 Id:26992
-ColorIdentity:B
-OriginSet:G6ce0035cfb774934
-ManaCost:B
-Types:Instant
-A:SP$ Pump | ValidTgts$ Creature | NumAtt$ -2 | NumDef$ -2 | IsCurse$ True
-A:AB$ RingTemptsYou | Cost$ 3 B ExileFromGrave<1/CARDNAME> | SorcerySpeed$ True | ActivationZone$ Graveyard
+ColorIdentity:WB
+OriginSet:G3601f5e223de6c7f
+ManaCost:W B
+Types:Legendary Creature Halfling Scout
+PT:1/3
+K:PartnerWithId:27030
+K:Vigilance
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigTempt | CheckSVar$ YouLifeGained | SVarCompare$ GE3
+SVar:TrigTempt:DB$ RingTemptsYou | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | ConditionCheckSVar$ NumRingTempted | ConditionSVarCompare$ GE2 | ConditionPresent$ Card.Self+IsRingbearer | ConditionCompare$ GE1
+SVar:YouLifeGained:Count$LifeYouGainedThisTurn
+SVar:NumRingTempted:PlayerCountPropertyYou$RingTemptedYou

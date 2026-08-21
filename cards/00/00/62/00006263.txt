@@ -1,10 +1,9 @@
 Id:6263
-ColorIdentity:W
+ColorIdentity:R
 OriginSet:G0085c354434a9ecc
-ManaCost:3 W
-Types:Creature Human Soldier
-PT:2/3
-K:Vigilance
-K:Morph:1 W
-T:Mode$ TurnFaceUp | ValidCard$ Card.Self | Execute$ TrigUntap | TriggerZones$ Battlefield
-SVar:TrigUntap:DB$ Untap | Defined$ Self
+ManaCost:3 R
+Types:Creature Spirit
+PT:3/3
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Opponent | CheckSVar$ CardsInHand | SVarCompare$ LE2 | Execute$ TrigDamage | TriggerZones$ Battlefield
+SVar:TrigDamage:DB$ DealDamage | Defined$ TriggeredPlayer | NumDmg$ 3
+SVar:CardsInHand:Count$ValidHand Card.ActivePlayerCtrl

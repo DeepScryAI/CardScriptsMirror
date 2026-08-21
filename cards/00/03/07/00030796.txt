@@ -1,14 +1,9 @@
 Id:30796
-ColorIdentity:BR
-OriginSet:G2c8286a6f234d4b9
-ManaCost:2 B
-Types:Legendary Creature Vampire Soldier
+ColorIdentity:W
+OriginSet:Gc5a2f0ff902c0621
+ManaCost:2 W
+Types:Legendary Creature Cat Avatar
 PT:2/2
-K:Flying
-A:AB$ PutCounter | Cost$ Sac<1/Creature.Other;Artifact.Other/another creature or artifact> | CounterType$ P1P1 | CounterNum$ 1 | SorcerySpeed$ True | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | Defined$ Self | ConditionCheckSVar$ X | KW$ Lifelink
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | OptionalDecider$ TriggeredCardController | Execute$ TrigImmediateTrig
-SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ 1 BR | Execute$ TrigDealDamage
-SVar:TrigDealDamage:DB$ DealDamage | Defined$ Opponent | NumDmg$ Y
-SVar:X:Sacrificed$Valid Treasure
-SVar:Y:Count$CardPower
+S:Mode$ Continuous | Affected$ Cat.Other+YouCtrl | AddPower$ 1 | AddToughness$ 1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self,Cat.!token+Other+YouCtrl | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 2467913596

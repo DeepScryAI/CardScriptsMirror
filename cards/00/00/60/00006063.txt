@@ -1,11 +1,12 @@
 Id:6063
-ColorIdentity:R
+ColorIdentity:G
 OriginSet:G0eb5e52d26fe1c23
-ManaCost:4 R
-Types:Creature Beast
-PT:4/5
-T:Mode$ DamageDone | ValidSource$ Creature.inZoneBattlefield | ValidTarget$ Card.Self | Execute$ TrigDealDamage1
-T:Mode$ DamageDone | ValidSource$ Instant,Sorcery | ValidTarget$ Card.Self | Execute$ TrigDealDamage2
-SVar:TrigDealDamage1:DB$ DealDamage | Defined$ TriggeredSourceLKICopy | NumDmg$ X
-SVar:TrigDealDamage2:DB$ DealDamage | Defined$ TriggeredSourceController | NumDmg$ X
-SVar:X:TriggerCount$DamageAmount
+ManaCost:1 G
+Types:Creature Wurm
+PT:5/5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ EachOpponent
+SVar:EachOpponent:DB$ RepeatEach | RepeatPlayers$ Player.Opponent | RepeatSubAbility$ TemptingChange
+SVar:TemptingChange:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | ChangeType$ Artifact,Creature,Enchantment,Land | DefinedPlayer$ Remembered | ChangeNum$ X
+SVar:X:Count$ValidHand Artifact.RememberedPlayerCtrl,Creature.RememberedPlayerCtrl,Enchantment.RememberedPlayerCtrl,Land.RememberedPlayerCtrl
+SVar:NeedsToPlayVar:Y LE2
+SVar:Y:Count$ValidHand Card.OppOwn

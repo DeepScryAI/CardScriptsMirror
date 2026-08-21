@@ -1,17 +1,11 @@
 Id:32099
-ColorIdentity:WG
-OriginSet:G9946f072b5556073
-ManaCost:X G W
-Types:Legendary Artifact Creature Construct
-PT:0/1
-K:Trample
-K:etbCounter:P1P1:Y:no Condition
-SVar:X:Count$xPaid
-SVar:Y:Count$CastTotalManaSpent
-SVar:Z:Count$RememberedNumber
-T:Mode$ AttackersDeclared | AttackingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigCounters | OptionalDecider$ You
-SVar:TrigCounters:DB$ RemoveCounter | CounterType$ P1P1 | Choices$ Creature.YouCtrl+counters_GE1_P1P1 | ChoiceNum$ 2 | RememberAmount$ True | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | ConditionCheckSVar$ Z | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | ConditionCheckSVar$ Z | TokenScriptIds$ 1668469659 | SubAbility$ DBCleanup
+ColorIdentity:R
+OriginSet:G7ab4f62d323b0ca7
+ManaCost:3 R R R
+Types:Enchantment
+T:Mode$ Phase | Phase$ Upkeep | TriggerZones$ Battlefield | ValidPlayer$ You | Execute$ TrigExile
+SVar:TrigExile:DB$ Dig | Defined$ Player | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ Play | SetChosenNumber$ Count$ValidExile Card.YouOwn+IsRemembered$CardManaCost | SubAbility$ DBCleanup | ForgetOnMoved$ Exile
+SVar:Play:Mode$ Continuous | MayPlay$ True | EffectZone$ Command | Affected$ Card.IsRemembered+YouOwn,Card.IsRemembered+cmcLTX | AffectedZone$ Exile | MayPlayWithoutManaCost$ True
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:PlayMain1:TRUE
+SVar:X:Count$ChosenNumber

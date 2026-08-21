@@ -1,16 +1,18 @@
 Id:14915
-ColorIdentity:B
+ColorIdentity:R
 OriginSet:G25ee1eefb1a14f05
-ManaCost:3 B B
+ManaCost:3 R
 Types:Enchantment
 K:ETBReplacement:Other:SiegeChoice
-SVar:SiegeChoice:DB$ GenericChoice | Choices$ Khans,Dragons | Defined$ You | SetChosenMode$ True | AILogic$ Dragons | ShowChoice$ ExceptSelf
+SVar:SiegeChoice:DB$ GenericChoice | Choices$ Khans,Dragons | Defined$ You | SetChosenMode$ True | AILogic$ Khans | ShowChoice$ ExceptSelf
 SVar:Khans:DB$ Pump
 SVar:Dragons:DB$ Pump
 S:Mode$ Continuous | Affected$ Card.Self+ChosenModeKhans | AddTrigger$ KhansTrigger
 S:Mode$ Continuous | Affected$ Card.Self+ChosenModeDragons | AddTrigger$ DragonsTrigger
-SVar:KhansTrigger:Mode$ Phase | Phase$ Upkeep | TriggerZones$ Battlefield | ValidPlayer$ You | Execute$ RaiseDead | Secondary$ True
-SVar:RaiseDead:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Creature.YouCtrl
-SVar:DragonsTrigger:Mode$ Phase | Phase$ Upkeep | TriggerZones$ Battlefield | ValidPlayer$ You | Execute$ SyphonLife | Secondary$ True
-SVar:SyphonLife:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 2 | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2
+SVar:KhansTrigger:Mode$ Phase | Phase$ Upkeep | TriggerZones$ Battlefield | ValidPlayer$ You | Execute$ PseudoDraw | Secondary$ True
+SVar:PseudoDraw:DB$ Dig | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ Play | SubAbility$ DBCleanup | ExileOnMoved$ Exile
+SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:DragonsTrigger:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Creature.YouCtrl | TriggerZones$ Battlefield | Execute$ SmallBurnination | Secondary$ True
+SVar:SmallBurnination:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 1

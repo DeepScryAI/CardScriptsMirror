@@ -1,9 +1,13 @@
 Id:14014
-ColorIdentity:U
+ColorIdentity:R
 OriginSet:Gdaee41baa388b0e7
-ManaCost:1 U
-Types:Enchantment Creature Spirit
-PT:1/1
-K:Bestow:5 U
-S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self,Creature.EnchantedBy
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 1 | AddToughness$ 1
+ManaCost:2 R R
+Types:Creature Phoenix
+PT:3/3
+K:Flying
+K:Tribute:2
+SVar:TrigNotTribute:DB$ Animate | Duration$ Permanent | Triggers$ FlamePhoenixChangeZone | Keywords$ Haste
+SVar:FlamePhoenixChangeZone:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigChangeZone | TriggerController$ TriggeredCardController
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | Defined$ TriggeredNewCardLKICopy
+SVar:TributeAILogic:CanBlockThisTurn
+SVar:PlayMain1:ALWAYS

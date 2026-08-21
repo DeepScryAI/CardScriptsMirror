@@ -1,8 +1,13 @@
 Id:29056
-ColorIdentity:U
-OriginSet:G27146c70b74a1e72
-ManaCost:2 U
-Types:Creature Homarid Mercenary
-PT:2/4
-T:Mode$ CommitCrime | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigMill | ActivationLimit$ 1
-SVar:TrigMill:DB$ Mill | NumCards$ 3 | Defined$ Player.Opponent
+ColorIdentity:
+OriginSet:Gaf7c94f364052cdd
+ManaCost:2
+Types:Artifact Equipment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigEnergy
+SVar:TrigEnergy:DB$ PutCounter | Defined$ You | CounterType$ ENERGY | CounterNum$ 2
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 3 | AddToughness$ 3
+R:Event$ Untap | ValidCard$ Creature.EquippedBy | ValidStepTurnToController$ You | Layer$ CantHappen | Secondary$ True
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigUntap | TriggerZones$ Battlefield
+SVar:TrigUntap:AB$ Untap | Cost$ PayEnergy<1> | Defined$ Equipped | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | CounterType$ Menace,Trample,Lifelink | Defined$ Equipped
+K:Equip:3

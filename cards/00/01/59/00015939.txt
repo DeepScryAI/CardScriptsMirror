@@ -1,9 +1,17 @@
 Id:15939
-ColorIdentity:WB
+ColorIdentity:W
 OriginSet:Gc276c26a85a70470
-ManaCost:2 B
-Types:Enchantment
-S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddKeyword$ Skulk
-A:AB$ PumpAll | Cost$ 4 W | ValidCards$ Creature.YouCtrl | NumAtt$ +1 | NumDef$ +1
-SVar:NonStackingEffect:True
-SVar:PlayMain1:TRUE
+ManaCost:3 W
+Types:Creature Human Cleric
+PT:3/3
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | IsPresent$ Card.Self+equipped | TriggerZones$ Battlefield | Execute$ TrigTransform
+SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform
+SVar:EquipMe:Once
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:white
+Types:Creature Human Cleric
+PT:4/4
+T:Mode$ Transformed | ValidCard$ Card.Self | Execute$ TrigExile | OptionalDecider$ You
+SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Creature.Other | Duration$ UntilHostLeavesPlay

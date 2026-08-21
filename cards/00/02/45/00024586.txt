@@ -1,0 +1,14 @@
+Id:24586
+ColorIdentity:G
+OriginSet:G58bfeff4fb121c8e
+ManaCost:G
+Types:Enchantment
+K:ETBReplacement:Other:ChooseOpp
+SVar:ChooseOpp:DB$ ChoosePlayer | Choices$ Opponent | AILogic$ Curse | SubAbility$ DBChooseType
+SVar:DBChooseType:DB$ ChooseType | Type$ Creature | MostPrevalentInDefinedZone$ ChosenPlayer_Library | Note$ True | SubAbility$ DBCleanupChosen
+SVar:DBCleanupChosen:DB$ Cleanup | ClearChosenPlayer$ True
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigFight
+SVar:TrigFight:DB$ Pump | AILogic$ Fight | ValidTgts$ Creature.YouCtrl | SubAbility$ DBFight
+SVar:DBFight:DB$ Fight | Defined$ ParentTarget | ValidTgts$ Creature.YouDontCtrl | TargetMin$ 0 | TargetMax$ 1
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.OppCtrl+NotedType | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1

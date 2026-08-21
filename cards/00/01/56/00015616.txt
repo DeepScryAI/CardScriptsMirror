@@ -1,12 +1,9 @@
 Id:15616
-ColorIdentity:UR
+ColorIdentity:G
 OriginSet:Gc1f5e527f9d411df
-ManaCost:4 U R
-Types:Legendary Creature Sphinx Wizard
-PT:5/5
-K:Flying
-T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ You | Execute$ TrigChangeZone | TriggerZones$ Battlefield
-SVar:TrigChangeZone:DB$ ChangeZoneAll | Origin$ Hand | Destination$ Library | ChangeType$ Card.YouOwn | RememberChanged$ True | LibraryPosition$ -1 | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | NumCards$ RemTossed | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:RemTossed:Remembered$Amount
+ManaCost:2 G
+Types:Instant
+A:SP$ Token | TokenAmount$ X | TokenScriptIds$ 2328445575 | TokenOwner$ You | SubAbility$ DBCurseNonSpiders
+SVar:DBCurseNonSpiders:DB$ Effect | ReplacementEffects$ Curse
+SVar:Curse:Event$ DamageDone | Prevent$ True | IsCombat$ True | ActiveZones$ Command | ValidSource$ Creature.nonSpider
+SVar:X:Count$Valid Creature.attackingYou

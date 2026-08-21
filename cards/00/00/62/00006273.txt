@@ -1,9 +1,11 @@
 Id:6273
-ColorIdentity:G
+ColorIdentity:U
 OriginSet:G0085c354434a9ecc
-ManaCost:3 G
-Types:Creature Insect Druid Mutant
-PT:3/2
-K:Morph:1 G
-T:Mode$ TurnFaceUp | ValidCard$ Card.Self | Execute$ TrigDestroy | TriggerZones$ Battlefield
-SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Artifact,Enchantment
+ManaCost:4 U
+Types:Creature Illusion
+PT:2/3
+K:Flying
+A:AB$ ChooseType | Cost$ 1 | Type$ Creature | Defined$ You | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Types$ ChosenType | RemoveCreatureTypes$ True
+A:AB$ ChooseType | Cost$ 2 U U T | Type$ Creature | Defined$ You | SubAbility$ DBAnimateAll
+SVar:DBAnimateAll:DB$ AnimateAll | ValidCards$ Creature.YouCtrl | Types$ ChosenType | RemoveCreatureTypes$ True

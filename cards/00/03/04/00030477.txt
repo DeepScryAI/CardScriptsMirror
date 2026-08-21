@@ -1,9 +1,13 @@
 Id:30477
-ColorIdentity:U
+ColorIdentity:W
 OriginSet:G8b2ed00ac2a0ff47
-ManaCost:U
-Types:Creature Crab Skeleton
-PT:0/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Enchantment.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigMill
-T:Mode$ FullyUnlock | ValidCard$ Card.Room | ValidPlayer$ You | Secondary$ True | Execute$ TrigMill | TriggerZones$ Battlefield
-SVar:TrigMill:DB$ Mill | NumCards$ 2 | ValidTgts$ Player
+ManaCost:1 W
+Types:Enchantment Room
+T:Mode$ AttackersDeclaredOneTarget | Execute$ TrigToken | AttackedTarget$ Player | ValidAttackers$ Creature.YouCtrl+!Toy | TriggerZones$ Battlefield | AttackingPlayer$ You
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 3621842653
+AlternateMode:Split
+ALTERNATE
+ManaCost:4 W W
+Types:Enchantment Room
+S:Mode$ Continuous | Affected$ Creature.YouCtrl | AffectedZone$ Battlefield | SetPower$ X | SetToughness$ X
+SVar:X:Count$Valid Creature.YouCtrl

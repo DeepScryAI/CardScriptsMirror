@@ -1,11 +1,12 @@
 Id:28318
-ColorIdentity:BG
-OriginSet:G3a8b4b9d4649b357
-ManaCost:B B G
-Types:Legendary Creature Frog Beast
-PT:*/5
-S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigSurveil
-SVar:TrigSurveil:DB$ Surveil | Amount$ 2
-A:AB$ GainLife | Cost$ 1 Sac<1/Land> | LifeAmount$ 2
-SVar:X:Count$ValidGraveyard Land.YouOwn
+ColorIdentity:U
+OriginSet:Gfd50577710a6ab09
+ManaCost:1 U
+Types:Enchantment Aura
+K:Enchant:Creature,Vehicle:creature or Vehicle
+SVar:AttachAITgts:Creature
+SVar:AttachAILogic:Curse
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill
+SVar:TrigMill:DB$ Mill | Defined$ You | NumCards$ 2 | Optional$ True
+S:Mode$ Continuous | Affected$ Permanent.EnchantedBy | AddPower$ -X
+SVar:X:Count$ValidGraveyard Permanent.YouOwn

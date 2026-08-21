@@ -1,9 +1,9 @@
 Id:17350
 ColorIdentity:
 OriginSet:Gaa482ed186eee527
-ManaCost:3
-Types:Artifact Equipment
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 3 | AddToughness$ 1
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.AttachedBy | Execute$ TrigDigUntil | OptionalDecider$ You
-SVar:TrigDigUntil:DB$ DigUntil | Valid$ Creature.sharesCreatureTypeWith TriggeredCardLKICopy | FoundDestination$ Hand | RevealedDestination$ Library | RevealedLibraryPosition$ -1 | RevealRandomOrder$ True
-K:Equip:1
+ManaCost:4
+Types:Legendary Artifact Equipment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self,Card.Equipment+Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigAttach | OptionalDecider$ You
+SVar:TrigAttach:DB$ Attach | ValidTgts$ Creature.YouCtrl | Object$ TriggeredCardLKICopy
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddKeyword$ Indestructible
+K:Equip:4

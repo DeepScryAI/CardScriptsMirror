@@ -1,10 +1,10 @@
 Id:29664
-ColorIdentity:U
-OriginSet:G01a610e823cce3ca
-ManaCost:3 U
-Types:Creature Wall
-PT:2/4
-K:Defender
-A:AB$ PutCounter | Cost$ 3 U | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBEffect | SorcerySpeed$ True
-SVar:DBEffect:DB$ Effect | ExileOnMoved$ Battlefield | RememberObjects$ ParentTarget | StaticAbilities$ Unblockable
-SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+ColorIdentity:B
+OriginSet:Gac6359c222afbd4f
+ManaCost:B
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | OptionalDecider$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ QUEST | CounterNum$ 1
+A:AB$ ChangeZone | Cost$ 5 B Sac<1/CARDNAME> | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True | SorcerySpeed$ True | ReduceCost$ X | ValidTgts$ Creature
+SVar:X:Count$CardCounters.QUEST
+SVar:MaxQuestEffect:5

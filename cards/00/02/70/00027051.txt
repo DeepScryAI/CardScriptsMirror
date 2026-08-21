@@ -1,9 +1,10 @@
 Id:27051
-ColorIdentity:B
+ColorIdentity:WG
 OriginSet:G6ce0035cfb774934
-ManaCost:1 B
-Types:Instant
-A:SP$ Draw | Cost$ 1 B Sac<1/Creature> | NumCards$ X
-SVar:AIPreference:SacCost$Creature.Legendary
-SVar:Y:Sacrificed$Valid Card.Legendary
-SVar:X:Count$Compare Y EQ1.3.2
+ManaCost:1 G W
+Types:Legendary Creature Human Ranger
+PT:3/3
+T:Mode$ RingTemptsYou | ValidCard$ Creature.YouCtrl+Other | TriggerZones$ Battlefield | Execute$ TrigPutCounters
+SVar:TrigPutCounters:DB$ PutCounter | CounterType$ FirstStrike,Vigilance,Deathtouch,Lifelink | Defined$ Self
+T:Mode$ CounterPlayerAddedAll | ValidObject$ Card.Self+inRealZoneBattlefield | TriggerZones$ Battlefield | ValidSource$ You | Execute$ TrigPutCountersOther
+SVar:TrigPutCountersOther:DB$ PutCounter | Placer$ TriggeredSource | TriggeredCounterMap$ True | CounterMapValues$ 1 | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Creature.Other

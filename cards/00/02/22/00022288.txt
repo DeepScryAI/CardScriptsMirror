@@ -1,7 +1,13 @@
 Id:22288
-ColorIdentity:U
+ColorIdentity:B
 OriginSet:Geb2cf181996ee3b2
-ManaCost:1 U
-Types:Artifact Creature Clue Myr
-PT:2/1
-A:AB$ Draw | Cost$ 2 Sac<1/CARDNAME>
+ManaCost:1 B
+Types:Creature Skeleton Shaman
+PT:1/1
+S:Mode$ CantBlock | ValidCard$ Card.Self
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Destination$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 1
+A:AB$ ChangeZone | Cost$ 2 B B | ActivationZone$ Graveyard | Origin$ Graveyard | Destination$ Hand
+SVar:SacMe:2
+SVar:DiscardMe:2

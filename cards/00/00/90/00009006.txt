@@ -1,8 +1,11 @@
 Id:9006
-ColorIdentity:B
+ColorIdentity:R
 OriginSet:Gce1d73449bd71b54
-ManaCost:4 B
-Types:Instant
-A:SP$ ChangeZone | Origin$ Hand | Destination$ Battlefield | ValidTgts$ Opponent | ChangeType$ Creature | GainControl$ True | SubAbility$ DBPump | RememberChanged$ True | IsCurse$ True
-SVar:DBPump:DB$ Animate | Keywords$ Haste | Defined$ Remembered | Duration$ Permanent | AtEOT$ Sacrifice | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:3 R R
+Types:Creature Shapeshifter
+PT:3/3
+A:AB$ Untap | Cost$ R
+A:AB$ MustBlock | Cost$ R | ValidTgts$ Creature
+A:AB$ ChangeTargets | Cost$ R | TargetType$ Spell.numTargets EQ1+IsTargeting Self | ValidTgts$ Card
+A:AB$ Pump | Cost$ 1 | NumAtt$ +1 | NumDef$ -1
+A:AB$ Pump | Cost$ 1 | NumAtt$ -1 | NumDef$ +1

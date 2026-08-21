@@ -1,10 +1,14 @@
 Id:25241
-ColorIdentity:B
+ColorIdentity:UB
 OriginSet:Gf591a76e7a37cf73
-ManaCost:no cost
-Types:Land
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
-A:AB$ Mana | Cost$ T | Produced$ B
-A:AB$ Mill | Cost$ 2 B B B T Exile<1/CARDNAME> | Defined$ You | SorcerySpeed$ True | NumCards$ 4 | SubAbility$ DBReturn
-SVar:DBReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ChangeType$ Creature.YouOwn | ChangeNum$ 1 | Hidden$ True
+ManaCost:2 U B
+Types:Legendary Creature Human Inquisitor
+PT:2/3
+T:Mode$ Drawn | ValidCard$ Card.YouOwn | Number$ 1 | OptionalDecider$ You | Static$ True | ForReveal$ True | Execute$ DBReveal | TriggerZones$ Battlefield
+SVar:DBReveal:DB$ Reveal | Defined$ You | RevealDefined$ TriggeredCard | RememberRevealed$ True | SubAbility$ DBTrigger
+SVar:DBTrigger:DB$ ImmediateTrigger | ConditionDefined$ Remembered | ConditionPresent$ Instant,Sorcery | SubAbility$ DBCleanup | Execute$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 2824392356
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigInvestigate | CombatDamage$ True
+SVar:TrigInvestigate:DB$ Investigate | Num$ X | Defined$ You
+SVar:X:TriggerCount$DamageAmount

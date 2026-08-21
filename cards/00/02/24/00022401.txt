@@ -1,8 +1,12 @@
 Id:22401
-ColorIdentity:R
-OriginSet:G92f7f9489fec5865
-ManaCost:5 R R
-Types:Sorcery
-A:SP$ RollDice | Amount$ 2 | Sides$ 12 | ChosenSVar$ X | OtherSVar$ Y | SubAbility$ DBDamageAll
-SVar:DBDamageAll:DB$ DamageAll | ValidCards$ Creature | NumDmg$ X | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenAmount$ Y | TokenScriptIds$ 3851718391
+ColorIdentity:
+OriginSet:Geb2cf181996ee3b2
+ManaCost:3
+Types:Artifact Creature Camel
+PT:2/2
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ CamelTapped | ReplacementResult$ Updated
+SVar:CamelTapped:DB$ Tap | Defined$ Self | ETB$ True | SubAbility$ DBAddCounter
+SVar:DBAddCounter:DB$ PutCounter | ETB$ True | Defined$ Self | CounterType$ P1P1 | CounterNum$ 2
+R:Event$ Untap | ActiveZones$ Battlefield | ValidCard$ Card.Self+counters_GE1_P1P1 | ValidStepTurnToController$ You | Layer$ CantHappen
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigMoveCounter
+SVar:TrigMoveCounter:DB$ MoveCounter | ValidTgts$ Creature | Source$ Self | CounterType$ P1P1 | CounterNum$ 1

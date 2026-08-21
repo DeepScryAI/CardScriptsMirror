@@ -1,10 +1,13 @@
 Id:29070
-ColorIdentity:UR
-OriginSet:G27146c70b74a1e72
-ManaCost:no cost
-Types:Land Desert
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDealDamage
-SVar:TrigDealDamage:DB$ DealDamage | ValidTgts$ Opponent | NumDmg$ 1
-A:AB$ Mana | Cost$ T | Produced$ Combo U R
+ColorIdentity:W
+OriginSet:Gaf7c94f364052cdd
+ManaCost:3 W
+Types:Enchantment Saga
+K:Chapter:3:DBExile,DBGainLife,DBReturn
+SVar:DBExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Enchantment,Creature | TargetMin$ 0 | TargetMax$ OneEach | TargetsForEachPlayer$ True | Duration$ UntilHostLeavesPlay
+SVar:OneEach:PlayerCountPlayers$Amount
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ 2 | SubAbility$ DBScry
+SVar:DBScry:DB$ Scry | ScryNum$ 2
+SVar:DBReturn:DB$ ChangeZone | ChangeType$ Card.ExiledWithSource | Origin$ Exile | Destination$ Battlefield | Hidden$ True | ChangeNum$ 2 | Mandatory$ True | RememberChanged$ True | SubAbility$ DBChangeZoneAll
+SVar:DBChangeZoneAll:DB$ ChangeZoneAll | ChangeType$ Card.ExiledWithSource+!IsRemembered | Origin$ Exile | Destination$ Library | LibraryPosition$ -1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

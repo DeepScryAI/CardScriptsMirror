@@ -1,10 +1,9 @@
 Id:18024
-ColorIdentity:B
+ColorIdentity:U
 OriginSet:G21ed5bd3b1924169
-ManaCost:1 B
-Types:Creature Vampire Soldier
-PT:2/1
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDrain | TriggerZones$ Battlefield | IsPresent$ Planeswalker.Vraska+YouCtrl
-T:Mode$ Blocks | ValidCard$ Card.Self | Execute$ TrigDrain | Secondary$ True | TriggerZones$ Battlefield | IsPresent$ Planeswalker.Vraska+YouCtrl
-SVar:TrigDrain:DB$ LoseLife | ValidTgts$ Opponent | LifeAmount$ 2 | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2
+ManaCost:3 U
+Types:Creature Merfolk Wizard
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 3 | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Hand | Destination$ Library | ChangeNum$ 2 | Mandatory$ True

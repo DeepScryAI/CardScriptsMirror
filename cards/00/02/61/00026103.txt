@@ -1,8 +1,15 @@
 Id:26103
-ColorIdentity:U
-OriginSet:G2192e8955d5e1ad1
-ManaCost:3 U
-Types:Creature Phyrexian Wizard
-PT:3/4
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigLibrary
-SVar:TrigLibrary:DB$ ChangeZone | ValidTgts$ Instant.YouOwn,Sorcery.YouOwn | TargetMin$ 0 | TargetMax$ 1 | TgtZone$ Graveyard | Origin$ Graveyard | Destination$ Library | LibraryPosition$ 0
+ColorIdentity:G
+OriginSet:G903d26fe51c6a362
+ManaCost:5 G
+Types:Creature Phyrexian Beast
+PT:6/6
+K:Haste
+K:Toxic:3
+S:Mode$ CantBlockBy | ValidAttacker$ Card.Self | ValidBlocker$ Creature.powerLE2
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | Defined$ TriggeredNewCardLKICopy | RememberChanged$ True | SubAbility$ DBImmediateTrigger
+SVar:DBImmediateTrigger:DB$ ImmediateTrigger | ConditionDefined$ Remembered | ConditionPresent$ Card.Self | Execute$ TrigChangeZone | SubAbility$ DBCleanup
+SVar:TrigChangeZone:DB$ ChangeZone | TargetMin$ 0 | TargetMax$ X | ValidTgts$ Card.YouOwn | Origin$ Graveyard | Destination$ Hand
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:PlayerCountOpponents$HasPropertyIsCorrupted

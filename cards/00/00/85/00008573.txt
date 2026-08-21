@@ -1,9 +1,8 @@
 Id:8573
-ColorIdentity:WRG
+ColorIdentity:W
 OriginSet:Gf7b8c9355081f53b
-ManaCost:R G W
-Types:Creature Spirit
-PT:2/4
-T:Mode$ DamageDealtOnce | ValidSource$ Card.nonCreature+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigGainLife
-SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ X
-SVar:X:TriggerCount$DamageAmount
+ManaCost:1 W
+Types:Instant
+A:SP$ PreventDamage | ValidTgts$ Any | Amount$ 2 | SubAbility$ DelTrigSlowtrip
+SVar:DelTrigSlowtrip:DB$ DelayedTrigger | NextTurn$ True | Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Player | Execute$ DrawSlowtrip
+SVar:DrawSlowtrip:DB$ Draw | Defined$ You

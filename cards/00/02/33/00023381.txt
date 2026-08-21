@@ -1,9 +1,12 @@
 Id:23381
 ColorIdentity:U
-OriginSet:Ga4d5d94d587eb185
-ManaCost:3 U U
-Types:Instant
-A:SP$ Counter | TargetType$ Spell | ValidTgts$ Card | SubAbility$ DBToken | RememberCounteredCMC$ True
-SVar:DBToken:DB$ Token | TokenScriptIds$ 3939935181 | TokenAmount$ X | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$RememberedNumber
+OriginSet:G9f95a41d532c0550
+ManaCost:U
+Types:Enchantment Class
+S:Mode$ Continuous | EffectZone$ Battlefield | Affected$ You | SetMaxHandSize$ Unlimited
+K:Class:2:2 U:AddTrigger$ TriggerClassLevel
+SVar:TriggerClassLevel:Mode$ ClassLevelGained | ClassLevel$ 2 | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigDraw | Secondary$ True
+SVar:TrigDraw:DB$ Draw | NumCards$ 2
+K:Class:3:2 U:AddTrigger$ TriggerDrawn
+SVar:TriggerDrawn:Mode$ Drawn | ValidCard$ Card.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter | Secondary$ True
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1

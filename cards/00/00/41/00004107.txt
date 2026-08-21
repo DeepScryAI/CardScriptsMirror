@@ -1,6 +1,11 @@
 Id:4107
-ColorIdentity:U
+ColorIdentity:W
 OriginSet:Gdd40b2fbd2aa3c03
-ManaCost:1 U
+ManaCost:1 W
 Types:Instant
-A:SP$ ChangeZone | ValidTgts$ Artifact,Enchantment,Land | Origin$ Battlefield | Destination$ Hand
+A:SP$ ChangeZoneAll | ChangeType$ Creature | Origin$ Graveyard | Destination$ Exile | RememberChanged$ True | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Amount
+SVar:NeedsToPlayVar:Z GE2
+SVar:Z:Count$ValidGraveyard Creature

@@ -1,10 +1,9 @@
 Id:8041
-ColorIdentity:BG
+ColorIdentity:WG
 OriginSet:Gc563c209d627c4c5
-ManaCost:3
-Types:Artifact
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ PutPlagueCounter
-SVar:PutPlagueCounter:DB$ PutCounter | Defined$ Self | CounterType$ PLAGUE | CounterNum$ 1
-A:AB$ AddOrRemoveCounter | Cost$ 1 B G | Defined$ Self | CounterType$ PLAGUE | CounterNum$ 1
-T:Mode$ Always | TriggerZones$ Battlefield | IsPresent$ Card.Self+counters_GE3_PLAGUE | Execute$ TrigDestroyAll
-SVar:TrigDestroyAll:AB$ DestroyAll | ValidCards$ Permanent.nonLand | Cost$ Mandatory Sac<1/CARDNAME>
+ManaCost:2 G W W
+Types:Creature Plant Hydra
+PT:1/1
+R:Event$ DamageDone | ActiveZones$ Battlefield | ValidTarget$ Card.Self | ReplaceWith$ Counters
+SVar:Counters:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ X
+SVar:X:ReplaceCount$DamageAmount

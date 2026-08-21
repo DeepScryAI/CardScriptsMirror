@@ -1,10 +1,9 @@
 Id:24285
-ColorIdentity:WUG
+ColorIdentity:G
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:G W U
-Types:Legendary Creature Human Wizard
-PT:3/4
-K:Vigilance
-T:Mode$ SpellCast | ValidCard$ Card.Adventure | ValidActivatingPlayer$ You | Execute$ TrigCopySpell | TriggerZones$ Battlefield | OptionalDecider$ You
-SVar:TrigCopySpell:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | MayChooseTarget$ True
-SVar:BuffedBy:Creature.AdventureCard
+ManaCost:2 G
+Types:Legendary Enchantment Background
+S:Mode$ Continuous | Affected$ Creature.IsCommander+YouOwn | AddTrigger$ EndStep
+SVar:EndStep:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ X | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 798446951 | TokenTapped$ True
+SVar:X:Count$ThisTurnEntered_Graveyard_Creature.YouOwn+!token

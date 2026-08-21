@@ -1,8 +1,10 @@
 Id:8201
-ColorIdentity:W
+ColorIdentity:B
 OriginSet:G2c4e6f6c46954cd6
-ManaCost:W
-Types:Creature Human Knight
-PT:1/1
-K:Vigilance
-A:AB$ Pump | Cost$ 4 W | NumAtt$ +1 | NumDef$ +2
+ManaCost:2 B B
+Types:Enchantment
+K:MayEffectFromOpeningHand:FromHand
+SVar:FromHand:DB$ ChangeZone | Defined$ Self | Origin$ Hand | Destination$ Battlefield
+R:Event$ Moved | ActiveZones$ Battlefield | Destination$ Graveyard | ValidCard$ Card.!token+OppOwn | ReplaceWith$ Exile
+SVar:Exile:DB$ ChangeZone | Hidden$ True | Origin$ All | Destination$ Exile | Defined$ ReplacedCard
+SVar:NonStackingEffect:True

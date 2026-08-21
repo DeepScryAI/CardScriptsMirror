@@ -1,11 +1,17 @@
 Id:25910
-ColorIdentity:B
-OriginSet:G880fc7f6ed36df4d
-ManaCost:7
-Types:Artifact Creature Construct
-PT:8/5
-K:Prototype:2 B:3:2
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZone | ValidTgts$ Creature.powerLTX+YouOwn | RememberChanged$ True | Origin$ Graveyard | Destination$ Battlefield | SubAbility$ DBAnimate
-SVar:DBAnimate:DB$ Animate | Defined$ Remembered | Power$ X | Duration$ Perpetual
-SVar:X:Count$CardPower
+ColorIdentity:G
+OriginSet:G06ccef4324c14725
+ManaCost:no cost
+Colors:green
+Types:Legendary Creature Elemental Avatar
+PT:*/*
+K:Vigilance
+K:Reach
+K:Trample
+K:Haste
+S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X | SetToughness$ X
+SVar:X:Count$Valid Land.YouCtrl
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZoneAll
+SVar:TrigChangeZoneAll:DB$ ChangeZoneAll | ChangeType$ Land.YouCtrl | Origin$ Graveyard | Destination$ Battlefield | Tapped$ True
+A:AB$ PutCounter | Cost$ 3 G | ValidTgts$ Land.YouCtrl | CounterType$ P1P1 | CounterNum$ 4 | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ ParentTarget | Power$ 0 | Toughness$ 0 | Types$ Creature,Elemental | Keywords$ Haste | Duration$ Permanent

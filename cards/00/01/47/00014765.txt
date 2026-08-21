@@ -1,11 +1,9 @@
 Id:14765
-ColorIdentity:B
+ColorIdentity:R
 OriginSet:Gfafc221218d3b700
-ManaCost:2 B
-Types:Creature Human Wizard
-PT:2/2
-K:Intimidate
-A:AB$ PutCounter | Cost$ 1 B Sac<1/Creature.Other/another creature> | CounterType$ P1P1 | CounterNum$ 2
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 3182736984 | TokenOwner$ You | TokenPower$ X | TokenToughness$ X
-SVar:X:TriggeredCard$CardPower
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ DBTap | ReplacementResult$ Updated
+SVar:DBTap:DB$ Tap | ETB$ True | Defined$ Self | UnlessCost$ Reveal<1/Elemental> | UnlessPayer$ You
+A:AB$ Mana | Cost$ T | Produced$ R
+A:AB$ Pump | Cost$ R T | ValidTgts$ Creature | KW$ Haste

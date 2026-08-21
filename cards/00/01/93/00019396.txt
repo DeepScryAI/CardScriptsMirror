@@ -1,9 +1,11 @@
 Id:19396
-ColorIdentity:B
+ColorIdentity:R
 OriginSet:G9d37112ca6693432
-ManaCost:1 B
-Types:Creature Sliver
-PT:2/2
-S:Mode$ Continuous | Affected$ Creature.Sliver+YouCtrl | AffectedZone$ Graveyard | AddKeyword$ Unearth:2
-SVar:PlayMain1:TRUE
-K:Unearth:2
+ManaCost:2 R
+Types:Snow Creature Human Scout
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange | OptionalDecider$ You
+SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | Tapped$ True | ChangeType$ Mountain | ShuffleNonMandatory$ True
+S:Mode$ MustAttack | ValidCreature$ Card.Self
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice | SacValid$ Mountain | Defined$ You

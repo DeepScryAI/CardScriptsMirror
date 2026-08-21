@@ -1,7 +1,10 @@
 Id:17575
-ColorIdentity:W
+ColorIdentity:B
 OriginSet:Gda050e0f5b47c310
-ManaCost:2 W
-Types:Instant
-A:SP$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +1 | NumDef$ +1 | AILogic$ UntapCombatTrick | SubAbility$ DBUntapAll
-SVar:DBUntapAll:DB$ UntapAll | ValidCards$ Creature.YouCtrl
+ManaCost:3 B
+Types:Enchantment
+T:Mode$ Discarded | ValidCard$ Card.OppOwn | TriggerZones$ Battlefield | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ TriggeredCardController | LifeAmount$ 2
+T:Mode$ Phase | Phase$ End of Turn | CheckSVar$ RaidTest | TriggerZones$ Battlefield | Execute$ TrigDiscard
+SVar:TrigDiscard:DB$ Discard | ValidTgts$ Opponent | NumCards$ 1 | Mode$ TgtChoose
+SVar:RaidTest:Count$AttackersDeclared

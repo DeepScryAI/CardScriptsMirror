@@ -1,7 +1,14 @@
 Id:25104
-ColorIdentity:G
-OriginSet:Gf591a76e7a37cf73
-ManaCost:1 G
-Types:Creature Human Tyranid Wizard
-PT:1/3
-A:AB$ Mana | Cost$ T | Produced$ Any | AddsCounters$ Card.Creature_P1P1_1
+ColorIdentity:W
+OriginSet:G2aca7ffc9201ba1c
+ManaCost:W
+Types:Creature Human Knight
+PT:2/1
+K:Enlist
+T:Mode$ Enlisted | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigBoon
+SVar:TrigBoon:DB$ Effect | Boon$ True | Duration$ Permanent | Triggers$ SpellCast
+SVar:SpellCast:Mode$ SpellCast | ValidCard$ Creature | ValidActivatingPlayer$ You | TriggerZones$ Command | Execute$ ReplEffAddCounter
+SVar:ReplEffAddCounter:DB$ Effect | ReplacementEffects$ ETBAddCounter | RememberObjects$ TriggeredCard
+SVar:ETBAddCounter:Event$ Moved | Origin$ Stack | Destination$ Battlefield | ValidCard$ Card.IsRemembered | ReplaceWith$ ETBAddExtraCounter | ReplacementResult$ Updated
+SVar:ETBAddExtraCounter:DB$ PutCounter | ETB$ True | Defined$ ReplacedCard | CounterType$ P1P1 | SubAbility$ DBRemoveSelf
+SVar:DBRemoveSelf:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile

@@ -1,7 +1,11 @@
 Id:4003
-ColorIdentity:G
+ColorIdentity:R
 OriginSet:Gdd40b2fbd2aa3c03
-ManaCost:4 G
-Types:Creature Snake
-PT:3/3
-A:AB$ Pump | Cost$ T | Defined$ Self | NumAtt$ +3 | NumDef$ +3
+ManaCost:3 R
+Types:Instant
+A:SP$ ChooseType | Defined$ You | Type$ Card | SubAbility$ DBReveal
+SVar:DBReveal:DB$ RevealHand | RememberRevealed$ True | ValidTgts$ Opponent | SubAbility$ DBDamage
+SVar:DBDamage:DB$ DealDamage | Defined$ Targeted | NumDmg$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:SVar$Y/Times.3
+SVar:Y:Remembered$Valid Card.ChosenType

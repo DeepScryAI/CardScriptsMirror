@@ -1,8 +1,11 @@
 Id:8832
-ColorIdentity:R
+ColorIdentity:U
 OriginSet:G70f74088c47d66bd
-ManaCost:1 R
-Types:Creature Sliver
-PT:1/1
-S:Mode$ Continuous | Affected$ Creature.Sliver | AddKeyword$ Menace
-SVar:PlayMain1:TRUE
+ManaCost:1 U
+Types:Instant
+A:SP$ PeekAndReveal | PeekAmount$ 5 | NoPeek$ True | ImprintRevealed$ True | SubAbility$ DBTwoPile
+SVar:DBTwoPile:DB$ TwoPiles | Chooser$ Opponent | DefinedCards$ Imprinted | Separator$ You | ChosenPile$ DBHand | AILogic$ Worst
+SVar:DBHand:DB$ ChooseCard | Defined$ You | Choices$ Card.IsRemembered | ChoiceZone$ Library | Mandatory$ True | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Defined$ ChosenCard | Origin$ Library | Destination$ Hand | SubAbility$ DBMoveToBottom
+SVar:DBMoveToBottom:DB$ ChangeZoneAll | ChangeType$ Card.IsImprinted | Origin$ Library | Destination$ Library | LibraryPosition$ -1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True

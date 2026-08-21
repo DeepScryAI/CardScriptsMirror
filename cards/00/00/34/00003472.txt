@@ -1,6 +1,9 @@
 Id:3472
-ColorIdentity:G
+ColorIdentity:U
 OriginSet:G24ae8187eacbba52
-ManaCost:3 G
+ManaCost:4 U U
 Types:Sorcery
-A:SP$ PutCounterAll | ValidCards$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1
+A:SP$ ChangeZoneAll | ChangeType$ Card | Origin$ Hand,Graveyard | Destination$ Library | Shuffle$ True | SubAbility$ DBDraw | UseAllOriginZones$ True | AILogic$ Timetwister
+SVar:DBDraw:DB$ Draw | NumCards$ 7 | Defined$ Player | SubAbility$ DBChange
+SVar:DBChange:DB$ ChangeZone | Origin$ Stack | Destination$ Exile | SubAbility$ DBUntap
+SVar:DBUntap:DB$ Untap | UntapUpTo$ True | UntapType$ Land | Amount$ 6

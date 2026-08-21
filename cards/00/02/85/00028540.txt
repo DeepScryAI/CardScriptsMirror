@@ -1,9 +1,10 @@
 Id:28540
-ColorIdentity:UR
+ColorIdentity:U
 OriginSet:G7ee0e82a2424d636
-ManaCost:3 U R
-Types:Legendary Creature Weird Detective
-PT:*/*
-S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X | SetToughness$ X
-S:Mode$ ReduceCost | OnlyFirstSpell$ True | Type$ Spell | ValidSpell$ Spell.Instant,Spell.Sorcery | Activator$ You | Amount$ 3
-SVar:X:Count$ValidGraveyard Instant.YouOwn,Sorcery.YouOwn/Times.2
+ManaCost:U
+Types:Artifact Clue Equipment
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1 | AddToughness$ 1 | AddTrigger$ TrigAttack
+SVar:TrigAttack:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigSurveil
+SVar:TrigSurveil:DB$ Surveil | Amount$ 2
+A:AB$ Draw | Cost$ 2 Sac<1/CARDNAME> | NumCards$ 1
+K:Equip:2

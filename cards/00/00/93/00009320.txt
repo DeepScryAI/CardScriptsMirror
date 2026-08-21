@@ -1,10 +1,12 @@
 Id:9320
-ColorIdentity:B
+ColorIdentity:R
 OriginSet:G1ddd2c86a9ea60e3
-ManaCost:no cost
-Types:Land
-K:Hideaway:4
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
-A:AB$ Mana | Cost$ T | Produced$ B
-A:AB$ Play | Cost$ B T | Defined$ ExiledWith | Amount$ All | Controller$ You | WithoutManaCost$ True | Optional$ True | ConditionZone$ Hand | ConditionPresent$ Card | ConditionCompare$ EQ0
+ManaCost:3 R R R
+Types:Creature Elemental Incarnation
+PT:6/6
+K:Haste
+R:Event$ DamageDone | ActiveZones$ Battlefield | ValidSource$ Spell.YouCtrl | ValidTarget$ Opponent | PreventionEffect$ True | ReplaceWith$ HostilityTokens
+SVar:HostilityTokens:DB$ Token | TokenAmount$ X | TokenScriptIds$ 2380399180 | TokenOwner$ You
+SVar:X:ReplaceCount$DamageAmount
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigShuffle
+SVar:TrigShuffle:DB$ ChangeZone | Origin$ Graveyard | Destination$ Library | Shuffle$ True | Defined$ TriggeredCardLKICopy

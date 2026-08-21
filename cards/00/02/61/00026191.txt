@@ -1,9 +1,12 @@
 Id:26191
-ColorIdentity:
+ColorIdentity:R
 OriginSet:G2192e8955d5e1ad1
-ManaCost:2
-Types:Legendary Artifact
-A:AB$ PutCounter | Cost$ T | CounterType$ OIL | CounterNum$ 1
-A:AB$ DestroyAll | Cost$ T Sac<1/CARDNAME> | ValidCards$ Permanent.nonLand+cmcEQX
-A:AB$ DealDamage | Cost$ T RemoveAnyCounter<10/OIL/Permanent/permanents> Sac<1/CARDNAME> | ValidTgts$ Any | NumDmg$ 10
+ManaCost:R
+Types:Creature Phyrexian Goblin Warrior
+PT:0/1
+K:Trample
+S:Mode$ Continuous | Affected$ Card.Self | AffectedZone$ Battlefield | AddPower$ X
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCounter
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.Other+YouCtrl,Artifact.Other+YouCtrl | Execute$ TrigCounter | Secondary$ True
+SVar:TrigCounter:DB$ PutCounter | Defined$ Self | CounterType$ OIL | CounterNum$ 1
 SVar:X:Count$CardCounters.OIL

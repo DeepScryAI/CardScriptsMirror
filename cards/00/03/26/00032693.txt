@@ -1,11 +1,9 @@
 Id:32693
-ColorIdentity:B
-OriginSet:G22ed5d6f3707b461
-ManaCost:3 B
-Types:Creature Bird Insect
+ColorIdentity:U
+OriginSet:G1f5998b5f01949b9
+ManaCost:2 U
+Types:Artifact Creature Robot Villain
 PT:2/2
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
-SVar:TrigDraw:AB$ Draw | Cost$ Sac<1/Artifact;Creature/artifact or creature>
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.Other+YouCtrl+HasCounters | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | CounterType$ EachFromSource | EachFromSource$ TriggeredCardLKICopy
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigTap
+SVar:TrigTap:DB$ Tap | ValidTgts$ Creature.OppCtrl | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Targeted | CounterType$ Stun | CounterNum$ 1

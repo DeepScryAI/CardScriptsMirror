@@ -1,8 +1,15 @@
 Id:18624
-ColorIdentity:U
+ColorIdentity:BRG
 OriginSet:Gd7cbb6e7dea72fb5
-ManaCost:3 U
-Types:Creature Vedalken Wizard
-PT:3/4
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump | Metalcraft$ True
-SVar:TrigPump:DB$ AnimateAll | ValidCards$ Creature.OppCtrl | Power$ 1 | Toughness$ 1 | RemoveAllAbilities$ True | IsCurse$ True
+ManaCost:X B R G
+Types:Legendary Creature Hydra
+PT:0/0
+K:etbCounter:P1P1:Y:no Condition
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigExile | TriggerZones$ Battlefield | OptionalDecider$ You
+SVar:TrigExile:DB$ ChangeZone | ValidTgts$ Creature.YouCtrl+powerLTZ | Origin$ Graveyard | Destination$ Exile | RememberChanged$ True | Optional$ True | SubAbility$ DBCopy
+SVar:DBCopy:DB$ CopyPermanent | Defined$ Remembered | TokenTapped$ True | TokenAttacking$ True | AtEOT$ ExileCombat | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$xPaid
+SVar:Y:Count$CastTotalManaSpent
+SVar:Z:Count$CardPower
+SVar:HasAttackEffect:TRUE

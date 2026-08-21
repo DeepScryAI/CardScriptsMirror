@@ -1,16 +1,12 @@
 Id:22551
-ColorIdentity:B
+ColorIdentity:U
 OriginSet:G9f95a41d532c0550
-ManaCost:3 B B
-Types:Legendary Planeswalker Lolth
-Loyalty:4
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ LOYALTY | CounterNum$ 1
-A:AB$ Draw | Cost$ AddCounter<0/LOYALTY> | NumCards$ 1 | SubAbility$ DBLoseLife1 | Planeswalker$ True
-SVar:DBLoseLife1:DB$ LoseLife | LifeAmount$ 1
-A:AB$ Token | Cost$ SubCounter<3/LOYALTY> | TokenAmount$ 2 | TokenScriptIds$ 2579771919 | TokenOwner$ You | Planeswalker$ True
-A:AB$ Effect | Cost$ SubCounter<8/LOYALTY> | Name$ 3149619532181340098 | Triggers$ TrigLoseLife | Planeswalker$ True | Ultimate$ True | Duration$ Permanent | AILogic$ Main1
-SVar:TrigLoseLife:Mode$ DamageDoneOnce | ValidSource$ Creature.YouCtrl | ValidTarget$ Player | CombatDamage$ True | CheckSVar$ X | SVarCompare$ LT8 | Execute$ LoseLife | TriggerZones$ Command
-SVar:LoseLife:DB$ LoseLife | Defined$ TriggeredTarget | LifeAmount$ Y
-SVar:X:TriggeredTarget$LifeLostThisTurn
-SVar:Y:SVar$X/NMinus.8
+ManaCost:1 U U
+Types:Creature Dragon Turtle
+PT:3/5
+K:Flash
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigTap
+SVar:TrigTap:DB$ Tap | Defined$ Self | RememberTapped$ True | SubAbility$ DBTap
+SVar:DBTap:DB$ Tap | ValidTgts$ Creature.OppCtrl | TargetMin$ 0 | TargetMax$ 1 | AlwaysRemember$ True | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Remembered | KW$ HIDDEN This card doesn't untap during your next untap step. | Duration$ Permanent | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

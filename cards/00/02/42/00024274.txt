@@ -1,10 +1,13 @@
 Id:24274
-ColorIdentity:R
+ColorIdentity:UB
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:4 R
-Types:Legendary Creature Dragon
-PT:3/4
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self,Dragon.Other+YouCtrl | Execute$ TrigTreasure
-SVar:TrigTreasure:DB$ Token | TokenScriptIds$ 3851718391
-K:Choose a Background
+ManaCost:3 U B
+Types:Legendary Creature Horror Pirate
+PT:3/6
+S:Mode$ Continuous | Affected$ Card.Horror+YouCtrl | AddKeyword$ Menace
+T:Mode$ DamageDone | ValidSource$ Card.Horror+YouCtrl | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigMill | TriggerZones$ Battlefield
+SVar:TrigMill:DB$ Mill | Defined$ TriggeredTarget | NumCards$ X
+SVar:X:TriggerCount$DamageAmount
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | ValidTgts$ Artifact.OppOwn+ThisTurnEnteredFrom_Library,Creature.OppOwn+ThisTurnEnteredFrom_Library | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True
+SVar:PlayMain1:TRUE

@@ -1,7 +1,17 @@
 Id:15735
-ColorIdentity:
+ColorIdentity:U
 OriginSet:G5b1ad34969911ca7
-ManaCost:2
-Types:Artifact Creature Construct
-PT:0/1
-A:AB$ Mana | Cost$ T | Produced$ C
+ManaCost:2 U
+Types:Enchantment
+K:Hexproof
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigRevealToWin | OptionalDecider$ You
+SVar:TrigRevealToWin:DB$ RevealHand | Defined$ You | SubAbility$ WinGame
+SVar:WinGame:DB$ WinsGame | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ4
+SVar:A:Count$Valid Card.YouOwn+!token+catalogId15735/LimitMax.1
+SVar:B:Count$ValidHand Card.YouOwn+catalogId15735/LimitMax.1
+SVar:C:Count$ValidGraveyard Card.YouOwn+catalogId15735/LimitMax.1
+SVar:D:Count$ValidExile Card.YouOwn+catalogId15735/LimitMax.1
+SVar:X:SVar$Y/Plus.Z
+SVar:Y:SVar$A/Plus.B
+SVar:Z:SVar$C/Plus.D
+A:AB$ Scry | Cost$ 1 U | ScryNum$ 1

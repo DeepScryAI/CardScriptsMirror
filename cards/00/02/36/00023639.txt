@@ -1,9 +1,12 @@
 Id:23639
-ColorIdentity:G
+ColorIdentity:U
 OriginSet:G1a259dba25660062
-ManaCost:3 G G
-Types:Creature Insect Ninja
-PT:6/5
-K:Ninjutsu:3 G
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigChangeZone
-SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Permanent.YouOwn
+ManaCost:X U
+Types:Instant
+A:SP$ Phases | Announce$ Exiled | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ X
+S:Mode$ RaiseCost | ValidCard$ Card.Self | Type$ Spell | Cost$ ExileFromHand<Y/Card.Blue/blue cards> | EffectZone$ All
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ Z | EffectZone$ All | Relative$ True | Secondary$ True
+SVar:X:Count$xPaid
+SVar:Y:SVar$Exiled
+SVar:Z:SVar$Y/Times.2
+SVar:Exiled:Number$0

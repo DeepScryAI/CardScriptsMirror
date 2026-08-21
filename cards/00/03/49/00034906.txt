@@ -1,0 +1,12 @@
+Id:34906
+ColorIdentity:UG
+OriginSet:G11c0621ce29fa608
+ManaCost:5 G U
+Types:Sorcery
+A:SP$ ChangeZoneAll | Origin$ Battlefield | Destination$ Exile | ChangeType$ Creature | RememberChanged$ True | SubAbility$ DBRepeatPut
+SVar:DBRepeatPut:DB$ RepeatEach | RepeatSubAbility$ DBPut | RepeatPlayers$ Player | SubAbility$ DBChange
+SVar:DBPut:DB$ ChangeZone | DefinedPlayer$ Remembered | Origin$ Hand | Destination$ Battlefield | ChangeType$ Creature | ChangeNum$ X
+SVar:X:Count$ValidHand Creature.RememberedPlayerCtrl
+SVar:DBChange:DB$ ChangeZone | Origin$ Exile | Destination$ Hand | Defined$ Remembered | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | Origin$ Stack | Destination$ Exile | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

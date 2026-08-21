@@ -1,12 +1,12 @@
 Id:26399
-ColorIdentity:R
-OriginSet:Gd5f5e54fa26ae40d
-ManaCost:2 R R
-Types:Enchantment Aura
-K:Enchant:Planeswalker
-SVar:AttachAILogic:Pump
-S:Mode$ Continuous | Affected$ Planeswalker.EnchantedBy | AddAbility$ RowanPlus
-SVar:RowanPlus:AB$ Pump | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | NumAtt$ +2 | KW$ FirstStrike & Trample
-T:Mode$ AbilityCast | ValidCard$ Planeswalker.EnchantedBy+inRealZoneBattlefield | ValidSA$ Activated.Loyalty | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigCopyAbility
-SVar:TrigCopyAbility:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | MayChooseTarget$ True
-SVar:BuffedBy:Creature
+ColorIdentity:W
+OriginSet:G997e3b19a1e94e85
+ManaCost:X W W W
+Types:Sorcery
+A:SP$ GainLife | Defined$ Player | LifeAmount$ X | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ X | Defined$ Player | SubAbility$ DBRepeatCreature
+SVar:DBRepeatCreature:DB$ RepeatEach | RepeatSubAbility$ DBReturnCreature | RepeatPlayers$ Player | SubAbility$ DBRepeatLand
+SVar:DBReturnCreature:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ChangeType$ Creature.RememberedPlayerCtrl | DefinedPlayer$ Player.IsRemembered | Chooser$ Player.IsRemembered | ChangeNum$ X | Hidden$ True | Mandatory$ True
+SVar:DBRepeatLand:DB$ RepeatEach | RepeatSubAbility$ DBReturnLand | RepeatPlayers$ Player
+SVar:DBReturnLand:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ChangeType$ Land.RememberedPlayerCtrl | DefinedPlayer$ Player.IsRemembered | Chooser$ Player.IsRemembered | ChangeNum$ X | Hidden$ True | Mandatory$ True
+SVar:X:Count$xPaid

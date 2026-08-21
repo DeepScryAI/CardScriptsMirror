@@ -1,9 +1,11 @@
 Id:33992
-ColorIdentity:R
-OriginSet:Gcb93bbfc68a40806
-ManaCost:1 R
-Types:Legendary Creature Human Hero Villain
-PT:1/3
-T:Mode$ ChangesZone | ValidCard$ Card.Self+wasCastByYou+!wasCastFromYourHand,Creature.YouCtrl+wasCastByYou+!wasCastFromYourHand | Origin$ Any | Destination$ Battlefield | Execute$ TrigPump | TriggerZones$ Battlefield
-SVar:TrigPump:DB$ Pump | Defined$ TriggeredCardLKICopy | NumAtt$ +2 | KW$ Haste
-K:Escape:2 R ExileFromGrave<3/Card.Other/other>
+ColorIdentity:BG
+OriginSet:Gf8df2bea26dc6b68
+ManaCost:B BG G
+Types:Creature Dryad Warlock
+PT:3/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 3473329731 | TokenOwner$ You
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ X | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw
+SVar:X:Count$ThisTurnEntered_Graveyard_from_Battlefield_Creature.YouCtrl

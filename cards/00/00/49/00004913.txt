@@ -1,12 +1,10 @@
 Id:4913
-ColorIdentity:UB
+ColorIdentity:W
 OriginSet:G9e6cd9ac1f7f4832
-ManaCost:2 U B
-Types:Creature Specter
-PT:2/3
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDiscard | TriggerZones$ Battlefield
-SVar:TrigChange:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Hidden$ True | Mandatory$ True | ChangeType$ Creature.Black+YouCtrl,Creature.Blue+YouCtrl | AILogic$ NeverBounceItself
-SVar:TrigDiscard:DB$ Discard | Defined$ TriggeredTarget | NumCards$ 1 | Mode$ RevealYouChoose
-SVar:NeedsToPlay:Creature.Black+YouCtrl+cmcLE3,Creature.Blue+YouCtrl+cmcLE3
+ManaCost:2 W
+Types:Instant
+A:SP$ PumpAll | ValidCards$ Creature.YouCtrl | KW$ Protection:White | ConditionPresent$ Plains.YouCtrl | ConditionCompare$ GE1 | SubAbility$ DBBlue
+SVar:DBBlue:DB$ PumpAll | ValidCards$ Creature.YouCtrl | KW$ Protection:Blue | ConditionPresent$ Island.YouCtrl | ConditionCompare$ GE1 | SubAbility$ DBBlack
+SVar:DBBlack:DB$ PumpAll | ValidCards$ Creature.YouCtrl | KW$ Protection:Black | ConditionPresent$ Swamp.YouCtrl | ConditionCompare$ GE1 | SubAbility$ DBRed
+SVar:DBRed:DB$ PumpAll | ValidCards$ Creature.YouCtrl | KW$ Protection:Red | ConditionPresent$ Mountain.YouCtrl | ConditionCompare$ GE1 | SubAbility$ DBGreen
+SVar:DBGreen:DB$ PumpAll | ValidCards$ Creature.YouCtrl | KW$ Protection:Green | ConditionPresent$ Forest.YouCtrl | ConditionCompare$ GE1

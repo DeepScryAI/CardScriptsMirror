@@ -1,11 +1,13 @@
 Id:34582
-ColorIdentity:WUBRG
-OriginSet:G11c0621ce29fa608
-ManaCost:R W B
-Types:Legendary Creature Eternal Villain
-PT:4/4
-K:Deathtouch
-K:Lifelink
-A:AB$ PutCounter | Cost$ C W U B R G | Defined$ Self | CounterType$ P1P1 | CounterNum$ 2 | PowerUp$ True | SubAbility$ DBChooseEvenOdd
-SVar:DBChooseEvenOdd:DB$ ChooseEvenOdd | SubAbility$ DBDestroyAll
-SVar:DBDestroyAll:DB$ DestroyAll | ValidCards$ Creature.Other+cmcChosenEvenOdd
+ColorIdentity:R
+OriginSet:Gcb93bbfc68a40806
+ManaCost:3 R R
+Types:Legendary Creature God Warrior Hero
+PT:5/5
+K:Flying
+T:Mode$ DamageDone | ValidSource$ Card.YouCtrl,Emblem.YouCtrl | OptionalDecider$ You | ValidTarget$ Opponent | CombatDamage$ False | TriggerZones$ Battlefield | Execute$ TrigExile
+SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ X | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | ForgetOnMoved$ Exile | RememberObjects$ RememberedCard | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | Affected$ Card.IsRemembered | MayPlay$ True | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:TriggerCount$DamageAmount

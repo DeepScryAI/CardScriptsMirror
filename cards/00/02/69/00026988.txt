@@ -1,7 +1,12 @@
 Id:26988
 ColorIdentity:U
-OriginSet:G6ce0035cfb774934
-ManaCost:1 U
-Types:Instant
-A:SP$ Counter | TargetType$ Spell | ValidTgts$ Card.Creature | SubAbility$ TrigTempt
-SVar:TrigTempt:DB$ RingTemptsYou | ConditionDefined$ Targeted | ConditionPresent$ Spell.Legendary
+OriginSet:G3601f5e223de6c7f
+ManaCost:4 U
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:GainControl
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMonarch
+SVar:TrigMonarch:DB$ BecomeMonarch
+S:Mode$ Continuous | Affected$ Card.EnchantedBy | GainControl$ Player.isMonarch
+S:Mode$ CantAttack | ValidCard$ Creature.EnchantedBy | Target$ You
+S:Mode$ MustAttack | ValidCreature$ Creature.EnchantedBy

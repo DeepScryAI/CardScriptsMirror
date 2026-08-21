@@ -1,11 +1,10 @@
 Id:16886
-ColorIdentity:W
+ColorIdentity:R
 OriginSet:Gbcdce58dfbbf1bad
-ManaCost:3 W W
-Types:Creature Angel
-PT:3/4
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile | OptionalDecider$ You
-SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Permanent.nonLand+OppCtrl | Duration$ UntilHostLeavesPlay
-K:Embalm:5 W
-SVar:PlayMain1:TRUE
+ManaCost:2 R
+Types:Creature Minotaur Warrior
+PT:3/2
+K:Haste
+S:Mode$ OptionalAttackCost | ValidCard$ Card.Self | Trigger$ TrigCanNotBlock | Cost$ Exert<1/CARDNAME>
+SVar:TrigCanNotBlock:DB$ Effect | ValidTgts$ Creature | RememberObjects$ Targeted | StaticAbilities$ CantBlock | ExileOnMoved$ Battlefield | IsCurse$ True
+SVar:CantBlock:Mode$ CantBlock | ValidCard$ Creature.IsRemembered

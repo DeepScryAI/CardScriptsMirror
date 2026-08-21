@@ -1,8 +1,12 @@
 Id:32115
-ColorIdentity:W
-OriginSet:G9946f072b5556073
-ManaCost:2 W
-Types:Creature Human Soldier
-PT:3/3
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | IsPresent$ Creature.YouCtrl+tapped | PresentCompare$ GE2 | TriggerZones$ Battlefield | Execute$ TrigGainLife
-SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2
+ColorIdentity:B
+OriginSet:G7ab4f62d323b0ca7
+ManaCost:1 B
+Types:Instant
+K:Tiered
+A:SP$ Charm | Choices$ DBGalianBeast,DBDeathGigas,DBHellmasker
+SVar:DBGalianBeast:DB$ Animate | ModeCost$ 0 | ValidTgts$ Creature.YouCtrl | Triggers$ TrigDeath | Power$ 3 | Toughness$ 2
+SVar:DBDeathGigas:DB$ Animate | ModeCost$ 1 | ValidTgts$ Creature.YouCtrl | Triggers$ TrigDeath | Power$ 5 | Toughness$ 2
+SVar:DBHellmasker:DB$ Animate | ModeCost$ 3 | ValidTgts$ Creature.YouCtrl | Triggers$ TrigDeath | Power$ 7 | Toughness$ 2
+SVar:TrigDeath:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigChangeZone | TriggerController$ TriggeredCardController
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | Tapped$ True | Defined$ TriggeredNewCardLKICopy

@@ -1,12 +1,18 @@
 Id:33871
-ColorIdentity:WB
-OriginSet:Gf8df2bea26dc6b68
-ManaCost:1 W B
-Types:Creature Human Cleric
+ColorIdentity:U
+OriginSet:Gf04404de3fa1525e
+ManaCost:2 U
+Types:Creature Bird Pilot
 PT:2/3
-T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | Execute$ TrigUnblockable | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | TargetsValid$ Creature.inZoneBattlefield
-SVar:TrigUnblockable:DB$ Effect | RememberObjects$ Self | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable
-SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDraw | TriggerZones$ Battlefield
-SVar:TrigDraw:DB$ Draw | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 1
+K:Flash
+K:Flying
+K:Vigilance
+K:ETBReplacement:Other:DBPrepare
+SVar:DBPrepare:DB$ AlterAttribute | Attributes$ Prepared
+AlternateMode:Prepare
+ALTERNATE
+ManaCost:U
+Types:Instant
+A:SP$ ChangeZone | ValidTgts$ Creature.nonPilot+YouCtrl | Origin$ Battlefield | Destination$ Exile | RememberTargets$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ All | Destination$ Battlefield | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

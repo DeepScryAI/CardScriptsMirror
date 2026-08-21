@@ -1,11 +1,11 @@
 Id:31121
-ColorIdentity:W
-OriginSet:Gef9d0d0c16b2fcf7
-ManaCost:2 W
-Types:Enchantment
-K:ETBReplacement:Other:ChooseCT
-SVar:ChooseCT:DB$ ChooseType | Defined$ You | Type$ Creature | AILogic$ MostProminentInComputerDeck
-S:Mode$ Continuous | Affected$ Creature.ChosenType+YouCtrl | AddPower$ 1
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigCopy
-SVar:TrigCopy:DB$ CopyPermanent | Defined$ Valid Permanent.token+YouCtrl+ChosenType+ThisTurnEntered
+ColorIdentity:B
+OriginSet:G4524bbf7a3db9dc0
+ManaCost:2 B
+Types:Creature Human Warrior
+PT:3/2
+T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigPump | TriggerZones$ Battlefield
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.attacking | NumAtt$ +1 | SubAbility$ DBDelayedTrigger
+SVar:DBDelayedTrigger:DB$ DelayedTrigger | Mode$ ChangesZone | RememberObjects$ Targeted | ValidCard$ Card.IsTriggerRemembered | Origin$ Battlefield | Destination$ Graveyard | ThisTurn$ True | Execute$ DBSurveil
+SVar:DBSurveil:DB$ Surveil | Amount$ 1
 SVar:PlayMain1:TRUE

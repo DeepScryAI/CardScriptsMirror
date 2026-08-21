@@ -1,6 +1,12 @@
 Id:29139
-ColorIdentity:G
-OriginSet:G27146c70b74a1e72
-ManaCost:3 G
-Types:Sorcery
-A:SP$ ChangeZone | Origin$ Library | Destination$ Battlefield | Tapped$ True | ChangeType$ Land.Basic,Desert | ChangeNum$ 2
+ColorIdentity:W
+OriginSet:Gc7beb665b378d90a
+ManaCost:1 W
+Types:Creature Human Scout
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange | CheckSVar$ Y | SVarCompare$ GTX
+SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | Tapped$ True | ChangeType$ Desert | ChangeNum$ 1
+T:Mode$ ChangesZoneAll | ValidCards$ Land.YouOwn+!token | Origin$ Any | Destination$ Graveyard | TriggerZones$ Battlefield | ActivationLimit$ 1 | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 701627463 | TokenOwner$ You
+SVar:X:Count$Valid Land.YouCtrl
+SVar:Y:PlayerCountOpponents$HighestValid Land.YouCtrl

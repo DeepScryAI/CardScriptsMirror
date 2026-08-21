@@ -1,8 +1,11 @@
 Id:23801
-ColorIdentity:W
-OriginSet:G5f5d8cfb206e2fac
-ManaCost:X W W
-Types:Instant
-A:SP$ Token | TokenAmount$ X | TokenScriptIds$ 1092778731 | SubAbility$ DBPumpAll
-SVar:DBPumpAll:DB$ PumpAll | ValidCards$ Creature.YouCtrl | KW$ Indestructible
-SVar:X:Count$xPaid
+ColorIdentity:B
+OriginSet:Gd970889168b5769f
+ManaCost:2 B
+Types:Creature Spirit
+PT:3/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigAnimate
+SVar:TrigAnimate:DB$ Animate | ValidTgts$ Creature.YouCtrl | TgtZone$ Battlefield,Graveyard | Triggers$ BiggerDies | Duration$ Perpetual
+SVar:BiggerDies:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl+cmcGTX | TriggerZones$ Graveyard | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | Tapped$ True
+SVar:X:Count$CardManaCost

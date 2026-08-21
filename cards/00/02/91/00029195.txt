@@ -1,11 +1,12 @@
 Id:29195
-ColorIdentity:B
+ColorIdentity:WG
 OriginSet:G27146c70b74a1e72
-ManaCost:3 B
-Types:Creature Vampire Assassin
-PT:2/2
-K:Flash
+ManaCost:1 G W
+Types:Creature Hippogriff Mount
+PT:1/4
 K:Flying
 K:Lifelink
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigDestroy
-SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Creature.wasDealtDamageThisTurn+OppCtrl
+T:Mode$ Attacks | ValidCard$ Card.Self+IsSaddled | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +X | NumDef$ +X
+SVar:X:Count$Valid Mount.YouCtrl
+K:Saddle:3

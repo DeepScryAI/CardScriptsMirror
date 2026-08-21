@@ -1,7 +1,13 @@
 Id:22752
 ColorIdentity:R
-OriginSet:Gf78628ad511eefec
-ManaCost:1 R
-Types:Sorcery
-K:Flashback:3 R
-A:SP$ Pump | ValidTgts$ Creature | KW$ HIDDEN CARDNAME can't block. | IsCurse$ True | TargetMin$ 0 | TargetMax$ 2
+OriginSet:G9f95a41d532c0550
+ManaCost:2 R R
+Types:Legendary Planeswalker Zariel
+Loyalty:4
+A:AB$ PumpAll | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | ValidCards$ Creature.YouCtrl | NumAtt$ +1 | KW$ Haste
+A:AB$ Token | Cost$ AddCounter<0/LOYALTY> | TokenScriptIds$ 1965070986 | TokenOwner$ You | Planeswalker$ True
+A:AB$ Effect | Cost$ SubCounter<6/LOYALTY> | Name$ 7972823415519220383 | Triggers$ STZariel | Planeswalker$ True | Ultimate$ True | Duration$ Permanent
+SVar:STZariel:Mode$ Phase | Phase$ EndCombat | ValidPlayer$ You | FirstCombat$ True | Execute$ TrigZarielCombat
+SVar:TrigZarielCombat:DB$ Untap | ValidTgts$ Creature.YouCtrl | SubAbility$ DBAddCombat
+SVar:DBAddCombat:DB$ AddPhase | ExtraPhase$ Combat | AfterPhase$ EndCombat
+SVar:PlayMain1:TRUE

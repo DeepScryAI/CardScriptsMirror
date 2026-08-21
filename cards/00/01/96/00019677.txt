@@ -1,9 +1,12 @@
 Id:19677
-ColorIdentity:U
+ColorIdentity:WUBRG
 OriginSet:G7c61dc677f00d087
-ManaCost:4 U U
-Types:Legendary Planeswalker Yanling
-Loyalty:5
-A:AB$ Pump | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | NumAtt$ -5 | IsCurse$ True | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Creature | Duration$ UntilYourNextTurn
-A:AB$ ChangeZone | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 2 | Origin$ Battlefield | Destination$ Hand
-A:AB$ PumpAll | Cost$ SubCounter<7/LOYALTY> | Planeswalker$ True | Ultimate$ True | ValidCards$ Creature.withFlying+YouCtrl | NumAtt$ +5 | NumDef$ +5
+ManaCost:5
+Types:Legendary Artifact Creature Scout
+PT:3/5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | OptionalDecider$ You | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | Tapped$ True | ChangeType$ Land | ChangeNum$ 1 | ShuffleNonMandatory$ True
+A:AB$ Dig | Cost$ 2 W U B R G | Defined$ You | DigNum$ 3 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ EffPlay | EffectOwner$ You | RememberObjects$ Remembered | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:EffPlay:Mode$ Continuous | MayPlay$ True | MayPlayWithoutManaCost$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

@@ -1,8 +1,11 @@
 Id:16868
-ColorIdentity:U
+ColorIdentity:
 OriginSet:Gd31f94cf3a5f78e4
-ManaCost:2 U
-Types:Creature Human Wizard
-PT:2/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange | OptionalDecider$ You
-SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Artifact.cmcEQ3 | ChangeNum$ 1 | ShuffleNonMandatory$ True
+ManaCost:4
+Types:Artifact Creature Construct
+PT:3/3
+T:Mode$ ChangesZone | ValidCard$ Card.Self | TriggerZones$ Battlefield | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigKeeperCascade
+SVar:TrigKeeperCascade:DB$ DigUntil | Defined$ You | Amount$ 1 | Valid$ Card.nonLand+cmcLE3 | NoMoveRevealed$ True | ImprintRevealed$ True | RememberFound$ True | SubAbility$ CascadeCast
+SVar:CascadeCast:DB$ Play | Defined$ Remembered | WithoutManaCost$ True | ValidSA$ Spell | Optional$ True | SubAbility$ CascadeMoveToLib
+SVar:CascadeMoveToLib:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered,Card.IsImprinted | Origin$ Library | Destination$ Library | RandomOrder$ True | LibraryPosition$ -1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True

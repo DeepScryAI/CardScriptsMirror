@@ -1,8 +1,11 @@
 Id:10388
-ColorIdentity:WUG
+ColorIdentity:UBR
 OriginSet:Ga3dbc4b644a9a2c5
-ManaCost:G
-Types:Creature Human Druid
-PT:0/1
-K:Exalted
-A:AB$ Mana | Cost$ T | Produced$ Combo W U G
+ManaCost:4 U B B R
+Types:Legendary Planeswalker Bolas
+Loyalty:5
+A:AB$ Destroy | Cost$ AddCounter<3/LOYALTY> | ValidTgts$ Permanent.nonCreature | Planeswalker$ True
+A:AB$ GainControl | Cost$ SubCounter<2/LOYALTY> | ValidTgts$ Creature | Planeswalker$ True
+A:AB$ DealDamage | Cost$ SubCounter<9/LOYALTY> | NumDmg$ 7 | ValidTgts$ Player,Planeswalker | Planeswalker$ True | Ultimate$ True | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ TargetedOrController | NumCards$ 7 | Mode$ TgtChoose | SubAbility$ DBSac
+SVar:DBSac:DB$ Sacrifice | Defined$ TargetedOrController | SacValid$ Permanent | Amount$ 7

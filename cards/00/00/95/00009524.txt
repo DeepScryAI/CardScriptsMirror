@@ -1,11 +1,11 @@
 Id:9524
-ColorIdentity:U
+ColorIdentity:G
 OriginSet:G49bcc8b9b86b628d
-ManaCost:U U
-Types:Creature Merfolk Rogue
-PT:2/2
-T:Mode$ Taps | ValidCard$ Card.Self | Execute$ TrigExile
-SVar:TrigExile:DB$ Dig | ValidTgts$ Opponent | DigNum$ 3 | ChangeNum$ All | DestinationZone$ Exile | ExileFaceDown$ True
-S:Mode$ Continuous | Affected$ Card.ExiledWithSource | AffectedZone$ Exile | MayLookAt$ You
-A:AB$ SetState | Cost$ U Sac<1/CARDNAME> | Defined$ ExiledWithSource | Mode$ TurnFaceUp | SubAbility$ DBCounter
-SVar:DBCounter:DB$ Counter | Defined$ ValidStack Spell.sharesNameWith ExiledWithSource
+ManaCost:4 G
+Types:Creature Elf Archer
+PT:2/4
+S:Mode$ Continuous | Affected$ Creature.Archer+Other+YouCtrl | AddPower$ 1 | AddToughness$ 1
+T:Mode$ DamageDone | ValidSource$ Archer.YouCtrl+inZoneBattlefield | ValidTarget$ Creature | TriggerZones$ Battlefield | Execute$ TrigDealDamage
+SVar:TrigDealDamage:DB$ DealDamage | Defined$ TriggeredTargetController | DamageSource$ TriggeredSource | NumDmg$ X
+SVar:X:TriggerCount$DamageAmount
+SVar:HasCombatEffect:TRUE

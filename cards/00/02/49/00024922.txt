@@ -1,10 +1,11 @@
 Id:24922
-ColorIdentity:R
+ColorIdentity:BR
 OriginSet:G3a8b4b9d4649b357
-ManaCost:4 R R
-Types:Creature Dragon
-PT:5/3
-K:Flying
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump | OptionalDecider$ You
-SVar:TrigPump:AB$ Pump | Cost$ Sac<1/Creature.Other/another creature> | Defined$ Self | KW$ DoubleStrike
-SVar:HasAttackEffect:TRUE
+ManaCost:1 B R R
+Types:Legendary Creature Human Berserker
+PT:4/3
+T:Mode$ ChangesZone | ValidCard$ Creature.Other+YouCtrl | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigBranch | TriggerZones$ Battlefield
+SVar:TrigBranch:DB$ Branch | BranchConditionSVar$ X | BranchConditionSVarCompare$ GE1 | TrueSubAbility$ DBDraw | FalseSubAbility$ DBDamage
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1
+SVar:DBDamage:DB$ DealDamage | Defined$ Opponent | NumDmg$ 1
+SVar:X:TriggeredCard$Valid Creature.attacking

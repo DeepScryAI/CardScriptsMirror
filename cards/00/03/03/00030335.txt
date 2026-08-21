@@ -1,13 +1,13 @@
 Id:30335
-ColorIdentity:B
-OriginSet:G8b2ed00ac2a0ff47
-ManaCost:B B B B B B
-Types:Creature Demon
-PT:6/6
-K:Flying
-T:Mode$ ChangesZone | ValidCard$ Card.Self+wasCast | Origin$ Any | Destination$ Battlefield | Execute$ TrigExcruciator
-SVar:TrigExcruciator:DB$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBDigExile
-SVar:DBDigExile:DB$ Dig | DigNum$ X | ChangeNum$ All | Defined$ Player.IsRemembered | DestinationZone$ Exile | ExileFaceDown$ True | NoReveal$ True
-SVar:X:Count$ValidLibrary Card.RememberedPlayerCtrl/Minus.6
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You
+ColorIdentity:BR
+OriginSet:G9ff9681e1fe8713a
+ManaCost:1 B R
+Types:Creature Lizard Warlock
+PT:3/3
+K:Menace
+K:Ward:PayLife<3>
+T:Mode$ DamageDoneOnce | ValidSource$ Creature.YouCtrl | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigConjure | TriggerZones$ Battlefield
+SVar:TrigConjure:DB$ MakeCard | Conjure$ True | AtRandom$ True | SpellbookCatalogIds$ 18973,23850,19001,19012,19042,18935,19070,18947,19104,18952,19113 | RememberMade$ True | SubAbility$ DBEffect | Zone$ Exile
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ STPlay | SubAbility$ DBCleanup | ForgetOnMoved$ Exile | Duration$ UntilTheEndOfYourNextTurn
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

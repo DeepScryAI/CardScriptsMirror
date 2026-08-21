@@ -1,13 +1,12 @@
 Id:28367
-ColorIdentity:R
-OriginSet:G94329e6b3f93276f
-ManaCost:3 R
-Types:Legendary Creature Elemental Dog
-PT:3/3
-K:Unleash
-S:Mode$ Continuous | Affected$ Dog.Other+YouCtrl | AddKeyword$ Unleash
-S:Mode$ Continuous | Affected$ Creature.YouCtrl+HasCounters | AddKeyword$ Haste
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigMana
-SVar:TrigMana:DB$ Mana | Produced$ R | Amount$ X
-SVar:X:Count$Valid Creature.attacking
-SVar:HasAttackEffect:TRUE
+ColorIdentity:WB
+OriginSet:Gfd50577710a6ab09
+ManaCost:2 W B
+Types:Legendary Creature Vampire Demon
+PT:4/4
+K:Flying
+T:Mode$ Sacrificed | ValidCard$ Permanent.Other | ValidPlayer$ You | Execute$ TrigGainLife | TriggerZones$ Battlefield
+SVar:TrigGainLife:DB$ GainLife | Defined$ You | ConditionCheckSVar$ Resolved | ConditionSVarCompare$ EQ1 | LifeAmount$ 2 | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ Opponent | LifeAmount$ 2 | ConditionCheckSVar$ Resolved | ConditionSVarCompare$ EQ2 | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 3875630332 | ConditionCheckSVar$ Resolved | ConditionSVarCompare$ EQ3
+SVar:Resolved:Count$ResolvedThisTurn

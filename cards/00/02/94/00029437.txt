@@ -1,13 +1,13 @@
 Id:29437
-ColorIdentity:B
-OriginSet:Gac6359c222afbd4f
-ManaCost:2 B B
-Types:Instant
-S:Mode$ AlternativeCost | ValidSA$ Spell.Self | EffectZone$ All | Cost$ Sac<1/Creature.Black+!token/a nontoken black creature>
-A:SP$ RepeatEach | RepeatPlayers$ Player.Opponent | RepeatSubAbility$ DBChooseCard | SubAbility$ DBSacAll
-SVar:DBChooseCard:DB$ ChooseCard | Defined$ Player.IsRemembered | Choices$ Creature.RememberedPlayerCtrl+cmcEQX,Planeswalker.RememberedPlayerCtrl+cmcEQX | Mandatory$ True | Reveal$ True | RememberChosen$ True
-SVar:X:Count$Valid Creature.RememberedPlayerCtrl,Planeswalker.RememberedPlayerCtrl$GreatestCardManaCost
-SVar:DBSacAll:DB$ SacrificeAll | ValidCards$ Card.IsRemembered | SubAbility$ DBCleanup
-SVar:DBCleanupChosen:DB$ Cleanup | ClearChosenPlayer$ True
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:NeedsToPlay:Creature.OppCtrl
+ColorIdentity:WB
+OriginSet:G0c9f9aa4a8bf0371
+ManaCost:2 W B B
+Types:Legendary Creature Vampire Cleric Knight
+PT:4/2
+K:Menace
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Permanent.OppCtrl+nonLand+!token | RememberTargets$ True | SubAbility$ DBConjure
+SVar:DBConjure:DB$ MakeCard | UnlessCost$ Discard<1/Card> | UnlessPayer$ You | UnlessSwitched$ True | Conjure$ True | DefinedName$ Remembered | Zone$ Hand | Amount$ 1 | ImprintMade$ True | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Imprinted | staticAbilities$ SpendAnyMana | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True
+SVar:SpendAnyMana:Mode$ ManaConvert | EffectZone$ Stack | ValidPlayer$ You | ValidCard$ Card.Self | ValidSA$ Spell | ManaConversion$ AnyType->AnyType

@@ -1,9 +1,11 @@
 Id:29904
-ColorIdentity:B
-OriginSet:Gf09b85bbcc27770c
-ManaCost:2 B
-Types:Instant
-K:Gift
-SVar:GiftAbility:DB$ Token | TokenScriptIds$ 134855612 | TokenOwner$ Promised
-A:SP$ Destroy | ValidTgts$ Creature | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | Defined$ You | ConditionZone$ Stack | ConditionPresent$ Card.Self+PromisedGift | ConditionCompare$ EQ0 | LifeAmount$ 2
+ColorIdentity:
+OriginSet:G01a610e823cce3ca
+ManaCost:3
+Types:Legendary Artifact
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZoneAll
+SVar:TrigChangeZoneAll:DB$ ChangeZoneAll | ChangeType$ Creature.YouOwn | Origin$ Graveyard | Destination$ Exile
+A:AB$ Dig | Cost$ T | Defined$ You | DigNum$ 3 | ChangeNum$ All | DestinationZone$ Exile
+A:AB$ ChangeZone | Cost$ 4 T | Origin$ Exile | Destination$ Battlefield | Mandatory$ True | Hidden$ True | ChangeType$ Creature.ExiledWithSource | SorcerySpeed$ True | GainControl$ True | SubAbility$ DBPump | RememberChanged$ True
+SVar:DBPump:DB$ Pump | Defined$ Remembered | KW$ Haste | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

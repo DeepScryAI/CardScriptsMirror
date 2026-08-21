@@ -1,14 +1,9 @@
 Id:22135
-ColorIdentity:UG
-OriginSet:Ga575fa2f4f5cded4
-ManaCost:G U
-Types:Legendary Creature Snake Elf Scout
-PT:1/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.YouCtrl+!token+Other | TriggerZones$ Battlefield | Execute$ TrigInvestigate
-SVar:TrigInvestigate:DB$ Investigate
-A:AB$ PeekAndReveal | Cost$ T Sac<X/Clue> | ValidTgts$ Opponent | PeekAmount$ X | NoPeek$ True | RememberRevealed$ True | SubAbility$ PickOne
-SVar:PickOne:DB$ ChooseCard | Defined$ You | Amount$ 1 | Choices$ Permanent.nonLand+cmcLEX+IsRemembered | ChoiceZone$ Library | SubAbility$ MoveChosen
-SVar:MoveChosen:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | GainControl$ True | Defined$ ChosenCard | SubAbility$ DBBottom
-SVar:DBBottom:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered | Origin$ Library | Destination$ Library | LibraryPosition$ -1 | RandomOrder$ True | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearChosenCard$ True
-SVar:X:Count$xPaid
+ColorIdentity:WB
+OriginSet:Gd784248bfdf9e1d7
+ManaCost:W WB B
+Types:Creature Human Warlock
+PT:2/2
+K:Flying
+T:Mode$ ChangesZone | ValidCard$ Creature.withFlying+Other+YouCtrl | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigPutCounter | TriggerZones$ Battlefield
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1

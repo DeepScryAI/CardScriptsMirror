@@ -1,8 +1,12 @@
 Id:5726
-ColorIdentity:B
+ColorIdentity:U
 OriginSet:G7327b0fa163b48eb
-ManaCost:5 B B
-Types:Sorcery
-A:SP$ ChangeZoneAll | ChangeType$ Card.YouCtrl | Origin$ Library | Destination$ Graveyard | SubAbility$ GraveShift | RememberChanged$ True
-SVar:GraveShift:DB$ ChangeZoneAll | ChangeType$ Card.YouCtrl+!IsRemembered | Origin$ Graveyard | Destination$ Library | Shuffle$ True | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:3 U U
+Types:Enchantment
+R:Event$ Untap | ActiveZones$ Battlefield | ValidCard$ Permanent | ValidStepTurnToController$ You | Layer$ CantHappen
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Player | Execute$ TrigChoose | TriggerZones$ Battlefield
+SVar:TrigChoose:DB$ ChooseCard | Defined$ TriggeredPlayer | Amount$ X | Mandatory$ True | Choices$ Permanent | SubAbility$ DBUntap
+SVar:DBUntap:DB$ UntapAll | ValidCards$ Permanent.ChosenCard | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+SVar:X:Count$ValidGraveyard Card.ActivePlayerCtrl
+SVar:NonStackingEffect:True

@@ -1,7 +1,12 @@
 Id:27427
 ColorIdentity:W
-OriginSet:G7579344e30f8be85
+OriginSet:G8636ad1cfd514d83
 ManaCost:2 W
-Types:Instant
-A:SP$ Effect | ReplacementEffects$ RPrevent | AILogic$ Fog
-SVar:RPrevent:Event$ DamageDone | Prevent$ True | ActiveZones$ Command | ValidSource$ Creature.inZoneBattlefield | ValidTarget$ You,Creature.YouCtrl
+Types:Legendary Planeswalker Teyo
+Loyalty:3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken | TriggerZones$ Battlefield
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 963672019
+A:AB$ Draw | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Opponent | Defined$ TargetedAndYou | NumCards$ 1
+A:AB$ ChooseDirection | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | Duration$ UntilYourNextTurn | StaticAbilities$ Static
+SVar:Static:Mode$ CantAttack | DefenderNotNearestToYouInChosenDirection$ True

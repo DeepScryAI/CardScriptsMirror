@@ -1,12 +1,10 @@
 Id:32326
-ColorIdentity:R
-OriginSet:G324b911e0e372b1b
-ManaCost:1 R
-Types:Creature Kavu Soldier
-PT:3/1
-K:Trample
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigConjure
-SVar:TrigConjure:DB$ MakeCard | Conjure$ True | CatalogId$ 4925 | Zone$ Library | LibraryPosition$ Count$Random.0.8 | RememberMade$ True | SubAbility$ DBAnimate
-SVar:DBAnimate:DB$ Animate | Defined$ Remembered | staticAbilities$ FreeCast | Duration$ Perpetual | SubAbility$ DBCleanup
-SVar:FreeCast:Mode$ Continuous | MayPlay$ True | MayPlayAltManaCost$ 0 | MayPlayDontGrantZonePermissions$ True | Affected$ Card.Self | AffectedZone$ Hand,Graveyard,Exile,Library,Command | EffectZone$ All
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:W
+OriginSet:G9946f072b5556073
+ManaCost:1 W
+Types:Artifact Spacecraft
+PT:3/5
+K:Station:12
+S:Mode$ Continuous | Affected$ Card.Self+counters_GE2_CHARGE | AddStaticAbility$ AnthemStatic
+SVar:AnthemStatic:Mode$ Continuous | Affected$ Creature.YouCtrl+Other | AddPower$ 1 | AddToughness$ 1
+S:Mode$ Continuous | Affected$ Card.Self+counters_GE12_CHARGE | AddType$ Creature | AddKeyword$ Flying & Lifelink

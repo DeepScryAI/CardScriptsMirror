@@ -1,14 +1,8 @@
 Id:16436
-ColorIdentity:R
+ColorIdentity:W
 OriginSet:G4bddbf7cb4f2475e
-ManaCost:4 R R
-Types:Artifact Creature Construct
-PT:6/6
-K:FirstStrike
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ DBChoice
-SVar:DBChoice:DB$ GenericChoice | ValidTgts$ Opponent | Choices$ CombustDraw,CombustDamage | AILogic$ CombustibleGearhulk
-SVar:CombustDraw:DB$ Draw | Defined$ You | NumCards$ 3
-SVar:CombustDamage:DB$ Mill | Defined$ You | NumCards$ 3 | RememberMilled$ True | SubAbility$ DamageOpponent
-SVar:DamageOpponent:DB$ DealDamage | Defined$ ParentTarget | NumDmg$ X | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Remembered$CardManaCost
+ManaCost:2
+Types:Artifact
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 825621291 | TokenOwner$ You
+A:AB$ Token | Cost$ 1 W Sac<1/CARDNAME> | TokenScriptIds$ 825621291 | TokenOwner$ You

@@ -1,12 +1,9 @@
 Id:31583
-ColorIdentity:WBR
-OriginSet:G530ea9d733a13e9d
-ManaCost:1 R W B
-Types:Legendary Creature Human Wizard Knight
-PT:4/4
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigDiscard
-SVar:TrigDiscard:DB$ Discard | AnyNumber$ True | Optional$ True | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ Remembered$Amount/Plus.1 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-T:Mode$ ChangesZoneAll | ValidCards$ Creature.Other+YouCtrl+wasCastFromGraveyard,Creature.Other+YouCtrl+ThisTurnEnteredFrom_Graveyard | Destination$ Battlefield | TriggerZones$ Battlefield | Execute$ TrigPutCounters
-SVar:TrigPutCounters:DB$ PutCounterAll | ValidCards$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1
+ColorIdentity:WR
+OriginSet:Gf2b808f4f642ac62
+ManaCost:R W
+Types:Instant
+A:SP$ Charm | Choices$ DBToken,DBPump
+SVar:DBToken:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 1112542976 | TokenOwner$ You
+SVar:DBPump:DB$ Pump | NumAtt$ +X | NumDef$ +X | ValidTgts$ Creature
+SVar:X:Count$Valid Creature.YouCtrl

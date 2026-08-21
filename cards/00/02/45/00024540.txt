@@ -1,8 +1,13 @@
 Id:24540
-ColorIdentity:B
-OriginSet:G58bfeff4fb121c8e
-ManaCost:2 B
-Types:Creature Hag Warlock
-PT:2/2
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDiscard
-SVar:TrigDiscard:DB$ Discard | Defined$ Opponent | Mode$ TgtChoose
+ColorIdentity:W
+OriginSet:G51fcb7ec0cb81c29
+ManaCost:2 W
+Types:Creature Orc Cleric
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigInitiative
+SVar:TrigInitiative:DB$ TakeInitiative
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Opponent | TriggerZones$ Battlefield | Execute$ TrigBranch
+SVar:TrigBranch:DB$ Branch | BranchConditionSVar$ X | TrueSubAbility$ DBUntapAll | FalseSubAbility$ DBUntap
+SVar:DBUntapAll:DB$ UntapAll | ValidCards$ Creature.YouCtrl
+SVar:DBUntap:DB$ Untap | UntapExactly$ True | UntapType$ Creature.YouCtrl | Amount$ 1
+SVar:X:DungeonsCompleted$Amount

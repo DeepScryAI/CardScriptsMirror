@@ -1,10 +1,10 @@
 Id:24411
-ColorIdentity:W
+ColorIdentity:G
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:3 W W
-Types:Sorcery
-A:SP$ ChooseCard | Choices$ Creature.YouCtrl | Mandatory$ True | ImprintChosen$ True | SubAbility$ DBChooseCard
-SVar:DBChooseCard:DB$ ChooseCard | Defined$ Opponent | ControlledByPlayer$ Chooser | Choices$ Creature.powerLEX | Mandatory$ True | RememberChosen$ True | SubAbility$ DBChangeZoneAll
-SVar:X:Imprinted$CardPower
-SVar:DBChangeZoneAll:DB$ ChangeZoneAll | ConditionDefined$ Imprinted | ConditionPresent$ Creature | Origin$ Battlefield | Destination$ Exile | ChangeType$ Creature.!IsRemembered+!IsImprinted | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True | ClearChosenCard$ True
+ManaCost:no cost
+Types:Land Gate
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+K:ETBReplacement:Other:ChooseColor
+SVar:ChooseColor:DB$ ChooseColor | Defined$ You | Exclude$ green | AILogic$ MostProminentInComputerDeck
+A:AB$ Mana | Cost$ T | Produced$ Combo G Chosen

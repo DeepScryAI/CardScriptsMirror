@@ -1,10 +1,11 @@
 Id:31218
-ColorIdentity:B
-OriginSet:G9de1432c543d1aef
-ManaCost:2 B
-Types:Sorcery
-S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ X | EffectZone$ All
-SVar:X:Count$StartingPlayer.0.1
-A:SP$ Destroy | ValidTgts$ Creature,Vehicle | AlwaysRemember$ True | RememberLKI$ True | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | Defined$ RememberedController | LifeAmount$ 2 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:U
+OriginSet:G4524bbf7a3db9dc0
+ManaCost:2 U U
+Types:Creature Vedalken Ranger
+PT:2/2
+K:Flying
+K:Vigilance
+T:Mode$ AttackersDeclared | AttackedTarget$ You | TriggerZones$ Battlefield | Execute$ TrigPumpAll
+SVar:TrigPumpAll:DB$ Pump | Defined$ TriggeredAttackers | NumAtt$ -1 | IsCurse$ True
+A:AB$ PutCounter | Cost$ 5 U U | Defined$ Self | CounterType$ P1P1 | CounterNum$ 3 | Exhaust$ True

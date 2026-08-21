@@ -1,12 +1,13 @@
 Id:26888
-ColorIdentity:WUR
-OriginSet:G3601f5e223de6c7f
-ManaCost:2 U R W
-Types:Legendary Creature Human Knight
-PT:5/4
-K:FirstStrike
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | CheckSVar$ HumanEntered | TriggerZones$ Battlefield | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 912495912 | TokenOwner$ You | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | ConditionCheckSVar$ X | ConditionSVarCompare$ GE6
-SVar:X:Count$Valid Human.YouCtrl
-SVar:HumanEntered:Count$ThisTurnEntered_Battlefield_Creature.Human+StrictlyOther+YouCtrl
+ColorIdentity:U
+OriginSet:G997e3b19a1e94e85
+ManaCost:1 U
+Types:Creature Phyrexian Wizard
+PT:1/3
+K:Flying
+S:Mode$ Continuous | Affected$ Incubator.token+YouCtrl | AddType$ Food,Blood,Clue,Treasure,Powerstone | AddAbility$ FoodSac & BloodSac & ClueSac & TreasureSac & PowerstoneTap
+SVar:FoodSac:AB$ GainLife | Cost$ 2 T Sac<1/CARDNAME/this artifact> | LifeAmount$ 3
+SVar:BloodSac:AB$ Draw | Cost$ 1 T Discard<1/Card> Sac<1/CARDNAME/this artifact> | NumCards$ 1
+SVar:ClueSac:AB$ Draw | Cost$ 2 Sac<1/CARDNAME/this artifact> | NumCards$ 1
+SVar:TreasureSac:AB$ Mana | Cost$ T Sac<1/CARDNAME/this artifact> | Produced$ Any | Amount$ 1
+SVar:PowerstoneTap:AB$ Mana | Cost$ T | Produced$ C | RestrictValid$ CantCastNonArtifactSpells

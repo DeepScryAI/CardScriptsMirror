@@ -1,10 +1,11 @@
 Id:22032
-ColorIdentity:UR
+ColorIdentity:BG
 OriginSet:Gd784248bfdf9e1d7
-ManaCost:U R
-Types:Creature Human Shaman
-PT:2/2
-T:Mode$ SpellCastOrCopy | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigUnblockable
-SVar:TrigUnblockable:DB$ Effect | RememberObjects$ Self | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable | SubAbility$ DBPutCounter
-SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
-SVar:DBPutCounter:DB$ PutCounter | CounterType$ P1P1 | ConditionCheckSVar$ TriggeredSpellAbility$CardManaCostLKI | ConditionSVarCompare$ GE5
+ManaCost:B G
+Types:Legendary Creature Dryad Druid
+PT:1/3
+T:Mode$ LifeGained | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDrain
+SVar:TrigDrain:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 1
+A:AB$ Pump | Cost$ 1 Sac<1/Creature.Other/another creature> | Defined$ Self | NumAtt$ +X | AILogic$ Aristocrat
+SVar:X:Sacrificed$CardPower
+SVar:AIPreference:SacCost$Creature.Other

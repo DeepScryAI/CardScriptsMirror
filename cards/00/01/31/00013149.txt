@@ -1,8 +1,10 @@
 Id:13149
-ColorIdentity:B
+ColorIdentity:
 OriginSet:G5449dea2d54987a1
-ManaCost:1 B
-Types:Creature Human Rogue
-PT:2/2
-A:AB$ FlipCoin | Cost$ T PayLife<3> | WinSubAbility$ TSGainLife | AILogic$ Never
-SVar:TSGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 6
+ManaCost:2
+Types:Artifact
+K:ETBReplacement:Other:ChooseColors
+SVar:ChooseColors:DB$ ChooseColor | Defined$ You | TwoColors$ True | AILogic$ MostProminentDualInComputerDeck
+T:Mode$ SpellCast | ValidCard$ Card.AnyChosenColor | ValidActivatingPlayer$ You | Execute$ TrigGainLife
+SVar:TrigGainLife:DB$ GainLife | LifeAmount$ X
+SVar:X:Count$HasNumChosenColors.TriggeredCard

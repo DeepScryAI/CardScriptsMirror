@@ -1,10 +1,11 @@
 Id:16239
-ColorIdentity:
+ColorIdentity:U
 OriginSet:G70d19654882197c9
-ManaCost:no cost
-Types:Land
-A:AB$ Mana | Cost$ T | Produced$ C
-R:Event$ Moved | ActiveZones$ Battlefield | ValidCard$ Card.YouCtrl | ValidCause$ SpellAbility.OppCtrl | ReplaceWith$ DBReveal | Optional$ True | EffectOnly$ True | Discard$ True
-SVar:DBReveal:DB$ Reveal | Defined$ You | RevealDefined$ ReplacedCard | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ ChangeZone | Hidden$ True | Origin$ All | Destination$ Library | Defined$ ReplacedCard
-SVar:NonStackingEffect:True
+ManaCost:2 U
+Types:Creature Spirit
+PT:2/1
+K:Flash
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self,Spirit.YouCtrl+Other | Execute$ TrigTap
+SVar:TrigTap:DB$ Tap | ValidTgts$ Creature.OppCtrl
+SVar:BuffedBy:Spirit

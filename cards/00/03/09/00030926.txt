@@ -1,12 +1,9 @@
 Id:30926
-ColorIdentity:BR
-OriginSet:G4524bbf7a3db9dc0
-ManaCost:2 B R
-Types:Legendary Creature Human Mercenary
-PT:4/5
-K:StartYourEngines
-T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigDamage | TriggerZones$ Battlefield
-SVar:TrigDamage:DB$ DealDamage | NumDmg$ 1 | Defined$ Opponent
-S:Mode$ Continuous | Affected$ Card.Self | Condition$ MaxSpeed | AddReplacementEffect$ DamageRep
-SVar:DamageRep:Event$ DamageDone | MaxSpeed$ True | ActiveZones$ Battlefield | ValidSource$ Card.YouCtrl,Emblem.YouCtrl | ValidTarget$ Player.Opponent,Permanent.OppCtrl | ReplaceWith$ DmgPlus | Secondary$ True
-SVar:DmgPlus:DB$ ReplaceEffect | VarName$ DamageAmount | VarValue$ ReplaceCount$DamageAmount/Plus.1
+ColorIdentity:B
+OriginSet:Gc5a2f0ff902c0621
+ManaCost:1 B
+Types:Creature Vampire Warlock
+PT:1/1
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self,Creature.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | ValidTgts$ Opponent | LifeAmount$ 1 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1

@@ -1,12 +1,9 @@
 Id:26793
 ColorIdentity:R
-OriginSet:G321081e278de53f0
-ManaCost:3 R R
-Types:Legendary Creature Orc Efreet
-PT:5/4
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDigUntil
-SVar:TrigDigUntil:DB$ DigUntil | Defined$ Player | Valid$ Card.nonLand | FoundDestination$ Exile | RevealedDestination$ Exile | RememberFound$ True | SubAbility$ DBChoosePlayer
-SVar:DBChoosePlayer:DB$ ChoosePlayer | Defined$ You | Choices$ Opponent | SubAbility$ OppPickOne
-SVar:OppPickOne:DB$ ChooseCard | Defined$ ChosenPlayer | Amount$ 1 | Mandatory$ True | Choices$ Card.IsRemembered+nonLand | ChoiceZone$ Exile | SubAbility$ DBPlay
-SVar:DBPlay:DB$ Play | Defined$ Remembered.!ChosenCard | WithoutManaCost$ True | ValidSA$ Spell | Optional$ True | Amount$ 2 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+OriginSet:G06757f68e16377c2
+ManaCost:5 R
+Types:Instant
+K:Convoke
+A:SP$ Charm | Choices$ Damage,Destroy
+SVar:Damage:DB$ DealDamage | ValidTgts$ Creature,Planeswalker,Battle | NumDmg$ 6
+SVar:Destroy:DB$ Destroy | ValidTgts$ Artifact

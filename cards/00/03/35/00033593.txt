@@ -1,13 +1,10 @@
 Id:33593
-ColorIdentity:G
-OriginSet:G23d1f017cc66962f
-ManaCost:5 G G
-Types:Creature Cat Spirit Avatar
-PT:7/7
-K:Trample
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGainLife
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigGainLife | Secondary$ True | TriggerZones$ Battlefield
-SVar:TrigGainLife:AB$ GainLife | Cost$ Sac<1/Permanent.token;Land/token or a land> | Defined$ You | LifeAmount$ 3
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraw | Revolt$ True
-SVar:TrigDraw:DB$ Draw
-SVar:HasAttackEffect:TRUE
+ColorIdentity:WUBRG
+OriginSet:Gff0a4227ae9f1a4b
+ManaCost:3 W
+Types:Legendary Creature Mutant Ninja Turtle
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.token+YouCtrl | TriggerZones$ Battlefield | Execute$ DBPutCounterAll | OptionalDecider$ You | ResolvedLimit$ 1
+SVar:DBPutCounterAll:DB$ PutCounterAll | ValidCards$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1
+A:AB$ PumpAll | Cost$ W U B R G | ValidCards$ Creature.YouCtrl | KW$ Menace & Trample & Lifelink
+K:Partner:Character select

@@ -1,9 +1,11 @@
 Id:5066
 ColorIdentity:R
 OriginSet:Ga43915481c3b48d8
-ManaCost:2 R
-Types:Creature Dwarf
-PT:4/2
-R:Event$ Untap | ValidCard$ Card.Self | ValidStepTurnToController$ You | Layer$ CantHappen
-T:Mode$ SpellCast | ValidCard$ Card.nonRed | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigUntap
-SVar:TrigUntap:DB$ Untap | Defined$ Self
+ManaCost:3 R
+Types:Sorcery
+K:Kicker:2 R Sac<1/Land>
+A:SP$ Destroy | ValidTgts$ Land | SubAbility$ DBDestroy
+SVar:DBDestroy:DB$ Destroy | ValidTgts$ Land | TargetMin$ X | TargetMax$ X
+SVar:X:Count$Kicked.1.0
+SVar:NeedsToPlayKickedVar:Z GE2
+SVar:Z:Count$Valid Land.OppCtrl

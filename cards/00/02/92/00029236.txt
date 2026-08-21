@@ -1,12 +1,9 @@
 Id:29236
-ColorIdentity:BG
+ColorIdentity:WRG
 OriginSet:G27146c70b74a1e72
-ManaCost:3 B G
-Types:Legendary Creature Frog Horror Mount
-PT:6/5
-K:Trample
+ManaCost:R G W
+Types:Legendary Creature Human Shaman
+PT:3/3
 K:Haste
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDraw | TriggerZones$ Battlefield
-SVar:TrigDraw:AB$ Draw | Cost$ Sac<1/Creature.SaddledThisTurn/creature that saddled it this turn> | NumCards$ Sacrificed$CardPower | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | ConditionDefined$ Sacrificed | ConditionPresent$ Card | Origin$ Hand | Destination$ Battlefield | ChangeType$ Land | ChangeNum$ Sacrificed$CardPower | Tapped$ True
-K:Saddle:1
+S:Mode$ Continuous | Affected$ Creature.!token+YouCtrl | AddAbility$ ABCopyPermanent
+SVar:ABCopyPermanent:AB$ CopyPermanent | Cost$ T | ValidTgts$ Permanent.token+YouCtrl+ThisTurnEntered

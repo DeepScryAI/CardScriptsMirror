@@ -1,10 +1,11 @@
 Id:34467
-ColorIdentity:G
-OriginSet:G11c0621ce29fa608
-ManaCost:2 G
-Types:Enchantment
+ColorIdentity:W
+OriginSet:Gcb93bbfc68a40806
+ManaCost:3 W W
+Types:Artifact Equipment
 T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 134855612 | TokenOwner$ You
-T:Mode$ LifeGained | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | TargetMin$ 0 | TargetMax$ X | CounterType$ P1P1 | CounterNum$ 1
-SVar:X:TriggerCount$LifeAmount
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 1214250791 | TokenOwner$ You | RememberTokens$ True | SubAbility$ DBAttach
+SVar:DBAttach:DB$ Attach | Defined$ Remembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 3 | AddToughness$ 3 | AddKeyword$ Flying & Vigilance
+K:Equip:3

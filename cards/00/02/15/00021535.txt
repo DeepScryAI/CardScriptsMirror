@@ -1,8 +1,11 @@
 Id:21535
-ColorIdentity:B
-OriginSet:G18bf722b221724f8
-ManaCost:B
-Types:Creature Elf Berserker
-PT:1/2
-A:AB$ LoseLife | Cost$ 1 | ValidTgts$ Opponent | LifeAmount$ 1 | SubAbility$ DBGainLife | Boast$ True
-SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
+ColorIdentity:U
+OriginSet:Gc3edc7c448c17480
+ManaCost:3 U
+Types:Sorcery
+A:SP$ RepeatEach | RepeatPlayers$ Player.HasCardsInHand_Card_LTX | RepeatSubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ Player.IsRemembered | NumCards$ Z
+SVar:X:PlayerCountPlayers$HighestCardsInHand
+SVar:Y:Count$ValidHand Card.RememberedPlayerCtrl
+SVar:Z:SVar$X/Minus.Y
+K:Foretell:1 U

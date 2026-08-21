@@ -1,9 +1,14 @@
 Id:5168
-ColorIdentity:WUR
+ColorIdentity:UR
 OriginSet:Ga43915481c3b48d8
-ManaCost:2 R
-Types:Enchantment
-A:AB$ ChangeZone | Cost$ 1 W | Origin$ Library | Destination$ Hand | ChangeType$ Enchantment | ChangeNum$ 1 | Shuffle$ True | SubAbility$ DBDiscard
-A:AB$ ChangeZone | Cost$ 1 U | Origin$ Library | Destination$ Hand | ChangeType$ Instant | ChangeNum$ 1 | Shuffle$ True | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ Random
-SVar:NonStackingEffect:True
+ManaCost:2 U
+Types:Creature Merfolk Warrior
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ WhirlYou
+SVar:WhirlYou:DB$ ChangeZoneAll | Defined$ You | Origin$ Hand | Destination$ Library | LibraryPosition$ -1 | RememberChanged$ True | ForgetOtherRemembered$ True | Shuffle$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ X | Defined$ You | SubAbility$ DBCleanup
+A:AB$ RepeatEach | Cost$ R Sac<1/CARDNAME> | RepeatPlayers$ Player | RepeatSubAbility$ ShuffleHand
+SVar:ShuffleHand:DB$ ChangeZoneAll | Defined$ Player.IsRemembered | Origin$ Hand | Destination$ Library | LibraryPosition$ -1 | RememberChanged$ True | Shuffle$ True | SubAbility$ WindDraw
+SVar:WindDraw:DB$ Draw | NumCards$ X | Defined$ Player.IsRemembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Amount

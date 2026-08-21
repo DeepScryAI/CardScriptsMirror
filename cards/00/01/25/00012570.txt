@@ -1,9 +1,15 @@
 Id:12570
-ColorIdentity:B
+ColorIdentity:WR
 OriginSet:G8f2af3ae8f2955d2
-ManaCost:4 B B B B
-Types:Legendary Creature Demon
-PT:7/7
+ManaCost:4 R W W
+Types:Legendary Creature Angel
+PT:5/5
 K:Flying
-K:Lifelink
-A:AB$ Draw | Cost$ PayLife<7> | NumCards$ 7
+K:FirstStrike
+R:Event$ DamageDone | ActiveZones$ Battlefield | ValidSource$ Card,Emblem | ValidTarget$ Opponent,Permanent.OppCtrl | ReplaceWith$ DmgTwice
+SVar:DmgTwice:DB$ ReplaceEffect | VarName$ DamageAmount | VarValue$ X
+SVar:X:ReplaceCount$DamageAmount/Twice
+R:Event$ DamageDone | ActiveZones$ Battlefield | ValidTarget$ You,Permanent.YouCtrl | ReplaceWith$ DBReplace | PreventionEffect$ True
+SVar:DBReplace:DB$ ReplaceDamage | Amount$ ShieldAmount
+SVar:ShieldAmount:ReplaceCount$DamageAmount/HalfUp
+SVar:PlayMain1:TRUE

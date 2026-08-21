@@ -1,11 +1,8 @@
 Id:24118
-ColorIdentity:WU
-OriginSet:Gcf5d9b1e2ed6c496
-ManaCost:W U
+ColorIdentity:U
+OriginSet:G9afc9838c5e994df
+ManaCost:3 U
 Types:Instant
-A:SP$ ChangeZone | ValidTgts$ Creature.nonArtifact+YouCtrl | Origin$ Battlefield | Destination$ Exile | RememberTargets$ True | SubAbility$ DBAnimate
-SVar:DBAnimate:DB$ Animate | Defined$ Remembered | Replacements$ ETBAddCounter | Duration$ Perpetual | SubAbility$ DBReturn
-SVar:ETBAddCounter:Event$ Moved | Destination$ Battlefield | ValidCard$ Card.Self | ReplaceWith$ ETBAddExtraCounter | ReplacementResult$ Updated
-SVar:ETBAddExtraCounter:DB$ PutCounter | ETB$ True | Defined$ ReplacedCard | CounterType$ SHIELD
-SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ All | Destination$ Battlefield | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ 2 | ValidTarget$ Permanent.Green | EffectZone$ All
+A:SP$ ChangeZone | ValidTgts$ Permanent.nonLand+OppCtrl | Origin$ Battlefield | Destination$ Hand | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw

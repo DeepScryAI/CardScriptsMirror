@@ -1,10 +1,13 @@
 Id:27920
-ColorIdentity:G
-OriginSet:G06c78c29bfb28e3d
-ManaCost:1 G
-Types:Creature Dinosaur Egg
-PT:0/3
-K:Evolve
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigDiscover | OptionalDecider$ You
-SVar:TrigDiscover:DB$ Discover | Num$ X
-SVar:X:TriggeredCard$CardToughness
+ColorIdentity:UB
+OriginSet:G30e8a5e111cffb44
+ManaCost:3 U B
+Types:Legendary Creature Time Lord Noble
+PT:3/4
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | LifeAmount$ 2 | SubAbility$ DBExile
+SVar:DBExile:DB$ Dig | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | Imprint$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | ForgetOnMoved$ Exile | RememberObjects$ Imprinted | Duration$ Permanent | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | Affected$ Card.IsRemembered | MayPlay$ True | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearImprinted$ True
+S:Mode$ Continuous | AddKeyword$ Conspire | Affected$ Card.nonCreature+wasCastFromExile+YouCtrl | AffectedZone$ Stack | EffectZone$ Battlefield

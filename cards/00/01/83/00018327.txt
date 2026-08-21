@@ -1,9 +1,11 @@
 Id:18327
-ColorIdentity:RG
+ColorIdentity:B
 OriginSet:G7d4bd61c81d44275
-ManaCost:no cost
-Types:Land
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ LandTapped | ReplacementResult$ Updated
-SVar:LandTapped:DB$ Tap | Defined$ Self | ETB$ True | ConditionCheckSVar$ ETBCheckSVar2 | ConditionSVarCompare$ LT2
-SVar:ETBCheckSVar2:PlayerCountOpponents$Amount
-A:AB$ Mana | Cost$ T | Produced$ Combo R G
+ManaCost:4 B
+Types:Legendary Creature Demon
+PT:3/3
+K:PartnerWithId:18345
+A:AB$ Draw | Cost$ B Sac<X/Creature/creatures> | NumCards$ X | ValidTgts$ Player | SubAbility$ DBGainLife | AILogic$ DoSacrifice
+SVar:DBGainLife:DB$ GainLife | Defined$ Targeted | LifeAmount$ X | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ X
+SVar:X:Count$xPaid

@@ -1,17 +1,11 @@
 Id:6525
-ColorIdentity:R
+ColorIdentity:U
 OriginSet:G983da6aa108b8f13
-ManaCost:2 R
-Types:Sorcery
-A:SP$ Pump | ValidTgts$ Creature | SubAbility$ RepeatFlip
-SVar:RepeatFlip:DB$ Repeat | RepeatSubAbility$ FlipAgain | RepeatCheckSVar$ Loss | RepeatSVarCompare$ EQ0 | RepeatOptional$ True | SubAbility$ DamageCreature
-SVar:FlipAgain:DB$ FlipCoin | WinSubAbility$ IncrementWins | LoseSubAbility$ IncrementLoss
-SVar:IncrementWins:DB$ StoreSVar | SVar$ Win | Type$ CountSVar | Expression$ Win/Plus.1
-SVar:IncrementLoss:DB$ StoreSVar | SVar$ Loss | Type$ CountSVar | Expression$ Loss/Plus.1 | SubAbility$ ResetWins
-SVar:ResetWins:DB$ StoreSVar | SVar$ Win | Type$ Number | Expression$ 0
-SVar:DamageCreature:DB$ DealDamage | Defined$ Targeted | NumDmg$ 3 | ConditionCheckSVar$ Win | SubAbility$ DamageOpponents
-SVar:DamageOpponents:DB$ DealDamage | Defined$ Player.Opponent | NumDmg$ 6 | ConditionCheckSVar$ Win | ConditionSVarCompare$ GE2 | SubAbility$ DrawNine
-SVar:DrawNine:DB$ Draw | Defined$ You | NumCards$ 9 | ConditionCheckSVar$ Win | ConditionSVarCompare$ GE3 | SubAbility$ UntapLands
-SVar:UntapLands:DB$ UntapAll | ValidCards$ Land.YouCtrl | ConditionCheckSVar$ Win | ConditionSVarCompare$ GE3
-SVar:Win:Number$0
-SVar:Loss:Number$0
+ManaCost:1 U U
+Types:Creature Human Wizard
+PT:1/2
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Opponent | Execute$ TrigSkipPhase | TriggerZones$ Battlefield
+SVar:TrigSkipPhase:DB$ GenericChoice | Defined$ TriggeredPlayer | Choices$ FatespinnerSkipDraw,FatespinnerSkipMain,FatespinnerSkipCombat | ShowChoice$ ExceptSelf | AILogic$ Fatespinner
+SVar:FatespinnerSkipDraw:DB$ SkipPhase | Defined$ TriggeredPlayer | Step$ Draw | Duration$ EndOfTurn
+SVar:FatespinnerSkipMain:DB$ SkipPhase | Defined$ TriggeredPlayer | Phase$ Main | Duration$ EndOfTurn
+SVar:FatespinnerSkipCombat:DB$ SkipPhase | Defined$ TriggeredPlayer | Phase$ BeginCombat | Duration$ EndOfTurn

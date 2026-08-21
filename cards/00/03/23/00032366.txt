@@ -1,8 +1,12 @@
 Id:32366
-ColorIdentity:
-OriginSet:G66b3a7eeabd9000e
-ManaCost:no cost
-Types:Land
-A:AB$ Mana | Cost$ T | Produced$ C
-A:AB$ Mana | Cost$ 1 T | Produced$ Any | Amount$ 1
-A:AB$ Pump | Cost$ 1 T | ValidTgts$ Creature.Legendary | KW$ Menace | SorcerySpeed$ True
+ColorIdentity:WR
+OriginSet:G9946f072b5556073
+ManaCost:R W
+Types:Legendary Creature Lobster Citizen
+PT:2/2
+S:Mode$ Continuous | Affected$ Artifact.YouCtrl | AffectedZone$ Battlefield | AddType$ Food | AddAbility$ FoodSac
+SVar:FoodSac:AB$ GainLife | Cost$ 2 T Sac<1/CARDNAME/this artifact> | Defined$ You | LifeAmount$ 3
+A:AB$ DealDamage | Cost$ 1 T Sac<1/Food> | NumDmg$ 3 | Defined$ Player.Opponent
+T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | CheckSVar$ X | Execute$ TrigUntap
+SVar:TrigUntap:DB$ Untap | Defined$ Self
+SVar:X:Count$LifeYouGainedThisTurn

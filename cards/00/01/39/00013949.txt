@@ -1,10 +1,7 @@
 Id:13949
 ColorIdentity:R
 OriginSet:G6645ca87da6316d5
-ManaCost:4 R
+ManaCost:2 R
 Types:Enchantment
-S:Mode$ CantGainLife | ValidPlayer$ Player
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDmg
-SVar:TrigDmg:DB$ DealDamage | Defined$ You | NumDmg$ 4
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigGainControl
-SVar:TrigGainControl:DB$ GainControl | ValidTgts$ Opponent | TargetsAtRandom$ True | Defined$ Self
+T:Mode$ Shuffled | ValidPlayer$ Player | ShuffleFromEffect$ True | ShuffleBySelfControlled$ True | TriggerZones$ Battlefield | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | DefinedPlayer$ TriggeredPlayer | Chooser$ TriggeredPlayer | ChangeType$ Card | ChangeNum$ 1 | Origin$ Hand | Destination$ Library | LibraryPosition$ 0 | Mandatory$ True

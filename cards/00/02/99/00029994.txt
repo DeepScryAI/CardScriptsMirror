@@ -1,9 +1,11 @@
 Id:29994
-ColorIdentity:G
+ColorIdentity:R
 OriginSet:Gf09b85bbcc27770c
-ManaCost:3 G
-Types:Creature Squirrel Archer
-PT:2/4
-K:Reach
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
-SVar:TrigDraw:AB$ Draw | Cost$ Forage | NumCards$ 1
+ManaCost:R
+Types:Creature Mouse Soldier
+PT:1/1
+T:Mode$ BecomesTarget | ValidTarget$ Card.Self | ValidSource$ SpellAbility.YouCtrl | TriggerZones$ Battlefield | Valiant$ True | Execute$ TrigCounter
+SVar:TrigCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigDamageDies
+SVar:TrigDamageDies:DB$ DealDamage | Defined$ Opponent | NumDmg$ X
+SVar:X:TriggeredCard$CardPower

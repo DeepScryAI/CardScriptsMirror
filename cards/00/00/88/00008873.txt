@@ -1,13 +1,10 @@
 Id:8873
-ColorIdentity:R
+ColorIdentity:B
 OriginSet:Gce1d73449bd71b54
-ManaCost:1 R
-Types:Sorcery
-A:SP$ Pump | ValidTgts$ Land.YouCtrl | AILogic$ Destroy | IsCurse$ True | SubAbility$ DestroyOpp
-SVar:DestroyOpp:DB$ Pump | ValidTgts$ Land.YouDontCtrl | AILogic$ Destroy | IsCurse$ True | SubAbility$ DBDestroy
-SVar:DBDestroy:DB$ Destroy | Defined$ Targeted
-AlternateMode:Split
-ALTERNATE
-ManaCost:5 R
-Types:Sorcery
-A:SP$ DestroyAll | ValidCards$ Land
+ManaCost:5 B
+Types:Creature Serpent
+PT:5/5
+S:Mode$ CantAttack | ValidCard$ Card.Self | UnlessDefender$ controlsSwamp
+T:Mode$ Always | TriggerZones$ Battlefield | IsPresent$ Swamp.YouCtrl | PresentCompare$ EQ0 | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice
+SVar:NeedsToPlay:Swamp.YouCtrl

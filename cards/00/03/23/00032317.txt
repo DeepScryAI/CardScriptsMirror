@@ -1,11 +1,12 @@
 Id:32317
-ColorIdentity:B
-OriginSet:G324b911e0e372b1b
-ManaCost:B
-Types:Creature Human Pilot
-PT:2/1
-S:Mode$ CantBlock | ValidCard$ Card.Self
-T:Mode$ SpellCast | ValidCard$ Card | ValidSA$ Spell.Warp | ValidActivatingPlayer$ You | TriggerZones$ Graveyard | Execute$ TrigChangeZone
-SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | Defined$ Self | RememberChanged$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Pump | ConditionDefined$ Remembered | ConditionPresent$ Card.Self | NumAtt$ +1 | Duration$ Perpetual | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:R
+OriginSet:G9946f072b5556073
+ManaCost:no cost
+Types:Land Planet
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ R
+K:Station:12
+S:Mode$ Continuous | Affected$ Card.Self+counters_GE12_CHARGE | AddAbility$ KavaronToken
+SVar:KavaronToken:AB$ Token | Cost$ 1 R T Sac<1/Land> | TokenScriptIds$ 1668469659 | TokenOwner$ You | SubAbility$ DBPumpAll
+SVar:DBPumpAll:DB$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +1 | KW$ Haste

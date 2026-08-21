@@ -1,8 +1,12 @@
 Id:4594
-ColorIdentity:WU
+ColorIdentity:WG
 OriginSet:Gfb91362c2efb868e
-ManaCost:3 W U
-Types:Creature Cat Soldier
-PT:2/5
-A:AB$ Protection | Cost$ 1 W W | ValidTgts$ Creature.YouCtrl | Gains$ Choice | Choices$ AnyColor
-A:AB$ Pump | Cost$ 1 U U | Defined$ Self | KW$ Shroud
+ManaCost:1 G W
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 2 | AddToughness$ 2 | AddKeyword$ Trample
+T:Mode$ DamageDealtOnce | ValidSource$ Card.AttachedBy | Execute$ TrigGain | TriggerZones$ Battlefield
+SVar:TrigGain:DB$ GainLife | Defined$ You | LifeAmount$ X
+SVar:X:TriggerCount$DamageAmount
+SVar:LikeLifeLink:True

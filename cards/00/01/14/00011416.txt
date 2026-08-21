@@ -1,7 +1,10 @@
 Id:11416
-ColorIdentity:R
+ColorIdentity:
 OriginSet:Gf6792163b580976b
-ManaCost:R R
-Types:Creature Goblin
-PT:2/2
-A:AB$ DealDamage | Cost$ 1 Sac<1/CARDNAME> | ValidTgts$ Any | NumDmg$ 2
+ManaCost:1
+Types:Artifact
+A:AB$ GainLife | Cost$ 2 T | LifeAmount$ 5 | SubAbility$ DBShuffleElixir
+SVar:DBShuffleElixir:DB$ ChangeZone | Origin$ Battlefield | Destination$ Library | Shuffle$ False | RememberChanged$ True | Defined$ Self | SubAbility$ DBShuffleGrave
+SVar:DBShuffleGrave:DB$ ChangeZoneAll | Origin$ Graveyard | Destination$ Library | Shuffle$ False | RememberChanged$ True | ChangeType$ Card.YouCtrl | SubAbility$ DBShuffleChanged
+SVar:DBShuffleChanged:DB$ Shuffle | Defined$ RememberedOwner | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

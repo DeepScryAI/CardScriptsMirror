@@ -1,12 +1,9 @@
 Id:28777
-ColorIdentity:B
-OriginSet:Gfe262f6450b3d189
-ManaCost:B
-Types:Creature Rat
-PT:2/1
-T:Mode$ DamageDone | CombatDamage$ True | ValidSource$ Card.Self | ValidTarget$ Creature | TriggerZones$ Battlefield | Execute$ TrigSuspect
-SVar:TrigSuspect:DB$ AlterAttribute | Defined$ TriggeredTargetLKICopy | ConditionDefined$ TriggeredTargetLKICopy | ConditionPresent$ Card.inZoneBattlefield | Attributes$ Suspected | SubAbility$ DBAnimate
-SVar:DBAnimate:DB$ Animate | Defined$ TriggeredTargetLKICopy | ConditionDefined$ TriggeredTargetLKICopy | ConditionPresent$ Card.inZoneBattlefield | Triggers$ CombatTrig | Duration$ Perpetual
-SVar:CombatTrig:Mode$ DamageDone | CombatDamage$ True | ValidSource$ Card.Self | ValidTarget$ Creature | TriggerZones$ Battlefield | Execute$ TrigSuspect
-T:Mode$ ChangesZone | Origin$ Battlefield | TriggerZones$ Graveyard | Destination$ Graveyard | ValidCard$ Creature.OppCtrl+IsSuspected | Execute$ TrigLoseLife
-SVar:TrigLoseLife:DB$ LoseLife | LifeAmount$ 1 | Defined$ TriggeredCardController
+ColorIdentity:WR
+OriginSet:Ge329d8d60ca65422
+ManaCost:R W
+Types:Artifact Equipment
+K:Equip:3
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1 | AddToughness$ 1 | AddKeyword$ Mentor
+T:Mode$ Mentored | ValidSource$ Creature.EquippedBy | Execute$ TrigPutCounter | TriggerZones$ Battlefield
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ TriggeredCardLKICopy | CounterType$ SHIELD

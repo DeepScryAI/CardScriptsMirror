@@ -1,14 +1,7 @@
 Id:27295
-ColorIdentity:G
-OriginSet:G4e034c55e7afd8b4
-ManaCost:G G
+ColorIdentity:B
+OriginSet:G6ce0035cfb774934
+ManaCost:2 B
 Types:Sorcery
-A:SP$ Dig | Defined$ You | DigNum$ 5 | Optional$ True | ChangeValid$ Creature | DestinationZone$ Exile | RememberChanged$ True | ForceRevealToController$ True | RestRandomOrder$ True | SubAbility$ DBMayPlay
-SVar:DBMayPlay:DB$ Effect | StaticAbilities$ STPlay | RememberObjects$ Remembered | ExileOnMoved$ Exile | SubAbility$ DBDelayTrig
-SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered+nonLand | AffectedZone$ Exile
-SVar:DBDelayTrig:DB$ DelayedTrigger | ThisTurn$ True | Mode$ Phase | Phase$ BeginCombat | Execute$ TrigFight | SubAbility$ DBCleanup
-SVar:TrigFight:DB$ Pump | ValidTgts$ Creature.YouCtrl | AILogic$ PowerDmg | SubAbility$ SoulsDamage
-SVar:SoulsDamage:DB$ DealDamage | ValidTgts$ Creature.YouDontCtrl | TargetMin$ 0 | TargetMax$ 1 | AILogic$ PowerDmg | NumDmg$ X | DamageSource$ ParentTarget
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:ParentTargeted$CardPower
-SVar:PlayMain1:ALWAYS
+A:SP$ PumpAll | ValidCards$ Creature.OppCtrl | NumAtt$ -1 | NumDef$ -1 | IsCurse$ True | SubAbility$ TrigTempt
+SVar:TrigTempt:DB$ RingTemptsYou

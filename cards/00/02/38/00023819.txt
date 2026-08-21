@@ -1,9 +1,10 @@
 Id:23819
-ColorIdentity:U
-OriginSet:G5f5d8cfb206e2fac
-ManaCost:2 U
-Types:Artifact Equipment
-T:Mode$ DamageDone | ValidSource$ Creature.EquippedBy | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigConnive | TriggerZones$ Battlefield
-SVar:TrigConnive:DB$ Connive | Defined$ TriggeredSourceLKICopy | ConniveNum$ X
-SVar:X:TriggerCount$DamageAmount
-K:Equip:2
+ColorIdentity:B
+OriginSet:G18bf722b221724f8
+ManaCost:1 B
+Types:Creature Elf Cleric
+PT:3/1
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigExile | OptionalDecider$ TriggeredCardController
+SVar:TrigExile:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Exile | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Elf.Other+YouOwn,Tyvar.Other+YouOwn
+SVar:SacMe:2

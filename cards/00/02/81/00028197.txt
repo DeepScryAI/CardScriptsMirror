@@ -1,18 +1,8 @@
 Id:28197
-ColorIdentity:U
+ColorIdentity:R
 OriginSet:Gfd50577710a6ab09
-ManaCost:2 U
-Types:Legendary Artifact
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigMill
-SVar:TrigMill:DB$ Mill | NumCards$ 2 | Defined$ You | SubAbility$ TrigDraw
-SVar:TrigDraw:DB$ Draw | NumCards$ 2 | Defined$ You
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ X | SVarCompare$ GE8 | Execute$ TrigTransform
-SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform
-SVar:X:Count$ValidGraveyard Permanent.YouOwn
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Types:Legendary Artifact Land
-A:AB$ Mana | Cost$ T | Produced$ U
-T:Mode$ SpellCast | ValidCard$ Permanent | ValidSA$ Spell.ManaFromCard.StrictlySelf | ValidActivatingPlayer$ You | Execute$ TrigCopy
-SVar:TrigCopy:DB$ Clone | Defined$ TriggeredCardLKICopy | CloneTarget$ Targeted | ValidTgts$ Permanent.YouCtrl+Other | TargetMin$ 0 | TargetMax$ 1 | Duration$ UntilEndOfTurn
+ManaCost:2 R R
+Types:Creature Human Artificer
+PT:3/2
+T:Mode$ ChangesZone | Destination$ Battlefield | ValidCard$ Card.Self+wasCastByYou | Execute$ TrigDiscover | TriggerZones$ Battlefield
+SVar:TrigDiscover:DB$ Discover | Num$ 3

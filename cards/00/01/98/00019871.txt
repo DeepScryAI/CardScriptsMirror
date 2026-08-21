@@ -1,6 +1,11 @@
 Id:19871
 ColorIdentity:B
 OriginSet:G23be9f486a22d38a
-ManaCost:1 B
-Types:Sorcery
-A:SP$ ChangeZone | ValidTgts$ Creature.cmcGE3 | Origin$ Battlefield | Destination$ Exile
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ LandTapped | ReplacementResult$ Updated
+SVar:LandTapped:DB$ Tap | Defined$ Self | ETB$ True | ConditionPresent$ Swamp.YouCtrl | ConditionCompare$ EQ0
+A:AB$ Mana | Cost$ T | Produced$ B
+A:AB$ Draw | Cost$ 1 B B T | NumCards$ 1 | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ X
+SVar:X:Count$ValidHand Card.YouOwn

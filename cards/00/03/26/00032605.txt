@@ -1,9 +1,11 @@
 Id:32605
-ColorIdentity:BG
-OriginSet:G36e97d2da170e675
-ManaCost:2 B G
-Types:Creature Human Mercenary
+ColorIdentity:WU
+OriginSet:G66b3a7eeabd9000e
+ManaCost:3 W U
+Types:Legendary Artifact Creature Spider Hero
 PT:4/4
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.nonLand+YouCtrl | Execute$ TrigEarthbend
-SVar:TrigEarthbend:DB$ Earthbend | Num$ X
-SVar:X:TriggeredCard$CardPower
+K:Vigilance
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPut
+SVar:TrigPut:DB$ PutCounter | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ 1
+T:Mode$ DamageDone | ValidSource$ Creature.YouCtrl+modified | ValidTarget$ Player | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw

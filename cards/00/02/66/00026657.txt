@@ -1,11 +1,9 @@
 Id:26657
-ColorIdentity:
+ColorIdentity:B
 OriginSet:G06757f68e16377c2
-ManaCost:3
-Types:Artifact Equipment
-K:Equip:2
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddToughness$ 2 | AddSVar$ SwordOfOnceAndFutureCE | AddKeyword$ Protection:Blue & Protection:Black
-T:Mode$ DamageDone | ValidSource$ Creature.EquippedBy | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigSurveil | TriggerZones$ Battlefield
-SVar:TrigSurveil:DB$ Surveil | Amount$ 2 | SubAbility$ DBCastFromYard
-SVar:DBCastFromYard:DB$ Play | Valid$ Card.YouOwn | ValidSA$ Instant.cmcLE2,Sorcery.cmcLE2 | ValidZone$ Graveyard | Optional$ True | WithoutManaCost$ True | Amount$ 1 | Controller$ You | ReplaceGraveyard$ Exile
-SVar:SwordOfOnceAndFutureCE:SVar:MustBeBlocked:AttackingPlayerConservative
+ManaCost:1 B
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigIncubate
+SVar:TrigIncubate:DB$ Incubate | Amount$ 3
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Phyrexian.YouCtrl | Execute$ TrigSurveil | TriggerZones$ Battlefield
+SVar:TrigSurveil:DB$ Surveil | Amount$ 1

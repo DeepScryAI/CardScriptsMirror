@@ -1,13 +1,11 @@
 Id:29874
-ColorIdentity:U
-OriginSet:Gf09b85bbcc27770c
-ManaCost:2 U U
-Types:Enchantment Aura
-K:Gift
-K:Enchant:Creature
-SVar:GiftAbility:DB$ Draw | Defined$ Promised
-SVar:AttachAILogic:GainControl
-S:Mode$ Continuous | Affected$ Card.EnchantedBy | GainControl$ You
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigTap
-SVar:TrigTap:DB$ Tap | Defined$ Enchanted | SubAbility$ DBStun
-SVar:DBStun:DB$ PutCounter | Defined$ Enchanted | CounterType$ Stun | CounterNum$ 3 | ConditionDefined$ Self | ConditionPresent$ Card.PromisedGift | ConditionCompare$ EQ0
+ColorIdentity:B
+OriginSet:G01a610e823cce3ca
+ManaCost:3 B
+Types:Sorcery
+K:Freerunning:1 B
+A:SP$ Dig | DigNum$ 2 | ValidTgts$ Opponent | ChangeNum$ All | DestinationZone$ Exile | ExileFaceDown$ True | WithMayLook$ True | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ STPlay | SubAbility$ DBTreasure | ForgetOnMoved$ Exile | Duration$ Permanent
+SVar:DBTreasure:DB$ Token | TokenScriptIds$ 3851718391 | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | MayPlayIgnoreType$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

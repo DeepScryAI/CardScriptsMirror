@@ -1,9 +1,12 @@
 Id:13174
-ColorIdentity:G
+ColorIdentity:WG
 OriginSet:G5449dea2d54987a1
-ManaCost:2 G
-Types:Creature Human Shaman
-PT:1/1
-T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ PumpAll | ValidCards$ Creature.YouCtrl+StrictlyOther | NumAtt$ +X | NumDef$ +X
-SVar:X:Count$CardPower
+ManaCost:1 G W
+Types:Creature Elemental
+PT:*/*
+S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X | SetToughness$ X
+SVar:X:Count$Valid Creature.YouCtrl
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ DBCopy
+SVar:DBCopy:DB$ CopyPermanent | Populate$ True
+SVar:BuffedBy:Creature
+SVar:NoZeroToughnessAI:True

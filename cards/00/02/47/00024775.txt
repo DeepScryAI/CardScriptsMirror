@@ -1,13 +1,11 @@
 Id:24775
-ColorIdentity:BRG
-OriginSet:G3c9db52fa0bcee92
-ManaCost:1 B R G
-Types:Legendary Creature Insect Assassin
-PT:3/3
-K:Flying
-K:Haste
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigEggCounter
-SVar:TrigEggCounter:DB$ PutCounter | CounterType$ EGG | CounterNum$ 1 | ValidTgts$ Creature.Other+counters_EQ0_EGG | SubAbility$ DelayedTrigger
-SVar:DelayedTrigger:DB$ DelayedTrigger | Mode$ ChangesZone | RememberObjects$ Targeted | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.IsTriggerRemembered+counters_GE1_EGG | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1 | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenScriptIds$ 414510107
+ColorIdentity:WUBRG
+OriginSet:G9dc044ed6651b56b
+ManaCost:5 G
+Types:Legendary Artifact Creature Wizard
+PT:4/3
+K:Reach
+S:Mode$ Continuous | SetPower$ 16 | SetToughness$ 9 | IsPresent$ Card.Self+attacking | Affected$ Creature.basePowerEQ4+baseToughnessEQ3+tapped+YouCtrl
+A:AB$ Mana | Cost$ T | Produced$ W U B R G | TriggersWhenSpent$ TrigChange
+SVar:TrigChange:Mode$ SpellCast | ValidCard$ Creature | ValidActivatingPlayer$ You | Execute$ TrigAnimate
+SVar:TrigAnimate:DB$ Animate | Defined$ TriggeredCard | Duration$ Permanent | Power$ 4 | Toughness$ 3

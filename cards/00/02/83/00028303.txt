@@ -1,21 +1,8 @@
 Id:28303
-ColorIdentity:R
-OriginSet:G06ccef4324c14725
-ManaCost:3 R
-Types:Enchantment
-T:Mode$ Phase | Phase$ Upkeep | TriggerZones$ Battlefield | ValidPlayer$ You | Execute$ TrigExile
-SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ 2 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | Triggers$ Play1,Play2 | RememberObjects$ Remembered | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
-SVar:STPlay:Mode$ Continuous | AffectedZone$ Exile | Affected$ Card.IsRemembered | MayPlay$ True
-SVar:Play1:Mode$ SpellCast | ValidCard$ Card.IsRemembered | ValidActivatingPlayer$ You | TriggerZones$ Command | Execute$ ExileSelf | Static$ True
-SVar:Play2:Mode$ LandPlayed | ValidCard$ Land.IsRemembered | TriggerZones$ Command | Execute$ ExileSelf | Static$ True
-SVar:ExileSelf:DB$ ChangeZone | Origin$ Command | Destination$ Exile
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | CheckSVar$ X | SVarCompare$ EQ0 | TriggerZones$ Battlefield | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenTapped$ True | TokenScriptIds$ 2975106104
-T:Mode$ LandPlayed | Origin$ Exile | ValidCard$ Land.YouCtrl | Execute$ StoreVar | Static$ True
-SVar:StoreVar:DB$ StoreSVar | SVar$ LandsPlayedFromExile | Type$ Number | Expression$ 1
-T:Mode$ Phase | Phase$ Cleanup | Execute$ TrigReset | Static$ True
-SVar:TrigReset:DB$ StoreSVar | SVar$ LandsPlayedFromExile | Type$ Number | Expression$ 0
-SVar:X:Count$ThisTurnCast_Card.YouCtrl+wasCastFromExile/Plus.LandsPlayedFromExile
-SVar:LandsPlayedFromExile:Number$0
+ColorIdentity:U
+OriginSet:Gfd50577710a6ab09
+ManaCost:2 U
+Types:Creature Human Wizard
+PT:3/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDig
+SVar:TrigDig:DB$ Dig | DigNum$ 3 | ChangeNum$ 1 | ChangeValid$ Card | DestinationZone2$ Graveyard | DestinationZone$ Library | LibraryPosition$ 0 | Optional$ True | NoReveal$ True

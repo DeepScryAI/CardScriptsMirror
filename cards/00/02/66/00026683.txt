@@ -1,9 +1,18 @@
 Id:26683
-ColorIdentity:R
+ColorIdentity:UB
 OriginSet:G06757f68e16377c2
-ManaCost:3 R
-Types:Creature Wolverine Dinosaur
-PT:4/3
-K:Menace
-T:Mode$ Attacks | ValidCard$ Card.Self | Attacked$ Battle | Execute$ TrigPump | TriggerZones$ Battlefield
-SVar:TrigPump:DB$ Pump | Defined$ TriggeredAttackerLKICopy | NumAtt$ Double
+ManaCost:1 U B
+Types:Battle Siege
+Defense:4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill
+SVar:TrigMill:DB$ Mill | Defined$ Player | NumCards$ 3 | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ Opponent | Mode$ TgtChoose | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:blue,black
+Types:Creature Zombie
+PT:4/4
+K:ETBReplacement:Copy:DBCopy:Optional
+SVar:DBCopy:DB$ Clone | Choices$ Creature | ChoiceZone$ Graveyard | SetPower$ 4 | SetToughness$ 4 | AddColors$ Black | AddTypes$ Zombie

@@ -1,10 +1,9 @@
 Id:32296
-ColorIdentity:B
+ColorIdentity:G
 OriginSet:G9946f072b5556073
-ManaCost:X B
-Types:Sorcery
-A:SP$ DestroyAll | ValidCards$ Creature.toughnessLEX | RememberDestroyed$ True | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ X | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | ConditionCheckSVar$ X | ConditionSVarCompare$ GE6 | ChangeType$ Creature.!token+IsRemembered | ChangeNum$ 1 | Hidden$ True | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True | Mandatory$ True | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$xPaid
+ManaCost:G
+Types:Creature Mite
+PT:1/1
+T:Mode$ Taps | ValidCard$ Card.Self | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.Other+YouCtrl | NumAtt$ +X | NumDef$ +X
+SVar:X:Count$CardPower

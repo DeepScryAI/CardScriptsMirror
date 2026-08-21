@@ -1,8 +1,12 @@
 Id:20561
-ColorIdentity:B
-OriginSet:Gf8d4de878d0536c5
-ManaCost:1 B
-Types:Creature Beast
-PT:2/1
-K:ETBReplacement:Other:CounterChoice
-SVar:CounterChoice:DB$ PutCounter | ETB$ True | CounterType$ Deathtouch,Lifelink
+ColorIdentity:R
+OriginSet:Gc9c1dd0d52c99ca4
+ManaCost:3 R R
+Types:Creature Phoenix
+PT:4/2
+K:Flying
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Instant.YouOwn+withCycling,Instant.YouOwn+withTypeCycling,Sorcery.YouOwn+withCycling,Sorcery.YouOwn+withTypeCycling
+T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Graveyard | CheckSVar$ YouCycled | SVarCompare$ GE2 | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Defined$ Self | Origin$ Graveyard | Destination$ Hand
+SVar:YouCycled:Count$ThisTurnActivated_Activated.Cycling+YouCtrl

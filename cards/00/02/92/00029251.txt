@@ -1,9 +1,14 @@
 Id:29251
 ColorIdentity:B
 OriginSet:G27146c70b74a1e72
-ManaCost:B
-Types:Instant
-K:Spree
-A:SP$ Charm | Choices$ DBMurder,DBRecruit | MinCharmNum$ 1 | CharmNum$ 2
-SVar:DBMurder:DB$ Destroy | ModeCost$ 2 B | ValidTgts$ Creature
-SVar:DBRecruit:DB$ Token | ModeCost$ 1 | TokenScriptIds$ 472008509 | TokenOwner$ You
+ManaCost:6 B
+Types:Creature Specter Rogue
+PT:4/2
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ X | EffectZone$ All
+SVar:X:Count$ValidGraveyard Creature.YouOwn
+K:Flying
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigDiscard
+SVar:TrigDiscard:DB$ Discard | ValidTgts$ Opponent | NumCards$ 1 | RememberDiscarded$ True | Mode$ TgtChoose | TargetMin$ 0 | TargetMax$ MaxTgt | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ Y | Defined$ You
+SVar:Y:TargetedPlayer$Amount/Minus.Remembered$Valid Card.cmcGE4
+SVar:MaxTgt:PlayerCountOpponents$Amount

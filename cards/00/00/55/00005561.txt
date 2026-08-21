@@ -1,10 +1,10 @@
 Id:5561
-ColorIdentity:G
+ColorIdentity:B
 OriginSet:Ge4af4f9459d5dadd
-ManaCost:3 G G
-Types:Creature Beast
-PT:6/8
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigUpkeep
-SVar:TrigUpkeep:DB$ Sacrifice | UnlessPayer$ You | UnlessCost$ PutCardToLibFromGrave<2/-1/Card>
-A:AB$ Effect | Cost$ G G Discard<1/Card> | StaticAbilities$ Static | Duration$ UntilHostLeavesPlayOrEOT
-SVar:Static:Mode$ AssignCombatDamageAsUnblocked | ValidCard$ Card.EffectSource | Optional$ True
+ManaCost:4 B
+Types:Creature Zombie
+PT:3/3
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Creature | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ Destroy | Defined$ TriggeredTargetLKICopy | NoRegen$ True
+A:AB$ Pump | Cost$ Discard<1/Card> | Defined$ Self | KW$ Flying | SubAbility$ DBProtect
+SVar:DBProtect:DB$ Protection | Defined$ Self | Gains$ green,white

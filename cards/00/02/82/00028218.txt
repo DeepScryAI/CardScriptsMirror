@@ -1,12 +1,8 @@
 Id:28218
-ColorIdentity:WB
+ColorIdentity:G
 OriginSet:Gfd50577710a6ab09
-ManaCost:2 W B
-Types:Legendary Creature Vampire Demon
-PT:4/4
-K:Flying
-T:Mode$ Sacrificed | ValidCard$ Permanent.Other | ValidPlayer$ You | Execute$ TrigGainLife | TriggerZones$ Battlefield
-SVar:TrigGainLife:DB$ GainLife | Defined$ You | ConditionCheckSVar$ Resolved | ConditionSVarCompare$ EQ1 | LifeAmount$ 2 | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | Defined$ Opponent | LifeAmount$ 2 | ConditionCheckSVar$ Resolved | ConditionSVarCompare$ EQ2 | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenScriptIds$ 3875630332 | ConditionCheckSVar$ Resolved | ConditionSVarCompare$ EQ3
-SVar:Resolved:Count$ResolvedThisTurn
+ManaCost:2 G
+Types:Instant
+A:SP$ Pump | ValidTgts$ Creature.YouCtrl | NumAtt$ +1 | SubAbility$ DBDamage | AILogic$ PowerDmg
+SVar:DBDamage:DB$ DealDamage | ValidTgts$ Creature.OppCtrl | NumDmg$ X | DamageSource$ ParentTarget | AILogic$ PowerDmg
+SVar:X:ParentTargeted$CardPower

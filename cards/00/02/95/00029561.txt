@@ -1,10 +1,14 @@
 Id:29561
 ColorIdentity:B
 OriginSet:Gac6359c222afbd4f
-ManaCost:no cost
-Types:Land
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ LandTapped | ReplacementResult$ Updated
-SVar:LandTapped:DB$ Tap | Defined$ Self | ETB$ True | ConditionPresent$ Swamp.YouCtrl | ConditionCompare$ EQ0
-A:AB$ Mana | Cost$ T | Produced$ B
-A:AB$ Connive | Cost$ B T | ValidTgts$ Creature.YouCtrl | ConniveNum$ X
-SVar:X:Count$ThisTurnEntered_Graveyard_from_Battlefield_Creature
+ManaCost:1 B
+Types:Creature Skeleton Noble
+PT:2/2
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | Execute$ TrigExile | TriggerZones$ Battlefield
+SVar:TrigExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Card
+A:AB$ PutCounter | Cost$ 1 B | Adapt$ 2
+T:Mode$ CounterAddedOnce | ValidCard$ Card.Self | TriggerZones$ Battlefield | CounterType$ P1P1 | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | ChangeType$ Creature.ExiledWithSource | GainControl$ True | Origin$ Exile | Hidden$ True | Mandatory$ True | RememberChanged$ True | Destination$ Battlefield | WithCountersType$ FINALITY | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Remembered | KW$ Haste | AtEOT$ Sacrifice | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:PlayMain1:TRUE

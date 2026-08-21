@@ -1,7 +1,13 @@
 Id:13702
-ColorIdentity:B
+ColorIdentity:UB
 OriginSet:G97e9a20e5a5d5822
-ManaCost:B
-Types:Creature Skeleton Soldier
-PT:1/1
-A:AB$ Regenerate | Cost$ 2 B
+ManaCost:1 U B
+Types:Legendary Planeswalker Ashiok
+Loyalty:3
+A:AB$ Dig | Cost$ AddCounter<2/LOYALTY> | Planeswalker$ True | ValidTgts$ Opponent | DigNum$ 3 | ChangeNum$ All | DestinationZone$ Exile
+A:AB$ ChooseCard | Cost$ SubCounter<X/LOYALTY> | Choices$ Creature.cmcEQX+ExiledWithSource | ChoiceZone$ Exile | Planeswalker$ True | SubAbility$ DBChangeZone | AILogic$ Ashiok
+SVar:DBChangeZone:DB$ ChangeZone | Defined$ ChosenCard | Origin$ Exile | Destination$ Battlefield | GainControl$ True | StaticEffect$ Animate | SubAbility$ DBCleanMinus
+SVar:Animate:Mode$ Continuous | Affected$ Card.IsRemembered | AddType$ Nightmare
+SVar:DBCleanMinus:DB$ Cleanup | ClearChosenCard$ True
+SVar:X:Count$xPaid
+A:AB$ ChangeZoneAll | Cost$ SubCounter<10/LOYALTY> | ChangeType$ Card.OppCtrl | Origin$ Graveyard,Hand | Destination$ Exile | RememberChanged$ True | Planeswalker$ True | Ultimate$ True

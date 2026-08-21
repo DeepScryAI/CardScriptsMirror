@@ -1,7 +1,12 @@
 Id:21932
-ColorIdentity:R
-OriginSet:Gd784248bfdf9e1d7
-ManaCost:1 R
-Types:Creature Spirit Warrior
-PT:2/2
-A:AB$ PumpAll | Cost$ T | ValidCards$ Spirit.attacking | NumAtt$ +1
+ColorIdentity:UR
+OriginSet:G6fa60d857e930f32
+ManaCost:UR UR UR UR
+Types:Creature Orc Wizard
+PT:4/4
+T:Mode$ SpellCastOrCopy | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigAnimate
+SVar:TrigAnimate:DB$ Animate | ValidTgts$ Creature.YouCtrl | Replacements$ Exile | Triggers$ Exiled
+SVar:Exile:Event$ Moved | ValidCard$ Card.Self | ActiveZones$ Battlefield | Origin$ Battlefield | ExcludeDestination$ Exile | ReplaceWith$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Defined$ ReplacedCard | Origin$ Battlefield | Destination$ Exile
+SVar:Exiled:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Exile | ValidCard$ Card.Self | Execute$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 2606685679

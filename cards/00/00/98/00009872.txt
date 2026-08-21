@@ -1,9 +1,8 @@
 Id:9872
-ColorIdentity:G
+ColorIdentity:BR
 OriginSet:G0388e25893b1e049
-ManaCost:2G 2G 2G
+ManaCost:4 BR
 Types:Sorcery
-A:SP$ Pump | ValidTgts$ Creature | NumAtt$ +4 | NumDef$ +4 | KW$ Trample & Wither | SubAbility$ DBAnimate
-SVar:DBAnimate:DB$ Animate | Defined$ Targeted | Triggers$ TrigAttack
-SVar:TrigAttack:Mode$ Attacks | ValidCard$ Creature.Self | Execute$ TowerAboveTrigBlock
-SVar:TowerAboveTrigBlock:DB$ MustBlock | ValidTgts$ Creature
+A:SP$ ChangeZone | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Creature.YouCtrl | Origin$ Graveyard | Destination$ Battlefield | ConditionManaSpent$ B | SubAbility$ RPaid
+SVar:RPaid:DB$ PumpAll | ValidTgts$ Player | ValidCards$ Creature | NumAtt$ +2 | KW$ Haste | ConditionManaSpent$ R
+SVar:ManaNeededToAvoidNegativeEffect:black

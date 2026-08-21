@@ -1,9 +1,12 @@
 Id:23990
-ColorIdentity:U
-OriginSet:G9afc9838c5e994df
-ManaCost:3 U
-Types:Creature Bird Rogue
+ColorIdentity:WU
+OriginSet:Gfdfe2ebef04be34e
+ManaCost:W U
+Types:Creature Human Citizen
 PT:2/3
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigConnive
-SVar:TrigConnive:DB$ Connive
+K:ETBReplacement:Other:ChooseCard
+SVar:ChooseCard:DB$ ChooseCard | Choices$ Permanent.nonLand | MinAmount$ 0 | AILogic$ OppPreferred
+S:Mode$ CantBeActivated | ValidCard$ Card.ChosenCard
+S:Mode$ Continuous | Affected$ Card.Self | EffectZone$ Battlefield | GainsAbilitiesOfDefined$ ChosenCard | GainsValidAbilities$ Activated.!Loyalty | ManaConversion$ AnyType->AnyColor
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | Static$ True | ValidCard$ Card.ChosenCard | Execute$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True

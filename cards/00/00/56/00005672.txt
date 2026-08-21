@@ -1,10 +1,9 @@
 Id:5672
 ColorIdentity:U
 OriginSet:G7327b0fa163b48eb
-ManaCost:2 U
-Types:Creature Octopus
-PT:2/1
-A:AB$ Pump | Cost$ Discard<1/Card> | KW$ Shroud | SubAbility$ DBUnblockable
-SVar:DBUnblockable:DB$ Effect | RememberObjects$ Self | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable
-SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
-SVar:AIPreference:DiscardCost$Card.cmcLE2
+ManaCost:1 U U
+Types:Creature Octopus Wizard
+PT:1/1
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigBounce
+SVar:TrigBounce:DB$ ChangeZone | ValidTgts$ Permanent.ControlledBy TriggeredTarget | TargetMin$ 0 | TargetMax$ X | Origin$ Battlefield | Destination$ Hand
+SVar:X:TriggeredSource$CardPower

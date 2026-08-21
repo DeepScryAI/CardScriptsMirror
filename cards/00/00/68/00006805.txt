@@ -1,8 +1,11 @@
 Id:6805
-ColorIdentity:
+ColorIdentity:W
 OriginSet:G8b552b617d13301f
-ManaCost:4
-Types:Artifact Equipment
-K:Equip:5
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddToughness$ 1 | AddAbility$ SeekerDestroy
-SVar:SeekerDestroy:AB$ Destroy | Cost$ T Unattach<OriginalHost/catalogId6805> | ValidTgts$ Creature
+ManaCost:W
+Types:Instant
+A:SP$ Effect | ValidTgts$ Card | TargetType$ Spell | TgtZone$ Stack | ReplacementEffects$ PreventDmg | Triggers$ TargetMoved | RememberObjects$ TargetedSource
+SVar:PreventDmg:Event$ DamageDone | ValidSource$ Card.IsRemembered | ReplaceWith$ GainLifeYou | PreventionEffect$ True
+SVar:GainLifeYou:DB$ GainLife | Defined$ You | LifeAmount$ X
+SVar:X:ReplaceCount$DamageAmount
+SVar:TargetMoved:Mode$ ChangesZone | ValidCard$ Card.IsRemembered | ExcludedDestinations$ Battlefield | Execute$ ExileEffect | Static$ True
+SVar:ExileEffect:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile

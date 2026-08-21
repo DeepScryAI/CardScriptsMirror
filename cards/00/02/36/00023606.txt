@@ -1,10 +1,10 @@
 Id:23606
-ColorIdentity:R
+ColorIdentity:U
 OriginSet:G1a259dba25660062
-ManaCost:R
-Types:Artifact Creature Human Samurai
-PT:2/2
-K:Haste
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand
-A:AB$ Draw | Cost$ 1 R Discard<1/CARDNAME> | NumCards$ 1 | ActivationZone$ Hand
+ManaCost:5 U U
+Types:Legendary Creature Phyrexian Praetor
+PT:5/5
+T:Mode$ SpellCast | TriggerZones$ Battlefield | ValidCard$ Instant,Sorcery,Artifact | ValidActivatingPlayer$ You | ActivationLimit$ 1 | Execute$ TrigCopy
+SVar:TrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | MayChooseTarget$ True
+T:Mode$ SpellCast | TriggerZones$ Battlefield | ValidCard$ Instant,Sorcery,Artifact | ValidActivatingPlayer$ Opponent | ActivationLimit$ 1 | Execute$ TrigCounter
+SVar:TrigCounter:DB$ Counter | Defined$ TriggeredSpellAbility

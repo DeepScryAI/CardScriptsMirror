@@ -1,9 +1,12 @@
 Id:19790
-ColorIdentity:UBG
+ColorIdentity:B
 OriginSet:Ga539dc09c09c4538
-ManaCost:1 B G U
-Types:Legendary Creature Vampire
-PT:5/4
-R:Event$ Moved | ActiveZones$ Battlefield | Origin$ Battlefield | Destination$ Graveyard | ValidLKI$ Creature.!token | ReplaceWith$ Exile
-SVar:Exile:DB$ ChangeZone | Defined$ ReplacedCard | Origin$ Battlefield | Destination$ Exile | WithCountersType$ BLOOD | WithCountersAmount$ 1
-S:Mode$ Continuous | EffectZone$ Battlefield | Affected$ Card.Self | SharedKeywordsZone$ Exile | SharedRestrictions$ Creature.counters_GE1_BLOOD | AddKeyword$ Flying & FirstStrike & DoubleStrike & Deathtouch & Haste & Hexproof & Indestructible & Lifelink & Menace & Protection & Reach & Trample & Vigilance
+ManaCost:4 B
+Types:Creature Zombie Wizard
+PT:4/4
+T:Mode$ Discarded | ValidCard$ Creature.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 353162950 | TokenOwner$ You
+T:Mode$ Discarded | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigMana
+SVar:TrigMana:DB$ Mana | Produced$ B | Amount$ 2 | Defined$ You
+T:Mode$ Discarded | ValidCard$ Card.nonLand+nonCreature+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1

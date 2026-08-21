@@ -1,11 +1,11 @@
 Id:33245
-ColorIdentity:B
-OriginSet:G7ab1fe96128a1641
-ManaCost:4 B
-Types:Creature Elemental
-PT:3/5
-K:Menace
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDrain
-SVar:TrigDrain:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ X | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ X
-SVar:X:Count$Valid Permanent.YouCtrl$Colors
+ColorIdentity:BG
+OriginSet:G821b410e312d7e12
+ManaCost:1 B G
+Types:Artifact Creature Scarecrow
+PT:2/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature | CounterType$ M1M1 | CounterNum$ 1 | IsCurse$ True
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.counters_GE1_M1M1 | Execute$ TrigChangeZone | TriggerZones$ Battlefield
+SVar:TrigChangeZone:DB$ ChangeZone | ChangeType$ Land.YouOwn | ChangeNum$ 1 | Origin$ Hand,Graveyard | Hidden$ True | Tapped$ True | Destination$ Battlefield
+SVar:PlayMain1:TRUE

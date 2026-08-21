@@ -1,8 +1,11 @@
 Id:32390
-ColorIdentity:
-OriginSet:G66b3a7eeabd9000e
-ManaCost:3
-Types:Artifact
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigFood
-SVar:TrigFood:DB$ Token | TokenScriptIds$ 134855612 | TokenOwner$ You
-A:AB$ Mana | Cost$ T | Produced$ Any
+ColorIdentity:UB
+OriginSet:G9946f072b5556073
+ManaCost:3 U B B
+Types:Sorcery
+A:SP$ DestroyAll | ValidCards$ Creature | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | ValidTgts$ Player | TargetMin$ 0 | TargetMax$ MaxTgt | SubAbility$ DBRepeat
+SVar:DBRepeat:DB$ RepeatEach | RepeatPlayers$ Targeted | RepeatSubAbility$ DBMill
+SVar:DBMill:DB$ Mill | Defined$ Remembered | NumCards$ X
+SVar:X:Count$ValidLibrary Card.RememberedPlayerOwn/HalfDown
+SVar:MaxTgt:PlayerCountPlayers$Amount

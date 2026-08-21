@@ -1,7 +1,10 @@
 Id:9149
 ColorIdentity:W
 OriginSet:Gdf2f562751f0d037
-ManaCost:W
-Types:Creature Human Rebel Cleric
-PT:1/1
-A:AB$ PreventDamage | Cost$ W Sac<1/CARDNAME> | Defined$ Valid Creature.YouCtrl | Amount$ 1
+ManaCost:3 W
+Types:Creature Wurm
+PT:3/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.Other | TriggerZones$ Battlefield | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Defined$ Self | RememberChanged$ True | Origin$ Battlefield | Destination$ Exile | SubAbility$ DBDelTrig
+SVar:DBDelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | RememberObjects$ Remembered | Execute$ TrigBack
+SVar:TrigBack:DB$ ChangeZone | Defined$ DelayTriggerRememberedLKI | Origin$ Exile | Destination$ Battlefield

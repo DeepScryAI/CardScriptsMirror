@@ -1,16 +1,12 @@
 Id:29301
-ColorIdentity:B
-OriginSet:G2ce881cc55bb9f18
-ManaCost:2 B
-Types:Creature Lhurgoyf
-PT:*/1+*
-K:Deathtouch
-K:Lifelink
-S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X | SetToughness$ Y
-SVar:X:Count$ValidGraveyard Card$CardTypes
-SVar:Y:SVar$X/Plus.1
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | OptionalDecider$ You | Execute$ TrigMill | TriggerZones$ Battlefield
-SVar:TrigMill:DB$ Mill | Defined$ You | NumCards$ Z | RememberMilled$ True | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | Hidden$ True | Origin$ Graveyard,Exile | Destination$ Hand | ChangeType$ Creature.IsRemembered | Optional$ True | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:Z:TriggerCount$DamageAmount
+ColorIdentity:UG
+OriginSet:G27146c70b74a1e72
+ManaCost:2 G U
+Types:Legendary Planeswalker Oko
+Loyalty:3
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigClone
+SVar:TrigClone:DB$ Clone | ValidTgts$ Creature.YouCtrl | TargetMin$ 0 | TargetMax$ 1 | Duration$ UntilEndOfTurn | AddKeywords$ Hexproof
+A:AB$ Draw | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | NumCards$ 2 | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Mode$ TgtChoose | NumCards$ Count$CommittedCrimeThisTurn.1.2
+A:AB$ Token | Cost$ SubCounter<1/LOYALTY> | Planeswalker$ True | TokenScriptIds$ 1106639653
+A:AB$ CopyPermanent | Cost$ SubCounter<5/LOYALTY> | Planeswalker$ True | Ultimate$ True | Defined$ Valid Permanent.Other+YouCtrl+nonLand

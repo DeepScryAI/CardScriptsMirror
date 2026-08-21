@@ -1,10 +1,9 @@
 Id:23847
-ColorIdentity:U
+ColorIdentity:B
 OriginSet:G5f5d8cfb206e2fac
-ManaCost:2 U
-Types:Enchantment
-T:Mode$ SpellCast | ValidActivatingPlayer$ Opponent | ValidCard$ Card.wasCastFromTheirHand | Execute$ TrigReveal | TriggerZones$ Battlefield | OptionalDecider$ You
-SVar:TrigReveal:DB$ PeekAndReveal | NoPeek$ True | RememberRevealed$ True | SubAbility$ DBCounter
-SVar:DBCounter:DB$ Counter | Defined$ TriggeredSpellAbility | ConditionDefined$ Remembered | ConditionPresent$ Card.sharesCardTypeWith TriggeredCard | SubAbility$ DBCast
-SVar:DBCast:DB$ Play | WithoutManaCost$ True | Controller$ TriggeredActivator | Optional$ True | Defined$ Remembered | ConditionDefined$ Remembered | ConditionPresent$ Card.sharesCardTypeWith TriggeredCard | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:4 B
+Types:Creature Ogre Warrior
+PT:4/6
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigRepeatEach
+SVar:TrigRepeatEach:DB$ RepeatEach | RepeatSubAbility$ DBLoseLife | RepeatPlayers$ Player
+SVar:DBLoseLife:DB$ LoseLife | Defined$ Remembered | LifeAmount$ 4 | UnlessCost$ Sac<1/Creature.!token/a nontoken creature> | UnlessPayer$ Remembered

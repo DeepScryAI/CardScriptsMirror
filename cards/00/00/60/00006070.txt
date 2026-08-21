@@ -1,9 +1,12 @@
 Id:6070
-ColorIdentity:G
+ColorIdentity:U
 OriginSet:G0eb5e52d26fe1c23
-ManaCost:no cost
-Types:Land
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
-SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
-A:AB$ Mana | Cost$ T | Produced$ G
-K:Cycling:G
+ManaCost:1 U U
+Types:Sorcery
+A:SP$ Draw | ValidTgts$ Opponent | NumCards$ 2 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ 4 | Upto$ True | Defined$ You | AILogic$ OptionalDraw | SubAbility$ DBChooseNumber
+SVar:DBChooseNumber:DB$ ChooseNumber | Defined$ Targeted | AILogic$ RepeatDraw | SubAbility$ DBRepeat
+SVar:DBRepeat:DB$ Repeat | MaxRepeat$ X | RepeatSubAbility$ DBRepeatDraw
+SVar:DBRepeatDraw:DB$ Draw | Defined$ Targeted | NumCards$ 2 | SubAbility$ DBSubDraw
+SVar:DBSubDraw:DB$ Draw | Defined$ You | NumCards$ 4 | Upto$ True | AILogic$ OptionalDraw
+SVar:X:Count$ChosenNumber

@@ -1,7 +1,13 @@
 Id:10771
 ColorIdentity:B
 OriginSet:G4398040c23c94f0e
-ManaCost:4 B
-Types:Creature Wraith
-PT:4/2
-K:Landwalk:Swamp
+ManaCost:B B
+Types:Creature Vampire Spirit
+PT:2/1
+S:Mode$ CantBlock | ValidCard$ Card.Self
+S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ Haste | CheckSVar$ X | SVarCompare$ LE10
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | OptionalDecider$ You | TriggerZones$ Graveyard | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield
+SVar:X:PlayerCountOpponents$LowestLifeTotal
+SVar:SacMe:3
+SVar:DiscardMe:3

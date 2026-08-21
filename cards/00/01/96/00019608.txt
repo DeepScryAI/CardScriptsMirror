@@ -1,9 +1,11 @@
 Id:19608
-ColorIdentity:R
+ColorIdentity:W
 OriginSet:G7c61dc677f00d087
-ManaCost:1 R
-Types:Legendary Artifact
-T:Mode$ AbilityCast | ValidCard$ Planeswalker.Chandra | ValidActivatingPlayer$ You | ValidSA$ Activated.Loyalty | TriggerZones$ Battlefield | Execute$ TrigCopyAbility
-SVar:TrigCopyAbility:AB$ CopySpellAbility | Cost$ 1 | Defined$ TriggeredSpellAbility | MayChooseTarget$ True
-A:AB$ Draw | Cost$ 1 T Discard<1/Mountain;Card.Red/Mountain card or a red card> | NumCards$ 1
-SVar:AIPreference:SacCost$Card.Mountain,Card.Red
+ManaCost:4 W W
+Types:Legendary Planeswalker Ajani
+Loyalty:5
+A:AB$ GainLife | Cost$ AddCounter<2/LOYALTY> | Planeswalker$ True | LifeAmount$ 2 | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ 2 | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Creature
+A:AB$ ChangeZone | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | ValidTgts$ Creature | Origin$ Battlefield | Destination$ Exile | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ TargetedController | LifeAmount$ 2
+A:AB$ PumpAll | Cost$ SubCounter<10/LOYALTY> | Planeswalker$ True | Ultimate$ True | ValidCards$ Creature.YouCtrl | KW$ Flying & DoubleStrike

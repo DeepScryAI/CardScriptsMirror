@@ -1,6 +1,11 @@
 Id:13636
-ColorIdentity:
+ColorIdentity:B
 OriginSet:G4773f4feb3f15a2b
-ManaCost:3
-Types:Artifact Creature Sliver Construct
-PT:2/2
+ManaCost:3 B B
+Types:Creature Demon
+PT:5/6
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Creature.nonDemon
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | IsPresent$ Creature.YouCtrl | PresentZone$ Graveyard | PresentCompare$ LT6 | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice | Defined$ You | SacValid$ Creature

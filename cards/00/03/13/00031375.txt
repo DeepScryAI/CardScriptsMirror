@@ -1,17 +1,14 @@
 Id:31375
-ColorIdentity:G
-OriginSet:Gf2b808f4f642ac62
-ManaCost:3 G G
-Types:Creature Dragon
-PT:4/5
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self,Dragon.Other+YouCtrl | Execute$ TrigGainLife
-SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 3
-AlternateMode:Omen
-ALTERNATE
-ManaCost:2 G
-Types:Sorcery Omen
-A:SP$ ChangeZone | Origin$ Library | Destination$ Library | ChangeType$ Forest.Basic | ChangeNum$ 2 | RememberChanged$ True | Reveal$ True | Shuffle$ False | SubAbility$ DBChangeZone1
-SVar:DBChangeZone1:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Land.IsRemembered | Mandatory$ True | NoLooking$ True | Tapped$ True | Shuffle$ False | SubAbility$ DBChangeZone2
-SVar:DBChangeZone2:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Land.IsRemembered | Mandatory$ True | NoLooking$ True | SubAbility$ DBCleanup
+ColorIdentity:R
+OriginSet:G9de1432c543d1aef
+ManaCost:2 R R
+Types:Legendary Creature Human Pirate
+PT:3/3
+K:Menace
+K:Haste
+T:Mode$ Attacks | ValidCard$ Card.Self | IsPresent$ Monkey.Legendary+YouCtrl | PresentCompare$ EQ0 | NoResolvingCheck$ True | TriggerZones$ Battlefield | Execute$ TrigConjure
+SVar:TrigConjure:DB$ MakeCard | Conjure$ True | CatalogId$ 22226 | Zone$ Battlefield | Tapped$ True | RememberMade$ True | SubAbility$ DBSetAttacking
+SVar:DBSetAttacking:DB$ ChangeCombatants | Defined$ Remembered | ConditionDefined$ Remembered | ConditionPresent$ Card.YouCtrl | Attacking$ True | SubAbility$ DBDelayTrig
+SVar:DBDelayTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ TrigReturn | ConditionDefined$ RememberedLKI | ConditionPresent$ Card | ConditionZone$ Battlefield | RememberObjects$ RememberedLKI | SubAbility$ DBCleanup
+SVar:TrigReturn:DB$ ChangeZone | Defined$ DelayTriggerRememberedLKI | Origin$ Battlefield | Destination$ Hand
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

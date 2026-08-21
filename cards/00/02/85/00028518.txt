@@ -1,11 +1,11 @@
 Id:28518
 ColorIdentity:R
 OriginSet:G7ee0e82a2424d636
-ManaCost:2 R
-Types:Legendary Creature Goblin
-PT:3/3
-K:Haste
-A:AB$ PutCounterAll | Cost$ T Sac<1/Artifact/an artifact> | ValidCards$ Goblin.YouCtrl | CounterType$ P1P1 | CounterNum$ 1
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Artifact | TriggerZones$ Battlefield | Execute$ TrigToken
-SVar:TrigToken:AB$ Token | Cost$ R | TokenScriptIds$ 1112542976 | PumpKeywords$ Haste | PumpDuration$ EOT
-SVar:PlayMain1:TRUE
+ManaCost:3 R R
+Types:Sorcery
+A:SP$ DestroyAll | ValidCards$ Artifact.YouDontCtrl | SubAbility$ DBDig
+SVar:DBDig:DB$ Dig | DigNum$ X | ChangeNum$ All | ChangeValid$ Card | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Exile | Destination$ Battlefield | Imprint$ True | ChangeType$ Creature.IsRemembered | Hidden$ True | Optional$ True | ChangeNum$ 1 | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Keywords$ Haste | Duration$ Permanent | Defined$ Imprinted | SubAbility$ DBCleanup | AtEOT$ Hand
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True
+SVar:X:Count$ThisTurnEntered_Graveyard_from_Battlefield_Card.Artifact

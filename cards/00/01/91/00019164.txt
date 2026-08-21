@@ -1,11 +1,10 @@
 Id:19164
-ColorIdentity:R
+ColorIdentity:B
 OriginSet:Gf56613712ce2ae1f
-ManaCost:2 R
-Types:Legendary Creature Goblin
-PT:1/2
-T:Mode$ Attacks | ValidCard$ Creature.Self | Execute$ TrigPut
-SVar:TrigPut:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenScriptIds$ 1112542976 | TokenOwner$ You | TokenAmount$ X
-SVar:X:Count$CardPower
-SVar:HasAttackEffect:TRUE
+ManaCost:2 B
+Types:Legendary Planeswalker Davriel
+Loyalty:3
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Opponent | CheckSVar$ CardsInHand | SVarCompare$ LE1 | Execute$ TrigDamage | TriggerZones$ Battlefield
+SVar:TrigDamage:DB$ DealDamage | Defined$ TriggeredPlayer | NumDmg$ 2
+SVar:CardsInHand:Count$ValidHand Card.ActivePlayerCtrl
+A:AB$ Discard | Cost$ SubCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Player | NumCards$ 1 | Mode$ TgtChoose

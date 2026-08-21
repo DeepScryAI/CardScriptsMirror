@@ -1,13 +1,9 @@
 Id:21037
-ColorIdentity:WU
-OriginSet:G7b2607750b451c25
-ManaCost:1 W U
-Types:Legendary Creature Angel Wizard
-PT:3/3
-K:Flying
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ X | SVarCompare$ EQ4 | Execute$ TrigPump
-SVar:TrigPump:DB$ Effect | ValidTgts$ Permanent.nonLand+OppCtrl | RememberObjects$ Targeted | StaticAbilities$ DBCantStatic | ForgetOnMoved$ Battlefield | IsCurse$ True | Duration$ UntilYourNextTurn
-SVar:DBCantStatic:Mode$ CantAttack,CantBlock,CantBeActivated | ValidCard$ Card.IsRemembered
-A:AB$ Pump | Cost$ Sac<1/NICKNAME> | Defined$ Valid Creature.YouCtrl | KWChoice$ Hexproof,Indestructible
-SVar:X:Count$Party
-SVar:BuffedBy:Rogue,Warrior,Wizard
+ColorIdentity:R
+OriginSet:G2f853d6139309fb0
+ManaCost:1 R
+Types:Creature Devil
+PT:4/3
+R:Event$ Untap | ValidCard$ Card.Self | ValidStepTurnToController$ You | Layer$ CantHappen
+A:AB$ Untap | Cost$ 1 Sac<1/Creature.Other/another creature> | PlayerTurn$ True
+SVar:AIPreference:SacCost$Creature.token+powerLE2+toughnessLE2,Creature.cmcLE2+powerLE1+toughnessLE2+inZoneBattlefield

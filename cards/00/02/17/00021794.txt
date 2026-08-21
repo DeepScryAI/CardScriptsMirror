@@ -1,10 +1,11 @@
 Id:21794
-ColorIdentity:WR
-OriginSet:Gabb23d0d25cdc46d
-ManaCost:2 R W
-Types:Legendary Creature Giant Artificer
-PT:4/4
-K:Vigilance
-A:AB$ Pump | Cost$ 1 Sac<1/Artifact> | NumAtt$ +2 | ValidTgts$ Creature.YouCtrl
-A:AB$ CopyPermanent | Cost$ X T ExileFromGrave<1/Artifact.cmcEQX/artifact card with mana value X> | Defined$ Exiled | NumCopies$ 2 | SorcerySpeed$ True
-SVar:X:Count$xPaid
+ColorIdentity:B
+OriginSet:G18bf722b221724f8
+ManaCost:4 B
+Types:Creature Elf Rogue
+PT:4/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | Choices$ DBRemoveCounter,DBPump
+SVar:DBRemoveCounter:DB$ RemoveCounter | ValidTgts$ Permanent | CounterType$ Any | CounterNum$ X
+SVar:DBPump:DB$ Pump | ValidTgts$ Creature.OppCtrl | IsCurse$ True | NumAtt$ -X | NumDef$ -X
+SVar:X:Count$Valid Elf.YouCtrl

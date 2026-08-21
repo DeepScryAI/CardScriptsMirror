@@ -1,15 +1,10 @@
 Id:26349
-ColorIdentity:G
-OriginSet:Gd5f5e54fa26ae40d
-ManaCost:5 G
-Types:Creature Elephant Soldier
-PT:4/4
-K:Backup:1:BackupAbilities
-K:Backup:1:BackupAbilities
-K:Backup:1:BackupAbilities
-SVar:BackupAbilities:DB$ Animate | Keywords$ Trample | Triggers$ DamageTrig
-SVar:DamageTrig:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | TriggerZones$ Battlefield | CombatDamage$ True | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ TriggeredSourceLKICopy | CounterType$ P1P1 | CounterNum$ X
-SVar:X:TriggerCount$DamageAmount
-K:Trample
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | TriggerZones$ Battlefield | CombatDamage$ True | Execute$ TrigPutCounter
+ColorIdentity:BG
+OriginSet:G2192e8955d5e1ad1
+ManaCost:1 B G
+Types:Legendary Planeswalker Tyvar
+Loyalty:3
+S:Mode$ ActivateAbilityAsIfHaste | ValidCard$ Creature.YouCtrl
+A:AB$ Untap | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1
+A:AB$ Mill | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | NumCards$ 3 | Defined$ You | SubAbility$ DBChange
+SVar:DBChange:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | Hidden$ True | ChangeType$ Creature.YouOwn+cmcLE2

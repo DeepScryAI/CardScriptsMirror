@@ -1,13 +1,9 @@
 Id:14168
-ColorIdentity:W
+ColorIdentity:U
 OriginSet:Gc18355312510df89
-ManaCost:1 W
-Types:Instant
-A:SP$ ChangeZone | ValidTgts$ Enchantment | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ ExileYard
-SVar:ExileYard:DB$ ChangeZone | ChangeType$ Remembered.sameName | Origin$ Graveyard | DefinedPlayer$ TargetedController | Chooser$ You | Destination$ Exile | ChangeNum$ NumInYard | Hidden$ True | SubAbility$ ExileHand | ConditionDefined$ Remembered | ConditionPresent$ God | ConditionCompare$ GE1
-SVar:ExileHand:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | DefinedPlayer$ TargetedController | ChangeType$ Remembered.sameName | ChangeNum$ NumInHand | Chooser$ You | SubAbility$ ExileLib | ConditionDefined$ Remembered | ConditionPresent$ God | ConditionCompare$ GE1
-SVar:ExileLib:DB$ ChangeZone | Origin$ Library | Destination$ Exile | DefinedPlayer$ TargetedController | ChangeType$ Remembered.sameName | ChangeNum$ NumInLib | Chooser$ You | Shuffle$ True | SubAbility$ DBCleanup | ConditionDefined$ Remembered | ConditionPresent$ God | ConditionCompare$ GE1
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:NumInLib:TargetedController$CardsInLibrary
-SVar:NumInHand:TargetedController$CardsInHand
-SVar:NumInYard:TargetedController$CardsInGraveyard
+ManaCost:2 U
+Types:Creature Human Rogue
+PT:2/3
+T:Mode$ Untaps | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigExchangeControl | OptionalDecider$ You
+SVar:TrigExchangeControl:DB$ Pump | ValidTgts$ Permanent.YouCtrl+nonLand | SubAbility$ DBExchange
+SVar:DBExchange:DB$ ExchangeControl | Defined$ ParentTarget | ValidTgts$ Permanent.OppCtrl | TargetsWithSharedCardType$ ParentTarget

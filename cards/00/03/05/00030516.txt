@@ -1,17 +1,14 @@
 Id:30516
-ColorIdentity:BR
+ColorIdentity:B
 OriginSet:G8b2ed00ac2a0ff47
-ManaCost:B R
-Types:Creature Zombie
-PT:2/2
-K:Trample
-K:Haste
-S:Mode$ Continuous | Affected$ Card.Self | EffectZone$ Graveyard | AffectedZone$ Graveyard | MayPlay$ True | CheckSVar$ X
-T:Mode$ SpellCast | ValidCard$ Card.Self | ValidSA$ Spell.MayPlaySource | Static$ True | Execute$ DBEffect
-SVar:DBEffect:DB$ Effect | ExileOnMoved$ Stack | ReplacementEffects$ ETBCreat | ExileOnMoved$ Stack
-SVar:ETBCreat:Event$ Moved | ValidCard$ Card.EffectSource | Destination$ Battlefield | ReplaceWith$ DBPutP1P1 | ReplacementResult$ Updated
-SVar:DBPutP1P1:DB$ PutCounter | Defined$ ReplacedCard | CounterType$ P1P1 | ETB$ True | CounterNum$ 1 | SubAbility$ DBExile
-SVar:DBExile:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile
-SVar:X:Count$ThisTurnEntered_Graveyard_from_Battlefield_Creature.nonZombie
-SVar:SacMe:3
-SVar:DiscardMe:3
+ManaCost:2 B
+Types:Enchantment Room
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 1 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
+AlternateMode:Split
+ALTERNATE
+ManaCost:6 B B
+Types:Enchantment Room
+T:Mode$ UnlockDoor | ValidPlayer$ You | ValidCard$ Card.Self | ThisDoor$ True | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZoneAll | ChangeType$ Creature.YouOwn | Origin$ Graveyard | Destination$ Battlefield

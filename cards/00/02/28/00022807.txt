@@ -1,11 +1,11 @@
 Id:22807
 ColorIdentity:U
-OriginSet:Gf78628ad511eefec
+OriginSet:G66f2eb694ffd614a
 ManaCost:4 U
-Types:Enchantment Aura Curse
-K:Enchant:Player
-SVar:AttachAILogic:Curse
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Player.EnchantedBy | TriggerZones$ Battlefield | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | ValidTgts$ Player.!EnchantedBy | TargetMin$ 0 | TargetMax$ MaxTgts | NumCards$ X
-SVar:MaxTgts:PlayerCountPlayers$Amount/Minus.1
-SVar:X:Count$Valid Curse.AttachedTo Player.EnchantedBy
+Types:Creature Zombie Horror
+PT:3/3
+K:Flying
+S:Mode$ Continuous | Affected$ Zombie.YouCtrl+Other | AddKeyword$ Flying
+T:Mode$ DamageAll | ValidSource$ Creature.Zombie+YouCtrl | ValidTarget$ Opponent | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigDraw | OptionalDecider$ You
+SVar:TrigDraw:AB$ Discard | Cost$ Draw<X/You> | Defined$ You | Mode$ TgtChoose | NumCards$ X
+SVar:X:TriggeredPlayersTargets$Amount

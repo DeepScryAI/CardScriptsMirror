@@ -1,14 +1,12 @@
 Id:16990
-ColorIdentity:RG
+ColorIdentity:R
 OriginSet:Gbcdce58dfbbf1bad
-ManaCost:X G
-Types:Instant
-A:SP$ DamageAll | ValidCards$ Creature.withFlying | NumDmg$ X
-SVar:X:Count$xPaid
-AlternateMode:Split
-ALTERNATE
-ManaCost:X R R
-Types:Sorcery
-K:Aftermath
-A:SP$ DamageAll | ValidCards$ Creature.withoutFlying | NumDmg$ X
-SVar:X:Count$xPaid
+ManaCost:2 R R
+Types:Creature Manticore
+PT:4/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ DBTrigger
+SVar:DBTrigger:AB$ ImmediateTrigger | Cost$ Sac<1/Creature.Other/another creature> | Execute$ TrigDamage | AILogic$ SacForDamage
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ XPower
+K:Embalm:5 R
+SVar:XPower:Spawner>Sacrificed$CardPower
+SVar:AIPreferenceParams:CreatureEvalThreshold$ 200

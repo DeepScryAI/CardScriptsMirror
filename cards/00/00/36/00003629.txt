@@ -1,11 +1,12 @@
 Id:3629
-ColorIdentity:R
+ColorIdentity:U
 OriginSet:Gf01f1543bdb61bd2
-ManaCost:1 R
+ManaCost:2 U
 Types:Enchantment Aura
 K:Enchant:Creature
 SVar:AttachAILogic:Curse
-S:Mode$ CantBlock | ValidCard$ Creature.EnchantedBy
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Player.EnchantedController | TriggerZones$ Battlefield | Execute$ TrigUpkeep
+SVar:TrigUpkeep:DB$ SacrificeAll | Defined$ Enchanted | UnlessPayer$ EnchantedController | UnlessCost$ 2
 T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigChangeZone
 SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | Defined$ TriggeredNewCardLKICopy
 SVar:SacMe:2

@@ -1,8 +1,14 @@
 Id:29869
-ColorIdentity:W
-OriginSet:Gf09b85bbcc27770c
-ManaCost:1 W
-Types:Creature Hamster Citizen
-PT:2/3
-T:Mode$ GiveGift | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw
+ColorIdentity:
+OriginSet:G01a610e823cce3ca
+ManaCost:4
+Types:Legendary Artifact Equipment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigAttach
+SVar:TrigAttach:DB$ Attach | ValidTgts$ Creature.Legendary+YouCtrl
+T:Mode$ Attacks | ValidCard$ Card.AttachedBy | Execute$ TrigTap
+SVar:TrigTap:DB$ Tap | ValidTgts$ Creature.ControlledBy TriggeredDefendingPlayer | SubAbility$ DBCounter
+SVar:DBCounter:DB$ PutCounter | Defined$ Targeted | CounterType$ Stun | CounterNum$ 1 | SubAbility$ DBRepeat
+SVar:DBRepeat:DB$ RepeatEach | RepeatPlayers$ Player.Opponent | RepeatSubAbility$ DBDmg | DamageMap$ True
+SVar:DBDmg:DB$ DealDamage | Defined$ Player.IsRemembered | NumDmg$ X
+SVar:X:Count$Valid Creature.RememberedPlayerCtrl+tapped
+K:Equip:4

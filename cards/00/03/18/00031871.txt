@@ -1,30 +1,7 @@
 Id:31871
-ColorIdentity:B
+ColorIdentity:G
 OriginSet:G7ab4f62d323b0ca7
-ManaCost:2 B
-Types:Legendary Creature Human Avatar Soldier
-PT:3/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw1
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDraw1 | TriggerZones$ Battlefield | Secondary$ True
-SVar:TrigDraw1:AB$ Draw | Cost$ Sac<1/Creature.Other/another creature>
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.Other | TriggerZones$ Battlefield | Execute$ TrigLoseLife
-SVar:TrigLoseLife:DB$ LoseLife | ValidTgts$ Opponent | LifeAmount$ 1 | SubAbility$ DBGainLife
-SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1 | SubAbility$ DBTransform
-SVar:DBTransform:DB$ SetState | Defined$ Self | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ4 | Mode$ Transform
-SVar:X:Count$ResolvedThisTurn
-AlternateMode:DoubleFaced
-SVar:HasAttackEffect:TRUE
-ALTERNATE
-ManaCost:no cost
-Colors:black
-Types:Legendary Creature Angel Nightmare Avatar
-PT:5/5
-K:Flying
-R:Event$ Transform | ValidCard$ Card.Self | ReplaceWith$ DBEffect
-SVar:DBEffect:DB$ Effect | Name$ 17003291639737087329 | Triggers$ TrigChangesZone | Duration$ Permanent
-SVar:TrigChangesZone:Mode$ ChangesZone | ValidCard$ Creature | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigLoseLifeEmblem | TriggerZones$ Command
-SVar:TrigLoseLifeEmblem:DB$ LoseLife | ValidTgts$ Opponent | LifeAmount$ 1 | SubAbility$ DBGainLifeEmblem
-SVar:DBGainLifeEmblem:DB$ GainLife | Defined$ You | LifeAmount$ 1
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDraw2 | TriggerZones$ Battlefield
-SVar:TrigDraw2:AB$ Draw | Cost$ Sac<X/Creature.Other/another creature> | NumCards$ X
-SVar:X:Count$xPaid
+ManaCost:3 G G
+Types:Artifact
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 490609126 | TokenOwner$ You

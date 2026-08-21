@@ -1,8 +1,10 @@
 Id:26212
-ColorIdentity:B
+ColorIdentity:G
 OriginSet:G2192e8955d5e1ad1
-ManaCost:B
-Types:Artifact
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl+Other,Artifact.YouCtrl+Other | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ OIL | CounterNum$ 1
-A:AB$ ChangeZone | Cost$ 2 B T SubCounter<4/OIL> | ValidTgts$ Creature.YouCtrl | Origin$ Graveyard | Destination$ Battlefield | SorcerySpeed$ True
+ManaCost:X G
+Types:Sorcery
+A:SP$ DigMultiple | DigNum$ SVar$X/Plus.1 | Reveal$ True | ChangeValid$ Creature,Land | ChangeLater$ True | RememberChanged$ True | ImprintRest$ True | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Defined$ Remembered | Origin$ Library | Destination$ Hand | DestinationAlternative$ Battlefield | DestAltSVar$ X | DestAltSVarCompare$ GE5 | SubAbility$ RestBottom
+SVar:RestBottom:DB$ ChangeZone | Defined$ Imprinted | Origin$ Library | Destination$ Library | LibraryPosition$ -1 | RandomOrder$ True | NoShuffle$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True
+SVar:X:Count$xPaid

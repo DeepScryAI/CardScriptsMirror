@@ -1,13 +1,11 @@
 Id:25679
-ColorIdentity:B
-OriginSet:G06ccef4324c14725
-ManaCost:2 B
-Types:Creature Phyrexian Horror
-PT:1/3
-K:Flying
-SVar:SacMe:3
-T:Mode$ Drawn | ValidCard$ Card.YouCtrl | Number$ 2 | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZone | ValidTgts$ Creature.YouOwn+cmcLEX+Other | Origin$ Graveyard | Destination$ Battlefield
-SVar:X:TriggeredCard$CardPower
+ColorIdentity:
+OriginSet:Gce0c33e5115830a3
+ManaCost:2
+Types:Artifact Equipment
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddSVar$ AE | AddPower$ X | AddToughness$ X
+T:Mode$ Attacks | ValidCard$ Creature.EquippedBy | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 1963355076
+K:Equip:3
+SVar:AE:SVar:HasAttackEffect:TRUE
+SVar:X:Count$Valid Forest.YouCtrl

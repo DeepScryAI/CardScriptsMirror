@@ -1,12 +1,11 @@
 Id:5785
 ColorIdentity:U
 OriginSet:G7327b0fa163b48eb
-ManaCost:2 U
-Types:Creature Nightmare Turtle Beast
-PT:2/4
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChooseExile
+ManaCost:1 U
+Types:Creature Nightmare Salamander Beast
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
 T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigReturn
-SVar:TrigChooseExile:DB$ ChooseCard | Choices$ Land.YouCtrl | Mandatory$ True | Amount$ 1 | SubAbility$ DBExile
+SVar:TrigExile:DB$ ChooseCard | Choices$ Land.YouCtrl | Mandatory$ True | Amount$ 1 | SubAbility$ DBExile
 SVar:DBExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | Defined$ ChosenCard | RememberChanged$ True
-SVar:TrigReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:TrigReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield

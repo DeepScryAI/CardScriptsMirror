@@ -1,7 +1,15 @@
 Id:34525
-ColorIdentity:W
-OriginSet:G11c0621ce29fa608
-ManaCost:1 W
-Types:Legendary Creature Human Hero
-PT:2/2
-A:AB$ Pump | Cost$ 2 T | ValidTgts$ Creature.Other+YouCtrl | NumAtt$ +2 | KW$ Hexproof
+ColorIdentity:G
+OriginSet:Gcb93bbfc68a40806
+ManaCost:3 G G
+Types:Legendary Creature Dinosaur Vampire Villain
+PT:4/4
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigCharm | TriggerZones$ Battlefield | Secondary$ True
+SVar:TrigCharm:DB$ Charm | Choices$ DBGainLife,DBPutCounter
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 3
+SVar:DBPutCounter:DB$ PutCounter | ValidTgts$ Creature.Other | CounterType$ SAURIAN | CounterNum$ 1 | RememberCards$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ Remembered | StaticAbilities$ SauronStatic | ForgetOnMoved$ Battlefield | ForgetCounter$ SAURIAN | Duration$ Permanent | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:SauronStatic:Mode$ Continuous | Affected$ Card.IsRemembered | SetPower$ 5 | SetToughness$ 5 | SetColor$ Green | AddType$ Dinosaur | RemoveCreatureTypes$ True

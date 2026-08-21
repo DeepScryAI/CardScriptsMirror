@@ -1,11 +1,10 @@
 Id:33459
-ColorIdentity:WR
-OriginSet:G23d1f017cc66962f
-ManaCost:R W
-Types:Sorcery
-A:SP$ Charm | MinCharmNum$ 1 | CharmNum$ 2 | Choices$ DBExile,DBDamage
-SVar:DBExile:DB$ ChangeZone | ValidTgts$ Creature.YouCtrl | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn
-SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:DBDamage:DB$ DealDamage | ValidTgts$ Creature.OppCtrl | NumDmg$ X
-SVar:X:Count$Valid Creature.YouCtrl$GreatestCardPower
+ColorIdentity:U
+OriginSet:G7ab1fe96128a1641
+ManaCost:4 U U
+Types:Creature Elemental
+PT:3/3
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | NumCards$ X
+SVar:X:Count$Valid Permanent.YouCtrl$Colors

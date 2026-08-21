@@ -1,6 +1,11 @@
 Id:3315
 ColorIdentity:G
 OriginSet:G24ae8187eacbba52
-ManaCost:2 G
-Types:Sorcery
-A:SP$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Forest | ChangeNum$ 2
+ManaCost:1 G
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+A:AB$ Regenerate | Cost$ Sac<1/Forest> | Defined$ Enchanted
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | Defined$ TriggeredNewCardLKICopy
+SVar:NonStackingAttachEffect:True

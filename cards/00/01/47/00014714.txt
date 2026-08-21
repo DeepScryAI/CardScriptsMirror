@@ -1,6 +1,10 @@
 Id:14714
-ColorIdentity:B
+ColorIdentity:UG
 OriginSet:G0a578e83854cf093
-ManaCost:4 B
-Types:Instant
-A:SP$ Pump | ValidTgts$ Creature | NumAtt$ -4 | NumDef$ -4 | IsCurse$ True
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGainLife
+SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 1
+A:AB$ Mana | Cost$ T | Produced$ Combo G U

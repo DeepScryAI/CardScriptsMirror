@@ -1,13 +1,10 @@
 Id:13921
-ColorIdentity:G
+ColorIdentity:W
 OriginSet:G6645ca87da6316d5
-ManaCost:6 G G
-Types:Creature Beast
-PT:0/0
-T:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigReveal
-SVar:TrigReveal:DB$ PeekAndReveal | Defined$ Player | RememberRevealed$ True
-K:etbCounter:P1P1:X:no Condition
-SVar:X:Remembered$CardManaCost
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ DBCleanup | Static$ True
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-K:Trample
+ManaCost:4 W
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChooseDirection
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigChooseDirection | Secondary$ True
+SVar:TrigChooseDirection:DB$ ChooseDirection
+S:Mode$ CantAttack | DefenderNotNearestToYouInChosenDirection$ True
+SVar:NonStackingEffect:True

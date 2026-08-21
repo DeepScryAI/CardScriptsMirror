@@ -1,9 +1,13 @@
 Id:9611
-ColorIdentity:R
+ColorIdentity:
 OriginSet:G49bcc8b9b86b628d
-ManaCost:X R R
-Types:Sorcery
-A:SP$ DealDamage | NumDmg$ X | ValidTgts$ Any | SubAbility$ DBClash
-SVar:DBClash:DB$ Clash | WinSubAbility$ DBReturn
-SVar:DBReturn:DB$ ChangeZone | Defined$ Parent | Origin$ Stack | Destination$ Hand
-SVar:X:Count$xPaid
+ManaCost:2
+Types:Kindred Artifact Shaman Equipment
+K:Equip:4
+S:Mode$ Continuous | Affected$ Card.EquippedBy | AddAbility$ Damage | AddTrigger$ TrigChangeZone | AddSVar$ ThornbiteTrigUntap
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.Shaman | TriggerZones$ Battlefield | Execute$ TrigAttach | OptionalDecider$ You
+SVar:Damage:AB$ DealDamage | Cost$ 2 T | ValidTgts$ Any | NumDmg$ 1
+SVar:TrigChangeZone:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature | TriggerZones$ Battlefield | Execute$ ThornbiteTrigUntap
+SVar:ThornbiteTrigUntap:DB$ Untap
+SVar:TrigAttach:DB$ Attach | Defined$ TriggeredCardLKICopy
+SVar:NonStackingAttachEffect:True

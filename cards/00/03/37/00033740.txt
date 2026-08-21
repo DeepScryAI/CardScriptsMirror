@@ -1,11 +1,11 @@
 Id:33740
-ColorIdentity:R
-OriginSet:Gf8df2bea26dc6b68
-ManaCost:4 R
-Types:Sorcery
-A:SP$ DealDamage | ValidTgts$ Creature | NumDmg$ X | ExcessSVar$ Excess | ExcessSVarCondition$ Card.targetedBy | SubAbility$ DBDig
-SVar:DBDig:DB$ Dig | Defined$ You | DigNum$ Excess | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ Play | ForgetOnMoved$ Exile | SubAbility$ DBCleanup | Duration$ UntilTheEndOfYourNextTurn
-SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$Converge
+ColorIdentity:B
+OriginSet:G23d1f017cc66962f
+ManaCost:1 B
+Types:Creature Zombie Worm
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill
+SVar:TrigMill:DB$ Mill | Defined$ You | NumCards$ 3
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigImmediateTrig
+SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ ExileAnyGrave<1/Card.TriggeredNewCard> | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Library | ValidTgts$ Creature.YouOwn

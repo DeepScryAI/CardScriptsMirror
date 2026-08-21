@@ -1,11 +1,10 @@
 Id:33283
-ColorIdentity:BG
+ColorIdentity:B
 OriginSet:G7ab1fe96128a1641
-ManaCost:4 B G
-Types:Kindred Sorcery Elf
-A:SP$ Charm | Choices$ DBCopy,DBChangeZone,DBDestroy,DBPumpAll | CharmNum$ 2
-SVar:DBCopy:DB$ CopyPermanent | ValidTgts$ Elf.YouCtrl
-SVar:DBChangeZone:DB$ ChangeZone | ValidTgts$ Permanent.YouOwn | TargetMin$ 1 | TargetMax$ 2 | TgtZone$ Graveyard | Origin$ Graveyard | Destination$ Hand
-SVar:DBDestroy:DB$ Destroy | ValidTgts$ Creature,Enchantment
-SVar:DBPumpAll:DB$ PumpAll | ValidTgts$ Player | ValidCards$ Creature | NumAtt$ +3 | NumDef$ +3 | SubAbility$ DBUntapAll
-SVar:DBUntapAll:DB$ UntapAll | ValidCards$ Creature.TargetedPlayerCtrl
+ManaCost:2 B
+Types:Kindred Enchantment Goblin
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:AB$ Token | Cost$ Blight<1> | TokenAmount$ 2 | TokenScriptIds$ 4268644071 | TokenOwner$ You
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.Goblin+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 1 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1

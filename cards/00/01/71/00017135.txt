@@ -3,9 +3,9 @@ ColorIdentity:
 OriginSet:G5fc5076129f6ad6a
 ManaCost:no cost
 Types:Scheme
-T:Mode$ SetInMotion | ValidCard$ Card.Self | Execute$ TrigRepeat | TriggerZones$ Command
-SVar:TrigRepeat:DB$ RepeatEach | RepeatPlayers$ Player.Opponent | RepeatSubAbility$ DBToken | ChangeZoneTable$ True
-SVar:DBToken:DB$ Token | TokenScriptIds$ 4037281011 | TokenOwner$ You | RememberTokens$ True | SubAbility$ DBEff
-SVar:DBEff:DB$ Effect | RememberObjects$ Remembered | ExileOnMoved$ Battlefield | Duration$ Permanent | StaticAbilities$ MustAttack | SubAbility$ DBCleanup
-SVar:MustAttack:Mode$ MustAttack | ValidCreature$ Card.IsRemembered | MustAttack$ RememberedPlayer
+T:Mode$ SetInMotion | ValidCard$ Card.Self | Execute$ DBRepeat | TriggerZones$ Command
+SVar:DBRepeat:DB$ RepeatEach | RepeatPlayers$ Player.Opponent | RepeatSubAbility$ Dream | SubAbility$ Nightmare
+SVar:Dream:DB$ Discard | Defined$ Player.IsRemembered | Mode$ TgtChoose | NumCards$ 1 | Mandatory$ True | RememberDiscarded$ True
+SVar:Nightmare:DB$ Draw | NumCards$ X | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Valid Land.RememberedPlayerCtrl

@@ -1,12 +1,11 @@
 Id:30343
-ColorIdentity:G
-OriginSet:G8b2ed00ac2a0ff47
-ManaCost:1 G G
-Types:Enchantment Creature Elk Glimmer
-PT:3/3
-K:Vigilance
-S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddAbility$ AnyMana
-SVar:AnyMana:AB$ Mana | Cost$ T | Produced$ Any | Amount$ 1
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self+Creature | Execute$ DBReturn
-SVar:DBReturn:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Battlefield | StaticEffect$ Animate
-SVar:Animate:Mode$ Continuous | Affected$ Card.IsRemembered | AddType$ Enchantment | RemoveCardTypes$ True
+ColorIdentity:WR
+OriginSet:G9ff9681e1fe8713a
+ManaCost:R W
+Types:Creature Mouse Warrior
+PT:1/1
+T:Mode$ AttackersDeclared | ValidAttackers$ Card.Self | Execute$ TrigDraft | TriggerZones$ Battlefield
+SVar:TrigDraft:DB$ Draft | SpellbookCatalogIds$ 22832,19853,27557,24023,27574,29948,14566,19896,29969,30031,30035,12311,21019,30149
+T:Mode$ BecomesTarget | ValidTarget$ Card.Self | ValidSource$ SpellAbility.YouCtrl | TriggerZones$ Battlefield | FirstTime$ True | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 1098512333 | TokenOwner$ You
+SVar:HasAttackEffect:TRUE

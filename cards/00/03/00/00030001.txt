@@ -1,9 +1,11 @@
 Id:30001
-ColorIdentity:WR
+ColorIdentity:G
 OriginSet:Gf09b85bbcc27770c
-ManaCost:3 RW
-Types:Creature Mouse Soldier
-PT:3/4
-T:Mode$ BecomesTarget | ValidTarget$ Card.Self | ValidSource$ SpellAbility.YouCtrl | TriggerZones$ Battlefield | Valiant$ True | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +1 | KW$ FirstStrike | SubAbility$ DBScry
-SVar:DBScry:DB$ Scry | ScryNum$ 1
+ManaCost:3 G G
+Types:Creature Elemental Wolverine
+PT:5/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | Choices$ DBPutCounter,DBFight,DBDestroy
+SVar:DBPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1
+SVar:DBFight:DB$ Fight | Defined$ TriggeredCardLKICopy | ValidTgts$ Creature.token
+SVar:DBDestroy:DB$ Destroy | ValidTgts$ Artifact,Enchantment

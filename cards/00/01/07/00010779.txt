@@ -1,13 +1,11 @@
 Id:10779
-ColorIdentity:R
+ColorIdentity:W
 OriginSet:G4398040c23c94f0e
-ManaCost:4 R R
-Types:Legendary Planeswalker Chandra
-Loyalty:5
-A:AB$ Discard | Cost$ AddCounter<1/LOYALTY> | Mode$ TgtChoose | NumCards$ 1 | Defined$ You | Planeswalker$ True | RememberDiscarded$ True | SubAbility$ DBChandraDealDamage
-SVar:DBChandraDealDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 4 | ConditionDefined$ Remembered | ConditionPresent$ Card.Red | ConditionCompare$ EQ1 | SubAbility$ DBChandraCleanup
-SVar:DBChandraCleanup:DB$ Cleanup | ClearRemembered$ True
-A:AB$ Discard | Cost$ SubCounter<2/LOYALTY> | Mode$ Hand | Defined$ Player | Planeswalker$ True | SubAbility$ DBChandraDraw
-SVar:DBChandraDraw:DB$ Draw | Defined$ Player | NumCards$ 3
-A:AB$ Play | Cost$ SubCounter<7/LOYALTY> | Valid$ Instant.Red+YouCtrl,Sorcery.Red+YouCtrl | ValidZone$ Graveyard | WithoutManaCost$ True | Planeswalker$ True | Ultimate$ True | Amount$ ChandraX | Controller$ You | Optional$ True
-SVar:ChandraX:Count$ValidGraveyard Instant.Red+YouOwn,Sorcery.Red+YouOwn
+ManaCost:3 W W W
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 3 | AddToughness$ 3
+T:Mode$ DamageDone | ValidSource$ Card.AttachedBy | ValidTarget$ Player | Execute$ TrigSetLife | CombatDamage$ True
+SVar:TrigSetLife:DB$ SetLife | Defined$ TriggeredSourceController | LifeAmount$ X
+SVar:X:PlayerCountDefinedTriggeredSourceController$LifeTotal/Twice

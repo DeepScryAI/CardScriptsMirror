@@ -1,11 +1,16 @@
 Id:21972
-ColorIdentity:UR
-OriginSet:Gd784248bfdf9e1d7
-ManaCost:U R
-Types:Sorcery
-A:SP$ Dig | DigNum$ 3 | ChangeNum$ 1 | NoReveal$ True | LibraryPosition2$ 0 | SkipReorder$ True | SubAbility$ DBDig2 | NoLooking$ True
-SVar:DBDig2:DB$ Dig | DigNum$ 2 | ChangeNum$ 1 | NoReveal$ True | DestinationZone$ Library | LibraryPosition2$ 0 | SubAbility$ DBDig1
-SVar:DBDig1:DB$ Dig | DigNum$ 1 | ChangeNum$ All | NoReveal$ True | DestinationZone$ Exile | SkipReorder$ True | RememberChanged$ True | SubAbility$ DBEffect | NoLooking$ True
-SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ Play | SubAbility$ DBCleanup | ForgetOnMoved$ Exile
-SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:W
+OriginSet:G6fa60d857e930f32
+ManaCost:3 W
+Types:Instant
+A:SP$ ChangeZone | ValidTgts$ Creature.YouCtrl,Planeswalker.YouCtrl | TargetMin$ 0 | TargetMax$ X | Origin$ Battlefield | Destination$ Exile | SubAbility$ DelTrig | RememberChanged$ True
+SVar:DelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ TrigConditionEffect | RememberObjects$ RememberedLKI | SubAbility$ DBCleanup1
+SVar:DBCleanup1:DB$ Cleanup | ClearRemembered$ True
+SVar:TrigConditionEffect:DB$ Effect | RememberObjects$ DelayTriggerRememberedLKI | ReplacementEffects$ ETBCreatPlans | ImprintOnHost$ True | ForgetOnMoved$ Exile | SubAbility$ DBReturn
+SVar:ETBCreatPlans:Event$ Moved | ValidCard$ Creature.IsRemembered,Planeswalker.IsRemembered | Destination$ Battlefield | ReplaceWith$ DBPutP1P1 | ReplacementResult$ Updated
+SVar:DBPutP1P1:DB$ PutCounter | Defined$ ReplacedNewCard.Creature | CounterType$ P1P1 | ETB$ True | CounterNum$ 1 | SubAbility$ DBPutLOYALTY
+SVar:DBPutLOYALTY:DB$ PutCounter | Defined$ ReplacedNewCard.Planeswalker | CounterType$ LOYALTY | ETB$ True | CounterNum$ 1
+SVar:X:Count$Valid Permanent.YouCtrl
+SVar:DBReturn:DB$ ChangeZone | Origin$ Exile | Destination$ Battlefield | Defined$ DelayTriggerRememberedLKI | SubAbility$ DBCleanEff
+SVar:DBCleanEff:DB$ ChangeZone | Origin$ Command | Destination$ Exile | Defined$ Imprinted | SubAbility$ DBCleanup2
+SVar:DBCleanup2:DB$ Cleanup | ClearImprinted$ True

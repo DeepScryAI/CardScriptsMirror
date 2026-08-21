@@ -1,11 +1,11 @@
 Id:32448
-ColorIdentity:RG
-OriginSet:G66b3a7eeabd9000e
-ManaCost:1 R G
-Types:Legendary Creature Spider Human Hero
+ColorIdentity:R
+OriginSet:G9946f072b5556073
+ManaCost:2 R
+Types:Artifact Spacecraft
 PT:4/3
-K:WebSlinging:R G
-K:Trample
-R:Event$ Moved | ValidCard$ Card.Self+webSlinged+wasCast | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ AddExtraCounter
-SVar:AddExtraCounter:DB$ PutCounter | ETB$ True | Defined$ Self | CounterType$ P1P1 | CounterNum$ X
-SVar:X:CastSA>Returned$CardManaCost
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Creature.OppCtrl | NumDmg$ X
+K:Station:6
+S:Mode$ Continuous | Affected$ Card.Self+counters_GE6_CHARGE | AddType$ Creature | AddKeyword$ Flying
+SVar:X:Count$Valid Artifact.YouCtrl

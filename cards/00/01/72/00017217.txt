@@ -1,8 +1,10 @@
 Id:17217
-ColorIdentity:R
+ColorIdentity:
 OriginSet:G4b92e66c84393de5
-ManaCost:4 R R
-Types:Creature Elemental
-PT:5/4
-K:Menace
-K:Cycling:2
+ManaCost:7
+Types:Artifact
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Hidden$ True | RememberChanged$ True | Origin$ Graveyard | Destination$ Exile | ChangeType$ Creature.YouCtrl | ChangeNum$ 1 | SubAbility$ DBCopy
+SVar:DBCopy:DB$ CopyPermanent | Defined$ Remembered | SetPower$ 4 | SetToughness$ 4 | SetColor$ Black | SetCreatureTypes$ Zombie | PumpKeywords$ Haste | PumpDuration$ EOT | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:PlayMain1:TRUE

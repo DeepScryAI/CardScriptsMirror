@@ -1,10 +1,13 @@
 Id:29717
-ColorIdentity:W
-OriginSet:G01a610e823cce3ca
-ManaCost:3 W
-Types:Legendary Creature Human Assassin
-PT:3/4
-K:FirstStrike
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
-T:Mode$ DamageDoneOnce | ValidSource$ Assassin.YouCtrl | TriggerZones$ Battlefield | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigChangeZone | Secondary$ True
-SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Card.Historic+YouCtrl
+ColorIdentity:G
+OriginSet:Gac6359c222afbd4f
+ManaCost:4 G
+Types:Creature Eldrazi
+PT:7/5
+K:Devoid
+K:Reach
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | TriggerZones$ Battlefield | ValidCard$ Land.YouCtrl | Execute$ TrigPeek
+SVar:TrigPeek:DB$ PeekAndReveal | PeekAmount$ 1 | RevealValid$ Creature | RevealOptional$ True | RememberRevealed$ True | SubAbility$ DBToHand
+SVar:DBToHand:DB$ ChangeZone | Defined$ Remembered | Origin$ Library | Destination$ Hand | SubAbility$ DBToGrave
+SVar:DBToGrave:DB$ ChangeZone | Defined$ TopOfLibrary | Origin$ Library | Destination$ Graveyard | Optional$ True | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ0 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

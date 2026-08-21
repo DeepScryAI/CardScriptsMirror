@@ -1,11 +1,10 @@
 Id:19373
-ColorIdentity:G
-OriginSet:G9d37112ca6693432
-ManaCost:1 G
-Types:Legendary Creature Bear
+ColorIdentity:WR
+OriginSet:Gb6b8d78626a44788
+ManaCost:R W
+Types:Creature Human Soldier
 PT:2/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Bear.YouCtrl+Other | TriggerZones$ Battlefield | Execute$ TrigChoose
-SVar:TrigChoose:DB$ Charm | Choices$ DBCounter,DBPump
-SVar:DBCounter:DB$ PutCounter | ValidTgts$ Bear | CounterType$ P1P1 | CounterNum$ 2
-SVar:DBPump:DB$ Pump | ValidTgts$ Bear.YouCtrl | SubAbility$ DBFight
-SVar:DBFight:DB$ Fight | Defined$ ParentTarget | ValidTgts$ Creature.YouDontCtrl
+K:Haste
+T:Mode$ SpellCast | ValidActivatingPlayer$ You | TargetsValid$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBScry
+SVar:DBScry:DB$ Scry | ScryNum$ 1

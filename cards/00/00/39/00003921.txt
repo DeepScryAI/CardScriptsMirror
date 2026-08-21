@@ -1,12 +1,12 @@
 Id:3921
-ColorIdentity:
+ColorIdentity:W
 OriginSet:G3da30095b68d8df0
-ManaCost:2
-Types:Artifact
-A:AB$ ChooseNumber | Cost$ 3 T | Min$ 1 | SubAbility$ DBScryingGlassChooseColor
-SVar:DBScryingGlassChooseColor:DB$ ChooseColor | SubAbility$ DBScryingGlassRevealHand
-SVar:DBScryingGlassRevealHand:DB$ RevealHand | RememberRevealed$ True | ValidTgts$ Opponent | SubAbility$ DBScryingGlassDraw
-SVar:DBScryingGlassDraw:DB$ Draw | ConditionCheckSVar$ ScryingGlassX | ConditionSVarCompare$ EQScryingGlassY | SubAbility$ DBScryingGlassCleanup
-SVar:DBScryingGlassCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:ScryingGlassX:Remembered$Valid Card.ChosenColor
-SVar:ScryingGlassY:Count$ChosenNumber
+ManaCost:2 W W
+Types:Instant
+A:SP$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Enchantment | RememberLKI$ True | ForgetOtherTargets$ True | SubAbility$ ExileYard
+SVar:ExileYard:DB$ ChangeZoneAll | Origin$ Graveyard | Destination$ Exile | Defined$ TargetedController | ChangeType$ Remembered.sameName | SubAbility$ ExileHand
+SVar:ExileHand:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | DefinedPlayer$ TargetedController | ChangeType$ Remembered.sameName | ChangeNum$ NumInHand | Chooser$ You | SubAbility$ ExileLib
+SVar:ExileLib:DB$ ChangeZone | Origin$ Library | Destination$ Exile | DefinedPlayer$ TargetedController | ChangeType$ Remembered.sameName | ChangeNum$ NumInLib | Chooser$ You | Shuffle$ True | SubAbility$ DBCleanup
+SVar:NumInHand:TargetedController$CardsInHand
+SVar:NumInLib:TargetedController$CardsInLibrary
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

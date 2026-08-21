@@ -1,9 +1,12 @@
 Id:29997
-ColorIdentity:G
+ColorIdentity:WUG
 OriginSet:Gf09b85bbcc27770c
-ManaCost:G
-Types:Creature Frog Warrior
-PT:1/1
-K:Trample
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Frog.Other+YouCtrl,Rabbit.Other+YouCtrl,Raccoon.Other+YouCtrl,Squirrel.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+ManaCost:G W U
+Types:Legendary Creature Frog Druid
+PT:1/3
+T:Mode$ SpellCast | ValidCard$ Creature.cmcGE4 | ValidActivatingPlayer$ You | Execute$ TrigDraw | TriggerZones$ Battlefield
+SVar:TrigDraw:DB$ Draw | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ 1 | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+A:AB$ Mana | Cost$ T | Produced$ Any | Amount$ X | RestrictValid$ Spell.Creature+cmcGE4,Spell.Creature+hasXCost
+SVar:X:Count$CardPower

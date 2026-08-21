@@ -1,10 +1,20 @@
 Id:22891
-ColorIdentity:B
+ColorIdentity:WU
 OriginSet:Gf78628ad511eefec
-ManaCost:1 B B
-Types:Legendary Artifact Equipment
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddKeyword$ Flying & Lifelink
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.AttachedBy | Execute$ TrigDraw
-SVar:TrigDraw:AB$ Draw | Cost$ PayLife<X> | NumCards$ X
-SVar:X:TriggeredCard$CardPower
-K:Equip:3
+ManaCost:W U
+Types:Legendary Creature Human Soldier
+PT:2/3
+K:Lifelink
+S:Mode$ CantTarget | AffectedZone$ Graveyard
+K:Disturb:2 W U
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:white,blue
+Types:Legendary Creature Spirit Soldier
+PT:3/2
+K:Flying
+T:Mode$ ChangesZoneAll | ValidCards$ Creature.!token | Origin$ Any | Destination$ Graveyard | TriggerZones$ Battlefield | ActivationLimit$ 1 | Execute$ TrigInvestigate
+SVar:TrigInvestigate:DB$ Investigate
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Graveyard | ReplaceWith$ Exile
+SVar:Exile:DB$ ChangeZone | Hidden$ True | Origin$ All | Destination$ Exile | Defined$ ReplacedCard

@@ -1,11 +1,11 @@
 Id:25048
-ColorIdentity:UG
-OriginSet:G2aca7ffc9201ba1c
-ManaCost:1 G U
-Types:Creature Merfolk Wizard
-PT:3/3
-T:Mode$ DamageDoneOnce | CombatDamage$ True | ValidSource$ Creature.YouCtrl+!token+Other | ValidTarget$ Player | TriggerZones$ Battlefield | Execute$ TrigChoose
-SVar:TrigChoose:DB$ ChooseCard | DefinedCards$ TriggeredSources | Mandatory$ True | SubAbility$ DBConjure
-SVar:DBConjure:DB$ MakeCard | Conjure$ True | DefinedName$ ChosenCard | Zone$ Hand | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
-SVar:PlayMain1:TRUE
+ColorIdentity:B
+OriginSet:G3a8b4b9d4649b357
+ManaCost:3 B B
+Types:Enchantment Saga
+K:Read ahead
+K:Chapter:3:DBDiscard,DBTutor,DBReanimate
+SVar:DBDiscard:DB$ Discard | ValidTgts$ Opponent | Mode$ RevealYouChoose | DiscardValid$ Card.Creature,Card.Planeswalker | NumCards$ 1
+SVar:DBTutor:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Card | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 3
+SVar:DBReanimate:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True | ValidTgts$ Creature

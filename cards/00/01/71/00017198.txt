@@ -1,16 +1,11 @@
 Id:17198
-ColorIdentity:BG
+ColorIdentity:B
 OriginSet:G4b92e66c84393de5
-ManaCost:1 G
-Types:Sorcery
-A:SP$ AnimateAll | ValidCards$ Creature.YouCtrl | Keywords$ Trample | Triggers$ Trig1
-SVar:Trig1:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ Eff1 | CombatDamage$ True
-SVar:Eff1:DB$ Draw
-AlternateMode:Split
-ALTERNATE
-ManaCost:1 B
-Types:Sorcery
-K:Aftermath
-A:SP$ AnimateAll | ValidCards$ Creature.YouCtrl | Keywords$ Menace | Triggers$ Trig2
-SVar:Trig2:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ Eff2 | CombatDamage$ True
-SVar:Eff2:DB$ Discard | Defined$ TriggeredTarget | NumCards$ 1 | Mode$ TgtChoose
+ManaCost:2 B
+Types:Creature Human Wizard
+PT:1/2
+K:Menace
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDiscard
+SVar:TrigDiscard:DB$ Discard | Defined$ TriggeredTarget | NumCards$ X | Mode$ TgtChoose
+SVar:X:TriggerCount$DamageAmount
+K:Eternalize:4 B B

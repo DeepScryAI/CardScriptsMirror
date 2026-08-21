@@ -1,14 +1,14 @@
 Id:26727
-ColorIdentity:UG
-OriginSet:G997e3b19a1e94e85
-ManaCost:6 U G
-Types:Legendary Creature Phyrexian Serpent Squirrel
+ColorIdentity:RG
+OriginSet:G06757f68e16377c2
+ManaCost:2 R R G G
+Types:Legendary Creature Ape Dinosaur Turtle
 PT:7/7
-R:Event$ Counter | ValidCard$ Card.Self | ValidSA$ Spell | Layer$ CantHappen
-T:Mode$ Phase | Phase$ Upkeep | TriggerZones$ Battlefield | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 3737931778 | TokenOwner$ You
-A:AB$ Charm | Cost$ Sac<1/Serpent.Other;Squirrel.Other/another Serpent or Squirrel> | Choices$ DBEffect,DBPump
-SVar:DBEffect:DB$ Effect | ValidTgts$ Creature | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ MustAttack,DBCantBeActivated
-SVar:MustAttack:Mode$ MustAttack | ValidCreature$ Card.IsRemembered
-SVar:DBCantBeActivated:Mode$ CantBeActivated | ValidCard$ Card.IsRemembered
-SVar:DBPump:DB$ Pump | Defined$ Self | KW$ Indestructible
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | Choices$ DBPump,DBFight
+SVar:DBPump:DB$ Pump | Defined$ Self | KW$ Trample & Haste
+SVar:DBFight:DB$ Fight | Defined$ TriggeredCardLKICopy | ValidTgts$ Creature.YouDontCtrl
+A:AB$ Destroy | Cost$ 2 R G Discard<1/CARDNAME> | ValidTgts$ Artifact,Enchantment | TargetMin$ 0 | TargetMax$ 1 | ActivationZone$ Hand | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Library | Shuffle$ True | Defined$ DiscardedCards | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw
+SVar:PlayMain1:TRUE

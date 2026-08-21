@@ -1,11 +1,9 @@
 Id:7597
-ColorIdentity:B
+ColorIdentity:R
 OriginSet:G4747f23d5c5760bc
-ManaCost:4 B
-Types:Legendary Creature Spirit
-PT:2/2
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | TriggerZones$ Battlefield | ValidCard$ Creature.powerLE1+YouOwn | OptionalDecider$ You | Execute$ DelTrig
-SVar:DelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | ValidPlayer$ Player | Execute$ TrigReturn | IsPresent$ Card.StrictlySelf | PresentZone$ Battlefield | RememberObjects$ TriggeredNewCardLKICopy
-SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | Defined$ DelayTriggerRememberedLKI
-S:Mode$ Continuous | Affected$ Creature.YouCtrl+powerLE1+YouOwn | AddSVar$ Sac
-SVar:Sac:SVar:SacMe:3
+ManaCost:2 R
+Types:Creature Ogre Warrior
+PT:3/2
+T:Mode$ DamageDoneOnce | Execute$ TrigDamage | ValidTarget$ Card.Self | TriggerZones$ Battlefield
+SVar:TrigDamage:DB$ DealDamage | NumDmg$ X | Defined$ You
+SVar:X:TriggerCount$DamageAmount

@@ -1,8 +1,11 @@
 Id:30476
-ColorIdentity:G
+ColorIdentity:R
 OriginSet:G8b2ed00ac2a0ff47
-ManaCost:1 G
-Types:Sorcery
-A:SP$ Mill | NumCards$ 3 | Defined$ You | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ChangeType$ Creature.YouOwn,Land.YouOwn | ChangeNum$ 1 | Hidden$ True
-A:AB$ ChangeZone | Cost$ ExileFromGrave<1/CARDNAME> ExileFromGrave<2/Card.Other+YouOwn+catalogId30476> | ActivationZone$ Graveyard | Hidden$ True | Origin$ Library | OriginAlternative$ Graveyard,Hand | Destination$ Battlefield | ChangeType$ Card.YouOwn+catalogId30285 | SorcerySpeed$ True
+ManaCost:3 R
+Types:Creature Human Warrior
+PT:4/3
+K:Menace
+A:AB$ Dig | Cost$ 1 Sac<1/Creature.Other;Enchantment.Other/another creature or enchantment> | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ Play | SubAbility$ DBCleanup | ForgetOnMoved$ Exile
+SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

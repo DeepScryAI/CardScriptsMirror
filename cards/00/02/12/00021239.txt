@@ -1,8 +1,14 @@
 Id:21239
-ColorIdentity:
+ColorIdentity:R
 OriginSet:G72c9c624ceb92bff
-ManaCost:2
-Types:Artifact Creature Beast
-PT:2/1
-S:Mode$ Continuous | Affected$ Card.Self | CharacteristicDefining$ True | AddType$ Cleric & Rogue & Warrior & Wizard
-A:AB$ Mana | Cost$ 2 | Produced$ Any
+ManaCost:2 R
+Types:Instant
+A:SP$ DealDamage | Cost$ 2 R Sac<1/Creature> | NumDmg$ X | ValidTgts$ Any
+SVar:X:Sacrificed$CardPower
+AlternateMode:Modal
+ALTERNATE
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ R

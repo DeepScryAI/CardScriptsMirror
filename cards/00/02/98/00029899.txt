@@ -1,9 +1,12 @@
 Id:29899
-ColorIdentity:W
-OriginSet:Gf09b85bbcc27770c
-ManaCost:2 W
-Types:Creature Mouse Soldier
-PT:3/2
-K:Flash
-T:Mode$ BecomesTarget | ValidTarget$ Card.Self | ValidSource$ SpellAbility.YouCtrl | TriggerZones$ Battlefield | Valiant$ True | Execute$ TrigTap
-SVar:TrigTap:DB$ Tap | ValidTgts$ Creature.OppCtrl
+ColorIdentity:R
+OriginSet:G01a610e823cce3ca
+ManaCost:2 R
+Types:Legendary Artifact Equipment
+T:Mode$ Attacks | ValidCard$ Card.EquippedBy | Execute$ TrigChoose
+SVar:TrigChoose:DB$ Charm | Choices$ DBPump,DBToken,DBLoot
+SVar:DBPump:DB$ Pump | Defined$ TriggeredAttackerLKICopy | KW$ DoubleStrike
+SVar:DBToken:DB$ Token | TokenScriptIds$ 3025826106 | TokenOwner$ You
+SVar:DBLoot:DB$ Discard | Mode$ TgtChoose | NumCards$ 2 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ 2
+K:Equip:2

@@ -1,10 +1,12 @@
 Id:33733
 ColorIdentity:G
-OriginSet:Gf8df2bea26dc6b68
-ManaCost:3 G
-Types:Creature Wurm
-PT:2/5
-K:Trample
-T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +X
-SVar:X:TriggeredCard$CastTotalManaSpent
+OriginSet:G23d1f017cc66962f
+ManaCost:2 G
+Types:Artifact Equipment
+K:Equip:3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigAttach
+SVar:TrigAttach:DB$ Attach | ValidTgts$ Creature.YouCtrl | RememberAttached$ True | SubAbility$ DBImmediateTrigger
+SVar:DBImmediateTrigger:DB$ ImmediateTrigger | RememberObjects$ Targeted | Execute$ TrigFight | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBCleanup
+SVar:TrigFight:DB$ Fight | Defined$ DelayTriggerRemembered | ValidTgts$ Creature.OppCtrl | TargetMin$ 0 | TargetMax$ 1
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1 | AddToughness$ 1 | AddKeyword$ Trample

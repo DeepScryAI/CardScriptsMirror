@@ -1,10 +1,12 @@
 Id:32292
-ColorIdentity:U
+ColorIdentity:WG
 OriginSet:G9946f072b5556073
-ManaCost:4 U U
-Types:Enchantment
-T:Mode$ ChangesZone | ValidCard$ Card.wasCastByYou+Self | Destination$ Battlefield | Execute$ TrigChangeAll
-SVar:TrigChangeAll:DB$ ChangeZoneAll | Origin$ Graveyard,Hand | Destination$ Library | ChangeType$ Card.YouOwn | Shuffle$ True | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 7
-S:Mode$ Continuous | Affected$ Card.nonLand+ControlledBy Player.Active | MayPlayPlayer$ Player.Active | MayPlay$ True | MayPlayWithoutManaCost$ True | MayPlayDontGrantZonePermissions$ True | AffectedZone$ All | CheckSVar$ Y | SVarCompare$ EQ0
-SVar:Y:Count$ThisTurnCast_Card.ControlledBy Player.Active
+ManaCost:2 G W W
+Types:Legendary Creature Human Soldier
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPutCounter
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPutCounter | Secondary$ True
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1
+T:Mode$ DamageDoneOnce | ValidSource$ Creature.YouCtrl+counters_GE1_P1P1 | TriggerZones$ Battlefield | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw
+SVar:HasAttackEffect:TRUE

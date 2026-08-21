@@ -1,9 +1,11 @@
 Id:25054
-ColorIdentity:W
-OriginSet:G9afc9838c5e994df
-ManaCost:3 W
-Types:Creature Elf Druid
-PT:3/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
-SVar:BuffedBy:Creature
+ColorIdentity:
+OriginSet:G3a8b4b9d4649b357
+ManaCost:no cost
+Types:Land Gate
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ LandTapped | ReplacementResult$ Updated
+SVar:LandTapped:DB$ Tap | Defined$ Self | ETB$ True | ConditionPresent$ Land.YouCtrl | ConditionCompare$ GT2
+K:ETBReplacement:Other:DBChooseBasic
+SVar:DBChooseBasic:DB$ ChooseType | Type$ Basic Land
+S:Mode$ Continuous | Affected$ Card.Self | AddType$ ChosenType
+S:Mode$ RaiseCost | Type$ Ability | ValidSpell$ Activated.ManaAbility | ValidCard$ Card.Self | Cost$ PayLife<1> | EffectZone$ All

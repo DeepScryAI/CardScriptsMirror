@@ -1,10 +1,9 @@
 Id:33975
-ColorIdentity:UG
-OriginSet:Gaf3c6d0810185c00
-ManaCost:G U
-Types:Creature Salamander Wizard
-PT:2/2
-K:Increment
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigAnimateAll
-SVar:TrigAnimateAll:DB$ AnimateAll | ValidCards$ Card.YouOwn+hasXCost | Zone$ All | staticAbilities$ STReduceCost | Duration$ Perpetual
-SVar:STReduceCost:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ 1 | EffectZone$ All
+ColorIdentity:W
+OriginSet:Gf8df2bea26dc6b68
+ManaCost:W
+Types:Sorcery
+A:SP$ ChangeZone | ValidTgts$ Creature.YouCtrl | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ All | Destination$ Battlefield | WithCountersType$ P1P1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+K:Flashback:2 W

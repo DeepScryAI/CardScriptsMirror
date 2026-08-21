@@ -1,8 +1,12 @@
 Id:26814
-ColorIdentity:W
-OriginSet:G3601f5e223de6c7f
-ManaCost:3 W
-Types:Legendary Creature Human Soldier
-PT:3/3
-T:Mode$ ChangesZone | ValidCard$ Card.Self,Human.Other+YouCtrl | Origin$ Any | Destination$ Battlefield | Execute$ TrigPumpAll
-SVar:TrigPumpAll:DB$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +1 | NumDef$ +1 | KW$ Vigilance
+ColorIdentity:B
+OriginSet:G06757f68e16377c2
+ManaCost:2 B B
+Types:Creature Phyrexian Ogre
+PT:4/3
+K:Deathtouch
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigImmediateTrig | TriggerZones$ Battlefield
+SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ 3 B | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouOwn | StaticEffect$ Animate
+SVar:Animate:Mode$ Continuous | Affected$ Card.IsRemembered | AddType$ Phyrexian
+SVar:HasAttackEffect:TRUE

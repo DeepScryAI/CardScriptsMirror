@@ -1,13 +1,9 @@
 Id:26805
-ColorIdentity:BG
-OriginSet:G321081e278de53f0
-ManaCost:2 B G
-Types:Legendary Creature Elf Warrior
-PT:5/4
-T:Mode$ AttackersDeclared | ValidAttackers$ Elf.YouCtrl | Execute$ TrigPump | TriggerZones$ Battlefield
-SVar:TrigPump:DB$ Pump | Defined$ TriggeredAttackers | KW$ Deathtouch
-S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddTrigger$ ManaTrig
-SVar:ManaTrig:Mode$ AbilityResolves | ValidSource$ Card.Self | ValidSpellAbility$ SpellAbility.ManaAbility | ActivationLimit$ 1 | TriggerZones$ Battlefield | Execute$ TrigPutCounter | AILogic$ ActivateOnce
-SVar:TrigPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ X
-SVar:X:TriggeredSpellAbility$AmountManaProduced
-SVar:BuffedBy:Creature.hasManaAbility
+ColorIdentity:W
+OriginSet:G06757f68e16377c2
+ManaCost:W
+Types:Instant
+A:SP$ Pump | Defined$ You & Valid Permanent.YouCtrl | KW$ Hexproof | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | ReplacementEffects$ DMPrevent | ExileOnLost$ True
+SVar:DMPrevent:Event$ DamageDone | ValidSource$ Card.Red,Card.Black | ActiveZones$ Battlefield | Prevent$ True | ValidTarget$ Creature.YouCtrl
+SVar:NonStackingEffect:True

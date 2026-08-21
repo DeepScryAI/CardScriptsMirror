@@ -1,11 +1,9 @@
 Id:13062
 ColorIdentity:UR
 OriginSet:G5449dea2d54987a1
-ManaCost:1 U R
-Types:Creature Human Wizard
-PT:0/3
-K:Flash
-K:Haste
-A:AB$ DealDamage | Cost$ T | ValidTgts$ Creature | NumDmg$ 1 | DamageMap$ True | SubAbility$ DamageSame
-SVar:DamageSame:DB$ DamageAll | ValidCards$ Targeted.sameName+Other | NumDmg$ 1 | SubAbility$ DBDamageResolve
-SVar:DBDamageResolve:DB$ DamageResolve
+ManaCost:3
+Types:Artifact
+A:AB$ Mana | Cost$ T | Produced$ Combo U R
+A:AB$ Animate | Cost$ U R | Defined$ Self | Power$ 2 | Toughness$ 1 | Types$ Artifact,Creature,Elemental | RemoveCreatureTypes$ True | Colors$ Blue,Red | OverwriteColors$ True
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigLoot
+SVar:TrigLoot:AB$ Discard | Defined$ You | Mode$ TgtChoose | NumCards$ 1 | Cost$ Draw<1/You>

@@ -1,8 +1,10 @@
 Id:4964
-ColorIdentity:G
+ColorIdentity:RG
 OriginSet:G9e6cd9ac1f7f4832
-ManaCost:4 G G
-Types:Legendary Creature Treefolk
-PT:4/5
-A:AB$ Token | Cost$ 2 G | TokenScriptIds$ 3815350479 | TokenOwner$ You
-A:AB$ PumpAll | Cost$ Sac<1/Saproling> | ValidCards$ Creature.Saproling | NumAtt$ +1 | NumDef$ +1
+ManaCost:2 R G
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigBounce
+SVar:TrigBounce:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Hidden$ True | ChangeType$ Enchantment.YouCtrl+Red,Enchantment.YouCtrl+Green | ChangeNum$ 1 | Mandatory$ True | AILogic$ NeverBounceItself
+S:Mode$ Continuous | Affected$ Land.YouCtrl | SetPower$ 2 | SetToughness$ 2 | AddType$ Creature | AddKeyword$ FirstStrike
+SVar:NeedsToPlay:Enchantment.Red+YouCtrl,Enchantment.Green+YouCtrl
+SVar:NonStackingEffect:True

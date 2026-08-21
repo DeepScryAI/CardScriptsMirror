@@ -1,8 +1,9 @@
 Id:14452
-ColorIdentity:U
+ColorIdentity:R
 OriginSet:Gd3737676789056fe
-ManaCost:1 U
+ManaCost:5 R
 Types:Enchantment
-T:Mode$ AttackersDeclared | Execute$ TrigDraw | ValidAttackers$ Creature | ValidAttackersAmount$ GE2 | TriggerZones$ Battlefield | AttackingPlayer$ You
-SVar:TrigDraw:DB$ Draw
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | Execute$ TrigGainControl | TriggerZones$ Battlefield | CheckSVar$ X | SVarCompare$ EQ0
+SVar:TrigGainControl:DB$ GainControl | ValidTgts$ Creature.OppCtrl | LoseControl$ EOT | Untap$ True | AddKWs$ Haste
+SVar:X:Count$Valid Creature.greatestPower+YouDontCtrl
 SVar:PlayMain1:TRUE

@@ -1,7 +1,15 @@
 Id:30025
-ColorIdentity:R
-OriginSet:G30e4cc621dfc3a2e
-ManaCost:5 R R
-Types:Sorcery
-K:Convoke
-A:SP$ DamageAll | ValidCards$ Creature.untapped | NumDmg$ 6
+ColorIdentity:U
+OriginSet:Gf09b85bbcc27770c
+ManaCost:2 U
+Types:Creature Frog Scout
+PT:2/3
+K:Ward:1
+S:Mode$ Continuous | Affected$ Frog.YouCtrl+Other | AddKeyword$ Ward:1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigUnblockable
+SVar:TrigUnblockable:DB$ Effect | ValidTgts$ Creature.YouCtrl | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable | Triggers$ TrigDamage
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+SVar:TrigDamage:Mode$ DamageDealtOnce | ValidSource$ Creature.IsRemembered | CombatDamage$ True | OptionalDecider$ You | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Defined$ Remembered | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

@@ -1,10 +1,7 @@
 Id:32258
-ColorIdentity:R
+ColorIdentity:W
 OriginSet:G9946f072b5556073
-ManaCost:2 R
-Types:Sorcery
-A:SP$ GainControl | ValidTgts$ Artifact,Creature | LoseControl$ EOT | Untap$ True | AddKWs$ Haste | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | Defined$ Targeted.Spacecraft | CounterType$ CHARGE | CounterNum$ 10 | RememberPut$ True | SubAbility$ DBDelTrig
-SVar:DBDelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ TrigRemoveCounter | RememberObjects$ RememberedLKI | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBCleanup
-SVar:TrigRemoveCounter:DB$ RemoveCounter | Defined$ DelayTriggerRememberedLKI | CounterType$ CHARGE | CounterNum$ 10
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:1 W
+Types:Instant
+A:SP$ Pump | ValidTgts$ Creature.YouCtrl | KW$ DoubleStrike | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | ConditionDefined$ Targeted | ConditionPresent$ Card.counters_GE1_P1P1

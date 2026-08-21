@@ -1,14 +1,13 @@
 Id:29096
-ColorIdentity:G
-OriginSet:G27146c70b74a1e72
-ManaCost:X G
-Types:Creature Hydra
-PT:0/0
-K:Vigilance
-K:Trample
-K:Haste
-K:etbCounter:P1P1:X
-SVar:X:Count$xPaid
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenAmount$ Y | TokenScriptIds$ 3851718391 | TokenTapped$ True | TokenOwner$ TriggeredCardController
-SVar:Y:TriggeredCard$CardPower
+ColorIdentity:URG
+OriginSet:G343cd0ac847a92b7
+ManaCost:G U R
+Types:Legendary Creature Beast Noble
+PT:1/2
+K:Ward:1
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDig
+SVar:TrigDig:DB$ Dig | Defined$ You | DigNum$ X | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ Play | SubAbility$ DBCleanup | ForgetOnMoved$ Exile
+SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$Valid Permanent.nonLand+Other+YouCtrl$CardTypes

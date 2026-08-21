@@ -1,12 +1,9 @@
 Id:15647
 ColorIdentity:BG
 OriginSet:Gc1f5e527f9d411df
-ManaCost:2 B G
-Types:Legendary Creature Human Shaman
-PT:3/4
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigExperience
-SVar:TrigExperience:DB$ PutCounter | Defined$ You | CounterType$ Experience | CounterNum$ 1
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigChangeZone
-SVar:TrigChangeZone:DB$ ChangeZone | ValidTgts$ Creature.YouOwn | Origin$ Graveyard | Destination$ Battlefield | ConditionDefined$ Targeted | ConditionPresent$ Card.cmcLEX | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | Defined$ Targeted | Origin$ Graveyard | Destination$ Hand | ConditionDefined$ Targeted | ConditionPresent$ Card.cmcGTX
-SVar:X:Count$YourCountersExperience
+ManaCost:3 B G
+Types:Legendary Creature Insect Shaman
+PT:2/2
+K:Flying
+T:Mode$ Sacrificed | ValidCard$ Permanent.Other | Execute$ TrigCounters | TriggerZones$ Battlefield
+SVar:TrigCounters:DB$ PutCounterAll | ValidCards$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1

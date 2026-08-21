@@ -1,12 +1,12 @@
 Id:22692
-ColorIdentity:U
-OriginSet:G268a0d6ee06912c2
-ManaCost:3 U
-Types:Legendary Planeswalker Kiora
-Loyalty:4
-A:AB$ MakeCard | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | Conjure$ True | CatalogId$ 10847 | Zone$ Hand
-A:AB$ Untap | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Creature,Land | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | Defined$ Targeted | KW$ Prevent all damage that would be dealt to and dealt by CARDNAME. | Duration$ UntilYourNextTurn
-A:AB$ Sacrifice | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | Optional$ True | SacValid$ Kraken | Amount$ 1 | RememberSacrificed$ True | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenScriptIds$ 1489593734 | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:B
+OriginSet:G9f95a41d532c0550
+ManaCost:X B
+Types:Artifact
+K:etbCounter:VOID:X
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigExileSelf | TriggerZones$ Battlefield
+SVar:TrigExileSelf:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | Defined$ Self | SubAbility$ DBExileAll
+SVar:DBExileAll:DB$ ChangeZoneAll | Origin$ Battlefield | Destination$ Exile | ChangeType$ Creature.cmcLEY,Planeswalker.cmcLEY | SubAbility$ DBExileAllGraveyard
+SVar:DBExileAllGraveyard:DB$ ChangeZoneAll | Origin$ Graveyard | Destination$ Exile | ChangeType$ Creature.cmcLEY,Planeswalker.cmcLEY
+SVar:X:Count$xPaid
+SVar:Y:Count$CardCounters.VOID

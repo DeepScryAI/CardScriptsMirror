@@ -1,15 +1,8 @@
 Id:28925
-ColorIdentity:R
-OriginSet:Gaf7c94f364052cdd
-ManaCost:1 R
-Types:Enchantment Saga
-K:Chapter:3:DBLoot,DBLoot,DBReveal
-SVar:DBLoot:DB$ Discard | Mode$ TgtChoose | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw
-SVar:DBReveal:DB$ Reveal | NumCards$ 5 | Optional$ True | RevealValid$ Card.nonLand+YouOwn | RememberRevealed$ True | SubAbility$ DBRepeat
-SVar:DBRepeat:DB$ RepeatEach | Zone$ Hand | UseImprinted$ True | RepeatCards$ Card.IsRemembered | RepeatSubAbility$ DBTally | SubAbility$ DBTreasure
-SVar:DBTally:DB$ StoreSVar | ConditionDefined$ Remembered | ConditionPresent$ Card.!IsImprinted+SharesCMCWith Imprinted | ConditionZone$ Hand | SVar$ TreasureNum | Type$ CountSVar | Expression$ TreasureNum/Plus.1
-SVar:DBTreasure:DB$ Token | TokenAmount$ TreasureNum | TokenScriptIds$ 3851718391 | SubAbility$ DBReset
-SVar:DBReset:DB$ StoreSVar | SVar$ TreasureNum | Type$ Number | Expression$ 0 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:TreasureNum:Number$0
+ColorIdentity:G
+OriginSet:Gfe262f6450b3d189
+ManaCost:1 G G
+Types:Creature Dryad
+PT:2/3
+T:Mode$ Phase | Phase$ BeginCombat | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ PumpAll | ValidCards$ Card.Self | KW$ FirstStrike & Flying & Deathtouch & DoubleStrike & Haste & Hexproof & Indestructible & Lifelink & Menace & Reach & Trample & Vigilance | SharedKeywordsZone$ Hand,Battlefield | SharedRestrictions$ Creature.YouCtrl

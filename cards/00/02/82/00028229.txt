@@ -1,8 +1,12 @@
 Id:28229
-ColorIdentity:R
+ColorIdentity:RG
 OriginSet:Gfd50577710a6ab09
-ManaCost:1 R
-Types:Instant
-A:SP$ ChangeZone | ValidTgts$ Artifact.cmcGE1,Creature.cmcGE1 | Origin$ Battlefield | Destination$ Library | Shuffle$ True | SubAbility$ DBDiscover
-SVar:DBDiscover:DB$ Discover | Defined$ TargetedOwner | Num$ X
-SVar:X:Targeted$CardManaCost
+ManaCost:R G
+Types:Legendary Creature Dinosaur
+PT:2/3
+K:Haste
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | TriggerZones$ Battlefield | Execute$ TrigImmediate
+SVar:TrigImmediate:AB$ ImmediateTrigger | Cost$ 2 | Execute$ TrigPowerDamage
+SVar:TrigPowerDamage:DB$ Pump | ValidTgts$ Dinosaur.YouCtrl | AILogic$ PowerDmg | SubAbility$ SoulsDamage
+SVar:SoulsDamage:DB$ DealDamage | ValidTgts$ Creature | AILogic$ PowerDmg | TargetUnique$ True | NumDmg$ X | DamageSource$ ParentTarget
+SVar:X:ParentTargeted$CardPower

@@ -1,12 +1,10 @@
 Id:19201
-ColorIdentity:WG
+ColorIdentity:WR
 OriginSet:Gf56613712ce2ae1f
-ManaCost:2 G G W
-Types:Legendary Creature Elf Scout
-PT:3/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
-SVar:TrigChangeZone:DB$ Token | TokenScriptIds$ 2784054302 | TokenOwner$ You
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Wolf.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigGainLife
-SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 3 | SubAbility$ DBFight
-SVar:DBFight:DB$ Fight | Defined$ TriggeredCardLKICopy | ValidTgts$ Creature.OppCtrl | TargetMin$ 0 | TargetMax$ 1
-SVar:PlayMain1:TRUE
+ManaCost:2 RW RW
+Types:Legendary Planeswalker Nahiri
+Loyalty:6
+S:Mode$ Continuous | Affected$ Creature.YouCtrl | EffectZone$ Battlefield | AddKeyword$ FirstStrike | Condition$ PlayerTurn
+S:Mode$ ReduceCost | ValidCard$ Card | ValidSpell$ Activated.Equip | Activator$ You | Amount$ 1 | Condition$ PlayerTurn | Secondary$ True
+A:AB$ DealDamage | Cost$ SubCounter<X/LOYALTY> | Planeswalker$ True | ValidTgts$ Creature.tapped | NumDmg$ X
+SVar:X:Count$xPaid

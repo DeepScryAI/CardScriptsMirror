@@ -1,8 +1,9 @@
 Id:3301
-ColorIdentity:B
+ColorIdentity:U
 OriginSet:G24ae8187eacbba52
-ManaCost:1 B
-Types:Sorcery
-A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ChangeType$ Creature | DefinedPlayer$ Player | ChangeNum$ 1 | Hidden$ True | Mandatory$ True
-SVar:X:Count$ValidGraveyard Creature.YouOwn
-SVar:NeedsToPlayVar:X GE1
+ManaCost:1 U
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Graveyard | ValidCard$ Card.!token+YouOwn+Other | Execute$ TrigSac | TriggerZones$ Battlefield
+SVar:TrigSac:DB$ Sacrifice
+R:Event$ DamageDone | ActiveZones$ Battlefield | Prevent$ True | ValidTarget$ You | ValidSource$ Card.YouDontCtrl,Emblem.YouDontCtrl
+SVar:NonStackingEffect:True

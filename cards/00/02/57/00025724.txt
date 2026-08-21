@@ -1,11 +1,13 @@
 Id:25724
-ColorIdentity:R
+ColorIdentity:
 OriginSet:G06ccef4324c14725
-ManaCost:1
-Types:Artifact
-A:AB$ Dig | Cost$ 1 T Sac<1/CARDNAME> | Defined$ You | DigNum$ 2 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBChoose
-SVar:DBChoose:DB$ ChooseCard | Defined$ You | Amount$ 1 | Mandatory$ True | Choices$ Card.IsRemembered | ChoiceZone$ Exile | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | ExileOnMoved$ Exile | RememberObjects$ ChosenCard | Duration$ UntilTheEndOfYourNextTurn | SubAbility$ DBCleanup
-SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearChosenCard$ True
-K:Unearth:1 R
+ManaCost:8
+Types:Artifact Creature Construct
+PT:8/8
+K:Trample
+T:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigDestroy
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDestroy | Secondary$ True
+SVar:TrigDestroy:DB$ Destroy | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Permanent.nonLand | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenTapped$ True | TokenScriptIds$ 2975106104 | TokenOwner$ TargetedController
+K:Unearth:8
+SVar:HasAttackEffect:TRUE

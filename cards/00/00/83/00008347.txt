@@ -1,10 +1,11 @@
 Id:8347
-ColorIdentity:UG
+ColorIdentity:R
 OriginSet:Gde6d8130c178f566
-ManaCost:3 G U
-Types:Enchantment Aura
-K:Enchant:Land
-SVar:AttachAILogic:Pump
-S:Mode$ Continuous | Affected$ Card.AttachedBy | AddAbility$ Token
-SVar:Token:AB$ Token | Cost$ G U T | TokenScriptIds$ 2690718327 | TokenOwner$ You
-SVar:NonStackingAttachEffect:True
+ManaCost:1 R R
+Types:Sorcery
+A:SP$ Repeat | RepeatSubAbility$ DBDiscard | RepeatOptional$ True
+SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ Random | RememberDiscarded$ True | SubAbility$ DBDmgAll
+SVar:DBDmgAll:DB$ DamageAll | ValidCards$ Creature | NumDmg$ X | ConditionCheckSVar$ Y | ConditionCompare$ GE1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$CardManaCost
+SVar:Y:Remembered$Amount

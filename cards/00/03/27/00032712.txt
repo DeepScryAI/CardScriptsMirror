@@ -1,13 +1,10 @@
 Id:32712
-ColorIdentity:UR
-OriginSet:G22ed5d6f3707b461
-ManaCost:1 U R
-Types:Creature Dragon Insect
-PT:*/3
+ColorIdentity:W
+OriginSet:G1f5998b5f01949b9
+ManaCost:3 W W
+Types:Legendary Creature Spider Human Hero
+PT:4/4
 K:Flying
-K:Ward:1
-S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | CheckSVar$ Y | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw
-SVar:X:Count$ValidGraveyard Card.YouOwn+nonCreature+nonLand
-SVar:Y:Count$ValidGraveyard Lesson.YouOwn
+T:Mode$ LifeGained | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Targeted | KW$ Indestructible

@@ -1,9 +1,11 @@
 Id:7721
-ColorIdentity:W
+ColorIdentity:U
 OriginSet:G3fddc6426f419054
-ManaCost:2 W
-Types:Creature Fox Cleric
-PT:0/1
-A:AB$ PreventDamage | Cost$ T | ValidTgts$ Creature | Amount$ 3 | CheckSVar$ X | SVarCompare$ GTY
-SVar:X:Count$ValidHand Card.YouOwn
-SVar:Y:PlayerCountOpponents$HighestCardsInHand
+ManaCost:4 U
+Types:Creature Spirit
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigReturnOther
+T:Mode$ SpellCast | ValidCard$ Spirit,Arcane | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigReturnThis
+SVar:TrigReturnOther:DB$ ChangeZone | ValidTgts$ Creature | Origin$ Battlefield | Destination$ Hand
+SVar:TrigReturnThis:DB$ ChangeZone | Defined$ Self | Origin$ Battlefield | Destination$ Hand
+SVar:NeedsToPlay:Creature.OppCtrl

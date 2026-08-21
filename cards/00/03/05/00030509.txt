@@ -1,9 +1,9 @@
 Id:30509
-ColorIdentity:R
+ColorIdentity:G
 OriginSet:G8b2ed00ac2a0ff47
-ManaCost:R
-Types:Sorcery
-A:SP$ Pump | ValidTgts$ Creature.OppCtrl | TargetMin$ 2 | TargetMax$ 2 | TargetsWithSameController$ True | IsCurse$ True | SubAbility$ DBChoose
-SVar:DBChoose:DB$ ChooseCard | Defined$ TargetedController | Mandatory$ True | Choices$ Creature.targetedBy | SubAbility$ DBDealDamage
-SVar:DBDealDamage:DB$ DealDamage | NumDmg$ 5 | Defined$ ChosenCard | SubAbility$ DBCantBlock
-SVar:DBCantBlock:DB$ Pump | Defined$ Targeted.!ChosenCard | KW$ HIDDEN CARDNAME can't block.
+ManaCost:1 G
+Types:Creature Insect
+PT:2/2
+K:Deathtouch
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.YouCtrl+Other | KW$ Deathtouch

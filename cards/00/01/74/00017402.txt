@@ -1,9 +1,9 @@
 Id:17402
-ColorIdentity:R
+ColorIdentity:B
 OriginSet:G5475e2be497fd272
-ManaCost:3 R R R
-Types:Creature Dinosaur Avatar
-PT:6/6
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ DamageAndMoreDamage
-SVar:DamageAndMoreDamage:DB$ DealDamage | ValidTgts$ Opponent,Planeswalker | NumDmg$ 3 | SubAbility$ MoreDamage
-SVar:MoreDamage:DB$ DealDamage | ValidTgts$ Creature | NumDmg$ 3 | TargetMin$ 0 | TargetMax$ 1
+ManaCost:5 B B
+Types:Sorcery
+A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Exile | TargetMin$ 0 | TargetMax$ 5 | ValidTgts$ Card.Creature | SubAbility$ DBTwoPiles | AITgtOwnCards$ True | AIMinTgts$ 3
+SVar:DBTwoPiles:DB$ TwoPiles | Defined$ You | DefinedCards$ Targeted | Separator$ Opponent | ChosenPile$ DBBattlefield | UnchosenPile$ DBGrave
+SVar:DBBattlefield:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | GainControl$ True
+SVar:DBGrave:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Graveyard

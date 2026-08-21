@@ -1,8 +1,11 @@
 Id:6909
-ColorIdentity:
+ColorIdentity:G
 OriginSet:Gbbed67f0d6a15b16
-ManaCost:5
-Types:Artifact Creature Construct
-PT:3/3
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigSac
-SVar:TrigSac:DB$ GainLife | Defined$ TriggeredCardController | LifeAmount$ 3
+ManaCost:4 G
+Types:Sorcery
+A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Card.White+YouOwn | TargetMin$ 0 | TargetMax$ 1 | LockInText$ True | SubAbility$ ReturnU
+SVar:ReturnU:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Card.Blue+YouOwn | TargetMin$ 0 | TargetMax$ 1 | LockInText$ True | SubAbility$ ReturnB
+SVar:ReturnB:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Card.Black+YouOwn | TargetMin$ 0 | TargetMax$ 1 | LockInText$ True | SubAbility$ ReturnR
+SVar:ReturnR:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Card.Red+YouOwn | TargetMin$ 0 | TargetMax$ 1 | LockInText$ True | SubAbility$ ReturnG
+SVar:ReturnG:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Card.Green+YouOwn | TargetMin$ 0 | TargetMax$ 1 | LockInText$ True | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | Origin$ Stack | Destination$ Exile

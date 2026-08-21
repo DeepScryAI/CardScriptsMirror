@@ -1,15 +1,12 @@
 Id:27318
-ColorIdentity:R
-OriginSet:G4e034c55e7afd8b4
-ManaCost:2 R R
-Types:Creature Goblin Warrior
-PT:3/3
-K:Menace
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 3370794869 | TokenOwner$ You
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigPutCounter | TriggerZones$ Battlefield
-SVar:TrigPutCounter:AB$ PutCounter | Cost$ Sac<1/Creature.Other/another creature> | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBDig
-SVar:DBDig:DB$ Dig | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | StaticAbilities$ EffPlay | EffectOwner$ You | RememberObjects$ Remembered | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
-SVar:EffPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:
+OriginSet:G6ce0035cfb774934
+ManaCost:1
+Types:Artifact
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ X T Sac<1/CARDNAME> | Produced$ Combo Any | Amount$ X
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ TriggeredCardController | NumCards$ 1
+SVar:X:Count$xPaid
+SVar:SacMe:1

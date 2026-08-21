@@ -1,8 +1,11 @@
 Id:11488
 ColorIdentity:
-OriginSet:Gc1551b9f8f18a682
-ManaCost:2
-Types:Artifact
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPutCounter
-A:AB$ Proliferate | Cost$ 4 T
-SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature | CounterType$ M1M1 | CounterNum$ 1 | IsCurse$ True
+OriginSet:G60f19cd67252161d
+ManaCost:3
+Types:Artifact Equipment
+K:Equip:2
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddToughness$ 2 | AddSVar$ SwordOfBodyAndMindCE | AddKeyword$ Protection:Green & Protection:Blue
+T:Mode$ DamageDone | ValidSource$ Creature.EquippedBy | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigToken | TriggerZones$ Battlefield
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 4257275070 | TokenOwner$ You | SubAbility$ DBMill
+SVar:DBMill:DB$ Mill | Defined$ TriggeredTarget | NumCards$ 10
+SVar:SwordOfBodyAndMindCE:SVar:MustBeBlocked:AttackingPlayerConservative

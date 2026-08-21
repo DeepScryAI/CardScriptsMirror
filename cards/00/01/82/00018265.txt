@@ -1,13 +1,10 @@
 Id:18265
-ColorIdentity:BR
-OriginSet:G7d4bd61c81d44275
-ManaCost:1 B R
-Types:Creature Azra Warrior
-PT:3/3
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | Execute$ ChooseCreature | TriggerZones$ Battlefield
-SVar:ChooseCreature:AB$ ChooseCard | Cost$ Discard<1/Card> | Mandatory$ True | Choices$ Creature | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | Triggers$ TrigDamage | SubAbility$ DBCleanup
-SVar:TrigDamage:Mode$ DamageDone | ValidSource$ Card.ChosenCardStrict | ValidTarget$ Player | Execute$ TrigDraw | CombatDamage$ True
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 2
-SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
-SVar:PlayMain1:TRUE
+ColorIdentity:R
+OriginSet:G5033d54b23b37629
+ManaCost:2 R R
+Types:Creature Giant Warrior
+PT:4/4
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ DBFlip
+SVar:DBFlip:DB$ FlipCoin | Amount$ 2 | NoCall$ True | HeadsSubAbility$ DBHeadsPump | TailsSubAbility$ DBTailsPump
+SVar:DBHeadsPump:DB$ Pump | Defined$ Self | KW$ DoubleStrike | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ2
+SVar:DBTailsPump:DB$ Pump | Defined$ Self | KW$ Menace | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ2

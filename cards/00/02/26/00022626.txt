@@ -1,14 +1,11 @@
 Id:22626
-ColorIdentity:
+ColorIdentity:B
 OriginSet:G9f95a41d532c0550
-ManaCost:no cost
-Types:Land
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ DBReveal | ReplacementResult$ Updated
-SVar:DBReveal:DB$ Reveal | RevealValid$ Dragon | Optional$ True | RememberRevealed$ True | SubAbility$ DBTap
-SVar:DBTap:DB$ Tap | ETB$ True | Defined$ Self | ConditionCheckSVar$ DragonPresence | ConditionSVarCompare$ EQ0 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:DragonPresence:Count$RememberedSize/Plus.DragonControlled
-SVar:DragonControlled:Count$Valid Dragon.inZoneBattlefield+YouCtrl
-K:ETBReplacement:Other:ChooseColor
-SVar:ChooseColor:DB$ ChooseColor | Defined$ You | AILogic$ MostProminentInComputerDeck
-A:AB$ Mana | Cost$ T | Produced$ Chosen
+ManaCost:1 B
+Types:Creature Halfling Rogue
+PT:2/1
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigRollDice
+SVar:TrigRollDice:DB$ RollDice | Sides$ 20 | ResultSubAbilities$ 1-9:Pump1,10-19:Pump2,20:Pump3
+SVar:Pump1:DB$ Pump | Defined$ Self | KW$ Deathtouch
+SVar:Pump2:DB$ Pump | Defined$ Self | KW$ Deathtouch | NumAtt$ +1
+SVar:Pump3:DB$ Pump | Defined$ Self | KW$ FirstStrike & Deathtouch | NumAtt$ +3

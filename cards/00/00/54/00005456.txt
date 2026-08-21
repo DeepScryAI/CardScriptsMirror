@@ -1,12 +1,10 @@
 Id:5456
-ColorIdentity:R
+ColorIdentity:U
 OriginSet:Gfdac7ecc1e8a7d21
-ManaCost:1 R R
-Types:Enchantment Aura
-K:Enchant:Land
-SVar:AttachAILogic:Curse
-T:Mode$ Taps | ValidCard$ Card.AttachedBy | Execute$ TrigDestroy
-SVar:TrigDestroy:DB$ Destroy | Defined$ TriggeredCardLKICopy | SubAbility$ DBDmg
-SVar:DBDmg:DB$ DealDamage | Defined$ TriggeredCardController | NumDmg$ 1 | SubAbility$ DBAttach
-SVar:DBAttach:DB$ Attach | Object$ Self | Chooser$ TriggeredCardController | Choices$ Land | AILogic$ Curse
-SVar:NonStackingAttachEffect:True
+ManaCost:1 U
+Types:Enchantment
+T:Mode$ SpellCast | ValidActivatingPlayer$ Player | TriggerZones$ Battlefield | Execute$ TrigSac
+SVar:TrigSac:AB$ Draw | NumCards$ 3 | Cost$ Mandatory Sac<1/CARDNAME> | Defined$ TriggeredCardOpponent
+SVar:Y:Count$Valid Creature.YouCtrl
+SVar:Z:Count$Valid Creature.OppCtrl
+SVar:NeedsToPlayVar:Y GTZ

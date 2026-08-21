@@ -1,8 +1,10 @@
 Id:8758
 ColorIdentity:B
 OriginSet:G70f74088c47d66bd
-ManaCost:1 B
-Types:Creature Human Wizard
-PT:2/1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone | OptionalDecider$ You | IsPresent$ Creature.YouCtrl | PresentZone$ Graveyard | PresentPlayer$ You | PresentCompare$ GE4
-SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Creature.YouCtrl
+ManaCost:3
+Types:Artifact
+A:AB$ Mana | Cost$ T | Produced$ B | Amount$ 1
+A:AB$ Animate | Cost$ 2 B | Defined$ Self | Power$ 5 | Toughness$ 5 | Types$ Creature,Artifact,Phyrexian,Horror | RemoveCreatureTypes$ True | Colors$ Black | OverwriteColors$ True | Keywords$ Trample
+T:Mode$ DamageDoneOnce | ValidTarget$ Creature.Self | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice | SacValid$ Permanent | Amount$ X
+SVar:X:TriggerCount$DamageAmount

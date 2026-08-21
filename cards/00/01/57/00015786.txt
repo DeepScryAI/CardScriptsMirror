@@ -1,9 +1,10 @@
 Id:15786
-ColorIdentity:B
+ColorIdentity:
 OriginSet:G5b1ad34969911ca7
-ManaCost:B
-Types:Creature Eldrazi Drone
-PT:2/1
-K:Devoid
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigLoseLife | TriggerZones$ Battlefield
-SVar:TrigLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ 1 | ConditionPresent$ Creature.YouCtrl+Colorless+Other | ConditionCompare$ EQ0
+ManaCost:4 C
+Types:Creature Eldrazi
+PT:5/5
+K:Trample
+K:Haste
+T:Mode$ BecomesTarget | ValidSource$ Spell.OppCtrl | ValidTarget$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigCounter
+SVar:TrigCounter:DB$ Counter | Defined$ TriggeredSourceSA | UnlessCost$ Discard<1/Card> | UnlessPayer$ TriggeredSourceSAController

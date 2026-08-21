@@ -1,13 +1,12 @@
 Id:26845
-ColorIdentity:G
-OriginSet:G3601f5e223de6c7f
-ManaCost:2 G
-Types:Legendary Creature Elf Archer
-PT:2/2
-K:Reach
-S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self | ValidBlocker$ Creature.powerLE2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.Legendary+Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw
-SVar:BuffedBy:Creature.Legendary
+ColorIdentity:UBG
+OriginSet:G06757f68e16377c2
+ManaCost:B G U
+Types:Legendary Creature Human Dryad
+PT:3/4
+T:Mode$ Drawn | ValidCard$ Card.YouCtrl | Number$ 2 | TriggerZones$ Battlefield | Execute$ LoseGain
+SVar:LoseGain:DB$ LoseLife | ValidTgts$ Opponent | LifeAmount$ 2 | SubAbility$ DBGain
+SVar:DBGain:DB$ GainLife | Defined$ You | LifeAmount$ 2
+A:AB$ Repeat | Cost$ T Sac<1/Creature.Other/another creature> | RepeatSubAbility$ DBDraw | MaxRepeat$ 2 | RepeatPresent$ Land.YouCtrl | RepeatCompare$ GE8
+SVar:DBDraw:DB$ Draw | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | Optional$ You | ChangeType$ Land | ChangeNum$ 1 | Tapped$ True

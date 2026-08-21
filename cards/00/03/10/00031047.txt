@@ -1,11 +1,12 @@
 Id:31047
-ColorIdentity:U
+ColorIdentity:R
 OriginSet:G4524bbf7a3db9dc0
-ManaCost:1 U
-Types:Creature Fish Pirate
-PT:1/2
-K:Flying
-T:Mode$ DiscardedAll | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ X
-SVar:X:TriggerCount$Amount
-K:Cycling:2
+ManaCost:2 R R
+Types:Artifact Vehicle
+PT:5/5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMana
+SVar:TrigMana:DB$ Mana | Produced$ Any | Amount$ 4 | RestrictValid$ Activated
+A:AB$ DealDamage | Cost$ X 2 R | ValidTgts$ Any | NumDmg$ X | Exhaust$ True | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+K:Crew:2
+SVar:X:Count$xPaid

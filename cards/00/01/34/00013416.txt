@@ -1,8 +1,10 @@
 Id:13416
-ColorIdentity:WU
+ColorIdentity:UR
 OriginSet:G065e07b77f771657
-ManaCost:W U U
-Types:Instant
-A:SP$ Counter | TargetType$ Spell | ValidTgts$ Card | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | StaticAbilities$ CantBeCast | RememberObjects$ TargetedController
-SVar:CantBeCast:Mode$ CantBeCast | ValidCard$ Card | Caster$ Player.IsRemembered
+ManaCost:4 U R
+Types:Legendary Creature Weird Wizard
+PT:2/4
+S:Mode$ Continuous | Affected$ Card.TopLibrary+YouCtrl | AffectedZone$ Library | MayLookAt$ Player
+S:Mode$ Continuous | Affected$ Instant.TopLibrary+YouCtrl,Sorcery.TopLibrary+YouCtrl | AffectedZone$ Library | EffectZone$ Battlefield | MayPlay$ True
+T:Mode$ SpellCast | ValidCard$ Instant.wasCastFromYourLibrary,Sorcery.wasCastFromYourLibrary | ValidActivatingPlayer$ You | Execute$ TrigCopy | TriggerZones$ Battlefield
+SVar:TrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | MayChooseTarget$ True

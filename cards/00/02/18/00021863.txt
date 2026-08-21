@@ -1,11 +1,13 @@
 Id:21863
-ColorIdentity:UR
-OriginSet:G6fa60d857e930f32
-ManaCost:2 U R
-Types:Legendary Creature Elder Dragon
-PT:3/4
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 3851718391 | TokenOwner$ You
-S:Mode$ Continuous | Affected$ Artifact.YouCtrl | AddAbility$ AnyMana
-SVar:AnyMana:AB$ Mana | Cost$ T | Produced$ Any | Amount$ 1 | RestrictValid$ Spell.Instant,Spell.Sorcery
+ColorIdentity:B
+OriginSet:Gabb23d0d25cdc46d
+ManaCost:1 B
+Types:Creature Human Wizard
+PT:2/2
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigReveal | TriggerZones$ Battlefield
+SVar:TrigReveal:DB$ PeekAndReveal | NoPeek$ True | ValidTgts$ Opponent | Defined$ TargetedAndYou | RememberRevealed$ True | SubAbility$ DBRepeatEach
+SVar:DBRepeatEach:DB$ RepeatEach | RepeatPlayers$ TargetedAndYou | RepeatSubAbility$ DBLoseLife | SubAbility$ DBChangeZoneAll
+SVar:DBLoseLife:DB$ LoseLife | Defined$ Player.IsRemembered | LifeAmount$ X
+SVar:DBChangeZoneAll:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered | Origin$ Library | Destination$ Hand | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$ValidLibrary Card.IsRemembered+!RememberedPlayerCtrl$CardManaCost

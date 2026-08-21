@@ -1,14 +1,13 @@
 Id:23835
-ColorIdentity:R
-OriginSet:G5f5d8cfb206e2fac
-ManaCost:3 R
-Types:Creature Ogre Warrior
-PT:4/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.YouCtrl+Other | TriggerZones$ Battlefield | Execute$ TrigTreasure
-SVar:TrigTreasure:DB$ Token | TokenScriptIds$ 3851718391 | SubAbility$ DBChooseX | ConditionCheckSVar$ Resolved | ConditionSVarCompare$ LE2
-SVar:DBChooseX:DB$ ChooseNumber | ChooseAnyNumber$ True | ConditionCheckSVar$ Resolved | ConditionSVarCompare$ GT2 | SubAbility$ DBImmediateTrig
-SVar:DBImmediateTrig:DB$ ImmediateTrigger | UnlessCost$ X | UnlessPayer$ You | UnlessSwitched$ True | ConditionCheckSVar$ Resolved | ConditionSVarCompare$ GT2 | Execute$ TrigDamage | RememberSVarAmount$ X
-SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ Y
-SVar:Resolved:Count$ResolvedThisTurn
-SVar:X:Count$ChosenNumber
-SVar:Y:Count$TriggerRememberAmount
+ColorIdentity:WR
+OriginSet:G72c9c624ceb92bff
+ManaCost:2 R W
+Types:Legendary Planeswalker Nahiri
+Loyalty:4
+A:AB$ Token | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | TokenScriptIds$ 1595455868 | TokenOwner$ You | RememberTokens$ True | SubAbility$ DBChooseToken
+SVar:DBChooseToken:DB$ ChooseCard | DefinedCards$ Remembered | Mandatory$ True | SubAbility$ DBAttach
+SVar:DBAttach:DB$ Attach | Optional$ True | Choices$ Equipment.YouCtrl | Defined$ ChosenCard | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearChosenCard$ True
+A:AB$ DigMultiple | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | DigNum$ 6 | Optional$ True | ForceRevealToController$ True | ChangeValid$ Card.Warrior,Card.Equipment | RestRandomOrder$ True
+A:AB$ DealDamage | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | Ultimate$ True | ValidTgts$ Creature,Planeswalker | NumDmg$ X
+SVar:X:Count$Valid Warrior.YouCtrl,Equipment.YouCtrl/Twice

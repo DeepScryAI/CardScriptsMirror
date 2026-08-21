@@ -1,0 +1,14 @@
+Id:25515
+ColorIdentity:BR
+OriginSet:G2e872aaf9b98489e
+ManaCost:1 B R
+Types:Legendary Creature Minotaur Performer
+PT:3/3
+A:AB$ ChangeZone | Cost$ 1 B R | ValidTgts$ Instant.YouOwn,Sorcery.YouOwn | Origin$ Graveyard | Destination$ Battlefield | RememberLKI$ True | FaceDown$ True | FaceDownPower$ 3 | FaceDownToughness$ 3 | FaceDownSetType$ Creature | StaticEffect$ Animate | RememberChanged$ True | SubAbility$ RememberSpell
+SVar:RememberSpell:DB$ Animate | RememberObjects$ RememberedLKI | Defined$ Remembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:Animate:Mode$ Continuous | Affected$ Card.IsRemembered | AddTrigger$ DealsCDTrig | AddReplacementEffect$ ReplaceDies
+SVar:DealsCDTrig:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigPlay | TriggerZones$ Battlefield
+SVar:TrigPlay:DB$ Play | Defined$ RememberedLKI | ZoneRegardless$ True | CopyCard$ True | ValidSA$ Spell | WithoutManaCost$ True | Optional$ True
+SVar:ReplaceDies:Event$ Moved | ActiveZones$ Battlefield | Origin$ Battlefield | ExcludeDestination$ Exile | ValidCard$ Card.Self | ReplaceWith$ Exile
+SVar:Exile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | Defined$ ReplacedCard

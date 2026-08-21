@@ -1,8 +1,11 @@
 Id:18986
 ColorIdentity:U
 OriginSet:G0b51a0aecbe39efe
-ManaCost:2 U
-Types:Enchantment
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigScry
-SVar:TrigScry:DB$ Scry | ScryNum$ 1
-A:AB$ ExchangeControl | Cost$ 5 U | Defined$ Self | ValidTgts$ Permanent.nonLand | SorcerySpeed$ True
+ManaCost:4 U
+Types:Creature Elemental
+PT:3/3
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigTap
+SVar:TrigTap:DB$ Tap | ValidTgts$ Creature.OppCtrl | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Targeted | KW$ HIDDEN This card doesn't untap during your next untap step. | Duration$ Permanent
+SVar:PlayMain1:TRUE

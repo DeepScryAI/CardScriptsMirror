@@ -1,11 +1,12 @@
 Id:28773
-ColorIdentity:WU
-OriginSet:Gfe262f6450b3d189
-ManaCost:W U
-Types:Enchantment
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 2644752956
-T:Mode$ Sacrificed | ValidCard$ Artifact | ValidPlayer$ You | Execute$ TrigChooseCard | TriggerZones$ Battlefield
-SVar:TrigChooseCard:DB$ ChooseCard | ChoiceZone$ Hand,Battlefield | Mandatory$ True | Choices$ Creature.YouCtrl | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | PumpZone$ Hand,Battlefield | Defined$ ChosenCard | NumAtt$ +1 | Duration$ Perpetual | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+ColorIdentity:W
+OriginSet:G7ee0e82a2424d636
+ManaCost:2 W
+Types:Creature Angel Detective
+PT:2/4
+K:Flying
+K:Vigilance
+T:Mode$ Phase | Phase$ Upkeep | TriggerZones$ Battlefield | Execute$ TrigInvestigate | ValidPlayer$ You
+SVar:TrigInvestigate:DB$ Investigate | Num$ X
+SVar:X:PlayerCountOpponents$HasPropertyHasCardsInHand_Card_GTY
+SVar:Y:Count$CardsInYourHand

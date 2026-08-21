@@ -1,10 +1,8 @@
 Id:27054
 ColorIdentity:U
 OriginSet:G6ce0035cfb774934
-ManaCost:1 U
-Types:Creature Elf Scout
-PT:2/1
-T:Mode$ Scry | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump | ActivationLimit$ 1
-SVar:TrigPump:DB$ Pump | NumAtt$ +1 | SubAbility$ DBUnblockable
-SVar:DBUnblockable:DB$ Effect | RememberObjects$ Self | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable
-SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+ManaCost:3 U
+Types:Sorcery
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ 1 | EffectZone$ All | IsPresent$ Creature.Legendary+YouCtrl | PresentCompare$ GE2
+A:SP$ Scry | ScryNum$ 2 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ 2

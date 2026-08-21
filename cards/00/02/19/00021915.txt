@@ -1,8 +1,9 @@
 Id:21915
 ColorIdentity:UG
 OriginSet:G6fa60d857e930f32
-ManaCost:no cost
-Types:Land
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ DBTap | ReplacementResult$ Updated
-SVar:DBTap:DB$ Tap | ETB$ True | Defined$ Self | UnlessCost$ Reveal<1/Forest;Island/Forest or Island> | UnlessPayer$ You
-A:AB$ Mana | Cost$ T | Produced$ Combo G U
+ManaCost:G G G U U U
+Types:Sorcery
+A:SP$ Token | TokenScriptIds$ 1802199211 | RememberTokens$ True | SubAbility$ DBCounters
+SVar:DBCounters:DB$ PutCounter | Defined$ Remembered | CounterType$ P1P1 | CounterNum$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$ValidLibrary Card.YouOwn

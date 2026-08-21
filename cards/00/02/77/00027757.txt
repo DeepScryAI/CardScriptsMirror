@@ -1,6 +1,12 @@
 Id:27757
 ColorIdentity:U
-OriginSet:G30e8a5e111cffb44
-ManaCost:3 U
-Types:Sorcery
-A:SP$ Clone | ValidTgts$ Creature.YouCtrl | Defined$ Targeted | CloneTarget$ Valid Creature.NotDefinedTargeted | NonLegendary$ True | Duration$ UntilEndOfTurn
+OriginSet:G997e3b19a1e94e85
+ManaCost:1 U
+Types:Creature Faerie Noble
+PT:2/1
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChoose
+SVar:TrigChoose:DB$ NameCard | AtRandom$ True | ChooseFromCatalogIds$ 8956,1824,6075,2072 | SubAbility$ DBCast
+SVar:DBCast:DB$ Play | WithoutManaCost$ True | CopyFromChosenName$ True | Optional$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearNamedCard$ True
+SVar:PlayMain1:TRUE

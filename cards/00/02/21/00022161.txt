@@ -1,8 +1,8 @@
 Id:22161
-ColorIdentity:U
-OriginSet:Ga575fa2f4f5cded4
-ManaCost:U
+ColorIdentity:UR
+OriginSet:Gd784248bfdf9e1d7
+ManaCost:UR UR
 Types:Instant
-A:SP$ ChangeZone | ValidTgts$ Creature | Origin$ Battlefield | Destination$ Exile | WithCountersType$ TIME | WithCountersAmount$ 2 | RememberChanged$ True | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | Defined$ Remembered | ConditionDefined$ Remembered | ConditionPresent$ Card.withoutSuspend | PumpZone$ Exile | KW$ Suspend | Duration$ Permanent | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+A:SP$ DelayedTrigger | AILogic$ SpellCopy | Execute$ EffTrigCopy | ThisTurn$ True | Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You
+SVar:EffTrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | MayChooseTarget$ True
+SVar:AIPriorityModifier:9

@@ -1,11 +1,14 @@
 Id:30050
-ColorIdentity:W
-OriginSet:G30e4cc621dfc3a2e
-ManaCost:2 W
-Types:Creature Mouse Soldier
-PT:1/1
-K:Offspring:1 W
-K:Vigilance
-T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ Opponent | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
-SVar:PlayMain1:TRUE
+ColorIdentity:B
+OriginSet:Gf09b85bbcc27770c
+ManaCost:1 B
+Types:Creature Squirrel Warlock
+PT:2/2
+K:Deathtouch
+A:AB$ Effect | Cost$ T | StaticAbilities$ MayCast | Triggers$ StaticCast
+SVar:MayCast:Mode$ Continuous | Affected$ Creature.nonLand+YouOwn | MayPlay$ True | AffectedZone$ Graveyard | RaiseCost$ Forage
+SVar:StaticCast:Mode$ SpellCast | ValidCard$ Card.CastSa Spell.MayPlaySource | Execute$ TrigEffect | Static$ True | TriggerZones$ Command
+SVar:TrigEffect:DB$ Effect | ReplacementEffects$ ReMoved | RememberObjects$ TriggeredCard
+SVar:ReMoved:Event$ Moved | Origin$ Stack | ValidCard$ Card.IsRemembered | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBCounter
+SVar:ETBCounter:DB$ PutCounter | ETB$ True | Defined$ ReplacedCard | CounterType$ FINALITY | CounterNum$ 1 | SubAbility$ RemoveSelf
+SVar:RemoveSelf:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile

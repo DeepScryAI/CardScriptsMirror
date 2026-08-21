@@ -1,12 +1,11 @@
 Id:22925
-ColorIdentity:G
+ColorIdentity:W
 OriginSet:Gf78628ad511eefec
-ManaCost:2 G
-Types:Creature Wolf
-PT:4/3
-K:Trample
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPay
-SVar:TrigPay:AB$ ImmediateTrigger | Cost$ Mana<1 G\NumTimes> | Announce$ NumTimes | ConditionCheckSVar$ NumTimes | RememberSVarAmount$ NumTimes | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ X | SubAbility$ DBAnimate
-SVar:DBAnimate:DB$ Animate | TargetMin$ 0 | TargetMax$ X | ValidTgts$ Land.YouCtrl | Power$ 3 | Toughness$ 3 | Types$ Wolf,Creature | Keywords$ Haste | Duration$ Permanent
-SVar:X:Count$TriggerRememberAmount
+ManaCost:1 W W
+Types:Creature Human Soldier
+PT:3/3
+K:Ward:1
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | DayTime$ Neither | ReplaceWith$ DoDay | ReplacementResult$ Updated
+SVar:DoDay:DB$ DayTime | Value$ Day
+T:Mode$ DayTimeChanges | Execute$ TrigDig | TriggerZones$ Battlefield
+SVar:TrigDig:DB$ Dig | ForceRevealToController$ True | DigNum$ 4 | ChangeNum$ 1 | Optional$ True | ChangeValid$ Creature.cmcLE3

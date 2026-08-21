@@ -1,7 +1,12 @@
 Id:32965
-ColorIdentity:W
-OriginSet:G731e0066916b7465
-ManaCost:2 W
-Types:Legendary Creature Human Warrior Ally
+ColorIdentity:WB
+OriginSet:G22ed5d6f3707b461
+ManaCost:2 WB WB
+Types:Legendary Creature Bear Spirit
 PT:3/3
-K:Vigilance
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPutCounter1
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPutCounter1 | TriggerZones$ Battlefield | Secondary$ True
+SVar:TrigPutCounter1:AB$ PutCounter | Cost$ Sac<1/Artifact.Other;Creature.Other/another creature or artifact> | CounterType$ P1P1 | CounterNum$ 2
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigPutCounter2
+SVar:TrigPutCounter2:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ EachFromSource | EachFromSource$ TriggeredCardLKICopy
+SVar:HasAttackEffect:TRUE

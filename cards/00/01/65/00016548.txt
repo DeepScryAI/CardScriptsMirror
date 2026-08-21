@@ -1,12 +1,9 @@
 Id:16548
 ColorIdentity:G
 OriginSet:G4bddbf7cb4f2475e
-ManaCost:3 G G
+ManaCost:4 G G
 Types:Legendary Planeswalker Nissa
 Loyalty:5
-A:AB$ Untap | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Land.YouCtrl | SubAbility$ DBAnimate
-SVar:DBAnimate:DB$ Animate | Defined$ Targeted | Power$ 5 | Toughness$ 5 | Types$ Creature,Elemental | Duration$ UntilYourNextTurn | Keywords$ Haste
-A:AB$ ChangeZone | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Permanent.YouCtrl
-A:AB$ Effect | Cost$ SubCounter<6/LOYALTY> | Planeswalker$ True | Ultimate$ True | Name$ 17170592095149883558 | Triggers$ TrigDraw | Duration$ Permanent | AILogic$ Always
-SVar:TrigDraw:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | Execute$ DBDraw | OptionalDecider$ You | TriggerZones$ Command
-SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1
+A:AB$ GainLife | Cost$ AddCounter<3/LOYALTY> | Planeswalker$ True | LifeAmount$ 3
+A:AB$ Dig | Cost$ SubCounter<4/LOYALTY> | Planeswalker$ True | DigNum$ 2 | Reveal$ True | ChangeNum$ All | ChangeValid$ Land | DestinationZone$ Battlefield | DestinationZone2$ Hand
+A:AB$ PumpAll | Cost$ SubCounter<12/LOYALTY> | Planeswalker$ True | Ultimate$ True | ValidCards$ Creature.YouCtrl | NumAtt$ +5 | NumDef$ +5 | KW$ Trample

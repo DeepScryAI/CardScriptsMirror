@@ -1,8 +1,13 @@
 Id:27956
-ColorIdentity:W
-OriginSet:Gfd50577710a6ab09
-ManaCost:X 3 W
-Types:Sorcery
-A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Artifact.YouOwn,Enchantment.nonAura+YouOwn | StaticEffect$ Animate | WithCountersType$ P1P1 | WithCountersAmount$ X
-SVar:Animate:Mode$ Continuous | Affected$ Card.IsRemembered | AddType$ Creature & Spirit | SetPower$ 1 | SetToughness$ 1 | AddKeyword$ Flying
-SVar:X:Count$xPaid
+ColorIdentity:WG
+OriginSet:G30e8a5e111cffb44
+ManaCost:2 G W
+Types:Enchantment Saga
+K:Chapter:3:DBDestroy,DBAnimate,DBFight
+SVar:DBDestroy:DB$ Destroy | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ OneEach | TargetsForEachPlayer$ True | RememberLKI$ True | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 2596901791 | TokenOwner$ RememberedController | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:DBAnimate:DB$ Animate | ValidTgts$ Creature.!token | Power$ 6 | Toughness$ 6 | RemoveAllAbilities$ True | Types$ Legendary,Creature,Horror | RemoveCreatureTypes$ True | Name$ 4641074158912595086 | Duration$ Permanent
+SVar:DBFight:DB$ Pump | ValidTgts$ Creature.Mutant | AILogic$ Fight | SubAbility$ DBFightBis
+SVar:DBFightBis:DB$ Fight | Defined$ ParentTarget | ValidTgts$ Creature.named4641074158912595086
+SVar:OneEach:PlayerCountPlayers$Amount

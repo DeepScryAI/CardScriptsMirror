@@ -1,8 +1,10 @@
 Id:9801
-ColorIdentity:U
+ColorIdentity:W
 OriginSet:G0388e25893b1e049
-ManaCost:3 U
-Types:Enchantment
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigExchange
-SVar:TrigExchange:DB$ Pump | ValidTgts$ Permanent.YouCtrl+nonLand | SubAbility$ DBExchange
-SVar:DBExchange:DB$ ExchangeControl | Defined$ ParentTarget | ValidTgts$ Permanent.OppCtrl+nonLand | TargetsWithRelatedProperty$ LECMC
+ManaCost:1 W W
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Curse
+S:Mode$ CantAttack,CantBlock,CantBeActivated | ValidCard$ Creature.EnchantedBy
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.OppCtrl | TriggerZones$ Battlefield | Execute$ TrigAttach | OptionalDecider$ You
+SVar:TrigAttach:DB$ Attach | Defined$ TriggeredCardLKICopy

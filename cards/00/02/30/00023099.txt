@@ -1,9 +1,12 @@
 Id:23099
-ColorIdentity:U
-OriginSet:G3aa323ca47c740b1
-ManaCost:2 U U
-Types:Legendary Creature Human Wizard
-PT:3/3
-T:Mode$ SpellCast | TriggerZones$ Battlefield | ValidCard$ Creature.withFlying+nonLegendary | ValidActivatingPlayer$ You | ResolvedLimit$ 1 | Execute$ TrigCopy | OptionalDecider$ You
-SVar:TrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | SetPower$ 1 | SetToughness$ 1 | AddTypes$ Spirit
-SVar:BuffedBy:Creature.withFlying
+ColorIdentity:G
+OriginSet:G7a76c1974b0a33a6
+ManaCost:1 G G
+Types:Creature Wolf
+PT:3/4
+K:Vigilance
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigExile | Secondary$ True
+SVar:TrigExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ChangeType$ Card | ChangeNum$ 1 | Mandatory$ True | Hidden$ True | AILogic$ ExilePreference:MostProminentNonLandNonExiledOwnType
+S:Mode$ ReduceCost | ValidCard$ Card | Type$ Spell | Amount$ AffectedX | Activator$ You
+SVar:AffectedX:Count$TypesSharedWith ValidExile Card.ExiledWithSource

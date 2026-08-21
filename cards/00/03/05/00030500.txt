@@ -1,10 +1,10 @@
 Id:30500
-ColorIdentity:R
+ColorIdentity:W
 OriginSet:G8b2ed00ac2a0ff47
-ManaCost:X 2 R
-Types:Legendary Enchantment
-R:Event$ DamageDone | Delirium$ True | ActiveZones$ Battlefield | ValidSource$ Card.YouCtrl,Emblem.YouCtrl | ValidTarget$ Permanent,Player | IsCombat$ False | ReplaceWith$ DamageReplace
-SVar:DamageReplace:DB$ ReplaceEffect | VarName$ DamageAmount | VarValue$ ReplaceCount$DamageAmount/Twice
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigDealDamage
-SVar:TrigDealDamage:DB$ DealDamage | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ X | NumDmg$ X
-SVar:X:Count$xPaid
+ManaCost:4 W
+Types:Enchantment Creature Nightmare
+PT:4/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigTap
+SVar:TrigTap:DB$ Tap | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Targeted | CounterType$ Stun | CounterNum$ 1 | ConditionDefined$ Targeted | ConditionPresent$ Creature.OppCtrl
+SVar:PlayMain1:TRUE

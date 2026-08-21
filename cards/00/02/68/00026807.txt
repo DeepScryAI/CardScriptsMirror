@@ -1,12 +1,11 @@
 Id:26807
-ColorIdentity:B
-OriginSet:G321081e278de53f0
-ManaCost:2 B
-Types:Creature Spirit
-PT:2/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigExile | Secondary$ True
-SVar:TrigExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | Defined$ Self | CounterNum$ 1 | CounterType$ P1P1
-S:Mode$ Continuous | EffectZone$ Battlefield | Affected$ Card.Self | SharedKeywordsZone$ Exile | SharedRestrictions$ Card.ExiledWithSource | AddKeyword$ Flying & FirstStrike & DoubleStrike & Deathtouch & Haste & Hexproof & Indestructible & Lifelink & Menace & Reach & Trample & Vigilance
-SVar:HasAttackEffect:TRUE
+ColorIdentity:
+OriginSet:G06757f68e16377c2
+ManaCost:3
+Types:Artifact Equipment
+K:Equip:2
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddToughness$ 2 | AddSVar$ SwordOfOnceAndFutureCE | AddKeyword$ Protection:Blue & Protection:Black
+T:Mode$ DamageDone | ValidSource$ Creature.EquippedBy | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigSurveil | TriggerZones$ Battlefield
+SVar:TrigSurveil:DB$ Surveil | Amount$ 2 | SubAbility$ DBCastFromYard
+SVar:DBCastFromYard:DB$ Play | Valid$ Card.YouOwn | ValidSA$ Instant.cmcLE2,Sorcery.cmcLE2 | ValidZone$ Graveyard | Optional$ True | WithoutManaCost$ True | Amount$ 1 | Controller$ You | ReplaceGraveyard$ Exile
+SVar:SwordOfOnceAndFutureCE:SVar:MustBeBlocked:AttackingPlayerConservative

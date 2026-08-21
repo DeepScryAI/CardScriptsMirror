@@ -1,11 +1,11 @@
 Id:33094
-ColorIdentity:
-OriginSet:G7ab1fe96128a1641
-ManaCost:6
-Types:Legendary Artifact
-K:ETBReplacement:Other:ChooseCT
-SVar:ChooseCT:DB$ ChooseType | Type$ Creature | AILogic$ MostProminentInComputerDeck
-S:Mode$ Continuous | Affected$ Creature.ChosenType+YouCtrl | AddPower$ 2 | AddToughness$ 2 | AddKeyword$ FirstStrike & Trample
-T:Mode$ SpellCast | ValidCard$ Card.ChosenType | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw
-SVar:PlayMain1:TRUE
+ColorIdentity:G
+OriginSet:G731e0066916b7465
+ManaCost:4 G
+Types:Legendary Creature Bear
+PT:4/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigFood
+SVar:TrigFood:DB$ Token | TokenAmount$ X | TokenScriptIds$ 134855612 | TokenOwner$ You
+A:AB$ PutCounter | Cost$ 2 G Sac<1/Food> | Defined$ Self | CounterType$ P1P1 | CounterNum$ 2 | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Self | KW$ Trample
+SVar:X:Count$Valid Creature.Legendary+YouCtrl

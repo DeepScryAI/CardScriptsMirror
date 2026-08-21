@@ -1,8 +1,10 @@
 Id:3519
-ColorIdentity:U
+ColorIdentity:B
 OriginSet:G24ae8187eacbba52
-ManaCost:4 U U
-Types:Creature Illusion
-PT:3/4
-K:Flying
-K:Shroud
+ManaCost:2 B
+Types:Sorcery
+A:SP$ Effect | ReplacementEffects$ GraveToExile | StaticAbilities$ STPlay | AILogic$ YawgmothsWill | AINoRecursiveCheck$ True
+SVar:STPlay:Mode$ Continuous | Affected$ Card.YouCtrl | AffectedZone$ Graveyard | MayPlay$ True
+SVar:GraveToExile:Event$ Moved | ActiveZones$ Command | Destination$ Graveyard | ValidCard$ Card.!token+YouOwn | ReplaceWith$ Exile
+SVar:Exile:DB$ ChangeZone | Hidden$ True | Origin$ All | Destination$ Exile | Defined$ ReplacedCard
+SVar:PlayMain1:ALWAYS

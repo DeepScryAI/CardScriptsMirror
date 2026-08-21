@@ -1,9 +1,22 @@
 Id:32130
 ColorIdentity:B
-OriginSet:G9946f072b5556073
-ManaCost:2 B
-Types:Creature Human Scout
-PT:2/1
+OriginSet:G7ab4f62d323b0ca7
+ManaCost:3 B B
+Types:Legendary Creature Human Noble Warrior
+PT:4/4
+T:Mode$ ChangesZone | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChoose
+SVar:TrigChoose:DB$ ChooseCard | Choices$ Creature.OppCtrl | Mandatory$ True | SubAbility$ DBPumpAll
+SVar:DBPumpAll:DB$ PumpAll | NumAtt$ -2 | NumDef$ -2 | ValidCards$ Creature.Other+!ChosenCardStrict | IsCurse$ True
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.ChosenCardStrict | TriggerZones$ Battlefield | Execute$ TrigTransform
+SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Colors:black
+Types:Legendary Creature Dragon
+PT:8/8
 K:Flying
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 1668469659 | TokenTapped$ True
+R:Event$ Transform | ValidCard$ Card.Self | ReplaceWith$ DBChoose
+SVar:DBChoose:DB$ ChoosePlayer | Defined$ You | Choices$ Player.Opponent
+T:Mode$ LosesGame | ValidPlayer$ Player.Chosen | Execute$ TrigWinGame | TriggerZones$ Battlefield
+SVar:TrigWinGame:DB$ WinsGame | Defined$ You

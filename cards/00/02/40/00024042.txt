@@ -1,8 +1,10 @@
 Id:24042
-ColorIdentity:WUB
+ColorIdentity:
 OriginSet:G9afc9838c5e994df
-ManaCost:2 U
-Types:Creature Bird Citizen
-PT:2/2
-K:Flying
-A:AB$ Pump | Cost$ 1 WB | Defined$ Self | KW$ Lifelink
+ManaCost:1
+Types:Artifact Equipment
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 3 | AddToughness$ 3 | AddTrigger$ TrigEndStep
+SVar:TrigEndStep:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ DBTap
+SVar:DBTap:DB$ Tap | Defined$ Self
+R:Event$ Untap | ActiveZones$ Battlefield | ValidCard$ Card.EquippedBy | ValidStepTurnToController$ You | Layer$ CantHappen
+K:Equip:2

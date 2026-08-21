@@ -1,11 +1,9 @@
 Id:12601
-ColorIdentity:G
+ColorIdentity:
 OriginSet:Gfd7b72e0eb9d2cf5
-ManaCost:1 G G
-Types:Creature Human Warrior
-PT:1/1
-S:Mode$ CantBlockBy | ValidAttacker$ Creature.YouCtrl | ValidBlocker$ Creature.YouDontCtrl+powerLTX
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
-SVar:BuffedBy:Creature
-SVar:X:Count$CardPower
+ManaCost:no cost
+Types:Land
+K:ETBReplacement:Other:ChooseCT
+SVar:ChooseCT:DB$ ChooseType | Defined$ You | Type$ Creature | AILogic$ MostProminentInComputerDeckNonToken
+A:AB$ Mana | Cost$ T | Produced$ C
+A:AB$ Mana | Cost$ T | Produced$ Any | RestrictValid$ Spell.Creature+ChosenType | AddsNoCounter$ True

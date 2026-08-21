@@ -1,12 +1,11 @@
 Id:21855
-ColorIdentity:UR
-OriginSet:G6fa60d857e930f32
-ManaCost:UR UR UR UR
-Types:Creature Orc Wizard
-PT:4/4
-T:Mode$ SpellCastOrCopy | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigAnimate
-SVar:TrigAnimate:DB$ Animate | ValidTgts$ Creature.YouCtrl | Replacements$ Exile | Triggers$ Exiled
-SVar:Exile:Event$ Moved | ValidCard$ Card.Self | ActiveZones$ Battlefield | Origin$ Battlefield | ExcludeDestination$ Exile | ReplaceWith$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | Defined$ ReplacedCard | Origin$ Battlefield | Destination$ Exile
-SVar:Exiled:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Exile | ValidCard$ Card.Self | Execute$ DBToken
-SVar:DBToken:DB$ Token | TokenScriptIds$ 2606685679
+ColorIdentity:W
+OriginSet:Gabb23d0d25cdc46d
+ManaCost:4 W W
+Types:Creature Archon
+PT:5/5
+K:Flying
+K:ETBReplacement:Other:ChooseP
+SVar:ChooseP:DB$ ChoosePlayer | Defined$ You | Choices$ Opponent | Secretly$ True
+A:AB$ Pump | Cost$ RevealChosen<Player> | ValidTgts$ Permanent.YouCtrl | KW$ Protection:Player.PlayerUID_ChosenPlayerUID:ChosenPlayerName | DefinedKW$ ChosenPlayer | GameActivationLimit$ 1 | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ You | KW$ Protection:Player.PlayerUID_ChosenPlayerUID:ChosenPlayerName | DefinedKW$ ChosenPlayer

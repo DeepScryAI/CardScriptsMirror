@@ -1,12 +1,9 @@
 Id:17455
-ColorIdentity:UG
+ColorIdentity:R
 OriginSet:G5475e2be497fd272
-ManaCost:5 G U
-Types:Legendary Creature Merfolk Shaman
-PT:*/*
-S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X | SetToughness$ X
-S:Mode$ Continuous | Affected$ You | SetMaxHandSize$ Unlimited
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ NumCreats
-SVar:X:Count$ValidHand Card.YouOwn
-SVar:NumCreats:Count$Valid Creature.YouCtrl
+ManaCost:2 R
+Types:Creature Human Shaman
+PT:0/1
+K:Haste
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ DBClone | TriggerZones$ Battlefield | Mandatory$ True
+SVar:DBClone:DB$ Clone | CloneTarget$ Self | ValidTgts$ Creature.nonLegendary+Other+attacking | Duration$ UntilEndOfTurn

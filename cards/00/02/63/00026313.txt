@@ -1,8 +1,10 @@
 Id:26313
-ColorIdentity:
-OriginSet:G74a73d701e7801b3
-ManaCost:no cost
-Types:Land
-A:AB$ Mana | Cost$ T | Produced$ C
-A:AB$ MakeCard | Cost$ 1 T Discard<1/Card> | CatalogId$ 26313 | Zone$ Hand
-A:AB$ MakeCard | Cost$ 2 T Sac<3/Land.catalogId26313/lands catalogId26313> | CatalogId$ 14387 | Zone$ Battlefield | SorcerySpeed$ True
+ColorIdentity:W
+OriginSet:G2192e8955d5e1ad1
+ManaCost:1 W
+Types:Enchantment
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | LifeAmount$ 1 | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 2259993196 | TokenOwner$ You
+S:Mode$ Continuous | Affected$ Creature.YouCtrl+withToxic | AddKeyword$ Lifelink | CheckSVar$ X | SVarCompare$ GE3
+SVar:X:PlayerCountOpponents$HighestCounters.Poison

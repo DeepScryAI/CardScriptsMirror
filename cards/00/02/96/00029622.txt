@@ -1,0 +1,12 @@
+Id:29622
+ColorIdentity:
+OriginSet:Gac6359c222afbd4f
+ManaCost:9
+Types:Legendary Creature Eldrazi
+PT:9/9
+T:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigManifest
+SVar:TrigManifest:DB$ Manifest | ValidTgts$ Player | TargetMin$ 0 | Amount$ 2 | TargetMax$ 2 | RememberManifested$ True | SubAbility$ DBDraw | Choices$ Card.TargetedPlayerOwn | ChoiceZone$ Hand | DefinedPlayer$ Targeted
+SVar:DBDraw:DB$ Draw | NumCards$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Amount
+S:Mode$ Continuous | Affected$ Creature.Colorless+YouCtrl+Other | AddPower$ 3 | AddToughness$ 2

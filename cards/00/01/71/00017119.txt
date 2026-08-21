@@ -1,8 +1,9 @@
 Id:17119
-ColorIdentity:G
+ColorIdentity:
 OriginSet:Gbcdce58dfbbf1bad
-ManaCost:2 G
-Types:Creature Snake Wizard
+ManaCost:2
+Types:Artifact Creature Cat
 PT:2/2
-S:Mode$ OptionalAttackCost | ValidCard$ Card.Self | Trigger$ DBDraw | Cost$ Exert<1/CARDNAME>
-SVar:DBDraw:DB$ Draw
+A:AB$ RepeatEach | Cost$ Exile<1/CARDNAME> | RepeatPlayers$ Player.Opponent | RepeatSubAbility$ ChooseTwoGrave | AILogic$ Never | SubAbility$ ExileAllOthers
+SVar:ChooseTwoGrave:DB$ ChooseCard | Defined$ Remembered | Amount$ 2 | Choices$ Card.RememberedPlayerCtrl | ChoiceZone$ Graveyard | RememberChosen$ True | Mandatory$ True
+SVar:ExileAllOthers:DB$ ChangeZoneAll | Origin$ Graveyard | Destination$ Exile | ChangeType$ Card.!IsRemembered

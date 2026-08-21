@@ -1,10 +1,13 @@
 Id:30183
-ColorIdentity:G
-OriginSet:G9ff9681e1fe8713a
-ManaCost:2 G G
-Types:Creature Raccoon Warrior
-PT:5/5
-K:Trample
-R:Event$ Counter | ValidCard$ Card.Self | ValidSA$ Spell | Layer$ CantHappen
-T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ Player.Opponent | Execute$ TrigPerpetualP1P1 | TriggerZones$ Battlefield
-SVar:TrigPerpetualP1P1:DB$ PumpAll | ValidCards$ Creature.YouOwn | PumpZone$ Library | NumAtt$ +1 | NumDef$ +1 | Duration$ Perpetual
+ColorIdentity:WUG
+OriginSet:G30e4cc621dfc3a2e
+ManaCost:1 G W U
+Types:Legendary Creature Rabbit Citizen
+PT:1/5
+K:Vigilance
+T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ You | Execute$ TrigDraw | TriggerZones$ Battlefield
+SVar:TrigDraw:DB$ Draw | ValidTgts$ Opponent | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Targeted.Creature | KW$ Flying | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ 2 | ConditionCheckSVar$ Resolved | ConditionSVarCompare$ EQ2
+SVar:Resolved:Count$ResolvedThisTurn

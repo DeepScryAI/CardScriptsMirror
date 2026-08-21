@@ -1,11 +1,10 @@
 Id:13651
-ColorIdentity:U
+ColorIdentity:R
 OriginSet:G4773f4feb3f15a2b
-ManaCost:U U
-Types:Creature Merfolk Wizard
+ManaCost:4 R
+Types:Creature Sliver
 PT:2/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigTap
-SVar:TrigTap:DB$ Tap | ValidTgts$ Creature.Red+OppCtrl,Creature.Green+OppCtrl | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | RememberObjects$ Targeted | ForgetOnMoved$ Battlefield | ReplacementEffects$ DontUntap | Duration$ AsLongAsInPlay
-SVar:DontUntap:Event$ Untap | ValidCard$ Card.IsRemembered | ValidStepTurnToController$ You | Layer$ CantHappen
-SVar:PlayMain1:TRUE
+S:Mode$ Continuous | Affected$ Creature.Sliver+YouCtrl | AddTrigger$ ThorncasterAttackTrig | AddSVar$ AE
+SVar:ThorncasterAttackTrig:Mode$ Attacks | ValidCard$ Card.Self | Execute$ ThorncasterDmg
+SVar:ThorncasterDmg:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 1
+SVar:AE:SVar:HasAttackEffect:TRUE

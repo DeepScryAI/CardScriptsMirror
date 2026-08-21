@@ -1,13 +1,10 @@
 Id:26884
-ColorIdentity:WG
-OriginSet:G3601f5e223de6c7f
-ManaCost:2 G W
-Types:Legendary Creature Treefolk
-PT:0/5
-K:Trample
-K:Ward:2
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Destination$ Battlefield | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 134855612 | TokenAmount$ 2
-T:Mode$ LifeGained | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.Halfling,Creature.Treefolk | CounterType$ P1P1 | CounterNum$ X
-SVar:X:TriggerCount$LifeAmount
+ColorIdentity:B
+OriginSet:G997e3b19a1e94e85
+ManaCost:5 B B B
+Types:Legendary Creature Spirit
+PT:10/4
+K:etbCounter:Indestructible:1:CheckSVar$ FromHand
+SVar:FromHand:Count$wasCastFromYourHandByYou.1.0
+A:AB$ Discard | Cost$ SubCounter<1/Indestructible> | Defined$ Player.Opponent | Mode$ Hand | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | Defined$ ValidGraveyard Creature.ThisTurnEntered | GainControl$ True

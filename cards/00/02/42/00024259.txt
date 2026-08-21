@@ -1,13 +1,15 @@
 Id:24259
-ColorIdentity:RG
+ColorIdentity:W
 OriginSet:G51fcb7ec0cb81c29
-ManaCost:1 R G
-Types:Legendary Creature Human Druid
-PT:3/3
-T:Mode$ SpellCast | ValidCard$ Card.wasCastFromExile | ValidActivatingPlayer$ You | Execute$ TrigToken | TriggerZones$ Battlefield
-T:Mode$ ChangesZone | Origin$ Exile | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigToken | Secondary$ True
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 4257275070
-A:AB$ Dig | Cost$ 1 T Discard<1/Card> | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | RememberObjects$ Remembered | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
-SVar:STPlay:Mode$ Continuous | Affected$ Card.IsRemembered | AffectedZone$ Exile | MayPlay$ True
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ManaCost:3 W
+Types:Creature Hippogriff
+PT:2/3
+K:Flying
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.attacking+withoutFlying | KW$ Flying
+AlternateMode:Adventure
+SVar:HasAttackEffect:TRUE
+ALTERNATE
+ManaCost:W
+Types:Instant Adventure
+A:SP$ Pump | ValidTgts$ Creature | KW$ Indestructible

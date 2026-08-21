@@ -1,15 +1,14 @@
 Id:27870
-ColorIdentity:B
+ColorIdentity:WR
 OriginSet:G30e8a5e111cffb44
-ManaCost:3 B
-Types:Legendary Creature Rogue
-PT:2/5
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChoose | OptionalDecider$ You
-SVar:TrigChoose:DB$ ChoosePlayer | Defined$ You | Choices$ Opponent | AILogic$ Curse | SubAbility$ DBDonate
-SVar:DBDonate:DB$ GainControl | Defined$ Self | NewController$ ChosenPlayer | SubAbility$ DBGoad
-SVar:DBGoad:DB$ Goad | Defined$ Self | Duration$ AsLongAsControl
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1 | SubAbility$ DBLoseLife
-SVar:DBLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ X
-SVar:X:Count$CardsInYourHand
-K:Doctor's companion
+ManaCost:4 R R
+Types:Instant
+K:Fuse
+A:SP$ DamageAll | ValidCards$ Creature | NumDmg$ 4 | RememberDamaged$ True | ReplaceDyingDefined$ Remembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+AlternateMode:Split
+ALTERNATE
+ManaCost:2 W
+Types:Instant
+A:SP$ Phases | ValidTgts$ Creature.YouCtrl | TargetMin$ 0 | TargetMax$ MaxTgts
+SVar:MaxTgts:Count$Valid Creature.YouCtrl

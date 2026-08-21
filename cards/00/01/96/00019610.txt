@@ -1,14 +1,11 @@
 Id:19610
-ColorIdentity:R
+ColorIdentity:W
 OriginSet:G7c61dc677f00d087
-ManaCost:4 R R
-Types:Legendary Planeswalker Chandra
-Loyalty:6
-R:Event$ Counter | ValidCard$ Card.Self | ValidSA$ Spell | Layer$ CantHappen
-A:AB$ Effect | Cost$ AddCounter<2/LOYALTY> | Planeswalker$ True | EffectOwner$ Player.Opponent | Name$ 7740809945203149021 | Triggers$ BOTTrig | Duration$ Permanent | AILogic$ Always
-SVar:BOTTrig:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Command | Execute$ ChandraDmg
-SVar:ChandraDmg:DB$ DealDamage | Defined$ TriggeredPlayer | NumDmg$ 1
-A:AB$ DamageAll | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | ValidCards$ Creature.nonElemental | NumDmg$ 3
-A:AB$ DealDamage | Cost$ SubCounter<X/LOYALTY> | Planeswalker$ True | Ultimate$ True | ValidTgts$ Creature,Planeswalker | NumDmg$ X | RememberDamaged$ True | ReplaceDyingDefined$ Remembered | SubAbility$ DBCleanup
+ManaCost:1 W
+Types:Artifact Equipment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 1214250791 | TokenOwner$ You | RememberTokens$ True | SubAbility$ DBAttach
+SVar:DBAttach:DB$ Attach | Defined$ Remembered | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$xPaid
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1 | AddToughness$ 1
+K:Equip:1

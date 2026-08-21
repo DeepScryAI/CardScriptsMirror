@@ -1,12 +1,12 @@
 Id:26943
-ColorIdentity:U
-OriginSet:G6ce0035cfb774934
-ManaCost:2 U
-Types:Creature Elf Pilot
-PT:3/2
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigScry | TriggerZones$ Battlefield
-SVar:TrigScry:DB$ Scry | ScryNum$ 1
-T:Mode$ Scry | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigTap
-SVar:TrigTap:DB$ Tap | TargetMin$ 0 | TargetMax$ X | ValidTgts$ Permanent.nonLand
-SVar:X:TriggerCount$ScryNum
-SVar:HasAttackEffect:TRUE
+ColorIdentity:R
+OriginSet:G321081e278de53f0
+ManaCost:3 R R
+Types:Legendary Creature Orc Efreet
+PT:5/4
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDigUntil
+SVar:TrigDigUntil:DB$ DigUntil | Defined$ Player | Valid$ Card.nonLand | FoundDestination$ Exile | RevealedDestination$ Exile | RememberFound$ True | SubAbility$ DBChoosePlayer
+SVar:DBChoosePlayer:DB$ ChoosePlayer | Defined$ You | Choices$ Opponent | SubAbility$ OppPickOne
+SVar:OppPickOne:DB$ ChooseCard | Defined$ ChosenPlayer | Amount$ 1 | Mandatory$ True | Choices$ Card.IsRemembered+nonLand | ChoiceZone$ Exile | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | Defined$ Remembered.!ChosenCard | WithoutManaCost$ True | ValidSA$ Spell | Optional$ True | Amount$ 2 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

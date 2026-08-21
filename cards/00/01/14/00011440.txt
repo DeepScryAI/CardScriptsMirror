@@ -1,7 +1,11 @@
 Id:11440
-ColorIdentity:B
+ColorIdentity:G
 OriginSet:Gf6792163b580976b
-ManaCost:1 B
+ManaCost:2 G G
 Types:Enchantment
-T:Mode$ Discarded | ValidCard$ Card.OppOwn | TriggerZones$ Battlefield | Execute$ TrigLoseLife
-SVar:TrigLoseLife:DB$ LoseLife | Defined$ TriggeredCardController | LifeAmount$ 2
+K:MayEffectFromOpeningHand:FromHand
+SVar:FromHand:DB$ ChangeZone | Defined$ Self | Origin$ Hand | Destination$ Battlefield
+S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddToughness$ 1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.YouCtrl | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigGainLife
+SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
+SVar:PlayMain1:TRUE

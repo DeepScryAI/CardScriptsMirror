@@ -1,11 +1,9 @@
 Id:16345
-ColorIdentity:
+ColorIdentity:U
 OriginSet:Gd94e3db4ef71ffd2
 ManaCost:no cost
 Types:Conspiracy
-T:Mode$ Phase | Phase$ Upkeep | CheckSVar$ X | SVarCompare$ EQ1 | ValidPlayer$ You | Execute$ TrigToken1 | EffectZone$ Command
-SVar:X:Count$YourTurns
-SVar:TrigToken1:DB$ Token | TokenScriptIds$ 1942398000 | TokenOwner$ You
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Player.Other+!IsRemembered | Execute$ TrigToken2 | EffectZone$ Command
-SVar:TrigToken2:DB$ Token | TokenScriptIds$ 786172281 | TokenOwner$ TriggeredPlayer | SubAbility$ RememberPlayer
-SVar:RememberPlayer:DB$ Pump | RememberObjects$ TriggeredPlayer
+K:Hidden agenda
+T:Mode$ DamageDone | ValidSource$ Creature.NamedCard+YouCtrl | ValidTarget$ Player | CombatDamage$ True | TriggerZones$ Command | Execute$ TrigDraw
+SVar:TrigDraw:AB$ Draw | Cost$ U | NumCards$ 1
+SVar:AgendaLogic:BestCreatureInComputerDeck

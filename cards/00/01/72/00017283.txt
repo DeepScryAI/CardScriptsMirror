@@ -1,8 +1,10 @@
 Id:17283
-ColorIdentity:G
+ColorIdentity:WR
 OriginSet:G4b92e66c84393de5
-ManaCost:G G
-Types:Sorcery
-A:SP$ Token | TokenScriptIds$ 185586280 | TokenOwner$ You | SubAbility$ DBNoUntap
-SVar:DBNoUntap:DB$ Effect | ReplacementEffects$ DontUntap | Duration$ UntilTheEndOfYourNextUntap
-SVar:DontUntap:Event$ Untap | ValidCard$ Land.YouCtrl | ValidStepTurnToController$ Player.Activator | Layer$ CantHappen
+ManaCost:1 R W
+Types:Creature Human Warrior
+PT:3/3
+S:Mode$ OptionalAttackCost | ValidCard$ Card.Self | Cost$ Exert<1/CARDNAME>
+T:Mode$ Exerted | ValidCard$ Creature.YouCtrl | Execute$ TrigDamageAll | TriggerZones$ Battlefield
+SVar:TrigDamageAll:DB$ DamageAll | ValidPlayers$ Player.Opponent | NumDmg$ 1 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1

@@ -1,12 +1,10 @@
 Id:33518
-ColorIdentity:G
-OriginSet:G23d1f017cc66962f
-ManaCost:2 G
-Types:Artifact Equipment
-K:Equip:3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigAttach
-SVar:TrigAttach:DB$ Attach | ValidTgts$ Creature.YouCtrl | RememberAttached$ True | SubAbility$ DBImmediateTrigger
-SVar:DBImmediateTrigger:DB$ ImmediateTrigger | RememberObjects$ Targeted | Execute$ TrigFight | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBCleanup
-SVar:TrigFight:DB$ Fight | Defined$ DelayTriggerRemembered | ValidTgts$ Creature.OppCtrl | TargetMin$ 0 | TargetMax$ 1
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1 | AddToughness$ 1 | AddKeyword$ Trample
+ColorIdentity:B
+OriginSet:G8a59924df6623252
+ManaCost:1 B B
+Types:Legendary Creature Zombie Mutant Rogue
+PT:2/3
+K:FirstStrike
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self,Zombie.!token+Other+YouCtrl,Mutant.!token+Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigRadiation
+SVar:TrigRadiation:DB$ Radiation | ValidTgts$ Player | Num$ 2 | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 3851718391 | ConditionDefined$ Targeted | ConditionPresent$ You

@@ -1,9 +1,11 @@
 Id:19451
 ColorIdentity:
 OriginSet:G9d37112ca6693432
-ManaCost:2
-Types:Artifact Creature Masticore
-PT:2/2
-A:SP$ PermanentCreature | Cost$ 2 Discard<1/Card>
-A:AB$ DealDamage | Cost$ 4 | ValidTgts$ Creature | NumDmg$ 1
-K:Persist
+ManaCost:no cost
+Types:Snow Land
+A:AB$ Mana | Cost$ T | Produced$ C
+A:AB$ Animate | Cost$ 1 S | Defined$ Self | Power$ 2 | Toughness$ 3 | Types$ Creature,Artifact,Construct | RemoveCreatureTypes$ True
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Creature | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigTap
+SVar:TrigTap:DB$ Tap | Defined$ TriggeredTargetLKICopy | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ TriggeredTargetLKICopy | KW$ HIDDEN This card doesn't untap during your next untap step. | Duration$ Permanent | IsCurse$ True
+SVar:HasCombatEffect:TRUE

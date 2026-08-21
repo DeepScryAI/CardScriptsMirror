@@ -1,13 +1,12 @@
 Id:24185
-ColorIdentity:B
-OriginSet:G51fcb7ec0cb81c29
-ManaCost:2 B
-Types:Enchantment
-T:Mode$ Phase | Phase$ Main1 | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigCharm
-SVar:TrigCharm:DB$ Charm | Choices$ DBTreasureLose1,DBDrawLose2,DBTokenLose3 | MinCharmNum$ 1 | CharmNum$ 3
-SVar:DBTreasureLose1:DB$ Token | TokenScriptIds$ 3851718391 | SubAbility$ DBLoseLife1
-SVar:DBDrawLose2:DB$ Draw | SubAbility$ DBLoseLife2
-SVar:DBTokenLose3:DB$ Token | TokenScriptIds$ 1995231540 | SubAbility$ DBLoseLife3
-SVar:DBLoseLife1:DB$ LoseLife | LifeAmount$ 1 | Defined$ You
-SVar:DBLoseLife2:DB$ LoseLife | LifeAmount$ 2 | Defined$ You
-SVar:DBLoseLife3:DB$ LoseLife | LifeAmount$ 3 | Defined$ You
+ColorIdentity:U
+OriginSet:Gcf5d9b1e2ed6c496
+ManaCost:U
+Types:Creature Human Rogue
+PT:1/2
+A:AB$ Pump | Cost$ 2 T | ValidTgts$ Opponent | SubAbility$ DBConjure
+SVar:DBConjure:DB$ MakeCard | Conjure$ True | DefinedName$ ValidLibrary Card.TopLibrary+TargetedPlayerOwn | Zone$ Hand | RememberMade$ True | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Remembered | staticAbilities$ SpendAnyMana | Duration$ Perpetual | SubAbility$ DBCleanup
+SVar:SpendAnyMana:Mode$ ManaConvert | EffectZone$ Stack | ValidPlayer$ You | ValidCard$ Card.Self | ValidSA$ Spell | ManaConversion$ AnyType->AnyColor
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | SubAbility$ DBExileTop
+SVar:DBExileTop:DB$ Dig | Defined$ TargetedPlayer | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | ExileFaceDown$ True

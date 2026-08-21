@@ -1,7 +1,12 @@
 Id:21825
-ColorIdentity:
+ColorIdentity:WR
 OriginSet:Gabb23d0d25cdc46d
-ManaCost:no cost
-Types:Land
-A:AB$ Mana | Cost$ T | Produced$ C
-A:AB$ Pump | Cost$ 2 T | ValidTgts$ Card.IsCommander | AITgts$ Card.IsCommander+YourTeamCtrl | KW$ Lifelink
+ManaCost:3 R W
+Types:Legendary Artifact Creature Golem
+PT:4/5
+S:Mode$ Continuous | Affected$ Creature.Artifact+Other+YouCtrl | AddKeyword$ Haste
+T:Mode$ AttackersDeclared | ValidAttackers$ Creature.Artifact+YouCtrl | Execute$ DBDamage | TriggerZones$ Battlefield
+SVar:DBDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ X | SubAbility$ DBScry
+SVar:DBScry:DB$ Scry | Defined$ You | ScryNum$ X
+SVar:X:Count$Valid Artifact.YouCtrl+tapped
+SVar:PlayMain1:TRUE

@@ -1,8 +1,14 @@
 Id:12434
-ColorIdentity:U
+ColorIdentity:
 OriginSet:G12585413ffc93ad8
-ManaCost:2 U
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:Curse
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ -13
+ManaCost:3
+Types:Artifact
+A:AB$ GainLife | Cost$ T | LifeAmount$ 1 | Defined$ You | SubAbility$ DBTransform
+SVar:DBTransform:DB$ SetState | Defined$ Self | Mode$ Transform | ConditionCheckSVar$ X | ConditionSVarCompare$ GEY
+SVar:X:Count$YourLifeTotal
+SVar:Y:Count$YourStartingLife/Plus.10
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Types:Artifact
+A:AB$ LoseLife | Cost$ T | ValidTgts$ Player | LifeAmount$ 5

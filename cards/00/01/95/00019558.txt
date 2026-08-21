@@ -1,13 +1,11 @@
 Id:19558
-ColorIdentity:R
+ColorIdentity:
 OriginSet:G9d37112ca6693432
-ManaCost:1 R R
-Types:Creature Lizard Warrior
-PT:4/1
-K:Haste
-K:Trample
-T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZone | Defined$ Self | Origin$ Battlefield | Destination$ Hand
-SVar:PlayMain1:TRUE
-SVar:EndOfTurnLeavePlay:True
-K:Cycling:R
+ManaCost:3
+Types:Artifact Equipment
+K:Equip:2
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddToughness$ 2 | AddSVar$ SwordOfSinewAndSteelCE | AddKeyword$ Protection:Black & Protection:Red
+T:Mode$ DamageDone | ValidSource$ Creature.EquippedBy | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDestroyPlaneswalker | TriggerZones$ Battlefield
+SVar:TrigDestroyPlaneswalker:DB$ Destroy | ValidTgts$ Planeswalker | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DestroyArtifact
+SVar:DestroyArtifact:DB$ Destroy | ValidTgts$ Artifact | TargetMin$ 0 | TargetMax$ 1
+SVar:SwordOfSinewAndSteelCE:SVar:MustBeBlocked:AttackingPlayerConservative

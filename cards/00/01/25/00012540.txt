@@ -1,10 +1,9 @@
 Id:12540
-ColorIdentity:R
+ColorIdentity:W
 OriginSet:G12585413ffc93ad8
-ManaCost:1 R
-Types:Enchantment Aura
-K:Enchant:Creature
-K:Flash
-SVar:AttachAILogic:Pump
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddAbility$ Pump
-SVar:Pump:AB$ Pump | Cost$ 1 R | NumAtt$ +2
+ManaCost:2 W W
+Types:Enchantment
+T:Mode$ Phase | Phase$ Upkeep | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | RememberChanged$ True | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Creature.YouCtrl | ChangeNum$ 1 | SubAbility$ DBCopy
+SVar:DBCopy:DB$ CopyPermanent | Defined$ Remembered | AddTypes$ Spirit | AtEOT$ Exile | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

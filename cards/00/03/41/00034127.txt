@@ -1,11 +1,11 @@
 Id:34127
-ColorIdentity:W
-OriginSet:Gcb93bbfc68a40806
-ManaCost:1 W
-Types:Instant
-A:SP$ Effect | ValidTgts$ Creature.YouCtrl | ReplacementEffects$ DamageMagnet | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | SubAbility$ DBDelayedTrigger
-SVar:DamageMagnet:Event$ DamageDone | ActiveZones$ Battlefield | ValidTarget$ You,Creature.YouCtrl | DamageTarget$ Remembered | ReplaceWith$ DmgMe
-SVar:DmgMe:DB$ ReplaceEffect | VarName$ Affected | VarValue$ Remembered | VarType$ Card
-SVar:DBDelayedTrigger:DB$ DelayedTrigger | Mode$ ChangesZone | RememberObjects$ Targeted | ValidCard$ Card.IsTriggerRemembered | Origin$ Battlefield | Destination$ Graveyard | ThisTurn$ True | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | TargetMin$ 0 | TargetMax$ 1 | CounterType$ EachFromSource | EachFromSource$ TriggeredCardLKICopy | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw
+ColorIdentity:G
+OriginSet:Gf8df2bea26dc6b68
+ManaCost:3 G
+Types:Sorcery
+A:SP$ PeekAndReveal | PeekAmount$ 5 | SubAbility$ DBChoose | NoReveal$ True | RememberPeeked$ True
+SVar:DBChoose:DB$ ChooseCard | Choices$ Creature.IsRemembered,Land.IsRemembered | Amount$ 2 | ChoiceZone$ Library | SubAbility$ DBBottom
+SVar:DBBottom:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered+!ChosenCard | Origin$ Library | Destination$ Library | LibraryPosition$ -1 | RandomOrder$ True | SubAbility$ DBPutBattlefield
+SVar:DBPutBattlefield:DB$ ChangeZoneAll | Origin$ Library | Destination$ Battlefield | ChangeType$ Land.ChosenCard | Tapped$ True | SubAbility$ DBHand
+SVar:DBHand:DB$ ChangeZoneAll | Origin$ Library | Destination$ Hand | ChangeType$ Creature.ChosenCard | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

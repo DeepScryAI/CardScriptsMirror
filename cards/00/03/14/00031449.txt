@@ -1,10 +1,11 @@
 Id:31449
-ColorIdentity:R
-OriginSet:Gf2b808f4f642ac62
-ManaCost:2 R R
-Types:Creature Dragon
-PT:4/5
+ColorIdentity:W
+OriginSet:Ge1676a27173c0866
+ManaCost:2 W
+Types:Creature Human Monk
+PT:2/3
 K:Flying
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Destination$ Battlefield | Execute$ TrigDestroy
-SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Land.nonBasic+OppCtrl | SubAbility$ DBChange
-SVar:DBChange:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Land.Basic | DefinedPlayer$ TargetedController | Tapped$ True | WithCountersType$ STUN
+K:Lifelink
+T:Mode$ SpellCast | CheckSVar$ X | ValidCard$ Card.Self | Execute$ TrigCopy
+SVar:TrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility
+SVar:X:Count$ThisTurnCast_Card.YouCtrl+!CastSaSource

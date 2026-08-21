@@ -1,8 +1,11 @@
 Id:23681
-ColorIdentity:G
+ColorIdentity:B
 OriginSet:G1a259dba25660062
-ManaCost:1 G
-Types:Enchantment Creature Snake Druid
-PT:2/2
-S:Mode$ Continuous | Affected$ Creature.Other+Enchantment+YouCtrl | AddPower$ 1 | AddToughness$ 1
-A:AB$ CopySpellAbility | Cost$ G T | TargetType$ Activated.YouCtrl,Triggered.YouCtrl | ValidTgts$ Enchantment | AILogic$ AlwaysCopyActivatedAbilities | MayChooseTarget$ True
+ManaCost:2 B
+Types:Sorcery
+A:SP$ RevealHand | ValidTgts$ Opponent | RememberRevealed$ True | SubAbility$ DBChoose
+SVar:DBChoose:DB$ ChooseCard | ChoiceZone$ Hand | Amount$ 1 | Choices$ Card.nonLand+IsRemembered | SubAbility$ DBBranch
+SVar:DBBranch:DB$ Branch | BranchConditionSVar$ Count$ChosenSize | TrueSubAbility$ DBDiscard | FalseSubAbility$ DBPutCounter
+SVar:DBDiscard:DB$ Discard | DefinedCards$ ChosenCard | Defined$ Targeted | Mode$ Defined | SubAbility$ DBCleanup
+SVar:DBPutCounter:DB$ PutCounter | Choices$ Creature.YouCtrl,Vehicle.YouCtrl | CounterType$ P1P1 | CounterNum$ 2 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearChosenCard$ True

@@ -1,14 +1,8 @@
 Id:27833
-ColorIdentity:
+ColorIdentity:W
 OriginSet:G30e8a5e111cffb44
-ManaCost:no cost
-Types:Plane Gallifrey
-T:Mode$ PlaneswalkedTo | ValidCard$ Plane.Self | Execute$ TrigExile
-SVar:TrigExile:DB$ Dig | DigNum$ 1 | ChangeNum$ All | Defined$ Player | DestinationZone$ Exile
-S:Mode$ Continuous | Affected$ Card.ExiledWithSource | MayPlay$ True | Condition$ PlayerTurn | EffectZone$ Command | AffectedZone$ Exile
-T:Mode$ SpellCast | ValidCard$ Card.ExiledWithSourceLKI | TriggerZones$ Command | Execute$ TrigLoseLife
-T:Mode$ LandPlayed | ValidCard$ Card.ExiledWithSourceLKI | TriggerZones$ Command | Execute$ TrigLoseLife | Secondary$ True
-SVar:TrigLoseLife:DB$ LoseLife | LifeAmount$ 3 | Defined$ TriggeredCardOwner | SubAbility$ DBExileTop
-SVar:DBExileTop:DB$ Dig | DigNum$ 1 | ChangeNum$ All | Defined$ TriggeredCardOwner | DestinationZone$ Exile
-T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ TrigTreasure
-SVar:TrigTreasure:DB$ Token | TokenScriptIds$ 3851718391 | TokenAmount$ 2
+ManaCost:4 W W
+Types:Sorcery
+A:SP$ Charm | Choices$ DBDestroyAllTokens,DBDestroyAllNonlandNontokenPermanents
+SVar:DBDestroyAllTokens:DB$ DestroyAll | ValidCards$ Card.token
+SVar:DBDestroyAllNonlandNontokenPermanents:DB$ DestroyAll | ValidCards$ Permanent.nonLand+!token

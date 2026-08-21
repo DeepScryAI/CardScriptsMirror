@@ -1,13 +1,9 @@
 Id:20634
-ColorIdentity:URG
+ColorIdentity:R
 OriginSet:Gf8d4de878d0536c5
-ManaCost:2 G U R
-Types:Legendary Creature Beast Elemental Dinosaur
-PT:6/6
-K:Mutate:3 RG U U
-K:Flying
-K:Trample
-T:Mode$ Mutates | ValidCard$ Card.Self | Execute$ TrigDigUntil
-SVar:TrigDigUntil:DB$ DigUntil | Valid$ Permanent.nonLand | FoundDestination$ Exile | RevealedDestination$ Exile | RememberFound$ True | SubAbility$ DBChange
-SVar:DBChange:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | DestinationAlternative$ Hand | SubAbility$ DBCleanup
+ManaCost:1 R
+Types:Instant
+A:SP$ DealDamage | ValidTgts$ Creature | NumDmg$ 3 | SubAbility$ DBBottom
+SVar:DBBottom:DB$ ChangeZone | Origin$ Hand | Destination$ Library | LibraryPosition$ -1 | ChangeNum$ 1 | RememberChanged$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ GE1 | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

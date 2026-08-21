@@ -1,9 +1,11 @@
 Id:19900
-ColorIdentity:W
+ColorIdentity:U
 OriginSet:G23be9f486a22d38a
-ManaCost:2 W
-Types:Creature Griffin
-PT:2/2
-K:Flying
-T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | ValidTgts$ Knight.YouCtrl | KW$ Flying
+ManaCost:2 U
+Types:Legendary Creature Merfolk Wizard
+PT:1/2
+K:Affinity:Artifact
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill
+SVar:TrigMill:DB$ Mill | NumCards$ 4 | Defined$ You
+A:AB$ Effect | Cost$ T | TgtZone$ Graveyard | ValidTgts$ Artifact.YouOwn | RememberObjects$ Targeted | StaticAbilities$ STPlay | ExileOnMoved$ Graveyard
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered+nonLand | AffectedZone$ Graveyard

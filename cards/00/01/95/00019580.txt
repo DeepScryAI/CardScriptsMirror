@@ -1,13 +1,9 @@
 Id:19580
-ColorIdentity:W
-OriginSet:G7c61dc677f00d087
-ManaCost:2 W
-Types:Creature Angel
-PT:2/2
-K:Flying
-R:Event$ GainLife | ActiveZones$ Battlefield | ValidPlayer$ You | ReplaceWith$ GainLife | AILogic$ DoubleLife
-SVar:GainLife:DB$ ReplaceEffect | VarName$ LifeGained | VarValue$ X
-SVar:X:ReplaceCount$LifeGained/Plus.1
-SVar:PlayMain1:True
-S:Mode$ Continuous | Affected$ Card.Self | AddPower$ 2 | AddToughness$ 2 | CheckSVar$ Y | SVarCompare$ GE25
-SVar:Y:Count$YourLifeTotal
+ColorIdentity:G
+OriginSet:G9d37112ca6693432
+ManaCost:2 G
+Types:Enchantment
+T:Mode$ SpellCast | ValidCard$ Permanent | ValidActivatingPlayer$ You | Execute$ TrigDouble | TriggerZones$ Battlefield | HasXManaCost$ True
+SVar:TrigDouble:DB$ ChangeX | Defined$ TriggeredSpellAbility | Value$ TriggeredSpellAbility>Count$xPaid/Twice
+T:Mode$ SpellAbilityCast | ValidSA$ Instant,Sorcery,Activated | ValidActivatingPlayer$ You | Execute$ TrigCopySpell | HasXManaCost$ True | TriggerZones$ Battlefield
+SVar:TrigCopySpell:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | MayChooseTarget$ True | AILogic$ Always

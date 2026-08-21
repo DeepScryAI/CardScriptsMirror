@@ -1,9 +1,11 @@
 Id:6064
 ColorIdentity:R
 OriginSet:G0eb5e52d26fe1c23
-ManaCost:2 R
-Types:Creature Bird Beast
-PT:2/3
-K:Flying
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | CheckDefinedPlayer$ Player.withMostTypeWizardOnly | Execute$ TrigGain
-SVar:TrigGain:DB$ GainControl | Defined$ Self | NewController$ Player.withMostTypeWizardOnly
+ManaCost:4 R
+Types:Creature Beast
+PT:4/5
+T:Mode$ DamageDone | ValidSource$ Creature.inZoneBattlefield | ValidTarget$ Card.Self | Execute$ TrigDealDamage1
+T:Mode$ DamageDone | ValidSource$ Instant,Sorcery | ValidTarget$ Card.Self | Execute$ TrigDealDamage2
+SVar:TrigDealDamage1:DB$ DealDamage | Defined$ TriggeredSourceLKICopy | NumDmg$ X
+SVar:TrigDealDamage2:DB$ DealDamage | Defined$ TriggeredSourceController | NumDmg$ X
+SVar:X:TriggerCount$DamageAmount

@@ -1,11 +1,11 @@
 Id:26307
-ColorIdentity:B
-OriginSet:G74a73d701e7801b3
-ManaCost:B
-Types:Sorcery
-A:SP$ Effect | Boon$ True | Duration$ Permanent | Triggers$ SpellCast | SubAbility$ DBDraft
-SVar:SpellCast:Mode$ SpellCast | ValidCard$ Creature.Phyrexian | ValidActivatingPlayer$ You | TriggerZones$ Command | Execute$ ReplEffAddCounter
-SVar:ReplEffAddCounter:DB$ Effect | ReplacementEffects$ ETBAddCounter | RememberObjects$ TriggeredCard
-SVar:ETBAddCounter:Event$ Moved | Origin$ Stack | Destination$ Battlefield | ValidCard$ Card.IsRemembered | ReplaceWith$ ETBAddExtraCounter | ReplacementResult$ Updated
-SVar:ETBAddExtraCounter:DB$ PutCounter | ETB$ True | Defined$ ReplacedCard | CounterTypes$ P1P1,Deathtouch | CounterNum$ 1
-SVar:DBDraft:DB$ Draft | SpellbookCatalogIds$ 11897,25741,5127,11956,4434,11800,24989,12003,25768,26001,25989,26118,26230,26174,25026
+ColorIdentity:U
+OriginSet:G2192e8955d5e1ad1
+ManaCost:4 U
+Types:Creature Phyrexian Sphinx
+PT:4/4
+K:Flying
+T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | Execute$ TrigPutCounter | TriggerZones$ Battlefield
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ OIL | CounterNum$ 1
+A:AB$ Draw | Cost$ U SubCounter<1/OIL/NICKNAME> | SubAbility$ DBScry
+SVar:DBScry:DB$ Scry | ScryNum$ 2

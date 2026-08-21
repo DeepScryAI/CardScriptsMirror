@@ -1,7 +1,9 @@
 Id:12438
-ColorIdentity:U
+ColorIdentity:G
 OriginSet:G12585413ffc93ad8
-ManaCost:4 U U
+ManaCost:2 G
 Types:Instant
-A:SP$ Counter | TargetType$ Spell | ValidTgts$ Card | SubAbility$ DBPlay
-SVar:DBPlay:DB$ Play | Valid$ Targeted.sharesCardTypeWith+YouCtrl | ValidSA$ Spell | ValidZone$ Hand | WithoutManaCost$ True | Optional$ True
+A:SP$ Fog | SubAbility$ DBTapAll
+SVar:DBTapAll:DB$ TapAll | ValidCards$ Creature.attacking | SubAbility$ DBPumpAll | ConditionCheckSVar$ FatefulHour | ConditionSVarCompare$ LE5
+SVar:DBPumpAll:DB$ PumpAll | ValidCards$ Creature.attacking | KW$ HIDDEN This card doesn't untap during your next untap step. | Duration$ Permanent | ConditionCheckSVar$ FatefulHour | ConditionSVarCompare$ LE5
+SVar:FatefulHour:Count$YourLifeTotal

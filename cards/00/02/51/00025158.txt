@@ -1,14 +1,10 @@
 Id:25158
-ColorIdentity:UB
-OriginSet:Gf591a76e7a37cf73
-ManaCost:2 U B
-Types:Legendary Creature Human Inquisitor
-PT:2/3
-T:Mode$ Drawn | ValidCard$ Card.YouOwn | Number$ 1 | OptionalDecider$ You | Static$ True | ForReveal$ True | Execute$ DBReveal | TriggerZones$ Battlefield
-SVar:DBReveal:DB$ Reveal | Defined$ You | RevealDefined$ TriggeredCard | RememberRevealed$ True | SubAbility$ DBTrigger
-SVar:DBTrigger:DB$ ImmediateTrigger | ConditionDefined$ Remembered | ConditionPresent$ Instant,Sorcery | SubAbility$ DBCleanup | Execute$ DBToken
-SVar:DBToken:DB$ Token | TokenScriptIds$ 2824392356
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigInvestigate | CombatDamage$ True
-SVar:TrigInvestigate:DB$ Investigate | Num$ X | Defined$ You
-SVar:X:TriggerCount$DamageAmount
+ColorIdentity:U
+OriginSet:G9afc9838c5e994df
+ManaCost:2 U
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Curse
+S:Mode$ MustAttack | ValidCreature$ Creature | MustAttack$ EnchantedController
+T:Mode$ ChangesZone | ValidCard$ Card.AttachedBy | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 2

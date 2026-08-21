@@ -1,11 +1,13 @@
 Id:15389
 ColorIdentity:R
 OriginSet:Gec9609c94c5b1cdf
-ManaCost:4 R R
-Types:Creature Dragon
-PT:4/4
+ManaCost:2 R R
+Types:Creature Phoenix
+PT:3/3
 K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigDamage
-SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ X
-SVar:X:TriggeredCard$Valid Mountain/Plus.1
-SVar:BuffedBy:Land
+K:Haste
+S:Mode$ MustAttack | ValidCreature$ Card.Self
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Graveyard | Execute$ TrigChange
+SVar:TrigChange:AB$ ChangeZone | Cost$ 4 R R | Origin$ Graveyard | Destination$ Battlefield
+SVar:SacMe:3
+SVar:DiscardMe:3

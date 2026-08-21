@@ -1,16 +1,13 @@
 Id:27677
-ColorIdentity:
-OriginSet:G30e8a5e111cffb44
-ManaCost:no cost
-Types:Plane Skaro
-T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigLoseLife | TriggerZones$ Command
-SVar:TrigLoseLife:DB$ LoseLife | LifeAmount$ X | ValidTgts$ Opponent
-T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ TrigRepeat
-SVar:TrigRepeat:DB$ RepeatEach | RepeatPlayers$ Player.Opponent | RepeatSubAbility$ DBToken | ChangeZoneTable$ True | SubAbility$ DBSac
-SVar:DBToken:DB$ Token | TokenScriptIds$ 809974435 | RememberTokens$ True | ImprintTokens$ True | PumpKeywords$ Haste | SubAbility$ DBEff
-SVar:DBEff:DB$ Effect | RememberObjects$ Remembered | ExileOnMoved$ Battlefield | StaticAbilities$ MustAttack | SubAbility$ DBCleanup
-SVar:MustAttack:Mode$ MustAttack | ValidCreature$ Card.IsRemembered | MustAttack$ RememberedPlayer
-SVar:DBSac:DB$ Pump | Defined$ Imprinted | AtEOT$ Sacrifice | SubAbility$ DBCleanup2
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:DBCleanup2:DB$ Cleanup | ClearImprinted$ True
-SVar:X:Count$Valid Artifact.YouCtrl
+ColorIdentity:WB
+OriginSet:G7579344e30f8be85
+ManaCost:1 W
+Types:Creature Spirit Warrior
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature | NumAtt$ +2 | NumDef$ +2
+AlternateMode:Adventure
+ALTERNATE
+ManaCost:1 B
+Types:Sorcery Adventure
+A:SP$ PumpAll | ValidCards$ Creature.OppCtrl | NumAtt$ -1 | NumDef$ -1 | IsCurse$ True

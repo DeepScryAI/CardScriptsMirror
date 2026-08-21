@@ -1,8 +1,10 @@
 Id:21952
-ColorIdentity:W
-OriginSet:Gd784248bfdf9e1d7
-ManaCost:3 W
+ColorIdentity:UR
+OriginSet:G6fa60d857e930f32
+ManaCost:6 U R
 Types:Instant
-A:SP$ Charm | Choices$ DBPump,DBDestroy
-SVar:DBPump:DB$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +1 | NumDef$ +1
-SVar:DBDestroy:DB$ Destroy | ValidTgts$ Creature.powerGE4
+A:SP$ DealDamage | ValidTgts$ Any | NumDmg$ 4 | TargetMin$ 0 | TargetMax$ 4 | DividedAsYouChoose$ 4 | SubAbility$ DBTap
+SVar:DBTap:DB$ Tap | TargetMin$ 2 | TargetMax$ 2 | ValidTgts$ Permanent | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 2606685679 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ 2
+A:AB$ Token | Cost$ UR UR Discard<1/CARDNAME> | ActivationZone$ Hand | TokenScriptIds$ 3851718391 | AILogic$ AlwaysOnDiscard

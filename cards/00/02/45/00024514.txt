@@ -1,12 +1,13 @@
 Id:24514
 ColorIdentity:R
-OriginSet:G58bfeff4fb121c8e
-ManaCost:2 R R
-Types:Sorcery
-A:SP$ Destroy | ValidTgts$ Artifact | TargetMin$ 0 | TargetMax$ 3 | SubAbility$ DBConjure
-SVar:DBConjure:DB$ MakeCard | Conjure$ True | DefinedName$ Targeted.!token | Zone$ Hand | RememberMade$ True | SubAbility$ DBAnimate
-SVar:DBAnimate:DB$ Animate | Duration$ Perpetual | Defined$ Remembered | staticAbilities$ PerpAltCost | Triggers$ PhaseTrig | SubAbility$ DBCleanup
-SVar:PerpAltCost:Mode$ Continuous | EffectZone$ All | MayPlay$ True | MayPlayAltManaCost$ R | MayPlayDontGrantZonePermissions$ True | Affected$ Card.Self | AffectedZone$ Hand,Graveyard,Library,Exile,Command
-SVar:PhaseTrig:Mode$ Phase | ValidPlayer$ You | Phase$ End of Turn | Execute$ TrigSacrifice | TriggerZones$ Battlefield
-SVar:TrigSacrifice:DB$ Sacrifice
+OriginSet:G51fcb7ec0cb81c29
+ManaCost:2 R
+Types:Legendary Enchantment Background
+S:Mode$ Continuous | Affected$ Creature.IsCommander+YouOwn | AddTrigger$ Upkeep
+SVar:Upkeep:Mode$ Phase | Phase$ Upkeep | TriggerZones$ Battlefield | ValidPlayer$ You | Execute$ PseudoDraw
+SVar:PseudoDraw:DB$ Dig | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | NumAtt$ +X | SubAbility$ DBEffect
+SVar:X:Remembered$CardManaCost
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ MayPlay | SubAbility$ DBCleanup | ExileOnMoved$ Exile
+SVar:MayPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

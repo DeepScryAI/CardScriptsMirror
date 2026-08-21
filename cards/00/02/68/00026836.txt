@@ -1,11 +1,10 @@
 Id:26836
-ColorIdentity:W
-OriginSet:G3601f5e223de6c7f
-ManaCost:2 W
-Types:Legendary Creature Human Noble
-PT:2/3
-A:AB$ ChangeZone | Cost$ 2 T | ValidTgts$ Creature.Other+YouCtrl | RememberChanged$ True | Origin$ Battlefield | Destination$ Exile | SubAbility$ DBReturn
-SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ All | Optional$ True | ForgetChanged$ True | Destination$ Battlefield | SubAbility$ DBDelayedTrigger
-SVar:DBDelayedTrigger:DB$ DelayedTrigger | RememberObjects$ Remembered | ConditionDefined$ Remembered | ConditionPresent$ Card | Mode$ Phase | Phase$ End Of Turn | Execute$ TrigReturn | SubAbility$ DBCleanup
-SVar:TrigReturn:DB$ ChangeZone | Defined$ DelayTriggerRemembered | Origin$ Exile | Destination$ Battlefield | WithCountersType$ Vigilance,Lifelink
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:G
+OriginSet:G06757f68e16377c2
+ManaCost:4 G
+Types:Creature Elf Warrior
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Creature.YouOwn,Battle.YouOwn
+R:Event$ Moved | ActiveZones$ Battlefield | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | ReplaceWith$ Exile
+SVar:Exile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | Defined$ ReplacedCard

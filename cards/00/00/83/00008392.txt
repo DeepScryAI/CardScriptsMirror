@@ -1,9 +1,14 @@
 Id:8392
-ColorIdentity:B
+ColorIdentity:BR
 OriginSet:Gde6d8130c178f566
-ManaCost:4 B B
-Types:Creature Ogre Rogue
-PT:4/4
-K:Fear
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigChange
-SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Card.Rat | ChangeNum$ 1 | ShuffleNonMandatory$ True
+ManaCost:2 B B R R
+Types:Legendary Creature Demon
+PT:7/6
+K:Flying
+K:Trample
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigSac
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigSac2
+SVar:TrigSac:DB$ Sacrifice | Defined$ You | Amount$ X | SacValid$ Permanent.nonDemon
+SVar:TrigSac2:DB$ Sacrifice | Defined$ TriggeredTarget | Amount$ Y | SacValid$ Permanent.nonDemon
+SVar:X:Count$Valid Permanent.nonDemon+YouCtrl/HalfUp
+SVar:Y:TriggeredTarget$Valid Permanent.nonDemon+YouCtrl/HalfUp

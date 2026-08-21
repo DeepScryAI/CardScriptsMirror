@@ -1,8 +1,10 @@
 Id:25754
-ColorIdentity:
+ColorIdentity:B
 OriginSet:G06ccef4324c14725
-ManaCost:3
-Types:Artifact Creature Thopter
-PT:2/1
-K:Flying
-K:Unearth:2
+ManaCost:3 B
+Types:Sorcery
+A:SP$ Pump | ValidTgts$ Artifact.YouCtrl,Creature.YouCtrl | SubAbility$ DBDraw | AILogic$ DonateTargetPlayer
+SVar:DBDraw:DB$ Draw | NumCards$ X | SubAbility$ DBChoose
+SVar:DBChoose:DB$ ChoosePlayer | Defined$ You | Choices$ Player.Opponent | AILogic$ Curse | SubAbility$ DBGiveControl
+SVar:DBGiveControl:DB$ GainControl | Defined$ Targeted | NewController$ Player.Chosen | AILogic$ DonateTargetPerm
+SVar:X:Targeted$CardManaCost

@@ -1,11 +1,9 @@
 Id:12402
 ColorIdentity:
 OriginSet:G14de52802b0b467c
-ManaCost:2
-Types:Artifact Equipment
-K:Equip:1
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1
-T:Mode$ AttackerBlockedByCreature | ValidCard$ Creature.Vampire | ValidBlocker$ Card.AttachedBy | Execute$ TrigDestroyBlocked
-T:Mode$ AttackerBlockedByCreature | ValidCard$ Card.AttachedBy | ValidBlocker$ Creature.Vampire | Execute$ TrigDestroyBlocker | Secondary$ True
-SVar:TrigDestroyBlocked:DB$ Destroy | Defined$ TriggeredAttackerLKICopy | NoRegen$ True
-SVar:TrigDestroyBlocker:DB$ Destroy | Defined$ TriggeredBlockerLKICopy | NoRegen$ True
+ManaCost:4
+Types:Artifact
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDestroyAll
+SVar:TrigDestroyAll:DB$ DestroyAll | ValidCards$ Curse.AttachedTo You
+S:Mode$ Continuous | Affected$ You | AddKeyword$ Hexproof
+SVar:NonStackingEffect:True

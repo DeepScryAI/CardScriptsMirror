@@ -1,10 +1,11 @@
 Id:20257
-ColorIdentity:W
+ColorIdentity:B
 OriginSet:G42eb6bda83007836
-ManaCost:1 W W
-Types:Legendary Creature Human Soldier
-PT:3/3
-K:Vigilance
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigUntap
-SVar:TrigUntap:DB$ Untap | ValidTgts$ Creature.Other+YouCtrl | SubAbility$ DBAnimate
-SVar:DBAnimate:DB$ Animate | Defined$ Targeted | Power$ 4 | Toughness$ 4 | Keywords$ Indestructible
+ManaCost:X B
+Types:Instant
+A:SP$ Charm | Choices$ DBPump,DBChangeZone
+SVar:DBPump:DB$ Pump | ValidTgts$ Creature | NumAtt$ -X | NumDef$ -X | IsCurse$ True | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ X
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | TargetMin$ 0 | TargetMax$ XX | ValidTgts$ Card
+SVar:X:Count$xPaid
+SVar:XX:SVar$X/Twice

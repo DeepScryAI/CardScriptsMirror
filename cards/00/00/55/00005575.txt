@@ -1,6 +1,10 @@
 Id:5575
-ColorIdentity:U
+ColorIdentity:B
 OriginSet:Ge4af4f9459d5dadd
-ManaCost:2 U
-Types:Instant
-A:SP$ Counter | TargetType$ Spell | ValidTgts$ Card.cmcLE3 | Destination$ Exile
+ManaCost:2 B B
+Types:Enchantment
+T:Mode$ Always | TriggerZones$ Battlefield | IsPresent$ Creature | PresentCompare$ EQ0 | Execute$ TrigSac
+SVar:TrigSac:DB$ Sacrifice
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Permanent.Other | TriggerZones$ Battlefield | Execute$ TrigDamageAll
+SVar:TrigDamageAll:DB$ DamageAll | ValidCards$ Creature | ValidPlayers$ Player | NumDmg$ 1
+SVar:NeedsToPlay:Creature

@@ -1,9 +1,9 @@
 Id:10970
 ColorIdentity:R
-OriginSet:G5c13dc65b52d224b
-ManaCost:X R R
-Types:Instant
-A:SP$ DealDamage | ValidTgts$ Any | NumDmg$ X | TargetMin$ TargetsNum | TargetMax$ TargetsNum
-K:Multikicker:1
-SVar:TargetsNum:Count$TimesKicked/Plus.1
-SVar:X:Count$xPaid
+OriginSet:G5f99a59481a84068
+ManaCost:R R R R
+Types:Sorcery
+A:SP$ RepeatEach | ValidTgts$ Player | RepeatCards$ Creature.TargetedPlayerCtrl | RepeatSubAbility$ DBChooseVictim | DamageMap$ True
+SVar:DBChooseVictim:DB$ ChooseCard | AtRandom$ True | Choices$ Creature.TargetedPlayerCtrl+!IsRemembered | SubAbility$ DBDealDamage
+SVar:DBDealDamage:DB$ DealDamage | DamageSource$ Remembered | NumDmg$ X | Defined$ ChosenCard
+SVar:X:Remembered$CardPower

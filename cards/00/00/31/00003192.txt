@@ -1,11 +1,10 @@
 Id:3192
-ColorIdentity:B
+ColorIdentity:W
 OriginSet:Gf1d09a490b0c0641
-ManaCost:B
+ManaCost:W W W W
 Types:Sorcery
-A:SP$ RepeatEach | RepeatSubAbility$ DBSac | RepeatPlayers$ NonOpponent | ChangeZoneTable$ True
-SVar:DBSac:DB$ Sacrifice | Defined$ Remembered | Amount$ SacX | SacValid$ Creature | RememberSacrificed$ True | Optional$ True | SubAbility$ DBMana
-SVar:DBMana:DB$ Mana | Produced$ B | Amount$ ManaX | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:SacX:Count$Valid Creature
-SVar:ManaX:Remembered$Amount/Twice
+A:SP$ ChangeZoneAll | ChangeType$ Permanent | Origin$ Battlefield,Graveyard | Destination$ Exile | SubAbility$ DBShuffle
+SVar:DBShuffle:DB$ ChangeZoneAll | ChangeType$ Card | Origin$ Hand | Destination$ Library | Shuffle$ True | UseAllOriginZones$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ 7 | Defined$ Player | SubAbility$ SetAllLife
+SVar:SetAllLife:DB$ SetLife | Defined$ Player | LifeAmount$ 10 | SubAbility$ ExileSelf
+SVar:ExileSelf:DB$ ChangeZone | Origin$ Stack | Destination$ Exile

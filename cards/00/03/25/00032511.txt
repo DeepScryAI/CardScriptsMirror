@@ -1,10 +1,11 @@
 Id:32511
-ColorIdentity:BR
+ColorIdentity:W
 OriginSet:G66b3a7eeabd9000e
-ManaCost:1 BR BR
-Types:Legendary Creature Goblin Villain
-PT:5/4
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDiscard
-SVar:TrigDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ TgtChoose | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenScriptIds$ 3851718391 | TokenOwner$ You
-K:Mayhem:2 BR
+ManaCost:W W W W W
+Types:Legendary Creature Symbiote Hero
+PT:5/5
+T:Mode$ ChangesZone | ValidCard$ Card.Self+wasCast | Origin$ Any | Destination$ Battlefield | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | ValidTgts$ Creature.YouOwn | Origin$ Graveyard | Destination$ Battlefield
+R:Event$ DamageDone | ActiveZones$ Battlefield | ValidTarget$ Card.Self | ReplaceWith$ Counters | PreventionEffect$ True | AlwaysReplace$ True
+SVar:Counters:DB$ PutCounter | Defined$ ReplacedTarget | CounterType$ P1P1 | CounterNum$ X
+SVar:X:ReplaceCount$DamageAmount

@@ -1,10 +1,12 @@
 Id:34478
-ColorIdentity:R
-OriginSet:G11c0621ce29fa608
-ManaCost:2 R
-Types:Legendary Creature Human Warrior Hero
-PT:2/3
-T:Mode$ SpellCast | ValidCard$ Card.YouCtrl | ValidActivatingPlayer$ You | TargetsValid$ Creature.YouCtrl+inZoneBattlefield | TriggerZones$ Battlefield | Execute$ TrigAnimate
-SVar:TrigAnimate:DB$ AnimateAll | ValidCards$ Card.Self | Abilities$ ABDamage
-SVar:ABDamage:AB$ DealDamage | Cost$ T | ValidTgts$ Creature.Other,Player,Planeswalker.Other,Battle.Other | NumDmg$ X
-SVar:X:Count$CardPower
+ColorIdentity:WG
+OriginSet:Gcb93bbfc68a40806
+ManaCost:2 GW
+Types:Legendary Creature Mutant Inhuman Hero
+PT:2/2
+K:Reach
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature | NumAtt$ +2
+T:Mode$ DamageDone | ValidSource$ Creature.YouCtrl+powerGTbasePower | ValidTarget$ Player | CombatDamage$ True | ActivationLimit$ 1 | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw
+SVar:PlayMain1:TRUE

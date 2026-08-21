@@ -1,11 +1,12 @@
 Id:34287
-ColorIdentity:
+ColorIdentity:W
 OriginSet:Gcb93bbfc68a40806
-ManaCost:4
-Types:Artifact Equipment
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | NumCards$ X
-S:Mode$ Continuous | Affected$ Card.EquippedBy | AddPower$ Y | AddToughness$ Y
-K:Equip:3
-SVar:X:Count$Valid Equipment.YouCtrl
-SVar:Y:Count$Valid Equipment.YouCtrl/Twice
+ManaCost:2 W
+Types:Legendary Creature Human Warrior Hero
+PT:3/3
+T:Mode$ DamageDoneOnce | Execute$ TrigDamage | ValidTarget$ Card.Self | TriggerZones$ Battlefield
+SVar:TrigDamage:DB$ DealDamage | NumDmg$ X | ValidTgts$ Creature.Other,Player,Planeswalker.Other,Battle.Other
+A:AB$ PutCounter | Cost$ 5 W W | Defined$ Self | CounterType$ P1P1 | CounterNum$ 2 | PowerUp$ True | SubAbility$ DBPumpAll
+SVar:DBPumpAll:DB$ PumpAll | ValidCards$ Creature.StrictlyOther+YouCtrl | NumAtt$ +2 | NumDef$ +2
+SVar:X:TriggerCount$DamageAmount
+SVar:HasCombatEffect:TRUE

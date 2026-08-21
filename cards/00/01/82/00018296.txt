@@ -1,11 +1,13 @@
 Id:18296
-ColorIdentity:B
+ColorIdentity:BR
 OriginSet:G7d4bd61c81d44275
-ManaCost:4 B
-Types:Legendary Creature Demon
+ManaCost:1 B R
+Types:Creature Azra Warrior
 PT:3/3
-K:PartnerWithId:18314
-A:AB$ Draw | Cost$ B Sac<X/Creature/creatures> | NumCards$ X | ValidTgts$ Player | SubAbility$ DBGainLife | AILogic$ DoSacrifice
-SVar:DBGainLife:DB$ GainLife | Defined$ Targeted | LifeAmount$ X | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ X
-SVar:X:Count$xPaid
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | Execute$ ChooseCreature | TriggerZones$ Battlefield
+SVar:ChooseCreature:AB$ ChooseCard | Cost$ Discard<1/Card> | Mandatory$ True | Choices$ Creature | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | Triggers$ TrigDamage | SubAbility$ DBCleanup
+SVar:TrigDamage:Mode$ DamageDone | ValidSource$ Card.ChosenCardStrict | ValidTarget$ Player | Execute$ TrigDraw | CombatDamage$ True
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 2
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+SVar:PlayMain1:TRUE

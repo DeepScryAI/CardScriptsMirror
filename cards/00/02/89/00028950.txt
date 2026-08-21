@@ -1,13 +1,9 @@
 Id:28950
-ColorIdentity:URG
-OriginSet:G343cd0ac847a92b7
-ManaCost:G U R
-Types:Legendary Creature Beast Noble
-PT:1/2
-K:Ward:1
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDig
-SVar:TrigDig:DB$ Dig | Defined$ You | DigNum$ X | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ Play | SubAbility$ DBCleanup | ForgetOnMoved$ Exile
-SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$Valid Permanent.nonLand+Other+YouCtrl$CardTypes
+ColorIdentity:W
+OriginSet:Gaf7c94f364052cdd
+ManaCost:1 W
+Types:Creature Human Artificer
+PT:1/3
+A:AB$ PutCounter | Cost$ T | Activation$ Metalcraft | CounterType$ ENERGY | CounterNum$ 1 | Defined$ You
+T:Mode$ CounterAddedOnce | ValidPlayer$ You | PlayerTurn$ True | TriggerZones$ Battlefield | CounterType$ ENERGY | Execute$ TrigPumpAll
+SVar:TrigPumpAll:DB$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +1 | NumDef$ +1

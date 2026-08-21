@@ -1,10 +1,8 @@
 Id:19520
-ColorIdentity:R
+ColorIdentity:RG
 OriginSet:G9d37112ca6693432
-ManaCost:2 R
-Types:Creature Sliver
-PT:2/2
-S:Mode$ Continuous | Affected$ Creature.Sliver+YouCtrl | AddTrigger$ SpitefulTrig
-SVar:SpitefulTrig:Mode$ DamageDoneOnce | Execute$ SpitefulDmg | ValidTarget$ Card.Self | TriggerZones$ Battlefield
-SVar:SpitefulDmg:DB$ DealDamage | ValidTgts$ Player,Planeswalker | NumDmg$ SpitefulX
-SVar:SpitefulX:TriggerCount$DamageAmount
+ManaCost:X R G
+Types:Sorcery
+A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ChangeType$ Card.YouOwn | ChangeNum$ X | Hidden$ True | AtRandom$ True | SubAbility$ DBExile
+SVar:X:Count$xPaid
+SVar:DBExile:DB$ ChangeZone | Origin$ Stack | Destination$ Exile

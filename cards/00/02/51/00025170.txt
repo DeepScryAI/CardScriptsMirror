@@ -1,14 +1,14 @@
 Id:25170
-ColorIdentity:BR
-OriginSet:Gf591a76e7a37cf73
-ManaCost:3 B R
-Types:Legendary Creature Astartes Warrior
-PT:5/3
-K:Haste
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Exile | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | ValidTgts$ Creature.OppCtrl | Triggers$ ComeBack | ImprintCards$ ThisTargetedCard | Duration$ Permanent | ForgetOnMoved$ Exile | RememberObjects$ TriggeredCard
-SVar:ComeBack:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.IsImprinted | Execute$ TrigReturn | TriggerZones$ Command | TriggerController$ TriggeredCardController
-SVar:TrigReturn:DB$ ChangeZone | Origin$ Exile | Destination$ Battlefield | Defined$ Remembered | SubAbility$ ExileSelf
+ColorIdentity:WUG
+OriginSet:G9afc9838c5e994df
+ManaCost:2 G W U
+Types:Creature Cat Citizen
+PT:4/4
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.OppCtrl | KW$ HIDDEN CARDNAME can't attack or block. | IsCurse$ True | Duration$ UntilYourNextTurn
+A:AB$ Effect | Cost$ 1 ExileFromHand<1/CARDNAME> | ActivationZone$ Hand | ValidTgts$ Land | RememberObjects$ Targeted & Self | StaticAbilities$ Land,MayPlay | Triggers$ Cast | ImprintCards$ Self | Duration$ Permanent | ForgetOnMoved$ Exile
+SVar:Land:Mode$ Continuous | AffectedZone$ Battlefield | Affected$ Card.IsRemembered+!IsImprinted | AddAbility$ Mana
+SVar:Mana:AB$ Mana | Cost$ T | Produced$ Combo G W U | Amount$ 1
+SVar:MayPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsImprinted+IsRemembered | AffectedZone$ Exile | Secondary$ True
+SVar:Cast:Mode$ SpellCast | ValidCard$ Card.IsImprinted+IsRemembered+wasCastFromExile | Execute$ ExileSelf | Static$ True
 SVar:ExileSelf:DB$ ChangeZone | Origin$ Command | Destination$ Exile | Defined$ Self
-SVar:SacMe:3

@@ -1,10 +1,9 @@
 Id:16184
-ColorIdentity:G
+ColorIdentity:U
 OriginSet:G70d19654882197c9
-ManaCost:2 G
-Types:Creature Human Horror
-PT:1/1
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigDig
-SVar:TrigDig:DB$ Dig | DigNum$ 4 | ChangeNum$ 1 | Optional$ True | ChangeValid$ Creature
-T:Mode$ Sacrificed | ValidCard$ Card.Self | WhileKeyword$ Spell.withEmerge | Execute$ TrigToken | TriggerZones$ Battlefield
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 3739367272 | TokenOwner$ You
+ManaCost:3 U
+Types:Instant
+A:SP$ PeekAndReveal | PeekAmount$ 4 | NoPeek$ True | NoReveal$ True | RememberPeeked$ True | SubAbility$ Separate
+SVar:Separate:DB$ TwoPiles | Defined$ You | Separator$ TargetedPlayer | Chooser$ You | ValidTgts$ Opponent | DefinedCards$ Remembered | ChosenPile$ DBHand | UnchosenPile$ DBGrave | Zone$ Library | FaceDown$ One
+SVar:DBHand:DB$ ChangeZone | Defined$ Remembered | Origin$ Library | Destination$ Hand
+SVar:DBGrave:DB$ ChangeZone | Defined$ Remembered | Origin$ Library | Destination$ Graveyard

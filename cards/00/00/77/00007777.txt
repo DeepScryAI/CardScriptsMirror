@@ -1,14 +1,12 @@
 Id:7777
-ColorIdentity:U
+ColorIdentity:G
 OriginSet:G3fddc6426f419054
-ManaCost:U U
-Types:Creature Shapeshifter Spirit
-PT:1/1
-T:Mode$ AttackerBlockedByCreature | ValidCard$ Creature | ValidBlocker$ Card.Self | Execute$ TrigAnimateBlocker | TriggerZones$ Battlefield
-T:Mode$ AttackerBlockedByCreature | ValidCard$ Card.Self | ValidBlocker$ Creature | Execute$ TrigAnimateAttacker | TriggerZones$ Battlefield | Secondary$ True
-SVar:TrigAnimateBlocker:DB$ Animate | Power$ W | Toughness$ X
-SVar:TrigAnimateAttacker:DB$ Animate | Power$ Y | Toughness$ Z
-SVar:W:TriggeredAttacker$CardPower
-SVar:X:TriggeredAttacker$CardToughness
-SVar:Y:TriggeredBlocker$CardPower
-SVar:Z:TriggeredBlocker$CardToughness
+ManaCost:5 G G G
+Types:Legendary Creature Spirit
+PT:0/0
+K:etbCounter:P1P1:8
+R:Event$ DamageDone | ActiveZones$ Battlefield | ValidTarget$ Card.Self | ReplaceWith$ SekkiCounters | PreventionEffect$ True | AlwaysReplace$ True
+SVar:SekkiCounters:DB$ RemoveCounter | CounterType$ P1P1 | CounterNum$ SekkiX | SubAbility$ DBSekkiToken
+SVar:DBSekkiToken:DB$ Token | TokenAmount$ SekkiX | TokenScriptIds$ 3432565933
+A:AB$ ChangeZone | Cost$ Sac<8/Spirit> | Defined$ Self | ActivationZone$ Graveyard | Origin$ Graveyard | Destination$ Battlefield
+SVar:SekkiX:ReplaceCount$DamageAmount

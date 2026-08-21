@@ -1,8 +1,12 @@
 Id:33561
-ColorIdentity:UG
-OriginSet:G23d1f017cc66962f
-ManaCost:2 GU
-Types:Creature Fish Mutant
-PT:2/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 2178077173 | TokenOwner$ You
+ColorIdentity:
+OriginSet:Gff0a4227ae9f1a4b
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+K:ETBReplacement:Other:ChooseColor
+SVar:ChooseColor:DB$ ChooseColor | Defined$ You | AILogic$ MostProminentInComputerDeck
+A:AB$ Mana | Cost$ T | Produced$ Chosen
+A:AB$ Token | Cost$ 5 T | TokenAmount$ X | TokenScriptIds$ 2440351532
+SVar:X:PlayerCountOpponents$Amount

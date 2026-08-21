@@ -1,9 +1,10 @@
 Id:7972
-ColorIdentity:W
+ColorIdentity:BG
 OriginSet:Gc563c209d627c4c5
-ManaCost:5 W W
-Types:Creature Spirit
-PT:4/5
-R:Event$ DamageDone | ActiveZones$ Battlefield | ValidTarget$ Player,Permanent | ReplaceWith$ DmgHalfDown
-SVar:DmgHalfDown:DB$ ReplaceEffect | VarName$ DamageAmount | VarValue$ X
-SVar:X:ReplaceCount$DamageAmount/HalfDown
+ManaCost:3 BG
+Types:Instant
+A:SP$ Regenerate | ValidTgts$ Creature | SubAbility$ TrigGorgonEffect
+SVar:TrigGorgonEffect:DB$ DelayedTrigger | Mode$ Phase | Phase$ EndCombat | ThisTurn$ True | RememberObjects$ Targeted | Execute$ TrigRem
+SVar:TrigRem:DB$ Pump | RememberObjects$ DelayTriggerRemembered | SubAbility$ TrigGorgonDestroy
+SVar:TrigGorgonDestroy:DB$ DestroyAll | ValidCards$ Creature.blockedRemembered,Creature.blockedByRemembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

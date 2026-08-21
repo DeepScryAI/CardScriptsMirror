@@ -1,7 +1,10 @@
 Id:9057
-ColorIdentity:G
+ColorIdentity:W
 OriginSet:Gdf2f562751f0d037
-ManaCost:1 G
-Types:Sorcery
-A:SP$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Land.Basic | Tapped$ True | ChangeNum$ 1 | ConditionPresent$ Land.YouCtrl | ConditionCompare$ LE4
-K:Cycling:Sac<1/Land>
+ManaCost:2 W
+Types:Instant
+A:SP$ Charm | Choices$ LoseTime,GainTime
+SVar:LoseTime:DB$ RemoveCounterAll | ValidCards$ Permanent | CounterType$ TIME | CounterNum$ 2 | SubAbility$ QuickenTime
+SVar:QuickenTime:DB$ RemoveCounterAll | ValidCards$ Card.suspended | CounterType$ TIME | CounterNum$ 2 | ValidZone$ Exile
+SVar:GainTime:DB$ PutCounterAll | ValidCards$ Permanent.counters_GE1_TIME | CounterType$ TIME | CounterNum$ 2 | SubAbility$ SlowTime
+SVar:SlowTime:DB$ PutCounterAll | ValidCards$ Card.suspended | CounterType$ TIME | CounterNum$ 2 | ValidZone$ Exile

@@ -1,9 +1,10 @@
 Id:5939
-ColorIdentity:B
+ColorIdentity:W
 OriginSet:G0eb5e52d26fe1c23
-ManaCost:3 B
-Types:Creature Zombie
-PT:2/2
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | OptionalDecider$ You | Execute$ TrigDiscard | TriggerZones$ Battlefield
-SVar:TrigDiscard:AB$ Discard | Cost$ Sac<1/CARDNAME> | Defined$ TriggeredTarget | NumCards$ 3 | Mode$ TgtChoose
-K:Morph:1 B
+ManaCost:2 W
+Types:Sorcery
+A:SP$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBChooseType | SubAbility$ DBDestroyAll
+SVar:DBChooseType:DB$ ChooseType | Defined$ Player.IsRemembered | Type$ Creature | AILogic$ MostProminentComputerControls | SubAbility$ DBRemember
+SVar:DBRemember:DB$ PumpAll | ValidCards$ Creature.ChosenType | RememberPumped$ True
+SVar:DBDestroyAll:DB$ DestroyAll | ValidCards$ Creature.!IsRemembered | NoRegen$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

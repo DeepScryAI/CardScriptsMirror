@@ -1,12 +1,13 @@
 Id:33720
-ColorIdentity:WB
-OriginSet:G14da29c4716bedc3
-ManaCost:2 W B
-Types:Legendary Creature Inkling Bird
+ColorIdentity:U
+OriginSet:G23d1f017cc66962f
+ManaCost:1 U U
+Types:Legendary Creature Lizard Mutant
 PT:2/3
-K:Flying
-K:Deathtouch
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigToken | Secondary$ True
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 3431145942 | TokenOwner$ You | AttachedTo$ Targeted | ValidTgts$ Creature.OppCtrl
-SVar:HasAttackEffect:TRUE
+A:AB$ ChooseColor | Cost$ 1 Discard<1/Card> | Defined$ You | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Self | Colors$ ChosenColor | OverwriteColors$ True | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Self | KW$ Hexproof:ChosenColor & Toxic:1 | DefinedKW$ ChosenColor | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenColor$ True
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | NumCards$ X
+SVar:X:Count$Valid Permanent.YouCtrl$Colors

@@ -1,7 +1,9 @@
 Id:9554
-ColorIdentity:
+ColorIdentity:WB
 OriginSet:G49bcc8b9b86b628d
 ManaCost:no cost
-Types:Land
-A:AB$ Mana | Cost$ T | Produced$ C
-A:AB$ Animate | Cost$ 1 | Defined$ Self | Power$ 2 | Toughness$ 2 | Types$ Creature | AddAllCreatureTypes$ True
+Types:Land Forest
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ DBTap | ReplacementResult$ Updated
+SVar:DBTap:DB$ Tap | ETB$ True | Defined$ Self | UnlessCost$ Reveal<1/Treefolk> | UnlessPayer$ You
+A:AB$ Mana | Cost$ T | Produced$ Combo W B | SubAbility$ DBPain
+SVar:DBPain:DB$ DealDamage | NumDmg$ 1 | Defined$ You

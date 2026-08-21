@@ -1,11 +1,12 @@
 Id:11458
 ColorIdentity:G
 OriginSet:Gf6792163b580976b
-ManaCost:4 G G
-Types:Creature Giant
-PT:6/6
-K:Trample
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange | OptionalDecider$ You
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigChange | TriggerZones$ Battlefield | OptionalDecider$ You | Secondary$ True
-SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | Tapped$ True | ChangeType$ Land | ChangeNum$ 2 | ShuffleNonMandatory$ True
-SVar:HasAttackEffect:TRUE
+ManaCost:G
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Enchanted | CounterType$ P1P1 | CounterNum$ 1
+T:Mode$ Attacks | ValidCard$ Card.AttachedBy | Execute$ TrigSac
+T:Mode$ Blocks | ValidCard$ Card.AttachedBy | Execute$ TrigSac | Secondary$ True
+SVar:TrigSac:DB$ Sacrifice

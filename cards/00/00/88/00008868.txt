@@ -1,9 +1,13 @@
 Id:8868
-ColorIdentity:B
+ColorIdentity:W
 OriginSet:Gce1d73449bd71b54
-ManaCost:1 B B
-Types:Creature Human Rebel Assassin
-PT:1/1
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDestroy
-SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Creature.powerGE4 | NoRegen$ True
-K:Madness:B
+ManaCost:3 W
+Types:Creature Human Soldier
+PT:*/*
+S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ Y | SetToughness$ Y
+K:Suspend:X:XMin1 X W W
+T:Mode$ CounterRemoved | ValidCard$ Card.Self | TriggerZones$ Exile | CounterType$ TIME | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 1214250791 | TokenOwner$ You
+SVar:X:Count$xPaid
+SVar:Y:Count$Valid Soldier.YouCtrl
+SVar:NoZeroToughnessAI:True

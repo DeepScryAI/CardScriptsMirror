@@ -1,0 +1,11 @@
+Id:34932
+ColorIdentity:BR
+OriginSet:Gf8f2990d7136c11d
+ManaCost:3 B R
+Types:Legendary Creature Goblin Soldier
+PT:5/5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSac
+SVar:TrigSac:AB$ ImmediateTrigger | Cost$ Sac<1/Creature.Other/another creature> | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ X | ExcessSVar$ Excess | SubAbility$ DBAmass
+SVar:DBAmass:DB$ Amass | Type$ Goblin | Num$ Excess | ConditionCheckSVar$ Excess
+SVar:X:Spawner>Sacrificed$CardPower

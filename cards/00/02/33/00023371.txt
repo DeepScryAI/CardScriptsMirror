@@ -1,13 +1,10 @@
 Id:23371
 ColorIdentity:B
-OriginSet:G9f95a41d532c0550
-ManaCost:2 B
-Types:Legendary Creature Zombie Wizard
-PT:5/5
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | CheckSVar$ X | SVarCompare$ LT1 | Execute$ TrigBounce
-SVar:TrigBounce:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | SubAbility$ DBVenture
-SVar:DBVenture:DB$ Venture
-SVar:X:DungeonsCompleted$Valid Card.catalogId22679
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenAmount$ Y | TokenScriptIds$ 353162950 | TokenOwner$ You
-SVar:Y:PlayerCountOpponents$Amount
+OriginSet:G6e75ff4f143a3dc3
+ManaCost:3 B B
+Types:Creature Vampire Soldier
+PT:4/4
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPutCounter | IsPresent$ Blood.token+YouCtrl
+SVar:TrigPutCounter:AB$ PutCounter | Cost$ Sac<1/Blood.token/Blood token> | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw
+SVar:HasAttackEffect:TRUE

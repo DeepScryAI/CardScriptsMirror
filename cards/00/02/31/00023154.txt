@@ -1,8 +1,11 @@
 Id:23154
 ColorIdentity:W
-OriginSet:G6e75ff4f143a3dc3
-ManaCost:1 W
-Types:Artifact Equipment
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddToughness$ 2 | AddKeyword$ FirstStrike | IsPresent$ Equipment.AttachedTo Creature.YouCtrl+catalogId23196 | Secondary$ True
-K:Equip:2
+OriginSet:G7a76c1974b0a33a6
+ManaCost:1 W W
+Types:Creature Human Soldier
+PT:1/2
+K:Training
+T:Mode$ Trains | ValidCard$ Card.Self | Execute$ TrigExile | TriggerZones$ Battlefield
+SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield,Graveyard | Destination$ Exile | ValidTgts$ Creature.Other | TargetMin$ 0 | TargetMax$ 1 | TgtZone$ Battlefield,Graveyard | AILogic$ SaviorOfOllenbock
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZoneAll | ChangeType$ Card.ExiledWithSource | Origin$ Exile | Destination$ Battlefield

@@ -1,9 +1,14 @@
 Id:29733
-ColorIdentity:WR
-OriginSet:G01a610e823cce3ca
-ManaCost:1 R W
-Types:Artifact Equipment
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSearch | OptionalDecider$ You
-SVar:TrigSearch:DB$ ChangeZone | Origin$ Library | OriginAlternative$ Graveyard | Destination$ Hand | ChangeType$ Card.YouOwn+catalogId29692 | Optional$ True
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddKeyword$ Trample
-K:Equip:2
+ColorIdentity:
+OriginSet:Gac6359c222afbd4f
+ManaCost:10
+Types:Legendary Creature Eldrazi
+PT:7/7
+K:Ward:Sac<2/Permanent>
+T:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ Dig | ValidTgts$ Opponent | DestinationZone$ Exile | DigNum$ Z | ChangeNum$ All
+SVar:Z:TargetedPlayer$CardsInLibrary/HalfUp
+K:etbCounter:P1P1:Y:no Condition
+SVar:Y:Count$ValidExile Card$GreatestCardManaCost
+S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ Annihilator:X
+SVar:X:Count$CardCounters.P1P1

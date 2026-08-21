@@ -1,16 +1,8 @@
 Id:31297
-ColorIdentity:R
-OriginSet:Ge1676a27173c0866
-ManaCost:2 R
-Types:Legendary Creature Orc Wizard
-PT:3/3
-K:Haste
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigDiscard
-SVar:TrigDiscard:DB$ Discard | Defined$ You | NumCards$ 2 | Optional$ True | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | NumCards$ Y | SubAbility$ DBCleanup
-SVar:Y:Remembered$Amount
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigExile | Threshold$ True
-SVar:TrigExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ChangeType$ Card | ChangeNum$ 1 | DefinedPlayer$ You | Hidden$ True | Mandatory$ True | AtRandom$ True | RememberChanged$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ MayPlay | SubAbility$ DBCleanup | ExileOnMoved$ Exile
-SVar:MayPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:U
+OriginSet:Gef9d0d0c16b2fcf7
+ManaCost:1 U
+Types:Creature Zombie Bird Wizard
+PT:2/1
+K:Flying
+S:Mode$ Continuous | Affected$ Creature.YouOwn | EffectZone$ Battlefield | AffectedZone$ Hand | AddKeyword$ Cycling:1 U

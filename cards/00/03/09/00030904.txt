@@ -1,7 +1,11 @@
 Id:30904
-ColorIdentity:W
-OriginSet:G4524bbf7a3db9dc0
-ManaCost:2 W
-Types:Creature Human Artificer
-PT:3/3
-A:AB$ PutCounter | Cost$ 3 W | ValidTgts$ Mount,Vehicle | CounterType$ P1P1 | CounterNum$ 1
+ColorIdentity:B
+OriginSet:Gc5a2f0ff902c0621
+ManaCost:3 B
+Types:Creature Zombie
+PT:4/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card | TargetMin$ 0 | TargetMax$ 2 | TargetsWithSameController$ True | RememberChanged$ True | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 2 | ConditionDefined$ Remembered | ConditionPresent$ Card.Creature | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2 | ConditionDefined$ Remembered | ConditionPresent$ Card.Creature | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

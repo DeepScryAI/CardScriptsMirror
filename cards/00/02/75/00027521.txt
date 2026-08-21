@@ -1,11 +1,13 @@
 Id:27521
-ColorIdentity:U
-OriginSet:G7579344e30f8be85
-ManaCost:U
-Types:Creature Faerie Wizard
-PT:1/1
+ColorIdentity:B
+OriginSet:Ge16da27db30ac32e
+ManaCost:3 B
+Types:Creature Faerie Rogue
+PT:2/2
 K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigImmediateTrig | OptionalDecider$ You
-SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ 2 | Execute$ TrigTap
-SVar:TrigTap:DB$ Tap | ValidTgts$ Creature.OppCtrl | SubAbility$ DBCounter
-SVar:DBCounter:DB$ PutCounter | Defined$ Targeted | CounterType$ Stun | CounterNum$ 1
+K:Deathtouch
+T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ You | ActivatorThisTurnCast$ EQ1 | TriggerZones$ Battlefield | OpponentTurn$ True | Execute$ TrigDig
+SVar:TrigDig:DB$ Dig | DigNum$ 1 | Defined$ ActivePlayer | ChangeNum$ All | DestinationZone$ Exile | ExileFaceDown$ True | WithMayLook$ True | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ STPlay | SubAbility$ DBCleanup | ForgetOnMoved$ Exile | Duration$ Permanent
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | MayPlayIgnoreType$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

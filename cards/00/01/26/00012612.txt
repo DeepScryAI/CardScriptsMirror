@@ -1,7 +1,11 @@
 Id:12612
-ColorIdentity:B
+ColorIdentity:U
 OriginSet:Gfd7b72e0eb9d2cf5
-ManaCost:X B
-Types:Instant
-A:SP$ Pump | ValidTgts$ Creature | NumAtt$ -X | NumDef$ -X | IsCurse$ True
-SVar:X:Count$xPaid
+ManaCost:4 U U
+Types:Creature Spirit
+PT:5/5
+K:Soulbond
+S:Mode$ Continuous | Affected$ Creature.PairedWith,Card.Self+Paired | AddAbility$ DeadeyeFlicker | AddSVar$ DeadeyeReturn
+SVar:DeadeyeFlicker:AB$ ChangeZone | Cost$ 1 U | Defined$ Self | Origin$ Battlefield | Destination$ Exile | SubAbility$ DeadeyeReturn | RememberChanged$ True | ForgetOtherRemembered$ True
+SVar:DeadeyeReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ All | Destination$ Battlefield | GainControl$ True
+SVar:AIPreference:SoulBond$Creature.!token

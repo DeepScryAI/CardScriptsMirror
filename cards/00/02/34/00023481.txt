@@ -1,21 +1,10 @@
 Id:23481
-ColorIdentity:R
-OriginSet:G1a259dba25660062
-ManaCost:2 R
-Types:Enchantment Saga
-K:Chapter:3:DBToken,DBDiscard,DBTransform
-SVar:DBToken:DB$ Token | TokenScriptIds$ 377759644
-SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 2 | Optional$ True | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | NumCards$ Y | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:Y:Remembered$Amount
-SVar:DBTransform:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn
-SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | Transformed$ True | GainControl$ True | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:red
-Types:Enchantment Creature Goblin Shaman
-PT:2/2
-A:AB$ CopyPermanent | Cost$ 1 T | ValidTgts$ Creature.YouCtrl+nonLegendary+Other | AddKeywords$ Haste | AtEOT$ Sacrifice | AILogic$ Different
+ColorIdentity:G
+OriginSet:Ga4d5d94d587eb185
+ManaCost:5 G G G
+Types:Legendary Creature Spirit
+PT:8/8
+K:etbCounter:Indestructible:1:CheckSVar$ FromHand
+SVar:FromHand:Count$wasCastFromYourHandByYou.1.0
+A:AB$ PutCounter | Cost$ SubCounter<1/Indestructible> | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 8 | TargetMin$ 0 | TargetMax$ 8 | DividedAsYouChoose$ 8 | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | KW$ Trample | Defined$ Targeted

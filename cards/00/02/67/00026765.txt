@@ -1,10 +1,15 @@
 Id:26765
 ColorIdentity:WR
-OriginSet:G321081e278de53f0
+OriginSet:G06757f68e16377c2
 ManaCost:3 R W
-Types:Sorcery
-A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Card.Artifact+YouOwn,Card.Enchantment+YouOwn | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ ExileTwo
-SVar:ExileTwo:DB$ Dig | Defined$ You | DigNum$ 2 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ STPlay | SubAbility$ DBCleanup | ForgetOnMoved$ Exile | Duration$ UntilTheEndOfYourNextTurn
-SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+Types:Legendary Creature Elephant Cleric
+PT:3/5
+K:Vigilance
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card.nonCreature+nonLand+YouOwn | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 2645485105
+A:AB$ Pump | Cost$ 1 R W T Sac<1/Spirit> | ValidTgts$ Card.ExiledWithSource | TgtZone$ Exile | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | ReplacementEffects$ REQuintorius | StaticAbilities$ MayPlay | RememberObjects$ Targeted
+SVar:MayPlay:Mode$ Continuous | MayPlay$ True | MayPlayWithoutManaCost$ True | Affected$ Card.nonLand+IsRemembered | AffectedZone$ Exile
+SVar:REQuintorius:Event$ Moved | ValidLKI$ Card.CastSa Spell.MayPlaySource | Origin$ Stack | Destination$ Graveyard | ReplaceWith$ MoveLibrary
+SVar:MoveLibrary:DB$ ChangeZone | Defined$ ReplacedCard | Origin$ Stack | Destination$ Library | LibraryPosition$ -1

@@ -1,8 +1,10 @@
 Id:32107
-ColorIdentity:G
-OriginSet:G9946f072b5556073
-ManaCost:3 G G
-Types:Enchantment
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 1668469659 | TokenOwner$ You
-K:Warp:1 G
+ColorIdentity:R
+OriginSet:G7ab4f62d323b0ca7
+ManaCost:2 R
+Types:Sorcery
+A:SP$ GainControl | ValidTgts$ Creature | LoseControl$ EOT | Untap$ True | AddKWs$ Haste | SubAbility$ DBAttach
+SVar:DBAttach:DB$ Attach | Optional$ True | Choices$ Equipment.YouCtrl | Defined$ ParentTarget | RememberAttached$ True | SubAbility$ DBDelayTrig
+SVar:DBDelayTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | ConditionDefined$ Remembered | ConditionPresent$ Card | RememberObjects$ Remembered | Execute$ TrigUnattach | SubAbility$ DBCleanup
+SVar:TrigUnattach:DB$ Unattach | Defined$ DelayTriggerRememberedLKI
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

@@ -1,10 +1,11 @@
 Id:29159
-ColorIdentity:G
+ColorIdentity:U
 OriginSet:G27146c70b74a1e72
-ManaCost:2 G
-Types:Creature Human Mercenary
-PT:1/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSearch
-SVar:TrigSearch:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Land.Basic,Desert | ChangeNum$ 1
-S:Mode$ Continuous | Affected$ Card.Self | AddPower$ X | AddToughness$ X
-SVar:X:Count$Valid Desert.YouCtrl
+ManaCost:1 U
+Types:Creature Salamander Mount
+PT:2/2
+K:Saddle:3
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigBranch
+SVar:TrigBranch:DB$ Branch | ValidTgts$ Instant.YouCtrl,Sorcery.YouCtrl | TgtZone$ Graveyard | BranchConditionSVar$ Count$Valid Card.Self+IsSaddled | TrueSubAbility$ TrigFlashbackSaddled | FalseSubAbility$ TrigFlashbackUnsaddled
+SVar:TrigFlashbackSaddled:DB$ Pump | Defined$ Targeted | KW$ Flashback:0 | PumpZone$ Graveyard | AILogic$ ReplaySpell
+SVar:TrigFlashbackUnsaddled:DB$ Pump | Defined$ Targeted | KW$ Flashback | PumpZone$ Graveyard | AILogic$ ReplaySpell

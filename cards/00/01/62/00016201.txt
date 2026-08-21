@@ -1,9 +1,16 @@
 Id:16201
-ColorIdentity:W
+ColorIdentity:U
 OriginSet:G70d19654882197c9
-ManaCost:1 W
-Types:Creature Spirit Cleric
-PT:2/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature | NumAtt$ +1 | NumDef$ +1
-SVar:PlayMain1:TRUE
+ManaCost:2 U
+Types:Creature Human
+PT:2/3
+A:AB$ Mill | Cost$ T | Defined$ You | NumCards$ 2 | SubAbility$ DBTransform
+SVar:DBTransform:DB$ SetState | Defined$ Self | Mode$ Transform | ConditionCheckSVar$ X | ConditionSVarCompare$ GE1
+SVar:X:Count$ValidGraveyard Creature.YouOwn+Colorless
+AlternateMode:DoubleFaced
+ALTERNATE
+ManaCost:no cost
+Types:Creature Eldrazi Fish
+PT:4/5
+A:AB$ Effect | Cost$ 6 | StaticAbilities$ MustAttack
+SVar:MustAttack:Mode$ MustAttack | ValidCreature$ Creature.OppCtrl

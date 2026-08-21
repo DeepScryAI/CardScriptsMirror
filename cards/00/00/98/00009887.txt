@@ -1,8 +1,10 @@
 Id:9887
-ColorIdentity:R
+ColorIdentity:
 OriginSet:G0388e25893b1e049
-ManaCost:3 R
-Types:Sorcery
-A:SP$ Pump | ValidTgts$ Permanent.nonEnchantment | TargetMin$ 3 | TargetMax$ 3 | IsCurse$ True | SubAbility$ DBChooseRandom
-SVar:DBChooseRandom:DB$ ChooseCard | Defined$ You | Amount$ 1 | AtRandom$ True | DefinedCards$ Targeted | SubAbility$ DBDestroy
-SVar:DBDestroy:DB$ Destroy | Defined$ ChosenCard
+ManaCost:5
+Types:Artifact Creature Scarecrow
+PT:6/6
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ DelTrig
+T:Mode$ Blocks | ValidCard$ Card.Self | Execute$ DelTrig | Secondary$ True
+SVar:DelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ EndCombat | Execute$ TrigAddCounter
+SVar:TrigAddCounter:DB$ PutCounter | Defined$ Self | CounterType$ M1M1 | CounterNum$ 1

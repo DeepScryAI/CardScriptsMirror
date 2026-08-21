@@ -1,8 +1,13 @@
 Id:27509
-ColorIdentity:U
-OriginSet:G7579344e30f8be85
-ManaCost:6 U
-Types:Instant
-S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ X | EffectZone$ All
-SVar:X:PlayerCountPlayers$AttackersDeclared
-A:SP$ Draw | NumCards$ 3
+ColorIdentity:B
+OriginSet:G4e034c55e7afd8b4
+ManaCost:5 B B
+Types:Enchantment
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True | ChangeNum$ 1 | Mandatory$ True | ValidTgts$ Creature
+AlternateMode:Adventure
+ALTERNATE
+ManaCost:1 B
+Types:Sorcery Adventure
+A:SP$ Pump | ValidTgts$ Creature | NumAtt$ -3 | NumDef$ -3 | SubAbility$ DBGainLife | IsCurse$ True
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2

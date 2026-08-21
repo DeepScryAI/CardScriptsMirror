@@ -1,10 +1,13 @@
 Id:30829
-ColorIdentity:G
-OriginSet:G2c8286a6f234d4b9
-ManaCost:4 G
-Types:Creature Dinosaur Beast
-PT:5/5
-T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigImmediateTrig
-SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ 2 G | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | Defined$ Targeted | KW$ Trample
+ColorIdentity:UB
+OriginSet:Gc5a2f0ff902c0621
+ManaCost:1 U B
+Types:Creature Nightmare Bird
+PT:2/2
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+T:Mode$ Attacks | ValidCard$ Card.Self | Secondary$ True | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | SubAbility$ TrigDiscard
+SVar:TrigDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ TgtChoose
+S:Mode$ Continuous | Affected$ Card.Self | AddPower$ 1 | AddToughness$ 1 | AddKeyword$ Deathtouch | Condition$ Threshold
+SVar:HasAttackEffect:TRUE

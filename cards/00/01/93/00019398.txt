@@ -1,12 +1,9 @@
 Id:19398
-ColorIdentity:B
+ColorIdentity:W
 OriginSet:G9d37112ca6693432
-ManaCost:2 B B
-Types:Creature Zombie Shapeshifter
-PT:3/3
-A:AB$ Pump | Cost$ B | KW$ Menace | Defined$ Self
-A:AB$ Pump | Cost$ B | Defined$ Self | KW$ Deathtouch
-A:AB$ Pump | Cost$ B | Defined$ Self | KW$ Undying
-A:AB$ GenericChoice | Cost$ 1 | Choices$ PumpAtt,PumpDef
-SVar:PumpAtt:DB$ Pump | Defined$ Self | NumAtt$ +1 | NumDef$ -1
-SVar:PumpDef:DB$ Pump | Defined$ Self | NumAtt$ -1 | NumDef$ +1
+ManaCost:1 W W
+Types:Enchantment
+T:Mode$ ChangesZone | ValidCard$ Creature.YouCtrl | Origin$ Any | Destination$ Battlefield | TriggerZones$ Battlefield | Execute$ TrigGainLife
+SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1 | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Self | Power$ 3 | Toughness$ 3 | Types$ Creature,Angel | Keywords$ Flying | ConditionDefined$ Self | ConditionPresent$ Card.nonCreature
+SVar:BuffedBy:Creature

@@ -1,8 +1,10 @@
 Id:13431
-ColorIdentity:WR
+ColorIdentity:UR
 OriginSet:G9b1658d4f3a50109
-ManaCost:3 R W
-Types:Creature Minotaur Soldier
-PT:5/3
-T:Mode$ DamageDoneOnce | ValidSource$ Instant.YouCtrl,Sorcery.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 667080690 | TokenOwner$ You
+ManaCost:4 U R
+Types:Sorcery
+A:SP$ Draw | NumCards$ 3 | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBDamage
+SVar:DBDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$CardManaCost

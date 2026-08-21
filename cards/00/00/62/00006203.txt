@@ -1,9 +1,10 @@
 Id:6203
-ColorIdentity:U
+ColorIdentity:W
 OriginSet:G0085c354434a9ecc
-ManaCost:2 U
-Types:Creature Octopus Wizard
-PT:1/2
-S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self
-A:AB$ Effect | Cost$ T Sac<1/CARDNAME> | ValidTgts$ Creature | RememberObjects$ Targeted | StaticAbilities$ STUnblockable
-SVar:STUnblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+ManaCost:3 W W
+Types:Creature Bird Cleric
+PT:2/2
+K:Flying
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Exile | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | ValidTgts$ Permanent.Bird,Permanent.Cleric | TargetsWithDefinedController$ TriggeredCardController | TargetMin$ 0 | TargetMax$ 2 | Origin$ Graveyard | Destination$ Battlefield

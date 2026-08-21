@@ -1,10 +1,11 @@
 Id:31603
-ColorIdentity:W
-OriginSet:G530ea9d733a13e9d
-ManaCost:4 W
-Types:Legendary Creature Human Soldier
-PT:2/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone
-SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.cmcLE3+YouOwn | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ X
-SVar:X:Count$Valid Creature.YouCtrl
+ColorIdentity:UBG
+OriginSet:Gf2b808f4f642ac62
+ManaCost:1 B G U
+Types:Creature Dragon
+PT:3/3
+K:Flying
+T:Mode$ ChangesZoneAll | Origin$ Graveyard | Destination$ Any | ValidCards$ Card.YouOwn | PlayerTurn$ True | Execute$ TrigToken | TriggerZones$ Battlefield
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 3851718391
+A:AB$ Pump | Cost$ 2 B G U ExileFromGrave<1/CARDNAME/this card> | ActivationZone$ Graveyard | ValidTgts$ Creature | SorcerySpeed$ True | SubAbility$ DBCounter
+SVar:DBCounter:DB$ PutCounterAll | ValidCards$ Creature.targetedBy | CounterType$ P1P1 | CounterNum$ 2 | CounterType2$ Flying | CounterNum2$ 1

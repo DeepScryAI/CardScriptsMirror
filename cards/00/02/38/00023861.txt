@@ -1,10 +1,12 @@
 Id:23861
-ColorIdentity:B
-OriginSet:Gfdfe2ebef04be34e
-ManaCost:3 B B
-Types:Creature Nightmare Angel
-PT:5/3
-K:Flying
-R:Event$ DamageDone | ActiveZones$ Battlefield | ValidTarget$ You | ReplaceWith$ DoubleMill | AlwaysReplace$ True | PreventionEffect$ True
-SVar:DoubleMill:DB$ Mill | Defined$ ReplacedTarget | NumCards$ X
-SVar:X:ReplaceCount$DamageAmount/Twice
+ColorIdentity:UR
+OriginSet:G5f5d8cfb206e2fac
+ManaCost:2 U R
+Types:Enchantment
+T:Mode$ SpellCast | ValidCard$ Instant.wasCastFromYourHandByYou,Sorcery.wasCastFromYourHandByYou | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigManifest
+SVar:TrigManifest:DB$ Manifest
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.faceDown+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | Defined$ TriggeredCard | ConditionDefined$ TriggeredCard | ConditionPresent$ Instant,Sorcery | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ Play | ForgetOnMoved$ Exile | Duration$ UntilTheEndOfYourNextTurn | SubAbility$ DBCleanup
+SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered+nonLand | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

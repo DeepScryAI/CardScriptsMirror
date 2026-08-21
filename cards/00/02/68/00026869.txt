@@ -1,11 +1,11 @@
 Id:26869
-ColorIdentity:UG
-OriginSet:G3601f5e223de6c7f
-ManaCost:2 G U
-Types:Instant
-A:SP$ Vote | Defined$ Player | Choices$ DBChangeZone,DBWheel | VoteTiedAbility$ DBWheel
-SVar:DBChangeZone:DB$ ChangeZone | DefinedPlayer$ Player | Origin$ Graveyard | Destination$ Hand | ChangeNum$ 2 | Hidden$ True | SubAbility$ ExileSelf
-SVar:ExileSelf:DB$ ChangeZone | Origin$ Stack | Destination$ Exile
-SVar:DBWheel:DB$ Discard | Mode$ Hand | Defined$ Player | Optional$ True | RememberDiscardingPlayers$ True | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | Defined$ Remembered | NumCards$ 7 | SubAbility$ DBCleanup
+ColorIdentity:B
+OriginSet:G997e3b19a1e94e85
+ManaCost:1 B
+Types:Sorcery
+A:SP$ Charm | Choices$ CemeteryRecruitment,Duress,HumanFrailty | Defined$ You
+SVar:CemeteryRecruitment:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Creature.YouCtrl | SubAbility$ DBDraw | RememberChanged$ True
+SVar:DBDraw:DB$ Draw | ConditionDefined$ Remembered | ConditionPresent$ Card.Zombie | ConditionCompare$ GE1 | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:Duress:DB$ Discard | ValidTgts$ Opponent | Mode$ RevealYouChoose | DiscardValid$ Card.nonCreature+nonLand | NumCards$ 1
+SVar:HumanFrailty:DB$ Destroy | ValidTgts$ Creature.Human

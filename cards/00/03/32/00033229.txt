@@ -1,10 +1,8 @@
 Id:33229
-ColorIdentity:B
-OriginSet:G7ab1fe96128a1641
-ManaCost:2 B
-Types:Creature Goblin
-PT:4/2
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self+counters_GE1_M1M1 | Execute$ TrigChangeZone
-SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | Defined$ TriggeredNewCardLKICopy | RememberChanged$ True | SubAbility$ DBAnimate
-SVar:DBAnimate:DB$ Animate | Defined$ Remembered | RemoveAllAbilities$ True | Duration$ Permanent | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:W
+OriginSet:G530ea9d733a13e9d
+ManaCost:1 W
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.IsCommander+YouOwn | Execute$ TrigDig | TriggerZones$ Battlefield
+T:Mode$ Attacks | ValidCard$ Card.IsCommander+YouOwn | Execute$ TrigDig | TriggerZones$ Battlefield | Secondary$ True
+SVar:TrigDig:DB$ Dig | DigNum$ 6 | ChangeNum$ 1 | Optional$ True | ForceRevealToController$ True | ChangeValid$ Creature.Legendary | RestRandomOrder$ True

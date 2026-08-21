@@ -1,12 +1,13 @@
 Id:22467
-ColorIdentity:R
-OriginSet:G9f95a41d532c0550
-ManaCost:no cost
-Types:Land
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ LandTapped | ReplacementResult$ Updated
-SVar:LandTapped:DB$ Tap | Defined$ Self | ETB$ True | ConditionPresent$ Land.YouCtrl | ConditionCompare$ GT1
-A:AB$ Mana | Cost$ T | Produced$ R
-A:AB$ Animate | Cost$ 3 R | Defined$ Self | Power$ 3 | Toughness$ 2 | Types$ Creature,Goblin | Colors$ Red | OverwriteColors$ True | Triggers$ TrigAttack
-SVar:TrigAttack:Mode$ Attacks | ValidCard$ Creature.Self | Execute$ TrigToken
-SVar:TrigToken:DB$ Token | TokenScriptIds$ 1112542976 | TokenOwner$ You | TokenTapped$ True | TokenAttacking$ True
-SVar:HasAttackEffect:TRUE
+ColorIdentity:B
+OriginSet:G92f7f9489fec5865
+ManaCost:5 B B
+Types:Legendary Creature Devil
+PT:6/6
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Graveyard | ValidCard$ Creature.!token+OppOwn | TriggerZones$ Battlefield | Execute$ TrigReanimate
+SVar:TrigReanimate:AB$ ChangeZone | Cost$ PayLife<X> | Defined$ TriggeredCard | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True | ChangeNum$ 1 | StaticEffect$ Animate
+SVar:Animate:Mode$ Continuous | Affected$ Card.IsRemembered | AddType$ Warlock
+SVar:X:TriggeredCard$CardManaCost
+R:Event$ Moved | ActiveZones$ Battlefield | Origin$ Battlefield | Destination$ Graveyard | ValidLKI$ Warlock.YouCtrl | ReplaceWith$ Exile
+SVar:Exile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | Defined$ ReplacedCard

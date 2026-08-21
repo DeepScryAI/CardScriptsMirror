@@ -1,21 +1,15 @@
 Id:24508
-ColorIdentity:U
-OriginSet:G58bfeff4fb121c8e
-ManaCost:3 U U U
-Types:Legendary Creature Djinn Noble
-PT:5/6
-K:Flying
-K:Ward:2
-A:AB$ Tap | Cost$ 1 U Discard<1/CARDNAME> | ActivationZone$ Hand | ValidTgts$ Permanent.nonLand | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw | Defined$ You | SubAbility$ CalimChooseTwo
-SVar:CalimChooseTwo:DB$ ChooseCard | ConditionCheckSVar$ X | ConditionSVarCompare$ GE2 | Defined$ You | Amount$ 2 | Choices$ Card.catalogId24508+YouOwn+Other | ChoiceZone$ Graveyard | RememberChosen$ True | SubAbility$ CalimExile
-SVar:CalimExile:DB$ ChangeZoneAll | ConditionCheckSVar$ CalimNumRemembered | ConditionSVarCompare$ EQ2 | Origin$ Graveyard | Destination$ Exile | ChangeType$ Card.IsRemembered | RememberChanged$ True | ForgetOtherRemembered$ True | SubAbility$ TrigImmediateTrig
-SVar:TrigImmediateTrig:DB$ ImmediateTrigger | ConditionCheckSVar$ CalimNumRemembered | ConditionSVarCompare$ EQ2 | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZone | Defined$ Self | Origin$ Graveyard | Destination$ Battlefield | Tapped$ True | SubAbility$ DBCleanup
+ColorIdentity:R
+OriginSet:G51fcb7ec0cb81c29
+ManaCost:2 R
+Types:Creature Dragon Rogue Warrior
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigTreasure
+SVar:TrigTreasure:DB$ Token | TokenScriptIds$ 3851718391 | TokenOwner$ You
+T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigSac | TriggerZones$ Battlefield
+SVar:TrigSac:DB$ Sacrifice | Defined$ You | Amount$ X | SacValid$ Treasure | Optional$ True | RememberSacrificed$ True | SubAbility$ TrigImmediateTrig
+SVar:TrigImmediateTrig:DB$ ImmediateTrigger | Execute$ DBPump | ConditionDefined$ RememberedLKI | ConditionPresent$ Card | RememberObjects$ RememberedLKI | SubAbility$ DBCleanup
+SVar:DBPump:DB$ Pump | ValidTgts$ Creature | KW$ DoubleStrike | TargetMin$ 0 | TargetMax$ DBSize
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-T:Mode$ Discarded | ValidCard$ Card.Self | Execute$ TrigConjure | TriggerController$ TriggeredCardController
-SVar:TrigConjure:DB$ MakeCard | Conjure$ True | CatalogId$ 24508 | Zone$ Library | RememberMade$ True | SubAbility$ DBReorder
-SVar:DBReorder:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered | Origin$ Library | Destination$ Library | LibraryPosition$ 6 | SubAbility$ DBCleanup
-SVar:X:Count$ValidGraveyard Card.catalogId24508+YouOwn+Other
-SVar:CalimNumRemembered:Remembered$Amount
-SVar:DiscardMe:1
+SVar:DBSize:TriggerRemembered$Amount
+SVar:X:Count$Valid Treasure.YouCtrl

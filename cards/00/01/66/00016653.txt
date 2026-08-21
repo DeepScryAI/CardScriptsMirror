@@ -1,8 +1,9 @@
 Id:16653
-ColorIdentity:B
+ColorIdentity:
 OriginSet:Ge1d53e4f418bb713
-ManaCost:6 B
-Types:Sorcery
-A:SP$ ChoosePlayer | ValidTgts$ Player | TargetUnique$ True | Choices$ ThisTargetedPlayer | Defined$ You | SubAbility$ DBControlPlayer1
-SVar:DBControlPlayer1:DB$ ControlPlayer | ValidTgts$ Player | TargetUnique$ True | Controller$ Player.Chosen | SubAbility$ DBControlPlayer2
-SVar:DBControlPlayer2:DB$ ControlPlayer | Defined$ Player.Chosen | Controller$ ParentTarget
+ManaCost:2
+Types:Artifact Equipment
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ X | AddToughness$ X
+S:Mode$ CantBeCast | ValidCard$ Card | Condition$ PlayerTurn | Caster$ Opponent | IsPresent$ Card.Self+AttachedTo Creature
+SVar:X:Count$Valid Permanent.YouCtrl$Colors
+K:Equip:2

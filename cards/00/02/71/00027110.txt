@@ -1,10 +1,9 @@
 Id:27110
 ColorIdentity:W
 OriginSet:G6ce0035cfb774934
-ManaCost:1 W
-Types:Creature Halfling Soldier
-PT:2/2
-K:Vigilance
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSac
-SVar:TrigSac:AB$ ImmediateTrigger | Cost$ Sac<1/Card.token/token> | Execute$ TrigExile
-SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Creature.OppCtrl | Duration$ UntilHostLeavesPlay
+ManaCost:2 W
+Types:Creature Human Soldier
+PT:3/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Hand | Destination$ Library | ChangeNum$ 1 | Mandatory$ True | LibraryPosition$ -1 | ConditionPresent$ Creature.Legendary+YouCtrl | ConditionCompare$ EQ0

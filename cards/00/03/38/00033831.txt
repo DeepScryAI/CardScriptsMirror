@@ -1,10 +1,14 @@
 Id:33831
-ColorIdentity:U
-OriginSet:Gf8df2bea26dc6b68
-ManaCost:4 U
-Types:Legendary Creature Merfolk Bard
-PT:2/2
-S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ 3 | EffectZone$ All | CheckSVar$ X | SVarCompare$ GE10
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 2
-SVar:X:Count$Valid Creature.YouCtrl$CardToughness
+ColorIdentity:W
+OriginSet:Gf04404de3fa1525e
+ManaCost:1 W W
+Types:Creature Cat Cleric
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | ValidTgts$ Player | TokenScriptIds$ 707103680 | TokenOwner$ TargetedPlayer | SubAbility$ DBPrepare
+SVar:DBPrepare:DB$ AlterAttribute | Attributes$ Prepared | ConditionCheckSVar$ OppCreatures | ConditionSVarCompare$ GTYourCreatures
+SVar:OppCreatures:PlayerCountOpponents$HighestValid Creature.YouCtrl
+SVar:YourCreatures:Count$Valid Creature.YouCtrl
+AlternateMode:Prepare
+ALTERNATE
+CopyFaceFromId:240

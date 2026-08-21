@@ -1,14 +1,10 @@
 Id:30038
-ColorIdentity:WUG
-OriginSet:G30e4cc621dfc3a2e
-ManaCost:2 G W U
-Types:Legendary Creature Fox Rogue
-PT:3/5
-K:Lifelink
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ X | RememberDrawn$ AllReplaced | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | ChangeType$ Creature | ChangeNum$ 1 | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ0 | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:X:TriggeredDefendingPlayer$CardsInHand/Minus.Y
-SVar:Y:Count$ValidHand Card.YouOwn
-SVar:HasAttackEffect:TRUE
+ColorIdentity:U
+OriginSet:Gf09b85bbcc27770c
+ManaCost:2 U
+Types:Creature Rat Wizard
+PT:3/2
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigSurveil
+SVar:TrigSurveil:DB$ Surveil | Amount$ 1
+S:Mode$ Continuous | Affected$ Creature.OppCtrl | Condition$ Threshold | AddPower$ -1
+SVar:PlayMain1:TRUE

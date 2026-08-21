@@ -1,10 +1,13 @@
 Id:28681
-ColorIdentity:WU
-OriginSet:Ge329d8d60ca65422
-ManaCost:2 W U
-Types:Creature Human Knight
-PT:2/4
+ColorIdentity:WUBRG
+OriginSet:G7ee0e82a2424d636
+ManaCost:W U B R G
+Types:Legendary Creature Dragon Avatar
+PT:6/6
 K:Flying
-T:Mode$ AttackersDeclared | AttackingPlayer$ Player | AttackedTarget$ You | Condition$ AttackerHasUnattackedOpp | TriggerZones$ Battlefield | Execute$ TrigSuppression
-SVar:TrigSuppression:DB$ Effect | ReplacementEffects$ RPrevent | Duration$ UntilEndOfCombat | AILogic$ Fog
-SVar:RPrevent:Event$ DamageDone | Prevent$ True | IsCombat$ True | ActiveZones$ Command | ValidTarget$ You
+K:Hexproof:Card.MultiColor:multicolored
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ DBDamage | TriggerZones$ Battlefield
+SVar:DBDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ X | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ X | ValidTgts$ Player | SubAbility$ DBGain
+SVar:DBGain:DB$ GainLife | LifeAmount$ X
+SVar:X:Count$Valid Card.YouCtrl$DifferentColorPair

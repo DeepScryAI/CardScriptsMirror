@@ -1,8 +1,12 @@
 Id:21154
-ColorIdentity:G
-OriginSet:G72c9c624ceb92bff
-ManaCost:3 G
-Types:Creature Elf Wizard
-PT:3/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+ColorIdentity:U
+OriginSet:G7b2607750b451c25
+ManaCost:1 U
+Types:Creature Merfolk Rogue
+PT:2/1
+K:Kicker:XMin1 X
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self+kicked | Execute$ TrigKicker
+SVar:TrigKicker:DB$ GainControl | ValidTgts$ Artifact.cmcLEX | SubAbility$ DBAttach
+SVar:DBAttach:DB$ Attach | Object$ ParentTarget | Defined$ TriggeredCardLKICopy | ConditionDefined$ ParentTarget | ConditionPresent$ Card.Equipment | ConditionCompare$ GE1
+SVar:X:Count$xPaid

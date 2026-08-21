@@ -1,13 +1,11 @@
 Id:23713
-ColorIdentity:R
-OriginSet:Gd970889168b5769f
-ManaCost:1 R R
-Types:Artifact Creature Equipment Phoenix
-PT:2/2
-K:Flying
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddKeyword$ Flying
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.EquippedBy,Creature.Self | TriggerZones$ Battlefield | Execute$ TrigAnimate
-SVar:TrigAnimate:DB$ Animate | Defined$ TriggeredCard | Triggers$ EquippedCombatDamage | Duration$ Perpetual
-SVar:EquippedCombatDamage:Mode$ DamageDone | ValidSource$ Creature.YouCtrl+equipped | ValidTarget$ Player,Planeswalker | CombatDamage$ True | TriggerZones$ Graveyard | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | Tapped$ True
-K:Reconfigure:R
+ColorIdentity:B
+OriginSet:G1a259dba25660062
+ManaCost:1 B B
+Types:Sorcery
+A:SP$ Charm | MinCharmNum$ 1 | CharmNum$ Count$Compare B GE2.2.1 | Choices$ Exile,Return
+SVar:Exile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Creature,Planeswalker
+SVar:Return:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Creature.YouOwn,Planeswalker.YouOwn
+SVar:B:SVar$A/Plus.E
+SVar:A:Count$Valid Artifact.YouCtrl/LimitMax.1
+SVar:E:Count$Valid Enchantment.YouCtrl/LimitMax.1

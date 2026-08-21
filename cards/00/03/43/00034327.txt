@@ -1,8 +1,11 @@
 Id:34327
-ColorIdentity:
+ColorIdentity:R
 OriginSet:Gcb93bbfc68a40806
-ManaCost:3
+ManaCost:1 R
 Types:Artifact Equipment
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddToughness$ 2 | AddKeyword$ Indestructible
-K:Equip:2:Creature.IsCommander+YouCtrl:commander
-K:Equip:4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 2 | SubAbility$ DBDamage | DamageMap$ True
+SVar:DBDamage:DB$ DealDamage | Defined$ You | NumDmg$ 1 | SubAbility$ DBDamageResolve
+SVar:DBDamageResolve:DB$ DamageResolve
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1 | AddKeyword$ Menace
+K:Equip:2

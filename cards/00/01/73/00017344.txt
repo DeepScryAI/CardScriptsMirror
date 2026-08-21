@@ -1,6 +1,10 @@
 Id:17344
-ColorIdentity:R
+ColorIdentity:W
 OriginSet:Gaa482ed186eee527
-ManaCost:2 R R
-Types:Sorcery
-A:SP$ Goad | Defined$ Valid Creature.YouDontCtrl
+ManaCost:2 W
+Types:Enchantment Aura Curse
+K:Enchant:Player
+SVar:AttachAILogic:Curse
+T:Mode$ AttackersDeclared | AttackedTarget$ Player.EnchantedBy | Execute$ TrigGainLife | TriggerZones$ Battlefield
+SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ TriggeredAttackingPlayer.Opponent+controlsCreature.attacking Player.EnchantedBy | LifeAmount$ 2

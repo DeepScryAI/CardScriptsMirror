@@ -1,9 +1,9 @@
 Id:14760
-ColorIdentity:R
+ColorIdentity:U
 OriginSet:Gfafc221218d3b700
-ManaCost:1 R R
-Types:Creature Human Wizard
-PT:2/2
-K:Flash
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCopy
-SVar:TrigCopy:DB$ CopySpellAbility | ValidTgts$ Instant,Sorcery | TargetType$ Spell | MayChooseTarget$ True
+ManaCost:3 U
+Types:Instant
+A:SP$ Pump | ValidTgts$ Player | SubAbility$ DBGainControl
+SVar:DBGainControl:DB$ GainControl | ValidTgts$ Creature.!attacking | LoseControl$ EOT | TargetMin$ 0 | TargetMax$ 3 | NewController$ ParentTarget | Untap$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ Targeted | ForgetOnMoved$ Battlefield | StaticAbilities$ MustBlock
+SVar:MustBlock:Mode$ MustBlock | ValidCreature$ Card.IsRemembered

@@ -1,22 +1,10 @@
 Id:12250
-ColorIdentity:BG
+ColorIdentity:
 OriginSet:G14de52802b0b467c
-ManaCost:3 G
-Types:Legendary Planeswalker Garruk
-Loyalty:3
-T:Mode$ Always | TriggerZones$ Battlefield | IsPresent$ Card.Self+counters_LE2_LOYALTY | Execute$ TrigTransform
-A:AB$ DealDamage | Cost$ AddCounter<0/LOYALTY> | ValidTgts$ Creature | NumDmg$ 3 | SubAbility$ DamageThis | Planeswalker$ True
-A:AB$ Token | Cost$ AddCounter<0/LOYALTY> | TokenScriptIds$ 4257275070 | TokenOwner$ You | Planeswalker$ True
-SVar:DamageThis:DB$ DealDamage | Defined$ Self | DamageSource$ Targeted | NumDmg$ Y
-SVar:Y:Targeted$CardPower
-SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Colors:green,black
-Types:Legendary Planeswalker Garruk
-Loyalty:0
-A:AB$ Token | Cost$ AddCounter<1/LOYALTY> | TokenScriptIds$ 1240793083 | TokenOwner$ You | Planeswalker$ True
-A:AB$ ChangeZone | Cost$ SubCounter<1/LOYALTY> | UnlessCost$ Sac<1/Creature> | UnlessSwitched$ True | UnlessPayer$ You | Origin$ Library | Destination$ Hand | ChangeType$ Creature | ChangeNum$ 1 | Planeswalker$ True
-A:AB$ PumpAll | Cost$ SubCounter<3/LOYALTY> | ValidCards$ Creature.YouCtrl | KW$ Trample | NumAtt$ +X | NumDef$ +X | Planeswalker$ True | Ultimate$ True
-SVar:X:Count$ValidGraveyard Creature.YouOwn
+ManaCost:4
+Types:Artifact Creature Juggernaut
+PT:5/5
+S:Mode$ MustAttack | ValidCreature$ Card.Self
+R:Event$ Untap | ValidCard$ Card.Self | ValidStepTurnToController$ You | Layer$ CantHappen
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.Other | TriggerZones$ Battlefield | Execute$ TrigUntap
+SVar:TrigUntap:DB$ Untap | Defined$ Self

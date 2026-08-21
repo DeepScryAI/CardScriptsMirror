@@ -1,8 +1,12 @@
 Id:8563
-ColorIdentity:RG
+ColorIdentity:R
 OriginSet:Gf7b8c9355081f53b
-ManaCost:4 G
-Types:Creature Spider
-PT:1/5
-K:Reach
-A:AB$ Pump | Cost$ R | NumAtt$ +1
+ManaCost:2 R R
+Types:Snow Creature Yeti
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | IsPresent$ Card.StrictlySelf | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Creature.OppCtrl | NumDmg$ X | SubAbility$ DBDamage
+SVar:DBDamage:DB$ DealDamage | Defined$ Self | DamageSource$ Targeted | NumDmg$ Y
+A:AB$ ChangeZone | Cost$ 2 S | Origin$ Battlefield | Destination$ Hand | SorcerySpeed$ True
+SVar:X:Count$CardPower
+SVar:Y:Targeted$CardPower

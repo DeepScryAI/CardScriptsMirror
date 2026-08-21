@@ -1,9 +1,10 @@
 Id:6644
-ColorIdentity:W
+ColorIdentity:B
 OriginSet:G983da6aa108b8f13
-ManaCost:1 W
-Types:Instant
-K:Entwine:1 W
-A:SP$ Charm | Choices$ DBPump,DBUntap
-SVar:DBPump:DB$ PumpAll | NumAtt$ +1 | NumDef$ +1 | ValidCards$ Creature.YouCtrl
-SVar:DBUntap:DB$ UntapAll | ValidCards$ Creature.YouCtrl
+ManaCost:1 B B
+Types:Enchantment Aura
+K:Enchant:Artifact
+SVar:AttachAILogic:Curse
+S:Mode$ Continuous | Affected$ Card.EnchantedBy | AddTrigger$ TrigLoseLife | AddSVar$ RelicBaneLoseLife
+SVar:TrigLoseLife:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ RelicBaneLoseLife
+SVar:RelicBaneLoseLife:DB$ LoseLife | LifeAmount$ 2

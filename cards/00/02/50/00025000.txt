@@ -1,7 +1,13 @@
 Id:25000
-ColorIdentity:U
+ColorIdentity:BR
 OriginSet:G3a8b4b9d4649b357
-ManaCost:3 U
-Types:Enchantment
-T:Mode$ SpellCast | ValidCard$ Card.YouCtrl | Execute$ TrigCopyTarget | ValidActivatingPlayer$ You | IsSingleTarget$ True | TriggerZones$ Battlefield | TargetsValid$ Creature.YouCtrl+inZoneBattlefield,Artifact.YouCtrl+inZoneBattlefield
-SVar:TrigCopyTarget:DB$ CopyPermanent | Defined$ TriggeredSpellAbilityTargets | Choices$ Card | NonLegendary$ True
+ManaCost:1 B R
+Types:Legendary Creature Lizard Warlock
+PT:3/3
+K:Menace
+A:AB$ Mana | Cost$ T | Produced$ Combo Any | Amount$ 2 | RestrictValid$ Spell.Creature+Dragon
+S:Mode$ Continuous | Affected$ Creature.Dragon+YouOwn | Condition$ PlayerTurn | MayPlay$ True | MayPlayLimit$ 1 | EffectZone$ Battlefield | AffectedZone$ Graveyard
+T:Mode$ SpellCast | ValidCard$ Dragon.wasCastFromYourGraveyard | ValidActivatingPlayer$ You | Execute$ DBAnimate | TriggerZones$ Battlefield
+SVar:DBAnimate:DB$ Animate | Defined$ TriggeredCardLKICopy | Duration$ Permanent | Triggers$ TrigDieExile
+SVar:TrigDieExile:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Exile

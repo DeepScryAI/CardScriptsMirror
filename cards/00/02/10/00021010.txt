@@ -1,13 +1,12 @@
 Id:21010
-ColorIdentity:G
-OriginSet:G7b2607750b451c25
-ManaCost:3 G G
-Types:Legendary Creature Elemental
-PT:*/*
-S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X | SetToughness$ X
-S:Mode$ Continuous | Affected$ Creature.!token+YouCtrl | AddType$ Forest & Land
-SVar:X:Count$Valid Land.YouCtrl
-SVar:Y:Count$Valid Creature.!token+YouCtrl
-SVar:Z:SVar$X/Plus.Y
-SVar:NeedsToPlayVar:Z GE4
-SVar:BuffedBy:Land,Creature
+ColorIdentity:B
+OriginSet:Gfd5e6da37c69dc53
+ManaCost:B
+Types:Creature Human Rogue
+PT:1/1
+K:Flash
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self,Rogue.Other+YouCtrl | Execute$ TrigMill
+SVar:TrigMill:DB$ Mill | Defined$ Player.Opponent | NumCards$ 2
+SVar:BuffedBy:Rogue
+S:Mode$ Continuous | Affected$ Card.Self | AddPower$ 2 | AddToughness$ 1 | AddKeyword$ Deathtouch | CheckSVar$ X | SVarCompare$ GE8
+SVar:X:PlayerCountOpponents$HighestCardsInGraveyard

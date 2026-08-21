@@ -1,0 +1,11 @@
+Id:34921
+ColorIdentity:W
+OriginSet:Gf8f2990d7136c11d
+ManaCost:1 W
+Types:Legendary Creature Halfling Citizen
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Permanent.token+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigGainLife
+SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1 | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ1 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ2 | SubAbility$ DBPutCounterAll
+SVar:DBPutCounterAll:DB$ PutCounterAll | ValidCards$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1 | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ3
+SVar:X:Count$ResolvedThisTurn

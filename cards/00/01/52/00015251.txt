@@ -1,7 +1,13 @@
 Id:15251
 ColorIdentity:G
 OriginSet:G70acd28f254172ff
-ManaCost:2 G
-Types:Enchantment
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.powerGE3+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+ManaCost:2 G G
+Types:Legendary Creature Elf Warrior
+PT:3/4
+K:Reach
+S:Mode$ Continuous | Affected$ Creature.Elf+Other+YouCtrl | AddPower$ 1 | AddToughness$ 1
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigGainLife
+SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ X
+SVar:X:Count$Valid Creature.YouCtrl+Elf+attacking
+SVar:HasAttackEffect:TRUE
+SVar:PlayMain1:TRUE

@@ -1,10 +1,13 @@
 Id:29849
-ColorIdentity:G
-OriginSet:Gf09b85bbcc27770c
-ManaCost:2 G
-Types:Artifact Food
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange | OptionalDecider$ You
-T:Mode$ Sacrificed | ValidPlayer$ You | ValidCard$ Card.Self | Execute$ TrigChange | Secondary$ True | TriggerZones$ Battlefield | OptionalDecider$ You
-SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | Tapped$ True | ChangeType$ Land.Basic | ShuffleNonMandatory$ True
-A:AB$ GainLife | Cost$ 2 T Sac<1/CARDNAME> | Defined$ You | LifeAmount$ 3
-SVar:SacMe:5
+ColorIdentity:WU
+OriginSet:G01a610e823cce3ca
+ManaCost:2 W U
+Types:Legendary Creature Human Knight
+PT:3/3
+K:Protection:Assassin
+S:Mode$ Continuous | Affected$ Knight.YouCtrl+Other | AddPower$ 2 | AddToughness$ 2 | AddKeyword$ Protection:Assassin
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Creature.OppCtrl | TargetMin$ 0 | TargetMax$ OneEach | TargetsForEachPlayer$ True | Duration$ UntilHostLeavesPlay
+SVar:OneEach:PlayerCountOpponents$Amount
+SVar:PlayMain1:TRUE
+SVar:OblivionRing:TRUE

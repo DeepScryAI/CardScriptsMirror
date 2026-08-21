@@ -1,8 +1,12 @@
 Id:20511
-ColorIdentity:
+ColorIdentity:W
 OriginSet:Gc9c1dd0d52c99ca4
-ManaCost:no cost
-Types:Land
-A:AB$ Mana | Cost$ T | Produced$ C
-A:AB$ Pump | Cost$ 1 T | ValidTgts$ Permanent.YouCtrl | SubAbility$ DBMove | SorcerySpeed$ True
-SVar:DBMove:DB$ MoveCounter | Source$ ParentTarget | ValidTgts$ Permanent | TargetUnique$ True | CounterType$ Any | CounterNum$ 1
+ManaCost:1 W
+Types:Creature Bird
+PT:2/1
+K:Flying
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player.withMoreLandsThanYou | Execute$ ToHand | CombatDamage$ True
+SVar:ToHand:DB$ ChangeZone | Defined$ Self | Origin$ Battlefield | Destination$ Hand | RememberChanged$ True | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Card.Plains | Tapped$ True | ChangeNum$ 1 | ConditionCheckSVar$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Amount

@@ -1,15 +1,10 @@
 Id:21004
-ColorIdentity:B
-OriginSet:G7b2607750b451c25
-ManaCost:X B B B
-Types:Sorcery
-A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | TargetMin$ 0 | TargetMax$ Y | ValidTgts$ Creature.YouOwn+cmcLEX | TargetsWithDifferentCMC$ True
-SVar:X:Count$xPaid
-SVar:Y:Count$ValidGraveyard Creature.YouOwn
-AlternateMode:Modal
-ALTERNATE
-ManaCost:no cost
-Types:Land
-R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ DBTap | ReplacementResult$ Updated
-SVar:DBTap:DB$ Tap | ETB$ True | Defined$ Self | UnlessCost$ PayLife<3> | UnlessPayer$ You
-A:AB$ Mana | Cost$ T | Produced$ B
+ColorIdentity:U
+OriginSet:Gfd5e6da37c69dc53
+ManaCost:2 U
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1 | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ TgtChoose
+T:Mode$ Drawn | ValidCard$ Card.YouOwn | TriggerZones$ Battlefield | Execute$ TrigMill
+SVar:TrigMill:DB$ Mill | NumCards$ 2 | ValidTgts$ Opponent

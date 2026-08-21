@@ -1,10 +1,11 @@
 Id:9161
-ColorIdentity:WUBRG
+ColorIdentity:B
 OriginSet:Gdf2f562751f0d037
-ManaCost:W U B R G
-Types:Legendary Creature Sliver
-PT:7/7
-S:Mode$ Continuous | Affected$ Creature.Sliver | AddPower$ X | AddToughness$ X
-SVar:X:Count$Valid Sliver/Minus.1
-SVar:BuffedBy:Sliver
-SVar:PlayMain1:TRUE
+ManaCost:0
+Colors:black
+Types:Instant
+A:SP$ Destroy | ValidTgts$ Creature.nonBlack | SubAbility$ DBDelTrig
+SVar:DBDelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigLoseGame
+SVar:TrigLoseGame:DB$ LosesGame | UnlessCost$ 2 B | UnlessPayer$ You | Defined$ You
+SVar:NeedsToPlayVar:NumLands GE3
+SVar:NumLands:Count$Valid Land.YouCtrl

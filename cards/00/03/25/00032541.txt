@@ -1,8 +1,13 @@
 Id:32541
-ColorIdentity:B
-OriginSet:G1f5998b5f01949b9
-ManaCost:3 B
-Types:Legendary Creature Symbiote Dragon Villain
-PT:3/3
-K:Flying
-K:Deathtouch
+ColorIdentity:W
+OriginSet:G66b3a7eeabd9000e
+ManaCost:3 W
+Types:Enchantment Aura
+K:Enchant:Land
+SVar:AttachAILogic:Pump
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ 3 | TokenScriptIds$ 1675666450 | TokenOwner$ You
+S:Mode$ Continuous | Affected$ Land.AttachedBy | AddAbility$ FriendlyPump
+SVar:FriendlyPump:AB$ Pump | Cost$ 1 T | ValidTgts$ Creature | NumAtt$ +X | NumDef$ +X | SorcerySpeed$ True
+SVar:X:Count$Valid Creature.YouCtrl
+SVar:NonStackingAttachEffect:True

@@ -1,10 +1,9 @@
 Id:13928
-ColorIdentity:G
+ColorIdentity:B
 OriginSet:G6645ca87da6316d5
-ManaCost:4 G
+ManaCost:6 B
 Types:Enchantment
-R:Event$ CreateToken | ActiveZones$ Battlefield | ReplaceWith$ DoubleToken
-SVar:DoubleToken:DB$ ReplaceToken | Type$ Amount
-R:Event$ AddCounter | ActiveZones$ Battlefield | ValidCard$ Creature.inZoneBattlefield | ValidCounterType$ P1P1 | ReplaceWith$ DoubleCounters
-SVar:DoubleCounters:DB$ ReplaceCounter | ValidCounterType$ P1P1 | Amount$ X
-SVar:X:ReplaceCount$CounterNum/Twice
+S:Mode$ Continuous | Affected$ Player | SetMaxHandSize$ Unlimited
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Opponent | TriggerZones$ Battlefield | Execute$ TrigDmg
+SVar:TrigDmg:DB$ DealDamage | NumDmg$ X | Defined$ TriggeredPlayer
+SVar:X:TriggeredPlayer$CardsInHand

@@ -1,14 +1,13 @@
 Id:23322
-ColorIdentity:W
-OriginSet:Gbe3783f336562357
-ManaCost:1 W W
-Types:Sorcery
-A:SP$ ChangeZoneAll | Origin$ Battlefield | Destination$ Exile | ChangeType$ Artifact.cmcLE3,Creature.cmcLE3 | RememberChanged$ True | SubAbility$ DBAnimate
-SVar:DBAnimate:DB$ Animate | Duration$ Perpetual | Defined$ Remembered | staticAbilities$ RaiseCost | Replacements$ ReplaceETB | SubAbility$ DBMayPlayEffect
-SVar:RaiseCost:Mode$ RaiseCost | ValidCard$ Card.Self | Type$ Spell | Amount$ 2 | EffectZone$ All
-SVar:ReplaceETB:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ ETBTapped | ReplacementResult$ Updated
-SVar:ETBTapped:DB$ Tap | ETB$ True | Defined$ ReplacedCard
-SVar:ETBTappedDesc:Mode$ Continuous | Affected$ Card.Self
-SVar:DBMayPlayEffect:DB$ Effect | RememberObjects$ Remembered | StaticAbilities$ OwnerMayPlay | Duration$ Permanent | SubAbility$ DBCleanup | ForgetOnMoved$ Exile
-SVar:OwnerMayPlay:Mode$ Continuous | Affected$ Card.IsRemembered | AffectedZone$ Exile | MayPlay$ True | MayPlayPlayer$ CardOwner
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+ColorIdentity:U
+OriginSet:G6e75ff4f143a3dc3
+ManaCost:3 U
+Types:Creature Zombie
+PT:3/3
+K:Exploit
+T:Mode$ Exploited | ValidCard$ Creature | ValidSource$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigChangeZone
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Instant.YouCtrl,Sorcery.YouCtrl
+SVar:X:Count$ValidGraveyard Instant.YouOwn,Sorcery.YouOwn/LimitMax.1
+SVar:Y:Count$Valid Creature.token,Creature.cmcLE2/LimitMax.1
+SVar:Z:SVar$X/Plus.Y
+SVar:NeedsToPlayVar:Z EQ2

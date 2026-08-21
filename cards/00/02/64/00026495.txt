@@ -1,11 +1,12 @@
 Id:26495
-ColorIdentity:U
-OriginSet:G06757f68e16377c2
-ManaCost:1 U
-Types:Creature Faerie Rogue
-PT:2/1
-K:Flash
-K:Flying
-T:Mode$ Drawn | ValidPlayer$ Opponent | Number$ 2 | TriggerZones$ Battlefield | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
-A:AB$ Draw | Cost$ 3 U | Defined$ Player
+ColorIdentity:B
+OriginSet:Gd5f5e54fa26ae40d
+ManaCost:4 B B
+Types:Creature Phyrexian Giant
+PT:6/6
+K:Deathtouch
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigMill | Secondary$ True | TriggerZones$ Battlefield
+SVar:TrigMill:DB$ Mill | Defined$ You | NumCards$ 2 | SubAbility$ DBIncubate
+SVar:DBIncubate:DB$ Incubate | Amount$ X
+SVar:X:Count$ValidGraveyard Creature.YouCtrl

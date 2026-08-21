@@ -1,9 +1,13 @@
 Id:33219
-ColorIdentity:G
-OriginSet:G7ab1fe96128a1641
-ManaCost:3 G
-Types:Enchantment
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSearch
-SVar:TrigSearch:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Land.Basic | ChangeNum$ X
-S:Mode$ Continuous | Affected$ You | AdjustLandPlays$ 1
-SVar:X:Count$Valid Permanent.YouCtrl$Colors
+ColorIdentity:R
+OriginSet:G530ea9d733a13e9d
+ManaCost:X R R
+Types:Instant
+A:SP$ Pump | ValidTgts$ Creature.blocked+YouCtrl | NumAtt$ +X | KW$ Trample | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Targeted | Triggers$ DamageTrig
+SVar:DamageTrig:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigDig | CombatDamage$ True
+SVar:TrigDig:DB$ Dig | DigNum$ Y | ChangeNum$ 1 | ChangeValid$ Card.nonLand | Optional$ True | RememberChanged$ True | DestinationZone$ Exile | RestRandomOrder$ True | SubAbility$ DBCast
+SVar:DBCast:DB$ Play | Valid$ Card.IsRemembered | ValidZone$ Exile | ValidSA$ Spell | WithoutManaCost$ True | Optional$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:Y:TriggerCount$DamageAmount
+SVar:X:Count$xPaid

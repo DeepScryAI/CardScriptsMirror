@@ -1,0 +1,11 @@
+Id:20134
+ColorIdentity:B
+OriginSet:G00aff909a83a7400
+ManaCost:4 B B B B
+Types:Creature Zombie Giant
+PT:8/4
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigAnimate
+SVar:TrigAnimate:DB$ Animate | ValidTgts$ Land | TargetMin$ 2 | TargetMax$ 2 | Types$ Swamp | RemoveLandTypes$ True | Duration$ Permanent | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Exile
+A:AB$ Tap | Cost$ 3 T | ValidTgts$ Creature | SubAbility$ DBBounce
+SVar:DBBounce:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand

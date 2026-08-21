@@ -1,12 +1,8 @@
 Id:34638
-ColorIdentity:BG
-OriginSet:G107f89901a23d4e2
-ManaCost:3 B G
-Types:Legendary Creature Troll
-PT:5/5
-A:AB$ Draw | Cost$ 1 Sac<1/Creature.Other/another creature> | NumCards$ X | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | NumCards$ 1 | Mode$ TgtChoose
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self+Creature | Execute$ DBReturn
-SVar:DBReturn:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Battlefield | StaticEffect$ Animate | GainControl$ True
-SVar:Animate:Mode$ Continuous | Affected$ Card.IsRemembered | AddType$ Artifact | RemoveCardTypes$ True
-SVar:X:Sacrificed$CardPower
+ColorIdentity:G
+OriginSet:Gcb93bbfc68a40806
+ManaCost:2 G
+Types:Legendary Creature Mutant Berserker Hero
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Mutant.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ TriggeredCardLKICopy & Self | CounterType$ P1P1

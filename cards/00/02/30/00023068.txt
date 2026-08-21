@@ -1,7 +1,12 @@
 Id:23068
-ColorIdentity:U
-OriginSet:G7a76c1974b0a33a6
-ManaCost:3 U
-Types:Enchantment
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Zombie.!token+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigCopy
-SVar:TrigCopy:DB$ CopyPermanent | Defined$ TriggeredCardLKICopy
+ColorIdentity:BR
+OriginSet:Gf78628ad511eefec
+ManaCost:B R
+Types:Creature Vampire Noble
+PT:2/2
+K:Menace
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | CheckSVar$ X | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounterAll | ValidCards$ Vampire.YouCtrl+StrictlyOther | CounterType$ P1P1 | CounterNum$ 1
+K:ETBReplacement:Other:AddExtraCounter:Mandatory:Battlefield:Vampire.YouCtrl+Other
+SVar:AddExtraCounter:DB$ PutCounter | ETB$ True | Defined$ ReplacedCard | CounterType$ P1P1 | CounterNum$ 1 | ConditionCheckSVar$ X
+SVar:X:Count$LifeOppsLostThisTurn

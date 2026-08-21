@@ -1,9 +1,10 @@
 Id:7315
-ColorIdentity:U
+ColorIdentity:
 OriginSet:G332b6b8a53f3d107
-ManaCost:3 U U
-Types:Creature Spirit
-PT:3/3
-K:Flying
-T:Mode$ SpellCast | ValidCard$ Spirit,Arcane | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigTapOrUntap
-SVar:TrigTapOrUntap:DB$ TapOrUntap | ValidTgts$ Creature
+ManaCost:6
+Types:Legendary Artifact Equipment
+K:Equip:3
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 5 | AddToughness$ 5
+A:AB$ Token | Cost$ 6 Exile<1/CARDNAME> | TokenScriptIds$ 2514422336 | TokenOwner$ You | RememberTokens$ True | SubAbility$ DelTrig
+SVar:DelTrig:DB$ DelayedTrigger | Mode$ ChangesZone | ValidCard$ Card.IsTriggerRemembered | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigReturn | RememberObjects$ Remembered & ExiledCards
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Exile | Destination$ Battlefield | Defined$ DelayTriggerRememberedLKI

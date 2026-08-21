@@ -1,20 +1,12 @@
 Id:23006
-ColorIdentity:B
-OriginSet:G8a59924df6623252
-ManaCost:no cost
-Types:Legendary Land
-A:AB$ Mana | Cost$ T | Produced$ C
-A:AB$ Investigate | Cost$ 4 T
-T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ ClueResearch | SVarCompare$ GE3 | Execute$ TrigTransform
-SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform
-SVar:ClueResearch:PlayerCountPropertyYou$SacrificedThisTurn Clue
-AlternateMode:DoubleFaced
-ALTERNATE
-ManaCost:no cost
-Types:Legendary Land
-T:Mode$ Transformed | ValidCard$ Card.Self | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZone | ValidTgts$ Creature.YouOwn | Origin$ Graveyard | Destination$ Battlefield | RememberTargets$ True
-T:Mode$ ChangesZone | ValidCard$ Card.IsRemembered | Origin$ Battlefield | Destination$ Any | Execute$ TrigTransform2 | TriggerZones$ Battlefield
-SVar:TrigTransform2:DB$ SetState | Defined$ Self | Mode$ Transform | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-A:AB$ Mana | Cost$ T PayLife<1> | Produced$ B
+ColorIdentity:WR
+OriginSet:Gf78628ad511eefec
+ManaCost:1 R W
+Types:Legendary Creature Human Knight
+PT:2/3
+K:Flying
+K:Haste
+R:Event$ DamageDone | ActiveZones$ Battlefield | ValidSource$ Spell | ValidTarget$ You,Permanent.YouCtrl+Other | Prevent$ True
+R:Event$ DamageDone | ActiveZones$ Battlefield | ValidSource$ Spell | ValidTarget$ Permanent.OppCtrl,Opponent | ReplaceWith$ DmgPlus1
+SVar:DmgPlus1:DB$ ReplaceEffect | VarName$ DamageAmount | VarValue$ X
+SVar:X:ReplaceCount$DamageAmount/Plus.1

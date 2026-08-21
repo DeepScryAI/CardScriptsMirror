@@ -1,9 +1,11 @@
 Id:26170
-ColorIdentity:G
+ColorIdentity:RG
 OriginSet:G2192e8955d5e1ad1
-ManaCost:5 G
-Types:Creature Phyrexian Beast
-PT:6/5
-K:Reach
-K:Trample
-S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self | ValidBlocker$ Creature.withFlying
+ManaCost:4 R G
+Types:Creature Phyrexian Warrior
+PT:5/5
+K:Vigilance
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ X | EffectZone$ All
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DamageAll | ValidCards$ Creature.OppCtrl | NumDmg$ 1
+SVar:X:Count$Valid Permanent.YouCtrl+counters_GE1_OIL

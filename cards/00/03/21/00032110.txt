@@ -1,9 +1,26 @@
 Id:32110
-ColorIdentity:W
-OriginSet:G9946f072b5556073
-ManaCost:2 W
-Types:Creature Human Soldier
-PT:2/2
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZone | ValidTgts$ Permanent.Other+YouCtrl | TargetMin$ 0 | TargetMax$ 1 | Origin$ Battlefield | Destination$ Hand
+ColorIdentity:BG
+OriginSet:G7ab4f62d323b0ca7
+ManaCost:3 G
+Types:Legendary Creature Human Cleric
+PT:3/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill
+SVar:TrigMill:DB$ Mill | NumCards$ 2 | Defined$ You | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | Mandatory$ True | ChangeType$ Permanent.YouOwn | Hidden$ True
+T:Mode$ Phase | Phase$ Main1 | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ Meld | IsPresent$ Card.Self+YouCtrl+YouOwn | IsPresent2$ Creature.YouCtrl+YouOwn+catalogId31908
+SVar:Meld:AB$ Meld | Cost$ 3 B G | CatalogId$ 32002 | PrimaryCatalogId$ 32110 | SecondaryCatalogId$ 31908
+MeldPairId:31908
+AlternateMode:Meld
+ALTERNATE
+ManaCost:no cost
+Colors:black,green
+Types:Legendary Creature Beast Avatar
+PT:7/6
+K:Vigilance
+K:Menace
+K:Trample
+K:Reach
+K:Haste
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Permanent | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | ValidTgts$ Permanent.YouOwn+nonLegendary | Origin$ Graveyard | Destination$ Battlefield

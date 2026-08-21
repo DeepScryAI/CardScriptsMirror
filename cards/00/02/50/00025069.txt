@@ -1,8 +1,13 @@
 Id:25069
-ColorIdentity:B
-OriginSet:G9afc9838c5e994df
-ManaCost:2 B
-Types:Creature Vampire Assassin
-PT:1/3
-K:Flying
-K:Deathtouch
+ColorIdentity:W
+OriginSet:G3a8b4b9d4649b357
+ManaCost:3 W W
+Types:Enchantment Saga
+K:Read ahead
+K:Chapter:3:DBScry,DBChangeZone,DBLoyalty
+SVar:DBScry:DB$ Scry | ScryNum$ 4 | SubAbility$ DBDig
+SVar:DBDig:DB$ Dig | DigNum$ 1 | RevealOptional$ True | RememberRevealed$ True | ChangeNum$ All | ChangeValid$ Planeswalker.IsRemembered | LibraryPosition2$ 0 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | ChangeType$ Planeswalker.cmcLE6 | ChangeNum$ 1
+SVar:DBLoyalty:DB$ Effect | StaticAbilities$ PWTwice
+SVar:PWTwice:Mode$ NumLoyaltyAct | ValidCard$ Planeswalker.YouCtrl | Twice$ True

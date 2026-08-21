@@ -1,10 +1,12 @@
 Id:6538
 ColorIdentity:
 OriginSet:G983da6aa108b8f13
-ManaCost:6
-Types:Artifact Creature Construct
-PT:4/4
-K:Flying
-R:Event$ Untap | ValidCard$ Card.Self | ValidStepTurnToController$ You | Layer$ CantHappen
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigUntap
-SVar:TrigUntap:AB$ Untap | Cost$ 4 | Defined$ Self
+ManaCost:4
+Types:Artifact
+A:AB$ DigUntil | Cost$ 3 T | Valid$ Land | RememberRevealed$ True | RevealedDestination$ Library | RevealedLibraryPosition$ -1 | SubAbility$ DBBelch
+SVar:DBBelch:DB$ DealDamage | ValidTgts$ Any | NumDmg$ X | ConditionCheckSVar$ FoundMountain | ConditionSVarCompare$ EQ0 | SubAbility$ DBDoubleBelch
+SVar:DBDoubleBelch:DB$ DealDamage | Defined$ Targeted | NumDmg$ DoubleX | SubAbility$ DBCleanup | ConditionCheckSVar$ FoundMountain | ConditionSVarCompare$ EQ1
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Valid Card.nonLand
+SVar:DoubleX:Remembered$Valid Card.nonLand/Times.2
+SVar:FoundMountain:Remembered$Valid Card.Mountain

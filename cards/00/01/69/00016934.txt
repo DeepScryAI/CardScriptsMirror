@@ -1,11 +1,13 @@
 Id:16934
-ColorIdentity:BG
+ColorIdentity:BR
 OriginSet:Gbcdce58dfbbf1bad
-ManaCost:3 B G
-Types:Creature Insect
-PT:4/5
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPutCounter
-SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ M1M1 | IsCurse$ True | CounterNum$ 1
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigRemoveCounter
-SVar:TrigRemoveCounter:DB$ RemoveCounter | ValidTgts$ Creature.YouCtrl | CounterType$ M1M1 | CounterNum$ 1 | SubAbility$ DBPutCounter
-SVar:DBPutCounter:DB$ PutCounter | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | CounterType$ M1M1 | CounterNum$ 1 | TargetsWithDefinedController$ TriggeredDefendingPlayer
+ManaCost:1 R
+Types:Sorcery
+A:SP$ DealDamage | ValidTgts$ Creature | NumDmg$ 4
+AlternateMode:Split
+ALTERNATE
+ManaCost:X B B
+Types:Sorcery
+K:Aftermath
+A:SP$ LoseLife | Defined$ Player.Opponent | LifeAmount$ X
+SVar:X:Count$xPaid

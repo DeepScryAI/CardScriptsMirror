@@ -1,13 +1,11 @@
 Id:21041
-ColorIdentity:R
-OriginSet:G7b2607750b451c25
-ManaCost:1 R
-Types:Creature Human Wizard
-PT:1/3
-S:Mode$ Continuous | Affected$ Card.Self | AddPower$ 3 | AddToughness$ 1 | IsPresent$ Instant.YouOwn,Sorcery.YouOwn | PresentZone$ Graveyard | PresentCompare$ GE4
-A:AB$ Dig | Cost$ T Discard<1/Card> | Defined$ You | DigNum$ 2 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBChoose
-SVar:DBChoose:DB$ ChooseCard | Defined$ You | Amount$ 1 | Choices$ Card.IsRemembered | ChoiceZone$ Exile | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | ExileOnMoved$ Exile | RememberObjects$ ChosenCard | SubAbility$ DBCleanup
-SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearChosenCard$ True
-SVar:BuffedBy:Instant,Sorcery
+ColorIdentity:WU
+OriginSet:G2f853d6139309fb0
+ManaCost:3 U U
+Types:Legendary Creature Djinn
+PT:4/4
+K:Flying
+A:AB$ PumpAll | Cost$ 2 WU | ValidCards$ Creature.attacking+withFlying | NumAtt$ +1 | NumDef$ +1
+T:Mode$ AttackersDeclared | AttackingPlayer$ You | ValidAttackers$ Creature.withFlying | ValidAttackersAmount$ GE3 | Execute$ TrigGainControl | TriggerZones$ Battlefield
+SVar:TrigGainControl:DB$ GainControlVariant | AllValid$ Permanent.nonLand | ChangeController$ ChooseFromPlayerToTheirRight
+SVar:PlayMain1:TRUE

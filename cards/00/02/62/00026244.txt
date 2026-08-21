@@ -1,11 +1,10 @@
 Id:26244
-ColorIdentity:UG
-OriginSet:G997e3b19a1e94e85
-ManaCost:2 G U
-Types:Creature Elf Wizard
-PT:2/2
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange | OptionalDecider$ You
-SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | Tapped$ True | ChangeType$ Land.Basic | ShuffleNonMandatory$ True
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigDraw
-SVar:TrigDraw:DB$ Draw | Defined$ TriggeredCardController | NumCards$ 1
-SVar:SacMe:1
+ColorIdentity:WU
+OriginSet:G2192e8955d5e1ad1
+ManaCost:1 W U
+Types:Legendary Creature Phyrexian Elephant Wizard
+PT:1/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ X | SVarCompare$ GE3 | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 3084144023 | TokenOwner$ You
+SVar:X:Count$ThisTurnEntered_Battlefield_Artifact.YouCtrl

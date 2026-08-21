@@ -1,8 +1,13 @@
 Id:28420
-ColorIdentity:R
-OriginSet:G7ee0e82a2424d636
-ManaCost:4 R
-Types:Instant
-R:Event$ Counter | ValidCard$ Card.Self | ValidSA$ Spell | Layer$ CantHappen
-A:SP$ GainControl | ValidTgts$ Creature | LoseControl$ EOT | Untap$ True | AddKWs$ Haste | SubAbility$ DBSuspect
-SVar:DBSuspect:DB$ AlterAttribute | Attributes$ Suspected | Defined$ Targeted
+ColorIdentity:U
+OriginSet:G4155bbd49d5da56f
+ManaCost:X U
+Types:Sorcery
+A:SP$ Seek | Type$ Artifact.nonLand+cmcLEX | RememberFound$ True | SubAbility$ DBPut
+SVar:DBPut:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | Defined$ Remembered | SubAbility$ DBBranch
+SVar:DBBranch:DB$ Branch | BranchConditionSVar$ Remembered$CardManaCost | BranchConditionSVarCompare$ LTX | TrueSubAbility$ DBAnimate | FalseSubAbility$ DBCleanup
+SVar:DBAnimate:DB$ Animate | staticAbilities$ RaiseCost | Duration$ Perpetual | SubAbility$ DBReturn
+SVar:RaiseCost:Mode$ RaiseCost | ValidCard$ Card.Self | Type$ Spell | Amount$ 1 | EffectZone$ All
+SVar:DBReturn:DB$ ChangeZone | Origin$ Stack | Destination$ Hand | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$xPaid

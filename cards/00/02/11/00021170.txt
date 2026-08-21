@@ -1,10 +1,10 @@
 Id:21170
-ColorIdentity:UG
-OriginSet:G72c9c624ceb92bff
-ManaCost:1 G U
-Types:Creature Beast
-PT:2/4
-A:AB$ Mana | Cost$ T | Produced$ Combo G U
-T:Mode$ SpellCast | ValidCard$ Card.kicked | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigGainLife
-SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2
-SVar:BuffedBy:Card.withKicker,Card.withMultikicker
+ColorIdentity:B
+OriginSet:G1e059136f10fb240
+ManaCost:2 B
+Types:Artifact Equipment
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2
+T:Mode$ DamageDone | CombatDamage$ True | ValidSource$ Creature.EquippedBy | ValidTarget$ Player | OptionalDecider$ You | Execute$ TrigEffect | TriggerZones$ Battlefield
+SVar:TrigEffect:DB$ Effect | StaticAbilities$ MayCastGrave | RememberObjects$ TriggeredTarget
+SVar:MayCastGrave:Mode$ Continuous | Affected$ Creature.RememberedPlayerCtrl | MayPlay$ True | MayPlayLimit$ 1 | MayPlayIgnoreType$ True | AffectedZone$ Graveyard
+K:Equip:3

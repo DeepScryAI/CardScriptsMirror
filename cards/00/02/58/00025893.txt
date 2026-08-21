@@ -1,9 +1,12 @@
 Id:25893
-ColorIdentity:B
-OriginSet:Gb879a1706584aeee
-ManaCost:3 B
-Types:Creature Zombie
-PT:4/2
-A:AB$ Token | Cost$ 4 B B ExileFromGrave<1/CARDNAME> | ActivationZone$ Graveyard | SorcerySpeed$ True | TokenAmount$ 2 | TokenScriptIds$ 353162950 | TokenOwner$ You
-SVar:SacMe:3
-SVar:DiscardMe:3
+ColorIdentity:U
+OriginSet:G06ccef4324c14725
+ManaCost:3 U U
+Types:Legendary Planeswalker Teferi
+Loyalty:4
+T:Mode$ Drawn | ValidCard$ Card.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | CounterType$ LOYALTY
+A:AB$ Draw | Cost$ AddCounter<0/LOYALTY> | Planeswalker$ True
+A:AB$ Token | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | TokenScriptIds$ 3528444341
+A:AB$ ChangeZone | Cost$ SubCounter<12/LOYALTY> | Planeswalker$ True | Ultimate$ True | ValidTgts$ Opponent | Origin$ Battlefield | Destination$ Hand | Hidden$ True | Mandatory$ True | ChangeType$ Permanent.TargetedPlayerCtrl | Chooser$ Targeted | SubAbility$ DBShuffleAll
+SVar:DBShuffleAll:DB$ ChangeZoneAll | ChangeType$ Permanent.nonLand+TargetedPlayerCtrl | Origin$ Battlefield | Destination$ Library | Shuffle$ True

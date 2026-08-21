@@ -1,7 +1,11 @@
 Id:33281
-ColorIdentity:W
+ColorIdentity:U
 OriginSet:G7ab1fe96128a1641
-ManaCost:1 W
-Types:Creature Kithkin Soldier
-PT:2/2
-A:AB$ PumpAll | Cost$ 4 W | ValidCards$ Creature.YouCtrl | NumAtt$ +1 | NumDef$ +1
+ManaCost:1 U
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Curse
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigTap
+SVar:TrigTap:DB$ Tap | Defined$ Enchanted
+R:Event$ Untap | ActiveZones$ Battlefield | ValidCard$ Card.EnchantedBy | Layer$ CantHappen
+S:Mode$ CantPutCounter | ValidCard$ Card.EnchantedBy | Secondary$ True

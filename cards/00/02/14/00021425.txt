@@ -1,9 +1,11 @@
 Id:21425
-ColorIdentity:W
+ColorIdentity:G
 OriginSet:G51d431785c8b33e5
-ManaCost:2 W
-Types:Enchantment Aura
-K:Enchant:Creature
-SVar:AttachAILogic:Pump
-S:Mode$ CastWithFlash | ValidCard$ Card.Self | ValidSA$ Spell.IsTargeting Valid Card.IsCommander | EffectZone$ All | Caster$ You
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddKeyword$ Indestructible
+ManaCost:4 G
+Types:Legendary Creature Phyrexian Human Artificer
+PT:1/1
+K:Partner
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 3084144023
+T:Mode$ ChangesZone | ValidCard$ Artifact | Origin$ Battlefield | Destination$ Graveyard | TriggerZones$ Battlefield | Execute$ TrigCounter
+SVar:TrigCounter:DB$ PutCounterAll | ValidCards$ Card.Self,Golem.YouCtrl | CounterType$ P1P1 | CounterNum$ 1

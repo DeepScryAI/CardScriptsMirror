@@ -1,11 +1,8 @@
 Id:19905
-ColorIdentity:G
+ColorIdentity:
 OriginSet:G23be9f486a22d38a
-ManaCost:G
-Types:Creature Bird
-PT:0/2
-K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigFood
-SVar:TrigFood:DB$ Token | TokenScriptIds$ 134855612 | TokenOwner$ You
-A:AB$ Token | Cost$ 1 G T | TokenScriptIds$ 134855612 | TokenOwner$ You
-A:AB$ Mana | Cost$ T Sac<1/Food> | Produced$ Any
+ManaCost:no cost
+Types:Land
+A:AB$ ChangeZone | Cost$ T Sac<1/CARDNAME> | Origin$ Library | Destination$ Battlefield | Tapped$ True | ChangeType$ Land.Basic | RememberChanged$ True | SubAbility$ DBUntap
+SVar:DBUntap:DB$ Untap | Defined$ Remembered | ConditionPresent$ Land.YouCtrl | ConditionCompare$ GE4 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

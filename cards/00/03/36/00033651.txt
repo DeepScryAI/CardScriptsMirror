@@ -1,12 +1,10 @@
 Id:33651
-ColorIdentity:B
-OriginSet:Gf04404de3fa1525e
-ManaCost:1 B B
-Types:Legendary Planeswalker Ral
-Loyalty:3
-A:AB$ Surveil | Cost$ AddCounter<1/LOYALTY> | Amount$ 2 | Planeswalker$ True
-A:AB$ Discard | Cost$ SubCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Player | NumCards$ 1 | Mode$ TgtChoose | TargetMin$ 0 | TargetMax$ MaxTgt
-A:AB$ ChangeZone | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Card.Creature+cmcLE3+YouOwn
-A:AB$ FlipCoin | Cost$ SubCounter<7/LOYALTY> | ValidTgts$ Opponent | Amount$ 5 | NoCall$ True | HeadsSubAbility$ DBSkipTurn | Planeswalker$ True | Ultimate$ True
-SVar:DBSkipTurn:DB$ SkipTurn | NumTurns$ X | Defined$ Targeted
-SVar:MaxTgt:PlayerCountPlayers$Amount
+ColorIdentity:WR
+OriginSet:G23d1f017cc66962f
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGainLife
+SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 1
+A:AB$ Mana | Cost$ T | Produced$ Combo R W

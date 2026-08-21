@@ -1,9 +1,11 @@
 Id:24852
-ColorIdentity:B
+ColorIdentity:U
 OriginSet:G3a8b4b9d4649b357
-ManaCost:2 B
-Types:Creature Nightmare Wall
-PT:2/4
-K:Defender
-A:AB$ GainLife | Cost$ 2 B Sac<1/Creature> | LifeAmount$ 1 | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw
+ManaCost:2 U
+Types:Creature Human Wizard
+PT:2/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | Choices$ DBToken,DBBounce,DBDraw
+SVar:DBToken:DB$ Token | TokenScriptIds$ 2353112250 | TokenOwner$ You
+SVar:DBBounce:DB$ ChangeZone | ValidTgts$ Permanent.Other+nonLand | TgtZone$ Battlefield | Origin$ Battlefield | Destination$ Hand
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1

@@ -1,8 +1,12 @@
 Id:22544
-ColorIdentity:W
+ColorIdentity:R
 OriginSet:G9f95a41d532c0550
-ManaCost:1 W
-Types:Creature Human Soldier
-PT:2/1
-S:Mode$ Continuous | Affected$ You | AddKeyword$ Hexproof
-S:Mode$ CantVenture | ValidPlayer$ Opponent.VenturedThisTurn
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ LandTapped | ReplacementResult$ Updated
+SVar:LandTapped:DB$ Tap | Defined$ Self | ETB$ True | ConditionPresent$ Land.YouCtrl | ConditionCompare$ GT1
+A:AB$ Mana | Cost$ T | Produced$ R
+A:AB$ Animate | Cost$ 3 R | Defined$ Self | Power$ 3 | Toughness$ 2 | Types$ Creature,Goblin | Colors$ Red | OverwriteColors$ True | Triggers$ TrigAttack
+SVar:TrigAttack:Mode$ Attacks | ValidCard$ Creature.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 1112542976 | TokenOwner$ You | TokenTapped$ True | TokenAttacking$ True
+SVar:HasAttackEffect:TRUE

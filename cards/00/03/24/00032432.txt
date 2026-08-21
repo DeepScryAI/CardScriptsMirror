@@ -1,9 +1,11 @@
 Id:32432
-ColorIdentity:G
-OriginSet:G66b3a7eeabd9000e
-ManaCost:3 G
-Types:Creature Human Warrior Performer
-PT:4/4
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ DBToken
-SVar:DBToken:DB$ Token | TokenScriptIds$ 3851718391 | TokenOwner$ You
-S:Mode$ MinMaxBlocker | ValidCard$ Card.Self | Max$ 1
+ColorIdentity:
+OriginSet:G9946f072b5556073
+ManaCost:7
+Types:Legendary Artifact
+T:Mode$ LandPlayed | ValidCard$ Land.YouCtrl | Execute$ TrigDraw | TriggerZones$ Battlefield
+T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ You | Execute$ TrigDraw | TriggerZones$ Battlefield | Secondary$ True
+SVar:TrigDraw:DB$ Draw
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigSetLife
+SVar:TrigSetLife:DB$ SetLife | Defined$ You | LifeAmount$ X
+SVar:X:Count$YourStartingLife/HalfUp

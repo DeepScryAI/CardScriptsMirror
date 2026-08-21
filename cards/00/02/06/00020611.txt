@@ -1,8 +1,11 @@
 Id:20611
-ColorIdentity:U
+ColorIdentity:WBG
 OriginSet:Gf8d4de878d0536c5
-ManaCost:3 U U
-Types:Instant
-A:SP$ Tap | TargetMin$ 0 | TargetMax$ 2 | ValidTgts$ Creature | SubAbility$ TrigPump
-SVar:TrigPump:DB$ Pump | Defined$ Targeted | KW$ HIDDEN This card doesn't untap during your next untap step. | Duration$ Permanent
-K:Cycling:1
+ManaCost:W B G
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl+!token | TriggerZones$ Battlefield | Execute$ TrigMill
+SVar:TrigMill:DB$ Mill | NumCards$ 2 | Defined$ You | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ChangeType$ Creature.YouOwn+cmcLTY | Hidden$ True | ChangeNum$ 1
+SVar:Y:TriggeredCard$CardManaCost
+A:AB$ GainLife | Cost$ 1 Sac<1/CARDNAME> | LifeAmount$ X
+SVar:X:Count$Valid Creature.YouCtrl$GreatestCardManaCost

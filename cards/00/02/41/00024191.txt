@@ -1,12 +1,11 @@
 Id:24191
-ColorIdentity:R
-OriginSet:G51fcb7ec0cb81c29
-ManaCost:2 R
-Types:Creature Demon
-PT:3/2
-K:Menace
-S:Mode$ CantBlock | ValidCard$ Creature.IsGoaded+OppCtrl
-T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | Execute$ DBGoad | TriggerZones$ Battlefield
-SVar:DBGoad:DB$ Goad | ValidTgts$ Creature.OppCtrl
-SVar:BuffedBy:Card.nonCreature
-SVar:HasAttackEffect:TRUE
+ColorIdentity:WU
+OriginSet:Gcf5d9b1e2ed6c496
+ManaCost:W U
+Types:Instant
+A:SP$ ChangeZone | ValidTgts$ Creature.nonArtifact+YouCtrl | Origin$ Battlefield | Destination$ Exile | RememberTargets$ True | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Remembered | Replacements$ ETBAddCounter | Duration$ Perpetual | SubAbility$ DBReturn
+SVar:ETBAddCounter:Event$ Moved | Destination$ Battlefield | ValidCard$ Card.Self | ReplaceWith$ ETBAddExtraCounter | ReplacementResult$ Updated
+SVar:ETBAddExtraCounter:DB$ PutCounter | ETB$ True | Defined$ ReplacedCard | CounterType$ SHIELD
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ All | Destination$ Battlefield | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

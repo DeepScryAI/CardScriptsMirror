@@ -1,10 +1,11 @@
 Id:15057
 ColorIdentity:W
 OriginSet:Gdb18f239871b8cef
-ManaCost:1 W
+ManaCost:W
 Types:Enchantment Aura
 K:Enchant:Creature
 SVar:AttachAILogic:Pump
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddKeyword$ Vigilance | AddAbility$ ABBolster | AddPower$ X | AddToughness$ X
-SVar:ABBolster:AB$ PutCounter | Cost$ W T | Bolster$ 1
-SVar:X:Count$Valid Creature.YouCtrl+!EnchantedBy$CardCounters.P1P1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigTap
+SVar:TrigTap:DB$ Tap | ValidTgts$ Creature.OppCtrl
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 1 | AddToughness$ 3
+SVar:PlayMain1:TRUE

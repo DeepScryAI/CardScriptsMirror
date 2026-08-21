@@ -1,7 +1,11 @@
 Id:4274
-ColorIdentity:R
+ColorIdentity:B
 OriginSet:Gdd40b2fbd2aa3c03
-ManaCost:2 R
-Types:Enchantment
-R:Event$ Moved | ValidCard$ Creature | ValidCause$ LandAbility.OppCtrl,Spell.wasCast+Permanent+CastSa Spell.OppCtrl | Destination$ Battlefield | ReplaceWith$ ETBTapped | ReplacementResult$ Updated | ActiveZones$ Battlefield
-SVar:ETBTapped:DB$ Tap | ETB$ True | Defined$ ReplacedCard
+ManaCost:3 B B
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAITgts:Card.powerGE3
+SVar:AttachAILogic:Curse
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Player.EnchantedController | TriggerZones$ Battlefield | Execute$ TrigDamage
+SVar:TrigDamage:DB$ DealDamage | Defined$ TriggeredPlayer | NumDmg$ X | UnlessCost$ Sac<1/Creature.!EnchantedBy> | UnlessPayer$ EnchantedController
+SVar:X:Enchanted$CardPower

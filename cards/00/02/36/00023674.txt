@@ -1,11 +1,8 @@
 Id:23674
-ColorIdentity:B
+ColorIdentity:U
 OriginSet:G1a259dba25660062
-ManaCost:2 B
-Types:Creature Spirit
-PT:2/3
-K:Menace
-T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigReturn
-SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouOwn+cmcLEX
-SVar:X:Count$Valid Creature.YouCtrl+modified
-SVar:HasAttackEffect:TRUE
+ManaCost:1 U
+Types:Instant
+A:SP$ ChangeZone | ValidTgts$ Artifact,Creature | Origin$ Battlefield | Destination$ Exile | RememberTargets$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | WithCountersType$ P1P1 | WithCountersAmount$ 1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

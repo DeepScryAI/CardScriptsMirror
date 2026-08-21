@@ -1,13 +1,9 @@
 Id:19937
-ColorIdentity:UB
+ColorIdentity:
 OriginSet:G23be9f486a22d38a
-ManaCost:4 U B
-Types:Creature Serpent
-PT:7/7
-K:Flash
-A:AB$ Effect | Cost$ U Sac<1/Island> | RememberObjects$ Self | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable
-SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
-A:AB$ GainLife | Cost$ B Sac<1/Swamp> | Defined$ You | LifeAmount$ 1 | SubAbility$ DBDraw
-SVar:DBDraw:DB$ Draw
-A:AB$ ChangeZone | Cost$ U B | TargetMin$ 5 | TargetMax$ 5 | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card.OppOwn | SorcerySpeed$ True | SubAbility$ DBReturn | ActivationZone$ Graveyard
-SVar:DBReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | Defined$ Self
+ManaCost:no cost
+Types:Land Forest
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ LandTapped | ReplacementResult$ Updated
+SVar:LandTapped:DB$ Tap | Defined$ Self | ETB$ True | ConditionPresent$ Forest.YouCtrl+Other | ConditionCompare$ LT3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self+untapped | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 134855612 | TokenOwner$ You

@@ -1,8 +1,9 @@
 Id:8285
-ColorIdentity:WU
+ColorIdentity:W
 OriginSet:Gde6d8130c178f566
-ManaCost:1 W U
-Types:Creature Human Wizard
-PT:1/1
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Hand | ValidCard$ Card.YouOwn | Execute$ TrigDraw | TriggerZones$ Battlefield
-SVar:TrigDraw:AB$ Draw | Cost$ 1 | Defined$ You | NumCards$ 1
+ManaCost:3 W
+Types:Creature Spirit
+PT:2/2
+A:AB$ PreventDamage | Cost$ W Sac<1/CARDNAME> | ValidTgts$ Any | Amount$ 3
+T:Mode$ SpellCast | ValidCard$ Card.MultiColor | ValidActivatingPlayer$ You | TriggerZones$ Graveyard | OptionalDecider$ You | Execute$ TrigReturn
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | Defined$ Self
