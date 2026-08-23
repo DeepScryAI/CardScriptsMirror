@@ -25,3 +25,49 @@ It shares the downloader/parser in `lib/scryfall_bulk.rs` with the generator.
 By default it traverses submodules. Use `--exclude-submodules` only when the
 audit intentionally treats independently versioned submodule repositories as
 opaque gitlinks; the selected scope is recorded in the JSON report.
+
+## Skin-format producers (the ratified SS0-SS5 package)
+
+The card-skin format package ratified in DeepScry issue ds-5432 (normative
+text: `docs/CARD_SKIN_FORMATS.md` in the DeepScry repository) is produced by
+five scripts sharing `lib/cas.rs` — canonical JSON (RFC 8785), IPFS-compatible
+content ids (CIDv1 / sha2-256 / raw / single block / base32), the
+deterministic strict-ustar tarball writer, and `{cid, size, hints[]}` content
+references. `lib/cas.rs` is pinned by known-answer tests to the same vectors
+as DeepScry core's `src/core/src/cas/`; a change to either copy must update
+both. Placement note: per the OD-3 ruling (card-compiler is the factory and
+this repository becomes data-only) these producers and the shared lib are
+slated to migrate into the card-compiler repository; they live here in the
+interim so the pipeline stays runnable next to its data.
+
+`pack_cardset.rs` packs `cards/` + `tokens/` plus a generated, deliberately
+anonymous `manifest.json` into the deterministic cardset tarball
+(`.cache/cas/cardset.tar`) and prints its CID. `catalog_ids.tsv` is
+deliberately NOT in the tarball: a cardset carries no oracle ids, titles, or
+other worldly identity.
+
+`generate_title_catalog.rs` emits the dense presentation title table
+(`presentation/title_catalog.tsv`) from the Scryfall snapshot joined by
+Oracle id — the face-aware emitter preserved at
+`archive/ip-clean-title-catalog-emitter`, now ported onto main's unified
+`lib/scryfall_bulk.rs`. Its `--verify` mode re-checks an existing table.
+
+`make_artpack.rs` emits the `kind=uuid-scheme` artpack table
+(`presentation/artpack_scryfall_uuid.tsv`): one Scryfall printing UUID per
+catalog id; clients compute image URLs with the `layout=scryfall-cdn-v1`
+function declared in its header. Printing selection prefers non-art-series,
+real-image, non-digital, English printings, then the oldest release, then
+the smallest UUID — fully deterministic.
+
+`make_provenance.rs` emits the dense id-to-oracle_id provenance table
+(`presentation/provenance_oracle_ids.tsv`) from `catalog_ids.tsv`. It is a
+skin-side artifact (worldly identity), never part of a cardset.
+
+`make_skin_manifest.rs` assembles the skin manifest — canonical JSON binding
+the cardset, titles, and optional bodies/artpack/provenance references, each
+`{cid, size, hints[]}` with hint URLs inside the hash — and prints the
+manifest's own CID, which names the whole skin.
+
+`extract_card_skin.rs` predates the ratified package; its combined
+titles+Oracle-text JSON remains a local-only cache artifact. Durable skin
+artifacts are the TSV/manifest family above.
