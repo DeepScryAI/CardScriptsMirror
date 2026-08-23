@@ -63,9 +63,9 @@ fn main() -> Result<()> {
     let manifest = serde_json::json!({
         "card_count": card_count,
         "format": "deepscry-cardset",
-        "id_space": {"cards": "decimal-u32", "tokens": "decimal-u32"},
+        "id_space": "shared-decimal-u32",
         "token_count": token_count,
-        "version": 1,
+        "version": 2,
     });
     let manifest_bytes = cas::jcs_canonicalize(&manifest).context("canonicalize cardset manifest")?;
     entries.push(("manifest.json".to_owned(), manifest_bytes));
@@ -134,7 +134,7 @@ fn validate_trie_path(label: &str, relative: &str) -> Result<()> {
             (8..=10).contains(&stem.len())
                 && stem.bytes().all(|b| b.is_ascii_digit())
                 && (stem.len() == 8 || !stem.starts_with('0'))
-                // The manifest declares id_space decimal-u32, so an id the
+                // The manifest declares a shared decimal-u32 id space, so an id the
                 // path grammar admits but u32 cannot hold (a 10-digit value
                 // above 4294967295) must fail loudly here rather than mint a
                 // cardset whose manifest lies about its own id space.

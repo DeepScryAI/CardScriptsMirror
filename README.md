@@ -32,6 +32,7 @@ append-only catalog, then run:
 ./scripts/generate_uuid_trie.rs \
   --source ../cardsmirror-source/cardsfolder \
   --catalog catalog_ids.tsv \
+  --token-catalog /path/to/DeepScry/src/core/assets/token_catalog.tsv \
   --output cards \
   --token-output tokens
 ```
@@ -94,13 +95,14 @@ cards/12/34/56/12345678.txt
 
 The first line is `Id:12345678`. No title appears in the path or in top-level
 script fields. Executable references to catalog cards, synthetic objects, and
-token definitions are rewritten to their respective numeric namespaces;
+token definitions are rewritten into one shared numeric catalog namespace;
 dynamic selectors such as `ChosenName` remain vocabulary rather than content.
 
-Token scripts use the same trie layout under `tokens/`, begin with `TokenId:`,
-and are addressed from card DSL records through `TokenScriptIds$`. Token IDs
-are deterministic SHA-256-derived nonzero integers in a namespace separate
-from catalog card IDs.
+Token scripts use the same trie layout under `tokens/`, begin with `Id:`, and
+are addressed from card DSL records through `TokenScriptIds$`. The one-time
+migration preserves card IDs 1–35307 and appends the frozen 837 token ledger
+rows as IDs 35308–36144. Future definitions append after that shared range;
+no identity is derived from a filename or content hash.
 
 ## Current compatibility limit
 

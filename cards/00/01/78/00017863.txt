@@ -8,9 +8,9 @@ A:AB$ GenericChoice | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | AtRando
 SVar:Pump1:DB$ Pump | TargetMin$ 0 | TargetMax$ 1 | KW$ First Strike & Vigilance & Lifelink | ValidTgts$ Creature | NumAtt$ +1 | NumDef$ +1 | KW$ First Strike & Vigilance & Lifelink
 SVar:PutCounter2:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 3 | TargetMin$ 1 | TargetMax$ 3 | DividedAsYouChoose$ 3
 SVar:Destroy3:DB$ Destroy | ValidTgts$ Permanent.nonCreature
-SVar:Token4:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 777167908 | AtEOT$ Exile
-SVar:Token5:DB$ Token | TokenAmount$ 3 | TokenScriptIds$ 1214250791
-SVar:Token6:DB$ Token | TokenScriptIds$ 2676230665
+SVar:Token4:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 35809 | AtEOT$ Exile
+SVar:Token5:DB$ Token | TokenAmount$ 3 | TokenScriptIds$ 36053
+SVar:Token6:DB$ Token | TokenScriptIds$ 35403
 SVar:Dig7:DB$ Dig | DigNum$ 5 | Reveal$ True | ChangeNum$ All | ChangeValid$ Creature
 SVar:MustAttack8:DB$ DelayedTrigger | ValidTgts$ Opponent | Mode$ Phase | Phase$ Upkeep-> | DelayedTriggerDefinedPlayer$ Targeted | RememberObjects$ Targeted | Execute$ TrigEffect | Static$ True
 SVar:TrigEffect:DB$ Effect | RememberObjects$ DelayTriggerRemembered | StaticAbilities$ MustAttack | SubAbility$ DBCleanup
@@ -60,13 +60,13 @@ SVar:DBChangeLands11M:DB$ ChangeZoneAll | ChangeType$ Card.Land+IsRemembered | O
 SVar:DBChangeRest11M:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered | Origin$ Library | Destination$ Graveyard | ForgetChanged$ True
 SVar:Tutor12M:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Card | ChangeNum$ 1 | Mandatory$ True
 SVar:Sacrifice13M:DB$ Sacrifice | ValidTgts$ Player | Amount$ 2 | SacValid$ Creature
-SVar:Token14M:DB$ Token | TokenScriptIds$ 3641967757 | SubAbility$ DBLoseLife14M
+SVar:Token14M:DB$ Token | TokenScriptIds$ 35412 | SubAbility$ DBLoseLife14M
 SVar:DBLoseLife14M:DB$ LoseLife | LifeAmount$ 2
-SVar:Token15M:DB$ Token | TokenScriptIds$ 387995076
+SVar:Token15M:DB$ Token | TokenScriptIds$ 35530
 SVar:SetLife16M:DB$ SetLife | ValidTgts$ Player | LifeAmount$ 10
 SVar:Destroy17M:DB$ Destroy | ValidTgts$ Permanent.nonLand
 SVar:Return18M:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True | ValidTgts$ Permanent
-SVar:Token19M:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 273416837
+SVar:Token19M:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 35637
 SVar:Draw20M:DB$ Draw | NumCards$ 4 | SubAbility$ DBDiscard20M
 SVar:DBDiscard20M:DB$ Discard | Defined$ You | NumCards$ 2 | Mode$ TgtChoose
 A:AB$ GenericChoice | Cost$ SubCounter<6/LOYALTY> | AtRandom$ Urza | ShowChoice$ Description | Choices$ DealDamage1U,Effect2U,DestroyAll3U,Token4U,LifeGain5U,Damage6U,Effect7U,Effect8U,Token9U,Shuffle10U,Destroy11U,Effect12U,Effect13U,ControlPlayer14U,ExileLibrary15U,Token16U,Raise17U,LifeDraw18U,FlipTurns19U | Planeswalker$ True | Ultimate$ True | ShowChoice$ Description
@@ -78,7 +78,7 @@ SVar:RPreventDamage:Event$ DamageDone | ValidTarget$ You,Planeswalker.YouCtrl | 
 SVar:PreventDmg:DB$ ReplaceDamage | Amount$ ShieldAmount
 SVar:ShieldAmount:ReplaceCount$DamageAmount/Minus.1
 SVar:DestroyAll3U:DB$ DestroyAll | ValidTgts$ Player | ValidCards$ Land
-SVar:Token4U:DB$ Token | TokenAmount$ X4U | TokenScriptIds$ 3238878664
+SVar:Token4U:DB$ Token | TokenAmount$ X4U | TokenScriptIds$ 36070
 SVar:X4U:Count$YourLifeTotal
 SVar:LifeGain5U:DB$ GainLife | LifeAmount$ 100
 SVar:Damage6U:DB$ DealDamage | ValidTgts$ Player,Planeswalker | NumDmg$ 10 | SubAbility$ DmgAll6U | DamageMap$ True
@@ -88,7 +88,7 @@ SVar:Effect7U:DB$ Effect | Name$ 3656645738181743750 | StaticAbilities$ ST7U | S
 SVar:ST7U:Mode$ Continuous | Affected$ Creature.YouCtrl | AffectedZone$ Battlefield | AddKeyword$ Double Strike & Trample & Hexproof & Haste
 SVar:Effect8U:DB$ Effect | Name$ 8405185027244594646 | StaticAbilities$ STIndestructible8U | Stackable$ False | Duration$ Permanent | AILogic$ Always
 SVar:STIndestructible8U:Mode$ Continuous | Affected$ Artifact.YouCtrl,Creature.YouCtrl,Enchantment.YouCtrl,Land.YouCtrl | AffectedZone$ Battlefield | AddKeyword$ Indestructible
-SVar:Token9U:DB$ Token | TokenAmount$ Lands | TokenScriptIds$ 935700626
+SVar:Token9U:DB$ Token | TokenAmount$ Lands | TokenScriptIds$ 35679
 SVar:Lands:Count$Valid Land.YouCtrl
 SVar:Shuffle10U:DB$ ChangeZoneAll | ChangeType$ Card | Origin$ Hand,Graveyard | Destination$ Library | Shuffle$ True | SubAbility$ DBDraw10U | UseAllOriginZones$ True
 SVar:DBDraw10U:DB$ Draw | Defined$ You | NumCards$ 7
@@ -100,11 +100,11 @@ SVar:EffSpellCast12U:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile |
 SVar:Effect13U:DB$ Effect | Name$ 8013842668338383098 | Triggers$ TrigFight13U | Duration$ Permanent | AILogic$ Always | SubAbility$ DBToken13U
 SVar:TrigFight13U:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.YouCtrl | Execute$ DBFight13U | OptionalDecider$ You | TriggerZones$ Command
 SVar:DBFight13U:DB$ Fight | Defined$ TriggeredCardLKICopy | ValidTgts$ Creature
-SVar:DBToken13U:DB$ Token | TokenAmount$ 3 | TokenScriptIds$ 3388877773
+SVar:DBToken13U:DB$ Token | TokenAmount$ 3 | TokenScriptIds$ 35979
 SVar:ControlPlayer14U:DB$ ControlPlayer | ValidTgts$ Player
 SVar:ExileLibrary15U:DB$ ChangeZoneAll | Origin$ Library | Destination$ Exile | ValidTgts$ Player | SubAbility$ DBChangeZone15U | Planeswalker$ True | Ultimate$ True
 SVar:DBChangeZone15U:DB$ ChangeZoneAll | Origin$ Hand | Destination$ Library | Defined$ Targeted | ChangeType$ Card | Shuffle$ True
-SVar:Token16U:DB$ Token | TokenAmount$ 3 | TokenScriptIds$ 1716721376
+SVar:Token16U:DB$ Token | TokenAmount$ 3 | TokenScriptIds$ 35331
 SVar:Raise17U:DB$ ChangeZoneAll | ChangeType$ Creature | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True
 SVar:LifeDraw18U:DB$ GainLife | LifeAmount$ Lands | SubAbility$ DBDraw18U
 SVar:DBDraw18U:DB$ Draw | NumCards$ Lands

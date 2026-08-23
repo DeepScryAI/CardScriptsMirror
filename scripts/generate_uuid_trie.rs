@@ -58,6 +58,12 @@ struct Args {
     #[arg(long, default_value = "catalog_ids.tsv")]
     catalog: PathBuf,
 
+    /// Frozen legacy token allocation ledger. Its dense row numbers are
+    /// appended after the final card id; script names are migration input
+    /// only and never enter the generated anonymous cardset.
+    #[arg(long)]
+    token_catalog: PathBuf,
+
     /// Ignore a present cache and download the current snapshot.
     #[arg(long)]
     refresh: bool,
@@ -122,6 +128,12 @@ impl CardScriptId {
 #[derive(Clone, Copy, Debug, Eq, Ord, PartialEq, PartialOrd)]
 struct TokenScriptId(u32);
 
+/// The final ID in the pre-token catalog. This is deliberately frozen for
+/// the one-time migration: changing the input base would silently move every
+/// token instead of appending a new definition after the established range.
+const TOKEN_GENESIS_CARD_MAX_ID: u32 = 35_307;
+const TOKEN_GENESIS_ROWS: u32 = 837;
+
 impl TokenScriptId {
     fn trie_path(&self, root: &Path) -> PathBuf {
         CardScriptId(self.0).trie_path(root)
@@ -133,6 +145,7 @@ struct CatalogIndex {
     by_oracle_id: BTreeMap<OracleId, Vec<CardScriptId>>,
     by_name_hash: BTreeMap<String, Option<CardScriptId>>,
     set_group_by_id: BTreeMap<CardScriptId, String>,
+    max_id: u32,
 }
 
 #[derive(Default)]
@@ -232,7 +245,7 @@ fn main() -> Result<()> {
     let catalog_ids: usize = catalog.by_oracle_id.values().map(Vec::len).sum();
     eprintln!("Loaded {catalog_ids} stable numeric identities");
 
-    let token_index = build_token_index(&token_source)?;
+    let token_index = build_token_index(&token_source, &args.token_catalog, catalog.max_id)?;
     eprintln!("Loaded {} stable numeric token identities", token_index.len());
     let report = generate(&args.source, &args.output, &index, &catalog, &token_index)?;
     generate_tokens(&token_source, &args.token_output, &index, &catalog, &token_index)?;
@@ -356,6 +369,7 @@ fn load_catalog_index(path: &Path) -> Result<CatalogIndex> {
             .or_default()
             .push(CardScriptId(id));
         index.set_group_by_id.insert(CardScriptId(id), set_group);
+        index.max_id = index.max_id.max(id);
     }
     Ok(index)
 }
@@ -775,27 +789,109 @@ fn source_scripts(root: &Path) -> Result<Vec<PathBuf>> {
     Ok(files)
 }
 
-fn token_id_for_key(key: &str) -> TokenScriptId {
-    let digest = Sha256::digest(key.as_bytes());
-    let mut bytes = [0u8; 4];
-    bytes.copy_from_slice(&digest[..4]);
-    TokenScriptId(u32::from_be_bytes(bytes).max(1))
-}
-
-fn build_token_index(source: &Path) -> Result<BTreeMap<String, TokenScriptId>> {
+fn load_token_allocations(path: &Path, card_max_id: u32) -> Result<BTreeMap<String, TokenScriptId>> {
+    let content = fs::read_to_string(path).with_context(|| format!("read token allocation ledger {}", path.display()))?;
+    if card_max_id != TOKEN_GENESIS_CARD_MAX_ID {
+        bail!(
+            "token genesis requires final card id {TOKEN_GENESIS_CARD_MAX_ID}, found {card_max_id}; \
+             append later definitions after the unified range instead of replaying genesis"
+        );
+    }
+    let (header, body) = content
+        .split_once('\n')
+        .with_context(|| format!("token allocation ledger {} has no body", path.display()))?;
+    if !header.starts_with("#id\tscript\tmetadata: v=1 ") {
+        bail!("unexpected token allocation header in {}", path.display());
+    }
+    let declared_rows = header
+        .split_whitespace()
+        .find_map(|field| field.strip_prefix("tokens="))
+        .context("token allocation header has no tokens count")?
+        .parse::<u32>()
+        .context("token allocation header has an invalid tokens count")?;
+    if declared_rows != TOKEN_GENESIS_ROWS {
+        bail!("token genesis requires {TOKEN_GENESIS_ROWS} ledger rows, header declares {declared_rows}");
+    }
+    let declared_sha = header
+        .split_whitespace()
+        .find_map(|field| field.strip_prefix("body_sha256="))
+        .context("token allocation header has no body_sha256")?;
+    let actual_sha = Sha256::digest(body.as_bytes())
+        .iter()
+        .map(|byte| format!("{byte:02x}"))
+        .collect::<String>();
+    if declared_sha != actual_sha {
+        bail!("token allocation body checksum mismatch: header says {declared_sha}, body hashes to {actual_sha}");
+    }
     let mut by_name = BTreeMap::new();
     let mut by_id = BTreeMap::<TokenScriptId, String>::new();
+    let mut expected_legacy_id = 1u32;
+    for (offset, line) in body.lines().enumerate() {
+        let line_number = offset + 2;
+        if line.trim().is_empty() {
+            continue;
+        }
+        let (raw_legacy_id, key) = line
+            .split_once('\t')
+            .with_context(|| format!("token allocation row {line_number} has no script column"))?;
+        let legacy_id: u32 = raw_legacy_id
+            .parse()
+            .with_context(|| format!("invalid token allocation id on {}:{line_number}", path.display()))?;
+        if legacy_id != expected_legacy_id {
+            bail!(
+                "token allocation row {} has legacy id {legacy_id}, expected dense id {expected_legacy_id}",
+                line_number
+            );
+        }
+        expected_legacy_id = expected_legacy_id
+            .checked_add(1)
+            .context("token allocation ledger exceeds u32")?;
+        let unified_id = card_max_id
+            .checked_add(legacy_id)
+            .context("appended token allocation exceeds u32")?;
+        let id = TokenScriptId(unified_id);
+        if let Some(first) = by_id.insert(id, key.to_owned()) {
+            bail!("duplicate appended token id {unified_id} for {first:?} and {key:?}");
+        }
+        if by_name.insert(key.to_owned(), id).is_some() {
+            bail!("duplicate token allocation key {key:?}");
+        }
+    }
+    if by_name.is_empty() {
+        bail!("token allocation ledger {} contains no rows", path.display());
+    }
+    if by_name.len() != TOKEN_GENESIS_ROWS as usize {
+        bail!(
+            "token allocation header declares {TOKEN_GENESIS_ROWS} rows but body contains {}",
+            by_name.len()
+        );
+    }
+    Ok(by_name)
+}
+
+fn build_token_index(source: &Path, allocations: &Path, card_max_id: u32) -> Result<BTreeMap<String, TokenScriptId>> {
+    let by_name = load_token_allocations(allocations, card_max_id)?;
+    let mut source_names = BTreeSet::new();
     for path in source_scripts(source)? {
         let key = path
             .file_stem()
             .and_then(OsStr::to_str)
             .with_context(|| format!("token script has no UTF-8 stem: {}", path.display()))?
             .to_owned();
-        let id = token_id_for_key(&key);
-        if let Some(first) = by_id.insert(id, key.clone()) {
-            bail!("numeric token ID collision between {first:?} and {key:?} ({})", id.0);
+        if !source_names.insert(key.clone()) {
+            bail!("duplicate token source stem {key:?}");
         }
-        by_name.insert(key, id);
+        if !by_name.contains_key(&key) {
+            bail!("token source {key:?} has no frozen appended catalog allocation");
+        }
+    }
+    let unused: Vec<&str> = by_name
+        .keys()
+        .filter(|key| !source_names.contains(*key))
+        .map(String::as_str)
+        .collect();
+    if !unused.is_empty() {
+        bail!("{} frozen token allocation(s) have no source script: {:?}", unused.len(), unused);
     }
     Ok(by_name)
 }
@@ -1552,7 +1648,7 @@ fn sanitize_token_script(
     token_index: &BTreeMap<String, TokenScriptId>,
 ) -> String {
     let mut output = String::with_capacity(script.len());
-    output.push_str(&format!("TokenId:{}\n", token_id.0));
+    output.push_str(&format!("Id:{}\n", token_id.0));
     output.push_str("ColorIdentity:\n");
     let runtime_names = runtime_object_names(script);
     for line in script.lines() {
@@ -1904,10 +2000,8 @@ mod tests {
                 &[],
                 &tokens
             ),
-            "TokenId:101\nColorIdentity:\nManaCost:no cost\nTypes:Creature\n"
+            "Id:101\nColorIdentity:\nManaCost:no cost\nTypes:Creature\n"
         );
-        assert_eq!(token_id_for_key("fixture_one"), token_id_for_key("fixture_one"));
-        assert_ne!(token_id_for_key("fixture_one"), token_id_for_key("fixture_two"));
     }
 
     #[test]
