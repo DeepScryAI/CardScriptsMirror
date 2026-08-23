@@ -62,8 +62,12 @@ who already has the public title dataset can recompute it. Likewise, the
 truncated SHA-256 `set_group`/`OriginSet` value avoids shipping a set code, but
 the input space is only a few hundred public values and is trivially
 rainbow-tableable. None of these values is intended to conceal which public
-record produced a script; the protection is that the repository redistributes
-no title, Oracle text, or other protected expression.
+record produced a script; the protection is that the executable corpus
+(`cards/` and `tokens/`) redistributes no title, Oracle text, or other
+protected expression. Card titles do appear, deliberately, in the separate
+presentation catalog (`presentation/title_catalog.tsv`, an optional
+title-only skin — see `presentation/README.md`); they are kept out of the
+executable corpus itself.
 
 ## Identity and layout
 
@@ -90,3 +94,18 @@ DeepScry must accept `Id:` as the definition identity, load files by numeric
 path, and provide any title/rules/flavor presentation through a separate,
 optional skin. The executable DSL must remain fully functional when that skin
 is absent.
+
+## Single-threaded development policy
+
+Owner ruling, 2026-08-22: this repository is used only by the DeepScry
+workstream and is developed **single-threaded, landing to `main` with no
+side tracks**.
+
+- Commit directly to `main`, in small commits; history stays linear (plain
+  fast-forward only, never merge commits, never force-push).
+- Do **not** create side branches. Work that is not ready to land on `main`
+  stays local.
+- Every commit that an external repository pins (a DeepScry submodule
+  gitlink) is anchored by an annotated tag under `pin/` so the pinned commit
+  stays fetchable regardless of how `main` moves.
+- Retired lineages are preserved as `archive/` tags, never as branches.
