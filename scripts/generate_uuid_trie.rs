@@ -1059,7 +1059,7 @@ fn replace_named_qualifiers(line: &str, references: &[(String, CardScriptId)], t
             for (name, id) in token_index.iter() {
                 if let Some(matched_str) = match_token_title(after_name_marker, name) {
                     if longest_token_match.as_ref().map_or(true, |(len, _)| matched_str.len() > *len) {
-                        longest_token_match = Some((matched_str.len(), format!("tokenId{}", id.0)));
+                        longest_token_match = Some((matched_str.len(), format!("catalogId{}", id.0)));
                     }
                 }
             }
@@ -1793,7 +1793,7 @@ mod tests {
                 &references,
                 &tokens
             ),
-            "ValidCard$ creatures tokenId999"
+            "ValidCard$ creatures catalogId999"
         );
     }
 
