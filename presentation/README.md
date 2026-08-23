@@ -1,8 +1,8 @@
 # Presentation title catalog
 
 `title_catalog.tsv` is the complete, dense catalog-ID-to-title source for
-title-only presentation skins: one `id<TAB>title` row for every row of
-`catalog_ids.tsv`. It is layout-independent presentation data — a skin, not
+title-only presentation skins: one `id<TAB>title` row for every card and token
+in DeepScry's unified identity catalog. It is layout-independent presentation data — a skin, not
 card-definition data — and it is deliberately title-only: no Oracle text, no
 face text, no artwork, and no image URLs.
 
@@ -29,7 +29,10 @@ browser loader (`web/ts/card_skin.ts`) and `bin/namecards`:
 
 ## Provenance and verification
 
-Titles come from a Scryfall bulk snapshot joined by Oracle ID. Reversible
+Card titles come from a Scryfall bulk snapshot joined by Oracle ID. Token
+titles come from the historical named token source, ordered by the exact same
+frozen genesis helper that generated the anonymous `tokens/` trie; there is no
+second token identity ledger. Reversible
 cards carry their Oracle identity on card faces with a null top-level
 `oracle_id`, so a joiner must fall back to faces or it silently drops all of
 them. The emitter that produced this table is
@@ -39,10 +42,10 @@ ported onto main's unified `scripts/lib/scryfall_bulk.rs` (DeepScry issue
 ds-5432). Port verification (2026-08-23): the ported emitter regenerates
 this table BYTE-IDENTICALLY from the 2026-08-22 Scryfall snapshot.
 
-Fold-time verification (2026-08-22): for all 35,307 ids, the SHA-256 of the
-title in this table equals the `name_sha256` recorded for the same id in
-this repository's `catalog_ids.tsv`, and the header's `catalog_identity`
-matches DeepScry's embedded catalog on its integration and main branches.
+Unified-token verification (2026-08-23): rows 1 through 35,307 remain the
+Scryfall-backed card titles, and rows 35,308 through 36,144 are the 837 frozen
+token definitions. Two token rows carry ordered double-face titles. The
+header's `catalog_identity` matches the title-free unified DeepScry catalog.
 
 ## The other skin artifacts (ratified SS0-SS5 package)
 

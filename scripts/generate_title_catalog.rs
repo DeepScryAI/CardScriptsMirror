@@ -38,6 +38,8 @@ use uuid::Uuid;
 
 #[path = "lib/scryfall_bulk.rs"]
 mod scryfall_bulk;
+#[path = "lib/token_genesis.rs"]
+mod token_genesis;
 
 /// The header schema DeepScry's `scripts/extract_catalog_title_skin.py` and
 /// `bin/namecards` accept. Changing any token here breaks strict consumers.
@@ -86,6 +88,13 @@ struct Args {
     /// this generator never picks a side on its own.
     #[arg(long, default_value = "EXPLICIT_TITLE_RESOLUTIONS.tsv")]
     resolutions: PathBuf,
+
+    /// Historical named token scripts used only to emit presentation titles
+    /// for the frozen token genesis block. Required when the catalog contains
+    /// token rows; their ordering comes from `lib/token_genesis.rs`, not from
+    /// a second title ledger.
+    #[arg(long)]
+    token_source: Option<PathBuf>,
 }
 
 /// Everything the emitted stamp needs from the originating catalog file.
@@ -95,8 +104,20 @@ struct CatalogSource {
     identity: String,
     /// The catalog's own upstream provenance string.
     snapshot: String,
-    /// Dense `#id` to Oracle UUID rows, ordered by id.
-    rows: Vec<(u32, Uuid)>,
+    /// Dense identity rows ordered by catalog id.
+    rows: Vec<CatalogRow>,
+}
+
+#[derive(Clone, Debug, PartialEq, Eq)]
+struct CatalogRow {
+    id: u32,
+    provider: CatalogProvider,
+}
+
+#[derive(Clone, Debug, PartialEq, Eq)]
+enum CatalogProvider {
+    ScryfallOracle(Uuid),
+    TokenGenesis,
 }
 
 fn main() -> Result<()> {
@@ -112,7 +133,8 @@ fn main() -> Result<()> {
 
     scryfall_bulk::ensure_cache(&args.cache, args.refresh)?;
     let resolutions = load_resolutions(&args.resolutions)?;
-    let titles = load_titles(&args.cache, &catalog, &resolutions)?;
+    let mut titles = load_titles(&args.cache, &catalog, &resolutions)?;
+    load_token_titles(&catalog, args.token_source.as_deref(), &mut titles)?;
     let document = render_title_catalog(&catalog, &titles)?;
 
     // Re-verify what we are about to publish. A generator that cannot pass its
@@ -148,6 +170,7 @@ fn parse_catalog(bytes: &[u8], identity: String) -> Result<CatalogSource> {
     let columns: Vec<&str> = header.trim_end_matches('\r').split('\t').collect();
     let id_column = column_index(&columns, "#id")?;
     let oracle_column = column_index(&columns, "oracle_id")?;
+    let kind_column = columns.iter().position(|column| *column == "kind");
 
     let metadata = columns
         .iter()
@@ -184,12 +207,27 @@ fn parse_catalog(bytes: &[u8], identity: String) -> Result<CatalogSource> {
             .with_context(|| format!("catalog line {line_number} has no #id field"))?
             .parse()
             .with_context(|| format!("catalog line {line_number} has a non-numeric #id"))?;
-        let oracle_id: Uuid = fields
+        let kind = kind_column
+            .and_then(|column| fields.get(column).copied())
+            .unwrap_or("card");
+        let oracle = fields
             .get(oracle_column)
-            .with_context(|| format!("catalog line {line_number} has no oracle_id field"))?
-            .parse()
-            .with_context(|| format!("catalog line {line_number} has an invalid oracle_id"))?;
-        rows.push((id, oracle_id));
+            .with_context(|| format!("catalog line {line_number} has no oracle_id field"))?;
+        let provider = match kind {
+            "card" => CatalogProvider::ScryfallOracle(
+                oracle
+                    .parse()
+                    .with_context(|| format!("catalog line {line_number} has an invalid card oracle_id"))?,
+            ),
+            "token" => {
+                if !oracle.is_empty() {
+                    bail!("catalog line {line_number} is a token but has a non-empty oracle_id");
+                }
+                CatalogProvider::TokenGenesis
+            }
+            other => bail!("catalog line {line_number} has unknown kind {other:?}"),
+        };
+        rows.push(CatalogRow { id, provider });
     }
 
     if rows.len() != declared_rows {
@@ -198,7 +236,7 @@ fn parse_catalog(bytes: &[u8], identity: String) -> Result<CatalogSource> {
             rows.len()
         );
     }
-    check_dense(&rows.iter().map(|(id, _)| *id).collect::<Vec<_>>())?;
+    check_dense(&rows.iter().map(|row| row.id).collect::<Vec<_>>())?;
     Ok(CatalogSource {
         identity,
         snapshot,
@@ -275,8 +313,15 @@ fn load_titles(
     cache: &Path,
     catalog: &CatalogSource,
     resolutions: &BTreeMap<Uuid, String>,
-) -> Result<BTreeMap<Uuid, String>> {
-    let wanted: std::collections::HashSet<Uuid> = catalog.rows.iter().map(|(_, oracle_id)| *oracle_id).collect();
+) -> Result<BTreeMap<u32, String>> {
+    let wanted: std::collections::HashSet<Uuid> = catalog
+        .rows
+        .iter()
+        .filter_map(|row| match row.provider {
+            CatalogProvider::ScryfallOracle(oracle_id) => Some(oracle_id),
+            CatalogProvider::TokenGenesis => None,
+        })
+        .collect();
     // Names seen per Oracle identity, bucketed by printing precedence.
     let mut by_precedence: BTreeMap<Uuid, BTreeMap<u8, BTreeSet<String>>> = BTreeMap::new();
     scryfall_bulk::for_each_card(cache, |card| {
@@ -357,8 +402,12 @@ fn load_titles(
     let missing: Vec<String> = catalog
         .rows
         .iter()
-        .filter(|(_, oracle_id)| !titles.contains_key(oracle_id))
-        .map(|(id, oracle_id)| format!("{id} ({oracle_id})"))
+        .filter_map(|row| match row.provider {
+            CatalogProvider::ScryfallOracle(oracle_id) if !titles.contains_key(&oracle_id) => {
+                Some(format!("{} ({oracle_id})", row.id))
+            }
+            _ => None,
+        })
         .collect();
     if !missing.is_empty() {
         bail!(
@@ -367,17 +416,98 @@ fn load_titles(
             missing.iter().take(10).cloned().collect::<Vec<_>>().join(", ")
         );
     }
-    Ok(titles)
+    Ok(catalog
+        .rows
+        .iter()
+        .filter_map(|row| match row.provider {
+            CatalogProvider::ScryfallOracle(oracle_id) => Some((row.id, titles[&oracle_id].clone())),
+            CatalogProvider::TokenGenesis => None,
+        })
+        .collect())
 }
 
-fn render_title_catalog(catalog: &CatalogSource, titles: &BTreeMap<Uuid, String>) -> Result<Vec<u8>> {
+/// Add the frozen token block to the same dense presentation table as cards.
+///
+/// The source stem-to-ID ordering comes exclusively from `token_genesis`.
+/// This function reads only the ordered `Name:` fields needed for the skin;
+/// it neither invents nor persists another token identity namespace.
+fn load_token_titles(
+    catalog: &CatalogSource,
+    source: Option<&Path>,
+    titles: &mut BTreeMap<u32, String>,
+) -> Result<()> {
+    let token_ids: Vec<u32> = catalog
+        .rows
+        .iter()
+        .filter_map(|row| matches!(row.provider, CatalogProvider::TokenGenesis).then_some(row.id))
+        .collect();
+    if token_ids.is_empty() {
+        return Ok(());
+    }
+    let source = source.context("catalog contains token rows; --token-source is required to title them")?;
+    let genesis = token_genesis::rows(source, token_genesis::CARD_MAX_ID)?;
+    let genesis_ids: Vec<u32> = genesis.iter().map(|row| row.catalog_id).collect();
+    if token_ids != genesis_ids {
+        bail!(
+            "catalog token rows do not equal the frozen genesis block {}..={}: found {} rows from {:?} to {:?}",
+            token_genesis::CARD_MAX_ID + 1,
+            token_genesis::CARD_MAX_ID + token_genesis::ROWS,
+            token_ids.len(),
+            token_ids.first(),
+            token_ids.last()
+        );
+    }
+    for row in genesis {
+        let script = fs::read_to_string(&row.source_path)
+            .with_context(|| format!("read token presentation source {}", row.source_path.display()))?;
+        let title = token_presentation_title(&script)
+            .with_context(|| format!("token presentation source {}", row.source_path.display()))?;
+        if titles.insert(row.catalog_id, title).is_some() {
+            bail!("catalog ID {} was titled twice", row.catalog_id);
+        }
+    }
+    Ok(())
+}
+
+fn token_presentation_title(script: &str) -> Result<String> {
+    let mut names = Vec::new();
+    let mut alternate_mode = None;
+    for line in script.lines() {
+        let Some((key, value)) = line.split_once(':') else {
+            continue;
+        };
+        match key.trim() {
+            "Name" => names.push(value.trim()),
+            "AlternateMode" => alternate_mode = Some(value.trim()),
+            _ => {}
+        }
+    }
+    match names.as_slice() {
+        [name] => {
+            check_title_text(name)?;
+            Ok((*name).to_owned())
+        }
+        [front, back] if alternate_mode == Some("DoubleFaced") => {
+            check_title_text(front)?;
+            check_title_text(back)?;
+            Ok(format!("{front} // {back}"))
+        }
+        [] => bail!("script has no Name field"),
+        _ => bail!(
+            "script has {} Name fields with AlternateMode={alternate_mode:?}; only one title or a two-title DoubleFaced token is supported",
+            names.len()
+        ),
+    }
+}
+
+fn render_title_catalog(catalog: &CatalogSource, titles: &BTreeMap<u32, String>) -> Result<Vec<u8>> {
     let mut body = String::new();
-    for (id, oracle_id) in &catalog.rows {
+    for row in &catalog.rows {
         let title = titles
-            .get(oracle_id)
-            .with_context(|| format!("catalog ID {id} has no resolved title"))?;
-        check_title(*id, title)?;
-        body.push_str(&format!("{id}\t{title}\n"));
+            .get(&row.id)
+            .with_context(|| format!("catalog ID {} has no resolved title", row.id))?;
+        check_title(row.id, title)?;
+        body.push_str(&format!("{}\t{title}\n", row.id));
     }
     let header = format!(
         "#id\ttitle\tmetadata: v={SKIN_VERSION} kind={SKIN_KIND} catalog_snapshot={} catalog_identity={} cards={} body_sha256={}\n",
@@ -573,10 +703,10 @@ mod tests {
         parse_catalog(&bytes, identity).unwrap()
     }
 
-    fn sample_titles() -> BTreeMap<Uuid, String> {
+    fn sample_titles() -> BTreeMap<u32, String> {
         BTreeMap::from([
-            (ORACLE_A.parse().unwrap(), "Air Elemental".to_owned()),
-            (ORACLE_B.parse().unwrap(), "Ancestral Recall".to_owned()),
+            (1, "Air Elemental".to_owned()),
+            (2, "Ancestral Recall".to_owned()),
         ])
     }
 
@@ -612,6 +742,28 @@ mod tests {
         let catalog = parse_catalog(&bytes, hex_sha256(&bytes)).unwrap();
         let document = render_title_catalog(&catalog, &sample_titles()).unwrap();
         assert_eq!(verify_title_catalog(&document, &catalog).unwrap(), 2);
+    }
+
+    #[test]
+    fn parses_card_and_token_rows_in_one_dense_catalog() {
+        let body = format!("1\tcard\t{ORACLE_A}\n2\ttoken\t\n");
+        let bytes = catalog_bytes("#id\tkind\toracle_id", &body, "");
+        let catalog = parse_catalog(&bytes, hex_sha256(&bytes)).unwrap();
+        assert!(matches!(
+            catalog.rows[0].provider,
+            CatalogProvider::ScryfallOracle(_)
+        ));
+        assert_eq!(catalog.rows[1].provider, CatalogProvider::TokenGenesis);
+    }
+
+    #[test]
+    fn token_titles_preserve_ordered_double_faces() {
+        assert_eq!(
+            token_presentation_title("Name:Incubator Token\nAlternateMode:DoubleFaced\nALTERNATE\nName:Phyrexian Token\n")
+                .unwrap(),
+            "Incubator Token // Phyrexian Token"
+        );
+        assert!(token_presentation_title("AlternateMode:DoubleFaced\nName:Front\nName:Middle\nName:Back\n").is_err());
     }
 
     #[test]

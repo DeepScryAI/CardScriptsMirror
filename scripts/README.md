@@ -56,7 +56,8 @@ other worldly identity.
 
 `generate_title_catalog.rs` emits the dense presentation title table
 (`presentation/title_catalog.tsv`) from the Scryfall snapshot joined by
-Oracle id — the face-aware emitter preserved at
+Oracle id plus the frozen token-genesis source ordered by
+`lib/token_genesis.rs` — the face-aware emitter preserved at
 `archive/ip-clean-title-catalog-emitter`, now ported onto main's unified
 `lib/scryfall_bulk.rs`. Its `--verify` mode re-checks an existing table.
 Regenerating the committed table requires pointing `--catalog` at the
@@ -65,7 +66,8 @@ the default, carries no `metadata:` header field and is rejected):
 
 ```sh
 rust-script scripts/generate_title_catalog.rs \
-  --catalog <DeepScry>/src/engine/assets/card_catalog.tsv
+  --catalog <DeepScry>/src/engine/assets/card_catalog.tsv \
+  --token-source <historical-named-token-source>/tokenscripts
 ```
 
 `make_artpack.rs` emits the `kind=uuid-scheme` artpack table
