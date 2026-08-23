@@ -26,8 +26,11 @@ use uuid::Uuid;
 
 #[path = "lib/scryfall_bulk.rs"]
 mod scryfall_bulk;
+#[path = "lib/token_genesis.rs"]
+mod token_genesis;
 
 use scryfall_bulk::{ScryfallCard, ScryfallFace};
+use token_genesis::source_scripts;
 
 #[derive(Parser, Debug)]
 #[command(about = "Generate anonymous Forge scripts keyed by stable numeric card ID")]
@@ -121,17 +124,6 @@ impl CardScriptId {
 
 #[derive(Clone, Copy, Debug, Eq, Ord, PartialEq, PartialOrd)]
 struct TokenScriptId(u32);
-
-/// The final ID in the pre-token catalog. This is deliberately frozen for
-/// the one-time migration: changing the input base would silently move every
-/// token instead of appending a new definition after the established range.
-const TOKEN_GENESIS_CARD_MAX_ID: u32 = 35_307;
-const TOKEN_GENESIS_ROWS: u32 = 837;
-/// SHA-256 of the 837 genesis source stems in bytewise sorted order, one per
-/// line with a final newline. This makes the one-time allocation reproducible
-/// without retaining a second token catalog: any added, removed, or renamed
-/// source is rejected instead of silently renumbering the block.
-const TOKEN_GENESIS_SORTED_KEYS_SHA256: &str = "eb1a79e8569edfa737e250d7dbb2b97f945359351a425ce3d88297fd8388c964";
 
 impl TokenScriptId {
     fn trie_path(&self, root: &Path) -> PathBuf {
@@ -764,72 +756,10 @@ fn meld_back_identity(script: &str) -> Option<(String, String)> {
     Some((back_name, back_text))
 }
 
-fn source_scripts(root: &Path) -> Result<Vec<PathBuf>> {
-    fn visit(directory: &Path, files: &mut Vec<PathBuf>) -> Result<()> {
-        let mut entries: Vec<_> = fs::read_dir(directory)
-            .with_context(|| format!("read source directory {}", directory.display()))?
-            .collect::<std::result::Result<_, _>>()?;
-        entries.sort_by_key(|entry| entry.file_name());
-        for entry in entries {
-            let file_type = entry
-                .file_type()
-                .with_context(|| format!("stat {}", entry.path().display()))?;
-            if file_type.is_dir() {
-                visit(&entry.path(), files)?;
-            } else if file_type.is_file() && entry.path().extension() == Some(OsStr::new("txt")) {
-                files.push(entry.path());
-            }
-        }
-        Ok(())
-    }
-
-    let mut files = Vec::new();
-    visit(root, &mut files)?;
-    Ok(files)
-}
-
 fn build_token_index(source: &Path, card_max_id: u32) -> Result<BTreeMap<String, TokenScriptId>> {
-    if card_max_id != TOKEN_GENESIS_CARD_MAX_ID {
-        bail!(
-            "token genesis requires final card id {TOKEN_GENESIS_CARD_MAX_ID}, found {card_max_id}; \
-             append later definitions after the unified range instead of replaying genesis"
-        );
-    }
-    let mut source_names = BTreeSet::new();
-    for path in source_scripts(source)? {
-        let key = path
-            .file_stem()
-            .and_then(OsStr::to_str)
-            .with_context(|| format!("token script has no UTF-8 stem: {}", path.display()))?
-            .to_owned();
-        if !source_names.insert(key.clone()) {
-            bail!("duplicate token source stem {key:?}");
-        }
-    }
-    if source_names.len() != TOKEN_GENESIS_ROWS as usize {
-        bail!(
-            "token genesis requires exactly {TOKEN_GENESIS_ROWS} source stems, found {}; append later definitions through the unified catalog instead of replaying genesis",
-            source_names.len()
-        );
-    }
-    let mut body = source_names.iter().cloned().collect::<Vec<_>>().join("\n");
-    body.push('\n');
-    let actual_sha = Sha256::digest(body.as_bytes())
-        .iter()
-        .map(|byte| format!("{byte:02x}"))
-        .collect::<String>();
-    if actual_sha != TOKEN_GENESIS_SORTED_KEYS_SHA256 {
-        bail!(
-            "token genesis source-key checksum mismatch: expected {TOKEN_GENESIS_SORTED_KEYS_SHA256}, found {actual_sha}; the frozen genesis universe changed"
-        );
-    }
     let mut by_name = BTreeMap::new();
-    for (offset, key) in source_names.into_iter().enumerate() {
-        let legacy_id = u32::try_from(offset + 1).context("token genesis row exceeds u32")?;
-        let unified_id = card_max_id
-            .checked_add(legacy_id)
-            .context("appended token allocation exceeds u32")?;
-        by_name.insert(key, TokenScriptId(unified_id));
+    for row in token_genesis::rows(source, card_max_id)? {
+        by_name.insert(row.source_key, TokenScriptId(row.catalog_id));
     }
     Ok(by_name)
 }
