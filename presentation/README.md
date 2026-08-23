@@ -57,9 +57,10 @@ DeepScry repository):
   Scryfall printing UUID; clients compute image URLs with the
   `layout=scryfall-cdn-v1` function in its header. Emitted by
   `scripts/make_artpack.rs`.
-- `provenance_oracle_ids.tsv` — dense catalog id to Scryfall `oracle_id`.
-  Worldly identity, deliberately a skin-side artifact (cardsets are
-  anonymous). Emitted by `scripts/make_provenance.rs`.
+- `provenance_oracle_ids.tsv` — dense Scryfall-backed card-prefix id to
+  Scryfall `oracle_id`. Unified token rows have no Oracle identity and are
+  deliberately omitted. Worldly identity remains a skin-side artifact
+  (cardsets are anonymous). Emitted by `scripts/make_provenance.rs`.
 - `skins/` — canonical-JSON skin manifests binding a cardset CID with titles
   and the optional tables above. A manifest's own CID names the whole skin;
   the minted CIDs are recorded in the commit messages that add or update

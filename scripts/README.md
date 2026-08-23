@@ -95,16 +95,24 @@ rust-script scripts/generate_body_catalog.rs \
 catalog id; clients compute image URLs with the `layout=scryfall-cdn-v1`
 function declared in its header. Printing selection prefers non-art-series,
 real-image, non-digital, English printings, then the oldest release, then
-the smallest UUID — fully deterministic.
+the smallest UUID — fully deterministic. Unified token rows are validated and
+omitted because they have no Scryfall printing identity.
 
 `make_provenance.rs` emits the dense id-to-oracle_id provenance table
-(`presentation/provenance_oracle_ids.tsv`) from `catalog_ids.tsv`. It is a
-skin-side artifact (worldly identity), never part of a cardset.
+(`presentation/provenance_oracle_ids.tsv`) for the dense Scryfall-backed card
+prefix of DeepScry's unified catalog. Token rows are validated and omitted
+because they have no Scryfall Oracle identity. It is a skin-side artifact
+(worldly identity), never part of a cardset. Both table producers require the
+exact SHA-256 of their supplied identity catalog and reject stale stamps;
+`--verify <table>` regenerates in memory and requires byte equality.
 
 `make_skin_manifest.rs` assembles the skin manifest — canonical JSON binding
 the cardset, titles, and optional bodies/artpack/provenance references, each
 `{cid, size, hints[]}` with hint URLs inside the hash — and prints the
-manifest's own CID, which names the whole skin.
+manifest's own CID, which names the whole skin. It requires every supplied
+table to carry the requested `catalog_identity`; `--verify <manifest>`
+recomputes every CID, size, and canonical JSON byte from the artifacts and
+hints.
 
 `extract_card_skin.rs` predates the ratified package; its combined
 titles+Oracle-text JSON remains a local-only cache artifact. Durable skin
