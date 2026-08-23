@@ -1,4 +1,4 @@
-# Presentation title catalog
+# Presentation skin tables
 
 `title_catalog.tsv` is the complete, dense catalog-ID-to-title source for
 title-only presentation skins: one `id<TAB>title` row for every card and token
@@ -69,3 +69,24 @@ Every artifact is content-addressed with the pinned profile (CIDv1,
 sha2-256, raw codec, single block, base32); the CID is over the exact
 committed bytes, so editing any of these files by hand mints a different
 object — regenerate with the producer scripts instead.
+
+## Body catalog
+
+`body_catalog.tsv` is the sparse SS4 catalog-ID-to-presentation-body table for
+the same 36,144-row identity catalog as `title_catalog.tsv`. Its header uses
+`kind=body-skin`, stamps the SHA-256 of the complete DeepScry identity catalog,
+declares its actual sparse row count, and checksums every byte after the header.
+Blank bodies are omitted rather than represented by empty cells.
+
+Card rows come from Scryfall Oracle text joined strictly by Oracle id. Token
+rows come from each frozen token genesis script's exact `Oracle:` field. A
+multi-face definition remains one row: face bodies stay in source order with
+one blank line between them. The value cell then encodes backslash, newline,
+and tab as `\\\\`, `\\n`, and `\\t`, respectively, exactly as SS4 requires.
+This convention also retains the position of an empty face when another face
+has body text.
+
+Regenerate and verify the table with `scripts/generate_body_catalog.rs`; do not
+edit it manually. The generator rejects a missing identity, ambiguous body,
+changed token allocation, malformed escape, checksum mismatch, or stale
+catalog stamp rather than publishing a partial or mis-keyed skin.

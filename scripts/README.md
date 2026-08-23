@@ -70,6 +70,26 @@ rust-script scripts/generate_title_catalog.rs \
   --token-source <historical-named-token-source>/tokenscripts
 ```
 
+`generate_body_catalog.rs` emits the sparse SS4 presentation body table
+(`presentation/body_catalog.tsv`) from the same unified DeepScry catalog.
+Card bodies come from Scryfall Oracle text joined by Oracle id. Token bodies
+come from the historical named token scripts in the frozen order supplied by
+`lib/token_genesis.rs`; blank Oracle fields are omitted, as SS4 permits. The
+producer preserves a multi-face definition's face order in one cell, with one
+blank line between face bodies, then applies SS4's `\\n`, `\\t`, and `\\\\`
+escapes. It fails on missing Oracle identities, conflicting highest-precedence
+Scryfall bodies, a changed token genesis block, and stale catalog stamps.
+
+```sh
+rust-script scripts/generate_body_catalog.rs \
+  --catalog <DeepScry>/src/engine/assets/card_catalog.tsv \
+  --token-source <historical-named-token-source>/tokenscripts
+
+rust-script scripts/generate_body_catalog.rs \
+  --catalog <DeepScry>/src/engine/assets/card_catalog.tsv \
+  --verify presentation/body_catalog.tsv
+```
+
 `make_artpack.rs` emits the `kind=uuid-scheme` artpack table
 (`presentation/artpack_scryfall_uuid.tsv`): one Scryfall printing UUID per
 catalog id; clients compute image URLs with the `layout=scryfall-cdn-v1`
