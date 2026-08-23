@@ -253,10 +253,16 @@ fn path_group(relative_path: &str) -> String {
 }
 
 fn matched_patterns_in_file(relative_path: &str, text: &str, matcher: &aho_corasick::AhoCorasick) -> BTreeSet<usize> {
+    let is_corpus_record = is_corpus_card_record(relative_path);
     text.lines()
         .filter(|line| !is_nonexpressive_card_record(relative_path, line))
         .flat_map(|line| {
-            let normalized = format!(" {} ", normalize_for_scan(line));
+            let scanned = if is_corpus_record {
+                strip_keyword_operands(line)
+            } else {
+                line.to_owned()
+            };
+            let normalized = format!(" {} ", normalize_for_scan(&scanned));
             matcher
                 .find_overlapping_iter(&normalized)
                 .map(|matched| matched.pattern().as_usize())
@@ -265,12 +271,53 @@ fn matched_patterns_in_file(relative_path: &str, text: &str, matcher: &aho_coras
         .collect()
 }
 
-fn is_nonexpressive_card_record(relative_path: &str, line: &str) -> bool {
+/// Card-script fields whose value is a list of KEYWORD NAMES.
+///
+/// A keyword name is a game mechanic, not expression: the rules print it and an
+/// executable corpus has to spell it. A list of them therefore carries no
+/// third-party content, even when the normalized text of the list happens to
+/// coincide with some card's Oracle sentence — `AddKeyword$ Flying & First
+/// Strike & Vigilance` normalizes to exactly the Oracle text of a card that
+/// prints those three keywords, which is a false positive about mechanics
+/// vocabulary and nothing else.
+///
+/// Deliberately NOT extended to `K:` lines as a whole. A `K:` line can carry
+/// real lore — the Flavor words scrubbed in `021b2355b` rode on `K:Equip:`
+/// segments — so those lines stay fully scanned.
+const KEYWORD_OPERAND_FIELDS: [&str; 5] = ["AddKeyword", "AddKWs", "KW", "KWChoice", "Keywords"];
+
+fn is_corpus_card_record(relative_path: &str) -> bool {
     let is_corpus_path = relative_path.starts_with("cards/")
         || relative_path.starts_with("tokens/")
         || relative_path.contains("/cards/")
         || relative_path.contains("/tokens/");
-    if !is_corpus_path || !relative_path.ends_with(".txt") {
+    is_corpus_path && relative_path.ends_with(".txt")
+}
+
+/// Blank out the VALUE of every keyword-operand field on a card-script line,
+/// leaving the rest of the line — including the field's own name and every
+/// other clause — to be scanned normally.
+fn strip_keyword_operands(line: &str) -> String {
+    line.split('|')
+        .map(|clause| {
+            let Some((key, _)) = clause.split_once('$') else {
+                return clause.to_owned();
+            };
+            // The key is the last whitespace-separated word before the `$`, so
+            // a leading `S:Mode` or `A:AB` prefix does not hide it.
+            let field = key.trim().rsplit(char::is_whitespace).next().unwrap_or("").trim();
+            if KEYWORD_OPERAND_FIELDS.contains(&field) {
+                format!("{key}$")
+            } else {
+                clause.to_owned()
+            }
+        })
+        .collect::<Vec<_>>()
+        .join("|")
+}
+
+fn is_nonexpressive_card_record(relative_path: &str, line: &str) -> bool {
+    if !is_corpus_card_record(relative_path) {
         return false;
     }
     let key = line.split_once(':').map(|(key, _)| key.trim()).unwrap_or(line.trim());
@@ -462,6 +509,32 @@ mod tests {
             matched_patterns_in_file("README.md", "Types: Human Soldier", &matcher).len(),
             1
         );
+    }
+
+    #[test]
+    fn keyword_operand_lists_are_mechanics_vocabulary_not_expression() {
+        let matcher = AhoCorasickBuilder::new()
+            .kind(Some(AhoCorasickKind::ContiguousNFA))
+            .build([" flying first strike vigilance ", " spitting drake "])
+            .unwrap();
+        // The keyword list normalizes to a real card's Oracle sentence; that
+        // is mechanics vocabulary, so it must not count as a hit.
+        let keyword_grant =
+            "S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddKeyword$ Flying & First Strike & Vigilance\n";
+        assert_eq!(
+            matched_patterns_in_file("cards/00/00/00/00000001.txt", keyword_grant, &matcher).len(),
+            0
+        );
+        // Only the operand VALUE is exempt: a card title elsewhere on the same
+        // line still counts.
+        let with_a_title =
+            "SVar:C:DB$ Clone | NewName$ Spitting Drake | KW$ Flying & First Strike & Vigilance\n";
+        assert_eq!(
+            matched_patterns_in_file("cards/00/00/00/00000001.txt", with_a_title, &matcher).len(),
+            1
+        );
+        // Outside the corpus the exemption does not apply at all.
+        assert_eq!(matched_patterns_in_file("README.md", keyword_grant, &matcher).len(), 1);
     }
 
     #[test]

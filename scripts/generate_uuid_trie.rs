@@ -1370,16 +1370,52 @@ fn anonymize_runtime_object_names(line: &str, runtime_names: &[String]) -> Strin
     output.join(" | ")
 }
 
+/// Keyword names whose CARD-FILTER QUALIFIER spelling differs from the way the
+/// rules print the keyword.
+///
+/// Forge writes a keyword-presence filter as `with`/`without` followed by the
+/// keyword in PascalCase with no spaces (`Creature.withFirstStrike`), and that
+/// is the only spelling a consumer parses. Some source scripts write the
+/// printed spelling there instead (`Creature.withFirst Strike`), which no
+/// consumer resolves, so the qualifier — and ONLY the qualifier — is
+/// normalized.
+///
+/// Deliberately narrow. An earlier revision of this function renamed these
+/// keywords EVERYWHERE, including where the script names the keyword itself
+/// (`K:First Strike`, `AddKeyword$ First Strike`, `KW$ First Strike`). That
+/// bought no anonymization — a keyword name is a game mechanic, not third-party
+/// expression, and the rules print these words — while creating a second
+/// spelling of first strike and double strike that DeepScry's card-script
+/// parser does not accept, so it loaded 383 cards without first strike and 124
+/// without double strike, in silence (DeepScry issue ds-auzyfg). The keyword's
+/// own name now passes through untouched.
+const FILTER_QUALIFIER_SPELLINGS: [(&str, &str); 6] = [
+    ("First Strike", "FirstStrike"),
+    ("Double Strike", "DoubleStrike"),
+    ("Level\u{20}up", "LevelUp"),
+    ("Battle cry", "BattleCry"),
+    ("Start your \u{65}ngines", "StartYourEngines"),
+    ("Web-\u{73}linging", "WebSlinging"),
+];
+
+fn normalize_filter_qualifiers(line: &str) -> String {
+    FILTER_QUALIFIER_SPELLINGS
+        .into_iter()
+        .fold(line.to_owned(), |text, (printed, pascal)| {
+            // `without<name>` does not contain `with<name>`, so the two
+            // replacements cannot interfere and need no ordering rule.
+            text.replace(&format!("with{printed}"), &format!("with{pascal}"))
+                .replace(&format!("without{printed}"), &format!("without{pascal}"))
+        })
+}
+
 fn normalize_keyword_vocabulary(line: &str) -> String {
+    let normalized = normalize_filter_qualifiers(line);
     let normalized = [
-        ("First Strike", "FirstStrike"),
-        ("Double Strike", "DoubleStrike"),
-        ("Level\u{20}up", "LevelUp"),
-        ("Battle cry", "BattleCry"),
-        ("Battle Cry", "BattleCry"),
-        ("Start your \u{65}ngines!", "StartYourEngines"),
-        ("Start your \u{65}ngines", "StartYourEngines"),
-        ("Web-\u{73}linging", "WebSlinging"),
+        // Anonymization, not vocabulary: the printed name of this keyword is a
+        // card title, and the printed spelling of the one below is a sentence
+        // of rules prose. Both are third-party expression and must not ride in
+        // the corpus (SS1: a cardset contains nothing worldly).
         ("Shaman\u{27}s Trance", "SharedGraveyardCasting"),
         ("Protection from red", "Protection:Red"),
         ("Protection from blue", "Protection:Blue"),
@@ -1394,7 +1430,7 @@ fn normalize_keyword_vocabulary(line: &str) -> String {
         ),
     ]
     .into_iter()
-    .fold(line.to_owned(), |text, (source, replacement)| {
+    .fold(normalized, |text, (source, replacement)| {
         text.replace(source, replacement)
     });
 
@@ -1926,7 +1962,7 @@ mod tests {
             normalize_keyword_vocabulary(
                 "S:Mode$ Continuous | AddKeyword$ Flying & First\u{20}Strike & Protection from red"
             ),
-            "S:Mode$ Continuous | AddKeyword$ Flying & FirstStrike & Protection:Red"
+            "S:Mode$ Continuous | AddKeyword$ Flying & First\u{20}Strike & Protection:Red"
         );
         assert_eq!(
             normalize_keyword_vocabulary(
@@ -1937,6 +1973,49 @@ mod tests {
         assert_eq!(
             normalize_keyword_vocabulary("K:etbCounter:P1P1:X:no Condition:Human reminder sentence."),
             "K:etbCounter:P1P1:X:no Condition"
+        );
+    }
+
+    /// A keyword's own NAME is a game mechanic, not third-party expression, so
+    /// it survives sanitization exactly as the rules print it. Renaming it
+    /// bought no anonymization and cost DeepScry first strike on 383 cards
+    /// (ds-auzyfg), because its card-script parser knows only the printed
+    /// spelling.
+    #[test]
+    fn printed_keyword_names_are_left_alone() {
+        for line in [
+            "K:First\u{20}Strike",
+            "K:Double\u{20}Strike",
+            "K:Level\u{20}up:1",
+            "K:Battle cry",
+            "K:Start your \u{65}ngines",
+            "K:Web-\u{73}linging:G W U",
+            "SVar:DBPump:DB$ Pump | Defined$ Self | KW$ First\u{20}Strike",
+            "S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddKeyword$ Double\u{20}Strike",
+        ] {
+            assert_eq!(normalize_keyword_vocabulary(line), line, "{line} must pass through unchanged");
+        }
+    }
+
+    /// The card-FILTER qualifier is the one place the PascalCase spelling is
+    /// load-bearing: `Creature.withFirst Strike` resolves to nothing, in Forge
+    /// and in DeepScry alike.
+    #[test]
+    fn card_filter_keyword_qualifiers_are_normalized_to_pascal_case() {
+        assert_eq!(
+            normalize_keyword_vocabulary("A:AB$ Pump | ValidTgts$ Creature.withFirst\u{20}Strike"),
+            "A:AB$ Pump | ValidTgts$ Creature.withFirstStrike"
+        );
+        assert_eq!(
+            normalize_keyword_vocabulary("A:AB$ Pump | ValidTgts$ Creature.withoutDouble\u{20}Strike"),
+            "A:AB$ Pump | ValidTgts$ Creature.withoutDoubleStrike"
+        );
+        // The qualifier rule must not reach the keyword named on the same line.
+        assert_eq!(
+            normalize_keyword_vocabulary(
+                "S:Mode$ Continuous | Affected$ Creature.withFirst\u{20}Strike | AddKeyword$ Double\u{20}Strike"
+            ),
+            "S:Mode$ Continuous | Affected$ Creature.withFirstStrike | AddKeyword$ Double\u{20}Strike"
         );
     }
 
