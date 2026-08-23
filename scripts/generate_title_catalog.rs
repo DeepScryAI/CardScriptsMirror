@@ -48,8 +48,11 @@ const SKIN_VERSION: &str = "1";
 #[command(about = "Emit the dense, catalog-stamped presentation title catalog")]
 struct Args {
     /// Numeric identity bridge with `#id` and `oracle_id` columns and a
-    /// `metadata:` header field. DeepScry's `card_catalog.tsv` and the
-    /// title-free `catalog_ids.tsv` both satisfy this contract.
+    /// `metadata:` header field. DeepScry's identity-assigning
+    /// `src/engine/assets/card_catalog.tsv` satisfies this contract; this
+    /// repository's `catalog_ids.tsv` (the default path) currently does NOT
+    /// — it carries no `metadata:` field — so regenerating the committed
+    /// table requires `--catalog <DeepScry>/src/engine/assets/card_catalog.tsv`.
     #[arg(long, default_value = "catalog_ids.tsv")]
     catalog: PathBuf,
 

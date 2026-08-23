@@ -1402,6 +1402,20 @@ fn normalize_keyword_vocabulary(line: &str) -> String {
         return "K:DistinctColoredManaForX".to_owned();
     }
 
+    // Flavor words (CR 207.2c-d) are pure lore expression: the rules give
+    // them no game effect and the engine has no consumer for the segment,
+    // so the anonymous corpus must not retain them (ds-5432 SS1 "nothing
+    // worldly"; OD-5: names/lore are the scrub target regardless of owner).
+    let normalized = if normalized.starts_with("K:") && normalized.contains(":Flavor ") {
+        normalized
+            .split(':')
+            .filter(|field| !field.starts_with("Flavor "))
+            .collect::<Vec<_>>()
+            .join(":")
+    } else {
+        normalized
+    };
+
     let fields: Vec<&str> = normalized.split(':').collect();
     if normalized.starts_with("K:etbCounter:") && fields.len() > 5 {
         return fields[..5].join(":");
@@ -1781,6 +1795,20 @@ mod tests {
             ),
             "ValidCard$ creatures tokenId999"
         );
+    }
+
+    #[test]
+    fn strips_keyword_flavor_words() {
+        // The Flavor segment is non-mechanical lore (licensed weapon names
+        // in the Universes Beyond ranges); it must never survive into the
+        // anonymous corpus.
+        assert_eq!(normalize_keyword_vocabulary("K:Equip:2:Flavor Fixture Blade"), "K:Equip:2");
+        assert_eq!(
+            normalize_keyword_vocabulary("K:Equip:4:Flavor Fixture and Fixture Shield"),
+            "K:Equip:4"
+        );
+        // No false positives on ordinary keyword lines.
+        assert_eq!(normalize_keyword_vocabulary("K:Flying"), "K:Flying");
     }
 
     #[test]

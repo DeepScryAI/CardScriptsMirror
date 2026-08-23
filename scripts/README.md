@@ -51,6 +51,14 @@ other worldly identity.
 Oracle id — the face-aware emitter preserved at
 `archive/ip-clean-title-catalog-emitter`, now ported onto main's unified
 `lib/scryfall_bulk.rs`. Its `--verify` mode re-checks an existing table.
+Regenerating the committed table requires pointing `--catalog` at the
+identity-assigning DeepScry catalog (this repository's own `catalog_ids.tsv`,
+the default, carries no `metadata:` header field and is rejected):
+
+```sh
+rust-script scripts/generate_title_catalog.rs \
+  --catalog <DeepScry>/src/engine/assets/card_catalog.tsv
+```
 
 `make_artpack.rs` emits the `kind=uuid-scheme` artpack table
 (`presentation/artpack_scryfall_uuid.tsv`): one Scryfall printing UUID per

@@ -134,6 +134,11 @@ fn validate_trie_path(label: &str, relative: &str) -> Result<()> {
             (8..=10).contains(&stem.len())
                 && stem.bytes().all(|b| b.is_ascii_digit())
                 && (stem.len() == 8 || !stem.starts_with('0'))
+                // The manifest declares id_space decimal-u32, so an id the
+                // path grammar admits but u32 cannot hold (a 10-digit value
+                // above 4294967295) must fail loudly here rather than mint a
+                // cardset whose manifest lies about its own id space.
+                && stem.parse::<u32>().is_ok()
                 && stem[..2] == *parts[0]
                 && stem[2..4] == *parts[1]
                 && stem[4..6] == *parts[2]
@@ -141,8 +146,38 @@ fn validate_trie_path(label: &str, relative: &str) -> Result<()> {
     if !ok {
         bail!(
             "unexpected file {label}/{relative}: every {label} trie entry must be \
-             <t1>/<t2>/<t3>/<id>.txt (id zero-padded to at least 8 digits) with matching shard digits"
+             <t1>/<t2>/<t3>/<id>.txt (id zero-padded to at least 8 digits, within u32 range) \
+             with matching shard digits"
         );
     }
     Ok(())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::validate_trie_path;
+
+    #[test]
+    fn accepts_canonical_trie_paths() {
+        assert!(validate_trie_path("cards", "00/00/00/00000001.txt").is_ok());
+        assert!(validate_trie_path("tokens", "98/24/82/982482567.txt").is_ok());
+        // The largest id the declared decimal-u32 id space allows.
+        assert!(validate_trie_path("cards", "42/94/96/4294967295.txt").is_ok());
+    }
+
+    #[test]
+    fn rejects_ids_beyond_the_declared_u32_id_space() {
+        // 10 digits, valid shape, but above u32::MAX = 4294967295: packing it
+        // would mint a cardset whose manifest asserts an id space it violates.
+        assert!(validate_trie_path("cards", "42/94/96/4294967296.txt").is_err());
+        assert!(validate_trie_path("cards", "99/99/99/9999999999.txt").is_err());
+    }
+
+    #[test]
+    fn rejects_malformed_trie_paths() {
+        assert!(validate_trie_path("cards", "00/00/00/0000001.txt").is_err()); // 7 digits
+        assert!(validate_trie_path("cards", "00/00/01/00000001.txt").is_err()); // shard mismatch
+        assert!(validate_trie_path("cards", "00/00/00/00000001.md").is_err()); // wrong extension
+        assert!(validate_trie_path("cards", "00/00/00/0982482567.txt").is_err()); // leading zero on 10 digits
+    }
 }
