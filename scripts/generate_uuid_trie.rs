@@ -58,12 +58,6 @@ struct Args {
     #[arg(long, default_value = "catalog_ids.tsv")]
     catalog: PathBuf,
 
-    /// Frozen legacy token allocation ledger. Its dense row numbers are
-    /// appended after the final card id; script names are migration input
-    /// only and never enter the generated anonymous cardset.
-    #[arg(long)]
-    token_catalog: PathBuf,
-
     /// Ignore a present cache and download the current snapshot.
     #[arg(long)]
     refresh: bool,
@@ -133,6 +127,11 @@ struct TokenScriptId(u32);
 /// token instead of appending a new definition after the established range.
 const TOKEN_GENESIS_CARD_MAX_ID: u32 = 35_307;
 const TOKEN_GENESIS_ROWS: u32 = 837;
+/// SHA-256 of the 837 genesis source stems in bytewise sorted order, one per
+/// line with a final newline. This makes the one-time allocation reproducible
+/// without retaining a second token catalog: any added, removed, or renamed
+/// source is rejected instead of silently renumbering the block.
+const TOKEN_GENESIS_SORTED_KEYS_SHA256: &str = "eb1a79e8569edfa737e250d7dbb2b97f945359351a425ce3d88297fd8388c964";
 
 impl TokenScriptId {
     fn trie_path(&self, root: &Path) -> PathBuf {
@@ -245,7 +244,7 @@ fn main() -> Result<()> {
     let catalog_ids: usize = catalog.by_oracle_id.values().map(Vec::len).sum();
     eprintln!("Loaded {catalog_ids} stable numeric identities");
 
-    let token_index = build_token_index(&token_source, &args.token_catalog, catalog.max_id)?;
+    let token_index = build_token_index(&token_source, catalog.max_id)?;
     eprintln!("Loaded {} stable numeric token identities", token_index.len());
     let report = generate(&args.source, &args.output, &index, &catalog, &token_index)?;
     generate_tokens(&token_source, &args.token_output, &index, &catalog, &token_index)?;
@@ -789,88 +788,13 @@ fn source_scripts(root: &Path) -> Result<Vec<PathBuf>> {
     Ok(files)
 }
 
-fn load_token_allocations(path: &Path, card_max_id: u32) -> Result<BTreeMap<String, TokenScriptId>> {
-    let content = fs::read_to_string(path).with_context(|| format!("read token allocation ledger {}", path.display()))?;
+fn build_token_index(source: &Path, card_max_id: u32) -> Result<BTreeMap<String, TokenScriptId>> {
     if card_max_id != TOKEN_GENESIS_CARD_MAX_ID {
         bail!(
             "token genesis requires final card id {TOKEN_GENESIS_CARD_MAX_ID}, found {card_max_id}; \
              append later definitions after the unified range instead of replaying genesis"
         );
     }
-    let (header, body) = content
-        .split_once('\n')
-        .with_context(|| format!("token allocation ledger {} has no body", path.display()))?;
-    if !header.starts_with("#id\tscript\tmetadata: v=1 ") {
-        bail!("unexpected token allocation header in {}", path.display());
-    }
-    let declared_rows = header
-        .split_whitespace()
-        .find_map(|field| field.strip_prefix("tokens="))
-        .context("token allocation header has no tokens count")?
-        .parse::<u32>()
-        .context("token allocation header has an invalid tokens count")?;
-    if declared_rows != TOKEN_GENESIS_ROWS {
-        bail!("token genesis requires {TOKEN_GENESIS_ROWS} ledger rows, header declares {declared_rows}");
-    }
-    let declared_sha = header
-        .split_whitespace()
-        .find_map(|field| field.strip_prefix("body_sha256="))
-        .context("token allocation header has no body_sha256")?;
-    let actual_sha = Sha256::digest(body.as_bytes())
-        .iter()
-        .map(|byte| format!("{byte:02x}"))
-        .collect::<String>();
-    if declared_sha != actual_sha {
-        bail!("token allocation body checksum mismatch: header says {declared_sha}, body hashes to {actual_sha}");
-    }
-    let mut by_name = BTreeMap::new();
-    let mut by_id = BTreeMap::<TokenScriptId, String>::new();
-    let mut expected_legacy_id = 1u32;
-    for (offset, line) in body.lines().enumerate() {
-        let line_number = offset + 2;
-        if line.trim().is_empty() {
-            continue;
-        }
-        let (raw_legacy_id, key) = line
-            .split_once('\t')
-            .with_context(|| format!("token allocation row {line_number} has no script column"))?;
-        let legacy_id: u32 = raw_legacy_id
-            .parse()
-            .with_context(|| format!("invalid token allocation id on {}:{line_number}", path.display()))?;
-        if legacy_id != expected_legacy_id {
-            bail!(
-                "token allocation row {} has legacy id {legacy_id}, expected dense id {expected_legacy_id}",
-                line_number
-            );
-        }
-        expected_legacy_id = expected_legacy_id
-            .checked_add(1)
-            .context("token allocation ledger exceeds u32")?;
-        let unified_id = card_max_id
-            .checked_add(legacy_id)
-            .context("appended token allocation exceeds u32")?;
-        let id = TokenScriptId(unified_id);
-        if let Some(first) = by_id.insert(id, key.to_owned()) {
-            bail!("duplicate appended token id {unified_id} for {first:?} and {key:?}");
-        }
-        if by_name.insert(key.to_owned(), id).is_some() {
-            bail!("duplicate token allocation key {key:?}");
-        }
-    }
-    if by_name.is_empty() {
-        bail!("token allocation ledger {} contains no rows", path.display());
-    }
-    if by_name.len() != TOKEN_GENESIS_ROWS as usize {
-        bail!(
-            "token allocation header declares {TOKEN_GENESIS_ROWS} rows but body contains {}",
-            by_name.len()
-        );
-    }
-    Ok(by_name)
-}
-
-fn build_token_index(source: &Path, allocations: &Path, card_max_id: u32) -> Result<BTreeMap<String, TokenScriptId>> {
-    let by_name = load_token_allocations(allocations, card_max_id)?;
     let mut source_names = BTreeSet::new();
     for path in source_scripts(source)? {
         let key = path
@@ -881,17 +805,31 @@ fn build_token_index(source: &Path, allocations: &Path, card_max_id: u32) -> Res
         if !source_names.insert(key.clone()) {
             bail!("duplicate token source stem {key:?}");
         }
-        if !by_name.contains_key(&key) {
-            bail!("token source {key:?} has no frozen appended catalog allocation");
-        }
     }
-    let unused: Vec<&str> = by_name
-        .keys()
-        .filter(|key| !source_names.contains(*key))
-        .map(String::as_str)
-        .collect();
-    if !unused.is_empty() {
-        bail!("{} frozen token allocation(s) have no source script: {:?}", unused.len(), unused);
+    if source_names.len() != TOKEN_GENESIS_ROWS as usize {
+        bail!(
+            "token genesis requires exactly {TOKEN_GENESIS_ROWS} source stems, found {}; append later definitions through the unified catalog instead of replaying genesis",
+            source_names.len()
+        );
+    }
+    let mut body = source_names.iter().cloned().collect::<Vec<_>>().join("\n");
+    body.push('\n');
+    let actual_sha = Sha256::digest(body.as_bytes())
+        .iter()
+        .map(|byte| format!("{byte:02x}"))
+        .collect::<String>();
+    if actual_sha != TOKEN_GENESIS_SORTED_KEYS_SHA256 {
+        bail!(
+            "token genesis source-key checksum mismatch: expected {TOKEN_GENESIS_SORTED_KEYS_SHA256}, found {actual_sha}; the frozen genesis universe changed"
+        );
+    }
+    let mut by_name = BTreeMap::new();
+    for (offset, key) in source_names.into_iter().enumerate() {
+        let legacy_id = u32::try_from(offset + 1).context("token genesis row exceeds u32")?;
+        let unified_id = card_max_id
+            .checked_add(legacy_id)
+            .context("appended token allocation exceeds u32")?;
+        by_name.insert(key, TokenScriptId(unified_id));
     }
     Ok(by_name)
 }

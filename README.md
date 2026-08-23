@@ -32,7 +32,6 @@ append-only catalog, then run:
 ./scripts/generate_uuid_trie.rs \
   --source ../cardsmirror-source/cardsfolder \
   --catalog catalog_ids.tsv \
-  --token-catalog /path/to/DeepScry/src/core/assets/token_catalog.tsv \
   --output cards \
   --token-output tokens
 ```
@@ -42,6 +41,12 @@ The first run downloads Scryfall's `default_cards` bulk snapshot into
 machine-readable report is written under `.cache/reports/`. Missing and
 ambiguous mappings are always printed and recorded. Add `--strict` when those
 expected Forge-only records should fail the run.
+
+The one-time 837-token genesis block is derived from the bytewise-sorted token
+source stems and guarded by a frozen source-key checksum. No second token
+catalog is required or embedded. A changed token universe fails loudly; later
+definitions must append through the unified catalog rather than replaying the
+genesis ordering.
 
 Run the unit tests with:
 
