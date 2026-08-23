@@ -32,13 +32,37 @@ browser loader (`web/ts/card_skin.ts`) and `bin/namecards`:
 Titles come from a Scryfall bulk snapshot joined by Oracle ID. Reversible
 cards carry their Oracle identity on card faces with a null top-level
 `oracle_id`, so a joiner must fall back to faces or it silently drops all of
-them. The emitter that produced this table,
-`scripts/generate_title_catalog.rs`, together with the face-aware
-`scripts/lib/scryfall_bulk.rs` it requires, is preserved at tag
-`archive/ip-clean-title-catalog-emitter`; porting it onto main's unified
-pipeline is tracked in DeepScry issue ds-5432.
+them. The emitter that produced this table is
+`scripts/generate_title_catalog.rs` on this branch — the face-aware emitter
+originally preserved at tag `archive/ip-clean-title-catalog-emitter`, since
+ported onto main's unified `scripts/lib/scryfall_bulk.rs` (DeepScry issue
+ds-5432). Port verification (2026-08-23): the ported emitter regenerates
+this table BYTE-IDENTICALLY from the 2026-08-22 Scryfall snapshot.
 
 Fold-time verification (2026-08-22): for all 35,307 ids, the SHA-256 of the
 title in this table equals the `name_sha256` recorded for the same id in
 this repository's `catalog_ids.tsv`, and the header's `catalog_identity`
 matches DeepScry's embedded catalog on its integration and main branches.
+
+## The other skin artifacts (ratified SS0-SS5 package)
+
+This directory also carries the Wizards skin's other generated tables (see
+`scripts/README.md` and, normatively, `docs/CARD_SKIN_FORMATS.md` in the
+DeepScry repository):
+
+- `artpack_scryfall_uuid.tsv` — the `kind=uuid-scheme` artpack: catalog id to
+  Scryfall printing UUID; clients compute image URLs with the
+  `layout=scryfall-cdn-v1` function in its header. Emitted by
+  `scripts/make_artpack.rs`.
+- `provenance_oracle_ids.tsv` — dense catalog id to Scryfall `oracle_id`.
+  Worldly identity, deliberately a skin-side artifact (cardsets are
+  anonymous). Emitted by `scripts/make_provenance.rs`.
+- `skins/` — canonical-JSON skin manifests binding a cardset CID with titles
+  and the optional tables above. A manifest's own CID names the whole skin;
+  the minted CIDs are recorded in the commit messages that add or update
+  these files and in DeepScry issue ds-5432.
+
+Every artifact is content-addressed with the pinned profile (CIDv1,
+sha2-256, raw codec, single block, base32); the CID is over the exact
+committed bytes, so editing any of these files by hand mints a different
+object — regenerate with the producer scripts instead.
