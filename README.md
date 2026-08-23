@@ -26,7 +26,8 @@ append-only catalog, then run:
 ```sh
 ./scripts/extract_catalog_ids.rs \
   --source /path/to/DeepScry/src/engine/assets/card_catalog.tsv \
-  --output catalog_ids.tsv
+  --output catalog_ids.tsv \
+  --face-output catalog_face_ids.tsv
 
 ./scripts/generate_uuid_trie.rs \
   --source ../cardsmirror-source/cardsfolder \
@@ -53,6 +54,19 @@ rust-script --test scripts/scan_scryfall_ip.rs
 digest used to distinguish multiple Scryfall names for the same Oracle
 identity. It carries no plaintext titles or card text. Scryfall data is used
 only while generating the corpus and is never shipped as gameplay data.
+
+`catalog_face_ids.tsv` is the companion index for SINGLE-FACE spellings. A
+two-faced card's registry name is the combined form ("A // B"), so a caller
+holding only one face's name cannot match the combined digest. Each row is the
+SHA-256 of one face spelling and the numeric ID of the card that owns it, or
+the literal `ambiguous` where two different cards share a face spelling. The
+generator derives it with the same rules DeepScry's own catalog uses: a full
+card name owns its spelling, so a face that is also some card's full name is
+left out entirely, and a face two cards share is recorded as ambiguous and
+refused rather than resolved to one of them. Like the identity table it is
+digest-only, and like the identity table it is NOT packed into the cardset
+tarball (`pack_cardset.rs` packs `manifest.json` plus `cards/` and `tokens/`
+and nothing else), so publishing it changes no cardset content id.
 
 These identity fields are redistribution protections, not secrecy mechanisms.
 The retained `oracle_id` is Scryfall's stable public identifier and an

@@ -6,7 +6,15 @@ diagnostic data below the gitignored `.cache/` directory.
 
 `extract_catalog_ids.rs` removes plaintext presentation names from DeepScry's
 append-only numeric catalog while retaining the numeric ID, Scryfall Oracle
-UUID, and a one-way name digest needed to validate aliases.
+UUID, and a one-way name digest needed to validate aliases. From one parse of
+that catalog it writes two title-free tables: `catalog_ids.tsv` (one row per
+card) and `catalog_face_ids.tsv` (one row per single-face spelling of a
+multi-face card, so a caller holding only "A" can find the card whose registry
+spelling is "A // B"). The face index reproduces the derivation rules in
+DeepScry's `src/engine/src/card_catalog.rs`: a full card spelling owns its
+name, and a face two different cards share is written as `ambiguous` and
+refused rather than resolved to one of them. Neither table is packed into the
+cardset tarball, so the face table changes no cardset content id.
 
 `generate_uuid_trie.rs` owns Oracle-identity mapping, structured Forge-script
 sanitization, and numeric-trie generation.
