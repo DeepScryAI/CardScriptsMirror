@@ -1927,6 +1927,7 @@ mod tests {
             colors: Vec::new(),
             color_indicator: None,
             card_faces: Vec::new(),
+            ..Default::default()
         };
         assert_eq!(commander_color_identity(&card), "");
     }
@@ -1946,6 +1947,7 @@ mod tests {
             colors: Vec::new(),
             color_indicator: None,
             card_faces: Vec::new(),
+            ..Default::default()
         };
         assert_eq!(commander_color_identity(&card), "WR");
     }
@@ -1974,6 +1976,7 @@ mod tests {
                     type_line: "Instant".to_owned(),
                     colors: vec!["R".to_owned()],
                     color_indicator: None,
+                    ..Default::default()
                 },
                 ScryfallFace {
                     name: "Ice".to_owned(),
@@ -1983,8 +1986,10 @@ mod tests {
                     type_line: "Instant".to_owned(),
                     colors: vec!["U".to_owned()],
                     color_indicator: None,
+                    ..Default::default()
                 },
             ],
+            ..Default::default()
         }]);
         assert_eq!(index.lookup("Fixture Qzx Front // Fixture Qzx Back").unwrap().len(), 1);
         assert_eq!(index.lookup("Fire").unwrap().len(), 1);

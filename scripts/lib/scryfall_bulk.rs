@@ -32,8 +32,12 @@ struct CacheMetadata<'a> {
 }
 
 #[allow(dead_code)]
-#[derive(Clone, Debug, Deserialize)]
+#[derive(Clone, Debug, Default, Deserialize)]
 pub struct ScryfallCard {
+    /// Scryfall's per-printing card UUID — the identity the image CDN's
+    /// directory fan-out is computed from. Distinct from `oracle_id`.
+    #[serde(default)]
+    pub id: Option<Uuid>,
     pub oracle_id: Option<Uuid>,
     pub name: String,
     pub printed_name: Option<String>,
@@ -52,12 +56,38 @@ pub struct ScryfallCard {
     pub color_indicator: Option<Vec<String>>,
     #[serde(default)]
     pub card_faces: Vec<ScryfallFace>,
+    #[serde(default)]
+    pub released_at: String,
+    #[serde(default)]
+    pub digital: bool,
+    #[serde(default)]
+    pub image_status: Option<String>,
+    #[serde(default)]
+    pub image_uris: Option<ScryfallImageUris>,
+    #[serde(default)]
+    pub set_type: Option<String>,
+}
+
+/// The subset of Scryfall's `image_uris` object we consult: presence of a
+/// real image, nothing more (URL construction is a layout function of the
+/// printing UUID, not of these strings).
+#[allow(dead_code)]
+#[derive(Clone, Debug, Default, Deserialize)]
+pub struct ScryfallImageUris {
+    #[serde(default)]
+    pub normal: Option<String>,
+    #[serde(default)]
+    pub small: Option<String>,
 }
 
 #[allow(dead_code)]
-#[derive(Clone, Debug, Deserialize)]
+#[derive(Clone, Debug, Default, Deserialize)]
 pub struct ScryfallFace {
     pub name: String,
+    /// Face-level Oracle id. Present on `reversible_card` printings, whose
+    /// TOP-LEVEL `oracle_id` is null; absent on ordinary faces.
+    #[serde(default)]
+    pub oracle_id: Option<Uuid>,
     pub printed_name: Option<String>,
     pub oracle_text: Option<String>,
     #[serde(default)]
@@ -68,6 +98,21 @@ pub struct ScryfallFace {
     pub colors: Vec<String>,
     #[serde(default)]
     pub color_indicator: Option<Vec<String>>,
+    #[serde(default)]
+    pub image_uris: Option<ScryfallImageUris>,
+}
+
+impl ScryfallCard {
+    /// The record's Oracle identity: top level, falling back to the first face.
+    ///
+    /// Every `reversible_card` printing has a NULL top-level `oracle_id` and
+    /// carries the real identity on each face. A consumer that reads only the
+    /// top level silently drops all of them, which is invisible until one of
+    /// those faces is the only source of some catalog row's title.
+    pub fn effective_oracle_id(&self) -> Option<Uuid> {
+        self.oracle_id
+            .or_else(|| self.card_faces.iter().find_map(|face| face.oracle_id))
+    }
 }
 
 pub fn ensure_cache(cache: &Path, refresh: bool) -> Result<()> {
