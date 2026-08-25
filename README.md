@@ -1,5 +1,11 @@
 # CardScriptsMirror anonymous numeric pipeline
 
+CardScriptsMirror is a data repository carrying a stripped, transformed form
+of card data from the GPL-3.0-licensed Forge project. Because that corpus is
+Forge-derived, this repository is licensed under GPL-3.0; see `LICENSE`.
+Producer tooling is being migrated to the separately licensed card-compiler
+repository, while generated card data remains here.
+
 This unrelated-history branch generates an identity-only card script corpus.
 It joins Forge scripts to stable DeepScry numeric IDs through Scryfall
 `oracle_id` values, removes top-level and variant display metadata (`Name:` and
