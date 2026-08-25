@@ -114,6 +114,26 @@ table to carry the requested `catalog_identity`; `--verify <manifest>`
 recomputes every CID, size, and canonical JSON byte from the artifacts and
 hints.
 
+`make_wotc_test_skin.rs` builds the local-only human-test variant of the
+committed WotC skin. It verifies that the source manifest's title/body content
+references match the supplied tables, prefixes every title face and body with
+`TEST `, restamps both table checksums, and emits a complete canonical skin
+manifest. Cardset, artpack, and provenance references remain byte-for-byte
+the WotC skin's; the generated title/body references use zero hints because a
+local preloader supplies those bytes by CID. Zero hints are complete SS0.3
+content references, not missing identity.
+
+```sh
+rust-script scripts/make_wotc_test_skin.rs
+rust-script scripts/make_wotc_test_skin.rs --verify
+```
+
+Both commands use `.cache/generated-skins/wotc-test/`, which is ignored and
+must remain local. The directory contains `wotc-test.skin.json` plus the title
+and body tables it references. This producer intentionally has no DeepScry
+dependency so it can move with the other producers into card-compiler under
+DeepScry issue ds-5444; it lives beside the source data only until that move.
+
 `extract_card_skin.rs` predates the ratified package; its combined
 titles+Oracle-text JSON remains a local-only cache artifact. Durable skin
 artifacts are the TSV/manifest family above.
