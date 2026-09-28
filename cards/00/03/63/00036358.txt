@@ -1,0 +1,19 @@
+Id:36358
+ColorIdentity:UB
+OriginSet:G9a4c1754c2b7c355
+ManaCost:3 U B B
+Types:Legendary Creature Elder Sphinx
+PT:5/5
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self+wasCastByYou | Execute$ TrigArtifact
+SVar:TrigArtifact:DB$ Pump | ValidTgts$ Artifact.nonLand+YouOwn | TargetMin$ 0 | TargetMax$ 1 | TgtZone$ Graveyard | SubAbility$ DBBattle
+SVar:DBBattle:DB$ Pump | ValidTgts$ Battle.nonLand+YouOwn | TargetMin$ 0 | TargetMax$ 1 | TgtZone$ Graveyard | TargetUnique$ True | SubAbility$ DBCreature
+SVar:DBCreature:DB$ Pump | ValidTgts$ Creature.nonLand+YouOwn | TargetMin$ 0 | TargetMax$ 1 | TgtZone$ Graveyard | TargetUnique$ True | SubAbility$ DBEnchantment
+SVar:DBEnchantment:DB$ Pump | ValidTgts$ Enchantment.nonLand+YouOwn | TargetMin$ 0 | TargetMax$ 1 | TgtZone$ Graveyard | TargetUnique$ True | SubAbility$ DBInstant
+SVar:DBInstant:DB$ Pump | ValidTgts$ Instant.YouOwn | TargetMin$ 0 | TargetMax$ 1 | TgtZone$ Graveyard | TargetUnique$ True | SubAbility$ DBKindred
+SVar:DBKindred:DB$ Pump | ValidTgts$ Kindred.nonLand+YouOwn | TargetMin$ 0 | TargetMax$ 1 | TgtZone$ Graveyard | TargetUnique$ True | SubAbility$ DBPlaneswalker
+SVar:DBPlaneswalker:DB$ Pump | ValidTgts$ Planeswalker.nonLand+YouOwn | TargetMin$ 0 | TargetMax$ 1 | TgtZone$ Graveyard | TargetUnique$ True | SubAbility$ DBSorcery
+SVar:DBSorcery:DB$ Pump | ValidTgts$ Sorcery.YouOwn | TargetMin$ 0 | TargetMax$ 1 | TgtZone$ Graveyard | TargetUnique$ True | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | Defined$ Targeted | RememberChanged$ True | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | Valid$ Card.nonLand+IsRemembered | ValidZone$ Exile | Amount$ All | WithoutManaCost$ True | ValidSA$ Spell | Optional$ True | CopyCard$ True | WithTotalCMC$ 6 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

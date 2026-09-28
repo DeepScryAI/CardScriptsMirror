@@ -1,0 +1,11 @@
+Id:36202
+ColorIdentity:U
+OriginSet:G9a4c1754c2b7c355
+ManaCost:1 U
+Types:Legendary Creature Homunculus
+PT:1/1
+T:Mode$ DamageAll | ValidTarget$ Opponent | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigDraw | PlayerTurn$ True
+SVar:TrigDraw:DB$ Draw | NumCards$ 2 | SubAbility$ DBWinGame
+SVar:DBWinGame:DB$ WinsGame | Defined$ You | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ0 | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Battlefield | Destination$ Library | Shuffle$ True | Defined$ Self
+SVar:X:Count$ValidLibrary Card.YouOwn

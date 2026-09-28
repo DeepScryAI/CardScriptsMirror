@@ -1,0 +1,17 @@
+Id:36191
+ColorIdentity:
+OriginSet:G9a4c1754c2b7c355
+ManaCost:10
+Types:Legendary Creature Eldrazi
+PT:12/12
+T:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigUntapAll
+SVar:TrigUntapAll:DB$ UntapAll | ValidCards$ Land.YouCtrl
+K:Flying
+K:Trample
+K:Ward:Sac<3/Permanent>
+A:AB$ Effect | Cost$ 3 ExileFromHand<1/CARDNAME> | ActivationZone$ Hand | ValidTgts$ Land | RememberObjects$ Targeted & Self | StaticAbilities$ Land,MayPlay | Triggers$ Cast | ImprintCards$ Self | Duration$ Permanent | ForgetOnMoved$ Exile
+SVar:Land:Mode$ Continuous | AffectedZone$ Battlefield | Affected$ Card.IsRemembered+!IsImprinted | AddAbility$ Mana
+SVar:Mana:AB$ Mana | Cost$ T | Produced$ C | Amount$ 2
+SVar:MayPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsImprinted+IsRemembered | AffectedZone$ Exile | Secondary$ True
+SVar:Cast:Mode$ SpellCast | ValidCard$ Card.IsImprinted+IsRemembered+wasCastFromExile | Execute$ ExileSelf | Static$ True
+SVar:ExileSelf:DB$ ChangeZone | Origin$ Command | Destination$ Exile | Defined$ Self

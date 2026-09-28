@@ -1,0 +1,12 @@
+Id:36237
+ColorIdentity:U
+OriginSet:G9a4c1754c2b7c355
+ManaCost:2 U
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Curse
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigTap
+SVar:TrigTap:DB$ Tap | Defined$ Enchanted | SubAbility$ DBUnprepare
+SVar:DBUnprepare:DB$ AlterAttribute | Defined$ Enchanted | Attributes$ Prepared | Activate$ False
+S:Mode$ Continuous | AffectedDefined$ AttachedBy Self | Affected$ Permanent | RemoveAllAbilities$ True
+R:Event$ Untap | ValidCard$ Permanent.AttachedBy | ValidStepTurnToController$ You | Layer$ CantHappen | Secondary$ True

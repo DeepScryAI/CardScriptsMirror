@@ -1,0 +1,11 @@
+Id:36394
+ColorIdentity:B
+OriginSet:G699b6aa66d89779f
+ManaCost:5 B B B
+Types:Legendary Creature Angel
+PT:8/8
+K:Flying
+K:Deathtouch
+T:Mode$ ChangesZone | ValidCard$ Card.Self,Creature.Other+!token+YouCtrl | Origin$ Battlefield | Destination$ Graveyard | Execute$ DelTrigReturn | TriggerZones$ Battlefield
+SVar:DelTrigReturn:DB$ DelayedTrigger | Mode$ Phase | Phase$ End Of Turn | Execute$ DBReturn | RememberObjects$ TriggeredNewCardLKICopy
+SVar:DBReturn:DB$ ChangeZone | Defined$ DelayTriggerRememberedLKI | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True

@@ -1,0 +1,11 @@
+Id:36170
+ColorIdentity:R
+OriginSet:G9a4c1754c2b7c355
+ManaCost:2 R
+Types:Sorcery
+A:SP$ Token | TokenScriptIds$ 35558 | TokenOwner$ You | RememberTokens$ True | SubAbility$ DBPutCounterAll
+SVar:DBPutCounterAll:DB$ PutCounterAll | ValidCards$ Wizard.!IsRemembered+token+YouCtrl | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+T:Mode$ Phase | Phase$ Upkeep | CheckSVar$ X | Execute$ TrigReturn | TriggerZones$ Graveyard
+SVar:TrigReturn:DB$ ChangeZone | Defined$ Self | Origin$ Graveyard | Destination$ Hand
+SVar:X:PlayerCountOpponents$HasPropertywasDealtNonCombatDamageLastTurn

@@ -1,0 +1,13 @@
+Id:36242
+ColorIdentity:U
+OriginSet:G9a4c1754c2b7c355
+ManaCost:3 U U
+Types:Legendary Planeswalker Jace
+Loyalty:5
+A:AB$ Empower | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | Type$ Jace | Num$ X
+A:AB$ Effect | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | Triggers$ TrigAttack | Duration$ UntilYourNextTurn | AILogic$ Main2
+SVar:TrigAttack:Mode$ Attacks | ValidCard$ Creature | Attacked$ You,Planeswalker.YouCtrl | TriggerZones$ Command | Execute$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ TriggeredAttackerLKICopy | NumAtt$ -5
+A:AB$ ChangeZoneAll | Cost$ AddCounter<0/LOYALTY> | Planeswalker$ True | Ultimate$ True | CheckSVar$ Y | SVarCompare$ GE25 | ChangeType$ Card.OppOwn+!BottomLibrary | Origin$ Library | Destination$ Exile
+SVar:X:Count$Valid Island.YouCtrl
+SVar:Y:Count$Valid Jace.YouCtrl$CardCounters.LOYALTY

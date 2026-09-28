@@ -1,0 +1,14 @@
+Id:36250
+ColorIdentity:UG
+OriginSet:G9a4c1754c2b7c355
+ManaCost:1 G U
+Types:Legendary Creature Merfolk Noble
+PT:2/4
+T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigUntap | TriggerZones$ Battlefield | CheckSVar$ X
+SVar:TrigUntap:DB$ Untap | ValidTgts$ Creature.attacking | SubAbility$ DBUnblockable | AILogic$ Pump
+SVar:DBUnblockable:DB$ Effect | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+S:Mode$ Continuous | Affected$ Planeswalker.YouCtrl | AddAbility$ PWLeviathan
+SVar:PWLeviathan:AB$ Token | Cost$ SubCounter<8/LOYALTY> | Planeswalker$ True | TokenScriptIds$ 36426 | TokenOwner$ You
+SVar:X:Count$ThisTurnActivated_Activated.Loyalty+YouCtrl
+SVar:PlayMain1:TRUE

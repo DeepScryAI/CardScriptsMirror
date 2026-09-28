@@ -1,0 +1,14 @@
+Id:30729
+ColorIdentity:
+OriginSet:G0c1d7f6c33ae722a
+ManaCost:no cost
+Types:Plane Las Vegas
+T:Mode$ SpellCast | ValidCard$ Instant,Card.hasKeywordFlash | ValidActivatingPlayer$ Player | Execute$ TrigTokenCast | TriggerZones$ Command
+SVar:TrigTokenCast:DB$ Token | TokenScriptIds$ 36414 | TokenOwner$ TriggeredActivator
+T:Mode$ TurnFaceUp | ValidCard$ Creature | TriggerZones$ Command | Execute$ TrigTokenFaceUp | Secondary$ True
+SVar:TrigTokenFaceUp:DB$ Token | TokenScriptIds$ 36414 | TokenOwner$ TriggeredCardController
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos
+SVar:RolledChaos:DB$ Effect | StaticAbilities$ GrantFlashHand,GrantFlashStack | Duration$ UntilYourNextTurn
+SVar:GrantFlashHand:Mode$ Continuous | Affected$ Creature.YouOwn | AffectedZone$ Hand | AddKeyword$ Flash
+SVar:GrantFlashStack:Mode$ Continuous | Affected$ Creature.YouOwn+wasCastFromYourHand | AffectedZone$ Stack | AddKeyword$ Flash
+SVar:AIRollPlanarDieParams:Mode$ Random | Chance$ 25

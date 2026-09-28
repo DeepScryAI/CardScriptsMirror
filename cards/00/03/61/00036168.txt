@@ -1,0 +1,9 @@
+Id:36168
+ColorIdentity:UR
+OriginSet:G9a4c1754c2b7c355
+ManaCost:1 U R
+Types:Instant
+A:SP$ ChangeZone | ValidTgts$ Permanent.nonLand | Optional$ True | DefinedPlayer$ TargetedOwner | Chooser$ TargetedOwner | Origin$ Battlefield | Destination$ Library | LibraryPosition$ 0 | RememberChanged$ True | SubAbility$ DBDamage
+SVar:DBDamage:DB$ DealDamage | Defined$ TargetedOwner | NumDmg$ 2 | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Defined$ Targeted | Origin$ Battlefield | Destination$ Library | LibraryPosition$ -1 | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ0 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

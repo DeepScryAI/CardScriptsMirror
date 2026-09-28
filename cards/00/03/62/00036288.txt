@@ -1,0 +1,12 @@
+Id:36288
+ColorIdentity:BG
+OriginSet:G9a4c1754c2b7c355
+ManaCost:1 B G
+Types:Creature Wolf
+PT:2/1
+K:Menace
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill
+SVar:TrigMill:DB$ Mill | NumCards$ 4 | Defined$ You | RememberMilled$ True | SubAbility$ DBTrigger
+SVar:DBTrigger:DB$ ImmediateTrigger | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ4 | Execute$ ReturnLand | SubAbility$ DBCleanup
+SVar:ReturnLand:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Land.YouOwn | Tapped$ True
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

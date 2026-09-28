@@ -1,0 +1,18 @@
+Id:30722
+ColorIdentity:
+OriginSet:G0c1d7f6c33ae722a
+ManaCost:no cost
+Types:Plane Las Vegas
+T:Mode$ PlaneswalkedTo | ValidCard$ Card.Self | Execute$ TrigToken
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Command | Secondary$ True | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ 2 | TokenScriptIds$ 36422 | TokenOwner$ You
+T:Mode$ DamageDoneOnce | CombatDamage$ True | ValidSource$ Creature.withFlying+YouCtrl | ValidTarget$ Player | TriggerZones$ Command | Execute$ TrigChoose
+SVar:TrigChoose:DB$ ChooseCard | DefinedCards$ TriggeredSources | Amount$ NumSources | MinAmount$ 0 | RememberChosen$ True | SubAbility$ TrigReturn
+SVar:NumSources:TriggerObjectsSources$Amount
+SVar:TrigReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Battlefield | Destination$ Hand | RememberLKI$ True | ForgetOtherRemembered$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ XPower | ConditionDefined$ RememberedLKI | ConditionPresent$ Card | ConditionCompare$ GE1 | SubAbility$ DBCleanupDraw
+SVar:XPower:RememberedLKI$CardPower
+SVar:DBCleanupDraw:DB$ Cleanup | ClearRemembered$ True
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ TrigCounter
+SVar:TrigCounter:DB$ PutCounter | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | CounterType$ Flying | CounterNum$ 1 | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Targeted | Types$ Performer | Duration$ Permanent

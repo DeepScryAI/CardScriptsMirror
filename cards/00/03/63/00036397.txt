@@ -1,0 +1,13 @@
+Id:36397
+ColorIdentity:WUBR
+OriginSet:G699b6aa66d89779f
+ManaCost:1 W U B R
+Types:Legendary Planeswalker Jace
+Loyalty:4
+T:Mode$ Phase | Phase$ BeginCombat | TriggerZones$ Battlefield | ValidPlayer$ Opponent | Execute$ TrigCantAttack
+SVar:TrigCantAttack:DB$ Effect | StaticAbilities$ STCantAttack | UnlessCost$ 2 | UnlessPayer$ TriggeredPlayer | RememberObjects$ TriggeredPlayer
+SVar:STCantAttack:Mode$ CantAttack | ValidCard$ Creature.ControlledBy Remembered | Target$ Jace.YouCtrl
+A:AB$ Draw | Cost$ AddCounter<1/LOYALTY> | NumCards$ 2 | SubAbility$ DBChangeZone | Planeswalker$ True
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Hand | Destination$ Library | ChangeType$ Card | ChangeNum$ 1 | LibraryPosition$ -1 | Mandatory$ True
+A:AB$ ChangeZone | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | ValidTgts$ Planeswalker.Other+YouCtrl,Creature.Other+YouCtrl | Origin$ Battlefield | Destination$ Exile | SubAbility$ DBDigUntil
+SVar:DBDigUntil:DB$ DigUntil | Valid$ Creature,Planeswalker | FoundDestination$ Battlefield | RevealedDestination$ Library | RevealedLibraryPosition$ -1 | RevealRandomOrder$ True

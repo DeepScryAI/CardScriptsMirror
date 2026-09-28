@@ -1,0 +1,12 @@
+Id:36346
+ColorIdentity:U
+OriginSet:G9a4c1754c2b7c355
+ManaCost:1 U
+Types:Creature Illusion
+PT:0/3
+K:Flash
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ DBEmpower
+SVar:DBEmpower:DB$ Empower | Type$ Jace | Num$ 3
+A:AB$ DelayedTrigger | Cost$ U Sac<1/CARDNAME/this creature> | Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ You | Execute$ DBEffect | ThisTurn$ True | Static$ True
+SVar:DBEffect:DB$ Effect | ReplacementEffects$ AntiMagic | RememberObjects$ TriggeredCard | ForgetOnMoved$ Stack
+SVar:AntiMagic:Event$ Counter | ValidCard$ Card.IsRemembered | ValidSA$ Spell | Layer$ CantHappen

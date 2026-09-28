@@ -1,0 +1,13 @@
+Id:36398
+ColorIdentity:B
+OriginSet:G699b6aa66d89779f
+ManaCost:4 B B
+Types:Legendary Creature Human Pirate
+PT:4/5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDigUntil
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDigUntil | Secondary$ True | TriggerZones$ Battlefield
+SVar:TrigDigUntil:DB$ DigUntil | ValidTgts$ Opponent | IsCurse$ True | Valid$ Permanent.Historic | FoundDestination$ Battlefield | GainControl$ True | RevealedDestination$ Library | RevealedLibraryPosition$ -1 | RememberFound$ True | RevealRandomOrder$ True | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$CardManaCost
+SVar:HasAttackEffect:TRUE

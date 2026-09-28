@@ -1,0 +1,15 @@
+Id:36316
+ColorIdentity:U
+OriginSet:G9a4c1754c2b7c355
+ManaCost:1 U U
+Types:Creature Human Wizard
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | NumCards$ 2 | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | NumCards$ 2 | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBImmediateTrig
+SVar:DBImmediateTrig:DB$ ImmediateTrigger | ConditionDefined$ Remembered | RememberObjects$ RememberedCard | ConditionPresent$ Card.nonLand | Execute$ TrigTap | SubAbility$ DBCleanup
+SVar:TrigTap:DB$ Tap | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ X | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Targeted | CounterType$ Stun | CounterNum$ 1
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+A:AB$ Draw | Cost$ 3 U U ExileFromGrave<1/CARDNAME> | ActivationZone$ Graveyard | NumCards$ 2
+SVar:X:TriggerRemembered$Valid Card.nonLand

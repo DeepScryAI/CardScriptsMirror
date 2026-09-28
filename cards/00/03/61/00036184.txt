@@ -1,0 +1,17 @@
+Id:36184
+ColorIdentity:U
+OriginSet:G9a4c1754c2b7c355
+ManaCost:U
+Types:Creature Dwarf Wizard
+PT:1/1
+K:ETBReplacement:Other:DBPrepare
+SVar:DBPrepare:DB$ AlterAttribute | Attributes$ Prepared
+T:Mode$ Scry | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump
+T:Mode$ Surveil | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump | Secondary$ True
+SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +1 | NumDef$ +1
+AlternateMode:Prepare
+ALTERNATE
+ManaCost:1 U
+Types:Sorcery
+A:SP$ ChangeZone | ValidTgts$ Creature.OppCtrl+cmcLE3 | Origin$ Battlefield | Destination$ Hand | SubAbility$ DBSurveil
+SVar:DBSurveil:DB$ Surveil | Amount$ 1

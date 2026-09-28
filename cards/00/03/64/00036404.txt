@@ -1,0 +1,14 @@
+Id:36404
+ColorIdentity:WR
+OriginSet:G699b6aa66d89779f
+ManaCost:4 R W
+Types:Legendary Creature Moonfolk Warrior
+PT:3/5
+K:Flying
+K:Double Strike
+K:Haste
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMonarch
+SVar:TrigMonarch:DB$ BecomeMonarch
+T:Mode$ DamageDoneOnce | CheckDefinedPlayer$ You.isMonarch | NoResolvingCheck$ True | CombatDamage$ True | ValidSource$ Creature | ValidTarget$ You | Execute$ TrigTap | TriggerZones$ Battlefield
+SVar:TrigTap:DB$ Tap | Defined$ TriggeredSources | SubAbility$ DBCounter
+SVar:DBCounter:DB$ PutCounter | Defined$ TriggeredSources | CounterType$ Stun | CounterNum$ 1

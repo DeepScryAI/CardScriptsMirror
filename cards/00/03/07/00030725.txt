@@ -1,0 +1,12 @@
+Id:30725
+ColorIdentity:
+OriginSet:G0c1d7f6c33ae722a
+ManaCost:no cost
+Types:Plane Las Vegas
+T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigToken | TriggerZones$ Command
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 36421 | TokenOwner$ You
+T:Mode$ PlaneswalkedTo | ValidCard$ Card.Self | Execute$ TrigDestroy | TriggerZones$ Command
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ TrigDestroy | Secondary$ True
+SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | RememberLKI$ True | SubAbility$ DBDigUntil
+SVar:DBDigUntil:DB$ DigUntil | Defined$ RememberedController | Valid$ Creature | FoundDestination$ Battlefield | RevealedDestination$ Library | RevealedLibraryPosition$ -1 | RevealRandomOrder$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

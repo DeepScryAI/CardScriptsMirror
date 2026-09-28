@@ -1,0 +1,12 @@
+Id:36314
+ColorIdentity:B
+OriginSet:G9a4c1754c2b7c355
+ManaCost:2 B
+Types:Creature Horror
+PT:3/2
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ DBToken
+SVar:DBToken:DB$ Empower | Type$ Jace | Num$ 1
+S:Mode$ IgnorePlaneswalkerZeroLoyaltyRule | ValidCard$ Planeswalker.YouCtrl
+S:Mode$ Continuous | Affected$ Planeswalker.YouCtrl | AddAbility$ PWLurker
+SVar:PWLurker:AB$ DamageAll | Cost$ AddCounter<2/LOYALTY> | Planeswalker$ True | ValidPlayers$ Player.Opponent | NumDmg$ 1 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
