@@ -33,7 +33,10 @@ jobs:
       - name: Checkout mirror
         uses: actions/checkout@v4
         with:
-          fetch-depth: 1
+          # Full history: the skin manifest's retrieval hints name the commit
+          # that last changed each presentation table (git log -- <file>),
+          # which a shallow clone cannot see.
+          fetch-depth: 0
 
       - name: Cache rust-script builds
         uses: actions/cache@v4

@@ -153,14 +153,20 @@ if [ "${#CATALOG_IDENTITY}" -ne 64 ]; then
   echo "nightly_sync: cannot read catalog_identity from presentation/title_catalog.tsv" >&2
   exit 1
 fi
-mapfile -t HINTS < <(python3 - "$MANIFEST" <<'PY'
-import json, sys
-manifest = json.load(open(sys.argv[1]))
-for member in ("cardset", "titles", "bodies", "artpack", "provenance"):
-    for hint in manifest.get(member, {}).get("hints", []):
-        print(f"--hint={member}={hint}")
-PY
-)
+# Each presentation table's retrieval hint points at the commit that last
+# changed that file: immutable, and it holds exactly these bytes, so the hint
+# follows the table whenever a catalog generation changes it.
+HINTS=()
+for member_file in titles:title_catalog.tsv bodies:body_catalog.tsv \
+                   artpack:artpack_scryfall_uuid.tsv provenance:provenance_oracle_ids.tsv; do
+  member="${member_file%%:*}"; file="presentation/${member_file#*:}"
+  if [ -n "$(git status --porcelain -- "$file")" ]; then
+    echo "nightly_sync: $file has uncommitted changes; commit it before re-minting" >&2
+    exit 1
+  fi
+  commit="$(git log -1 --format=%H -- "$file")"
+  HINTS+=("--hint=$member=https://raw.githubusercontent.com/DeepScryAI/CardScriptsMirror/$commit/$file")
+done
 ./scripts/make_skin_manifest.rs \
   --cardset "$CAS/cardset.tar" \
   --titles presentation/title_catalog.tsv \
