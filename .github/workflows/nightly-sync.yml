@@ -38,14 +38,15 @@ jobs:
           # which a shallow clone cannot see.
           fetch-depth: 0
 
-      - name: Cache rust-script builds
+      # Cache only the rust-script TOOL. Its compiled-script cache is NOT kept:
+      # on 2026-09-28 a restored ~/.cache/rust-script ran a stale generator
+      # binary (an error message from code already replaced), and recompiling
+      # the scripts costs a minute or two a night.
+      - name: Cache the rust-script tool
         uses: actions/cache@v4
         with:
-          path: |
-            ~/.cargo/bin/rust-script
-            ~/.cache/rust-script
-          key: rust-script-${{ hashFiles('scripts/*.rs', 'scripts/lib/*.rs') }}
-          restore-keys: rust-script-
+          path: ~/.cargo/bin/rust-script
+          key: rust-script-tool-v1
 
       - name: Install rust-script
         run: command -v rust-script || cargo install rust-script --locked
