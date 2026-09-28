@@ -1,0 +1,14 @@
+Id:28874
+ColorIdentity:B
+OriginSet:G997e3b19a1e94e85
+ManaCost:2 B B
+Types:Legendary Creature Human Cleric
+PT:2/2
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigChangeZone | TriggerZones$ Battlefield
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | ChangeType$ Planeswalker | ChangeNum$ 1 | Optional$ True | RememberChanged$ True | SubAbility$ TrigImmediateTrig
+SVar:TrigImmediateTrig:DB$ ImmediateTrigger | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ0 | SubAbility$ DBClearNamed | Execute$ DBName
+SVar:DBName:DB$ NameCard | Defined$ You | ValidCards$ Planeswalker.Liliana | AtRandom$ True | SubAbility$ DBMake
+SVar:DBMake:DB$ MakeCard | Name$ ChosenName | Zone$ None | RememberMade$ True | SubAbility$ DBCopyPerm
+SVar:DBCopyPerm:DB$ CopyPermanent | Defined$ Remembered | SubAbility$ DBClearNamed
+SVar:DBClearNamed:DB$ Cleanup | ClearNamedCard$ True | ClearRemembered$ True
+(There are currently thirteen. Perhaps look up the list and roll a D20?)\nPERSON

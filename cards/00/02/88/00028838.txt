@@ -1,0 +1,11 @@
+Id:28838
+ColorIdentity:
+OriginSet:G0c1d7f6c33ae722a
+ManaCost:no cost
+Types:Plane Chicago
+T:Mode$ PlaneswalkedTo | ValidCard$ Card.Self | Execute$ TrigCounter
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Command | Execute$ TrigCounter
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ TrigCounter
+SVar:TrigCounter:DB$ PutCounter | ValidTgts$ Permanent.nonLand | TargetMin$ 0 | TargetMax$ 1 | CounterType$ GLASS | CounterNum$ 1
+T:Mode$ PlaneswalkedFrom | ValidCard$ Plane.Self | Execute$ TrigDestroy
+SVar:TrigDestroy:DB$ DestroyAll | ValidCards$ Permanent.counters_GE1_GLASS

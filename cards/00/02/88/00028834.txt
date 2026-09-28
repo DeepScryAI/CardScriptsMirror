@@ -1,0 +1,12 @@
+Id:28834
+ColorIdentity:
+OriginSet:G0c1d7f6c33ae722a
+ManaCost:no cost
+Types:Plane MagicCon
+T:Mode$ PlaneswalkedTo | ValidCard$ Card.Self | Execute$ TrigToken
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Command | Execute$ TrigToken | Secondary$ True
+SVar:TrigToken:DB$ CopyPermanent | DefinedCatalogId$ 18
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ TrigRepeat
+SVar:TrigRepeat:DB$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ Remembered | NumCards$ X
+SVar:X:Count$Valid Artifact.token+RememberedPlayerCtrl

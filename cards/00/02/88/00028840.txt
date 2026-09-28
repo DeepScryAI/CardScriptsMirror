@@ -1,0 +1,16 @@
+Id:28840
+ColorIdentity:
+OriginSet:G0c1d7f6c33ae722a
+ManaCost:no cost
+Types:Plane Chicago
+T:Mode$ PlaneswalkedTo | ValidCard$ Card.Self | Execute$ TrigPut
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigPut | TriggerZones$ Command | Secondary$ True
+SVar:TrigPut:DB$ PutCounter | ValidTgts$ Creature.!token+YouCtrl+withoutFlying | CounterType$ Flying | CounterNum$ 1
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Creature.withFlying | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | RememberObjects$ Remembered | Duration$ Permanent | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | MayPlayPlayer$ CardOwner | MayPlayAltManaCost$ 2 | Affected$ Card.IsRemembered+nonLand | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+T:Mode$ PlaneswalkedFrom | ValidCard$ Plane.Self | Execute$ TrigRemove
+SVar:TrigRemove:DB$ RemoveCounterAll | ValidCards$ Creature | CounterType$ Flying | AllCounters$ True
+SVar:AIRollPlanarDieParams:Mode$ Always

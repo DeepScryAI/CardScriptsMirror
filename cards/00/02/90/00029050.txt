@@ -7,8 +7,8 @@ K:ETBReplacement:Other:SiegeChoice
 SVar:SiegeChoice:DB$ GenericChoice | Choices$ Brotherhood,Enclave | Defined$ You | SetChosenMode$ True | AILogic$ Brotherhood | ShowChoice$ ExceptSelf
 SVar:Brotherhood:DB$ Pump
 SVar:Enclave:DB$ Pump
-S:Mode$ Continuous | Affected$ Card.Self+ChosenModeBrotherhood | AddTrigger$ BrotherhoodTrig
-S:Mode$ Continuous | Affected$ Card.Self+ChosenModeEnclave | AddTrigger$ EnclaveTrig
+S:Mode$ Continuous | AffectedDefined$ Self | Affected$ Card.ChosenModeBrotherhood | AddTrigger$ BrotherhoodTrig
+S:Mode$ Continuous | AffectedDefined$ Self | Affected$ Card.ChosenModeEnclave | AddTrigger$ EnclaveTrig
 SVar:BrotherhoodTrig:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraw | Secondary$ True
 SVar:TrigDraw:DB$ Draw | Defined$ Opponent | NumCards$ 1 | RememberDrawn$ True | SubAbility$ DBDraw
 SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ Remembered$Amount | SubAbility$ DBCleanup

@@ -1,0 +1,12 @@
+Id:28885
+ColorIdentity:WUG
+OriginSet:G997e3b19a1e94e85
+ManaCost:1 W B G
+Types:Legendary Creature Merfolk Advisor
+PT:2/2
+S:Mode$ Continuous | Affected$ Merfolk.Other+YouCtrl | AddPower$ 1 | AddToughness$ 1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ DBName
+SVar:DBName:DB$ NameCard | Defined$ You | AtRandom$ True | ChooseFromCatalogIds$ 9336,9362,150,10655,9436,17908 | SubAbility$ DBMake
+SVar:DBMake:DB$ MakeCard | Name$ ChosenName | Zone$ None | RememberMade$ True | SubAbility$ DBCopyPerm
+SVar:DBCopyPerm:DB$ CopyPermanent | Defined$ Remembered | SubAbility$ DBClearNamed
+SVar:DBClearNamed:DB$ Cleanup | ClearNamedCard$ True | ClearRemembered$ True

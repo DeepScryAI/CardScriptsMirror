@@ -1,0 +1,13 @@
+Id:28893
+ColorIdentity:
+OriginSet:G0c1d7f6c33ae722a
+ManaCost:no cost
+Types:Plane Chicago
+T:Mode$ PlaneswalkedTo | ValidCard$ Card.Self | Execute$ TrigMonarch
+SVar:TrigMonarch:DB$ BecomeMonarch | Defined$ You
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ TrigRepeatEach
+SVar:TrigRepeatEach:DB$ RepeatEach | RepeatSubAbility$ DBToken | RepeatPlayers$ Player | ChangeZoneTable$ True | RepeatOptionalForEachPlayer$ True | SubAbility$ DBEffect
+SVar:DBToken:DB$ Token | TokenScriptIds$ 35548 | TokenAmount$ 2 | TokenTapped$ True | TokenOwner$ Player.IsRemembered | RememberTokens$ True
+SVar:DBEffect:DB$ Effect | EffectOwner$ RememberedOwner | RememberObjects$ You | StaticAbilities$ STCantAttack | Duration$ UntilTheEndOfYourNextTurn | SubAbility$ DBCleanup
+SVar:STCantAttack:Mode$ CantAttack | ValidCard$ Creature.YouCtrl | Target$ Player.IsRemembered
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

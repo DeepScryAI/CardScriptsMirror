@@ -1,0 +1,15 @@
+Id:35185
+ColorIdentity:R
+OriginSet:G21d8f666c5c6b81d
+ManaCost:2 R
+Types:Legendary Planeswalker
+Loyalty:4
+DeckRule:ColorIdentity:Exempt$ Aura,Basic.Land | ActiveSection$ Commander
+A:AB$ Mana | Cost$ AddCounter<1/LOYALTY> | Produced$ Any | Planeswalker$ True | TriggersWhenSpent$ TrigToken
+SVar:TrigToken:Mode$ SpellCast | ValidCard$ Aura | Execute$ TrigTokenMain
+SVar:TrigTokenMain:DB$ Token | TokenScriptIds$ 35769 | TokenOwner$ You
+A:AB$ Discard | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | Mode$ Hand | Defined$ You | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ X | SubAbility$ DBReattach
+SVar:X:Count$Valid Aura.YouCtrl/Twice
+SVar:DBReattach:DB$ RepeatEach | RepeatSubAbility$ DBAttachOpp | RepeatCards$ Aura.AttachedTo Player.You
+SVar:DBAttachOpp:DB$ Attach | Object$ Remembered | PlayerChoices$ Opponent

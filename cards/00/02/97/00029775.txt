@@ -1,0 +1,12 @@
+Id:29775
+ColorIdentity:RG
+OriginSet:G997e3b19a1e94e85
+ManaCost:4 R G
+Types:Legendary Creature Lizard Warrior
+PT:5/5
+S:Mode$ Continuous | Affected$ Lizard.Other+YouCtrl,Treefolk.Other+YouCtrl,Warrior.Other+YouCtrl | AddPower$ 2 | AddToughness$ 2
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigCopyToken | TriggerZones$ Battlefield
+SVar:TrigCopyToken:DB$ NameCard | AtRandom$ True | Defined$ You | ChooseFromCatalogIds$ 12971,9220,11022,9407,9613,1887 | SubAbility$ DBMake
+SVar:DBMake:DB$ MakeCard | Name$ ChosenName | Zone$ None | RememberMade$ True | SubAbility$ DBCopyPerm
+SVar:DBCopyPerm:DB$ CopyPermanent | Defined$ Remembered | SubAbility$ DBClearNamed
+SVar:DBClearNamed:DB$ Cleanup | ClearNamedCard$ True | ClearRemembered$ True

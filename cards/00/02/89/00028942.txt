@@ -7,8 +7,8 @@ K:ETBReplacement:Other:SiegeChoice
 SVar:SiegeChoice:DB$ GenericChoice | Choices$ NCR,Legion | Defined$ You | SetChosenMode$ True | AILogic$ Legion | ShowChoice$ ExceptSelf
 SVar:NCR:DB$ Pump
 SVar:Legion:DB$ Pump
-S:Mode$ Continuous | Affected$ Card.Self+ChosenModeNCR | AddTrigger$ NCRTrigger
-S:Mode$ Continuous | Affected$ Card.Self+ChosenModeLegion | AddTrigger$ LegionTrigger
+S:Mode$ Continuous | AffectedDefined$ Self | Affected$ Card.ChosenModeNCR | AddTrigger$ NCRTrigger
+S:Mode$ Continuous | AffectedDefined$ Self | Affected$ Card.ChosenModeLegion | AddTrigger$ LegionTrigger
 SVar:NCRTrigger:Mode$ Phase | Phase$ End of Turn | Secondary$ True | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigReturn
 SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | WithCountersType$ FINALITY | ValidTgts$ Creature.cmcLE3+YouCtrl
 SVar:LegionTrigger:Mode$ ChangesZone | Secondary$ True | ValidCard$ Creature.YouCtrl | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigPutCounter | TriggerZones$ Battlefield

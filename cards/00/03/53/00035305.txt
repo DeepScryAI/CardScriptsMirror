@@ -1,0 +1,14 @@
+Id:35305
+ColorIdentity:U
+OriginSet:G6f5d1d11d5ddb670
+ManaCost:6 U
+Types:Legendary Artifact Creature Construct
+PT:5/7
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigCharm | TriggerZones$ Battlefield | Secondary$ True
+SVar:TrigCharm:DB$ Charm | Choices$ DBRevealHand,DBPumpAll
+SVar:DBRevealHand:DB$ RevealHand | ValidTgts$ Opponent | Look$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw
+SVar:DBPumpAll:DB$ PumpAll | ValidCards$ Creature.OppCtrl | NumAtt$ -1 | IsCurse$ True | Duration$ UntilYourNextTurn
+SVar:HasAttackEffect:TRUE

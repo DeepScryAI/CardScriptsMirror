@@ -1,0 +1,13 @@
+Id:31314
+ColorIdentity:
+OriginSet:G0c1d7f6c33ae722a
+ManaCost:no cost
+Types:Plane Avishkar
+T:Mode$ PlaneswalkedTo | ValidCard$ Card.Self | Execute$ TrigEngines
+SVar:TrigEngines:DB$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBStartEngines
+SVar:DBStartEngines:DB$ ChangeSpeed | Mode$ Increase | Defined$ Remembered | ConditionCheckSVar$ PlayerCountDefinedRemembered$Speed | ConditionSVarCompare$ EQ0
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Command | Execute$ TrigCounter
+SVar:TrigCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ Count$YourSpeed
+T:Mode$ PlaneswalkedFrom | ValidCard$ Plane.Self | Execute$ TrigRepeat
+SVar:TrigRepeat:DB$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenAmount$ 3 | TokenScriptIds$ 35548 | TokenOwner$ Player.IsRemembered | ConditionCheckSVar$ PlayerCountDefinedRemembered$Speed | ConditionSVarCompare$ EQPlayerCount$HighestSpeed

@@ -1,0 +1,14 @@
+Id:29777
+ColorIdentity:G
+OriginSet:G997e3b19a1e94e85
+ManaCost:2 G
+Types:Legendary Creature Elf Wizard
+PT:3/2
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigImmediateTrig | TriggerZones$ Battlefield
+SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ X X X G G | Execute$ RepeatCopy
+SVar:RepeatCopy: DB$ Repeat | MaxRepeat$ X | RepeatSubAbility$ DBName | AILogic$ MaxX | SubAbility$ DBMake
+SVar:DBName:DB$ NameCard | Defined$ You | ValidCards$ Planeswalker.Nissa | AtRandom$ True | ExcludeChosen$ True
+SVar:DBMake:DB$ MakeCard | Name$ ChosenName | Zone$ None | RememberMade$ True | SubAbility$ DBCopyPerm
+SVar:DBCopyPerm:DB$ CopyPermanent | Defined$ Remembered | WithCountersType$ LOYALTY | SubAbility$ DBClearNamed
+SVar:DBClearNamed:DB$ Cleanup | ClearNamedCard$ True | ClearRemembered$ True
+SVar:X:Count$xPaid

@@ -1,0 +1,12 @@
+Id:30730
+ColorIdentity:
+OriginSet:G0c1d7f6c33ae722a
+ManaCost:no cost
+Types:Plane Duskmourn
+T:Mode$ Phase | Phase$ Main | PhaseCount$ 2 | ValidPlayer$ You | TriggerZones$ Command | IsPresent$ Creature.tapped+YouCtrl | Execute$ TrigDread
+SVar:TrigDread:DB$ ManifestDread
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | ValidTgts$ Creature | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | Defined$ Remembered | ValidSA$ Spell | WithoutManaCost$ True | ConditionDefined$ Remembered | ConditionPresent$ Instant,Sorcery | SubAbility$ DBBattlefield
+SVar:DBBattlefield:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | ConditionDefined$ Remembered | ConditionNotPresent$ Instant,Sorcery | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

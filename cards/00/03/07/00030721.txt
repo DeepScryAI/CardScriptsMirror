@@ -1,0 +1,18 @@
+Id:30721
+ColorIdentity:
+OriginSet:G0c1d7f6c33ae722a
+ManaCost:no cost
+Types:Plane Hell
+T:Mode$ PlaneswalkedTo | ValidCard$ Card.Self | Execute$ TrigToken
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.YouCtrl | TriggerZones$ Command | Secondary$ True | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 35541 | TokenOwner$ You
+T:Mode$ LifeGained | ValidPlayer$ You | TriggerZones$ Command | Execute$ TrigDrain
+SVar:TrigDrain:DB$ LoseLife | ValidTgts$ Opponent | LifeAmount$ X
+SVar:X:TriggerCount$LifeAmount
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ RolledChaos
+SVar:RolledChaos:DB$ Sacrifice | Defined$ You | Amount$ SacX | SacValid$ Artifact,Creature | RememberSacrificed$ True | Optional$ True | SubAbility$ DBDraw
+SVar:SacX:Count$Valid Artifact.YouCtrl,Creature.YouCtrl
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ DrawX | SubAbility$ DBLoseLife2
+SVar:DrawX:Remembered$Amount
+SVar:DBLoseLife2:DB$ LoseLife | Defined$ You | LifeAmount$ DrawX | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

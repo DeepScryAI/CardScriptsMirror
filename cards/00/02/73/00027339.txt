@@ -1,0 +1,13 @@
+Id:27339
+ColorIdentity:W
+OriginSet:G997e3b19a1e94e85
+ManaCost: 5 W
+Types:Enchantment
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ DBName
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Battlefield | Destination$ Any | Execute$ SacRemembered
+SVar:DBName:DB$ NameCard | Defined$ You | AtRandom$ True | ChooseFromCatalogIds$ 9029,20615,7128,19947,3451,12542 | SubAbility$ DBMake
+SVar:DBMake:DB$ MakeCard | Name$ ChosenName | Zone$ None | RememberMade$ True | SubAbility$ DBCopyPerm
+SVar:DBCopyPerm:DB$ CopyPermanent | Defined$ Remembered | ImprintTokens$ True | SubAbility$ DBClearNamed
+SVar:DBClearNamed:DB$ Cleanup | ClearNamedCard$ True | ClearRemembered$ True
+SVar:SacRemembered:DB$ SacrificeAll | Defined$ Imprinted | SubAbility$ DBCleanUp
+SVar:DBCleanUp:DB$ Cleanup | ClearImprinted$ True

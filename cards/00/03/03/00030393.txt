@@ -8,8 +8,8 @@ K:ETBReplacement:Other:BelieveOrDoubt
 SVar:BelieveOrDoubt:DB$ GenericChoice | Choices$ Believe,Doubt | Defined$ You | SetChosenMode$ True | ShowChoice$ ExceptSelf
 SVar:Believe:DB$ Pump
 SVar:Doubt:DB$ Pump
-S:Mode$ Continuous | Affected$ Card.Self+ChosenModeBelieve | AddTrigger$ BelieveTrigger
-S:Mode$ Continuous | Affected$ Card.Self+ChosenModeDoubt | AddTrigger$ DoubtTrigger
+S:Mode$ Continuous | AffectedDefined$ Self | Affected$ Card.ChosenModeBelieve | AddTrigger$ BelieveTrigger
+S:Mode$ Continuous | AffectedDefined$ Self | Affected$ Card.ChosenModeDoubt | AddTrigger$ DoubtTrigger
 SVar:BelieveTrigger:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl+!token | TriggerZones$ Battlefield | Execute$ TrigToken
 SVar:TrigToken:DB$ Token | TokenScriptIds$ 35378 | TokenOwner$ You
 SVar:DoubtTrigger:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigReturn

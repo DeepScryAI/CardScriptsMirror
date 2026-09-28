@@ -1,0 +1,19 @@
+Id:30726
+ColorIdentity:
+OriginSet:G0c1d7f6c33ae722a
+ManaCost:no cost
+Types:Plane Las Vegas
+T:Mode$ PlaneswalkedTo | ValidCard$ Card.Self | Execute$ TrigSearchAll
+SVar:TrigSearchAll:DB$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBSearchLand
+SVar:DBSearchLand:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | Tapped$ True | ChangeType$ Land.Basic,Land.Desert | ChangeNum$ 2 | DefinedPlayer$ Player.IsRemembered | Chooser$ Player.IsRemembered | Imprint$ True | SubAbility$ DBSnakeCheck
+SVar:DBSnakeCheck:DB$ Token | TokenScriptIds$ 35358 | TokenOwner$ Player.IsRemembered | ConditionDefined$ Imprinted | ConditionPresent$ Land.Desert | ConditionCompare$ GE1 | SubAbility$ DBShuffleOne
+SVar:DBShuffleOne:DB$ Shuffle | Defined$ Player.IsRemembered | SubAbility$ DBCleanupOne
+SVar:DBCleanupOne:DB$ Cleanup | ClearImprinted$ True
+T:Mode$ ChaosEnsues | TriggerZones$ Command | Execute$ TrigChaosRemember
+SVar:TrigChaosRemember:DB$ Pump | RememberObjects$ Valid Land.YouCtrl | SubAbility$ DBChaosToken
+SVar:DBChaosToken:DB$ Token | TokenAmount$ X | TokenScriptIds$ 35358 | TokenOwner$ You | SubAbility$ DBCleanupChaos
+SVar:X:SVar$XNonbasic/Plus.1
+SVar:XNonbasic:SVar$XAllTypes/Minus.XBasicTypes
+SVar:XAllTypes:Remembered$LandType
+SVar:XBasicTypes:Count$Domain
+SVar:DBCleanupChaos:DB$ Cleanup | ClearRemembered$ True
