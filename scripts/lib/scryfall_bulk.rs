@@ -58,6 +58,9 @@ pub struct ScryfallCard {
     pub card_faces: Vec<ScryfallFace>,
     #[serde(default)]
     pub released_at: String,
+    /// Set code of this printing (e.g. `"lea"`).
+    #[serde(default)]
+    pub set: String,
     #[serde(default)]
     pub digital: bool,
     #[serde(default)]

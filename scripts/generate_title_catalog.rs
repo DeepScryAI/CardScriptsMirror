@@ -95,6 +95,20 @@ struct Args {
     /// a second title ledger.
     #[arg(long)]
     token_source: Option<PathBuf>,
+
+    /// INCREMENTAL mode: the currently published title catalog. Every id it
+    /// titles keeps that title verbatim (identities are append-only, and a
+    /// card Scryfall has since dropped still needs its title); only ids it
+    /// lacks are resolved. Its own stamp is not checked: it is by design the
+    /// table for the PREVIOUS catalog generation.
+    #[arg(long)]
+    previous: Option<PathBuf>,
+
+    /// Incremental mode: the token ledger (`id<TAB>sha256(stem)`). A token id
+    /// the previous table lacks is titled from the `--token-source` script
+    /// whose stem hashes to that ledger row.
+    #[arg(long, requires = "previous")]
+    token_ledger: Option<PathBuf>,
 }
 
 /// Everything the emitted stamp needs from the originating catalog file.
@@ -133,8 +147,21 @@ fn main() -> Result<()> {
 
     scryfall_bulk::ensure_cache(&args.cache, args.refresh)?;
     let resolutions = load_resolutions(&args.resolutions)?;
-    let mut titles = load_titles(&args.cache, &catalog, &resolutions)?;
-    load_token_titles(&catalog, args.token_source.as_deref(), &mut titles)?;
+    let titles = match args.previous.as_deref() {
+        Some(previous) => incremental_titles(
+            &args.cache,
+            &catalog,
+            &resolutions,
+            previous,
+            args.token_source.as_deref(),
+            args.token_ledger.as_deref(),
+        )?,
+        None => {
+            let mut titles = load_titles(&args.cache, &catalog, &resolutions)?;
+            load_token_titles(&catalog, args.token_source.as_deref(), &mut titles)?;
+            titles
+        }
+    };
     let document = render_title_catalog(&catalog, &titles)?;
 
     // Re-verify what we are about to publish. A generator that cannot pass its
@@ -467,6 +494,73 @@ fn load_token_titles(
         }
     }
     Ok(())
+}
+
+/// Incremental titles (see `Args::previous`).
+fn incremental_titles(
+    cache: &Path,
+    catalog: &CatalogSource,
+    resolutions: &BTreeMap<Uuid, String>,
+    previous: &Path,
+    token_source: Option<&Path>,
+    token_ledger: Option<&Path>,
+) -> Result<BTreeMap<u32, String>> {
+    let text = fs::read_to_string(previous).with_context(|| format!("read previous title catalog {}", previous.display()))?;
+    let mut titles: BTreeMap<u32, String> = BTreeMap::new();
+    for (number, line) in text.lines().enumerate().skip(1) {
+        let (id, title) = line
+            .split_once('\t')
+            .with_context(|| format!("previous title catalog line {} is not id<TAB>title", number + 1))?;
+        let id: u32 = id.parse().with_context(|| format!("previous title catalog line {} id", number + 1))?;
+        titles.insert(id, title.to_owned());
+    }
+    let carried = titles.len();
+    let missing = CatalogSource {
+        rows: catalog.rows.iter().filter(|row| !titles.contains_key(&row.id)).cloned().collect(),
+        ..catalog.clone()
+    };
+    let (cards, tokens): (Vec<CatalogRow>, Vec<CatalogRow>) = missing
+        .rows
+        .iter()
+        .cloned()
+        .partition(|row| matches!(row.provider, CatalogProvider::ScryfallOracle(_)));
+    if !cards.is_empty() {
+        let new_cards = CatalogSource { rows: cards.clone(), ..catalog.clone() };
+        titles.extend(load_titles(cache, &new_cards, resolutions)?);
+    }
+    if !tokens.is_empty() {
+        let source = token_source.context("new token rows need --token-source")?;
+        let ledger = token_ledger.context("new token rows need --token-ledger")?;
+        let ledger_text = fs::read_to_string(ledger).with_context(|| format!("read token ledger {}", ledger.display()))?;
+        let mut digest_by_id: BTreeMap<u32, String> = BTreeMap::new();
+        for line in ledger_text.lines().filter(|line| !line.starts_with('#') && !line.is_empty()) {
+            let (id, digest) = line.split_once('\t').context("token ledger row is not id<TAB>digest")?;
+            digest_by_id.insert(id.parse().context("token ledger id")?, digest.to_owned());
+        }
+        let mut path_by_digest: BTreeMap<String, PathBuf> = BTreeMap::new();
+        for path in token_genesis::source_scripts(source)? {
+            let stem = path.file_stem().and_then(|stem| stem.to_str()).context("token script has no UTF-8 stem")?;
+            path_by_digest.insert(hex_sha256(stem.as_bytes()), path.clone());
+        }
+        for row in &tokens {
+            let digest = digest_by_id
+                .get(&row.id)
+                .with_context(|| format!("token catalog ID {} has no token ledger row", row.id))?;
+            let path = path_by_digest
+                .get(digest)
+                .with_context(|| format!("token catalog ID {} has no token script in {}", row.id, source.display()))?;
+            let script = fs::read_to_string(path).with_context(|| format!("read token script {}", path.display()))?;
+            let title = token_presentation_title(&script).with_context(|| format!("token script {}", path.display()))?;
+            titles.insert(row.id, title);
+        }
+    }
+    eprintln!(
+        "Incremental titles: {carried} carried from {}, {} new cards, {} new tokens",
+        previous.display(),
+        cards.len(),
+        tokens.len()
+    );
+    Ok(titles)
 }
 
 fn token_presentation_title(script: &str) -> Result<String> {

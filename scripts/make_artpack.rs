@@ -78,6 +78,14 @@ struct Args {
     /// Ignore a present cache and download the current snapshot.
     #[arg(long)]
     refresh: bool,
+
+    /// INCREMENTAL mode: the currently published artpack. Every id it maps
+    /// keeps that printing verbatim, so a card Scryfall has since dropped keeps
+    /// its art and a published image never silently changes; only ids it lacks
+    /// are resolved. Its own stamp is not checked: it is by design the table
+    /// for the PREVIOUS catalog generation.
+    #[arg(long)]
+    previous: Option<PathBuf>,
 }
 
 /// Everything selection needs about one candidate printing.
@@ -134,6 +142,21 @@ fn main() -> Result<()> {
     }
     let catalog = parse_catalog(&catalog_bytes)?;
     scryfall_bulk::ensure_cache(&args.cache, args.refresh)?;
+    let mut previous: BTreeMap<u32, Uuid> = BTreeMap::new();
+    if let Some(path) = args.previous.as_deref() {
+        let text = fs::read_to_string(path).with_context(|| format!("read previous artpack {}", path.display()))?;
+        for (number, line) in text.lines().enumerate().skip(1) {
+            let (id, printing) = line
+                .split_once('\t')
+                .with_context(|| format!("previous artpack line {} is not id<TAB>uuid", number + 1))?;
+            let id: u32 = id.parse().with_context(|| format!("previous artpack line {} id", number + 1))?;
+            if !catalog.contains_key(&id) {
+                bail!("previous artpack maps catalog#{id}, which is not a card row of {}", args.catalog.display());
+            }
+            previous.insert(id, Uuid::parse_str(printing).with_context(|| format!("previous artpack line {} uuid", number + 1))?);
+        }
+        eprintln!("Carrying {} printings from {}", previous.len(), path.display());
+    }
 
     // Best candidate per Oracle identity.
     let wanted: std::collections::HashSet<Uuid> = catalog.values().copied().collect();
@@ -171,6 +194,11 @@ fn main() -> Result<()> {
     let mut rows = 0usize;
     let mut missing: Vec<u32> = Vec::new();
     for (id, oracle_id) in &catalog {
+        if let Some(printing) = previous.get(id) {
+            body.push_str(&format!("{id}\t{printing}\n"));
+            rows += 1;
+            continue;
+        }
         match best.get(oracle_id) {
             Some(candidate) if candidate.real_image => {
                 body.push_str(&format!("{id}\t{}\n", candidate.printing_id));

@@ -6,8 +6,12 @@
 //! [dependencies]
 //! anyhow = "1.0.99"
 //! clap = { version = "4.5.45", features = ["derive"] }
+//! flate2 = "1.1.2"
+//! reqwest = { version = "0.12.28", default-features = false, features = ["blocking", "json", "rustls-tls"] }
+//! serde = { version = "1.0.219", features = ["derive"] }
+//! serde_json = "1.0.143"
 //! sha2 = "0.10.9"
-//! uuid = "1.18.0"
+//! uuid = { version = "1.18.0", features = ["serde"] }
 //! ```
 //!
 //! Two title-free join tables are published side by side:
@@ -33,12 +37,28 @@ use std::fs;
 use std::path::{Path, PathBuf};
 use uuid::Uuid;
 
+#[path = "lib/scryfall_bulk.rs"]
+mod scryfall_bulk;
+
 #[derive(Parser, Debug)]
 #[command(about = "Extract the anonymous numeric/Oracle identity bridge from DeepScry's catalog")]
 struct Args {
-    /// DeepScry card_catalog.tsv containing id, name, and oracle_id columns.
-    #[arg(long)]
-    source: PathBuf,
+    /// DeepScry card_catalog.tsv containing id, name, and oracle_id columns
+    /// (the titled, pre-v3 format).
+    #[arg(long, required_unless_present = "append_v3")]
+    source: Option<PathBuf>,
+
+    /// APPEND mode for DeepScry's title-free v3 catalog: keep every row of the
+    /// existing `--output` and `--face-output`, and add rows for the v3 catalog's
+    /// card ids those lack. Each new row's registry spelling and set come from
+    /// its Scryfall first printing (earliest release date, then set, then name:
+    /// DeepScry's own assignment rule), read from `--cache`.
+    #[arg(long, conflicts_with = "source")]
+    append_v3: Option<PathBuf>,
+
+    /// Decompressed Scryfall default_cards cache (append mode only).
+    #[arg(long, default_value = ".cache/scryfall/default_cards.json")]
+    cache: PathBuf,
 
     /// Anonymous output consumed by generate_uuid_trie.rs.
     #[arg(long, default_value = "catalog_ids.tsv")]
@@ -51,8 +71,12 @@ struct Args {
 
 fn main() -> Result<()> {
     let args = Args::parse();
+    if let Some(v3) = &args.append_v3 {
+        return append_v3(&args, v3);
+    }
+    let source_path = args.source.as_ref().context("--source is required without --append-v3")?;
     let source =
-        fs::read_to_string(&args.source).with_context(|| format!("read DeepScry catalog {}", args.source.display()))?;
+        fs::read_to_string(source_path).with_context(|| format!("read DeepScry catalog {}", source_path.display()))?;
     let rows = parse_catalog(&source)?;
     let faces = face_index(&rows);
     publish(&args.output, &render_identity_table(&rows), "anonymous catalog")?;
@@ -65,6 +89,158 @@ fn main() -> Result<()> {
         args.face_output.display(),
         faces.len(),
         ambiguous
+    );
+    Ok(())
+}
+
+/// Scryfall layouts that mint no card id (DeepScry's `EXCLUDED_LAYOUTS`).
+const EXCLUDED_LAYOUTS: [&str; 4] = ["token", "double_faced_token", "emblem", "art_series"];
+
+/// The first printing and every spelling of one Oracle identity.
+#[derive(Debug, Clone)]
+struct FirstPrinting {
+    key: (String, String, String),
+    names: BTreeSet<String>,
+}
+
+/// Append mode (see `Args::append_v3`).
+///
+/// Face rules are applied in digest space against the existing tables: a new
+/// full spelling that is an existing face row takes that spelling over (rule
+/// 1), and a new face another card already owns becomes ambiguous (rule 2).
+/// One case is NOT visible here: an existing card's ALIAS, whose digest the
+/// published tables do not carry, so a new face equal to an existing alias is
+/// recorded as a face row instead of being left to the full-name table.
+fn append_v3(args: &Args, v3_path: &Path) -> Result<()> {
+    let existing = fs::read_to_string(&args.output).with_context(|| format!("read {}", args.output.display()))?;
+    let mut identity_lines: Vec<String> = Vec::new();
+    let mut known_ids: BTreeSet<u32> = BTreeSet::new();
+    let mut full_digests: HashSet<String> = HashSet::new();
+    for (number, line) in existing.lines().enumerate() {
+        if number == 0 {
+            if line != IDENTITY_HEADER {
+                bail!("{} header is {line:?}, expected {IDENTITY_HEADER:?}", args.output.display());
+            }
+            continue;
+        }
+        let fields: Vec<&str> = line.split('\t').collect();
+        let id: u32 = fields[0].parse().with_context(|| format!("{} line {} id", args.output.display(), number + 1))?;
+        known_ids.insert(id);
+        full_digests.insert(field(&fields, 2, number + 1, "name_sha256")?.to_owned());
+        identity_lines.push(line.to_owned());
+    }
+    let mut faces: BTreeMap<String, FaceOwner> = BTreeMap::new();
+    let face_text =
+        fs::read_to_string(&args.face_output).with_context(|| format!("read {}", args.face_output.display()))?;
+    for line in face_text.lines().skip(1) {
+        let (digest, owner) = line.split_once('\t').context("face row is not digest<TAB>owner")?;
+        let owner = if owner == AMBIGUOUS {
+            FaceOwner::Ambiguous
+        } else {
+            FaceOwner::Unique(owner.parse().context("face owner id")?)
+        };
+        faces.insert(digest.to_owned(), owner);
+    }
+
+    let v3 = fs::read_to_string(v3_path).with_context(|| format!("read DeepScry catalog {}", v3_path.display()))?;
+    let mut wanted: Vec<(u32, Uuid)> = Vec::new();
+    for (number, line) in v3.lines().enumerate().skip(1) {
+        let fields: Vec<&str> = line.split('\t').collect();
+        if fields.len() != 4 {
+            bail!("v3 catalog line {} has {} columns, expected id/kind/oracle_id/generation", number + 1, fields.len());
+        }
+        if fields[1] != "card" {
+            continue;
+        }
+        let id: u32 = fields[0].parse().with_context(|| format!("v3 catalog line {} id", number + 1))?;
+        if !known_ids.contains(&id) {
+            let oracle = Uuid::parse_str(fields[2]).with_context(|| format!("v3 catalog line {} oracle_id", number + 1))?;
+            wanted.push((id, oracle));
+        }
+    }
+    if let Some(&(first, _)) = wanted.first() {
+        if known_ids.last().is_some_and(|&last| first <= last) {
+            bail!("new card id {first} is not after every existing id; the v3 catalog is not an append of this table");
+        }
+    }
+
+    let needed: HashSet<Uuid> = wanted.iter().map(|(_, oracle)| *oracle).collect();
+    let mut printings: HashMap<Uuid, FirstPrinting> = HashMap::new();
+    scryfall_bulk::for_each_card(&args.cache, |card| {
+        if EXCLUDED_LAYOUTS.contains(&card.layout.as_str()) {
+            return;
+        }
+        let Some(oracle) = card.oracle_id.or_else(|| card.card_faces.first().and_then(|face| face.oracle_id)) else {
+            return;
+        };
+        if !needed.contains(&oracle) {
+            return;
+        }
+        let key = (card.released_at.clone(), card.set.clone(), card.name.clone());
+        let entry = printings.entry(oracle).or_insert_with(|| FirstPrinting { key: key.clone(), names: BTreeSet::new() });
+        entry.names.insert(card.name.clone());
+        if key < entry.key {
+            entry.key = key;
+        }
+    })?;
+
+    let mut new_faces = 0usize;
+    let mut taken_over = 0usize;
+    let mut appended: Vec<CatalogRow> = Vec::with_capacity(wanted.len());
+    for (id, oracle) in wanted {
+        let printing = printings
+            .get(&oracle)
+            .with_context(|| format!("catalog#{id} (oracle {oracle}) has no Scryfall card record in {}", args.cache.display()))?;
+        let (_, set, name) = &printing.key;
+        let aliases = printing.names.iter().filter(|spelling| *spelling != name).cloned().collect();
+        appended.push(CatalogRow { id, name: name.clone(), aliases, oracle_id: oracle, set_group: anonymous_set_group(set) });
+    }
+    for row in &appended {
+        for spelling in row.spellings() {
+            let digest = hex_sha256(spelling.as_bytes());
+            if faces.remove(&digest).is_some() {
+                taken_over += 1; // rule 1: the new full spelling owns it now
+            }
+            full_digests.insert(digest);
+        }
+    }
+    for row in &appended {
+        for spelling in row.spellings() {
+            if !spelling.contains(FACE_SEPARATOR) {
+                continue;
+            }
+            for face in spelling.split(FACE_SEPARATOR) {
+                let digest = hex_sha256(face.as_bytes());
+                if face.is_empty() || full_digests.contains(&digest) {
+                    continue;
+                }
+                new_faces += 1;
+                faces
+                    .entry(digest)
+                    .and_modify(|owner| {
+                        if *owner != FaceOwner::Unique(row.id) {
+                            *owner = FaceOwner::Ambiguous;
+                        }
+                    })
+                    .or_insert(FaceOwner::Unique(row.id));
+            }
+        }
+    }
+
+    let mut identity = format!("{IDENTITY_HEADER}\n");
+    for line in &identity_lines {
+        identity.push_str(line);
+        identity.push('\n');
+    }
+    identity.push_str(render_identity_table(&appended).strip_prefix(&format!("{IDENTITY_HEADER}\n")).unwrap_or_default());
+    publish(&args.output, &identity, "anonymous catalog")?;
+    publish(&args.face_output, &render_face_table(&faces), "anonymous face index")?;
+    eprintln!(
+        "Appended {} cards to {}; face index: {} new face spellings, {} existing face rows taken over by a new full spelling",
+        appended.len(),
+        args.output.display(),
+        new_faces,
+        taken_over
     );
     Ok(())
 }

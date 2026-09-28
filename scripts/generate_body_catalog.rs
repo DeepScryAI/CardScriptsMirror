@@ -61,6 +61,20 @@ struct Args {
     /// Verify an existing body table instead of writing one.
     #[arg(long)]
     verify: Option<PathBuf>,
+
+    /// INCREMENTAL mode: the currently published body table. Every id within
+    /// its declared `cards=` range keeps exactly its published state (a body,
+    /// or deliberately none), since identities are append-only and a card
+    /// Scryfall has since dropped still needs its body. Only ids beyond that
+    /// range are resolved. Its own stamp is not checked: it is by design the
+    /// table for the PREVIOUS catalog generation.
+    #[arg(long)]
+    previous: Option<PathBuf>,
+
+    /// Incremental mode: the token ledger (`id<TAB>sha256(stem)`), used to find
+    /// the `--token-source` script of each new token id.
+    #[arg(long, requires = "previous")]
+    token_ledger: Option<PathBuf>,
 }
 
 #[derive(Clone, Debug, Eq, PartialEq)]
@@ -100,7 +114,16 @@ fn main() -> Result<()> {
     }
 
     scryfall_bulk::ensure_cache(&args.cache, args.refresh)?;
-    let (bodies, coverage) = load_bodies(&args.cache, &catalog, args.token_source.as_deref())?;
+    let (bodies, coverage) = match args.previous.as_deref() {
+        Some(previous) => incremental_bodies(
+            &args.cache,
+            &catalog,
+            previous,
+            args.token_source.as_deref(),
+            args.token_ledger.as_deref(),
+        )?,
+        None => load_bodies(&args.cache, &catalog, args.token_source.as_deref())?,
+    };
     let document = render_body_catalog(&catalog, &bodies)?;
     verify_body_catalog(&document, &catalog)?;
     write_atomically(&args.output, &document)?;
@@ -280,6 +303,77 @@ fn presentation_precedence(layout: &str) -> u8 {
         "token" => 2,
         _ => 0,
     }
+}
+
+/// Incremental bodies (see `Args::previous`).
+fn incremental_bodies(
+    cache: &Path,
+    catalog: &CatalogSource,
+    previous: &Path,
+    token_source: Option<&Path>,
+    token_ledger: Option<&Path>,
+) -> Result<(BTreeMap<u32, String>, Coverage)> {
+    let text = fs::read_to_string(previous).with_context(|| format!("read previous body table {}", previous.display()))?;
+    let (header, body) = text.split_once('\n').context("previous body table has no header")?;
+    let previous_cards: u32 = header
+        .split_whitespace()
+        .find_map(|pair| pair.strip_prefix("cards="))
+        .context("previous body table header has no cards= count")?
+        .parse()
+        .context("previous body table cards= count")?;
+    let mut bodies: BTreeMap<u32, String> = BTreeMap::new();
+    for (number, line) in body.lines().enumerate() {
+        let (id, value) = line
+            .split_once('\t')
+            .with_context(|| format!("previous body table row {} is not id<TAB>body", number + 1))?;
+        let id: u32 = id.parse().with_context(|| format!("previous body table row {} id", number + 1))?;
+        bodies.insert(id, unescape_body(value).with_context(|| format!("previous body table row {} body", number + 1))?);
+    }
+    let carried = bodies.len();
+    let new_rows: Vec<CatalogRow> = catalog.rows.iter().filter(|row| row.id > previous_cards).cloned().collect();
+    let (cards, tokens): (Vec<CatalogRow>, Vec<CatalogRow>) = new_rows
+        .into_iter()
+        .partition(|row| matches!(row.provider, CatalogProvider::ScryfallOracle(_)));
+    let mut coverage = Coverage::default();
+    if !cards.is_empty() {
+        let new_cards = CatalogSource { rows: cards.clone(), ..catalog.clone() };
+        let (card_bodies, card_coverage) = load_bodies(cache, &new_cards, None)?;
+        coverage.card_rows = card_coverage.card_rows;
+        coverage.card_bodies = card_coverage.card_bodies;
+        bodies.extend(card_bodies);
+    }
+    if !tokens.is_empty() {
+        let source = token_source.context("new token rows need --token-source")?;
+        let ledger = token_ledger.context("new token rows need --token-ledger")?;
+        let ledger_text = fs::read_to_string(ledger).with_context(|| format!("read token ledger {}", ledger.display()))?;
+        let mut digest_by_id: BTreeMap<u32, String> = BTreeMap::new();
+        for line in ledger_text.lines().filter(|line| !line.starts_with('#') && !line.is_empty()) {
+            let (id, digest) = line.split_once('\t').context("token ledger row is not id<TAB>digest")?;
+            digest_by_id.insert(id.parse().context("token ledger id")?, digest.to_owned());
+        }
+        let mut path_by_digest: BTreeMap<String, PathBuf> = BTreeMap::new();
+        for path in token_genesis::source_scripts(source)? {
+            let stem = path.file_stem().and_then(|stem| stem.to_str()).context("token script has no UTF-8 stem")?;
+            path_by_digest.insert(hex_sha256(stem.as_bytes()), path.clone());
+        }
+        for row in &tokens {
+            coverage.token_rows += 1;
+            let digest = digest_by_id
+                .get(&row.id)
+                .with_context(|| format!("token catalog ID {} has no token ledger row", row.id))?;
+            let path = path_by_digest
+                .get(digest)
+                .with_context(|| format!("token catalog ID {} has no token script in {}", row.id, source.display()))?;
+            let script = fs::read_to_string(path).with_context(|| format!("read token script {}", path.display()))?;
+            if let Some(body) = token_presentation_body(&script).with_context(|| format!("token script {}", path.display()))? {
+                check_body(&body).with_context(|| format!("catalog ID {}", row.id))?;
+                bodies.insert(row.id, body);
+                coverage.token_bodies += 1;
+            }
+        }
+    }
+    eprintln!("Incremental bodies: {carried} carried from {}", previous.display());
+    Ok((bodies, coverage))
 }
 
 fn load_token_bodies(

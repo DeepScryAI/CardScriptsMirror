@@ -70,6 +70,14 @@ struct Args {
     #[arg(long)]
     token_ledger: Option<PathBuf>,
 
+    /// With `--token-ledger`: give every token stem that has no ledger row a
+    /// new id, in sorted stem order, starting at this catalog id, and append
+    /// those rows to the ledger. The ids must be the `token` rows DeepScry's
+    /// `build-card-catalog --new-tokens` just appended, which is why the start
+    /// is passed in rather than derived here.
+    #[arg(long, requires = "token_ledger")]
+    allocate_tokens_from: Option<u32>,
+
     /// Ignore a present cache and download the current snapshot.
     #[arg(long)]
     refresh: bool,
@@ -147,6 +155,12 @@ struct TokenScriptId(u32);
 impl TokenScriptId {
     fn trie_path(&self, root: &Path) -> PathBuf {
         CardScriptId(self.0).trie_path(root)
+    }
+}
+
+impl CatalogIndex {
+    fn card_ids(&self) -> BTreeSet<u32> {
+        self.by_oracle_id.values().flatten().map(|id| id.0).collect()
     }
 }
 
@@ -255,10 +269,16 @@ fn main() -> Result<()> {
     let catalog_ids: usize = catalog.by_oracle_id.values().map(Vec::len).sum();
     eprintln!("Loaded {catalog_ids} stable numeric identities");
 
-    let (token_index, unmapped_tokens) = match &args.token_ledger {
-        Some(ledger) => build_token_index_from_ledger(&token_source, ledger, catalog.max_id)?,
+    let (mut token_index, mut unmapped_tokens) = match &args.token_ledger {
+        Some(ledger) => build_token_index_from_ledger(&token_source, ledger, &catalog.card_ids())?,
         None => (build_token_index(&token_source, catalog.max_id)?, Vec::new()),
     };
+    if let (Some(ledger), Some(first)) = (&args.token_ledger, args.allocate_tokens_from) {
+        let allocated = append_token_ledger_rows(ledger, &unmapped_tokens, first, &token_index)?;
+        eprintln!("Allocated {} token ids starting at {first}", allocated.len());
+        token_index.extend(allocated);
+        unmapped_tokens.clear();
+    }
     eprintln!("Loaded {} stable numeric token identities", token_index.len());
     let incremental = args.token_ledger.is_some();
     let mut report = generate(&args.source, &args.output, &index, &catalog, &token_index, incremental)?;
@@ -822,11 +842,13 @@ fn token_stem_sha256(stem: &str) -> String {
 
 /// Token IDs from the `id<TAB>stem_sha256` ledger. Returns the index of every
 /// source stem that has a row, plus the sorted stems that have none. Refuses
-/// a malformed ledger, a duplicate ID or digest, or an ID inside the card range.
+/// a malformed ledger, a duplicate ID or digest, or an ID that is also a card
+/// ID (cards and tokens share one dense catalog, and later generations append
+/// cards AFTER earlier token blocks, so a range check would be wrong).
 fn build_token_index_from_ledger(
     source: &Path,
     ledger: &Path,
-    card_max_id: u32,
+    card_ids: &BTreeSet<u32>,
 ) -> Result<(BTreeMap<String, TokenScriptId>, Vec<String>)> {
     let text = fs::read_to_string(ledger).with_context(|| format!("read token ledger {}", ledger.display()))?;
     let mut by_digest: BTreeMap<String, TokenScriptId> = BTreeMap::new();
@@ -839,8 +861,8 @@ fn build_token_index_from_ledger(
             .split_once('\t')
             .with_context(|| format!("token ledger line {} is not `id<TAB>stem_sha256`", number + 1))?;
         let id: u32 = id.parse().with_context(|| format!("token ledger line {} has a bad id", number + 1))?;
-        if id <= card_max_id {
-            bail!("token ledger id {id} is inside the card range (max card id {card_max_id})");
+        if card_ids.contains(&id) {
+            bail!("token ledger id {id} is also a card id in the catalog");
         }
         if digest.len() != 64 || !digest.bytes().all(|b| b.is_ascii_hexdigit() && !b.is_ascii_uppercase()) {
             bail!("token ledger line {} digest is not 64 lowercase hex characters", number + 1);
@@ -871,6 +893,36 @@ fn build_token_index_from_ledger(
     }
     unmapped.sort();
     Ok((index, unmapped))
+}
+
+/// Append one ledger row per stem, ids `first..`, refusing an id already in
+/// use. Returns the new stem -> id pairs.
+fn append_token_ledger_rows(
+    ledger: &Path,
+    stems: &[String],
+    first: u32,
+    existing: &BTreeMap<String, TokenScriptId>,
+) -> Result<Vec<(String, TokenScriptId)>> {
+    let used: BTreeSet<u32> = existing.values().map(|id| id.0).collect();
+    let mut rows = String::new();
+    let mut allocated = Vec::with_capacity(stems.len());
+    for (offset, stem) in stems.iter().enumerate() {
+        let id = first
+            .checked_add(u32::try_from(offset).context("token allocation exceeds u32")?)
+            .context("token allocation exceeds u32")?;
+        if used.contains(&id) {
+            bail!("token id {id} is already in the ledger; --allocate-tokens-from must start past it");
+        }
+        rows.push_str(&format!("{id}\t{}\n", token_stem_sha256(stem)));
+        allocated.push((stem.clone(), TokenScriptId(id)));
+    }
+    let mut text = fs::read_to_string(ledger).with_context(|| format!("read token ledger {}", ledger.display()))?;
+    if !text.ends_with('\n') {
+        text.push('\n');
+    }
+    text.push_str(&rows);
+    fs::write(ledger, text).with_context(|| format!("append token ledger {}", ledger.display()))?;
+    Ok(allocated)
 }
 
 fn generate_tokens(
@@ -1896,25 +1948,43 @@ mod tests {
         let ledger = root.join("token_ids.tsv");
         fs::write(&ledger, format!("#id\tstem_sha256\n101\t{}\n", token_stem_sha256("w_1_1_known"))).unwrap();
 
-        let (index, unmapped) = build_token_index_from_ledger(&source, &ledger, 100).unwrap();
+        let (index, unmapped) = build_token_index_from_ledger(&source, &ledger, &BTreeSet::from([100])).unwrap();
         assert_eq!(index.get("w_1_1_known"), Some(&TokenScriptId(101)));
         assert_eq!(index.len(), 1);
         assert_eq!(unmapped, vec!["g_2_2_new".to_owned()]);
     }
 
     #[test]
-    fn token_ledger_refuses_an_id_inside_the_card_range_and_duplicates() {
+    fn token_ledger_refuses_a_card_id_and_duplicates() {
         let root = scratch_dir("ledger-bad");
         let source = root.join("tokenscripts");
         fs::create_dir_all(&source).unwrap();
         let digest = token_stem_sha256("a");
         let ledger = root.join("token_ids.tsv");
-        fs::write(&ledger, format!("100\t{digest}\n")).unwrap();
-        assert!(build_token_index_from_ledger(&source, &ledger, 100).is_err());
+        let cards = BTreeSet::from([100, 105]);
+        fs::write(&ledger, format!("105\t{digest}\n")).unwrap();
+        assert!(build_token_index_from_ledger(&source, &ledger, &cards).is_err());
+        // Below a later card id is fine: generations interleave cards and tokens.
+        fs::write(&ledger, format!("101\t{digest}\n")).unwrap();
+        assert!(build_token_index_from_ledger(&source, &ledger, &cards).is_ok());
         fs::write(&ledger, format!("101\t{digest}\n102\t{digest}\n")).unwrap();
-        assert!(build_token_index_from_ledger(&source, &ledger, 100).is_err());
+        assert!(build_token_index_from_ledger(&source, &ledger, &cards).is_err());
         fs::write(&ledger, format!("101\t{digest}\n101\t{}\n", token_stem_sha256("b"))).unwrap();
-        assert!(build_token_index_from_ledger(&source, &ledger, 100).is_err());
+        assert!(build_token_index_from_ledger(&source, &ledger, &cards).is_err());
+    }
+
+    #[test]
+    fn allocation_appends_sorted_stems_and_refuses_a_used_id() {
+        let root = scratch_dir("allocate");
+        let ledger = root.join("token_ids.tsv");
+        fs::write(&ledger, format!("#id\tstem_sha256\n101\t{}\n", token_stem_sha256("old"))).unwrap();
+        let existing = BTreeMap::from([("old".to_owned(), TokenScriptId(101))]);
+        let stems = vec!["a_new".to_owned(), "b_new".to_owned()];
+        let allocated = append_token_ledger_rows(&ledger, &stems, 200, &existing).unwrap();
+        assert_eq!(allocated, vec![("a_new".to_owned(), TokenScriptId(200)), ("b_new".to_owned(), TokenScriptId(201))]);
+        let text = fs::read_to_string(&ledger).unwrap();
+        assert!(text.ends_with(&format!("200\t{}\n201\t{}\n", token_stem_sha256("a_new"), token_stem_sha256("b_new"))));
+        assert!(append_token_ledger_rows(&ledger, &stems, 101, &existing).is_err());
     }
 
     #[test]
