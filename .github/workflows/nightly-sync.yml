@@ -1,0 +1,75 @@
+name: Nightly sync from upstream Forge
+
+# Regenerates the anonymous numeric corpus (cards/, tokens/) from upstream
+# Card-Forge/forge every night and pushes the result to main. The steps,
+# including the fail-closed IP gate, live in scripts/nightly_sync.sh so a
+# person can run exactly the same thing locally.
+#
+# This replaces the 6-hourly raw-lineage sync, which stopped on 2026-08-19
+# when main became the anonymous trie (its workflow stayed on the archived
+# lineage, tag archive/main-wotc-20260819).
+#
+# New cards and tokens need catalog IDs appended in DeepScry before they can
+# be generated; until then the run reports them and carries on.
+
+on:
+  schedule:
+    # 07:17 UTC = 3:17am US Eastern (EDT).
+    - cron: "17 7 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: nightly-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: Checkout mirror
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Cache rust-script builds
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/bin/rust-script
+            ~/.cache/rust-script
+          key: rust-script-${{ hashFiles('scripts/*.rs', 'scripts/lib/*.rs') }}
+          restore-keys: rust-script-
+
+      - name: Install rust-script
+        run: command -v rust-script || cargo install rust-script --locked
+
+      - name: Configure git identity
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Regenerate and IP-gate
+        env:
+          FORGE_DIR: ${{ runner.temp }}/forge-upstream
+          SCRYFALL_REFRESH: "1"
+        run: scripts/nightly_sync.sh
+
+      - name: Push
+        run: |
+          if [ -n "$(git log origin/main..HEAD --oneline)" ]; then
+            git push origin HEAD:main
+          else
+            echo "No new commit; mirror already matches upstream."
+          fi
+
+      - name: Upload reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nightly-sync-reports
+          path: .cache/reports/*.json
+          retention-days: 30
