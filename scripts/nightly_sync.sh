@@ -20,7 +20,11 @@
 #      previous version did not is restored to that previous version (or
 #      dropped, if new). A rescan must then find no hit outside the previous
 #      tip's hit set, or the run aborts without committing.
-#   5. Commit (no push) with the upstream SHA recorded in .forge-upstream-sha.
+#   5. Re-mint presentation/skins/wotc.skin.json: pack the SS1 cardset from
+#      cards/ + tokens/ and bind it to the unchanged presentation tables, keeping
+#      each member's retrieval hints. Without this the manifest names the
+#      previous cardset and every DeepScry cardset/network check refuses it.
+#   6. Commit (no push) with the upstream SHA recorded in .forge-upstream-sha.
 #      The caller pushes: the workflow with GITHUB_TOKEN, or a person locally.
 #
 # Environment (all optional):
@@ -47,7 +51,7 @@ SCRYFALL_CACHE="$REPO_ROOT/.cache/scryfall/default_cards.json"
 REPORTS="$REPO_ROOT/.cache/reports"
 mkdir -p "$REPORTS"
 
-if [ -n "$(git status --porcelain -- cards tokens token_ids.tsv .forge-upstream-sha)" ]; then
+if [ -n "$(git status --porcelain -- cards tokens token_ids.tsv .forge-upstream-sha presentation)" ]; then
   echo "nightly_sync: refusing to run over uncommitted corpus changes" >&2
   exit 1
 fi
@@ -139,9 +143,37 @@ if extra:
 print("IP gate: no hit outside the previous tip's hit set")
 PY
 
-# ---- 5. commit -------------------------------------------------------------
+# ---- 5. skin manifest ------------------------------------------------------
+MANIFEST=presentation/skins/wotc.skin.json
+CAS="$REPO_ROOT/.cache/cas"
+mkdir -p "$CAS"
+./scripts/pack_cardset.rs --cards cards --tokens tokens --output "$CAS/cardset.tar"
+CATALOG_IDENTITY="$(head -1 presentation/title_catalog.tsv | tr ' ' '\n' | sed -n 's/^catalog_identity=//p')"
+if [ "${#CATALOG_IDENTITY}" -ne 64 ]; then
+  echo "nightly_sync: cannot read catalog_identity from presentation/title_catalog.tsv" >&2
+  exit 1
+fi
+mapfile -t HINTS < <(python3 - "$MANIFEST" <<'PY'
+import json, sys
+manifest = json.load(open(sys.argv[1]))
+for member in ("cardset", "titles", "bodies", "artpack", "provenance"):
+    for hint in manifest.get(member, {}).get("hints", []):
+        print(f"--hint={member}={hint}")
+PY
+)
+./scripts/make_skin_manifest.rs \
+  --cardset "$CAS/cardset.tar" \
+  --titles presentation/title_catalog.tsv \
+  --bodies presentation/body_catalog.tsv \
+  --artpack presentation/artpack_scryfall_uuid.tsv \
+  --provenance presentation/provenance_oracle_ids.tsv \
+  --catalog-identity "$CATALOG_IDENTITY" \
+  "${HINTS[@]}" \
+  --output "$MANIFEST"
+
+# ---- 6. commit -------------------------------------------------------------
 printf '%s\n' "$UPSTREAM_SHA" > .forge-upstream-sha
-git add -A -- cards tokens .forge-upstream-sha
+git add -A -- cards tokens .forge-upstream-sha "$MANIFEST"
 SUMMARY="$(python3 - "$REPORTS" <<'PY'
 import json, sys
 r = json.load(open(f"{sys.argv[1]}/nightly-generate-report.json"))
