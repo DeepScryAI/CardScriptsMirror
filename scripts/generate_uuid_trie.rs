@@ -61,6 +61,15 @@ struct Args {
     #[arg(long, default_value = "catalog_ids.tsv")]
     catalog: PathBuf,
 
+    /// Tab-separated `id` and `stem_sha256` token ledger. When given, token
+    /// IDs come from this ledger instead of the one-time genesis, so the
+    /// generator can run against an upstream Forge that has gained token
+    /// scripts since genesis. A token script with no ledger row, and every
+    /// card that references one, is reported and NOT generated (its source
+    /// name would otherwise survive into the anonymous corpus).
+    #[arg(long)]
+    token_ledger: Option<PathBuf>,
+
     /// Ignore a present cache and download the current snapshot.
     #[arg(long)]
     refresh: bool,
@@ -90,6 +99,16 @@ struct GenerationReport {
     /// has — it should always be empty, and `main` aborts unconditionally
     /// on any non-empty result (see `main`'s explicit reasoning).
     unaccounted_identities: Vec<MappingProblem>,
+    /// Token scripts present upstream with no `--token-ledger` row. Not
+    /// generated; they need a catalog ID appended first.
+    unmapped_tokens: Vec<String>,
+    /// Card scripts NOT generated because they reference an unmapped token.
+    unmapped_token_references: Vec<MappingProblem>,
+    /// Incremental mode only: IDs already in the output tree that this run
+    /// did not regenerate, copied forward unchanged. A nightly never deletes
+    /// a card or token; a stale script is kept until it can be regenerated.
+    carried_over_cards: Vec<u32>,
+    carried_over_tokens: Vec<u32>,
 }
 
 #[derive(Debug, Serialize)]
@@ -236,10 +255,23 @@ fn main() -> Result<()> {
     let catalog_ids: usize = catalog.by_oracle_id.values().map(Vec::len).sum();
     eprintln!("Loaded {catalog_ids} stable numeric identities");
 
-    let token_index = build_token_index(&token_source, catalog.max_id)?;
+    let (token_index, unmapped_tokens) = match &args.token_ledger {
+        Some(ledger) => build_token_index_from_ledger(&token_source, ledger, catalog.max_id)?,
+        None => (build_token_index(&token_source, catalog.max_id)?, Vec::new()),
+    };
     eprintln!("Loaded {} stable numeric token identities", token_index.len());
-    let report = generate(&args.source, &args.output, &index, &catalog, &token_index)?;
-    generate_tokens(&token_source, &args.token_output, &index, &catalog, &token_index)?;
+    let incremental = args.token_ledger.is_some();
+    let mut report = generate(&args.source, &args.output, &index, &catalog, &token_index, incremental)?;
+    report.carried_over_tokens = generate_tokens(
+        &token_source,
+        &args.token_output,
+        &index,
+        &catalog,
+        &token_index,
+        &unmapped_tokens,
+        incremental,
+    )?;
+    report.unmapped_tokens = unmapped_tokens;
     write_report(&report)?;
     print_report(&report);
 
@@ -537,6 +569,7 @@ fn generate(
     index: &NameIndex,
     catalog: &CatalogIndex,
     token_index: &BTreeMap<String, TokenScriptId>,
+    incremental: bool,
 ) -> Result<GenerationReport> {
     let sources = source_scripts(source)?;
     let stage = sibling_with_suffix(output, &format!("build-{}", std::process::id()))?;
@@ -553,6 +586,10 @@ fn generate(
         ambiguous_mappings: Vec::new(),
         conflicting_scripts: Vec::new(),
         unaccounted_identities: Vec::new(),
+        unmapped_tokens: Vec::new(),
+        unmapped_token_references: Vec::new(),
+        carried_over_cards: Vec::new(),
+        carried_over_tokens: Vec::new(),
     };
     let mut generated: BTreeMap<CardScriptId, (PathBuf, String)> = BTreeMap::new();
     let numeric_name_refs = numeric_name_references(index, catalog);
@@ -618,6 +655,16 @@ fn generate(
                     .expect("catalog index lost anonymous set group");
                 let sanitized =
                     sanitize_script(text, card_id, color_identity, set_group, &numeric_name_refs, token_index);
+                // A `TokenScript$` that survived sanitizing names a token with
+                // no ledger row; emitting it would publish the source name.
+                if sanitized.contains("TokenScript$") {
+                    report.unmapped_token_references.push(MappingProblem {
+                        source: relative_display(source, source_path),
+                        name: format!("card {}", card_id.0),
+                        oracle_ids: vec![oracle_id.0.hyphenated().to_string()],
+                    });
+                    continue;
+                }
                 if let Some((first_path, first_text)) = generated.get(&card_id) {
                     if first_text == &sanitized {
                         report.duplicate_identical_scripts += 1;
@@ -664,6 +711,9 @@ fn generate(
 
     reconcile_identities(source, &source_texts, &attempted, &mut report.unaccounted_identities);
 
+    if incremental {
+        report.carried_over_cards = carry_over_missing(&stage, output)?;
+    }
     publish_directory(&stage, output)?;
     Ok(report)
 }
@@ -764,13 +814,74 @@ fn build_token_index(source: &Path, card_max_id: u32) -> Result<BTreeMap<String,
     Ok(by_name)
 }
 
+/// SHA-256 of a token source stem, the ledger's only key: the stem itself is
+/// a descriptive name and is never written to the anonymous corpus.
+fn token_stem_sha256(stem: &str) -> String {
+    Sha256::digest(stem.as_bytes()).iter().map(|byte| format!("{byte:02x}")).collect()
+}
+
+/// Token IDs from the `id<TAB>stem_sha256` ledger. Returns the index of every
+/// source stem that has a row, plus the sorted stems that have none. Refuses
+/// a malformed ledger, a duplicate ID or digest, or an ID inside the card range.
+fn build_token_index_from_ledger(
+    source: &Path,
+    ledger: &Path,
+    card_max_id: u32,
+) -> Result<(BTreeMap<String, TokenScriptId>, Vec<String>)> {
+    let text = fs::read_to_string(ledger).with_context(|| format!("read token ledger {}", ledger.display()))?;
+    let mut by_digest: BTreeMap<String, TokenScriptId> = BTreeMap::new();
+    let mut ids = BTreeSet::new();
+    for (number, line) in text.lines().enumerate() {
+        if line.starts_with('#') || line.is_empty() {
+            continue;
+        }
+        let (id, digest) = line
+            .split_once('\t')
+            .with_context(|| format!("token ledger line {} is not `id<TAB>stem_sha256`", number + 1))?;
+        let id: u32 = id.parse().with_context(|| format!("token ledger line {} has a bad id", number + 1))?;
+        if id <= card_max_id {
+            bail!("token ledger id {id} is inside the card range (max card id {card_max_id})");
+        }
+        if digest.len() != 64 || !digest.bytes().all(|b| b.is_ascii_hexdigit() && !b.is_ascii_uppercase()) {
+            bail!("token ledger line {} digest is not 64 lowercase hex characters", number + 1);
+        }
+        if !ids.insert(id) {
+            bail!("token ledger repeats id {id}");
+        }
+        if by_digest.insert(digest.to_owned(), TokenScriptId(id)).is_some() {
+            bail!("token ledger repeats digest {digest}");
+        }
+    }
+    let mut index = BTreeMap::new();
+    let mut unmapped = Vec::new();
+    for path in source_scripts(source)? {
+        let key = path
+            .file_stem()
+            .and_then(OsStr::to_str)
+            .with_context(|| format!("token script has no UTF-8 stem: {}", path.display()))?
+            .to_owned();
+        match by_digest.get(&token_stem_sha256(&key)) {
+            Some(&id) => {
+                if index.insert(key.clone(), id).is_some() {
+                    bail!("duplicate token source stem {key:?}");
+                }
+            }
+            None => unmapped.push(key),
+        }
+    }
+    unmapped.sort();
+    Ok((index, unmapped))
+}
+
 fn generate_tokens(
     source: &Path,
     output: &Path,
     card_names: &NameIndex,
     catalog: &CatalogIndex,
     token_index: &BTreeMap<String, TokenScriptId>,
-) -> Result<()> {
+    unmapped_tokens: &[String],
+    incremental: bool,
+) -> Result<Vec<u32>> {
     let stage = sibling_with_suffix(output, &format!("build-{}", std::process::id()))?;
     if stage.exists() {
         fs::remove_dir_all(&stage).with_context(|| format!("remove stale stage {}", stage.display()))?;
@@ -783,6 +894,9 @@ fn generate_tokens(
             .file_stem()
             .and_then(OsStr::to_str)
             .context("token script has no UTF-8 stem")?;
+        if unmapped_tokens.iter().any(|unmapped| unmapped == key) {
+            continue;
+        }
         let token_id = token_index.get(key).context("token index lost a source script")?;
         let source_text = fs::read_to_string(&source_path)
             .with_context(|| format!("read Forge token script {}", source_path.display()))?;
@@ -793,9 +907,10 @@ fn generate_tokens(
         fs::write(&destination, sanitized.as_bytes())
             .with_context(|| format!("write generated token script {}", destination.display()))?;
     }
+    let carried_over = if incremental { carry_over_missing(&stage, output)? } else { Vec::new() };
     publish_directory(&stage, output)?;
     eprintln!("Generated {} numeric-ID token scripts", token_index.len());
-    Ok(())
+    Ok(carried_over)
 }
 
 fn top_level_value<'a>(script: &'a str, wanted: &str) -> Option<&'a str> {
@@ -1624,6 +1739,34 @@ fn is_display_parameter(segment: &str) -> bool {
         .unwrap_or(false)
 }
 
+/// Copy every `.txt` in the previous `output` tree that the new `stage` lacks,
+/// keeping its relative trie path, and return the numeric IDs copied.
+fn carry_over_missing(stage: &Path, output: &Path) -> Result<Vec<u32>> {
+    let mut carried = Vec::new();
+    if !output.exists() {
+        return Ok(carried);
+    }
+    for previous in source_scripts(output)? {
+        let relative = previous.strip_prefix(output).context("previous output escaped its root")?;
+        let destination = stage.join(relative);
+        if destination.exists() {
+            continue;
+        }
+        let id: u32 = previous
+            .file_stem()
+            .and_then(OsStr::to_str)
+            .and_then(|stem| stem.parse().ok())
+            .with_context(|| format!("previous output file is not a numeric id: {}", previous.display()))?;
+        let parent = destination.parent().context("carried-over path has no parent")?;
+        fs::create_dir_all(parent).with_context(|| format!("create trie directory {}", parent.display()))?;
+        fs::copy(&previous, &destination)
+            .with_context(|| format!("carry over {} to {}", previous.display(), destination.display()))?;
+        carried.push(id);
+    }
+    carried.sort_unstable();
+    Ok(carried)
+}
+
 fn publish_directory(stage: &Path, output: &Path) -> Result<()> {
     let backup = sibling_with_suffix(output, &format!("old-{}", std::process::id()))?;
     if backup.exists() {
@@ -1671,6 +1814,20 @@ fn print_report(report: &GenerationReport) {
         "Generated {} numeric-ID scripts from {} source scripts ({} identical duplicates)",
         report.generated_scripts, report.source_scripts, report.duplicate_identical_scripts
     );
+    if !report.carried_over_cards.is_empty() || !report.carried_over_tokens.is_empty() {
+        eprintln!(
+            "CARRIED OVER unchanged (not regenerated this run): {} cards, {} tokens",
+            report.carried_over_cards.len(),
+            report.carried_over_tokens.len()
+        );
+    }
+    if !report.unmapped_tokens.is_empty() || !report.unmapped_token_references.is_empty() {
+        eprintln!(
+            "NOT GENERATED (no token ledger row): {} token scripts, {} card scripts that reference them",
+            report.unmapped_tokens.len(),
+            report.unmapped_token_references.len()
+        );
+    }
     eprintln!(
         "Unmapped: {}; ambiguous: {}; conflicting numeric scripts: {}; UNACCOUNTED: {}",
         report.missing_mappings.len(),
@@ -1719,6 +1876,67 @@ fn print_report(report: &GenerationReport) {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    fn scratch_dir(name: &str) -> PathBuf {
+        let dir = std::env::temp_dir().join(format!("uuid-trie-test-{name}-{}", std::process::id()));
+        if dir.exists() {
+            fs::remove_dir_all(&dir).unwrap();
+        }
+        fs::create_dir_all(&dir).unwrap();
+        dir
+    }
+
+    #[test]
+    fn token_ledger_maps_known_stems_and_reports_new_ones() {
+        let root = scratch_dir("ledger");
+        let source = root.join("tokenscripts");
+        fs::create_dir_all(&source).unwrap();
+        fs::write(source.join("w_1_1_known.txt"), "Name:x\n").unwrap();
+        fs::write(source.join("g_2_2_new.txt"), "Name:y\n").unwrap();
+        let ledger = root.join("token_ids.tsv");
+        fs::write(&ledger, format!("#id\tstem_sha256\n101\t{}\n", token_stem_sha256("w_1_1_known"))).unwrap();
+
+        let (index, unmapped) = build_token_index_from_ledger(&source, &ledger, 100).unwrap();
+        assert_eq!(index.get("w_1_1_known"), Some(&TokenScriptId(101)));
+        assert_eq!(index.len(), 1);
+        assert_eq!(unmapped, vec!["g_2_2_new".to_owned()]);
+    }
+
+    #[test]
+    fn token_ledger_refuses_an_id_inside_the_card_range_and_duplicates() {
+        let root = scratch_dir("ledger-bad");
+        let source = root.join("tokenscripts");
+        fs::create_dir_all(&source).unwrap();
+        let digest = token_stem_sha256("a");
+        let ledger = root.join("token_ids.tsv");
+        fs::write(&ledger, format!("100\t{digest}\n")).unwrap();
+        assert!(build_token_index_from_ledger(&source, &ledger, 100).is_err());
+        fs::write(&ledger, format!("101\t{digest}\n102\t{digest}\n")).unwrap();
+        assert!(build_token_index_from_ledger(&source, &ledger, 100).is_err());
+        fs::write(&ledger, format!("101\t{digest}\n101\t{}\n", token_stem_sha256("b"))).unwrap();
+        assert!(build_token_index_from_ledger(&source, &ledger, 100).is_err());
+    }
+
+    #[test]
+    fn carry_over_keeps_previous_files_the_stage_lacks_and_nothing_else() {
+        let root = scratch_dir("carry");
+        let output = root.join("cards");
+        let stage = root.join("stage");
+        let kept = CardScriptId(12345678).trie_path(&output);
+        let regenerated = CardScriptId(12345679).trie_path(&output);
+        for path in [&kept, &regenerated] {
+            fs::create_dir_all(path.parent().unwrap()).unwrap();
+            fs::write(path, "old\n").unwrap();
+        }
+        let fresh = CardScriptId(12345679).trie_path(&stage);
+        fs::create_dir_all(fresh.parent().unwrap()).unwrap();
+        fs::write(&fresh, "new\n").unwrap();
+
+        let carried = carry_over_missing(&stage, &output).unwrap();
+        assert_eq!(carried, vec![12345678]);
+        assert_eq!(fs::read_to_string(CardScriptId(12345678).trie_path(&stage)).unwrap(), "old\n");
+        assert_eq!(fs::read_to_string(&fresh).unwrap(), "new\n");
+    }
 
     #[test]
     fn sanitizes_a_script_without_touching_executable_fields() {
