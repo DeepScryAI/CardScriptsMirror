@@ -178,8 +178,16 @@ done
   --output "$MANIFEST"
 
 # ---- 6. commit -------------------------------------------------------------
+git add -A -- cards tokens "$MANIFEST"
+# The upstream SHA is recorded only alongside a real corpus change: a commit
+# carrying nothing but the moved SHA would advance main, and every advance of
+# main costs DeepScry a full speculative-bump validate for nothing.
+if git diff --cached --quiet -- cards tokens "$MANIFEST"; then
+  echo "nightly_sync: upstream $UPSTREAM_SHA changes no generated script; nothing to commit"
+  exit 0
+fi
 printf '%s\n' "$UPSTREAM_SHA" > .forge-upstream-sha
-git add -A -- cards tokens .forge-upstream-sha "$MANIFEST"
+git add -- .forge-upstream-sha
 SUMMARY="$(python3 - "$REPORTS" <<'PY'
 import json, sys
 r = json.load(open(f"{sys.argv[1]}/nightly-generate-report.json"))
