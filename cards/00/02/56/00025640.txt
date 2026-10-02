@@ -1,0 +1,16 @@
+Id:25640
+ColorIdentity:
+OriginSet:G2e872aaf9b98489e
+ManaCost:4
+Types:Artifact Vehicle
+PT:2/3
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSticker
+SVar:TrigSticker:DB$ PutSticker | Kind$ Name | Defined$ Self | Optional$ True | SubAbility$ DBSticker2
+SVar:DBSticker2:DB$ PutSticker | Kind$ Name | Defined$ Self | Optional$ True
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigChoose
+SVar:TrigChoose:DB$ ChooseType | Type$ Letter | ValidTypes$ A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z | Defined$ You | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Self | NumAtt$ X | NumDef$ X
+SVar:X:Count$CardStickers.NameStartsWith.ChosenType
+SVar:HasAttackEffect:TRUE
+K:Crew:2

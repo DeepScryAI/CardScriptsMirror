@@ -1,0 +1,22 @@
+Id:25389
+ColorIdentity:
+OriginSet:G25318b12383df0b4
+ManaCost:no cost
+Types:Stickers
+K:StickerSheet:STK1,STK2,STK3,STK4,STK5,STK6,STK7,STK8,STK9,STK10
+SVar:STK1:Kind$ Name | Word$ Wrinkly
+SVar:STK2:Kind$ Name | Word$ Monkey
+SVar:STK3:Kind$ Name | Word$ Shenanigans
+SVar:STK4:Kind$ Art
+SVar:STK5:Kind$ Art
+SVar:STK6:Kind$ Art
+SVar:STK7:Kind$ Ability | Tickets$ 2 | Text$ {1}: Target creature can't block this creature this turn. | Ability$ STK7CantBlock
+SVar:STK8:Kind$ Ability | Tickets$ 4 | Text$ Morbid — At the beginning of each end step, if a creature died this turn and this permanent is a creature, put a -1/-1 counter on this permanent and draw a card. | Triggers$ STK8Morbid
+SVar:STK9:Kind$ PT | Tickets$ 2 | Power$ 2 | Toughness$ 4
+SVar:STK10:Kind$ PT | Tickets$ 3 | Power$ 7 | Toughness$ 2
+SVar:STK7CantBlock:AB$ Effect | Cost$ 1 | ValidTgts$ Creature | IsCurse$ True | RememberObjects$ ThisTargetedCard | ForgetOnMoved$ Battlefield | StaticAbilities$ STK7KWPump | Duration$ UntilHostLeavesPlayOrEOT
+SVar:STK7KWPump:Mode$ CantBlockBy | ValidAttacker$ Creature.EffectSource | ValidBlocker$ Creature.IsRemembered
+SVar:STK8Morbid:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | CheckSVar$ STK8Died | IsPresent$ Card.Self+Creature | Execute$ STK8PutCounter
+SVar:STK8PutCounter:DB$ PutCounter | Defined$ Self | CounterType$ M1M1 | CounterNum$ 1 | SubAbility$ STK8Draw
+SVar:STK8Draw:DB$ Draw | Defined$ You | NumCards$ 1
+SVar:STK8Died:Count$ThisTurnEntered_Graveyard_from_Battlefield_Creature

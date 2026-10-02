@@ -1,0 +1,21 @@
+Id:25352
+ColorIdentity:
+OriginSet:G25318b12383df0b4
+ManaCost:no cost
+Types:Stickers
+K:StickerSheet:STK1,STK2,STK3,STK4,STK5,STK6,STK7,STK8,STK9,STK10
+SVar:STK1:Kind$ Name | Word$ Elemental
+SVar:STK2:Kind$ Name | Word$ Time
+SVar:STK3:Kind$ Name | Word$ Flamingo
+SVar:STK4:Kind$ Art
+SVar:STK5:Kind$ Art
+SVar:STK6:Kind$ Art
+SVar:STK7:Kind$ Ability | Tickets$ 2 | Text$ Exile this permanent: You may cast target nonland card from your graveyard this turn. | Ability$ STK7Exile
+SVar:STK8:Kind$ Ability | Tickets$ 4 | Text$ Whenever a creature you control dies, each opponent loses 1 life and you gain 1 life. | Triggers$ STK8Dies
+SVar:STK9:Kind$ PT | Tickets$ 2 | Power$ 1 | Toughness$ 5
+SVar:STK10:Kind$ PT | Tickets$ 3 | Power$ 5 | Toughness$ 4
+SVar:STK7Exile:AB$ Effect | Cost$ Exile<1/CARDNAME> | ValidTgts$ Card.nonLand+YouOwn | TgtZone$ Graveyard | RememberObjects$ Targeted | StaticAbilities$ STK7Play | ExileOnMoved$ Graveyard
+SVar:STK7Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Graveyard
+SVar:STK8Dies:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl | TriggerZones$ Battlefield | Execute$ STK8LoseLife
+SVar:STK8LoseLife:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 1 | SubAbility$ STK8GainLife
+SVar:STK8GainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1

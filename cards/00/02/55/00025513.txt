@@ -1,0 +1,11 @@
+Id:25513
+ColorIdentity:G
+OriginSet:G2e872aaf9b98489e
+ManaCost:1 G
+Types:Creature Centaur Performer
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigTicket
+SVar:TrigTicket:DB$ PutCounter | Defined$ You | CounterType$ TICKET | CounterNum$ 2 | SubAbility$ DBSticker
+SVar:DBSticker:DB$ PutSticker | Kind$ PT | Choices$ Creature.YouOwn | Optional$ True
+A:AB$ Pump | Cost$ 3 G | ValidTgts$ Creature.YouCtrl+stickeredWith PT+Other | SubAbility$ DBMustBlock
+SVar:DBMustBlock:DB$ MustBlock | DefinedAttacker$ ParentTarget | ValidTgts$ Creature.YouDontCtrl

@@ -1,0 +1,17 @@
+Id:25459
+ColorIdentity:G
+OriginSet:G2e872aaf9b98489e
+ManaCost:2 G
+Types:Enchantment
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | IsPresent$ Permanent.Employee+YouCtrl,Permanent.Performer+YouCtrl,Permanent.Robot+YouCtrl | Execute$ TrigChoice
+SVar:TrigChoice:DB$ GenericChoice | Choices$ DBTicket,DBTreasure,DBNeither | SubAbility$ DBEmployee
+SVar:DBTicket:DB$ PutCounter | Defined$ You | CounterType$ TICKET | CounterNum$ 1
+SVar:DBTreasure:DB$ Token | TokenScriptIds$ 35548 | TokenOwner$ You
+SVar:DBNeither:DB$ Pump
+SVar:DBEmployee:DB$ Branch | BranchConditionSVar$ Employees | TrueSubAbility$ DBPerformer
+SVar:DBPerformer:DB$ Branch | BranchConditionSVar$ Performers | TrueSubAbility$ DBRobot
+SVar:DBRobot:DB$ Branch | BranchConditionSVar$ Robots | TrueSubAbility$ DBSticker
+SVar:DBSticker:DB$ PutSticker | Choices$ Permanent.nonLand+YouOwn | Optional$ True
+SVar:Employees:Count$Valid Permanent.Employee+YouCtrl
+SVar:Performers:Count$Valid Permanent.Performer+YouCtrl
+SVar:Robots:Count$Valid Permanent.Robot+YouCtrl

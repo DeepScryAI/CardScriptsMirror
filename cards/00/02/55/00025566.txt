@@ -1,0 +1,12 @@
+Id:25566
+ColorIdentity:B
+OriginSet:G2e872aaf9b98489e
+ManaCost:2 B
+Types:Creature Vampire Employee
+PT:1/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigTicket
+SVar:TrigTicket:DB$ PutCounter | Defined$ You | CounterType$ TICKET | CounterNum$ 1 | SubAbility$ DBSticker
+SVar:DBSticker:DB$ PutSticker | Choices$ Creature.YouOwn | ChoiceZone$ Graveyard | Optional$ True
+A:AB$ ChangeZone | Cost$ 3 B | ValidTgts$ Creature.stickered+YouOwn | TgtZone$ Graveyard | Origin$ Graveyard | Destination$ Battlefield | RememberChanged$ True | SubAbility$ DBHaste | SorcerySpeed$ True
+SVar:DBHaste:DB$ Animate | Defined$ Remembered | Keywords$ Haste | Duration$ Permanent | AtEOT$ Exile | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
