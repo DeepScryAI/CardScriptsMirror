@@ -4,14 +4,12 @@ OriginSet:G06757f68e16377c2
 ManaCost:1 W
 Types:Battle Siege
 Defense:3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigLook
-SVar:TrigLook:DB$ RevealHand | ValidTgts$ Opponent | Look$ True | RememberRevealed$ True | SubAbility$ DBChooseCard
-SVar:DBChooseCard:DB$ ChooseCard | ChoiceZone$ Hand | Choices$ Card.nonLand+IsRemembered | MinAmount$ 0 | Amount$ 1 | SubAbility$ DBChangeZone
-SVar:DBChangeZone:DB$ ChangeZone | Defined$ ChosenCard | Origin$ Hand | Destination$ Exile | Imprint$ True | SubAbility$ DBEffect
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | ValidTgts$ Opponent | ChangeType$ Card.nonLand | Chooser$ You | Origin$ Hand | Destination$ Exile | Imprint$ True | SubAbility$ DBEffect
 SVar:DBEffect:DB$ Effect | Duration$ Permanent | StaticAbilities$ MayPlay,CostsMore | RememberObjects$ Imprinted | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
 SVar:MayPlay:Mode$ Continuous | Affected$ Card.IsRemembered | AffectedZone$ Exile | MayPlay$ True | MayPlayPlayer$ CardOwner
 SVar:CostsMore:Mode$ RaiseCost | ValidCard$ Card.IsRemembered | AffectedZone$ Exile | Type$ Spell | Amount$ 2
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearChosenCard$ True | ClearImprinted$ True
+SVar:DBCleanup:DB$ Cleanup | ClearImprinted$ True
 AlternateMode:DoubleFaced
 ALTERNATE
 ManaCost:no cost
