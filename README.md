@@ -59,8 +59,25 @@ Run the unit tests with:
 ```sh
 rust-script --test scripts/generate_uuid_trie.rs
 rust-script --test scripts/extract_catalog_ids.rs
-rust-script --test scripts/scan_scryfall_ip.rs
+python3 scripts/test_check_corpus_ip.py
 ```
+
+The IP scanner and reviewed policy live in the independent
+[card-compiler repository](https://github.com/DeepScryAI/card-compiler).
+Check out the commit in `.card-compiler-revision`, install `rust-script` and
+the Aspell `en_US` dictionary, then run:
+
+```sh
+CARD_COMPILER_DIR=/path/to/card-compiler python3 scripts/check_corpus_ip.py \
+  --cache .cache/scryfall/default_cards.json --reports .cache/reports
+```
+
+The nightly import stages newly generated scripts before this check. Both
+`cards/` and `tokens/` must scan successfully with zero findings; a failed
+check prevents publication. Existing findings are not grandfathered; rejected
+output remains staged for inspection. WotC presentation skins and fetched source inputs
+are expected to contain titles and are outside these executable corpus scopes.
+The workflow provisions card-compiler directly and never requires DeepScry.
 
 `catalog_ids.tsv` contains a numeric ID, an `oracle_id`, and a one-way SHA-256
 digest used to distinguish multiple Scryfall names for the same Oracle

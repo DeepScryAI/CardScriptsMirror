@@ -27,12 +27,12 @@ This generated table contains third-party expression and must never be added to
 the mirror or to a consuming repository. A consumer may point `--output` at
 another explicitly ignored local path.
 
-`scan_scryfall_ip.rs` compiles all normalized Scryfall titles and Oracle texts
-into an overlapping Aho-Corasick automaton and scans tracked repository text.
-It shares the downloader/parser in `lib/scryfall_bulk.rs` with the generator.
-By default it traverses submodules. Use `--exclude-submodules` only when the
-audit intentionally treats independently versioned submodule repositories as
-opaque gitlinks; the selected scope is recorded in the JSON report.
+`check_corpus_ip.py` invokes the independent card-compiler checkout pinned by
+`.card-compiler-revision`, using its shared scanner and reviewed allowlist.
+Set `CARD_COMPILER_DIR` to that checkout. The check scans staged/tracked
+`cards/` and `tokens/`, refuses empty or failed scans, and rejects every IP
+finding. Expected presentation skins and fetched inputs are outside this scope.
+The mirror no longer carries a scanner or policy copy.
 
 ## Skin-format producers (the ratified SS0-SS5 package)
 

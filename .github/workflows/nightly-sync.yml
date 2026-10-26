@@ -38,6 +38,26 @@ jobs:
           # which a shallow clone cannot see.
           fetch-depth: 0
 
+      - name: Read shared scanner revision
+        id: scanner
+        run: |
+          revision="$(cat .card-compiler-revision)"
+          [[ "$revision" =~ ^[0-9a-f]{40}$ ]]
+          echo "revision=$revision" >> "$GITHUB_OUTPUT"
+
+      - name: Checkout independent card-compiler scanner
+        uses: actions/checkout@v4
+        with:
+          repository: DeepScryAI/card-compiler
+          ref: ${{ steps.scanner.outputs.revision }}
+          path: .cache/card-compiler
+
+      - name: Install scanner dictionary
+        run: sudo apt-get update && sudo apt-get install -y aspell aspell-en
+
+      - name: Test corpus scanner contract
+        run: python3 scripts/test_check_corpus_ip.py
+
       # Cache only the rust-script TOOL. Its compiled-script cache is NOT kept:
       # on 2026-09-28 a restored ~/.cache/rust-script ran a stale generator
       # binary (an error message from code already replaced), and recompiling
@@ -60,6 +80,7 @@ jobs:
         env:
           FORGE_DIR: ${{ runner.temp }}/forge-upstream
           SCRYFALL_REFRESH: "1"
+          CARD_COMPILER_DIR: ${{ github.workspace }}/.cache/card-compiler
         run: scripts/nightly_sync.sh
 
       - name: Push

@@ -15,11 +15,9 @@
 #      every existing ID is kept, changed scripts are regenerated, an ID that
 #      cannot be regenerated is carried over unchanged, and new cards/tokens
 #      without a catalog ID are reported, not generated.
-#   4. IP gate (fail-closed, per file): any cards/ or tokens/ file whose
-#      regenerated text matches a Scryfall title or Oracle pattern that its
-#      previous version did not is restored to that previous version (or
-#      dropped, if new). A rescan must then find no hit outside the previous
-#      tip's hit set, or the run aborts without committing.
+#   4. Run card-compiler's pinned shared scanner and policy on cards/ and tokens/.
+#      Any hit or scanner failure aborts before a commit. Expected WotC skins
+#      and fetched upstream inputs are outside this executable corpus scope.
 #   5. Re-mint presentation/skins/wotc.skin.json: pack the SS1 cardset from
 #      cards/ + tokens/ and bind it to the unchanged presentation tables, keeping
 #      each member's retrieval hints. Without this the manifest names the
@@ -27,11 +25,12 @@
 #   6. Commit (no push) with the upstream SHA recorded in .forge-upstream-sha.
 #      The caller pushes: the workflow with GITHUB_TOKEN, or a person locally.
 #
-# Environment (all optional):
+# Environment:
 #   FORGE_DIR        upstream clone location   (default: /tmp/forge-upstream)
 #   UPSTREAM_REPO    upstream URL              (default: Card-Forge/forge)
 #   UPSTREAM_BRANCH  upstream branch           (default: master)
 #   SCRYFALL_REFRESH 1 to force a new snapshot (default: 1)
+#   CARD_COMPILER_DIR independent checkout at .card-compiler-revision (required)
 #   NO_COMMIT        1 to stop before committing (dry run)
 #
 # Exit status: 0 with or without a new commit; non-zero on any failure,
@@ -84,64 +83,9 @@ if [ "$SCRYFALL_REFRESH" = "1" ]; then REFRESH_FLAG=(--refresh); fi
 cp "$REPORTS/generate-report.json" "$REPORTS/nightly-generate-report.json"
 
 # ---- 4. IP gate ------------------------------------------------------------
-scan() { # $1 = label; scans the WORKING TREE's tracked + staged corpus files
-  local label="$1" prefix
-  for prefix in cards tokens; do
-    ./scripts/scan_scryfall_ip.rs --root . --path-prefix "$prefix" --cache "$SCRYFALL_CACHE" \
-      --report "$REPORTS/ip-$label-$prefix.json" >/dev/null 2>&1 || true
-  done
-}
+# Newly generated paths must be staged: the shared scanner uses git ls-files.
 git add -A -- cards tokens
-# Baseline: the previous tip's corpus, scanned from a throwaway worktree.
-BASE_DIR="$(mktemp -d)"
-git worktree add --quiet --detach "$BASE_DIR/base" HEAD
-( cd "$BASE_DIR/base" && for prefix in cards tokens; do
-    "$REPO_ROOT/scripts/scan_scryfall_ip.rs" --root . --path-prefix "$prefix" --cache "$SCRYFALL_CACHE" \
-      --allowlist "$REPO_ROOT/ip_allowlist.tsv" --report "$REPORTS/ip-base-$prefix.json" >/dev/null 2>&1 || true
-  done )
-git worktree remove --force "$BASE_DIR/base"
-rmdir "$BASE_DIR"
-scan new
-python3 - "$REPORTS" <<'PY'
-import json, subprocess, sys
-reports = sys.argv[1]
-def hit_paths(label):
-    paths = set()
-    for prefix in ("cards", "tokens"):
-        with open(f"{reports}/ip-{label}-{prefix}.json") as f:
-            report = json.load(f)
-        if report.get("omitted_hit_pairs"):
-            sys.exit(f"IP gate: {label}/{prefix} report truncated; cannot compare hit sets")
-        paths |= {hit["path"] for hit in report["hits"]}
-    return paths
-base, new = hit_paths("base"), hit_paths("new")
-restored = sorted(new - base)
-for path in restored:
-    known = subprocess.run(["git", "cat-file", "-e", f"HEAD:{path}"]).returncode == 0
-    if known:
-        subprocess.run(["git", "checkout", "HEAD", "--", path], check=True)
-    else:
-        subprocess.run(["git", "rm", "--quiet", "--cached", "--force", "--", path], check=True)
-        subprocess.run(["rm", "-f", "--", path], check=True)
-    print(f"IP gate: {'restored previous version of' if known else 'dropped new'} {path}")
-with open(f"{reports}/nightly-ip-restored.json", "w") as f:
-    json.dump(restored, f, indent=1)
-PY
-scan final
-python3 - "$REPORTS" <<'PY'
-import json, sys
-reports = sys.argv[1]
-def hit_paths(label):
-    paths = set()
-    for prefix in ("cards", "tokens"):
-        with open(f"{reports}/ip-{label}-{prefix}.json") as f:
-            paths |= {hit["path"] for hit in json.load(f)["hits"]}
-    return paths
-extra = sorted(hit_paths("final") - hit_paths("base"))
-if extra:
-    sys.exit(f"IP gate: {len(extra)} new hit paths survived restoration: {extra[:10]}")
-print("IP gate: no hit outside the previous tip's hit set")
-PY
+python3 scripts/check_corpus_ip.py --cache "$SCRYFALL_CACHE" --reports "$REPORTS"
 
 # ---- 5. skin manifest ------------------------------------------------------
 MANIFEST=presentation/skins/wotc.skin.json
@@ -191,12 +135,11 @@ git add -- .forge-upstream-sha
 SUMMARY="$(python3 - "$REPORTS" <<'PY'
 import json, sys
 r = json.load(open(f"{sys.argv[1]}/nightly-generate-report.json"))
-restored = json.load(open(f"{sys.argv[1]}/nightly-ip-restored.json"))
 print(f"generated {r['generated_scripts']} card scripts from {r['source_scripts']} sources; "
       f"{len(r['missing_mappings'])} without a catalog ID; "
       f"{len(r['unmapped_tokens'])} tokens and {len(r['unmapped_token_references'])} cards awaiting a token ID; "
       f"{len(r['carried_over_cards'])} cards and {len(r['carried_over_tokens'])} tokens carried over unchanged; "
-      f"{len(restored)} files held back by the IP gate")
+      "shared IP gate passed for cards and tokens")
 PY
 )"
 echo "nightly_sync: $SUMMARY"
@@ -210,5 +153,6 @@ if [ "$NO_COMMIT" = "1" ]; then
   exit 0
 fi
 git commit --quiet -m "sync: regenerate from upstream Forge ${UPSTREAM_SHA:0:10} (${UPSTREAM_DATE%%T*})" \
-  -m "$SUMMARY" -m "Upstream: $UPSTREAM_REPO@$UPSTREAM_SHA"
+  -m "$SUMMARY" -m "Upstream: $UPSTREAM_REPO@$UPSTREAM_SHA" \
+  -- cards tokens "$MANIFEST" .forge-upstream-sha
 git log --oneline -1
