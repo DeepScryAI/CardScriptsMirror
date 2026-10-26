@@ -3,6 +3,8 @@ ColorIdentity:
 OriginSet:G7b2137df486dc752
 ManaCost:no cost
 Types:Scheme
-T:Mode$ SetInMotion | ValidCard$ Card.Self | Execute$ DBDestroy | TriggerZones$ Command
-SVar:DBDestroy:DB$ Destroy | ValidTgts$ Creature | TargetsWithDifferentCMC$ True | TargetMax$ AmountToChoose | TargetMin$ 0
-SVar:AmountToChoose:Count$Valid Creature
+T:Mode$ SetInMotion | ValidCard$ Card.Self | Execute$ TrigChoose | TriggerZones$ Command
+SVar:TrigChoose:DB$ ChooseCard | MinAmount$ 0 | Amount$ Max | Choices$ Creature | WithDifferentManaValues$ True | AILogic$ OppPreferred | SubAbility$ DBDestroy
+SVar:DBDestroy:DB$ Destroy | Defined$ ChosenCard | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+SVar:Max:Count$Valid Creature$DifferentCardManaCost

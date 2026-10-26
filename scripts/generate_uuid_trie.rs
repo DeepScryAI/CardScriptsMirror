@@ -1766,13 +1766,48 @@ fn is_removed_top_level_field(line: &str) -> bool {
     }
 }
 
+// These costs carry count/filter plus an optional human label. Keep both
+// executable fields; counter costs have a different third-field grammar.
+fn strip_cost_display_labels(line: &str) -> String {
+    let mut output = String::with_capacity(line.len());
+    let mut cursor = 0;
+    let mut search = 0;
+    while let Some(relative) = line[search..].find('<') {
+        let start = search + relative;
+        let body_start = start + 1;
+        let Some(relative_end) = line[body_start..].find('>') else { break };
+        let end = body_start + relative_end;
+        let operator_start = line[..start].rfind(|c: char| !c.is_ascii_alphabetic()).map_or(0, |i| i + 1);
+        let operator = &line[operator_start..start];
+        search = end + 1;
+        if !matches!(operator, "Sac" | "Return" | "Discard" | "Exile" | "Reveal" | "ExileFromGrave" | "ExileFromTop" | "tapXType") {
+            continue;
+        }
+        let body = &line[body_start..end];
+        output.push_str(&line[cursor..body_start]);
+        let mut fields = body.splitn(3, '/');
+        match (fields.next(), fields.next(), fields.next()) {
+            (Some(count), Some(filter), Some(_)) if !count.is_empty() && !filter.is_empty() && !body.contains('<') => {
+                output.push_str(count);
+                output.push('/');
+                output.push_str(filter);
+            }
+            _ => output.push_str(body),
+        }
+        output.push('>');
+        cursor = end + 1;
+    }
+    output.push_str(&line[cursor..]);
+    output
+}
+
 fn strip_display_parameters(line: &str) -> String {
     let segments: Vec<&str> = line
         .split('|')
         .filter(|segment| !is_display_parameter(segment))
         .map(str::trim)
         .collect();
-    segments.join(" | ")
+    strip_cost_display_labels(&segments.join(" | "))
 }
 
 fn is_display_parameter(segment: &str) -> bool {
@@ -1780,13 +1815,13 @@ fn is_display_parameter(segment: &str) -> bool {
         .trim()
         .split_once('$')
         .map(|(key, _)| {
-            let key = key.trim();
+            let key = key.trim().rsplit(':').next().unwrap_or_default();
             key.ends_with("Description")
                 || key.ends_with("Prompt")
                 || key.ends_with("Desc")
                 || key.ends_with("Message")
                 || key.ends_with("Title")
-                || matches!(key, "Image" | "SpellbookName")
+                || matches!(key, "Image" | "SpellbookName" | "Text" | "Word" | "OptionQuestion" | "RoomName")
         })
         .unwrap_or(false)
 }
@@ -2082,6 +2117,25 @@ mod tests {
                 &tokens
             ),
             "ValidCard$ creatures catalogId999"
+        );
+    }
+
+    #[test]
+    fn removes_display_payloads_without_hiding_runtime_parameters() {
+        let line = "SVar:Fx:DB$ Pump | NumAtt$ 2 | Text$ Fixture display sentence. | Word$ Fixtureword | OptionQuestion$ Fixture question? | RoomName$ Fixture room | AILogic$ TypedFixture";
+        assert_eq!(strip_display_parameters(line), "SVar:Fx:DB$ Pump | NumAtt$ 2 | AILogic$ TypedFixture");
+        assert_eq!(strip_display_parameters("SVar:Display:Text$ Fixture display sentence."), "");
+        assert_eq!(
+            strip_display_parameters("A:AB$ Draw | Cost$ 2 T Sac<1/Creature.catalogId123/creature named Fixture> Sac<2/Land/an arbitrary label> SubCounter<1/P1P1/Source>"),
+            "A:AB$ Draw | Cost$ 2 T Sac<1/Creature.catalogId123> Sac<2/Land> SubCounter<1/P1P1/Source>"
+        );
+        assert_eq!(
+            strip_display_parameters("A:AB$ Draw | Cost$ Return<1/Land/land label> Reveal<1/Card/card label> Discard<1/Card/card label> Exile<1/Creature/creature label>"),
+            "A:AB$ Draw | Cost$ Return<1/Land> Reveal<1/Card> Discard<1/Card> Exile<1/Creature>"
+        );
+        assert_eq!(
+            sanitize_runtime_line("K:Fixture typed API sentence.", &[], &BTreeMap::new(), &[], None),
+            "K:Fixture typed API sentence."
         );
     }
 

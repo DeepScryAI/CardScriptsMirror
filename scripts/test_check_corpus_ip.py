@@ -29,7 +29,8 @@ class CorpusGateTests(unittest.TestCase):
             def run(command, check):
                 calls.append(command)
                 data = dict(target="card-scripts-mirror", submodules_included=False,
-                            text_files_scanned=3, hit_pairs=0, omitted_hit_pairs=0)
+                            text_files_scanned=3, hit_pairs=0, omitted_hit_pairs=0,
+                            mirror_scopes_applied=True, configured_mirror_scope_rules=1)
                 data.update(changes or {})
                 if not missing:
                     Path(command[command.index("--report") + 1]).write_text(json.dumps(data))
@@ -39,10 +40,23 @@ class CorpusGateTests(unittest.TestCase):
             self.assertEqual([c[c.index("--path-prefix") + 1] for c in calls], ["cards", "tokens"])
             self.assertTrue(all(str(compiler / "ip_allowlist.tsv") in c for c in calls))
             self.assertTrue(all("--exclude-submodules" in c for c in calls))
+            self.assertTrue(all(c[:2] == ["rust-script", "--force"] for c in calls))
             self.assertTrue((reports / "nightly-ip-tokens.json").exists())
 
     def test_clean_corpus_checks_both_scopes(self):
         self.exercise()
+
+    def test_older_scanner_report_rejects(self):
+        with self.assertRaisesRegex(RuntimeError, "scoped-policy contract"):
+            self.exercise(changes={"mirror_scopes_applied": None})
+
+    def test_invalid_scope_rule_count_rejects(self):
+        for value in (None, True, -1):
+            with self.subTest(value=value), self.assertRaisesRegex(RuntimeError, "scoped-policy contract"):
+                self.exercise(changes={"configured_mirror_scope_rules": value})
+
+    def test_zero_scope_rules_remains_valid(self):
+        self.exercise(changes={"configured_mirror_scope_rules": 0})
 
     def test_real_findings_reject(self):
         with self.assertRaisesRegex(RuntimeError, "rejected"):

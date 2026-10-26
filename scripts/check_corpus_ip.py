@@ -33,7 +33,7 @@ def check(root: Path, compiler: Path, cache: Path, reports: Path) -> None:
     with tempfile.TemporaryDirectory(prefix="ip-check-", dir=reports) as temporary:
         for prefix in ("cards", "tokens"):
             report = Path(temporary) / f"{prefix}.json"
-            command = ["rust-script", str(scanner), "--target", "card-scripts-mirror",
+            command = ["rust-script", "--force", str(scanner), "--target", "card-scripts-mirror",
                        "--root", str(root), "--exclude-submodules", "--path-prefix", prefix,
                        "--cache", str(cache), "--allowlist", str(allowlist),
                        "--report", str(report)]
@@ -47,6 +47,9 @@ def check(root: Path, compiler: Path, cache: Path, reports: Path) -> None:
                 raise RuntimeError(f"{prefix}: scanner rejected the corpus (exit {result.returncode}); see {destination}")
             if data.get("target") != "card-scripts-mirror" or data.get("submodules_included") is not False:
                 raise RuntimeError(f"{prefix}: unexpected scanner scope")
+            rules = data.get("configured_mirror_scope_rules")
+            if data.get("mirror_scopes_applied") is not True or type(rules) is not int or rules < 0:
+                raise RuntimeError(f"{prefix}: scanner lacks the scoped-policy contract")
             if not isinstance(data.get("text_files_scanned"), int) or data["text_files_scanned"] <= 0:
                 raise RuntimeError(f"{prefix}: empty scan cannot certify the corpus")
             if data.get("hit_pairs") != 0 or data.get("omitted_hit_pairs") != 0:

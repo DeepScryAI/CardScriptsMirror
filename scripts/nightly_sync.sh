@@ -71,7 +71,7 @@ RES="$FORGE_DIR/forge-gui/res"
 # ---- 2 + 3. regenerate --------------------------------------------------------
 REFRESH_FLAG=()
 if [ "$SCRYFALL_REFRESH" = "1" ]; then REFRESH_FLAG=(--refresh); fi
-./scripts/generate_uuid_trie.rs \
+rust-script --force scripts/generate_uuid_trie.rs \
   --source "$RES/cardsfolder" \
   --token-source "$RES/tokenscripts" \
   --token-ledger token_ids.tsv \
