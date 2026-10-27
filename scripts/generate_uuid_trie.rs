@@ -172,6 +172,21 @@ struct CatalogIndex {
     max_id: u32,
 }
 
+// Concrete reference operands can outlive their entries in Scryfall's current
+// bulk snapshot. The stable catalog remains authoritative for exact names.
+#[derive(Default)]
+struct NameReferences {
+    aliases: Vec<(String, CardScriptId)>,
+    by_name_hash: BTreeMap<String, Option<CardScriptId>>,
+}
+
+#[cfg(test)]
+impl From<Vec<(String, CardScriptId)>> for NameReferences {
+    fn from(aliases: Vec<(String, CardScriptId)>) -> Self {
+        Self { aliases, ..Self::default() }
+    }
+}
+
 #[derive(Default)]
 struct NameIndex {
     whole_cards: BTreeMap<String, BTreeMap<OracleId, IdentityEvidence>>,
@@ -1100,13 +1115,14 @@ fn normalize_type_line(value: &str) -> String {
         .join(" ")
 }
 
-fn numeric_name_references(index: &NameIndex, catalog: &CatalogIndex) -> Vec<(String, CardScriptId)> {
+fn catalog_name_hash(name: &str) -> String {
+    Sha256::digest(name.as_bytes()).iter().map(|byte| format!("{byte:02x}")).collect()
+}
+
+fn numeric_name_references(index: &NameIndex, catalog: &CatalogIndex) -> NameReferences {
     let mut unique = BTreeMap::<String, Option<CardScriptId>>::new();
     for (name, identities) in index.whole_cards.iter().chain(index.faces.iter()) {
-        let hash = Sha256::digest(name.as_bytes())
-            .iter()
-            .map(|byte| format!("{byte:02x}"))
-            .collect::<String>();
+        let hash = catalog_name_hash(name);
         let card_id = catalog.by_name_hash.get(&hash).copied().flatten().or_else(|| {
             let oracle_id = (identities.len() == 1).then(|| identities.keys().next().expect("one identity"))?;
             let ids = catalog.by_oracle_id.get(oracle_id)?;
@@ -1133,7 +1149,7 @@ fn numeric_name_references(index: &NameIndex, catalog: &CatalogIndex) -> Vec<(St
         .filter_map(|(name, id)| id.map(|id| (name, id)))
         .collect();
     references.sort_unstable_by(|left, right| right.0.len().cmp(&left.0.len()).then_with(|| left.0.cmp(&right.0)));
-    references
+    NameReferences { aliases: references, by_name_hash: catalog.by_name_hash.clone() }
 }
 
 
@@ -1169,7 +1185,7 @@ fn match_token_title<'a>(text: &'a str, token_key: &str) -> Option<&'a str> {
     None
 }
 
-fn replace_named_qualifiers(line: &str, references: &[(String, CardScriptId)], token_index: &std::collections::BTreeMap<String, TokenScriptId>) -> String {
+fn replace_named_qualifiers(line: &str, references: &NameReferences, token_index: &std::collections::BTreeMap<String, TokenScriptId>) -> String {
     let mut output = String::with_capacity(line.len());
     let mut cursor = 0;
     let bytes = line.as_bytes();
@@ -1209,7 +1225,7 @@ fn replace_named_qualifiers(line: &str, references: &[(String, CardScriptId)], t
         
 
         // Try to match Card titles first
-        for (name, id) in references.iter() {
+        for (name, id) in references.aliases.iter() {
             if let Some(tail) = after_name_marker.strip_prefix(name) {
                 if tail.chars().next().is_none_or(|next| {
                     next.is_whitespace() || matches!(next, '.' | '+' | ',' | '/' | '$' | '>' | ')' | ';' | '|' | ']' | ':')
@@ -1257,9 +1273,15 @@ fn replace_named_qualifiers(line: &str, references: &[(String, CardScriptId)], t
     output
 }
 
-fn numeric_id_for_name(value: &str, references: &[(String, CardScriptId)]) -> Option<CardScriptId> {
+fn numeric_id_for_name(value: &str, references: &NameReferences) -> Option<CardScriptId> {
     let normalized = value.trim().replace(';', ",");
-    let exact = references
+    let spaced = normalized.replace('_', " ");
+    for name in [&normalized, &spaced] {
+        if let Some(Some(id)) = references.by_name_hash.get(&catalog_name_hash(name)) {
+            return Some(*id);
+        }
+    }
+    let exact = references.aliases
         .iter()
         .find_map(|(name, id)| (name == &normalized).then_some(*id));
     if exact.is_some() {
@@ -1270,7 +1292,7 @@ fn numeric_id_for_name(value: &str, references: &[(String, CardScriptId)]) -> Op
     // a card-reference operand. Resolve only a unique edit-distance-one match;
     // ambiguity remains unresolved instead of silently selecting an identity.
     let mut candidate = None;
-    for (name, id) in references {
+    for (name, id) in references.aliases.iter() {
         if edit_distance_at_most_one(name, &normalized) {
             if candidate.is_some_and(|existing| existing != *id) {
                 return None;
@@ -1320,7 +1342,7 @@ fn stable_runtime_object_id(value: &str) -> u64 {
     u64::from_be_bytes(bytes).max(1)
 }
 
-fn rewrite_top_level_card_reference(line: &str, references: &[(String, CardScriptId)]) -> Option<String> {
+fn rewrite_top_level_card_reference(line: &str, references: &NameReferences) -> Option<String> {
     if let Some(value) = line.strip_prefix("K:Partner with:") {
         let title = value.rsplit_once(':').map_or(value, |(title, _nickname)| title);
         return numeric_id_for_name(title, references).map(|id| format!("K:PartnerWithId:{}", id.0));
@@ -1334,7 +1356,7 @@ fn rewrite_top_level_card_reference(line: &str, references: &[(String, CardScrip
     numeric_id_for_name(value, references).map(|id| format!("{numeric_key}:{}", id.0))
 }
 
-fn rewrite_card_reference_parameters(line: &str, references: &[(String, CardScriptId)]) -> String {
+fn rewrite_card_reference_parameters(line: &str, references: &NameReferences) -> String {
     if let Some(rewritten) = rewrite_top_level_card_reference(line, references) {
         return rewritten;
     }
@@ -1612,7 +1634,7 @@ fn normalize_keyword_vocabulary(line: &str) -> String {
 
 fn rewrite_contextual_card_references(
     line: &str,
-    references: &[(String, CardScriptId)],
+    references: &NameReferences,
     owner_id: Option<CardScriptId>,
 ) -> String {
     let mut output = line.replace("/Swamp card>", ">");
@@ -1657,7 +1679,7 @@ fn sanitize_script(
     card_id: CardScriptId,
     color_identity: &str,
     set_group: &str,
-    numeric_name_refs: &[(String, CardScriptId)],
+    numeric_name_refs: &NameReferences,
     token_index: &BTreeMap<String, TokenScriptId>,
 ) -> String {
     let mut output = String::with_capacity(script.len());
@@ -1679,7 +1701,7 @@ fn sanitize_script(
 fn sanitize_token_script(
     script: &str,
     token_id: TokenScriptId,
-    numeric_name_refs: &[(String, CardScriptId)],
+    numeric_name_refs: &NameReferences,
     token_index: &BTreeMap<String, TokenScriptId>,
 ) -> String {
     let mut output = String::with_capacity(script.len());
@@ -1699,7 +1721,7 @@ fn sanitize_token_script(
 
 fn sanitize_runtime_line(
     line: &str,
-    numeric_name_refs: &[(String, CardScriptId)],
+    numeric_name_refs: &NameReferences,
     token_index: &BTreeMap<String, TokenScriptId>,
     runtime_names: &[String],
     owner_id: Option<CardScriptId>,
@@ -2049,7 +2071,7 @@ mod tests {
     fn sanitizes_a_script_without_touching_executable_fields() {
         let input = "Name:Fixture Qzx One\nManaCost:R\nTypes:Instant\nA:SP$ DealDamage | ValidTgts$ Any | NumDmg$ 3 | SpellDescription$ CARDNAME deals damage.\nSVar:Named:DB$ MakeCard | Name$ Fixture Qzx One | SpellDescription$ Make one.\nOracle:Fixture rules sentence used only by this synthetic test.\n";
         assert_eq!(
-            sanitize_script(input, CardScriptId(145), "R", "Gfixture", &[], &BTreeMap::new()),
+            sanitize_script(input, CardScriptId(145), "R", "Gfixture", &NameReferences::default(), &BTreeMap::new()),
             "Id:145\nColorIdentity:R\nOriginSet:Gfixture\nManaCost:R\nTypes:Instant\nA:SP$ DealDamage | ValidTgts$ Any | NumDmg$ 3\nSVar:Named:DB$ MakeCard | Name$ Fixture Qzx One\n"
         );
     }
@@ -2058,7 +2080,7 @@ mod tests {
     fn removes_all_human_description_parameters() {
         let input = "Text:Display-only sentence.\nT:Mode$ SpellCast | TriggerDescription$ Display sentence | CostDesc$ More display text | Description$ Keep this\n";
         assert_eq!(
-            sanitize_script(input, CardScriptId(1), "", "Gfixture", &[], &BTreeMap::new()),
+            sanitize_script(input, CardScriptId(1), "", "Gfixture", &NameReferences::default(), &BTreeMap::new()),
             "Id:1\nColorIdentity:\nOriginSet:Gfixture\nT:Mode$ SpellCast\n"
         );
     }
@@ -2067,7 +2089,7 @@ mod tests {
     fn removes_non_runtime_deck_hints() {
         let input = "# Human implementation note\n\nDeckHints:Type$Forest & Name$Fixture Qzx One\nDeckHas:Ability$Token\nDeckNeeds:Name$Fixture Qzx Two\nDraft:AI$ True\nAI:RemoveDeck:Random\nManaCost:G\nTypes:Creature\n";
         assert_eq!(
-            sanitize_script(input, CardScriptId(1), "G", "Gfixture", &[], &BTreeMap::new()),
+            sanitize_script(input, CardScriptId(1), "G", "Gfixture", &NameReferences::default(), &BTreeMap::new()),
             "Id:1\nColorIdentity:G\nOriginSet:Gfixture\nManaCost:G\nTypes:Creature\n"
         );
     }
@@ -2083,7 +2105,7 @@ mod tests {
 
     #[test]
     fn named_filter_qualifiers_become_numeric_identity_qualifiers() {
-        let references = vec![("Fixture Qzx One".to_owned(), CardScriptId(145))];
+        let references: NameReferences = vec![("Fixture Qzx One".to_owned(), CardScriptId(145))].into();
         assert_eq!(
             replace_named_qualifiers(
                 "S:Mode$ Continuous | Affected$ Creature.namedFixture Qzx One+YouCtrl",
@@ -2097,10 +2119,10 @@ mod tests {
 
     #[test]
     fn parses_structured_negated_and_prose_named_qualifiers() {
-        let references = vec![
+        let references: NameReferences = vec![
             ("Fixture Qzx One".to_owned(), CardScriptId(145)),
             ("Worldgorger Dragon".to_owned(), CardScriptId(5780)),
-        ];
+        ].into();
         let mut tokens = std::collections::BTreeMap::new();
         tokens.insert("wolves_of_the_hunt".to_owned(), TokenScriptId(999));
         
@@ -2140,7 +2162,7 @@ mod tests {
             "A:AB$ GainLife | Cost$ 2 T Sac<1/CARDNAME/this token> | LifeAmount$ 3"
         );
         assert_eq!(
-            sanitize_runtime_line("K:Fixture typed API sentence.", &[], &BTreeMap::new(), &[], None),
+            sanitize_runtime_line("K:Fixture typed API sentence.", &NameReferences::default(), &BTreeMap::new(), &[], None),
             "K:Fixture typed API sentence."
         );
     }
@@ -2160,11 +2182,44 @@ mod tests {
     }
 
     #[test]
+    fn catalog_reference_lookup_does_not_require_scryfall_name_cache() {
+        let catalog = CatalogIndex {
+            by_name_hash: BTreeMap::from([
+                ("52a28b68d5cc0a9c20486b198a8fd6535037a84882a868524a6e38cc6fec9111".into(), Some(CardScriptId(147))),
+                ("ec3c4df0d72146a8fbc88d36fca123bd174db745d0228fcbf2f8ecb753a926fa".into(), Some(CardScriptId(148))),
+            ]),
+            ..CatalogIndex::default()
+        };
+        // These literals are independent SHA-256 fixtures for the two
+        // synthetic names below. Neither title exists in the Scryfall index.
+        let index = NameIndex::default();
+        assert_eq!(index.distinct_name_count(), 0);
+        let references = numeric_name_references(&index, &catalog);
+        let input = "Name:Fixture Host\nManaCost:1 B\nTypes:Enchantment\nSVar:Conjure:DB$ MakeCard | Conjure$ True | Name$ A-Fixture Qzx Lookup | Zone$ Battlefield\n";
+        assert_eq!(
+            sanitize_script(input, CardScriptId(145), "B", "Gfixture", &references, &BTreeMap::new()),
+            "Id:145\nColorIdentity:B\nOriginSet:Gfixture\nManaCost:1 B\nTypes:Enchantment\nSVar:Conjure:DB$ MakeCard | Conjure$ True | CatalogId$ 147 | Zone$ Battlefield\n"
+        );
+        assert_eq!(
+            rewrite_card_reference_parameters("SVar:Make:DB$ MakeCard | Names$ A-Fixture_Qzx_Lookup,Fixture Qzx Other", &references),
+            "SVar:Make:DB$ MakeCard | CatalogIds$ 147,148"
+        );
+        let unknown = "SVar:Make:DB$ MakeCard | Name$ Fixture Unregistered";
+        assert_eq!(rewrite_card_reference_parameters(unknown, &references), unknown);
+        let mut ambiguous = catalog;
+        ambiguous.by_name_hash.insert(
+            "52a28b68d5cc0a9c20486b198a8fd6535037a84882a868524a6e38cc6fec9111".into(), None,
+        );
+        let references = numeric_name_references(&index, &ambiguous);
+        assert_eq!(numeric_id_for_name("A-Fixture Qzx Lookup", &references), None);
+    }
+
+    #[test]
     fn executable_card_reference_parameters_become_numeric() {
-        let references = vec![
+        let references: NameReferences = vec![
             ("Fixture Qzx One".to_owned(), CardScriptId(145)),
             ("Fixture Qzx Two".to_owned(), CardScriptId(146)),
-        ];
+        ].into();
         assert_eq!(
             rewrite_card_reference_parameters(
                 "SVar:Make:DB$ MakeCard | Name$ Fixture Qzx One | Zone$ Hand",
@@ -2213,7 +2268,7 @@ mod tests {
             sanitize_token_script(
                 "Name:Fixture Token\nManaCost:no cost\nTypes:Creature\nOracle:Display text.\n",
                 TokenScriptId(101),
-                &[],
+                &NameReferences::default(),
                 &tokens
             ),
             "Id:101\nColorIdentity:\nManaCost:no cost\nTypes:Creature\n"
