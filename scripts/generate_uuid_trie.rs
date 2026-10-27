@@ -1768,6 +1768,8 @@ fn is_removed_top_level_field(line: &str) -> bool {
 
 // These costs carry count/filter plus an optional human label. Keep both
 // executable fields; counter costs have a different third-field grammar.
+// Keep self-cost labels: their raw cost string participates in historical
+// replay serialization. The shared scanner still checks any surviving label.
 fn strip_cost_display_labels(line: &str) -> String {
     let mut output = String::with_capacity(line.len());
     let mut cursor = 0;
@@ -1787,7 +1789,7 @@ fn strip_cost_display_labels(line: &str) -> String {
         output.push_str(&line[cursor..body_start]);
         let mut fields = body.splitn(3, '/');
         match (fields.next(), fields.next(), fields.next()) {
-            (Some(count), Some(filter), Some(_)) if !count.is_empty() && !filter.is_empty() && !body.contains('<') => {
+            (Some(count), Some(filter), Some(_)) if !count.is_empty() && !filter.is_empty() && filter != "CARDNAME" && !body.contains('<') => {
                 output.push_str(count);
                 output.push('/');
                 output.push_str(filter);
@@ -2132,6 +2134,10 @@ mod tests {
         assert_eq!(
             strip_display_parameters("A:AB$ Draw | Cost$ Return<1/Land/land label> Reveal<1/Card/card label> Discard<1/Card/card label> Exile<1/Creature/creature label>"),
             "A:AB$ Draw | Cost$ Return<1/Land> Reveal<1/Card> Discard<1/Card> Exile<1/Creature>"
+        );
+        assert_eq!(
+            strip_display_parameters("A:AB$ GainLife | Cost$ 2 T Sac<1/CARDNAME/this token> | LifeAmount$ 3"),
+            "A:AB$ GainLife | Cost$ 2 T Sac<1/CARDNAME/this token> | LifeAmount$ 3"
         );
         assert_eq!(
             sanitize_runtime_line("K:Fixture typed API sentence.", &[], &BTreeMap::new(), &[], None),
