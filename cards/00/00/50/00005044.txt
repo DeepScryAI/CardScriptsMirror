@@ -4,7 +4,7 @@ OriginSet:Ga43915481c3b48d8
 ManaCost:X R W
 Types:Instant
 A:SP$ ChoosePlayer | ValidTgts$ Creature,Player,Planeswalker | Choices$ ThisTargetedPlayer | Defined$ You | SubAbility$ DBChooseCreature
-SVar:DBChooseCreature:DB$ ChooseCard | DefinedCards$ ParentTargeted | Mandatory$ True | Defined$ You | SubAbility$ DBSetVarBefore
+SVar:DBChooseCreature:DB$ ChooseCard | DefinedCards$ ParentTarget | Mandatory$ True | Defined$ You | SubAbility$ DBSetVarBefore
 SVar:DBSetVarBefore:DB$ StoreSVar | SVar$ Y | Type$ Calculate | Expression$ X | SubAbility$ DBEffect
 SVar:DBEffect:DB$ Effect | ValidTgts$ Creature,Player,Planeswalker | TargetUnique$ True | ReplacementEffects$ ManeuverDamage | Triggers$ OutOfSight | RememberObjects$ ThisTargetedCard & ThisTargetedPlayer | SubAbility$ DBCleanup
 SVar:ManeuverDamage:Event$ DamageDone | ValidTarget$ Card.Creature+ChosenCard,Card.Planeswalker+ChosenCard,Player.Chosen | ReplaceWith$ ManeuverDmg | DamageTarget$ Remembered

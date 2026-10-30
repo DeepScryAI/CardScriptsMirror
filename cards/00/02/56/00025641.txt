@@ -6,5 +6,7 @@ Types:Creature Human Rogue Guest
 PT:2/1
 T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | OptionalDecider$ You | Execute$ TrigSticker
 SVar:TrigSticker:DB$ PutSticker | Defined$ Self | Kind$ Name
-A:AB$ Pump | Cost$ 3 U | Defined$ Self | NumAtt$ X | KW$ HIDDEN Unblockable
+A:AB$ Pump | Cost$ 3 U | Defined$ Self | NumAtt$ X | SubAbility$ DBUnblockable
+SVar:DBUnblockable:DB$ Effect | RememberObjects$ Self | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
 SVar:X:Count$CardStickers.Name
