@@ -1,0 +1,16 @@
+Id:36470
+ColorIdentity:BR
+OriginSet:G54160e7f70a0c046
+ManaCost:3 B R
+Types:Legendary Creature Elemental Insect
+PT:6/6
+K:Ward:Sac<1/Artifact.Blood>
+S:Mode$ Continuous | Affected$ Creature.Other | AffectedZone$ Battlefield | AddType$ Artifact & Blood | AddAbility$ BloodSac
+SVar:BloodSac:AB$ Draw | Cost$ 1 T Discard<1/Card> Sac<1/CARDNAME/this permanent> | NumCards$ 1
+T:Mode$ Sacrificed | ValidCard$ Creature.!token | Execute$ TrigExile | TriggerZones$ Battlefield
+T:Mode$ Discarded | ValidCard$ Creature | Secondary$ True | TriggerZones$ Battlefield | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Defined$ TriggeredCard | Origin$ Graveyard | Destination$ Exile | RememberChanged$ True | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Remembered | Keywords$ Prismatic | Duration$ Perpetual | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ Play | ForgetOnMoved$ Exile | Duration$ UntilTheEndOfYourNextTurn | ConditionDefined$ Remembered | SubAbility$ DBCleanup
+SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered+nonLand | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearNamedCard$ True

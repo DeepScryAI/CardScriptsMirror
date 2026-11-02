@@ -3,12 +3,12 @@ ColorIdentity:U
 OriginSet:G0f6009a8315c15f8
 ManaCost:3 U
 Types:Sorcery
-A:SP$ ChooseCard | ValidTgts$ Player | Choices$ Creature.cmcEQY | TargetControls$ True | Mandatory$ True | AILogic$ WorstCard | RememberChosen$ True | SubAbility$ DBChooseCreatureYou
+A:SP$ ChooseCard | ValidTgts$ Player | Choices$ Creature.cmcEQY | ControlledByPlayer$ Chooser | Mandatory$ True | AILogic$ WorstCard | RememberChosen$ True | SubAbility$ DBChooseCreatureYou
 SVar:DBChooseCreatureYou:DB$ ChooseCard | Choices$ Creature.YouCtrl+cmcEQX | Mandatory$ True | RememberChosen$ True | SubAbility$ DBExchangeCreature
 SVar:DBExchangeCreature:DB$ ExchangeControl | Defined$ Remembered | SubAbility$ DBCleanCreature
 SVar:DBCleanCreature:DB$ Cleanup | ClearRemembered$ True | SubAbility$ DBChooseArtifactYou
 SVar:DBChooseArtifactYou:DB$ ChooseCard | Choices$ Artifact.YouCtrl+cmcEQZ | Mandatory$ True | RememberChosen$ True | SubAbility$ DBChooseArtifactOpp
-SVar:DBChooseArtifactOpp:DB$ ChooseCard | Defined$ ParentTarget | Choices$ Artifact.cmcEQW | TargetControls$ True | Mandatory$ True | AILogic$ WorstCard | RememberChosen$ True | SubAbility$ DBExchangeArtifact
+SVar:DBChooseArtifactOpp:DB$ ChooseCard | Defined$ ParentTarget | Choices$ Artifact.cmcEQW | ControlledByPlayer$ Chooser | Mandatory$ True | AILogic$ WorstCard | RememberChosen$ True | SubAbility$ DBExchangeArtifact
 SVar:DBExchangeArtifact:DB$ ExchangeControl | Defined$ Remembered | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
 SVar:X:Count$Valid Creature.YouCtrl$GreatestCardManaCost

@@ -4,10 +4,10 @@ OriginSet:Ga1ff84d11eec0407
 ManaCost:G G
 Types:Enchantment
 R:Event$ Untap | ActiveZones$ Battlefield | ValidCard$ Creature.Blue | ValidStepTurnToController$ You | Layer$ CantHappen
-T:Mode$ Phase | Phase$ Upkeep | TriggerZones$ Battlefield | Execute$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True | SubAbility$ TrigChoose
-SVar:TrigChoose:DB$ ChooseCard | Defined$ TriggeredPlayer | Amount$ X | MinAmount$ 0 | Choices$ Creature.tapped+Blue | TargetControls$ True | ChoiceZone$ Battlefield | SubAbility$ DBUntap
-SVar:DBUntap:DB$ RepeatEach | DefinedCards$ ChosenCard | RepeatSubAbility$ UntapEach
+T:Mode$ Phase | Phase$ Upkeep | TriggerZones$ Battlefield | Execute$ TrigChoose
+SVar:TrigChoose:DB$ ChooseCard | Defined$ TriggeredPlayer | Amount$ X | MinAmount$ 0 | Choices$ Creature.tapped+Blue | ControlledByPlayer$ Chooser | ChoiceZone$ Battlefield | SubAbility$ DBUntap
+SVar:DBUntap:DB$ RepeatEach | DefinedCards$ ChosenCard | RepeatSubAbility$ UntapEach | SubAbility$ DBCleanup
 SVar:UntapEach:DB$ Untap | Defined$ Remembered | UnlessCost$ U | UnlessPayer$ RememberedController | UnlessSwitched$ True | ShowCurrentCard$ Remembered
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
 SVar:X:Count$Valid Creature.tapped+Blue+ActivePlayerCtrl
 SVar:NonStackingEffect:True
