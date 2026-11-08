@@ -1,0 +1,12 @@
+Id:36457
+ColorIdentity:BR
+OriginSet:G54160e7f70a0c046
+ManaCost:B R
+Types:Legendary Creature Human Bard
+PT:2/2
+T:Mode$ DamageDone | ValidSource$ Card.YouCtrl,Emblem.YouCtrl | ValidTarget$ Opponent | CombatDamage$ False | TriggerZones$ Battlefield | Execute$ TrigConjure
+SVar:TrigConjure:DB$ Seek | Num$ 1 | Type$ Card.cmcEQX | RememberFound$ True | SubAbility$ DBDelayTrig
+SVar:DBDelayTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ TrigDiscard | RememberObjects$ Remembered | SubAbility$ DBCleanup
+SVar:TrigDiscard:DB$ Discard | Mode$ Defined | DefinedCards$ DelayTriggerRemembered
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:TriggerCount$DamageAmount

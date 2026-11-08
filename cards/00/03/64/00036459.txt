@@ -1,0 +1,15 @@
+Id:36459
+ColorIdentity:W
+OriginSet:G54160e7f70a0c046
+ManaCost:1 W W
+Types:Legendary Planeswalker Oko
+Loyalty:3
+S:Mode$ CantAttackUnless | ValidCard$ Creature | Target$ Planeswalker.YouCtrl | Cost$ 1
+A:AB$ Animate | Cost$ AddCounter<1/LOYALTY> | Duration$ UntilYourNextTurn | Planeswalker$ True | IsCurse$ True | ValidTgts$ Creature,Artifact | TargetMin$ 0 | TargetMax$ 1 | RemoveAllAbilities$ True
+A:AB$ Token | Cost$ SubCounter<1/LOYALTY> | Planeswalker$ True | TokenScriptIds$ 36084
+A:AB$ Effect | Cost$ SubCounter<7/LOYALTY> | Planeswalker$ True | Ultimate$ True | Name$ 6808733621051044452 | Duration$ Permanent | Triggers$ Upkeep
+SVar:Upkeep:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Command | Execute$ TrigNameCard
+SVar:TrigNameCard:DB$ NameCard | AtRandom$ True | ValidCards$ Planeswalker | SubAbility$ DBConjure
+SVar:DBConjure:DB$ MakeCard | Name$ ChosenName | Conjure$ True | Zone$ Exile | RememberMade$ True | SubAbility$ DBMayPlay
+SVar:DBMayPlay:DB$ Play | Valid$ Card.IsRemembered | ValidZone$ Exile | Controller$ You | WithoutManaCost$ True | ValidSA$ Spell | Optional$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearNamedCard$ True

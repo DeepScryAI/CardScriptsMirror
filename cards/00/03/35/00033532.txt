@@ -1,0 +1,12 @@
+Id:33532
+ColorIdentity:G
+OriginSet:G40dbb28fb92f9206
+ManaCost:1 G
+Types:Creature Ouphe
+PT:*/*
+S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X | SetToughness$ X
+SVar:X:Count$Valid Permanent.YouCtrl$Colors
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | IsPresent$ Card.Self+!AllColors | Execute$ TrigChooseColor
+SVar:TrigChooseColor:DB$ ChooseColor | Random$ True | ExcludeColorsFrom$ Valid Card.Self | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Colors$ ChosenColor | Duration$ Permanent | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenColor$ True

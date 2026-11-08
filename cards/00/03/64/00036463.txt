@@ -1,0 +1,14 @@
+Id:36463
+ColorIdentity:WU
+OriginSet:G54160e7f70a0c046
+ManaCost:3 W U
+Types:Legendary Planeswalker Quintorius
+Loyalty:5
+S:Mode$ NumLoyaltyAct | CheckSVar$ X | ValidCard$ Planeswalker.YouCtrl | Twice$ True
+SVar:X:Count$ThisTurnEntered_Battlefield_Card.Self
+A:AB$ Proliferate | Cost$ AddCounter<0/LOYALTY> | Planeswalker$ True | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ 3
+A:AB$ Seek | Cost$ SubCounter<1/LOYALTY> | Planeswalker$ True | Type$ Planeswalker.nonQuintorius
+A:AB$ Token | Cost$ SubCounter<3/LOYALTY> | TokenScriptIds$ 35558 | TokenOwner$ You | Planeswalker$ True | SubAbility$ DBPutCounterAll
+SVar:DBPutCounterAll:DB$ PutCounterAll | ValidCards$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1
+SVar:PlayMain1:TRUE

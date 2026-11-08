@@ -1,0 +1,11 @@
+Id:36467
+ColorIdentity:R
+OriginSet:G54160e7f70a0c046
+ManaCost:2 R R
+Types:Creature Orc Bard
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigConjure
+SVar:TrigConjure:DB$ MakeCard | Conjure$ True | CatalogId$ 19401 | Zone$ Battlefield
+R:Event$ DamageDone | ActiveZones$ Battlefield | ValidSource$ Card.RedSource+YouCtrl | ValidTarget$ Permanent,Player | ReplaceWith$ DmgPlus1
+SVar:DmgPlus1:DB$ ReplaceEffect | VarName$ DamageAmount | VarValue$ X
+SVar:X:ReplaceCount$DamageAmount/Plus.1

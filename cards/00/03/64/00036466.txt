@@ -1,0 +1,12 @@
+Id:36466
+ColorIdentity:RG
+OriginSet:G54160e7f70a0c046
+ManaCost:X R G
+Types:Sorcery
+A:SP$ Repeat | Cost$ XMin1 X G U | RepeatSubAbility$ DBNameCard | MaxRepeat$ X
+SVar:DBNameCard:DB$ NameCard | AtRandom$ True | ValidCards$ Artifact.cmcEQM | SubAbility$ DBConjure
+SVar:DBConjure:DB$ MakeCard | Name$ ChosenName | Conjure$ True | Zone$ Battlefield | SubAbility$ DBClearNamed
+SVar:DBClearNamed:DB$ Cleanup | ClearNamedCard$ True | SubAbility$ DBStore
+SVar:DBStore:DB$ StoreSVar | SVar$ M | Type$ CountSVar | Expression$ M/Plus.1
+SVar:M:Number$1
+SVar:X:Count$xPaid
