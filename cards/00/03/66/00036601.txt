@@ -1,0 +1,13 @@
+Id:36601
+ColorIdentity:WU
+OriginSet:G2f6aa3a9e0263dfc
+ManaCost:4 W U
+Types:Enchantment Saga
+K:Chapter:3:DBAssimilate,DBPumpAll,DBExile
+SVar:DBAssimilate:DB$ Assimilate | ValidTgts$ Creature.nonArtifact+OppCtrl | RememberTargets$ True
+SVar:DBPumpAll:DB$ PumpAll | ValidCards$ Creature.Artifact+YouCtrl | NumAtt$ +2 | NumDef$ +2
+SVar:DBExile:DB$ ChangeZone | Defined$ Remembered | Origin$ Battlefield | Destination$ Exile | Imprint$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Imprinted | Origin$ All | Destination$ Battlefield | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearImprinted$ True
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigCleanup | Secondary$ True | Static$ True
+SVar:TrigCleanup:DB$ Cleanup | ClearRemembered$ True

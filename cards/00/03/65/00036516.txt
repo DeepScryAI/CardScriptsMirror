@@ -1,0 +1,15 @@
+Id:36516
+ColorIdentity:WUG
+OriginSet:G2f6aa3a9e0263dfc
+ManaCost:2 G W U
+Types:Legendary Creature Vulcan Human Scientist
+PT:3/5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigReveal
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigReveal | Secondary$ True
+SVar:TrigReveal:DB$ PeekAndReveal | PeekAmount$ 1 | RevealValid$ Card | RememberRevealed$ True | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | Defined$ Remembered | ValidSA$ Spell.cmcLEX | ForgetPlayed$ True | WithoutManaCost$ True | Optional$ True | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Defined$ Remembered | Origin$ Library | Destination$ Battlefield | Optional$ True | Tapped$ True | ForgetChanged$ True | ConditionDefined$ Remembered | ConditionPresent$ Land | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$Valid Land.YouCtrl$DifferentCardNames
+SVar:HasAttackEffect:TRUE

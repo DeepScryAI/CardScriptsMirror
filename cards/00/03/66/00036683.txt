@@ -1,0 +1,14 @@
+Id:36683
+ColorIdentity:U
+OriginSet:G6f5d1d11d5ddb670
+ManaCost:3 U
+Types:Legendary Creature Human Pilot
+PT:1/5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ Dig | Defined$ Player.Opponent | DigNum$ X | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBRepeatEach
+SVar:DBRepeatEach:DB$ RepeatEach | RepeatPlayers$ Opponent | RepeatSubAbility$ DBChoose | SubAbility$ DBEffect
+SVar:DBChoose:DB$ ChooseCard | Choices$ Land.IsRemembered+RememberedPlayerOwn | ChoiceZone$ Exile | Mandatory$ True | Amount$ 1 | ImprintChosen$ True
+SVar:DBEffect:DB$ Effect | RememberObjects$ Imprinted | StaticAbilities$ STPlay | Duration$ Permanent | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True | ClearRemembered$ True | ClearImprinted$ True
+SVar:X:Count$Valid Land.YouCtrl$DifferentCardNames

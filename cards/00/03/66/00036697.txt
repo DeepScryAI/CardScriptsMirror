@@ -1,0 +1,12 @@
+Id:36697
+ColorIdentity:B
+OriginSet:G6f5d1d11d5ddb670
+ManaCost:4 B B
+Types:Legendary Creature Human Rogue Noble
+PT:4/6
+R:Event$ GameLoss | ActiveZones$ Battlefield | ValidPlayer$ You | ValidLoseReason$ LifeReachedZero | Layer$ CantHappen
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ 3 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenAmount$ 10 | TokenScriptIds$ 35775 | TokenOwner$ You | ConditionCheckSVar$ X | ConditionSVarCompare$ LE0
+SVar:X:Count$YourLifeTotal

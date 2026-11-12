@@ -1,0 +1,14 @@
+Id:36639
+ColorIdentity:B
+OriginSet:G6f5d1d11d5ddb670
+ManaCost:3 B
+Types:Creature Jellyfish Leech
+PT:2/2
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Creature.YouOwn+cmcLE3 | RememberChanged$ True | SubAbility$ DBCopy
+SVar:DBCopy:DB$ CopyPermanent | Defined$ Remembered | PumpKeywords$ Haste | AtEOT$ Sacrifice | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+T:Mode$ ChangesZoneAll | ValidCards$ Card.YouOwn | Origin$ Graveyard | Destination$ Any | TriggerZones$ Battlefield | Execute$ TrigLoseLife
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 1 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1

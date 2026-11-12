@@ -1,0 +1,14 @@
+Id:36768
+ColorIdentity:WUG
+OriginSet:G6f5d1d11d5ddb670
+ManaCost:1 G W U
+Types:Legendary Creature Vulcan Advisor
+PT:0/5
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | NumCards$ Y | RememberDrawn$ True | SubAbility$ DBCounters
+SVar:DBCounters:DB$ PutCounterAll | ValidCards$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 2 | ConditionCheckSVar$ Z | ConditionSVarCompare$ GE3 | SubAbility$ DBCleanup
+SVar:X:Count$Valid Creature.nonBorg+YouCtrl$CreatureType
+SVar:Y:SVar$X/DivideEvenlyDown.5
+SVar:Z:Count$RememberedSize
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:PlayMain1:TRUE

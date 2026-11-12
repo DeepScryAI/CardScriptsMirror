@@ -1,0 +1,11 @@
+Id:36551
+ColorIdentity:R
+OriginSet:G2f6aa3a9e0263dfc
+ManaCost:3 R
+Types:Legendary Creature Klingon Warrior Officer
+PT:4/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGoad
+SVar:TrigGoad:DB$ Effect | ValidTgts$ Creature.OppCtrl | StaticAbilities$ IsGoaded | RememberObjects$ Targeted & Self | ForgetOnMoved$ Battlefield | Duration$ AsLongAsControl
+SVar:IsGoaded:Mode$ Continuous | Affected$ Card.IsRemembered | Goad$ True
+T:Mode$ AttackersDeclared | ValidAttackers$ Creature.IsGoaded | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1

@@ -1,0 +1,11 @@
+Id:36560
+ColorIdentity:U
+OriginSet:G2f6aa3a9e0263dfc
+ManaCost:2 U
+Types:Legendary Creature Human Officer
+PT:2/3
+A:AB$ Dig | Cost$ 4 T | ValidTgts$ Opponent | DigNum$ X | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | Valid$ Instant.IsRemembered,Sorcery.IsRemembered | ValidSA$ Spell | WithoutManaCost$ True | ValidZone$ Exile | Controller$ You | Optional$ True | Amount$ 1 | ForgetPlayed$ True | SubAbility$ RestRandomOrder
+SVar:RestRandomOrder:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered | Origin$ Exile | Destination$ Library | LibraryPosition$ -1 | RandomOrder$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$Valid Land.YouCtrl$DifferentCardNames

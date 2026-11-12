@@ -1,0 +1,12 @@
+Id:36795
+ColorIdentity:B
+OriginSet:G6f5d1d11d5ddb670
+ManaCost:1 B
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigAskOpponent
+SVar:TrigAskOpponent:DB$ GenericChoice | ValidTgts$ Opponent | Choices$ DBDraw,DBLoseLife
+SVar:DBDraw:DB$ Draw
+SVar:DBLoseLife:DB$ LoseLife | Defined$ Targeted | LifeAmount$ 4 | SubAbility$ DBSurveil
+SVar:DBSurveil:DB$ Surveil | Amount$ 1
+T:Mode$ FacesDilemma | ValidPlayer$ You | Execute$ TrigReturn | TriggerZones$ Battlefield | OptionalDecider$ You
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Defined$ Self

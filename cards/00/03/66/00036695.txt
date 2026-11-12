@@ -1,0 +1,12 @@
+Id:36695
+ColorIdentity:G
+OriginSet:G6f5d1d11d5ddb670
+ManaCost:2 G
+Types:Legendary Artifact
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange
+SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | Tapped$ True | ChangeType$ Land.Basic,Planet | ChangeNum$ 1
+A:AB$ Sacrifice | Cost$ 3 G G T Sac<1/CARDNAME> | Defined$ You | Amount$ X | SacValid$ Land | RememberSacrificed$ True | Optional$ True | SorcerySpeed$ True | SubAbility$ DBSearch
+SVar:DBSearch:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Land | ChangeNum$ Y | Tapped$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$Valid Land.YouCtrl
+SVar:Y:Remembered$Amount

@@ -1,0 +1,13 @@
+Id:36496
+ColorIdentity:B
+OriginSet:G2f6aa3a9e0263dfc
+ManaCost:4 B
+Types:Artifact Creature Borg
+PT:5/5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+SVar:TrigExile:DB$ ChangeZoneAll | ValidTgts$ Opponent | Origin$ Graveyard | Destination$ Exile | ChangeType$ Card | IsCurse$ True
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigChooseCard
+SVar:TrigChooseCard:DB$ ChooseCard | Choices$ Creature.ExiledWithSource | ChoiceZone$ Exile | Mandatory$ True | SubAbility$ DBAssimilate
+SVar:DBAssimilate:DB$ Assimilate | Defined$ ChosenCard | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+SVar:HasAttackEffect:TRUE

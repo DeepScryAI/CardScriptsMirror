@@ -1,0 +1,12 @@
+Id:36687
+ColorIdentity:R
+OriginSet:G6f5d1d11d5ddb670
+ManaCost:2 R R
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ QUEST | CounterNum$ 1 | SubAbility$ DBDigUntil
+SVar:DBDigUntil:DB$ DigUntil | Valid$ Card.nonLand | FoundDestination$ Exile | RevealedDestination$ Exile | RememberFound$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | ExileOnMoved$ Exile | RememberObjects$ Remembered | SubAbility$ DBMana
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBMana:DB$ Mana | Produced$ R | Amount$ 2 | ConditionDefined$ Self | ConditionPresent$ Card.counters_GE5_QUEST | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

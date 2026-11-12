@@ -1,0 +1,12 @@
+Id:36815
+ColorIdentity:R
+OriginSet:G6f5d1d11d5ddb670
+ManaCost:2 R
+Types:Enchantment Saga
+K:Chapter:3:DBDamage,DBDraw,DBSac
+SVar:DBDamage:DB$ DealDamage | ValidTgts$ Creature.OppCtrl | NumDmg$ 4 | SubAbility$ DBDelTrig
+SVar:DBDelTrig:DB$ DelayedTrigger | ThisTurn$ True | Mode$ Phase | Phase$ BeginCombat | RememberObjects$ Targeted | Execute$ TrigGainControl
+SVar:TrigGainControl:DB$ GainControl | Defined$ DelayTriggerRememberedLKI | LoseControl$ EOT | Untap$ True | AddKWs$ Haste
+SVar:DBDraw:AB$ Draw | Cost$ ExileFromHand<1/Card>
+SVar:DBSac:DB$ Sacrifice | Defined$ Opponent | SacValid$ Permanent.!token
+SVar:PlayMain1:TRUE

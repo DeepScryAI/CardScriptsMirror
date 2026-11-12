@@ -1,0 +1,12 @@
+Id:36756
+ColorIdentity:R
+OriginSet:G6f5d1d11d5ddb670
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ LandTapped | ReplacementResult$ Updated
+SVar:LandTapped:DB$ Tap | Defined$ Self | ETB$ True | ConditionPresent$ Land.YouCtrl+Other | ConditionCompare$ LT2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self+untapped | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | Choices$ DBDamage,DBSurveil
+SVar:DBDamage:DB$ DealDamage | Defined$ Player.Opponent | NumDmg$ 1
+SVar:DBSurveil:DB$ Surveil | Amount$ 1
+A:AB$ Mana | Cost$ T | Produced$ R

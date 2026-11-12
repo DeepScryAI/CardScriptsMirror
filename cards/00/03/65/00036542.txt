@@ -1,0 +1,12 @@
+Id:36542
+ColorIdentity:G
+OriginSet:G2f6aa3a9e0263dfc
+ManaCost:3 G
+Types:Legendary Creature Human Advisor
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | TriggerZones$ Battlefield | ValidCard$ Permanent.IsCommander+YouCtrl | Execute$ TrigPutCounter1
+T:Mode$ Attacks | ValidCard$ Creature.IsCommander+YouCtrl | Execute$ TrigPutCounter2 | TriggerZones$ Battlefield | Secondary$ True
+SVar:TrigPutCounter1:DB$ PutCounter | Defined$ TriggeredCard | CounterNum$ 1 | CounterType$ P1P1 | SubAbility$ DBDigUntil
+SVar:TrigPutCounter2:DB$ PutCounter | Defined$ TriggeredAttackerLKICopy | CounterNum$ 1 | CounterType$ P1P1 | SubAbility$ DBDigUntil
+SVar:DBDigUntil:DB$ DigUntil | Valid$ Land | FoundDestination$ Battlefield | Tapped$ True | RevealedDestination$ Library | RevealedLibraryPosition$ -1 | RevealRandomOrder$ True
+SVar:PlayMain1:TRUE

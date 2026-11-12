@@ -1,0 +1,12 @@
+Id:36782
+ColorIdentity:B
+OriginSet:G6f5d1d11d5ddb670
+ManaCost:B
+Types:Creature Klingon Advisor
+PT:2/1
+S:Mode$ CantBlock | ValidCard$ Card.Self
+S:Mode$ Continuous | Affected$ Card.Self | AffectedZone$ Graveyard | EffectZone$ Graveyard | MayPlay$ True
+T:Mode$ SpellCast | ValidCard$ Card | ValidSA$ Spell.MayPlaySource | Static$ True | Execute$ ReplEffAddCounter | TriggerZones$ Stack | Secondary$ True
+SVar:ReplEffAddCounter:DB$ Effect | ReplacementEffects$ ETBAddCounter | RememberObjects$ TriggeredCard
+SVar:ETBAddCounter:Event$ Moved | Origin$ Stack | Destination$ Battlefield | ValidCard$ Card.IsRemembered | ReplaceWith$ ETBAddExtraCounter | ReplacementResult$ Updated
+SVar:ETBAddExtraCounter:DB$ PutCounter | ETB$ True | Defined$ ReplacedCard | CounterType$ FINALITY | CounterNum$ 1

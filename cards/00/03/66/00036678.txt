@@ -1,0 +1,11 @@
+Id:36678
+ColorIdentity:W
+OriginSet:G6f5d1d11d5ddb670
+ManaCost:2 W W
+Types:Legendary Creature Human Doctor
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPut
+SVar:TrigPut:DB$ PutCounter | ValidTgts$ Creature.Other+YouCtrl | CounterType$ P1P1 | CounterNum$ 1
+R:Event$ Destroy | ValidCard$ Creature.Other+YouCtrl+counters_GE1_P1P1 | ReplaceWith$ DBRemoveCounter | ActiveZones$ Battlefield
+SVar:DBRemoveCounter:DB$ RemoveCounter | Defined$ ReplacedCard | CounterType$ P1P1 | CounterNum$ All | SubAbility$ DBHeal
+SVar:DBHeal:DB$ HealDamage | Defined$ ReplacedCard

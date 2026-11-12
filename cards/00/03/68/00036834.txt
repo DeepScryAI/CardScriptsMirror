@@ -1,0 +1,12 @@
+Id:36834
+ColorIdentity:U
+OriginSet:G6f5d1d11d5ddb670
+ManaCost:U
+Types:Sorcery
+A:SP$ Dig | ValidTgts$ Opponent | Defined$ You | ForceReveal$ Targeted | DefinedExiler$ Targeted | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | ExileFaceDown$ True | RememberChanged$ True | SubAbility$ DBEffectOpp
+SVar:DBEffectOpp:DB$ Effect | RememberObjects$ Remembered | StaticAbilities$ STPlay | EffectOwner$ Targeted | Duration$ Permanent | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | SubAbility$ DBDigTheirs
+SVar:DBDigTheirs:DB$ Dig | Defined$ Targeted | ForceRevealToController$ True | DigNum$ 2 | ChangeNum$ All | DestinationZone$ Exile | ExileFaceDown$ True | RememberChanged$ True | SubAbility$ DBEffectMe
+SVar:DBEffectMe:DB$ Effect | RememberObjects$ Remembered | StaticAbilities$ STPlay | EffectOwner$ You | Duration$ Permanent | ForgetOnMoved$ Exile | SubAbility$ DBCleanup2
+SVar:DBCleanup2:DB$ Cleanup | ClearRemembered$ True
+SVar:STPlay:Mode$ Continuous | MayLookAt$ True | MayPlay$ True | MayPlayIgnoreType$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile

@@ -1,0 +1,13 @@
+Id:36673
+ColorIdentity:
+OriginSet:G6f5d1d11d5ddb670
+ManaCost:9
+Types:Legendary Artifact Spacecraft
+K:Station:9
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigExile | TriggerZones$ Battlefield | Secondary$ True
+SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ 4 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBChangeZoneAll
+SVar:DBChangeZoneAll:DB$ ChangeZoneAll | ChangeType$ Permanent.IsRemembered | Origin$ Exile | Destination$ Battlefield | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+S:Mode$ Continuous | AffectedDefined$ Self | Affected$ Card.counters_GE9_CHARGE | AddStaticAbility$ DBStatic
+SVar:DBStatic:Mode$ Continuous | Affected$ Creature.YouCtrl | AddPower$ 3 | AddToughness$ 3

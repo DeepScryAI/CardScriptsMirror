@@ -1,0 +1,12 @@
+Id:36509
+ColorIdentity:UG
+OriginSet:G2f6aa3a9e0263dfc
+ManaCost:2 G U
+Types:Legendary Creature Human Artificer
+PT:3/3
+A:AB$ ChooseCard | Cost$ 6 T | ChoiceZone$ Hand | Choices$ Creature.YouOwn,Spacecraft.YouOwn | Optional$ True | SubAbility$ DBPutCreature
+SVar:DBPutCreature:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | Defined$ ChosenCard | WithCountersType$ P1P1 | WithCountersAmount$ X | ConditionDefined$ ChosenCard | ConditionPresent$ Creature.nonSpacecraft | SubAbility$ DBPutSpacecraft
+SVar:DBPutSpacecraft:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | Defined$ ChosenCard | WithCountersType$ CHARGE | WithCountersAmount$ X | ConditionDefined$ ChosenCard | ConditionPresent$ Spacecraft.nonCreature | SubAbility$ DBPutBoth
+SVar:DBPutBoth:DB$ ChangeZone | Destination$ Battlefield | Defined$ ChosenCard | WithCountersType$ P1P1,CHARGE | WithCountersAmount$ X | ConditionDefined$ ChosenCard | ConditionPresent$ Creature.Spacecraft | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+SVar:X:Count$Valid Land.YouCtrl$DifferentCardNames

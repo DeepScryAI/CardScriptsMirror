@@ -1,0 +1,11 @@
+Id:36511
+ColorIdentity:UR
+OriginSet:G2f6aa3a9e0263dfc
+ManaCost:2 U R
+Types:Legendary Creature Betazoid Human Advisor
+PT:3/3
+K:Vigilance
+A:AB$ Play | Cost$ T | ValidTgts$ Player.Opponent+Active | Controller$ Targeted | Valid$ Card.TargetedPlayerCtrl | ValidZone$ Hand | ValidSA$ Spell | WithoutManaCost$ True | Optional$ True | Amount$ 1 | RememberPlayed$ True | SubAbility$ DBCopy
+SVar:DBCopy:DB$ CopySpellAbility | Defined$ ValidStack Spell.IsRemembered | ConditionDefined$ Remembered | ConditionPresent$ Card | MayChooseTarget$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ0 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

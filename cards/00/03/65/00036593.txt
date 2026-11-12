@@ -1,0 +1,14 @@
+Id:36593
+ColorIdentity:
+OriginSet:G2f6aa3a9e0263dfc
+ManaCost:3
+Types:Artifact Communicator Equipment
+T:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigCopy
+SVar:TrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility
+S:Mode$ Continuous | AffectedDefined$ Equipped | Affected$ Creature | AddTrigger$ AttackTrig | AddSVar$ AE
+SVar:AttackTrig:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ X | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | ChangeNum$ X | ChangeType$ Land | Tapped$ True
+SVar:X:Count$Valid Creature.Other+YouCtrl+AttachedBy Valid Communicator
+SVar:AE:SVar:HasAttackEffect:TRUE
+K:Equip:1

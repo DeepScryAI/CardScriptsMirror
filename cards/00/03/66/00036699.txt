@@ -1,0 +1,12 @@
+Id:36699
+ColorIdentity:BR
+OriginSet:G6f5d1d11d5ddb670
+ManaCost:2 B R
+Types:Legendary Creature Klingon Warrior
+PT:3/3
+T:Mode$ ChangesZone | ValidCard$ Creature.Other | Origin$ Battlefield | Destination$ Graveyard | TriggerZones$ Battlefield | Execute$ TrigPutCounter
+SVar:TrigPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ 1
+A:AB$ Pump | Cost$ Sac<1/Creature.Other> | Defined$ Self | KW$ Trample | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | SubAbility$ DBLoseLife | ConditionCheckSVar$ X
+SVar:DBLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ 1 | ConditionCheckSVar$ X
+SVar:X:Sacrificed$Valid Card.Klingon

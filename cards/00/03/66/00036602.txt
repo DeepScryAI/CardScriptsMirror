@@ -1,0 +1,13 @@
+Id:36602
+ColorIdentity:WUB
+OriginSet:G2f6aa3a9e0263dfc
+ManaCost:4 W U B
+Types:Legendary Artifact Creature Borg Noble
+PT:4/4
+S:Mode$ Continuous | Affected$ Creature.Artifact+YouCtrl | AddPower$ 2 | AddToughness$ 2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDigUntil
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDigUntil | Secondary$ True
+SVar:TrigDigUntil:DB$ DigUntil | ValidTgts$ Opponent | IsCurse$ True | Valid$ Creature | FoundDestination$ Exile | RevealedDestination$ Exile | ImprintRevealed$ True | RememberFound$ True | SubAbility$ DBAssimilate
+SVar:DBAssimilate:DB$ Assimilate | Defined$ Remembered | SubAbility$ DBRestRandomOrder
+SVar:DBRestRandomOrder:DB$ ChangeZoneAll | ChangeType$ Card.IsImprinted | Origin$ Exile | Destination$ Library | LibraryPosition$ -1 | RandomOrder$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True

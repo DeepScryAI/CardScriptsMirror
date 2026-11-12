@@ -90,6 +90,12 @@ rust-script scripts/generate_body_catalog.rs \
   --verify presentation/body_catalog.tsv
 ```
 
+For an append-only update, also supply `--previous <published-body-table>`
+and `--previous-catalog <the-exact-prior-DeepScry-catalog>`, plus the token
+ledger when appending tokens. The producer checks that prior catalog against
+the body table stamp and freezes its entire identity range, including omitted
+bodies. The sparse `cards=` row count is not an identity boundary.
+
 `make_artpack.rs` emits the `kind=uuid-scheme` artpack table
 (`presentation/artpack_scryfall_uuid.tsv`): one Scryfall printing UUID per
 catalog id; clients compute image URLs with the `layout=scryfall-cdn-v1`

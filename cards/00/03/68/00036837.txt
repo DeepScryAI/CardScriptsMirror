@@ -1,0 +1,15 @@
+Id:36837
+ColorIdentity:U
+OriginSet:G6f5d1d11d5ddb670
+ManaCost:2 U U
+Types:Legendary Creature Human Officer
+PT:2/2
+K:Flash
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm
+SVar:TrigCharm:DB$ Charm | Choices$ DBCounter,DBBounce,DBUnblockable,DBLoot | CharmNum$ 2
+SVar:DBCounter:DB$ Counter | TargetType$ Spell | ValidTgts$ Card.nonCreature | UnlessCost$ 2 | UnlessPayer$ TargetedController
+SVar:DBBounce:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | ValidTgts$ Creature.cmcLE2
+SVar:DBUnblockable:DB$ Effect | ValidTgts$ Creature | RememberObjects$ ThisTargetedCard | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable | AILogic$ MakeUnblockable
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered
+SVar:DBLoot:DB$ Draw | ValidTgts$ Player | NumCards$ 2 | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ Targeted | NumCards$ 2 | Mode$ TgtChoose

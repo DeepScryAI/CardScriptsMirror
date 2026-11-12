@@ -1,0 +1,12 @@
+Id:36655
+ColorIdentity:
+OriginSet:G6f5d1d11d5ddb670
+ManaCost:3
+Types:Artifact Communicator Equipment
+K:Equip:2
+T:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigCopy
+SVar:TrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility
+S:Mode$ Continuous | AffectedDefined$ Equipped | Affected$ Creature | AddTrigger$ TrigAttack | AddSVar$ TrigUnblockable & Unblockable
+SVar:TrigAttack:Mode$ Attacks | ValidCard$ Card.Self | IsPresent$ Card.Communicator+AttachedTo Creature.Other+YouCtrl | Execute$ TrigUnblockable
+SVar:TrigUnblockable:DB$ Effect | RememberObjects$ Self | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered

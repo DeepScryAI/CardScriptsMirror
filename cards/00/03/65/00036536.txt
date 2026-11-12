@@ -1,0 +1,13 @@
+Id:36536
+ColorIdentity:R
+OriginSet:G2f6aa3a9e0263dfc
+ManaCost:5 R
+Types:Legendary Creature Klingon Warrior
+PT:5/5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGainControl
+SVar:TrigGainControl:DB$ GainControl | ValidTgts$ Creature.OppCtrl | Untap$ True | LoseControl$ EOT | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ ParentTarget | Keywords$ Trample & Haste | Triggers$ DamageTrig
+SVar:DamageTrig:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigTreasure
+SVar:TrigTreasure:DB$ Token | TokenAmount$ X | TokenScriptIds$ 35548 | TokenOwner$ You | TokenTapped$ True
+SVar:X:TriggerCount$DamageAmount
+SVar:PlayMain1:OPPONENTCREATURES

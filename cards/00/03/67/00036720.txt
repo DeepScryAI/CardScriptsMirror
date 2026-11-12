@@ -1,0 +1,11 @@
+Id:36720
+ColorIdentity:WR
+OriginSet:G6f5d1d11d5ddb670
+ManaCost:1 R W
+Types:Legendary Creature Bajoran Soldier
+PT:4/3
+K:Trample
+R:Event$ Moved | ActiveZones$ Battlefield | Destination$ Battlefield | ValidCard$ Creature.YouCtrl | ReplaceWith$ MoveToBattlefield | IsPresent$ Creature.attacking+YouCtrl
+SVar:MoveToBattlefield:DB$ ChangeZone | Origin$ All | Destination$ Battlefield | Defined$ ReplacedCard | Tapped$ True | Attacking$ True
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPump
+SVar:TrigPump:DB$ Pump | Defined$ TriggeredCardLKICopy | NumAtt$ +1 | NumDef$ +1

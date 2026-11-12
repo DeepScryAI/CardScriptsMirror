@@ -1,0 +1,15 @@
+Id:36624
+ColorIdentity:WBR
+OriginSet:G2f6aa3a9e0263dfc
+ManaCost:2 R W B
+Types:Legendary Creature Klingon Warrior Officer
+PT:3/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenScriptIds$ 36423 | TokenOwner$ You
+T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigExile | TriggerZones$ Battlefield
+SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ X | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ STPlay | SubAbility$ DBCleanup | ForgetOnMoved$ Exile | Duration$ UntilTheEndOfYourNextTurn
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:PlayerCountPropertyYou$OpponentsAttackedThisTurn
+SVar:PlayMain1:TRUE

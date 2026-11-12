@@ -1,0 +1,14 @@
+Id:36491
+ColorIdentity:WR
+OriginSet:G2f6aa3a9e0263dfc
+ManaCost:3 R W
+Types:Legendary Creature Klingon Human
+PT:3/5
+K:Vigilance
+K:Haste
+A:AB$ PeekAndReveal | Cost$ T | Defined$ Player | RememberRevealed$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ Player | SubAbility$ DBChoose
+SVar:DBChoose:DB$ ChoosePlayer | Defined$ You | Choices$ Player.Opponent | Random$ True | SubAbility$ DBDamage
+SVar:DBDamage:DB$ DealDamage | Defined$ ChosenPlayer | NumDmg$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearChosenPlayer$ True
+SVar:X:Remembered$GreatestCardManaCost

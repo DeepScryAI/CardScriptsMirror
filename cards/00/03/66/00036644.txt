@@ -1,0 +1,13 @@
+Id:36644
+ColorIdentity:WUBRG
+OriginSet:G6f5d1d11d5ddb670
+ManaCost:1 W
+Types:Legendary Creature Human Officer
+PT:2/2
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigToken
+SVar:TrigToken:DB$ Token | TokenAmount$ X | TokenScriptIds$ 35775 | TokenOwner$ You
+SVar:X:Count$YouFaceDilemmaThisTurn
+A:AB$ Dig | Cost$ 2 W U B R G T | Defined$ You | DigNum$ 5 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | Valid$ Card.IsRemembered+YouOwn | ValidZone$ Exile | ValidSA$ Spell.cmcLEY | Controller$ You | WithoutManaCost$ True | Optional$ True | Amount$ All | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:Y:Count$Valid Officer.YouCtrl

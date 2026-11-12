@@ -1,0 +1,10 @@
+Id:36711
+ColorIdentity:R
+OriginSet:G6f5d1d11d5ddb670
+ManaCost:7 R R
+Types:Sorcery
+A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Instant.YouOwn,Sorcery.YouOwn | RememberChanged$ True | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | Valid$ Card.IsRemembered | ValidSA$ Spell | ValidZone$ Exile | Amount$ X | AllowRepeats$ True | WithoutManaCost$ True | Optional$ True | CopyCard$ True | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | Defined$ Self | Origin$ Stack | Destination$ Exile | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$Valid Creature.nonBorg+YouCtrl$CreatureType

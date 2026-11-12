@@ -1,0 +1,12 @@
+Id:36797
+ColorIdentity:G
+OriginSet:G6f5d1d11d5ddb670
+ManaCost:2 G
+Types:Creature Na'kuhl Warrior
+PT:2/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill
+SVar:TrigMill:DB$ Mill | NumCards$ 3 | Defined$ You | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ChangeType$ Land.YouOwn | Hidden$ True | Mandatory$ True | RememberChanged$ True | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScriptIds$ 35548 | TokenOwner$ You | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ0 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Amount

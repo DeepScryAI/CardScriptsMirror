@@ -79,6 +79,11 @@ the same 36,144-row identity catalog as `title_catalog.tsv`. Its header uses
 declares its actual sparse row count, and checksums every byte after the header.
 Blank bodies are omitted rather than represented by empty cells.
 
+For append-only updates, pass both `--previous <published-body-table>` and
+`--previous-catalog <its-identity-catalog>`. The sparse body count is not an
+identity boundary. The producer verifies the old table's catalog stamp and the
+unchanged identity prefix, preserving every old body and deliberate absence.
+
 Card rows come from Scryfall Oracle text joined strictly by Oracle id. Token
 rows come from each frozen token genesis script's exact `Oracle:` field. A
 multi-face definition remains one row: face bodies stay in source order with

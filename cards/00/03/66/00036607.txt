@@ -1,0 +1,13 @@
+Id:36607
+ColorIdentity:U
+OriginSet:G2f6aa3a9e0263dfc
+ManaCost:2 U
+Types:Artifact Spacecraft
+K:Station:3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill
+SVar:TrigMill:DB$ Mill | NumCards$ 5 | Defined$ You | RememberMilled$ True | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Hidden$ True | Origin$ Graveyard,Exile | Destination$ Hand | ChangeNum$ 2 | ChangeType$ Artifact.IsRemembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+S:Mode$ Continuous | AffectedDefined$ Self | Affected$ Card.counters_GE3_CHARGE | AddAbility$ TranswarpUnblockability
+SVar:TranswarpUnblockability:AB$ Effect | Cost$ T | ValidTgts$ Creature | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable | AILogic$ MakeUnblockable
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered

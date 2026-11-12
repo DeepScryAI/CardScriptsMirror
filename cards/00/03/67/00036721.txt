@@ -1,0 +1,14 @@
+Id:36721
+ColorIdentity:WR
+OriginSet:G6f5d1d11d5ddb670
+ManaCost:1 R W
+Types:Legendary Creature Human Officer
+PT:3/3
+T:Mode$ AttackersDeclared | AttackingPlayer$ You | CheckSVar$ X | SVarCompare$ GE8 | NoResolvingCheck$ True | Execute$ TrigExile | TriggerZones$ Battlefield
+SVar:TrigExile:DB$ Dig | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | ExileOnMoved$ Exile | RememberObjects$ Remembered | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+A:AB$ Destroy | Cost$ 2 Sac<1/CARDNAME/NICKNAME> | ValidTgts$ Artifact,Enchantment
+SVar:X:Count$Valid Creature.YouCtrl$CardPower
+SVar:PlayMain1:TRUE
