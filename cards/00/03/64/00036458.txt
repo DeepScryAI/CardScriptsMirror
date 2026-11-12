@@ -1,0 +1,12 @@
+Id:36458
+ColorIdentity:G
+OriginSet:G54160e7f70a0c046
+ManaCost:G G
+Types:Creature Centaur Druid
+PT:3/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigConjure
+SVar:TrigConjure:DB$ MakeCard | Conjure$ True | CatalogId$ 36458 | Amount$ X | Zone$ Library | SubAbility$ DBPumpAll
+SVar:DBPumpAll:DB$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +X | NumDef$ +X | KW$ Haste | ConditionCheckSVar$ LibSize | ConditionSVarCompare$ GTStartingSize
+SVar:X:Count$Devotion.Green
+SVar:LibSize:PlayerCountPropertyYou$CardsInLibrary
+SVar:StartingSize:PlayerCountPropertyYou$StartingLibrarySize
