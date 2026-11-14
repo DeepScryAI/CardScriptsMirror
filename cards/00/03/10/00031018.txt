@@ -6,8 +6,8 @@ Types:Legendary Creature Human Warrior
 PT:1/1
 T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPut
 SVar:TrigPut:DB$ PutCounter | ValidTgts$ Creature | CounterType$ P1P1
-T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigPump | TriggerZones$ Battlefield
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.attacking+counters_GE1_P1P1 | SubAbility$ DBBranch
+T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigTarget | TriggerZones$ Battlefield
+SVar:TrigTarget:DB$ TargetOnly | ValidTgts$ Creature.attacking+counters_GE1_P1P1 | SubAbility$ DBBranch
 SVar:DBBranch:DB$ Branch | BranchConditionSVar$ X | BranchConditionSVarCompare$ GE2 | TrueSubAbility$ DBPump1 | FalseSubAbility$ DBPump2
 SVar:DBPump1:DB$ Pump | Defined$ Targeted | KW$ Double Strike
 SVar:DBPump2:DB$ Pump | Defined$ Targeted | KW$ First Strike

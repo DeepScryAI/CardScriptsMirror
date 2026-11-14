@@ -4,9 +4,9 @@ OriginSet:G7ee6e0e28c7c40e3
 ManaCost:4 R R
 Types:Creature Efreet
 PT:6/4
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump
-SVar:TrigPump:DB$ Pump | ValidTgts$ Permanent.nonLand+YouCtrl | Mandatory$ True | IsCurse$ True | SubAbility$ DBPump
-SVar:DBPump:DB$ Pump | ValidTgts$ Permanent.nonLand+YouDontCtrl | TargetMin$ 0 | TargetMax$ 2 | IsCurse$ True | SubAbility$ DBChooseRandom
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigTarget
+SVar:TrigTarget:DB$ TargetOnly | ValidTgts$ Permanent.nonLand+YouCtrl | Mandatory$ True | IsCurse$ True | SubAbility$ DBTarget
+SVar:DBTarget:DB$ TargetOnly | ValidTgts$ Permanent.nonLand+YouDontCtrl | TargetMin$ 0 | TargetMax$ 2 | IsCurse$ True | SubAbility$ DBChooseRandom
 SVar:DBChooseRandom:DB$ ChooseCard | AtRandom$ True | Reveal$ True | DefinedCards$ TargetedCard | SubAbility$ DBDestroy
 SVar:DBDestroy:DB$ Destroy | Defined$ ChosenCard | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True

@@ -5,9 +5,9 @@ ManaCost:2
 Types:Legendary Artifact Creature Robot Villain
 PT:*/2
 S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPump
-T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump | Secondary$ True | TriggerZones$ Battlefield
-SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.Other | SubAbility$ DBPutCounterHaste
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigTarget
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigTarget | Secondary$ True | TriggerZones$ Battlefield
+SVar:TrigTarget:DB$ TargetOnly | ValidTgts$ Creature.Other | SubAbility$ DBPutCounterHaste
 SVar:DBPutCounterHaste:DB$ PutCounter | Defined$ Self | CounterType$ Haste | CounterNum$ 1 | ConditionPresent$ Creature.targetedBy+withHaste | ConditionPresent2$ Card.Self+withoutHaste | SubAbility$ DBPutCounterFlying
 SVar:DBPutCounterFlying:DB$ PutCounter | Defined$ Self | CounterType$ Flying | CounterNum$ 1 | ConditionPresent$ Creature.targetedBy+withFlying | ConditionPresent2$ Card.Self+withoutFlying | SubAbility$ DBPutCounterFirstStrike
 SVar:DBPutCounterFirstStrike:DB$ PutCounter | Defined$ Self | CounterType$ First Strike | CounterNum$ 1 | ConditionPresent$ Creature.targetedBy+withFirstStrike | ConditionPresent2$ Card.Self+withoutFirstStrike | SubAbility$ DBPutCounterDoubleStrike
