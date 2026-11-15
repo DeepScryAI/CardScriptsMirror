@@ -6,8 +6,8 @@ Types:Enchantment Aura
 K:Enchant:Creature
 SVar:AttachAITgts:Creature.!token
 SVar:AttachAILogic:Pump
-A:AB$ Pump | Cost$ 2 W W | Defined$ Enchanted | ImprintCards$ Enchanted | SubAbility$ DBRemAura
-SVar:DBRemAura:DB$ PumpAll | ValidCards$ Card.IsImprinted,Aura.AttachedTo Creature.IsImprinted | RememberPumped$ True | SubAbility$ DBChangeZoneAll
+A:AB$ Bookkeeping | Cost$ 2 W W | Defined$ Enchanted | ImprintCards$ Enchanted | SubAbility$ DBRemAura
+SVar:DBRemAura:DB$ Bookkeeping | RememberAll$ Card.IsImprinted,Aura.AttachedTo Creature.IsImprinted | SubAbility$ DBChangeZoneAll
 SVar:DBChangeZoneAll:DB$ ChangeZoneAll | Origin$ Battlefield | Destination$ Exile | ChangeType$ Card.IsRemembered | SubAbility$ DelayedEffect
 SVar:DelayedEffect:DB$ Effect | Triggers$ TrigEOT | RememberObjects$ Remembered | ImprintCards$ Imprinted | Duration$ Permanent | SubAbility$ DBCleanup
 SVar:TrigEOT:Mode$ Phase | Phase$ End of Turn | Execute$ FlickerformReturn | OneOff$ True | TriggerZones$ Command

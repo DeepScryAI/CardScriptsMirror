@@ -7,11 +7,11 @@ Defense:6
 T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm
 SVar:TrigCharm:DB$ Charm | Choices$ DBDestroyAll,DBManifestThree
 SVar:DBDestroyAll:DB$ DestroyAll | ValidCards$ Creature | SubAbility$ DBClearUgin
-SVar:DBClearUgin:DB$ Pump | Defined$ Player | ClearNotedCardsFor$ BattleUgin | SubAbility$ DBNoteBolas
-SVar:DBNoteBolas:DB$ Pump | NoteCards$ Self | NoteCardsFor$ BattleBolas
+SVar:DBClearUgin:DB$ Bookkeeping | Defined$ Player | ClearNotedCardsFor$ BattleUgin | SubAbility$ DBNoteBolas
+SVar:DBNoteBolas:DB$ Bookkeeping | NoteCards$ Self | NoteCardsFor$ BattleBolas
 SVar:DBManifestThree:DB$ Manifest | Amount$ 3 | SubAbility$ DBClearBolas
-SVar:DBClearBolas:DB$ Pump | Defined$ Player | ClearNotedCardsFor$ BattleBolas | SubAbility$ DBNoteUgin
-SVar:DBNoteUgin:DB$ Pump | NoteCards$ Self | NoteCardsFor$ BattleUgin
+SVar:DBClearBolas:DB$ Bookkeeping | Defined$ Player | ClearNotedCardsFor$ BattleBolas | SubAbility$ DBNoteUgin
+SVar:DBNoteUgin:DB$ Bookkeeping | NoteCards$ Self | NoteCardsFor$ BattleUgin
 AlternateMode:DoubleFaced
 ALTERNATE
 ManaCost:no cost
@@ -21,7 +21,7 @@ SVar:DBCharm:DB$ Branch | BranchConditionSVar$ PlayerCountPropertyYou$HasPropert
 SVar:DBDiscardAll:DB$ Discard | Defined$ Player.Opponent | Mode$ Hand | SubAbility$ DBDrawSeven
 SVar:DBBranchTwo:DB$ Branch | BranchConditionSVar$ PlayerCountPropertyYou$HasPropertyNotedForBattleUgin | BranchConditionSVarCompare$ EQ1 | TrueSubAbility$ DBManifestHand | FalseSubAbility$ DBFizzle
 SVar:DBManifestHand:DB$ Manifest | Amount$ X | Defined$ ValidHand Card.YouOwn | SubAbility$ DBDrawSeven
-SVar:DBFizzle:DB$ Pump
+SVar:DBFizzle:DB$ Nothing
 SVar:DBDrawSeven:DB$ Draw | NumCards$ 7
 SVar:X:Count$ValidHand Card.YouOwn
 SVar:DBCopyToken:DB$ NameCard | Defined$ You | ChooseFromCatalogIds$ 473,500,638,642,740 | SubAbility$ DBMake

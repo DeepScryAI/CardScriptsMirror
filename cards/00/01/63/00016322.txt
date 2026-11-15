@@ -6,9 +6,9 @@ Types:Creature Elf Scout
 PT:3/1
 T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChoose
 SVar:TrigChoose:DB$ GenericChoice | TempRemember$ Chooser | ShowChoice$ ExceptSelf | Defined$ Player | Choices$ Discard,No | SubAbility$ DBDiscard
-SVar:Discard:DB$ Pump | Defined$ Remembered | NoteCards$ Self | NoteCardsFor$ Discard
-SVar:No:DB$ Pump
+SVar:Discard:DB$ Bookkeeping | Defined$ Remembered | NoteCards$ Self | NoteCardsFor$ Discard
+SVar:No:DB$ Nothing
 SVar:DBDiscard:DB$ Discard | Defined$ Player.NotedForDiscard | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBSearch
 SVar:DBSearch:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Land.Basic | DefinedPlayer$ RememberedOwner | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | SubAbility$ DBClearNotes
-SVar:DBClearNotes:DB$ Pump | Defined$ Player | ClearNotedCardsFor$ Discard
+SVar:DBClearNotes:DB$ Bookkeeping | Defined$ Player | ClearNotedCardsFor$ Discard

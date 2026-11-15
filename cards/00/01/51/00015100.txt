@@ -7,7 +7,7 @@ Loyalty:6
 A:AB$ PeekAndReveal | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | AILogic$ Main2 | PeekAmount$ 1 | RevealValid$ Card.nonCreature+nonLand | RevealOptional$ True | RememberRevealed$ True | SubAbility$ DBChangeZone
 SVar:DBChangeZone:DB$ ChangeZone | Defined$ TopOfLibrary | Origin$ Library | Destination$ Hand | ConditionDefined$ Remembered | ConditionPresent$ Card.nonCreature+nonLand | ConditionCompare$ EQ1 | SubAbility$ DBCleanupOne
 SVar:DBCleanupOne:DB$ Cleanup | ClearRemembered$ True
-A:AB$ DelayedTrigger | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | AILogic$ NarsetRebound | Stackable$ False | Mode$ SpellCast | ValidCard$ Instant.wasCastFromYourHand,Sorcery.wasCastFromYourHand | ValidActivatingPlayer$ You | Execute$ AddRebound
+A:AB$ DelayedTrigger | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | AILogic$ NarsetRebound | Stackable$ False | Mode$ SpellCast | ValidCard$ Instant.wasCastFromYourHand,Sorcery.wasCastFromYourHand | ValidActivatingPlayer$ You | ThisTurn$ True | Execute$ AddRebound
 SVar:AddRebound:DB$ Pump | Defined$ TriggeredCard | KW$ Rebound | PumpZone$ Stack
 A:AB$ Effect | Cost$ SubCounter<9/LOYALTY> | Name$ 16071181912568290216 | StaticAbilities$ STNarset | Planeswalker$ True | Ultimate$ True | Stackable$ False | Duration$ Permanent | AILogic$ Always
 SVar:STNarset:Mode$ CantBeCast | ValidCard$ Card.nonCreature | Caster$ Opponent

@@ -5,12 +5,12 @@ ManaCost:5
 Types:Artifact
 T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Player | Execute$ TrigExile | TriggerZones$ Battlefield
 SVar:TrigExile:DB$ Dig | Defined$ Player | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ FindHighestCMCFirst
-SVar:FindHighestCMCFirst:DB$ Pump | ImprintCards$ ValidAll Card.greatestRememberedCMC | SubAbility$ FindOne
+SVar:FindHighestCMCFirst:DB$ Bookkeeping | ImprintCards$ ValidAll Card.greatestRememberedCMC | SubAbility$ FindOne
 SVar:FindOne:DB$ Repeat | RepeatCheckSVar$ X | RepeatSVarCompare$ GE2 | ConditionCheckSVar$ X | ConditionSVarCompare$ GE2 | RepeatSubAbility$ DBClear | SubAbility$ DBAddTurn
 SVar:DBClear:DB$ Cleanup | ClearRemembered$ True | SubAbility$ DBExile
 SVar:DBExile:DB$ Dig | Defined$ ImprintedController | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ ClearImprint
 SVar:ClearImprint:DB$ Cleanup | ClearImprinted$ True | SubAbility$ FindHighestCMC
-SVar:FindHighestCMC:DB$ Pump | ImprintCards$ ValidAll Card.greatestRememberedCMC
+SVar:FindHighestCMC:DB$ Bookkeeping | ImprintCards$ ValidAll Card.greatestRememberedCMC
 SVar:X:Count$ValidExile Card.IsImprinted
 SVar:DBAddTurn:DB$ AddTurn | Defined$ ImprintedController | NumTurns$ 1 | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearImprinted$ True

@@ -5,8 +5,8 @@ ManaCost:2 G G
 Types:World Enchantment
 S:Mode$ CantAttack | ValidCard$ Creature | Target$ Player.!IsRemembered
 T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ Player.Active+!IsRemembered | Static$ True | Execute$ RememberCaster
-SVar:RememberCaster:DB$ Pump | Defined$ TriggeredCardController | RememberObjects$ TriggeredCardController
+SVar:RememberCaster:DB$ Bookkeeping | Defined$ TriggeredCardController | RememberObjects$ TriggeredCardController
 T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.ActivePlayerCtrl+!token | Static$ True | Execute$ RememberController
-SVar:RememberController:DB$ Pump | Defined$ TriggeredCardController | RememberObjects$ TriggeredCardController
+SVar:RememberController:DB$ Bookkeeping | Defined$ TriggeredCardController | RememberObjects$ TriggeredCardController
 T:Mode$ TurnBegin | ValidPlayer$ Player | Execute$ ClearActivePlayer | Static$ True
 SVar:ClearActivePlayer:DB$ Cleanup | ForgetDefined$ ActivePlayer
