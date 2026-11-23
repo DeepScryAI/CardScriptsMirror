@@ -1688,6 +1688,7 @@ fn sanitize_script(
     output.push_str(&format!("OriginSet:{set_group}\n"));
     let runtime_names = runtime_object_names(script);
     for line in script.lines() {
+        let line = promote_commander_permission(line);
         if line.trim().is_empty() || line.trim_start().starts_with('#') || is_removed_top_level_field(line) {
             continue;
         }
@@ -1768,6 +1769,30 @@ fn anonymize_set_qualifiers(line: &str) -> String {
     }
     output.push_str(&line[cursor..]);
     output
+}
+
+/// Forge's display line marking a card whose own text lets it be your
+/// commander (CR 903.3a). Forge's engine reads that permission from the
+/// Oracle text; most such cards carry only this `Text:` line, a few carry the
+/// equivalent keyword below instead.
+const COMMANDER_PERMISSION_TEXT: &str = "Text:CARDNAME can be your commander.";
+/// The keyword spelling of the same permission, which DeepScry's engine parses
+/// (`Keyword::CanBeCommander`).
+const COMMANDER_PERMISSION_KEYWORD: &str = "K:CARDNAME can be your commander.";
+
+/// Keep the one rules-bearing `Text:` line as its keyword.
+///
+/// `Text:` and `Oracle:` are removed below, so without this the permission
+/// survived only on the few cards Forge scripts with the keyword, and every
+/// other "can be your commander" planeswalker was refused as a commander
+/// (DeepScry bead ds-iuag1i1). The sentence names no card: `CARDNAME` is
+/// Forge's self-reference placeholder, so the keyword form adds no title.
+fn promote_commander_permission(line: &str) -> &str {
+    if line.trim() == COMMANDER_PERMISSION_TEXT {
+        COMMANDER_PERMISSION_KEYWORD
+    } else {
+        line
+    }
 }
 
 fn is_removed_top_level_field(line: &str) -> bool {
@@ -2082,6 +2107,24 @@ mod tests {
         assert_eq!(
             sanitize_script(input, CardScriptId(1), "", "Gfixture", &NameReferences::default(), &BTreeMap::new()),
             "Id:1\nColorIdentity:\nOriginSet:Gfixture\nT:Mode$ SpellCast\n"
+        );
+    }
+
+    #[test]
+    fn keeps_the_commander_permission_as_its_keyword() {
+        let input = "ManaCost:3 R\nTypes:Legendary Planeswalker Fixture\nLoyalty:3\nText:CARDNAME can be your commander.\nText:Display-only sentence.\n";
+        assert_eq!(
+            sanitize_script(input, CardScriptId(1), "R", "Gfixture", &NameReferences::default(), &BTreeMap::new()),
+            "Id:1\nColorIdentity:R\nOriginSet:Gfixture\nManaCost:3 R\nTypes:Legendary Planeswalker Fixture\nLoyalty:3\nK:CARDNAME can be your commander.\n"
+        );
+    }
+
+    #[test]
+    fn keeps_an_existing_commander_permission_keyword_unchanged() {
+        let input = "Types:Legendary Planeswalker Fixture\nK:CARDNAME can be your commander.\n";
+        assert_eq!(
+            sanitize_script(input, CardScriptId(1), "", "Gfixture", &NameReferences::default(), &BTreeMap::new()),
+            "Id:1\nColorIdentity:\nOriginSet:Gfixture\nTypes:Legendary Planeswalker Fixture\nK:CARDNAME can be your commander.\n"
         );
     }
 
