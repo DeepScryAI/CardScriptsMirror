@@ -101,8 +101,28 @@ bodies. The sparse `cards=` row count is not an identity boundary.
 catalog id; clients compute image URLs with the `layout=scryfall-cdn-v1`
 function declared in its header. Printing selection prefers non-art-series,
 real-image, non-digital, English printings, then the oldest release, then
-the smallest UUID — fully deterministic. Unified token rows are validated and
-omitted because they have no Scryfall printing identity.
+the smallest UUID — fully deterministic. Token rows have no Oracle identity,
+so they are resolved only when `--token-ledger token_ids.tsv` and
+`--editions <forge>/forge-gui/res/editions` are both given: each upstream
+edition's `[tokens]` section maps a token script stem (whose SHA-256 names the
+token id in the ledger) to a collector number, which names a Scryfall
+`token`/`double_faced_token` printing in the edition's `t<code>` (else
+`<code>`) set. The editions are input only; nothing titled is written. Tokens
+no edition names, or whose printing has no image, are reported and omitted.
+Regenerate incrementally so every published row is carried verbatim:
+
+```sh
+rust-script scripts/make_artpack.rs \
+  --catalog <DeepScry>/src/engine/assets/card_catalog.tsv \
+  --catalog-identity "$(sha256sum <DeepScry>/src/engine/assets/card_catalog.tsv | cut -c1-64)" \
+  --previous presentation/artpack_scryfall_uuid.tsv \
+  --token-ledger token_ids.tsv \
+  --editions <forge>/forge-gui/res/editions
+```
+
+Then commit the table and re-mint `presentation/skins/wotc.skin.json` (step 5
+of `nightly_sync.sh`) in a second commit, so its artpack hint names the commit
+that holds the new table.
 
 `make_provenance.rs` emits the dense id-to-oracle_id provenance table
 (`presentation/provenance_oracle_ids.tsv`) for the dense Scryfall-backed card

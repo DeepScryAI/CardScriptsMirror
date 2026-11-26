@@ -34,12 +34,26 @@
 //! deterministic regardless of snapshot ordering. Coverage may be sparse
 //! (an id whose identity has no usable image simply has no row); every
 //! missing id is reported on stderr, never silently dropped.
+//!
+//! **Tokens** (DeepScry ds-7071). Unified token rows carry no Oracle
+//! identity, so they cannot be joined by `oracle_id`. With `--token-ledger`
+//! (this repository's `token_ids.tsv`: token id → SHA-256 of its Forge
+//! script stem) and `--editions` (an upstream Forge `res/editions` directory),
+//! each token id resolves through the editions' `[tokens]` sections, whose
+//! lines are `<collector number> <script stem> [@artist]`: the stem's digest
+//! names the token id, and the edition's Scryfall code (`ScryfallCode=`, else
+//! `Code=`) plus the collector number name a Scryfall token printing
+//! (searched in the `t<code>` token set first, then `<code>`). Only printings
+//! whose layout is `token` or `double_faced_token` are eligible, so a token's
+//! collector number can never select a real card of the parent set. Among
+//! every printing a token's editions name, the same ranking as for cards
+//! picks one. The editions are read as input only; nothing titled is written.
 
 use anyhow::{bail, Context, Result};
 use clap::Parser;
-use std::collections::BTreeMap;
+use std::collections::{BTreeMap, BTreeSet, HashMap};
 use std::fs;
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 use uuid::Uuid;
 
 #[path = "lib/cas.rs"]
@@ -86,6 +100,16 @@ struct Args {
     /// for the PREVIOUS catalog generation.
     #[arg(long)]
     previous: Option<PathBuf>,
+
+    /// Token ledger (`#id`, `stem_sha256`), normally this repository's
+    /// `token_ids.tsv`. With `--editions`, token rows are given art.
+    #[arg(long, requires = "editions")]
+    token_ledger: Option<PathBuf>,
+
+    /// Upstream Forge `res/editions` directory whose `[tokens]` sections map a
+    /// token script stem to a set and collector number.
+    #[arg(long, requires = "token_ledger")]
+    editions: Option<PathBuf>,
 }
 
 /// Everything selection needs about one candidate printing.
@@ -118,6 +142,37 @@ impl Candidate {
             },
         }
     }
+
+    fn from_card(card: &scryfall_bulk::ScryfallCard, printing_id: Uuid) -> Candidate {
+        let has_image_uris = card.image_uris.is_some() || card.card_faces.iter().any(|face| face.image_uris.is_some());
+        let real_image =
+            has_image_uris && !matches!(card.image_status.as_deref(), Some("missing") | Some("placeholder"));
+        Candidate {
+            printing_id,
+            released_at: card.released_at.clone(),
+            art_series: card.layout == "art_series",
+            real_image,
+            digital: card.digital,
+            english: card.lang == "en",
+        }
+    }
+}
+
+/// Keep `candidate` in `slot` when it outranks what is there.
+fn offer<K: Ord>(best: &mut BTreeMap<K, Candidate>, key: K, candidate: Candidate) {
+    match best.get(&key) {
+        Some(current) if !candidate.better_than(current) => {}
+        _ => {
+            best.insert(key, candidate);
+        }
+    }
+}
+
+/// The parsed unified catalog: card ids with their Oracle identity, and the
+/// token ids (which have none).
+struct Catalog {
+    cards: BTreeMap<u32, Uuid>,
+    tokens: BTreeSet<u32>,
 }
 
 fn main() -> Result<()> {
@@ -150,78 +205,103 @@ fn main() -> Result<()> {
                 .split_once('\t')
                 .with_context(|| format!("previous artpack line {} is not id<TAB>uuid", number + 1))?;
             let id: u32 = id.parse().with_context(|| format!("previous artpack line {} id", number + 1))?;
-            if !catalog.contains_key(&id) {
-                bail!("previous artpack maps catalog#{id}, which is not a card row of {}", args.catalog.display());
+            if !catalog.cards.contains_key(&id) && !catalog.tokens.contains(&id) {
+                bail!("previous artpack maps catalog#{id}, which is not a row of {}", args.catalog.display());
             }
             previous.insert(id, Uuid::parse_str(printing).with_context(|| format!("previous artpack line {} uuid", number + 1))?);
         }
         eprintln!("Carrying {} printings from {}", previous.len(), path.display());
     }
 
-    // Best candidate per Oracle identity.
-    let wanted: std::collections::HashSet<Uuid> = catalog.values().copied().collect();
+    // Token id → every (Scryfall set, collector number) its editions name.
+    let token_printings: BTreeMap<u32, Vec<(String, String)>> = match (&args.token_ledger, &args.editions) {
+        (Some(ledger), Some(editions)) => token_printing_keys(&catalog.tokens, ledger, editions)?,
+        _ => BTreeMap::new(),
+    };
+    let wanted_token_keys: HashMap<(String, String), Vec<u32>> = {
+        let mut keys: HashMap<(String, String), Vec<u32>> = HashMap::new();
+        for (id, printings) in &token_printings {
+            for key in printings {
+                keys.entry(key.clone()).or_default().push(*id);
+            }
+        }
+        keys
+    };
+
+    // Best candidate per Oracle identity, and per token id.
+    let wanted: std::collections::HashSet<Uuid> = catalog.cards.values().copied().collect();
     let mut best: BTreeMap<Uuid, Candidate> = BTreeMap::new();
+    let mut best_token: BTreeMap<u32, Candidate> = BTreeMap::new();
     scryfall_bulk::for_each_card(&args.cache, |card| {
+        let Some(printing_id) = card.id else {
+            return;
+        };
+        if !wanted_token_keys.is_empty() && matches!(card.layout.as_str(), "token" | "double_faced_token") {
+            if let Some(ids) = wanted_token_keys.get(&(card.set.clone(), card.collector_number.clone())) {
+                let candidate = Candidate::from_card(&card, printing_id);
+                for id in ids {
+                    offer(&mut best_token, *id, candidate.clone());
+                }
+            }
+        }
         let Some(oracle_id) = card.effective_oracle_id() else {
             return;
         };
         if !wanted.contains(&oracle_id) {
             return;
         }
-        let Some(printing_id) = card.id else {
-            return;
-        };
-        let has_image_uris = card.image_uris.is_some() || card.card_faces.iter().any(|face| face.image_uris.is_some());
-        let real_image =
-            has_image_uris && !matches!(card.image_status.as_deref(), Some("missing") | Some("placeholder"));
-        let candidate = Candidate {
-            printing_id,
-            released_at: card.released_at.clone(),
-            art_series: card.layout == "art_series",
-            real_image,
-            digital: card.digital,
-            english: card.lang == "en",
-        };
-        match best.get(&oracle_id) {
-            Some(current) if !candidate.better_than(current) => {}
-            _ => {
-                best.insert(oracle_id, candidate);
-            }
-        }
+        offer(&mut best, oracle_id, Candidate::from_card(&card, printing_id));
     })?;
 
-    let mut body = String::new();
-    let mut rows = 0usize;
+    let mut resolved: BTreeMap<u32, Uuid> = BTreeMap::new();
     let mut missing: Vec<u32> = Vec::new();
-    for (id, oracle_id) in &catalog {
+    for (id, oracle_id) in &catalog.cards {
         if let Some(printing) = previous.get(id) {
-            body.push_str(&format!("{id}\t{printing}\n"));
-            rows += 1;
+            resolved.insert(*id, *printing);
             continue;
         }
         match best.get(oracle_id) {
             Some(candidate) if candidate.real_image => {
-                body.push_str(&format!("{id}\t{}\n", candidate.printing_id));
-                rows += 1;
+                resolved.insert(*id, candidate.printing_id);
             }
             _ => missing.push(*id),
         }
     }
+    let mut token_rows = 0usize;
+    let mut token_missing: Vec<u32> = Vec::new();
+    for id in &catalog.tokens {
+        if let Some(printing) = previous.get(id) {
+            resolved.insert(*id, *printing);
+            token_rows += 1;
+            continue;
+        }
+        if token_printings.is_empty() {
+            continue;
+        }
+        match best_token.get(id) {
+            Some(candidate) if candidate.real_image => {
+                resolved.insert(*id, candidate.printing_id);
+                token_rows += 1;
+            }
+            _ => token_missing.push(*id),
+        }
+    }
+    let rows = resolved.len();
     if rows == 0 {
         bail!("no catalog id resolved to a printing with a real image; refusing to emit an empty artpack");
     }
-    if !missing.is_empty() {
+    let mut body = String::new();
+    for (id, printing) in &resolved {
+        body.push_str(&format!("{id}\t{printing}\n"));
+    }
+    report_missing("catalog card id(s) have no usable image", &missing);
+    if token_printings.is_empty() && args.token_ledger.is_none() {
         eprintln!(
-            "WARNING: {} catalog id(s) have no usable image and are omitted (sparse coverage is legal): {}{}",
-            missing.len(),
-            missing
-                .iter()
-                .take(20)
-                .map(ToString::to_string)
-                .collect::<Vec<_>>()
-                .join(", "),
-            if missing.len() > 20 { ", …" } else { "" },
+            "NOTE: {} token id(s) were not resolved (no --token-ledger/--editions); {token_rows} carried from --previous",
+            catalog.tokens.len() - token_rows
         );
+    } else {
+        report_missing("token id(s) have no editions entry or no usable Scryfall token image", &token_missing);
     }
 
     let header_line = format!(
@@ -255,13 +335,131 @@ fn main() -> Result<()> {
     println!("artpack_cid={}", cas::cid_for_bytes(&document));
     println!("artpack_size={}", document.len());
     println!("rows={rows}");
+    println!("token_rows={token_rows}");
     println!("missing={}", missing.len());
+    println!("token_missing={}", token_missing.len());
     Ok(())
 }
 
-/// Dense unified catalog, reduced to its card `id → oracle_id` rows. Token
-/// rows are validated but deliberately absent from a Scryfall image artpack.
-fn parse_catalog(bytes: &[u8]) -> Result<BTreeMap<u32, Uuid>> {
+fn report_missing(what: &str, ids: &[u32]) {
+    if ids.is_empty() {
+        return;
+    }
+    eprintln!(
+        "WARNING: {} {what} and are omitted (sparse coverage is legal): {}{}",
+        ids.len(),
+        ids.iter().take(20).map(ToString::to_string).collect::<Vec<_>>().join(", "),
+        if ids.len() > 20 { ", …" } else { "" },
+    );
+}
+
+/// Join the token ledger to the Forge editions' `[tokens]` sections: for each
+/// catalog token id, every `(scryfall set, collector number)` that may print
+/// it, in `t<code>`-then-`<code>` order per edition.
+fn token_printing_keys(
+    tokens: &BTreeSet<u32>,
+    ledger: &Path,
+    editions: &Path,
+) -> Result<BTreeMap<u32, Vec<(String, String)>>> {
+    let text = fs::read_to_string(ledger).with_context(|| format!("read token ledger {}", ledger.display()))?;
+    let mut lines = text.lines();
+    let header = lines.next().context("token ledger has no header row")?;
+    if header != "#id\tstem_sha256" {
+        bail!("token ledger header is {header:?}, expected \"#id\\tstem_sha256\"");
+    }
+    let mut by_digest: HashMap<String, u32> = HashMap::new();
+    for (offset, line) in lines.enumerate() {
+        if line.trim().is_empty() {
+            continue;
+        }
+        let (id, digest) = line
+            .split_once('\t')
+            .with_context(|| format!("token ledger line {} is not id<TAB>stem_sha256", offset + 2))?;
+        let id: u32 = id.parse().with_context(|| format!("token ledger line {} id", offset + 2))?;
+        if !tokens.contains(&id) {
+            bail!("token ledger maps #{id}, which is not a token row of the catalog");
+        }
+        if by_digest.insert(digest.to_owned(), id).is_some() {
+            bail!("token ledger repeats stem digest {digest}");
+        }
+    }
+
+    let mut files: Vec<PathBuf> = fs::read_dir(editions)
+        .with_context(|| format!("read editions directory {}", editions.display()))?
+        .map(|entry| entry.map(|e| e.path()))
+        .collect::<std::result::Result<_, _>>()?;
+    files.retain(|path| path.extension().and_then(|e| e.to_str()) == Some("txt"));
+    files.sort();
+    if files.is_empty() {
+        bail!("editions directory {} has no .txt edition files", editions.display());
+    }
+
+    let mut keys: BTreeMap<u32, Vec<(String, String)>> = BTreeMap::new();
+    let mut token_lines = 0usize;
+    for path in &files {
+        let text = fs::read_to_string(path).with_context(|| format!("read edition {}", path.display()))?;
+        let mut section = String::new();
+        let mut code = String::new();
+        let mut scryfall_code = String::new();
+        let mut entries: Vec<(String, String)> = Vec::new();
+        for raw in text.lines() {
+            let line = raw.trim();
+            if line.starts_with('[') && line.ends_with(']') {
+                section = line.to_ascii_lowercase();
+                continue;
+            }
+            match section.as_str() {
+                "[metadata]" => {
+                    if let Some(value) = line.strip_prefix("Code=") {
+                        code = value.trim().to_ascii_lowercase();
+                    } else if let Some(value) = line.strip_prefix("ScryfallCode=") {
+                        scryfall_code = value.trim().to_ascii_lowercase();
+                    }
+                }
+                "[tokens]" => {
+                    let mut fields = line.split_whitespace();
+                    if let (Some(number), Some(stem)) = (fields.next(), fields.next()) {
+                        if !stem.starts_with('@') {
+                            entries.push((number.to_owned(), stem.to_owned()));
+                        }
+                    }
+                }
+                _ => {}
+            }
+        }
+        let set = if scryfall_code.is_empty() { code } else { scryfall_code };
+        if set.is_empty() {
+            continue;
+        }
+        for (number, stem) in entries {
+            token_lines += 1;
+            let Some(id) = by_digest.get(&cas::sha256_hex(stem.as_bytes())) else {
+                continue;
+            };
+            let slot = keys.entry(*id).or_default();
+            for candidate_set in [format!("t{set}"), set.clone()] {
+                let key = (candidate_set, number.clone());
+                if !slot.contains(&key) {
+                    slot.push(key);
+                }
+            }
+        }
+    }
+    if token_lines == 0 {
+        bail!("editions directory {} has no [tokens] entries", editions.display());
+    }
+    eprintln!(
+        "Token editions: {} of {} ledger token ids appear in {} [tokens] line(s) across {} edition file(s)",
+        keys.len(),
+        by_digest.len(),
+        token_lines,
+        files.len()
+    );
+    Ok(keys)
+}
+
+/// Dense unified catalog, split into card `id → oracle_id` rows and token ids.
+fn parse_catalog(bytes: &[u8]) -> Result<Catalog> {
     let text = std::str::from_utf8(bytes).context("catalog is not UTF-8")?;
     let mut lines = text.lines();
     let header = lines.next().context("catalog has no header row")?;
@@ -278,7 +476,8 @@ fn parse_catalog(bytes: &[u8]) -> Result<BTreeMap<u32, Uuid>> {
         .iter()
         .position(|c| *c == "kind")
         .context("catalog header has no kind column")?;
-    let mut rows = BTreeMap::new();
+    let mut cards = BTreeMap::new();
+    let mut tokens = BTreeSet::new();
     let mut expected = 0u32;
     for (offset, line) in lines.enumerate() {
         if line.trim().is_empty() {
@@ -306,15 +505,17 @@ fn parse_catalog(bytes: &[u8]) -> Result<BTreeMap<u32, Uuid>> {
                 let oracle_id = oracle
                     .parse()
                     .with_context(|| format!("catalog line {line_number} has an invalid card oracle_id"))?;
-                rows.insert(id, oracle_id);
+                cards.insert(id, oracle_id);
             }
-            "token" if oracle.is_empty() => {}
+            "token" if oracle.is_empty() => {
+                tokens.insert(id);
+            }
             "token" => bail!("catalog line {line_number} is a token with a non-empty oracle_id"),
             other => bail!("catalog line {line_number} has unknown kind {other:?}"),
         }
     }
-    if rows.is_empty() {
+    if cards.is_empty() {
         bail!("catalog has no card rows");
     }
-    Ok(rows)
+    Ok(Catalog { cards, tokens })
 }
