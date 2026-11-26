@@ -61,6 +61,9 @@ pub struct ScryfallCard {
     /// Set code of this printing (e.g. `"lea"`).
     #[serde(default)]
     pub set: String,
+    /// Collector number within `set` (a string: `"25"`, `"T1"`, `"1a"`).
+    #[serde(default)]
+    pub collector_number: String,
     #[serde(default)]
     pub digital: bool,
     #[serde(default)]

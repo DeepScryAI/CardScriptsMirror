@@ -56,7 +56,10 @@ DeepScry repository):
 - `artpack_scryfall_uuid.tsv` — the `kind=uuid-scheme` artpack: catalog id to
   Scryfall printing UUID; clients compute image URLs with the
   `layout=scryfall-cdn-v1` function in its header. Emitted by
-  `scripts/make_artpack.rs`.
+  `scripts/make_artpack.rs`. Token ids are mapped to Scryfall token printings
+  through the upstream Forge editions' `[tokens]` sections (2026-11-26: 711 of
+  the 864 token ids in `token_ids.tsv`; the rest have no edition entry or no
+  matching Scryfall token printing).
 - `provenance_oracle_ids.tsv` — dense Scryfall-backed card-prefix id to
   Scryfall `oracle_id`. Unified token rows have no Oracle identity and are
   deliberately omitted. Worldly identity remains a skin-side artifact
